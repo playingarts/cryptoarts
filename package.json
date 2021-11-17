@@ -1,0 +1,57 @@
+{
+  "name": "crypto-arts",
+  "version": "1.0.0",
+  "main": "source/",
+  "license": "MIT",
+  "description": "Crypto Arts",
+  "repository": "git@github.com:playingarts/cryptoarts.git",
+  "author": "Gleb Ryshkov",
+  "private": true,
+  "scripts": {
+    "dev": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' .",
+    "build": "next build && tsc -P tsconfig.json --outDir dist --noEmit false --module commonjs",
+    "start": "node dist/source",
+    "lint": "yarn lint:tsc && yarn lint:eslint && yarn lint:next",
+    "lint:tsc": "tsc -p tsconfig.json",
+    "lint:next": "next lint",
+    "lint:eslint": "eslint . --ext .ts,.tsx --ignore-pattern pages --ignore-pattern components",
+    "schema": "ts-node --transpile-only -e \"import './source/graphql/generate'\" -O '{\"module\":\"commonjs\"}'",
+    "prepare": "husky install"
+  },
+  "engines": {
+    "node": "^16"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.3.20",
+    "@apollo/react-ssr": "^4.0.0",
+    "@emotion/css": "^11.5.0",
+    "apollo-link-schema": "^1.2.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-graphql": "^0.12.0",
+    "graphql": "^15.5.1",
+    "graphql-type-long": "^0.1.1",
+    "just-throttle": "^4.0.1",
+    "modern-normalize": "^1.1.0",
+    "mongoose": "^5.12.15",
+    "next": "^12.0.4",
+    "react": "^17.0.2",
+    "react-dom": "17.0.2",
+    "redirect-https": "^1.3.1"
+  },
+  "devDependencies": {
+    "@graphql-codegen/core": "^1.17.10",
+    "@graphql-codegen/typescript": "^1.22.3",
+    "@graphql-codegen/typescript-resolvers": "^1.19.4",
+    "@types/express": "^4.17.13",
+    "@types/react": "17.0.35",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "eslint": "<8.0.0",
+    "eslint-config-next": "12.0.4",
+    "husky": "^7.0.4",
+    "nodemon": "^2.0.15",
+    "ts-node": "^10.4.0",
+    "typescript": "4.4.4"
+  }
+}
