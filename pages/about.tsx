@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { NextPage } from "next";
 import { withApollo } from "../source/apollo";
 import { useUser, useUser2 } from "../hooks/useUser";
-import Layout from "../component/Layouts";
+import Layout from "../components/Layouts";
 
 const Home: NextPage = () => {
   const { user: user2 } = useUser2();
