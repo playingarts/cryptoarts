@@ -12,14 +12,15 @@ const Document = () => {
           crossOrigin="true"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Aldrich&family=Work+Sans&display=swap"
           rel="stylesheet"
         />
-        {/* <style global>{`
+        <style global>{`
           body {
-            font-family: Aldrich, sans-serif !important;
+            background #e5e5e5;
+            font-family: Work Sans, sans-serif !important;
           }
-        `}</style> */}
+        `}</style>
       </Head>
 
       <body>

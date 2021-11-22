@@ -1,7 +1,7 @@
 import { css } from "@emotion/css";
 
 export const root = css`
-  background: #181818;
+  background: rgba(24, 24, 24, 0.5);
   border-radius: 10px;
   height: 60px;
   display: flex;

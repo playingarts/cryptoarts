@@ -4,8 +4,13 @@ import throttle from "just-throttle";
 import LogoIcon from "../Icons/Logo";
 import MenuIcon from "../Icons/Menu";
 import Nav from "../Nav";
+import Title from "../Title";
 
-const Header: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+interface Props extends HTMLAttributes<HTMLElement> {
+  palette?: "dark";
+}
+
+const Header: FC<Props> = ({ palette, ...props }) => {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -50,6 +55,16 @@ const Header: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           position: relative;
           z-index: 1;
         `}
+        style={
+          palette === "dark"
+            ? {
+                background: "#181818",
+                color: "rgba(234, 234, 234, 0.5)",
+              }
+            : {
+                background: "linear-gradient(90deg, #58cdff 0%, #c77bff 100%)",
+              }
+        }
       >
         <button
           className={css`
@@ -60,20 +75,23 @@ const Header: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             padding: 0;
           `}
         >
-          <MenuIcon />
+          <MenuIcon
+            style={{
+              fill: "rgba(234, 234, 234, 0.5)",
+            }}
+          />
         </button>
 
-        <div
+        <Title
           className={css`
-            font-family: Aldrich, sans-serif !important;
             font-size: 20px;
             text-transform: uppercase;
             margin-top: 0.3em;
             flex-grow: 1;
           `}
         >
-          playing arts nft
-        </div>
+          playing arts
+        </Title>
 
         <div
           className={css`
@@ -84,7 +102,7 @@ const Header: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             transform: translate(-50%, -50%);
           `}
         >
-          <LogoIcon color="black" />
+          <LogoIcon color="gray" />
         </div>
 
         <div>Shop</div>
