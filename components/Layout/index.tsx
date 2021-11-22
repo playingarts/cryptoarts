@@ -1,23 +1,18 @@
-import { css } from "@emotion/css";
+import { css } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 
-const Layout: FC<HTMLAttributes<HTMLElement>> = ({
-  className,
-  children,
-  ...props
-}) => {
+const Layout: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => {
   return (
     <section
       {...props}
-      className={css`
-        ${className};
+      css={css`
         padding-left: 10px;
         padding-right: 10px;
         position: relative;
       `}
     >
       <div
-        className={css`
+        css={css`
           max-width: 1420px;
           margin: 0 auto;
           position: relative;

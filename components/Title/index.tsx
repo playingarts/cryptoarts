@@ -1,4 +1,4 @@
-import { css, cx } from "@emotion/css";
+import { css } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -6,7 +6,6 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const Title: FC<Props> = ({
-  className,
   component: Component = "div",
   children,
   ...props
@@ -14,12 +13,9 @@ const Title: FC<Props> = ({
   return (
     <Component
       {...props}
-      className={cx(
-        css`
-          font-family: Aldrich, sans-serif !important;
-        `,
-        className
-      )}
+      css={css`
+        font-family: Aldrich, sans-serif;
+      `}
     >
       {children}
     </Component>

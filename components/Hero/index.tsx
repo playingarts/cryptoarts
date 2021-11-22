@@ -1,4 +1,4 @@
-import { css } from "@emotion/css";
+import { css } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 import Title from "../Title";
 
@@ -12,7 +12,7 @@ const Hero: FC<Props> = ({ title, text, ...props }) => {
     <div {...props}>
       <Title
         component="h1"
-        className={css`
+        css={css`
           font-size: 100px;
           line-height: 105px;
           margin: 0;
@@ -21,7 +21,7 @@ const Hero: FC<Props> = ({ title, text, ...props }) => {
         {title}
       </Title>
       <p
-        className={css`
+        css={css`
           font-size: 30px;
           line-height: 1.5;
           margin: 20px 0 0;

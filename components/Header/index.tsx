@@ -1,4 +1,4 @@
-import { css } from "@emotion/css";
+import { css } from "@emotion/react";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import throttle from "just-throttle";
 import LogoIcon from "../Icons/Logo";
@@ -47,27 +47,27 @@ const Header: FC<Props> = ({ palette, ...props }) => {
   return (
     <header {...props}>
       <div
-        className={css`
-          border-radius: 10px;
-          background: linear-gradient(90deg, #58cdff 0%, #c77bff 100%);
-          display: flex;
-          align-items: center;
-          position: relative;
-          z-index: 1;
-        `}
-        style={
+        css={(theme) => [
+          css`
+            border-radius: 10px;
+            background: linear-gradient(90deg, #58cdff 0%, #c77bff 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+          `,
           palette === "dark"
-            ? {
-                background: "#181818",
-                color: "rgba(234, 234, 234, 0.5)",
-              }
-            : {
-                background: "linear-gradient(90deg, #58cdff 0%, #c77bff 100%)",
-              }
-        }
+            ? css`
+                background: #181818;
+                color: ${theme.colors.gray};
+              `
+            : css`
+                background: linear-gradient(90deg, #58cdff 0%, #c77bff 100%);
+              `,
+        ]}
       >
         <button
-          className={css`
+          css={css`
             background: none;
             border: 0;
             width: 70px;
@@ -76,14 +76,14 @@ const Header: FC<Props> = ({ palette, ...props }) => {
           `}
         >
           <MenuIcon
-            style={{
-              fill: "rgba(234, 234, 234, 0.5)",
-            }}
+            css={(theme) => css`
+              fill: ${theme.colors.gray};
+            `}
           />
         </button>
 
         <Title
-          className={css`
+          css={css`
             font-size: 20px;
             text-transform: uppercase;
             margin-top: 0.3em;
@@ -94,7 +94,7 @@ const Header: FC<Props> = ({ palette, ...props }) => {
         </Title>
 
         <div
-          className={css`
+          css={css`
             text-align: center;
             position: absolute;
             left: 50%;
@@ -108,15 +108,15 @@ const Header: FC<Props> = ({ palette, ...props }) => {
         <div>Shop</div>
       </div>
       <Nav
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          top: 0,
-          paddingTop: 0,
-          transition: "padding-top 500ms ease",
-          ...(expanded ? { paddingTop: 70 } : {}),
-        }}
+        css={css`
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          padding-top: 0;
+          transition: padding-top 500ms ease;
+        `}
+        style={expanded ? { paddingTop: 70 } : {}}
       />
     </header>
   );

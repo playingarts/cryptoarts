@@ -2,12 +2,12 @@ import Link from "next/link";
 import Head from "next/head";
 import { Fragment } from "react";
 import { NextPage } from "next";
-import { withApollo } from "../source/apollo";
 import { useUser } from "../hooks/useUser";
 import Header from "../components/Header";
-import { css } from "@emotion/css";
+import { css } from "@emotion/react";
 import Layout from "../components/Layout";
 import Hero from "../components/Hero";
+import { withApollo } from "../source/apollo";
 
 const Home: NextPage = () => {
   const { user } = useUser();
@@ -21,7 +21,7 @@ const Home: NextPage = () => {
       </Head>
       <Header
         palette="dark"
-        className={css`
+        css={css`
           position: fixed;
           left: 10px;
           right: 10px;
@@ -36,8 +36,9 @@ const Home: NextPage = () => {
           }
         `}
       />
+
       <Layout
-        className={css`
+        css={css`
           background: #000;
           padding-top: 220px;
         `}
@@ -47,11 +48,10 @@ const Home: NextPage = () => {
           text="For creative people who are into graphic design, illustration, playing
           cards and sometimes magic."
           style={{ padding: "85px 200px", width: "75%", color: "#fff" }}
-          // style={{ marginTop: 70 }}
         />
       </Layout>
       <Layout
-        className={css`
+        css={css`
           height: 3000px;
         `}
       >

@@ -1,4 +1,4 @@
-import { css } from "@emotion/css";
+import { css } from "@emotion/react";
 
 export const root = css`
   background: rgba(24, 24, 24, 0.5);
@@ -17,6 +17,5 @@ export const link = css`
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   line-height: 60px;
-  font-family: Aldrich, sans-serif !important;
   text-transform: uppercase;
 `;

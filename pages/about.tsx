@@ -6,7 +6,7 @@ import { withApollo } from "../source/apollo";
 import { useUser, useUser2 } from "../hooks/useUser";
 import Layout from "../components/Layout";
 import Header from "../components/Header";
-import { css } from "@emotion/css";
+import { css } from "@emotion/react";
 
 const Home: NextPage = () => {
   const { user: user2 } = useUser2();
@@ -20,7 +20,7 @@ const Home: NextPage = () => {
         <title>Crypto Arts</title>
       </Head>
       <Header
-        className={css`
+        css={css`
           position: fixed;
           left: 10px;
           right: 10px;
