@@ -16,6 +16,13 @@ interface Scalars {
 interface Query {
   __typename?: 'Query';
   user?: Maybe<User>;
+  artist?: Maybe<Artist>;
+  card?: Maybe<Card>;
+}
+
+
+interface QueryCardArgs {
+  id: Scalars['ID'];
 }
 
 interface User {
@@ -26,7 +33,49 @@ interface User {
   picture: Scalars['String'];
   isAdmin?: Maybe<Scalars['Boolean']>;
 }
+
+interface Artist {
+  __typename?: 'Artist';
+  id: Scalars['ID'];
+  name: Scalars['String'];
+  country: Scalars['String'];
+  info?: Maybe<Scalars['String']>;
+  userpic: Scalars['String'];
+  website?: Maybe<Scalars['String']>;
+  shop?: Maybe<Scalars['String']>;
+  social: Socials;
+}
+
+interface Socials {
+  __typename?: 'Socials';
+  instagram?: Maybe<Scalars['String']>;
+  facebook?: Maybe<Scalars['String']>;
+  behance?: Maybe<Scalars['String']>;
+  foundation?: Maybe<Scalars['String']>;
+  superrare?: Maybe<Scalars['String']>;
+  makersplace?: Maybe<Scalars['String']>;
+  hicetnunc?: Maybe<Scalars['String']>;
+  knownorigin?: Maybe<Scalars['String']>;
+  rarible?: Maybe<Scalars['String']>;
+  showtime?: Maybe<Scalars['String']>;
+  niftygw?: Maybe<Scalars['String']>;
+  dribbble?: Maybe<Scalars['String']>;
+}
+
+interface Card {
+  __typename?: 'Card';
+  id: Scalars['ID'];
+  img?: Maybe<Scalars['String']>;
+  video?: Maybe<Scalars['String']>;
+  artist?: Maybe<Scalars['String']>;
+  info?: Maybe<Scalars['String']>;
+  deck?: Maybe<Scalars['String']>;
+  suit?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+  opensea?: Maybe<Scalars['String']>;
+}
 import { GraphQLResolveInfo } from 'graphql';
+export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -106,23 +155,31 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
-  User: ResolverTypeWrapper<User>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  User: ResolverTypeWrapper<User>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Artist: ResolverTypeWrapper<Artist>;
+  Socials: ResolverTypeWrapper<Socials>;
+  Card: ResolverTypeWrapper<Card>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
-  User: User;
   ID: Scalars['ID'];
+  User: User;
   String: Scalars['String'];
   Boolean: Scalars['Boolean'];
+  Artist: Artist;
+  Socials: Socials;
+  Card: Card;
 };
 
 export type QueryResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType>;
+  card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
 };
 
 export type UserResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
@@ -134,9 +191,53 @@ export type UserResolvers<ContextType = { req: Request, res: Response }, ParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ArtistResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userpic?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  shop?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  social?: Resolver<ResolversTypes['Socials'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SocialsResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Socials'] = ResolversParentTypes['Socials']> = {
+  instagram?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  facebook?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  behance?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  foundation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  superrare?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  makersplace?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  hicetnunc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  knownorigin?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  rarible?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  showtime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  niftygw?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dribbble?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CardResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Card'] = ResolversParentTypes['Card']> = {
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  video?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  artist?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  deck?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  suit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
+  Artist?: ArtistResolvers<ContextType>;
+  Socials?: SocialsResolvers<ContextType>;
+  Card?: CardResolvers<ContextType>;
 };
 
 

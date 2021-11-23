@@ -1,8 +1,12 @@
-import { makeExecutableSchema } from "@graphql-tools/schema";
-import { resolvers } from "./resolvers";
-import { typeDefs } from "./schemas";
+import {
+  resolvers as userResolvers,
+  typeDefs as userTypeDefs,
+} from "./schemas/user";
+import { typeDefs as artistTypeDefs } from "./schemas/artist";
+import { typeDefs as cardTypeDefs } from "./schemas/card";
+import { stitchSchemas } from "@graphql-tools/stitch";
 
-export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
+export const schema = stitchSchemas({
+  resolvers: [userResolvers],
+  typeDefs: [userTypeDefs, artistTypeDefs, cardTypeDefs],
 });

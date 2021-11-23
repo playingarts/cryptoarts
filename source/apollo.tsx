@@ -17,24 +17,23 @@ interface Context {
 let cachedApolloClient: Context["apolloClient"] | undefined;
 
 export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
-  const WithApollo: NextComponentType<NextPageContext & Context, any, Context> =
-    ({ apolloClient, apolloState, ...pageProps }) => {
-      const client = apolloClient || initApolloClient(apolloState);
+  const WithApollo: NextComponentType<
+    NextPageContext & Context,
+    any,
+    Context
+  > = ({ apolloClient, apolloState, ...pageProps }) => {
+    const client = apolloClient || initApolloClient(apolloState);
 
-      return (
-        <ApolloProvider client={client}>
-          <PageComponent {...pageProps} />
-        </ApolloProvider>
-      );
-    };
+    return (
+      <ApolloProvider client={client}>
+        <PageComponent {...pageProps} />
+      </ApolloProvider>
+    );
+  };
 
   if (process.env.NODE_ENV === "development") {
     const displayName =
       PageComponent.displayName || PageComponent.name || "Component";
-
-    // if (displayName === "App") {
-    //   console.warn("This withApollo HOC only works with PageComponents.");
-    // }
 
     WithApollo.displayName = `withApollo(${displayName})`;
   }
