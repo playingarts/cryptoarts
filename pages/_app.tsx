@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
-import { ThemeProvider, useTheme } from "@emotion/react";
+import { Fragment } from "react";
+import { ThemeProvider } from "@emotion/react";
 import Head from "next/head";
 import { AppProps } from "next/app";
 import "modern-normalize/modern-normalize.css";
 
-const theme = {
+export const theme = {
   colors: {
     gray: "rgba(234, 234, 234, 0.5)",
   },
