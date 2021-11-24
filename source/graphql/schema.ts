@@ -1,12 +1,23 @@
-import {
-  resolvers as userResolvers,
-  typeDefs as userTypeDefs,
-} from "./schemas/user";
-import { typeDefs as artistTypeDefs } from "./schemas/artist";
-import { typeDefs as cardTypeDefs } from "./schemas/card";
+import * as artist from "./schemas/artist";
+import * as card from "./schemas/card";
+import * as deck from "./schemas/deck";
 import { stitchSchemas } from "@graphql-tools/stitch";
+import { DocumentNode } from "apollo-link";
 
-export const schema = stitchSchemas({
-  resolvers: [userResolvers],
-  typeDefs: [userTypeDefs, artistTypeDefs, cardTypeDefs],
-});
+const entities: {
+  resolvers?: GQL.Resolvers;
+  typeDefs: DocumentNode;
+}[] = [deck, artist, card];
+
+export const schema = stitchSchemas(
+  entities.reduce<{
+    resolvers: GQL.Resolvers[];
+    typeDefs: DocumentNode[];
+  }>(
+    (result, { resolvers, typeDefs }) => ({
+      resolvers: [...result.resolvers, ...(resolvers ? [resolvers] : [])],
+      typeDefs: [...result.typeDefs, typeDefs],
+    }),
+    { resolvers: [], typeDefs: [] }
+  )
+);

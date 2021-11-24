@@ -2,7 +2,7 @@ import Link from "next/link";
 import Head from "next/head";
 import { Fragment } from "react";
 import { NextPage } from "next";
-import { useUser } from "../hooks/useUser";
+import { useDecks } from "../hooks/deck";
 import Header from "../components/Header";
 import { css } from "@emotion/react";
 import Layout from "../components/Layout";
@@ -10,9 +10,9 @@ import Hero from "../components/Hero";
 import { withApollo } from "../source/apollo";
 
 const Home: NextPage = () => {
-  const { user } = useUser();
+  const { decks } = useDecks();
 
-  console.log("user", user);
+  console.log("user", decks);
 
   return (
     <Fragment>
@@ -55,7 +55,7 @@ const Home: NextPage = () => {
           height: 3000px;
         `}
       >
-        {JSON.stringify(user)}
+        {JSON.stringify(decks)}
         <Link href="/about">ABOUT</Link>
       </Layout>
     </Fragment>

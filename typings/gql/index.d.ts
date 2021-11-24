@@ -15,7 +15,7 @@ interface Scalars {
 
 interface Query {
   __typename?: 'Query';
-  user?: Maybe<User>;
+  decks: Array<Deck>;
   artist?: Maybe<Artist>;
   card?: Maybe<Card>;
 }
@@ -25,13 +25,12 @@ interface QueryCardArgs {
   id: Scalars['ID'];
 }
 
-interface User {
-  __typename?: 'User';
+interface Deck {
+  __typename?: 'Deck';
   id: Scalars['ID'];
-  name: Scalars['String'];
-  username: Scalars['String'];
-  picture: Scalars['String'];
-  isAdmin?: Maybe<Scalars['Boolean']>;
+  title: Scalars['String'];
+  info: Scalars['String'];
+  slug: Scalars['String'];
 }
 
 interface Artist {
@@ -156,38 +155,37 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
-  User: ResolverTypeWrapper<User>;
+  Deck: ResolverTypeWrapper<Deck>;
   String: ResolverTypeWrapper<Scalars['String']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Artist: ResolverTypeWrapper<Artist>;
   Socials: ResolverTypeWrapper<Socials>;
   Card: ResolverTypeWrapper<Card>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
   ID: Scalars['ID'];
-  User: User;
+  Deck: Deck;
   String: Scalars['String'];
-  Boolean: Scalars['Boolean'];
   Artist: Artist;
   Socials: Socials;
   Card: Card;
+  Boolean: Scalars['Boolean'];
 };
 
 export type QueryResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  user?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
+  decks?: Resolver<Array<ResolversTypes['Deck']>, ParentType, ContextType>;
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
 };
 
-export type UserResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
+export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  username?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  picture?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  isAdmin?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -234,7 +232,7 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
 
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Query?: QueryResolvers<ContextType>;
-  User?: UserResolvers<ContextType>;
+  Deck?: DeckResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;
   Socials?: SocialsResolvers<ContextType>;
   Card?: CardResolvers<ContextType>;

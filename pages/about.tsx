@@ -3,16 +3,15 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { NextPage } from "next";
 import { withApollo } from "../source/apollo";
-import { useUser, useUser2 } from "../hooks/useUser";
+import { useDecks } from "../hooks/deck";
 import Layout from "../components/Layout";
 import Header from "../components/Header";
 import { css } from "@emotion/react";
 
 const Home: NextPage = () => {
-  const { user: user2 } = useUser2();
-  const { user } = useUser();
+  const { decks } = useDecks();
 
-  console.log("user222", user2);
+  console.log("user222", decks);
 
   return (
     <Fragment>
@@ -36,9 +35,8 @@ const Home: NextPage = () => {
         `}
       />
       <Layout>
-        {JSON.stringify(user2)}
+        {JSON.stringify(decks)}
         <Link href="/">HOME</Link>
-        {JSON.stringify(user)}
       </Layout>
     </Fragment>
   );
