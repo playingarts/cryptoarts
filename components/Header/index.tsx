@@ -8,6 +8,7 @@ import Title from "../Title";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Bell from "../Icons/Bell";
+import Link from "../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "dark";
@@ -115,7 +116,13 @@ const Header: FC<Props> = ({ palette, ...props }) => {
 
         <Bell css={(theme) => ({ fill: theme.colors.gray, marginRight: 30 })} />
 
-        <Button text="Shop" Icon={Bag} css={{ marginRight: 20 }} />
+        <Button
+          component={Link}
+          href="/shop"
+          text="Shop"
+          Icon={Bag}
+          css={{ marginRight: 20 }}
+        />
       </div>
       <Nav
         css={css`
