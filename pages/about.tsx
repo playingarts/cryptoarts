@@ -18,7 +18,9 @@ const Home: NextPage = () => {
       <Head>
         <title>Crypto Arts</title>
       </Head>
+
       <Header
+        palette="dark"
         css={css`
           position: fixed;
           left: 10px;
@@ -34,6 +36,7 @@ const Home: NextPage = () => {
           }
         `}
       />
+
       <Layout>
         {JSON.stringify(decks)}
         <Link href="/">HOME</Link>

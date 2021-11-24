@@ -5,6 +5,9 @@ import LogoIcon from "../Icons/Logo";
 import MenuIcon from "../Icons/Menu";
 import Nav from "../Nav";
 import Title from "../Title";
+import Button from "../Button";
+import Bag from "../Icons/Bag";
+import Bell from "../Icons/Bell";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "dark";
@@ -102,9 +105,17 @@ const Header: FC<Props> = ({ palette, ...props }) => {
             transform: translate(-50%, -50%);
           `}
         >
-          <LogoIcon color="gradient" />
+          <LogoIcon
+            gradient={palette !== "dark"}
+            css={(theme) => ({
+              fill: palette === "dark" ? theme.colors.gray : undefined,
+            })}
+          />
         </div>
 
+        <Bell css={(theme) => ({ fill: theme.colors.gray, marginRight: 30 })} />
+
+        <Button text="Shop" Icon={Bag} css={{ marginRight: 20 }} />
       </div>
       <Nav
         css={css`
