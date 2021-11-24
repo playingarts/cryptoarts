@@ -4,7 +4,29 @@ import Head from "next/head";
 import { AppProps } from "next/app";
 import "modern-normalize/modern-normalize.css";
 
+export const breakpoints: Record<string, number> = {
+  mobile: 0,
+  sm: 1124,
+  md: 1340,
+  lg: 1754,
+  xl: 2070,
+};
+
+const gutter = (scale: number) => {
+	return `${scale * 105}px`
+}
+
+export const mq = Object.keys(breakpoints)
+  .map((key) => [key, breakpoints[key]] as [string, number])
+  .reduce((prev, [key, breakpoint]) => {
+    prev[key] = `@media only screen and (min-width: ${breakpoint}px)`;
+    return prev;
+  }, {} as { [index: string]: string });
+
 export const theme: Theme = {
+  transitions: {
+    fast: "0.25s",
+  },
   colors: {
     gray: "rgba(234, 234, 234, 0.5)",
     darkGray: "#181818",
@@ -15,6 +37,8 @@ export const theme: Theme = {
   fonts: {
     aldrichFont: '"Aldrich", sans-serif',
   },
+  mq: mq,
+  gutter: gutter, 
 };
 
 const App = ({ Component, pageProps }: AppProps) => {

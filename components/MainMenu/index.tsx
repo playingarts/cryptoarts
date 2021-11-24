@@ -21,6 +21,7 @@ const MainMenu: FC<Props> = ({ palette }) => {
         borderRadius: 10,
         height: 70,
         zIndex: 2,
+        pointerEvents: "initial",
         background:
           palette === "dark" ? theme.colors.darkGray : theme.colors.eth,
       })}
@@ -32,11 +33,11 @@ const MainMenu: FC<Props> = ({ palette }) => {
             height: 70,
             marginRight: 24,
             display: "flex",
+            "&:hover": { cursor: "pointer" },
           }}
         >
           <MenuSvg
             css={(theme) => ({
-              "&:hover": { cursor: "pointer" },
               position: "relative",
               alignSelf: "center",
               width: 32,
@@ -70,6 +71,7 @@ const MainMenu: FC<Props> = ({ palette }) => {
           height: "100%",
           justifyContent: "center",
           alignItems: "center",
+          pointerEvents: "none",
         }}
       >
         <div
@@ -81,6 +83,7 @@ const MainMenu: FC<Props> = ({ palette }) => {
         >
           <Logo
             css={(theme) => ({
+              pointerEvents: "initial",
               "&:hover": {
                 fillOpacity: 0.8,
               },

@@ -3,11 +3,11 @@ import Head from "next/head";
 import { Fragment } from "react";
 import { NextPage } from "next";
 import { useDecks } from "../hooks/deck";
-import Header from "../components/Header";
 import { css } from "@emotion/react";
 import Layout from "../components/Layout";
 import Hero from "../components/Hero";
 import { withApollo } from "../source/apollo";
+import Menu from "../components/Menu";
 
 const Home: NextPage = () => {
   const { decks } = useDecks();
@@ -19,22 +19,39 @@ const Home: NextPage = () => {
       <Head>
         <title>Crypto Arts</title>
       </Head>
-      <Header
-        palette="dark"
-        css={css`
-          position: fixed;
-          left: 10px;
-          right: 10px;
-          top: 10px;
-          z-index: 1;
-
-          @media (min-width: 1440px) {
-            max-width: 1420px;
-            left: 50%;
-            transform: translate(-50%, 0);
-            width: 100%;
-          }
-        `}
+      <Menu
+        currentdeck={{ id: 6 }}
+        decks={[
+          {
+            deck: "zero",
+            id: 0,
+          },
+          {
+            deck: "one",
+            id: 1,
+          },
+          {
+            deck: "two",
+            id: 2,
+          },
+          {
+            deck: "three",
+            id: 3,
+          },
+          {
+            deck: "special",
+            id: 4,
+          },
+          {
+            deck: "future",
+            id: 5,
+          },
+          {
+            deck: "crypto",
+            id: 6,
+          },
+        ]}
+        css={{ position: "fixed" }}
       />
 
       <Layout

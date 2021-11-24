@@ -2,6 +2,9 @@ import "@emotion/react";
 
 declare module "@emotion/react" {
   export interface Theme {
+    transitions: {
+      fast: string;
+    };
     colors: {
       gray: string;
       darkGray: string;
@@ -12,6 +15,8 @@ declare module "@emotion/react" {
     fonts: {
       aldrichFont: string;
     };
+    mq: { [index: string]: string };
+    gutter: (scale: number) => string;
   }
 }
 
