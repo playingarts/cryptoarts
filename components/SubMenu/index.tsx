@@ -1,5 +1,4 @@
-import React, { FC, HTMLAttributes } from "react";
-import { theme } from "../../pages/_app";
+import { FC, HTMLAttributes } from "react";
 import Link from "next/link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -26,20 +25,20 @@ const SubMenu: FC<Props> = ({ decks, currentdeck }) => {
       // style={{ bottom: StyleBottom }}
     >
       <div
-        css={(theme) => ({
+        css={{
           display: "flex",
           textTransform: "uppercase",
           fontWeight: 600,
           fontSize: 18,
           height: 60,
           margin: "auto",
-        })}
+        }}
       >
         {decks &&
           decks.map((item, index) => {
             return (
-              <Link href={`/${item.Deck}`} key={index + 97}>
-                <div
+              <Link href={`/${item.Deck}`} key={item.Deck}>
+                <a
                   css={(theme) => ({
                     height: "100%",
                     alignItems: "center",
@@ -57,7 +56,7 @@ const SubMenu: FC<Props> = ({ decks, currentdeck }) => {
                   })}
                 >
                   {item.Deck}
-                </div>
+                </a>
               </Link>
             );
           })}
