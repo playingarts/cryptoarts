@@ -102,10 +102,9 @@ const Header: FC<Props> = ({ palette, ...props }) => {
             transform: translate(-50%, -50%);
           `}
         >
-          <LogoIcon color="gray" />
+          <LogoIcon color="gradient" />
         </div>
 
-        <div>Shop</div>
       </div>
       <Nav
         css={css`

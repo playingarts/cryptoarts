@@ -7,6 +7,11 @@ import "modern-normalize/modern-normalize.css";
 export const theme: Theme = {
   colors: {
     gray: "rgba(234, 234, 234, 0.5)",
+    darkGray: "#181818",
+    eth: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)",
+  },
+  fonts: {
+    aldrichFont: '"Aldrich", sans-serif',
   },
 };
 
