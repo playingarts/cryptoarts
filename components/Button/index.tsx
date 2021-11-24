@@ -10,23 +10,22 @@ const Button: FC<Props> = ({ text, Icon, ...props }) => {
     <div
       {...props}
       css={{
-        "&:hover": {
-          cursor: "pointer",
-        },
-        display: "flex",
-        alignItems: "center",
-        borderRadius: 100,
+        background: "#EAEAEA",
+        color: "#0A0A0A",
+        display: "inline-flex",
+        borderRadius: 50,
+        paddingLeft: 25,
         paddingRight: 25,
+        lineHeight: "50px",
         fontSize: 18,
         fontWeight: 600,
         textTransform: "uppercase",
-        paddingTop: 9,
-        paddingBottom: 9,
-        width: "fit-content",
-        height: "fit-content",
+        alignItems: "center",
+        fill: "#0A0A0A",
+        stroke: "#0A0A0A",
       }}
     >
-      {Icon && <Icon css={{ marginLeft: 15, marginRight: 10 }} />}
+      {Icon && <Icon css={{ marginRight: 10 }} />}
       <div>{text}</div>
     </div>
   );

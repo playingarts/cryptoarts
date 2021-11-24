@@ -2,7 +2,7 @@ import { FC, HTMLAttributes } from "react";
 import Logo from "../Icons/Logo";
 import MenuSvg from "../Icons/Menu";
 import Bag from "../Icons/Bag";
-import Button from "../Button/Button";
+import Button from "../Button";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "dark";
@@ -92,9 +92,6 @@ const MainMenu: FC<Props> = ({ palette }) => {
       </div>
       <Button
         css={{
-          background: "white",
-          fill: "black",
-          stroke: "black",
           marginRight: 20,
         }}
         Icon={Bag}
