@@ -27,7 +27,7 @@ interface QueryCardArgs {
 
 interface Deck {
   __typename?: 'Deck';
-  id: Scalars['ID'];
+  _id: Scalars['ID'];
   title: Scalars['String'];
   info: Scalars['String'];
   slug: Scalars['String'];
@@ -182,7 +182,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
