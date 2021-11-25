@@ -28,6 +28,11 @@ interface QueryDeckArgs {
 }
 
 
+interface QueryArtistArgs {
+  id: Scalars['ID'];
+}
+
+
 interface QueryCardsArgs {
   deck?: Maybe<Scalars['ID']>;
 }
@@ -47,9 +52,8 @@ interface Deck {
 
 interface Artist {
   __typename?: 'Artist';
-  id: Scalars['ID'];
+  _id: Scalars['ID'];
   name: Scalars['String'];
-  country: Scalars['String'];
   info?: Maybe<Scalars['String']>;
   userpic: Scalars['String'];
   website?: Maybe<Scalars['String']>;
@@ -78,9 +82,9 @@ interface Card {
   _id: Scalars['ID'];
   img: Scalars['String'];
   video?: Maybe<Scalars['String']>;
-  artist: Scalars['String'];
+  artist: Artist;
   info?: Maybe<Scalars['String']>;
-  deck?: Maybe<Scalars['String']>;
+  deck: Deck;
   suit?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['String']>;
   opensea?: Maybe<Scalars['String']>;
@@ -190,7 +194,7 @@ export type ResolversParentTypes = {
 export type QueryResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   decks?: Resolver<Array<ResolversTypes['Deck']>, ParentType, ContextType>;
   deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType, RequireFields<QueryDeckArgs, 'slug'>>;
-  artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType>;
+  artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsArgs, never>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
 };
@@ -204,9 +208,8 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
 };
 
 export type ArtistResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Artist'] = ResolversParentTypes['Artist']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   userpic?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -235,9 +238,9 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   img?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   video?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  artist?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  deck?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  deck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType>;
   suit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

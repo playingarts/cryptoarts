@@ -1,14 +1,41 @@
 import { gql } from "@apollo/client";
+import { Schema, model, models, Model } from "mongoose";
+
+const schema = new Schema<GQL.Artist, Model<GQL.Artist>, GQL.Artist>({
+  name: String,
+  info: String,
+  userpic: String,
+  website: String,
+  shop: String,
+  social: {
+    instagram: String,
+    facebook: String,
+    behance: String,
+    foundation: String,
+    superrare: String,
+    makersplace: String,
+    hicetnunc: String,
+    knownorigin: String,
+    rarible: String,
+    showtime: String,
+    niftygw: String,
+    dribbble: String,
+  },
+});
+
+export const Artist =
+  (models.Artist as Model<GQL.Artist>) || model("Artist", schema);
+
+// const getDeckCards = async (deck?: string) => Card.find({ deck });
 
 export const typeDefs = gql`
   type Query {
-    artist: Artist
+    artist(id: ID!): Artist
   }
 
   type Artist {
-    id: ID!
+    _id: ID!
     name: String!
-    country: String!
     info: String
     userpic: String!
     website: String

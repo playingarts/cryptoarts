@@ -4,6 +4,9 @@ const CardsQuery = gql`
   query Cards($deck: ID) {
     cards(deck: $deck) {
       img
+      artist {
+        name
+      }
     }
   }
 `;
