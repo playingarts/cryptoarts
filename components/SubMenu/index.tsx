@@ -1,17 +1,20 @@
 import { FC, HTMLAttributes } from "react";
 import Link from "next/link";
+import { useDecks } from "../../hooks/deck";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   currentdeck: {
     id: number;
   };
-  decks?: {
-    deck: string;
-    id: number;
-  }[];
 }
 
-const SubMenu: FC<Props> = ({ decks, currentdeck, ...props }) => {
+const SubMenu: FC<Props> = ({ currentdeck, ...props }) => {
+  const { decks = [], loading } = useDecks();
+
+  if (loading) {
+    return null;
+  }
+
   return (
     <div
       {...props}
@@ -38,9 +41,9 @@ const SubMenu: FC<Props> = ({ decks, currentdeck, ...props }) => {
         }}
       >
         {decks &&
-          decks.map((item, index) => {
+          decks.map((deck, index) => {
             return (
-              <Link href={`/${item.deck}`} key={item.deck}>
+              <Link href={`/decks/${deck.slug}`} key={deck.slug}>
                 <a
                   css={(theme) => ({
                     height: "100%",
@@ -59,7 +62,7 @@ const SubMenu: FC<Props> = ({ decks, currentdeck, ...props }) => {
                     },
                   })}
                 >
-                  {item.deck}
+                  {deck.slug}
                 </a>
               </Link>
             );

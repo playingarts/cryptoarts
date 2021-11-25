@@ -7,19 +7,10 @@ interface Props extends HTMLAttributes<HTMLElement> {
   currentdeck?: {
     id: number;
   };
-  decks?: {
-    deck: string;
-    id: number;
-  }[];
   palette?: "dark";
 }
 
-const Menu: FC<Props> = ({
-  currentdeck = undefined,
-  decks = undefined,
-  palette,
-  ...props
-}) => {
+const Menu: FC<Props> = ({ currentdeck, palette, ...props }) => {
   const [showSubMenu, setshowSubMenu] = useState(true);
   useEffect(() => {
     window.addEventListener(
@@ -57,7 +48,7 @@ const Menu: FC<Props> = ({
       })}
     >
       <MainMenu palette={palette} />
-      {currentdeck && decks && (
+      {currentdeck && (
         <div
           css={{
             width: "100%",
@@ -68,7 +59,6 @@ const Menu: FC<Props> = ({
         >
           <SubMenu
             currentdeck={currentdeck}
-            decks={decks}
             css={{
               display: "flex",
               alignItems: "flex-end",

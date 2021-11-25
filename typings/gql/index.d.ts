@@ -16,8 +16,20 @@ interface Scalars {
 interface Query {
   __typename?: 'Query';
   decks: Array<Deck>;
+  deck?: Maybe<Deck>;
   artist?: Maybe<Artist>;
+  cards: Array<Card>;
   card?: Maybe<Card>;
+}
+
+
+interface QueryDeckArgs {
+  slug: Scalars['String'];
+}
+
+
+interface QueryCardsArgs {
+  deck?: Maybe<Scalars['ID']>;
 }
 
 
@@ -63,10 +75,10 @@ interface Socials {
 
 interface Card {
   __typename?: 'Card';
-  id: Scalars['ID'];
-  img?: Maybe<Scalars['String']>;
+  _id: Scalars['ID'];
+  img: Scalars['String'];
   video?: Maybe<Scalars['String']>;
-  artist?: Maybe<Scalars['String']>;
+  artist: Scalars['String'];
   info?: Maybe<Scalars['String']>;
   deck?: Maybe<Scalars['String']>;
   suit?: Maybe<Scalars['String']>;
@@ -154,9 +166,9 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
+  String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Deck: ResolverTypeWrapper<Deck>;
-  String: ResolverTypeWrapper<Scalars['String']>;
   Artist: ResolverTypeWrapper<Artist>;
   Socials: ResolverTypeWrapper<Socials>;
   Card: ResolverTypeWrapper<Card>;
@@ -166,9 +178,9 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Query: {};
+  String: Scalars['String'];
   ID: Scalars['ID'];
   Deck: Deck;
-  String: Scalars['String'];
   Artist: Artist;
   Socials: Socials;
   Card: Card;
@@ -177,7 +189,9 @@ export type ResolversParentTypes = {
 
 export type QueryResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   decks?: Resolver<Array<ResolversTypes['Deck']>, ParentType, ContextType>;
+  deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType, RequireFields<QueryDeckArgs, 'slug'>>;
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType>;
+  cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsArgs, never>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
 };
 
@@ -218,10 +232,10 @@ export type SocialsResolvers<ContextType = { req: Request, res: Response }, Pare
 };
 
 export type CardResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Card'] = ResolversParentTypes['Card']> = {
-  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  img?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   video?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  artist?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  artist?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   deck?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   suit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

@@ -12,36 +12,6 @@ const Template: ComponentStory<typeof SubMenu> = (args) => (
 
 export const Crypto = Template.bind({});
 Crypto.args = {
-  decks: [
-    {
-      deck: "zero",
-      id: 0,
-    },
-    {
-      deck: "one",
-      id: 1,
-    },
-    {
-      deck: "two",
-      id: 2,
-    },
-    {
-      deck: "three",
-      id: 3,
-    },
-    {
-      deck: "special",
-      id: 4,
-    },
-    {
-      deck: "future",
-      id: 5,
-    },
-    {
-      deck: "crypto",
-      id: 6,
-    },
-  ],
   currentdeck: {
     id: 6,
   },

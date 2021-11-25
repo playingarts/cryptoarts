@@ -2,13 +2,25 @@ import Link from "next/link";
 import Head from "next/head";
 import { Fragment } from "react";
 import { NextPage } from "next";
+import { useDeck } from "../../hooks/deck";
 import { css } from "@emotion/react";
-import Layout from "../components/Layout";
-import Hero from "../components/Hero";
-import { withApollo } from "../source/apollo";
-import Menu from "../components/Menu";
+import Layout from "../../components/Layout";
+import { withApollo } from "../../source/apollo";
+import Menu from "../../components/Menu";
+import { useCards } from "../../hooks/card";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const {
+    query: { deckId },
+  } = useRouter();
+  const { deck } = useDeck({ variables: { slug: deckId } });
+  const { cards } = useCards({
+    variables: {
+      deck: deck ? deck._id : "",
+    },
+  });
+
   return (
     <Fragment>
       <Head>
@@ -22,19 +34,13 @@ const Home: NextPage = () => {
           background: #000;
           padding-top: 220px;
         `}
-      >
-        <Hero
-          title="Collective Art Project"
-          text="For creative people who are into graphic design, illustration, playing
-          cards and sometimes magic."
-          style={{ padding: "85px 200px", width: "75%", color: "#fff" }}
-        />
-      </Layout>
+      ></Layout>
       <Layout
         css={css`
           height: 3000px;
         `}
       >
+        {JSON.stringify(cards)}
         <Link href="/about">ABOUT</Link>
       </Layout>
     </Fragment>

@@ -3,16 +3,11 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { NextPage } from "next";
 import { withApollo } from "../source/apollo";
-import { useDecks2 } from "../hooks/deck";
 import Layout from "../components/Layout";
 import Header from "../components/Header";
 import { css } from "@emotion/react";
 
 const Home: NextPage = () => {
-  const { decks } = useDecks2();
-
-  console.log("user222", decks);
-
   return (
     <Fragment>
       <Head>
@@ -38,7 +33,6 @@ const Home: NextPage = () => {
       />
 
       <Layout>
-        {JSON.stringify(decks)}
         <Link href="/">HOME</Link>
       </Layout>
     </Fragment>
