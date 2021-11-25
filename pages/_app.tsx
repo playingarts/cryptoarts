@@ -13,10 +13,10 @@ export const breakpoints: Record<string, number> = {
 };
 
 const gutter = (scale: number) => {
-	return `${scale * 105}px`
-}
+  return `${scale * 105}px`;
+};
 
-export const mq = Object.keys(breakpoints)
+const mq = Object.keys(breakpoints)
   .map((key) => [key, breakpoints[key]] as [string, number])
   .reduce((prev, [key, breakpoint]) => {
     prev[key] = `@media only screen and (min-width: ${breakpoint}px)`;
@@ -31,6 +31,8 @@ export const theme: Theme = {
     gray: "rgba(234, 234, 234, 0.5)",
     darkGray: "#181818",
     eth: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)",
+    ethButton:
+      "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)",
     whiteish: "rgba(255, 255, 255, 0.7)",
     dimWhite: "rgba(255, 255, 255, 0.3)",
   },
@@ -38,7 +40,7 @@ export const theme: Theme = {
     aldrichFont: '"Aldrich", sans-serif',
   },
   mq: mq,
-  gutter: gutter, 
+  gutter: gutter,
 };
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -50,12 +52,10 @@ const App = ({ Component, pageProps }: AppProps) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
       </ThemeProvider>
     </Fragment>
   );
 };
-
 export default App;

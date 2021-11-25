@@ -7,6 +7,8 @@ import Layout from "../components/Layout";
 import Hero from "../components/Hero";
 import { withApollo } from "../source/apollo";
 import Menu from "../components/Menu";
+import Plus from "../components/Icons/Plus";
+import BlockTitle from "../components/BlockTitle";
 
 const Home: NextPage = () => {
   return (
@@ -28,6 +30,27 @@ const Home: NextPage = () => {
           text="For creative people who are into graphic design, illustration, playing
           cards and sometimes magic."
           style={{ padding: "85px 200px", width: "75%", color: "#fff" }}
+        />
+        <BlockTitle
+          css={{
+            color: "#FFF",
+          }}
+          buttonProps={{
+            text: "metamask",
+            Icon: Plus,
+            textProps: {
+              css: (theme) => ({
+                background: theme.colors.ethButton,
+                backgroundClip: "text",
+                color: "transparent",
+              }),
+            },
+            css: (theme) => ({
+              background: theme.colors.darkGray,
+            }),
+          }}
+          titleText="Cards"
+          subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
         />
       </Layout>
       <Layout

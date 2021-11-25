@@ -1,11 +1,13 @@
+import { Interpolation, Theme } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 import { Props as LinkProps } from "../Link";
 
-interface Props extends Omit<LinkProps, "component" | "href"> {
+export interface Props extends Omit<LinkProps, "component" | "href"> {
   href?: LinkProps["href"];
   text: string;
   Icon?: FC<HTMLAttributes<SVGElement>>;
   component?: "button" | FC<LinkProps>;
+  textProps?: HTMLAttributes<HTMLDivElement> & { css: Interpolation<Theme> };
 }
 
 const Button: FC<Props> = ({
@@ -13,6 +15,7 @@ const Button: FC<Props> = ({
   text,
   Icon,
   href = "",
+  textProps,
   ...props
 }) => {
   return (
@@ -27,9 +30,9 @@ const Button: FC<Props> = ({
         padding: 0,
         paddingLeft: 25,
         paddingRight: 25,
-        lineHeight: "50px",
         fontSize: 18,
         fontWeight: 600,
+        lineHeight: "50px",
         textTransform: "uppercase",
         alignItems: "center",
         fill: "#0A0A0A",
@@ -38,7 +41,7 @@ const Button: FC<Props> = ({
       }}
     >
       {Icon && <Icon css={{ marginRight: 10 }} />}
-      <div>{text}</div>
+      <div {...textProps}>{text}</div>
     </Component>
   );
 };
