@@ -5,7 +5,7 @@ const Menu: FC<HTMLAttributes<SVGElement>> = (props) => (
     width="28"
     height="20"
     viewBox="0 0 28 20"
-    fill="#181818"
+    fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >

@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         `}
       />
 
-      <Layout>
+      <Layout css={{ height: 3000 }}>
         <Link href="/">HOME</Link>
       </Layout>
     </Fragment>

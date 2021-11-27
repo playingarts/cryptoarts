@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -13,9 +12,9 @@ const Title: FC<Props> = ({
   return (
     <Component
       {...props}
-      css={css`
-        font-family: Aldrich, sans-serif;
-      `}
+      css={{
+        fontFamily: "Aldrich, sans-serif",
+      }}
     >
       {children}
     </Component>

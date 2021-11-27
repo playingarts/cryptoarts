@@ -37,7 +37,7 @@ export const theme: Theme = {
     dimWhite: "rgba(255, 255, 255, 0.3)",
   },
   fonts: {
-    aldrichFont: '"Aldrich", sans-serif',
+    aldrichFont: "Aldrich, sans-serif",
   },
   mq: mq,
   spacing: (size) => size * 10,

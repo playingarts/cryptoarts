@@ -9,24 +9,16 @@ const CardsBlock: FC<Props> = ({ cards, ...props }) => {
   return (
     <div {...props}>
       <div
-        css={{
-          marginTop: -25,
-          marginBottom: -25,
-          position: "relative",
-        }}
+        css={(theme) => ({
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          gridColumnGap: theme.spacing(3),
+        })}
       >
-        <div
-          css={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gridColumnGap: 30,
-          }}
-        >
-          {cards.map((card) => (
-            <Card key={card._id} card={card} />
-          ))}
-        </div>
+        {cards.map((card) => (
+          <Card key={card._id} card={card} />
+        ))}
       </div>
     </div>
   );

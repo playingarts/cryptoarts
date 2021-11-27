@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import throttle from "just-throttle";
 import LogoIcon from "../Icons/Logo";
@@ -52,88 +51,96 @@ const Header: FC<Props> = ({ palette, ...props }) => {
     <header {...props}>
       <div
         css={(theme) => [
-          css`
-            border-radius: 10px;
-            background: linear-gradient(90deg, #58cdff 0%, #c77bff 100%);
-            display: flex;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-          `,
+          {
+            borderRadius: theme.spacing(1),
+            display: "flex",
+            alignItems: "center",
+            position: "relative",
+            zIndex: 1,
+          },
           palette === "dark"
-            ? css`
-                background: #181818;
-                color: ${theme.colors.gray};
-              `
-            : css`
-                background: linear-gradient(90deg, #58cdff 0%, #c77bff 100%);
-              `,
+            ? {
+                background: theme.colors.darkGray,
+                color: theme.colors.gray,
+              }
+            : {
+                background: theme.colors.eth,
+              },
         ]}
       >
         <button
-          css={css`
-            background: none;
-            border: 0;
-            width: 70px;
-            height: 70px;
-            padding: 0;
-          `}
+          css={(theme) => ({
+            background: "none",
+            border: 0,
+            width: theme.spacing(7),
+            height: theme.spacing(7),
+            padding: 0,
+            color:
+              palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
+          })}
         >
-          <MenuIcon
-            css={(theme) => css`
-              fill: ${theme.colors.gray};
-            `}
-          />
+          <MenuIcon />
         </button>
 
         <Title
-          css={css`
-            font-size: 20px;
-            text-transform: uppercase;
-            margin-top: 0.3em;
-            flex-grow: 1;
-          `}
+          css={{
+            fontSize: 20,
+            textTransform: "uppercase",
+            marginTop: "0.3em",
+            flexGrow: 1,
+          }}
         >
           playing arts
         </Title>
 
         <div
-          css={css`
-            text-align: center;
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-          `}
+          css={{
+            textAlign: "center",
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
           <LogoIcon
-            gradient={palette !== "dark"}
-            css={(theme) => ({
-              fill: palette === "dark" ? theme.colors.gray : undefined,
-            })}
+            gradient={palette === "dark"}
+            css={(theme) => [
+              palette === "dark" && { color: theme.colors.gray },
+            ]}
           />
         </div>
 
-        <Bell css={(theme) => ({ fill: theme.colors.gray, marginRight: 30 })} />
+        <Bell
+          css={(theme) => [
+            {
+              marginRight: theme.spacing(3),
+              color:
+                palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
+            },
+          ]}
+        />
 
         <Button
           component={Link}
           href="/shop"
           text="Shop"
           Icon={Bag}
-          css={{ marginRight: 20 }}
+          css={(theme) => ({ marginRight: theme.spacing(2) })}
         />
       </div>
+
       <Nav
-        css={css`
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          padding-top: 0;
-          transition: padding-top 500ms ease;
-        `}
-        style={expanded ? { paddingTop: 70 } : {}}
+        css={(theme) => [
+          {
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 0,
+            paddingTop: 0,
+            transition: theme.transitions.fast("padding-top"),
+          },
+          expanded && { paddingTop: theme.spacing(7) },
+        ]}
       />
     </header>
   );

@@ -1,4 +1,3 @@
-import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Header from "./";
 
@@ -10,3 +9,8 @@ export default {
 const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
 
 export const Primary = Template.bind({});
+
+export const Dark = Template.bind({});
+Dark.args = {
+  palette: "dark",
+};
