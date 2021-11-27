@@ -7,8 +7,8 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   text: string;
   Icon?: FC<HTMLAttributes<SVGElement>>;
   component?: "button" | FC<LinkProps>;
-  textProps?: HTMLAttributes<HTMLDivElement> & { css: Interpolation<Theme> };
-  iconProps?: HTMLAttributes<SVGElement> & { css: Interpolation<Theme> };
+  textProps?: HTMLAttributes<HTMLDivElement> & { css?: Interpolation<Theme> };
+  iconProps?: HTMLAttributes<SVGElement> & { css?: Interpolation<Theme> };
 }
 
 const Button: FC<Props> = ({
@@ -24,23 +24,31 @@ const Button: FC<Props> = ({
     <Component
       {...props}
       href={href}
-      css={{
+      css={(theme) => ({
         background: "#EAEAEA",
         color: "#0A0A0A",
         display: "inline-flex",
-        borderRadius: 50,
+        borderRadius: theme.spacing(5),
         padding: 0,
-        paddingLeft: 25,
-        paddingRight: 25,
+        paddingLeft: theme.spacing(2.5),
+        paddingRight: theme.spacing(2.5),
         fontSize: 18,
         fontWeight: 600,
         lineHeight: "50px",
         textTransform: "uppercase",
         alignItems: "center",
         border: "none",
-      }}
+      })}
     >
-      {Icon && <Icon {...iconProps} css={{ marginRight: 10 }} />}
+      {Icon && (
+        <Icon
+          {...iconProps}
+          css={(theme) => [
+            iconProps && iconProps.css,
+            { marginRight: theme.spacing(1) },
+          ]}
+        />
+      )}
       <div {...textProps}>{text}</div>
     </Component>
   );

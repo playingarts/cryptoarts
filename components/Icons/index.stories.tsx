@@ -1,4 +1,3 @@
-import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import LogoIcon from "./Logo";
 import MenuIcon from "./Menu";

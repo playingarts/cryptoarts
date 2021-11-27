@@ -20,7 +20,6 @@ const SubMenu: FC<Props> = ({ currentdeck, ...props }) => {
       {...props}
       css={(theme) => ({
         display: "flex",
-        transition: theme.transitions.fast,
         width: "100%",
         height: 70,
         background: theme.colors.darkGray,

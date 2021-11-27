@@ -25,7 +25,7 @@ const mq = Object.keys(breakpoints)
 
 export const theme: Theme = {
   transitions: {
-    fast: "0.25s",
+    fast: (attr) => `${attr} 0.25s ease`,
   },
   colors: {
     gray: "rgba(234, 234, 234, 0.5)",
@@ -40,6 +40,7 @@ export const theme: Theme = {
     aldrichFont: '"Aldrich", sans-serif',
   },
   mq: mq,
+  spacing: (size) => size * 10,
   gutter: gutter,
 };
 

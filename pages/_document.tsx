@@ -50,7 +50,7 @@ export const Links = () => (
       crossOrigin="true"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Work+Sans:wght@400;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Aldrich&family=Work+Sans:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
   </Fragment>

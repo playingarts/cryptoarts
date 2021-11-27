@@ -14,7 +14,7 @@ Primary.args = {
   card: {
     _id: "_id",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     deck: {
       _id: "_id",
       title: "title",
@@ -35,7 +35,7 @@ WithVideo.args = {
   card: {
     _id: "_id",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: {

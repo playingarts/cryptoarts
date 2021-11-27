@@ -9,8 +9,8 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
     <div
       {...props}
       css={(theme) => ({
-        padding: theme.gutter(1),
-        borderRadius: 20,
+        padding: theme.spacing(10),
+        borderRadius: theme.spacing(2),
         background: `${theme.colors.darkGray} url(${Hand}) bottom right no-repeat`,
       })}
     >
@@ -39,16 +39,26 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
             fontSize: 18,
             lineHeight: "30px",
             textTransform: "uppercase",
-            paddingTop: 30,
-            marginTop: 30,
+            paddingTop: theme.spacing(3),
+            marginTop: theme.spacing(3),
             borderTop: "2px solid rgba(255, 255, 255, 0.07)",
           })}
         >
           Download the app
         </div>
-        <div css={{ marginTop: 20, display: "flex" }}>
-          <Button Icon={Android} text="Android" css={{ marginRight: 20 }} />
-          <Button Icon={Apple} text="IOS" />
+        <div
+          css={(theme) => ({ marginTop: theme.spacing(2), display: "flex" })}
+        >
+          <Button
+            Icon={Android}
+            text="Android"
+            css={(theme) => ({ marginRight: theme.spacing(2) })}
+          />
+          <Button
+            Icon={Apple}
+            iconProps={{ css: { marginTop: -3 } }}
+            text="IOS"
+          />
         </div>
       </div>
     </div>

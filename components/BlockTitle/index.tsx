@@ -17,20 +17,19 @@ const BlockTitle: FC<Props> = ({
   return (
     <div {...props}>
       <h2
-        css={{
-          marginBottom: 20,
-        }}
+        css={(theme) => ({
+          marginBottom: theme.spacing(2),
+        })}
       >
         {titleText}
       </h2>
       <div
-        css={{
-          paddingBottom: 30,
-          marginBottom: 40,
+        css={(theme) => ({
+          paddingBottom: theme.spacing(3),
           borderBottom: "2px solid rgba(0, 0, 0, 0.07)",
           display: "flex",
           justifyContent: "space-between",
-        }}
+        })}
       >
         <div
           css={{
@@ -41,7 +40,7 @@ const BlockTitle: FC<Props> = ({
           {subTitleText}
         </div>
         {buttonProps && (
-          <div css={{ marginLeft: 130 }}>
+          <div css={(theme) => ({ marginLeft: theme.spacing(13) })}>
             <Button {...buttonProps} />
           </div>
         )}
