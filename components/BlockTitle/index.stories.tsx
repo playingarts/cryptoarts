@@ -1,7 +1,5 @@
-import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import BlockTitle from "./";
-import Button from "../Button";
 import Plus from "../Icons/Plus";
 
 export default {

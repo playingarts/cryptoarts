@@ -7,6 +7,7 @@ import Layout from "../components/Layout";
 import Hero from "../components/Hero";
 import { withApollo } from "../source/apollo";
 import Menu from "../components/Menu";
+import CardsBlock from "../components/CardsBlock";
 import Plus from "../components/Icons/Plus";
 import BlockTitle from "../components/BlockTitle";
 
@@ -53,6 +54,7 @@ const Home: NextPage = () => {
           subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
         />
       </Layout>
+      <CardsBlock cards={[]} />
       <Layout
         css={css`
           height: 3000px;

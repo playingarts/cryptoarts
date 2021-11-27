@@ -95,7 +95,7 @@ const MainMenu: FC<Props> = ({ palette }) => {
       </div>
       <Button
         css={{
-          marginRight: 20,
+          marginRight: 25,
         }}
         Icon={Bag}
         text="shop"

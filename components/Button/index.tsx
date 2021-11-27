@@ -8,6 +8,7 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   Icon?: FC<HTMLAttributes<SVGElement>>;
   component?: "button" | FC<LinkProps>;
   textProps?: HTMLAttributes<HTMLDivElement> & { css: Interpolation<Theme> };
+  iconProps?: HTMLAttributes<SVGElement> & { css: Interpolation<Theme> };
 }
 
 const Button: FC<Props> = ({
@@ -16,6 +17,7 @@ const Button: FC<Props> = ({
   Icon,
   href = "",
   textProps,
+  iconProps,
   ...props
 }) => {
   return (
@@ -40,7 +42,7 @@ const Button: FC<Props> = ({
         border: "none",
       }}
     >
-      {Icon && <Icon css={{ marginRight: 10 }} />}
+      {Icon && <Icon {...iconProps} css={{ marginRight: 10 }} />}
       <div {...textProps}>{text}</div>
     </Component>
   );
