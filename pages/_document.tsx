@@ -7,7 +7,7 @@ export const Links = () => (
   <Fragment>
     <Global
       styles={{
-        "h1, h2,h5": {
+        "h1, h2, h3, h5": {
           fontFamily: theme.fonts.aldrichFont,
           fontWeight: 400,
           letterSpacing: "-0.05em",
@@ -21,6 +21,11 @@ export const Links = () => (
           fontSize: 60,
           lineHeight: "65px",
         },
+        h3: {
+          margin: 0,
+          fontSize: 45,
+          lineHeight: "50px",
+        },
         h5: {
           fontSize: "25px",
           lineHeight: "30px",
@@ -29,6 +34,12 @@ export const Links = () => (
         body: {
           background: "#e5e5e5",
           fontFamily: "Work Sans, sans-serif",
+        },
+        svg: {
+          verticalAlign: "top",
+        },
+        button: {
+          cursor: "pointer",
         },
       }}
     />
