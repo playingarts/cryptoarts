@@ -32,6 +32,7 @@ WithButton.args = {
     },
     css: (theme) => ({
       background: theme.colors.darkGray,
+      color: "#82A7F8",
     }),
   },
 };

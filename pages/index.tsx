@@ -48,6 +48,7 @@ const Home: NextPage = () => {
             },
             css: (theme) => ({
               background: theme.colors.darkGray,
+              color: "#82A7F8",
             }),
           }}
           titleText="Cards"

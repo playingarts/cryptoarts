@@ -37,8 +37,6 @@ const Button: FC<Props> = ({
         lineHeight: "50px",
         textTransform: "uppercase",
         alignItems: "center",
-        fill: "#0A0A0A",
-        stroke: "#0A0A0A",
         border: "none",
       }}
     >

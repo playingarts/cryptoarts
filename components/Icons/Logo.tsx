@@ -4,14 +4,13 @@ interface Props extends HTMLAttributes<SVGElement> {
   gradient?: boolean;
 }
 
-const Logo: FC<Props> = ({ gradient, style, ...props }) => (
+const Logo: FC<Props> = ({ gradient, ...props }) => (
   <svg
     width="128"
     height="26"
     viewBox="0 0 128 26"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
-    style={{ verticalAlign: "top", ...style }}
   >
     <path
       fillRule="evenodd"
