@@ -14,10 +14,17 @@ const CardsBlock: FC<Props> = ({ cards, ...props }) => {
           flexWrap: "wrap",
           justifyContent: "center",
           gridColumnGap: theme.spacing(3),
+          marginTop: -theme.spacing(6),
         })}
       >
         {cards.map((card) => (
-          <Card key={card._id} card={card} />
+          <Card
+            key={card._id}
+            card={card}
+            css={(theme) => ({
+              marginTop: theme.spacing(6),
+            })}
+          />
         ))}
       </div>
     </div>
