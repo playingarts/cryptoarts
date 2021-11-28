@@ -1,24 +1,16 @@
 import Head from "next/head";
 import { Fragment } from "react";
 import { NextPage } from "next";
-import { useDeck } from "../../hooks/deck";
-import Layout from "../../components/Layout";
-import Link from "../../components/Link";
-import { withApollo } from "../../source/apollo";
-import { useCards } from "../../hooks/card";
+import Layout from "../../../../components/Layout";
+import { withApollo } from "../../../../source/apollo";
 import { useRouter } from "next/router";
-import Header from "../../components/Header";
+import Header from "../../../../components/Header";
+import CardNav from "../../../../components/CardNav";
 
 const Home: NextPage = () => {
   const {
     query: { deckId },
   } = useRouter();
-  const { deck } = useDeck({ variables: { slug: deckId } });
-  const { cards } = useCards({
-    variables: {
-      deck: deck ? deck._id : "",
-    },
-  });
 
   return (
     <Fragment>
@@ -43,18 +35,19 @@ const Home: NextPage = () => {
         })}
       />
 
-      <Layout
+      <CardNav
         css={{
-          height: 3000,
-          paddingTop: 500,
+          background: "linear-gradient(180deg, #0A0A0A 0%, #111111 100%)",
+          color: "#fff",
         }}
+        prevLink="/prev"
+        nextLink="/next"
+        closeLink={`/decks/${deckId}`}
       >
-        {JSON.stringify(cards)}
-        <Link href={`/decks/${deckId}/cards/card`}>CARD</Link>
-        <br />
-        <br />
-        <Link href="/about">ABOUT</Link>
-      </Layout>
+        <Layout>
+          <div style={{ height: 1500 }} />
+        </Layout>
+      </CardNav>
     </Fragment>
   );
 };

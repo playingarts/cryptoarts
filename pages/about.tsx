@@ -5,7 +5,6 @@ import { NextPage } from "next";
 import { withApollo } from "../source/apollo";
 import Layout from "../components/Layout";
 import Header from "../components/Header";
-import { css } from "@emotion/react";
 
 const Home: NextPage = () => {
   return (
@@ -16,20 +15,20 @@ const Home: NextPage = () => {
 
       <Header
         palette="dark"
-        css={css`
-          position: fixed;
-          left: 10px;
-          right: 10px;
-          top: 10px;
-          z-index: 1;
+        css={(theme) => ({
+          position: "fixed",
+          left: theme.spacing(1),
+          right: theme.spacing(1),
+          top: theme.spacing(1),
+          zIndex: 1,
 
-          @media (min-width: 1440px) {
-            max-width: 1420px;
-            left: 50%;
-            transform: translate(-50%, 0);
-            width: 100%;
-          }
-        `}
+          "@media (min-width: 1440px)": {
+            maxWidth: theme.spacing(142),
+            left: "50%",
+            transform: "translate(-50%, 0)",
+            width: "100%",
+          },
+        })}
       />
 
       <Layout css={{ height: 3000 }}>
