@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  component?: "h1" | "div";
+  component?: "h1" | "h2" | "div";
 }
 
 const Title: FC<Props> = ({
@@ -14,6 +14,7 @@ const Title: FC<Props> = ({
       {...props}
       css={{
         fontFamily: "Aldrich, sans-serif",
+        letterSpacing: "-0.01em",
       }}
     >
       {children}

@@ -7,6 +7,7 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   Icon?: FC<HTMLAttributes<SVGElement>>;
   component?: "button" | FC<LinkProps>;
   iconProps?: HTMLAttributes<SVGElement> & { css?: Interpolation<Theme> };
+  variant?: "default" | "bordered";
 }
 
 const Button: FC<Props> = ({
@@ -15,6 +16,7 @@ const Button: FC<Props> = ({
   href = "",
   iconProps,
   children,
+  variant = "default",
   ...props
 }) => {
   return (
@@ -24,15 +26,18 @@ const Button: FC<Props> = ({
       css={(theme) => [
         {
           background: "none",
-          color: "#0A0A0A",
           display: "inline-flex",
           borderRadius: theme.spacing(5),
           padding: 0,
           alignItems: "center",
           border: "none",
         },
+        variant === "bordered" && {
+          border: `1px solid ${theme.colors.dimWhite}`,
+        },
         children
           ? {
+              color: "#0A0A0A",
               background: "#EAEAEA",
               fontSize: 18,
               fontWeight: 600,
@@ -42,6 +47,7 @@ const Button: FC<Props> = ({
               paddingRight: theme.spacing(2.5),
             }
           : {
+              color: "inherit",
               justifyContent: "center",
               width: theme.spacing(5),
               height: theme.spacing(5),

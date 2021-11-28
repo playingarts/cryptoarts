@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Card from "./";
 
 export default {
-  title: "Card/CardsBlock",
+  title: "Cards/CardsBlock",
   component: Card,
 } as ComponentMeta<typeof Card>;
 
