@@ -13,11 +13,11 @@ const Template: ComponentStory<typeof Component> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  text: "Text Label",
+  children: "Text Label",
 };
 
 export const WithIcon = Template.bind({});
 WithIcon.args = {
-  text: "With Icon",
+  children: "With Icon",
   Icon: Bag,
 };

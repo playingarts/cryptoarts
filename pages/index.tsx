@@ -37,7 +37,7 @@ const Home: NextPage = () => {
             color: "#FFF",
           }}
           buttonProps={{
-            text: "metamask",
+            children: "metamask",
             Icon: Plus,
             textProps: {
               css: (theme) => ({

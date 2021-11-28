@@ -3,7 +3,7 @@ import { FC, HTMLAttributes } from "react";
 import Button, { Props as ButtonProps } from "../Button";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  buttonProps?: ButtonProps & { css: Interpolation<Theme> };
+  buttonProps?: ButtonProps & { css?: Interpolation<Theme> };
   titleText: string;
   subTitleText: string;
 }

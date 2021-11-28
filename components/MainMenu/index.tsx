@@ -98,8 +98,9 @@ const MainMenu: FC<Props> = ({ palette }) => {
           marginRight: 25,
         }}
         Icon={Bag}
-        text="shop"
-      />
+      >
+        Shop
+      </Button>
     </div>
   );
 };

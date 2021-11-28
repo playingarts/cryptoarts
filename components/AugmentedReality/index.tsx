@@ -51,14 +51,13 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
         >
           <Button
             Icon={Android}
-            text="Android"
             css={(theme) => ({ marginRight: theme.spacing(2) })}
-          />
-          <Button
-            Icon={Apple}
-            iconProps={{ css: { marginTop: -3 } }}
-            text="IOS"
-          />
+          >
+            Android
+          </Button>
+          <Button Icon={Apple} iconProps={{ css: { marginTop: -3 } }}>
+            IOS
+          </Button>
         </div>
       </div>
     </div>

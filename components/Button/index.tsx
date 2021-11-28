@@ -4,7 +4,6 @@ import { Props as LinkProps } from "../Link";
 
 export interface Props extends Omit<LinkProps, "component" | "href"> {
   href?: LinkProps["href"];
-  text: string;
   Icon?: FC<HTMLAttributes<SVGElement>>;
   component?: "button" | FC<LinkProps>;
   textProps?: HTMLAttributes<HTMLDivElement> & { css?: Interpolation<Theme> };
@@ -13,11 +12,11 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
 
 const Button: FC<Props> = ({
   component: Component = "button",
-  text,
   Icon,
   href = "",
   textProps,
   iconProps,
+  children,
   ...props
 }) => {
   return (
@@ -49,7 +48,7 @@ const Button: FC<Props> = ({
           ]}
         />
       )}
-      <div {...textProps}>{text}</div>
+      <div {...textProps}>{children}</div>
     </Component>
   );
 };

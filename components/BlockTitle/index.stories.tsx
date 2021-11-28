@@ -21,7 +21,7 @@ export const WithButton = Template.bind({});
 WithButton.args = {
   ...Primary.args,
   buttonProps: {
-    text: "metamask",
+    children: "metamask",
     Icon: Plus,
     textProps: {
       css: (theme) => ({

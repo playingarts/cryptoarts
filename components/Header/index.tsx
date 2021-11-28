@@ -123,10 +123,11 @@ const Header: FC<Props> = ({ palette, ...props }) => {
         <Button
           component={Link}
           href="/shop"
-          text="Shop"
           Icon={Bag}
           css={(theme) => ({ marginRight: theme.spacing(2) })}
-        />
+        >
+          Shop
+        </Button>
       </div>
 
       <Nav
