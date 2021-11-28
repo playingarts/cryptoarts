@@ -110,14 +110,13 @@ const Header: FC<Props> = ({ palette, ...props }) => {
           />
         </div>
 
-        <Bell
-          css={(theme) => [
-            {
-              marginRight: theme.spacing(3),
-              color:
-                palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
-            },
-          ]}
+        <Button
+          Icon={Bell}
+          css={(theme) => ({
+            color:
+              palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
+            marginRight: theme.spacing(2),
+          })}
         />
 
         <Button

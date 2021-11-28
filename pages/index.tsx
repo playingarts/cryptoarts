@@ -37,15 +37,18 @@ const Home: NextPage = () => {
             color: "#FFF",
           }}
           buttonProps={{
-            children: "metamask",
+            children: (
+              <span
+                css={(theme) => ({
+                  background: theme.colors.ethButton,
+                  backgroundClip: "text",
+                  color: "transparent",
+                })}
+              >
+                metamask
+              </span>
+            ),
             Icon: Plus,
-            textProps: {
-              css: (theme) => ({
-                background: theme.colors.ethButton,
-                backgroundClip: "text",
-                color: "transparent",
-              }),
-            },
             css: (theme) => ({
               background: theme.colors.darkGray,
               color: "#82A7F8",

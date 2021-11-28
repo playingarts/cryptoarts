@@ -1,9 +1,11 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Bag from "../Icons/Bag";
+import Bell from "../Icons/Bell";
+import Link from "../Link";
 import Component from "./";
 
 export default {
-  title: "Button",
+  title: "Button - Link",
   component: Component,
 } as ComponentMeta<typeof Component>;
 
@@ -11,13 +13,40 @@ const Template: ComponentStory<typeof Component> = (args) => (
   <Component {...args} />
 );
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const ButtonPrimary = Template.bind({});
+ButtonPrimary.args = {
   children: "Text Label",
 };
 
-export const WithIcon = Template.bind({});
-WithIcon.args = {
+export const ButtonWithIcon = Template.bind({});
+ButtonWithIcon.args = {
   children: "With Icon",
   Icon: Bag,
+};
+
+export const ButtonIcon = Template.bind({});
+ButtonIcon.args = {
+  Icon: Bell,
+};
+
+export const LinkPrimary = Template.bind({});
+LinkPrimary.args = {
+  component: Link,
+  href: "/",
+  children: "Text Label",
+};
+
+export const LinkWithIcon = Template.bind({});
+LinkWithIcon.args = {
+  component: Link,
+  href: "/",
+  children: "With Icon",
+  Icon: Bag,
+};
+
+export const LinkIcon = Template.bind({});
+LinkIcon.args = {
+  component: Link,
+  href: "/",
+  Icon: Bell,
 };

@@ -6,7 +6,6 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   href?: LinkProps["href"];
   Icon?: FC<HTMLAttributes<SVGElement>>;
   component?: "button" | FC<LinkProps>;
-  textProps?: HTMLAttributes<HTMLDivElement> & { css?: Interpolation<Theme> };
   iconProps?: HTMLAttributes<SVGElement> & { css?: Interpolation<Theme> };
 }
 
@@ -14,7 +13,6 @@ const Button: FC<Props> = ({
   component: Component = "button",
   Icon,
   href = "",
-  textProps,
   iconProps,
   children,
   ...props
@@ -23,32 +21,48 @@ const Button: FC<Props> = ({
     <Component
       {...props}
       href={href}
-      css={(theme) => ({
-        background: "#EAEAEA",
-        color: "#0A0A0A",
-        display: "inline-flex",
-        borderRadius: theme.spacing(5),
-        padding: 0,
-        paddingLeft: theme.spacing(2.5),
-        paddingRight: theme.spacing(2.5),
-        fontSize: 18,
-        fontWeight: 600,
-        lineHeight: "50px",
-        textTransform: "uppercase",
-        alignItems: "center",
-        border: "none",
-      })}
+      css={(theme) => [
+        {
+          background: "none",
+          color: "#0A0A0A",
+          display: "inline-flex",
+          borderRadius: theme.spacing(5),
+          padding: 0,
+          alignItems: "center",
+          border: "none",
+        },
+        children
+          ? {
+              background: "#EAEAEA",
+              fontSize: 18,
+              fontWeight: 600,
+              lineHeight: "50px",
+              textTransform: "uppercase",
+              paddingLeft: theme.spacing(2.5),
+              paddingRight: theme.spacing(2.5),
+            }
+          : {
+              justifyContent: "center",
+              width: theme.spacing(5),
+              height: theme.spacing(5),
+              lineHeight: 1,
+            },
+      ]}
     >
       {Icon && (
         <Icon
           {...iconProps}
-          css={(theme) => [
-            iconProps && iconProps.css,
-            { marginRight: theme.spacing(1) },
-          ]}
+          {...(children
+            ? {
+                css: (theme) => [
+                  iconProps && iconProps.css,
+                  { marginRight: theme.spacing(1) },
+                ],
+              }
+            : {})}
         />
       )}
-      <div {...textProps}>{children}</div>
+      {children && <span>{children}</span>}
     </Component>
   );
 };
