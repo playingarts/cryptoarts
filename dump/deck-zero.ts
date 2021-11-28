@@ -25,7 +25,7 @@ const dump = async () => {
 
   let cards = [
     {
-      artist: "Name",
+      artist: "name",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/2-of-clubs-timba-smits.jpg",
     },
@@ -360,8 +360,8 @@ const dump = async () => {
       let artist = card.artist;
 
       if (card.artist) {
-        const { _id } = (await Artist.findOne({ name: card.artist })) || {
-          _id: "",
+        const { _id } = (await Artist.findOne({ slug: card.artist })) || {
+          _id: undefined,
         };
 
         artist = _id;

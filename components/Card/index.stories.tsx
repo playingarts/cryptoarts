@@ -25,6 +25,7 @@ Primary.args = {
       name: "Artist name",
       userpic: "userpic",
       social: {},
+      slug: "slug",
     },
   },
 };
@@ -48,6 +49,7 @@ WithVideo.args = {
       name: "Artist name",
       userpic: "userpic",
       social: {},
+      slug: "slug",
     },
   },
 };

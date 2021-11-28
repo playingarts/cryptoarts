@@ -55,6 +55,7 @@ interface Artist {
   _id: Scalars['ID'];
   name: Scalars['String'];
   info?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
   userpic: Scalars['String'];
   website?: Maybe<Scalars['String']>;
   shop?: Maybe<Scalars['String']>;
@@ -211,6 +212,7 @@ export type ArtistResolvers<ContextType = { req: Request, res: Response }, Paren
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   userpic?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   shop?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

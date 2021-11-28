@@ -10,6 +10,7 @@ const dump = async () => {
     {
       name: "Name",
       info: "Info",
+      slug: "name",
       userpic: "userPic",
       website: "Website",
       shop: "Shop",

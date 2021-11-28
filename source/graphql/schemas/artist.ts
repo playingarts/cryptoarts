@@ -7,6 +7,7 @@ const schema = new Schema<GQL.Artist, Model<GQL.Artist>, GQL.Artist>({
   userpic: String,
   website: String,
   shop: String,
+  slug: String,
   social: {
     instagram: String,
     facebook: String,
@@ -26,8 +27,6 @@ const schema = new Schema<GQL.Artist, Model<GQL.Artist>, GQL.Artist>({
 export const Artist =
   (models.Artist as Model<GQL.Artist>) || model("Artist", schema);
 
-// const getDeckCards = async (deck?: string) => Card.find({ deck });
-
 export const typeDefs = gql`
   type Query {
     artist(id: ID!): Artist
@@ -37,6 +36,7 @@ export const typeDefs = gql`
     _id: ID!
     name: String!
     info: String
+    slug: String!
     userpic: String!
     website: String
     shop: String

@@ -26,6 +26,7 @@ Primary.args = {
         name: "Artist name",
         userpic: "userpic",
         social: {},
+        slug: "slug",
       },
     },
     {
@@ -45,6 +46,7 @@ Primary.args = {
         name: "Artist name",
         userpic: "userpic",
         social: {},
+        slug: "slug",
       },
     },
     {
@@ -62,6 +64,7 @@ Primary.args = {
         name: "Artist name",
         userpic: "userpic",
         social: {},
+        slug: "slug",
       },
     },
     {
@@ -81,6 +84,7 @@ Primary.args = {
         name: "Artist name",
         userpic: "userpic",
         social: {},
+        slug: "slug",
       },
     },
   ],
