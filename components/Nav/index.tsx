@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 import { useDecks } from "../../hooks/deck";
 import Link from "../Link";

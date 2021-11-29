@@ -19,7 +19,7 @@ const dump = async () => {
     info: "",
   };
 
-  const newDeck = await Deck.create(deck);
+  await Deck.create(deck);
 };
 
 export default dump;
