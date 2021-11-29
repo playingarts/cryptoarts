@@ -37,7 +37,7 @@ const CardNav: FC<Props> = ({
 
     window.addEventListener("keydown", keyHandler);
 
-    return () => document.removeEventListener("keydown", keyHandler);
+    return () => window.removeEventListener("keydown", keyHandler);
   }, [push, prevLink, nextLink, closeLink]);
 
   return (
