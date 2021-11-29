@@ -1,37 +1,49 @@
+import { css } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
+import { useDecks } from "../../hooks/deck";
 import Link from "../Link";
-import * as classes from "./styles";
 
 const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+  const { decks = [], loading } = useDecks();
+
+  if (loading) {
+    return null;
+  }
+
   return (
-    <nav {...props} css={classes.root}>
-      <Link href="/" css={classes.link}>
-        Zero
-      </Link>
-
-      <Link href="/" css={classes.link}>
-        one
-      </Link>
-
-      <Link href="/" css={classes.link}>
-        two
-      </Link>
-
-      <Link href="/" css={classes.link}>
-        three
-      </Link>
-
-      <Link href="/" css={classes.link}>
-        special
-      </Link>
-
-      <Link href="/" css={classes.link}>
-        future
-      </Link>
-
-      <Link href="/" css={classes.link}>
-        crypto
-      </Link>
+    <nav
+      {...props}
+      css={(theme) => ({
+        background: "rgba(24, 24, 24, 0.5)",
+        borderRadius: theme.spacing(1),
+        height: theme.spacing(6),
+        display: "flex",
+        justifyContent: "center",
+        fontSize: 18,
+        alignItems: "center",
+        boxSizing: "content-box",
+      })}
+    >
+      {decks.map(({ slug }) => (
+        <Link
+          key={slug}
+          href={`/decks/${slug}`}
+          activeCss={(theme) => ({
+            color: theme.colors.dimWhite,
+          })}
+          css={(theme) => ({
+            paddingLeft: theme.spacing(2.5),
+            paddingRight: theme.spacing(2.5),
+            color: theme.colors.whiteish,
+            textDecoration: "none",
+            lineHeight: "60px",
+            textTransform: "uppercase",
+            fontWeight: 600,
+          })}
+        >
+          {slug}
+        </Link>
+      ))}
     </nav>
   );
 };

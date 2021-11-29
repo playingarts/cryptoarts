@@ -1,27 +1,32 @@
 import { FC, HTMLAttributes } from "react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
+import { useRouter } from "next/router";
+import { Interpolation, Theme } from "@emotion/react";
 
 export interface Props
   extends NextLinkProps,
     HTMLAttributes<HTMLAnchorElement | HTMLButtonElement> {
   component?: "a" | "button";
+  activeCss?: Interpolation<Theme>;
 }
 
 const Link: FC<Props> = ({
   component: Component = "a",
   children,
+  style,
+  activeCss,
   ...props
 }) => {
+  const router = useRouter();
   const {
     href,
     as,
     replace,
     scroll,
     shallow,
-    passHref,
+    passHref = props.passHref ? props.passHref : Component === "a",
     prefetch,
     locale,
-    style,
     ...other
   } = props;
 
@@ -37,7 +42,11 @@ const Link: FC<Props> = ({
       locale={locale}
     >
       <Component {...other} style={{ ...style, textDecoration: "none" }}>
-        {children}
+        <span
+          css={new RegExp(`^${href}`, "i").test(router.asPath) && activeCss}
+        >
+          {children}
+        </span>
       </Component>
     </NextLink>
   );
