@@ -26,7 +26,6 @@ const dump = async () => {
   let cards = [
     {
       artist: "raul-urias",
-      animator: "katya-khimenets",
       info: "",
       suit: "spades",
       value: "2",
@@ -34,8 +33,7 @@ const dump = async () => {
       opensea: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-spades-raul-urias.jpg",
-      video:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-video/2-clubs_02.mp4",
+      video: "",
     },
 
     {
@@ -52,6 +50,7 @@ const dump = async () => {
 
     {
       artist: "timba-smits",
+      animator: "katya-khimenets",
       info: "",
       suit: "clubs",
       value: "2",
