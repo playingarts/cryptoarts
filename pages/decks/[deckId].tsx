@@ -8,17 +8,22 @@ import { withApollo } from "../../source/apollo";
 import { useCards } from "../../hooks/card";
 import { useRouter } from "next/router";
 import Header from "../../components/Header";
+import CardsBlock from "../../components/CardsBlock";
 
 const Home: NextPage = () => {
   const {
     query: { deckId },
   } = useRouter();
   const { deck } = useDeck({ variables: { slug: deckId } });
-  const { cards } = useCards({
+  const { cards, loading } = useCards({
     variables: {
       deck: deck ? deck._id : "",
     },
   });
+
+  if (loading || !cards) {
+    return null;
+  }
 
   return (
     <Fragment>
@@ -49,7 +54,7 @@ const Home: NextPage = () => {
           paddingTop: 500,
         }}
       >
-        {JSON.stringify(cards)}
+        <CardsBlock cards={cards} />
         <Link href={`/decks/${deckId}/cards/card`}>CARD</Link>
         <br />
         <br />

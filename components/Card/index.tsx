@@ -63,7 +63,9 @@ const Card: FC<Props> = ({ card, ...props }) => {
             : undefined
         }
       >
-        {(!card.video || !loaded) && <img src={card.img} height="100%" />}
+        {(!card.video || !loaded || !hovered) && (
+          <img src={card.img} height="100%" />
+        )}
         {card.video && (
           <video
             loop
