@@ -26,6 +26,7 @@ const dump = async () => {
   let cards = [
     {
       artist: "raul-urias",
+      animator: "katya-khimenets",
       info: "",
       suit: "spades",
       value: "2",
@@ -33,7 +34,8 @@ const dump = async () => {
       opensea: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-spades-raul-urias.jpg",
-      video: "",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/2-clubs_02.mp4",
     },
 
     {
@@ -87,6 +89,7 @@ const dump = async () => {
 
     {
       artist: "joshua-davis",
+      animator: "luca-wist-ferrario",
       info: "",
       suit: "hearts",
       value: "3",
@@ -112,6 +115,7 @@ const dump = async () => {
 
     {
       artist: "2advanced-studios",
+      animator: "ilya-cvetkov",
       info: "",
       suit: "diamonds",
       value: "3",
@@ -125,6 +129,7 @@ const dump = async () => {
 
     {
       artist: "anton-repponen",
+      animator: "ion-lucin",
       info: "",
       suit: "spades",
       value: "4",
@@ -150,6 +155,7 @@ const dump = async () => {
 
     {
       artist: "brosmind",
+      animator: "amatita-studio",
       info: "",
       suit: "clubs",
       value: "4",
@@ -187,6 +193,7 @@ const dump = async () => {
 
     {
       artist: "matt-jones-aka-lunartik",
+      animator: "illustrescu",
       info: "",
       suit: "hearts",
       value: "5",
@@ -212,6 +219,7 @@ const dump = async () => {
 
     {
       artist: "evgeny-kiselev",
+      animator: "buff-motion",
       info: "",
       suit: "diamonds",
       value: "5",
@@ -261,6 +269,7 @@ const dump = async () => {
 
     {
       artist: "matei-apostolescu",
+      animator: "joana-goncalves",
       info: "",
       suit: "diamonds",
       value: "6",
@@ -298,6 +307,7 @@ const dump = async () => {
 
     {
       artist: "sebastian-onufszak",
+      animator: "skilz",
       info: "",
       suit: "clubs",
       value: "7",
@@ -311,6 +321,7 @@ const dump = async () => {
 
     {
       artist: "iv-orlov",
+      animator: "spiro-bunster",
       info: "",
       suit: "diamonds",
       value: "7",
@@ -360,6 +371,7 @@ const dump = async () => {
 
     {
       artist: "valp",
+      animator: "alex-maltsev",
       info: "",
       suit: "diamonds",
       value: "8",
@@ -385,6 +397,7 @@ const dump = async () => {
 
     {
       artist: "hello-monday",
+      animator: "ignacio-vega",
       info: "",
       suit: "hearts",
       value: "9",
@@ -410,6 +423,7 @@ const dump = async () => {
 
     {
       artist: "ari-weinkle",
+      animator: "skilz",
       info: "",
       suit: "diamonds",
       value: "9",
@@ -483,6 +497,7 @@ const dump = async () => {
 
     {
       artist: "jonathan-wong",
+      animator: "ian-abraham",
       info: "",
       suit: "hearts",
       value: "j",
@@ -508,6 +523,7 @@ const dump = async () => {
 
     {
       artist: "nate-coonrod",
+      animator: "yup-nguyen",
       info: "",
       suit: "diamonds",
       value: "j",
@@ -545,6 +561,7 @@ const dump = async () => {
 
     {
       artist: "lucas-de-alcantara",
+      animator: "illustrescu",
       info: "",
       suit: "clubs",
       value: "q",
@@ -558,6 +575,7 @@ const dump = async () => {
 
     {
       artist: "michael-cina",
+      animator: "marilisa-besana",
       info: "",
       suit: "diamonds",
       value: "q",
@@ -631,6 +649,7 @@ const dump = async () => {
 
     {
       artist: "zutto",
+      animator: "david-sum",
       info: "",
       suit: "hearts",
       value: "a",
@@ -668,6 +687,7 @@ const dump = async () => {
 
     {
       artist: "shotopop",
+      animator: "arm-sattavorn",
       info: "",
       suit: "black",
       value: "joker",
@@ -681,6 +701,7 @@ const dump = async () => {
 
     {
       artist: "giga-kobidze",
+      animator: "igor-garybaldi",
       info: "",
       suit: "",
       value: "",
