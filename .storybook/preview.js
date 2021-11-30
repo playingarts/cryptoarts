@@ -2,6 +2,7 @@ import { ThemeProvider } from "@emotion/react";
 import { theme } from "../pages/_app";
 import { Links } from "../pages/_document";
 import { RouterContext } from "next/dist/shared/lib/router-context";
+import { MockedProvider } from "@apollo/client/testing";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -13,6 +14,9 @@ export const parameters = {
   },
   nextRouter: {
     Provider: RouterContext.Provider,
+  },
+  apolloClient: {
+    MockedProvider,
   },
 };
 
