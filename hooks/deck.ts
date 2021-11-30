@@ -1,6 +1,6 @@
 import { gql, QueryHookOptions, useQuery } from "@apollo/client";
 
-const DecksQuery = gql`
+export const DecksQuery = gql`
   query Decks {
     decks {
       _id
@@ -10,7 +10,7 @@ const DecksQuery = gql`
   }
 `;
 
-const DeckQuery = gql`
+export const DeckQuery = gql`
   query Deck($slug: String!) {
     deck(slug: $slug) {
       _id

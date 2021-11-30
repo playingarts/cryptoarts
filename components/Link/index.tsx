@@ -1,13 +1,14 @@
 import { FC, HTMLAttributes } from "react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
-import { Interpolation, Theme } from "@emotion/react";
+import { ClassNames, Theme, CSSObject } from "@emotion/react";
+import { CSSInterpolation } from "@emotion/serialize";
 
 export interface Props
   extends NextLinkProps,
     HTMLAttributes<HTMLAnchorElement | HTMLButtonElement> {
   component?: "a" | "button";
-  activeCss?: Interpolation<Theme>;
+  activeCss?: ((_: Theme) => CSSInterpolation) | CSSObject;
 }
 
 const Link: FC<Props> = ({
@@ -15,6 +16,7 @@ const Link: FC<Props> = ({
   children,
   style,
   activeCss,
+  className,
   ...props
 }) => {
   const router = useRouter();
@@ -31,24 +33,35 @@ const Link: FC<Props> = ({
   } = props;
 
   return (
-    <NextLink
-      href={href}
-      as={as}
-      replace={replace}
-      scroll={scroll}
-      shallow={shallow}
-      passHref={passHref}
-      prefetch={prefetch}
-      locale={locale}
-    >
-      <Component {...other} style={{ ...style, textDecoration: "none" }}>
-        <span
-          css={new RegExp(`^${href}`, "i").test(router.asPath) && activeCss}
+    <ClassNames>
+      {({ cx, css, theme }) => (
+        <NextLink
+          href={href}
+          as={as}
+          replace={replace}
+          scroll={scroll}
+          shallow={shallow}
+          passHref={passHref}
+          prefetch={prefetch}
+          locale={locale}
         >
-          {children}
-        </span>
-      </Component>
-    </NextLink>
+          <Component
+            {...other}
+            style={{ ...style, textDecoration: "none" }}
+            className={cx(
+              className,
+              activeCss &&
+                new RegExp(`^${href}`, "i").test(router.asPath) &&
+                css(
+                  typeof activeCss === "function" ? activeCss(theme) : activeCss
+                )
+            )}
+          >
+            {children}
+          </Component>
+        </NextLink>
+      )}
+    </ClassNames>
   );
 };
 

@@ -8,6 +8,7 @@ type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
 
 const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   img: String,
+  video: String,
   artist: { type: Types.ObjectId, ref: "Artist" },
   deck: { type: Types.ObjectId, ref: "Deck" },
 });

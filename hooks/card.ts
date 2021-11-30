@@ -3,7 +3,9 @@ import { gql, QueryHookOptions, useQuery } from "@apollo/client";
 const CardsQuery = gql`
   query Cards($deck: ID) {
     cards(deck: $deck) {
+      _id
       img
+      video
       artist {
         name
       }
