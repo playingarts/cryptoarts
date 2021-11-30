@@ -25,333 +25,683 @@ const dump = async () => {
 
   let cards = [
     {
-      artist: "name",
+      artist: "raul-urias",
+      info: "",
+      suit: "spades",
+      value: "2",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/2-of-clubs-timba-smits.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-spades-raul-urias.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "sara-blake",
+      info: "",
+      suit: "hearts",
+      value: "2",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/2-of-diamonds-jonathan-foerster.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-hearts-sara-blake.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "timba-smits",
+      info: "",
+      suit: "clubs",
+      value: "2",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/2-of-hearts-sara-blake.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-clubs-timba-smits.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/2-clubs_02.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "jonathan-foerster",
+      info: "",
+      suit: "diamonds",
+      value: "2",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/2-of-spades-raul-urias.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-diamonds-jonathan-foerster.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "raphael-vicenzi",
+      info: "",
+      suit: "spades",
+      value: "3",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/3-of-clubs-your-majesty.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/3-of-spades-raphael-vicenzi.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "joshua-davis",
+      info: "",
+      suit: "hearts",
+      value: "3",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/3-of-diamonds-2advanced-studios.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/3-of-hearts-joshua-davis.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/3-hearts_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "your-majesty",
+      info: "",
+      suit: "clubs",
+      value: "3",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/3-of-hearts-joshua-davis.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/3-of-clubs-your-majesty.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "2advanced-studios",
+      info: "",
+      suit: "diamonds",
+      value: "3",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/3-of-spades-raphael-vicenzi.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/3-of-diamonds-2advanced-studios.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/3-diamonds_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "anton-repponen",
+      info: "",
+      suit: "spades",
+      value: "4",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/4-of-clubs-brosmind.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/4-of-spades-anton-repponen.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/4-spades_02.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "loic-sattler",
+      info: "",
+      suit: "hearts",
+      value: "4",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/4-of-diamonds-kervin-w-brisseaux.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/4-of-hearts-loic-sattler.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "brosmind",
+      info: "",
+      suit: "clubs",
+      value: "4",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/4-of-hearts-loic-sattler.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/4-of-clubs-brosmind.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/4-clubs_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "kervin-w-brisseaux",
+      info: "",
+      suit: "diamonds",
+      value: "4",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/4-of-spades-anton-repponen.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/4-of-diamonds-kervin-w-brisseaux.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "rubens-cantuni",
+      info: "",
+      suit: "spades",
+      value: "5",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/5-of-clubs-sorin-bechira.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/5-of-spades-rubens-cantuni.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "matt-jones-aka-lunartik",
+      info: "",
+      suit: "hearts",
+      value: "5",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/5-of-diamonds-evgeny-kiselev.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/5-of-hearts-matt-jones-aka-lunartik.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/5-hearts_02.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "sorin-bechira",
+      info: "",
+      suit: "clubs",
+      value: "5",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/5-of-hearts-matt-jones-aka-lunartik.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/5-of-clubs-sorin-bechira.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "evgeny-kiselev",
+      info: "",
+      suit: "diamonds",
+      value: "5",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/5-of-spades-rubens-cantuni.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/5-of-diamonds-evgeny-kiselev.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/5-diamonds_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "design-is-dead",
+      info: "",
+      suit: "spades",
+      value: "6",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/6-of-clubs-vitalik-sheptuhin.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-spades-design-is-dead.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "pat-perry",
+      info: "",
+      suit: "hearts",
+      value: "6",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/6-of-diamonds-matei-apostolescu.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-hearts-pat-perry.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "vitalik-sheptuhin",
+      info: "",
+      suit: "clubs",
+      value: "6",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/6-of-hearts-pat-perry.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-clubs-vitalik-sheptuhin.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "matei-apostolescu",
+      info: "",
+      suit: "diamonds",
+      value: "6",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/6-of-spades-design-is-dead.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-diamonds-matei-apostolescu.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/6-diamonds_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "brand-nu",
+      info: "",
+      suit: "spades",
+      value: "7",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/7-of-clubs-sebastian-onufszak.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/7-of-spades-brand-nu.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "saad-moosajee",
+      info: "",
+      suit: "hearts",
+      value: "7",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/7-of-diamonds-iv-orlov.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/7-of-hearts-saad-moosajee.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "sebastian-onufszak",
+      info: "",
+      suit: "clubs",
+      value: "7",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/7-of-hearts-saad-moosajee.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/7-of-clubs-sebastian-onufszak.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/7-clubs_02.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "iv-orlov",
+      info: "",
+      suit: "diamonds",
+      value: "7",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/7-of-spades-brand-nu.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/7-of-diamonds-iv-orlov.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/7-diamonds_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "justin-maller",
+      info: "",
+      suit: "spades",
+      value: "8",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/8-of-clubs-andreas-preis.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/8-of-spades-justin-maller.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "geraldine-georges",
+      info: "",
+      suit: "hearts",
+      value: "8",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/8-of-diamonds-valp.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/8-of-hearts-geraldine-georges.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "andreas-preis",
+      info: "",
+      suit: "clubs",
+      value: "8",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/8-of-hearts-geraldine-georges.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/8-of-clubs-andreas-preis.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "valp",
+      info: "",
+      suit: "diamonds",
+      value: "8",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/8-of-spades-justin-maller.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/8-of-diamonds-valp.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/8-diamonds_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "kdlig",
+      info: "",
+      suit: "spades",
+      value: "9",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/9-of-clubs-lucas-camargo-aka-flash.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/9-of-spades-kdlig.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "hello-monday",
+      info: "",
+      suit: "hearts",
+      value: "9",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/9-of-diamonds-ari-weinkle.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/9-of-hearts-hello-monday.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/9-hearts_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "lucas-camargo-aka-flash",
+      info: "",
+      suit: "clubs",
+      value: "9",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/9-of-hearts-hello-monday.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/9-of-clubs-lucas-camargo-aka-flash.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "ari-weinkle",
+      info: "",
+      suit: "diamonds",
+      value: "9",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/9-of-spades-kdlig.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/9-of-diamonds-ari-weinkle.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/9-diamonds_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "simplevector",
+      info: "",
+      suit: "spades",
+      value: "10",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/10-of-clubs-magomed-dovjenko.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-spades-simplevector.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "adhemas-batista",
+      info: "",
+      suit: "hearts",
+      value: "10",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/10-of-diamonds-fabian-ciraolo.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-hearts-adhemas-batista.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "magomed-dovjenko",
+      info: "",
+      suit: "clubs",
+      value: "10",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/10-of-hearts-adhemas-batista.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-clubs-magomed-dovjenko.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "fabian-ciraolo",
+      info: "",
+      suit: "diamonds",
+      value: "10",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/10-of-spades-simplevector.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-diamonds-fabian-ciraolo.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "si-clark",
+      info: "",
+      suit: "spades",
+      value: "j",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/jack-of-clubs-mr-flurry.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/jack-of-spades-si-clark.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "jonathan-wong",
+      info: "",
+      suit: "hearts",
+      value: "j",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/jack-of-diamonds-nate-coonrod.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/jack-of-hearts-jonathan-wong.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/j-hearts_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "mr-flurry",
+      info: "",
+      suit: "clubs",
+      value: "j",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/jack-of-hearts-jonathan-wong.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/jack-of-clubs-mr-flurry.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "nate-coonrod",
+      info: "",
+      suit: "diamonds",
+      value: "j",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/jack-of-spades-si-clark.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/jack-of-diamonds-nate-coonrod.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/jack-diamonds_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "michael-molloy",
+      info: "",
+      suit: "spades",
+      value: "q",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/queen-of-clubs-lucas-de-alcantara.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/queen-of-spades-michael-molloy.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "jules",
+      info: "",
+      suit: "hearts",
+      value: "q",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/queen-of-diamonds-michael-cina.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/queen-of-hearts-jules.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "lucas-de-alcantara",
+      info: "",
+      suit: "clubs",
+      value: "q",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/queen-of-hearts-jules.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/queen-of-clubs-lucas-de-alcantara.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/queen-clubs_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "michael-cina",
+      info: "",
+      suit: "diamonds",
+      value: "q",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/queen-of-spades-michael-molloy.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/queen-of-diamonds-michael-cina.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/queen-diamonds_02.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "mr-kone",
+      info: "",
+      suit: "spades",
+      value: "k",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/king-of-clubs-james-white.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/king-of-spades-mr-kone.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "joao-oliveira",
+      info: "",
+      suit: "hearts",
+      value: "k",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/king-of-diamonds-olly-howe.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/king-of-hearts-joao-oliveira.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "james-white",
+      info: "",
+      suit: "clubs",
+      value: "k",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/king-of-hearts-joao-oliveira.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/king-of-clubs-james-white.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "olly-howe",
+      info: "",
+      suit: "diamonds",
+      value: "k",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/king-of-spades-mr-kone.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/king-of-diamonds-olly-howe.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "fill-ryabchikov",
+      info: "",
+      suit: "spades",
+      value: "a",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/ace-of-clubs-david-delin.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/ace-of-spades-fill-ryabchikov.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "zutto",
+      info: "",
+      suit: "hearts",
+      value: "a",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/ace-of-diamonds-mike-harrison.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/ace-of-hearts-zutto.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/ace-hearts_01.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "david-delin",
+      info: "",
+      suit: "clubs",
+      value: "a",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/ace-of-hearts-zutto.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/ace-of-clubs-david-delin.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "mike-harrison",
+      info: "",
+      suit: "diamonds",
+      value: "a",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/ace-of-spades-fill-ryabchikov.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/ace-of-diamonds-mike-harrison.jpg",
+      video: "",
     },
 
     {
-      artist: "Name",
+      artist: "shotopop",
+      info: "",
+      suit: "black",
+      value: "joker",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/joker-shotopop.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/joker-shotopop.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/joker-1.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "giga-kobidze",
+      info: "",
+      suit: "",
+      value: "",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/_backside-giga-kobidze.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/_backside-giga-kobidze.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/zero-video/backside_03.mp4",
     },
 
     {
-      artist: "Name",
+      artist: "kenny-lindstrom",
+      info: "",
+      suit: "",
+      value: "",
+      deck: "zero",
+      opensea: "",
       img:
-        "https://s3.amazonaws.com/img.playingarts.com/zero-small-hd/joker-kenny-lindstrom.jpg",
+        "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/joker-kenny-lindstrom.jpg",
+      video: "",
     },
   ];
 
