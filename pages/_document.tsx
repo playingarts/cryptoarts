@@ -15,20 +15,20 @@ export const Links = () => (
         },
         h1: {
           fontSize: 100,
-          lineHeight: "98px",
+          lineHeight: 1,
         },
         h2: {
           fontSize: 60,
-          lineHeight: "65px",
+          lineHeight: 1.1,
         },
         h3: {
           margin: 0,
           fontSize: 45,
-          lineHeight: "50px",
+          lineHeight: 1.1,
         },
         h5: {
           fontSize: "25px",
-          lineHeight: "30px",
+          lineHeight: 1.2,
           textTransform: "uppercase",
         },
         body: {
@@ -40,6 +40,11 @@ export const Links = () => (
         },
         button: {
           cursor: "pointer",
+        },
+        input: {
+          color: "inherit",
+          background: "none",
+          border: 0,
         },
       }}
     />
