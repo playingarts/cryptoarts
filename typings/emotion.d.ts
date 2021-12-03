@@ -13,6 +13,8 @@ declare module "@emotion/react" {
       whiteish: string;
       dimWhite: string;
       ethButton: string;
+      text_title_dark: string;
+      text_title_light: string;
     };
     fonts: { aldrichFont: string };
     mq: { [index: string]: string };

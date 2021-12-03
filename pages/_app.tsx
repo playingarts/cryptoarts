@@ -35,6 +35,8 @@ export const theme: Theme = {
       "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)",
     whiteish: "rgba(255, 255, 255, 0.7)",
     dimWhite: "rgba(255, 255, 255, 0.3)",
+    text_title_dark: "#0A0A0A",
+    text_title_light: "rgba(255, 255, 255, 0.9)",
   },
   fonts: {
     aldrichFont: "Aldrich, sans-serif",

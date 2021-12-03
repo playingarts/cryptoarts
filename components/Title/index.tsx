@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  component?: "h1" | "h2" | "div";
+  component?: "h1" | "h2" | "div" | "dt";
 }
 
 const Title: FC<Props> = ({
