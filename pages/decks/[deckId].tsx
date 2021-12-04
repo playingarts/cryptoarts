@@ -9,6 +9,11 @@ import { useRouter } from "next/router";
 import Header from "../../components/Header";
 import CardsBlock from "../../components/CardsBlock";
 import CardNav from "../../components/CardNav";
+import Footer from "../../components/Footer";
+import Box from "../../components/Box";
+import DeckBlock from "../../components/DeckBlock";
+import BlockTitle from "../../components/BlockTitle";
+import Bag from "../../components/Icons/Bag";
 
 const Home: NextPage = () => {
   const {
@@ -70,8 +75,51 @@ const Home: NextPage = () => {
           }}
         />
       )}
+
       <Layout>
         <CardsBlock cards={cards} />
+      </Layout>
+
+      <Layout
+        css={{
+          background: "#dfdfdf",
+        }}
+      >
+        <Box padding={2}>
+          <BlockTitle
+            titleText="Deck"
+            subTitleText="Enjoy colorful, original artwork from 55 todays leading international illustrators, all in the palm of your hand!"
+            buttonProps={{
+              Icon: Bag,
+              children: "Buy now",
+              css: (theme) => ({
+                background: theme.colors.darkGray,
+                color: theme.colors.text_title_light,
+              }),
+            }}
+          />
+          <DeckBlock
+            css={(theme) => ({
+              marginTop: theme.spacing(14),
+            })}
+            properties={{
+              size: "Poker, 88.9 × 63.5mm",
+              material: "Bicycle® paper with Air-cushion finish",
+              inside: "52 Playing cards + 2 Jokers + Info card",
+            }}
+          />
+        </Box>
+      </Layout>
+
+      <Layout>
+        <Box
+          css={(theme) => ({
+            background: "#dfdfdf",
+            marginBottom: theme.spacing(1),
+          })}
+        >
+          <Footer />
+        </Box>
       </Layout>
     </Fragment>
   );

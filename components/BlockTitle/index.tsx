@@ -40,7 +40,9 @@ const BlockTitle: FC<Props> = ({
           {subTitleText}
         </div>
         {buttonProps && (
-          <div css={(theme) => ({ marginLeft: theme.spacing(13) })}>
+          <div
+            css={(theme) => ({ marginLeft: theme.spacing(13), flexShrink: 0 })}
+          >
             <Button {...buttonProps} />
           </div>
         )}
