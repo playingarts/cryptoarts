@@ -34,12 +34,12 @@ const Button: FC<Props> = ({
           border: "none",
         },
         variant === "bordered" && {
-          border: `1px solid ${theme.colors.dimWhite}`,
+          border: `1px solid ${theme.colors.text_subtitle_light}`,
         },
         children
           ? {
-              color: "#0A0A0A",
-              background: "#EAEAEA",
+              color: theme.colors.page_bg_dark,
+              background: theme.colors.page_bg_light,
               fontSize: 18,
               fontWeight: 600,
               lineHeight: "50px",

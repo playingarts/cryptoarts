@@ -20,11 +20,12 @@ Primary.args = {
 export const WithButton = Template.bind({});
 WithButton.args = {
   ...Primary.args,
+  variant: "h3",
   buttonProps: {
     children: (
       <span
         css={(theme) => ({
-          background: theme.colors.ethButton,
+          background: theme.colors.gradient,
           backgroundClip: "text",
           color: "transparent",
         })}
@@ -34,7 +35,7 @@ WithButton.args = {
     ),
     Icon: Plus,
     css: (theme) => ({
-      background: theme.colors.darkGray,
+      background: theme.colors.dark_gray,
       color: "#82A7F8",
     }),
   },

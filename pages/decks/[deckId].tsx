@@ -55,10 +55,10 @@ const Home: NextPage = () => {
 
       {cardId && (
         <CardNav
-          css={{
-            background: "linear-gradient(180deg, #0A0A0A 0%, #111111 100%)",
-            color: "#fff",
-          }}
+          css={(theme) => ({
+            background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
+            color: theme.colors.page_bg_light,
+          })}
           prevLink="/prev"
           nextLink="/next"
           closeLink={`/decks/${deckId}`}
@@ -94,7 +94,7 @@ const Home: NextPage = () => {
               Icon: Bag,
               children: "Buy now",
               css: (theme) => ({
-                background: theme.colors.darkGray,
+                background: theme.colors.dark_gray,
                 color: theme.colors.text_title_light,
               }),
             }}

@@ -23,7 +23,7 @@ const MainMenu: FC<Props> = ({ palette }) => {
         zIndex: 2,
         pointerEvents: "initial",
         background:
-          palette === "dark" ? theme.colors.darkGray : theme.colors.eth,
+          palette === "dark" ? theme.colors.dark_gray : theme.colors.gradient,
       })}
     >
       <div css={{ display: "flex" }}>
@@ -45,7 +45,9 @@ const MainMenu: FC<Props> = ({ palette }) => {
               margin: "auto",
               borderRadius: [100, 0, 10],
               fill:
-                palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
+                palette === "dark"
+                  ? theme.colors.text_subtitle_light
+                  : theme.colors.dark_gray,
             })}
           />
         </div>
@@ -56,7 +58,9 @@ const MainMenu: FC<Props> = ({ palette }) => {
             fontSize: 24,
             marginTop: 8,
             color:
-              palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
+              palette === "dark"
+                ? theme.colors.text_subtitle_light
+                : theme.colors.dark_gray,
           })}
         >
           PLAYING ARTS
@@ -87,7 +91,9 @@ const MainMenu: FC<Props> = ({ palette }) => {
                 fillOpacity: 0.8,
               },
               fill:
-                palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
+                palette === "dark"
+                  ? theme.colors.text_subtitle_light
+                  : theme.colors.dark_gray,
             })}
           />
         </div>

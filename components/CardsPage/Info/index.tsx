@@ -17,7 +17,7 @@ const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
       <Text component="h2">{author}</Text>
       <Text
         css={(theme) => ({
-          color: theme.colors.whiteish,
+          color: theme.colors.text_title_light,
         })}
         component="div"
         variant="h6"
@@ -27,7 +27,7 @@ const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
       {price && (
         <div
           css={(theme) => ({
-            borderTop: `2px solid ${theme.colors.dimWhite}`,
+            borderTop: `2px solid ${theme.colors.text_subtitle_light}`,
             width: "100%",
             display: "flex",
             marginTop: theme.spacing(3),
@@ -38,8 +38,8 @@ const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
           <Button
             Icon={Metamask}
             css={(theme) => ({
-              color: theme.colors.darkGray,
-              background: theme.colors.eth,
+              color: theme.colors.dark_gray,
+              background: theme.colors.gradient,
               marginRight: theme.spacing(2),
             })}
           >
@@ -60,7 +60,7 @@ const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
             <Eth
               css={(theme) => ({
                 marginLeft: theme.spacing(1),
-                color: theme.colors.dimWhite,
+                color: theme.colors.text_subtitle_light,
               })}
             />
           </Text>

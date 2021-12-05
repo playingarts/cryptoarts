@@ -11,30 +11,29 @@ declare module "@emotion/react" {
       fast: (_: string) => string;
     };
     colors: {
-      gray: string;
-      darkGray: string;
-      eth: string;
-      whiteish: string;
-      dimWhite: string;
-      ethButton: string;
+      page_bg_dark: string;
+      dark_gray: string;
+      page_bg_light: string;
       text_title_dark: string;
+      text_subtitle_dark: string;
       text_title_light: string;
+      text_subtitle_light: string;
+      gradient: string;
     };
     mq: { [index: string]: string };
-    typography: Record<
-      | "h1"
-      | "h2"
-      | "h3"
-      | "h4"
-      | "h5"
-      | "h6"
-      | "body0"
-      | "body"
-      | "body2"
-      | "body3"
-      | "label",
-      CSSInterpolation
-    >;
+    typography: {
+      h1: CSSInterpolation;
+      h2: CSSInterpolation;
+      h3: CSSInterpolation;
+      h4: CSSInterpolation;
+      h5: CSSInterpolation;
+      h6: CSSInterpolation;
+      body0: CSSInterpolation;
+      body: CSSInterpolation;
+      body2: CSSInterpolation;
+      body3: CSSInterpolation;
+      label: CSSInterpolation;
+    };
     spacing: (_: number) => number;
   }
 }
@@ -59,15 +58,14 @@ export const theme: Theme = {
     fast: (attr) => `${attr} 0.25s ease`,
   },
   colors: {
-    gray: "rgba(234, 234, 234, 0.5)",
-    darkGray: "#181818",
-    eth: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)",
-    ethButton:
-      "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)",
-    whiteish: "rgba(255, 255, 255, 0.7)",
-    dimWhite: "rgba(255, 255, 255, 0.3)",
+    page_bg_dark: "#0A0A0A",
+    dark_gray: "#181818",
+    page_bg_light: "#EAEAEA",
     text_title_dark: "#0A0A0A",
+    text_subtitle_dark: "rgba(10, 10, 10, 0.5)",
     text_title_light: "rgba(255, 255, 255, 0.9)",
+    text_subtitle_light: "rgba(234, 234, 234, 0.5)",
+    gradient: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)",
   },
   typography: {
     h1: {

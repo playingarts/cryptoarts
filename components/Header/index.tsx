@@ -60,11 +60,11 @@ const Header: FC<Props> = ({ palette, ...props }) => {
           },
           palette === "dark"
             ? {
-                background: theme.colors.darkGray,
-                color: theme.colors.gray,
+                background: theme.colors.dark_gray,
+                color: theme.colors.text_subtitle_light,
               }
             : {
-                background: theme.colors.eth,
+                background: theme.colors.gradient,
               },
         ]}
       >
@@ -76,7 +76,9 @@ const Header: FC<Props> = ({ palette, ...props }) => {
             height: theme.spacing(7),
             padding: 0,
             color:
-              palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
+              palette === "dark"
+                ? theme.colors.text_subtitle_light
+                : theme.colors.dark_gray,
           })}
         >
           <MenuIcon />
@@ -105,7 +107,7 @@ const Header: FC<Props> = ({ palette, ...props }) => {
           <LogoIcon
             gradient={palette === "dark"}
             css={(theme) => [
-              palette === "dark" && { color: theme.colors.gray },
+              palette === "dark" && { color: theme.colors.text_subtitle_light },
             ]}
           />
         </div>
@@ -114,7 +116,9 @@ const Header: FC<Props> = ({ palette, ...props }) => {
           Icon={Bell}
           css={(theme) => ({
             color:
-              palette === "dark" ? theme.colors.gray : theme.colors.darkGray,
+              palette === "dark"
+                ? theme.colors.text_subtitle_light
+                : theme.colors.dark_gray,
             marginRight: theme.spacing(2),
           })}
         />

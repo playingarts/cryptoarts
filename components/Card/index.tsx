@@ -33,7 +33,7 @@ const Card: FC<Props> = ({ card, ...props }) => {
         transition: theme.transitions.fast("color"),
         width: theme.spacing(28.5),
         textAlign: "center",
-        color: "rgba(10, 10, 10, 0.5)",
+        color: theme.colors.text_subtitle_dark,
         fontWeight: 500,
         fontsize: 18,
         lineheight: 21,
@@ -51,7 +51,7 @@ const Card: FC<Props> = ({ card, ...props }) => {
           height: theme.spacing(40),
           borderRadius: theme.spacing(1.5),
           marginBottom: theme.spacing(2),
-          background: theme.colors.darkGray,
+          background: theme.colors.dark_gray,
         })}
         style={
           hovered

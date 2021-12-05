@@ -28,12 +28,12 @@ const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           key={slug}
           href={`/decks/${slug}`}
           activeCss={(theme) => ({
-            color: theme.colors.dimWhite,
+            color: theme.colors.text_subtitle_light,
           })}
           css={(theme) => ({
             paddingLeft: theme.spacing(2.5),
             paddingRight: theme.spacing(2.5),
-            color: theme.colors.whiteish,
+            color: theme.colors.text_title_light,
             textDecoration: "none",
             lineHeight: "60px",
             textTransform: "uppercase",

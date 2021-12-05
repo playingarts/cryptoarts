@@ -11,20 +11,20 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
       css={(theme) => ({
         padding: theme.spacing(10),
         borderRadius: theme.spacing(2),
-        background: `${theme.colors.darkGray} url(${Hand}) bottom right no-repeat`,
+        background: `${theme.colors.dark_gray} url(${Hand}) bottom right no-repeat`,
       })}
     >
       <div css={{ width: "50%" }}>
         <h3
           css={(theme) => ({
-            color: theme.colors.whiteish,
+            color: theme.colors.text_title_light,
           })}
         >
           Augmented Reality
         </h3>
         <p
           css={(theme) => ({
-            color: theme.colors.whiteish,
+            color: theme.colors.text_title_light,
             fontSize: 22,
             lineHeight: 1.5,
           })}
@@ -35,7 +35,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
         </p>
         <div
           css={(theme) => ({
-            color: theme.colors.gray,
+            color: theme.colors.text_subtitle_light,
             fontSize: 18,
             lineHeight: "30px",
             textTransform: "uppercase",

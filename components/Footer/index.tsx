@@ -11,10 +11,10 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
   return (
     <div {...props}>
       <div
-        css={{
+        css={(theme) => ({
           display: "flex",
-          color: "rgba(10, 10, 10, 0.5)",
-        }}
+          color: theme.colors.text_subtitle_dark,
+        })}
       >
         <nav
           css={{

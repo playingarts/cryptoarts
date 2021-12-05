@@ -22,7 +22,7 @@ const SubMenu: FC<Props> = ({ currentdeck, ...props }) => {
         display: "flex",
         width: "100%",
         height: 70,
-        background: theme.colors.darkGray,
+        background: theme.colors.dark_gray,
         borderRadius: "0 0 10px 10px",
         pointerEvents: "none",
       })}
@@ -53,8 +53,8 @@ const SubMenu: FC<Props> = ({ currentdeck, ...props }) => {
                     paddingLeft: 25,
                     color:
                       currentdeck.id === index
-                        ? theme.colors.dimWhite
-                        : theme.colors.whiteish,
+                        ? theme.colors.text_subtitle_light
+                        : theme.colors.text_title_light,
                     "&:hover": {
                       cursor: "pointer",
                       color: "white",

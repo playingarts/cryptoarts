@@ -22,7 +22,11 @@ const DeckBlock: FC<Props> = ({ properties, ...props }) => {
       >
         {Object.entries(properties).map(([key, value]) => (
           <Fragment key={key}>
-            <Text component="dt" variant="h6">
+            <Text
+              component="dt"
+              variant="h6"
+              css={(theme) => ({ color: theme.colors.text_subtitle_dark })}
+            >
               {key}
             </Text>
             <Text

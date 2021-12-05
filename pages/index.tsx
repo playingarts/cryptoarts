@@ -21,26 +21,30 @@ const Home: NextPage = () => {
       <Menu currentdeck={{ id: 6 }} css={{ position: "fixed" }} />
 
       <Layout
-        css={css`
-          background: #000;
-          padding-top: 220px;
-        `}
+        css={(theme) => ({
+          background: theme.colors.dark_gray,
+          paddingTop: theme.spacing(22),
+        })}
       >
         <Hero
           title="Collective Art Project"
           text="For creative people who are into graphic design, illustration, playing
           cards and sometimes magic."
-          style={{ padding: "85px 200px", width: "75%", color: "#fff" }}
+          css={(theme) => ({
+            padding: "85px 200px",
+            width: "75%",
+            color: theme.colors.text_title_light,
+          })}
         />
         <BlockTitle
-          css={{
-            color: "#FFF",
-          }}
+          css={(theme) => ({
+            color: theme.colors.text_title_light,
+          })}
           buttonProps={{
             children: (
               <span
                 css={(theme) => ({
-                  background: theme.colors.ethButton,
+                  background: theme.colors.gradient,
                   backgroundClip: "text",
                   color: "transparent",
                 })}
@@ -50,8 +54,8 @@ const Home: NextPage = () => {
             ),
             Icon: Plus,
             css: (theme) => ({
-              background: theme.colors.darkGray,
-              color: "#82A7F8",
+              background: theme.colors.dark_gray,
+              color: "#58CDFF",
             }),
           }}
           titleText="Cards"
