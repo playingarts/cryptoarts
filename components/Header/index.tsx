@@ -3,7 +3,7 @@ import throttle from "just-throttle";
 import LogoIcon from "../Icons/Logo";
 import MenuIcon from "../Icons/Menu";
 import Nav from "../Nav";
-import Title from "../Title";
+import Text from "../Text";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Bell from "../Icons/Bell";
@@ -82,16 +82,16 @@ const Header: FC<Props> = ({ palette, ...props }) => {
           <MenuIcon />
         </button>
 
-        <Title
+        <Text
+          variant="h5"
+          component="div"
           css={{
-            fontSize: 20,
-            textTransform: "uppercase",
             marginTop: "0.3em",
             flexGrow: 1,
           }}
         >
           playing arts
-        </Title>
+        </Text>
 
         <div
           css={{

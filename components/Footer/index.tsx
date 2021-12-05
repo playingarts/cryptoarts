@@ -3,7 +3,7 @@ import Link from "../Link";
 import Discord from "../Icons/Discord";
 import Youtube from "../Icons/Youtube";
 import Pinterest from "../Icons/Pinterest";
-import Title from "../Title";
+import Text from "../Text";
 import Arrow from "../Icons/Arrow";
 import Button from "../Button";
 
@@ -103,12 +103,9 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
             marginLeft: theme.spacing(24),
           })}
         >
-          <Title
-            component="h2"
-            css={{ fontSize: 18, textTransform: "uppercase" }}
-          >
+          <Text component="h2" variant="h6">
             Project news
-          </Title>
+          </Text>
           <div
             css={(theme) => ({
               display: "flex",
@@ -138,17 +135,16 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
               }}
             />
           </div>
-          <p
+          <Text
+            variant="body0"
             css={(theme) => ({
-              fontSize: 14,
-              lineHeight: 1.3,
-              margin: 0,
+              marginBottom: 0,
               marginTop: theme.spacing(2),
             })}
           >
             We will never share your details with others. Unsubscribe at any
             time.
-          </p>
+          </Text>
         </form>
       </div>
       <div
@@ -162,23 +158,28 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
         })}
       >
         <div css={{ flexGrow: 1 }}>
-          <Title
+          <Text
+            variant="h5"
+            component="h2"
             css={(theme) => ({
-              textTransform: "uppercase",
-              fontSize: 20,
               marginBottom: theme.spacing(2),
             })}
           >
             playing arts project
-          </Title>
-          <p>
+          </Text>
+          <Text variant="body0">
             All rights reserved. Any artwork displayed on this website may not
             be reproduced or used in any manner whatsoever without the express
             written permission of Digital Abstracts or their respective owners.
-          </p>
-          <p>
+          </Text>
+          <Text
+            variant="body0"
+            css={{
+              marginBottom: 0,
+            }}
+          >
             © 2012—2021 Digital Abstracts SL Privacy statement Patent Pending
-          </p>
+          </Text>
         </div>
         <nav
           css={(theme) => ({

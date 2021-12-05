@@ -40,7 +40,7 @@ const Menu: FC<Props> = ({ currentdeck, palette, ...props }) => {
         [theme.mq.lg]: {
           right: "",
           left: "",
-          margin: `0 ${theme.gutter(1)}`,
+          margin: `0 ${theme.spacing(9.5)}`,
         },
         [theme.mq.xl]: {
           margin: "0 auto",

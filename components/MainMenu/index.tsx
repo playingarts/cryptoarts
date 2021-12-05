@@ -54,7 +54,6 @@ const MainMenu: FC<Props> = ({ palette }) => {
             display: "flex",
             alignItems: "center",
             fontSize: 24,
-            fontFamily: theme.fonts.aldrichFont,
             marginTop: 8,
             color:
               palette === "dark" ? theme.colors.gray : theme.colors.darkGray,

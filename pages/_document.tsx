@@ -8,29 +8,14 @@ export const Links = () => (
     <Global
       styles={{
         "h1, h2, h3, h5": {
-          fontFamily: theme.fonts.aldrichFont,
-          fontWeight: 400,
-          letterSpacing: "-0.05em",
           margin: 0,
         },
-        h1: {
-          fontSize: 100,
-          lineHeight: 1,
-        },
-        h2: {
-          fontSize: 60,
-          lineHeight: 1.1,
-        },
-        h3: {
-          margin: 0,
-          fontSize: 45,
-          lineHeight: 1.1,
-        },
-        h5: {
-          fontSize: "25px",
-          lineHeight: 1.2,
-          textTransform: "uppercase",
-        },
+        h1: theme.typography.h1,
+        h2: theme.typography.h2,
+        h3: theme.typography.h3,
+        h4: theme.typography.h4,
+        h5: theme.typography.h5,
+        h6: theme.typography.h6,
         body: {
           background: "#e5e5e5",
           fontFamily: "Work Sans, sans-serif",

@@ -1,5 +1,5 @@
 import { FC, Fragment, HTMLAttributes } from "react";
-import Title from "../Title";
+import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   properties: Record<string, string>;
@@ -22,21 +22,16 @@ const DeckBlock: FC<Props> = ({ properties, ...props }) => {
       >
         {Object.entries(properties).map(([key, value]) => (
           <Fragment key={key}>
-            <Title
-              component="dt"
-              css={{
-                textTransform: "uppercase",
-                fontSize: 15,
-              }}
-            >
+            <Text component="dt" variant="h6">
               {key}
-            </Title>
-            <dd
+            </Text>
+            <Text
+              component="dd"
+              variant="body2"
               css={(theme) => ({
                 "&:last-child": {
                   marginBottom: 0,
                 },
-                fontSize: 22,
                 margin: 0,
                 marginTop: theme.spacing(1),
                 marginBottom: theme.spacing(2),
@@ -45,7 +40,7 @@ const DeckBlock: FC<Props> = ({ properties, ...props }) => {
               })}
             >
               {value}
-            </dd>
+            </Text>
           </Fragment>
         ))}
       </dl>

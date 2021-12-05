@@ -1,6 +1,5 @@
-import { css } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
-import Title from "../Title";
+import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   title: string;
@@ -10,25 +9,15 @@ interface Props extends HTMLAttributes<HTMLElement> {
 const Hero: FC<Props> = ({ title, text, ...props }) => {
   return (
     <div {...props}>
-      <Title
-        component="h1"
-        css={css`
-          font-size: 100px;
-          line-height: 105px;
-          margin: 0;
-        `}
-      >
-        {title}
-      </Title>
-      <p
-        css={css`
-          font-size: 30px;
-          line-height: 1.5;
-          margin: 20px 0 0;
-        `}
+      <Text component="h1">{title}</Text>
+      <Text
+        variant="body3"
+        css={(theme) => ({
+          marginTop: theme.spacing(2),
+        })}
       >
         {text}
-      </p>
+      </Text>
     </div>
   );
 };

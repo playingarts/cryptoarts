@@ -3,6 +3,41 @@ import { ThemeProvider, Theme } from "@emotion/react";
 import Head from "next/head";
 import { AppProps } from "next/app";
 import "modern-normalize/modern-normalize.css";
+import { CSSInterpolation } from "@emotion/serialize";
+
+declare module "@emotion/react" {
+  export interface Theme {
+    transitions: {
+      fast: (_: string) => string;
+    };
+    colors: {
+      gray: string;
+      darkGray: string;
+      eth: string;
+      whiteish: string;
+      dimWhite: string;
+      ethButton: string;
+      text_title_dark: string;
+      text_title_light: string;
+    };
+    mq: { [index: string]: string };
+    typography: Record<
+      | "h1"
+      | "h2"
+      | "h3"
+      | "h4"
+      | "h5"
+      | "h6"
+      | "body0"
+      | "body"
+      | "body2"
+      | "body3"
+      | "label",
+      CSSInterpolation
+    >;
+    spacing: (_: number) => number;
+  }
+}
 
 export const breakpoints: Record<string, number> = {
   mobile: 0,
@@ -10,10 +45,6 @@ export const breakpoints: Record<string, number> = {
   md: 1340,
   lg: 1754,
   xl: 2070,
-};
-
-const gutter = (scale: number) => {
-  return `${scale * 105}px`;
 };
 
 const mq = Object.keys(breakpoints)
@@ -38,12 +69,75 @@ export const theme: Theme = {
     text_title_dark: "#0A0A0A",
     text_title_light: "rgba(255, 255, 255, 0.9)",
   },
-  fonts: {
-    aldrichFont: "Aldrich, sans-serif",
+  typography: {
+    h1: {
+      fontSize: 100,
+      fontWeight: 400,
+      letterSpacing: "-0.05em",
+      lineHeight: 105 / 100,
+      fontFamily: "Aldrich, sans-serif",
+    },
+    h2: {
+      fontSize: 60,
+      fontWeight: 400,
+      letterSpacing: "-0.05em",
+      lineHeight: 65 / 60,
+      fontFamily: "Aldrich, sans-serif",
+    },
+    h3: {
+      fontSize: 45,
+      fontWeight: 400,
+      letterSpacing: "-0.05em",
+      lineHeight: 50 / 45,
+      fontFamily: "Aldrich, sans-serif",
+    },
+    h4: {
+      fontSize: 35,
+      fontWeight: 400,
+      letterSpacing: "-0.05em",
+      lineHeight: 40 / 35,
+      fontFamily: "Aldrich, sans-serif",
+    },
+    h5: {
+      fontSize: 25,
+      fontWeight: 400,
+      letterSpacing: "-0.05em",
+      lineHeight: 30 / 25,
+      fontFamily: "Aldrich, sans-serif",
+      textTransform: "uppercase",
+    },
+    h6: {
+      fontSize: 18,
+      fontWeight: 400,
+      letterSpacing: "-0.05em",
+      lineHeight: 30 / 18,
+      fontFamily: "Aldrich, sans-serif",
+      textTransform: "uppercase",
+    },
+    body0: {
+      fontSize: 14,
+      lineHeight: 18 / 14,
+    },
+    body: {
+      fontSize: 18,
+      lineHeight: 27 / 18,
+    },
+    body2: {
+      fontSize: 22,
+      lineHeight: 33 / 22,
+    },
+    body3: {
+      fontSize: 30,
+      lineHeight: 45 / 30,
+    },
+    label: {
+      fontSize: 18,
+      lineHeight: 21 / 18,
+      fontWeight: 500,
+    },
   },
   mq: mq,
   spacing: (size) => size * 10,
-  gutter: gutter,
 };
 
 const App = ({ Component, pageProps }: AppProps) => {

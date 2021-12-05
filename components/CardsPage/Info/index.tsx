@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import Button from "../../Button";
-import Title from "../../Title";
+import Text from "../../Text";
 import Eth from "../../Icons/Eth";
 import Metamask from "../../Icons/Metamask";
 import Share from "../../Icons/Share";
@@ -14,15 +14,16 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
   return (
     <div {...props}>
-      <Title component="h2">{author}</Title>
-      <Title
+      <Text component="h2">{author}</Text>
+      <Text
         css={(theme) => ({
           color: theme.colors.whiteish,
-          textTransform: "uppercase",
         })}
+        component="div"
+        variant="h6"
       >
         {location}
-      </Title>
+      </Text>
       {price && (
         <div
           css={(theme) => ({
@@ -45,12 +46,13 @@ const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
             Buy NFT
           </Button>
           <Button Icon={Share} variant="bordered" />
-          <Title
+          <Text
+            variant="h4"
+            component="div"
             css={{
               flexGrow: 1,
               display: "flex",
               justifyContent: "flex-end",
-              fontSize: 30,
               alignItems: "baseline",
             }}
           >
@@ -61,7 +63,7 @@ const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
                 color: theme.colors.dimWhite,
               })}
             />
-          </Title>
+          </Text>
         </div>
       )}
     </div>
