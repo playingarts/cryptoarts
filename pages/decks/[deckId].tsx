@@ -14,6 +14,7 @@ import Box from "../../components/Box";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
 import Bag from "../../components/Icons/Bag";
+import Plus from "../../components/Icons/Plus";
 
 const Home: NextPage = () => {
   const {
@@ -77,13 +78,39 @@ const Home: NextPage = () => {
       )}
 
       <Layout>
-        <CardsBlock cards={cards} />
+        <Box>
+          <Box>
+            <BlockTitle
+              titleText="Cards"
+              subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
+              buttonProps={{
+                children: (
+                  <span
+                    css={(theme) => ({
+                      background: theme.colors.gradient,
+                      backgroundClip: "text",
+                      color: "transparent",
+                    })}
+                  >
+                    metamask
+                  </span>
+                ),
+                Icon: Plus,
+                css: (theme) => ({
+                  background: theme.colors.dark_gray,
+                  color: "#82A7F8",
+                }),
+              }}
+            />
+          </Box>
+          <CardsBlock cards={cards} />
+        </Box>
       </Layout>
 
       <Layout
-        css={{
-          background: "#dfdfdf",
-        }}
+        css={(theme) => ({
+          background: theme.colors.light_gray,
+        })}
       >
         <Box padding={2}>
           <BlockTitle
@@ -113,9 +140,22 @@ const Home: NextPage = () => {
       </Layout>
 
       <Layout>
+        <Box>
+          <Box>
+            <BlockTitle
+              variant="h3"
+              titleText="Gallery"
+              subTitleText="Follow @playingarts on Instagram"
+            />
+          </Box>
+          Stuff
+        </Box>
+      </Layout>
+
+      <Layout>
         <Box
           css={(theme) => ({
-            background: "#dfdfdf",
+            background: theme.colors.light_gray,
             marginBottom: theme.spacing(1),
           })}
         >

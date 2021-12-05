@@ -13,6 +13,7 @@ declare module "@emotion/react" {
     colors: {
       page_bg_dark: string;
       dark_gray: string;
+      light_gray: string;
       page_bg_light: string;
       text_title_dark: string;
       text_subtitle_dark: string;
@@ -60,6 +61,7 @@ export const theme: Theme = {
   colors: {
     page_bg_dark: "#0A0A0A",
     dark_gray: "#181818",
+    light_gray: "#DFDFDF",
     page_bg_light: "#EAEAEA",
     text_title_dark: "#0A0A0A",
     text_subtitle_dark: "rgba(10, 10, 10, 0.5)",
