@@ -15,6 +15,7 @@ import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
 import Bag from "../../components/Icons/Bag";
 import Plus from "../../components/Icons/Plus";
+import Gallery from "../../components/_composed/Gallery";
 
 const Home: NextPage = () => {
   const {
@@ -141,14 +142,7 @@ const Home: NextPage = () => {
 
       <Layout>
         <Box>
-          <Box>
-            <BlockTitle
-              variant="h3"
-              titleText="Gallery"
-              subTitleText="Follow @playingarts on Instagram"
-            />
-          </Box>
-          Stuff
+          <Gallery />
         </Box>
       </Layout>
 

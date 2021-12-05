@@ -6,6 +6,7 @@ const Arrow: FC<HTMLAttributes<SVGElement>> = (props) => (
     height="57"
     viewBox="0 0 32 57"
     fill="currentColor"
+    stroke="currentColor"
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >

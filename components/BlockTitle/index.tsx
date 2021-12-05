@@ -8,6 +8,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   titleText: string;
   subTitleText: string;
   variant?: "h2" | "h3";
+  action?: JSX.Element;
 }
 
 const BlockTitle: FC<Props> = ({
@@ -15,6 +16,7 @@ const BlockTitle: FC<Props> = ({
   subTitleText,
   buttonProps,
   variant = "h2",
+  action,
   ...props
 }) => {
   return (
@@ -39,11 +41,11 @@ const BlockTitle: FC<Props> = ({
         <Text css={{ margin: 0 }} variant="body2">
           {subTitleText}
         </Text>
-        {buttonProps && (
+        {(action || buttonProps) && (
           <div
             css={(theme) => ({ marginLeft: theme.spacing(13), flexShrink: 0 })}
           >
-            <Button {...buttonProps} />
+            {action || <Button {...buttonProps} />}
           </div>
         )}
       </div>

@@ -9,6 +9,8 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   iconProps?: HTMLAttributes<SVGElement> & { css?: Interpolation<Theme> };
   variant?: "default" | "bordered";
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
+  disabled?: ButtonHTMLAttributes<HTMLButtonElement>["disabled"];
+  size?: "small" | "normal";
 }
 
 const Button: FC<Props> = ({
@@ -17,6 +19,7 @@ const Button: FC<Props> = ({
   href,
   iconProps,
   children,
+  size = "normal",
   variant = "default",
   ...props
 }) => {
@@ -26,15 +29,19 @@ const Button: FC<Props> = ({
       href={href as URL}
       css={(theme) => [
         {
+          "&:disabled": {
+            cursor: "default",
+            opacity: 0.3,
+          },
           background: "none",
           display: "inline-flex",
-          borderRadius: theme.spacing(5),
+          borderRadius: theme.spacing(size === "small" ? 4 : 5),
           padding: 0,
           alignItems: "center",
           border: "none",
         },
         variant === "bordered" && {
-          border: `1px solid ${theme.colors.text_subtitle_light}`,
+          border: `1px solid currentColor`,
         },
         children
           ? {
@@ -50,8 +57,8 @@ const Button: FC<Props> = ({
           : {
               color: "inherit",
               justifyContent: "center",
-              width: theme.spacing(5),
-              height: theme.spacing(5),
+              width: theme.spacing(size === "small" ? 4 : 5),
+              height: theme.spacing(size === "small" ? 4 : 5),
               lineHeight: 1,
             },
       ]}
