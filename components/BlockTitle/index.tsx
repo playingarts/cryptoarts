@@ -1,28 +1,33 @@
 import { Interpolation, Theme } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 import Button, { Props as ButtonProps } from "../Button";
+import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   buttonProps?: ButtonProps & { css?: Interpolation<Theme> };
   titleText: string;
   subTitleText: string;
+  variant?: "h2" | "h3";
 }
 
 const BlockTitle: FC<Props> = ({
   titleText,
   subTitleText,
   buttonProps,
+  variant = "h2",
   ...props
 }) => {
   return (
     <div {...props}>
-      <h2
+      <Text
+        component="h2"
+        variant={variant}
         css={(theme) => ({
           marginBottom: theme.spacing(2),
         })}
       >
         {titleText}
-      </h2>
+      </Text>
       <div
         css={(theme) => ({
           paddingBottom: theme.spacing(3),
@@ -31,14 +36,9 @@ const BlockTitle: FC<Props> = ({
           justifyContent: "space-between",
         })}
       >
-        <div
-          css={{
-            fontSize: 22,
-            lineHeight: 1.5,
-          }}
-        >
+        <Text css={{ margin: 0 }} variant="body2">
           {subTitleText}
-        </div>
+        </Text>
         {buttonProps && (
           <div
             css={(theme) => ({ marginLeft: theme.spacing(13), flexShrink: 0 })}

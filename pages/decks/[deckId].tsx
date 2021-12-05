@@ -87,6 +87,7 @@ const Home: NextPage = () => {
       >
         <Box padding={2}>
           <BlockTitle
+            variant="h3"
             titleText="Deck"
             subTitleText="Enjoy colorful, original artwork from 55 todays leading international illustrators, all in the palm of your hand!"
             buttonProps={{

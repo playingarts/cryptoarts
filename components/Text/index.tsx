@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 import { theme } from "../../pages/_app";
 
-interface Props extends HTMLAttributes<HTMLElement> {
+export interface Props extends HTMLAttributes<HTMLElement> {
   component?:
     | "h1"
     | "h2"
@@ -19,7 +19,14 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 const Text: FC<Props> = ({
   component: Component = "p",
-  variant = "body",
+  variant = Component === "h1" ||
+  Component === "h2" ||
+  Component === "h3" ||
+  Component === "h4" ||
+  Component === "h5" ||
+  Component === "h6"
+    ? Component
+    : "body",
   children,
   ...props
 }) => {
