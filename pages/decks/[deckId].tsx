@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Fragment } from "react";
+import { Fragment, useRef } from "react";
 import { NextPage } from "next";
 import { useDeck } from "../../hooks/deck";
 import Layout from "../../components/Layout";
@@ -16,6 +16,9 @@ import BlockTitle from "../../components/BlockTitle";
 import Bag from "../../components/Icons/Bag";
 import Plus from "../../components/Icons/Plus";
 import Gallery from "../../components/_composed/Gallery";
+import Text from "../../components/Text";
+import Line from "../../components/Line";
+import DeckNav from "../../components/DeckNav";
 
 const Home: NextPage = () => {
   const {
@@ -27,8 +30,11 @@ const Home: NextPage = () => {
       deck: deck ? deck._id : "",
     },
   });
+  const galleryRef = useRef<HTMLElement>(null);
+  const deckRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLElement>(null);
 
-  if (loading || !cards) {
+  if (loading || !cards || !deck) {
     return null;
   }
 
@@ -63,22 +69,43 @@ const Home: NextPage = () => {
           })}
           prevLink="/prev"
           nextLink="/next"
-          closeLink={`/decks/${deckId}`}
+          closeLink={`/decks/${deck.slug}`}
         >
           <Layout>
             <div style={{ height: 1500 }} />
           </Layout>
         </CardNav>
       )}
+
       {!cardId && (
         <Layout
-          css={{
-            paddingTop: 500,
-          }}
-        />
+          css={(theme) => ({
+            background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
+            color: theme.colors.light_gray,
+            paddingTop: theme.spacing(18),
+          })}
+        >
+          <Box padding={2}>
+            <Text component="h1">Crypto Edition</Text>
+            <Text variant="body3">
+              A deck of playing cards featuring works of 55 leading artists.
+              Unique digital art collectibles living on the Ethereum blockchain.
+            </Text>
+            <Line spacing={3} />
+            <DeckNav
+              deckId={deck.slug}
+              refs={{ cardsRef, deckRef, galleryRef }}
+              links={{
+                opensea: "/opensea",
+                share: "/share",
+                shop: "/shop",
+              }}
+            />
+          </Box>
+        </Layout>
       )}
 
-      <Layout>
+      <Layout ref={cardsRef}>
         <Box>
           <Box>
             <BlockTitle
@@ -112,6 +139,7 @@ const Home: NextPage = () => {
         css={(theme) => ({
           background: theme.colors.light_gray,
         })}
+        ref={deckRef}
       >
         <Box padding={2}>
           <BlockTitle
@@ -140,7 +168,7 @@ const Home: NextPage = () => {
         </Box>
       </Layout>
 
-      <Layout>
+      <Layout ref={galleryRef}>
         <Box>
           <Gallery />
         </Box>

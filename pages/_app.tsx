@@ -1,9 +1,10 @@
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { ThemeProvider, Theme } from "@emotion/react";
 import Head from "next/head";
 import { AppProps } from "next/app";
 import "modern-normalize/modern-normalize.css";
 import { CSSInterpolation } from "@emotion/serialize";
+import smoothscroll from "smoothscroll-polyfill";
 
 declare module "@emotion/react" {
   export interface Theme {
@@ -141,6 +142,12 @@ export const theme: Theme = {
 };
 
 const App = ({ Component, pageProps }: AppProps) => {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      smoothscroll.polyfill();
+    }
+  }, []);
+
   return (
     <Fragment>
       <Head>

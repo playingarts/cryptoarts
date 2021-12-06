@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 
-const Metamask: FC<HTMLAttributes<SVGElement>> = (props) => {
+const Opensea: FC<HTMLAttributes<SVGElement>> = (props) => {
   return (
     <svg
       width="26"
@@ -15,4 +15,4 @@ const Metamask: FC<HTMLAttributes<SVGElement>> = (props) => {
   );
 };
 
-export default Metamask;
+export default Opensea;

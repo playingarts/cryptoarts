@@ -2,7 +2,7 @@ import { FC, HTMLAttributes } from "react";
 import Button from "../../Button";
 import Text from "../../Text";
 import Eth from "../../Icons/Eth";
-import Metamask from "../../Icons/Metamask";
+import Opensea from "../../Icons/Opensea";
 import Share from "../../Icons/Share";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -36,7 +36,7 @@ const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
           })}
         >
           <Button
-            Icon={Metamask}
+            Icon={Opensea}
             css={(theme) => ({
               color: theme.colors.dark_gray,
               background: theme.colors.gradient,

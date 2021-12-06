@@ -1,9 +1,13 @@
-import { FC, HTMLAttributes } from "react";
+import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
 
-const Layout: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => {
+const Layout: ForwardRefRenderFunction<
+  HTMLElement,
+  HTMLAttributes<HTMLElement>
+> = ({ children, ...props }, ref) => {
   return (
     <section
       {...props}
+      ref={ref}
       css={(theme) => ({
         paddingLeft: theme.spacing(1),
         paddingRight: theme.spacing(1),
@@ -25,4 +29,4 @@ const Layout: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => {
   );
 };
 
-export default Layout;
+export default forwardRef(Layout);

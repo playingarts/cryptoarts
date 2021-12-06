@@ -137,10 +137,9 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           </div>
           <Text
             variant="body0"
-            css={(theme) => ({
+            css={{
               marginBottom: 0,
-              marginTop: theme.spacing(2),
-            })}
+            }}
           >
             We will never share your details with others. Unsubscribe at any
             time.
@@ -158,13 +157,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
         })}
       >
         <div css={{ flexGrow: 1 }}>
-          <Text
-            variant="h5"
-            component="h2"
-            css={(theme) => ({
-              marginBottom: theme.spacing(2),
-            })}
-          >
+          <Text variant="h5" component="h2">
             playing arts project
           </Text>
           <Text variant="body0">
