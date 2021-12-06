@@ -2,7 +2,7 @@ import { FC, Fragment, HTMLAttributes, useState } from "react";
 import BlockTitle from "../../BlockTitle";
 import Box from "../../Box";
 import Button from "../../Button";
-import Carousel from "../../Carousel";
+import Carousel, { Props as CarouselProps } from "../../Carousel";
 import Arrow from "../../Icons/Arrow";
 
 interface Props extends HTMLAttributes<HTMLElement> {}
@@ -15,6 +15,17 @@ const Gallery: FC<Props> = (props) => {
     "https://i.dailymail.co.uk/i/pix/2016/06/05/12/34EFE90E00000578-3625941-Portalcat_On_Imgur_Seir_describes_him_or_herself_as_a_long_time_-a-14_1465127349029.jpg",
   ];
   const [index, setIndex] = useState(0);
+  const visibleItems = 3;
+
+  const changeIndex: CarouselProps["onIndexChange"] = (offset) => {
+    const newIndex = index + offset;
+
+    setIndex(
+      newIndex < 0 ? 0 : Math.min(items.length - visibleItems, newIndex)
+    );
+  };
+  const onPrev = () => changeIndex(-1);
+  const onNext = () => changeIndex(1);
 
   return (
     <div {...props}>
@@ -27,7 +38,7 @@ const Gallery: FC<Props> = (props) => {
             <Fragment>
               <Button
                 disabled={index === 0}
-                onClick={() => setIndex(index - 1)}
+                onClick={onPrev}
                 variant="bordered"
                 Icon={Arrow}
                 size="small"
@@ -40,8 +51,11 @@ const Gallery: FC<Props> = (props) => {
                 }}
               />
               <Button
-                disabled={items.length < 4 || index === items.length - 3}
-                onClick={() => setIndex(index + 1)}
+                disabled={
+                  items.length <= visibleItems ||
+                  index === items.length - visibleItems
+                }
+                onClick={onNext}
                 variant="bordered"
                 css={(theme) => ({ marginLeft: theme.spacing(2) })}
                 Icon={Arrow}
@@ -57,7 +71,7 @@ const Gallery: FC<Props> = (props) => {
           }
         />
       </Box>
-      <Carousel items={items} index={index} />
+      <Carousel items={items} index={index} onIndexChange={changeIndex} />
     </div>
   );
 };
