@@ -5,8 +5,9 @@ interface Props extends HTMLAttributes<HTMLHRElement> {
   spacing?: number;
 }
 
-const Line: FC<Props> = ({ size = 1, spacing = 1 }) => (
+const Line: FC<Props> = ({ size = 1, spacing = 1, ...props }) => (
   <hr
+    {...props}
     css={(theme) => ({
       background: "currentColor",
       border: 0,

@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import { theme } from "../../pages/_app";
+import { Props as LinkProps } from "../Link";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   component?:
@@ -13,8 +14,10 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     | "div"
     | "label"
     | "dt"
-    | "dd";
+    | "dd"
+    | FC<LinkProps>;
   variant?: keyof typeof theme.typography;
+  href?: LinkProps["href"];
 }
 
 const Text: FC<Props> = ({
@@ -28,10 +31,15 @@ const Text: FC<Props> = ({
     ? Component
     : "body",
   children,
+  href,
   ...props
 }) => {
   return (
-    <Component {...props} css={(theme) => theme.typography[variant]}>
+    <Component
+      href={href as URL}
+      {...props}
+      css={(theme) => theme.typography[variant]}
+    >
       {children}
     </Component>
   );

@@ -19,6 +19,12 @@ import Gallery from "../../components/_composed/Gallery";
 import Text from "../../components/Text";
 import Line from "../../components/Line";
 import DeckNav from "../../components/DeckNav";
+import Grid from "../../components/Grid";
+import Esquire from "../../components/Icons/Esquire";
+import FastCompany from "../../components/Icons/FastCompany";
+import CreativeBloq from "../../components/Icons/CreativeBloq";
+import DigitalArts from "../../components/Icons/DigitalArts";
+import Quote from "../../components/Quote";
 
 const Home: NextPage = () => {
   const {
@@ -171,6 +177,21 @@ const Home: NextPage = () => {
       <Layout ref={galleryRef}>
         <Box>
           <Gallery />
+          <Grid
+            items={[
+              <Esquire key="esquire" />,
+              <FastCompany key="fastcompany" />,
+              <CreativeBloq key="creativebloq" />,
+              <DigitalArts key="digitalarts" />,
+            ]}
+          />
+          <Box>
+            <Quote>
+              “Two is a sign of union. And diamonds are a sign of prosperity. I
+              wanted to show the duality using my Ugly character wearing a
+              twofaced mask.”
+            </Quote>
+          </Box>
         </Box>
       </Layout>
 
