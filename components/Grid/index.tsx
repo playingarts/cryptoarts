@@ -16,7 +16,9 @@ const Grid: FC<Props> = ({ items, ...props }) => (
       alignItems: "center",
     }}
   >
-    {items.map((item) => item)}
+    {items.map((item, index) => (
+      <li key={index}>{item}</li>
+    ))}
   </ul>
 );
 
