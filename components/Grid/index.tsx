@@ -11,6 +11,9 @@ const Grid: FC<Props> = ({ items, ...props }) => (
       display: "flex",
       listStyle: "none",
       justifyContent: "space-between",
+      padding: 0,
+      margin: 0,
+      alignItems: "center",
     }}
   >
     {items.map((item) => item)}

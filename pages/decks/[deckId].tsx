@@ -177,6 +177,8 @@ const Home: NextPage = () => {
       <Layout ref={galleryRef}>
         <Box>
           <Gallery />
+        </Box>
+        <Box>
           <Grid
             items={[
               <Esquire key="esquire" />,
