@@ -1,51 +1,38 @@
 import { FC, HTMLAttributes } from "react";
+import Box from "../Box";
 import Button from "../Button";
 import Android from "../Icons/Android";
 import Apple from "../Icons/Apple";
+import Line from "../Line";
+import Text from "../Text";
 import Hand from "./hand.png";
 
 const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
   return (
-    <div
+    <Box
       {...props}
       css={(theme) => ({
-        padding: theme.spacing(10),
-        borderRadius: theme.spacing(2),
         background: `${theme.colors.dark_gray} url(${Hand}) bottom right no-repeat`,
+        color: theme.colors.text_title_light,
       })}
     >
       <div css={{ width: "50%" }}>
-        <h3
-          css={(theme) => ({
-            color: theme.colors.text_title_light,
-          })}
-        >
-          Augmented Reality
-        </h3>
-        <p
-          css={(theme) => ({
-            color: theme.colors.text_title_light,
-            fontSize: 22,
-            lineHeight: 1.5,
-          })}
-        >
+        <Text component="h3">Augmented Reality</Text>
+        <Text variant="body2">
           Hover the card to see animation. Click to read the story behind the
           artwork. Playing Arts is a collective art project for creative people
           who are into Art, Playing Cards, NFTs and sometimes magic.
-        </p>
-        <div
+        </Text>
+        <Line spacing={3} />
+        <Text
+          component="h6"
           css={(theme) => ({
             color: theme.colors.text_subtitle_light,
-            fontSize: 18,
-            lineHeight: "30px",
-            textTransform: "uppercase",
-            paddingTop: theme.spacing(3),
-            marginTop: theme.spacing(3),
-            borderTop: "2px solid rgba(255, 255, 255, 0.07)",
+            margin: 0,
           })}
         >
           Download the app
-        </div>
+        </Text>
         <div
           css={(theme) => ({ marginTop: theme.spacing(2), display: "flex" })}
         >
@@ -60,7 +47,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
           </Button>
         </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

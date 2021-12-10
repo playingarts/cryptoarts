@@ -6,6 +6,7 @@ import Pinterest from "../Icons/Pinterest";
 import Text from "../Text";
 import Arrow from "../Icons/Arrow";
 import Button from "../Button";
+import Line from "../Line";
 
 const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
   return (
@@ -146,15 +147,13 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           </Text>
         </form>
       </div>
+      <Line spacing={4} />
       <div
-        css={(theme) => ({
-          paddingTop: theme.spacing(4),
-          marginTop: theme.spacing(7),
-          borderTop: "2px solid rgba(0, 0, 0, 0.1)",
+        css={{
           color: "rgba(0, 0, 0, 0.25)",
           fontSize: 14,
           display: "flex",
-        })}
+        }}
       >
         <div css={{ flexGrow: 1 }}>
           <Text variant="h5" component="h2">

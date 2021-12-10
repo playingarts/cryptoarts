@@ -1,6 +1,7 @@
 import { Interpolation, Theme } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 import Button, { Props as ButtonProps } from "../Button";
+import Line from "../Line";
 import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -31,12 +32,10 @@ const BlockTitle: FC<Props> = ({
         {titleText}
       </Text>
       <div
-        css={(theme) => ({
-          paddingBottom: theme.spacing(3),
-          borderBottom: "2px solid rgba(0, 0, 0, 0.07)",
+        css={{
           display: "flex",
           justifyContent: "space-between",
-        })}
+        }}
       >
         <Text css={{ margin: 0 }} variant="body2">
           {subTitleText}
@@ -49,6 +48,7 @@ const BlockTitle: FC<Props> = ({
           </div>
         )}
       </div>
+      <Line css={{ marginBottom: 0 }} spacing={3} />
     </div>
   );
 };
