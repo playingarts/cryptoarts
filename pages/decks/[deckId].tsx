@@ -92,17 +92,18 @@ const Home: NextPage = () => {
           })}
         >
           <Box padding={2}>
-            <Text component="h1">Crypto Edition</Text>
-            <Text variant="body3">
-              A deck of playing cards featuring works of 55 leading artists.
-              Unique digital art collectibles living on the Ethereum blockchain.
-            </Text>
+            <Text component="h1">{deck.title}</Text>
+            <Text variant="body3">{deck.info}</Text>
             <Line spacing={3} />
             <DeckNav
               deckId={deck.slug}
               refs={{ cardsRef, deckRef, galleryRef }}
               links={{
-                opensea: "/opensea",
+                ...(deck.slug === "crypto"
+                  ? {
+                      opensea: "/opensea",
+                    }
+                  : { buyNow: "/buyNow" }),
                 share: "/share",
                 shop: "/shop",
               }}

@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes, RefObject } from "react";
 import Button from "../Button";
+import Bag from "../Icons/Bag";
 import Opensea from "../Icons/Opensea";
 import Share from "../Icons/Share";
 import Link from "../Link";
@@ -13,6 +14,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     galleryRef?: RefObject<HTMLElement>;
   };
   links: {
+    buyNow?: string;
     opensea?: string;
     share?: string;
     shop?: string;
@@ -54,6 +56,18 @@ const DeckNav: FC<Props> = ({ links, deckId, refs, ...props }) => {
           })}
         >
           opensea
+        </Button>
+      )}
+      {links.buyNow && (
+        <Button
+          component={Link}
+          href={links.buyNow}
+          Icon={Bag}
+          css={(theme) => ({
+            marginRight: theme.spacing(2),
+          })}
+        >
+          Buy now
         </Button>
       )}
       {links.share && (
