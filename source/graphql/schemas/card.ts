@@ -16,6 +16,7 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
 export const Card = (models.Card as Model<MongoCard>) || model("Card", schema);
 
 const getDeckCards = (deck?: string) => Card.find({ deck });
+const getCard = (id: string) => Card.findById(id);
 
 export const resolvers: GQL.Resolvers = {
   Query: {
@@ -24,6 +25,12 @@ export const resolvers: GQL.Resolvers = {
         "artist",
         "deck",
       ]) as unknown) as Promise<GQL.Card[]>;
+    },
+    card: (_, { id }) => {
+      return (getCard(id).populate([
+        "artist",
+        "deck",
+      ]) as unknown) as Promise<GQL.Card>;
     },
   },
 };
