@@ -6819,7 +6819,7 @@ const dump = async () => {
       },
     },
     {
-      slug: "mr-kone",
+      slug: "mr.-kone",
       name: "Mr. Kone",
       country: "United States",
       info:
@@ -7544,7 +7544,7 @@ const dump = async () => {
       },
     },
     {
-      slug: "velvetspectrum",
+      slug: "velvet-spectrum",
       name: "Velvet Spectrum",
       country: "Australia",
       info:

@@ -1,12 +1,12 @@
-import { Artist } from "../source/graphql/schemas/artist";
 import { Card } from "../source/graphql/schemas/card";
 import { Deck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
+import { createDeck } from "./_utils";
 
 const dump = async () => {
   await connect();
 
-  const slug = "two";
+  const slug = "special";
   const currentDeck = await Deck.findOne({ slug });
 
   if (currentDeck) {
@@ -21,9 +21,7 @@ const dump = async () => {
       "537 artists from 67 countries participated in design contest, showing their vision of the custom playing cards. Each contestant was asked to create an artwork for one particular card in their distinct style.",
   };
 
-  const newDeck = await Deck.create(deck);
-
-  let cards = [
+  const cards = [
     {
       video: "",
       img:
@@ -634,23 +632,7 @@ const dump = async () => {
     },
   ];
 
-  cards = await Promise.all(
-    cards.map(async (card) => {
-      let artist = card.artist;
-
-      if (card.artist) {
-        const { _id } = (await Artist.findOne({ slug: card.artist })) || {
-          _id: undefined,
-        };
-
-        artist = _id;
-      }
-
-      return { ...card, artist, deck: newDeck._id };
-    })
-  );
-
-  await Card.insertMany(cards);
+  await createDeck(deck, cards);
 };
 
 export default dump;

@@ -1,7 +1,7 @@
-import { Artist } from "../source/graphql/schemas/artist";
 import { Card } from "../source/graphql/schemas/card";
 import { Deck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
+import { createDeck } from "./_utils";
 
 const dump = async () => {
   await connect();
@@ -21,9 +21,7 @@ const dump = async () => {
       "Edition Zero was released in 2012 and marked the beginning of Playing Arts series. Now we are bringing it back, powering by beautiful animations in Augmented Reality from today’s leading motion designers.",
   };
 
-  const newDeck = await Deck.create(deck);
-
-  let cards = [
+  const cards = [
     {
       artist: "raul-urias",
       info: "",
@@ -587,7 +585,7 @@ const dump = async () => {
     },
 
     {
-      artist: "mr-kone",
+      artist: "mr.-kone",
       info: "",
       suit: "spades",
       value: "k",
@@ -725,23 +723,7 @@ const dump = async () => {
     },
   ];
 
-  cards = await Promise.all(
-    cards.map(async (card) => {
-      let artist = card.artist;
-
-      if (card.artist) {
-        const { _id } = (await Artist.findOne({ slug: card.artist })) || {
-          _id: undefined,
-        };
-
-        artist = _id;
-      }
-
-      return { ...card, artist, deck: newDeck._id };
-    })
-  );
-
-  await Card.insertMany(cards);
+  await createDeck(deck, cards);
 };
 
 export default dump;

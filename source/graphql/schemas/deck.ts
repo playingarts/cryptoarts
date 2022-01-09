@@ -1,6 +1,8 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model } from "mongoose";
 
+export type MongoDeck = Omit<GQL.Deck, "">;
+
 const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   title: String,
   slug: String,

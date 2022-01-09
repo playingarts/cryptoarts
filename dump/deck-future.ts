@@ -1,12 +1,12 @@
-import { Artist } from "../source/graphql/schemas/artist";
 import { Card } from "../source/graphql/schemas/card";
 import { Deck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
+import { createDeck } from "./_utils";
 
 const dump = async () => {
   await connect();
 
-  const slug = "two";
+  const slug = "future";
   const currentDeck = await Deck.findOne({ slug });
 
   if (currentDeck) {
@@ -21,9 +21,7 @@ const dump = async () => {
       "299 international artists, designers and studios were using playing card as a canvas to illustrate their vision of what the world will look like 100 years from now. Selected artworks formed two Future Edition decks.",
   };
 
-  const newDeck = await Deck.create(deck);
-
-  let cards = [
+  const cards = [
     {
       video: "",
       img:
@@ -645,23 +643,7 @@ const dump = async () => {
     },
   ];
 
-  cards = await Promise.all(
-    cards.map(async (card) => {
-      let artist = card.artist;
-
-      if (card.artist) {
-        const { _id } = (await Artist.findOne({ slug: card.artist })) || {
-          _id: undefined,
-        };
-
-        artist = _id;
-      }
-
-      return { ...card, artist, deck: newDeck._id };
-    })
-  );
-
-  await Card.insertMany(cards);
+  await createDeck(deck, cards);
 };
 
 export default dump;

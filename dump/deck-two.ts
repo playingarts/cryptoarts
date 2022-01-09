@@ -1,7 +1,8 @@
-import { Artist } from "../source/graphql/schemas/artist";
 import { Card } from "../source/graphql/schemas/card";
 import { Deck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
+import { createDeck } from "./_utils";
+
 const dump = async () => {
   await connect();
 
@@ -20,14 +21,12 @@ const dump = async () => {
       "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
   };
 
-  const newDeck = await Deck.create(deck);
-
-  let cards = [
+  const cards = [
     {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-clubs-jonathan-calugi.jpg",
-      artist: "Jonathan Calugi",
+      artist: "jonathan-calugi",
       value: "2",
       suit: "clubs",
       info: "",
@@ -37,7 +36,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-diamonds-jon-lau.jpg",
-      artist: "Jon Lau",
+      artist: "jon-lau",
       value: "2",
       suit: "diamonds",
       info: "",
@@ -47,7 +46,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-hearts-maria-gronlund.jpg",
-      artist: "Maria Grønlund",
+      artist: "maria-grønlund",
       value: "2",
       suit: "hearts",
       info: "",
@@ -57,7 +56,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-spades-fictive-artist.jpg",
-      artist: "Fictive Artist",
+      artist: "fictive-artist",
       value: "2",
       suit: "spades",
       info: "",
@@ -67,7 +66,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/3-of-clubs-tamer-koseli.jpg",
-      artist: "Tamer Köseli",
+      artist: "tamer-köseli",
       value: "3",
       suit: "clubs",
       info: "",
@@ -77,7 +76,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/3-of-diamonds-zipeng-zhu.gif.jpg",
-      artist: "Zipeng Zhu",
+      artist: "zipeng-zhu",
       value: "3",
       suit: "diamonds",
       info: "",
@@ -87,7 +86,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/3-of-hearts-oscar-ramos.jpg",
-      artist: "Oscar Ramos",
+      artist: "oscar-ramos",
       value: "3",
       suit: "hearts",
       info: "",
@@ -97,7 +96,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/3-of-spades-steven-wilson.jpg",
-      artist: "Steven Wilson",
+      artist: "steven-wilson",
       value: "3",
       suit: "spades",
       info: "",
@@ -107,7 +106,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-clubs-jeff-rogers.jpg",
-      artist: "Jeff Rogers",
+      artist: "jeff-rogers",
       value: "4",
       suit: "clubs",
       info: "",
@@ -117,7 +116,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-diamonds-foreal.jpg",
-      artist: "FOREAL™",
+      artist: "foreal™",
       value: "4",
       suit: "diamonds",
       info: "",
@@ -127,7 +126,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-hearts-steve-simpson.jpg",
-      artist: "Steve Simpson",
+      artist: "steve-simpson",
       value: "4",
       suit: "hearts",
       info: "",
@@ -137,7 +136,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-spades-anton-repponen.jpg",
-      artist: "Anton Repponen",
+      artist: "anton-repponen",
       value: "4",
       suit: "spades",
       info: "",
@@ -147,7 +146,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/5-of-clubs-mikey-burton.jpg",
-      artist: "Mikey Burton",
+      artist: "mikey-burton",
       value: "5",
       suit: "clubs",
       info: "",
@@ -157,7 +156,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/5-of-diamonds-patrick-seymour.jpg",
-      artist: "Patrick Seymour",
+      artist: "patrick-seymour",
       value: "5",
       suit: "diamonds",
       info: "",
@@ -167,7 +166,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/5-of-hearts-charles-williams.jpg",
-      artist: "Charles Williams",
+      artist: "charles-williams",
       value: "5",
       suit: "hearts",
       info: "",
@@ -177,7 +176,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/5-of-spades-gabriel-moreno.jpg",
-      artist: "Gabriel Moreno",
+      artist: "gabriel-moreno",
       value: "5",
       suit: "spades",
       info: "",
@@ -187,7 +186,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/6-of-clubs-migthy-short.jpg",
-      artist: "MIGHTY SHORT",
+      artist: "mighty-short",
       value: "6",
       suit: "clubs",
       info: "",
@@ -197,7 +196,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/6-of-diamonds-ian-jepson.jpg",
-      artist: "Ian Jepson",
+      artist: "ian-jepson",
       value: "6",
       suit: "diamonds",
       info: "",
@@ -207,7 +206,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/6-of-hearts-freak-city.jpg",
-      artist: "FREAK CITY",
+      artist: "freak-city",
       value: "6",
       suit: "hearts",
       info: "",
@@ -217,7 +216,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/6-of-spades-zansky.jpg",
-      artist: "Zansky",
+      artist: "zansky",
       value: "6",
       suit: "spades",
       info: "",
@@ -227,7 +226,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/7-of-clubs-adhemas-batista.jpg",
-      artist: "Adhemas Batista",
+      artist: "adhemas-batista",
       value: "7",
       suit: "clubs",
       info: "",
@@ -237,7 +236,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/7-of-diamonds-sakiroo.jpg",
-      artist: "Sakiroo",
+      artist: "sakiroo",
       value: "7",
       suit: "diamonds",
       info: "",
@@ -247,7 +246,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/7-of-hearts-antoni-tudisco.jpg",
-      artist: "Antoni Tudisco",
+      artist: "antoni-tudisco",
       value: "7",
       suit: "hearts",
       info: "",
@@ -257,7 +256,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/7-of-spades-chocotoy.jpg",
-      artist: "Choco Toy",
+      artist: "choco-toy",
       value: "7",
       suit: "spades",
       info: "",
@@ -267,7 +266,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-clubs-zutto.jpg",
-      artist: "Zutto",
+      artist: "zutto",
       value: "8",
       suit: "clubs",
       info: "",
@@ -277,7 +276,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-diamonds-mathis-rekowski.jpg",
-      artist: "Mathis Rekowski",
+      artist: "mathis-rekowski",
       value: "8",
       suit: "diamonds",
       info: "",
@@ -287,7 +286,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-hearts-van-orton-design.jpg",
-      artist: "Van Orton Design",
+      artist: "van-orton-design",
       value: "8",
       suit: "hearts",
       info: "",
@@ -297,7 +296,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-spades-rubens-scarelli.jpg",
-      artist: "Rubens Scarelli",
+      artist: "rubens-scarelli",
       value: "8",
       suit: "spades",
       info: "",
@@ -307,7 +306,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/9-of-clubs-skinpop-studio.jpg",
-      artist: "SKINPOP STUDIO",
+      artist: "skinpop-studio",
       value: "9",
       suit: "clubs",
       info: "",
@@ -317,7 +316,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/9-of-diamonds-viktor-miller-gausa.jpg",
-      artist: "Viktor Miller-Gausa",
+      artist: "viktor-miller-gausa",
       value: "9",
       suit: "diamonds",
       info: "",
@@ -327,7 +326,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/9-of-hearts-irina-vinnik.jpg",
-      artist: "Irina Vinnik",
+      artist: "irina-vinnik",
       value: "9",
       suit: "hearts",
       info: "",
@@ -337,7 +336,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/9-of-spades-pichet-rujivararat.jpg",
-      artist: "Pichet Rujivararat",
+      artist: "pichet-rujivararat",
       value: "9",
       suit: "spades",
       info: "",
@@ -347,7 +346,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/10-of-clubs-mike-creative-mints.jpg",
-      artist: "Mike / Creative Mints",
+      artist: "mike-/-creative-mints",
       value: "10",
       suit: "clubs",
       info: "",
@@ -357,7 +356,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/10-of-diamonds-kerby-rosanes.jpg",
-      artist: "Kerby Rosanes",
+      artist: "kerby-rosanes",
       value: "10",
       suit: "diamonds",
       info: "",
@@ -367,7 +366,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/10-of-hearts-david-sossella.jpg",
-      artist: "David Sossella",
+      artist: "david-sossella",
       value: "10",
       suit: "hearts",
       info: "",
@@ -377,7 +376,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/10-of-spades-marcelo-schultz.jpg",
-      artist: "Marcelo Schultz",
+      artist: "marcelo-schultz",
       value: "10",
       suit: "spades",
       info: "",
@@ -387,7 +386,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/jack-of-clubs-yury-ustsinau.jpg",
-      artist: "Yury Ustsinau",
+      artist: "yury-ustsinau",
       value: "j",
       suit: "clubs",
       info: "",
@@ -397,7 +396,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/jack-of-diamonds-stavros-damos.jpg",
-      artist: "Stavros Damos",
+      artist: "stavros-damos",
       value: "j",
       suit: "diamonds",
       info: "",
@@ -407,7 +406,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/jack-of-hearts-julian-ardila.jpg",
-      artist: "Julian Ardila",
+      artist: "julian-ardila",
       value: "j",
       suit: "hearts",
       info: "",
@@ -417,7 +416,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/jack-of-spades-peter-donnelly.jpg",
-      artist: "Peter Donnelly",
+      artist: "peter-donnelly",
       value: "j",
       suit: "spades",
       info: "",
@@ -427,7 +426,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/queen-of-clubs-raphael-vicenzi.jpg",
-      artist: "Raphaël Vicenzi",
+      artist: "raphael-vicenzi",
       value: "q",
       suit: "clubs",
       info: "",
@@ -437,7 +436,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/queen-of-diamonds-pablo-jurado-ruiz.jpg",
-      artist: "Pablo Jurado Ruiz",
+      artist: "pablo-jurado-ruiz",
       value: "q",
       suit: "diamonds",
       info: "",
@@ -447,7 +446,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/queen-of-hearts-orlando-arocena.jpg",
-      artist: "Orlando Arocena",
+      artist: "orlando-arocena",
       value: "q",
       suit: "hearts",
       info: "",
@@ -457,7 +456,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/queen-of-spades-zso-sara-blake.jpg",
-      artist: "ZSO (Sara Blake)",
+      artist: "zso-(sara-blake)",
       value: "q",
       suit: "spades",
       info: "",
@@ -467,7 +466,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/king-of-clubs-burak-senturk.jpg",
-      artist: "Burak Sentürk",
+      artist: "burak-sentürk",
       value: "k",
       suit: "clubs",
       info: "",
@@ -477,7 +476,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/king-of-diamonds-alexis-marcou.jpg",
-      artist: "Alexis Marcou",
+      artist: "alexis-marcou",
       value: "k",
       suit: "diamonds",
       info: "",
@@ -487,7 +486,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/king-of-hearts-yoaz.jpg",
-      artist: "YoAz",
+      artist: "yoaz",
       value: "k",
       suit: "hearts",
       info: "",
@@ -497,7 +496,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/king-of-spades-yeaaah-studio.jpg",
-      artist: "Yeaaah! Studio",
+      artist: "yeaaah!-studio",
       value: "k",
       suit: "spades",
       info: "",
@@ -507,7 +506,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/ace-of-clubs-andreas-preis.jpg",
-      artist: "Andreas Preis",
+      artist: "andreas-preis",
       value: "a",
       suit: "clubs",
       info: "",
@@ -517,7 +516,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/ace-of-diamonds-joshua-davis.jpg",
-      artist: "Joshua Davis",
+      artist: "joshua-davis",
       value: "a",
       suit: "diamonds",
       info: "",
@@ -527,7 +526,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/ace-of-hearts-studio-blup.jpg",
-      artist: "STUDIO BLUP",
+      artist: "studio-blup",
       value: "a",
       suit: "hearts",
       info: "",
@@ -537,7 +536,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/ace-of-spades-ars-thanea.jpg",
-      artist: "Ars Thanea",
+      artist: "ars-thanea",
       value: "a",
       suit: "spades",
       info: "",
@@ -547,7 +546,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/joker-zombie-yeti.jpg",
-      artist: "Zombie Yeti",
+      artist: "zombie-yeti",
       value: "joker",
       suit: "black",
       info: "",
@@ -558,7 +557,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/_backside-danny-ivan.jpg",
-      artist: "Danny Ivan",
+      artist: "danny-ivan",
       value: "",
       suit: "",
       info: "",
@@ -569,7 +568,7 @@ const dump = async () => {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/joker-amrei-hofstatter.jpg",
-      artist: "Amrei Hofstätter",
+      artist: "amrei-hofstätter",
       value: "joker",
       suit: "red",
       info: "",
@@ -578,23 +577,7 @@ const dump = async () => {
     },
   ];
 
-  cards = await Promise.all(
-    cards.map(async (card) => {
-      let artist = card.artist;
-
-      if (card.artist) {
-        const { _id } = (await Artist.findOne({ slug: card.artist })) || {
-          _id: undefined,
-        };
-
-        artist = _id;
-      }
-
-      return { ...card, artist, deck: newDeck._id };
-    })
-  );
-
-  await Card.insertMany(cards);
+  await createDeck(deck, cards);
 };
 
 export default dump;

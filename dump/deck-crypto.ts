@@ -1,7 +1,7 @@
-import { Artist } from "../source/graphql/schemas/artist";
 import { Card } from "../source/graphql/schemas/card";
 import { Deck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
+import { createDeck } from "./_utils";
 
 const dump = async () => {
   await connect();
@@ -20,9 +20,7 @@ const dump = async () => {
     info: "",
   };
 
-  const newDeck = await Deck.create(deck);
-
-  let cards = [
+  const cards = [
     {
       artist: "leonardoworx",
       info:
@@ -114,7 +112,7 @@ const dump = async () => {
     },
 
     {
-      artist: "velvetspectrum",
+      artist: "velvet-spectrum",
       info:
         "“A mergance with the digital world, where ideas become the currency.”",
       suit: "clubs",
@@ -857,23 +855,7 @@ const dump = async () => {
     },
   ];
 
-  cards = await Promise.all(
-    cards.map(async (card) => {
-      let artist = card.artist;
-
-      if (card.artist) {
-        const { _id } = (await Artist.findOne({ slug: card.artist })) || {
-          _id: undefined,
-        };
-
-        artist = _id;
-      }
-
-      return { ...card, artist, deck: newDeck._id };
-    })
-  );
-
-  await Card.insertMany(cards);
+  await createDeck(deck, cards);
 };
 
 export default dump;

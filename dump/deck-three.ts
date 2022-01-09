@@ -1,11 +1,12 @@
-import { Artist } from "../source/graphql/schemas/artist";
 import { Card } from "../source/graphql/schemas/card";
 import { Deck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
+import { createDeck } from "./_utils";
+
 const dump = async () => {
   await connect();
 
-  const slug = "two";
+  const slug = "three";
   const currentDeck = await Deck.findOne({ slug });
 
   if (currentDeck) {
@@ -20,9 +21,7 @@ const dump = async () => {
       "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
   };
 
-  const newDeck = await Deck.create(deck);
-
-  let cards = [
+  const cards = [
     {
       img:
         "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/2-of-clubs-riccardo-guasco.jpg?2",
@@ -645,23 +644,7 @@ const dump = async () => {
     },
   ];
 
-  cards = await Promise.all(
-    cards.map(async (card) => {
-      let artist = card.artist;
-
-      if (card.artist) {
-        const { _id } = (await Artist.findOne({ slug: card.artist })) || {
-          _id: undefined,
-        };
-
-        artist = _id;
-      }
-
-      return { ...card, artist, deck: newDeck._id };
-    })
-  );
-
-  await Card.insertMany(cards);
+  await createDeck(deck, cards);
 };
 
 export default dump;

@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model, Types } from "mongoose";
 
-type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
+export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
   artist?: string;
   deck?: string;
 };
