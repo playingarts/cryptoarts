@@ -2,11 +2,15 @@ import { FC, HTMLAttributes } from "react";
 import Line from "../Line";
 import Link from "../Link";
 import Text from "../Text";
+import Truncate from "../Truncate";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   withLine?: boolean;
   moreLink?: string;
   artist?: GQL.Artist;
+  vertical?: boolean;
+  fullArtist?: boolean;
+  truncate?: number;
 }
 
 const Quote: FC<Props> = ({
@@ -14,16 +18,31 @@ const Quote: FC<Props> = ({
   withLine,
   moreLink,
   artist,
+  vertical,
+  fullArtist,
+  truncate,
   ...props
 }) => {
   return (
     <div {...props}>
       {withLine && <Line css={{ marginTop: 0 }} spacing={6} />}
-      <div style={{ display: "flex" }}>
+      <div
+        style={{
+          display: "flex",
+          ...(vertical ? { flexDirection: "column" } : {}),
+        }}
+      >
         <div>
-          <Text css={{ margin: 0 }} variant="body3">
-            {children}
-          </Text>
+          {truncate ? (
+            <Truncate lines={truncate} variant="body3" css={{ marginTop: 0 }}>
+              {children}
+            </Truncate>
+          ) : (
+            <Text css={{ margin: 0 }} variant="body3">
+              {children}
+            </Text>
+          )}
+
           {moreLink && (
             <Text
               component={Link}
@@ -42,12 +61,53 @@ const Quote: FC<Props> = ({
         {artist && (
           <div
             css={(theme) => ({
-              marginLeft: theme.spacing(13.5),
-              width: theme.spacing(22.5),
-              flexShrink: 0,
+              ...(vertical
+                ? {}
+                : {
+                    marginLeft: theme.spacing(13.5),
+                    width: theme.spacing(22.5),
+                    flexShrink: 0,
+                  }),
             })}
           >
-            <Text variant="h5">{artist.name}</Text>
+            {vertical && <Line spacing={4} />}
+            <div css={{ display: "flex", alignItems: "top" }}>
+              {fullArtist && (
+                <div
+                  css={(theme) => ({
+                    width: theme.spacing(7.5),
+                    height: theme.spacing(7.5),
+                    backgroundImage: `url(${artist.userpic})`,
+                    backgroundSize: "cover",
+                    borderRadius: "50%",
+                    marginRight: theme.spacing(3),
+                    flexShrink: 0,
+                  })}
+                />
+              )}
+              <div>
+                <Text
+                  variant="h5"
+                  css={(theme) => ({
+                    marginTop: theme.spacing(1.2),
+                    marginBottom: theme.spacing(1.2),
+                  })}
+                >
+                  {artist.name}
+                </Text>
+                {fullArtist && (
+                  <Truncate
+                    variant="body2"
+                    lines={2}
+                    css={{
+                      marginTop: 0,
+                    }}
+                  >
+                    {artist.info}
+                  </Truncate>
+                )}
+              </div>
+            </div>
           </div>
         )}
       </div>

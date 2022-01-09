@@ -30,3 +30,21 @@ WithProps.args = {
     name: "victor vector",
   },
 };
+
+export const Vertical = Template.bind({});
+Vertical.args = {
+  children:
+    "“Two is a sign of union. And diamonds are a sign of prosperity. I wanted to show the duality using my Ugly character wearing a twofaced mask.”",
+  artist: {
+    _id: "",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/upics/glasscrane.jpg",
+    slug: "",
+    social: {},
+    info: "Info text",
+    name: "victor vector",
+  },
+  truncate: 1,
+  fullArtist: true,
+  vertical: true,
+};

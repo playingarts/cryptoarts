@@ -1,6 +1,12 @@
-import { FC, HTMLAttributes } from "react";
+import {
+  FC,
+  forwardRef,
+  ForwardRefRenderFunction,
+  HTMLAttributes,
+} from "react";
 import { theme } from "../../pages/_app";
 import { Props as LinkProps } from "../Link";
+import { Props as ButtonProps } from "../Button";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   component?:
@@ -15,29 +21,40 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     | "label"
     | "dt"
     | "dd"
-    | FC<LinkProps>;
+    | "button"
+    | FC<LinkProps>
+    | FC<ButtonProps>;
   variant?: keyof typeof theme.typography;
   href?: LinkProps["href"];
 }
 
-const Text: FC<Props> = ({
-  component: Component = "p",
-  variant = Component === "h1" ||
-  Component === "h2" ||
-  Component === "h3" ||
-  Component === "h4" ||
-  Component === "h5" ||
-  Component === "h6"
-    ? Component
-    : "body",
-  children,
-  href,
-  ...props
-}) => {
+const Text: ForwardRefRenderFunction<any, Props> = (
+  {
+    component: Component = "p",
+    variant = Component === "h1" ||
+    Component === "h2" ||
+    Component === "h3" ||
+    Component === "h4" ||
+    Component === "h5" ||
+    Component === "h6"
+      ? Component
+      : "body",
+    children,
+    href,
+    ...props
+  },
+  ref
+) => {
   return (
     <Component
+      ref={ref}
       href={href as URL}
       {...props}
+      style={
+        Component === "button"
+          ? { background: "none", padding: 0, color: "currentcolor", border: 0 }
+          : {}
+      }
       css={(theme) => theme.typography[variant]}
     >
       {children}
@@ -45,4 +62,4 @@ const Text: FC<Props> = ({
   );
 };
 
-export default Text;
+export default forwardRef(Text);

@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import { ClassNames, Theme, CSSObject } from "@emotion/react";
@@ -11,14 +11,20 @@ export interface Props
   activeCss?: ((_: Theme) => CSSInterpolation) | CSSObject;
 }
 
-const Link: FC<Props> = ({
-  component: Component = "a",
-  children,
-  style,
-  activeCss,
-  className,
-  ...props
-}) => {
+const Link: ForwardRefRenderFunction<
+  HTMLAnchorElement | HTMLButtonElement,
+  Props
+> = (
+  {
+    component: Component = "a",
+    children,
+    style,
+    activeCss,
+    className,
+    ...props
+  },
+  ref
+) => {
   const router = useRouter();
   const {
     href,
@@ -47,6 +53,7 @@ const Link: FC<Props> = ({
         >
           <Component
             {...other}
+            ref={ref as any}
             style={{ ...style, textDecoration: "none" }}
             className={cx(
               className,
@@ -65,4 +72,4 @@ const Link: FC<Props> = ({
   );
 };
 
-export default Link;
+export default forwardRef(Link);

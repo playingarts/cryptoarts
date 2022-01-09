@@ -12,8 +12,13 @@ const Template: ComponentStory<typeof CardInfo> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  author: "Victor Vector",
-  location: "Russia",
+  artist: {
+    _id: "",
+    name: "Victor Vector",
+    slug: "",
+    userpic: "",
+    social: {},
+  },
 };
 
 const TemplateBlack: ComponentStory<typeof CardInfo> = (args) => (

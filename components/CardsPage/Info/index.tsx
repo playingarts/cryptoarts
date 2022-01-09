@@ -7,17 +7,16 @@ import Share from "../../Icons/Share";
 import Line from "../../Line";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  author: string;
-  location: string;
+  artist: GQL.Artist;
   price: number;
 }
 
-const CardInfo: FC<Props> = ({ author, location, price, ...props }) => {
+const CardInfo: FC<Props> = ({ artist, price, ...props }) => {
   return (
     <div {...props}>
-      <Text component="h2">{author}</Text>
+      <Text component="h2">{artist.name}</Text>
       <Text component="div" variant="h6">
-        {location}
+        {"Russia"}
       </Text>
       {price && (
         <Fragment>

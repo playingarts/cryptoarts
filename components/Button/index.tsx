@@ -1,5 +1,11 @@
 import { Interpolation, Theme } from "@emotion/react";
-import { ButtonHTMLAttributes, FC, HTMLAttributes } from "react";
+import {
+  ButtonHTMLAttributes,
+  FC,
+  forwardRef,
+  ForwardRefRenderFunction,
+  HTMLAttributes,
+} from "react";
 import { Props as LinkProps } from "../Link";
 
 export interface Props extends Omit<LinkProps, "component" | "href"> {
@@ -13,19 +19,23 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   size?: "small" | "normal";
 }
 
-const Button: FC<Props> = ({
-  component: Component = "button",
-  Icon,
-  href,
-  iconProps,
-  children,
-  size = "normal",
-  variant = "default",
-  ...props
-}) => {
+const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  {
+    component: Component = "button",
+    Icon,
+    href,
+    iconProps,
+    children,
+    size = "normal",
+    variant = "default",
+    ...props
+  },
+  ref
+) => {
   return (
     <Component
       {...props}
+      ref={ref}
       href={href as URL}
       css={(theme) => [
         {
@@ -81,4 +91,4 @@ const Button: FC<Props> = ({
   );
 };
 
-export default Button;
+export default forwardRef(Button);

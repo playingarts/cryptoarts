@@ -1,10 +1,10 @@
 import Head from "next/head";
-import { Fragment, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { NextPage } from "next";
 import { useDeck } from "../../hooks/deck";
 import Layout from "../../components/Layout";
 import { withApollo } from "../../source/apollo";
-import { useCards } from "../../hooks/card";
+import { useLoadCard, useLoadCards } from "../../hooks/card";
 import { useRouter } from "next/router";
 import Header from "../../components/Header";
 import CardsBlock from "../../components/CardsBlock";
@@ -25,20 +25,39 @@ import FastCompany from "../../components/Icons/FastCompany";
 import CreativeBloq from "../../components/Icons/CreativeBloq";
 import DigitalArts from "../../components/Icons/DigitalArts";
 import Quote from "../../components/Quote";
+import Card from "../../components/Card";
+import CardInfo from "../../components/CardsPage/Info";
 
 const Home: NextPage = () => {
   const {
     query: { cardId, deckId },
   } = useRouter();
   const { deck } = useDeck({ variables: { slug: deckId } });
-  const { cards, loading } = useCards({
-    variables: {
-      deck: deck ? deck._id : "",
-    },
-  });
+  const { loadCards, cards, loading } = useLoadCards();
+  const { loadCard, card } = useLoadCard();
   const galleryRef = useRef<HTMLElement>(null);
   const deckRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (cardId) {
+      loadCard({
+        variables: {
+          id: cardId,
+        },
+      });
+    }
+  }, [cardId, loadCard]);
+
+  useEffect(() => {
+    if (deck) {
+      loadCards({
+        variables: {
+          deck: deck._id,
+        },
+      });
+    }
+  }, [deck, loadCards]);
 
   if (loading || !cards || !deck) {
     return null;
@@ -77,8 +96,66 @@ const Home: NextPage = () => {
           nextLink="/next"
           closeLink={`/decks/${deck.slug}`}
         >
-          <Layout>
-            <div style={{ height: 1500 }} />
+          <Layout
+            css={(theme) => ({
+              paddingBottom: theme.spacing(14),
+              paddingTop: theme.spacing(14),
+            })}
+          >
+            {card && (
+              <Fragment>
+                <div
+                  css={{
+                    display: "flex",
+                    alignItems: "top",
+                  }}
+                >
+                  <div
+                    css={{
+                      width: "50%",
+                    }}
+                  >
+                    {card && (
+                      <Card
+                        card={card}
+                        css={{
+                          marginLeft: "auto",
+                          marginRight: "auto",
+                          position: "sticky",
+                          top: 140,
+                        }}
+                      />
+                    )}
+                  </div>
+                  <div css={{ width: "50%" }}>
+                    <div
+                      css={{
+                        height: 400,
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <CardInfo
+                        artist={card.artist}
+                        price={1}
+                        css={{ flexGrow: 1 }}
+                      />
+                    </div>
+                    <Quote
+                      fullArtist={true}
+                      artist={card.artist}
+                      css={(theme) => ({
+                        marginTop: theme.spacing(9),
+                      })}
+                      vertical={true}
+                      truncate={7}
+                    >
+                      {card.info}
+                    </Quote>
+                  </div>
+                </div>
+              </Fragment>
+            )}
           </Layout>
         </CardNav>
       )}
