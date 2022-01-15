@@ -4,7 +4,7 @@ import Discord from "../Icons/Discord";
 import Youtube from "../Icons/Youtube";
 import Pinterest from "../Icons/Pinterest";
 import Text from "../Text";
-import Arrow from "../Icons/Arrow";
+import Chevron from "../Icons/Chevron";
 import Button from "../Button";
 import Line from "../Line";
 
@@ -127,7 +127,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
             />
             <Button
               type="submit"
-              Icon={Arrow}
+              Icon={Chevron}
               iconProps={{
                 css: (theme) => ({
                   height: theme.spacing(2),

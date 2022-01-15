@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { FC, HTMLAttributes, useEffect } from "react";
 import Button from "../Button";
-import Arrow from "../Icons/Arrow";
+import Chevron from "../Icons/Chevron";
 import Close from "../Icons/Close";
 import Link, { Props as LinkProps } from "../Link";
 
@@ -52,7 +52,7 @@ const CardNav: FC<Props> = ({
         {prevLink && (
           <Button
             component={Link}
-            Icon={Arrow}
+            Icon={Chevron}
             href={prevLink}
             css={(theme) => ({
               position: "absolute",
@@ -67,7 +67,7 @@ const CardNav: FC<Props> = ({
         {nextLink && (
           <Button
             component={Link}
-            Icon={Arrow}
+            Icon={Chevron}
             href={nextLink}
             css={(theme) => ({
               position: "absolute",

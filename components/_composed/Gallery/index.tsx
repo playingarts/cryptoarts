@@ -3,7 +3,7 @@ import BlockTitle from "../../BlockTitle";
 import Box from "../../Box";
 import Button from "../../Button";
 import Carousel, { Props as CarouselProps } from "../../Carousel";
-import Arrow from "../../Icons/Arrow";
+import Chevron from "../../Icons/Chevron";
 
 interface Props extends HTMLAttributes<HTMLElement> {}
 
@@ -40,7 +40,7 @@ const Gallery: FC<Props> = (props) => {
                 disabled={index === 0}
                 onClick={onPrev}
                 variant="bordered"
-                Icon={Arrow}
+                Icon={Chevron}
                 size="small"
                 iconProps={{
                   css: (theme) => ({
@@ -58,7 +58,7 @@ const Gallery: FC<Props> = (props) => {
                 onClick={onNext}
                 variant="bordered"
                 css={(theme) => ({ marginLeft: theme.spacing(2) })}
-                Icon={Arrow}
+                Icon={Chevron}
                 size="small"
                 iconProps={{
                   css: (theme) => ({
