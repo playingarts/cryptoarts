@@ -60,6 +60,7 @@ const Quote: FC<Props> = ({
         </div>
         {artist && (
           <div
+            key={artist.info}
             css={(theme) => ({
               ...(vertical
                 ? {}

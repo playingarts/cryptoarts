@@ -63,6 +63,12 @@ const Home: NextPage = () => {
     return null;
   }
 
+  const currentCardIndex = card
+    ? cards.findIndex(({ _id }) => _id === card._id)
+    : -2;
+  const prevCardLink = card && cards[currentCardIndex - 1];
+  const nextCardLink = card && cards[currentCardIndex + 1];
+
   return (
     <Fragment>
       <Head>
@@ -92,8 +98,18 @@ const Home: NextPage = () => {
             background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
             color: theme.colors.page_bg_light,
           })}
-          prevLink="/prev"
-          nextLink="/next"
+          prevLink={
+            prevCardLink && {
+              pathname: `/decks/${deck.slug}`,
+              query: { cardId: prevCardLink._id },
+            }
+          }
+          nextLink={
+            nextCardLink && {
+              pathname: `/decks/${deck.slug}`,
+              query: { cardId: nextCardLink._id },
+            }
+          }
           closeLink={`/decks/${deck.slug}`}
         >
           <Layout
