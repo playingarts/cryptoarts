@@ -5,12 +5,14 @@ interface Props extends HTMLAttributes<HTMLElement> {
   card: GQL.Card;
   animated?: boolean;
   isStatic?: boolean;
+  size?: "big";
 }
 
-const Card: FC<Props> = ({ card, animated, isStatic, ...props }) => {
+const Card: FC<Props> = ({ card, animated, isStatic, size, ...props }) => {
   const [hovered, setHover] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
+  const width = size === "big" ? 37 : 28.5;
 
   animated = !card.img || (animated && !!card.video);
 
@@ -35,7 +37,7 @@ const Card: FC<Props> = ({ card, animated, isStatic, ...props }) => {
           color: "rgba(10, 10, 10, 0.7)",
         },
         transition: theme.transitions.fast("color"),
-        width: theme.spacing(28.5),
+        width: theme.spacing(width),
         textAlign: "center",
         color: theme.colors.text_subtitle_dark,
         fontWeight: 500,
@@ -51,7 +53,7 @@ const Card: FC<Props> = ({ card, animated, isStatic, ...props }) => {
           overflow: "hidden",
           boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
           position: "relative",
-          height: theme.spacing(40),
+          height: theme.spacing(width * 1.405),
           borderRadius: theme.spacing(1.5),
           marginBottom: theme.spacing(2),
           background: theme.colors.dark_gray,
