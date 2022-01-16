@@ -17,6 +17,7 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   disabled?: ButtonHTMLAttributes<HTMLButtonElement>["disabled"];
   size?: "small" | "normal";
+  color?: "black";
 }
 
 const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -28,6 +29,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     children,
     size = "normal",
     variant = "default",
+    color,
     ...props
   },
   ref
@@ -55,8 +57,14 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
         },
         children
           ? {
-              color: theme.colors.page_bg_dark,
-              background: theme.colors.page_bg_light,
+              color:
+                color === "black"
+                  ? theme.colors.page_bg_light
+                  : theme.colors.page_bg_dark,
+              background:
+                color === "black"
+                  ? theme.colors.page_bg_dark
+                  : theme.colors.page_bg_light,
               fontSize: 18,
               fontWeight: 600,
               lineHeight: "50px",

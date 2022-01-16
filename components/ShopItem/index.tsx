@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import Box from "../Box";
-import Button from "../Button";
+import Button, { Props as ButtonProps } from "../Button";
 import Bag from "../Icons/Bag";
 import Text from "../Text";
 
@@ -8,9 +8,10 @@ interface Props extends HTMLAttributes<HTMLElement> {
   image: string;
   price: string;
   name: string;
+  ButtonProps: ButtonProps;
 }
 
-const ShopItem: FC<Props> = ({ image, price, name, ...props }) => {
+const ShopItem: FC<Props> = ({ image, price, name, ButtonProps, ...props }) => {
   return (
     <Box
       narrow={true}
@@ -28,6 +29,7 @@ const ShopItem: FC<Props> = ({ image, price, name, ...props }) => {
         backgroundImage: `url(${image})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
+        flexGrow: 1,
       })}
       {...props}
     >
@@ -37,7 +39,9 @@ const ShopItem: FC<Props> = ({ image, price, name, ...props }) => {
           {price}
         </Text>
       </div>
-      <Button Icon={Bag}>Add to bag</Button>
+      <Button {...ButtonProps} Icon={Bag}>
+        Add to bag
+      </Button>
     </Box>
   );
 };

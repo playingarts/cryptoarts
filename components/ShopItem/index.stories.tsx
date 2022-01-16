@@ -1,24 +1,34 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import ShopItem from "./";
-import Image from "./images/deck-zero.png";
 
 export default {
-  title: "Shop/ShopItem",
+  title: "Shop/Item",
   component: ShopItem,
 } as ComponentMeta<typeof ShopItem>;
 
 const Template: ComponentStory<typeof ShopItem> = (args) => (
-  <ShopItem
-    {...args}
-    css={(theme) => ({
-      color: theme.colors.text_title_light,
-    })}
-  />
+  <div css={(theme) => ({ color: theme.colors.text_title_light })}>
+    <ShopItem {...args} />
+  </div>
 );
 
 export const Primary = Template.bind({});
 Primary.args = {
-  image: (Image as unknown) as string,
+  image:
+    "https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg",
+  price: "€14.95",
+  name: "Zero",
+};
+
+const StretchedTemplate: ComponentStory<typeof ShopItem> = (args) => (
+  <div css={{ height: 500, display: "flex" }}>
+    <ShopItem {...args} ButtonProps={{ color: "black" }} />
+  </div>
+);
+export const StretchedDark = StretchedTemplate.bind({});
+StretchedDark.args = {
+  image:
+    "https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg",
   price: "€14.95",
   name: "Zero",
 };

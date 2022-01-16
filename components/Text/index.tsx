@@ -41,6 +41,7 @@ const Text: ForwardRefRenderFunction<any, Props> = (
       : "body",
     children,
     href,
+    color,
     ...props
   },
   ref
@@ -49,6 +50,7 @@ const Text: ForwardRefRenderFunction<any, Props> = (
     <Component
       ref={ref}
       href={href as URL}
+      color={color as any}
       {...props}
       style={
         Component === "button"
