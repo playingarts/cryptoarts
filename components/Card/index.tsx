@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   card: GQL.Card;
+  animated?: boolean;
+  isStatic?: boolean;
 }
 
-const Card: FC<Props> = ({ card, ...props }) => {
+const Card: FC<Props> = ({ card, animated, isStatic, ...props }) => {
   const [hovered, setHover] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
 
+  animated = !card.img || (animated && !!card.video);
+
   useEffect(() => {
-    if (!video.current) {
+    if (animated || !video.current) {
       return;
     }
 
@@ -21,7 +25,7 @@ const Card: FC<Props> = ({ card, ...props }) => {
     } else {
       video.current.play();
     }
-  }, [hovered]);
+  }, [hovered, animated]);
 
   return (
     <div
@@ -42,7 +46,6 @@ const Card: FC<Props> = ({ card, ...props }) => {
       onMouseLeave={() => setHover(false)}
     >
       <div
-        className={"artwork"}
         css={(theme) => ({
           transition: theme.transitions.fast("all"),
           overflow: "hidden",
@@ -54,7 +57,7 @@ const Card: FC<Props> = ({ card, ...props }) => {
           background: theme.colors.dark_gray,
         })}
         style={
-          hovered
+          !isStatic && hovered
             ? {
                 marginTop: "-20px",
                 marginBottom: "40px",
@@ -63,7 +66,7 @@ const Card: FC<Props> = ({ card, ...props }) => {
             : undefined
         }
       >
-        {(!card.video || !loaded || !hovered) && (
+        {!animated && (!card.video || !loaded || !hovered) && (
           <img src={card.img} height="100%" />
         )}
         {card.video && (
@@ -71,28 +74,20 @@ const Card: FC<Props> = ({ card, ...props }) => {
             loop
             muted
             playsInline
-            preload="none"
             ref={video}
             height="100%"
-            onLoadedData={() => setLoaded(true)}
+            {...(animated
+              ? { autoPlay: true }
+              : {
+                  onLoadedData: () => setLoaded(true),
+                  preload: "none",
+                })}
           >
             <source src={card.video} type="video/mp4" />
           </video>
         )}
       </div>
-      <div>
-        {card.artist.name}
-        {/* {card.name && (
-          <div
-            css={{
-              paddingTop: 10,
-              color: "rgba(10, 10, 10, 0.7)",
-            }}
-          >
-            {card.name}
-          </div>
-        )} */}
-      </div>
+      <div>{card.artist.name}</div>
     </div>
   );
 };
