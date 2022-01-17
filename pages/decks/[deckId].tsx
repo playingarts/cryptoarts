@@ -135,8 +135,8 @@ const Home: NextPage = () => {
                       <Card
                         card={card}
                         animated={true}
-                        isStatic={true}
                         size="big"
+                        interactive={true}
                         css={{
                           marginLeft: "auto",
                           marginRight: "auto",
