@@ -8,6 +8,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   isStatic?: boolean;
   size?: "big";
   interactive?: boolean;
+  noInfo?: boolean;
 }
 
 const Card: FC<Props> = ({
@@ -16,6 +17,7 @@ const Card: FC<Props> = ({
   isStatic,
   size,
   interactive,
+  noInfo,
   ...props
 }) => {
   const [hovered, setHover] = useState(false);
@@ -89,26 +91,23 @@ const Card: FC<Props> = ({
               position: "relative",
               height: theme.spacing(width * 1.405),
               borderRadius: theme.spacing(1.5),
-              marginBottom: theme.spacing(2),
               background: theme.colors.dark_gray,
             },
+            hovered &&
+              !interactive &&
+              !isStatic && {
+                transform: `translate(0, -${theme.spacing(2)}px)`,
+                boxShadow: "0 20px 10px rgba(0, 0, 0, 0.25)",
+              },
           ]}
           style={
             (hovered &&
-              (interactive
-                ? {
-                    transition: "initial",
-                    transform: `perspective(${theme.spacing(
-                      width
-                    )}px) rotateX(${-y * 10}deg) rotateY(${
-                      x * 10
-                    }deg) scale3d(1, 1, 1)`,
-                  }
-                : !isStatic && {
-                    marginTop: "-20px",
-                    marginBottom: "40px",
-                    boxShadow: "0 20px 10px rgba(0, 0, 0, 0.25)",
-                  })) ||
+              interactive && {
+                transition: "initial",
+                transform: `perspective(${theme.spacing(width)}px) rotateX(${
+                  -y * 10
+                }deg) rotateY(${x * 10}deg) scale3d(1, 1, 1)`,
+              }) ||
             undefined
           }
         >
@@ -134,7 +133,11 @@ const Card: FC<Props> = ({
           )}
         </div>
       </div>
-      <div>{card.artist.name}</div>
+      {!noInfo && (
+        <div css={(theme) => ({ marginTop: theme.spacing(2) })}>
+          {card.artist.name}
+        </div>
+      )}
     </div>
   );
 };
