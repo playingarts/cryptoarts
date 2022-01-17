@@ -122,6 +122,8 @@ const SoldOut: FC<Props> = ({ title, cards, ...props }) => {
                 top: 0,
                 position: index === 0 ? "relative" : "absolute",
                 zIndex: cards.length - 1 * index,
+              }}
+              style={{
                 transform: `translate3d(${index * 15 * spread}%, ${
                   Math.abs(index) * 4
                 }%, 0) rotate3d(0, 0, 1, ${index * 2.5 * spread}deg)`,
