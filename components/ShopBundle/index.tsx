@@ -11,7 +11,13 @@ interface Props extends HTMLAttributes<HTMLElement> {
   ButtonProps: ButtonProps;
 }
 
-const Bundle: FC<Props> = ({ name, price, ButtonProps, image, ...props }) => {
+const ShopBundle: FC<Props> = ({
+  name,
+  price,
+  ButtonProps,
+  image,
+  ...props
+}) => {
   return (
     <div
       {...props}
@@ -57,4 +63,4 @@ const Bundle: FC<Props> = ({ name, price, ButtonProps, image, ...props }) => {
   );
 };
 
-export default Bundle;
+export default ShopBundle;
