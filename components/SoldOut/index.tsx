@@ -31,7 +31,7 @@ const SoldOut: FC<Props> = ({ title, cards, ...props }) => {
       const { top, height } = ref.current.getBoundingClientRect();
 
       setSpread(1 + getPercent(top, height, getPercent(top, height)));
-    }, 25);
+    }, 10);
 
     document.addEventListener("scroll", calculateSpread);
     calculateSpread();
