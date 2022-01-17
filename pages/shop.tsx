@@ -25,7 +25,7 @@ const Home: NextPage = () => {
           left: theme.spacing(1),
           right: theme.spacing(1),
           top: theme.spacing(1),
-          zIndex: 2,
+          zIndex: 100,
 
           "@media (min-width: 1440px)": {
             maxWidth: theme.spacing(142),
