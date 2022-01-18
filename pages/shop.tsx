@@ -11,8 +11,12 @@ import Quote from "../components/Quote";
 import SoldOut from "../components/SoldOut";
 import BlockTitle from "../components/BlockTitle";
 import ShopBundle from "../components/ShopBundle";
+import { useBag } from "../hooks/bag";
+import BagButton from "../components/BagButton";
 
 const Home: NextPage = () => {
+  const { addItem } = useBag();
+
   return (
     <Fragment>
       <Head>
@@ -34,6 +38,7 @@ const Home: NextPage = () => {
             width: "100%",
           },
         })}
+        customShopButton={<BagButton />}
       />
 
       <Layout
@@ -48,7 +53,9 @@ const Home: NextPage = () => {
               titleText="Shop"
               subTitleText="The best way to buy the products you love. Hover the card to see
               animation. Click to read the story behind the artwork."
+              css={(theme) => ({ marginBottom: theme.spacing(3) })}
             />
+            <BagButton />
           </Box>
         </Box>
       </Layout>
@@ -60,20 +67,27 @@ const Home: NextPage = () => {
               display: "flex",
               columnGap: theme.spacing(3),
               height: theme.spacing(50),
-              boxSizing: "content-box",
             })}
           >
             <ShopItem
               image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
               price="12"
               name="name"
-              ButtonProps={{}}
+              ButtonProps={{
+                onClick: () => {
+                  addItem({});
+                },
+              }}
             />
             <ShopItem
               image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
               price="12"
               name="name"
-              ButtonProps={{}}
+              ButtonProps={{
+                onClick: () => {
+                  addItem({});
+                },
+              }}
             />
           </div>
           <Box>
@@ -105,13 +119,21 @@ const Home: NextPage = () => {
               image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
               price="12"
               name="name"
-              ButtonProps={{}}
+              ButtonProps={{
+                onClick: () => {
+                  addItem({});
+                },
+              }}
             />
             <ShopItem
               image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
               price="12"
               name="name"
-              ButtonProps={{}}
+              ButtonProps={{
+                onClick: () => {
+                  addItem({});
+                },
+              }}
             />
           </div>
           <Box>
@@ -230,13 +252,21 @@ const Home: NextPage = () => {
                 image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
                 price="12"
                 name="name"
-                ButtonProps={{}}
+                ButtonProps={{
+                  onClick: () => {
+                    addItem({});
+                  },
+                }}
               />
               <ShopBundle
                 image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
                 price="12"
                 name="name"
-                ButtonProps={{}}
+                ButtonProps={{
+                  onClick: () => {
+                    addItem({});
+                  },
+                }}
               />
             </div>
           </Box>

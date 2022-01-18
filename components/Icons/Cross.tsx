@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes } from "react";
-const Cross: FC<HTMLAttributes<SVGElement>> = ({ style, ...props }) => {
+
+const Cross: FC<HTMLAttributes<SVGElement>> = (props) => {
   return (
     <svg
       width="18"
@@ -7,7 +8,6 @@ const Cross: FC<HTMLAttributes<SVGElement>> = ({ style, ...props }) => {
       viewBox="0 0 18 18"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ ...style }}
       {...props}
     >
       <path
@@ -20,4 +20,5 @@ const Cross: FC<HTMLAttributes<SVGElement>> = ({ style, ...props }) => {
     </svg>
   );
 };
+
 export default Cross;

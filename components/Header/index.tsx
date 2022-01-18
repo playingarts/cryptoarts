@@ -11,9 +11,10 @@ import Link from "../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "dark";
+  customShopButton?: JSX.Element;
 }
 
-const Header: FC<Props> = ({ palette, ...props }) => {
+const Header: FC<Props> = ({ palette, customShopButton, ...props }) => {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -123,14 +124,15 @@ const Header: FC<Props> = ({ palette, ...props }) => {
           })}
         />
 
-        <Button
-          component={Link}
-          href="/shop"
-          Icon={Bag}
-          css={(theme) => ({ marginRight: theme.spacing(2) })}
-        >
-          Shop
-        </Button>
+        <div css={(theme) => ({ marginRight: theme.spacing(2) })}>
+          {customShopButton ? (
+            customShopButton
+          ) : (
+            <Button component={Link} href="/shop" Icon={Bag}>
+              Shop
+            </Button>
+          )}
+        </div>
       </div>
 
       <Nav
