@@ -103,8 +103,8 @@ const SoldOut: FC<Props> = ({ title, cards, ...props }) => {
       <div
         css={(theme) => ({
           position: "relative",
-          marginRight: theme.spacing(18),
-          marginLeft: theme.spacing(18),
+          marginRight: theme.spacing(20),
+          marginLeft: theme.spacing(20),
         })}
         ref={ref}
       >
@@ -124,9 +124,9 @@ const SoldOut: FC<Props> = ({ title, cards, ...props }) => {
                 zIndex: cards.length - 1 * index,
               }}
               style={{
-                transform: `translate3d(${index * 15 * spread}%, ${
+                transform: `translate3d(${index * 16 * spread}%, ${
                   Math.abs(index) * 4
-                }%, 0) rotate3d(0, 0, 1, ${index * 2.5 * spread}deg)`,
+                }%, 0) rotate3d(0, 0, 1, ${index * 4 * spread}deg)`,
               }}
             />
           );

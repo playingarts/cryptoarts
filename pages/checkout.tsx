@@ -75,8 +75,6 @@ const Home: NextPage = () => {
                 narrow={true}
                 css={(theme) => ({
                   background: theme.colors.text_title_light,
-                  position: "sticky",
-                  top: 150,
                 })}
               >
                 <Text component="h6" css={{ opacity: 0.5, margin: 0 }}>
