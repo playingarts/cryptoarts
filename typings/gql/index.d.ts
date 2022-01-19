@@ -20,6 +20,8 @@ interface Query {
   artist?: Maybe<Artist>;
   cards: Array<Card>;
   card?: Maybe<Card>;
+  product: Product;
+  products: Array<Product>;
 }
 
 
@@ -40,6 +42,11 @@ interface QueryCardsArgs {
 
 interface QueryCardArgs {
   id: Scalars['ID'];
+}
+
+
+interface QueryProductsArgs {
+  ids?: Maybe<Array<Scalars['ID']>>;
 }
 
 interface Deck {
@@ -89,6 +96,15 @@ interface Card {
   suit?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['String']>;
   opensea?: Maybe<Scalars['String']>;
+}
+
+interface Product {
+  __typename?: 'Product';
+  _id: Scalars['ID'];
+  title: Scalars['String'];
+  price: Scalars['Float'];
+  image: Scalars['String'];
+  deck?: Maybe<Deck>;
 }
 import { GraphQLResolveInfo } from 'graphql';
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -177,6 +193,8 @@ export type ResolversTypes = {
   Artist: ResolverTypeWrapper<Artist>;
   Socials: ResolverTypeWrapper<Socials>;
   Card: ResolverTypeWrapper<Card>;
+  Product: ResolverTypeWrapper<Product>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -189,6 +207,8 @@ export type ResolversParentTypes = {
   Artist: Artist;
   Socials: Socials;
   Card: Card;
+  Product: Product;
+  Float: Scalars['Float'];
   Boolean: Scalars['Boolean'];
 };
 
@@ -198,6 +218,8 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsArgs, never>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
+  product?: Resolver<ResolversTypes['Product'], ParentType, ContextType>;
+  products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -249,12 +271,22 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ProductResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Query?: QueryResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;
   Socials?: SocialsResolvers<ContextType>;
   Card?: CardResolvers<ContextType>;
+  Product?: ProductResolvers<ContextType>;
 };
 
 
