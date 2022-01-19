@@ -46,9 +46,9 @@ const Home: NextPage = () => {
       .reduce((a, b) => a + b, 0)
       .toFixed(2)
   );
-  const freeShippingAt = parseFloat(
-    process.env.NEXT_PUBLIC_FREE_SHIPPING_AT || "0"
-  );
+  const freeShippingAt = !process.env.NEXT_PUBLIC_FREE_SHIPPING_AT
+    ? Infinity
+    : parseFloat(process.env.NEXT_PUBLIC_FREE_SHIPPING_AT);
   const shippingPrice = totalPrice < freeShippingAt ? 5.95 : 0;
 
   totalPrice = parseFloat((totalPrice + shippingPrice).toFixed(2));
@@ -143,7 +143,8 @@ const Home: NextPage = () => {
                   <Text css={{ opacity: 0.5 }}>
                     Your order will be dispatched in 2 to 5 days.
                     {freeShippingAt > 0 &&
-                      `Free delivery for orders over €${freeShippingAt}. Enjoy!`}
+                      freeShippingAt !== Infinity &&
+                      ` Free delivery for orders over €${freeShippingAt}. Enjoy!`}
                   </Text>
                   <Text
                     variant="label"
