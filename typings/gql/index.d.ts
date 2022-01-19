@@ -105,6 +105,7 @@ interface Product {
   price: Scalars['Float'];
   image: Scalars['String'];
   deck?: Maybe<Deck>;
+  info?: Maybe<Scalars['String']>;
 }
 import { GraphQLResolveInfo } from 'graphql';
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -277,6 +278,7 @@ export type ProductResolvers<ContextType = { req: Request, res: Response }, Pare
   price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
+  info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

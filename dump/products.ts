@@ -13,6 +13,7 @@ const dump = async () => {
       price: 10.0,
       image:
         "https://s3.amazonaws.com/img.playingarts.com/files/store-bag/future-case.jpg",
+      info: "Random thing",
     },
     {
       title: "Crypto deck",
@@ -20,12 +21,12 @@ const dump = async () => {
       image:
         "https://s3.amazonaws.com/img.playingarts.com/files/products/deck-edition-three.png",
       deck: "crypto",
+      info: "Deck of Cards",
     },
   ];
 
   products = await populateDeckId<typeof products[0]>(products);
 
-  console.log("products", products);
   await Product.insertMany(products);
 };
 

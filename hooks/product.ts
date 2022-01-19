@@ -7,6 +7,7 @@ export const ProductsQuery = gql`
       title
       price
       image
+      info
     }
   }
 `;

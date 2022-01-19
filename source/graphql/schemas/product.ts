@@ -9,6 +9,7 @@ const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
   title: String,
   price: Number,
   image: String,
+  info: String,
   deck: { type: Types.ObjectId, ref: "Deck" },
 });
 
@@ -40,5 +41,6 @@ export const typeDefs = gql`
     price: Float!
     image: String!
     deck: Deck
+    info: String
   }
 `;
