@@ -2,20 +2,42 @@ import { createStore, useStore } from "react-hookstore";
 import store from "store";
 
 if (!store.get("bag")) {
-  store.set("bag", []);
+  store.set("bag", {} as Record<string, number>);
 }
 
 createStore("bag", store.get("bag"));
 
 export const useBag = () => {
-  const [bag, setBag] = useStore<any[]>("bag");
+  const [bag, setBag] = useStore<Record<string, number>>("bag");
 
-  const addItem = (item: any) => {
-    const newBag = [...bag, item];
+  const addItem = (_id: string) => {
+    const exitingQuantity = bag[_id] || 0;
+
+    const newBag = {
+      ...bag,
+      [_id]: exitingQuantity + 1,
+    };
 
     setBag(newBag);
     store.set("bag", newBag);
   };
 
-  return { bag, addItem };
+  const updateQuantity = (_id: string, newQuantity: number) => {
+    const newBag = {
+      ...bag,
+      [_id]: newQuantity,
+    };
+
+    setBag(newBag);
+    store.set("bag", newBag);
+  };
+
+  const removeItem = (_id: string) => {
+    const { [_id]: _, ...newBag } = bag;
+
+    setBag(newBag);
+    store.set("bag", newBag);
+  };
+
+  return { bag, addItem, updateQuantity, removeItem };
 };

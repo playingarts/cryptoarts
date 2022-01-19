@@ -9,7 +9,7 @@ import smoothscroll from "smoothscroll-polyfill";
 declare module "@emotion/react" {
   export interface Theme {
     transitions: {
-      fast: (_: string) => string;
+      fast: (property: string) => string;
     };
     colors: {
       page_bg_dark: string;
@@ -36,7 +36,7 @@ declare module "@emotion/react" {
       body3: CSSInterpolation;
       label: CSSInterpolation;
     };
-    spacing: (_: number) => number;
+    spacing: (size: number) => number;
   }
 }
 

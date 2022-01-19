@@ -13,9 +13,15 @@ import BlockTitle from "../components/BlockTitle";
 import ShopBundle from "../components/ShopBundle";
 import { useBag } from "../hooks/bag";
 import BagButton from "../components/BagButton";
+import { useProducts } from "../hooks/product";
 
 const Home: NextPage = () => {
   const { addItem } = useBag();
+  const { products } = useProducts();
+
+  if (!products) {
+    return null;
+  }
 
   return (
     <Fragment>
@@ -70,23 +76,15 @@ const Home: NextPage = () => {
             })}
           >
             <ShopItem
-              image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
-              price="12"
-              name="name"
+              {...products[0]}
               ButtonProps={{
-                onClick: () => {
-                  addItem({});
-                },
+                onClick: () => addItem(products[0]._id),
               }}
             />
             <ShopItem
-              image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
-              price="12"
-              name="name"
+              {...products[1]}
               ButtonProps={{
-                onClick: () => {
-                  addItem({});
-                },
+                onClick: () => addItem(products[1]._id),
               }}
             />
           </div>
@@ -118,22 +116,14 @@ const Home: NextPage = () => {
             <ShopItem
               image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
               price="12"
-              name="name"
-              ButtonProps={{
-                onClick: () => {
-                  addItem({});
-                },
-              }}
+              title="name"
+              ButtonProps={{}}
             />
             <ShopItem
               image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
               price="12"
-              name="name"
-              ButtonProps={{
-                onClick: () => {
-                  addItem({});
-                },
-              }}
+              title="name"
+              ButtonProps={{}}
             />
           </div>
           <Box>
@@ -252,21 +242,13 @@ const Home: NextPage = () => {
                 image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
                 price="12"
                 name="name"
-                ButtonProps={{
-                  onClick: () => {
-                    addItem({});
-                  },
-                }}
+                ButtonProps={{}}
               />
               <ShopBundle
                 image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
                 price="12"
                 name="name"
-                ButtonProps={{
-                  onClick: () => {
-                    addItem({});
-                  },
-                }}
+                ButtonProps={{}}
               />
             </div>
           </Box>

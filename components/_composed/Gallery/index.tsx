@@ -5,9 +5,7 @@ import Button from "../../Button";
 import Carousel, { Props as CarouselProps } from "../../Carousel";
 import Chevron from "../../Icons/Chevron";
 
-interface Props extends HTMLAttributes<HTMLElement> {}
-
-const Gallery: FC<Props> = (props) => {
+const Gallery: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const items = [
     "https://i.ytimg.com/vi/lWAEP0C3QUQ/maxresdefault.jpg",
     "https://editorial.designtaxi.com/editorial-images/news-CatLoafPhotoshop130516/6-Cat-Loafing-Awkwardly-Stairs-Photoshop-Funny-Memes.jpg",

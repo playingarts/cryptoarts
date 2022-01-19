@@ -5,7 +5,7 @@ import { theme } from "../../pages/_app";
 export interface Props extends HTMLAttributes<HTMLElement> {
   index: number;
   items: string[];
-  onIndexChange: (_offset: number) => void;
+  onIndexChange: (offset: number) => void;
 }
 
 const Carousel: FC<Props> = ({ index, items, onIndexChange, ...props }) => {

@@ -4,14 +4,12 @@ import Button, { Props as ButtonProps } from "../Button";
 import Bag from "../Icons/Bag";
 import Link from "../Link";
 
-interface Props extends ButtonProps {}
-
-const BagButton: FC<Props> = (props) => {
+const BagButton: FC<ButtonProps> = (props) => {
   const { bag } = useBag();
 
   return (
     <Button {...props} component={Link} href="/checkout" Icon={Bag}>
-      Bag – {bag.length}
+      Bag – {Object.values(bag).reduce((a, b) => a + b, 0)}
     </Button>
   );
 };

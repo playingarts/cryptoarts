@@ -6,12 +6,18 @@ import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   image: string;
-  price: string;
-  name: string;
+  price: string | number;
+  title: string;
   ButtonProps: ButtonProps;
 }
 
-const ShopItem: FC<Props> = ({ image, price, name, ButtonProps, ...props }) => {
+const ShopItem: FC<Props> = ({
+  image,
+  price,
+  title,
+  ButtonProps,
+  ...props
+}) => {
   return (
     <Box
       narrow={true}
@@ -34,9 +40,9 @@ const ShopItem: FC<Props> = ({ image, price, name, ButtonProps, ...props }) => {
       {...props}
     >
       <div>
-        <Text component="h3">{name}</Text>
+        <Text component="h3">{title}</Text>
         <Text variant="body2" css={{ opacity: 0.5, margin: 0 }}>
-          {price}
+          {typeof price === "string" ? price : `€${price.toFixed(2)}`}
         </Text>
       </div>
       <Button {...ButtonProps} Icon={Bag}>
