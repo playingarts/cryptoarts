@@ -162,4 +162,5 @@ const App = ({ Component, pageProps }: AppProps) => {
     </Fragment>
   );
 };
+
 export default App;

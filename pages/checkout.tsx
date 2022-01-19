@@ -39,14 +39,16 @@ const Home: NextPage = () => {
     return null;
   }
 
-  const shippingPrice = 5.95;
-  const totalPrice = parseFloat(
-    (
-      products
-        .map(({ _id, price }) => bag[_id] * price)
-        .reduce((a, b) => a + b, 0) + shippingPrice
-    ).toFixed(2)
+  let totalPrice = parseFloat(
+    products
+      .map(({ _id, price }) => bag[_id] * price)
+      .reduce((a, b) => a + b, 0)
+      .toFixed(2)
   );
+  const freeShippingAt = 69;
+  const shippingPrice = totalPrice > freeShippingAt ? 0 : 5.95;
+
+  totalPrice = parseFloat((totalPrice + shippingPrice).toFixed(2));
 
   return (
     <Fragment>
@@ -112,6 +114,23 @@ const Home: NextPage = () => {
               </Fragment>
             ))}
             <Line spacing={4} />
+            {totalPrice - shippingPrice < freeShippingAt &&
+              freeShippingAt - (totalPrice - shippingPrice) < 15 && (
+                <Text
+                  css={(theme) => ({
+                    background: `linear-gradient(90deg, #7142D6 0%, #2FBACE 100%)`,
+                    borderRadius: theme.spacing(1),
+                    marginLeft: theme.spacing(21),
+                    marginBottom: theme.spacing(3),
+                    textAlign: "center",
+                    color: theme.colors.text_title_light,
+                    lineHeight: `${theme.spacing(5)}px`,
+                  })}
+                  variant="label"
+                >
+                  Add one more deck and get free shipping!
+                </Text>
+              )}
             <CheckoutItem
               title="Shipping and handling"
               price={shippingPrice}
@@ -120,7 +139,7 @@ const Home: NextPage = () => {
                 <Fragment>
                   <Text css={{ opacity: 0.5 }}>
                     Your order will be dispatched in 2 to 5 days. Free delivery
-                    for orders over €69. Enjoy!
+                    for orders over €{freeShippingAt}. Enjoy!
                   </Text>
                   <Text
                     variant="label"
@@ -178,7 +197,7 @@ const Home: NextPage = () => {
                     marginBottom: theme.spacing(2),
                   })}
                 >
-                  €{totalPrice}
+                  €{totalPrice.toFixed(2)}
                 </Text>
                 <Button color="black">Check out</Button>
                 <Line spacing={3} />
