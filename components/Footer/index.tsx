@@ -7,10 +7,17 @@ import Text from "../Text";
 import Chevron from "../Icons/Chevron";
 import Button from "../Button";
 import Line from "../Line";
+import Box from "../Box";
 
 const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
   return (
-    <div {...props}>
+    <Box
+      {...props}
+      css={(theme) => ({
+        background: theme.colors.light_gray,
+        borderRadius: theme.spacing(1),
+      })}
+    >
       <div
         css={(theme) => ({
           display: "flex",
@@ -199,7 +206,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           ))}
         </nav>
       </div>
-    </div>
+    </Box>
   );
 };
 

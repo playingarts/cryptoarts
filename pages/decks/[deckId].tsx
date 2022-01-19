@@ -292,17 +292,12 @@ const Home: NextPage = () => {
             </Quote>
           </Box>
         </Box>
-      </Layout>
 
-      <Layout>
-        <Box
+        <Footer
           css={(theme) => ({
-            background: theme.colors.light_gray,
             marginBottom: theme.spacing(1),
           })}
-        >
-          <Footer />
-        </Box>
+        />
       </Layout>
     </Fragment>
   );
