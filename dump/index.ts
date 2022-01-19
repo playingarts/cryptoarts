@@ -1,4 +1,5 @@
 import artists from "./artists";
+import products from "./products";
 import deckZero from "./deck-zero";
 import deckCrypto from "./deck-crypto";
 import deckFuture from "./deck-future";
@@ -9,6 +10,7 @@ import deckTwo from "./deck-two";
 
 (async () => {
   await artists();
+  await products();
   await deckZero();
   await deckCrypto();
   await deckFuture();

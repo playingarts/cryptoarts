@@ -1,5 +1,3 @@
-import { Card } from "../source/graphql/schemas/card";
-import { Deck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
 import { createDeck } from "./_utils";
 
@@ -7,12 +5,6 @@ const dump = async () => {
   await connect();
 
   const slug = "future";
-  const currentDeck = await Deck.findOne({ slug });
-
-  if (currentDeck) {
-    await Deck.deleteMany({ slug });
-    await Card.deleteMany({ deck: currentDeck._id });
-  }
 
   const deck = {
     title: "Future Edition",
@@ -643,7 +635,7 @@ const dump = async () => {
     },
   ];
 
-  await createDeck(deck, cards);
+  await createDeck(slug, deck, cards);
 };
 
 export default dump;
