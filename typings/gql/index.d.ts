@@ -20,8 +20,8 @@ interface Query {
   artist?: Maybe<Artist>;
   cards: Array<Card>;
   card?: Maybe<Card>;
-  product: Product;
   products: Array<Product>;
+  convertEurToUsd?: Maybe<Scalars['Float']>;
 }
 
 
@@ -47,6 +47,11 @@ interface QueryCardArgs {
 
 interface QueryProductsArgs {
   ids?: Maybe<Array<Scalars['ID']>>;
+}
+
+
+interface QueryConvertEurToUsdArgs {
+  eur: Scalars['Float'];
 }
 
 interface Deck {
@@ -190,12 +195,12 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Float: ResolverTypeWrapper<Scalars['Float']>;
   Deck: ResolverTypeWrapper<Deck>;
   Artist: ResolverTypeWrapper<Artist>;
   Socials: ResolverTypeWrapper<Socials>;
   Card: ResolverTypeWrapper<Card>;
   Product: ResolverTypeWrapper<Product>;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
@@ -204,12 +209,12 @@ export type ResolversParentTypes = {
   Query: {};
   String: Scalars['String'];
   ID: Scalars['ID'];
+  Float: Scalars['Float'];
   Deck: Deck;
   Artist: Artist;
   Socials: Socials;
   Card: Card;
   Product: Product;
-  Float: Scalars['Float'];
   Boolean: Scalars['Boolean'];
 };
 
@@ -219,8 +224,8 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsArgs, never>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
-  product?: Resolver<ResolversTypes['Product'], ParentType, ContextType>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
+  convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {

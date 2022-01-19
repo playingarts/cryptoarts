@@ -18,6 +18,7 @@ import { useBag } from "../hooks/bag";
 import CheckoutItem, {
   Props as CheckoutItemProps,
 } from "../components/CheckoutItem";
+import EurToUsd from "../components/EurToUsd";
 
 const Home: NextPage = () => {
   const { bag, updateQuantity, removeItem } = useBag();
@@ -45,8 +46,10 @@ const Home: NextPage = () => {
       .reduce((a, b) => a + b, 0)
       .toFixed(2)
   );
-  const freeShippingAt = 69;
-  const shippingPrice = totalPrice > freeShippingAt ? 0 : 5.95;
+  const freeShippingAt = parseFloat(
+    process.env.NEXT_PUBLIC_FREE_SHIPPING_AT || "0"
+  );
+  const shippingPrice = totalPrice < freeShippingAt ? 5.95 : 0;
 
   totalPrice = parseFloat((totalPrice + shippingPrice).toFixed(2));
 
@@ -115,7 +118,7 @@ const Home: NextPage = () => {
             ))}
             <Line spacing={4} />
             {totalPrice - shippingPrice < freeShippingAt &&
-              freeShippingAt - (totalPrice - shippingPrice) < 15 && (
+              totalPrice - shippingPrice + 15 >= freeShippingAt && (
                 <Text
                   css={(theme) => ({
                     background: `linear-gradient(90deg, #7142D6 0%, #2FBACE 100%)`,
@@ -138,8 +141,9 @@ const Home: NextPage = () => {
               info={
                 <Fragment>
                   <Text css={{ opacity: 0.5 }}>
-                    Your order will be dispatched in 2 to 5 days. Free delivery
-                    for orders over €{freeShippingAt}. Enjoy!
+                    Your order will be dispatched in 2 to 5 days.
+                    {freeShippingAt > 0 &&
+                      `Free delivery for orders over €${freeShippingAt}. Enjoy!`}
                   </Text>
                   <Text
                     variant="label"
@@ -164,7 +168,7 @@ const Home: NextPage = () => {
             <CheckoutItem
               title="Total (incl. taxes)"
               price={totalPrice}
-              info2={`~${(totalPrice * 1.13).toFixed(2)} USD`}
+              info2={<EurToUsd css={{ opacity: 0.5 }} eur={totalPrice} />}
               priceVariant="h4"
             />
           </div>

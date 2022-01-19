@@ -26,13 +26,34 @@ export const resolvers: GQL.Resolvers = {
         GQL.Product[]
       >;
     },
+    convertEurToUsd: async (_, { eur }) => {
+      try {
+        console.info(`Fetching an exchange rate for ${eur} euros.`);
+
+        const {
+          data: { amount },
+        } = await (
+          await fetch("https://api.coinbase.com/v2/prices/USDC-EUR/sell")
+        ).json();
+
+        return eur / amount;
+      } catch (error) {
+        const rate = parseFloat(process.env.NEXT_PUBLIC_EUR_TO_USD_RATE || "0");
+
+        if (!rate) {
+          throw new Error("Failed to get an exchange rate for ${eur} euros.");
+        }
+
+        return rate * eur;
+      }
+    },
   },
 };
 
 export const typeDefs = gql`
   type Query {
-    product: Product!
     products(ids: [ID!]): [Product!]!
+    convertEurToUsd(eur: Float!): Float
   }
 
   type Product {

@@ -13,7 +13,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   price: number;
   image?: string;
   info?: string | JSX.Element;
-  info2?: string;
+  info2?: string | JSX.Element;
   quantity?: number;
   titleVariant?: "h4" | "h5";
   priceVariant?: "h4" | "h5";
@@ -133,7 +133,13 @@ const CheckoutItem: FC<Props> = ({
               Remove
             </Text>
           )}
-          {info2 && <Text css={{ opacity: 0.5, marginTop: 7 }}>{info2}</Text>}
+          <div css={(theme) => ({ marginTop: theme.spacing(0.7) })}>
+            {typeof info2 === "string" ? (
+              <Text css={{ opacity: 0.5 }}>{info2}</Text>
+            ) : (
+              info2
+            )}
+          </div>
         </div>
       </div>
     </div>
