@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model, Types } from "mongoose";
+import fetch from "../../fetch";
 
 export type MongoProduct = Omit<GQL.Product, "deck"> & {
   deck?: string;
@@ -28,8 +29,6 @@ export const resolvers: GQL.Resolvers = {
     },
     convertEurToUsd: async (_, { eur }) => {
       try {
-        console.info(`Fetching an exchange rate for ${eur} euros.`);
-
         const {
           data: { amount },
         } = await (

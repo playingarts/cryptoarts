@@ -1,6 +1,7 @@
 import express from "express";
 import next from "next";
 import redirector from "redirect-https";
+import { expressLogger } from "./logger";
 import { connect } from "./mongoose";
 
 const { PORT = "3000" } = process.env;
@@ -11,6 +12,8 @@ app.prepare().then(async () => {
   const server = express();
 
   await connect();
+
+  server.use(expressLogger);
 
   if (process.env.NODE_ENV !== "development") {
     server.use(redirector({ trustProxy: true }));
