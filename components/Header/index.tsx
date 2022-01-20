@@ -105,12 +105,16 @@ const Header: FC<Props> = ({ palette, customShopButton, ...props }) => {
             transform: "translate(-50%, -50%)",
           }}
         >
-          <LogoIcon
-            gradient={palette === "dark"}
-            css={(theme) => [
-              palette === "dark" && { color: theme.colors.text_subtitle_light },
-            ]}
-          />
+          <Link href="/" css={{ color: "inherit" }}>
+            <LogoIcon
+              gradient={palette === "dark"}
+              css={(theme) => [
+                palette === "dark" && {
+                  color: theme.colors.text_subtitle_light,
+                },
+              ]}
+            />
+          </Link>
         </div>
 
         <Button

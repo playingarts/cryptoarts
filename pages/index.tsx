@@ -6,10 +6,10 @@ import { css } from "@emotion/react";
 import Layout from "../components/Layout";
 import Hero from "../components/Hero";
 import { withApollo } from "../source/apollo";
-import Menu from "../components/Menu";
 import CardsBlock from "../components/CardsBlock";
 import Plus from "../components/Icons/Plus";
 import BlockTitle from "../components/BlockTitle";
+import Header from "../components/Header";
 
 const Home: NextPage = () => {
   return (
@@ -18,7 +18,22 @@ const Home: NextPage = () => {
         <title>Crypto Arts</title>
       </Head>
 
-      <Menu currentdeck={{ id: 6 }} css={{ position: "fixed" }} />
+      <Header
+        css={(theme) => ({
+          position: "fixed",
+          left: theme.spacing(1),
+          right: theme.spacing(1),
+          top: theme.spacing(1),
+          zIndex: 100,
+
+          "@media (min-width: 1440px)": {
+            maxWidth: theme.spacing(142),
+            left: "50%",
+            transform: "translate(-50%, 0)",
+            width: "100%",
+          },
+        })}
+      />
 
       <Layout
         css={(theme) => ({
