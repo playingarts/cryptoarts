@@ -26,7 +26,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const onNext = () => changeIndex(1);
 
   return (
-    <div {...props}>
+    <Box {...props}>
       <Box>
         <BlockTitle
           variant="h3"
@@ -70,7 +70,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = (props) => {
         />
       </Box>
       <Carousel items={items} index={index} onIndexChange={changeIndex} />
-    </div>
+    </Box>
   );
 };
 

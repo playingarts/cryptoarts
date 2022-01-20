@@ -272,9 +272,7 @@ const Home: NextPage = () => {
       </Layout>
 
       <Layout ref={galleryRef}>
-        <Box>
-          <Gallery />
-        </Box>
+        <Gallery />
         <Box>
           <Grid
             items={[
