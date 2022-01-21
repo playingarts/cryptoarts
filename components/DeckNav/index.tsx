@@ -1,4 +1,9 @@
-import { FC, HTMLAttributes, RefObject } from "react";
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  HTMLAttributes,
+  RefObject,
+} from "react";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Opensea from "../Icons/Opensea";
@@ -13,7 +18,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     deckRef?: RefObject<HTMLElement>;
     galleryRef?: RefObject<HTMLElement>;
   };
-  links: {
+  links?: {
     buyNow?: string;
     opensea?: string;
     share?: string;
@@ -21,7 +26,10 @@ interface Props extends HTMLAttributes<HTMLElement> {
   };
 }
 
-const DeckNav: FC<Props> = ({ links, deckId, refs, ...props }) => {
+const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
+  { links = {}, deckId, refs, ...props },
+  ref
+) => {
   const bringIntoViewHandler = ({ current }: RefObject<HTMLElement>) => () => {
     if (!current) {
       return;
@@ -36,6 +44,7 @@ const DeckNav: FC<Props> = ({ links, deckId, refs, ...props }) => {
   return (
     <nav
       {...props}
+      ref={ref}
       css={(theme) => [
         theme.typography.body,
         {
@@ -155,4 +164,4 @@ const DeckNav: FC<Props> = ({ links, deckId, refs, ...props }) => {
   );
 };
 
-export default DeckNav;
+export default forwardRef(DeckNav);

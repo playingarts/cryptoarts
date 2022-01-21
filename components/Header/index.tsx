@@ -12,9 +12,17 @@ import Link from "../Link";
 interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "dark";
   customShopButton?: JSX.Element;
+  altNav?: JSX.Element;
+  showAltNav?: boolean;
 }
 
-const Header: FC<Props> = ({ palette, customShopButton, ...props }) => {
+const Header: FC<Props> = ({
+  palette,
+  customShopButton,
+  altNav: deckNav,
+  showAltNav,
+  ...props
+}) => {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -58,6 +66,7 @@ const Header: FC<Props> = ({ palette, customShopButton, ...props }) => {
             alignItems: "center",
             position: "relative",
             zIndex: 1,
+            overflow: "hidden",
           },
           palette === "dark"
             ? {
@@ -97,13 +106,14 @@ const Header: FC<Props> = ({ palette, customShopButton, ...props }) => {
         </Text>
 
         <div
-          css={{
+          css={(theme) => ({
+            transition: theme.transitions.fast("top"),
             textAlign: "center",
             position: "absolute",
             left: "50%",
-            top: "50%",
+            top: (showAltNav ? "-" : "") + "50%",
             transform: "translate(-50%, -50%)",
-          }}
+          })}
         >
           <Link href="/" css={{ color: "inherit" }}>
             <LogoIcon
@@ -115,6 +125,19 @@ const Header: FC<Props> = ({ palette, customShopButton, ...props }) => {
               ]}
             />
           </Link>
+        </div>
+
+        <div
+          css={(theme) => ({
+            transition: theme.transitions.fast("top"),
+            textAlign: "center",
+            position: "absolute",
+            left: "50%",
+            top: (showAltNav ? "" : "1") + "50%",
+            transform: "translate(-50%, -50%)",
+          })}
+        >
+          {deckNav}
         </div>
 
         <Button

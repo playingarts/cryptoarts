@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { useDeck } from "../../hooks/deck";
 import Layout from "../../components/Layout";
@@ -27,6 +27,7 @@ import DigitalArts from "../../components/Icons/DigitalArts";
 import Quote from "../../components/Quote";
 import Card from "../../components/Card";
 import CardInfo from "../../components/CardsPage/Info";
+import throttle from "just-throttle";
 
 const Home: NextPage = () => {
   const {
@@ -38,6 +39,8 @@ const Home: NextPage = () => {
   const galleryRef = useRef<HTMLElement>(null);
   const deckRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLElement>(null);
+  const deckNavRef = useRef<HTMLElement>(null);
+  const [altNavVisible, showAltNav] = useState(false);
 
   useEffect(() => {
     if (cardId) {
@@ -58,6 +61,22 @@ const Home: NextPage = () => {
       });
     }
   }, [deck, loadCards]);
+
+  useEffect(() => {
+    const handler = throttle(() => {
+      if (!deckNavRef.current) {
+        return;
+      }
+
+      const { top, height } = deckNavRef.current.getBoundingClientRect();
+
+      showAltNav(top + height < 0);
+    }, 100);
+
+    window.addEventListener("scroll", handler);
+
+    return () => window.removeEventListener("scroll", handler);
+  }, []);
 
   if (loading || !cards || !deck) {
     return null;
@@ -90,6 +109,13 @@ const Home: NextPage = () => {
             width: "100%",
           },
         })}
+        altNav={
+          <DeckNav
+            deckId={deck.slug}
+            refs={{ cardsRef, deckRef, galleryRef }}
+          />
+        }
+        showAltNav={altNavVisible}
       />
 
       {cardId && (
@@ -192,6 +218,7 @@ const Home: NextPage = () => {
             <Text variant="body3">{deck.info}</Text>
             <Line spacing={3} />
             <DeckNav
+              ref={deckNavRef}
               deckId={deck.slug}
               refs={{ cardsRef, deckRef, galleryRef }}
               links={{
