@@ -73,10 +73,20 @@ const Home: NextPage = () => {
       showAltNav(top + height < 0);
     }, 100);
 
+    if (cardId) {
+      showAltNav(true);
+    } else {
+      handler();
+    }
+
+    if (!deckNavRef.current) {
+      return;
+    }
+
     window.addEventListener("scroll", handler);
 
     return () => window.removeEventListener("scroll", handler);
-  }, []);
+  }, [cardId]);
 
   if (loading || !cards || !deck) {
     return null;
