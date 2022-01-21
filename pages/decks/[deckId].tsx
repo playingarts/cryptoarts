@@ -73,14 +73,14 @@ const Home: NextPage = () => {
       showAltNav(top + height < 0);
     }, 100);
 
-    if (cardId) {
-      showAltNav(true);
-    } else {
-      handler();
-    }
+    showAltNav(!!cardId);
 
     if (!deckNavRef.current) {
       return;
+    }
+
+    if (!cardId) {
+      handler();
     }
 
     window.addEventListener("scroll", handler);
