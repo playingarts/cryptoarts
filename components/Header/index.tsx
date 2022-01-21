@@ -19,7 +19,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 const Header: FC<Props> = ({
   palette,
   customShopButton,
-  altNav: deckNav,
+  altNav,
   showAltNav,
   ...props
 }) => {
@@ -127,18 +127,20 @@ const Header: FC<Props> = ({
           </Link>
         </div>
 
-        <div
-          css={(theme) => ({
-            transition: theme.transitions.fast("top"),
-            textAlign: "center",
-            position: "absolute",
-            left: "50%",
-            top: (showAltNav ? "" : "1") + "50%",
-            transform: "translate(-50%, -50%)",
-          })}
-        >
-          {deckNav}
-        </div>
+        {altNav && (
+          <div
+            css={(theme) => ({
+              transition: theme.transitions.fast("top"),
+              textAlign: "center",
+              position: "absolute",
+              left: "50%",
+              top: (showAltNav ? "" : "1") + "50%",
+              transform: "translate(-50%, -50%)",
+            })}
+          >
+            {altNav}
+          </div>
+        )}
 
         <Button
           Icon={Bell}
