@@ -119,12 +119,7 @@ const Home: NextPage = () => {
             width: "100%",
           },
         })}
-        altNav={
-          <DeckNav
-            deckId={deck.slug}
-            refs={{ cardsRef, deckRef, galleryRef }}
-          />
-        }
+        altNav={<DeckNav refs={{ cardsRef, deckRef, galleryRef }} />}
         showAltNav={altNavVisible}
       />
 
@@ -229,7 +224,6 @@ const Home: NextPage = () => {
             <Line spacing={3} />
             <DeckNav
               ref={deckNavRef}
-              deckId={deck.slug}
               refs={{ cardsRef, deckRef, galleryRef }}
               links={{
                 ...(deck.slug === "crypto"

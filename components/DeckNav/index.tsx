@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import {
   forwardRef,
   ForwardRefRenderFunction,
@@ -11,7 +12,6 @@ import Share from "../Icons/Share";
 import Link from "../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  deckId: string;
   refs: {
     cardsRef?: RefObject<HTMLElement>;
     nftRef?: RefObject<HTMLElement>;
@@ -27,9 +27,11 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { links = {}, deckId, refs, ...props },
+  { links = {}, refs, ...props },
   ref
 ) => {
+  const { query } = useRouter();
+
   const bringIntoViewHandler = (blockRef: RefObject<HTMLElement>) => () => {
     if (!blockRef.current) {
       return;
@@ -92,7 +94,10 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
       )}
       {refs.cardsRef && (
         <Link
-          href={`/decks/${deckId}/cards`}
+          href={{
+            pathname: `/decks/[deckId]/[section]`,
+            query: { ...query, section: "cards" },
+          }}
           shallow={true}
           scroll={false}
           css={(theme) => ({
@@ -122,7 +127,10 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
       )}
       {refs.deckRef && (
         <Link
-          href={`/decks/${deckId}/deck`}
+          href={{
+            pathname: `/decks/[deckId]/[section]`,
+            query: { ...query, section: "deck" },
+          }}
           shallow={true}
           scroll={false}
           css={(theme) => ({
@@ -138,7 +146,10 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
       )}
       {refs.galleryRef && (
         <Link
-          href={`/decks/${deckId}/gallery`}
+          href={{
+            pathname: `/decks/[deckId]/[section]`,
+            query: { ...query, section: "gallery" },
+          }}
           shallow={true}
           scroll={false}
           css={(theme) => ({
