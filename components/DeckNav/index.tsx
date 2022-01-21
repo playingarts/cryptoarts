@@ -30,12 +30,12 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
   { links = {}, deckId, refs, ...props },
   ref
 ) => {
-  const bringIntoViewHandler = ({ current }: RefObject<HTMLElement>) => () => {
-    if (!current) {
+  const bringIntoViewHandler = (blockRef: RefObject<HTMLElement>) => () => {
+    if (!blockRef.current) {
       return;
     }
 
-    current.scrollIntoView({
+    blockRef.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
