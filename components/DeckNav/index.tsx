@@ -64,7 +64,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             marginRight: theme.spacing(2),
           })}
         >
-          opensea
+          Opensea
         </Button>
       )}
       {links.buyNow && (
@@ -99,10 +99,11 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             color: "inherit",
+            fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.cardsRef)}
         >
-          cards
+          Cards
         </Link>
       )}
       {refs.nftRef && (
@@ -112,6 +113,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             color: "inherit",
+            fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.nftRef)}
         >
@@ -127,10 +129,11 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             color: "inherit",
+            fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.deckRef)}
         >
-          deck
+          Deck
         </Link>
       )}
       {refs.galleryRef && (
@@ -142,10 +145,11 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             color: "inherit",
+            fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.galleryRef)}
         >
-          gallery
+          Gallery
         </Link>
       )}
       {links.shop && (
@@ -155,9 +159,10 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             color: "inherit",
+            fontWeight: 600,
           })}
         >
-          shop
+          Shop
         </Link>
       )}
     </nav>
