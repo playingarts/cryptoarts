@@ -40,10 +40,12 @@ export const fetchLogger = (
   };
 
   if (response.body && (response.body as any).on) {
-    (response.body as any).on("end", log);
+    (response.body as any).on("close", log);
   } else {
     log();
   }
+
+  return response;
 };
 
 export const getLogger = (logLabel: string) =>
