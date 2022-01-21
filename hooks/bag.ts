@@ -15,7 +15,7 @@ export const useBag = () => {
 
     const newBag = {
       ...bag,
-      [_id]: exitingQuantity + 1,
+      [_id]: Math.min(exitingQuantity + 1, 10),
     };
 
     setBag(newBag);
