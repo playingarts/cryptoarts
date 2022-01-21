@@ -10,6 +10,8 @@ declare module "@emotion/react" {
   export interface Theme {
     transitions: {
       fast: (property: string) => string;
+      normal: (property: string) => string;
+      slow: (property: string) => string;
     };
     colors: {
       page_bg_dark: string;
@@ -58,6 +60,8 @@ const mq = Object.keys(breakpoints)
 export const theme: Theme = {
   transitions: {
     fast: (attr) => `${attr} 0.25s ease`,
+    normal: (attr) => `${attr} 0.5s ease`,
+    slow: (attr) => `${attr} 0.75s ease`,
   },
   colors: {
     page_bg_dark: "#0A0A0A",

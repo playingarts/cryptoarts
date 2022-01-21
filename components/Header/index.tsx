@@ -107,7 +107,7 @@ const Header: FC<Props> = ({
 
         <div
           css={(theme) => ({
-            transition: theme.transitions.fast("top"),
+            transition: theme.transitions.normal("top"),
             textAlign: "center",
             position: "absolute",
             left: "50%",
@@ -130,7 +130,7 @@ const Header: FC<Props> = ({
         {altNav && (
           <div
             css={(theme) => ({
-              transition: theme.transitions.fast("top"),
+              transition: theme.transitions.normal("top"),
               textAlign: "center",
               position: "absolute",
               left: "50%",
