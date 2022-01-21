@@ -60,8 +60,8 @@ const mq = Object.keys(breakpoints)
 export const theme: Theme = {
   transitions: {
     fast: (attr) => `${attr} 0.25s ease`,
-    normal: (attr) => `${attr} 0.5s ease`,
-    slow: (attr) => `${attr} 0.75s ease`,
+    normal: (attr) => `${attr} 0.4s ease`,
+    slow: (attr) => `${attr} 0.55s ease`,
   },
   colors: {
     page_bg_dark: "#0A0A0A",
