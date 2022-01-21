@@ -191,15 +191,15 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           {[
             {
               Icon: Discord,
-              href: "/",
+              href: "discort",
             },
             {
               Icon: Pinterest,
-              href: "/",
+              href: "pinterest",
             },
             {
               Icon: Youtube,
-              href: "/",
+              href: "youtube",
             },
           ].map(({ Icon, href }) => (
             <Button key={href} component={Link} href={href} Icon={Icon} />
