@@ -7,9 +7,6 @@ export const Links = () => (
   <Fragment>
     <Global
       styles={{
-        "h1, h2, h3, h5": {
-          margin: 0,
-        },
         h1: theme.typography.h1,
         h2: theme.typography.h2,
         h3: theme.typography.h3,

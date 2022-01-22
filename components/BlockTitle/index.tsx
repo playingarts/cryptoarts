@@ -22,24 +22,24 @@ const BlockTitle: FC<Props> = ({
 }) => {
   return (
     <div {...props}>
-      <Text
-        component="h2"
-        variant={variant}
-        css={(theme) => ({
-          marginBottom: theme.spacing(2),
-        })}
-      >
-        {titleText}
-      </Text>
       <div
         css={{
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "flex-end",
         }}
       >
-        <Text css={{ margin: 0 }} variant="body2">
-          {subTitleText}
-        </Text>
+        <div>
+          <Text component="h2" variant={variant} css={{ margin: 0 }}>
+            {titleText}
+          </Text>
+          <Text
+            css={(theme) => ({ margin: 0, marginTop: theme.spacing(2) })}
+            variant="body2"
+          >
+            {subTitleText}
+          </Text>
+        </div>
         {(action || buttonProps) && (
           <div
             css={(theme) => ({ marginLeft: theme.spacing(13), flexShrink: 0 })}
