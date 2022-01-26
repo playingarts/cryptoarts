@@ -28,6 +28,10 @@ const LineChart: FC<Props> = ({
     height: number;
   }>({ width: 0, height: 0 });
   const ref = useRef<HTMLDivElement>(null);
+  const dataMax = data.reduce((current, { y }) => Math.max(current, y), 0);
+  const getX = (index: number) => (width / (data.length - 1)) * index;
+  const getY = (index: number) => height - (height / dataMax) * index;
+  const getSeverity = () => severity || width * 0.05;
 
   useEffect(() => {
     if (!ref.current) {
@@ -38,11 +42,6 @@ const LineChart: FC<Props> = ({
 
     setSize({ width, height });
   }, []);
-
-  const dataMax = data.reduce((current, { y }) => Math.max(current, y), 0);
-  const getX = (index: number) => (width / (data.length - 1)) * index;
-  const getY = (index: number) => height - (height / dataMax) * index;
-  const getSeverity = () => severity || width * 0.05;
 
   return (
     <div
