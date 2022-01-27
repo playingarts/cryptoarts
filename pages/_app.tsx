@@ -23,6 +23,10 @@ declare module "@emotion/react" {
       text_title_light: string;
       text_subtitle_light: string;
       gradient: string;
+      diamonds: string;
+      clubs: string;
+      hearts: string;
+      spades: string;
     };
     mq: { [index: string]: string };
     typography: {
@@ -73,6 +77,10 @@ export const theme: Theme = {
     text_title_light: "rgba(255, 255, 255, 0.9)",
     text_subtitle_light: "rgba(234, 234, 234, 0.5)",
     gradient: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)",
+    diamonds: "#CDB0FF",
+    clubs: "#98F3FF",
+    hearts: "#7BD4FF",
+    spades: "#82A7F8",
   },
   typography: {
     h1: {
