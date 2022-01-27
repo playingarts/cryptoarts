@@ -7,7 +7,7 @@ import {
   ElementType,
   Fragment,
 } from "react";
-import Text from "../Text";
+import Text from "../../Text";
 
 interface Props extends HTMLAttributes<SVGElement> {
   data: { x: number; y: number }[];
