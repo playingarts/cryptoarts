@@ -1,10 +1,8 @@
 import Head from "next/head";
-import { Fragment } from "react";
+import { FC, Fragment } from "react";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Box from "../components/Box";
 import BlockTitle from "../components/BlockTitle";
 import Button from "../components/Button";
@@ -27,8 +25,9 @@ import ApplePay from "../components/Icons/ApplePay";
 import PayPal from "../components/Icons/PayPal";
 import Eth from "../components/Icons/Eth";
 import Gallery from "../components/_composed/Gallery";
+import GlobalLayout from "../components/_composed/GlobalLayout";
 
-const Home: NextPage = () => {
+const Content: FC = () => {
   const { bag, updateQuantity, removeItem } = useBag();
   const { products } = useProducts({
     variables: {
@@ -63,28 +62,6 @@ const Home: NextPage = () => {
 
   return (
     <Fragment>
-      <Head>
-        <title>Crypto Arts</title>
-      </Head>
-
-      <Header
-        css={(theme) => ({
-          position: "fixed",
-          left: theme.spacing(1),
-          right: theme.spacing(1),
-          top: theme.spacing(1),
-          zIndex: 100,
-
-          "@media (min-width: 1440px)": {
-            maxWidth: theme.spacing(142),
-            left: "50%",
-            transform: "translate(-50%, 0)",
-            width: "100%",
-          },
-        })}
-        customShopButton={<Button>Check out</Button>}
-      />
-
       <Layout
         css={(theme) => ({
           background: theme.colors.light_gray,
@@ -276,15 +253,21 @@ const Home: NextPage = () => {
             />
           </div>
         </Box>
-
-        <Footer
-          css={(theme) => ({
-            marginBottom: theme.spacing(1),
-          })}
-        />
       </Layout>
     </Fragment>
   );
 };
 
-export default withApollo(Home);
+const Checkout: NextPage = () => {
+  return (
+    <GlobalLayout customShopButton={<Button>Check out</Button>}>
+      <Head>
+        <title>Crypto Arts</title>
+      </Head>
+
+      <Content />
+    </GlobalLayout>
+  );
+};
+
+export default withApollo(Checkout);

@@ -1,10 +1,7 @@
 import Head from "next/head";
-import { Fragment } from "react";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Box from "../components/Box";
 import ShopItem from "../components/ShopItem";
 import Quote from "../components/Quote";
@@ -14,8 +11,10 @@ import ShopBundle from "../components/ShopBundle";
 import { useBag } from "../hooks/bag";
 import BagButton from "../components/BagButton";
 import { useProducts } from "../hooks/product";
+import GlobalLayout from "../components/_composed/GlobalLayout";
+import { FC, Fragment } from "react";
 
-const Home: NextPage = () => {
+const Content: FC = () => {
   const { addItem } = useBag();
   const { products } = useProducts();
 
@@ -25,28 +24,6 @@ const Home: NextPage = () => {
 
   return (
     <Fragment>
-      <Head>
-        <title>Crypto Arts</title>
-      </Head>
-
-      <Header
-        css={(theme) => ({
-          position: "fixed",
-          left: theme.spacing(1),
-          right: theme.spacing(1),
-          top: theme.spacing(1),
-          zIndex: 100,
-
-          "@media (min-width: 1440px)": {
-            maxWidth: theme.spacing(142),
-            left: "50%",
-            transform: "translate(-50%, 0)",
-            width: "100%",
-          },
-        })}
-        customShopButton={<BagButton />}
-      />
-
       <Layout
         css={(theme) => ({
           background: theme.colors.light_gray,
@@ -253,15 +230,21 @@ const Home: NextPage = () => {
             </div>
           </Box>
         </Box>
-
-        <Footer
-          css={(theme) => ({
-            marginBottom: theme.spacing(1),
-          })}
-        />
       </Layout>
     </Fragment>
   );
 };
 
-export default withApollo(Home);
+const Shop: NextPage = () => {
+  return (
+    <GlobalLayout customShopButton={<BagButton />}>
+      <Head>
+        <title>Crypto Arts</title>
+      </Head>
+
+      <Content />
+    </GlobalLayout>
+  );
+};
+
+export default withApollo(Shop);

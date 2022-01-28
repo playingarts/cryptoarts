@@ -1,15 +1,13 @@
 import Head from "next/head";
-import { Fragment, useEffect, useRef, useState } from "react";
+import { FC, Fragment, RefObject, useEffect, useRef, useState } from "react";
 import { NextPage } from "next";
 import { useDeck } from "../../hooks/deck";
 import Layout from "../../components/Layout";
 import { withApollo } from "../../source/apollo";
 import { useLoadCard, useLoadCards } from "../../hooks/card";
 import { useRouter } from "next/router";
-import Header from "../../components/Header";
 import CardsBlock from "../../components/CardsBlock";
 import CardNav from "../../components/CardNav";
-import Footer from "../../components/Footer";
 import Box from "../../components/Box";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
@@ -28,19 +26,20 @@ import Quote from "../../components/Quote";
 import Card from "../../components/Card";
 import CardInfo from "../../components/CardsPage/Info";
 import throttle from "just-throttle";
+import GlobalLayout from "../../components/_composed/GlobalLayout";
 
-const Home: NextPage = () => {
+const Content: FC<{
+  galleryRef: RefObject<HTMLElement>;
+  deckRef: RefObject<HTMLElement>;
+  cardsRef: RefObject<HTMLElement>;
+  deckNavRef: RefObject<HTMLElement>;
+}> = ({ galleryRef, deckRef, cardsRef, deckNavRef }) => {
   const {
     query: { cardId, deckId },
   } = useRouter();
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { loadCards, cards, loading } = useLoadCards();
   const { loadCard, card } = useLoadCard();
-  const galleryRef = useRef<HTMLElement>(null);
-  const deckRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<HTMLElement>(null);
-  const deckNavRef = useRef<HTMLElement>(null);
-  const [altNavVisible, showAltNav] = useState(false);
 
   useEffect(() => {
     if (cardId) {
@@ -62,32 +61,6 @@ const Home: NextPage = () => {
     }
   }, [deck, loadCards]);
 
-  useEffect(() => {
-    const handler = throttle(() => {
-      if (!deckNavRef.current) {
-        return;
-      }
-
-      const { top, height } = deckNavRef.current.getBoundingClientRect();
-
-      showAltNav(top + height < 0);
-    }, 100);
-
-    showAltNav(!!cardId);
-
-    if (!deckNavRef.current) {
-      return;
-    }
-
-    if (!cardId) {
-      handler();
-    }
-
-    window.addEventListener("scroll", handler);
-
-    return () => window.removeEventListener("scroll", handler);
-  }, [cardId]);
-
   if (loading || !cards || !deck) {
     return null;
   }
@@ -100,29 +73,6 @@ const Home: NextPage = () => {
 
   return (
     <Fragment>
-      <Head>
-        <title>Crypto Arts</title>
-      </Head>
-
-      <Header
-        css={(theme) => ({
-          position: "fixed",
-          left: theme.spacing(1),
-          right: theme.spacing(1),
-          top: theme.spacing(1),
-          zIndex: 2,
-
-          "@media (min-width: 1440px)": {
-            maxWidth: theme.spacing(142),
-            left: "50%",
-            transform: "translate(-50%, 0)",
-            width: "100%",
-          },
-        })}
-        altNav={<DeckNav refs={{ cardsRef, deckRef, galleryRef }} />}
-        showAltNav={altNavVisible}
-      />
-
       {cardId && (
         <CardNav
           css={(theme) => ({
@@ -219,7 +169,9 @@ const Home: NextPage = () => {
           })}
         >
           <Box padding={2}>
-            <Text component="h1">{deck.title}</Text>
+            <Text component="h1" css={{ margin: 0 }}>
+              {deck.title}
+            </Text>
             <Text variant="body3">{deck.info}</Text>
             <Line spacing={3} />
             <DeckNav
@@ -321,15 +273,60 @@ const Home: NextPage = () => {
             </Quote>
           </Box>
         </Box>
-
-        <Footer
-          css={(theme) => ({
-            marginBottom: theme.spacing(1),
-          })}
-        />
       </Layout>
     </Fragment>
   );
 };
 
-export default withApollo(Home);
+const Deck: NextPage = () => {
+  const {
+    query: { cardId },
+  } = useRouter();
+  const galleryRef = useRef<HTMLElement>(null);
+  const deckRef = useRef<HTMLElement>(null);
+  const cardsRef = useRef<HTMLElement>(null);
+  const deckNavRef = useRef<HTMLElement>(null);
+  const [altNavVisible, showAltNav] = useState(false);
+
+  useEffect(() => {
+    const handler = throttle(() => {
+      if (!deckNavRef.current) {
+        return;
+      }
+
+      const { top, height } = deckNavRef.current.getBoundingClientRect();
+
+      showAltNav(top + height < 0);
+    }, 100);
+
+    showAltNav(!!cardId);
+
+    if (!cardId) {
+      handler();
+    }
+
+    window.addEventListener("scroll", handler);
+
+    return () => window.removeEventListener("scroll", handler);
+  }, [cardId]);
+
+  return (
+    <GlobalLayout
+      altNav={<DeckNav refs={{ cardsRef, deckRef, galleryRef }} />}
+      showAltNav={altNavVisible}
+    >
+      <Head>
+        <title>Crypto Arts</title>
+      </Head>
+
+      <Content
+        galleryRef={galleryRef}
+        deckRef={deckRef}
+        cardsRef={cardsRef}
+        deckNavRef={deckNavRef}
+      />
+    </GlobalLayout>
+  );
+};
+
+export default withApollo(Deck);

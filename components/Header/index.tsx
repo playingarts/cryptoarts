@@ -9,7 +9,7 @@ import Bag from "../Icons/Bag";
 import Bell from "../Icons/Bell";
 import Link from "../Link";
 
-interface Props extends HTMLAttributes<HTMLElement> {
+export interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "dark";
   customShopButton?: JSX.Element;
   altNav?: JSX.Element;

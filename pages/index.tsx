@@ -1,11 +1,8 @@
 import Head from "next/head";
-import { Fragment } from "react";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import Hero from "../components/Hero";
 import { withApollo } from "../source/apollo";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Box from "../components/Box";
 import Grid from "../components/Grid";
 import Esquire from "../components/Icons/Esquire";
@@ -22,30 +19,14 @@ import Play from "../components/Icons/Play";
 import Itunes from "../components/Icons/Itunes";
 import Spotify from "../components/Icons/Spotify";
 import Gallery from "../components/_composed/Gallery";
+import GlobalLayout from "../components/_composed/GlobalLayout";
 
 const Home: NextPage = () => {
   return (
-    <Fragment>
+    <GlobalLayout>
       <Head>
         <title>Crypto Arts</title>
       </Head>
-
-      <Header
-        css={(theme) => ({
-          position: "fixed",
-          left: theme.spacing(1),
-          right: theme.spacing(1),
-          top: theme.spacing(1),
-          zIndex: 100,
-
-          "@media (min-width: 1440px)": {
-            maxWidth: theme.spacing(142),
-            left: "50%",
-            transform: "translate(-50%, 0)",
-            width: "100%",
-          },
-        })}
-      />
 
       <Layout
         css={(theme) => ({
@@ -294,14 +275,8 @@ const Home: NextPage = () => {
             </Quote>
           </Box>
         </Box>
-
-        <Footer
-          css={(theme) => ({
-            marginBottom: theme.spacing(1),
-          })}
-        />
       </Layout>
-    </Fragment>
+    </GlobalLayout>
   );
 };
 
