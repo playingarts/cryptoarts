@@ -5,7 +5,6 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const PieChart: FC<Props> = ({ dataPoints, ...props }) => {
-  const [slices, setSlices] = useState<{ d: string; fill: string }[]>([]);
   const total = dataPoints.reduce((sum, obj) => obj.value + sum, 0);
   const getCoordinatesForPercent = (percent: number) => [
     Math.cos(2 * Math.PI * percent),
@@ -18,6 +17,25 @@ const PieChart: FC<Props> = ({ dataPoints, ...props }) => {
   const ref = useRef<HTMLDivElement>(null);
   const size = height > width ? width : height;
   const lastSliceColor = dataPoints[dataPoints.length - 1].color;
+  let cumulativePercent = 0;
+  const slices = dataPoints.map((dataPoint) => {
+    const [startX, startY] = getCoordinatesForPercent(cumulativePercent);
+    const percent = dataPoint.value / total;
+
+    cumulativePercent += percent;
+
+    const [endX, endY] = getCoordinatesForPercent(cumulativePercent);
+    const largeArcFlag = percent > 0.5 ? 1 : 0;
+
+    return {
+      d: [
+        `M ${startX} ${startY}`,
+        `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`,
+        "L 0 0",
+      ].join(" "),
+      fill: dataPoint.color,
+    };
+  });
 
   useEffect(() => {
     if (!ref.current) {
@@ -28,31 +46,6 @@ const PieChart: FC<Props> = ({ dataPoints, ...props }) => {
 
     setSize({ width, height });
   }, []);
-
-  useEffect(() => {
-    let cumulativePercent = 0;
-
-    setSlices(
-      dataPoints.map((dataPoint) => {
-        const [startX, startY] = getCoordinatesForPercent(cumulativePercent);
-        const percent = dataPoint.value / total;
-
-        cumulativePercent += percent;
-
-        const [endX, endY] = getCoordinatesForPercent(cumulativePercent);
-        const largeArcFlag = percent > 0.5 ? 1 : 0;
-
-        return {
-          d: [
-            `M ${startX} ${startY}`,
-            `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`,
-            "L 0 0",
-          ].join(" "),
-          fill: dataPoint.color,
-        };
-      })
-    );
-  }, [dataPoints, total]);
 
   return (
     <div
