@@ -115,7 +115,7 @@ const Header: FC<Props> = ({
             transform: "translate(-50%, -50%)",
           })}
         >
-          <Link href="/" css={{ color: "inherit" }}>
+          <Link href="/">
             <LogoIcon
               gradient={palette === "dark"}
               css={(theme) => [

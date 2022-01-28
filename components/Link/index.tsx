@@ -54,6 +54,7 @@ const Link: ForwardRefRenderFunction<
           <Component
             {...other}
             ref={ref as any}
+            css={{ color: "inherit" }}
             style={{ ...style, textDecoration: "none" }}
             className={cx(
               className,

@@ -202,7 +202,6 @@ const Content: FC = () => {
                 css={(theme) => ({
                   display: "inline-block",
                   marginTop: theme.spacing(3),
-                  color: "inherit",
                   opacity: 0.5,
                 })}
               >

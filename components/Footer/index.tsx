@@ -97,9 +97,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
             >
               {menu.map(({ label, href }) => (
                 <li key={label}>
-                  <Link href={href} css={{ color: "inherit" }}>
-                    {label}
-                  </Link>
+                  <Link href={href}>{label}</Link>
                 </li>
               ))}
             </ul>

@@ -103,7 +103,6 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           css={(theme) => ({
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
-            color: "inherit",
             fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.cardsRef)}
@@ -117,7 +116,6 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           css={(theme) => ({
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
-            color: "inherit",
             fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.nftRef)}
@@ -136,7 +134,6 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           css={(theme) => ({
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
-            color: "inherit",
             fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.deckRef)}
@@ -155,7 +152,6 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           css={(theme) => ({
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
-            color: "inherit",
             fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.galleryRef)}
@@ -169,7 +165,6 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           css={(theme) => ({
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
-            color: "inherit",
             fontWeight: 600,
           })}
         >

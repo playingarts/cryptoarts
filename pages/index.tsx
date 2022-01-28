@@ -128,11 +128,7 @@ const Home: NextPage = () => {
                         css={{ opacity: 0.5 }}
                       />
                     </div>
-                    <Text
-                      component={Link}
-                      href="/"
-                      css={{ color: "inherit", opacity: 0.5 }}
-                    >
+                    <Text component={Link} href="/" css={{ opacity: 0.5 }}>
                       All episodes
                     </Text>
                   </div>
@@ -192,11 +188,7 @@ const Home: NextPage = () => {
                       Join
                     </Button>
                   </div>
-                  <Text
-                    component={Link}
-                    href="/"
-                    css={{ color: "inherit", opacity: 0.5 }}
-                  >
+                  <Text component={Link} href="/" css={{ opacity: 0.5 }}>
                     2910 Members
                   </Text>
                 </div>
@@ -246,11 +238,7 @@ const Home: NextPage = () => {
                       Follow
                     </Button>
                   </div>
-                  <Text
-                    component={Link}
-                    href="/"
-                    css={{ color: "inherit", opacity: 0.5 }}
-                  >
+                  <Text component={Link} href="/" css={{ opacity: 0.5 }}>
                     9910 Followers
                   </Text>
                 </div>
