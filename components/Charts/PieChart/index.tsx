@@ -1,10 +1,9 @@
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
+import { ChartProps } from "..";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  dataPoints: { name: string; value: number; color: string }[];
-}
+interface Props extends HTMLAttributes<HTMLDivElement>, ChartProps {}
 
-const PieChart: FC<Props> = ({ dataPoints, ...props }) => {
+const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
   const [{ width, height }, setSize] = useState<{
     width: number;
     height: number;
@@ -15,7 +14,6 @@ const PieChart: FC<Props> = ({ dataPoints, ...props }) => {
     Math.cos(2 * Math.PI * percent),
     Math.sin(2 * Math.PI * percent),
   ];
-
   const size = height > width ? width : height;
   const lastSliceColor = dataPoints[dataPoints.length - 1].color;
   let cumulativePercent = 0;
@@ -80,6 +78,11 @@ const PieChart: FC<Props> = ({ dataPoints, ...props }) => {
               key={d}
               d={d}
               fill={slices.length - 1 === index ? "transparent" : fill}
+              {...(events && {
+                onMouseEnter: events.onShowTooltip(dataPoints[index]),
+                onMouseLeave: events.onHideTooltip(dataPoints[index]),
+                onMouseMove: events.onMoveTooltip(dataPoints[index]),
+              })}
             />
           ))}
         </svg>

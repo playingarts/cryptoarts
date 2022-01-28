@@ -16,16 +16,16 @@ const Template: ComponentStory<typeof LineChart> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  data: Array.from({ length: 10 }).map((_, index, array) => ({
-    x: Date.now() - 1000 * 60 * 60 * 24 * 7 * (array.length - 1 - index),
-    y:
+  dataPoints: Array.from({ length: 10 }).map((_, index, array) => ({
+    name: Date.now() - 1000 * 60 * 60 * 24 * 7 * (array.length - 1 - index),
+    value:
       index === 0
         ? 0
         : index === array.length - 1
         ? 100
         : parseInt(String(Math.random() * 100), 10),
   })),
-  LabelFormatter: function LabelFormatter({ value }) {
-    return <Fragment>{format(value, "MM/dd")}</Fragment>;
+  LabelFormatter: function LabelFormatter({ name }) {
+    return <Fragment>{format(name as number, "MM/dd")}</Fragment>;
   },
 };

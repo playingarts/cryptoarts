@@ -7,20 +7,20 @@ import {
   ElementType,
   Fragment,
 } from "react";
+import { ChartProps } from "..";
 import Text from "../../Text";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  data: { x: number; y: number }[];
+export interface Props extends HTMLAttributes<HTMLDivElement>, ChartProps {
   severity?: number;
   strokeWidth?: number;
-  LabelFormatter?: ElementType<{ value: number }>;
+  LabelFormatter?: ElementType<{ name: ChartProps["dataPoints"][0]["name"] }>;
 }
 
 const LineChart: FC<Props> = ({
   severity,
-  data,
+  dataPoints,
   strokeWidth = 2.5,
-  LabelFormatter = ({ value }) => <Fragment>{value}</Fragment>,
+  LabelFormatter = ({ name }) => <Fragment>{name}</Fragment>,
   ...props
 }) => {
   const [{ width, height }, setSize] = useState<{
@@ -28,8 +28,11 @@ const LineChart: FC<Props> = ({
     height: number;
   }>({ width: 0, height: 0 });
   const ref = useRef<HTMLDivElement>(null);
-  const dataMax = data.reduce((current, { y }) => Math.max(current, y), 0);
-  const getX = (index: number) => (width / (data.length - 1)) * index;
+  const dataMax = dataPoints.reduce(
+    (current, { value }) => Math.max(current, value),
+    0
+  );
+  const getX = (index: number) => (width / (dataPoints.length - 1)) * index;
   const getY = (index: number) => height - (height / dataMax) * index;
   const getSeverity = () => severity || width * 0.05;
 
@@ -63,19 +66,19 @@ const LineChart: FC<Props> = ({
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d={data
+            d={dataPoints
               .map(
-                ({ y }, index) =>
+                ({ value }, index) =>
                   index === 0
-                    ? "M " + getX(index) + "," + getY(y)
+                    ? "M " + getX(index) + "," + getY(value)
                     : [
                         "C",
                         [
                           getX(index - 1) + getSeverity(),
-                          getY(data[index - 1].y),
+                          getY(dataPoints[index - 1].value),
                         ].join(","),
-                        [getX(index) - getSeverity(), +getY(y)].join(","),
-                        [getX(index), getY(y)].join(","),
+                        [getX(index) - getSeverity(), +getY(value)].join(","),
+                        [getX(index), getY(value)].join(","),
                       ].join(" "),
                 0
               )
@@ -111,9 +114,9 @@ const LineChart: FC<Props> = ({
           margin: 0,
         }}
       >
-        {data.map(({ x }, index) => {
+        {dataPoints.map(({ name }, index) => {
           const isFirst = index === 0;
-          const isLast = index === data.length - 1;
+          const isLast = index === dataPoints.length - 1;
 
           return (
             <li
@@ -123,8 +126,8 @@ const LineChart: FC<Props> = ({
               }}
               style={
                 !isFirst && !isLast
-                  ? { width: width / (data.length - 1) }
-                  : { width: width / (data.length - 1) / 2 }
+                  ? { width: width / (dataPoints.length - 1) }
+                  : { width: width / (dataPoints.length - 1) / 2 }
               }
             >
               <Text
@@ -144,7 +147,7 @@ const LineChart: FC<Props> = ({
                     },
                 ]}
               >
-                <LabelFormatter value={x} />
+                <LabelFormatter name={name} />
               </Text>
             </li>
           );
