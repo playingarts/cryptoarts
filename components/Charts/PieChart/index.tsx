@@ -5,16 +5,17 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const PieChart: FC<Props> = ({ dataPoints, ...props }) => {
-  const total = dataPoints.reduce((sum, obj) => obj.value + sum, 0);
-  const getCoordinatesForPercent = (percent: number) => [
-    Math.cos(2 * Math.PI * percent),
-    Math.sin(2 * Math.PI * percent),
-  ];
   const [{ width, height }, setSize] = useState<{
     width: number;
     height: number;
   }>({ width: 0, height: 0 });
   const ref = useRef<HTMLDivElement>(null);
+  const total = dataPoints.reduce((sum, obj) => obj.value + sum, 0);
+  const getCoordinatesForPercent = (percent: number) => [
+    Math.cos(2 * Math.PI * percent),
+    Math.sin(2 * Math.PI * percent),
+  ];
+
   const size = height > width ? width : height;
   const lastSliceColor = dataPoints[dataPoints.length - 1].color;
   let cumulativePercent = 0;

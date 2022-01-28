@@ -9,7 +9,7 @@ import {
 } from "react";
 import Text from "../../Text";
 
-interface Props extends HTMLAttributes<SVGElement> {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   data: { x: number; y: number }[];
   severity?: number;
   strokeWidth?: number;
@@ -45,6 +45,7 @@ const LineChart: FC<Props> = ({
 
   return (
     <div
+      {...props}
       css={(theme) => ({
         height: "100%",
         display: "flex",
@@ -60,7 +61,6 @@ const LineChart: FC<Props> = ({
           width={width}
           height={height}
           xmlns="http://www.w3.org/2000/svg"
-          {...props}
         >
           <path
             d={data
@@ -111,41 +111,44 @@ const LineChart: FC<Props> = ({
           margin: 0,
         }}
       >
-        {data.map(({ x }, index) => (
-          <li
-            key={index}
-            css={{
-              textAlign:
-                index === 0
-                  ? "left"
-                  : index === data.length - 1
-                  ? "right"
-                  : "center",
-            }}
-            style={
-              index > 0 && index < data.length - 1
-                ? { width: width / (data.length - 1) }
-                : { width: width / (data.length - 1) / 2 }
-            }
-          >
-            <Text
-              variant="h6"
-              css={[
-                {
-                  margin: 0,
-                  opacity: 0.5,
-                },
-                index > 0 &&
-                  index < data.length - 1 && {
-                    marginLeft: -1000,
-                    marginRight: -1000,
-                  },
-              ]}
+        {data.map(({ x }, index) => {
+          const isFirst = index === 0;
+          const isLast = index === data.length - 1;
+
+          return (
+            <li
+              key={index}
+              css={{
+                textAlign: isFirst ? "left" : isLast ? "right" : "center",
+              }}
+              style={
+                !isFirst && !isLast
+                  ? { width: width / (data.length - 1) }
+                  : { width: width / (data.length - 1) / 2 }
+              }
             >
-              <LabelFormatter value={x} />
-            </Text>
-          </li>
-        ))}
+              <Text
+                variant="h6"
+                css={[
+                  {
+                    margin: 0,
+                    opacity: 0.5,
+                  },
+                  isLast && {
+                    float: "right",
+                  },
+                  !isFirst &&
+                    !isLast && {
+                      marginLeft: -1000,
+                      marginRight: -1000,
+                    },
+                ]}
+              >
+                <LabelFormatter value={x} />
+              </Text>
+            </li>
+          );
+        })}
       </ul>
     </div>
   );
