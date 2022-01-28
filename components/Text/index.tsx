@@ -43,6 +43,7 @@ const Text: ForwardRefRenderFunction<any, Props> = (
     children,
     href,
     color,
+    style,
     ...props
   },
   ref
@@ -55,8 +56,14 @@ const Text: ForwardRefRenderFunction<any, Props> = (
       {...props}
       style={
         Component === "button"
-          ? { background: "none", padding: 0, color: "currentcolor", border: 0 }
-          : {}
+          ? {
+              background: "none",
+              padding: 0,
+              color: "currentcolor",
+              border: 0,
+              ...style,
+            }
+          : style
       }
       css={(theme) => theme.typography[variant]}
     >
