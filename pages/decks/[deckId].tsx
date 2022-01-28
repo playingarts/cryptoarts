@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import { useDeck } from "../../hooks/deck";
 import Layout from "../../components/Layout";
 import { withApollo } from "../../source/apollo";
-import { useLoadCard, useLoadCards } from "../../hooks/card";
+import { useLoadCards } from "../../hooks/card";
 import { useRouter } from "next/router";
 import CardsBlock from "../../components/CardsBlock";
 import CardNav from "../../components/CardNav";
@@ -39,17 +39,8 @@ const Content: FC<{
   } = useRouter();
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { loadCards, cards, loading } = useLoadCards();
-  const { loadCard, card } = useLoadCard();
-
-  useEffect(() => {
-    if (cardId) {
-      loadCard({
-        variables: {
-          id: cardId,
-        },
-      });
-    }
-  }, [cardId, loadCard]);
+  const card =
+    cards && cardId ? cards.find(({ _id }) => _id === cardId) : undefined;
 
   useEffect(() => {
     if (deck) {
@@ -114,6 +105,7 @@ const Content: FC<{
                   >
                     {card && (
                       <Card
+                        key={card._id}
                         card={card}
                         animated={true}
                         size="big"

@@ -6,8 +6,14 @@ const CardsQuery = gql`
       _id
       img
       video
+      info
       artist {
         name
+        userpic
+        info
+        social {
+          facebook
+        }
       }
     }
   }
