@@ -10,7 +10,6 @@ import Text from "../components/Text";
 import Line from "../components/Line";
 import Lock from "../components/Icons/Lock";
 import Link from "../components/Link";
-import Arrow from "../components/Icons/Arrow";
 import { useProducts } from "../hooks/product";
 import { useBag } from "../hooks/bag";
 import CheckoutItem, {
@@ -26,6 +25,7 @@ import PayPal from "../components/Icons/PayPal";
 import Eth from "../components/Icons/Eth";
 import Gallery from "../components/_composed/Gallery";
 import GlobalLayout from "../components/_composed/GlobalLayout";
+import Arrowed from "../components/Arrowed";
 
 const Content: FC = () => {
   const { bag, updateQuantity, removeItem } = useBag();
@@ -136,13 +136,7 @@ const Content: FC = () => {
                     component="button"
                     css={{ opacity: 0.5 }}
                   >
-                    Shipping FAQ
-                    <Arrow
-                      css={(theme) => ({
-                        verticalAlign: "baseline",
-                        marginLeft: theme.spacing(0.7),
-                      })}
-                    />
+                    <Arrowed>Shipping FAQ</Arrowed>
                   </Text>
                 </Fragment>
               }
@@ -205,14 +199,7 @@ const Content: FC = () => {
                   opacity: 0.5,
                 })}
               >
-                <Arrow
-                  css={(theme) => ({
-                    verticalAlign: "baseline",
-                    marginRight: theme.spacing(0.7),
-                    transform: "rotate(-180deg)",
-                  })}
-                />
-                Continue shopping
+                <Arrowed position="prepend">Continue shopping</Arrowed>
               </Text>
             </div>
           </div>

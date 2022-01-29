@@ -5,6 +5,7 @@ import {
   HTMLAttributes,
   RefObject,
 } from "react";
+import Arrowed from "../Arrowed";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Opensea from "../Icons/Opensea";
@@ -168,7 +169,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             fontWeight: 600,
           })}
         >
-          Shop
+          <Arrowed>Shop</Arrowed>
         </Link>
       )}
     </nav>

@@ -1,9 +1,11 @@
 import { FC, Fragment, HTMLAttributes, useState } from "react";
+import Arrowed from "../../Arrowed";
 import BlockTitle from "../../BlockTitle";
 import Box from "../../Box";
 import Button from "../../Button";
 import Carousel, { Props as CarouselProps } from "../../Carousel";
 import Chevron from "../../Icons/Chevron";
+import Link from "../../Link";
 
 const Gallery: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const items = [
@@ -31,7 +33,11 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <BlockTitle
           variant="h3"
           titleText="Gallery"
-          subTitleText="Follow @playingarts on Instagram"
+          subTitleText={
+            <Link href="/">
+              <Arrowed>Follow @playingarts on Instagram</Arrowed>
+            </Link>
+          }
           action={
             <Fragment>
               <Button

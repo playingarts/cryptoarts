@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
+import Arrowed from "../Arrowed";
 import Box from "../Box";
-import Arrow from "../Icons/Arrow";
 import Line from "../Line";
 import Link from "../Link";
 import Stat from "../Stat";
@@ -59,12 +59,9 @@ const Stats: FC<Props> = ({
           color: "currentcolor",
           opacity: 0.5,
           marginTop: theme.spacing(2.5),
-          display: "flex",
-          alignItems: "center",
         })}
       >
-        All stats
-        <Arrow css={(theme) => ({ marginLeft: theme.spacing(0.7) })} />
+        <Arrowed>All stats</Arrowed>
       </Text>
     </Box>
   );

@@ -1,5 +1,5 @@
 import { Interpolation, Theme } from "@emotion/react";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, ReactElement } from "react";
 import Button, { Props as ButtonProps } from "../Button";
 import Line from "../Line";
 import Text from "../Text";
@@ -7,7 +7,7 @@ import Text from "../Text";
 interface Props extends HTMLAttributes<HTMLElement> {
   buttonProps?: ButtonProps & { css?: Interpolation<Theme> };
   titleText: string;
-  subTitleText: string;
+  subTitleText: string | ReactElement;
   variant?: "h2" | "h3";
   action?: JSX.Element;
 }

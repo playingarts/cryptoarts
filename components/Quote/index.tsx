@@ -1,4 +1,5 @@
 import { FC, HTMLAttributes } from "react";
+import Arrowed from "../Arrowed";
 import Line from "../Line";
 import Link from "../Link";
 import Text from "../Text";
@@ -54,7 +55,7 @@ const Quote: FC<Props> = ({
                 color: theme.colors.text_subtitle_dark,
               })}
             >
-              Read more
+              <Arrowed>Read more</Arrowed>
             </Text>
           )}
         </div>

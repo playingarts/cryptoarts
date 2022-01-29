@@ -1,4 +1,5 @@
 import { FC, Fragment, useEffect, useRef, useState } from "react";
+import Arrowed from "../Arrowed";
 import Text, { Props as TextProps } from "../Text";
 
 interface Props extends TextProps {
@@ -45,7 +46,7 @@ const Truncate: FC<Props> = ({ children, lines, ...props }) => {
       </Text>
       {withTruncate && (
         <Text component="button" variant="label" onClick={toggle}>
-          {truncated ? "Read more" : "Read less"}
+          <Arrowed>{truncated ? "Read more" : "Read less"}</Arrowed>
         </Text>
       )}
     </Fragment>
