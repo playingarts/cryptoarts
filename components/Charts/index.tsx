@@ -9,18 +9,25 @@ import {
 import Text from "../Text";
 import LineChart, { Props as LineChartProps } from "./LineChart";
 import PieChart from "./PieChart";
+import ColumnChart, { Props as ColumnChartProps } from "./ColumnChart";
 
 const charts = {
   pie: PieChart,
   line: LineChart,
+  column: ColumnChart,
 };
 
 type TooltipHandler = (
   data: ChartProps["dataPoints"][0]
-) => MouseEventHandler<SVGPathElement>;
+) => MouseEventHandler<SVGPathElement | HTMLDivElement>;
 
 export interface ChartProps {
-  dataPoints: { name: string | number; value: number; color?: string }[];
+  dataPoints: {
+    name: string | number;
+    value: number;
+    color?: string;
+    icon?: JSX.Element;
+  }[];
   events?: {
     onShowTooltip: TooltipHandler;
     onHideTooltip: TooltipHandler;
@@ -31,7 +38,8 @@ export interface ChartProps {
 interface Props
   extends HTMLAttributes<HTMLDivElement>,
     Pick<ChartProps, "dataPoints">,
-    Pick<LineChartProps, "LabelFormatter"> {
+    Pick<LineChartProps, "LabelFormatter" | "severity" | "strokeWidth">,
+    Pick<ColumnChartProps, "minHeight" | "columnWidth"> {
   type: keyof typeof charts;
   withTooltip?: boolean;
   TooltipFormatter?: ElementType<ChartProps["dataPoints"][0]>;
