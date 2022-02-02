@@ -4,17 +4,25 @@ import Chevron from "../Icons/Chevron";
 
 export interface Props
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
-  value: string;
-  onChange: ChangeEventHandler<HTMLSelectElement>;
+  value?: string | number;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
   options: Record<string, string>;
+  align?: "left" | "right";
 }
 
-const Select: FC<Props> = ({ value, onChange, options, ...props }) => {
+const Select: FC<Props> = ({
+  value,
+  onChange,
+  align = "left",
+  options,
+  ...props
+}) => {
   return (
     <div
       {...props}
       css={{
         position: "relative",
+        display: "inline-block",
       }}
     >
       <Chevron
@@ -28,18 +36,22 @@ const Select: FC<Props> = ({ value, onChange, options, ...props }) => {
         })}
       />
       <select
-        css={(theme) => ({
-          border: 0,
-          backgroundColor: "unset",
-          appearance: "none",
-          paddingRight: theme.spacing(3),
-          // textAlign: "right",
-          // direction: "rtl",
-          ...(theme.typography.h5 as CSSObject),
-          height: theme.spacing(5),
-          paddingTop: "0.1em",
-          lineHeight: "50px",
-        })}
+        css={(theme) => [
+          {
+            border: 0,
+            backgroundColor: "unset",
+            appearance: "none",
+            paddingRight: theme.spacing(3),
+            ...(theme.typography.h5 as CSSObject),
+            height: theme.spacing(5),
+            paddingTop: "0.1em",
+            lineHeight: "50px",
+          },
+          align === "right" && {
+            textAlign: "right",
+            direction: "rtl",
+          },
+        ]}
         value={value}
         onChange={onChange}
       >

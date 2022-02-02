@@ -1,11 +1,5 @@
-import { CSSObject } from "@emotion/serialize";
-import {
-  ChangeEventHandler,
-  FC,
-  HTMLAttributes,
-  MouseEventHandler,
-} from "react";
-import Chevron from "../Icons/Chevron";
+import { FC, HTMLAttributes, MouseEventHandler } from "react";
+import Select, { Props as SelectProps } from "../Select";
 import Text from "../Text";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -17,7 +11,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   quantity?: number;
   titleVariant?: "h4" | "h5";
   priceVariant?: "h4" | "h5";
-  changeQuantity?: ChangeEventHandler<HTMLSelectElement>;
+  changeQuantity?: SelectProps["onChange"];
   remove?: MouseEventHandler<HTMLElement>;
 }
 
@@ -34,6 +28,16 @@ const CheckoutItem: FC<Props> = ({
   remove,
   ...props
 }) => {
+  const options: SelectProps["options"] = Array.from({ length: 10 }).reduce<
+    SelectProps["options"]
+  >(
+    (options, _, index) => ({
+      ...options,
+      [index + 1]: index + 1,
+    }),
+    {}
+  );
+
   return (
     <div {...props} css={{ display: "flex", alignItems: "center" }}>
       <div
@@ -76,43 +80,12 @@ const CheckoutItem: FC<Props> = ({
             ...(quantity === undefined && { visibility: "hidden" }),
           })}
         >
-          <div
-            css={{
-              position: "relative",
-            }}
-          >
-            <Chevron
-              css={(theme) => ({
-                width: theme.spacing(0.8),
-                height: theme.spacing(1.2),
-                transform: "rotate(90deg) translate(-100%, 0)",
-                position: "absolute",
-                right: theme.spacing(1.1),
-                top: "50%",
-              })}
-            />
-            <select
-              css={(theme) => ({
-                border: 0,
-                backgroundColor: "unset",
-                appearance: "none",
-                paddingRight: theme.spacing(3),
-                paddingLeft: theme.spacing(3),
-                position: "relative",
-                textAlign: "right",
-                direction: "rtl",
-                ...(theme.typography.h5 as CSSObject),
-              })}
-              value={quantity}
-              onChange={changeQuantity}
-            >
-              {Array.from({ length: 10 }).map((_, index) => (
-                <option key={index} value={index + 1}>
-                  {index + 1}
-                </option>
-              ))}
-            </select>
-          </div>
+          <Select
+            value={quantity}
+            onChange={changeQuantity}
+            options={options}
+            align="right"
+          />
         </div>
         <div
           css={(theme) => ({
