@@ -4,15 +4,14 @@ import Bag from "../Icons/Bag";
 import Line from "../Line";
 import Text from "../Text";
 
-interface Props extends HTMLAttributes<HTMLElement> {
-  image: string;
-  name: string;
-  price: string;
+interface Props
+  extends Omit<HTMLAttributes<HTMLElement>, "title">,
+    Pick<GQL.Product, "title" | "price" | "image"> {
   ButtonProps: ButtonProps;
 }
 
 const ShopBundle: FC<Props> = ({
-  name,
+  title,
   price,
   ButtonProps,
   image,
@@ -41,11 +40,11 @@ const ShopBundle: FC<Props> = ({
         <Line spacing={3} />
 
         <Text component="h4" css={{ margin: 0 }}>
-          {name}
+          {title}
         </Text>
 
         <Text variant="body2" css={{ margin: 0, opacity: 0.5 }}>
-          {price}
+          €{price.toFixed(2)}
         </Text>
 
         <Button

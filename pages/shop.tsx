@@ -217,14 +217,14 @@ const Content: FC = () => {
             >
               <ShopBundle
                 image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
-                price="12"
-                name="name"
+                price={12}
+                title="name"
                 ButtonProps={{}}
               />
               <ShopBundle
                 image="https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg"
-                price="12"
-                name="name"
+                price={12}
+                title="name"
                 ButtonProps={{}}
               />
             </div>
