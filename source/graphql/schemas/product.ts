@@ -9,8 +9,12 @@ export type MongoProduct = Omit<GQL.Product, "deck"> & {
 const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
   title: String,
   price: Number,
+  status: String,
+  type: String,
   image: String,
+  image2: String,
   info: String,
+  short: String,
   deck: { type: Types.ObjectId, ref: "Deck" },
 });
 
@@ -57,10 +61,14 @@ export const typeDefs = gql`
 
   type Product {
     _id: ID!
+    deck: Deck
     title: String!
     price: Float!
+    status: String!
+    type: String!
     image: String!
-    deck: Deck
+    image2: String!
     info: String
+    short: String!
   }
 `;

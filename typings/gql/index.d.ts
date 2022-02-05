@@ -106,11 +106,15 @@ interface Card {
 interface Product {
   __typename?: 'Product';
   _id: Scalars['ID'];
+  deck?: Maybe<Deck>;
   title: Scalars['String'];
   price: Scalars['Float'];
+  status: Scalars['String'];
+  type: Scalars['String'];
   image: Scalars['String'];
-  deck?: Maybe<Deck>;
+  image2: Scalars['String'];
   info?: Maybe<Scalars['String']>;
+  short: Scalars['String'];
 }
 import { GraphQLResolveInfo } from 'graphql';
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -279,11 +283,15 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
 
 export type ProductResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  status?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
+  image2?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

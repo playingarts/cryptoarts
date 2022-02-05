@@ -20,6 +20,10 @@ Primary.args = {
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-zero.png",
       info: "Uncut Sheet",
+      status: "status",
+      type: "type",
+      image2: "image2",
+      short: "short",
     },
     {
       _id: "",
@@ -28,6 +32,10 @@ Primary.args = {
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-one.png",
       info: "Uncut Sheet",
+      status: "status",
+      type: "type",
+      image2: "image2",
+      short: "short",
     },
     {
       _id: "",
@@ -36,6 +44,10 @@ Primary.args = {
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-two.png",
       info: "Uncut Sheet",
+      status: "status",
+      type: "type",
+      image2: "image2",
+      short: "short",
     },
     {
       _id: "",
@@ -44,6 +56,10 @@ Primary.args = {
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-three.png",
       info: "Uncut Sheet",
+      status: "status",
+      type: "type",
+      image2: "image2",
+      short: "short",
     },
     {
       _id: "",
@@ -52,6 +68,10 @@ Primary.args = {
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-special.png",
       info: "Uncut Sheet",
+      status: "status",
+      type: "type",
+      image2: "image2",
+      short: "short",
     },
     {
       _id: "",
@@ -60,6 +80,10 @@ Primary.args = {
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-future-i.png",
       info: "Uncut Sheet",
+      status: "status",
+      type: "type",
+      image2: "image2",
+      short: "short",
     },
     {
       _id: "",
@@ -68,6 +92,10 @@ Primary.args = {
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-future-ii.png",
       info: "Uncut Sheet",
+      status: "status",
+      type: "type",
+      image2: "image2",
+      short: "short",
     },
   ],
 };
