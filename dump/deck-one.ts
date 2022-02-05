@@ -596,19 +596,17 @@ const dump = async () => {
       img:
         "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/joker-mike-friedrich.jpg",
       video: "",
-      name: "Black Joker",
     },
     {
       artist: "evgeny-kiselev",
       info: "",
       suit: "",
-      value: "",
+      value: "backside",
       deck: "one",
       opensea: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/_backside-evgeny-kiselev.jpg",
       video: "",
-      name: "Backside",
     },
     {
       artist: "joshua-davis",
@@ -620,7 +618,6 @@ const dump = async () => {
       img:
         "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/joker-joshua-davis.jpg",
       video: "",
-      name: "Red Joker",
     },
   ];
 

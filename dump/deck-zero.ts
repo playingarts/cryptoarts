@@ -693,7 +693,7 @@ const dump = async () => {
       animator: "igor-garybaldi",
       info: "",
       suit: "",
-      value: "",
+      value: "backside",
       deck: "zero",
       opensea: "",
       img:

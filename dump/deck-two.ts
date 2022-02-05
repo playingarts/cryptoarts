@@ -543,18 +543,16 @@ const dump = async () => {
       suit: "black",
       info: "",
       deck: "two",
-      name: "Black Joker",
     },
     {
       video: "",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/_backside-danny-ivan.jpg",
       artist: "danny-ivan",
-      value: "",
+      value: "backside",
       suit: "",
       info: "",
       deck: "two",
-      name: "Backside",
     },
     {
       video: "",
@@ -565,7 +563,6 @@ const dump = async () => {
       suit: "red",
       info: "",
       deck: "two",
-      name: "Red Joker",
     },
   ];
 

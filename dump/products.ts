@@ -10,6 +10,7 @@ const dump = async () => {
   let products = [
     {
       title: "Edition Zero",
+      deck: "zero",
       short: "Zero",
       price: 14.95,
       status: "instock",
@@ -22,6 +23,7 @@ const dump = async () => {
     },
     {
       title: "Edition One",
+      deck: "one",
       short: "One",
       price: 14.95,
       status: "instock",
@@ -34,6 +36,7 @@ const dump = async () => {
     },
     {
       title: "Edition Two",
+      deck: "two",
       short: "Two",
       price: 14.95,
       status: "instock",
@@ -46,6 +49,7 @@ const dump = async () => {
     },
     {
       title: "Edition Three",
+      deck: "three",
       short: "Three",
       price: 14.95,
       status: "instock",
@@ -58,6 +62,7 @@ const dump = async () => {
     },
     {
       title: "Special Edition",
+      deck: "special",
       short: "Special",
       price: 14.95,
       status: "soldout",
@@ -70,6 +75,7 @@ const dump = async () => {
     },
     {
       title: "Future Edition I",
+      deck: "future",
       short: "Future",
       price: 14.95,
       status: "instock",
@@ -83,6 +89,7 @@ const dump = async () => {
     {
       title: "Future Edition II",
       short: "Future II",
+      deck: "future",
       price: 14.95,
       status: "instock",
       type: "deck",
@@ -94,6 +101,7 @@ const dump = async () => {
     },
     {
       title: "Crypto Edition",
+      deck: "crypto",
       short: "Crypto",
       price: 14.95,
       status: "soon",
@@ -106,6 +114,7 @@ const dump = async () => {
     },
     {
       title: "2x Future Bundle",
+      deck: "zero",
       short: "Zero",
       price: 24.95,
       status: "bundle",
@@ -118,6 +127,7 @@ const dump = async () => {
     },
     {
       title: "3x Edition Bundle",
+      deck: "zero",
       short: "Zero",
       price: 34.95,
       status: "bundle",
@@ -130,6 +140,7 @@ const dump = async () => {
     },
     {
       title: "Edition Zero",
+      deck: "zero",
       short: "Zero",
       price: 34.95,
       status: "soldout",
@@ -142,6 +153,7 @@ const dump = async () => {
     },
     {
       title: "Edition One",
+      deck: "one",
       short: "One",
       price: 34.95,
       status: "sheet",
@@ -154,6 +166,7 @@ const dump = async () => {
     },
     {
       title: "Edition Two",
+      deck: "two",
       short: "Two",
       price: 34.95,
       status: "sheet",
@@ -166,6 +179,7 @@ const dump = async () => {
     },
     {
       title: "Edition Three",
+      deck: "three",
       short: "Three",
       price: 34.95,
       status: "sheet",
@@ -178,6 +192,7 @@ const dump = async () => {
     },
     {
       title: "Special Edition",
+      deck: "special",
       short: "Special",
       price: 34.95,
       status: "soldout",
@@ -190,6 +205,7 @@ const dump = async () => {
     },
     {
       title: "Future Edition I",
+      deck: "future",
       short: "Future",
       price: 34.95,
       status: "soldout",
@@ -202,6 +218,7 @@ const dump = async () => {
     },
     {
       title: "Future Edition II",
+      deck: "future",
       short: "Future II",
       type: "sheet",
       price: 34.95,

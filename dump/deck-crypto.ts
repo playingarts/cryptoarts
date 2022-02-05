@@ -734,7 +734,7 @@ const dump = async () => {
         "“In world of expectation, constraint, and limitation, we often forget that deep down we are bursting with life, color and excitement. Decentralization frees us to be exactly who we want to be, how we want to be it, and the truth is, there is much more to each of us than meets the eye. So feel free to feel free, and let your colors fly. We have so much to bring to the world, and no one is stopping us now…”",
       suit: "spades",
       value: "a",
-      deca: "crypto",
+      deck: "crypto",
       opensea:
         "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
       img:
@@ -749,7 +749,7 @@ const dump = async () => {
         "“I wanted to build on my ongoing ’INFINITE PRESSURE’ series that plays with a hybrid of generative art and handcrafted design. I rely half on the unknown and half on my own decision-making to build the final composition, much like the way we are navigating this new decentralized world.”",
       suit: "hearts",
       value: "a",
-      deca: "crypto",
+      deck: "crypto",
       opensea:
         "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
       img:
@@ -764,7 +764,7 @@ const dump = async () => {
         "“In traditional cartomancy, the Ace of Clubs is the card of marriage. I want to depict the marriage or joining of ideas in the form of multiple hands. Ideas, like hands, can reach out to us and take hold like a deep and never ending well. Thoughts endlessly intertwined and connected, linked infinitely and taking hold.”",
       suit: "clubs",
       value: "a",
-      deca: "crypto",
+      deck: "crypto",
       opensea:
         "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
       img:
@@ -779,7 +779,7 @@ const dump = async () => {
         "“This is an interpretation of the Ethereum blockchain as a 5 Dimensional environment where everything moves and has a lot of mirrors data reflecting everything is visible and nothing is centralized.”",
       suit: "diamonds",
       value: "a",
-      deca: "crypto",
+      deck: "crypto",
       opensea:
         "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
       img:

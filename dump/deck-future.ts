@@ -595,7 +595,6 @@ const dump = async () => {
       deck: "three",
       info: "",
       value: "joker",
-      name: "Black Joker",
     },
     {
       video: "",
@@ -606,8 +605,7 @@ const dump = async () => {
       suit: "",
       deck: "three",
       info: "",
-      value: "",
-      name: "Backside",
+      value: "backside",
     },
     {
       video: "",
@@ -619,7 +617,6 @@ const dump = async () => {
       deck: "three",
       info: "",
       value: "joker",
-      name: "Black Joker",
     },
     {
       video: "",
@@ -631,7 +628,6 @@ const dump = async () => {
       deck: "three",
       info: "",
       value: "joker",
-      name: "Red Joker",
     },
   ];
 
