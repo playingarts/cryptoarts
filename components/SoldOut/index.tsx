@@ -1,6 +1,7 @@
 import { CSSObject } from "@emotion/serialize";
 import throttle from "just-throttle";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
+import Box from "../Box";
 import Button from "../Button";
 import Card from "../Card";
 import Chevron from "../Icons/Chevron";
@@ -42,17 +43,14 @@ const SoldOut: FC<Props> = ({ title, cards, ...props }) => {
   return (
     <div
       {...props}
-      css={{
-        display: "flex",
+      css={(theme) => ({
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        gap: theme.spacing(3),
         alignItems: "center",
-        justifyContent: "space-between",
-      }}
+      })}
     >
-      <div
-        css={(theme) => ({
-          width: theme.spacing(39),
-        })}
-      >
+      <Box>
         <Text component="h3" css={{ margin: 0 }}>
           {title}
         </Text>
@@ -99,38 +97,43 @@ const SoldOut: FC<Props> = ({ title, cards, ...props }) => {
             }}
           />
         </form>
-      </div>
+      </Box>
       <div
-        css={(theme) => ({
+        css={{
           position: "relative",
-          marginRight: theme.spacing(20),
-          marginLeft: theme.spacing(20),
-        })}
+          textAlign: "center",
+        }}
         ref={ref}
       >
-        {cards.map((card, index) => {
-          index = index - Math.floor(cards.length / 2);
+        <div
+          css={{
+            display: "inline-block",
+          }}
+        >
+          {cards.map((card, index) => {
+            index = index - Math.floor(cards.length / 2);
 
-          return (
-            <Card
-              key={card._id}
-              card={card}
-              isStatic={true}
-              noInfo={true}
-              interactive={true}
-              css={{
-                top: 0,
-                position: index === 0 ? "relative" : "absolute",
-                zIndex: cards.length - 1 * index,
-              }}
-              style={{
-                transform: `translate3d(${index * 16 * spread}%, ${
-                  Math.abs(index) * 4
-                }%, 0) rotate3d(0, 0, 1, ${index * 4 * spread}deg)`,
-              }}
-            />
-          );
-        })}
+            return (
+              <Card
+                key={card._id}
+                card={card}
+                isStatic={true}
+                noInfo={true}
+                interactive={true}
+                css={{
+                  top: 0,
+                  position: index === 0 ? "relative" : "absolute",
+                  zIndex: cards.length - 1 * index,
+                }}
+                style={{
+                  transform: `translate3d(${index * 16 * spread}%, ${
+                    Math.abs(index) * 4
+                  }%, 0) rotate3d(0, 0, 1, ${index * 4 * spread}deg)`,
+                }}
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
