@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import CardFan from ".";
 
 export default {
-  title: "Shop/SoldOut",
+  title: "CardFan",
   component: CardFan,
 } as ComponentMeta<typeof CardFan>;
 
@@ -77,7 +77,7 @@ Primary.args = {
 };
 
 const ScrollableTemplate: ComponentStory<typeof CardFan> = (args) => (
-  <div css={{ paddingTop: 500, paddingBottom: 500 }}>
+  <div css={{ paddingTop: 500, paddingBottom: 500, textAlign: "center" }}>
     <CardFan {...args} />
   </div>
 );
