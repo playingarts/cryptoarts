@@ -1,18 +1,17 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import SoldOut from "./";
+import CardFan from ".";
 
 export default {
   title: "Shop/SoldOut",
-  component: SoldOut,
-} as ComponentMeta<typeof SoldOut>;
+  component: CardFan,
+} as ComponentMeta<typeof CardFan>;
 
-const Template: ComponentStory<typeof SoldOut> = (args) => (
-  <SoldOut {...args} />
+const Template: ComponentStory<typeof CardFan> = (args) => (
+  <CardFan {...args} />
 );
 
 export const Primary = Template.bind({});
 Primary.args = {
-  title: "Special Edition",
   cards: [
     {
       info: "",
@@ -77,14 +76,14 @@ Primary.args = {
   ],
 };
 
-const ScrollableTemplate: ComponentStory<typeof SoldOut> = (args) => (
+const ScrollableTemplate: ComponentStory<typeof CardFan> = (args) => (
   <div css={{ paddingTop: 500, paddingBottom: 500 }}>
-    <SoldOut {...args} />
+    <CardFan {...args} />
   </div>
 );
+
 export const Scrollable = ScrollableTemplate.bind({});
 Scrollable.args = {
-  title: "Special Edition",
   cards: [
     {
       info: "",

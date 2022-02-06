@@ -5,7 +5,7 @@ import { withApollo } from "../source/apollo";
 import Box from "../components/Box";
 import ShopItem from "../components/ShopItem";
 import Quote from "../components/Quote";
-import SoldOut from "../components/SoldOut";
+import ShopSoldOut from "../components/ShopSoldOut";
 import BlockTitle from "../components/BlockTitle";
 import ShopBundle from "../components/ShopBundle";
 import { useBag } from "../hooks/bag";
@@ -15,6 +15,7 @@ import GlobalLayout from "../components/_composed/GlobalLayout";
 import { FC, Fragment } from "react";
 import ShopSheets from "../components/ShopSheets";
 import Faq from "../components/Faq";
+import CardFan from "../components/CardFan";
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
 
@@ -26,7 +27,7 @@ const Content: FC = () => {
     return null;
   }
 
-  const productLists = products.reduce<
+  const { sheet: sheets, deck: decks, bundle: bundles } = products.reduce<
     Record<ProductListsTypes, GQL.Product[]>
   >(
     (lists, product) => ({
@@ -66,7 +67,7 @@ const Content: FC = () => {
               gap: theme.spacing(3),
             })}
           >
-            {productLists.deck.map((product, index) =>
+            {decks.map((product, index) =>
               product.status === "instock" ? (
                 <Fragment key={product._id}>
                   {index === 2 && (
@@ -103,104 +104,107 @@ const Content: FC = () => {
                   />
                 </Fragment>
               ) : (
-                <SoldOut
-                  title="Special Edition"
-                  css={{
-                    gridColumn: "1 / -1",
-                  }}
-                  cards={[
-                    {
-                      info: "",
-                      suit: "clubs",
-                      value: "2",
-                      opensea: "",
-                      img:
-                        "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-clubs-tang-yau-hoong.jpg",
-                      video: "",
-                      _id: "1",
-                      artist: {
-                        _id: "",
-                        name: "",
-                        slug: "",
-                        userpic: "",
-                        social: {},
-                      },
-                      deck: { _id: "", title: "", info: "", slug: "" },
-                    },
-                    {
-                      info: "",
-                      suit: "diamonds",
-                      value: "2",
-                      opensea: "",
-                      img:
-                        "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-diamonds-yemayema.jpg",
-                      video: "",
-                      _id: "2",
-                      artist: {
-                        _id: "",
-                        name: "",
-                        slug: "",
-                        userpic: "",
-                        social: {},
-                      },
-                      deck: { _id: "", title: "", info: "", slug: "" },
-                    },
-                    {
-                      info: "",
-                      suit: "hearts",
-                      value: "3",
-                      opensea: "",
-                      img:
-                        "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-hearts-peter-tarka.jpg",
-                      video: "",
-                      _id: "3",
-                      artist: {
-                        _id: "",
-                        name: "",
-                        slug: "",
-                        userpic: "",
-                        social: {},
-                      },
-                      deck: { _id: "", title: "", info: "", slug: "" },
-                    },
-                    {
-                      info: "",
-                      suit: "spades",
-                      value: "2",
-                      opensea: "",
-                      img:
-                        "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-spades-mattias-adolfsson.jpg",
-                      video: "",
-                      _id: "4",
-                      artist: {
-                        _id: "",
-                        name: "",
-                        slug: "",
-                        userpic: "",
-                        social: {},
-                      },
-                      deck: { _id: "", title: "", info: "", slug: "" },
-                    },
-                    {
-                      info: "",
-                      suit: "clubs",
-                      value: "3",
-                      opensea: "",
-                      img:
-                        "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-clubs-fernando-chamarelli.jpg",
-                      video: "",
-                      _id: "5",
-                      artist: {
-                        _id: "",
-                        name: "",
-                        slug: "",
-                        userpic: "",
-                        social: {},
-                      },
-                      deck: { _id: "", title: "", info: "", slug: "" },
-                    },
-                  ]}
-                />
+                <Fragment>
+                  <Box>
+                    <ShopSoldOut title="Special Edition" />
+                  </Box>
+                  <div css={{ textAlign: "center" }}>
+                    <CardFan
+                      cards={[
+                        {
+                          info: "",
+                          suit: "clubs",
+                          value: "2",
+                          opensea: "",
+                          img:
+                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-clubs-tang-yau-hoong.jpg",
+                          video: "",
+                          _id: "1",
+                          artist: {
+                            _id: "",
+                            name: "",
+                            slug: "",
+                            userpic: "",
+                            social: {},
+                          },
+                          deck: { _id: "", title: "", info: "", slug: "" },
+                        },
+                        {
+                          info: "",
+                          suit: "diamonds",
+                          value: "2",
+                          opensea: "",
+                          img:
+                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-diamonds-yemayema.jpg",
+                          video: "",
+                          _id: "2",
+                          artist: {
+                            _id: "",
+                            name: "",
+                            slug: "",
+                            userpic: "",
+                            social: {},
+                          },
+                          deck: { _id: "", title: "", info: "", slug: "" },
+                        },
+                        {
+                          info: "",
+                          suit: "hearts",
+                          value: "3",
+                          opensea: "",
+                          img:
+                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-hearts-peter-tarka.jpg",
+                          video: "",
+                          _id: "3",
+                          artist: {
+                            _id: "",
+                            name: "",
+                            slug: "",
+                            userpic: "",
+                            social: {},
+                          },
+                          deck: { _id: "", title: "", info: "", slug: "" },
+                        },
+                        {
+                          info: "",
+                          suit: "spades",
+                          value: "2",
+                          opensea: "",
+                          img:
+                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-spades-mattias-adolfsson.jpg",
+                          video: "",
+                          _id: "4",
+                          artist: {
+                            _id: "",
+                            name: "",
+                            slug: "",
+                            userpic: "",
+                            social: {},
+                          },
+                          deck: { _id: "", title: "", info: "", slug: "" },
+                        },
+                        {
+                          info: "",
+                          suit: "clubs",
+                          value: "3",
+                          opensea: "",
+                          img:
+                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-clubs-fernando-chamarelli.jpg",
+                          video: "",
+                          _id: "5",
+                          artist: {
+                            _id: "",
+                            name: "",
+                            slug: "",
+                            userpic: "",
+                            social: {},
+                          },
+                          deck: { _id: "", title: "", info: "", slug: "" },
+                        },
+                      ]}
+                    />
+                  </div>
+                </Fragment>
               )
             )}
           </div>
@@ -220,7 +224,7 @@ const Content: FC = () => {
                 gap: theme.spacing(3),
               })}
             >
-              {productLists.bundle.map((product) => (
+              {bundles.map((product) => (
                 <ShopBundle
                   key={product._id}
                   {...product}
@@ -239,7 +243,7 @@ const Content: FC = () => {
         })}
       >
         <Box>
-          <ShopSheets products={productLists.sheet} />
+          <ShopSheets products={sheets} />
         </Box>
       </Layout>
       <Layout>
