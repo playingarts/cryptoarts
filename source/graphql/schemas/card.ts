@@ -28,12 +28,7 @@ export const resolvers: GQL.Resolvers = {
         "artist",
         "deck",
       ]) as unknown) as Promise<GQL.Card[]>).then((cards) =>
-        shuffle
-          ? cards
-              .map((value) => ({ value, sort: Math.random() }))
-              .sort((a, b) => a.sort - b.sort)
-              .map(({ value }) => value)
-          : cards
+        shuffle ? cards.sort(() => Math.random() - Math.random()) : cards
       );
     },
     card: (_, { id }) => {
