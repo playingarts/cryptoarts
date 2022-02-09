@@ -5,11 +5,16 @@ export const ProductsQuery = gql`
     products(ids: $ids) {
       _id
       title
+      short
+      info
+      status
+      type
       price
       image
-      info
-      type
-      status
+      image2
+      deck {
+        _id
+      }
     }
   }
 `;
