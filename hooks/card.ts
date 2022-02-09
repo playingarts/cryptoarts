@@ -1,8 +1,8 @@
 import { gql, QueryHookOptions, useLazyQuery } from "@apollo/client";
 
-const CardsQuery = gql`
-  query Cards($deck: ID) {
-    cards(deck: $deck) {
+export const CardsQuery = gql`
+  query Cards($deck: ID, $shuffle: Boolean) {
+    cards(deck: $deck, shuffle: $shuffle) {
       _id
       img
       video

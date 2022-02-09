@@ -12,6 +12,9 @@ const Template: ComponentStory<typeof EurToUsd> = (args) => (
 );
 
 export const Primary = Template.bind({});
+Primary.args = {
+  eur: 5,
+};
 Primary.parameters = {
   apolloClient: {
     mocks: [
@@ -19,6 +22,9 @@ Primary.parameters = {
         delay: 1000,
         request: {
           query: ConvertEurToUsdQuery,
+          variables: {
+            eur: Primary.args.eur,
+          },
         },
         result: {
           data: {

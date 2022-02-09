@@ -37,6 +37,7 @@ interface QueryArtistArgs {
 
 interface QueryCardsArgs {
   deck?: Maybe<Scalars['ID']>;
+  shuffle?: Maybe<Scalars['Boolean']>;
 }
 
 
@@ -199,13 +200,13 @@ export type ResolversTypes = {
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Deck: ResolverTypeWrapper<Deck>;
   Artist: ResolverTypeWrapper<Artist>;
   Socials: ResolverTypeWrapper<Socials>;
   Card: ResolverTypeWrapper<Card>;
   Product: ResolverTypeWrapper<Product>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -213,13 +214,13 @@ export type ResolversParentTypes = {
   Query: {};
   String: Scalars['String'];
   ID: Scalars['ID'];
+  Boolean: Scalars['Boolean'];
   Float: Scalars['Float'];
   Deck: Deck;
   Artist: Artist;
   Socials: Socials;
   Card: Card;
   Product: Product;
-  Boolean: Scalars['Boolean'];
 };
 
 export type QueryResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {

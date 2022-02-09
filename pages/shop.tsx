@@ -108,102 +108,11 @@ const Content: FC = () => {
                   <Box>
                     <ShopSoldOut title="Special Edition" />
                   </Box>
-                  <div css={{ textAlign: "center" }}>
-                    <CardFan
-                      cards={[
-                        {
-                          info: "",
-                          suit: "clubs",
-                          value: "2",
-                          opensea: "",
-                          img:
-                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-clubs-tang-yau-hoong.jpg",
-                          video: "",
-                          _id: "1",
-                          artist: {
-                            _id: "",
-                            name: "",
-                            slug: "",
-                            userpic: "",
-                            social: {},
-                          },
-                          deck: { _id: "", title: "", info: "", slug: "" },
-                        },
-                        {
-                          info: "",
-                          suit: "diamonds",
-                          value: "2",
-                          opensea: "",
-                          img:
-                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-diamonds-yemayema.jpg",
-                          video: "",
-                          _id: "2",
-                          artist: {
-                            _id: "",
-                            name: "",
-                            slug: "",
-                            userpic: "",
-                            social: {},
-                          },
-                          deck: { _id: "", title: "", info: "", slug: "" },
-                        },
-                        {
-                          info: "",
-                          suit: "hearts",
-                          value: "3",
-                          opensea: "",
-                          img:
-                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-hearts-peter-tarka.jpg",
-                          video: "",
-                          _id: "3",
-                          artist: {
-                            _id: "",
-                            name: "",
-                            slug: "",
-                            userpic: "",
-                            social: {},
-                          },
-                          deck: { _id: "", title: "", info: "", slug: "" },
-                        },
-                        {
-                          info: "",
-                          suit: "spades",
-                          value: "2",
-                          opensea: "",
-                          img:
-                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-spades-mattias-adolfsson.jpg",
-                          video: "",
-                          _id: "4",
-                          artist: {
-                            _id: "",
-                            name: "",
-                            slug: "",
-                            userpic: "",
-                            social: {},
-                          },
-                          deck: { _id: "", title: "", info: "", slug: "" },
-                        },
-                        {
-                          info: "",
-                          suit: "clubs",
-                          value: "3",
-                          opensea: "",
-                          img:
-                            "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-clubs-fernando-chamarelli.jpg",
-                          video: "",
-                          _id: "5",
-                          artist: {
-                            _id: "",
-                            name: "",
-                            slug: "",
-                            userpic: "",
-                            social: {},
-                          },
-                          deck: { _id: "", title: "", info: "", slug: "" },
-                        },
-                      ]}
-                    />
-                  </div>
+                  {product.deck && (
+                    <div css={{ textAlign: "center" }}>
+                      <CardFan deck={product.deck} />
+                    </div>
+                  )}
                 </Fragment>
               )
             )}

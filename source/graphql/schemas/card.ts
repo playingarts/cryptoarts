@@ -23,11 +23,18 @@ const getCard = (id: string) => Card.findById(id);
 
 export const resolvers: GQL.Resolvers = {
   Query: {
-    cards: (_, { deck }) => {
-      return (getDeckCards(deck).populate([
+    cards: (_, { deck, shuffle }) => {
+      return ((getDeckCards(deck).populate([
         "artist",
         "deck",
-      ]) as unknown) as Promise<GQL.Card[]>;
+      ]) as unknown) as Promise<GQL.Card[]>).then((cards) =>
+        shuffle
+          ? cards
+              .map((value) => ({ value, sort: Math.random() }))
+              .sort((a, b) => a.sort - b.sort)
+              .map(({ value }) => value)
+          : cards
+      );
     },
     card: (_, { id }) => {
       return (getCard(id).populate([
@@ -40,7 +47,7 @@ export const resolvers: GQL.Resolvers = {
 
 export const typeDefs = gql`
   type Query {
-    cards(deck: ID): [Card!]!
+    cards(deck: ID, shuffle: Boolean): [Card!]!
     card(id: ID!): Card
   }
 

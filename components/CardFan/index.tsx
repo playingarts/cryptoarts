@@ -1,12 +1,14 @@
 import throttle from "just-throttle";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
+import { useLoadCards } from "../../hooks/card";
 import Card from "../Card";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
-  cards: [GQL.Card, GQL.Card, GQL.Card, GQL.Card, GQL.Card];
+  deck: GQL.Deck;
 }
 
-const CardFan: FC<Props> = ({ cards, ...props }) => {
+const CardFan: FC<Props> = ({ deck, ...props }) => {
+  const { loadCards, cards } = useLoadCards();
   const ref = useRef<HTMLDivElement>(null);
   const [spread, setSpread] = useState(1);
   const getPercent = (top: number, height: number, offset = 1) =>
@@ -33,14 +35,24 @@ const CardFan: FC<Props> = ({ cards, ...props }) => {
     return () => document.removeEventListener("scroll", calculateSpread);
   }, []);
 
+  useEffect(() => {
+    loadCards({ variables: { deck: deck._id, shuffle: true } });
+  }, [loadCards, deck._id]);
+
+  if (!cards) {
+    return null;
+  }
+
+  const cardsLength = 5;
+
   return (
     <div
       {...props}
       ref={ref}
       css={{ position: "relative", display: "inline-block" }}
     >
-      {cards.map((card, index) => {
-        index = index - Math.floor(cards.length / 2);
+      {cards.slice(0, cardsLength).map((card, index) => {
+        index = index - Math.floor(cardsLength / 2);
 
         return (
           <Card
@@ -52,7 +64,7 @@ const CardFan: FC<Props> = ({ cards, ...props }) => {
             css={{
               top: 0,
               position: index === 0 ? "relative" : "absolute",
-              zIndex: cards.length - 1 * index,
+              zIndex: cardsLength - 1 * index,
             }}
             style={{
               transform: `translate3d(${index * 16 * spread}%, ${
