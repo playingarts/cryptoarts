@@ -19,7 +19,6 @@
 .DS_Store
 *.pem
 .prettierrc
-/.vscode
 
 # debug
 npm-debug.log*
