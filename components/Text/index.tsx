@@ -23,6 +23,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     | "dd"
     | "button"
     | "span"
+    | "li"
     | FC<LinkProps>
     | FC<ButtonProps>;
   variant?: keyof typeof theme.typography;

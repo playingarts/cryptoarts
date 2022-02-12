@@ -8,6 +8,7 @@ import Chevron from "../Icons/Chevron";
 import Button from "../Button";
 import Line from "../Line";
 import Box from "../Box";
+import Grid from "../Grid";
 
 const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
   return (
@@ -18,96 +19,82 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
         borderRadius: theme.spacing(1),
       })}
     >
-      <div
-        css={(theme) => ({
-          display: "flex",
-          color: theme.colors.text_subtitle_dark,
-        })}
-      >
-        <nav
-          css={{
-            flexGrow: 1,
-            display: "flex",
-            fontSize: 22,
-          }}
-        >
-          {[
-            [
-              {
-                label: "Home",
-                href: "/",
-              },
-              {
-                label: "About",
-                href: "/",
-              },
-              {
-                label: "PA NFT",
-                href: "/",
-              },
-              {
-                label: "Kickstarter",
-                href: "/",
-              },
-            ],
-            [
-              {
-                label: "Store",
-                href: "/",
-              },
-              {
-                label: "Reviews",
-                href: "/",
-              },
-              {
-                label: "Gallery",
-                href: "/",
-              },
-              {
-                label: "Press",
-                href: "/",
-              },
-            ],
-            [
-              {
-                label: "Press",
-                href: "/",
-              },
-              {
-                label: "Reviews",
-                href: "/",
-              },
-              {
-                label: "Contact",
-                href: "/",
-              },
-            ],
-          ].map((menu, index) => (
-            <ul
-              key={index}
-              css={(theme) => ({
-                display: "flex",
-                flexDirection: "column",
-                rowGap: theme.spacing(1.5),
-                padding: 0,
-                listStyle: "none",
-                margin: 0,
-                width: "33.33%",
-              })}
-            >
-              {menu.map(({ label, href }) => (
-                <li key={label}>
-                  <Link href={href}>{label}</Link>
-                </li>
-              ))}
-            </ul>
-          ))}
-        </nav>
+      <Grid css={(theme) => ({ color: theme.colors.text_subtitle_dark })}>
+        {[
+          [
+            {
+              label: "Home",
+              href: "/",
+            },
+            {
+              label: "About",
+              href: "/",
+            },
+            {
+              label: "PA NFT",
+              href: "/",
+            },
+            {
+              label: "Kickstarter",
+              href: "/",
+            },
+          ],
+          [
+            {
+              label: "Store",
+              href: "/",
+            },
+            {
+              label: "Reviews",
+              href: "/",
+            },
+            {
+              label: "Gallery",
+              href: "/",
+            },
+            {
+              label: "Press",
+              href: "/",
+            },
+          ],
+          [
+            {
+              label: "Press",
+              href: "/",
+            },
+            {
+              label: "Reviews",
+              href: "/",
+            },
+            {
+              label: "Contact",
+              href: "/",
+            },
+          ],
+        ].map((menu, index) => (
+          <ul
+            key={index}
+            css={(theme) => ({
+              display: "flex",
+              flexDirection: "column",
+              rowGap: theme.spacing(1.5),
+              padding: 0,
+              listStyle: "none",
+              margin: 0,
+              gridColumn: "span 2",
+            })}
+          >
+            {menu.map(({ label, href }) => (
+              <Text variant="body2" component="li" key={label}>
+                <Link href={href}>{label}</Link>
+              </Text>
+            ))}
+          </ul>
+        ))}
         <form
-          css={(theme) => ({
-            width: theme.spacing(40),
-            marginLeft: theme.spacing(24),
-          })}
+          css={{
+            gridColumn: "9 / span 4",
+          }}
         >
           <Text component="h2" variant="h6">
             Project news
@@ -151,16 +138,12 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
             time.
           </Text>
         </form>
-      </div>
+      </Grid>
+
       <Line spacing={4} />
-      <div
-        css={{
-          color: "rgba(0, 0, 0, 0.25)",
-          fontSize: 14,
-          display: "flex",
-        }}
-      >
-        <div css={{ flexGrow: 1 }}>
+
+      <Grid>
+        <div css={{ gridColumn: "span 6", opacity: 0.25 }}>
           <Text variant="h5" component="h2">
             playing arts project
           </Text>
@@ -179,12 +162,10 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           </Text>
         </div>
         <nav
-          css={(theme) => ({
+          css={{
             display: "flex",
-            width: theme.spacing(40),
-            marginLeft: theme.spacing(24),
-            flexShrink: 0,
-          })}
+            gridColumn: "9 / span 4",
+          }}
         >
           {[
             {
@@ -200,10 +181,16 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
               href: "youtube",
             },
           ].map(({ Icon, href }) => (
-            <Button key={href} component={Link} href={href} Icon={Icon} />
+            <Button
+              key={href}
+              component={Link}
+              href={href}
+              Icon={Icon}
+              css={{ opacity: 0.5 }}
+            />
           ))}
         </nav>
-      </div>
+      </Grid>
     </Box>
   );
 };
