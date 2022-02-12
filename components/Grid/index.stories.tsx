@@ -22,6 +22,10 @@ const Template: ComponentStory<typeof Grid> = (args) => (
 
     <div css={{ gridColumn: "span 9", background: "lightgray" }}>3/4</div>
     <div css={{ gridColumn: "10 / span 3", background: "lightgray" }}>1/4</div>
+
+    <div css={{ gridColumn: "2 / span 10", background: "lightgray" }}>
+      10/12
+    </div>
   </Grid>
 );
 
