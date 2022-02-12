@@ -21,6 +21,8 @@ import Spotify from "../components/Icons/Spotify";
 import Gallery from "../components/_composed/Gallery";
 import GlobalLayout from "../components/_composed/GlobalLayout";
 import Chevron from "../components/Icons/Chevron";
+import Kickstarter from "../components/Icons/Kickstarter";
+import Arrowed from "../components/Arrowed";
 
 const Home: NextPage = () => {
   return (
@@ -68,6 +70,36 @@ const Home: NextPage = () => {
       </Layout>
 
       <Layout>
+        <Box>
+          <Grid
+            css={(theme) => ({
+              marginTop: theme.spacing(8),
+              marginBottom: theme.spacing(12),
+            })}
+          >
+            <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 10" }}>
+              About
+            </Text>
+            <div css={{ gridColumn: "2 / span 7" }}>
+              <Text variant="body3">
+                Playing Arts is a collective art project where leading artists
+                from all over the world express their vision of an ordinary
+                playing card using personal styles, techniques and imagination.
+              </Text>
+              <Text
+                component={Link}
+                variant="label"
+                href="/"
+                css={{ opacity: 0.5 }}
+              >
+                <Arrowed>Read our story</Arrowed>
+              </Text>
+            </div>
+            <Text variant="body3" css={{ gridColumn: "10 / span 2" }}>
+              <Kickstarter />
+            </Text>
+          </Grid>
+        </Box>
         <Gallery />
       </Layout>
 
