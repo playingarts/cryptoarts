@@ -39,7 +39,7 @@ interface Props
   extends HTMLAttributes<HTMLDivElement>,
     Pick<ChartProps, "dataPoints">,
     Pick<LineChartProps, "LabelFormatter" | "severity" | "strokeWidth">,
-    Pick<ColumnChartProps, "minHeight" | "columnWidth"> {
+    Pick<ColumnChartProps, "minHeight"> {
   type: keyof typeof charts;
   withTooltip?: boolean;
   TooltipFormatter?: ElementType<ChartProps["dataPoints"][0]>;
@@ -66,10 +66,10 @@ const Charts: FC<Props> = ({
     return <Component {...props} />;
   }
 
-  const showTooltip: TooltipHandler = (dataPoint) => (event) =>
-    setTooltip({ x: event.pageX, y: event.pageY, data: dataPoint });
-  const moveTooltip: TooltipHandler = () => (event) =>
-    setTooltip({ x: event.pageX, y: event.pageY, data });
+  const showTooltip: TooltipHandler = (dataPoint) => ({ clientX, clientY }) =>
+    setTooltip({ x: clientX, y: clientY, data: dataPoint });
+  const moveTooltip: TooltipHandler = () => ({ clientX, clientY }) =>
+    setTooltip({ x: clientX, y: clientY, data });
   const hideTooltip: TooltipHandler = () => () => setTooltip({ x: 0, y: 0 });
 
   return (

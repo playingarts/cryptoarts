@@ -3,8 +3,7 @@ import Text from "../../Text";
 import { ChartProps } from "..";
 
 export interface Props extends HTMLAttributes<HTMLElement>, ChartProps {
-  minHeight: number;
-  columnWidth: number;
+  minHeight?: number;
 }
 
 const ColumnChart: FC<Props> = ({
