@@ -65,8 +65,8 @@ const Hero: FC<Props> = ({ title, text, ...props }) => {
             transform: "rotate(15deg) scale(0.95)",
             filter: "blur(1px)",
             position: "absolute",
-            left: theme.spacing(33),
-            top: theme.spacing(5),
+            left: theme.spacing(30),
+            top: theme.spacing(3),
           })}
         />
         <Card
