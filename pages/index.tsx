@@ -31,19 +31,18 @@ const Home: NextPage = () => {
       <Layout
         css={(theme) => ({
           background: theme.colors.dark_gray,
-          paddingTop: theme.spacing(22),
+          paddingTop: theme.spacing(18),
+          color: theme.colors.text_title_light,
+          overflow: "hidden",
         })}
       >
-        <Hero
-          title="Collective Art Project"
-          text="For creative people who are into graphic design, illustration, playing
+        <Box>
+          <Hero
+            title="Collective Art Project"
+            text="For creative people who are into graphic design, illustration, playing
           cards and sometimes magic."
-          css={(theme) => ({
-            padding: "85px 200px",
-            width: "75%",
-            color: theme.colors.text_title_light,
-          })}
-        />
+          />
+        </Box>
       </Layout>
 
       <Layout>
