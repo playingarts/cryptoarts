@@ -246,14 +246,20 @@ const Home: NextPage = () => {
           </div>
         </Box>
         <Box>
-          <Grid
-            items={[
-              <Esquire key="esquire" />,
-              <FastCompany key="fastcompany" />,
-              <CreativeBloq key="creativebloq" />,
-              <DigitalArts key="digitalarts" />,
-            ]}
-          />
+          <Grid>
+            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+              <Esquire />
+            </div>
+            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+              <FastCompany />
+            </div>
+            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+              <CreativeBloq />
+            </div>
+            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+              <DigitalArts />
+            </div>
+          </Grid>
           <Box>
             <Quote>
               “Two is a sign of union. And diamonds are a sign of prosperity. I

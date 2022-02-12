@@ -1,25 +1,18 @@
 import { FC, HTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLUListElement> {
-  items: JSX.Element[];
-}
+type Props = HTMLAttributes<HTMLDivElement>;
 
-const Grid: FC<Props> = ({ items, ...props }) => (
-  <ul
+const Grid: FC<Props> = ({ children, ...props }) => (
+  <div
     {...props}
-    css={{
-      display: "flex",
-      listStyle: "none",
-      justifyContent: "space-between",
-      padding: 0,
-      margin: 0,
-      alignItems: "center",
-    }}
+    css={(theme) => ({
+      display: "grid",
+      gridTemplateColumns: "repeat(12, 1fr)",
+      columnGap: theme.spacing(3),
+    })}
   >
-    {items.map((item, index) => (
-      <li key={index}>{item}</li>
-    ))}
-  </ul>
+    {children}
+  </div>
 );
 
 export default Grid;
