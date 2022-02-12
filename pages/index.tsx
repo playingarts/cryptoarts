@@ -20,6 +20,7 @@ import Itunes from "../components/Icons/Itunes";
 import Spotify from "../components/Icons/Spotify";
 import Gallery from "../components/_composed/Gallery";
 import GlobalLayout from "../components/_composed/GlobalLayout";
+import Chevron from "../components/Icons/Chevron";
 
 const Home: NextPage = () => {
   return (
@@ -37,11 +38,32 @@ const Home: NextPage = () => {
         })}
       >
         <Box>
-          <Hero
-            title="Collective Art Project"
-            text="For creative people who are into graphic design, illustration, playing
-          cards and sometimes magic."
-          />
+          <Grid>
+            <div css={{ gridColumn: "2 / span 6" }}>
+              <Text component="h1" css={{ margin: 0 }}>
+                Collective Art Project
+              </Text>
+              <Text
+                variant="body3"
+                css={(theme) => ({
+                  margin: 0,
+                  marginTop: theme.spacing(2),
+                  paddingTop: 20,
+                  paddingBottom: 45,
+                })}
+              >
+                For creative people who are into art, playing cards and
+                sometimes magic.
+              </Text>
+              <Button
+                variant="bordered"
+                Icon={Chevron}
+                size="small"
+                iconProps={{ css: { height: 16, transform: "rotate(90deg)" } }}
+              />
+            </div>
+            <Hero css={{ gridColumn: "8 / span 5" }} />
+          </Grid>
         </Box>
       </Layout>
 
