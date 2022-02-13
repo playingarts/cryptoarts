@@ -1,7 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import Arrowed from "../Arrowed";
 import Box from "../Box";
-import Line from "../Line";
 import Link from "../Link";
 import Stat from "../Stat";
 import Text from "../Text";
@@ -37,21 +36,18 @@ const Stats: FC<Props> = ({
         value={totalHolders}
         css={(theme) => ({ marginTop: theme.spacing(2) })}
       />
-      <Line spacing={0.5} />
       <Stat
         label="Total volume"
         value={totalVolume}
         eth={true}
         css={(theme) => ({ marginTop: theme.spacing(4) })}
       />
-      <Line spacing={0.5} />
       <Stat
         label="Current floor price"
         value={floorPrice}
         eth={true}
         css={(theme) => ({ marginTop: theme.spacing(4) })}
       />
-      <Line spacing={0.5} />
 
       <Text
         component={Link}

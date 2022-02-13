@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import Eth from "../Icons/Eth";
+import Line from "../Line";
 import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -32,6 +33,7 @@ const Stat: FC<Props> = ({ label, value, eth, ...props }) => {
       >
         {label}
       </Text>
+      <Line spacing={0.5} css={{ marginBottom: 0 }} />
     </div>
   );
 };
