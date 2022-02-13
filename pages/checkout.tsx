@@ -16,16 +16,10 @@ import CheckoutItem, {
   Props as CheckoutItemProps,
 } from "../components/CheckoutItem";
 import EurToUsd from "../components/EurToUsd";
-import Faq from "../components/Faq";
-import Visa from "../components/Icons/Visa";
-import Mastercard from "../components/Icons/Mastercard";
-import Amex from "../components/Icons/Amex";
-import ApplePay from "../components/Icons/ApplePay";
-import PayPal from "../components/Icons/PayPal";
-import Eth from "../components/Icons/Eth";
 import Gallery from "../components/_composed/Gallery";
 import GlobalLayout from "../components/_composed/GlobalLayout";
 import Arrowed from "../components/Arrowed";
+import FaqBlock from "../components/_composed/FaqBlock";
 
 const Content: FC = () => {
   const { bag, updateQuantity, removeItem } = useBag();
@@ -216,28 +210,7 @@ const Content: FC = () => {
 
       <Layout>
         <Box padding={2}>
-          <Faq />
-          <div
-            css={(theme) => ({
-              display: "flex",
-              alignItems: "center",
-              columnGap: theme.spacing(5),
-              opacity: 0.5,
-              marginTop: theme.spacing(7.5),
-            })}
-          >
-            <Visa />
-            <Mastercard />
-            <Amex />
-            <ApplePay />
-            <PayPal />
-            <Eth
-              css={(theme) => ({
-                width: theme.spacing(3.5),
-                height: theme.spacing(5.4),
-              })}
-            />
-          </div>
+          <FaqBlock />
         </Box>
       </Layout>
     </Fragment>

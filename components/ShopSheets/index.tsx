@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes, useState } from "react";
 import { useBag } from "../../hooks/bag";
 import Button, { Props as ButtonProps } from "../Button";
+import Grid from "../Grid";
 import Bag from "../Icons/Bag";
 import Line from "../Line";
 import Select, { Props as SelectProps } from "../Select";
@@ -25,16 +26,13 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
   const addToBag: ButtonProps["onClick"] = () => addItem(product._id);
 
   return (
-    <div
-      css={(theme) => ({
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: theme.spacing(3),
-        alignItems: "center",
-      })}
+    <Grid
       {...props}
+      css={{
+        alignItems: "center",
+      }}
     >
-      <div>
+      <div css={{ gridColumn: "span 5" }}>
         <img
           src={product.image}
           alt={product.title}
@@ -45,7 +43,7 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           })}
         />
       </div>
-      <div>
+      <div css={{ gridColumn: "7 / span 5" }}>
         <Text css={{ margin: 0 }} component="h3">
           Uncut Sheets
         </Text>
@@ -90,7 +88,7 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           />
         </div>
       </div>
-    </div>
+    </Grid>
   );
 };
 

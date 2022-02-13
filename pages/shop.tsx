@@ -14,8 +14,11 @@ import { useProducts } from "../hooks/product";
 import GlobalLayout from "../components/_composed/GlobalLayout";
 import { FC, Fragment } from "react";
 import ShopSheets from "../components/ShopSheets";
-import Faq from "../components/Faq";
 import CardFan from "../components/CardFan";
+import Grid from "../components/Grid";
+import Text from "../components/Text";
+import Line from "../components/Line";
+import FaqBlock from "../components/_composed/FaqBlock";
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
 
@@ -46,57 +49,57 @@ const Content: FC = () => {
         })}
       >
         <Box>
-          <Box css={{ paddingTop: 0, paddingBottom: 0 }}>
-            <BlockTitle
-              titleText="Shop"
-              subTitleText="The best way to buy the products you love. Hover the card to see
-              animation. Click to read the story behind the artwork."
-              css={(theme) => ({ marginBottom: theme.spacing(3) })}
-            />
-            <BagButton />
-          </Box>
+          <Grid>
+            <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 7" }}>
+              Shop
+            </Text>
+            <Text variant="body2" css={{ gridColumn: "2 / span 7" }}>
+              The best way to buy the products you love. Hover the card to see
+              animation. Click to read the story behind the artwork.
+            </Text>
+            <div css={{ gridColumn: "2 / span 10" }}>
+              <Line spacing={3} css={{ marginTop: 0 }} />
+              <BagButton />
+            </div>
+          </Grid>
         </Box>
       </Layout>
 
       <Layout>
         <Box>
-          <div
+          <Grid
             css={(theme) => ({
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: theme.spacing(3),
+              rowGap: theme.spacing(3),
             })}
           >
             {decks.map((product, index) =>
               product.status === "instock" ? (
                 <Fragment key={product._id}>
                   {index === 2 && (
-                    <Box
+                    <Quote
                       css={{
-                        gridColumn: "1 / -1",
+                        gridColumn: "2 / span 10",
                       }}
+                      artist={{
+                        _id: "",
+                        name: "Gleb Ryshkov",
+                        slug: "gleb-ryshkov",
+                        userpic: "",
+                        social: {},
+                      }}
+                      moreLink="/"
                     >
-                      <Quote
-                        artist={{
-                          _id: "",
-                          name: "Gleb Ryshkov",
-                          slug: "gleb-ryshkov",
-                          userpic: "",
-                          social: {},
-                        }}
-                        moreLink="/"
-                      >
-                        “I love these cards. Each colored deck has its charms. I
-                        own at least one of each. As I’ve refreshed my supply,
-                        I’ve watched the graphics and materials evolve. They’re
-                        great out-of-the-case and break in well”
-                      </Quote>
-                    </Box>
+                      “I love these cards. Each colored deck has its charms. I
+                      own at least one of each. As I’ve refreshed my supply,
+                      I’ve watched the graphics and materials evolve. They’re
+                      great out-of-the-case and break in well”
+                    </Quote>
                   )}
                   <ShopItem
                     {...product}
                     css={(theme) => ({
                       height: theme.spacing(50),
+                      gridColumn: "span 6",
                     })}
                     ButtonProps={{
                       onClick: () => addItem(product._id),
@@ -105,18 +108,21 @@ const Content: FC = () => {
                 </Fragment>
               ) : (
                 <Fragment>
-                  <Box>
-                    <ShopSoldOut title="Special Edition" />
-                  </Box>
+                  <ShopSoldOut
+                    title="Special Edition"
+                    css={{ gridColumn: "2 / span 4", alignSelf: "center" }}
+                  />
                   {product.deck && (
-                    <div css={{ textAlign: "center" }}>
+                    <div
+                      css={{ textAlign: "center", gridColumn: "7 / span 6" }}
+                    >
                       <CardFan deck={product.deck} />
                     </div>
                   )}
                 </Fragment>
               )
             )}
-          </div>
+          </Grid>
 
           <Box>
             <BlockTitle
@@ -152,12 +158,26 @@ const Content: FC = () => {
         })}
       >
         <Box>
-          <ShopSheets products={sheets} />
+          <ShopSheets
+            products={sheets}
+            css={(theme) => ({
+              marginTop: theme.spacing(5),
+              marginBottom: theme.spacing(5),
+            })}
+          />
         </Box>
       </Layout>
       <Layout>
-        <Box padding={2}>
-          <Faq />
+        <Box>
+          <Grid>
+            <FaqBlock
+              css={(theme) => ({
+                marginTop: theme.spacing(9),
+                marginBottom: theme.spacing(9),
+                gridColumn: "2 / span 10",
+              })}
+            />
+          </Grid>
         </Box>
       </Layout>
     </Fragment>
