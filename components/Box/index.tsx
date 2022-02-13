@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 
-interface Props extends HTMLAttributes<HTMLElement> {
+export interface Props extends HTMLAttributes<HTMLElement> {
   padding?: number;
   narrow?: boolean;
 }
