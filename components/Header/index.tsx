@@ -97,13 +97,14 @@ const Header: FC<Props> = ({
 
         <Text
           variant="h5"
-          component="div"
+          component={Link}
+          href="/"
           css={{
             marginTop: "0.3em",
             flexGrow: 1,
           }}
         >
-          playing arts
+          Playing Arts
         </Text>
 
         <div
