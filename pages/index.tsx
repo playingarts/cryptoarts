@@ -3,7 +3,6 @@ import { NextPage } from "next";
 import Layout from "../components/Layout";
 import Hero from "../components/Hero";
 import { withApollo } from "../source/apollo";
-import Box from "../components/Box";
 import Grid from "../components/Grid";
 import Esquire from "../components/Icons/Esquire";
 import FastCompany from "../components/Icons/FastCompany";
@@ -23,8 +22,9 @@ import GlobalLayout from "../components/_composed/GlobalLayout";
 import Chevron from "../components/Icons/Chevron";
 import Kickstarter from "../components/Icons/Kickstarter";
 import Arrowed from "../components/Arrowed";
-import Stats from "../components/Stats";
 import LatestRelease from "../components/LatestRelease";
+import StatBlock from "../components/StatBlock";
+import Stat from "../components/Stat";
 
 const Home: NextPage = () => {
   return (
@@ -72,27 +72,29 @@ const Home: NextPage = () => {
             marginBottom: theme.spacing(12),
           })}
         >
-          <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 10" }}>
-            About
-          </Text>
-          <div css={{ gridColumn: "2 / span 7" }}>
-            <Text variant="body3">
-              Playing Arts is a collective art project where leading artists
-              from all over the world express their vision of an ordinary
-              playing card using personal styles, techniques and imagination.
+          <Grid css={{ gridColumn: "2 / span 10" }}>
+            <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
+              About
             </Text>
-            <Text
-              component={Link}
-              variant="label"
-              href="/"
-              css={{ opacity: 0.5 }}
-            >
-              <Arrowed>Read our story</Arrowed>
+            <div css={{ margin: 0, gridColumn: "span 7" }}>
+              <Text variant="body3">
+                Playing Arts is a collective art project where leading artists
+                from all over the world express their vision of an ordinary
+                playing card using personal styles, techniques and imagination.
+              </Text>
+              <Text
+                component={Link}
+                variant="label"
+                href="/"
+                css={{ opacity: 0.5 }}
+              >
+                <Arrowed>Read our story</Arrowed>
+              </Text>
+            </div>
+            <Text variant="body3" css={{ gridColumn: "9 / span 2" }}>
+              <Kickstarter />
             </Text>
-          </div>
-          <Text variant="body3" css={{ gridColumn: "10 / span 2" }}>
-            <Kickstarter />
-          </Text>
+          </Grid>
         </Grid>
         <Grid
           css={(theme) => ({
@@ -101,17 +103,29 @@ const Home: NextPage = () => {
           })}
         >
           <LatestRelease css={{ gridColumn: "span 9" }} />
-          <Stats
+          <StatBlock
             css={(theme) => ({
               background: theme.colors.dark_gray,
               color: theme.colors.text_title_light,
               gridColumn: "10 / span 3",
             })}
-            allLink="/"
-            totalHolders="401k"
-            totalVolume="401k"
-            floorPrice=".012"
-          />
+            title="Stats"
+            action={{ children: "All stats", href: "/" }}
+          >
+            <Stat label="Total holders" value="401k" />
+            <Stat
+              label="Total volume"
+              value="401k"
+              eth={true}
+              css={(theme) => ({ marginTop: theme.spacing(4) })}
+            />
+            <Stat
+              label="Current floor price"
+              value={0.012}
+              eth={true}
+              css={(theme) => ({ marginTop: theme.spacing(4) })}
+            />
+          </StatBlock>
         </Grid>
         <Gallery />
       </Layout>
@@ -121,7 +135,7 @@ const Home: NextPage = () => {
       </Layout>
 
       <Layout>
-        <Box
+        <StatBlock
           css={(theme) => ({
             background: "#000",
             color: theme.colors.text_title_light,
@@ -129,12 +143,8 @@ const Home: NextPage = () => {
             marginTop: theme.spacing(9),
             marginBottom: theme.spacing(9),
           })}
-          narrow={true}
-        >
-          <Text variant="h6" css={{ margin: 0, opacity: 0.5 }}>
-            Gallery
-          </Text>
-        </Box>
+          title="Gallery"
+        />
         <Grid
           css={(theme) => ({
             marginBottom: theme.spacing(9),
@@ -142,23 +152,20 @@ const Home: NextPage = () => {
             alignItems: "flex-start",
           })}
         >
-          <Box
+          <StatBlock
             css={(theme) => ({
               background: "#510EAC",
               color: theme.colors.text_title_light,
               gridColumn: "span 6",
             })}
-            narrow={true}
+            title="Podcast"
+            action={{ children: "All episodes", href: "/" }}
           >
-            <Text variant="h6" css={{ margin: 0, opacity: 0.5 }}>
-              Podcast
-            </Text>
             <div
-              css={(theme) => ({
+              css={{
                 display: "flex",
                 columnGap: 50,
-                marginTop: theme.spacing(2),
-              })}
+              }}
             >
               <div css={{ flexGrow: 1 }}>
                 <Text
@@ -177,7 +184,6 @@ const Home: NextPage = () => {
                 <div
                   css={(theme) => ({
                     marginTop: theme.spacing(2),
-                    marginBottom: theme.spacing(2),
                     display: "flex",
                     alignItems: "center",
                     columnGap: theme.spacing(2),
@@ -199,9 +205,6 @@ const Home: NextPage = () => {
                     css={{ opacity: 0.5 }}
                   />
                 </div>
-                <Text component={Link} href="/" css={{ opacity: 0.5 }}>
-                  All episodes
-                </Text>
               </div>
               <div
                 css={(theme) => ({
@@ -213,8 +216,8 @@ const Home: NextPage = () => {
                 })}
               ></div>
             </div>
-          </Box>
-          <Box
+          </StatBlock>
+          <StatBlock
             css={(theme) => ({
               background: "#5865F2",
               color: theme.colors.text_title_light,
@@ -222,7 +225,7 @@ const Home: NextPage = () => {
               overflow: "hidden",
               gridColumn: "7 / span 3",
             })}
-            narrow={true}
+            action={{ children: "2910 Members", href: "/" }}
           >
             <Discord
               css={{
@@ -247,23 +250,13 @@ const Home: NextPage = () => {
               <Text component="h4" css={{ margin: 0 }}>
                 Discord
               </Text>
-              <Text css={{ margin: 0 }}>Join the conversation</Text>
-              <div
-                css={(theme) => ({
-                  marginTop: theme.spacing(2),
-                  marginBottom: theme.spacing(2),
-                })}
-              >
-                <Button Icon={Discord} css={{ color: "#5865F2" }}>
-                  Join
-                </Button>
-              </div>
-              <Text component={Link} href="/" css={{ opacity: 0.5 }}>
-                2910 Members
-              </Text>
+              <Text css={{ marginTop: 0 }}>Join the conversation</Text>
+              <Button Icon={Discord} css={{ color: "#5865F2" }}>
+                Join
+              </Button>
             </div>
-          </Box>
-          <Box
+          </StatBlock>
+          <StatBlock
             css={(theme) => ({
               background: "#489BE9",
               color: theme.colors.text_title_light,
@@ -271,7 +264,7 @@ const Home: NextPage = () => {
               overflow: "hidden",
               gridColumn: "10 / span 3",
             })}
-            narrow={true}
+            action={{ children: "9910 Followers", href: "/" }}
           >
             <Twitter
               css={{
@@ -296,22 +289,12 @@ const Home: NextPage = () => {
               <Text component="h4" css={{ margin: 0 }}>
                 Twitter
               </Text>
-              <Text css={{ margin: 0 }}>Follow our latest news</Text>
-              <div
-                css={(theme) => ({
-                  marginTop: theme.spacing(2),
-                  marginBottom: theme.spacing(2),
-                })}
-              >
-                <Button Icon={Twitter} css={{ color: "#489BE9" }}>
-                  Follow
-                </Button>
-              </div>
-              <Text component={Link} href="/" css={{ opacity: 0.5 }}>
-                9910 Followers
-              </Text>
+              <Text css={{ marginTop: 0 }}>Follow our latest news</Text>
+              <Button Icon={Twitter} css={{ color: "#489BE9" }}>
+                Follow
+              </Button>
             </div>
-          </Box>
+          </StatBlock>
         </Grid>
         <Grid
           css={(theme) => ({

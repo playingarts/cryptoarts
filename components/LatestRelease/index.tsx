@@ -1,25 +1,22 @@
 import { FC } from "react";
-import Box, { Props as BoxProps } from "../Box";
 import Button from "../Button";
 import Eth from "../Icons/Eth";
+import StatBlock, { Props as StatBlockProps } from "../StatBlock";
 import Text from "../Text";
 import background from "./background.png";
 
-const LatestRelease: FC<BoxProps> = (props) => (
-  <Box
+const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = (props) => (
+  <StatBlock
     {...props}
-    narrow={true}
     css={(theme) => ({
       background: `url(${background.src}) 100% 100% no-repeat`,
       backgroundColor: "#000",
       color: theme.colors.text_title_light,
       position: "relative",
     })}
+    title="LATEST RELEASE"
   >
     <div css={{ width: "55%" }}>
-      <Text variant="h6" css={{ marginTop: 0, opacity: 0.5 }}>
-        LATEST RELEASE
-      </Text>
       <Text component="h2" css={{ margin: 0 }}>
         Crypto Edition
       </Text>
@@ -39,7 +36,7 @@ const LatestRelease: FC<BoxProps> = (props) => (
         position: "absolute",
       })}
     />
-  </Box>
+  </StatBlock>
 );
 
 export default LatestRelease;
