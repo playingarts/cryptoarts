@@ -20,6 +20,7 @@ import Gallery from "../components/_composed/Gallery";
 import GlobalLayout from "../components/_composed/GlobalLayout";
 import Arrowed from "../components/Arrowed";
 import FaqBlock from "../components/_composed/FaqBlock";
+import Grid from "../components/Grid";
 
 const Content: FC = () => {
   const { bag, updateQuantity, removeItem } = useBag();
@@ -62,20 +63,18 @@ const Content: FC = () => {
           paddingTop: theme.spacing(14),
         })}
       >
-        <Box>
-          <Box css={{ paddingTop: 0, paddingBottom: 0 }}>
-            <BlockTitle
-              titleText="Your Bag"
-              subTitleText="Please note for the festive season, all online purchases made between 03/11/21 and 15/12/2021 can be returned up to 31/01/22."
-              css={(theme) => ({ marginBottom: theme.spacing(3) })}
-            />
-          </Box>
+        <Box css={{ paddingTop: 0, paddingBottom: 0 }}>
+          <BlockTitle
+            titleText="Your Bag"
+            subTitleText="Please note for the festive season, all online purchases made between 03/11/21 and 15/12/2021 can be returned up to 31/01/22."
+            css={(theme) => ({ marginBottom: theme.spacing(3) })}
+          />
         </Box>
       </Layout>
 
       <Layout>
-        <Box css={{ display: "flex", columnGap: 30 }}>
-          <div css={{ flexGrow: 1 }}>
+        <Grid>
+          <div css={{ gridColumn: "span 9" }}>
             {products.map((product, index) => (
               <Fragment key={product._id}>
                 {index !== 0 && (
@@ -147,10 +146,9 @@ const Content: FC = () => {
             />
           </div>
           <div
-            css={(theme) => ({
-              width: theme.spacing(28.5),
-              flexShrink: 0,
-            })}
+            css={{
+              gridColumn: "10 / span 3",
+            }}
           >
             <div
               css={(theme) => ({
@@ -197,7 +195,7 @@ const Content: FC = () => {
               </Text>
             </div>
           </div>
-        </Box>
+        </Grid>
       </Layout>
 
       <Layout
@@ -209,9 +207,15 @@ const Content: FC = () => {
       </Layout>
 
       <Layout>
-        <Box padding={2}>
-          <FaqBlock />
-        </Box>
+        <Grid>
+          <FaqBlock
+            css={(theme) => ({
+              marginTop: theme.spacing(9),
+              marginBottom: theme.spacing(9),
+              gridColumn: "2 / span 10",
+            })}
+          />
+        </Grid>
       </Layout>
     </Fragment>
   );

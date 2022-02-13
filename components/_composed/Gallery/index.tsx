@@ -7,7 +7,7 @@ import Carousel, { Props as CarouselProps } from "../../Carousel";
 import Chevron from "../../Icons/Chevron";
 import Link from "../../Link";
 
-const Gallery: FC<HTMLAttributes<HTMLElement>> = (props) => {
+const Gallery: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const items = [
     "https://i.ytimg.com/vi/lWAEP0C3QUQ/maxresdefault.jpg",
     "https://editorial.designtaxi.com/editorial-images/news-CatLoafPhotoshop130516/6-Cat-Loafing-Awkwardly-Stairs-Photoshop-Funny-Memes.jpg",
@@ -28,7 +28,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const onNext = () => changeIndex(1);
 
   return (
-    <Box {...props}>
+    <div {...props}>
       <Box>
         <BlockTitle
           variant="h3"
@@ -76,7 +76,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = (props) => {
         />
       </Box>
       <Carousel items={items} index={index} onIndexChange={changeIndex} />
-    </Box>
+    </div>
   );
 };
 

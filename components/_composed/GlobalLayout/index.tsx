@@ -33,6 +33,8 @@ const GlobalLayout: FC<
       <Footer
         css={(theme) => ({
           marginBottom: theme.spacing(1),
+          marginLeft: -theme.spacing(9.5),
+          marginRight: -theme.spacing(9.5),
         })}
       />
     </Layout>

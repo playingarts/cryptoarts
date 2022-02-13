@@ -23,6 +23,8 @@ import GlobalLayout from "../components/_composed/GlobalLayout";
 import Chevron from "../components/Icons/Chevron";
 import Kickstarter from "../components/Icons/Kickstarter";
 import Arrowed from "../components/Arrowed";
+import Stats from "../components/Stats";
+import LatestRelease from "../components/LatestRelease";
 
 const Home: NextPage = () => {
   return (
@@ -34,72 +36,83 @@ const Home: NextPage = () => {
       <Layout
         css={(theme) => ({
           background: theme.colors.dark_gray,
-          paddingTop: theme.spacing(18),
           color: theme.colors.text_title_light,
           overflow: "hidden",
         })}
       >
-        <Box>
-          <Grid>
-            <div css={{ gridColumn: "2 / span 6" }}>
-              <Text component="h1" css={{ margin: 0 }}>
-                Collective Art Project
-              </Text>
-              <Text
-                variant="body3"
-                css={(theme) => ({
-                  margin: 0,
-                  marginTop: theme.spacing(2),
-                  paddingTop: 20,
-                  paddingBottom: 45,
-                })}
-              >
-                For creative people who are into art, playing cards and
-                sometimes magic.
-              </Text>
-              <Button
-                variant="bordered"
-                Icon={Chevron}
-                size="small"
-                iconProps={{ css: { height: 16, transform: "rotate(90deg)" } }}
-              />
-            </div>
-            <Hero css={{ gridColumn: "8 / span 5" }} />
-          </Grid>
-        </Box>
+        <Grid
+          css={(theme) => ({
+            marginTop: theme.spacing(30),
+            marginBottom: theme.spacing(9.5),
+          })}
+        >
+          <div css={{ gridColumn: "2 / span 6" }}>
+            <Text component="h1" css={{ margin: 0 }}>
+              Collective Art Project
+            </Text>
+            <Text variant="body3">
+              For creative people who are into art, playing cards and sometimes
+              magic.
+            </Text>
+            <Button
+              variant="bordered"
+              Icon={Chevron}
+              size="small"
+              iconProps={{ css: { height: 16, transform: "rotate(90deg)" } }}
+            />
+          </div>
+          <Hero css={{ gridColumn: "8 / span 5" }} />
+        </Grid>
       </Layout>
 
       <Layout>
-        <Box>
-          <Grid
+        <Grid
+          css={(theme) => ({
+            marginTop: theme.spacing(14),
+            marginBottom: theme.spacing(12),
+          })}
+        >
+          <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 10" }}>
+            About
+          </Text>
+          <div css={{ gridColumn: "2 / span 7" }}>
+            <Text variant="body3">
+              Playing Arts is a collective art project where leading artists
+              from all over the world express their vision of an ordinary
+              playing card using personal styles, techniques and imagination.
+            </Text>
+            <Text
+              component={Link}
+              variant="label"
+              href="/"
+              css={{ opacity: 0.5 }}
+            >
+              <Arrowed>Read our story</Arrowed>
+            </Text>
+          </div>
+          <Text variant="body3" css={{ gridColumn: "10 / span 2" }}>
+            <Kickstarter />
+          </Text>
+        </Grid>
+        <Grid
+          css={(theme) => ({
+            marginTop: theme.spacing(10),
+            marginBottom: theme.spacing(10),
+          })}
+        >
+          <LatestRelease css={{ gridColumn: "span 9" }} />
+          <Stats
             css={(theme) => ({
-              marginTop: theme.spacing(8),
-              marginBottom: theme.spacing(12),
+              background: theme.colors.dark_gray,
+              color: theme.colors.text_title_light,
+              gridColumn: "10 / span 3",
             })}
-          >
-            <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 10" }}>
-              About
-            </Text>
-            <div css={{ gridColumn: "2 / span 7" }}>
-              <Text variant="body3">
-                Playing Arts is a collective art project where leading artists
-                from all over the world express their vision of an ordinary
-                playing card using personal styles, techniques and imagination.
-              </Text>
-              <Text
-                component={Link}
-                variant="label"
-                href="/"
-                css={{ opacity: 0.5 }}
-              >
-                <Arrowed>Read our story</Arrowed>
-              </Text>
-            </div>
-            <Text variant="body3" css={{ gridColumn: "10 / span 2" }}>
-              <Kickstarter />
-            </Text>
-          </Grid>
-        </Box>
+            allLink="/"
+            totalHolders="401k"
+            totalVolume="401k"
+            floorPrice=".012"
+          />
+        </Grid>
         <Gallery />
       </Layout>
 
@@ -108,231 +121,229 @@ const Home: NextPage = () => {
       </Layout>
 
       <Layout>
-        <Box>
+        <Box
+          css={(theme) => ({
+            background: "#000",
+            color: theme.colors.text_title_light,
+            height: theme.spacing(60),
+            marginTop: theme.spacing(9),
+            marginBottom: theme.spacing(9),
+          })}
+          narrow={true}
+        >
+          <Text variant="h6" css={{ margin: 0, opacity: 0.5 }}>
+            Gallery
+          </Text>
+        </Box>
+        <Grid
+          css={(theme) => ({
+            marginBottom: theme.spacing(9),
+            marginTop: theme.spacing(9),
+            alignItems: "flex-start",
+          })}
+        >
           <Box
             css={(theme) => ({
-              background: "#000",
+              background: "#510EAC",
               color: theme.colors.text_title_light,
-              height: theme.spacing(60),
-              marginTop: theme.spacing(9),
-              marginBottom: theme.spacing(9),
+              gridColumn: "span 6",
             })}
             narrow={true}
           >
             <Text variant="h6" css={{ margin: 0, opacity: 0.5 }}>
-              Gallery
+              Podcast
             </Text>
-          </Box>
-          <Grid
-            css={(theme) => ({
-              marginBottom: theme.spacing(9),
-              marginTop: theme.spacing(9),
-              alignItems: "flex-start",
-            })}
-          >
-            <Box
+            <div
               css={(theme) => ({
-                background: "#510EAC",
-                color: theme.colors.text_title_light,
-                gridColumn: "span 6",
+                display: "flex",
+                columnGap: 50,
+                marginTop: theme.spacing(2),
               })}
-              narrow={true}
             >
-              <Text variant="h6" css={{ margin: 0, opacity: 0.5 }}>
-                Podcast
-              </Text>
+              <div css={{ flexGrow: 1 }}>
+                <Text
+                  component="h3"
+                  css={(theme) => ({
+                    textTransform: "uppercase",
+                    marginTop: 0,
+                    marginBottom: theme.spacing(1),
+                  })}
+                >
+                  Bram Vanhaeren
+                </Text>
+                <Text variant="h6" css={{ margin: 0, opacity: 0.5 }}>
+                  EP01 - 10/13 - 12:00 PST
+                </Text>
+                <div
+                  css={(theme) => ({
+                    marginTop: theme.spacing(2),
+                    marginBottom: theme.spacing(2),
+                    display: "flex",
+                    alignItems: "center",
+                    columnGap: theme.spacing(2),
+                  })}
+                >
+                  <Button Icon={Play} css={{ color: "#510EAC" }}>
+                    Watch
+                  </Button>
+                  <Button
+                    variant="bordered"
+                    size="small"
+                    Icon={Itunes}
+                    css={{ opacity: 0.5 }}
+                  />
+                  <Button
+                    variant="bordered"
+                    size="small"
+                    Icon={Spotify}
+                    css={{ opacity: 0.5 }}
+                  />
+                </div>
+                <Text component={Link} href="/" css={{ opacity: 0.5 }}>
+                  All episodes
+                </Text>
+              </div>
               <div
                 css={(theme) => ({
-                  display: "flex",
-                  columnGap: 50,
+                  width: theme.spacing(16),
+                  height: theme.spacing(16),
+                  background: "#000",
+                  borderRadius: "50%",
+                  flexShrink: 0,
+                })}
+              ></div>
+            </div>
+          </Box>
+          <Box
+            css={(theme) => ({
+              background: "#5865F2",
+              color: theme.colors.text_title_light,
+              position: "relative",
+              overflow: "hidden",
+              gridColumn: "7 / span 3",
+            })}
+            narrow={true}
+          >
+            <Discord
+              css={{
+                "& stop:first-child": {
+                  stopColor: "currentColor",
+                  stopOpacity: 0.5,
+                },
+                "& stop:last-child": {
+                  stopColor: "#5865F2",
+                },
+                position: "absolute",
+                right: "0",
+                top: "50%",
+                transform: "translate(50%, -50%)",
+                height: "100%",
+                width: "100%",
+                fill: "url(#gradient)",
+                opacity: 0.5,
+              }}
+            />
+            <div css={{ position: "relative" }}>
+              <Text component="h4" css={{ margin: 0 }}>
+                Discord
+              </Text>
+              <Text css={{ margin: 0 }}>Join the conversation</Text>
+              <div
+                css={(theme) => ({
                   marginTop: theme.spacing(2),
+                  marginBottom: theme.spacing(2),
                 })}
               >
-                <div css={{ flexGrow: 1 }}>
-                  <Text
-                    component="h3"
-                    css={(theme) => ({
-                      textTransform: "uppercase",
-                      marginTop: 0,
-                      marginBottom: theme.spacing(1),
-                    })}
-                  >
-                    Bram Vanhaeren
-                  </Text>
-                  <Text variant="h6" css={{ margin: 0, opacity: 0.5 }}>
-                    EP01 - 10/13 - 12:00 PST
-                  </Text>
-                  <div
-                    css={(theme) => ({
-                      marginTop: theme.spacing(2),
-                      marginBottom: theme.spacing(2),
-                      display: "flex",
-                      alignItems: "center",
-                      columnGap: theme.spacing(2),
-                    })}
-                  >
-                    <Button Icon={Play} css={{ color: "#510EAC" }}>
-                      Watch
-                    </Button>
-                    <Button
-                      variant="bordered"
-                      size="small"
-                      Icon={Itunes}
-                      css={{ opacity: 0.5 }}
-                    />
-                    <Button
-                      variant="bordered"
-                      size="small"
-                      Icon={Spotify}
-                      css={{ opacity: 0.5 }}
-                    />
-                  </div>
-                  <Text component={Link} href="/" css={{ opacity: 0.5 }}>
-                    All episodes
-                  </Text>
-                </div>
-                <div
-                  css={(theme) => ({
-                    width: theme.spacing(16),
-                    height: theme.spacing(16),
-                    background: "#000",
-                    borderRadius: "50%",
-                    flexShrink: 0,
-                  })}
-                ></div>
+                <Button Icon={Discord} css={{ color: "#5865F2" }}>
+                  Join
+                </Button>
               </div>
-            </Box>
-            <Box
-              css={(theme) => ({
-                background: "#5865F2",
-                color: theme.colors.text_title_light,
-                position: "relative",
-                overflow: "hidden",
-                gridColumn: "7 / span 3",
-              })}
-              narrow={true}
-            >
-              <Discord
-                css={{
-                  "& stop:first-child": {
-                    stopColor: "currentColor",
-                    stopOpacity: 0.5,
-                  },
-                  "& stop:last-child": {
-                    stopColor: "#5865F2",
-                  },
-                  position: "absolute",
-                  right: "0",
-                  top: "50%",
-                  transform: "translate(50%, -50%)",
-                  height: "100%",
-                  width: "100%",
-                  fill: "url(#gradient)",
-                  opacity: 0.5,
-                }}
-              />
-              <div css={{ position: "relative" }}>
-                <Text component="h4" css={{ margin: 0 }}>
-                  Discord
-                </Text>
-                <Text css={{ margin: 0 }}>Join the conversation</Text>
-                <div
-                  css={(theme) => ({
-                    marginTop: theme.spacing(2),
-                    marginBottom: theme.spacing(2),
-                  })}
-                >
-                  <Button Icon={Discord} css={{ color: "#5865F2" }}>
-                    Join
-                  </Button>
-                </div>
-                <Text component={Link} href="/" css={{ opacity: 0.5 }}>
-                  2910 Members
-                </Text>
-              </div>
-            </Box>
-            <Box
-              css={(theme) => ({
-                background: "#489BE9",
-                color: theme.colors.text_title_light,
-                position: "relative",
-                overflow: "hidden",
-                gridColumn: "10 / span 3",
-              })}
-              narrow={true}
-            >
-              <Twitter
-                css={{
-                  "& stop:first-child": {
-                    stopColor: "currentColor",
-                    stopOpacity: 0.5,
-                  },
-                  "& stop:last-child": {
-                    stopColor: "#489BE9",
-                  },
-                  position: "absolute",
-                  right: "0",
-                  top: "50%",
-                  transform: "translate(50%, -50%)",
-                  height: "100%",
-                  width: "100%",
-                  fill: "url(#gradient)",
-                  opacity: 0.5,
-                }}
-              />
-              <div css={{ position: "relative" }}>
-                <Text component="h4" css={{ margin: 0 }}>
-                  Twitter
-                </Text>
-                <Text css={{ margin: 0 }}>Follow our latest news</Text>
-                <div
-                  css={(theme) => ({
-                    marginTop: theme.spacing(2),
-                    marginBottom: theme.spacing(2),
-                  })}
-                >
-                  <Button Icon={Twitter} css={{ color: "#489BE9" }}>
-                    Follow
-                  </Button>
-                </div>
-                <Text component={Link} href="/" css={{ opacity: 0.5 }}>
-                  9910 Followers
-                </Text>
-              </div>
-            </Box>
-          </Grid>
-          <Grid
+              <Text component={Link} href="/" css={{ opacity: 0.5 }}>
+                2910 Members
+              </Text>
+            </div>
+          </Box>
+          <Box
             css={(theme) => ({
-              marginBottom: theme.spacing(10),
-              marginTop: theme.spacing(16),
+              background: "#489BE9",
+              color: theme.colors.text_title_light,
+              position: "relative",
+              overflow: "hidden",
+              gridColumn: "10 / span 3",
             })}
+            narrow={true}
           >
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <Esquire />
+            <Twitter
+              css={{
+                "& stop:first-child": {
+                  stopColor: "currentColor",
+                  stopOpacity: 0.5,
+                },
+                "& stop:last-child": {
+                  stopColor: "#489BE9",
+                },
+                position: "absolute",
+                right: "0",
+                top: "50%",
+                transform: "translate(50%, -50%)",
+                height: "100%",
+                width: "100%",
+                fill: "url(#gradient)",
+                opacity: 0.5,
+              }}
+            />
+            <div css={{ position: "relative" }}>
+              <Text component="h4" css={{ margin: 0 }}>
+                Twitter
+              </Text>
+              <Text css={{ margin: 0 }}>Follow our latest news</Text>
+              <div
+                css={(theme) => ({
+                  marginTop: theme.spacing(2),
+                  marginBottom: theme.spacing(2),
+                })}
+              >
+                <Button Icon={Twitter} css={{ color: "#489BE9" }}>
+                  Follow
+                </Button>
+              </div>
+              <Text component={Link} href="/" css={{ opacity: 0.5 }}>
+                9910 Followers
+              </Text>
             </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <FastCompany />
-            </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <CreativeBloq />
-            </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <DigitalArts />
-            </div>
-          </Grid>
-          <Grid
-            css={(theme) => ({
-              marginBottom: theme.spacing(10),
-              marginTop: theme.spacing(10),
-            })}
-          >
-            <Quote css={{ gridColumn: "2 / span 10" }}>
-              “Two is a sign of union. And diamonds are a sign of prosperity. I
-              wanted to show the duality using my Ugly character wearing a
-              twofaced mask.”
-            </Quote>
-          </Grid>
-        </Box>
+          </Box>
+        </Grid>
+        <Grid
+          css={(theme) => ({
+            marginBottom: theme.spacing(10),
+            marginTop: theme.spacing(16),
+          })}
+        >
+          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <Esquire />
+          </div>
+          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <FastCompany />
+          </div>
+          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <CreativeBloq />
+          </div>
+          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <DigitalArts />
+          </div>
+        </Grid>
+        <Grid
+          css={(theme) => ({
+            marginBottom: theme.spacing(10),
+            marginTop: theme.spacing(10),
+          })}
+        >
+          <Quote css={{ gridColumn: "2 / span 10" }}>
+            “Two is a sign of union. And diamonds are a sign of prosperity. I
+            wanted to show the duality using my Ugly character wearing a
+            twofaced mask.”
+          </Quote>
+        </Grid>
       </Layout>
     </GlobalLayout>
   );

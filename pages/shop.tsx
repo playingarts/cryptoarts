@@ -48,108 +48,102 @@ const Content: FC = () => {
           paddingTop: theme.spacing(14),
         })}
       >
-        <Box>
-          <Grid>
-            <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 7" }}>
-              Shop
-            </Text>
-            <Text variant="body2" css={{ gridColumn: "2 / span 7" }}>
-              The best way to buy the products you love. Hover the card to see
-              animation. Click to read the story behind the artwork.
-            </Text>
-            <div css={{ gridColumn: "2 / span 10" }}>
-              <Line spacing={3} css={{ marginTop: 0 }} />
-              <BagButton />
-            </div>
-          </Grid>
-        </Box>
+        <Grid>
+          <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 7" }}>
+            Shop
+          </Text>
+          <Text variant="body2" css={{ gridColumn: "2 / span 7" }}>
+            The best way to buy the products you love. Hover the card to see
+            animation. Click to read the story behind the artwork.
+          </Text>
+          <div css={{ gridColumn: "2 / span 10" }}>
+            <Line spacing={3} css={{ marginTop: 0 }} />
+            <BagButton />
+          </div>
+        </Grid>
       </Layout>
 
       <Layout>
-        <Box>
-          <Grid
-            css={(theme) => ({
-              rowGap: theme.spacing(3),
-            })}
-          >
-            {decks.map((product, index) =>
-              product.status === "instock" ? (
-                <Fragment key={product._id}>
-                  {index === 2 && (
-                    <Quote
-                      css={{
-                        gridColumn: "2 / span 10",
-                      }}
-                      artist={{
-                        _id: "",
-                        name: "Gleb Ryshkov",
-                        slug: "gleb-ryshkov",
-                        userpic: "",
-                        social: {},
-                      }}
-                      moreLink="/"
-                    >
-                      “I love these cards. Each colored deck has its charms. I
-                      own at least one of each. As I’ve refreshed my supply,
-                      I’ve watched the graphics and materials evolve. They’re
-                      great out-of-the-case and break in well”
-                    </Quote>
-                  )}
-                  <ShopItem
-                    {...product}
-                    css={(theme) => ({
-                      height: theme.spacing(50),
-                      gridColumn: "span 6",
-                    })}
-                    ButtonProps={{
-                      onClick: () => addItem(product._id),
+        <Grid
+          css={(theme) => ({
+            rowGap: theme.spacing(3),
+          })}
+        >
+          {decks.map((product, index) =>
+            product.status === "instock" ? (
+              <Fragment key={product._id}>
+                {index === 2 && (
+                  <Quote
+                    css={{
+                      gridColumn: "2 / span 10",
                     }}
-                  />
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <ShopSoldOut
-                    title="Special Edition"
-                    css={{ gridColumn: "2 / span 4", alignSelf: "center" }}
-                  />
-                  {product.deck && (
-                    <div
-                      css={{ textAlign: "center", gridColumn: "7 / span 6" }}
-                    >
-                      <CardFan deck={product.deck} />
-                    </div>
-                  )}
-                </Fragment>
-              )
-            )}
-          </Grid>
-
-          <Box>
-            <BlockTitle
-              titleText="Bundles"
-              subTitleText="For serious collectors and true art connoisseurs."
-              variant="h3"
-              css={(theme) => ({ marginBottom: theme.spacing(3) })}
-            />
-            <div
-              css={(theme) => ({
-                display: "grid",
-                justifyContent: "center",
-                gridTemplateColumns: "1fr 1fr",
-                gap: theme.spacing(3),
-              })}
-            >
-              {bundles.map((product) => (
-                <ShopBundle
-                  key={product._id}
+                    artist={{
+                      _id: "",
+                      name: "Gleb Ryshkov",
+                      slug: "gleb-ryshkov",
+                      userpic: "",
+                      social: {},
+                    }}
+                    moreLink="/"
+                  >
+                    “I love these cards. Each colored deck has its charms. I own
+                    at least one of each. As I’ve refreshed my supply, I’ve
+                    watched the graphics and materials evolve. They’re great
+                    out-of-the-case and break in well”
+                  </Quote>
+                )}
+                <ShopItem
                   {...product}
+                  css={(theme) => ({
+                    height: theme.spacing(50),
+                    gridColumn: "span 6",
+                  })}
                   ButtonProps={{
                     onClick: () => addItem(product._id),
                   }}
                 />
-              ))}
-            </div>
-          </Box>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <ShopSoldOut
+                  title="Special Edition"
+                  css={{ gridColumn: "2 / span 4", alignSelf: "center" }}
+                />
+                {product.deck && (
+                  <div css={{ textAlign: "center", gridColumn: "7 / span 6" }}>
+                    <CardFan deck={product.deck} />
+                  </div>
+                )}
+              </Fragment>
+            )
+          )}
+        </Grid>
+
+        <Box>
+          <BlockTitle
+            titleText="Bundles"
+            subTitleText="For serious collectors and true art connoisseurs."
+            variant="h3"
+            css={(theme) => ({ marginBottom: theme.spacing(3) })}
+          />
+          <div
+            css={(theme) => ({
+              display: "grid",
+              justifyContent: "center",
+              gridTemplateColumns: "1fr 1fr",
+              gap: theme.spacing(3),
+            })}
+          >
+            {bundles.map((product) => (
+              <ShopBundle
+                key={product._id}
+                {...product}
+                ButtonProps={{
+                  onClick: () => addItem(product._id),
+                }}
+              />
+            ))}
+          </div>
         </Box>
       </Layout>
       <Layout
@@ -157,28 +151,24 @@ const Content: FC = () => {
           background: theme.colors.light_gray,
         })}
       >
-        <Box>
-          <ShopSheets
-            products={sheets}
-            css={(theme) => ({
-              marginTop: theme.spacing(5),
-              marginBottom: theme.spacing(5),
-            })}
-          />
-        </Box>
+        <ShopSheets
+          products={sheets}
+          css={(theme) => ({
+            marginTop: theme.spacing(5),
+            marginBottom: theme.spacing(5),
+          })}
+        />
       </Layout>
       <Layout>
-        <Box>
-          <Grid>
-            <FaqBlock
-              css={(theme) => ({
-                marginTop: theme.spacing(9),
-                marginBottom: theme.spacing(9),
-                gridColumn: "2 / span 10",
-              })}
-            />
-          </Grid>
-        </Box>
+        <Grid>
+          <FaqBlock
+            css={(theme) => ({
+              marginTop: theme.spacing(9),
+              marginBottom: theme.spacing(9),
+              gridColumn: "2 / span 10",
+            })}
+          />
+        </Grid>
       </Layout>
     </Fragment>
   );

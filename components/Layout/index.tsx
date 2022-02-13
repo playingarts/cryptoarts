@@ -16,7 +16,7 @@ const Layout: ForwardRefRenderFunction<
     >
       <div
         css={(theme) => ({
-          maxWidth: theme.spacing(142),
+          maxWidth: theme.spacing(123),
           margin: "0 auto",
           position: "relative",
           // left: 50%;

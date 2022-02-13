@@ -160,7 +160,7 @@ const Content: FC<{
             paddingTop: theme.spacing(18),
           })}
         >
-          <Box padding={2}>
+          <Box>
             <Text component="h1" css={{ margin: 0 }}>
               {deck.title}
             </Text>
@@ -185,32 +185,30 @@ const Content: FC<{
 
       <Layout ref={cardsRef}>
         <Box>
-          <Box>
-            <BlockTitle
-              titleText="Cards"
-              subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
-              buttonProps={{
-                children: (
-                  <span
-                    css={(theme) => ({
-                      background: theme.colors.gradient,
-                      backgroundClip: "text",
-                      color: "transparent",
-                    })}
-                  >
-                    metamask
-                  </span>
-                ),
-                Icon: Plus,
-                css: (theme) => ({
-                  background: theme.colors.dark_gray,
-                  color: "#82A7F8",
-                }),
-              }}
-            />
-          </Box>
-          <CardsBlock cards={cards} />
+          <BlockTitle
+            titleText="Cards"
+            subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
+            buttonProps={{
+              children: (
+                <span
+                  css={(theme) => ({
+                    background: theme.colors.gradient,
+                    backgroundClip: "text",
+                    color: "transparent",
+                  })}
+                >
+                  metamask
+                </span>
+              ),
+              Icon: Plus,
+              css: (theme) => ({
+                background: theme.colors.dark_gray,
+                color: "#82A7F8",
+              }),
+            }}
+          />
         </Box>
+        <CardsBlock cards={cards} />
       </Layout>
 
       <Layout
@@ -219,7 +217,7 @@ const Content: FC<{
         })}
         ref={deckRef}
       >
-        <Box padding={2}>
+        <Box>
           <BlockTitle
             variant="h3"
             titleText="Deck"
@@ -248,28 +246,26 @@ const Content: FC<{
 
       <Layout ref={galleryRef}>
         <Gallery />
+        <Grid>
+          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <Esquire />
+          </div>
+          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <FastCompany />
+          </div>
+          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <CreativeBloq />
+          </div>
+          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <DigitalArts />
+          </div>
+        </Grid>
         <Box>
-          <Grid>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <Esquire />
-            </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <FastCompany />
-            </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <CreativeBloq />
-            </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <DigitalArts />
-            </div>
-          </Grid>
-          <Box>
-            <Quote>
-              “Two is a sign of union. And diamonds are a sign of prosperity. I
-              wanted to show the duality using my Ugly character wearing a
-              twofaced mask.”
-            </Quote>
-          </Box>
+          <Quote>
+            “Two is a sign of union. And diamonds are a sign of prosperity. I
+            wanted to show the duality using my Ugly character wearing a
+            twofaced mask.”
+          </Quote>
         </Box>
       </Layout>
     </Fragment>
