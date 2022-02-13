@@ -1,10 +1,10 @@
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 import Arrowed from "../Arrowed";
-import Box from "../Box";
+import Box, { Props as BoxProps } from "../Box";
 import Link, { Props as LinkProps } from "../Link";
 import Text from "../Text";
 
-export interface Props extends HTMLAttributes<HTMLDivElement> {
+export interface Props extends BoxProps {
   title?: string;
   action?: Pick<LinkProps, "children" | "href">;
 }
