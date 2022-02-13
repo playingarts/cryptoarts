@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 
-type Props = HTMLAttributes<HTMLDivElement>;
+export type Props = HTMLAttributes<HTMLDivElement>;
 
 const Grid: FC<Props> = ({ children, ...props }) => (
   <div

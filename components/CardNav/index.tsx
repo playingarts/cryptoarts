@@ -5,7 +5,7 @@ import Chevron from "../Icons/Chevron";
 import Close from "../Icons/Close";
 import Link, { Props as LinkProps } from "../Link";
 
-interface Props extends HTMLAttributes<HTMLElement> {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   prevLink?: LinkProps["href"];
   nextLink?: LinkProps["href"];
   closeLink?: LinkProps["href"];

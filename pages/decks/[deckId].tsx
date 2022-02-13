@@ -7,7 +7,6 @@ import { withApollo } from "../../source/apollo";
 import { useLoadCards } from "../../hooks/card";
 import { useRouter } from "next/router";
 import CardsBlock from "../../components/CardsBlock";
-import CardNav from "../../components/CardNav";
 import Box from "../../components/Box";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
@@ -23,10 +22,9 @@ import FastCompany from "../../components/Icons/FastCompany";
 import CreativeBloq from "../../components/Icons/CreativeBloq";
 import DigitalArts from "../../components/Icons/DigitalArts";
 import Quote from "../../components/Quote";
-import Card from "../../components/Card";
-import CardInfo from "../../components/CardsPage/Info";
 import throttle from "just-throttle";
 import GlobalLayout from "../../components/_composed/GlobalLayout";
+import ComposedCardContent from "../../components/_composed/CardContent";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -39,8 +37,6 @@ const Content: FC<{
   } = useRouter();
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { loadCards, cards, loading } = useLoadCards();
-  const card =
-    cards && cardId ? cards.find(({ _id }) => _id === cardId) : undefined;
 
   useEffect(() => {
     if (deck) {
@@ -56,100 +52,18 @@ const Content: FC<{
     return null;
   }
 
-  const currentCardIndex = card
-    ? cards.findIndex(({ _id }) => _id === card._id)
-    : -2;
-  const prevCardLink = card && cards[currentCardIndex - 1];
-  const nextCardLink = card && cards[currentCardIndex + 1];
-
   return (
     <Fragment>
-      {cardId && (
-        <CardNav
+      {typeof cardId === "string" && (
+        <ComposedCardContent
           css={(theme) => ({
             background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
             color: theme.colors.page_bg_light,
           })}
-          prevLink={
-            prevCardLink && {
-              pathname: `/decks/${deck.slug}`,
-              query: { cardId: prevCardLink._id },
-            }
-          }
-          nextLink={
-            nextCardLink && {
-              pathname: `/decks/${deck.slug}`,
-              query: { cardId: nextCardLink._id },
-            }
-          }
-          closeLink={`/decks/${deck.slug}`}
-        >
-          <Layout
-            css={(theme) => ({
-              paddingBottom: theme.spacing(14),
-              paddingTop: theme.spacing(14),
-            })}
-          >
-            {card && (
-              <Fragment>
-                <div
-                  css={{
-                    display: "flex",
-                    alignItems: "top",
-                  }}
-                >
-                  <div
-                    css={{
-                      width: "50%",
-                    }}
-                  >
-                    {card && (
-                      <Card
-                        key={card._id}
-                        card={card}
-                        animated={true}
-                        size="big"
-                        interactive={true}
-                        css={{
-                          marginLeft: "auto",
-                          marginRight: "auto",
-                          position: "sticky",
-                          top: 140,
-                        }}
-                      />
-                    )}
-                  </div>
-                  <div css={{ width: "50%" }}>
-                    <div
-                      css={{
-                        height: 400,
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <CardInfo
-                        artist={card.artist}
-                        price={1}
-                        css={{ flexGrow: 1 }}
-                      />
-                    </div>
-                    <Quote
-                      fullArtist={true}
-                      artist={card.artist}
-                      css={(theme) => ({
-                        marginTop: theme.spacing(9),
-                      })}
-                      vertical={true}
-                      truncate={7}
-                    >
-                      {card.info}
-                    </Quote>
-                  </div>
-                </div>
-              </Fragment>
-            )}
-          </Layout>
-        </CardNav>
+          deck={deck}
+          cardId={cardId}
+          cards={cards}
+        />
       )}
 
       {!cardId && (

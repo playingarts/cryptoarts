@@ -1,9 +1,11 @@
 import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
 
-const Layout: ForwardRefRenderFunction<
-  HTMLElement,
-  HTMLAttributes<HTMLElement>
-> = ({ children, ...props }, ref) => {
+export type Props = HTMLAttributes<HTMLElement>;
+
+const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
+  { children, ...props },
+  ref
+) => {
   return (
     <section
       {...props}

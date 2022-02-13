@@ -14,7 +14,9 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const CardInfo: FC<Props> = ({ artist, price, ...props }) => {
   return (
     <div {...props}>
-      <Text component="h2">{artist.name}</Text>
+      <Text component="h2" css={{ margin: 0 }}>
+        {artist.name}
+      </Text>
       <Text component="div" variant="h6">
         {"Russia"}
       </Text>

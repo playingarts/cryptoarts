@@ -25,6 +25,7 @@ import LatestRelease from "../components/LatestRelease";
 import StatBlock from "../components/StatBlock";
 import Stat from "../components/Stat";
 import Editions from "../components/_composed/Editions";
+import CardOfTheDay from "../components/_composed/CardOfTheDay";
 
 const Home: NextPage = () => {
   return (
@@ -135,9 +136,12 @@ const Home: NextPage = () => {
         />
       </Layout>
 
-      <Layout css={(theme) => ({ background: theme.colors.page_bg_dark })}>
-        asd
-      </Layout>
+      <CardOfTheDay
+        css={(theme) => ({
+          background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
+          color: theme.colors.page_bg_light,
+        })}
+      />
 
       <Layout>
         <StatBlock
