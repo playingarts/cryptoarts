@@ -40,3 +40,28 @@ WithButton.args = {
     }),
   },
 };
+
+export const WithButtonNoSubTitle = Template.bind({});
+WithButtonNoSubTitle.args = {
+  ...Primary.args,
+  subTitleText: undefined,
+  variant: "h3",
+  buttonProps: {
+    children: (
+      <span
+        css={(theme) => ({
+          background: theme.colors.gradient,
+          backgroundClip: "text",
+          color: "transparent",
+        })}
+      >
+        metamask
+      </span>
+    ),
+    Icon: Plus,
+    css: (theme) => ({
+      background: theme.colors.dark_gray,
+      color: "#82A7F8",
+    }),
+  },
+};
