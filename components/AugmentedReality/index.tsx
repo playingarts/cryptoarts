@@ -1,18 +1,20 @@
 import { FC, HTMLAttributes } from "react";
-import Box from "../Box";
 import Button from "../Button";
 import Android from "../Icons/Android";
 import Apple from "../Icons/Apple";
 import Line from "../Line";
+import StatBlock from "../StatBlock";
 import Text from "../Text";
 import Hand from "./hand.png";
 
 const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
   return (
-    <Box
+    <StatBlock
       {...props}
+      narrow={false}
       css={(theme) => ({
-        background: `${theme.colors.dark_gray} url(${Hand}) bottom right no-repeat`,
+        background: `url(${Hand.src}) bottom right no-repeat`,
+        backgroundColor: theme.colors.dark_gray,
         color: theme.colors.text_title_light,
       })}
     >
@@ -47,7 +49,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
           </Button>
         </div>
       </div>
-    </Box>
+    </StatBlock>
   );
 };
 
