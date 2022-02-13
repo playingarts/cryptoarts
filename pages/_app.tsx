@@ -36,6 +36,7 @@ declare module "@emotion/react" {
       h4: CSSInterpolation;
       h5: CSSInterpolation;
       h6: CSSInterpolation;
+      h7: CSSInterpolation;
       body0: CSSInterpolation;
       body: CSSInterpolation;
       body2: CSSInterpolation;
@@ -121,6 +122,14 @@ export const theme: Theme = {
     },
     h6: {
       fontSize: 18,
+      fontWeight: 400,
+      letterSpacing: "-0.05em",
+      lineHeight: 30 / 18,
+      fontFamily: "Aldrich, sans-serif",
+      textTransform: "uppercase",
+    },
+    h7: {
+      fontSize: 15,
       fontWeight: 400,
       letterSpacing: "-0.05em",
       lineHeight: 30 / 18,

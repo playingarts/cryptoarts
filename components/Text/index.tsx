@@ -26,7 +26,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     | "li"
     | FC<LinkProps>
     | FC<ButtonProps>;
-  variant?: keyof typeof theme.typography;
+  variant?: keyof typeof theme.typography | "h7";
   href?: LinkProps["href"];
 }
 

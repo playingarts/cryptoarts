@@ -24,7 +24,7 @@ const Stat: FC<Props> = ({ label, value, eth, ...props }) => {
       </Text>
 
       <Text
-        variant="h6"
+        variant="h7"
         css={{
           opacity: 0.5,
           margin: 0,

@@ -24,7 +24,7 @@ const DeckBlock: FC<Props> = ({ properties, ...props }) => (
         <Fragment key={key}>
           <Text
             component="dt"
-            variant="h6"
+            variant="h7"
             css={(theme) => ({ color: theme.colors.text_subtitle_dark })}
           >
             {key}
