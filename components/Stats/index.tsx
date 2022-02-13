@@ -26,6 +26,7 @@ const Stats: FC<Props> = ({
         component="h6"
         css={{
           opacity: 0.5,
+          margin: 0,
         }}
       >
         Stats
@@ -50,6 +51,7 @@ const Stats: FC<Props> = ({
         eth={true}
         css={(theme) => ({ marginTop: theme.spacing(4) })}
       />
+      <Line spacing={0.5} />
 
       <Text
         component={Link}
@@ -59,6 +61,7 @@ const Stats: FC<Props> = ({
           color: "currentcolor",
           opacity: 0.5,
           marginTop: theme.spacing(2.5),
+          display: "inline-block",
         })}
       >
         <Arrowed>All stats</Arrowed>

@@ -11,7 +11,10 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 const Stat: FC<Props> = ({ label, value, eth, ...props }) => {
   return (
     <div {...props}>
-      <Text variant="h3" css={{ display: "flex", alignItems: "baseline" }}>
+      <Text
+        variant="h3"
+        css={{ display: "flex", margin: 0, alignItems: "baseline" }}
+      >
         {value}
         {eth && (
           <Eth
@@ -24,6 +27,7 @@ const Stat: FC<Props> = ({ label, value, eth, ...props }) => {
         variant="h6"
         css={{
           opacity: 0.5,
+          margin: 0,
         }}
       >
         {label}
