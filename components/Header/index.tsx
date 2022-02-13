@@ -84,6 +84,7 @@ const Header: FC<Props> = ({
             border: 0,
             width: theme.spacing(7),
             height: theme.spacing(7),
+            marginRight: theme.spacing(2.5),
             padding: 0,
             color:
               palette === "dark"
