@@ -17,7 +17,6 @@ import Discord from "../components/Icons/Discord";
 import Play from "../components/Icons/Play";
 import Itunes from "../components/Icons/Itunes";
 import Spotify from "../components/Icons/Spotify";
-import Gallery from "../components/_composed/Gallery";
 import GlobalLayout from "../components/_composed/GlobalLayout";
 import Chevron from "../components/Icons/Chevron";
 import Kickstarter from "../components/Icons/Kickstarter";
@@ -25,6 +24,7 @@ import Arrowed from "../components/Arrowed";
 import LatestRelease from "../components/LatestRelease";
 import StatBlock from "../components/StatBlock";
 import Stat from "../components/Stat";
+import Editions from "../components/_composed/Editions";
 
 const Home: NextPage = () => {
   return (
@@ -127,7 +127,12 @@ const Home: NextPage = () => {
             />
           </StatBlock>
         </Grid>
-        <Gallery />
+        <Editions
+          css={(theme) => ({
+            marginTop: theme.spacing(10),
+            marginBottom: theme.spacing(10),
+          })}
+        />
       </Layout>
 
       <Layout css={(theme) => ({ background: theme.colors.page_bg_dark })}>
