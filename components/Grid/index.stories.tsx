@@ -29,12 +29,10 @@ const Template: ComponentStory<typeof Grid> = (args) => (
       10 columns
     </div>
 
-    <div css={{ gridColumn: "2 / span 10" }}>
-      <Grid>
-        <div css={{ gridColumn: "span 2", background: "gray" }}>2 columns</div>
-        <div css={{ gridColumn: "span 8", background: "gray" }}>8 columns</div>
-      </Grid>
-    </div>
+    <Grid css={{ display: "grid", gridColumn: "2 / span 10" }}>
+      <div css={{ gridColumn: "span 2", background: "gray" }}>2 columns</div>
+      <div css={{ gridColumn: "span 8", background: "gray" }}>8 columns</div>
+    </Grid>
   </Grid>
 );
 

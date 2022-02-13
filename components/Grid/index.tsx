@@ -7,7 +7,7 @@ const Grid: FC<Props> = ({ children, ...props }) => (
     {...props}
     css={(theme) => ({
       display: "grid",
-      gridTemplateColumns: "repeat(12, 1fr)",
+      gridTemplateColumns: `repeat(12, ${theme.spacing(7.5)}px)`,
       columnGap: theme.spacing(3),
     })}
   >
