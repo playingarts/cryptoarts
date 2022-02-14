@@ -1,0 +1,59 @@
+import { FC, Fragment } from "react";
+import { useOpensea } from "../../../hooks/opensea";
+import Stat from "../../Stat";
+import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
+
+interface Props extends StatBlockProps {
+  deck: string;
+}
+
+const Content: FC<GQL.Opensea["stats"]> = ({
+  num_owners,
+  total_volume,
+  floor_price,
+}) => {
+  return (
+    <Fragment>
+      {num_owners && (
+        <Stat label="Total holders" value={num_owners.toLocaleString()} />
+      )}
+      {total_volume && (
+        <Stat
+          label="Total volume"
+          value={parseFloat(total_volume.toFixed(2)).toLocaleString()}
+          eth={true}
+          css={(theme) => ({ marginTop: theme.spacing(4) })}
+        />
+      )}
+      {floor_price && (
+        <Stat
+          label="Current floor price"
+          value={parseFloat(floor_price.toFixed(2)).toLocaleString()}
+          eth={true}
+          css={(theme) => ({ marginTop: theme.spacing(4) })}
+        />
+      )}
+    </Fragment>
+  );
+};
+
+const ComposedStats: FC<Props> = ({ deck, ...props }) => {
+  const { opensea } = useOpensea({ variables: { deck } });
+
+  return (
+    <StatBlock
+      {...props}
+      css={(theme) => ({
+        background: theme.colors.dark_gray,
+        color: theme.colors.text_title_light,
+        gridColumn: "10 / span 3",
+      })}
+      title="Stats"
+      action={{ children: "All stats", href: "/" }}
+    >
+      {opensea && <Content {...opensea.stats} />}
+    </StatBlock>
+  );
+};
+
+export default ComposedStats;

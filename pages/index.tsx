@@ -23,9 +23,9 @@ import Kickstarter from "../components/Icons/Kickstarter";
 import Arrowed from "../components/Arrowed";
 import LatestRelease from "../components/LatestRelease";
 import StatBlock from "../components/StatBlock";
-import Stat from "../components/Stat";
 import ComposedEditions from "../components/_composed/Editions";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
+import ComposedStats from "../components/_composed/Stats";
 
 const Home: NextPage = () => {
   return (
@@ -104,29 +104,7 @@ const Home: NextPage = () => {
           })}
         >
           <LatestRelease css={{ gridColumn: "span 9" }} />
-          <StatBlock
-            css={(theme) => ({
-              background: theme.colors.dark_gray,
-              color: theme.colors.text_title_light,
-              gridColumn: "10 / span 3",
-            })}
-            title="Stats"
-            action={{ children: "All stats", href: "/" }}
-          >
-            <Stat label="Total holders" value="401k" />
-            <Stat
-              label="Total volume"
-              value="401k"
-              eth={true}
-              css={(theme) => ({ marginTop: theme.spacing(4) })}
-            />
-            <Stat
-              label="Current floor price"
-              value={0.012}
-              eth={true}
-              css={(theme) => ({ marginTop: theme.spacing(4) })}
-            />
-          </StatBlock>
+          <ComposedStats deck="cryptoedition" />
         </Grid>
         <ComposedEditions
           css={(theme) => ({
