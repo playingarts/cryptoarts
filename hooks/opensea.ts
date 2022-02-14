@@ -7,6 +7,7 @@ export const OpenseaQuery = gql`
         num_owners
         total_volume
         floor_price
+        total_supply
       }
     }
   }

@@ -26,13 +26,10 @@ import throttle from "just-throttle";
 import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
 import ComposedCardContent from "../../components/_composed/CardContent";
 import Opensea from "../../components/Icons/Opensea";
-import StatBlock from "../../components/StatBlock";
-import Stat from "../../components/Stat";
-import Charts from "../../components/Charts";
-import { theme } from "../_app";
 import AugmentedReality from "../../components/AugmentedReality";
 import ComposedStats from "../../components/_composed/Stats";
 import ComposedHolders from "../../components/_composed/Holders";
+import ComposedSupply from "../../components/_composed/Supply";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -175,50 +172,14 @@ const Content: FC<{
             marginBottom: theme.spacing(3),
           })}
         >
-          <StatBlock
+          <ComposedSupply
             css={(theme) => ({
               gridColumn: "span 3",
               background: theme.colors.dark_gray,
               color: theme.colors.text_title_light,
             })}
-            title="supply"
-            action={{ href: "/", children: "All tokens" }}
-          >
-            <div
-              css={{
-                display: "flex",
-                flexDirection: "column",
-                height: "100%",
-              }}
-            >
-              <Stat value={(7830).toLocaleString()} label="total nft supply" />
-              <Charts
-                type="pie"
-                withTooltip={true}
-                css={(theme) => ({
-                  flexGrow: 1,
-                  marginBottom: theme.spacing(2),
-                  alignItems: "flex-end",
-                })}
-                dataPoints={[
-                  {
-                    name: "diamonds",
-                    value: 7,
-                    color: theme.colors.diamonds,
-                  },
-                  { name: "clubs", value: 15, color: theme.colors.clubs },
-                  {
-                    name: "2, 3, 4, ... Ace",
-                    value: 20,
-                    color: theme.colors.spades,
-                  },
-                ]}
-              />
-              <div>
-                <Line spacing={0} />
-              </div>
-            </div>
-          </StatBlock>
+            deck="cryptoedition"
+          />
 
           <ComposedHolders
             css={(theme) => ({

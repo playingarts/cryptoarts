@@ -58,7 +58,7 @@ const ComposedHolders: FC<Props> = ({ deck, ...props }) => {
             width: theme.spacing(41.2),
             color: theme.colors.dark_gray,
             marginTop: theme.spacing(1.5),
-            marginBottom: theme.spacing(2),
+            marginBottom: theme.spacing(1.5),
           })}
           dataPoints={[
             {
