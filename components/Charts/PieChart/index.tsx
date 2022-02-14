@@ -60,7 +60,6 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
       <div
         css={{
           borderRadius: "100%",
-          transform: "rotate(-90deg)",
         }}
         style={{
           width: size,
@@ -72,7 +71,12 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
           }deg)`,
         }}
       >
-        <svg viewBox="-1 -1 2 2" width={size} height={size}>
+        <svg
+          viewBox="-1 -1 2 2"
+          width={size}
+          height={size}
+          css={{ transform: "rotate(-90deg)" }}
+        >
           {slices.map(({ d, fill }, index) => (
             <path
               key={d}
