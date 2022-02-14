@@ -29,7 +29,7 @@ const Editions: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
     <Grid {...props}>
       <BlockTitle
         variant="h3"
-        titleText="All Editions"
+        title="All Editions"
         action={
           <Fragment>
             <Button

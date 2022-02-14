@@ -4,16 +4,16 @@ import Button, { Props as ButtonProps } from "../Button";
 import Line from "../Line";
 import Text from "../Text";
 
-interface Props extends HTMLAttributes<HTMLElement> {
+interface Props extends Omit<HTMLAttributes<HTMLElement>, "title"> {
   buttonProps?: ButtonProps & { css?: Interpolation<Theme> };
-  titleText: string;
+  title: string | JSX.Element;
   subTitleText?: string | JSX.Element;
   variant?: "h2" | "h3";
   action?: JSX.Element;
 }
 
 const BlockTitle: FC<Props> = ({
-  titleText,
+  title,
   subTitleText,
   buttonProps,
   variant = "h2",
@@ -31,7 +31,7 @@ const BlockTitle: FC<Props> = ({
       >
         <div>
           <Text component="h2" variant={variant} css={{ margin: 0 }}>
-            {titleText}
+            {title}
           </Text>
           {subTitleText && (
             <Text

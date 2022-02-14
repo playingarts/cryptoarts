@@ -65,7 +65,7 @@ const Content: FC = () => {
       >
         <Box css={{ paddingTop: 0, paddingBottom: 0 }}>
           <BlockTitle
-            titleText="Your Bag"
+            title="Your Bag"
             subTitleText="Please note for the festive season, all online purchases made between 03/11/21 and 15/12/2021 can be returned up to 31/01/22."
             css={(theme) => ({ marginBottom: theme.spacing(3) })}
           />

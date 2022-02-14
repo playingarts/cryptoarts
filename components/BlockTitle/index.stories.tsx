@@ -13,7 +13,7 @@ const Template: ComponentStory<typeof BlockTitle> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  titleText: "Title Text",
+  title: "Title Text",
   subTitleText: "Subtitle text",
 };
 

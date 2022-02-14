@@ -29,6 +29,7 @@ const Stat: FC<Props> = ({ label, value, eth, ...props }) => {
         css={{
           opacity: 0.5,
           margin: 0,
+          marginTop: "-0.4em",
         }}
       >
         {label}

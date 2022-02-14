@@ -32,7 +32,7 @@ const Gallery: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
       <Box>
         <BlockTitle
           variant="h3"
-          titleText="Gallery"
+          title="Gallery"
           subTitleText={
             <Link href="/">
               <Arrowed>Follow @playingarts on Instagram</Arrowed>

@@ -27,6 +27,7 @@ declare module "@emotion/react" {
       clubs: string;
       hearts: string;
       spades: string;
+      eth: string;
     };
     mq: { [index: string]: string };
     typography: {
@@ -82,6 +83,8 @@ export const theme: Theme = {
     clubs: "#98F3FF",
     hearts: "#7BD4FF",
     spades: "#82A7F8",
+    eth:
+      "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)",
   },
   typography: {
     h1: {
@@ -132,7 +135,7 @@ export const theme: Theme = {
       fontSize: 15,
       fontWeight: 400,
       letterSpacing: "-0.05em",
-      lineHeight: 30 / 18,
+      lineHeight: 30 / 15,
       fontFamily: "Aldrich, sans-serif",
       textTransform: "uppercase",
     },

@@ -121,7 +121,7 @@ const Content: FC = () => {
 
         <Box>
           <BlockTitle
-            titleText="Bundles"
+            title="Bundles"
             subTitleText="For serious collectors and true art connoisseurs."
             variant="h3"
             css={(theme) => ({ marginBottom: theme.spacing(3) })}
