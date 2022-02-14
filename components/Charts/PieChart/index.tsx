@@ -14,7 +14,7 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
     Math.cos(2 * Math.PI * percent),
     Math.sin(2 * Math.PI * percent),
   ];
-  const size = height > width ? width : height;
+  const size = height < width && height > 0 ? height : width;
   const lastSliceColor = dataPoints[dataPoints.length - 1].color;
   let cumulativePercent = 0;
   const slices = dataPoints.map((dataPoint) => {
@@ -41,9 +41,7 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
       return;
     }
 
-    const { width, height } = ref.current.getBoundingClientRect();
-
-    setSize({ width, height });
+    setSize(ref.current.getBoundingClientRect());
   }, []);
 
   return (
