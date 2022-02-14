@@ -23,7 +23,7 @@ const Header: FC<Props> = ({
   showAltNav,
   ...props
 }) => {
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(true);
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -46,7 +46,7 @@ const Header: FC<Props> = ({
         )
       );
 
-      setExpanded(!(scrollTop <= 0 ? true : scrollTop >= lastScrollTop));
+      setExpanded(scrollTop <= 0 ? true : scrollTop <= lastScrollTop);
 
       lastScrollTop = scrollTop;
     }, 100);
