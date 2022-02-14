@@ -12,13 +12,39 @@ export const OpenseaQuery = gql`
   }
 `;
 
+export const HoldersQuery = gql`
+  query Holders($deck: ID!) {
+    holders(deck: $deck) {
+      fullDeck {
+        jokers
+        user
+      }
+      spades
+      clubs
+      hearts
+      diamonds
+    }
+  }
+`;
+
 export const useOpensea = (
   options: QueryHookOptions<Pick<GQL.Query, "opensea">> = {}
 ) => {
-  const { data: { opensea } = { cards: undefined }, ...methods } = useQuery(
+  const { data: { opensea } = { opensea: undefined }, ...methods } = useQuery(
     OpenseaQuery,
     options
   );
 
   return { ...methods, opensea };
+};
+
+export const useHolders = (
+  options: QueryHookOptions<Pick<GQL.Query, "holders">> = {}
+) => {
+  const { data: { holders } = { holders: undefined }, ...methods } = useQuery(
+    HoldersQuery,
+    options
+  );
+
+  return { ...methods, holders };
 };

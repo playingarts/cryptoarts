@@ -1,4 +1,34 @@
 import { gql } from "@apollo/client";
+import S3 from "aws-sdk/clients/s3";
+
+const {
+  FULL_DECK_HOLDERS_FILE_NAME = "",
+  DIAMONDS_SET_OWNERS_FILE_NAME = "",
+  CLUBS_SET_OWNERS_FILE_NAME = "",
+  HEARTS_SET_OWNERS_FILE_NAME = "",
+  SPADES_SET_OWNERS_FILE_NAME = "",
+  S3_BUCKET: Bucket = "",
+  S3_KEY: accessKeyId = "",
+  S3_SECRET: secretAccessKey = "",
+} = process.env;
+
+const s3Client = new S3({
+  accessKeyId,
+  secretAccessKey,
+});
+
+const readKey: <T = GQL.Holder[]>(Key: string) => Promise<T> = (Key) =>
+  new Promise((resolve) =>
+    s3Client.getObject({ Bucket, Key }, (error, data) => {
+      if (error || !data.Body) {
+        throw error;
+      }
+
+      const fullDeckHolders = JSON.parse(data.Body.toString());
+
+      resolve(fullDeckHolders);
+    })
+  );
 
 export const resolvers: GQL.Resolvers = {
   Opensea: {
@@ -21,12 +51,20 @@ export const resolvers: GQL.Resolvers = {
         id: deck,
       };
     },
+    holders: async () => ({
+      fullDeck: await readKey(FULL_DECK_HOLDERS_FILE_NAME),
+      spades: await readKey(SPADES_SET_OWNERS_FILE_NAME),
+      hearts: await readKey(HEARTS_SET_OWNERS_FILE_NAME),
+      diamonds: await readKey(DIAMONDS_SET_OWNERS_FILE_NAME),
+      clubs: await readKey(CLUBS_SET_OWNERS_FILE_NAME),
+    }),
   },
 };
 
 export const typeDefs = gql`
   type Query {
     opensea(deck: ID!): Opensea!
+    holders(deck: ID!): Holders!
   }
 
   type Opensea {
@@ -119,5 +157,21 @@ export const typeDefs = gql`
     num_reports: Int
     market_cap: Float
     floor_price: Float
+  }
+
+  type Holders {
+    fullDeck: [Holder!]!
+    spades: [String!]!
+    diamonds: [String!]!
+    hearts: [String!]!
+    clubs: [String!]!
+  }
+
+  type Holder {
+    address: String
+    jokers: Boolean
+    profile_img_url: String
+    profile_url: String
+    user: String
   }
 `;

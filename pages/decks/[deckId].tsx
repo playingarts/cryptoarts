@@ -30,11 +30,9 @@ import StatBlock from "../../components/StatBlock";
 import Stat from "../../components/Stat";
 import Charts from "../../components/Charts";
 import { theme } from "../_app";
-import Spades from "../../components/Icons/Spades";
-import Hearts from "../../components/Icons/Hearts";
-import Clubs from "../../components/Icons/Clubs";
-import Diamonds from "../../components/Icons/Diamonds";
 import AugmentedReality from "../../components/AugmentedReality";
+import ComposedStats from "../../components/_composed/Stats";
+import ComposedHolders from "../../components/_composed/Holders";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -221,97 +219,24 @@ const Content: FC<{
               </div>
             </div>
           </StatBlock>
-          <StatBlock
+
+          <ComposedHolders
             css={(theme) => ({
               gridColumn: "span 6",
               background: theme.colors.dark_gray,
               color: theme.colors.text_title_light,
             })}
-            title="holders"
-            action={{ children: "Leaderboard", href: "/" }}
-          >
-            <div
-              css={{ display: "flex", flexDirection: "column", height: "100%" }}
-            >
-              <Grid css={{ gridTemplateColumns: "1fr 1fr" }}>
-                <Stat label="54-card deck (incl jokers)" value="08" />
-                <Stat label="52-card deck (excl jokers)" value="34" />
-              </Grid>
-              <Text
-                variant="h7"
-                css={(theme) => ({
-                  opacity: 0.5,
-                  margin: 0,
-                  marginTop: theme.spacing(2),
-                })}
-              >
-                full suit
-              </Text>
-              <Charts
-                type="column"
-                withTooltip={true}
-                css={(theme) => ({
-                  flexGrow: 1,
-                  width: theme.spacing(41.2),
-                  color: theme.colors.dark_gray,
-                  marginTop: theme.spacing(1.5),
-                  marginBottom: theme.spacing(2),
-                })}
-                dataPoints={[
-                  {
-                    name: "spades",
-                    value: 42,
-                    color: theme.colors.spades,
-                    icon: <Spades />,
-                  },
-                  {
-                    name: "hearts",
-                    value: 41,
-                    color: theme.colors.hearts,
-                    icon: <Hearts />,
-                  },
-                  {
-                    name: "clubs",
-                    value: 43,
-                    color: theme.colors.clubs,
-                    icon: <Clubs />,
-                  },
-                  {
-                    name: "diamonds",
-                    value: 46,
-                    color: theme.colors.diamonds,
-                    icon: <Diamonds />,
-                  },
-                ]}
-              />
-              <div>
-                <Line spacing={0} />
-              </div>
-            </div>
-          </StatBlock>
-          <StatBlock
+            deck="cryptoedition"
+          />
+
+          <ComposedStats
             css={(theme) => ({
               background: theme.colors.dark_gray,
               color: theme.colors.text_title_light,
-              gridColumn: "span 3",
+              gridColumn: "10 / span 3",
             })}
-            title="Stats"
-            action={{ children: "All stats", href: "/" }}
-          >
-            <Stat label="Total holders" value="1.55k" />
-            <Stat
-              label="Total volume"
-              value="4.41k"
-              eth={true}
-              css={(theme) => ({ marginTop: theme.spacing(4.2) })}
-            />
-            <Stat
-              label="Current floor price"
-              value={"0.04"}
-              eth={true}
-              css={(theme) => ({ marginTop: theme.spacing(4.2) })}
-            />
-          </StatBlock>
+            deck="cryptoedition"
+          />
         </Grid>
 
         <AugmentedReality />

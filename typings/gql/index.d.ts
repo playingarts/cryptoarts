@@ -23,6 +23,7 @@ interface Query {
   products: Array<Product>;
   convertEurToUsd?: Maybe<Scalars['Float']>;
   opensea: Opensea;
+  holders: Holders;
 }
 
 
@@ -58,6 +59,11 @@ interface QueryConvertEurToUsdArgs {
 
 
 interface QueryOpenseaArgs {
+  deck: Scalars['ID'];
+}
+
+
+interface QueryHoldersArgs {
   deck: Scalars['ID'];
 }
 
@@ -224,6 +230,24 @@ interface Stats {
   market_cap?: Maybe<Scalars['Float']>;
   floor_price?: Maybe<Scalars['Float']>;
 }
+
+interface Holders {
+  __typename?: 'Holders';
+  fullDeck: Array<Holder>;
+  spades: Array<Scalars['String']>;
+  diamonds: Array<Scalars['String']>;
+  hearts: Array<Scalars['String']>;
+  clubs: Array<Scalars['String']>;
+}
+
+interface Holder {
+  __typename?: 'Holder';
+  address?: Maybe<Scalars['String']>;
+  jokers?: Maybe<Scalars['Boolean']>;
+  profile_img_url?: Maybe<Scalars['String']>;
+  profile_url?: Maybe<Scalars['String']>;
+  user?: Maybe<Scalars['String']>;
+}
 import { GraphQLResolveInfo } from 'graphql';
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 
@@ -320,6 +344,8 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   PrimaryAssetContract: ResolverTypeWrapper<PrimaryAssetContract>;
   Stats: ResolverTypeWrapper<Stats>;
+  Holders: ResolverTypeWrapper<Holders>;
+  Holder: ResolverTypeWrapper<Holder>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -340,6 +366,8 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   PrimaryAssetContract: PrimaryAssetContract;
   Stats: Stats;
+  Holders: Holders;
+  Holder: Holder;
 };
 
 export type QueryResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
@@ -351,6 +379,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
   opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'deck'>>;
+  holders?: Resolver<ResolversTypes['Holders'], ParentType, ContextType, RequireFields<QueryHoldersArgs, 'deck'>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -517,6 +546,24 @@ export type StatsResolvers<ContextType = { req: Request, res: Response }, Parent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type HoldersResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Holders'] = ResolversParentTypes['Holders']> = {
+  fullDeck?: Resolver<Array<ResolversTypes['Holder']>, ParentType, ContextType>;
+  spades?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  diamonds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  hearts?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  clubs?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type HolderResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Holder'] = ResolversParentTypes['Holder']> = {
+  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  jokers?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  profile_img_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  profile_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Query?: QueryResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
@@ -529,6 +576,8 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   PaymentToken?: PaymentTokenResolvers<ContextType>;
   PrimaryAssetContract?: PrimaryAssetContractResolvers<ContextType>;
   Stats?: StatsResolvers<ContextType>;
+  Holders?: HoldersResolvers<ContextType>;
+  Holder?: HolderResolvers<ContextType>;
 };
 
 

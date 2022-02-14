@@ -104,7 +104,14 @@ const Home: NextPage = () => {
           })}
         >
           <LatestRelease css={{ gridColumn: "span 9" }} />
-          <ComposedStats deck="cryptoedition" />
+          <ComposedStats
+            css={(theme) => ({
+              background: theme.colors.dark_gray,
+              color: theme.colors.text_title_light,
+              gridColumn: "10 / span 3",
+            })}
+            deck="cryptoedition"
+          />
         </Grid>
         <ComposedEditions
           css={(theme) => ({

@@ -43,11 +43,6 @@ const ComposedStats: FC<Props> = ({ deck, ...props }) => {
   return (
     <StatBlock
       {...props}
-      css={(theme) => ({
-        background: theme.colors.dark_gray,
-        color: theme.colors.text_title_light,
-        gridColumn: "10 / span 3",
-      })}
       title="Stats"
       action={{ children: "All stats", href: "/" }}
     >
