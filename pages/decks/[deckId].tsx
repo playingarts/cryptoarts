@@ -6,13 +6,13 @@ import Layout from "../../components/Layout";
 import { withApollo } from "../../source/apollo";
 import { useLoadCards } from "../../hooks/card";
 import { useRouter } from "next/router";
-import CardsBlock from "../../components/CardsBlock";
+import CardList from "../../components/Card/List";
 import Box from "../../components/Box";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
 import Bag from "../../components/Icons/Bag";
 import Plus from "../../components/Icons/Plus";
-import Gallery from "../../components/_composed/Gallery";
+import ComposedGallery from "../../components/_composed/Gallery";
 import Text from "../../components/Text";
 import Line from "../../components/Line";
 import DeckNav from "../../components/DeckNav";
@@ -23,7 +23,7 @@ import CreativeBloq from "../../components/Icons/CreativeBloq";
 import DigitalArts from "../../components/Icons/DigitalArts";
 import Quote from "../../components/Quote";
 import throttle from "just-throttle";
-import GlobalLayout from "../../components/_composed/GlobalLayout";
+import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
 import ComposedCardContent from "../../components/_composed/CardContent";
 import Opensea from "../../components/Icons/Opensea";
 import StatBlock from "../../components/StatBlock";
@@ -132,7 +132,7 @@ const Content: FC<{
             }}
           />
         </Box>
-        <CardsBlock cards={cards} />
+        <CardList cards={cards} />
       </Layout>
 
       <Layout
@@ -351,7 +351,7 @@ const Content: FC<{
       </Layout>
 
       <Layout ref={galleryRef}>
-        <Gallery />
+        <ComposedGallery />
         <Grid>
           <div css={{ gridColumn: "span 3", textAlign: "center" }}>
             <Esquire />
@@ -411,7 +411,7 @@ const Deck: NextPage = () => {
   }, [cardId]);
 
   return (
-    <GlobalLayout
+    <ComposedGlobalLayout
       altNav={<DeckNav refs={{ cardsRef, deckRef, galleryRef }} />}
       showAltNav={altNavVisible}
     >
@@ -425,7 +425,7 @@ const Deck: NextPage = () => {
         cardsRef={cardsRef}
         deckNavRef={deckNavRef}
       />
-    </GlobalLayout>
+    </ComposedGlobalLayout>
   );
 };
 

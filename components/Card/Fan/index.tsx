@@ -1,7 +1,7 @@
 import throttle from "just-throttle";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
-import { useLoadCards } from "../../hooks/card";
-import Card from "../Card";
+import { useLoadCards } from "../../../hooks/card";
+import Card from "..";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   deck: GQL.Deck;

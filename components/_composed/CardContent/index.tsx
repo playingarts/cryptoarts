@@ -1,5 +1,5 @@
 import { FC } from "react";
-import CardNav, { Props as CardNavProps } from "../../CardNav";
+import CardNav, { Props as CardNavProps } from "../../Card/Nav";
 import ComposedCardBlock from "../CardBlock";
 
 interface Props extends CardNavProps {

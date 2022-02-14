@@ -1,8 +1,8 @@
 import { FC, HTMLAttributes } from "react";
-import Button, { Props as ButtonProps } from "../Button";
-import Bag from "../Icons/Bag";
-import Line from "../Line";
-import Text from "../Text";
+import Button, { Props as ButtonProps } from "../../Button";
+import Bag from "../../Icons/Bag";
+import Line from "../../Line";
+import Text from "../../Text";
 
 interface Props
   extends Omit<HTMLAttributes<HTMLElement>, "title">,

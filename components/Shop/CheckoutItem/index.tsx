@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, MouseEventHandler } from "react";
-import Select, { Props as SelectProps } from "../Select";
-import Text from "../Text";
+import Select, { Props as SelectProps } from "../../Select";
+import Text from "../../Text";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
@@ -15,7 +15,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   remove?: MouseEventHandler<HTMLElement>;
 }
 
-const CheckoutItem: FC<Props> = ({
+const ShopCheckoutItem: FC<Props> = ({
   image,
   title,
   info,
@@ -119,4 +119,4 @@ const CheckoutItem: FC<Props> = ({
   );
 };
 
-export default CheckoutItem;
+export default ShopCheckoutItem;

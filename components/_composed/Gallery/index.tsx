@@ -7,7 +7,7 @@ import Carousel, { Props as CarouselProps } from "../../Carousel";
 import Chevron from "../../Icons/Chevron";
 import Link from "../../Link";
 
-const Gallery: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
+const ComposedGallery: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const items = [
     "https://i.ytimg.com/vi/lWAEP0C3QUQ/maxresdefault.jpg",
     "https://editorial.designtaxi.com/editorial-images/news-CatLoafPhotoshop130516/6-Cat-Loafing-Awkwardly-Stairs-Photoshop-Funny-Memes.jpg",
@@ -80,4 +80,4 @@ const Gallery: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   );
 };
 
-export default Gallery;
+export default ComposedGallery;

@@ -1,9 +1,9 @@
 import { CSSObject } from "@emotion/serialize";
 import { FC, HTMLAttributes } from "react";
-import Button from "../Button";
-import Chevron from "../Icons/Chevron";
-import Line from "../Line";
-import Text from "../Text";
+import Button from "../../Button";
+import Chevron from "../../Icons/Chevron";
+import Line from "../../Line";
+import Text from "../../Text";
 
 interface Props
   extends Omit<HTMLAttributes<HTMLDivElement>, "title">,

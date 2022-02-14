@@ -7,7 +7,7 @@ import Mastercard from "../../Icons/Mastercard";
 import PayPal from "../../Icons/PayPal";
 import Visa from "../../Icons/Visa";
 
-const FaqBlock: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+const ComposedFaq: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
   <div {...props}>
     <Faq />
     <div
@@ -34,4 +34,4 @@ const FaqBlock: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
   </div>
 );
 
-export default FaqBlock;
+export default ComposedFaq;

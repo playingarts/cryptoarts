@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import { FC, HTMLAttributes, useEffect } from "react";
-import Button from "../Button";
-import Chevron from "../Icons/Chevron";
-import Close from "../Icons/Close";
-import Link, { Props as LinkProps } from "../Link";
+import Button from "../../Button";
+import Chevron from "../../Icons/Chevron";
+import Close from "../../Icons/Close";
+import Link, { Props as LinkProps } from "../../Link";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   prevLink?: LinkProps["href"];

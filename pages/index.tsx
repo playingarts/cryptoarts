@@ -17,19 +17,19 @@ import Discord from "../components/Icons/Discord";
 import Play from "../components/Icons/Play";
 import Itunes from "../components/Icons/Itunes";
 import Spotify from "../components/Icons/Spotify";
-import GlobalLayout from "../components/_composed/GlobalLayout";
+import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Chevron from "../components/Icons/Chevron";
 import Kickstarter from "../components/Icons/Kickstarter";
 import Arrowed from "../components/Arrowed";
 import LatestRelease from "../components/LatestRelease";
 import StatBlock from "../components/StatBlock";
 import Stat from "../components/Stat";
-import Editions from "../components/_composed/Editions";
-import CardOfTheDay from "../components/_composed/CardOfTheDay";
+import ComposedEditions from "../components/_composed/Editions";
+import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
 
 const Home: NextPage = () => {
   return (
-    <GlobalLayout>
+    <ComposedGlobalLayout>
       <Head>
         <title>Crypto Arts</title>
       </Head>
@@ -128,7 +128,7 @@ const Home: NextPage = () => {
             />
           </StatBlock>
         </Grid>
-        <Editions
+        <ComposedEditions
           css={(theme) => ({
             marginTop: theme.spacing(10),
             marginBottom: theme.spacing(10),
@@ -136,7 +136,7 @@ const Home: NextPage = () => {
         />
       </Layout>
 
-      <CardOfTheDay
+      <ComposedCardOfTheDay
         css={(theme) => ({
           background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
           color: theme.colors.page_bg_light,
@@ -337,7 +337,7 @@ const Home: NextPage = () => {
           </Quote>
         </Grid>
       </Layout>
-    </GlobalLayout>
+    </ComposedGlobalLayout>
   );
 };
 

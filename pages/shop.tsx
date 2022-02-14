@@ -3,22 +3,22 @@ import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
 import Box from "../components/Box";
-import ShopItem from "../components/ShopItem";
+import ShopItem from "../components/Shop/Item";
 import Quote from "../components/Quote";
-import ShopSoldOut from "../components/ShopSoldOut";
+import ShopSoldOut from "../components/Shop/SoldOut";
 import BlockTitle from "../components/BlockTitle";
-import ShopBundle from "../components/ShopBundle";
+import ShopBundle from "../components/Shop/Bundle";
 import { useBag } from "../hooks/bag";
 import BagButton from "../components/BagButton";
 import { useProducts } from "../hooks/product";
-import GlobalLayout from "../components/_composed/GlobalLayout";
+import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import { FC, Fragment } from "react";
-import ShopSheets from "../components/ShopSheets";
-import CardFan from "../components/CardFan";
+import ShopSheets from "../components/Shop/Sheets";
+import CardFan from "../components/Card/Fan";
 import Grid from "../components/Grid";
 import Text from "../components/Text";
 import Line from "../components/Line";
-import FaqBlock from "../components/_composed/FaqBlock";
+import ComposedFaq from "../components/_composed/Faq";
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
 
@@ -30,9 +30,11 @@ const Content: FC = () => {
     return null;
   }
 
-  const { sheet: sheets, deck: decks, bundle: bundles } = products.reduce<
-    Record<ProductListsTypes, GQL.Product[]>
-  >(
+  const {
+    sheet: sheets,
+    deck: decks,
+    bundle: bundles,
+  } = products.reduce<Record<ProductListsTypes, GQL.Product[]>>(
     (lists, product) => ({
       ...lists,
       [product.type]: [...lists[product.type as ProductListsTypes], product],
@@ -161,7 +163,7 @@ const Content: FC = () => {
       </Layout>
       <Layout>
         <Grid>
-          <FaqBlock
+          <ComposedFaq
             css={(theme) => ({
               marginTop: theme.spacing(9),
               marginBottom: theme.spacing(9),
@@ -176,13 +178,13 @@ const Content: FC = () => {
 
 const Shop: NextPage = () => {
   return (
-    <GlobalLayout customShopButton={<BagButton />}>
+    <ComposedGlobalLayout customShopButton={<BagButton />}>
       <Head>
         <title>Crypto Arts</title>
       </Head>
 
       <Content />
-    </GlobalLayout>
+    </ComposedGlobalLayout>
   );
 };
 

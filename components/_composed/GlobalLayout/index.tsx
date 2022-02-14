@@ -3,7 +3,7 @@ import Layout from "../../../components/Layout";
 import Header, { Props as HeaderProps } from "../../../components/Header";
 import Footer from "../../../components/Footer";
 
-const GlobalLayout: FC<
+const ComposedGlobalLayout: FC<
   Pick<HeaderProps, "altNav" | "showAltNav" | "customShopButton">
 > = ({ altNav, showAltNav, customShopButton, children }) => (
   <Fragment>
@@ -41,4 +41,4 @@ const GlobalLayout: FC<
   </Fragment>
 );
 
-export default GlobalLayout;
+export default ComposedGlobalLayout;

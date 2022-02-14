@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { FC, HTMLAttributes } from "react";
-import Card from "../Card";
-import Link from "../Link";
+import Card from "../../Card";
+import Link from "../../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   cards: GQL.Card[];
 }
 
-const CardsBlock: FC<Props> = ({ cards, ...props }) => {
+const CardList: FC<Props> = ({ cards, ...props }) => {
   const { query } = useRouter();
 
   return (
@@ -37,4 +37,4 @@ const CardsBlock: FC<Props> = ({ cards, ...props }) => {
   );
 };
 
-export default CardsBlock;
+export default CardList;

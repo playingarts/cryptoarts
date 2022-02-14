@@ -1,8 +1,8 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import Card from "./";
+import Card from ".";
 
 export default {
-  title: "Cards/CardsBlock",
+  title: "Card/List",
   component: Card,
 } as ComponentMeta<typeof Card>;
 
@@ -13,8 +13,7 @@ Primary.args = {
   cards: [
     {
       _id: "_id",
-      img:
-        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       deck: {
         _id: "_id",
         title: "title",
@@ -31,8 +30,7 @@ Primary.args = {
     },
     {
       _id: "_id2",
-      img:
-        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
       deck: {
@@ -51,8 +49,7 @@ Primary.args = {
     },
     {
       _id: "_id",
-      img:
-        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       deck: {
         _id: "_id",
         title: "title",
@@ -69,8 +66,7 @@ Primary.args = {
     },
     {
       _id: "_id2",
-      img:
-        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
       deck: {

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import CardBlock from "../../CardsPage/Block";
+import CardBlock from "../../Card/Block";
 import Layout, { Props as LayoutProps } from "../../Layout";
 
 export interface Props extends LayoutProps {

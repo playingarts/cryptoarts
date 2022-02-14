@@ -1,14 +1,14 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { Fragment } from "react";
-import CheckoutItem from ".";
+import ShopCheckoutItem from ".";
 
 export default {
   title: "Shop/CheckoutItem",
-  component: CheckoutItem,
-} as ComponentMeta<typeof CheckoutItem>;
+  component: ShopCheckoutItem,
+} as ComponentMeta<typeof ShopCheckoutItem>;
 
-const Template: ComponentStory<typeof CheckoutItem> = (args) => (
-  <CheckoutItem {...args} />
+const Template: ComponentStory<typeof ShopCheckoutItem> = (args) => (
+  <ShopCheckoutItem {...args} />
 );
 
 export const Total = Template.bind({});

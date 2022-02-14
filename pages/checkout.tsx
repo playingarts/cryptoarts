@@ -12,14 +12,14 @@ import Lock from "../components/Icons/Lock";
 import Link from "../components/Link";
 import { useProducts } from "../hooks/product";
 import { useBag } from "../hooks/bag";
-import CheckoutItem, {
+import ShopCheckoutItem, {
   Props as CheckoutItemProps,
-} from "../components/CheckoutItem";
+} from "../components/Shop/CheckoutItem";
 import EurToUsd from "../components/EurToUsd";
-import Gallery from "../components/_composed/Gallery";
-import GlobalLayout from "../components/_composed/GlobalLayout";
+import ComposedGallery from "../components/_composed/Gallery";
+import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Arrowed from "../components/Arrowed";
-import FaqBlock from "../components/_composed/FaqBlock";
+import ComposedFaq from "../components/_composed/Faq";
 import Grid from "../components/Grid";
 
 const Content: FC = () => {
@@ -30,13 +30,15 @@ const Content: FC = () => {
     },
   });
 
-  const changeQuantity = (
-    _id: string
-  ): CheckoutItemProps["changeQuantity"] => ({ target }) =>
-    updateQuantity(_id, parseInt(target.value, 10));
+  const changeQuantity =
+    (_id: string): CheckoutItemProps["changeQuantity"] =>
+    ({ target }) =>
+      updateQuantity(_id, parseInt(target.value, 10));
 
-  const remove = (_id: string): CheckoutItemProps["remove"] => () =>
-    removeItem(_id);
+  const remove =
+    (_id: string): CheckoutItemProps["remove"] =>
+    () =>
+      removeItem(_id);
 
   if (!products) {
     return null;
@@ -83,7 +85,7 @@ const Content: FC = () => {
                     css={(theme) => ({ marginLeft: theme.spacing(21) })}
                   />
                 )}
-                <CheckoutItem
+                <ShopCheckoutItem
                   image={product.image}
                   price={product.price}
                   title={product.title}
@@ -112,7 +114,7 @@ const Content: FC = () => {
                   Add one more deck and get free shipping!
                 </Text>
               )}
-            <CheckoutItem
+            <ShopCheckoutItem
               title="Shipping and handling"
               price={shippingPrice}
               titleVariant="h5"
@@ -138,7 +140,7 @@ const Content: FC = () => {
               spacing={4}
               css={(theme) => ({ marginLeft: theme.spacing(21) })}
             />
-            <CheckoutItem
+            <ShopCheckoutItem
               title="Total (incl. taxes)"
               price={totalPrice}
               info2={<EurToUsd css={{ opacity: 0.5 }} eur={totalPrice} />}
@@ -203,12 +205,12 @@ const Content: FC = () => {
           background: theme.colors.light_gray,
         })}
       >
-        <Gallery />
+        <ComposedGallery />
       </Layout>
 
       <Layout>
         <Grid>
-          <FaqBlock
+          <ComposedFaq
             css={(theme) => ({
               marginTop: theme.spacing(9),
               marginBottom: theme.spacing(9),
@@ -223,13 +225,13 @@ const Content: FC = () => {
 
 const Checkout: NextPage = () => {
   return (
-    <GlobalLayout customShopButton={<Button>Check out</Button>}>
+    <ComposedGlobalLayout customShopButton={<Button>Check out</Button>}>
       <Head>
         <title>Crypto Arts</title>
       </Head>
 
       <Content />
-    </GlobalLayout>
+    </ComposedGlobalLayout>
   );
 };
 

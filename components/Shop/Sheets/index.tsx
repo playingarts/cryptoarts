@@ -1,11 +1,11 @@
 import { FC, HTMLAttributes, useState } from "react";
-import { useBag } from "../../hooks/bag";
-import Button, { Props as ButtonProps } from "../Button";
-import Grid from "../Grid";
-import Bag from "../Icons/Bag";
-import Line from "../Line";
-import Select, { Props as SelectProps } from "../Select";
-import Text from "../Text";
+import { useBag } from "../../../hooks/bag";
+import Button, { Props as ButtonProps } from "../../Button";
+import Grid from "../../Grid";
+import Bag from "../../Icons/Bag";
+import Line from "../../Line";
+import Select, { Props as SelectProps } from "../../Select";
+import Text from "../../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   products: GQL.Product[];
