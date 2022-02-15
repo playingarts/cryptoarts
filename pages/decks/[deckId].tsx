@@ -266,7 +266,7 @@ const Content: FC<{
 
 const Deck: NextPage = () => {
   const {
-    query: { cardId },
+    query: { cardId, deckId },
   } = useRouter();
   const galleryRef = useRef<HTMLElement>(null);
   const deckRef = useRef<HTMLElement>(null);
@@ -275,6 +275,10 @@ const Deck: NextPage = () => {
   const [altNavVisible, showAltNav] = useState(false);
 
   useEffect(() => {
+    if (cardId) {
+      return showAltNav(true);
+    }
+
     const handler = throttle(() => {
       if (!deckNavRef.current) {
         return;
@@ -285,16 +289,12 @@ const Deck: NextPage = () => {
       showAltNav(top + height < 0);
     }, 100);
 
-    showAltNav(!!cardId);
-
-    if (!cardId) {
-      handler();
-    }
+    handler();
 
     window.addEventListener("scroll", handler);
 
     return () => window.removeEventListener("scroll", handler);
-  }, [cardId]);
+  }, [cardId, deckId]);
 
   return (
     <ComposedGlobalLayout

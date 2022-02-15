@@ -30,11 +30,9 @@ const Content: FC = () => {
     return null;
   }
 
-  const {
-    sheet: sheets,
-    deck: decks,
-    bundle: bundles,
-  } = products.reduce<Record<ProductListsTypes, GQL.Product[]>>(
+  const { sheet: sheets, deck: decks, bundle: bundles } = products.reduce<
+    Record<ProductListsTypes, GQL.Product[]>
+  >(
     (lists, product) => ({
       ...lists,
       [product.type]: [...lists[product.type as ProductListsTypes], product],
@@ -69,6 +67,7 @@ const Content: FC = () => {
         <Grid
           css={(theme) => ({
             rowGap: theme.spacing(3),
+            marginTop: theme.spacing(6),
           })}
         >
           {decks.map((product, index) =>
@@ -76,9 +75,11 @@ const Content: FC = () => {
               <Fragment key={product._id}>
                 {index === 2 && (
                   <Quote
-                    css={{
+                    css={(theme) => ({
                       gridColumn: "2 / span 10",
-                    }}
+                      marginTop: theme.spacing(9),
+                      marginBottom: theme.spacing(9),
+                    })}
                     artist={{
                       _id: "",
                       name: "Gleb Ryshkov",
@@ -112,7 +113,14 @@ const Content: FC = () => {
                   css={{ gridColumn: "2 / span 4", alignSelf: "center" }}
                 />
                 {product.deck && (
-                  <div css={{ textAlign: "center", gridColumn: "7 / span 6" }}>
+                  <div
+                    css={(theme) => ({
+                      textAlign: "center",
+                      gridColumn: "7 / span 6",
+                      marginTop: theme.spacing(4),
+                      marginBottom: theme.spacing(16),
+                    })}
+                  >
                     <CardFan deck={product.deck} />
                   </div>
                 )}
