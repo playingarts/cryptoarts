@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import Button from "../Button";
+import Grid from "../Grid";
 import Android from "../Icons/Android";
 import Apple from "../Icons/Apple";
 import Line from "../Line";
@@ -7,19 +8,23 @@ import StatBlock from "../StatBlock";
 import Text from "../Text";
 import Hand from "./hand.png";
 
-const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
-  return (
-    <StatBlock
-      {...props}
-      narrow={false}
-      css={(theme) => ({
-        background: `url(${Hand.src}) bottom right no-repeat`,
-        backgroundColor: theme.colors.dark_gray,
-        color: theme.colors.text_title_light,
-      })}
-    >
-      <div css={{ width: "50%" }}>
-        <Text component="h3">Augmented Reality</Text>
+const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => (
+  <StatBlock
+    {...props}
+    padding={0}
+    css={(theme) => ({
+      background: `url(${Hand.src}) bottom right no-repeat`,
+      backgroundColor: theme.colors.dark_gray,
+      color: theme.colors.text_title_light,
+      paddingTop: theme.spacing(10),
+      paddingBottom: theme.spacing(10),
+    })}
+  >
+    <Grid>
+      <div css={{ gridColumn: "2 / span 5" }}>
+        <Text component="h3" css={{ margin: 0 }}>
+          Augmented Reality
+        </Text>
         <Text variant="body2">
           Hover the card to see animation. Click to read the story behind the
           artwork. Playing Arts is a collective art project for creative people
@@ -27,11 +32,11 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
         </Text>
         <Line spacing={3} />
         <Text
-          component="h6"
-          css={(theme) => ({
-            color: theme.colors.text_subtitle_light,
+          variant="h6"
+          css={{
+            opacity: 0.5,
             margin: 0,
-          })}
+          }}
         >
           Download the app
         </Text>
@@ -49,8 +54,8 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => {
           </Button>
         </div>
       </div>
-    </StatBlock>
-  );
-};
+    </Grid>
+  </StatBlock>
+);
 
 export default AugmentedReality;
