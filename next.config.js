@@ -8,4 +8,7 @@ module.exports = {
 
     return config;
   },
+  images: {
+    domains: ["s3.amazonaws.com"],
+  },
 };

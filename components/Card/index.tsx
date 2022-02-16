@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes, useRef } from "react";
 import { useEffect, useState } from "react";
 import { theme } from "../../pages/_app";
+import Image from "next/image";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   card: GQL.Card;
@@ -24,6 +25,7 @@ const Card: FC<Props> = ({
   const [loaded, setLoaded] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
   const width = size === "big" ? 37 : 28.5;
+  const height = size === "big" ? 52 : 40;
   const wrapper = useRef<HTMLDivElement>(null);
   const [{ x, y }, setSkew] = useState({ x: 0, y: 0 });
 
@@ -89,7 +91,7 @@ const Card: FC<Props> = ({
               overflow: "hidden",
               boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
               position: "relative",
-              height: theme.spacing(width * 1.405),
+              height: theme.spacing(height),
               borderRadius: theme.spacing(1.5),
               background: theme.colors.dark_gray,
             },
@@ -112,7 +114,14 @@ const Card: FC<Props> = ({
           }
         >
           {!animated && (!card.video || !loaded || !hovered) && (
-            <img src={card.img} height="100%" />
+            <Image
+              quality={100}
+              width={theme.spacing(width)}
+              height={theme.spacing(height)}
+              src={card.img}
+              alt={card.info}
+              css={(theme) => ({ borderRadius: theme.spacing(1.5) })}
+            />
           )}
           {card.video && (
             <video
@@ -120,7 +129,10 @@ const Card: FC<Props> = ({
               muted
               playsInline
               ref={video}
-              height="100%"
+              css={(theme) => ({
+                width: theme.spacing(width),
+                height: theme.spacing(height),
+              })}
               {...(animated
                 ? { autoPlay: true }
                 : {
