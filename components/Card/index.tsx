@@ -22,7 +22,6 @@ const Card: FC<Props> = ({
   ...props
 }) => {
   const [hovered, setHover] = useState(false);
-  const [loaded, setLoaded] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
   const width = size === "big" ? 37 : 28.5;
   const height = size === "big" ? 52 : 40;
@@ -113,15 +112,22 @@ const Card: FC<Props> = ({
             undefined
           }
         >
-          {!animated && (!card.video || !loaded || !hovered) && (
-            <Image
-              quality={100}
-              width={theme.spacing(width)}
-              height={theme.spacing(height)}
-              src={card.img}
-              alt={card.info}
-              css={(theme) => ({ borderRadius: theme.spacing(1.5) })}
-            />
+          {!animated && (
+            <div
+              style={{
+                position: "absolute",
+                zIndex: hovered ? -1 : 1,
+              }}
+            >
+              <Image
+                quality={100}
+                width={theme.spacing(width)}
+                height={theme.spacing(height)}
+                src={card.img}
+                alt={card.info}
+                css={(theme) => ({ borderRadius: theme.spacing(1.5) })}
+              />
+            </div>
           )}
           {card.video && (
             <video
@@ -133,12 +139,7 @@ const Card: FC<Props> = ({
                 width: theme.spacing(width),
                 height: theme.spacing(height),
               })}
-              {...(animated
-                ? { autoPlay: true }
-                : {
-                    onLoadedData: () => setLoaded(true),
-                    preload: "none",
-                  })}
+              {...(animated ? { autoPlay: true } : { preload: "none" })}
             >
               <source src={card.video} type="video/mp4" />
             </video>
