@@ -1,5 +1,13 @@
 import Head from "next/head";
-import { FC, Fragment, RefObject, useEffect, useRef, useState } from "react";
+import {
+  FC,
+  Fragment,
+  memo,
+  RefObject,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { NextPage } from "next";
 import { useDeck } from "../../hooks/deck";
 import Layout from "../../components/Layout";
@@ -36,7 +44,7 @@ const Content: FC<{
   deckRef: RefObject<HTMLElement>;
   cardsRef: RefObject<HTMLElement>;
   deckNavRef: RefObject<HTMLElement>;
-}> = ({ galleryRef, deckRef, cardsRef, deckNavRef }) => {
+}> = memo(({ galleryRef, deckRef, cardsRef, deckNavRef }) => {
   const {
     query: { cardId, deckId },
   } = useRouter();
@@ -262,7 +270,7 @@ const Content: FC<{
       </Layout>
     </Fragment>
   );
-};
+});
 
 const Deck: NextPage = () => {
   const {

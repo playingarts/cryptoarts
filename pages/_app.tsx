@@ -9,9 +9,9 @@ import smoothscroll from "smoothscroll-polyfill";
 declare module "@emotion/react" {
   export interface Theme {
     transitions: {
-      fast: (property: string) => string;
-      normal: (property: string) => string;
-      slow: (property: string) => string;
+      fast: (property: string | string[]) => string;
+      normal: (property: string | string[]) => string;
+      slow: (property: string | string[]) => string;
     };
     colors: {
       page_bg_dark: string;
@@ -65,9 +65,18 @@ const mq = Object.keys(breakpoints)
 
 export const theme: Theme = {
   transitions: {
-    fast: (attr) => `${attr} 0.25s ease`,
-    normal: (attr) => `${attr} 0.4s ease`,
-    slow: (attr) => `${attr} 0.55s ease`,
+    fast: (attrs) =>
+      typeof attrs === "string"
+        ? `${attrs} 0.25s ease`
+        : attrs.map((attr) => `${attr} 0.25s ease`).join(" "),
+    normal: (attrs) =>
+      typeof attrs === "string"
+        ? `${attrs} 0.4s ease`
+        : attrs.map((attr) => `${attr} 0.25s ease`).join(" "),
+    slow: (attrs) =>
+      typeof attrs === "string"
+        ? `${attrs} 0.55s ease`
+        : attrs.map((attr) => `${attr} 0.25s ease`).join(" "),
   },
   colors: {
     page_bg_dark: "#0A0A0A",

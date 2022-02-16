@@ -173,10 +173,13 @@ const Header: FC<Props> = ({
             left: 0,
             right: 0,
             top: 0,
-            paddingTop: 0,
-            transition: theme.transitions.fast("padding-top"),
+            transition: theme.transitions.fast("transform"),
+            transform: `translate3d(0, 10px, 0)`,
           },
-          expanded && { paddingTop: theme.spacing(7) },
+          expanded && {
+            paddingTop: theme.spacing(1),
+            transform: `translate3d(0, ${theme.spacing(6)}px, 0)`,
+          },
         ]}
       />
     </header>

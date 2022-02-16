@@ -15,6 +15,8 @@ const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => ({
         background: "rgba(24, 24, 24, 0.5)",
         borderRadius: theme.spacing(1),
+        borderTopRightRadius: 0,
+        borderTopLeftRadius: 0,
         height: theme.spacing(6),
         display: "flex",
         justifyContent: "center",
