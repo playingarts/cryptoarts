@@ -45,17 +45,20 @@ const Content: FC = () => {
       <Layout
         css={(theme) => ({
           background: theme.colors.light_gray,
-          paddingTop: theme.spacing(14),
+          paddingTop: theme.spacing(20),
+          paddingBottom: theme.spacing(5),
         })}
       >
         <Grid>
-          <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 7" }}>
-            Shop
-          </Text>
-          <Text variant="body2" css={{ gridColumn: "2 / span 7" }}>
-            The best way to buy the products you love. Hover the card to see
-            animation. Click to read the story behind the artwork.
-          </Text>
+          <div css={{ gridColumn: "2 / span 7" }}>
+            <Text component="h2" css={{ margin: 0 }}>
+              Shop
+            </Text>
+            <Text variant="body2">
+              The best way to buy the products you love. Hover the card to see
+              animation. Click to read the story behind the artwork.
+            </Text>
+          </div>
           <div css={{ gridColumn: "2 / span 10" }}>
             <Line spacing={3} css={{ marginTop: 0 }} />
             <BagButton />
@@ -173,8 +176,8 @@ const Content: FC = () => {
         <Grid>
           <ComposedFaq
             css={(theme) => ({
-              marginTop: theme.spacing(9),
-              marginBottom: theme.spacing(9),
+              marginTop: theme.spacing(15),
+              marginBottom: theme.spacing(15),
               gridColumn: "2 / span 10",
             })}
           />
