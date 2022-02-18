@@ -1,6 +1,6 @@
 import throttle from "just-throttle";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
-import { useLoadCards } from "../../../hooks/card";
+import { useLoadRandomCards } from "../../../hooks/card";
 import Card from "..";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -8,7 +8,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 const CardFan: FC<Props> = ({ deck, ...props }) => {
-  const { loadCards, cards } = useLoadCards();
+  const { loadRandomCards, cards } = useLoadRandomCards();
   const ref = useRef<HTMLDivElement>(null);
   const [spread, setSpread] = useState(1);
   const getPercent = (top: number, height: number, offset = 1) =>
@@ -17,6 +17,7 @@ const CardFan: FC<Props> = ({ deck, ...props }) => {
       0,
       Math.min(1, (top + (height / 2) * offset) / (window.innerHeight / 2) - 1)
     );
+  const cardsLength = 5;
 
   useEffect(() => {
     const calculateSpread = throttle(() => {
@@ -36,14 +37,12 @@ const CardFan: FC<Props> = ({ deck, ...props }) => {
   }, []);
 
   useEffect(() => {
-    loadCards({ variables: { deck: deck._id, shuffle: true } });
-  }, [loadCards, deck._id]);
+    loadRandomCards({ variables: { deck: deck._id, limit: cardsLength } });
+  }, [loadRandomCards, deck._id]);
 
   if (!cards) {
     return null;
   }
-
-  const cardsLength = 5;
 
   return (
     <div
@@ -51,7 +50,7 @@ const CardFan: FC<Props> = ({ deck, ...props }) => {
       ref={ref}
       css={{ position: "relative", display: "inline-block" }}
     >
-      {cards.slice(0, cardsLength).map((card, index) => {
+      {cards.map((card, index) => {
         index = index - Math.floor(cardsLength / 2);
 
         return (

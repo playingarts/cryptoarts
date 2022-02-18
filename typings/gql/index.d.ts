@@ -40,6 +40,7 @@ interface QueryArtistArgs {
 interface QueryCardsArgs {
   deck?: Maybe<Scalars['ID']>;
   shuffle?: Maybe<Scalars['Boolean']>;
+  limit?: Maybe<Scalars['Int']>;
 }
 
 
@@ -332,6 +333,7 @@ export type ResolversTypes = {
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Int: ResolverTypeWrapper<Scalars['Int']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Deck: ResolverTypeWrapper<Deck>;
   Artist: ResolverTypeWrapper<Artist>;
@@ -341,7 +343,6 @@ export type ResolversTypes = {
   Opensea: ResolverTypeWrapper<Opensea>;
   JSON: ResolverTypeWrapper<Json>;
   PaymentToken: ResolverTypeWrapper<PaymentToken>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
   PrimaryAssetContract: ResolverTypeWrapper<PrimaryAssetContract>;
   Stats: ResolverTypeWrapper<Stats>;
   Holders: ResolverTypeWrapper<Holders>;
@@ -354,6 +355,7 @@ export type ResolversParentTypes = {
   String: Scalars['String'];
   ID: Scalars['ID'];
   Boolean: Scalars['Boolean'];
+  Int: Scalars['Int'];
   Float: Scalars['Float'];
   Deck: Deck;
   Artist: Artist;
@@ -363,7 +365,6 @@ export type ResolversParentTypes = {
   Opensea: Opensea;
   JSON: Json;
   PaymentToken: PaymentToken;
-  Int: Scalars['Int'];
   PrimaryAssetContract: PrimaryAssetContract;
   Stats: Stats;
   Holders: Holders;

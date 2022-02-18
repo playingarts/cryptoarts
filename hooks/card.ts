@@ -1,8 +1,8 @@
 import { gql, QueryHookOptions, useLazyQuery } from "@apollo/client";
 
 export const CardsQuery = gql`
-  query Cards($deck: ID, $shuffle: Boolean) {
-    cards(deck: $deck, shuffle: $shuffle) {
+  query Cards($deck: ID) {
+    cards(deck: $deck) {
       _id
       img
       video
@@ -15,6 +15,16 @@ export const CardsQuery = gql`
           facebook
         }
       }
+    }
+  }
+`;
+
+export const RandomCardsQuery = gql`
+  query RandomCards($deck: ID, $limit: Int) {
+    cards(deck: $deck, limit: $limit, shuffle: true) {
+      _id
+      img
+      video
     }
   }
 `;
@@ -58,4 +68,15 @@ export const useLoadCard = (
   ] = useLazyQuery(CardQuery, options);
 
   return { ...methods, loadCard, card };
+};
+
+export const useLoadRandomCards = (
+  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+) => {
+  const [
+    loadRandomCards,
+    { data: { cards } = { cards: undefined }, ...methods },
+  ] = useLazyQuery(RandomCardsQuery, options);
+
+  return { loadRandomCards, ...methods, cards };
 };

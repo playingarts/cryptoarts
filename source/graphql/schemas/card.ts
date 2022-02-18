@@ -18,18 +18,21 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
 
 export const Card = (models.Card as Model<MongoCard>) || model("Card", schema);
 
-const getDeckCards = (deck?: string) => Card.find({ deck });
+const getCards = (deck?: string) => Card.find(deck ? { deck } : {});
+
 const getCard = (id: string) => Card.findById(id);
 
 export const resolvers: GQL.Resolvers = {
   Query: {
-    cards: (_, { deck, shuffle }) => {
-      return ((getDeckCards(deck).populate([
+    cards: (_, { deck, shuffle, limit }) => {
+      return ((getCards(deck).populate([
         "artist",
         "deck",
-      ]) as unknown) as Promise<GQL.Card[]>).then((cards) =>
-        shuffle ? cards.sort(() => Math.random() - Math.random()) : cards
-      );
+      ]) as unknown) as Promise<GQL.Card[]>)
+        .then((cards) =>
+          shuffle ? cards.sort(() => Math.random() - Math.random()) : cards
+        )
+        .then((cards) => (limit ? cards.slice(0, limit) : cards));
     },
     card: (_, { id }) => {
       return (getCard(id).populate([
@@ -42,7 +45,7 @@ export const resolvers: GQL.Resolvers = {
 
 export const typeDefs = gql`
   type Query {
-    cards(deck: ID, shuffle: Boolean): [Card!]!
+    cards(deck: ID, shuffle: Boolean, limit: Int): [Card!]!
     card(id: ID!): Card
   }
 
