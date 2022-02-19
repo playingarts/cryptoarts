@@ -110,8 +110,14 @@ const Content: FC<{
         </Layout>
       )}
 
-      <Layout ref={cardsRef}>
-        <Box>
+      <Layout
+        ref={cardsRef}
+        css={(theme) => ({
+          paddingTop: theme.spacing(15),
+          paddingBottom: theme.spacing(15),
+        })}
+      >
+        <Grid>
           <BlockTitle
             title="Cards"
             subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
@@ -133,8 +139,12 @@ const Content: FC<{
                 color: "#82A7F8",
               }),
             }}
+            css={(theme) => ({
+              gridColumn: "2 / span 10",
+              marginBottom: theme.spacing(4),
+            })}
           />
-        </Box>
+        </Grid>
         <CardList cards={cards} />
       </Layout>
 
