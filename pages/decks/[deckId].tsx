@@ -246,7 +246,12 @@ const Content: FC<{
 
       <Layout ref={galleryRef}>
         <ComposedGallery />
-        <Grid>
+        <Grid
+          css={(theme) => ({
+            marginBottom: theme.spacing(10),
+            marginTop: theme.spacing(16),
+          })}
+        >
           <div css={{ gridColumn: "span 3", textAlign: "center" }}>
             <Esquire />
           </div>
@@ -260,13 +265,18 @@ const Content: FC<{
             <DigitalArts />
           </div>
         </Grid>
-        <Box>
-          <Quote>
+        <Grid
+          css={(theme) => ({
+            marginBottom: theme.spacing(10),
+            marginTop: theme.spacing(10),
+          })}
+        >
+          <Quote css={{ gridColumn: "2 / span 10" }}>
             “Two is a sign of union. And diamonds are a sign of prosperity. I
             wanted to show the duality using my Ugly character wearing a
             twofaced mask.”
           </Quote>
-        </Box>
+        </Grid>
       </Layout>
     </Fragment>
   );
