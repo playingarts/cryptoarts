@@ -2,6 +2,7 @@ import { FC, HTMLAttributes, useRef } from "react";
 import { useEffect, useState } from "react";
 import { theme } from "../../pages/_app";
 import Image from "next/image";
+import Loader from "../Loader";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   card: GQL.Card;
@@ -27,6 +28,8 @@ const Card: FC<Props> = ({
   const height = size === "big" ? 52 : 40;
   const wrapper = useRef<HTMLDivElement>(null);
   const [{ x, y }, setSkew] = useState({ x: 0, y: 0 });
+  const [loaded, setLoaded] = useState(false);
+  const hideLoader = () => setLoaded(true);
 
   animated = !card.img || (animated && !!card.video);
 
@@ -112,6 +115,17 @@ const Card: FC<Props> = ({
             undefined
           }
         >
+          {!loaded && (
+            <Loader
+              css={(theme) => ({
+                color: theme.colors.light_gray,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              })}
+            />
+          )}
           {!animated && (
             <div
               style={{
@@ -126,6 +140,7 @@ const Card: FC<Props> = ({
                 src={card.img}
                 alt={card.info}
                 css={(theme) => ({ borderRadius: theme.spacing(1.5) })}
+                onLoadingComplete={hideLoader}
               />
             </div>
           )}
@@ -139,6 +154,7 @@ const Card: FC<Props> = ({
                 width: theme.spacing(width),
                 height: theme.spacing(height),
               })}
+              onLoadedData={hideLoader}
               {...(animated ? { autoPlay: true } : { preload: "none" })}
             >
               <source src={card.video} type="video/mp4" />
