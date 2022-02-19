@@ -15,7 +15,6 @@ import { withApollo } from "../../source/apollo";
 import { useLoadCards } from "../../hooks/card";
 import { useRouter } from "next/router";
 import CardList from "../../components/Card/List";
-import Box from "../../components/Box";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
 import Bag from "../../components/Icons/Bag";
@@ -84,29 +83,32 @@ const Content: FC<{
           css={(theme) => ({
             background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
             color: theme.colors.light_gray,
-            paddingTop: theme.spacing(18),
+            paddingTop: theme.spacing(30),
+            paddingBottom: theme.spacing(12),
           })}
         >
-          <Box>
-            <Text component="h1" css={{ margin: 0 }}>
-              {deck.title}
-            </Text>
-            <Text variant="body3">{deck.info}</Text>
-            <Line spacing={3} />
-            <DeckNav
-              ref={deckNavRef}
-              refs={{ cardsRef, deckRef, galleryRef }}
-              links={{
-                ...(deck.slug === "crypto"
-                  ? {
-                      opensea: "/opensea",
-                    }
-                  : { buyNow: "/buyNow" }),
-                share: "/share",
-                shop: "/shop",
-              }}
-            />
-          </Box>
+          <Grid>
+            <div css={{ gridColumn: "2 / span 10" }}>
+              <Text component="h1" css={{ margin: 0 }}>
+                {deck.title}
+              </Text>
+              <Text variant="body3">{deck.info}</Text>
+              <Line spacing={3} />
+              <DeckNav
+                ref={deckNavRef}
+                refs={{ cardsRef, deckRef, galleryRef }}
+                links={{
+                  ...(deck.slug === "crypto"
+                    ? {
+                        opensea: "/opensea",
+                      }
+                    : { buyNow: "/buyNow" }),
+                  share: "/share",
+                  shop: "/shop",
+                }}
+              />
+            </div>
+          </Grid>
         </Layout>
       )}
 

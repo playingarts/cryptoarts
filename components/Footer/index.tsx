@@ -7,19 +7,22 @@ import Text from "../Text";
 import Chevron from "../Icons/Chevron";
 import Button from "../Button";
 import Line from "../Line";
-import Box from "../Box";
 import Grid from "../Grid";
 
-const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
+const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   return (
-    <Box
+    <div
       {...props}
       css={(theme) => ({
         background: theme.colors.light_gray,
         borderRadius: theme.spacing(1),
       })}
     >
-      <Grid css={(theme) => ({ color: theme.colors.text_subtitle_dark })}>
+      <Grid
+        css={(theme) => ({
+          color: theme.colors.text_subtitle_dark,
+        })}
+      >
         {[
           [
             {
@@ -140,11 +143,11 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
         </form>
       </Grid>
 
-      <Line spacing={4} />
+      <Line spacing={3} />
 
       <Grid>
         <div css={{ gridColumn: "span 6", opacity: 0.25 }}>
-          <Text variant="h5" component="h2">
+          <Text variant="h6" component="h2" css={{ margin: 0 }}>
             playing arts project
           </Text>
           <Text variant="body0">
@@ -191,7 +194,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           ))}
         </nav>
       </Grid>
-    </Box>
+    </div>
   );
 };
 

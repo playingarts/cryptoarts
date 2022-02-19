@@ -3,7 +3,6 @@ import { FC, Fragment } from "react";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
-import Box from "../components/Box";
 import Button from "../components/Button";
 import Text from "../components/Text";
 import Line from "../components/Line";
@@ -20,6 +19,7 @@ import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Arrowed from "../components/Arrowed";
 import ComposedFaq from "../components/_composed/Faq";
 import Grid from "../components/Grid";
+import StatBlock from "../components/StatBlock";
 
 const Content: FC = () => {
   const { bag, updateQuantity, removeItem } = useBag();
@@ -189,8 +189,7 @@ const Content: FC = () => {
                     textAlign: "center",
                   })}
                 >
-                  <Box
-                    narrow={true}
+                  <StatBlock
                     css={(theme) => ({
                       background: theme.colors.text_title_light,
                     })}
@@ -213,7 +212,7 @@ const Content: FC = () => {
                       <Lock css={{ verticalAlign: "baseline" }} /> Secure
                       payment
                     </Text>
-                  </Box>
+                  </StatBlock>
                   <Text
                     component={Link}
                     href="/shop"
@@ -234,6 +233,8 @@ const Content: FC = () => {
           <Layout
             css={(theme) => ({
               background: theme.colors.light_gray,
+              paddingTop: theme.spacing(9),
+              paddingBottom: theme.spacing(9),
             })}
           >
             <ComposedGallery />

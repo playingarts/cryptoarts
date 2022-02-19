@@ -2,7 +2,6 @@ import Head from "next/head";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
-import Box from "../components/Box";
 import ShopItem from "../components/Shop/Item";
 import Quote from "../components/Quote";
 import ShopSoldOut from "../components/Shop/SoldOut";
@@ -66,11 +65,15 @@ const Content: FC = () => {
         </Grid>
       </Layout>
 
-      <Layout>
+      <Layout
+        css={(theme) => ({
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(15),
+        })}
+      >
         <Grid
           css={(theme) => ({
             rowGap: theme.spacing(3),
-            marginTop: theme.spacing(6),
           })}
         >
           {decks.map((product, index) =>
@@ -132,45 +135,43 @@ const Content: FC = () => {
           )}
         </Grid>
 
-        <Box>
-          <BlockTitle
-            title="Bundles"
-            subTitleText="For serious collectors and true art connoisseurs."
-            variant="h3"
-            css={(theme) => ({ marginBottom: theme.spacing(3) })}
-          />
-          <div
-            css={(theme) => ({
-              display: "grid",
-              justifyContent: "center",
-              gridTemplateColumns: "1fr 1fr",
-              gap: theme.spacing(3),
-            })}
-          >
-            {bundles.map((product) => (
-              <ShopBundle
-                key={product._id}
-                {...product}
-                ButtonProps={{
-                  onClick: () => addItem(product._id),
-                }}
-              />
-            ))}
+        <Grid>
+          <div css={{ gridColumn: "2 / span 10" }}>
+            <BlockTitle
+              title="Bundles"
+              subTitleText="For serious collectors and true art connoisseurs."
+              variant="h3"
+              css={(theme) => ({
+                marginBottom: theme.spacing(3),
+              })}
+            />
+            <Grid
+              css={{
+                gridTemplateColumns: "1fr 1fr",
+              }}
+            >
+              {bundles.map((product) => (
+                <ShopBundle
+                  key={product._id}
+                  {...product}
+                  ButtonProps={{
+                    onClick: () => addItem(product._id),
+                  }}
+                />
+              ))}
+            </Grid>
           </div>
-        </Box>
+        </Grid>
       </Layout>
+
       <Layout
         css={(theme) => ({
           background: theme.colors.light_gray,
+          paddingTop: theme.spacing(11),
+          paddingBottom: theme.spacing(11),
         })}
       >
-        <ShopSheets
-          products={sheets}
-          css={(theme) => ({
-            marginTop: theme.spacing(5),
-            marginBottom: theme.spacing(5),
-          })}
-        />
+        <ShopSheets products={sheets} />
       </Layout>
       <Layout>
         <Grid>

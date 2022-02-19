@@ -1,20 +1,23 @@
-import { FC } from "react";
+import { FC, HTMLAttributes } from "react";
 import Arrowed from "../Arrowed";
-import Box, { Props as BoxProps } from "../Box";
 import Link, { Props as LinkProps } from "../Link";
 import Text from "../Text";
 
-export interface Props extends BoxProps {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   action?: Pick<LinkProps, "children" | "href">;
 }
 
 const StatBlock: FC<Props> = ({ action, title, children, ...props }) => {
   return (
-    <Box
-      narrow={true}
+    <div
       {...props}
-      css={{ display: "flex", flexDirection: "column" }}
+      css={(theme) => ({
+        display: "flex",
+        flexDirection: "column",
+        borderRadius: theme.spacing(2),
+        padding: theme.spacing(4),
+      })}
     >
       {title && (
         <Text
@@ -50,7 +53,7 @@ const StatBlock: FC<Props> = ({ action, title, children, ...props }) => {
           </Text>
         </div>
       )}
-    </Box>
+    </div>
   );
 };
 

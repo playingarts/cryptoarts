@@ -14,6 +14,7 @@ export const ProductsQuery = gql`
       image2
       deck {
         _id
+        slug
       }
     }
   }

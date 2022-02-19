@@ -11,11 +11,11 @@ import Hand from "./hand.png";
 const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => (
   <StatBlock
     {...props}
-    padding={0}
     css={(theme) => ({
       background: `url(${Hand.src}) bottom right no-repeat`,
       backgroundColor: theme.colors.dark_gray,
       color: theme.colors.text_title_light,
+      padding: 0,
       paddingTop: theme.spacing(10),
       paddingBottom: theme.spacing(10),
     })}

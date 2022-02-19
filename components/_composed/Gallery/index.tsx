@@ -1,13 +1,13 @@
-import { FC, Fragment, HTMLAttributes, useState } from "react";
+import { FC, Fragment, useState } from "react";
 import Arrowed from "../../Arrowed";
 import BlockTitle from "../../BlockTitle";
-import Box from "../../Box";
 import Button from "../../Button";
 import Carousel, { Props as CarouselProps } from "../../Carousel";
+import Grid, { Props as GridProps } from "../../Grid";
 import Chevron from "../../Icons/Chevron";
 import Link from "../../Link";
 
-const ComposedGallery: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
+const ComposedGallery: FC<GridProps> = (props) => {
   const items = [
     "https://i.ytimg.com/vi/lWAEP0C3QUQ/maxresdefault.jpg",
     "https://editorial.designtaxi.com/editorial-images/news-CatLoafPhotoshop130516/6-Cat-Loafing-Awkwardly-Stairs-Photoshop-Funny-Memes.jpg",
@@ -28,55 +28,61 @@ const ComposedGallery: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const onNext = () => changeIndex(1);
 
   return (
-    <div {...props}>
-      <Box>
-        <BlockTitle
-          variant="h3"
-          title="Gallery"
-          subTitleText={
-            <Link href="/">
-              <Arrowed>Follow @playingarts on Instagram</Arrowed>
-            </Link>
-          }
-          action={
-            <Fragment>
-              <Button
-                disabled={index === 0}
-                onClick={onPrev}
-                variant="bordered"
-                Icon={Chevron}
-                size="small"
-                iconProps={{
-                  css: (theme) => ({
-                    width: theme.spacing(0.8),
-                    height: theme.spacing(1.6),
-                    transform: "rotate(-180deg)",
-                  }),
-                }}
-              />
-              <Button
-                disabled={
-                  items.length <= visibleItems ||
-                  index === items.length - visibleItems
-                }
-                onClick={onNext}
-                variant="bordered"
-                css={(theme) => ({ marginLeft: theme.spacing(2) })}
-                Icon={Chevron}
-                size="small"
-                iconProps={{
-                  css: (theme) => ({
-                    width: theme.spacing(0.8),
-                    height: theme.spacing(1.6),
-                  }),
-                }}
-              />
-            </Fragment>
-          }
-        />
-      </Box>
-      <Carousel items={items} index={index} onIndexChange={changeIndex} />
-    </div>
+    <Grid {...props}>
+      <BlockTitle
+        variant="h3"
+        title="Gallery"
+        subTitleText={
+          <Link href="/">
+            <Arrowed>Follow @playingarts on Instagram</Arrowed>
+          </Link>
+        }
+        action={
+          <Fragment>
+            <Button
+              disabled={index === 0}
+              onClick={onPrev}
+              variant="bordered"
+              Icon={Chevron}
+              size="small"
+              iconProps={{
+                css: (theme) => ({
+                  width: theme.spacing(0.8),
+                  height: theme.spacing(1.6),
+                  transform: "rotate(-180deg)",
+                }),
+              }}
+            />
+            <Button
+              disabled={
+                items.length <= visibleItems ||
+                index === items.length - visibleItems
+              }
+              onClick={onNext}
+              variant="bordered"
+              css={(theme) => ({ marginLeft: theme.spacing(2) })}
+              Icon={Chevron}
+              size="small"
+              iconProps={{
+                css: (theme) => ({
+                  width: theme.spacing(0.8),
+                  height: theme.spacing(1.6),
+                }),
+              }}
+            />
+          </Fragment>
+        }
+        css={{
+          gridColumn: "2 / span 10",
+        }}
+      />
+      <Carousel
+        css={(theme) => ({ gridColumn: "1 / -1", marginTop: theme.spacing(4) })}
+        items={items}
+        index={index}
+        onIndexChange={changeIndex}
+      />
+    </Grid>
   );
 };
 

@@ -35,6 +35,10 @@ const ComposedGlobalLayout: FC<
           marginBottom: theme.spacing(1),
           marginLeft: -theme.spacing(9.5),
           marginRight: -theme.spacing(9.5),
+          paddingLeft: theme.spacing(9.5),
+          paddingRight: theme.spacing(9.5),
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
         })}
       />
     </Layout>
