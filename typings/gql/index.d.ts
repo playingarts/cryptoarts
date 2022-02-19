@@ -70,10 +70,10 @@ interface QueryHoldersArgs {
 
 interface Deck {
   __typename?: 'Deck';
-  _id: Scalars['ID'];
+  _id: Scalars['String'];
   title: Scalars['String'];
   info: Scalars['String'];
-  slug: Scalars['String'];
+  slug: Scalars['ID'];
 }
 
 interface Artist {
@@ -384,10 +384,10 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
-  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  _id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -30,9 +30,9 @@ export const typeDefs = gql`
   }
 
   type Deck {
-    _id: ID!
+    _id: String!
     title: String!
     info: String!
-    slug: String!
+    slug: ID!
   }
 `;

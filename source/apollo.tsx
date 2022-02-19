@@ -103,7 +103,24 @@ const initApolloClient = (initialState?: object, config?: object) => {
 
 const createApolloClient = (initialState = {}, config?: object) => {
   const ssrMode = typeof window === "undefined";
-  const cache = new InMemoryCache().restore(initialState);
+  const cache = new InMemoryCache({
+    typePolicies: {
+      Deck: {
+        keyFields: ["slug"],
+      },
+      Query: {
+        fields: {
+          deck: {
+            read: (_, { args, toReference }) =>
+              toReference({
+                __typename: "Deck",
+                slug: args && args.slug,
+              }),
+          },
+        },
+      },
+    },
+  }).restore(initialState);
 
   return new ApolloClient({
     cache,

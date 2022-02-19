@@ -1,22 +1,30 @@
 import { gql, QueryHookOptions, useQuery } from "@apollo/client";
 
+const DeckDataFragment = gql`
+  fragment DeckDataFragment on Deck {
+    _id
+    info
+    title
+    slug
+  }
+`;
+
 export const DecksQuery = gql`
+  ${DeckDataFragment}
+
   query Decks {
     decks {
-      _id
-      title
-      slug
+      ...DeckDataFragment
     }
   }
 `;
 
 export const DeckQuery = gql`
+  ${DeckDataFragment}
+
   query Deck($slug: String!) {
     deck(slug: $slug) {
-      _id
-      info
-      title
-      slug
+      ...DeckDataFragment
     }
   }
 `;
