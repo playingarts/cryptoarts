@@ -1,6 +1,7 @@
 import { Interpolation, Theme } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 import Button, { Props as ButtonProps } from "../Button";
+import Grid from "../Grid";
 import Line from "../Line";
 import Text from "../Text";
 
@@ -21,37 +22,39 @@ const BlockTitle: FC<Props> = ({
   ...props
 }) => {
   return (
-    <div {...props}>
-      <div
-        css={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-        }}
-      >
-        <div>
-          <Text component="h2" variant={variant} css={{ margin: 0 }}>
-            {title}
-          </Text>
-          {subTitleText && (
-            <Text
-              css={(theme) => ({ margin: 0, marginTop: theme.spacing(2) })}
-              variant="body2"
-            >
-              {subTitleText}
-            </Text>
-          )}
-        </div>
-        {(action || buttonProps) && (
-          <div
-            css={(theme) => ({ marginLeft: theme.spacing(13), flexShrink: 0 })}
+    <Grid {...props}>
+      <div css={{ gridColumn: "span 7" }}>
+        <Text
+          component="h2"
+          variant={variant}
+          css={{ margin: 0, gridColumn: "span 10" }}
+        >
+          {title}
+        </Text>
+        {subTitleText && (
+          <Text
+            css={(theme) => ({ margin: 0, marginTop: theme.spacing(2) })}
+            variant="body2"
           >
-            {action || <Button {...buttonProps} />}
-          </div>
+            {subTitleText}
+          </Text>
         )}
       </div>
-      <Line css={{ marginBottom: 0 }} spacing={3} />
-    </div>
+      {(action || buttonProps) && (
+        <div
+          css={{
+            gridColumn: "8 / span 3",
+            textAlign: "right",
+            alignSelf: "flex-end",
+          }}
+        >
+          {action || <Button {...buttonProps} />}
+        </div>
+      )}
+      <div css={{ gridColumn: "span 10" }}>
+        <Line css={{ marginBottom: 0 }} spacing={3} />
+      </div>
+    </Grid>
   );
 };
 

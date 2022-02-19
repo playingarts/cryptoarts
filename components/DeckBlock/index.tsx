@@ -1,23 +1,21 @@
-import { FC, Fragment, HTMLAttributes } from "react";
+import { FC, Fragment } from "react";
+import Grid, { Props as GridProps } from "../Grid";
 import Line from "../Line";
 import Text from "../Text";
 
-interface Props extends HTMLAttributes<HTMLElement> {
+interface Props extends GridProps {
   properties: Record<string, string>;
 }
 
 const DeckBlock: FC<Props> = ({ properties, ...props }) => (
-  <div
-    {...props}
-    css={{
-      display: "flex",
-    }}
-  >
-    <div css={{ flexGrow: 1 }}></div>
+  <Grid {...props}>
+    <div css={{ gridColumn: "span 6" }}></div>
     <dl
       css={(theme) => ({
         color: theme.colors.text_title_dark,
         margin: 0,
+        gridColumn: "7 / span 5",
+        alignSelf: "center",
       })}
     >
       {Object.entries(properties).map(([key, value], index, array) => (
@@ -49,7 +47,7 @@ const DeckBlock: FC<Props> = ({ properties, ...props }) => (
         </Fragment>
       ))}
     </dl>
-  </div>
+  </Grid>
 );
 
 export default DeckBlock;

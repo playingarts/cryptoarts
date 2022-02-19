@@ -214,10 +214,12 @@ const Content: FC<{
       <Layout
         css={(theme) => ({
           background: theme.colors.light_gray,
+          paddingTop: theme.spacing(15),
+          paddingBottom: theme.spacing(6),
         })}
         ref={deckRef}
       >
-        <Box>
+        <Grid css={(theme) => ({ marginBottom: theme.spacing(1) })}>
           <BlockTitle
             variant="h3"
             title="Deck"
@@ -230,18 +232,18 @@ const Content: FC<{
                 color: theme.colors.text_title_light,
               }),
             }}
-          />
-          <DeckBlock
-            css={(theme) => ({
-              marginTop: theme.spacing(14),
-            })}
-            properties={{
-              size: "Poker, 88.9 × 63.5mm",
-              material: "Bicycle® paper with Air-cushion finish",
-              inside: "52 Playing cards + 2 Jokers + Info card",
+            css={{
+              gridColumn: "2 / span 10",
             }}
           />
-        </Box>
+        </Grid>
+        <DeckBlock
+          properties={{
+            size: "Poker, 88.9 × 63.5mm",
+            material: "Bicycle® paper with Air-cushion finish",
+            inside: "52 Playing cards + 2 Jokers + Info card",
+          }}
+        />
       </Layout>
 
       <Layout ref={galleryRef}>
