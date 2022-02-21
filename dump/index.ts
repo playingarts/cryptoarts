@@ -11,12 +11,12 @@ import deckTwo from "./deck-two";
 (async () => {
   await artists();
   await deckZero();
-  await deckCrypto();
-  await deckFuture();
   await deckOne();
-  await deckSpecial();
-  await deckThree();
   await deckTwo();
+  await deckThree();
+  await deckSpecial();
+  await deckFuture();
+  await deckCrypto();
   await products();
 
   process.exit();
