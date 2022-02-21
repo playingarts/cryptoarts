@@ -9,6 +9,7 @@ export interface Props
     HTMLAttributes<HTMLAnchorElement | HTMLButtonElement> {
   component?: "a" | "button";
   activeCss?: ((_: Theme) => CSSInterpolation) | CSSObject;
+  target?: HTMLAnchorElement["target"];
 }
 
 const Link: ForwardRefRenderFunction<

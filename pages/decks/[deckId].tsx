@@ -18,7 +18,6 @@ import CardList from "../../components/Card/List";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
 import Bag from "../../components/Icons/Bag";
-import Plus from "../../components/Icons/Plus";
 import ComposedGallery from "../../components/_composed/Gallery";
 import Text from "../../components/Text";
 import Line from "../../components/Line";
@@ -37,6 +36,7 @@ import AugmentedReality from "../../components/AugmentedReality";
 import ComposedStats from "../../components/_composed/Stats";
 import ComposedHolders from "../../components/_composed/Holders";
 import ComposedSupply from "../../components/_composed/Supply";
+import MetamaskButton from "../../components/MetamaskButton";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -123,24 +123,9 @@ const Content: FC<{
           <BlockTitle
             title="Cards"
             subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
-            buttonProps={{
-              children: (
-                <span
-                  css={(theme) => ({
-                    background: theme.colors.gradient,
-                    backgroundClip: "text",
-                    color: "transparent",
-                  })}
-                >
-                  metamask
-                </span>
-              ),
-              Icon: Plus,
-              css: (theme) => ({
-                background: theme.colors.dark_gray,
-                color: "#82A7F8",
-              }),
-            }}
+            {...(deckId === "crypto" && {
+              action: <MetamaskButton />,
+            })}
             css={(theme) => ({
               gridColumn: "2 / span 10",
               marginBottom: theme.spacing(4),

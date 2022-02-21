@@ -5,6 +5,7 @@ import { AppProps } from "next/app";
 import "modern-normalize/modern-normalize.css";
 import { CSSInterpolation } from "@emotion/serialize";
 import smoothscroll from "smoothscroll-polyfill";
+import { MetaMaskProvider } from "metamask-react";
 
 declare module "@emotion/react" {
   export interface Theme {
@@ -28,6 +29,8 @@ declare module "@emotion/react" {
       hearts: string;
       spades: string;
       eth: string;
+      orange: string;
+      green: string;
     };
     mq: { [index: string]: string };
     typography: {
@@ -94,6 +97,8 @@ export const theme: Theme = {
     spades: "#82A7F8",
     eth:
       "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)",
+    orange: "#F89D35",
+    green: "#05CE78",
   },
   typography: {
     h1: {
@@ -189,9 +194,12 @@ const App = ({ Component, pageProps }: AppProps) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </Head>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+
+      <MetaMaskProvider>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </MetaMaskProvider>
     </Fragment>
   );
 };
