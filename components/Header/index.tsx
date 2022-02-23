@@ -29,11 +29,11 @@ const Header: FC<Props> = ({
   const mouseLeave = () => setHovered(false);
 
   useEffect(() => {
-    let lastScrollTop = 0;
-
     if (hovered) {
       return setExpanded(false);
     }
+
+    let lastScrollTop = 0;
 
     const handler = throttle(() => {
       const documentHeight = Math.max(
@@ -66,7 +66,6 @@ const Header: FC<Props> = ({
   return (
     <header {...props}>
       <div
-        onMouseEnter={mouseEnter}
         onMouseLeave={mouseLeave}
         css={(theme) => [
           {
@@ -148,6 +147,7 @@ const Header: FC<Props> = ({
               top: (showAltNav && !expanded && "50%") || "150%",
               transform: "translate(-50%, -50%)",
             })}
+            onClick={mouseEnter}
           >
             {altNav}
           </div>
