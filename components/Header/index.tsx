@@ -24,9 +24,16 @@ const Header: FC<Props> = ({
   ...props
 }) => {
   const [expanded, setExpanded] = useState(true);
+  const [hovered, setHovered] = useState(false);
+  const mouseEnter = () => setHovered(true);
+  const mouseLeave = () => setHovered(false);
 
   useEffect(() => {
     let lastScrollTop = 0;
+
+    if (hovered) {
+      return setExpanded(false);
+    }
 
     const handler = throttle(() => {
       const documentHeight = Math.max(
@@ -54,11 +61,13 @@ const Header: FC<Props> = ({
     window.addEventListener("scroll", handler);
 
     return () => window.removeEventListener("scroll", handler);
-  }, []);
+  }, [hovered]);
 
   return (
     <header {...props}>
       <div
+        onMouseEnter={mouseEnter}
+        onMouseLeave={mouseLeave}
         css={(theme) => [
           {
             borderRadius: theme.spacing(1),
