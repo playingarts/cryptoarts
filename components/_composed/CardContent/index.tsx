@@ -39,7 +39,7 @@ const ComposedCardContent: FC<Props> = ({ cardId, cards, deck, ...props }) => {
       }
       closeLink={`/decks/${deck.slug}`}
     >
-      <ComposedCardBlock card={card} />
+      <ComposedCardBlock card={card} deck={deck} />
     </CardNav>
   );
 };

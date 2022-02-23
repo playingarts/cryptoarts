@@ -11,11 +11,18 @@ import CardInfo from "../Info";
 
 interface Props extends GridProps {
   card: GQL.Card;
+  deck: GQL.Deck;
   cardOfTheDay?: boolean;
   stick?: number;
 }
 
-const CardBlock: FC<Props> = ({ stick, cardOfTheDay, card, ...props }) => (
+const CardBlock: FC<Props> = ({
+  stick,
+  cardOfTheDay,
+  deck,
+  card,
+  ...props
+}) => (
   <Grid {...props}>
     <div
       css={(theme) => [
@@ -81,7 +88,7 @@ const CardBlock: FC<Props> = ({ stick, cardOfTheDay, card, ...props }) => (
           </Button>
         </Fragment>
       ) : (
-        <CardInfo artist={card.artist} price={1} />
+        <CardInfo artist={card.artist} deck={deck} price={1} />
       )}
     </div>
     {!cardOfTheDay && (

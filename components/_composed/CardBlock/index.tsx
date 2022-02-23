@@ -4,10 +4,16 @@ import Layout, { Props as LayoutProps } from "../../Layout";
 
 export interface Props extends LayoutProps {
   card: GQL.Card;
+  deck: GQL.Deck;
   cardOfTheDay?: boolean;
 }
 
-const ComposedCardBlock: FC<Props> = ({ cardOfTheDay, card, ...props }) => (
+const ComposedCardBlock: FC<Props> = ({
+  cardOfTheDay,
+  card,
+  deck,
+  ...props
+}) => (
   <Layout
     {...props}
     css={(theme) => ({
@@ -15,7 +21,7 @@ const ComposedCardBlock: FC<Props> = ({ cardOfTheDay, card, ...props }) => (
       paddingTop: theme.spacing(14),
     })}
   >
-    <CardBlock stick={14} cardOfTheDay={cardOfTheDay} card={card} />
+    <CardBlock stick={14} cardOfTheDay={cardOfTheDay} card={card} deck={deck} />
   </Layout>
 );
 
