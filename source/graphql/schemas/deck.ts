@@ -1,12 +1,11 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model } from "mongoose";
 
-export type MongoDeck = Omit<GQL.Deck, "">;
-
 const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   title: String,
   slug: String,
   info: String,
+  opensea: { type: String, default: null },
 });
 
 export const Deck = (models.Deck as Model<GQL.Deck>) || model("Deck", schema);
@@ -34,5 +33,6 @@ export const typeDefs = gql`
     title: String!
     info: String!
     slug: ID!
+    opensea: String
   }
 `;

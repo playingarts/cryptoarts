@@ -31,12 +31,8 @@ import Quote from "../../components/Quote";
 import throttle from "just-throttle";
 import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
 import ComposedCardContent from "../../components/_composed/CardContent";
-import Opensea from "../../components/Icons/Opensea";
-import AugmentedReality from "../../components/AugmentedReality";
-import ComposedStats from "../../components/_composed/Stats";
-import ComposedHolders from "../../components/_composed/Holders";
-import ComposedSupply from "../../components/_composed/Supply";
 import MetamaskButton from "../../components/MetamaskButton";
+import ComposedPace from "../../components/_composed/Pace";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -49,6 +45,8 @@ const Content: FC<{
   } = useRouter();
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { loadCards, cards, loading } = useLoadCards();
+
+  console.log("DECK", deck);
 
   useEffect(() => {
     if (deck) {
@@ -135,78 +133,7 @@ const Content: FC<{
         <CardList cards={cards} />
       </Layout>
 
-      <Layout
-        css={(theme) => ({
-          background: theme.colors.page_bg_dark,
-          color: theme.colors.text_title_light,
-          paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(15),
-        })}
-      >
-        <Grid>
-          <BlockTitle
-            variant="h2"
-            title={
-              <span
-                css={(theme) => ({
-                  background: theme.colors.eth,
-                  color: "transparent",
-                  backgroundClip: "text",
-                })}
-              >
-                (PACE) NFT
-              </span>
-            }
-            subTitleText="This card is a part of Crypto Edition NFT drop. Are you a holder? Connect your metamask to see what you are eligible for."
-            css={{
-              gridColumn: "2 / span 10",
-            }}
-            buttonProps={{
-              Icon: Opensea,
-              children: "Buy nft",
-              css: (theme) => ({
-                background: theme.colors.eth,
-              }),
-            }}
-          />
-        </Grid>
-
-        <Grid
-          css={(theme) => ({
-            marginTop: theme.spacing(4),
-            marginBottom: theme.spacing(3),
-          })}
-        >
-          <ComposedSupply
-            css={(theme) => ({
-              gridColumn: "span 3",
-              background: theme.colors.dark_gray,
-              color: theme.colors.text_title_light,
-            })}
-            deck="cryptoedition"
-          />
-
-          <ComposedHolders
-            css={(theme) => ({
-              gridColumn: "span 6",
-              background: theme.colors.dark_gray,
-              color: theme.colors.text_title_light,
-            })}
-            deck="cryptoedition"
-          />
-
-          <ComposedStats
-            css={(theme) => ({
-              background: theme.colors.dark_gray,
-              color: theme.colors.text_title_light,
-              gridColumn: "10 / span 3",
-            })}
-            deck="cryptoedition"
-          />
-        </Grid>
-
-        <AugmentedReality />
-      </Layout>
+      {deck.opensea && <ComposedPace collection={deck.opensea} />}
 
       <Layout
         css={(theme) => ({

@@ -74,6 +74,7 @@ interface Deck {
   title: Scalars['String'];
   info: Scalars['String'];
   slug: Scalars['ID'];
+  opensea?: Maybe<Scalars['String']>;
 }
 
 interface Artist {
@@ -388,6 +389,7 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -7,6 +7,7 @@ export const deck = {
   title: "Crypto Edition",
   slug,
   info: "",
+  opensea: "cryptoedition",
 };
 
 export const cards = [
