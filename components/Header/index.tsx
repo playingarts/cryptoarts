@@ -122,7 +122,7 @@ const Header: FC<Props> = ({
             textAlign: "center",
             position: "absolute",
             left: "50%",
-            top: (showAltNav ? "-" : "") + "50%",
+            top: (showAltNav && !expanded && "-50%") || "50%",
             transform: "translate(-50%, -50%)",
           })}
         >
@@ -145,7 +145,7 @@ const Header: FC<Props> = ({
               textAlign: "center",
               position: "absolute",
               left: "50%",
-              top: (showAltNav ? "" : "1") + "50%",
+              top: (showAltNav && !expanded && "50%") || "150%",
               transform: "translate(-50%, -50%)",
             })}
           >
