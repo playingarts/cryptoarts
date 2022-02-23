@@ -259,7 +259,10 @@ const Content: FC = () => {
 
 const Checkout: NextPage = () => {
   return (
-    <ComposedGlobalLayout customShopButton={<Button>Check out</Button>}>
+    <ComposedGlobalLayout
+      customShopButton={<Button>Check out</Button>}
+      noNav={true}
+    >
       <Head>
         <title>Crypto Arts</title>
       </Head>

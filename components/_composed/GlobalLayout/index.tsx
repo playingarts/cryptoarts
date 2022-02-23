@@ -4,8 +4,8 @@ import Header, { Props as HeaderProps } from "../../../components/Header";
 import Footer from "../../../components/Footer";
 
 const ComposedGlobalLayout: FC<
-  Pick<HeaderProps, "altNav" | "showAltNav" | "customShopButton">
-> = ({ altNav, showAltNav, customShopButton, children }) => (
+  Pick<HeaderProps, "altNav" | "showAltNav" | "customShopButton" | "noNav">
+> = ({ noNav, altNav, showAltNav, customShopButton, children }) => (
   <Fragment>
     <Header
       css={(theme) => ({
@@ -25,6 +25,7 @@ const ComposedGlobalLayout: FC<
       altNav={altNav}
       showAltNav={showAltNav}
       customShopButton={customShopButton}
+      noNav={noNav}
     />
 
     {children}

@@ -14,6 +14,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   customShopButton?: JSX.Element;
   altNav?: JSX.Element;
   showAltNav?: boolean;
+  noNav?: boolean;
 }
 
 const Header: FC<Props> = ({
@@ -21,6 +22,7 @@ const Header: FC<Props> = ({
   customShopButton,
   altNav,
   showAltNav,
+  noNav,
   ...props
 }) => {
   const [expanded, setExpanded] = useState(true);
@@ -29,7 +31,7 @@ const Header: FC<Props> = ({
   const mouseLeave = () => setHovered(false);
 
   useEffect(() => {
-    if (hovered) {
+    if (noNav || hovered) {
       return setExpanded(false);
     }
 
@@ -61,7 +63,7 @@ const Header: FC<Props> = ({
     window.addEventListener("scroll", handler);
 
     return () => window.removeEventListener("scroll", handler);
-  }, [hovered]);
+  }, [hovered, noNav]);
 
   return (
     <header {...props}>
@@ -175,22 +177,24 @@ const Header: FC<Props> = ({
         </div>
       </div>
 
-      <Nav
-        css={(theme) => [
-          {
-            position: "absolute",
-            left: 0,
-            right: 0,
-            top: 0,
-            transition: theme.transitions.fast("transform"),
-            transform: `translate3d(0, 10px, 0)`,
-          },
-          expanded && {
-            paddingTop: theme.spacing(1),
-            transform: `translate3d(0, ${theme.spacing(6)}px, 0)`,
-          },
-        ]}
-      />
+      {!noNav && (
+        <Nav
+          css={(theme) => [
+            {
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: 0,
+              transition: theme.transitions.fast("transform"),
+              transform: `translate3d(0, 10px, 0)`,
+            },
+            expanded && {
+              paddingTop: theme.spacing(1),
+              transform: `translate3d(0, ${theme.spacing(6)}px, 0)`,
+            },
+          ]}
+        />
+      )}
     </header>
   );
 };

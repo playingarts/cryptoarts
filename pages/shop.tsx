@@ -190,7 +190,7 @@ const Content: FC = () => {
 
 const Shop: NextPage = () => {
   return (
-    <ComposedGlobalLayout customShopButton={<BagButton />}>
+    <ComposedGlobalLayout customShopButton={<BagButton />} noNav={true}>
       <Head>
         <title>Crypto Arts</title>
       </Head>
