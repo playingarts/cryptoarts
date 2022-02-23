@@ -15,20 +15,16 @@ const CardList: FC<Props> = ({ cards, ...props }) => {
     <Grid
       {...props}
       css={(theme) => ({
+        display: "flex",
         rowGap: theme.spacing(6),
+        flexWrap: "wrap",
+        justifyContent: "center",
       })}
     >
       {cards.map((card) => (
-        <div
-          key={card._id}
-          css={{
-            gridColumn: "span 3",
-          }}
-        >
-          <Link href={{ query: { ...query, cardId: card._id } }}>
-            <Card card={card} />
-          </Link>
-        </div>
+        <Link key={card._id} href={{ query: { ...query, cardId: card._id } }}>
+          <Card card={card} />
+        </Link>
       ))}
     </Grid>
   );
