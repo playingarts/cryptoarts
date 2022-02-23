@@ -94,6 +94,7 @@ const CardBlock: FC<Props> = ({
     {!cardOfTheDay && (
       <div css={{ gridColumn: "7 / span 5" }}>
         <Quote
+          key={card._id}
           fullArtist={true}
           artist={card.artist}
           vertical={true}

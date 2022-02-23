@@ -82,4 +82,5 @@ const CardInfo: FC<Props> = ({ artist, price, deck, ...props }) => {
     </div>
   );
 };
+
 export default CardInfo;
