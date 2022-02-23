@@ -115,21 +115,12 @@ const Card: FC<Props> = ({
             undefined
           }
         >
-          {!loaded && (
-            <Loader
-              css={(theme) => ({
-                color: theme.colors.light_gray,
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              })}
-            />
-          )}
           {!animated && (
             <div
               style={{
                 position: "absolute",
+                opacity: loaded ? 1 : 0,
+                transition: theme.transitions.slow("opacity"),
                 zIndex: hovered ? -1 : 1,
               }}
             >
@@ -144,6 +135,17 @@ const Card: FC<Props> = ({
               />
             </div>
           )}
+          {!loaded && (
+            <Loader
+              css={(theme) => ({
+                color: theme.colors.light_gray,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              })}
+            />
+          )}
           {card.video && (
             <video
               loop
@@ -151,6 +153,8 @@ const Card: FC<Props> = ({
               playsInline
               ref={video}
               css={(theme) => ({
+                opacity: loaded ? 1 : 0,
+                transition: theme.transitions.slow("opacity"),
                 width: theme.spacing(width),
                 height: theme.spacing(height),
               })}
