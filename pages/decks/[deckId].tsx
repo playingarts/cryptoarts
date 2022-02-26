@@ -46,8 +46,6 @@ const Content: FC<{
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { loadCards, cards, loading } = useLoadCards();
 
-  console.log("DECK", deck);
-
   useEffect(() => {
     if (deck) {
       loadCards({

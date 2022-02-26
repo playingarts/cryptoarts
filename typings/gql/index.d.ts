@@ -75,6 +75,7 @@ interface Deck {
   info: Scalars['String'];
   slug: Scalars['ID'];
   opensea?: Maybe<Scalars['String']>;
+  cardBackground?: Maybe<Scalars['String']>;
 }
 
 interface Artist {
@@ -116,6 +117,7 @@ interface Card {
   suit?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['String']>;
   opensea?: Maybe<Scalars['String']>;
+  background?: Maybe<Scalars['String']>;
 }
 
 interface Product {
@@ -390,6 +392,7 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  cardBackground?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -431,6 +434,7 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   suit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  background?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

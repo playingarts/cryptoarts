@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model, Types } from "mongoose";
+import { getDeck } from "./deck";
 
 export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
   artist?: string;
@@ -12,6 +13,7 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   info: String,
   value: String,
   suit: String,
+  background: { type: String, default: null },
   artist: { type: Types.ObjectId, ref: "Artist" },
   deck: { type: Types.ObjectId, ref: "Deck" },
 });
@@ -23,6 +25,13 @@ const getCards = (deck?: string) => Card.find(deck ? { deck } : {});
 const getCard = (id: string) => Card.findById(id);
 
 export const resolvers: GQL.Resolvers = {
+  Card: {
+    background: async ({ background, deck }) =>
+      background ||
+      (await getDeck({ _id: (deck as unknown) as string }).then(
+        (deck) => deck && deck.cardBackground
+      )),
+  },
   Query: {
     cards: (_, { deck, shuffle, limit }) => {
       return ((getCards(deck).populate([
@@ -59,5 +68,6 @@ export const typeDefs = gql`
     suit: String
     value: String
     opensea: String
+    background: String
   }
 `;

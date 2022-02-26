@@ -7,6 +7,7 @@ export const CardsQuery = gql`
       img
       video
       info
+      background
       artist {
         name
         userpic
@@ -36,6 +37,7 @@ const CardQuery = gql`
       img
       video
       info
+      background
       artist {
         name
         userpic

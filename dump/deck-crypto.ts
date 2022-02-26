@@ -3,11 +3,12 @@ import { createDeck } from "./_utils";
 
 export const slug = "crypto";
 
-export const deck = {
+export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Crypto Edition",
   slug,
   info: "",
   opensea: "cryptoedition",
+  cardBackground: "#181818",
 };
 
 export const cards = [

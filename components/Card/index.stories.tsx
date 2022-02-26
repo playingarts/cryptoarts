@@ -12,7 +12,8 @@ export const Primary = Template.bind({});
 Primary.args = {
   card: {
     _id: "_id",
-    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     deck: {
       _id: "_id",
       title: "title",
@@ -33,7 +34,8 @@ export const WithVideo = Template.bind({});
 WithVideo.args = {
   card: {
     _id: "_id",
-    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: {
@@ -57,7 +59,8 @@ Animated.args = {
   animated: true,
   card: {
     _id: "_id",
-    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: {
@@ -81,7 +84,8 @@ Static.args = {
   isStatic: true,
   card: {
     _id: "_id",
-    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: {
@@ -105,7 +109,8 @@ Big.args = {
   size: "big",
   card: {
     _id: "_id",
-    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: {
@@ -130,7 +135,8 @@ BigInteractive.args = {
   interactive: true,
   card: {
     _id: "_id",
-    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: {
@@ -154,7 +160,8 @@ NoInfo.args = {
   noInfo: true,
   card: {
     _id: "_id",
-    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: {
@@ -163,6 +170,31 @@ NoInfo.args = {
       info: "info",
       slug: "slug",
     },
+    artist: {
+      _id: "_id",
+      name: "Artist name",
+      userpic: "userpic",
+      social: {},
+      slug: "slug",
+    },
+  },
+};
+
+export const CustomBackground = Template.bind({});
+CustomBackground.args = {
+  card: {
+    _id: "_id",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    video:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
+    deck: {
+      _id: "_id",
+      title: "title",
+      info: "info",
+      slug: "slug",
+    },
+    background: "green",
     artist: {
       _id: "_id",
       name: "Artist name",

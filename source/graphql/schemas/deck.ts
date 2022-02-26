@@ -6,14 +6,16 @@ const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   slug: String,
   info: String,
   opensea: { type: String, default: null },
+  cardBackground: { type: String, default: null },
 });
 
 export const Deck = (models.Deck as Model<GQL.Deck>) || model("Deck", schema);
 
 const getDecks = async () => Deck.find();
 
-const getDeck = async (options: Pick<GQL.Deck, "slug">) =>
-  (await Deck.findOne(options)) || undefined;
+export const getDeck = async (
+  options: Pick<GQL.Deck, "slug"> | Pick<GQL.Deck, "_id">
+) => (await Deck.findOne(options)) || undefined;
 
 export const resolvers: GQL.Resolvers = {
   Query: {
@@ -34,5 +36,6 @@ export const typeDefs = gql`
     info: String!
     slug: ID!
     opensea: String
+    cardBackground: String
   }
 `;

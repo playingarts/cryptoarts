@@ -89,13 +89,13 @@ const Card: FC<Props> = ({
         <div
           css={(theme) => [
             {
-              transition: theme.transitions.fast("all"),
+              transition: theme.transitions.fast(["transform", "box-shadow"]),
               overflow: "hidden",
               boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
               position: "relative",
               height: theme.spacing(height),
               borderRadius: theme.spacing(1.5),
-              background: theme.colors.dark_gray,
+              background: card.background || theme.colors.text_title_light,
             },
             hovered &&
               !interactive &&

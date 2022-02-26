@@ -71,15 +71,15 @@ export const theme: Theme = {
     fast: (attrs) =>
       typeof attrs === "string"
         ? `${attrs} 0.25s ease`
-        : attrs.map((attr) => `${attr} 0.25s ease`).join(" "),
+        : attrs.map((attr) => `${attr} 0.25s ease`).join(", "),
     normal: (attrs) =>
       typeof attrs === "string"
         ? `${attrs} 0.4s ease`
-        : attrs.map((attr) => `${attr} 0.25s ease`).join(" "),
+        : attrs.map((attr) => `${attr} 0.25s ease`).join(", "),
     slow: (attrs) =>
       typeof attrs === "string"
         ? `${attrs} 0.55s ease`
-        : attrs.map((attr) => `${attr} 0.25s ease`).join(" "),
+        : attrs.map((attr) => `${attr} 0.25s ease`).join(", "),
   },
   colors: {
     page_bg_dark: "#0A0A0A",
