@@ -7,20 +7,21 @@ const schema = new Schema<GQL.Artist, Model<GQL.Artist>, GQL.Artist>({
   userpic: String,
   website: String,
   shop: String,
+  country: String,
   slug: String,
   social: {
     instagram: String,
     facebook: String,
+    twitter: String,
     behance: String,
+    dribbble: String,
     foundation: String,
     superrare: String,
     makersplace: String,
-    hicetnunc: String,
     knownorigin: String,
     rarible: String,
+    niftygateway: String,
     showtime: String,
-    niftygw: String,
-    dribbble: String,
   },
 });
 
@@ -41,20 +42,21 @@ export const typeDefs = gql`
     website: String
     shop: String
     social: Socials!
+    country: String
   }
 
   type Socials {
     instagram: String
     facebook: String
+    twitter: String
     behance: String
+    dribbble: String
     foundation: String
     superrare: String
     makersplace: String
-    hicetnunc: String
     knownorigin: String
     rarible: String
+    niftygateway: String
     showtime: String
-    niftygw: String
-    dribbble: String
   }
 `;

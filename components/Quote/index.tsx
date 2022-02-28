@@ -1,9 +1,22 @@
 import { FC, HTMLAttributes } from "react";
 import Arrowed from "../Arrowed";
+import Behance from "../Icons/Behance";
+import Facebook from "../Icons/Facebook";
+import Foundation from "../Icons/Foundation";
+import Instagram from "../Icons/Instagram";
+import Twitter from "../Icons/Twitter";
 import Line from "../Line";
 import Link from "../Link";
 import Text from "../Text";
 import Truncate from "../Truncate";
+
+const socialIcons: Record<string, FC> = {
+  instagram: Instagram,
+  facebook: Facebook,
+  twitter: Twitter,
+  behance: Behance,
+  foundation: Foundation,
+};
 
 interface Props extends HTMLAttributes<HTMLElement> {
   withLine?: boolean;
@@ -103,11 +116,38 @@ const Quote: FC<Props> = ({
                     lines={2}
                     css={{
                       marginTop: 0,
+                      opacity: 0.5,
                     }}
                   >
                     {artist.info}
                   </Truncate>
                 )}
+                <div
+                  css={(theme) => ({
+                    display: "flex",
+                    gap: theme.spacing(2),
+                    marginTop: theme.spacing(3),
+                  })}
+                >
+                  {Object.entries(artist.social).map(([key, value]) => {
+                    const Icon = socialIcons[key];
+
+                    if (!Icon || !value) {
+                      return null;
+                    }
+
+                    return (
+                      <Link
+                        key={key}
+                        href={value}
+                        target="_blank"
+                        css={{ alignSelf: "center", opacity: 0.2 }}
+                      >
+                        <Icon />
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>

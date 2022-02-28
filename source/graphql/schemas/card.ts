@@ -14,6 +14,7 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   value: String,
   suit: String,
   background: { type: String, default: null },
+  opensea: String,
   artist: { type: Types.ObjectId, ref: "Artist" },
   deck: { type: Types.ObjectId, ref: "Deck" },
 });

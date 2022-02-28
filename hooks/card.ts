@@ -8,12 +8,26 @@ export const CardsQuery = gql`
       video
       info
       background
+      opensea
       artist {
         name
         userpic
         info
+        country
+        website
         social {
+          instagram
           facebook
+          twitter
+          behance
+          dribbble
+          foundation
+          superrare
+          makersplace
+          knownorigin
+          rarible
+          niftygateway
+          showtime
         }
       }
     }

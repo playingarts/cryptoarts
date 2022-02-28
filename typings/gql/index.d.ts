@@ -88,22 +88,23 @@ interface Artist {
   website?: Maybe<Scalars['String']>;
   shop?: Maybe<Scalars['String']>;
   social: Socials;
+  country?: Maybe<Scalars['String']>;
 }
 
 interface Socials {
   __typename?: 'Socials';
   instagram?: Maybe<Scalars['String']>;
   facebook?: Maybe<Scalars['String']>;
+  twitter?: Maybe<Scalars['String']>;
   behance?: Maybe<Scalars['String']>;
+  dribbble?: Maybe<Scalars['String']>;
   foundation?: Maybe<Scalars['String']>;
   superrare?: Maybe<Scalars['String']>;
   makersplace?: Maybe<Scalars['String']>;
-  hicetnunc?: Maybe<Scalars['String']>;
   knownorigin?: Maybe<Scalars['String']>;
   rarible?: Maybe<Scalars['String']>;
+  niftygateway?: Maybe<Scalars['String']>;
   showtime?: Maybe<Scalars['String']>;
-  niftygw?: Maybe<Scalars['String']>;
-  dribbble?: Maybe<Scalars['String']>;
 }
 
 interface Card {
@@ -405,22 +406,23 @@ export type ArtistResolvers<ContextType = { req: Request, res: Response }, Paren
   website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   shop?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   social?: Resolver<ResolversTypes['Socials'], ParentType, ContextType>;
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type SocialsResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Socials'] = ResolversParentTypes['Socials']> = {
   instagram?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   facebook?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  twitter?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   behance?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  dribbble?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   foundation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   superrare?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   makersplace?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  hicetnunc?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   knownorigin?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   rarible?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  niftygateway?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   showtime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  niftygw?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  dribbble?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
