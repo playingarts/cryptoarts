@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 import { useDecks } from "../../hooks/deck";
 import Link from "../Link";
+import Color from "color";
 
 const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { decks = [], loading } = useDecks();
@@ -13,7 +14,7 @@ const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <nav
       {...props}
       css={(theme) => ({
-        background: "rgba(24, 24, 24, 0.5)",
+        background: Color(theme.colors.dark_gray).alpha(0.95).string(),
         borderRadius: theme.spacing(1),
         borderTopRightRadius: 0,
         borderTopLeftRadius: 0,
