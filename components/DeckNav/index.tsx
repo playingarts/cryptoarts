@@ -5,6 +5,7 @@ import {
   HTMLAttributes,
   RefObject,
 } from "react";
+import { Sections } from "../../source/enums";
 import Arrowed from "../Arrowed";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
@@ -97,7 +98,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         <Link
           href={{
             pathname: `/decks/[deckId]/[section]`,
-            query: { ...query, section: "cards" },
+            query: { ...query, section: Sections.cards },
           }}
           shallow={true}
           scroll={false}
@@ -128,7 +129,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         <Link
           href={{
             pathname: `/decks/[deckId]/[section]`,
-            query: { ...query, section: "deck" },
+            query: { ...query, section: Sections.deck },
           }}
           shallow={true}
           scroll={false}
@@ -146,7 +147,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         <Link
           href={{
             pathname: `/decks/[deckId]/[section]`,
-            query: { ...query, section: "gallery" },
+            query: { ...query, section: Sections.gallery },
           }}
           shallow={true}
           scroll={false}
