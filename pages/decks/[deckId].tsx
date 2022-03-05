@@ -14,7 +14,6 @@ import Layout from "../../components/Layout";
 import { withApollo } from "../../source/apollo";
 import { useLoadCards } from "../../hooks/card";
 import { useRouter } from "next/router";
-import CardList from "../../components/Card/List";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
 import Bag from "../../components/Icons/Bag";
@@ -31,8 +30,8 @@ import Quote from "../../components/Quote";
 import throttle from "just-throttle";
 import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
 import ComposedCardContent from "../../components/_composed/CardContent";
-import MetamaskButton from "../../components/MetamaskButton";
 import ComposedPace from "../../components/_composed/Pace";
+import ComposedCardListSection from "../../components/_composed/CardListSection";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -41,7 +40,7 @@ const Content: FC<{
   deckNavRef: RefObject<HTMLElement>;
 }> = memo(({ galleryRef, deckRef, cardsRef, deckNavRef }) => {
   const {
-    query: { cardId, deckId },
+    query: { cardId, deckId, section },
   } = useRouter();
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { loadCards, cards, loading } = useLoadCards();
@@ -108,28 +107,12 @@ const Content: FC<{
         </Layout>
       )}
 
-      <Layout
-        ref={cardsRef}
-        css={(theme) => ({
-          paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(15),
-        })}
-      >
-        <Grid>
-          <BlockTitle
-            title="Cards"
-            subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
-            {...(deckId === "crypto" && {
-              action: <MetamaskButton />,
-            })}
-            css={(theme) => ({
-              gridColumn: "2 / span 10",
-              marginBottom: theme.spacing(4),
-            })}
-          />
-        </Grid>
-        <CardList cards={cards} />
-      </Layout>
+      <ComposedCardListSection
+        deckId={deck._id}
+        cards={cards}
+        section={section instanceof Array ? section[0] : section}
+        cardsRef={cardsRef}
+      />
 
       {deck.opensea && <ComposedPace collection={deck.opensea} />}
 
