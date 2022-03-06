@@ -172,12 +172,19 @@ const Content: FC<{
         />
       </Layout>
 
-      <Layout scrollIntoView={section === "gallery"} ref={galleryRef}>
+      <Layout
+        scrollIntoView={section === "gallery"}
+        ref={galleryRef}
+        css={(theme) => ({
+          paddingTop: theme.spacing(15),
+          paddingBottom: theme.spacing(15),
+        })}
+      >
         <ComposedGallery />
         <Grid
           css={(theme) => ({
             marginBottom: theme.spacing(10),
-            marginTop: theme.spacing(16),
+            marginTop: theme.spacing(10),
           })}
         >
           <div css={{ gridColumn: "span 3", textAlign: "center" }}>
@@ -195,7 +202,6 @@ const Content: FC<{
         </Grid>
         <Grid
           css={(theme) => ({
-            marginBottom: theme.spacing(10),
             marginTop: theme.spacing(10),
           })}
         >
