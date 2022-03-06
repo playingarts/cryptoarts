@@ -1,11 +1,33 @@
-import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  HTMLAttributes,
+  MutableRefObject,
+  useEffect,
+} from "react";
 
-export type Props = HTMLAttributes<HTMLElement>;
+export interface Props extends HTMLAttributes<HTMLElement> {
+  scrollIntoView?: boolean;
+}
 
 const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { children, ...props },
+  { scrollIntoView, children, ...props },
   ref
 ) => {
+  useEffect(() => {
+    const current =
+      ref && (ref as MutableRefObject<HTMLElement | null>).current;
+
+    if (!current || !scrollIntoView) {
+      return;
+    }
+
+    current.scrollIntoView({
+      behavior: "auto",
+      block: "start",
+    });
+  }, [ref, scrollIntoView]);
+
   return (
     <section
       {...props}

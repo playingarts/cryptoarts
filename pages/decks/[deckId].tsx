@@ -31,7 +31,8 @@ import throttle from "just-throttle";
 import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
 import ComposedCardContent from "../../components/_composed/CardContent";
 import ComposedPace from "../../components/_composed/Pace";
-import ComposedCardListSection from "../../components/_composed/CardListSection";
+import MetamaskButton from "../../components/MetamaskButton";
+import CardList from "../../components/Card/List";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -107,12 +108,30 @@ const Content: FC<{
         </Layout>
       )}
 
-      <ComposedCardListSection
-        deckId={deck._id}
-        cards={cards}
-        section={section instanceof Array ? section[0] : section}
-        cardsRef={cardsRef}
-      />
+      <Layout
+        scrollIntoView={section === "cards"}
+        ref={cardsRef}
+        css={(theme) => ({
+          paddingTop: theme.spacing(15),
+          paddingBottom: theme.spacing(15),
+        })}
+      >
+        <Grid>
+          <BlockTitle
+            title="Cards"
+            subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
+            {...(deckId === "crypto" && {
+              action: <MetamaskButton />,
+            })}
+            css={(theme) => ({
+              gridColumn: "2 / span 10",
+              marginBottom: theme.spacing(4),
+            })}
+          />
+        </Grid>
+
+        <CardList cards={cards} />
+      </Layout>
 
       {deck.opensea && <ComposedPace collection={deck.opensea} />}
 
@@ -123,6 +142,7 @@ const Content: FC<{
           paddingBottom: theme.spacing(6),
         })}
         ref={deckRef}
+        scrollIntoView={section === "deck"}
       >
         <Grid css={(theme) => ({ marginBottom: theme.spacing(1) })}>
           <BlockTitle
@@ -142,6 +162,7 @@ const Content: FC<{
             }}
           />
         </Grid>
+
         <DeckBlock
           properties={{
             size: "Poker, 88.9 × 63.5mm",
@@ -151,7 +172,7 @@ const Content: FC<{
         />
       </Layout>
 
-      <Layout ref={galleryRef}>
+      <Layout scrollIntoView={section === "gallery"} ref={galleryRef}>
         <ComposedGallery />
         <Grid
           css={(theme) => ({
