@@ -29,6 +29,7 @@ export const resolvers: GQL.Resolvers = {
   Card: {
     background: async ({ background, deck }) =>
       background ||
+      deck.cardBackground ||
       (await getDeck({ _id: (deck as unknown) as string }).then(
         (deck) => deck && deck.cardBackground
       )),
