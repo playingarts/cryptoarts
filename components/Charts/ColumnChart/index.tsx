@@ -42,7 +42,6 @@ const ColumnChart: FC<Props> = ({
         <div
           key={index}
           css={(theme) => ({
-            flexGrow: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -51,6 +50,7 @@ const ColumnChart: FC<Props> = ({
             paddingBottom: theme.spacing(1),
             borderRadius: theme.spacing(1),
             rowGap: theme.spacing(2),
+            width: theme.spacing(8.8),
           })}
           style={{
             minHeight: minHeight,
