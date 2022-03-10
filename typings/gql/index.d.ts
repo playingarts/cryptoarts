@@ -105,6 +105,7 @@ interface Socials {
   rarible?: Maybe<Scalars['String']>;
   niftygateway?: Maybe<Scalars['String']>;
   showtime?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
 }
 
 interface Card {
@@ -423,6 +424,7 @@ export type SocialsResolvers<ContextType = { req: Request, res: Response }, Pare
   rarible?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   niftygateway?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   showtime?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

@@ -28,6 +28,12 @@ const schema = new Schema<GQL.Artist, Model<GQL.Artist>, GQL.Artist>({
 export const Artist =
   (models.Artist as Model<GQL.Artist>) || model("Artist", schema);
 
+export const resolvers: GQL.Resolvers = {
+  Artist: {
+    social: ({ website, social }) => ({ website, ...social }),
+  },
+};
+
 export const typeDefs = gql`
   type Query {
     artist(id: ID!): Artist
@@ -58,5 +64,6 @@ export const typeDefs = gql`
     rarible: String
     niftygateway: String
     showtime: String
+    website: String
   }
 `;

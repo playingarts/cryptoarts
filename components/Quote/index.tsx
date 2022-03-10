@@ -5,12 +5,14 @@ import Facebook from "../Icons/Facebook";
 import Foundation from "../Icons/Foundation";
 import Instagram from "../Icons/Instagram";
 import Twitter from "../Icons/Twitter";
+import Website from "../Icons/Website";
 import Line from "../Line";
 import Link from "../Link";
 import Text from "../Text";
 import Truncate from "../Truncate";
 
 const socialIcons: Record<string, FC> = {
+  website: Website,
   instagram: Instagram,
   facebook: Facebook,
   twitter: Twitter,

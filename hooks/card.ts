@@ -16,6 +16,7 @@ export const CardsQuery = gql`
         country
         website
         social {
+          website
           instagram
           facebook
           twitter
