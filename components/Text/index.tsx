@@ -28,6 +28,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     | FC<ButtonProps>;
   variant?: keyof typeof theme.typography | "h7";
   href?: LinkProps["href"];
+  target?: LinkProps["target"];
 }
 
 const Text: ForwardRefRenderFunction<any, Props> = (

@@ -5,7 +5,7 @@ import Text from "../Text";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title?: string;
-  action?: Pick<LinkProps, "children" | "href">;
+  action?: Pick<LinkProps, "children" | "href" | "target">;
 }
 
 const StatBlock: FC<Props> = ({ action, title, children, ...props }) => {
@@ -43,6 +43,7 @@ const StatBlock: FC<Props> = ({ action, title, children, ...props }) => {
           <Text
             component={Link}
             href={action.href}
+            target={action.target}
             variant="label"
             css={{
               opacity: 0.5,

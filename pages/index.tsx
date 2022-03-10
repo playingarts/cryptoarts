@@ -26,6 +26,7 @@ import StatBlock from "../components/StatBlock";
 import ComposedEditions from "../components/_composed/Editions";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
 import ComposedStats from "../components/_composed/Stats";
+import { socialLinks } from "../source/consts";
 
 const Home: NextPage = () => {
   return (
@@ -153,7 +154,13 @@ const Home: NextPage = () => {
               gridColumn: "span 6",
             })}
             title="Podcast"
-            action={{ children: "All episodes", href: "/" }}
+            {...(socialLinks.podcastYoutube && {
+              action: {
+                children: "All episodes",
+                href: socialLinks.podcastYoutube,
+                target: "_blank",
+              },
+            })}
           >
             <div
               css={{
@@ -183,21 +190,39 @@ const Home: NextPage = () => {
                     columnGap: theme.spacing(2),
                   })}
                 >
-                  <Button Icon={Play} css={{ color: "#510EAC" }}>
-                    Watch
-                  </Button>
-                  <Button
-                    variant="bordered"
-                    size="small"
-                    Icon={Itunes}
-                    css={{ opacity: 0.5 }}
-                  />
-                  <Button
-                    variant="bordered"
-                    size="small"
-                    Icon={Spotify}
-                    css={{ opacity: 0.5 }}
-                  />
+                  {socialLinks.podcastYoutube && (
+                    <Button
+                      Icon={Play}
+                      css={{ color: "#510EAC" }}
+                      component={Link}
+                      href={socialLinks.podcastYoutube}
+                      target="_blank"
+                    >
+                      Watch
+                    </Button>
+                  )}
+                  {socialLinks.podcastAppleMusic && (
+                    <Button
+                      variant="bordered"
+                      size="small"
+                      Icon={Itunes}
+                      css={{ opacity: 0.5 }}
+                      component={Link}
+                      href={socialLinks.podcastAppleMusic}
+                      target="_blank"
+                    />
+                  )}
+                  {socialLinks.podcastSpotify && (
+                    <Button
+                      variant="bordered"
+                      size="small"
+                      Icon={Spotify}
+                      css={{ opacity: 0.5 }}
+                      component={Link}
+                      href={socialLinks.podcastSpotify}
+                      target="_blank"
+                    />
+                  )}
                 </div>
               </div>
               <div
@@ -219,7 +244,13 @@ const Home: NextPage = () => {
               overflow: "hidden",
               gridColumn: "7 / span 3",
             })}
-            action={{ children: "2910 Members", href: "/" }}
+            {...(socialLinks.discord && {
+              action: {
+                children: "2910 Members",
+                href: socialLinks.discord,
+                target: "_blank",
+              },
+            })}
           >
             <Discord
               css={{
@@ -245,9 +276,17 @@ const Home: NextPage = () => {
                 Discord
               </Text>
               <Text css={{ marginTop: 0 }}>Join the conversation</Text>
-              <Button Icon={Discord} css={{ color: "#5865F2" }}>
-                Join
-              </Button>
+              {socialLinks.discord && (
+                <Button
+                  Icon={Discord}
+                  css={{ color: "#5865F2" }}
+                  component={Link}
+                  href={socialLinks.discord}
+                  target="_blank"
+                >
+                  Join
+                </Button>
+              )}
             </div>
           </StatBlock>
           <StatBlock
@@ -258,7 +297,13 @@ const Home: NextPage = () => {
               overflow: "hidden",
               gridColumn: "10 / span 3",
             })}
-            action={{ children: "9910 Followers", href: "/" }}
+            {...(socialLinks.twitter && {
+              action: {
+                children: "9910 Followers",
+                href: socialLinks.twitter,
+                target: "_blank",
+              },
+            })}
           >
             <Twitter
               css={{
@@ -284,9 +329,17 @@ const Home: NextPage = () => {
                 Twitter
               </Text>
               <Text css={{ marginTop: 0 }}>Follow our latest news</Text>
-              <Button Icon={Twitter} css={{ color: "#489BE9" }}>
-                Follow
-              </Button>
+              {socialLinks.twitter && (
+                <Button
+                  Icon={Twitter}
+                  css={{ color: "#489BE9" }}
+                  component={Link}
+                  href={socialLinks.twitter}
+                  target="_blank"
+                >
+                  Follow
+                </Button>
+              )}
             </div>
           </StatBlock>
         </Grid>
