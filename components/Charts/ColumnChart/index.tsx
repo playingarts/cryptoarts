@@ -1,6 +1,7 @@
-import { FC, HTMLAttributes, useRef } from "react";
+import { FC, HTMLAttributes } from "react";
 import Text from "../../Text";
 import { ChartProps } from "..";
+import { useResizeDetector } from "react-resize-detector";
 
 export interface Props extends HTMLAttributes<HTMLElement>, ChartProps {
   minHeight?: number;
@@ -12,7 +13,7 @@ const ColumnChart: FC<Props> = ({
   events,
   ...props
 }) => {
-  const ref = useRef<HTMLDivElement>(null);
+  const { ref } = useResizeDetector<HTMLDivElement>();
   const values = dataPoints.reduce(
     ({ biggest, smallest }, { value }) => ({
       biggest: Math.max(value, biggest),
