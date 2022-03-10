@@ -3,7 +3,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 import { Global } from "@emotion/react";
 import { theme } from "./_app";
 
-const Links = () => (
+export const Links = () => (
   <Fragment>
     <Global
       styles={{
