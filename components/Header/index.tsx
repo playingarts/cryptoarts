@@ -123,7 +123,7 @@ const Header: FC<Props> = ({
             href="/"
             css={(theme) => ({
               position: "absolute",
-              transform: "translateY(0)",
+              transform: "translateY(-50%)",
               transition: theme.transitions.normal("transform"),
             })}
             style={{
