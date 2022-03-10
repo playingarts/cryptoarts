@@ -252,6 +252,7 @@ const Deck: NextPage = () => {
     <ComposedGlobalLayout
       altNav={<DeckNav refs={{ cardsRef, deckRef, galleryRef }} />}
       showAltNav={altNavVisible}
+      deckId={deckId instanceof Array ? deckId[0] : deckId}
     >
       <Head>
         <title>Crypto Arts</title>

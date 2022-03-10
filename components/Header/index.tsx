@@ -8,6 +8,7 @@ import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Bell from "../Icons/Bell";
 import Link from "../Link";
+import { useDeck } from "../../hooks/deck";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "dark";
@@ -15,6 +16,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   altNav?: JSX.Element;
   showAltNav?: boolean;
   noNav?: boolean;
+  deckId?: string;
 }
 
 const Header: FC<Props> = ({
@@ -23,8 +25,11 @@ const Header: FC<Props> = ({
   altNav,
   showAltNav,
   noNav,
+  deckId,
   ...props
 }) => {
+  const { deck } = useDeck({ variables: { slug: deckId } });
+
   const [expanded, setExpanded] = useState(true);
   const [hovered, setHovered] = useState(false);
   const mouseEnter = () => setHovered(true);
@@ -105,17 +110,52 @@ const Header: FC<Props> = ({
           <MenuIcon />
         </button>
 
-        <Text
-          variant="h5"
-          component={Link}
-          href="/"
+        <div
           css={{
-            marginTop: "0.3em",
             flexGrow: 1,
+            position: "relative",
+            marginTop: "0.5em",
           }}
         >
-          Playing Arts
-        </Text>
+          <Text
+            variant="h5"
+            component={Link}
+            href="/"
+            css={(theme) => ({
+              position: "absolute",
+              transform: "translateY(0)",
+              transition: theme.transitions.normal("transform"),
+            })}
+            style={{
+              transform: `translateY(${
+                deck && ((showAltNav && "-250%") || "-50%")
+              })`,
+            }}
+          >
+            Playing Arts
+          </Text>
+
+          {deck && (
+            <Text
+              variant="h5"
+              component={Link}
+              href={{
+                pathname: `/decks/[deckId]`,
+                query: { deckId },
+              }}
+              css={(theme) => ({
+                position: "absolute",
+                transform: "translateY(0)",
+                transition: theme.transitions.normal("transform"),
+              })}
+              style={{
+                transform: `translateY(${(showAltNav && "-50%") || "200%"})`,
+              }}
+            >
+              {deck.title}
+            </Text>
+          )}
+        </div>
 
         <div
           css={(theme) => ({
