@@ -33,6 +33,7 @@ import ComposedCardContent from "../../components/_composed/CardContent";
 import ComposedPace from "../../components/_composed/Pace";
 import MetamaskButton from "../../components/MetamaskButton";
 import CardList from "../../components/Card/List";
+import { Sections } from "../../source/enums";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -109,7 +110,7 @@ const Content: FC<{
       )}
 
       <Layout
-        scrollIntoView={section === "cards"}
+        scrollIntoView={section === Sections.cards}
         ref={cardsRef}
         css={(theme) => ({
           paddingTop: theme.spacing(15),
@@ -142,7 +143,7 @@ const Content: FC<{
           paddingBottom: theme.spacing(6),
         })}
         ref={deckRef}
-        scrollIntoView={section === "deck"}
+        scrollIntoView={section === Sections.deck}
       >
         <Grid css={(theme) => ({ marginBottom: theme.spacing(1) })}>
           <BlockTitle
@@ -173,7 +174,7 @@ const Content: FC<{
       </Layout>
 
       <Layout
-        scrollIntoView={section === "gallery"}
+        scrollIntoView={section === Sections.gallery}
         ref={galleryRef}
         css={(theme) => ({
           paddingTop: theme.spacing(15),
