@@ -70,7 +70,7 @@ export let products = [
   },
   {
     title: "Future Edition I",
-    deck: "future",
+    deck: "Future I",
     short: "Future",
     price: 14.95,
     status: "instock",
@@ -84,7 +84,7 @@ export let products = [
   {
     title: "Future Edition II",
     short: "Future II",
-    deck: "future",
+    deck: "Future II",
     price: 14.95,
     status: "instock",
     type: "deck",
@@ -200,7 +200,7 @@ export let products = [
   },
   {
     title: "Future Edition I",
-    deck: "future",
+    deck: "Future I",
     short: "Future",
     price: 34.95,
     status: "soldout",
@@ -213,7 +213,7 @@ export let products = [
   },
   {
     title: "Future Edition II",
-    deck: "future",
+    deck: "Future II",
     short: "Future II",
     type: "sheet",
     price: 34.95,
