@@ -713,7 +713,7 @@ export const cards = [
   },
 
   {
-    artist: "ronald-kuang",
+    artist: "seerlight",
     info:
       "“The king of diamonds is an ethereal celestial being. He is royalty which governs the celestial space’s brightest diamonds: stars.”",
     suit: "diamonds",

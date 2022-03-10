@@ -6,8 +6,7 @@ export const slug = "zero";
 export const deck = {
   title: "Edition Zero",
   slug,
-  info:
-    "Edition Zero was released in 2012 and marked the beginning of Playing Arts series. Now we are bringing it back, powering by beautiful animations in Augmented Reality from today’s leading motion designers.",
+  info: "",
 };
 
 export const cards = [
@@ -574,7 +573,7 @@ export const cards = [
   },
 
   {
-    artist: "mr.-kone",
+    artist: "mr-kone",
     info: "",
     suit: "spades",
     value: "k",
