@@ -16,7 +16,7 @@ Primary.args = {
     {
       _id: "_id",
       img: "img",
-      value: "j",
+      value: "jack",
       suit: "diamonds",
       artist: {
         _id: "_id",

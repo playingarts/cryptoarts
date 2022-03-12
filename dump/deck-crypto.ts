@@ -553,7 +553,7 @@ export const cards = [
     info:
       "“Say hello to Jack of Spades, your next generation virtual alter ego. It can effortlessly handle all tasks in the digital realm and is juiced up with enough artificial intelligence to be whatever you want it to be. Party animal, art collector, king slayer, you name it. Made so you can peacefully sleep forever in your hybernation pod. ;-)”",
     suit: "spades",
-    value: "j",
+    value: "jack",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Jack&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
@@ -568,7 +568,7 @@ export const cards = [
     info:
       "“I wanted to illustrate my character in an old and mystical mood while respecting certain visual codes of the valet. The daggers oscillate between trapped or trapper which gives it power and at the same time the fragility of a soul that knows itself condemned”",
     suit: "hearts",
-    value: "j",
+    value: "jack",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Jack&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
@@ -583,7 +583,7 @@ export const cards = [
     info:
       "“This mushroom head guy is a man in my another big work ’Empathy Machine’ that will be revealed in future. He can spread his fungus ego to all of the world. He doesn’t know if it’s good or bad for him. He just knows he can do it.”",
     suit: "clubs",
-    value: "j",
+    value: "jack",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Jack&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
@@ -598,7 +598,7 @@ export const cards = [
     info:
       "“For my interpretation of the Jack of Diamonds card I wanted to create an abstract creature that is representing two sides of a pole as an infinite and ever repeating cycle, like depicting a mythical creature or deity that is in constant shift.”",
     suit: "diamonds",
-    value: "j",
+    value: "jack",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Jack&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
@@ -613,7 +613,7 @@ export const cards = [
     info:
       "“This illustration represents the greatest value transfer there is, the one between the Sun and the Moon. With the Queen representing the everlasting transaction of giving and receiving.”",
     suit: "spades",
-    value: "q",
+    value: "queen",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Queen&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
@@ -628,7 +628,7 @@ export const cards = [
     info:
       "“Queen of Hearts is the card of beauty, magnetism, affection, and idealism. She judges and rules by the principles of Love. Promotes the dreams, conceives the desires, sees the visions of the world of joy and peace in the union of kindred hearts. Decentralized Love is all we need to make our CryptoArt universe more powerful and build a family around it.”",
     suit: "hearts",
-    value: "q",
+    value: "queen",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Queen&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
@@ -643,7 +643,7 @@ export const cards = [
     info:
       "“Queen In The City is a creative process that tends to question the place of man in the modern urban landscape and the virtual landscape. It is a surreal and graphic transcription of the urban and virtual space in which a face, a body is partially and realistically integrated, his gaze disappears to make way for yours, what you are in your environment. Skio creates a discussion between Man, his presence and his anonymity in the public space.”",
     suit: "clubs",
-    value: "q",
+    value: "queen",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Queen&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
@@ -657,7 +657,7 @@ export const cards = [
     artist: "ghost-girl",
     info: "“Royalty always gets remembered, but you know legends never die.”",
     suit: "diamonds",
-    value: "q",
+    value: "queen",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Queen&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
@@ -672,7 +672,7 @@ export const cards = [
     info:
       "“If you like to gamble, I tell you I’m your man. You win some, lose some, all the same to me. The pleasure is to play, makes no difference what you say. I don’t share your greed, the only card I need...”",
     suit: "spades",
-    value: "k",
+    value: "king",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=King&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
@@ -687,7 +687,7 @@ export const cards = [
     info:
       "“Kings have a responsibility to fill, kings have to lead, kings don’t have time to be sad, so kings fall to greed.”",
     suit: "hearts",
-    value: "k",
+    value: "king",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=King&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
@@ -702,7 +702,7 @@ export const cards = [
     info:
       "“Decentralized King of Clubs is the embodiment of the Hivemind.What if in the near future we could integrate our collective thoughts, ideas and opinions into a decentralized blockchain network to create a mind of minds? This would have benefits for both artificial intelligence and human enhancement and their potential integration.”",
     suit: "clubs",
-    value: "k",
+    value: "king",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=King&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
@@ -717,7 +717,7 @@ export const cards = [
     info:
       "“The king of diamonds is an ethereal celestial being. He is royalty which governs the celestial space’s brightest diamonds: stars.”",
     suit: "diamonds",
-    value: "k",
+    value: "king",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=King&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
@@ -732,7 +732,7 @@ export const cards = [
     info:
       "“In world of expectation, constraint, and limitation, we often forget that deep down we are bursting with life, color and excitement. Decentralization frees us to be exactly who we want to be, how we want to be it, and the truth is, there is much more to each of us than meets the eye. So feel free to feel free, and let your colors fly. We have so much to bring to the world, and no one is stopping us now…”",
     suit: "spades",
-    value: "a",
+    value: "ace",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
@@ -747,7 +747,7 @@ export const cards = [
     info:
       "“I wanted to build on my ongoing ’INFINITE PRESSURE’ series that plays with a hybrid of generative art and handcrafted design. I rely half on the unknown and half on my own decision-making to build the final composition, much like the way we are navigating this new decentralized world.”",
     suit: "hearts",
-    value: "a",
+    value: "ace",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
@@ -762,7 +762,7 @@ export const cards = [
     info:
       "“In traditional cartomancy, the Ace of Clubs is the card of marriage. I want to depict the marriage or joining of ideas in the form of multiple hands. Ideas, like hands, can reach out to us and take hold like a deep and never ending well. Thoughts endlessly intertwined and connected, linked infinitely and taking hold.”",
     suit: "clubs",
-    value: "a",
+    value: "ace",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
@@ -777,7 +777,7 @@ export const cards = [
     info:
       "“This is an interpretation of the Ethereum blockchain as a 5 Dimensional environment where everything moves and has a lot of mirrors data reflecting everything is visible and nothing is centralized.”",
     suit: "diamonds",
-    value: "a",
+    value: "ace",
     deck: "crypto",
     opensea:
       "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",

@@ -18,7 +18,8 @@ export const cards = [
     artist: "riccardo-guasco",
     suit: "clubs",
     deck: "three",
-    info: "I wanted to do an homage to the Cezanne’s painting “The Card Players 1894–1895”, one of the works that started the idea of Cubism in art history.",
+    info:
+      "I wanted to do an homage to the Cezanne’s painting “The Card Players 1894–1895”, one of the works that started the idea of Cubism in art history.",
     value: "2",
   },
   {
@@ -29,7 +30,8 @@ export const cards = [
     artist: "zooka",
     suit: "diamonds",
     deck: "three",
-    info: "I like to draw the monsters which have two faces. so when I was given number 2 diamonds, It matched well with the concept. Basically I wanted to create really unique, mysterious, wicked character and have cute appearance monster.",
+    info:
+      "I like to draw the monsters which have two faces. so when I was given number 2 diamonds, It matched well with the concept. Basically I wanted to create really unique, mysterious, wicked character and have cute appearance monster.",
     value: "2",
   },
   {
@@ -40,7 +42,8 @@ export const cards = [
     artist: "wade-jeffree",
     suit: "hearts",
     deck: "three",
-    info: "Two of hearts! Two hearts that beat as one! I really love the song Two Of Hearts by Stacey Q. It’s catchy, kitschy and has a lots of positive vibes. I could sing it all day! I’m also a huge fan of the movie Hot Rod, which features a hilarious scene featuring the song.",
+    info:
+      "Two of hearts! Two hearts that beat as one! I really love the song Two Of Hearts by Stacey Q. It’s catchy, kitschy and has a lots of positive vibes. I could sing it all day! I’m also a huge fan of the movie Hot Rod, which features a hilarious scene featuring the song.",
     value: "2",
   },
   {
@@ -51,7 +54,8 @@ export const cards = [
     artist: "kate-ohara",
     suit: "spades",
     deck: "three",
-    info: "I drew a pair of Genets raiding a birds nest. Most of my work incorporates natural elements and I like to draw animals that are not know very well. The Genet is a small fox like carnivore that lives in Spain and some areas of Europe. I also wanted to make sure my card was reversible like a traditional face card.",
+    info:
+      "I drew a pair of Genets raiding a birds nest. Most of my work incorporates natural elements and I like to draw animals that are not know very well. The Genet is a small fox like carnivore that lives in Spain and some areas of Europe. I also wanted to make sure my card was reversible like a traditional face card.",
     value: "2",
   },
   {
@@ -62,7 +66,8 @@ export const cards = [
     artist: "david-mcleod",
     suit: "clubs",
     deck: "three",
-    info: "I actually chose this card at random. However after I did a little research I discovered that according to tarot card readings, people who have the 3 of clubs as their birth card are apparently bright, magnetic and very indecisive people. I took this as inspiration for the piece in creating the jumbled composition clustered around the obscured 3 club symbols.",
+    info:
+      "I actually chose this card at random. However after I did a little research I discovered that according to tarot card readings, people who have the 3 of clubs as their birth card are apparently bright, magnetic and very indecisive people. I took this as inspiration for the piece in creating the jumbled composition clustered around the obscured 3 club symbols.",
     value: "3",
   },
   {
@@ -73,7 +78,8 @@ export const cards = [
     artist: "burnt-toast-creative",
     suit: "diamonds",
     deck: "three",
-    info: "My work is combination of playfulness and cynicism. Although it may appear organic it is actually built on a very mathematical structure. This piece was designed and built within the diamond shape.",
+    info:
+      "My work is combination of playfulness and cynicism. Although it may appear organic it is actually built on a very mathematical structure. This piece was designed and built within the diamond shape.",
     value: "3",
   },
   {
@@ -84,7 +90,8 @@ export const cards = [
     artist: "dan-matutina",
     suit: "hearts",
     deck: "three",
-    info: "I was trying to be “punny” with this particular illustration. Since I got the 3 of hearts, I thought why not create a “Tree of Hearts” emblem. Hahahaha. In the Lord of the Rings, Gondor one of the great kingdoms of Men had a White Tree as their emblem.",
+    info:
+      "I was trying to be “punny” with this particular illustration. Since I got the 3 of hearts, I thought why not create a “Tree of Hearts” emblem. Hahahaha. In the Lord of the Rings, Gondor one of the great kingdoms of Men had a White Tree as their emblem.",
     value: "3",
   },
   {
@@ -102,7 +109,8 @@ export const cards = [
     img:
       "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/4-of-clubs-victor-vergara.jpg",
     video: "",
-    opensea: "This artwork called Glasswinged butterfly is inspired by feminine sensuality and delicacy, nature, peace and magic.",
+    opensea:
+      "This artwork called Glasswinged butterfly is inspired by feminine sensuality and delicacy, nature, peace and magic.",
     artist: "victor-vergara",
     suit: "clubs",
     deck: "three",
@@ -113,7 +121,8 @@ export const cards = [
     img:
       "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/4-of-dimonds-edgar-rozo.jpg",
     video: "",
-    opensea: "4 of diamonds, was based on the beatles song “lucy in the sky with diamonds”, i interpret it as the death, like a beauty girl in the sky.",
+    opensea:
+      "4 of diamonds, was based on the beatles song “lucy in the sky with diamonds”, i interpret it as the death, like a beauty girl in the sky.",
     artist: "edgar-rozo",
     suit: "diamonds",
     deck: "three",
@@ -139,7 +148,8 @@ export const cards = [
     artist: "inkration-studio",
     suit: "spades",
     deck: "three",
-    info: "2 elements + 1 spontaneous idea = guardian of 4 spades. Actually, when we thought about 4 spades, the most obvious was to play with 2 elements: spade and number 4. We tried to get answers for the following: How to combine them? How to present them in the most creative way? How to make understandable for player to know which card he take in his hand even within watching in its value.",
+    info:
+      "2 elements + 1 spontaneous idea = guardian of 4 spades. Actually, when we thought about 4 spades, the most obvious was to play with 2 elements: spade and number 4. We tried to get answers for the following: How to combine them? How to present them in the most creative way? How to make understandable for player to know which card he take in his hand even within watching in its value.",
     value: "4",
   },
   {
@@ -150,7 +160,8 @@ export const cards = [
     artist: "justin-poulter",
     suit: "clubs",
     deck: "three",
-    info: "I began researching the metasymbology of the 5 of Cubs. I found that the card symbolises a person that has the constant need to travel, discover new things, and a person that has a keenness for inquiry. This however has its negative effects too like jealousy and suspicion in people, especially partners. I wanted to show these positive and negative aspects using my own forms of symbolism for the viewer to decrypt and interporate in their own way.",
+    info:
+      "I began researching the metasymbology of the 5 of Cubs. I found that the card symbolises a person that has the constant need to travel, discover new things, and a person that has a keenness for inquiry. This however has its negative effects too like jealousy and suspicion in people, especially partners. I wanted to show these positive and negative aspects using my own forms of symbolism for the viewer to decrypt and interporate in their own way.",
     value: "5",
   },
   {
@@ -161,7 +172,8 @@ export const cards = [
     artist: "leonardoworx",
     suit: "diamonds",
     deck: "three",
-    info: "I choosed 5 Diamonds card and it was confirmed! I would like to play with the idea of building up a Jewel made of abstract clothes fluids full of energy in a sunset light background, where 5 energetic diamonds are the “power supply” to all this surreal machine.",
+    info:
+      "I choosed 5 Diamonds card and it was confirmed! I would like to play with the idea of building up a Jewel made of abstract clothes fluids full of energy in a sunset light background, where 5 energetic diamonds are the “power supply” to all this surreal machine.",
     value: "5",
   },
   {
@@ -172,7 +184,8 @@ export const cards = [
     artist: "bram-vanhaeren",
     suit: "hearts",
     deck: "three",
-    info: "In a previous personal project I have been looking into a way to make letters sexy again. Why not apply this to numbers as well. The idea is to mislead the viewer into seeing a regular number, but at a second glare notice an appealing woman looking at the person. Maybe her look succeeds in getting the person attention and distract the player into a new dimension.",
+    info:
+      "In a previous personal project I have been looking into a way to make letters sexy again. Why not apply this to numbers as well. The idea is to mislead the viewer into seeing a regular number, but at a second glare notice an appealing woman looking at the person. Maybe her look succeeds in getting the person attention and distract the player into a new dimension.",
     value: "5",
   },
   {
@@ -194,7 +207,8 @@ export const cards = [
     artist: "middle-boop",
     suit: "clubs",
     deck: "three",
-    info: "I wanted to use the 6 and the clubs symbol as the starting point and focal point for the artwork, for obvious reasons but I felt both are such strong graphic symbols (depending on what don’t you use for the 6) that I could really use these and work them into the piece. I knew that given the size, the piece would need to be striking and colourful but wanted to limit myself to a few colours and work around those chosen for the artwork. From there I just sketched out a load of different concepts and when I had my preferred option I got into the Mac to finish it off.",
+    info:
+      "I wanted to use the 6 and the clubs symbol as the starting point and focal point for the artwork, for obvious reasons but I felt both are such strong graphic symbols (depending on what don’t you use for the 6) that I could really use these and work them into the piece. I knew that given the size, the piece would need to be striking and colourful but wanted to limit myself to a few colours and work around those chosen for the artwork. From there I just sketched out a load of different concepts and when I had my preferred option I got into the Mac to finish it off.",
     value: "6",
   },
   {
@@ -205,7 +219,8 @@ export const cards = [
     artist: "francisco-miranda",
     suit: "diamonds",
     deck: "three",
-    info: "I’ve been always strongly inspired by nature. And birds are a part of nature that specifically always took my attention and admiration. This was the oportunity to create this 6 of diamonds paradise bird.",
+    info:
+      "I’ve been always strongly inspired by nature. And birds are a part of nature that specifically always took my attention and admiration. This was the oportunity to create this 6 of diamonds paradise bird.",
     value: "6",
   },
   {
@@ -238,7 +253,8 @@ export const cards = [
     artist: "saddo",
     suit: "clubs",
     deck: "three",
-    info: "I did a tiny bit of research about the symbolism of playing cards, it’s not the first time I played a bit with illustrating and interpreting cards. I have another series of works inspired by each of the Kings, of Clubs, Spades, Diamonds and Hearts, each with its own meaning, somehow overlapping with the four seasons. This time I illustrated The Seven of Clubs, and I read that the Sevens are the most spiritual cards of the deck, and this one in particular is connected with magic, creativity, spiritual knowledge. I was also inspired by the way the Seven of Wands in the Tarot cards looks like, with the seven sticks with tiny leaves on them. So I agreed to illustrate the Seven of Clubs as some sort of inspired magus, shaman, sitting, inhaling some magical vapors, with his eyes turned inside, surrounded by the seven wands, which in the Tarot card look very robust, very earthly, and in this illustration they bloom into these beautiful flowers. And visually I’m pretty fascinated and inspired by Islamic Art and Indian Miniatures lately, so the character is very reminiscent of that.",
+    info:
+      "I did a tiny bit of research about the symbolism of playing cards, it’s not the first time I played a bit with illustrating and interpreting cards. I have another series of works inspired by each of the Kings, of Clubs, Spades, Diamonds and Hearts, each with its own meaning, somehow overlapping with the four seasons. This time I illustrated The Seven of Clubs, and I read that the Sevens are the most spiritual cards of the deck, and this one in particular is connected with magic, creativity, spiritual knowledge. I was also inspired by the way the Seven of Wands in the Tarot cards looks like, with the seven sticks with tiny leaves on them. So I agreed to illustrate the Seven of Clubs as some sort of inspired magus, shaman, sitting, inhaling some magical vapors, with his eyes turned inside, surrounded by the seven wands, which in the Tarot card look very robust, very earthly, and in this illustration they bloom into these beautiful flowers. And visually I’m pretty fascinated and inspired by Islamic Art and Indian Miniatures lately, so the character is very reminiscent of that.",
     value: "7",
   },
   {
@@ -249,7 +265,8 @@ export const cards = [
     artist: "rafael-mayani",
     suit: "diamonds",
     deck: "three",
-    info: "I read a couple of descriptions of what the 7 of Diamonds meant and most of them related it with money and power, so I thought I could represent it as a sort of Sheriff of Nottingham who steals everyone’s possessions. He is wrapped in a golden diamond that is almost like a cage.",
+    info:
+      "I read a couple of descriptions of what the 7 of Diamonds meant and most of them related it with money and power, so I thought I could represent it as a sort of Sheriff of Nottingham who steals everyone’s possessions. He is wrapped in a golden diamond that is almost like a cage.",
     value: "7",
   },
   {
@@ -260,7 +277,8 @@ export const cards = [
     artist: "velvet-spectrum",
     suit: "hearts",
     deck: "three",
-    info: "This is literally came to me in the shower as i have a shower curtain with tattoo flash all over it. I noticed the elements of the anchor and rose resembled heart shapes, so i wanted to bring it to life in 3D like i have done with previous tattoo illustrations in the past.",
+    info:
+      "This is literally came to me in the shower as i have a shower curtain with tattoo flash all over it. I noticed the elements of the anchor and rose resembled heart shapes, so i wanted to bring it to life in 3D like i have done with previous tattoo illustrations in the past.",
     value: "7",
   },
   {
@@ -282,7 +300,8 @@ export const cards = [
     artist: "andreas-preis",
     suit: "clubs",
     deck: "three",
-    info: "After creating almost exclusively animals for quite a while now, I wanted to do something else here. Earlier in my career I started with lots of portraits so I wanted to try this again - but with a lot more experience of course. I’ve also tried some little new things within my shading technique and I think it worked out quite well.",
+    info:
+      "After creating almost exclusively animals for quite a while now, I wanted to do something else here. Earlier in my career I started with lots of portraits so I wanted to try this again - but with a lot more experience of course. I’ve also tried some little new things within my shading technique and I think it worked out quite well.",
     value: "8",
   },
   {
@@ -293,7 +312,8 @@ export const cards = [
     artist: "pierre-kleinhouse",
     suit: "diamonds",
     deck: "three",
-    info: "The 8 of diamonds represent power and powerful people. It’s also known as the card of fame and fortune. So I decided to represent it with a powerful animal (and one of my favourite) the bear. I like the idea of searching and finding your own “power source”, so this is what I was thinking about when creating this piece, if that makes any sense.",
+    info:
+      "The 8 of diamonds represent power and powerful people. It’s also known as the card of fame and fortune. So I decided to represent it with a powerful animal (and one of my favourite) the bear. I like the idea of searching and finding your own “power source”, so this is what I was thinking about when creating this piece, if that makes any sense.",
     value: "8",
   },
   {
@@ -315,7 +335,8 @@ export const cards = [
     artist: "mike-perry",
     suit: "spades",
     deck: "three",
-    info: "I love the infinite loop of the number 8. I have always been attracted to its power. This piece is a celebration of the Infinite 8.",
+    info:
+      "I love the infinite loop of the number 8. I have always been attracted to its power. This piece is a celebration of the Infinite 8.",
     value: "8",
   },
   {
@@ -326,7 +347,8 @@ export const cards = [
     artist: "karol-banach",
     suit: "clubs",
     deck: "three",
-    info: "It’s very simple, I have always loved music, so I;m trying to put the music theme on all my works. Here you have a jazz musician, walking and playing music. And the cards associate in my mind with night, stylish bars, where you can sit, drink whiskey and listen to jazz music.",
+    info:
+      "It’s very simple, I have always loved music, so I;m trying to put the music theme on all my works. Here you have a jazz musician, walking and playing music. And the cards associate in my mind with night, stylish bars, where you can sit, drink whiskey and listen to jazz music.",
     value: "9",
   },
   {
@@ -337,7 +359,8 @@ export const cards = [
     artist: "ery-burns",
     suit: "diamonds",
     deck: "three",
-    info: "Hmmm...my artwork is on the spectrum of graphic, trippy, soulful, and wonderfilled. The idea behind my playing card was a vision that came to me of a space dwelling diamond lord who travels through the universe, sucking planets dry of their precious minerals like a protein shake before you go to the gym.",
+    info:
+      "Hmmm...my artwork is on the spectrum of graphic, trippy, soulful, and wonderfilled. The idea behind my playing card was a vision that came to me of a space dwelling diamond lord who travels through the universe, sucking planets dry of their precious minerals like a protein shake before you go to the gym.",
     value: "9",
   },
   {
@@ -348,7 +371,8 @@ export const cards = [
     artist: "will-scobie",
     suit: "hearts",
     deck: "three",
-    info: "I based my design around a cats’ nine lives and the symmetry of life and death.",
+    info:
+      "I based my design around a cats’ nine lives and the symmetry of life and death.",
     value: "9",
   },
   {
@@ -370,7 +394,8 @@ export const cards = [
     artist: "jilipollo",
     suit: "clubs",
     deck: "three",
-    info: "As I think it’s quite clear, I took the reference from Hokusai’s art piece “The Dream of the fisherman’s wife” and tried to make a tribute in a more occidental way. The composition of the piece (octopus head and girl’s hair, both with the shape of the “clubs” symbol) makes the reference of the card I was given, which is the 10 of clubs.",
+    info:
+      "As I think it’s quite clear, I took the reference from Hokusai’s art piece “The Dream of the fisherman’s wife” and tried to make a tribute in a more occidental way. The composition of the piece (octopus head and girl’s hair, both with the shape of the “clubs” symbol) makes the reference of the card I was given, which is the 10 of clubs.",
     value: "10",
   },
   {
@@ -381,7 +406,8 @@ export const cards = [
     artist: "justin-maller",
     suit: "diamonds",
     deck: "three",
-    info: "Wanted to have some fun with the diamond shape. Thought I’d incorporate it into the ’10’ as a structure.",
+    info:
+      "Wanted to have some fun with the diamond shape. Thought I’d incorporate it into the ’10’ as a structure.",
     value: "10",
   },
   {
@@ -392,7 +418,8 @@ export const cards = [
     artist: "daniel-shaffer",
     suit: "hearts",
     deck: "three",
-    info: "When I set out to make the card I jumped around in a lot of different directions. I originally was planning on making an image that related to the metasymbology of the card. At one point I was going to create a portrait of Jane Fonda as the iconic character Barbarella, because I found out Jane Fonda was born as a 10 of Hearts. In the end I ditched that idea because it felt too stiff. I agreed to loosen up and create an image that wasn’t related to metasymbology, but rather my own inclination when I thought of the words “Ten of Hearts.” Somehow I got to the image you see here. If I could sum up the image in a few words it would be: An elf is helping a tree grow anew. A tree stump felt like a strong base for a stand alone image, and the elf and plants grew around it to create the final idea.",
+    info:
+      "When I set out to make the card I jumped around in a lot of different directions. I originally was planning on making an image that related to the metasymbology of the card. At one point I was going to create a portrait of Jane Fonda as the iconic character Barbarella, because I found out Jane Fonda was born as a 10 of Hearts. In the end I ditched that idea because it felt too stiff. I agreed to loosen up and create an image that wasn’t related to metasymbology, but rather my own inclination when I thought of the words “Ten of Hearts.” Somehow I got to the image you see here. If I could sum up the image in a few words it would be: An elf is helping a tree grow anew. A tree stump felt like a strong base for a stand alone image, and the elf and plants grew around it to create the final idea.",
     value: "10",
   },
   {
@@ -403,7 +430,8 @@ export const cards = [
     artist: "bratislav-milenkovic",
     suit: "spades",
     deck: "three",
-    info: "I was looking to find the way to make a fun twist on 10 spades card, by incorporating the original element (ten spades) into the artwork – so I thought of having a fun looking guy with spades for his braces.",
+    info:
+      "I was looking to find the way to make a fun twist on 10 spades card, by incorporating the original element (ten spades) into the artwork – so I thought of having a fun looking guy with spades for his braces.",
     value: "10",
   },
   {
@@ -414,8 +442,9 @@ export const cards = [
     artist: "mister-thoms",
     suit: "clubs",
     deck: "three",
-    info: "The initial idea was immediately to play as Jack and saw that the figure of the classic card is traditionally depicted as a man divided in two parts, I was inspired to play with the concept of the dual personality of the famous character Dr. Jekill & Mr. Hyde",
-    value: "j",
+    info:
+      "The initial idea was immediately to play as Jack and saw that the figure of the classic card is traditionally depicted as a man divided in two parts, I was inspired to play with the concept of the dual personality of the famous character Dr. Jekill & Mr. Hyde",
+    value: "jack",
   },
   {
     img:
@@ -426,7 +455,7 @@ export const cards = [
     suit: "diamonds",
     deck: "three",
     info: "",
-    value: "j",
+    value: "jack",
   },
   {
     img:
@@ -437,7 +466,7 @@ export const cards = [
     suit: "hearts",
     deck: "three",
     info: "",
-    value: "j",
+    value: "jack",
   },
   {
     img:
@@ -447,8 +476,9 @@ export const cards = [
     artist: "grzegorz-domaradzki",
     suit: "spades",
     deck: "three",
-    info: "I wanted to have fun with this project, draw something I enjoy drawing, so I went with this sculpture-like fictional warrior.",
-    value: "j",
+    info:
+      "I wanted to have fun with this project, draw something I enjoy drawing, so I went with this sculpture-like fictional warrior.",
+    value: "jack",
   },
   {
     img:
@@ -459,7 +489,7 @@ export const cards = [
     suit: "clubs",
     deck: "three",
     info: "",
-    value: "q",
+    value: "queen",
   },
   {
     img:
@@ -470,7 +500,7 @@ export const cards = [
     suit: "diamonds",
     deck: "three",
     info: "",
-    value: "q",
+    value: "queen",
   },
   {
     img:
@@ -480,8 +510,9 @@ export const cards = [
     artist: "alessandro-pautasso",
     suit: "hearts",
     deck: "three",
-    info: "The idea behind the artwork was to try not to illustrate a traditional Queen, I wanted to give her a more “natural” connotation, so I’ve tried to draw a crown made of abstract branches and twigs.",
-    value: "q",
+    info:
+      "The idea behind the artwork was to try not to illustrate a traditional Queen, I wanted to give her a more “natural” connotation, so I’ve tried to draw a crown made of abstract branches and twigs.",
+    value: "queen",
   },
   {
     img:
@@ -491,8 +522,9 @@ export const cards = [
     artist: "d.vicente",
     suit: "spades",
     deck: "three",
-    info: "Before i design my card, i search some informations about the signification “Queen of Spades”. Queen of Spades: A malicious, dark woman, generally a widow. An unscrupulous woman. A very dark-haired woman. A cruel woman, one who interferes. For women, a betrayal by a good friend. For men, a woman who will use them for their own gain. Widowed or divorced woman; or a woman with Air predominating in her chart. Dark haired woman, seductive or unscrupulous, treachery, betrayal, malice, widow. Treachery, betrayal, malice; a widow or evil woman and death symbol… The concept was to create a design in the spirit and style of a card to play and represent a dangerous woman symbolizing death and the dark side of some women lend anything to happen to get the one they want. Playing cards and dice represent more or less the uncertainty of the intended.",
-    value: "q",
+    info:
+      "Before i design my card, i search some informations about the signification “Queen of Spades”. Queen of Spades: A malicious, dark woman, generally a widow. An unscrupulous woman. A very dark-haired woman. A cruel woman, one who interferes. For women, a betrayal by a good friend. For men, a woman who will use them for their own gain. Widowed or divorced woman; or a woman with Air predominating in her chart. Dark haired woman, seductive or unscrupulous, treachery, betrayal, malice, widow. Treachery, betrayal, malice; a widow or evil woman and death symbol… The concept was to create a design in the spirit and style of a card to play and represent a dangerous woman symbolizing death and the dark side of some women lend anything to happen to get the one they want. Playing cards and dice represent more or less the uncertainty of the intended.",
+    value: "queen",
   },
   {
     img:
@@ -502,8 +534,9 @@ export const cards = [
     artist: "angga-tantama",
     suit: "clubs",
     deck: "three",
-    info: "I think ’King’ has a originally strong character compared to the others, a leader. King of Clubs and my original character, Bluboo, have similar things. Bluboo wore a crown that could be related to King and Clubs represent many things for me, such as energy, happiness, flow, and creativity. I don’t know, i just like it.",
-    value: "k",
+    info:
+      "I think ’King’ has a originally strong character compared to the others, a leader. King of Clubs and my original character, Bluboo, have similar things. Bluboo wore a crown that could be related to King and Clubs represent many things for me, such as energy, happiness, flow, and creativity. I don’t know, i just like it.",
+    value: "king",
   },
   {
     img:
@@ -514,7 +547,7 @@ export const cards = [
     suit: "diamonds",
     deck: "three",
     info: "",
-    value: "k",
+    value: "king",
   },
   {
     img:
@@ -525,7 +558,7 @@ export const cards = [
     suit: "hearts",
     deck: "three",
     info: "",
-    value: "k",
+    value: "king",
   },
   {
     img:
@@ -536,7 +569,7 @@ export const cards = [
     suit: "spades",
     deck: "three",
     info: "",
-    value: "k",
+    value: "king",
   },
   {
     img:
@@ -546,8 +579,9 @@ export const cards = [
     artist: "omaraqil",
     suit: "clubs",
     deck: "three",
-    info: "The Idea behind this visual is to show one of my favorite culture (Native Americans) elements and try to experiment with their cultural shapes & colors. Natives have very vibrant feel in their appearance so I mostly used their elements in my work, their Style and attitude is really fascinating me, so I am trying to illustrate their graphic values.",
-    value: "a",
+    info:
+      "The Idea behind this visual is to show one of my favorite culture (Native Americans) elements and try to experiment with their cultural shapes & colors. Natives have very vibrant feel in their appearance so I mostly used their elements in my work, their Style and attitude is really fascinating me, so I am trying to illustrate their graphic values.",
+    value: "ace",
   },
   {
     img:
@@ -558,7 +592,7 @@ export const cards = [
     suit: "diamonds",
     deck: "three",
     info: "",
-    value: "a",
+    value: "ace",
   },
   {
     img:
@@ -569,7 +603,7 @@ export const cards = [
     suit: "hearts",
     deck: "three",
     info: "",
-    value: "a",
+    value: "ace",
   },
   {
     img:
@@ -579,8 +613,9 @@ export const cards = [
     artist: "gmunk",
     suit: "spades",
     deck: "three",
-    info: "I wanted it to be a recognizable Spade - that was the most important part - that it fit in with the Card Type.. Beyond that I wanted to make it somewhat Optical Art inspired, and playing heavily on perspective.",
-    value: "a",
+    info:
+      "I wanted it to be a recognizable Spade - that was the most important part - that it fit in with the Card Type.. Beyond that I wanted to make it somewhat Optical Art inspired, and playing heavily on perspective.",
+    value: "ace",
   },
   {
     img:
@@ -590,7 +625,8 @@ export const cards = [
     artist: "blackout-brother",
     suit: "black",
     deck: "three",
-    info: "i want to make something creepy in this contribution for Playing Arts project. Glad i was chosen to create the joker card. This idea suddenly came into my mind when they gave me this card. I love drawing skull and joker is the best match to create something creepy.",
+    info:
+      "i want to make something creepy in this contribution for Playing Arts project. Glad i was chosen to create the joker card. This idea suddenly came into my mind when they gave me this card. I love drawing skull and joker is the best match to create something creepy.",
     value: "joker",
   },
   {
@@ -601,7 +637,8 @@ export const cards = [
     artist: "juan-diaz-faes",
     suit: "",
     deck: "three",
-    info: "My intention from the beginning was to keep as strong aesthetic that have both the Spanish deck as the French trying to keep my drawing style.",
+    info:
+      "My intention from the beginning was to keep as strong aesthetic that have both the Spanish deck as the French trying to keep my drawing style.",
     value: "backside",
   },
   {
@@ -623,7 +660,8 @@ export const cards = [
     artist: "wes-art-studio",
     suit: "red",
     deck: "three",
-    info: "The Red Joker, for us women are the most important piece in the world. We try to design two joker women with our different styles (because we are two in the studio) and then incorporate them into the same layout using the same colour scheme. We wanted to keep the essence of the old joker cards with elements such as the hat, the skull rod, feathers and the make up.",
+    info:
+      "The Red Joker, for us women are the most important piece in the world. We try to design two joker women with our different styles (because we are two in the studio) and then incorporate them into the same layout using the same colour scheme. We wanted to keep the essence of the old joker cards with elements such as the hat, the skull rod, feathers and the make up.",
     value: "joker",
   },
 ];

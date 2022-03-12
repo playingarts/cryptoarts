@@ -379,7 +379,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "anna-ezer",
     info:
@@ -389,7 +389,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "ben-bauchau",
     info:
@@ -399,7 +399,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "jade-sabado",
     info:
@@ -410,7 +410,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "hearts",
     artist: "jefferson-mesa",
     info:
@@ -420,7 +420,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "kaloian-toshev",
     info:
@@ -430,7 +430,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "martin-grohs",
     info:
@@ -440,7 +440,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "ale-de-la-torre",
     info:
@@ -451,7 +451,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "joaquin-rodriguez",
     info:
@@ -461,7 +461,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "k",
+    value: "king",
     suit: "clubs",
     artist: "juan-martin-diez",
     info:
@@ -472,7 +472,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "aleksey-rico",
     info: "Everyone afraid changes. I'm afraid that nothing will change.",
@@ -481,7 +481,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "mr-aramanada",
     info:
@@ -491,7 +491,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "zcape",
     info:
@@ -500,7 +500,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "konstantin-shalev",
     info:
@@ -510,7 +510,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "alice-hoffmann",
     info:
@@ -520,7 +520,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "spades",
     artist: "natalia-koniuszy",
     info:
@@ -530,7 +530,7 @@ export const cards = [
     winner: true,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "garavato",
     info:

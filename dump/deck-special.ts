@@ -410,7 +410,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/199.jpg",
-    value: "j",
+    value: "jack",
     suit: "clubs",
     info: "",
     deck: "special",
@@ -421,7 +421,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/256.jpg",
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     info: "",
     deck: "special",
@@ -432,7 +432,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/578.jpg",
-    value: "j",
+    value: "jack",
     suit: "hearts",
     info: "",
     deck: "special",
@@ -443,7 +443,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/147.jpg",
-    value: "j",
+    value: "jack",
     suit: "spades",
     info: "",
     deck: "special",
@@ -454,7 +454,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/743.jpg",
-    value: "q",
+    value: "queen",
     suit: "clubs",
     info: "",
     deck: "special",
@@ -465,7 +465,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/098.jpg",
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     info: "",
     deck: "special",
@@ -476,7 +476,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/852.jpg",
-    value: "q",
+    value: "queen",
     suit: "hearts",
     info: "",
     deck: "special",
@@ -487,7 +487,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/691.jpg",
-    value: "q",
+    value: "queen",
     suit: "spades",
     info: "",
     deck: "special",
@@ -498,7 +498,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/747.jpg",
-    value: "k",
+    value: "king",
     suit: "clubs",
     info: "",
     deck: "special",
@@ -509,7 +509,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/372.jpg",
-    value: "k",
+    value: "king",
     suit: "diamonds",
     info: "",
     deck: "special",
@@ -520,7 +520,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/208.jpg",
-    value: "k",
+    value: "king",
     suit: "hearts",
     info: "",
     deck: "special",
@@ -531,7 +531,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/371.jpg",
-    value: "k",
+    value: "king",
     suit: "spades",
     info: "",
     deck: "special",
@@ -542,7 +542,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/319.jpg",
-    value: "a",
+    value: "ace",
     suit: "clubs",
     info: "",
     deck: "special",
@@ -553,7 +553,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/430.jpg",
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     info: "",
     deck: "special",
@@ -564,7 +564,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/104.jpg",
-    value: "a",
+    value: "ace",
     suit: "hearts",
     info: "",
     deck: "special",
@@ -575,7 +575,7 @@ export const cards = [
   {
     video: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/213.jpg",
-    value: "a",
+    value: "ace",
     suit: "spades",
     info: "",
     deck: "special",
@@ -633,7 +633,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "christian-jade-sabado",
     img:
@@ -817,7 +817,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "hearts",
     artist: "flüke",
     img:
@@ -825,7 +825,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "daniel-osses",
     img:
@@ -833,7 +833,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "domenico-sellaro",
     img:
@@ -841,7 +841,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "marco-pichardo",
     img:
@@ -849,7 +849,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "clubs",
     artist: "nicolas-monin-baroille",
     img:
@@ -865,7 +865,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "roman-dementev",
     img:
@@ -873,7 +873,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "toni-lópez",
     img:
@@ -881,7 +881,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "helen-kaur",
     img:
@@ -889,7 +889,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "spades",
     artist: "angel-alejandro",
     img:
@@ -897,7 +897,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "monika-mitkute",
     img:
@@ -1065,7 +1065,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "chan-yee-von",
     img:
@@ -1073,7 +1073,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "knysh-ksenya",
     img:
@@ -1081,7 +1081,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "bnomio",
     img:
@@ -1089,7 +1089,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "victor-bregante",
     img:
@@ -1097,7 +1097,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "mart-biemans",
     img:
@@ -1105,7 +1105,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "teis-albers",
     img:
@@ -1113,7 +1113,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "murat-kalkavan",
     img:
@@ -1289,7 +1289,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "asione",
     img:
@@ -1297,7 +1297,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "flavio-melchiorre",
     img:
@@ -1305,7 +1305,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "benkee-chang",
     img:
@@ -1313,7 +1313,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "fonzy-nils",
     img:
@@ -1321,7 +1321,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "nacho-huizar",
     img:
@@ -1329,7 +1329,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "avita-flit",
     img:
@@ -1337,7 +1337,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "jelena-vasiljevic",
     img:
@@ -1465,7 +1465,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "sara-gonzalez",
     img:
@@ -1473,7 +1473,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "cyla-costa",
     img:
@@ -1481,7 +1481,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "fabio-mancini",
     img:
@@ -1489,7 +1489,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "ricardo-bracho",
     img:
@@ -1497,7 +1497,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "tommy-chandra",
     img:
@@ -1505,7 +1505,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "kurt-chang",
     img:
@@ -1641,7 +1641,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "alberto-antoniazzi",
     img:
@@ -1649,7 +1649,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "clubs",
     artist: "sharm-murugiah",
     img:
@@ -1657,7 +1657,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "stefan-chinoff",
     img:
@@ -1665,7 +1665,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "laura-redburn",
     img:
@@ -1673,7 +1673,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "luis-guizado-aka-guizo",
     img:
@@ -1681,7 +1681,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "olga-shtonda",
     img:
@@ -1689,7 +1689,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "alejandro-lópez",
     img:
@@ -1889,7 +1889,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "patrícia-mafra",
     img:
@@ -1897,7 +1897,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "iryna-korshak",
     img:
@@ -1905,7 +1905,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "anna-caban",
     img:
@@ -1913,7 +1913,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "jérôme-masi",
     img:
@@ -1921,7 +1921,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "nuttaphon-suriyavarakul",
     img:
@@ -1929,7 +1929,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "diego-riselli",
     img:
@@ -1937,7 +1937,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "meni-chatzipanagiotou",
     img:
@@ -1945,7 +1945,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "clubs",
     artist: "matteo-ruisi",
     img:
@@ -1953,7 +1953,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "karolina-szymkiewicz",
     img:
@@ -1961,7 +1961,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "sun-lee-siew-loo",
     img:
@@ -1969,7 +1969,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "swindler-&-swindler",
     img:
@@ -2145,7 +2145,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "rudo-company",
     img:
@@ -2153,7 +2153,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "hearts",
     artist: "craig-halili",
     img:
@@ -2161,7 +2161,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "victor-c-castilvz",
     img:
@@ -2169,7 +2169,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "riccardo-corda",
     img:
@@ -2177,7 +2177,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "alberto-vacca-lepri-(vacaliebres)",
     img:
@@ -2185,7 +2185,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "charlie-valderrama",
     img:
@@ -2193,7 +2193,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "roberto-saldaña",
     img:
@@ -2201,7 +2201,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "randy-amoakohene",
     img:
@@ -2209,7 +2209,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "spades",
     artist: "bazak",
     img:
@@ -2217,7 +2217,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "douala-sophie",
     img:
@@ -2345,7 +2345,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "mirko-càmia",
     img:
@@ -2353,7 +2353,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "hearts",
     artist: "pat-simons",
     img:
@@ -2361,7 +2361,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "eva-vilhelmiina-eskelinen",
     img:
@@ -2369,7 +2369,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "sílfide-oscura",
     img:
@@ -2377,7 +2377,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "bryan-gallardo",
     img:
@@ -2385,7 +2385,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "igor-kozak",
     img:
@@ -2393,7 +2393,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "alessandro-monaco",
     img:
@@ -2401,7 +2401,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "gabriel-villena",
     img:
@@ -2409,7 +2409,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "spades",
     artist: "sharon-farrow",
     img:
@@ -2593,7 +2593,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "tempzey",
     img:
@@ -2601,7 +2601,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "hearts",
     artist: "matt-sloe",
     img:
@@ -2609,7 +2609,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "ahmed-sidky-a.k.a.-kenny-poppins",
     img:
@@ -2617,7 +2617,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "tamar-dovrat",
     img:
@@ -2625,7 +2625,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "kate-huang",
     img:
@@ -2633,7 +2633,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "anderson-koyama",
     img:
@@ -2641,7 +2641,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "roberto-morales",
     img:
@@ -2649,7 +2649,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "daniel-ramos",
     img:
@@ -2657,7 +2657,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "spades",
     artist: "henrique-barone",
     img:
@@ -2665,7 +2665,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "james-gifford",
     img:
@@ -2825,7 +2825,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "ausra-kiudulaite",
     img:
@@ -2833,7 +2833,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "eli-garcía",
     img:
@@ -2841,7 +2841,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "ahmet-ozcan",
     img:
@@ -2849,7 +2849,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "hellofreaks",
     img:
@@ -2857,7 +2857,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "sergey-snurnik",
     img:
@@ -2865,7 +2865,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "clubs",
     artist: "jisook-park",
     img:
@@ -2873,7 +2873,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "vinicius-santos",
     img:
@@ -2881,7 +2881,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "pinchepasha",
     img:
@@ -2889,7 +2889,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "alongkorn-sanguansook",
     img:
@@ -3081,7 +3081,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "ion-oprea",
     img:
@@ -3089,7 +3089,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "giovanny-zapata",
     img:
@@ -3097,7 +3097,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "riccardo-fano",
     img:
@@ -3105,7 +3105,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "maufield-(mauricio-molina)",
     img:
@@ -3113,7 +3113,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "louise-hubbard",
     img:
@@ -3121,7 +3121,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "sophie-light",
     img:
@@ -3129,7 +3129,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "fernando-fuentes",
     img:
@@ -3137,7 +3137,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "rob-peters",
     img:
@@ -3145,7 +3145,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "hansel",
     img:
@@ -3153,7 +3153,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "spades",
     artist: "mickael-brana",
     img:
@@ -3297,7 +3297,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "jo-jacobs",
     img:
@@ -3305,7 +3305,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "kim-zeluck",
     img:
@@ -3313,7 +3313,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "clubs",
     artist: "stefan-große-halbuer",
     img:
@@ -3321,7 +3321,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "suraj-barthy",
     img:
@@ -3329,7 +3329,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "mayka-ienova",
     img:
@@ -3337,7 +3337,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "daniel-viberg",
     img:
@@ -3345,7 +3345,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "fernando-palma---volkana-design",
     img:
@@ -3353,7 +3353,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "olivia-ariferiani",
     img:
@@ -3361,7 +3361,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "marco-arlotti",
     img:
@@ -3529,7 +3529,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "marc-antoine-herrmann",
     img:
@@ -3537,7 +3537,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "hearts",
     artist: "shakthi-hari--n-v",
     img:
@@ -3545,7 +3545,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "jatin-pandya",
     img:
@@ -3553,7 +3553,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "reda-el-mraki",
     img:
@@ -3561,7 +3561,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "laura-palumbo",
     img:
@@ -3569,7 +3569,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "debbie-kennedy",
     img:
@@ -3577,7 +3577,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "simona-bunardzhieva",
     img:
@@ -3585,7 +3585,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "clubs",
     artist: "bradley-mclaughlin",
     img:
@@ -3593,7 +3593,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "david",
     img:
@@ -3601,7 +3601,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "jesper-bolther",
     img:
@@ -3609,7 +3609,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "jhonny-núñez",
     img:
@@ -3617,7 +3617,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "harris",
     img:
@@ -3625,7 +3625,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "alberto-carbonell",
     img:
@@ -3825,7 +3825,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "clubs",
     artist: "jorik-van-ruiswijk",
     img:
@@ -3833,7 +3833,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "hearts",
     artist: "patty-scott",
     img:
@@ -3841,7 +3841,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "francesco-bonvecchio",
     img:
@@ -3849,7 +3849,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "milionis-stefanos",
     img:
@@ -3857,7 +3857,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "niall-grant",
     img:
@@ -3865,7 +3865,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "olga",
     img:
@@ -3873,7 +3873,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "gerome-jean",
     img:
@@ -3881,7 +3881,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "martin-rossouw",
     img:
@@ -3889,7 +3889,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "diamonds",
     artist: "dean-ira",
     img:
@@ -4081,7 +4081,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "hearts",
     artist: "iain-glynn",
     img:
@@ -4089,7 +4089,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "hugo-russell",
     img:
@@ -4097,7 +4097,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "rodrock",
     img:
@@ -4105,7 +4105,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "hearts",
     artist: "ren-vasiliev",
     img:
@@ -4113,7 +4113,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "picciotto-giuliano",
     img:
@@ -4121,7 +4121,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "diamonds",
     artist: "jade-ormsby",
     img:
@@ -4129,7 +4129,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "spades",
     artist: "natalia-grezina",
     img:
@@ -4297,7 +4297,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "spades",
     artist: "fausto-gallego",
     img:
@@ -4305,7 +4305,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "j",
+    value: "jack",
     suit: "diamonds",
     artist: "robert-lövgren",
     img:
@@ -4313,7 +4313,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "clubs",
     artist: "danilo-agutoli",
     img:
@@ -4321,7 +4321,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "spades",
     artist: "yana",
     img:
@@ -4329,7 +4329,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "q",
+    value: "queen",
     suit: "diamonds",
     artist: "giovanni-maisto",
     img:
@@ -4337,7 +4337,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "clubs",
     artist: "verónica-llinares-benadero",
     img:
@@ -4345,7 +4345,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "hearts",
     artist: "ben-barter",
     img:
@@ -4353,7 +4353,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "k",
+    value: "king",
     suit: "spades",
     artist: "valentina-pelizziari",
     img:
@@ -4361,7 +4361,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "clubs",
     artist: "neuneu-wu",
     img:
@@ -4369,7 +4369,7 @@ export const cards = [
     winner: false,
   },
   {
-    value: "a",
+    value: "ace",
     suit: "hearts",
     artist: "cédric-delahaye",
     img:

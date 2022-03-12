@@ -472,7 +472,7 @@ export const cards = [
     artist: "si-clark",
     info: "",
     suit: "spades",
-    value: "j",
+    value: "jack",
     deck: "zero",
     opensea: "",
     img:
@@ -485,7 +485,7 @@ export const cards = [
     animator: "ian-abraham",
     info: "",
     suit: "hearts",
-    value: "j",
+    value: "jack",
     deck: "zero",
     opensea: "",
     img:
@@ -498,7 +498,7 @@ export const cards = [
     artist: "mr-flurry",
     info: "",
     suit: "clubs",
-    value: "j",
+    value: "jack",
     deck: "zero",
     opensea: "",
     img:
@@ -511,7 +511,7 @@ export const cards = [
     animator: "yup-nguyen",
     info: "",
     suit: "diamonds",
-    value: "j",
+    value: "jack",
     deck: "zero",
     opensea: "",
     img:
@@ -524,7 +524,7 @@ export const cards = [
     artist: "michael-molloy",
     info: "",
     suit: "spades",
-    value: "q",
+    value: "queen",
     deck: "zero",
     opensea: "",
     img:
@@ -536,7 +536,7 @@ export const cards = [
     artist: "jules",
     info: "",
     suit: "hearts",
-    value: "q",
+    value: "queen",
     deck: "zero",
     opensea: "",
     img:
@@ -549,7 +549,7 @@ export const cards = [
     animator: "illustrescu",
     info: "",
     suit: "clubs",
-    value: "q",
+    value: "queen",
     deck: "zero",
     opensea: "",
     img:
@@ -563,7 +563,7 @@ export const cards = [
     animator: "marilisa-besana",
     info: "",
     suit: "diamonds",
-    value: "q",
+    value: "queen",
     deck: "zero",
     opensea: "",
     img:
@@ -576,7 +576,7 @@ export const cards = [
     artist: "mr-kone",
     info: "",
     suit: "spades",
-    value: "k",
+    value: "king",
     deck: "zero",
     opensea: "",
     img:
@@ -588,7 +588,7 @@ export const cards = [
     artist: "joao-oliveira",
     info: "",
     suit: "hearts",
-    value: "k",
+    value: "king",
     deck: "zero",
     opensea: "",
     img:
@@ -600,7 +600,7 @@ export const cards = [
     artist: "james-white",
     info: "",
     suit: "clubs",
-    value: "k",
+    value: "king",
     deck: "zero",
     opensea: "",
     img:
@@ -612,7 +612,7 @@ export const cards = [
     artist: "olly-howe",
     info: "",
     suit: "diamonds",
-    value: "k",
+    value: "king",
     deck: "zero",
     opensea: "",
     img:
@@ -624,7 +624,7 @@ export const cards = [
     artist: "fill-ryabchikov",
     info: "",
     suit: "spades",
-    value: "a",
+    value: "ace",
     deck: "zero",
     opensea: "",
     img:
@@ -637,7 +637,7 @@ export const cards = [
     animator: "david-sum",
     info: "",
     suit: "hearts",
-    value: "a",
+    value: "ace",
     deck: "zero",
     opensea: "",
     img:
@@ -650,7 +650,7 @@ export const cards = [
     artist: "david-delin",
     info: "",
     suit: "clubs",
-    value: "a",
+    value: "ace",
     deck: "zero",
     opensea: "",
     img:
@@ -662,7 +662,7 @@ export const cards = [
     artist: "mike-harrison",
     info: "",
     suit: "diamonds",
-    value: "a",
+    value: "ace",
     deck: "zero",
     opensea: "",
     img:

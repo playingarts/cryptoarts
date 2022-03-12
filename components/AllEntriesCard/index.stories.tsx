@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof AllEntriesCard> = (args) => (
 
 export const HeartsCard = Template.bind({});
 HeartsCard.args = {
-  cardValue: "k",
+  cardValue: "king",
   suit: CardSuits.h,
   Icon: Hearts,
   note: "13 cards",
@@ -26,7 +26,7 @@ HeartsCard.args = {
 
 export const ClubsCard = Template.bind({});
 ClubsCard.args = {
-  cardValue: "k",
+  cardValue: "king",
   suit: CardSuits.c,
   Icon: Clubs,
   note: "13 cards",
@@ -34,7 +34,7 @@ ClubsCard.args = {
 
 export const SpadesCard = Template.bind({});
 SpadesCard.args = {
-  cardValue: "k",
+  cardValue: "king",
   suit: CardSuits.s,
   Icon: Spades,
   note: "13 cards",
@@ -42,7 +42,7 @@ SpadesCard.args = {
 
 export const DiamondsCard = Template.bind({});
 DiamondsCard.args = {
-  cardValue: "k",
+  cardValue: "king",
   suit: CardSuits.d,
   Icon: Diamonds,
   note: "13 cards",
