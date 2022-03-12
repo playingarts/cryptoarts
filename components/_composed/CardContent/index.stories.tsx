@@ -21,6 +21,7 @@ Primary.args = {
   cardId: "cardId",
   cards: [
     {
+      value: "",
       deck: {
         _id: "deckId",
         title: "deckTitle",
@@ -46,6 +47,7 @@ Primary.args = {
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
     },
     {
+      value: "",
       deck: {
         _id: "deckId",
         title: "deckTitle",
@@ -71,6 +73,7 @@ Primary.args = {
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
     },
     {
+      value: "",
       deck: {
         _id: "deckId",
         title: "deckTitle",
@@ -109,6 +112,7 @@ First.args = {
   cardId: "cardId",
   cards: [
     {
+      value: "",
       deck: {
         _id: "deckId",
         title: "deckTitle",
@@ -134,6 +138,7 @@ First.args = {
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
     },
     {
+      value: "",
       deck: {
         _id: "deckId",
         title: "deckTitle",
@@ -172,6 +177,7 @@ Last.args = {
   cardId: "cardId",
   cards: [
     {
+      value: "",
       deck: {
         _id: "deckId",
         title: "deckTitle",
@@ -197,6 +203,7 @@ Last.args = {
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
     },
     {
+      value: "",
       deck: {
         _id: "deckId",
         title: "deckTitle",

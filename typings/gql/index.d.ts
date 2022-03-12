@@ -117,7 +117,7 @@ interface Card {
   info?: Maybe<Scalars['String']>;
   deck: Deck;
   suit?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
+  value: Scalars['String'];
   opensea?: Maybe<Scalars['String']>;
   background?: Maybe<Scalars['String']>;
 }
@@ -436,7 +436,7 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   deck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType>;
   suit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   background?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

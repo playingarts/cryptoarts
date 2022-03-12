@@ -19,6 +19,7 @@ const Template: ComponentStory<typeof ComposedCardBlock> = (args) => (
 export const Primary = Template.bind({});
 Primary.args = {
   card: {
+    value: "",
     deck: {
       _id: "deckId",
       title: "deckTitle",
@@ -49,6 +50,7 @@ export const CardOfTheDay = Template.bind({});
 CardOfTheDay.args = {
   cardOfTheDay: true,
   card: {
+    value: "",
     deck: {
       _id: "deckId",
       title: "deckTitle",

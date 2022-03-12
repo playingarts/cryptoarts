@@ -68,7 +68,7 @@ export const typeDefs = gql`
     info: String
     deck: Deck!
     suit: String
-    value: String
+    value: String!
     opensea: String
     background: String
   }

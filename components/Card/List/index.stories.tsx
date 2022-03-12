@@ -12,8 +12,10 @@ export const Primary = Template.bind({});
 Primary.args = {
   cards: [
     {
+      value: "",
       _id: "_id",
-      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       deck: {
         _id: "_id",
         title: "title",
@@ -29,8 +31,10 @@ Primary.args = {
       },
     },
     {
+      value: "",
       _id: "_id2",
-      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
       deck: {
@@ -48,8 +52,10 @@ Primary.args = {
       },
     },
     {
+      value: "",
       _id: "_id",
-      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       deck: {
         _id: "_id",
         title: "title",
@@ -65,8 +71,10 @@ Primary.args = {
       },
     },
     {
+      value: "",
       _id: "_id2",
-      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
       deck: {

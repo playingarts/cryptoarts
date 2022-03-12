@@ -8,6 +8,7 @@ const ComposedCardOfTheDay: FC<
 > = (props) => {
   const card: GQL.Card = {
     _id: "6203f9a4763f73212cb5eb2f",
+    value: "",
     deck: {
       _id: "deckId",
       title: "deckTitle",

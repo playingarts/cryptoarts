@@ -11,6 +11,7 @@ const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
 export const Primary = Template.bind({});
 Primary.args = {
   card: {
+    value: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -33,6 +34,7 @@ Primary.args = {
 export const WithVideo = Template.bind({});
 WithVideo.args = {
   card: {
+    value: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -58,6 +60,7 @@ export const Animated = Template.bind({});
 Animated.args = {
   animated: true,
   card: {
+    value: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -83,6 +86,7 @@ export const Static = Template.bind({});
 Static.args = {
   isStatic: true,
   card: {
+    value: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -108,6 +112,7 @@ export const Big = Template.bind({});
 Big.args = {
   size: "big",
   card: {
+    value: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -134,6 +139,7 @@ BigInteractive.args = {
   size: "big",
   interactive: true,
   card: {
+    value: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -160,6 +166,7 @@ NoInfo.args = {
   noInfo: true,
   card: {
     _id: "_id",
+    value: "",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
@@ -183,6 +190,7 @@ NoInfo.args = {
 export const CustomBackground = Template.bind({});
 CustomBackground.args = {
   card: {
+    value: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",

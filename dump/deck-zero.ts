@@ -701,8 +701,8 @@ export const cards = [
   {
     artist: "kenny-lindstrom",
     info: "",
-    suit: "",
-    value: "",
+    suit: "red",
+    value: "joker",
     deck: "zero",
     opensea: "",
     img:
