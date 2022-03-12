@@ -31,6 +31,7 @@ declare module "@emotion/react" {
       eth: string;
       orange: string;
       green: string;
+      red: string;
     };
     mq: { [index: string]: string };
     typography: {
@@ -99,6 +100,7 @@ export const theme: Theme = {
       "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)",
     orange: "#F89D35",
     green: "#05CE78",
+    red: "#C4161C",
   },
   typography: {
     h1: {
