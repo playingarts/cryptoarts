@@ -28,9 +28,9 @@ const ShopCheckoutItem: FC<Props> = ({
   remove,
   ...props
 }) => {
-  const options: SelectProps["options"] = Array.from({ length: 10 }).reduce<
-    SelectProps["options"]
-  >(
+  const options: SelectProps["options"] = Array.from({
+    length: !quantity || quantity < 10 ? 10 : quantity,
+  }).reduce<SelectProps["options"]>(
     (options, _, index) => ({
       ...options,
       [index + 1]: index + 1,
@@ -95,7 +95,7 @@ const ShopCheckoutItem: FC<Props> = ({
           })}
         >
           <Text variant={priceVariant} css={{ margin: 0 }}>
-            €{price.toFixed(2)}
+            €{price.toLocaleString()}
           </Text>
           {remove && (
             <Text

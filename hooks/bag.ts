@@ -10,12 +10,12 @@ createStore("bag", store.get("bag"));
 export const useBag = () => {
   const [bag, setBag] = useStore<Record<string, number>>("bag");
 
-  const addItem = (_id: string) => {
+  const addItem = (_id: string, quantity?: number) => {
     const exitingQuantity = bag[_id] || 0;
 
     const newBag = {
       ...bag,
-      [_id]: Math.min(exitingQuantity + 1, 10),
+      [_id]: quantity || exitingQuantity + 1,
     };
 
     setBag(newBag);

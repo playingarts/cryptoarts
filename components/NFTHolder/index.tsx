@@ -1,8 +1,9 @@
 import { useMetaMask } from "metamask-react";
 import { FC, HTMLAttributes, useEffect } from "react";
+import { useBag } from "../../hooks/bag";
 import { useLoadDeal } from "../../hooks/deal";
 import Arrowed from "../Arrowed";
-import Button, { Props as ButtonProps } from "../Button";
+import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Link from "../Link";
 import MetamaskButton from "../MetamaskButton";
@@ -10,13 +11,14 @@ import StatBlock from "../StatBlock";
 import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  ButtonProps: ButtonProps;
   deckId: string;
+  productId: string;
 }
 
-const NFTHolder: FC<Props> = ({ ButtonProps, deckId, ...props }) => {
+const NFTHolder: FC<Props> = ({ productId, deckId, ...props }) => {
   const { status, account } = useMetaMask();
   const { loadDeal, deal, loading } = useLoadDeal();
+  const { addItem } = useBag();
 
   useEffect(() => {
     if (!account) {
@@ -69,7 +71,7 @@ const NFTHolder: FC<Props> = ({ ButtonProps, deckId, ...props }) => {
         color: theme.colors.text_title_light,
       })}
       action={
-        <Button {...ButtonProps} Icon={Bag}>
+        <Button onClick={() => addItem(productId, deal.decks)} Icon={Bag}>
           Add all {deal.decks}
         </Button>
       }

@@ -204,7 +204,7 @@ const Content: FC = () => {
                         marginBottom: theme.spacing(2),
                       })}
                     >
-                      €{totalPrice.toFixed(2)}
+                      €{totalPrice.toLocaleString()}
                     </Text>
                     <Button color="black">Check out</Button>
                     <Line spacing={3} />

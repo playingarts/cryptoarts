@@ -89,9 +89,7 @@ const Content: FC = () => {
               <NFTHolder
                 css={{ gridColumn: "span 3" }}
                 deckId={cryptoDeck.deck._id}
-                ButtonProps={{
-                  onClick: () => addItem(cryptoDeck._id),
-                }}
+                productId={cryptoDeck._id}
               />
             )}
           </Grid>

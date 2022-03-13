@@ -19,7 +19,7 @@ const EurToUsd: FC<Props> = ({ eur, ...props }) => {
   }
 
   if (usd) {
-    children = `~${usd.toFixed(2)} USD`;
+    children = `~${parseFloat(usd.toFixed(2)).toLocaleString()} USD`;
   }
 
   if (!children) {
