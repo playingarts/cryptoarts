@@ -22,9 +22,7 @@ const NFTHolder: FC<Props> = ({ ButtonProps, ...props }) => {
           backgroundColor: theme.colors.dark_gray,
           color: theme.colors.text_title_light,
         })}
-        buttons={
-          <MetamaskButton notConnected="Connect" unavailable="Install" />
-        }
+        action={<MetamaskButton notConnected="Connect" unavailable="Install" />}
         {...props}
       >
         <Text component="h4" css={{ margin: 0 }}>
@@ -55,7 +53,7 @@ const NFTHolder: FC<Props> = ({ ButtonProps, ...props }) => {
         backgroundColor: theme.colors.dark_gray,
         color: theme.colors.text_title_light,
       })}
-      buttons={
+      action={
         <Button {...ButtonProps} Icon={Bag}>
           Add all 3
         </Button>

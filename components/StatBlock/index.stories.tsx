@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import StatBlock from ".";
+import Button from "../Button";
 import Stat from "../Stat";
 
 export default {
@@ -23,7 +24,14 @@ Primary.args = {
   children: <Stat label="Label" value="value" />,
 };
 
-const Template2: ComponentStory<typeof StatBlock> = (args) => (
+export const ActionButton = Template.bind({});
+ActionButton.args = {
+  title: "Stats",
+  children: <Stat label="Label" value="value" />,
+  action: <Button>Button</Button>,
+};
+
+const StretchedTemplate: ComponentStory<typeof StatBlock> = (args) => (
   <div css={{ height: 500, display: "flex" }}>
     <StatBlock
       {...args}
@@ -36,7 +44,7 @@ const Template2: ComponentStory<typeof StatBlock> = (args) => (
   </div>
 );
 
-export const Stretched = Template2.bind({});
+export const Stretched = StretchedTemplate.bind({});
 Stretched.args = {
   ...Primary.args,
   action: {

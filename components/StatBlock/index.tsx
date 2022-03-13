@@ -1,21 +1,15 @@
 import { FC, HTMLAttributes } from "react";
+import { isValidElement } from "../../source/utils";
 import Arrowed from "../Arrowed";
 import Link, { Props as LinkProps } from "../Link";
 import Text from "../Text";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title?: string;
-  action?: Pick<LinkProps, "children" | "href" | "target">;
-  buttons?: JSX.Element;
+  action?: Pick<LinkProps, "children" | "href" | "target"> | JSX.Element;
 }
 
-const StatBlock: FC<Props> = ({
-  action,
-  title,
-  children,
-  buttons,
-  ...props
-}) => (
+const StatBlock: FC<Props> = ({ action, title, children, ...props }) => (
   <div
     {...props}
     css={(theme) => ({
@@ -42,34 +36,28 @@ const StatBlock: FC<Props> = ({
 
     <div css={{ flexGrow: 1 }}>{children}</div>
 
-    {buttons && (
-      <div
-        css={(theme) => ({
-          marginTop: theme.spacing(2.5),
-        })}
-      >
-        {buttons}
-      </div>
-    )}
-
     {action && (
       <div
         css={(theme) => ({
           marginTop: theme.spacing(2.5),
         })}
       >
-        <Text
-          component={Link}
-          href={action.href}
-          target={action.target}
-          variant="label"
-          css={{
-            opacity: 0.5,
-            display: "inline-block",
-          }}
-        >
-          <Arrowed>{action.children}</Arrowed>
-        </Text>
+        {isValidElement(action) ? (
+          action
+        ) : (
+          <Text
+            component={Link}
+            href={action.href}
+            target={action.target}
+            variant="label"
+            css={{
+              opacity: 0.5,
+              display: "inline-block",
+            }}
+          >
+            <Arrowed>{action.children}</Arrowed>
+          </Text>
+        )}
       </div>
     )}
   </div>

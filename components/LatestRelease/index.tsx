@@ -19,7 +19,7 @@ const LatestRelease: FC<Props> = ({ price, ButtonProps, ...props }) => (
       color: theme.colors.text_title_light,
       position: "relative",
     })}
-    buttons={
+    action={
       <Button {...ButtonProps} css={{ alignSelf: "flex-start" }}>
         Add to bag
       </Button>

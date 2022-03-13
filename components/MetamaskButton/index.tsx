@@ -1,11 +1,10 @@
 import { useMetaMask } from "metamask-react";
 import { MetaMaskState } from "metamask-react/lib/metamask-context";
 import { FC } from "react";
+import { PartialRecord } from "../../source/utils";
 import Button, { Props as ButtonProps } from "../Button";
 import Metamask from "../Icons/Metamask";
 import Link from "../Link";
-
-type PartialRecord<K extends keyof any, T> = Partial<Record<K, T>>;
 
 const MetamaskButton: FC<
   ButtonProps & PartialRecord<MetaMaskState["status"], string>
