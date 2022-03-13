@@ -1,14 +1,33 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
+import { useLoadCards } from "../../../hooks/card";
 import CardNav, { Props as CardNavProps } from "../../Card/Nav";
 import ComposedCardBlock from "../CardBlock";
 
 interface Props extends CardNavProps {
   deck: GQL.Deck;
   cardId: string;
-  cards: GQL.Card[];
 }
 
-const ComposedCardContent: FC<Props> = ({ cardId, cards, deck, ...props }) => {
+const ComposedCardContent: FC<Props> = ({ cardId, deck, ...props }) => {
+  const { loadCards, cards, loading, ...rest } = useLoadCards();
+
+  console.log("HELLO!", deck, cardId);
+
+  useEffect(() => {
+    console.log("ading cards", deck._id);
+    loadCards({
+      variables: {
+        deck: deck._id,
+      },
+    });
+  }, [deck, loadCards]);
+
+  console.log("HELLO!", loading, deck, cardId, cards, rest);
+
+  if (loading || !cards) {
+    return null;
+  }
+
   const card =
     cards && cardId ? cards.find(({ _id }) => _id === cardId) : undefined;
 

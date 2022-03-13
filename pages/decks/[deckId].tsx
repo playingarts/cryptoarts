@@ -12,7 +12,6 @@ import { NextPage } from "next";
 import { useDeck } from "../../hooks/deck";
 import Layout from "../../components/Layout";
 import { withApollo } from "../../source/apollo";
-import { useLoadCards } from "../../hooks/card";
 import { useRouter } from "next/router";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
@@ -44,20 +43,9 @@ const Content: FC<{
   const {
     query: { cardId, deckId, section },
   } = useRouter();
-  const { deck } = useDeck({ variables: { slug: deckId } });
-  const { loadCards, cards, loading } = useLoadCards();
+  const { deck, loading } = useDeck({ variables: { slug: deckId } });
 
-  useEffect(() => {
-    if (deck) {
-      loadCards({
-        variables: {
-          deck: deck._id,
-        },
-      });
-    }
-  }, [deck, loadCards]);
-
-  if (loading || !cards || !deck) {
+  if (loading || !deck) {
     return null;
   }
 
@@ -71,7 +59,6 @@ const Content: FC<{
           })}
           deck={deck}
           cardId={cardId}
-          cards={cards}
         />
       )}
 
@@ -130,7 +117,7 @@ const Content: FC<{
           />
         </Grid>
 
-        <CardList cards={cards} />
+        <CardList deckId={deck._id} />
       </Layout>
 
       {deck.opensea && <ComposedPace collection={deck.opensea} />}
