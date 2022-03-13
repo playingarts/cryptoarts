@@ -1,10 +1,22 @@
 import { useMetaMask } from "metamask-react";
+import { MetaMaskState } from "metamask-react/lib/metamask-context";
 import { FC } from "react";
-import Button from "../Button";
+import Button, { Props as ButtonProps } from "../Button";
 import Metamask from "../Icons/Metamask";
 import Link from "../Link";
 
-const MetamaskButton: FC = (props) => {
+type PartialRecord<K extends keyof any, T> = Partial<Record<K, T>>;
+
+const MetamaskButton: FC<
+  ButtonProps & PartialRecord<MetaMaskState["status"], string>
+> = ({
+  connected = "Connected",
+  notConnected = "Connect MetaMask",
+  connecting = "Connecting",
+  initializing = "Initializing",
+  unavailable = "Install MetaMask",
+  ...props
+}) => {
   const { status, connect } = useMetaMask();
 
   if (status === "connected") {
@@ -17,7 +29,7 @@ const MetamaskButton: FC = (props) => {
           color: theme.colors.text_title_light,
         })}
       >
-        Connected
+        {connected}
       </Button>
     );
   }
@@ -33,7 +45,7 @@ const MetamaskButton: FC = (props) => {
         })}
         onClick={connect}
       >
-        Connect MetaMask
+        {notConnected}
       </Button>
     );
   }
@@ -48,7 +60,7 @@ const MetamaskButton: FC = (props) => {
           color: theme.colors.text_title_light,
         })}
       >
-        Connecting
+        {connecting}
       </Button>
     );
   }
@@ -63,7 +75,7 @@ const MetamaskButton: FC = (props) => {
           color: theme.colors.text_title_light,
         })}
       >
-        Initializing
+        {initializing}
       </Button>
     );
   }
@@ -81,7 +93,7 @@ const MetamaskButton: FC = (props) => {
         href="https://metamask.io/download/"
         target="_blank"
       >
-        Install MetaMask
+        {unavailable}
       </Button>
     );
   }

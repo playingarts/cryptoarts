@@ -18,6 +18,8 @@ import Grid from "../components/Grid";
 import Text from "../components/Text";
 import Line from "../components/Line";
 import ComposedFaq from "../components/_composed/Faq";
+import LatestRelease from "../components/LatestRelease";
+import NFTHolder from "../components/NFTHolder";
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
 
@@ -38,6 +40,8 @@ const Content: FC = () => {
     }),
     { sheet: [], deck: [], bundle: [] }
   );
+
+  const cryptoDeck = decks.find(({ deck }) => deck && deck.slug === "crypto");
 
   return (
     <Fragment>
@@ -71,6 +75,25 @@ const Content: FC = () => {
           paddingBottom: theme.spacing(15),
         })}
       >
+        {cryptoDeck && (
+          <Grid css={(theme) => ({ marginBottom: theme.spacing(3) })}>
+            <LatestRelease
+              css={{ gridColumn: "span 9" }}
+              price={cryptoDeck.price}
+              ButtonProps={{
+                onClick: () => addItem(cryptoDeck._id),
+              }}
+            />
+
+            <NFTHolder
+              css={{ gridColumn: "span 3" }}
+              ButtonProps={{
+                onClick: () => addItem(cryptoDeck._id),
+              }}
+            />
+          </Grid>
+        )}
+
         <Grid
           css={(theme) => ({
             rowGap: theme.spacing(3),

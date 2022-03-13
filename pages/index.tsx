@@ -21,11 +21,9 @@ import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Chevron from "../components/Icons/Chevron";
 import Kickstarter from "../components/Icons/Kickstarter";
 import Arrowed from "../components/Arrowed";
-import LatestRelease from "../components/LatestRelease";
 import StatBlock from "../components/StatBlock";
 import ComposedEditions from "../components/_composed/Editions";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
-import ComposedStats from "../components/_composed/Stats";
 import { socialLinks } from "../source/consts";
 
 const Home: NextPage = () => {
@@ -97,22 +95,6 @@ const Home: NextPage = () => {
               <Kickstarter />
             </Text>
           </Grid>
-        </Grid>
-        <Grid
-          css={(theme) => ({
-            marginTop: theme.spacing(10),
-            marginBottom: theme.spacing(10),
-          })}
-        >
-          <LatestRelease css={{ gridColumn: "span 9" }} />
-          <ComposedStats
-            css={(theme) => ({
-              background: theme.colors.dark_gray,
-              color: theme.colors.text_title_light,
-              gridColumn: "10 / span 3",
-            })}
-            deck="cryptoedition"
-          />
         </Grid>
         <ComposedEditions
           css={(theme) => ({
