@@ -10,7 +10,6 @@ import Arrowed from "../Arrowed";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Opensea from "../Icons/Opensea";
-import Share from "../Icons/Share";
 import Link from "../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -23,7 +22,6 @@ interface Props extends HTMLAttributes<HTMLElement> {
   links?: {
     buyNow?: string;
     opensea?: string;
-    share?: string;
     shop?: string;
   };
 }
@@ -82,17 +80,6 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         >
           Buy now
         </Button>
-      )}
-      {links.share && (
-        <Button
-          component={Link}
-          href={links.share}
-          Icon={Share}
-          variant="bordered"
-          css={(theme) => ({
-            marginRight: theme.spacing(2),
-          })}
-        />
       )}
       {refs.cardsRef && (
         <Link

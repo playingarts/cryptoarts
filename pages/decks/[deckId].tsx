@@ -100,7 +100,6 @@ const Content: FC<{
                         opensea: "/opensea",
                       }
                     : { buyNow: "/buyNow" }),
-                  share: "/share",
                   shop: "/shop",
                 }}
               />

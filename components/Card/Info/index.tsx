@@ -3,7 +3,6 @@ import Button from "../../Button";
 import Text from "../../Text";
 import Eth from "../../Icons/Eth";
 import Opensea from "../../Icons/Opensea";
-import Share from "../../Icons/Share";
 import Line from "../../Line";
 import Bag from "../../Icons/Bag";
 import Link from "../../Link";
@@ -62,7 +61,6 @@ const CardInfo: FC<Props> = ({ artist, deck, opensea, price, ...props }) => {
                 Buy {deck.title}
               </Button>
             )}
-            <Button Icon={Share} variant="bordered" />
             <Text
               variant="h4"
               component="div"
