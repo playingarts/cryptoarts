@@ -20,6 +20,7 @@ Primary.args = {
       title: "title",
       info: "info",
       slug: "slug",
+      short: "short",
     },
     artist: {
       _id: "_id",
@@ -45,6 +46,7 @@ WithVideo.args = {
       title: "title",
       info: "info",
       slug: "slug",
+      short: "short",
     },
     artist: {
       _id: "_id",
@@ -71,6 +73,7 @@ Animated.args = {
       title: "title",
       info: "info",
       slug: "slug",
+      short: "short",
     },
     artist: {
       _id: "_id",
@@ -97,6 +100,7 @@ Static.args = {
       title: "title",
       info: "info",
       slug: "slug",
+      short: "short",
     },
     artist: {
       _id: "_id",
@@ -123,6 +127,7 @@ Big.args = {
       title: "title",
       info: "info",
       slug: "slug",
+      short: "short",
     },
     artist: {
       _id: "_id",
@@ -150,6 +155,7 @@ BigInteractive.args = {
       title: "title",
       info: "info",
       slug: "slug",
+      short: "short",
     },
     artist: {
       _id: "_id",
@@ -176,6 +182,7 @@ NoInfo.args = {
       title: "title",
       info: "info",
       slug: "slug",
+      short: "short",
     },
     artist: {
       _id: "_id",
@@ -201,6 +208,7 @@ CustomBackground.args = {
       title: "title",
       info: "info",
       slug: "slug",
+      short: "short",
     },
     background: "green",
     artist: {

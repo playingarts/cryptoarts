@@ -79,6 +79,7 @@ interface Deck {
   __typename?: 'Deck';
   _id: Scalars['String'];
   title: Scalars['String'];
+  short: Scalars['String'];
   info: Scalars['String'];
   slug: Scalars['ID'];
   opensea?: Maybe<Scalars['String']>;
@@ -411,6 +412,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
   _id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

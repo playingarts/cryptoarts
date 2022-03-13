@@ -3,6 +3,7 @@ import { Schema, model, models, Model } from "mongoose";
 
 const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   title: String,
+  short: String,
   slug: String,
   info: String,
   opensea: { type: String, default: null },
@@ -33,6 +34,7 @@ export const typeDefs = gql`
   type Deck {
     _id: String!
     title: String!
+    short: String!
     info: String!
     slug: ID!
     opensea: String

@@ -19,6 +19,7 @@ Primary.args = {
       title: "deckTitle",
       info: "deckInfo",
       slug: "deckSlug",
+      short: "short",
     },
     _id: "cardId",
     artist: {
@@ -50,6 +51,7 @@ CardOfTheDay.args = {
       title: "deckTitle",
       info: "deckInfo",
       slug: "deckSlug",
+      short: "short",
     },
     _id: "cardId",
     artist: {
@@ -81,6 +83,7 @@ Sticky.args = {
       title: "deckTitle",
       info: "deckInfo",
       slug: "deckSlug",
+      short: "short",
     },
     _id: "cardId",
     artist: {

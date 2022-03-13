@@ -5,6 +5,7 @@ export const slug = "crypto";
 
 export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Crypto Edition",
+  short: "Crypto",
   slug,
   info: "",
   opensea: "cryptoedition",

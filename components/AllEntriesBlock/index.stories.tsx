@@ -30,6 +30,7 @@ Primary.args = {
         title: "title",
         info: "info",
         slug: "slug",
+        short: "short",
       },
     },
   ],

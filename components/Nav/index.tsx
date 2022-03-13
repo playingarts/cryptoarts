@@ -26,7 +26,7 @@ const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         boxSizing: "content-box",
       })}
     >
-      {decks.map(({ slug }) => (
+      {decks.map(({ slug, short }) => (
         <Link
           key={slug}
           href={`/decks/${slug}`}
@@ -43,7 +43,7 @@ const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             fontWeight: 600,
           })}
         >
-          {slug}
+          {short}
         </Link>
       ))}
     </nav>

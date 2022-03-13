@@ -12,6 +12,7 @@ const deck: GQL.Deck = {
   title: "title",
   info: "info",
   slug: "slug",
+  short: "short",
 };
 
 const artist = {

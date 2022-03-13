@@ -14,6 +14,7 @@ const ComposedCardOfTheDay: FC<
       title: "deckTitle",
       info: "deckInfo",
       slug: "deckSlug",
+      short: "short",
     },
     artist: {
       _id: "artistId",

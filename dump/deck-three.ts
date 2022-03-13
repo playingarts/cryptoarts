@@ -5,6 +5,7 @@ export const slug = "three";
 
 export const deck = {
   title: "Edition Three",
+  short: "Three",
   slug,
   info: "",
 };

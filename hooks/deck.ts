@@ -7,6 +7,7 @@ const DeckDataFragment = gql`
     title
     slug
     opensea
+    short
   }
 `;
 

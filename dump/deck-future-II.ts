@@ -5,6 +5,7 @@ export const slug = "future_ii";
 
 export const deck = {
   title: "Future Edition II",
+  short: "Future II",
   slug,
   info:
     "299 international artists, designers and studios were using playing card as a canvas to illustrate their vision of what the world will look like 100 years from now. Selected artworks formed two Future Edition decks.",
