@@ -12,3 +12,10 @@ export enum CardSuits {
   r = "red",
   b = "black",
 }
+
+export enum CardValues {
+  j = "jack",
+  q = "queen",
+  k = "king",
+  a = "ace",
+}

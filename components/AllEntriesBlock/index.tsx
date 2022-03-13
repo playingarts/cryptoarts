@@ -5,7 +5,7 @@ import Hearts from "../Icons/Hearts";
 import Spades from "../Icons/Spades";
 import AllEntriesCard from "../AllEntriesCard";
 import Link from "../Link";
-import { CardSuits } from "../../source/enums";
+import { CardSuits, CardValues } from "../../source/enums";
 import JokerCard from "./JokerCard";
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -32,10 +32,10 @@ const cardValues = [
   "8",
   "9",
   "10",
-  "j",
-  "q",
-  "k",
-  "a",
+  "jack",
+  "queen",
+  "king",
+  "ace",
 ];
 
 const Icons: Record<CardSuitsType, FC<HTMLAttributes<SVGElement>>> = {
@@ -87,7 +87,7 @@ const AllEntriesBlock: FC<Props> = ({ cards, deckId, ...props }) => {
     >
       {cardValues.map((cardValue) => (
         <Fragment key={cardValue}>
-          {cardValue === "a" && (
+          {cardValue === CardValues.a && (
             <JokerCard
               suit={CardSuits.r}
               deckId={deckId}
@@ -126,7 +126,7 @@ const AllEntriesBlock: FC<Props> = ({ cards, deckId, ...props }) => {
             ))}
           </div>
 
-          {cardValue === "a" && (
+          {cardValue === CardValues.a && (
             <JokerCard
               suit={CardSuits.b}
               deckId={deckId}
