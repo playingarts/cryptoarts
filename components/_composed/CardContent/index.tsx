@@ -9,20 +9,15 @@ interface Props extends CardNavProps {
 }
 
 const ComposedCardContent: FC<Props> = ({ cardId, deck, ...props }) => {
-  const { loadCards, cards, loading, ...rest } = useLoadCards();
-
-  console.log("HELLO!", deck, cardId);
+  const { loadCards, cards, loading } = useLoadCards();
 
   useEffect(() => {
-    console.log("ading cards", deck._id);
     loadCards({
       variables: {
         deck: deck._id,
       },
     });
   }, [deck, loadCards]);
-
-  console.log("HELLO!", loading, deck, cardId, cards, rest);
 
   if (loading || !cards) {
     return null;
