@@ -46,7 +46,7 @@ const AllEntriesCard: FC<Props> = ({
     >
       {cardValue !== "joker" && (
         <Text component="div" variant="h4" css={{ textTransform: "uppercase" }}>
-          {cardValue[0]}
+          {Number(cardValue) || cardValue[0]}
         </Text>
       )}
 
