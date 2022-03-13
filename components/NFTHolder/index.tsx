@@ -1,5 +1,6 @@
 import { useMetaMask } from "metamask-react";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect } from "react";
+import { useLoadDeal } from "../../hooks/deal";
 import Arrowed from "../Arrowed";
 import Button, { Props as ButtonProps } from "../Button";
 import Bag from "../Icons/Bag";
@@ -10,10 +11,20 @@ import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   ButtonProps: ButtonProps;
+  deckId: string;
 }
 
-const NFTHolder: FC<Props> = ({ ButtonProps, ...props }) => {
-  const { status } = useMetaMask();
+const NFTHolder: FC<Props> = ({ ButtonProps, deckId, ...props }) => {
+  const { status, account } = useMetaMask();
+  const { loadDeal, deal, loading } = useLoadDeal();
+
+  useEffect(() => {
+    if (!account) {
+      return;
+    }
+
+    loadDeal({ variables: { hash: account, deck: deckId } });
+  }, [account, loadDeal, deckId]);
 
   if (status !== "connected") {
     return (
@@ -47,6 +58,10 @@ const NFTHolder: FC<Props> = ({ ButtonProps, ...props }) => {
     );
   }
 
+  if (loading || deal === undefined) {
+    return null;
+  }
+
   return (
     <StatBlock
       css={(theme) => ({
@@ -55,7 +70,7 @@ const NFTHolder: FC<Props> = ({ ButtonProps, ...props }) => {
       })}
       action={
         <Button {...ButtonProps} Icon={Bag}>
-          Add all 3
+          Add all {deal.decks}
         </Button>
       }
       {...props}
@@ -65,8 +80,8 @@ const NFTHolder: FC<Props> = ({ ButtonProps, ...props }) => {
       </Text>
 
       <Text variant="body2">
-        You’re eligible for 3 free Crypto Edition decks! Use following code on
-        checkout: <b>кодкадкоткод</b>.
+        You’re eligible for {deal.decks} free Crypto Edition decks! Use
+        following code on checkout: <b>{deal.code}</b>.
       </Text>
 
       <Text
