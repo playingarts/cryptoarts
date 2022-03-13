@@ -1,7 +1,7 @@
 import { connect } from "../source/mongoose";
 import { createDeck } from "./_utils";
 
-export const slug = "Future I";
+export const slug = "future_i";
 
 export const deck = {
   title: "Future Edition I",
