@@ -17,7 +17,7 @@ Primary.args = {
   image:
     "https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg",
   price: "€14.95",
-  title: "Zero",
+  short: "Zero",
 };
 
 const StretchedTemplate: ComponentStory<typeof ShopItem> = (args) => (
@@ -30,5 +30,5 @@ StretchedDark.args = {
   image:
     "https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg",
   price: "€14.95",
-  title: "Zero",
+  short: "Zero",
 };

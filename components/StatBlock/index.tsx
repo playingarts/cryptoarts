@@ -26,6 +26,8 @@ const StatBlock: FC<Props> = ({ action, title, children, ...props }) => {
             opacity: 0.5,
             margin: 0,
             marginBottom: theme.spacing(2),
+            position: "relative",
+            zIndex: 1,
           })}
         >
           {title}
