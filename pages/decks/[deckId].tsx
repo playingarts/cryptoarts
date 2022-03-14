@@ -15,7 +15,6 @@ import { withApollo } from "../../source/apollo";
 import { useRouter } from "next/router";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
-import Bag from "../../components/Icons/Bag";
 import ComposedGallery from "../../components/_composed/Gallery";
 import Text from "../../components/Text";
 import Line from "../../components/Line";
@@ -99,6 +98,7 @@ const Content: FC<{
         scrollIntoView={section === Sections.cards}
         ref={cardsRef}
         css={(theme) => ({
+          background: theme.colors.page_bg_gray,
           paddingTop: theme.spacing(15),
           paddingBottom: theme.spacing(15),
         })}
@@ -124,39 +124,13 @@ const Content: FC<{
 
       <Layout
         css={(theme) => ({
-          background: theme.colors.light_gray,
           paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(6),
+          paddingBottom: theme.spacing(9),
         })}
         ref={deckRef}
         scrollIntoView={section === Sections.deck}
       >
-        <Grid css={(theme) => ({ marginBottom: theme.spacing(1) })}>
-          <BlockTitle
-            variant="h3"
-            title="Deck"
-            subTitleText="Enjoy colorful, original artwork from 55 todays leading international illustrators, all in the palm of your hand!"
-            buttonProps={{
-              Icon: Bag,
-              children: "Buy now",
-              css: (theme) => ({
-                background: theme.colors.dark_gray,
-                color: theme.colors.text_title_light,
-              }),
-            }}
-            css={{
-              gridColumn: "2 / span 10",
-            }}
-          />
-        </Grid>
-
-        <DeckBlock
-          properties={{
-            size: "Poker, 88.9 × 63.5mm",
-            material: "Bicycle® paper with Air-cushion finish",
-            inside: "52 Playing cards + 2 Jokers + Info card",
-          }}
-        />
+        <DeckBlock deck={deck} />
       </Layout>
 
       <Layout

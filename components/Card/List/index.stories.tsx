@@ -1,19 +1,12 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Card from ".";
 import { CardsQuery } from "../../../hooks/card";
+import { mockDeck } from "../../../mocks/deck";
 
 export default {
   title: "Card/List",
   component: Card,
 } as ComponentMeta<typeof Card>;
-
-const deck: GQL.Deck = {
-  _id: "_id",
-  title: "title",
-  info: "info",
-  slug: "slug",
-  short: "short",
-};
 
 const artist: GQL.Artist = {
   _id: "artistId",
@@ -46,7 +39,7 @@ const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  deckId: deck._id,
+  deckId: mockDeck._id,
 };
 Primary.parameters = {
   apolloClient: {
@@ -56,14 +49,14 @@ Primary.parameters = {
         request: {
           query: CardsQuery,
           variables: {
-            deck: deck._id,
+            deck: mockDeck._id,
           },
         },
         result: {
           data: {
             cards: [
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "_id",
@@ -75,7 +68,7 @@ Primary.parameters = {
                 background: "background",
               },
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "_id2",
@@ -88,7 +81,7 @@ Primary.parameters = {
                 info: "",
               },
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "_id",
@@ -100,7 +93,7 @@ Primary.parameters = {
                 info: "",
               },
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "_id2",

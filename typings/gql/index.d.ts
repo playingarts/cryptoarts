@@ -11,7 +11,10 @@ interface Scalars {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
+  JSON: { [key: string]: any };
 }
+
 
 interface Query {
   __typename?: 'Query';
@@ -84,6 +87,9 @@ interface Deck {
   slug: Scalars['ID'];
   opensea?: Maybe<Scalars['String']>;
   cardBackground?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  properties: Scalars['JSON'];
+  description?: Maybe<Scalars['String']>;
 }
 
 interface Artist {
@@ -150,7 +156,7 @@ interface Opensea {
   editors: Array<Scalars['String']>;
   payment_tokens: Array<PaymentToken>;
   primary_asset_contracts: Array<PrimaryAssetContract>;
-  traits: Json;
+  traits: Scalars['JSON'];
   stats: Stats;
   banner_image_url?: Maybe<Scalars['String']>;
   created_date?: Maybe<Scalars['String']>;
@@ -176,11 +182,6 @@ interface Opensea {
   slug: Scalars['ID'];
   twitter_username?: Maybe<Scalars['String']>;
   instagram_username?: Maybe<Scalars['String']>;
-}
-
-interface Json {
-  __typename?: 'JSON';
-  _fake?: Maybe<Scalars['String']>;
 }
 
 interface PaymentToken {
@@ -272,7 +273,7 @@ interface Deal {
   deck?: Maybe<Deck>;
   claimed?: Maybe<Scalars['Boolean']>;
 }
-import { GraphQLResolveInfo } from 'graphql';
+import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 
 
@@ -352,6 +353,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
+  JSON: ResolverTypeWrapper<Scalars['JSON']>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
@@ -364,7 +366,6 @@ export type ResolversTypes = {
   Card: ResolverTypeWrapper<Card>;
   Product: ResolverTypeWrapper<Product>;
   Opensea: ResolverTypeWrapper<Opensea>;
-  JSON: ResolverTypeWrapper<Json>;
   PaymentToken: ResolverTypeWrapper<PaymentToken>;
   PrimaryAssetContract: ResolverTypeWrapper<PrimaryAssetContract>;
   Stats: ResolverTypeWrapper<Stats>;
@@ -375,6 +376,7 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
+  JSON: Scalars['JSON'];
   Query: {};
   String: Scalars['String'];
   ID: Scalars['ID'];
@@ -387,7 +389,6 @@ export type ResolversParentTypes = {
   Card: Card;
   Product: Product;
   Opensea: Opensea;
-  JSON: Json;
   PaymentToken: PaymentToken;
   PrimaryAssetContract: PrimaryAssetContract;
   Stats: Stats;
@@ -395,6 +396,10 @@ export type ResolversParentTypes = {
   Holder: Holder;
   Deal: Deal;
 };
+
+export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
+  name: 'JSON';
+}
 
 export type QueryResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
   decks?: Resolver<Array<ResolversTypes['Deck']>, ParentType, ContextType>;
@@ -417,6 +422,9 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   slug?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   cardBackground?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  properties?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -512,11 +520,6 @@ export type OpenseaResolvers<ContextType = { req: Request, res: Response }, Pare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type JsonResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['JSON'] = ResolversParentTypes['JSON']> = {
-  _fake?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
 export type PaymentTokenResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['PaymentToken'] = ResolversParentTypes['PaymentToken']> = {
   id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   symbol?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -608,6 +611,7 @@ export type DealResolvers<ContextType = { req: Request, res: Response }, ParentT
 };
 
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
+  JSON?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;
@@ -615,7 +619,6 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Card?: CardResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   Opensea?: OpenseaResolvers<ContextType>;
-  JSON?: JsonResolvers<ContextType>;
   PaymentToken?: PaymentTokenResolvers<ContextType>;
   PrimaryAssetContract?: PrimaryAssetContractResolvers<ContextType>;
   Stats?: StatsResolvers<ContextType>;

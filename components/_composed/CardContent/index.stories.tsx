@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import ComposedCardContent from ".";
 import { CardsQuery } from "../../../hooks/card";
+import { mockDeck } from "../../../mocks/deck";
 
 export default {
   title: "Composed/CardContent",
@@ -10,14 +11,6 @@ export default {
 const Template: ComponentStory<typeof ComposedCardContent> = (args) => (
   <ComposedCardContent {...args} />
 );
-
-const deck: GQL.Deck = {
-  _id: "_id",
-  title: "title",
-  info: "info",
-  slug: "slug",
-  short: "short",
-};
 
 const artist: GQL.Artist = {
   _id: "artistId",
@@ -48,7 +41,7 @@ const artist: GQL.Artist = {
 
 export const Primary = Template.bind({});
 Primary.args = {
-  deck,
+  deck: mockDeck,
   cardId: "cardId",
 };
 Primary.parameters = {
@@ -59,14 +52,14 @@ Primary.parameters = {
         request: {
           query: CardsQuery,
           variables: {
-            deck: deck._id,
+            deck: mockDeck._id,
           },
         },
         result: {
           data: {
             cards: [
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "0",
@@ -80,7 +73,7 @@ Primary.parameters = {
                 background: "background",
               },
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "cardId",
@@ -94,7 +87,7 @@ Primary.parameters = {
                 background: "background",
               },
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "2",
@@ -117,7 +110,7 @@ Primary.parameters = {
 
 export const First = Template.bind({});
 First.args = {
-  deck,
+  deck: mockDeck,
   cardId: "cardId",
 };
 First.parameters = {
@@ -128,14 +121,14 @@ First.parameters = {
         request: {
           query: CardsQuery,
           variables: {
-            deck: deck._id,
+            deck: mockDeck._id,
           },
         },
         result: {
           data: {
             cards: [
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "cardId",
@@ -149,7 +142,7 @@ First.parameters = {
                 background: "background",
               },
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "2",
@@ -172,7 +165,7 @@ First.parameters = {
 
 export const Last = Template.bind({});
 Last.args = {
-  deck,
+  deck: mockDeck,
   cardId: "cardId",
 };
 Last.parameters = {
@@ -183,14 +176,14 @@ Last.parameters = {
         request: {
           query: CardsQuery,
           variables: {
-            deck: deck._id,
+            deck: mockDeck._id,
           },
         },
         result: {
           data: {
             cards: [
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "",
                 _id: "2",
@@ -204,7 +197,7 @@ Last.parameters = {
                 background: "background",
               },
               {
-                deck,
+                deck: mockDeck,
                 artist,
                 value: "jack",
                 _id: "cardId",
@@ -227,7 +220,7 @@ Last.parameters = {
 
 export const NoCard = Template.bind({});
 NoCard.args = {
-  deck,
+  deck: mockDeck,
   cardId: "cardId",
 };
 NoCard.parameters = {
@@ -238,7 +231,7 @@ NoCard.parameters = {
         request: {
           query: CardsQuery,
           variables: {
-            deck: deck._id,
+            deck: mockDeck._id,
           },
         },
         result: {
