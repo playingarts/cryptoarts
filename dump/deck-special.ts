@@ -9,6 +9,9 @@ export const deck = {
   slug,
   info:
     "537 artists from 67 countries participated in design contest, showing their vision of the custom playing cards. Each contestant was asked to create an artwork for one particular card in their distinct style.",
+  image:
+    "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_special.jpg",
+  properties: {},
 };
 
 export const cards = [

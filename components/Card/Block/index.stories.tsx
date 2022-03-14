@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import CardBlock from ".";
+import { mockDeck } from "../../../mocks/deck";
 
 export default {
   title: "Card/Block",
@@ -14,13 +15,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   card: {
     value: "",
-    deck: {
-      _id: "deckId",
-      title: "deckTitle",
-      info: "deckInfo",
-      slug: "deckSlug",
-      short: "short",
-    },
+    deck: mockDeck,
     _id: "cardId",
     artist: {
       _id: "artistId",
@@ -46,13 +41,7 @@ CardOfTheDay.args = {
   cardOfTheDay: true,
   card: {
     value: "",
-    deck: {
-      _id: "deckId",
-      title: "deckTitle",
-      info: "deckInfo",
-      slug: "deckSlug",
-      short: "short",
-    },
+    deck: mockDeck,
     _id: "cardId",
     artist: {
       _id: "artistId",
@@ -78,13 +67,7 @@ Sticky.args = {
   stick: 0,
   card: {
     value: "",
-    deck: {
-      _id: "deckId",
-      title: "deckTitle",
-      info: "deckInfo",
-      slug: "deckSlug",
-      short: "short",
-    },
+    deck: mockDeck,
     _id: "cardId",
     artist: {
       _id: "artistId",

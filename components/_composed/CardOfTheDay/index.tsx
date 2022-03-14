@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { mockDeck } from "../../../mocks/deck";
 import ComposedCardBlock, {
   Props as ComposedCardBlockProps,
 } from "../CardBlock";
@@ -9,13 +10,7 @@ const ComposedCardOfTheDay: FC<
   const card: GQL.Card = {
     _id: "6203f9a4763f73212cb5eb2f",
     value: "",
-    deck: {
-      _id: "deckId",
-      title: "deckTitle",
-      info: "deckInfo",
-      slug: "deckSlug",
-      short: "short",
-    },
+    deck: mockDeck,
     artist: {
       _id: "artistId",
       slug: "artistSlug",

@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { mockDeck } from "../../mocks/deck";
 import DeckBlock from "./";
 
 export default {
@@ -12,9 +13,5 @@ const Template: ComponentStory<typeof DeckBlock> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  properties: {
-    size: "Poker, 88.9 × 63.5mm",
-    material: "Bicycle® paper with Air-cushion finish",
-    inside: "52 Playing cards + 2 Jokers + Info card",
-  },
+  deck: mockDeck,
 };

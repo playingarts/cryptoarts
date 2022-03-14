@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import AllEntriesBlock from ".";
+import { mockDeck } from "../../mocks/deck";
 
 export default {
   title: "AllEntriesBlock",
@@ -25,13 +26,7 @@ Primary.args = {
         userpic: "userpic",
         social: {},
       },
-      deck: {
-        _id: "_id",
-        title: "title",
-        info: "info",
-        slug: "slug",
-        short: "short",
-      },
+      deck: mockDeck,
     },
   ],
   deckId: "deckId",

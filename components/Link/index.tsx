@@ -60,7 +60,8 @@ const Link: ForwardRefRenderFunction<
             className={cx(
               className,
               activeCss &&
-                new RegExp(`^${href}`, "i").test(router.asPath) &&
+                typeof href === "string" &&
+                new RegExp(`^${href}($|/|\\?)`, "i").test(router.asPath) &&
                 css(
                   typeof activeCss === "function" ? activeCss(theme) : activeCss
                 )

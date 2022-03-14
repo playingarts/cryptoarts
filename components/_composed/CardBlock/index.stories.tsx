@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import ComposedCardBlock from ".";
+import { mockDeck } from "../../../mocks/deck";
 
 export default {
   title: "Composed/CardBlock",
@@ -20,13 +21,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   card: {
     value: "",
-    deck: {
-      _id: "deckId",
-      title: "deckTitle",
-      info: "deckInfo",
-      slug: "deckSlug",
-      short: "short",
-    },
+    deck: mockDeck,
     _id: "cardId",
     artist: {
       _id: "artistId",
@@ -52,13 +47,7 @@ CardOfTheDay.args = {
   cardOfTheDay: true,
   card: {
     value: "",
-    deck: {
-      _id: "deckId",
-      title: "deckTitle",
-      info: "deckInfo",
-      slug: "deckSlug",
-      short: "short",
-    },
+    deck: mockDeck,
     _id: "cardId",
     artist: {
       _id: "artistId",

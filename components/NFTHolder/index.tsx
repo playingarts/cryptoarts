@@ -64,6 +64,10 @@ const NFTHolder: FC<Props> = ({ productId, deckId, ...props }) => {
     return null;
   }
 
+  if (!deal) {
+    return null;
+  }
+
   return (
     <StatBlock
       css={(theme) => ({

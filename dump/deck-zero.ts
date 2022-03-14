@@ -8,6 +8,8 @@ export const deck = {
   short: "Zero",
   slug,
   info: "",
+  image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_zero.jpg",
+  properties: {},
 };
 
 export const cards = [

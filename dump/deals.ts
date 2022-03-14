@@ -9,6 +9,12 @@ export let deals = [
     decks: 79,
     deck: "crypto",
   },
+  {
+    code: "VLADCODE",
+    hash: "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
+    decks: 1000,
+    deck: "crypto",
+  },
 ];
 
 const dump = async () => {

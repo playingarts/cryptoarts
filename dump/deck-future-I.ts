@@ -9,6 +9,9 @@ export const deck = {
   slug,
   info:
     "299 international artists, designers and studios were using playing card as a canvas to illustrate their vision of what the world will look like 100 years from now. Selected artworks formed two Future Edition decks.",
+  image:
+    "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_future01.jpg",
+  properties: {},
 };
 
 export const cards = [

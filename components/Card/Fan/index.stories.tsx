@@ -1,19 +1,12 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import CardFan from ".";
 import { CardsQuery } from "../../../hooks/card";
+import { mockDeck } from "../../../mocks/deck";
 
 export default {
   title: "Card/Fan",
   component: CardFan,
 } as ComponentMeta<typeof CardFan>;
-
-const deck: GQL.Deck = {
-  _id: "_id",
-  title: "title",
-  info: "info",
-  slug: "slug",
-  short: "short",
-};
 
 const artist = {
   _id: "11",
@@ -34,7 +27,7 @@ const cards: GQL.Card[] = [
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
-    deck,
+    deck: mockDeck,
   },
   {
     value: "",
@@ -45,7 +38,7 @@ const cards: GQL.Card[] = [
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
-    deck,
+    deck: mockDeck,
   },
   {
     value: "",
@@ -56,7 +49,7 @@ const cards: GQL.Card[] = [
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
-    deck,
+    deck: mockDeck,
   },
   {
     value: "",
@@ -67,7 +60,7 @@ const cards: GQL.Card[] = [
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
-    deck,
+    deck: mockDeck,
   },
   {
     value: "",
@@ -78,7 +71,7 @@ const cards: GQL.Card[] = [
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
-    deck,
+    deck: mockDeck,
   },
   {
     value: "",
@@ -89,7 +82,7 @@ const cards: GQL.Card[] = [
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
-    deck,
+    deck: mockDeck,
   },
 ];
 
@@ -99,7 +92,7 @@ const Template: ComponentStory<typeof CardFan> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  deck,
+  deck: mockDeck,
 };
 Primary.parameters = {
   apolloClient: {
@@ -108,7 +101,7 @@ Primary.parameters = {
         request: {
           query: CardsQuery,
           variables: {
-            deck: deck._id,
+            deck: mockDeck._id,
             shuffle: true,
           },
         },
@@ -130,7 +123,7 @@ const ScrollableTemplate: ComponentStory<typeof CardFan> = (args) => (
 
 export const Scrollable = ScrollableTemplate.bind({});
 Scrollable.args = {
-  deck,
+  deck: mockDeck,
 };
 Scrollable.parameters = {
   apolloClient: {
@@ -139,7 +132,7 @@ Scrollable.parameters = {
         request: {
           query: CardsQuery,
           variables: {
-            deck: deck._id,
+            deck: mockDeck._id,
             shuffle: true,
           },
         },

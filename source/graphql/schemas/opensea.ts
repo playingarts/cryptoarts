@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import S3 from "aws-sdk/clients/s3";
+import GraphQLJSON from "graphql-type-json";
 
 const {
   FULL_DECK_HOLDERS_FILE_NAME = "",
@@ -31,6 +32,7 @@ const readKey: <T = GQL.Holder[]>(Key: string) => Promise<T> = (Key) =>
   );
 
 export const resolvers: GQL.Resolvers = {
+  JSON: GraphQLJSON,
   Opensea: {
     id: ({ slug }) => slug,
     editors: ({ editors = [] }) => editors,
@@ -62,6 +64,8 @@ export const resolvers: GQL.Resolvers = {
 };
 
 export const typeDefs = gql`
+  scalar JSON
+
   type Query {
     opensea(deck: ID!): Opensea!
     holders(deck: ID!): Holders!
