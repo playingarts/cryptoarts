@@ -169,7 +169,6 @@ const Header: FC<Props> = ({
         >
           <Link href="/">
             <LogoIcon
-              gradient={palette === "dark"}
               css={(theme) => [
                 palette === "dark" && {
                   color: theme.colors.text_subtitle_light,

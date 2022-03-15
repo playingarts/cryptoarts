@@ -38,14 +38,11 @@ const Home: NextPage = () => {
           background: theme.colors.dark_gray,
           color: theme.colors.text_title_light,
           overflow: "hidden",
+          paddingTop: theme.spacing(26),
+          paddingBottom: theme.spacing(6.5),
         })}
       >
-        <Grid
-          css={(theme) => ({
-            marginTop: theme.spacing(30),
-            marginBottom: theme.spacing(9.5),
-          })}
-        >
+        <Grid>
           <div css={{ gridColumn: "2 / span 6" }}>
             <Text component="h1" css={{ margin: 0 }}>
               Collective Art Project
@@ -65,11 +62,16 @@ const Home: NextPage = () => {
         </Grid>
       </Layout>
 
-      <Layout>
+      <Layout
+        css={(theme) => ({
+          background: theme.colors.page_bg_light_gray,
+          paddingTop: theme.spacing(14),
+          paddingBottom: theme.spacing(12),
+        })}
+      >
         <Grid
           css={(theme) => ({
-            marginTop: theme.spacing(14),
-            marginBottom: theme.spacing(12),
+            background: theme.colors.page_bg_light_gray,
           })}
         >
           <Grid css={{ gridColumn: "2 / span 10" }}>
@@ -96,6 +98,9 @@ const Home: NextPage = () => {
             </Text>
           </Grid>
         </Grid>
+      </Layout>
+
+      <Layout>
         <ComposedEditions
           css={(theme) => ({
             marginTop: theme.spacing(10),
@@ -111,23 +116,16 @@ const Home: NextPage = () => {
         })}
       />
 
-      <Layout>
-        <StatBlock
-          css={(theme) => ({
-            background: "#000",
-            color: theme.colors.text_title_light,
-            height: theme.spacing(60),
-            marginTop: theme.spacing(9),
-            marginBottom: theme.spacing(9),
-          })}
-          title="Gallery"
-        />
+      <Layout
+        css={(theme) => ({
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
+        })}
+      >
         <Grid
-          css={(theme) => ({
-            marginBottom: theme.spacing(9),
-            marginTop: theme.spacing(9),
+          css={{
             alignItems: "flex-start",
-          })}
+          }}
         >
           <StatBlock
             css={(theme) => ({

@@ -30,6 +30,7 @@ const ComposedGlobalLayout: FC<
       showAltNav={showAltNav}
       customShopButton={customShopButton}
       noNav={noNav}
+      palette="dark"
     />
 
     {children}

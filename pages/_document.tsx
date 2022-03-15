@@ -14,7 +14,7 @@ export const Links = () => (
         h5: theme.typography.h5,
         h6: theme.typography.h6,
         body: {
-          background: "#f2f2f2",
+          background: theme.colors.page_bg_white,
           fontFamily: "Work Sans, sans-serif",
         },
         svg: {
@@ -30,7 +30,7 @@ export const Links = () => (
         },
       }}
     />
-    <meta name="theme-color" content="#f2f2f2" />
+    <meta name="theme-color" content="#fff" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       rel="preconnect"
