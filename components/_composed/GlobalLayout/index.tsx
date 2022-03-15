@@ -48,7 +48,7 @@ const ComposedGlobalLayout: FC<
 
     {children}
 
-    <Layout>
+    <Layout css={(theme) => ({ marginTop: theme.spacing(1) })}>
       <Footer
         css={(theme) => ({
           marginBottom: theme.spacing(1),
