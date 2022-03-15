@@ -10,7 +10,7 @@ const Template: ComponentStory<typeof Header> = (args) => <Header {...args} />;
 
 export const Primary = Template.bind({});
 
-export const Dark = Template.bind({});
-Dark.args = {
-  palette: "dark",
+export const Gradient = Template.bind({});
+Gradient.args = {
+  palette: "gradient",
 };

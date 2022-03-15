@@ -31,7 +31,7 @@ declare module "@emotion/react" {
       clubs: "#98F3FF";
       hearts: "#7BD4FF";
       spades: "#82A7F8";
-      eth: "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)";
+      eth: "linear-gradient(90.19deg, #8482F8 14%, #A6FBF6 86.07%)";
       orange: "#F89D35";
       green: "#05CE78";
       red: "#C4161C";
@@ -102,8 +102,7 @@ export const theme: Theme = {
     clubs: "#98F3FF",
     hearts: "#7BD4FF",
     spades: "#82A7F8",
-    eth:
-      "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)",
+    eth: "linear-gradient(90.19deg, #8482F8 14%, #A6FBF6 86.07%)",
     orange: "#F89D35",
     green: "#05CE78",
     red: "#C4161C",
