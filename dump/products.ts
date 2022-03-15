@@ -9,6 +9,7 @@ export let products = [
     short: "Zero",
     price: 14.95,
     status: "instock",
+    id: "22124868567121",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero.png",
@@ -22,6 +23,7 @@ export let products = [
     short: "One",
     price: 14.95,
     status: "instock",
+    id: "12381601988689",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one.png",
@@ -35,6 +37,7 @@ export let products = [
     short: "Two",
     price: 14.95,
     status: "instock",
+    id: "12381603004497",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-two.png",
@@ -48,6 +51,7 @@ export let products = [
     short: "Three",
     price: 14.95,
     status: "instock",
+    id: "24231765639",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-three.png",
@@ -61,6 +65,7 @@ export let products = [
     short: "Special",
     price: 14.95,
     status: "soldout",
+    id: "24231824903",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special.png",
@@ -74,6 +79,7 @@ export let products = [
     short: "Future",
     price: 14.95,
     status: "instock",
+    id: "42012346384571",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i.png",
@@ -87,6 +93,7 @@ export let products = [
     deck: "future_ii",
     price: 14.95,
     status: "instock",
+    id: "42012347072699",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii.png",
@@ -98,8 +105,9 @@ export let products = [
     title: "Crypto Edition",
     deck: "crypto",
     short: "Crypto",
-    price: 14.95,
+    price: 99.95,
     status: "soon",
+    id: "39371978539056",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-crypto.png",
@@ -113,12 +121,13 @@ export let products = [
     short: "Zero",
     price: 24.95,
     status: "bundle",
+    id: "42012378595515",
     type: "bundle",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-bundle-2.png",
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-bundle-2.png",
-    info: "Future Editions I + II",
+    info: "Decks: Future Editions I + II",
   },
   {
     title: "3x Edition Bundle",
@@ -126,12 +135,13 @@ export let products = [
     short: "Zero",
     price: 34.95,
     status: "bundle",
+    id: "21312509018193",
     type: "bundle",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-bundle-3.png",
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-bundle-3.png",
-    info: "Editions One + Two + Three",
+    info: "Decks: Editions One + Two + Three",
   },
   {
     title: "Edition Zero",
@@ -139,6 +149,7 @@ export let products = [
     short: "Zero",
     price: 34.95,
     status: "soldout",
+    id: "32395075846192",
     type: "sheet",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-zero.png",
@@ -152,6 +163,7 @@ export let products = [
     short: "One",
     price: 34.95,
     status: "sheet",
+    id: "24234305607",
     type: "sheet",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-one.png",
@@ -165,6 +177,7 @@ export let products = [
     short: "Two",
     price: 34.95,
     status: "sheet",
+    id: "24234334087",
     type: "sheet",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-two.png",
@@ -178,6 +191,7 @@ export let products = [
     short: "Three",
     price: 34.95,
     status: "sheet",
+    id: "24235977607",
     type: "sheet",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-three.png",
@@ -191,6 +205,7 @@ export let products = [
     short: "Special",
     price: 34.95,
     status: "soldout",
+    id: "24236650759",
     type: "sheet",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-special.png",
@@ -204,6 +219,7 @@ export let products = [
     short: "Future",
     price: 34.95,
     status: "soldout",
+    id: "39371993874480",
     type: "sheet",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-future-i.png",
@@ -218,6 +234,7 @@ export let products = [
     type: "sheet",
     price: 34.95,
     status: "soldout",
+    id: "39371995807792",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-future-ii.png",
     image2:
