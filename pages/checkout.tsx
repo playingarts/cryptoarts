@@ -210,7 +210,19 @@ const Content: FC = () => {
                         currency: "EUR",
                       })}
                     </Text>
-                    <Button color="black">Check out</Button>
+                    <Button
+                      color="black"
+                      component={Link}
+                      href={`https://store.playingarts.com/cart/${Object.entries(
+                        bag
+                      )
+                        .map(
+                          ([id, quantity]) => `${parseInt(id, 10)}:${quantity}`
+                        )
+                        .join(",")}`}
+                    >
+                      Check out
+                    </Button>
                     <Line spacing={3} />
                     <Text css={{ margin: 0, opacity: 0.5 }}>
                       <Lock css={{ verticalAlign: "baseline" }} /> Secure
