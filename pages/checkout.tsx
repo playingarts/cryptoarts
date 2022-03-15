@@ -3,7 +3,7 @@ import { FC, Fragment } from "react";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
-import Button from "../components/Button";
+import Button, { Props as ButtonProps } from "../components/Button";
 import Text from "../components/Text";
 import Line from "../components/Line";
 import Lock from "../components/Icons/Lock";
@@ -20,6 +20,22 @@ import Arrowed from "../components/Arrowed";
 import ComposedFaq from "../components/_composed/Faq";
 import Grid from "../components/Grid";
 import StatBlock from "../components/StatBlock";
+
+const CheckOutButton: FC<ButtonProps> = (props) => {
+  const { bag } = useBag();
+
+  return (
+    <Button
+      {...props}
+      component={Link}
+      href={`https://store.playingarts.com/cart/${Object.entries(bag)
+        .map(([id, quantity]) => `${parseInt(id, 10)}:${quantity}`)
+        .join(",")}`}
+    >
+      Check out
+    </Button>
+  );
+};
 
 const Content: FC = () => {
   const { bag, updateQuantity, removeItem } = useBag();
@@ -210,19 +226,7 @@ const Content: FC = () => {
                         currency: "EUR",
                       })}
                     </Text>
-                    <Button
-                      color="black"
-                      component={Link}
-                      href={`https://store.playingarts.com/cart/${Object.entries(
-                        bag
-                      )
-                        .map(
-                          ([id, quantity]) => `${parseInt(id, 10)}:${quantity}`
-                        )
-                        .join(",")}`}
-                    >
-                      Check out
-                    </Button>
+                    <CheckOutButton color="black" />
                     <Line spacing={3} />
                     <Text css={{ margin: 0, opacity: 0.5 }}>
                       <Lock css={{ verticalAlign: "baseline" }} /> Secure
@@ -273,19 +277,14 @@ const Content: FC = () => {
   );
 };
 
-const Checkout: NextPage = () => {
-  return (
-    <ComposedGlobalLayout
-      customShopButton={<Button>Check out</Button>}
-      noNav={true}
-    >
-      <Head>
-        <title>Crypto Arts</title>
-      </Head>
+const Checkout: NextPage = () => (
+  <ComposedGlobalLayout customShopButton={<CheckOutButton />} noNav={true}>
+    <Head>
+      <title>Crypto Arts</title>
+    </Head>
 
-      <Content />
-    </ComposedGlobalLayout>
-  );
-};
+    <Content />
+  </ComposedGlobalLayout>
+);
 
 export default withApollo(Checkout);
