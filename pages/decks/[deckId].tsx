@@ -120,7 +120,7 @@ const Content: FC<{
         <CardList deckId={deck._id} />
       </Layout>
 
-      {deck.opensea && <ComposedPace collection={deck.opensea} />}
+      {deck.opensea && !cardId && <ComposedPace collection={deck.opensea} />}
 
       <Layout
         css={(theme) => ({
@@ -133,7 +133,11 @@ const Content: FC<{
       >
         <DeckBlock deck={deck} />
 
-        <AugmentedReality css={(theme) => ({ marginTop: theme.spacing(9) })} />
+        {deck.slug === "crypto" && (
+          <AugmentedReality
+            css={(theme) => ({ marginTop: theme.spacing(9) })}
+          />
+        )}
       </Layout>
 
       <Layout
@@ -211,7 +215,7 @@ const Deck: NextPage = () => {
       altNav={<DeckNav refs={{ cardsRef, deckRef, galleryRef }} />}
       showAltNav={altNavVisible}
       deckId={deckId instanceof Array ? deckId[0] : deckId}
-      palette="gradient"
+      palette={cardId ? undefined : "gradient"}
     >
       <Head>
         <title>Crypto Arts</title>
