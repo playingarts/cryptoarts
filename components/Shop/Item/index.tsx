@@ -8,7 +8,7 @@ import Text from "../../Text";
 interface Props extends HTMLAttributes<HTMLElement> {
   image: string;
   image2: string;
-  price: string | number;
+  price: number;
   short: string;
   ButtonProps: ButtonProps;
 }
@@ -78,7 +78,10 @@ const ShopItem: FC<Props> = ({
             {short}
           </Text>
           <Text variant="body2" css={{ opacity: 0.5, margin: 0 }}>
-            {typeof price === "string" ? price : `€${price.toFixed(2)}`}
+            {price.toLocaleString(undefined, {
+              style: "currency",
+              currency: "EUR",
+            })}
           </Text>
         </div>
         <Button {...ButtonProps} Icon={Bag}>

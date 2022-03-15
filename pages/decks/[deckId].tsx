@@ -15,7 +15,6 @@ import { withApollo } from "../../source/apollo";
 import { useRouter } from "next/router";
 import DeckBlock from "../../components/DeckBlock";
 import BlockTitle from "../../components/BlockTitle";
-import ComposedGallery from "../../components/_composed/Gallery";
 import Text from "../../components/Text";
 import Line from "../../components/Line";
 import DeckNav from "../../components/DeckNav";
@@ -32,6 +31,7 @@ import ComposedPace from "../../components/_composed/Pace";
 import MetamaskButton from "../../components/MetamaskButton";
 import CardList from "../../components/Card/List";
 import { Sections } from "../../source/enums";
+import AugmentedReality from "../../components/AugmentedReality";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -66,8 +66,8 @@ const Content: FC<{
           css={(theme) => ({
             background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
             color: theme.colors.light_gray,
-            paddingTop: theme.spacing(30),
-            paddingBottom: theme.spacing(12),
+            paddingTop: theme.spacing(36.5),
+            paddingBottom: theme.spacing(6),
           })}
         >
           <Grid>
@@ -120,34 +120,35 @@ const Content: FC<{
         <CardList deckId={deck._id} />
       </Layout>
 
-      {deck.opensea && <ComposedPace collection={deck.opensea} />}
+      {deck.opensea && !cardId && <ComposedPace collection={deck.opensea} />}
 
       <Layout
         css={(theme) => ({
           paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(9),
+          paddingBottom: theme.spacing(6),
+          background: theme.colors.page_bg_light_gray,
         })}
         ref={deckRef}
         scrollIntoView={section === Sections.deck}
       >
         <DeckBlock deck={deck} />
+
+        {deck.slug === "crypto" && (
+          <AugmentedReality
+            css={(theme) => ({ marginTop: theme.spacing(9) })}
+          />
+        )}
       </Layout>
 
       <Layout
         scrollIntoView={section === Sections.gallery}
         ref={galleryRef}
         css={(theme) => ({
-          paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(15),
+          paddingTop: theme.spacing(12),
+          paddingBottom: theme.spacing(12),
         })}
       >
-        <ComposedGallery />
-        <Grid
-          css={(theme) => ({
-            marginBottom: theme.spacing(10),
-            marginTop: theme.spacing(10),
-          })}
-        >
+        <Grid>
           <div css={{ gridColumn: "span 3", textAlign: "center" }}>
             <Esquire />
           </div>
@@ -214,6 +215,7 @@ const Deck: NextPage = () => {
       altNav={<DeckNav refs={{ cardsRef, deckRef, galleryRef }} />}
       showAltNav={altNavVisible}
       deckId={deckId instanceof Array ? deckId[0] : deckId}
+      palette={cardId ? undefined : "gradient"}
     >
       <Head>
         <title>Crypto Arts</title>

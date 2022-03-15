@@ -6,9 +6,22 @@ import Footer from "../../../components/Footer";
 const ComposedGlobalLayout: FC<
   Pick<
     HeaderProps,
-    "altNav" | "showAltNav" | "customShopButton" | "noNav" | "deckId"
+    | "altNav"
+    | "showAltNav"
+    | "customShopButton"
+    | "noNav"
+    | "deckId"
+    | "palette"
   >
-> = ({ noNav, altNav, showAltNav, customShopButton, deckId, children }) => (
+> = ({
+  noNav,
+  altNav,
+  showAltNav,
+  customShopButton,
+  deckId,
+  palette,
+  children,
+}) => (
   <Fragment>
     <Header
       css={(theme) => ({
@@ -30,11 +43,12 @@ const ComposedGlobalLayout: FC<
       showAltNav={showAltNav}
       customShopButton={customShopButton}
       noNav={noNav}
+      palette={palette}
     />
 
     {children}
 
-    <Layout>
+    <Layout css={(theme) => ({ marginTop: theme.spacing(1) })}>
       <Footer
         css={(theme) => ({
           marginBottom: theme.spacing(1),

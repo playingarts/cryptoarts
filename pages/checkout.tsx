@@ -99,13 +99,14 @@ const Content: FC = () => {
 
       {products.length > 0 && (
         <Fragment>
-          <Layout>
-            <Grid
-              css={(theme) => ({
-                marginTop: theme.spacing(6),
-                marginBottom: theme.spacing(15),
-              })}
-            >
+          <Layout
+            css={(theme) => ({
+              background: theme.colors.page_bg_gray,
+              paddingTop: theme.spacing(6),
+              paddingBottom: theme.spacing(15),
+            })}
+          >
+            <Grid>
               <div css={{ gridColumn: "span 9" }}>
                 {products.map((product, index) => (
                   <Fragment key={product._id}>
@@ -204,7 +205,10 @@ const Content: FC = () => {
                         marginBottom: theme.spacing(2),
                       })}
                     >
-                      €{totalPrice.toLocaleString()}
+                      {totalPrice.toLocaleString(undefined, {
+                        style: "currency",
+                        currency: "EUR",
+                      })}
                     </Text>
                     <Button color="black">Check out</Button>
                     <Line spacing={3} />
@@ -242,7 +246,7 @@ const Content: FC = () => {
         </Fragment>
       )}
 
-      <Layout>
+      <Layout css={(theme) => ({ background: theme.colors.page_bg_gray })}>
         <Grid>
           <ComposedFaq
             css={(theme) => ({

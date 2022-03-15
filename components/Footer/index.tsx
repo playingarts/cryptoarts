@@ -14,15 +14,12 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
     <div
       {...props}
       css={(theme) => ({
-        background: theme.colors.light_gray,
+        background: theme.colors.page_bg_light_gray,
+        color: theme.colors.text_subtitle_dark,
         borderRadius: theme.spacing(1),
       })}
     >
-      <Grid
-        css={(theme) => ({
-          color: theme.colors.text_subtitle_dark,
-        })}
-      >
+      <Grid>
         {[
           [
             {
@@ -146,7 +143,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
       <Line spacing={3} />
 
       <Grid>
-        <div css={{ gridColumn: "span 6", opacity: 0.25 }}>
+        <div css={{ gridColumn: "span 6", opacity: 0.5 }}>
           <Text variant="h6" component="h2" css={{ margin: 0 }}>
             playing arts project
           </Text>

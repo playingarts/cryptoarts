@@ -11,7 +11,7 @@ import Link from "../Link";
 import { useDeck } from "../../hooks/deck";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
-  palette?: "dark";
+  palette?: "gradient";
   customShopButton?: JSX.Element;
   altNav?: JSX.Element;
   showAltNav?: boolean;
@@ -83,13 +83,13 @@ const Header: FC<Props> = ({
             zIndex: 1,
             overflow: "hidden",
           },
-          palette === "dark"
+          palette === "gradient"
             ? {
-                background: theme.colors.dark_gray,
-                color: theme.colors.text_subtitle_light,
+                background: theme.colors.gradient,
               }
             : {
-                background: theme.colors.gradient,
+                background: theme.colors.dark_gray,
+                color: theme.colors.text_subtitle_light,
               },
         ]}
       >
@@ -102,7 +102,7 @@ const Header: FC<Props> = ({
             marginRight: theme.spacing(2.5),
             padding: 0,
             color:
-              palette === "dark"
+              palette !== "gradient"
                 ? theme.colors.text_subtitle_light
                 : theme.colors.dark_gray,
           })}
@@ -169,9 +169,8 @@ const Header: FC<Props> = ({
         >
           <Link href="/">
             <LogoIcon
-              gradient={palette === "dark"}
               css={(theme) => [
-                palette === "dark" && {
+                palette !== "gradient" && {
                   color: theme.colors.text_subtitle_light,
                 },
               ]}
@@ -199,9 +198,9 @@ const Header: FC<Props> = ({
           Icon={Bell}
           css={(theme) => ({
             color:
-              palette === "dark"
-                ? theme.colors.text_subtitle_light
-                : theme.colors.dark_gray,
+              palette === "gradient"
+                ? theme.colors.dark_gray
+                : theme.colors.text_subtitle_light,
             marginRight: theme.spacing(2),
           })}
         />
@@ -210,7 +209,12 @@ const Header: FC<Props> = ({
           {customShopButton ? (
             customShopButton
           ) : (
-            <Button component={Link} href="/shop" Icon={Bag}>
+            <Button
+              component={Link}
+              href="/shop"
+              Icon={Bag}
+              color={palette === "gradient" ? "black" : undefined}
+            >
               Shop
             </Button>
           )}

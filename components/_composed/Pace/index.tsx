@@ -1,5 +1,4 @@
 import { FC } from "react";
-import AugmentedReality from "../../AugmentedReality";
 import BlockTitle from "../../BlockTitle";
 import Grid from "../../Grid";
 import Opensea from "../../Icons/Opensea";
@@ -83,8 +82,6 @@ const ComposedPace: FC<Props> = ({ collection }) => {
           deck={collection}
         />
       </Grid>
-
-      <AugmentedReality />
     </Layout>
   );
 };

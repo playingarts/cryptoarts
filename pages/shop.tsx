@@ -73,6 +73,7 @@ const Content: FC = () => {
         css={(theme) => ({
           paddingTop: theme.spacing(6),
           paddingBottom: theme.spacing(15),
+          background: theme.colors.page_bg_gray,
         })}
       >
         {cryptoDeck && (
@@ -197,7 +198,7 @@ const Content: FC = () => {
       >
         <ShopSheets products={sheets} />
       </Layout>
-      <Layout>
+      <Layout css={(theme) => ({ background: theme.colors.page_bg_gray })}>
         <Grid>
           <ComposedFaq
             css={(theme) => ({

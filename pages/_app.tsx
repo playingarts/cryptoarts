@@ -15,24 +15,26 @@ declare module "@emotion/react" {
       slow: (property: string | string[]) => string;
     };
     colors: {
-      page_bg_gray: string;
-      page_bg_dark: string;
-      dark_gray: string;
-      light_gray: string;
-      page_bg_light: string;
-      text_title_dark: string;
-      text_subtitle_dark: string;
-      text_title_light: string;
-      text_subtitle_light: string;
-      gradient: string;
-      diamonds: string;
-      clubs: string;
-      hearts: string;
-      spades: string;
-      eth: string;
-      orange: string;
-      green: string;
-      red: string;
+      page_bg_white: "#FFF";
+      page_bg_light_gray: "#f2f2f2";
+      page_bg_gray: "#e5e5e5";
+      page_bg_dark: "#0A0A0A";
+      dark_gray: "#181818";
+      light_gray: "#DFDFDF";
+      page_bg_light: "#EAEAEA";
+      text_title_dark: "#0A0A0A";
+      text_subtitle_dark: "rgba(10, 10, 10, 0.5)";
+      text_title_light: "rgba(255, 255, 255, 0.9)";
+      text_subtitle_light: "rgba(234, 234, 234, 0.5)";
+      gradient: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)";
+      diamonds: "#CDB0FF";
+      clubs: "#98F3FF";
+      hearts: "#7BD4FF";
+      spades: "#82A7F8";
+      eth: "linear-gradient(90.19deg, #8482F8 14%, #A6FBF6 86.07%)";
+      orange: "#F89D35";
+      green: "#05CE78";
+      red: "#C4161C";
     };
     mq: { [index: string]: string };
     typography: {
@@ -84,6 +86,8 @@ export const theme: Theme = {
         : attrs.map((attr) => `${attr} 0.25s ease`).join(", "),
   },
   colors: {
+    page_bg_white: "#FFF",
+    page_bg_light_gray: "#f2f2f2",
     page_bg_gray: "#e5e5e5",
     page_bg_dark: "#0A0A0A",
     dark_gray: "#181818",
@@ -98,8 +102,7 @@ export const theme: Theme = {
     clubs: "#98F3FF",
     hearts: "#7BD4FF",
     spades: "#82A7F8",
-    eth:
-      "linear-gradient(90.19deg, #82A7F8 14%, #A6FBF6 50.04%, #CDB0FF 86.07%)",
+    eth: "linear-gradient(90.19deg, #8482F8 14%, #A6FBF6 86.07%)",
     orange: "#F89D35",
     green: "#05CE78",
     red: "#C4161C",

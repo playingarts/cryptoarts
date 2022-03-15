@@ -95,7 +95,10 @@ const ShopCheckoutItem: FC<Props> = ({
           })}
         >
           <Text variant={priceVariant} css={{ margin: 0 }}>
-            €{price.toLocaleString()}
+            {price.toLocaleString(undefined, {
+              style: "currency",
+              currency: "EUR",
+            })}
           </Text>
           {remove && (
             <Text
