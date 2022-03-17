@@ -69,7 +69,7 @@ const CardBlock: FC<Props> = ({
           <Text
             component={Link}
             href={{
-              pathname: "decks/[deckId]",
+              pathname: "/decks/[deckId]",
               query: {
                 deckId: deck.slug,
               },
@@ -92,7 +92,7 @@ const CardBlock: FC<Props> = ({
           <Button
             component={Link}
             href={{
-              pathname: "decks/[deckId]",
+              pathname: "/decks/[deckId]",
               query: {
                 deckId: deck.slug,
               },
