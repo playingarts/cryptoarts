@@ -24,5 +24,6 @@ export const connect = async () => {
       : {}),
   });
 
+  mongoose.set("useFindAndModify", false);
   mongoose.set("returnOriginal", false);
 };

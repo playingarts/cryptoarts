@@ -12,8 +12,8 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   video: String,
   info: String,
   value: String,
-  suit: String,
   background: { type: String, default: null },
+  suit: String,
   opensea: String,
   artist: { type: Types.ObjectId, ref: "Artist" },
   deck: { type: Types.ObjectId, ref: "Deck" },
@@ -21,9 +21,21 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
 
 export const Card = (models.Card as Model<MongoCard>) || model("Card", schema);
 
-const getCards = (deck?: string) => Card.find(deck ? { deck } : {});
+export const getCards = ({ deck, shuffle, limit }: GQL.QueryCardsArgs) =>
+  ((Card.find(deck ? { deck } : {}).populate([
+    "artist",
+    "deck",
+  ]) as unknown) as Promise<GQL.Card[]>)
+    .then((cards) =>
+      shuffle ? cards.sort(() => Math.random() - Math.random()) : cards
+    )
+    .then((cards) => (limit ? cards.slice(0, limit) : cards));
 
-const getCard = (id: string) => Card.findById(id);
+export const getCard = ({ id }: GQL.QueryCardArgs) =>
+  (Card.findById(id).populate([
+    "artist",
+    "deck",
+  ]) as unknown) as Promise<GQL.Card>;
 
 export const resolvers: GQL.Resolvers = {
   Card: {
@@ -35,22 +47,8 @@ export const resolvers: GQL.Resolvers = {
       )),
   },
   Query: {
-    cards: (_, { deck, shuffle, limit }) => {
-      return ((getCards(deck).populate([
-        "artist",
-        "deck",
-      ]) as unknown) as Promise<GQL.Card[]>)
-        .then((cards) =>
-          shuffle ? cards.sort(() => Math.random() - Math.random()) : cards
-        )
-        .then((cards) => (limit ? cards.slice(0, limit) : cards));
-    },
-    card: (_, { id }) => {
-      return (getCard(id).populate([
-        "artist",
-        "deck",
-      ]) as unknown) as Promise<GQL.Card>;
-    },
+    cards: (_, args) => getCards(args),
+    card: (_, args) => getCard(args),
   },
 };
 

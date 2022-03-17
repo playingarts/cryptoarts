@@ -28,6 +28,7 @@ interface Query {
   opensea: Opensea;
   holders: Holders;
   deal?: Maybe<Deal>;
+  dailyCard: Card;
 }
 
 
@@ -412,6 +413,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'deck'>>;
   holders?: Resolver<ResolversTypes['Holders'], ParentType, ContextType, RequireFields<QueryHoldersArgs, 'deck'>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deck'>>;
+  dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {

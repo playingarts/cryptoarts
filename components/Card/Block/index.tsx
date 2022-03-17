@@ -68,11 +68,16 @@ const CardBlock: FC<Props> = ({
           </Text>
           <Text
             component={Link}
-            href="/"
+            href={{
+              pathname: "decks/[deckId]",
+              query: {
+                deckId: deck.slug,
+              },
+            }}
             variant="label"
             css={{ opacity: 0.5 }}
           >
-            <Arrowed>For Crypto Edition</Arrowed>
+            <Arrowed>For {deck.title}</Arrowed>
           </Text>
           <Quote
             fullArtist={true}
@@ -83,8 +88,17 @@ const CardBlock: FC<Props> = ({
             {card.info}
           </Quote>
           <Line spacing={3} />
-          <Button component={Link} href="/">
-            View crypto edition
+
+          <Button
+            component={Link}
+            href={{
+              pathname: "decks/[deckId]",
+              query: {
+                deckId: deck.slug,
+              },
+            }}
+          >
+            View {deck.title}
           </Button>
         </Fragment>
       ) : (

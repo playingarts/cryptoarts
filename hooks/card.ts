@@ -1,4 +1,4 @@
-import { gql, QueryHookOptions, useLazyQuery } from "@apollo/client";
+import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 
 export const CardsQuery = gql`
   query Cards($deck: ID) {
@@ -65,6 +65,26 @@ const CardQuery = gql`
   }
 `;
 
+const DailyCardQuery = gql`
+  query DailyCard {
+    dailyCard {
+      _id
+      img
+      video
+      info
+      background
+      artist {
+        name
+      }
+      deck {
+        slug
+        title
+        cardBackground
+      }
+    }
+  }
+`;
+
 export const useLoadCards = (
   options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
 ) => {
@@ -96,4 +116,15 @@ export const useLoadRandomCards = (
   ] = useLazyQuery(RandomCardsQuery, options);
 
   return { loadRandomCards, ...methods, cards };
+};
+
+export const useDailyCard = (
+  options: QueryHookOptions<Pick<GQL.Query, "dailyCard">> = {}
+) => {
+  const {
+    data: { dailyCard } = { dailyCard: undefined },
+    ...methods
+  } = useQuery(DailyCardQuery, options);
+
+  return { ...methods, dailyCard };
 };
