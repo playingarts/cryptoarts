@@ -132,19 +132,9 @@ const Card: FC<Props> = ({
                 alt={card.info}
                 css={(theme) => ({ borderRadius: theme.spacing(1.5) })}
                 onLoadingComplete={hideLoader}
+                unoptimized={true}
               />
             </div>
-          )}
-          {!loaded && (
-            <Loader
-              css={(theme) => ({
-                color: theme.colors.light_gray,
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              })}
-            />
           )}
           {card.video && (
             <video
@@ -163,6 +153,17 @@ const Card: FC<Props> = ({
             >
               <source src={card.video} type="video/mp4" />
             </video>
+          )}
+          {!loaded && (
+            <Loader
+              css={(theme) => ({
+                color: theme.colors.light_gray,
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              })}
+            />
           )}
         </div>
       </div>
