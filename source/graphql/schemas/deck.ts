@@ -10,7 +10,8 @@ const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   image: String,
   description: { type: String, default: null },
   properties: { type: Object, default: {} },
-  opensea: { type: String, default: null },
+  openseaCollection: { type: String, default: null },
+  openseaContract: { type: String, default: null },
   cardBackground: { type: String, default: null },
 });
 
@@ -47,7 +48,8 @@ export const typeDefs = gql`
     short: String!
     info: String!
     slug: ID!
-    opensea: String
+    openseaCollection: String
+    openseaContract: String
     cardBackground: String
     image: String
     properties: JSON!

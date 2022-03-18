@@ -86,7 +86,8 @@ interface Deck {
   short: Scalars['String'];
   info: Scalars['String'];
   slug: Scalars['ID'];
-  opensea?: Maybe<Scalars['String']>;
+  openseaCollection?: Maybe<Scalars['String']>;
+  openseaContract?: Maybe<Scalars['String']>;
   cardBackground?: Maybe<Scalars['String']>;
   image?: Maybe<Scalars['String']>;
   properties: Scalars['JSON'];
@@ -135,6 +136,7 @@ interface Card {
   value: Scalars['String'];
   opensea?: Maybe<Scalars['String']>;
   background?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
 }
 
 interface Product {
@@ -422,7 +424,8 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  openseaCollection?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  openseaContract?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   cardBackground?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   properties?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
@@ -471,6 +474,7 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   background?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

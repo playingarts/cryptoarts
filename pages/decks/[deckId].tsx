@@ -120,7 +120,9 @@ const Content: FC<{
         <CardList deckId={deck._id} />
       </Layout>
 
-      {deck.opensea && !cardId && <ComposedPace collection={deck.opensea} />}
+      {deck.openseaCollection && !cardId && (
+        <ComposedPace collection={deck.openseaCollection} />
+      )}
 
       <Layout
         css={(theme) => ({

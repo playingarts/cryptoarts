@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model, Types } from "mongoose";
 import { getDeck } from "./deck";
+import { getCardPrice } from "./opensea";
 
 export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
   artist?: string;
@@ -45,6 +46,7 @@ export const resolvers: GQL.Resolvers = {
       (await getDeck({ _id: (deck as unknown) as string }).then(
         (deck) => deck && deck.cardBackground
       )),
+    price: getCardPrice,
   },
   Query: {
     cards: (_, args) => getCards(args),
@@ -69,5 +71,6 @@ export const typeDefs = gql`
     value: String!
     opensea: String
     background: String
+    price: Float
   }
 `;

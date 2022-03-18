@@ -6,7 +6,7 @@ const DeckDataFragment = gql`
     info
     title
     slug
-    opensea
+    openseaCollection
     short
     image
     properties

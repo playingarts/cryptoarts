@@ -8,7 +8,8 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   short: "Crypto",
   slug,
   info: "",
-  opensea: "cryptoedition",
+  openseaCollection: "cryptoedition",
+  openseaContract: "0xC22616E971a670E72F35570337e562c3E515FBFE",
   cardBackground: "#181818",
   image:
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_crypto.jpg",

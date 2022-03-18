@@ -1,4 +1,4 @@
-import { FC, Fragment, HTMLAttributes } from "react";
+import { FC, Fragment, HTMLAttributes, useEffect } from "react";
 import Button from "../../Button";
 import Text from "../../Text";
 import Eth from "../../Icons/Eth";
@@ -6,15 +6,31 @@ import Opensea from "../../Icons/Opensea";
 import Line from "../../Line";
 import Bag from "../../Icons/Bag";
 import Link from "../../Link";
+import { useLoadCard } from "../../../hooks/card";
+import { useRouter } from "next/router";
+import Loader from "../../Loader";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   artist: GQL.Artist;
-  price: number;
   deck: GQL.Deck;
   opensea?: string;
 }
 
-const CardInfo: FC<Props> = ({ artist, deck, opensea, price, ...props }) => {
+const CardInfo: FC<Props> = ({ artist, deck, opensea, ...props }) => {
+  const {
+    query: { cardId },
+  } = useRouter();
+
+  const { card, loadCard, loading } = useLoadCard();
+
+  useEffect(() => {
+    if (deck.slug !== "crypto") {
+      return;
+    }
+
+    loadCard({ variables: { id: cardId } });
+  }, [deck.slug, cardId, loadCard]);
+
   return (
     <div {...props}>
       <Text component="h2" css={{ margin: 0 }}>
@@ -23,64 +39,76 @@ const CardInfo: FC<Props> = ({ artist, deck, opensea, price, ...props }) => {
       <Text component="div" variant="h6">
         {artist.country}
       </Text>
-      {price && (
-        <Fragment>
-          <Line size={1} spacing={3} />
-          <div
-            css={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            {deck.slug === "crypto" ? (
-              opensea ? (
-                <Button
-                  Icon={Opensea}
-                  component={Link}
-                  href={opensea}
-                  target="_blank"
-                  css={(theme) => ({
-                    color: theme.colors.dark_gray,
-                    background: theme.colors.gradient,
-                    marginRight: theme.spacing(2),
-                  })}
-                >
-                  Buy NFT
-                </Button>
-              ) : null
-            ) : (
+      <Line size={1} spacing={3} />
+      <div
+        css={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        {deck.slug === "crypto" ? (
+          opensea ? (
+            <Fragment>
               <Button
-                Icon={Bag}
+                Icon={Opensea}
                 component={Link}
-                href="/shop"
+                href={opensea}
+                target="_blank"
                 css={(theme) => ({
+                  color: theme.colors.dark_gray,
+                  background: theme.colors.gradient,
                   marginRight: theme.spacing(2),
                 })}
               >
-                Buy {deck.title}
+                Buy NFT
               </Button>
-            )}
-            <Text
-              variant="h4"
-              component="div"
-              css={{
-                flexGrow: 1,
-                display: "flex",
-                justifyContent: "flex-end",
-                alignItems: "baseline",
-              }}
-            >
-              <span>{price}</span>
-              <Eth
-                css={(theme) => ({
-                  marginLeft: theme.spacing(1),
-                })}
-              />
-            </Text>
-          </div>
-        </Fragment>
-      )}
+              {loading ? (
+                <Loader
+                  css={{
+                    flexGrow: 1,
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    alignItems: "baseline",
+                  }}
+                />
+              ) : (
+                card &&
+                card.price && (
+                  <Text
+                    variant="h4"
+                    component="div"
+                    css={{
+                      flexGrow: 1,
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItems: "baseline",
+                    }}
+                  >
+                    <span>{card.price}</span>
+                    <Eth
+                      css={(theme) => ({
+                        marginLeft: theme.spacing(1),
+                      })}
+                    />
+                  </Text>
+                )
+              )}
+            </Fragment>
+          ) : null
+        ) : (
+          <Button
+            Icon={Bag}
+            component={Link}
+            href="/shop"
+            css={(theme) => ({
+              marginRight: theme.spacing(2),
+            })}
+          >
+            Buy {deck.title}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

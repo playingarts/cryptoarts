@@ -1,6 +1,9 @@
 import { gql } from "@apollo/client";
 import S3 from "aws-sdk/clients/s3";
 import GraphQLJSON from "graphql-type-json";
+import Web3 from "web3";
+import { OpenSeaPort, Network } from "opensea-js";
+import memoizee from "memoizee";
 
 const {
   FULL_DECK_HOLDERS_FILE_NAME = "",
@@ -11,12 +14,109 @@ const {
   S3_BUCKET: Bucket = "",
   S3_KEY: accessKeyId = "",
   S3_SECRET: secretAccessKey = "",
+  OPENSEA_KEY: apiKey = "",
 } = process.env;
-
-const s3Client = new S3({
-  accessKeyId,
-  secretAccessKey,
+const s3Client = new S3({ accessKeyId, secretAccessKey });
+const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io");
+const seaport = new OpenSeaPort(provider, {
+  networkName: Network.Main,
+  apiKey,
 });
+
+interface Asset {
+  token_id: string;
+  sell_orders: {
+    base_price: string;
+  }[];
+  traits: {
+    trait_type: string;
+    value: string;
+  }[];
+}
+
+const getAssetsRaw = (
+  contract: string,
+  allAssets: Asset[] = [],
+  cursor = ""
+): Promise<Asset[]> =>
+  seaport.api
+    .get<{
+      assets: Asset[];
+      next: string | null;
+    }>("/api/v1/assets", {
+      asset_contract_address: contract,
+      limit: 200,
+      include_orders: true,
+      cursor,
+    })
+    .then(({ assets, next }) => {
+      allAssets = [...allAssets, ...assets];
+
+      if (!next) {
+        return allAssets;
+      }
+
+      return getAssetsRaw(contract, allAssets, next);
+    })
+    .catch((error) => {
+      console.log("Failed to get OpenSea Assets:", error);
+
+      return new Promise<Asset[]>((resolve) =>
+        setTimeout(
+          () => resolve(getAssetsRaw(contract, allAssets, cursor)),
+          error.message.includes("Error 429") ? 1000 : 500
+        )
+      );
+    });
+
+export const getCardPrice = async (card: GQL.Card) => {
+  if (!card.suit || !card.deck || !card.deck.openseaContract) {
+    return;
+  }
+
+  const assets = await getAssets(card.deck.openseaContract);
+  const orders = assets
+    .filter(
+      ({ token_id, sell_orders, traits }) =>
+        token_id &&
+        sell_orders &&
+        traits.filter(
+          ({ trait_type, value }) =>
+            (trait_type === "Suit" && value.toLowerCase() === card.suit) ||
+            (trait_type === "Value" && value.toLowerCase() === card.value)
+        ).length === 2
+    )
+    .map((item) => item.sell_orders)
+    .flat();
+
+  return orders.reduce<number | undefined>((minPrice, { base_price }) => {
+    if (!base_price) {
+      return minPrice;
+    }
+
+    const price = parseFloat(Web3.utils.fromWei(base_price, "ether"));
+
+    if (!minPrice) {
+      return price;
+    }
+
+    return Math.min(price, minPrice);
+  }, undefined);
+};
+
+const getAssets = memoizee(
+  process.env.NODE_ENV === "development"
+    ? async () =>
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        require("../../../mocks/assets.json") as Asset[]
+    : getAssetsRaw,
+  {
+    length: 1,
+    primitive: true,
+    maxAge: 1000 * 60 * 60,
+    preFetch: true,
+  }
+);
 
 const readKey: <T = GQL.Holder[]>(Key: string) => Promise<T> = (Key) =>
   new Promise((resolve) =>

@@ -8,17 +8,18 @@ const { PORT = "3000" } = process.env;
 const app = next({ dev: process.env.NODE_ENV === "development" });
 const handle = app.getRequestHandler();
 
-app.prepare().then(async () => {
-  const server = express();
+app
+  .prepare()
+  .then(connect)
+  .then(() => {
+    const server = express();
 
-  await connect();
+    server.use(expressLogger);
 
-  server.use(expressLogger);
+    if (process.env.NODE_ENV !== "development") {
+      server.use(redirector({ trustProxy: true }));
+    }
 
-  if (process.env.NODE_ENV !== "development") {
-    server.use(redirector({ trustProxy: true }));
-  }
-
-  server.all("*", (req, res) => handle(req, res));
-  server.listen(PORT);
-});
+    server.all("*", (req, res) => handle(req, res));
+    server.listen(PORT);
+  });

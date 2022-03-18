@@ -30,5 +30,4 @@ const TemplateBlack: ComponentStory<typeof CardInfo> = (args) => (
 export const WithPrice = TemplateBlack.bind({});
 WithPrice.args = {
   ...Primary.args,
-  price: 0.275,
 };

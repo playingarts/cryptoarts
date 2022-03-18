@@ -49,18 +49,7 @@ const CardQuery = gql`
   query Card($id: ID!) {
     card(id: $id) {
       _id
-      img
-      video
-      info
-      background
-      artist {
-        name
-        userpic
-        info
-        social {
-          facebook
-        }
-      }
+      price
     }
   }
 `;
