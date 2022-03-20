@@ -41,61 +41,62 @@ const CardInfo: FC<Props> = ({ artist, deck, opensea, ...props }) => {
       </Text>
       <Line size={1} spacing={3} />
       <div
-        css={{
+        css={(theme) => ({
           width: "100%",
           display: "flex",
           alignItems: "center",
-        }}
+          height: theme.spacing(5),
+        })}
       >
-        {deck.slug === "crypto" ? (
-          opensea ? (
-            <Fragment>
-              <Button
-                Icon={Opensea}
-                component={Link}
-                href={opensea}
-                target="_blank"
-                css={(theme) => ({
-                  color: theme.colors.dark_gray,
-                  background: theme.colors.gradient,
-                  marginRight: theme.spacing(2),
-                })}
-              >
-                Buy NFT
-              </Button>
-              {loading ? (
-                <Loader
+        {opensea ? (
+          loading ? (
+            <Loader
+              css={{
+                flexGrow: 1,
+                display: "flex",
+                justifyContent: "flex-end",
+                alignItems: "baseline",
+              }}
+            />
+          ) : (
+            card &&
+            (card.price ? (
+              <Fragment>
+                <Button
+                  Icon={Opensea}
+                  component={Link}
+                  href={opensea}
+                  target="_blank"
+                  css={(theme) => ({
+                    color: theme.colors.dark_gray,
+                    background: theme.colors.gradient,
+                    marginRight: theme.spacing(2),
+                  })}
+                >
+                  Buy NFT
+                </Button>
+                <Text
+                  variant="h4"
+                  component="div"
                   css={{
                     flexGrow: 1,
                     display: "flex",
                     justifyContent: "flex-end",
                     alignItems: "baseline",
                   }}
-                />
-              ) : (
-                card &&
-                card.price && (
-                  <Text
-                    variant="h4"
-                    component="div"
-                    css={{
-                      flexGrow: 1,
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItems: "baseline",
-                    }}
-                  >
-                    <span>{card.price}</span>
-                    <Eth
-                      css={(theme) => ({
-                        marginLeft: theme.spacing(1),
-                      })}
-                    />
-                  </Text>
-                )
-              )}
-            </Fragment>
-          ) : null
+                >
+                  <span>{card.price}</span>
+                  <Eth
+                    css={(theme) => ({
+                      marginLeft: theme.spacing(1),
+                    })}
+                  />
+                </Text>
+              </Fragment>
+            ) : (
+              <Button disabled={true}>Sold out</Button>
+            ))
+          )
         ) : (
           <Button
             Icon={Bag}
