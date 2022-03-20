@@ -6,9 +6,9 @@ import Nav from "../Nav";
 import Text from "../Text";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
-import Bell from "../Icons/Bell";
 import Link from "../Link";
 import { useDeck } from "../../hooks/deck";
+import MetamaskButton from "../MetamaskButton";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "gradient";
@@ -194,13 +194,9 @@ const Header: FC<Props> = ({
           </div>
         )}
 
-        <Button
-          Icon={Bell}
+        <MetamaskButton
+          noLabel={true}
           css={(theme) => ({
-            color:
-              palette === "gradient"
-                ? theme.colors.dark_gray
-                : theme.colors.text_subtitle_light,
             marginRight: theme.spacing(2),
           })}
         />

@@ -6,14 +6,19 @@ import Button, { Props as ButtonProps } from "../Button";
 import Metamask from "../Icons/Metamask";
 import Link from "../Link";
 
-const MetamaskButton: FC<
-  ButtonProps & PartialRecord<MetaMaskState["status"], string>
-> = ({
+interface Props
+  extends ButtonProps,
+    PartialRecord<MetaMaskState["status"], string> {
+  noLabel?: boolean;
+}
+
+const MetamaskButton: FC<Props> = ({
   connected = "Connected",
   notConnected = "Connect MetaMask",
   connecting = "Connecting",
   initializing = "Initializing",
   unavailable = "Install MetaMask",
+  noLabel,
   ...props
 }) => {
   const { status, connect } = useMetaMask();
@@ -27,8 +32,9 @@ const MetamaskButton: FC<
           background: theme.colors.green,
           color: theme.colors.text_title_light,
         })}
+        title={connected}
       >
-        {connected}
+        {!noLabel && connected}
       </Button>
     );
   }
@@ -43,8 +49,9 @@ const MetamaskButton: FC<
           color: theme.colors.text_title_light,
         })}
         onClick={connect}
+        title={notConnected}
       >
-        {notConnected}
+        {!noLabel && notConnected}
       </Button>
     );
   }
@@ -58,8 +65,9 @@ const MetamaskButton: FC<
           background: theme.colors.spades,
           color: theme.colors.text_title_light,
         })}
+        title={connecting}
       >
-        {connecting}
+        {!noLabel && connecting}
       </Button>
     );
   }
@@ -73,8 +81,9 @@ const MetamaskButton: FC<
           background: theme.colors.spades,
           color: theme.colors.text_title_light,
         })}
+        title={initializing}
       >
-        {initializing}
+        {!noLabel && initializing}
       </Button>
     );
   }
@@ -91,8 +100,9 @@ const MetamaskButton: FC<
         component={Link}
         href="https://metamask.io/download/"
         target="_blank"
+        title={unavailable}
       >
-        {unavailable}
+        {!noLabel && unavailable}
       </Button>
     );
   }

@@ -28,7 +28,6 @@ import throttle from "just-throttle";
 import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
 import ComposedCardContent from "../../components/_composed/CardContent";
 import ComposedPace from "../../components/_composed/Pace";
-import MetamaskButton from "../../components/MetamaskButton";
 import CardList from "../../components/Card/List";
 import { Sections } from "../../source/enums";
 import AugmentedReality from "../../components/AugmentedReality";
@@ -107,9 +106,6 @@ const Content: FC<{
           <BlockTitle
             title="Cards"
             subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
-            {...(deckId === "crypto" && {
-              action: <MetamaskButton />,
-            })}
             css={(theme) => ({
               gridColumn: "2 / span 10",
               marginBottom: theme.spacing(4),
