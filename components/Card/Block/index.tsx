@@ -111,6 +111,7 @@ const CardBlock: FC<Props> = ({
           key={card._id}
           fullArtist={true}
           artist={card.artist}
+          withoutName={true}
           vertical={true}
           truncate={7}
         >

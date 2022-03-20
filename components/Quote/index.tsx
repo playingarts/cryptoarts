@@ -21,6 +21,7 @@ const socialIcons: Record<string, FC> = {
 };
 
 interface Props extends HTMLAttributes<HTMLElement> {
+  withoutName?: boolean;
   withLine?: boolean;
   moreLink?: string;
   artist?: GQL.Artist;
@@ -30,6 +31,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const Quote: FC<Props> = ({
+  withoutName,
   children,
   withLine,
   moreLink,
@@ -103,15 +105,17 @@ const Quote: FC<Props> = ({
                 />
               )}
               <div>
-                <Text
-                  variant="h5"
-                  css={(theme) => ({
-                    marginTop: theme.spacing(1.2),
-                    marginBottom: theme.spacing(1.2),
-                  })}
-                >
-                  {artist.name}
-                </Text>
+                {!withoutName && (
+                  <Text
+                    variant="h5"
+                    css={(theme) => ({
+                      marginTop: theme.spacing(1.2),
+                      marginBottom: theme.spacing(1.2),
+                    })}
+                  >
+                    {artist.name}
+                  </Text>
+                )}
                 {fullArtist && (
                   <Truncate
                     variant="body2"
