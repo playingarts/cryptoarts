@@ -104,7 +104,7 @@ const Content: FC<{
       >
         <Grid>
           <BlockTitle
-            title="Cards"
+            title={cardId ? deck.title : "Cards"}
             subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
             css={(theme) => ({
               gridColumn: "2 / span 10",
