@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
-import { FC, HTMLAttributes, useEffect } from "react";
-import { useLoadCards } from "../../../hooks/card";
+import { FC, HTMLAttributes } from "react";
+import { useCards } from "../../../hooks/card";
 import Card from "../../Card";
 import Grid from "../../Grid";
 import Link from "../../Link";
@@ -11,15 +11,9 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 const CardList: FC<Props> = ({ deckId, ...props }) => {
   const { query } = useRouter();
-  const { loadCards, cards, loading } = useLoadCards();
-
-  useEffect(() => {
-    loadCards({
-      variables: {
-        deck: deckId,
-      },
-    });
-  }, [deckId, loadCards]);
+  const { cards, loading } = useCards({
+    variables: { deck: deckId },
+  });
 
   if (loading || !cards) {
     return null;

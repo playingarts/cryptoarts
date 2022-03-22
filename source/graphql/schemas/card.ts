@@ -22,8 +22,18 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
 
 export const Card = (models.Card as Model<MongoCard>) || model("Card", schema);
 
-export const getCards = ({ deck, shuffle, limit }: GQL.QueryCardsArgs) =>
-  ((Card.find(deck ? { deck } : {}).populate([
+export const getCards = async ({
+  deck,
+  shuffle,
+  limit,
+}: GQL.QueryCardsArgs) => {
+  if (deck && !Types.ObjectId.isValid(deck)) {
+    const { _id } = (await getDeck({ slug: deck })) || {};
+
+    deck = _id;
+  }
+
+  return ((Card.find(deck ? { deck } : {}).populate([
     "artist",
     "deck",
   ]) as unknown) as Promise<GQL.Card[]>)
@@ -31,6 +41,7 @@ export const getCards = ({ deck, shuffle, limit }: GQL.QueryCardsArgs) =>
       shuffle ? cards.sort(() => Math.random() - Math.random()) : cards
     )
     .then((cards) => (limit ? cards.slice(0, limit) : cards));
+};
 
 export const getCard = ({ id }: GQL.QueryCardArgs) =>
   (Card.findById(id).populate([

@@ -74,6 +74,17 @@ const DailyCardQuery = gql`
   }
 `;
 
+export const useCards = (
+  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+) => {
+  const { data: { cards } = { cards: undefined }, ...methods } = useQuery(
+    CardsQuery,
+    options
+  );
+
+  return { ...methods, cards };
+};
+
 export const useLoadCards = (
   options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
 ) => {
