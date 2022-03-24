@@ -45,15 +45,6 @@ export const cards = [
       "In my image of 2120, the cult of individualism would have progressed to the point where people have little to no interest in forming couples or being in romantic relationships. They are stuck between their instinctive need for love and the desire to protect their personal space. Unwillingness to compromise followed by a lack of emotional intelligence might put family institutions at the edge of extinction.",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/future/cards/olga-zalite.jpg",
-    Poster: "poster-yes",
-    imagePoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/posters/olga-zalite.jpg",
-    textPoster:
-      "This artwork is available as museum-quality poster made on thick and durable matte paper. Add a wonderful accent to your room and office with these posters that are sure to brighten any environment.",
-    linkPoster:
-      "https://www.redbubble.com/i/poster/The-Future-of-Relationship-by-zalite/46681276.LVTDI",
-    shopPoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/shops/redbubble.png",
     winner: true,
   },
   {
@@ -179,15 +170,6 @@ export const cards = [
       "'Ambassadors from different countries are admitted to the residence of the king' — one of the values of the 5 hearts that I found. This metaphor can mean the need for humanity to accept distinct life forms as equal or even superior. What if in the future, artificial intelligence will develop the capacity for empathy and love? How will they see the difference in the level of consciousness between humanity, the animal and plant world, and themselves. And what will they feel about it? Perhaps the roles may change.",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/future/cards/evgenia-makarova.jpg",
-    Poster: "poster-yes",
-    imagePoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/posters/evgenia-makarova.jpg",
-    textPoster:
-      "This artwork is available as museum-quality poster made on thick and durable matte paper. Add a wonderful accent to your room and office with these posters that are sure to brighten any environment.",
-    linkPoster:
-      "https://society6.com/product/future-love2748743_print?curator=digital",
-    shopPoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/shops/society6.png",
     winner: true,
   },
   {
@@ -292,15 +274,6 @@ export const cards = [
       "Corporation MEGACORP knows you're tired of the same stale bottled and recycled air. Breathe new life into your day with Flora® — the all-natural eco-approach to the oxygen generation. Featuring a sleek and efficient tank design as well as stylish Old Earth looking plants, you will have your own private oasis on the Space Train to the Cosmic Mines. Pre-order today to receive your complementary OxySpheres® to add even more 'freshness' to your breathing experience.",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/future/cards/ryan-coleman.jpg",
-    Poster: "poster-yes",
-    imagePoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/posters/ryan-coleman.jpg",
-    textPoster:
-      "This artwork is available as museum-quality poster made on thick and durable matte paper. Add a wonderful accent to your room and office with these posters that are sure to brighten any environment.",
-    linkPoster:
-      "https://pixelypixels.com/collections/prints/products/future-flora",
-    shopPoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/shops/pixelypixels.png",
     winner: true,
   },
   {
@@ -338,7 +311,7 @@ export const cards = [
   {
     value: "9",
     suit: "clubs",
-    artist: "laimutė-varkalaitė",
+    artist: "laimute-varkalaite",
     info:
       "Natural mental humanity — the name of my art work, which reveals a code of the idea. I hope that the world 100 years from now will be more natural and humanity will become wiser. Although many of us can not imagine the future without modern technologies and robotics, the situation nowadays makes me feel that the way of survival is humaneness and close connection with our environment. My work is a symbol of this idea: human's communication with human, keeping our surroundings green, clean and safe, finding more time for ourselves and living in harmony with nature. ",
     img:
@@ -390,7 +363,7 @@ export const cards = [
   {
     value: "10",
     suit: "diamonds",
-    artist: "xave-(xavier-sánchez)",
+    artist: "xave",
     info:
       "The future is a projection of our imagination since the moment you are reading this, it becomes the Present. Otherwise Robots and space fields.",
     img: "https://s3.amazonaws.com/img.playingarts.com/future/cards/xave.jpg",
@@ -515,7 +488,7 @@ export const cards = [
   {
     value: "king",
     suit: "diamonds",
-    artist: "raúl-gil",
+    artist: "raul-gil",
     info:
       "Diamonds in the French deck were generally linked to the economy and monarchy of the Middle Ages, being the card of the King of Diamonds someone powerful, rich and influential, king of kings and the economy at the same time. Who could play both roles in the future? Absolute sovereign of the economic functioning of the world. Ruler of all the invisible mechanisms that govern our society. Perhaps an artificial intelligence, raised as a higher entity? Always vigilant, always present, nothing escapes its control from its octahedral cubicle.",
     img:
@@ -614,7 +587,7 @@ export const cards = [
   {
     value: "joker",
     suit: "red",
-    artist: "dani-blázquez",
+    artist: "dani-blazquez",
     info:
       "As if it were a science fiction story, what if the figure of the joker had transcended the icon and had become a key character in the cities of a dystopian future? An outsider. A kind of cyborg that mixes the classic outfit of a court minstrel with the most advanced technology in robotics",
     img:
@@ -2371,15 +2344,6 @@ export const cards = [
       "After several mass extinctions and runaway climate chaos humanity now clings to a few remaining specimens from the once abundant natural world. Only a century ago there were 600 species of oak but now, in 2120, only a handful of trees remain. These greatly cherished specimens are on life support, sealed behind glass in climate controlled environments. Visiting elders gaze with sad nostalgia whilst children stand in awe, imagining what it might be like to climb the branches or sit under it's shade. This suit of diamonds represents the material world and it's corresponding element is Earth. The 4 of diamonds can signify major change, future troubles, important revelations or good advice from an old friend. It’s tarot equivalent; the 4 of Pentacles is associated with scarcity, conservation, security, control, possessiveness and greed. This card symbolises the need for humanity to listen to nature and radically transform our overly materialistic and unsustainable lifestyles, to avoid a grim and impoverished future.",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/future/cards/rick-a-crane.jpg",
-    Poster: "poster-yes",
-    imagePoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/posters/rick-a-crane.jpg",
-    textPoster:
-      "This artwork is available as an art print in custom sizes, based on artwork dimensions. Gallery-quality vibrant colors, Images are centered on lightly textured 100% cotton paper.",
-    linkPoster:
-      "https://www.redbubble.com/i/art-print/The-Last-Oak-Tree-by-thepapercrane/48383710.1G4ZT",
-    shopPoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/shops/redbubble.png",
     winner: false,
   },
   {
@@ -2622,15 +2586,6 @@ export const cards = [
       "What if the future will be similar to what Gene Roddenberry imagined? A world of plenty, where material needs have been met for everybody, where humans spend their lives learning, exploring, creating. Improbable, but interesting to imagine! Ah, and there will be teleportation, of course.",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/future/cards/diana-stanciulescu.jpg",
-    Poster: "poster-yes",
-    imagePoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/posters/diana-stanciulescu.jpg",
-    textPoster:
-      "This artwork is available as an art print on natural white, matte, ultra smooth background. 100% cotton, acid and lignin-free archival paper. Custom trimmed with border for framing.",
-    linkPoster:
-      "https://society6.com/product/the-future2819409_print?curator=digital",
-    shopPoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/shops/society6.png",
     winner: false,
   },
   {
@@ -3119,14 +3074,6 @@ export const cards = [
       "2 Spades Idea - Maybe one day we will find a portal to the future and we will have a chance to reach out and meet with someone who was on the other side ... The idea of using such a portal excites and intrigues me. Would you take a chance?",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/future/cards/knysh-ksenya.jpg",
-    Poster: "poster-yes",
-    imagePoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/posters/knysh-ksenya.jpg",
-    textPoster:
-      "This artwork is available as a gallery-quality giclée art print on 100% cotton rag archival paper, printed with archival inks. Each art print is listed by sheet size and features a minimum one-inch border.",
-    linkPoster: "https://www.inprnt.com/gallery/knysh_ksenya/future/",
-    shopPoster:
-      "https://s3.amazonaws.com/img.playingarts.com/future/shops/inprnt.png",
     winner: false,
   },
   {

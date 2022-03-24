@@ -3,3602 +3,7503 @@ import { connect } from "../source/mongoose";
 
 export const artists = [
   {
-    name: "Natalia Koniuszy",
+    slug: "gian-wong",
+    name: "Gian Wong",
+    country: "Philippines",
+    info:
+      "Gian is a designer & illustrator who creates funky type-based design for brands—and for fun. He loves working on expressive lettering, playful shapes, and colors that pack a punch.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/gian-wong.jpg",
+    website: "https://gianwong.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/giancarlowong/",
+      facebook: "https://www.facebook.com/designbygian",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "diego-marmolejo",
+    name: "Diego Marmolejo",
+    country: "Spain",
+    info:
+      "Hi, my name is Diego Marmolejo and I live in Barcelona. I'm a normal person who draws weird stuff. I like talking with my fingers.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/diego-marmolejo.jpg",
+    website: "http://www.diegomarmolejo.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/ddidak",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "olga-zalite",
+    name: "Olga Zalite",
+    country: "United States / Russia",
+    info:
+      "Olga Zalite is a freelance illustrator who crafts stories populated by characters that are simple, fun and cheeky. She gravitates towards warm colors, whimsical shapes, and chaotic compositions. Olga's a Saint Petersburg native currently working and living in the San Francisco Bay Area with her husband Jared and an imaginary dog Shostakovich.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/olga-zalite.jpg",
+    website: "https://olgazalite.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/foodgreedstruggle/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "https://dribbble.com/zalite",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "abraham-mast",
+    name: "Abraham Mast",
+    country: "United States",
+    info:
+      "I am an animator and graphic designer. My introduction to computer art started at the very young age of 10. After melting my mom's old laptop because I tried rendering a complex scene, I realized the world of computer imagery needs more than just an old laptop plugged into a VGA monitor. Fast forward to now, I have self-taught myself animation and design. I have had the pleasure of serving many clients from around the world, creating animations, music videos, posters, branding, and commercials.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/abraham-mast.jpg",
+    website: "https://abrahammast.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/abrahammast/",
+      facebook: "",
+      twitter: "https://twitter.com/abrahammast",
+      behance: "https://vimeo.com/abrahammast",
+      dribbble: "https://www.youtube.com/abrahammast",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "antoine-goulet",
+    name: "Antoine Goulet",
+    country: "Canada",
+    info:
+      "Specialized in branding and advertising, Quebec-city based graphic designer Antoine Goulet is known for his loud and creative work.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/antoine-goulet.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/antoinegoulet",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "el-diex",
+    name: "el Diex",
+    country: "Mexico",
+    info:
+      "I'm a graphic designer, illustrator & beer enthusiast based in Mexico City. Always trying to improve my skills, learn new things & meet creative people.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/el-diex.jpg",
+    website: "http://eldiex.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/eldiex_art/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "mike-karolos",
+    name: "Mike Karolos",
+    country: "Greece",
+    info:
+      "Mike Karolos was born in 1984 in Manchester UK but has lived his whole life in Greece. His first steps in the world of design where through graffiti. He then studied Graphic Design, worked in various design agencies and now works as a freelancer doing illustrations, package design and branding for clients around the world. His signature style is a hybrid of geometric and pop art.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/mike-karolos.jpg",
+    website: "https://smirapdesigns.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/smirapdesigns/",
+      facebook: "https://www.facebook.com/SmirapDesigns/",
+      twitter: "",
+      behance: "https://www.behance.net/SmirapDesigns",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "angela-bardakjian",
+    name: "Angela Bardakjian",
+    country: "Armenia/UAE",
+    info:
+      "Angela Bardakjian is an Armenian art director, designer, and letterer. Exploring the world through lines, letters. Creating unique visuals is her passion. She loves to travel and meet creatives from around the world. She is currently based in Dubai. ",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/angela-bardakjian.jpg",
+    website: "https://angelabardakjian.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/angelabardakjian/",
+      facebook: "https://www.facebook.com/Abardakjian",
+      twitter: "https://twitter.com/A_Bardakjian",
+      behance: "https://www.behance.net/AngelaBardakjian",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "toma-studio",
+    name: "Toma Studio",
+    country: "Italy",
+    info: "Toma is an independent studio working between Italy and Greece.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/toma-studio.jpg",
+    website: "http://www.tomastudio.gr/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/tomastudio.gr/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "maria-kulinskaya",
+    name: "Maria Kulinskaya",
+    country: "Poland",
+    info:
+      "Hi! I am an illustrator, graphic and motion designer from Belarus living in Poland. I have been working as a branding designer, then as a designer in advertising agency. For the last 6 years I have been working as a freelancer creating illustrations, graphic design and explainer videos.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/maria-kulinskaya.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/makky.studio/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/mariakulinskaya",
+      dribbble: "https://dribbble.com/kulinskaya",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "luis-pinto",
+    name: "Luis Pinto",
+    country: "México",
+    info:
+      "Luis is a Mexican graphic designer/illustrator currently based in Guatemala. Most of Luis’ work is colorful, conceptual and expressive. He loves to use and experiment with a variety of mediums. He’s influenced by folk stories, graphic novels, art history and pop culture. His illustrations appear in advertising, murals and magazines for clients that include Google, Little White Lies, Guzmán & Gómez and many more.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/luis-pinto.jpg",
+    website: "https://luispintodesign.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/luispins/",
+      facebook: "",
+      twitter: "https://twitter.com/luispins",
+      behance: "https://www.behance.net/luispintos",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "manuel-kilger",
+    name: "Manuel Kilger",
+    country: "Germany",
+    info:
+      "Manuel Kilger is an illustrator originally from Bavaria, Germany. In 2009 he received his diploma in communication design and illustration. Currently he resides in Nuremberg, Germany and works as a freelance illustrator for diverse clients like magazines, advertising agencies, games companies and many more. Aditionally he regularly takes part in various exhibitions both nationally and internationally. His artwork is characterized by a huge imagination, richness of detail and often an ironic and funny touch.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/manuel-kilger.jpg",
+    website: "http://manuelkilger.com/",
+    shop: "",
+    social: {
+      instagram: "http://instagram.com/manuelkilger",
+      facebook: "http://facebook.com/schattenkino",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "illustrescu",
+    name: "Illustrescu",
+    country: "Romania",
+    info:
+      "Hello, my name is Vlad Dumitrescu, born and raised in Romania, I'm the illustrator behind the alter-ego illustrescu. I'm a self-taught artist, who learned the way of Adobe Illustrator and loves combining creativity with vector illustrations in order to give visual life to ideas.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/illustrescu.jpg",
+    website: "http://www.illustrescu.ro/",
+    shop: "",
+    social: {
+      instagram: "http://www.instagram.com/illustrescu",
+      facebook: "http://www.facebook.com/illustrescu",
+      twitter: "",
+      behance: "http://www.behance.net/illustrescu",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "amatita-studio",
+    name: "Amatita Studio",
+    country: "Spain",
+    info:
+      "Amatita Studio is a creative duo born from the combination of ideas of an illustrator and an animator, based in Valencia, Spain. Our work specializes in illustration, animation, lettering and our inspirations comes mainly from the world outside and the shared passion for cartoons and illustrated stories. We love what we do and we like to challenge ourselves in order to improve and reach new goals. ",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/amatita-studio.jpg",
+    website: "http://www.amatitastudio.com/",
+    shop: "",
+    social: {
+      instagram: "http://www.instagram.com/amatita_studio",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "http://www.dribbble.com/amatitastudio",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "evgenia-makarova",
+    name: "Evgenia Makarova",
+    country: "Russia",
+    info:
+      "Hello! I am Evgenia, I live and draw in St. Petersburg, which is in Russia. Freelance illustrator since 2016. In love with lines and color spots.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/evgenia-makarova.png",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/janevineart/",
+      facebook: "",
+      twitter: "https://twitter.com/EvgeniaMakarova",
+      behance: "https://www.behance.net/evgeniamakarova",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "antonio-uve",
+    name: "Antonio Uve",
+    country: "Spain",
+    info:
+      "An illustrator based on the south of Spain who loves create characters utilizing simple shapes, textures and bright colors.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/antonio-uve.jpg",
+    website: "http://antoniouve.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/mr_uve/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "javier-perez",
+    name: "Javier Perez",
+    country: "Ecuador",
+    info:
+      "Javier Pérez aka cintascotch, is an audiovisual producer and partner of the digital agency 'Cafeína' (Guayaquil-Ecuador). He have won several awards of posters, illustration and animation. He became known worldwide for his project 'Instagram Experiments' where he combines illustrations with real objects. He want people to be able to take a break from the saturation of photos in general. His clients includes: Santillana, Volkswagen, Cosmopolitan, 7UP, Samsung, National Geographic, Money Magazine and Oprah Magazine. His motto: “Create every day. No matter your skills”.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/javier-perez.jpg",
+    website: "http://www.cintascotch.com/",
+    shop: "",
+    social: {
+      instagram: "http://www.instagram.com/cintascotch",
+      facebook: "",
+      twitter: "http://www.twitter.com/cintascotch",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "andrea-bojkovska",
+    name: "Andrea Bojkovska",
+    country: "North Macedonia",
+    info:
+      "Like many illustrators, drawing was Andrea’s passion from early childhood. She has M.Architecture degree. She works both as an architect and an illustrator. Her architectural background contributes a lot to the development of her illustration style. Her goal is to create conceptually-driven, inspiring and memorable illustrations. She is constantly thriving to produce bold and often metaphorical work - to represent ordinary things in a different way. Currently she is a freelance multidisciplinary designer based both in Ljubljana and Skopje. She is working for a publishing agency as a book cover illustrator. ",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/andrea-bojkovska.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/andrea_iris/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/andreairis",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "ana-gomez-bernaus",
+    name: "Ana Gomez Bernaus",
+    country: "Spain / United States",
+    info:
+      "I’m an illustrator and lettering artist originally from Barcelona and currently based in Los Angeles. I work in a wide range of media, from film titles to TV and print advertising campaigns, apparel and editorial. My clients include AIGA, Adobe, Converse, Los Angeles Magazine, Microsoft, Nike, Trident and Sherwin Williams among others.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/ana-gomez-bernaus.jpg",
+    website: "https://anenocena.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/anenocena/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/AnaGomezBernaus",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "adriana-garcia",
+    name: "Adriana Garcia",
+    country: "Bolivia",
+    info:
+      "Adriana is a freelance illustrator, she thinks paper and pencil are great resources to try to understand what is happening around, and inside of us.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/adriana-garcia.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/bla_blagh/",
+      facebook: "https://www.facebook.com/adrianagarciaherbas",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "pj-offner",
+    name: "PJ Offner",
+    country: "South Africa",
+    info:
+      "PJ Offner is an Illustrator working freelance in Cape Town, South Africa. Born in 1993. Studied Graphic Design and worked in the animation industry for 5 years as Creative Director at Bewilder TV. Since going freelance he has been working illustration for the animation industry and working with clients all over the world specialising in creating bold graphic images.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/pj-offner.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/pjoffner/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/pjoffner",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "ollie-hirst",
+    name: "Ollie Hirst",
+    country: "United Kingdom",
+    info:
+      "I’m a conceptual illustrator, working and living in Manchester, UK. Illustration makes me tick. Though it’s not the only thing that does. I’m a cardiac pacemaker patient. So, whilst I put my heart into drawing, it gets help from time to time. I have a natural affinity to science and the human body, but I tend to just love subjects that resonate in the real world. I like my work to hinge on a strong idea and the concept usually drives it, helped by a splash of colour. My illustration spans across editorial & advertising, working with the likes of The Washington Post, The Financial Times, Adobe, WeTransfer and the Royal College of Speech and Language Therapists, among others.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/ollie-hirst.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "http://www.instagram.com/olliehirstillustration",
+      facebook: "",
+      twitter: "http://www.twitter.com/olliehirst",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "marc-urtasun",
+    name: "Marc Urtasun",
+    country: "Spain",
+    info:
+      "I’m a freelance designer from Barcelona, passionate about 3d, typography, illustration, sculpture, design, animation... and a lot of things that I have to discover yet… I’ve been designing for 7 years and I feel lucky since I still love what I do.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/marc-urtasun.jpg",
+    website: "http://www.marcurtasun.com/shop",
+    shop: "",
+    social: {
+      instagram: "http://www.instagram.com/marc.urtasun",
+      facebook: "",
+      twitter: "",
+      behance: "http://www.behance.net/marcurtasun",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "fran-labuschagne",
+    name: "Fran Labuschagne",
+    country: "South Africa",
+    info:
+      "I am an illustrator from South Africa with a love of bold colours and elegant shapes.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/fran-labuschagne.jpg",
+    website: "https://franlabuschagne.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/franlabuschagne/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "ryan-coleman",
+    name: "Ryan Coleman",
+    country: "Canada",
+    info:
+      "I'm a freelance illustrator and designer living in Ottawa, ON, Canada.  I like to draw nerdy things with vectors and sometimes pixels.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/ryan-coleman.jpg",
+    website: "",
+    shop: "https://pixelypixels.com/",
+    social: {
+      instagram: "https://www.instagram.com/coleman811/",
+      facebook: "",
+      twitter: "https://twitter.com/Coleman811",
+      behance: "https://www.behance.net/coleman811",
+      dribbble: "https://dribbble.com/Coleman811",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "long-vu",
+    name: "Long Vu",
+    country: "United States",
+    info:
+      "Long Vu is an art director & designer from Hanoi, Vietnam, currently working in Brooklyn, New York. His work spans from branding and art direction to product and interactive design. He’s had the privilege of working across a broad range of clients in innovation, technology, fashion and music. His recognitions include The FWA, Awwwards, Fast Co Innovation by Design among others.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/long-vu.png",
+    website: "http://long.vu/",
+    shop: "",
+    social: {
+      instagram: "http://instagram.com/lgvu",
+      facebook: "",
+      twitter: "https://twitter.com/llucvu",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "peter-cobo",
+    name: "Peter Cobo",
+    country: "Spain",
+    info:
+      "I’m a freelance designer, illustrator and animator based in Madrid. Always working with passion in new projects for clients all over the world and seeking new challenges. I love travel, music and good food. And snowboarding. A lot.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/peter-cobo.jpg",
+    website: "https://petercobo.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/petercobo/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/petercobo",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "noonmoon",
+    name: "Noonmoon",
+    country: "Canada",
+    info:
+      "Noonmoon is the working alias for Andy Wang - an illustrator and branding designer based in Vancouver, Canada. His illustration works can be described as minimalist, flat, and often whimsical with a hint of satire.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/noonmoon.jpg",
+    website: "https://www.noonmoondesign.com/",
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "https://www.facebook.com/noonmoondesign/",
+      twitter: "",
+      behance: "https://www.behance.net/noonmoon",
+      dribbble: "https://dribbble.com/noonmoon",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "laimute-varkalaite",
+    name: "Laimutė Varkalaitė",
+    country: "Lithuania",
+    info:
+      "I am an illustrator and graphic designer, based in Lithuania. Drawing is an essential graphic expression for me which reveals how I perceive a surroundings and everything it contains. During the creative activity I have noticed that there are two ways to realize a language of images. The first one describes a technique and materials, how the illustration was made. Main aspects of analysis become these: a graphic style, lines, colors, shapes, characters, composition. A perceiver's eye reaches all that quite quickly. But — what really the artist aims to say by his artwork? That is why there is another much more important point how the illustration works and makes some feelings. This invisible thing takes a great role and is the main one to achieve a close relationship between the art work and the perceiver. Unseen part of the illustration has an impact on our emotions, changes an attitude to something we had known before in our own way and inspires us to find out something new about ourselves. And — the new story of the piece of art begins and becomes relevant individually. I love drawing, to create it with traditional and digital graphic techniques, seeing how it is born on a paper or screen. My inspiration for creativity is human, nature and their connection. It makes me feel free in creativity and fosters to create worlds inspired by my observations, feelings, experiences or even communication with people. I am working in the field of illustration and graphic design and love taking part in international contests. Also I create self-promotional projects, by making their narratives and showing my own perception of the world to others. I love sharing gained new practice and graphic expressions of my imagination, because I believe that it could inspire someone to encourage him to reveal his worldview and enrich a variety of creativity palette.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/laimute-varkalaite.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/laimutevarkalaite/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/laimutevarkalaite",
+      dribbble: "https://dribbble.com/LaimuteVarkalaite",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "mildeo",
+    name: "Mildeo",
+    country: "Lithuania",
+    info:
+      "My name is Milda and I am an illustrator and mural artist. I love to explore and draw nature, topics that relate to ecology, mental health, relationships. I love playing with colors, for me it is a way of communication.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/mildeo.jpg",
+    website: "http://www.mildeo.eu/",
+    shop: "",
+    social: {
+      instagram: "http://instagram.com/mildeo",
+      facebook: "https://www.facebook.com/mildeo",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "maria-fedoseeva",
+    name: "Maria Fedoseeva",
+    country: "Russia",
+    info:
+      "Maria Fedoseeva is an artist from Moscow. She started career as a print graphic designer in 2009. Maria had switched to illustration in 2014. Her artworks were shortlisted in Communication Arts Competition 2019 and 2020. Maria prefers vector graphics for its perfect lines and shapes.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/maria-fedoseeva.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/mahriyta/",
+      facebook: "https://www.facebook.com/maria.savchenko.737",
+      twitter: "",
+      behance: "https://www.behance.net/msavchenko",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "victor-vergara",
+    name: "Victor Vergara",
+    country: "Colombia",
+    info:
+      "I am visual designer from Bellas Artes University in Medellín. I have professionally working on web design and user experience. However, illustration is one of my passions.  I enjoy drawing spontaneuosly during my free time. My inspiration is nature and the variety colors and shapes that you can find on it.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/victor-vergara.jpg",
+    website: "https://www.victorvergara.co/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/vcomics/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/victorscomics",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "alex-pogrebniak",
+    name: "Alex Pogrebniak",
+    country: "Poland",
+    info:
+      "Hello, my name is Alex, I'm an illustrator and creative designer from Warsaw, Poland. I work in different styles: digital art, drawing and painting. One of my main interests is logo design, branding and web design. I'm interested in the art of the renaissance, surrealism, modern and art deco.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/alex-pogrebniak.jpg",
+    website: "https://alexpogrebniak.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/alex_pogrebniak_/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/alexpogr",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "xave",
+    name: "Xave (Xavier Sánchez)",
+    country: "Spain",
+    info:
+      "XAVE (Storyteller - Illustrator). Multidisciplinary Artist (visual Designer / Illustrator), specialized in Brands developing, Editorial Illustrations, Muralist (big format art), commercial and non-commercial fields for street art and craft hands products, also apprentice in gardening.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/xave.jpg",
+    website: "http://www.xave.es/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/xave/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/xave",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "ilyas-bentaleb",
+    name: "Ilyas Bentaleb",
+    country: "Algeria",
+    info:
+      "I'm Ilyas Bentaleb aka Ilyastrator. I'm 23, & I'm an award winning designer from Algeria & currently living in Algiers, where I run my creative digital studio: VIBRAND. I love collaborations & working on developing new concepts & visuals. For me, Design is a lifestyle & it's like a spiritual practice that opens your senses to the whole universe & creates a triangular affinity with the tools & the subject of design.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/ilyas-bentaleb.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/ilyastrator",
+      facebook: "https://facebook.com/vibrandstudio/",
+      twitter: "",
+      behance: "https://www.behance.net/IlyasBentaleb",
+      dribbble: "https://dribbble.com/Ilyas_Bentaleb",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "muti",
+    name: "MUTI",
+    country: "South Africa",
+    info:
+      "MUTI is a creative studio founded in 2011, based in the city of Cape Town, South Africa.We're a dedicated team of illustrators and designers who are passionate about producing original and inspiring artwork, from lettering to icons, digital painting to animation.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/muti.jpg",
+    website: "www.studiomuti.co.za",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/studiomuti/",
+      facebook: "https://www.facebook.com/studioMUTI/",
+      twitter: "https://twitter.com/studioMUTI",
+      behance: "",
+      dribbble: "https://dribbble.com/studioMUTI",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "andra-popovici",
+    name: "Andra Popovici",
+    country: "Romania",
+    info:
+      "Andra is an independent illustrator currently based in Bucharest, Romania, but often traveling and working remotely from warmer places, while also learning about different cultures and experimenting with local cuisines. With a keen interest in behavioral sciences and the human brain, Andra got her Master’s Degree in Cognitive-behavioral psychotherapy after graduating from the University of Psychology and Educational Sciences in Bucharest and decided to pursue illustration instead after being lured and felling in love with the field 8 years ago. Since then, she had the privilege of working closely with amazing clients, international brands and agencies from all over the world, such as: Apple, Wacom, Ui Path and many more. Her illustrations are characterized by intricate and eye-catching details, whimsical compositions and colorful universes, plus some weird looking characters when the project allows to. Being in love with nature, she often incorporates into her work organic forms like foliage, trees, and sometimes animals. Apart from drawing, Andra’s biggest passions are traveling, the unhealthy potato chips and her latest discovered passion for birds and bird watching. ",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/andra-popovici.jpg",
+    website: "https://andrapopovici.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/andrapopovici/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/andra",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "charlie-davis",
+    name: "Charlie Davis",
+    country: "United Kingdom",
+    info:
+      "Charlie is an London based illustrator who’s work combines graphic simplicity with a rich mix of explorative colour, texture and pattern. Having studied illustration at Falmouth University he went on to spend 5 years as a graphic designer in London before becoming a full-time illustrator. Charlie has worked on a variety of advertising, packaging and editorial commissions.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/charlie-davis.jpg",
+    website: "https://www.charliedavisillustration.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/charliedavisillustration/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/Charlie_Davis",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "daniel-shubin",
+    name: "Daniel Shubin",
+    country: "Russia",
+    info:
+      "Hello. I am an illustrator born in the center of Russia in the Yekaterinburg  city. I have two entities. The first is an art college where I graduated as a teacher of painting. The second is the Ural State University of Architecture and Arts where I was lucky to get a specialty of industrial designer. One year I served in the Russian Army. And after I worked for 5 years in an advertising agency as a creative designer, where I took part in the development of advertising campaigns. I hated with all my heart office work and early awakenings in the morning. Since 2013, I began working as a freelancer. I love traveling by car.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/daniel-shubin.jpg",
+    website: "https://www.danielshubin.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/danielshubin/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/SHUBIN",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "zinkete",
+    name: "Zinkete",
+    country: "Spain",
+    info: "illustrator, street artist, toy maker... always drawing kid",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/zinkete.jpg",
+    website: "http://zinkete.com/",
+    shop: "",
+    social: {
+      instagram: "http://instagram.com/zinkete",
+      facebook: "",
+      twitter: "https://twitter.com/zinkete",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "aleksandra-marchocka",
+    name: "Aleksandra Marchocka",
+    country: "Poland",
+    info:
+      "I'm a digital illustrator from Poland. In my personal work cuteness and cruelty fade into one another. I love creating game art, clothing designs and tattoo concepts.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/aleksandra-marchocka.jpg",
+    website: "http://olamarchocka.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/aleksandracupcake/",
+      facebook: "https://www.facebook.com/aleksandracupcake",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "anna-kuptsova",
+    name: "Anna Kuptsova",
+    country: "Ukraine",
+    info:
+      "I’m Anna, an illustrator and creative designer born in Ukraine. I graduated from British Higher School of Art and Design and dedicated last 10 years to illustration, design and art direction. My main interest lies in developing and creating illustrations for editorial, brand key visuals and websites.  I draw my inspirations from cinematography, works of twentieth century artists, science fiction, fine arts and of course my favorite music.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/anna-kuptsova.jpg",
+    website: "https://annamystory.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/anniko_story/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "ruben-ireland",
+    name: "Ruben Ireland",
+    country: "United Kingdom",
+    info:
+      "Working as an illustrator and graphic artist in the Uk, Ruben Ireland creates minimal portraits using both traditional and digital techniques. Portraying mostly women, animals and natural elements, he uses symbology and iconographic concepts to explore emotional states, consciousness, dualism and the balance between chaos and order. This glimpse at the inner self, as a consequence, relates beautifully to the outside world in turn.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/ruben-ireland.jpg",
+    website: "http://www.rubenireland.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/rubenireland/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "one-horse-town",
+    name: "One Horse Town",
+    country: "South Africa",
+    info:
+      "I, Simon Berndt, AKA One Horse Town, am a South African illustrator and poster artist based in Cape Town. I've been working as an illustrator since 2009. I love posters, cooking and far out rock n roll. I live with my wife, three cats and my dog.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/one-horse-town.jpg",
+    website: "https://1horsetown.co.za/",
+    shop: "https://shop.1horsetown.co.za/",
+    social: {
+      instagram: "https://www.instagram.com/1horsetown",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "renaud-lavency",
+    name: "Renaud Lavency",
+    country: "Belgium",
+    info:
+      "I'm an illustrator and art director working mostly for animated videos. I have been Art director in an advertising agency for 5 years right after an advertising school. I have learned a lot during this period and I decided to follow my passion and try to make my place in illustration 2 years ago. Never regretted this choice! Since I'm a freelancer I always dig for new challenges that can help me improve my skills. I'm also good at growing my beard, by the way ;)",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/renaud-lavency.jpg",
+    website: "https://www.renaudlavency.com/#1",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/renaud_lavency/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/RenaudLavency",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "raul-gil",
+    name: "Raúl Gil",
+    country: "Spain",
+    info:
+      "Trained as a graphic designer in Barcelona, after almost twenty years dedicated to fields such as visual identity, user interface design or editorial design, I decided to focus on recovering my passion for drawing, directing it towards illustration and different artistic and communicative projects, in any medium in which images, words and/or interaction combine to tell stories.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/raul-gil.jpg",
+    website: "http://raul-gil.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/rgillustrator",
+      facebook: "",
+      twitter: "https://twitter.com/rgildesign",
+      behance: "",
+      dribbble: "https://dribbble.com/rgildesign",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "luna-buschinelli",
+    name: "Luna Buschinelli",
+    country: "Brazil",
+    info:
+      "Luna Buschinelli is a brazilian artist known for working inside her self-created universe, full of wonders and characters of her own - a universe which reflects our own feelings and emotions. Luna spotlighted with her huge colorful murals, while on paper her artwork was more serious and very much related to psychoanalysis and philosophy. Her first series of drawings, “Sentimentos”, was the start of a subject she still explores. She believes that “art is a giant road that leads to self knowledge and gets you in touch with your deepest feelings and questionings”. The purpose of her work, whilst being deep and sensitive, is to give her viewers that same experience, inviting them to access their feelings in an intimate manner.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/luna-buschinelli.jpg",
+    website: "http://www.lunabuschinelli.com/",
+    shop: "",
+    social: {
+      instagram: "http://www.instagram.com/lunabuschinelli",
+      facebook: "",
+      twitter: "http://www.twitter.com/lunabuschinelli",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "marcelo-anache",
+    name: "Marcelo Anache",
+    country: "Brazil",
+    info:
+      "My name is Marcelo Anache, I am an illustrator based in the city of São Paulo / Brazil. I define my drawing style as 'Organized Chaos', an art made with many details, elements and characters, where everything mixes. I like to work with the most varied themes and create totally exclusive and personalized arts. In addition to illustrations for advertising campaigns, I have drawings made on walls, furniture, objects and pictures, both for companies and for homes.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/marcelo-anache.jpg",
+    website: "http://cargocollective.com/marceloanacheart",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/marceloanache/",
+      facebook: "https://www.facebook.com/marceloanacheart/",
+      twitter: "",
+      behance: "https://www.behance.net/marceloanache",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "patrycja-krawczyk",
+    name: "Patrycja Krawczyk",
+    country: "Poland",
+    info:
+      "My name is Patrycja Krawczyk. I’m a freelance graphic designer and illustrator, currently based in London. There are two main artistic styles that can be distinguished in my work. First one is the ‘Red Line’ series, more traditional, inspired by medieval allegories. The second style is more modern, combining vivid colours and inspired by surrealism, symbolism and poster art. I’m constantly curious about the world and in love with its mystery. There are five things I can't live without: art, music, nature, my cat Felek and handmade fries.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/patrycja-krawczyk.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/omgpatrycja2/",
+      facebook: "https://www.facebook.com/omgpatrycjart/",
+      twitter: "",
+      behance: "https://www.behance.net/OMGPatrycjaPatrycja",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "sergey-serebrennikov",
+    name: "Sergey Serebrennikov",
+    country: "United States",
+    info:
+      "Creative graphic designer and artist, known for his unique work in the style of retro and Art Deco. Having extensive experience in advertising, Sergey creates digital illustrations, posters, etc advertising materials for various companies.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/sergey-serebrennikov.jpg",
+    website: "http://dotz3s.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/dotz_3s/",
+      facebook: "https://www.facebook.com/dotz3s/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "iain-macarthur",
+    name: "Iain Macarthur",
+    country: "United Kingdom",
+    info:
+      "Im iain and I’m an illustrator and graphic designer from London, United Kingdom. I mostly create designs for packaging, clothing and book covers and have also dabbled in painting murals. My work is a very diverse style, I like to experiment with intricate patterns, geometry, folk art and nature. I’ve been creating art for over a decade now and have collaborate with companies and artists on various projects such as Pepsi, Game of thrones and Nike.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/iain-macarthur.jpg",
+    website: "http://www.iainmacarthur.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/iain.macarthur/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "dima-krab",
+    name: "Dima Krab",
+    country: "Ukraine",
+    info:
+      "My name is Dima Krab. Self-taught graphic and mural Artist. Currently living in Ukraine. I love to create complex and detailed work. I often wonder about being and finding new meanings. Drawing is a dialogue with the viewer and yourself. My style can be described as substantive, decorative. I try to restrain the form, crystallize, do not release it. The process is similar to how crystals are formed in rocks, under high pressure, restrained and long. Much attention is paid to textures of natural materials. Every work begins with a synopsis, the formation of content. Every content will be veiled into symbols that it will be harmoniously arranged. Drawing is a major part of my life.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/dima-krab.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/dima_krab/",
+      facebook: "https://www.facebook.com/dima.krab",
+      twitter: "",
+      behance: "https://www.behance.net/DimaKrab",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "mitt-roshin",
+    name: "Mitt Roshin",
+    country: "Russia",
+    info: "I am a freelance illustrator, lecturer of courses on illustration.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/mitt-roshin.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "https://www.facebook.com/ilya.mitroshin",
+      twitter: "",
+      behance: "https://www.behance.net/MittRoshin",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "sebastian-onufszak",
+    name: "Sebastian Onufszak",
+    country: "Germany",
+    info:
+      "Sebastian Onufszak is an award-winning illustrator, designer and art director based in Augsburg, Germany. After successfully finishing his studies in communication design, the member of the Art Directors Club worked as Creative Director and Art Director for several design and animation studios from 2001 up until 2009. Since 2009, he starting out as a self-employed creative in the fields of print and interactive and motion media. He further lectured on motion graphics and animation at the University of Applied Sciences in Augsburg. His expressive and unique style landed him jobs with popular brands such as Adidas, Mercedes, Samsung and Karl Lagerfeld, to name but a few. Onufszak’s commercial and personal works were featured in numerous design publications and exhibitions worldwide.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/sebastian-onufszak.jpg",
+    website: "https://www.onufszak.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/onufszak/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "adnan-ali",
+    name: "Adnan Ali",
+    country: "Pakistan",
+    info:
+      "Hi, I am Adnan Ali, a self-taught  Concept Designer and Art Director based in Pakistan. My surreal work in morbid and mystic horror art is a creation of the obsession I have towards horror movies and graphic novels from an early age. I am well versed in concept art, composition and storytelling. I like to focus on characterization and that is what helps me bring my bizarre characters to life!",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/adnan-ali.jpg",
+    website: "",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/addu_art/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "dani-blazquez",
+    name: "Dani Blázquez",
+    country: "Spain",
+    info:
+      "Hello! I'm a freelance illustrator based in Salamanca, a small and quiet city from Spain. Some of my references are related to the pop culture, the vintage era, animals, cinema icons, and the aesthetics/graphic style of the '80s/'90s. I like to mix these references and to use different techniques, from the most traditional graphite drawing to digital illustration, and I love to jump from one to another and combine them.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/dani-blazquez.jpg",
+    website: "https://www.daniblazquez.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/daniblazquez/",
+      facebook: "https://www.facebook.com/daniblazquezillustration/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
     slug: "natalia-koniuszy",
+    name: "Natalia Koniuszy",
     country: "Poland",
     info:
       "Graphic designer and collage illustrator from Gdansk, focusing on poster design. Antic and nature lover.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/natalia-koniuszy.jpg",
-    shop: "",
     website: "http://www.nataliakoniuszy.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/natalia.kn/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Alice Hoffmann",
     slug: "alice-hoffmann",
+    name: "Alice Hoffmann",
     country: "Switzerland",
     info:
       "Illustrator and Art Director. Fashion and color-lover. I have been working for over 15 years in the advertising and illustration business and will go on.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/alice-hoffmann.jpg",
-    shop: "",
     website: "http://www.bureaualice.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/bureau_alice/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Carilla Karahan",
     slug: "carilla-karahan",
+    name: "Carilla Karahan",
     country: "Turkey",
     info:
       "I’m Carilla Karahan an award winner graphic designer and illustrator based in Istanbul/Turkey. I'm working as a freelancer and in free times I like to experiment with the shapes and types, to searching the new ways to visualize. I got inspiration from everyday objects, I try to see not easily noticable features. My main purpose is to gain experience from past work and always improve my skill.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/carilla-karahan.jpg",
-    shop: "",
     website: "https://www.carillakarahan.com",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/carillakarahan",
-      behance: "https://www.behance.net/carillakarahan",
       facebook: "https://www.facebook.com/carilla.karahan",
+      twitter: "",
+      behance: "https://www.behance.net/carillakarahan",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Anton Yermolov",
     slug: "anton-yermolov",
+    name: "Anton Yermolov",
     country: "Crimea",
     info:
       "I'm illustrator also specialising in branding and UI/UX design. My clients are Philips, Cathay Pacific, Anthony Veder, Vueling, Yandex, Megafon, Microsoft. Currently I'm working at WeAreReasonablePeople digital agency (Rotterdam, the Netherlands). I have technical and design backgrounds whose combination influences my style of work.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/anton-yermolov.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/skuchaka",
-      behance: "https://www.behance.net/yer-band",
       facebook: "https://www.facebook.com/anton.yermolov",
+      twitter: "",
+      behance: "https://www.behance.net/yer-band",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Oguzhan Secir",
     slug: "oguzhan-secir",
+    name: "Oguzhan Secir",
     country: "United Kingdom",
     info:
       "Oguzhan Secir is a London based illustrator and cartoonist. He draws weird cartoon characters and doodles a lot. Markers and digital tools are his main weapons.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/oguzhan-secir.jpg",
-    shop: "",
     website: "https://oguzhansecir.com/",
-    socials: {
-      "website 2": "https://livedoodle.co.uk/",
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/toynak/",
-      twitter: "https://twitter.com/toynak",
       facebook: "https://www.facebook.com/toynak",
+      twitter: "https://twitter.com/toynak",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sofia Berlina",
     slug: "sofia-berlina",
+    name: "Sofia Berlina",
     country: "Russia",
     info:
       "Hello, my name is Sofia, and I have a constant need to draw. I work as a professional illustrator and  graphic designer for more then 8 years now, drawing in various styles and technics, from pictograms to realistic hand drawing, but I consider digital illustration my main addiction. In my graphic works I like to focus on the atmosphere and beauty of the moment, to experiment with textures and the game of light and shadows.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sofia-berlina.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/hatchy_hands/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/Sofia_Berlin",
-      society6: "https://society6.com/sofiaberlin",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jethro Olba",
     slug: "jethro-olba",
+    name: "Jethro Olba",
     country: "Philippines",
     info:
       "I am Jethro Olba, An illustrator and graphic designer born and raised in Manila, Philippines. I focus on lowbrow and pop surrealism illustrations. My works are inspired by vintage comics, toys, and cartoons. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jethro-olba.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/jetholba/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/jetholba ",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Noah",
     slug: "noah",
+    name: "Noé Segovia",
     country: "Mexico",
     info:
       "I’m a Norteño guy living in Mexico City. Born in the mythical year of 1989. Entertainment fan, addict for Nujabes and colchonero by heart.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/noah.jpg",
-    shop: "",
     website: "https://soynoah.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/no___________ah/",
-      dribbble: "https://dribbble.com/no___________ah",
+      facebook: "",
       twitter: "https://twitter.com/no___________ah",
-      linkedin: "https://www.linkedin.com/authwall",
+      behance: "",
+      dribbble: "https://dribbble.com/no___________ah",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jilipollo",
     slug: "jilipollo",
+    name: "Javier Medellin Puyou",
     country: "Mexico",
     info:
       "Hello, I am javier medellin puyou a.K.A. Jilipollo, an award winning mexico based illustrator. Having an architect degree and firstly worked as one,  eventually I decided illustration will be what I wanted to do for a living, due to circumstances in life (some of them a bit tough!), self taught and of course my own will.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jilipollo.jpg",
-    shop: "",
     website: "http://www.jilipollo.com/",
-    socials: {
+    shop: "https://www.jilipollo.com/shop",
+    social: {
       instagram: "http://instagram.com/jilipollo",
-      shop: "https://www.jilipollo.com/shop",
       facebook: "https://www.facebook.com/jilipolloillustrator",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Alessandra B B",
     slug: "alessandra-b-b",
+    name: "Alessandra B-B",
     country: "Spain",
     info:
       "I am artist from Belarus. Over the past few years I live and work in Barcelona. I did not want to be an artist. I have always been one. The question of choice never stood for me: as far as I remember myself, I always drew. This was my way to express myself and reflect the world around me. I went to art school early. From childhood, drawing was my super power.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/alessandra-b-b.jpg",
-    shop: "",
     website: "http://www.abbpainting.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/abbpainting/",
       facebook: "https://facebook.com/abbpainting/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Anna Ezer",
     slug: "anna-ezer",
+    name: "Anna Ezer",
     country: "Russia",
     info:
       "I'm a freelance illustrator and art historian from St. Petersburg, Russia. My main inspiration can be found in dark art, vanitas symbols and vibrant colors.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/anna-ezer.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/anna.ezer/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marcos Abdallah",
     slug: "marcos-abdallah",
+    name: "Marcos Abdallah",
     country: "Brazil",
     info:
       "Hi, I'm Marcos Abdallah an illustrator and graphic designer based in Brazil. Whenever I'm not hunched over my desk drawing and working I like to be outside moving, be it running, cycling, anything that brings me back to the real world. My work is an interpretation and extension of those experiences that I get from things I see, smell and feel when doing such activities.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marcos-abdallah.jpg",
-    shop: "",
     website: "http://abdallahmarcos.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/abdallahmarcos",
+      facebook: "",
+      twitter: "",
       behance: "http://behance.net/abdallahmarcos",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Carlos Sanchez",
     slug: "carlos-sanchez",
+    name: "Carlos Sánchez",
     country: "Spain",
     info:
       "Hi! I'm Carlos Sánchez (AKA G. Haller) an illustrator and comic artist from Barcelona, Spain. I studied design and philosophy, but my real passion are the books, the comics and the cereals.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/carlos-sanchez.jpg",
-    shop: "",
     website: "http://www.origamistudio.com.pl/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/g_haller",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jason Lyon",
     slug: "jason-lyon",
+    name: "Jason Lyon",
     country: "United Kingdom",
     info:
       "I’m a UK based freelance illustrator originally from China. Every piece of work has some elements from nature in it because it is my primary inspiration. Being in the natural world makes me the happiest and I believe it has the same effect on other people too. At the end of the day, I just want my artwork to make someone’s day a little better.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jason-lyon.jpg",
-    shop: "",
     website: "https://jason-lyon.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/jasonlyon_/",
+      facebook: "",
       twitter: "https://twitter.com/jasonlyon_",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Dani Loureiro",
     slug: "dani-loureiro",
+    name: "Dani Loureiro",
     country: "USA / South Africa",
     info:
       "I’m a freelance illustrator and designer originally from Cape Town, South Africa and currently living between tall trees and under rainy skies in Portland, Oregon. I spend most of my time drawing letters and intricate illustrations for various Ad agencies. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/dani-loureiro.jpg",
-    shop: "",
     website: "http://www.daniloureiro.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/dani_loureiro/",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/daniloureiro",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Olga Skomorokhova",
     slug: "olga-skomorokhova",
+    name: "Olga Skomorokhova",
     country: "Estonia",
     info:
       "As a child, Olga found immense pleasure in painting and drawing. This activity soon transformed into interest in graphic design while illustration was just a passionate hobby. Several years ago she has become a full time freelance illustrator based in Tallinn. Olga is inspired by travelling and people around, thus, you can see a lot of botanical, architectural and animalistic topics in her art. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/olga-skomorokhova.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/oilikki/",
-      behance: "https://www.behance.net/Oi_Oilikki",
       facebook: "https://www.facebook.com/profile.php?id=100004660629813",
+      twitter: "",
+      behance: "https://www.behance.net/Oi_Oilikki",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Renato Quirino",
     slug: "renato-quirino",
+    name: "Renato Quirino",
     country: "Brasil",
     info:
       "Hello, my name is Renato, I'm from Brasil. I am a graphic designer and my work takes shape through illustrations, animations and any other necessary form. I am also a comic book author.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/renato-quirino.jpg",
-    shop: "",
     website: "http://renatoquirino.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/renato_quirino/",
+      facebook: "",
       twitter: "https://twitter.com/renato_quirino",
+      behance: "",
       dribbble: "https://dribbble.com/renatoquirino",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jacob Stead",
     slug: "jacob-stead",
+    name: "Jacob Stead",
     country: "United Kingdom",
     info: "Bristol based illustration",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jacob-stead.jpg",
-    shop: "",
     website: "http://jacobstead.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/jacobsteadillustration/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Pau Del Toro",
     slug: "pau-del-toro",
+    name: "Pau Del Toro",
     country: "Spain",
     info:
       "I’m a freelance illustrator based in Barcelona. Senseless lover and positve, I'm influenced by the 80’s, skate, punk rock, and humor. I have a freshy and colorful style, and most of my projects are related to advertising and editorial.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/pau-del-toro.jpg",
-    shop: "",
     website: "http://www.paudeltoro.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/hellopaudeltoro/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Francisco Rossi",
     slug: "francisco-rossi",
+    name: "Francisco Rossi",
     country: "Argentina",
     info:
       "I'm an industrial designer fascinated with constructivism and geometric abstract compositions with a strong love of noble materials. I've been working as a freelance Art Director for studios around the world and hope in the near future to start designing objects and sculptures based on my work.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/francisco-rossi.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/_fran_rossi/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/franciscorossi",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Knife Dance",
     slug: "knife-dance",
+    name: "KNIFE DANCE",
     country: "United Kingdom",
     info:
       "KNIFE DANCE is the alter ego of Kat Jennings, a UK artist and tattoo apprentice based in London. Her artwork blends a number of references together, inspired by folklore, medieval history and the macabre. She draws with a story in mind for all of her pieces, with most recent artwork based on genderless strength. Her preferred mediums of work are traditional paper and pen using line work and etch work shading with small hints of colour.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/knife-dance.jpg",
-    shop: "",
     website: "http://www.knifedance.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/knife_dance",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marion Kamper",
     slug: "marion-kamper",
+    name: "Marion Kamper",
     country: "Austria",
     info:
       "Marion Kamper is an illustrator and lettering artist working from Vienna, Austria. Her work often features animals and nature inspired elements that are rich in detail. Using a combination of analogue and digital media to produce her illustrative work, she continuously experiments with new techniques and technologies to push her work forward and produce high quality artwork for her clients briefs.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marion-kamper.jpg",
-    shop: "",
     website: "http://www.marionkamper.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/marionkamper",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/marion_kamper",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Magda Wolna",
     slug: "magda-wolna",
+    name: "Magda Wolna",
     country: "Poland",
     info:
       "My name is Magda and I am the illustrator and printmaker from Poland. I make illustrations for the press. My works are mainly analog. I use printing inks, rubber stamps, paper stencils, cut-outs. My favourite subjects are portraits and modernist architecture.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/magda-wolna.jpg",
-    shop: "",
     website: "http://www.magdawolna.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/magdawolna",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/magdawolna",
-      tumblr: "https://magdawolna.tumblr.com/",
-      flickr: "https://www.flickr.com/photos/magdawolna",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Robin Martens",
     slug: "robin-martens",
+    name: "Robin Martens",
     country: "Belgium ",
     info:
       "I'm Robin Martens, a multidisciplinary artist from Belgium also known as Klok Huis.  My main focus is illustration which I'm trying to incorporated on many different levels, from frame by frame animation to woodsculptures to murals. I had some great opportunities to work for many great people to help realize my goal to show people that illustration can be more than just a drawing on paper, from art hanging on the wall to a wall becoming art.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/robin-martens.jpg",
-    shop: "",
     website: "http://www.klok-huis.be/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/studio.klokhuis/",
-      behance: "https://www.behance.net/klok-huis",
       facebook: "https://www.facebook.com/studioklokhuis/",
+      twitter: "",
+      behance: "https://www.behance.net/klok-huis",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Mark Verhaagen",
     slug: "mark-verhaagen",
+    name: "Mark Verhaagen",
     country: "Germany",
     info:
       "Hello! My name is Mark and I’m a Dutch illustrator based in Berlin, Germany. My work is mostly digital and inspired by my love for nature, traveling, retro design, pop culture and childhood memories. Besides drawing, I enjoy spending time with friends and family, running and dancing, playing guitar and a nice cup of coffee.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/mark-verhaagen.jpg",
-    shop: "",
     website: "http://markverhaagen.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/markverhaagen",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "James Roper",
     slug: "james-roper",
+    name: "James Roper",
     country: "United Kingdom",
     info:
       "James Roper is a multi-media artist based in Manchester, UK. Roper draws inspiration from a varied array of sources, from Japanese animation, 70’s hyper-realism and psychedelia, to Baroque sculpture, sci-fi films and haute couture fashion - plus everything in between - a clash of sometimes contradictory elements from which arises his unique multi-faceted visual style.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/james-roper.jpg",
-    shop: "",
     website: "http://www.jamesroperart.com/",
-    socials: {
+    shop: "https://jamesroperart.store/",
+    social: {
       instagram: "https://www.instagram.com/jamesroperart/",
-      shop: "https://jamesroperart.store/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Martin Grohs",
     slug: "martin-grohs",
+    name: "Martin Grohs",
     country: "Germany",
     info:
       "Hi, I'm Martin Grohs – living & working in Leipzig, Germany. As Art Director and Illustrator I create brand identities, print products, websites, illustrations and everything in-between. Real surrealist illustrations are my passion. I like to combine drawings on paper with digitally painted and designed elements. I use colours very rarely and purposefully - copper is by far my favourite colour. My illustrations always have a personal message which is more or less hidden in numerous details. With over 10 years experience, I had opportunity to work with internationally established brands as well as local business. But whether it's a project for a major customer or for a store next door, my perfectionism never makes me give less than the best.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/martin-grohs.jpg",
-    shop: "",
     website: "https://www.martingrohs.de/",
-    socials: {
+    shop: "https://shop.martingrohs.de/",
+    social: {
       instagram: "https://www.instagram.com/martin.grohs/",
-      shop: "https://shop.martingrohs.de/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/martingrohs",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Gracmor",
     slug: "gracmor",
+    name: "Gracmor",
     country: "México",
     info:
       "Pepe Gracmor begins as a graffiti writer standing out with tangled street typography with sequence, later he becomes interested in graphic design where he manages to obtain his own style based on pre-Hispanic graphics of Mayan origin. Considered graphic artist, he adapts his style to free and expressive forms where the thickness of the lines plays with the perception of the figures, the colors influenced by the hues of pop art make his design an abstract modern form. Today he continues to experiment with his graphic style in various fields of design, painting and graffit.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/gracmor.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/gracmor",
+      facebook: "https://www.facebook.com/gracmor",
       twitter: "https://twitter.com/gracmor",
       behance: "http://www.behance.net/gracmor",
-      facebook: "https://www.facebook.com/gracmor",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Emma Clinton",
     slug: "emma-clinton",
+    name: "Emma Clinton",
     country: "United Kingdom",
     info:
       "I'm a UK based illustrator and graphic designer, animal lover and environmentalist. I love taking the natural world and reducing it down to simple form and colour. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/emma-clinton.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://www.instagram.com/lifeasillustrated/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Angie Jerez",
     slug: "angie-jerez",
+    name: "Angie Jerez",
     country: "Colombia",
     info:
       "I'm from Bogotá, Colombia, based in Atlanta, Georgia. I've been transitioning from design to illustration and painting. I create drawings with detailed linework. I draw everyday objects and random abstract subjects surrounded by organic shapes.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/angie-jerez.jpg",
-    shop: "",
     website: "http://www.angiejerez.net/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/_angiejerez/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Hamza Idrissi",
     slug: "hamza-idrissi",
+    name: "Hamza Idrissi",
     country: "Morocco",
     info:
       "I'm Hamza a self-taught Graphic designer and Illustrator from Morocco. I'm crazy about illustration it's my passion. I'm inspired by the retro style and the Japanese culture. I also love exploring new style and experiment with new color palette. I'm now a freelancer since 2016.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/hamza-idrissi.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/theemperorlightning/",
+      facebook: "",
+      twitter: "",
+      behance: "",
       dribbble: "https://dribbble.com/TheEmperorLightning",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marta Zubieta",
     slug: "marta-zubieta",
+    name: "Marta Zubieta",
     country: "United Kingdom",
     info:
       "Marta Zubieta is a spanish artist living in Bristol, UK. Specialized in illustration, graphic design and mural she inspires herself from the 90s cartoons, sci fi, lowbrow, pop surrealist art and latin folclore to create her adult illustrations for forever teenagers. Bringing vibrant colour to often bleak subjects, Zubieta explores the millennial culture and its issues through pink tinted glasses, neon colours and dreamy characters.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marta-zubieta.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://www.instagram.com/onirical_zubieta",
       facebook: "http://www.facebook.com/martazubieta",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ekiem",
     slug: "ekiem",
+    name: "EKIEM",
     country: "France",
     info:
       "Ekiem is a French freelance artist and graphic designer born near the Parisian suburbs.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ekiem.jpg",
-    shop: "",
     website: "http://www.ekiem.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/ekiemone/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Blake Stevenson",
     slug: "blake-stevenson",
+    name: "Blake Stevenson",
     country: "Canada",
     info:
       "Blake Stevenson is the guy behind Jetpacks and Rollerskates. A pop culture addicted UX/UI Designer and Illustrator from southern Ontario, Canada. With each project he is armed with his skateboard , a healthy balance of sugary cereals and Saturday morning cartoons.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/blake-stevenson.jpg",
-    shop: "",
     website: "http://www.jetpacksandrollerskates.com/",
-    socials: {
+    shop: "http://www.jnrshop.com/",
+    social: {
       instagram: "https://www.instagram.com/jetpacksandrollerskates/",
+      facebook: "",
       twitter: "https://twitter.com/blakestevenson",
+      behance: "",
       dribbble: "https://dribbble.com/blakestevenson",
-      shop: "http://www.jnrshop.com/",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Nestor Ramos",
     slug: "nestor-ramos",
+    name: "Nestor Ramos",
     country: "Spain",
     info:
       "My name is Néstor Ramos and I'm a 3D designer and illustrator based in Barcelona. I'm passionate about motion graphics and animation. I especially like creating environments with a minimal look where colors and light play the main role.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/nestor-ramos.jpg",
-    shop: "",
     website: "https://renderingnestor.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/renderingnestor/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/renderingnestor",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Emre Karaoglu",
     slug: "emre-karaoglu",
+    name: "Emre Karaoğlu",
     country: "Turkey",
     info:
       "Emre Karaoglu is a sculptor who is actively performing street art. Living in Kadikoy, İstanbul.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/emre-karaoglu.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/mrekaraoglu/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Hania Olos",
     slug: "hania-olos",
+    name: "Hania Oloś",
     country: "Poland",
     info:
       "Illustrator / Animator / Graduated with a master's degree in Graphics Design. I frequently cooperate with graphic companies and animation studios in Poland. Curently she's involved in process of creation and preparation of artwork for 2D animations. Awarded at the Ars Independent Festival, LINOLEUM International Animation and Media Art Festival and PGDAwards for the animation 'Lilije'. Also awarded at the O!PLA Festival for music video 'Deszcz' by Sosnowski.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/hania-olos.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/holosia/?hl=pl",
-      behance: "https://www.behance.net/hannaolos",
       facebook: "https://www.facebook.com/oloshanna",
+      twitter: "",
+      behance: "https://www.behance.net/hannaolos",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Konstantin Shalev",
     slug: "konstantin-shalev",
+    name: "Konstantin Shalev",
     country: "Russia",
     info:
       "Greetings to all, my name is Konstantin, as know as KVADART in instagram, I have been involved in graphic design and illustration since graduating from Kuban State University as a graphic designer шт 2009, most of time im spending  by drawing skateboard graphics, still riding and progressing on a skateboard, street culture inspires me as a part of my life.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/konstantin-shalev.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/kvadart",
-      behance: "http://www.behance.net/ripper",
       facebook: "http://www.facebook.com/kskvad",
+      twitter: "",
+      behance: "http://www.behance.net/ripper",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Aleksey Rico",
     slug: "aleksey-rico",
+    name: "Aleksey Rico",
     country: "Russia",
     info:
       "My name is Aleksey Soloviev, i am illustrator based in Izhevsk, Russia. Obsessed with smooth vector lines, love to create different illustrations, movie and event posters, t-shirt artworks, music covers. My works are inspired by old Soviet propaganda posters and comics art with their feelings of colours, compositions, using shadows and lights..",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/aleksey-rico.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/alekseyrico/",
+      facebook: "https://www.facebook.com/alekseyrico",
       twitter: "https://twitter.com/alekseyrico",
       behance: "http://www.behance.net/AlekseyRico",
-      facebook: "https://www.facebook.com/alekseyrico",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sandra Rivero",
     slug: "sandra-rivero",
+    name: "Sandra Rivero",
     country: "Peru",
     info:
       "I left my country when I was 17, with the idea of discovering the world and without knowing, finding myself. I studied Graphic Design in Buenos Aires and 3D animation in NYC, at the moment I live in NYC working as a freelance graphic designer. It was a long way to get here, I actually went to law school after high school, I was too young and didn't know enough about the possibilities of working as an artist back then, eventually I found my way into studying graphic design. I always like to try new things because one never stops discovering and reinventing oneself, I love art in every form.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sandra-rivero.jpg",
-    shop: "",
     website: "https://sandrarivero.myportfolio.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/sandia.mellow/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Nicho333",
     slug: "nicho333",
+    name: "Nicho333",
     country: "Colombia",
     info:
       "I'm Nicho, freelance Illustrator and art director born in Colombia. My style is influenced by lowbrow art and shows my ideology which revolves around the duality between life and death, black humor and mockery of my own reality. My main interest lies in developing and creating illustrations for editorial, brand key visuals, record covers, posters and merchandising for my own brand.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/nicho333.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/nicho.333/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Tunc Eren",
     slug: "tunc-eren",
+    name: "Tunç Eren",
     country: "Turkey",
     info:
       "Hello, my name is Tunç, i'm an architect and illustrator based in Istanbul, i like to draw colorful and laidback stuff. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/tunc-eren.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/nicemusicdude/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Anna Caban",
     slug: "anna-caban",
+    name: "Anna Caban",
     country: "Poland",
     info:
       "I’m Anna Caban-Szypenbeil and I base in Warsaw, Poland. I focus on 3D illustration and animations. In my works I often use CG combined with hand made paintings or drawings. I love intensive color, over-natural light, rich texture. Currently works for an Ad agency and for various art projects. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/anna-caban.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/annacaban/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/annacaban",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Doruk Aki",
     slug: "doruk-aki",
+    name: "Doruk Akı",
     country: "Turkey",
     info:
       "Hello! I'm a freelance illustrator from Turkey, İstanbul. I have always liked drawing, colouring things as I grow up. Especially creatures, monsters, special powers and other worldly beings. Watching cartoons and playing video games is another passion of mine, and it mostly affects my style and drawing concepts as well. With that being said, I finished  university with a Graphic Design degree and then worked in ad agencies. I drew a couple of children's books, tried making mobile games. I gladly welcome anyone who reaches my fantasy world with me!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/doruk-aki.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://www.instagram.com/dorukaki",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Mele De La Yglesia",
     slug: "mele-de-la-yglesia",
+    name: "Mele de la Yglesia",
     country: "Spain",
     info:
       "I am a graphic designer, artist and illustrator born in the eighties in the sunny south of Spain. I've studied Visual Arts in the Universidad Complutense de Madrid and afterwards I have specialised in Graphic Design at the HAWK, Hoch Schule für Angewandte Wissenschaft und Kunst in Hildesheim, Germany. I grew up in a very creative environment, and since I was a child, my favourite thing to do was to spend time colouring books and illustrating fantasy stories. Literally since then, I had a clear idea about what I wanted to do in the future. And here I am. Still drawing, still enjoying and being creative. Nowadays I am in the look out for new ways of expressing my vision: fabrics, patterns, products, digital illustration, tattoo... the possibilities are infinite. Let's see what life brings.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/mele-de-la-yglesia.jpg",
-    shop: "",
     website: "https://www.meledelayglesia.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/meledelayglesia/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Serena Gianoli",
     slug: "serena-gianoli",
+    name: "Serena Gianoli",
     country: "Italy",
     info:
       "In Serena’s backpack you’ll always find her brushpens and sketchbook. She attended the Milan Comics Academy, the illustration and graphic course at the CFP BAUER and the master in illustration at the MiMaster. She lives and works in Milan as an illustrator and graphic designer, between black and white lines and colored palettes.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/serena-gianoli.jpg",
-    shop: "",
     website: "https://www.serenagianoli.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/serenagianoli.sg/",
       facebook: "https://www.facebook.com/SerenaGianoli.SG",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Juan Martin Diez",
     slug: "juan-martin-diez",
+    name: "Juan Martin Diez",
     country: "Argentina",
     info:
       "My name is Juan Martín Diez, from Argentina. I'm a freelance graphic designer who love illustration.I have a passion for books, movies and boardgames. I love super detailed illustrations and for me, more is more in the best possible way!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/juan-martin-diez.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/juanmasdiez/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sophie Mo",
     slug: "sophie-mo",
+    name: "Sophie Mo",
     country: "United Kingdom",
     info:
       "I am an illustrator, designer and tattoo artist, whose work is focused (but not exclusively) on print. I produce work for books and both on-and-offline magazines, murals of all scales, clothing, merchandise, band artwork, and as much visual content as I can get my hands on. I like to add a dark twist on everything I get creatively involved in, as a little personal signature in my illustrative work. My work has been featured by BBC Music, Little White Lies, Bulleit Whisky, Film4, REN skincare, and many more. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sophie-mo.jpg",
-    shop: "",
     website: "http://www.sophiemo.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/sophiemoillustration/",
-      twitter: "https://twitter.com/sophiemo_",
       facebook: "https://www.facebook.com/sophiemoillustration/",
+      twitter: "https://twitter.com/sophiemo_",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Joluvian",
     slug: "joluvian",
+    name: "Joluvian",
     country: "Spain",
     info:
       "Joluvian studied graphic design and work as art director in Mérida (Venezuela), then Caracas and Mexico. In 2009 he moved to Spain to expand his portfolio by finishing a master degree in Illustration and studying calligraphy and lettering. A strong theme in all of his work is the continuous interchange of digital and analog techniques. In recent years he has investigated new forms of artistic expression, taking up painting on canvases and murals as well as studying digital techniques such as 3D to consolidate a personal artistic language. His work and expertise varies from typeface design, custom lettering, logo design to Illustrations for posters and books. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/joluvian.jpg",
-    shop: "",
     website: "http://www.joluvian.com/",
-    socials: {},
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
   },
   {
-    name: "Simon Buijs",
     slug: "simon-buijs",
+    name: "Simon Buijs",
     country: "Netherlands",
     info:
       "I am Simon Buijs aka BobbyPola, an illustrator and artdirector who makes illustrated animations or animated illustrations for clients as Spotify, Karhu, Booking.com and Amnesty.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/simon-buijs.jpg",
-    shop: "",
     website: "http://www.bobbypola.com/",
-    socials: {
+    shop: "http://bobbypola.bigcartel.com/",
+    social: {
       instagram: "https://www.instagram.com/bobbypola/",
-      shop: "http://bobbypola.bigcartel.com/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Cohen Gum",
     slug: "cohen-gum",
+    name: "Cohen Gum",
     country: "Australia",
     info:
       "Cohen is an Australian based digital designer and illustrator with a penchant for the weird and the macabre. Cohen has created work for clients including Facebook, Harley Davidson and Jet.com.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/cohen-gum.jpg",
-    shop: "",
     website: "http://www.cohengum.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/cohengum",
-      dribbble: "http://www.dribbble.com/cohengum",
       facebook: "http://www.facebook.com/cohengum",
+      twitter: "",
+      behance: "",
+      dribbble: "http://www.dribbble.com/cohengum",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Joshua Canty",
     slug: "joshua-canty",
+    name: "Joshua Canty",
     country: "United States",
     info:
       "My name is Joshua Canty and I am a freelance Illustrator and Graphic Designer in the greater Los Angeles area. I have been drawing ever since I can remember, and I have always been fascinated with creative expression. Illustration has long been a passion of mine, and I love to look for opportunities to combine graphic elements and imagery within my drawings. I find myself to be a versatile artist, always pursuing new styles by learning new techniques, and always seeking to try new things.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/joshua-canty.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/jcantyart/",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/jcanty",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Meave Stvdivm",
     slug: "meave-stvdivm",
+    name: "MEAVE STVDIVM",
     country: "Mexico",
     info:
       "MEAVE STVDIVM is a Mexican duo of designers, Mich N. Quintero and Gabriel M. Meave, conquering the universe with pencils and pixels. His weapons of choice are mostly traditional drawing media, while she usually makes the magic with all the digital color stuff. Together they create design, identity, lettering and illustration projects from their studio in Mexico City. They have worked for clients such as Google, Corona, Santillana, FCE and Warner. Meave Stvdivm’s work has been featured in global magazines and books such as Communication Arts, Novum and Tres Logos.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/meave-stvdivm.jpg",
-    shop: "",
     website: "http://www.meave.com.mx/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/gmmeave",
-      behance: "http://www.behance.net/gmmeave",
       facebook: "http://www.facebook.com/gabrielmeave",
+      twitter: "",
+      behance: "http://www.behance.net/gmmeave",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Nataliia Soiko",
     slug: "nataliia-soiko",
+    name: "Nataliia Soiko",
     country: "Ukraine",
     info:
       "I'm an illustrator and printmaker living in a tiny historical town and working for clients globally. My drawings live in books, magazines, blogs, packagings, clothes, and social media apps. Nature, old ugly urban locations, and everyday slow living are my primary sources of inspiration. I have a diploma in fashion design and a couple of years ago I decided to make t-shirts and some accessories with my prints. But illustration is my main passion and fulltime job. I am addicted to a high detailed ink drawing. Also, I love to include some digital steps to my process.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/nataliia-soiko.jpg",
-    shop: "",
     website: "http://soiko.com.ua/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/soiko_natalka/",
+      facebook: "",
       twitter: "https://twitter.com/nsoiko",
-      etsy: "https://www.etsy.com/shop/SoikoShop",
       behance: "https://www.behance.net/SoikoN",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Stelios Spanoudakis",
     slug: "stelios-spanoudakis",
+    name: "Stelios Spanoudakis",
     country: "Greece",
     info:
       "Graphic designer / Illustrator from Athens - Greece, living for 5 years now in Chania - Crete island. I like drawing with pens and inks for t-shirts, posters, skateboards, surfboards, tattoos etc.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/stelios-spanoudakis.jpg",
-    shop: "",
     website: "http://www.junkart.gr/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/junkartillustration/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sangram Soni",
     slug: "sangram-soni",
+    name: "Sangram Soni",
     country: "India",
     info:
       "I am a Visual Artist/Filmmaker from India having studied Animation. My work has mainly been around TV and Films as a freelancer with my core strength being Illustration and Graphic Design. I have consistently been researching and writing fiction alongside putting together my films, having completed one recently. I love doing Experimental Animation, Murals and Street Art to convey the necessary or at times just for the thrill of executing. Most of the times seeking relevance as a Postmaster who communicates through design.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sangram-soni.jpg",
-    shop: "",
     website: "http://postmasterworks.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/postmaster.me/",
-      showreel: "https://vimeo.com/123055188",
+      facebook: "https://www.facebook.com/sangram.soni",
+      twitter: "",
       behance: "https://www.behance.net/sangramsoni",
-      facebook: "https://www.facebook.com/postmasterworks/",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Flownart",
     slug: "flownart",
+    name: "Flownart",
     country: "Spain",
     info:
       "Graphic Designer, Illustrator soul. I've always loved traditional tattoos and everything related to the tattoo world actually. I'm also obsessed with the look of handmade techniques of painting and creating, that's why I love to use effects that can put some handmade touch to my designs. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/flownart.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/flownart/",
+      facebook: "",
       twitter: "https://twitter.com/flownart",
       behance: "https://www.behance.net/flownart",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ece Agirtmis",
     slug: "ece-agirtmis",
+    name: "Ece Ağırtmış",
     country: "Turkey",
     info:
       "I’m a freelance illustrator-toy/sculpture maker who lives in Izmir/Turkey. I love to create things that make you smile.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ece-agirtmis.jpg",
-    shop: "",
     website: "http://www.eceagirtmis.com/",
-    socials: {},
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
   },
   {
-    name: "Garavato",
     slug: "garavato",
+    name: "Garavato",
     country: "Colombia",
     info:
       "Garavato is, in a way, Tavo’s lifesaver. A multidisciplinary designer originated from Colombia who describes himself as a 'productive slacker'. Restlessly curious, he’s been involved in all kind of projects from graphic, industrial and interior design, to scenography, illustration, urban art or more recently 'cartelismo' (posters illustrator), under the statement of 'hazlo tu mismo' (literally 'do it yourself' implying no one will do it for you). Whenever touched by a social injustice, Garavato puts his illustration and muralism works to serve and support the cause in his own way. That’s how he’s been teaming up with organizations and collectives in Colombia, helping them standing for the rights of the victims after half a century of a national armed conflict. Passionate by the music as much as his art, he’s found a way to mix both by entering the gig poster world creating illustrations in silkscreens for music bands’ official merch, in collaboration with recognized Mexican collective 'Mercadorama'. He then cofounded C.ARTE.Latinoamericano and became an API member (American Poster Institute). To this day, he’s been officially illustrating for the following artists : Iggy Pop, Marky Ramone, Foo Fighters, , Queen Of The Stone Age, Primus, Café Tacuba, Gustavo Santaolalla, Natalia Lafourcade, LosPetitFellas, Café Tacuba...among others.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/garavato.jpg",
-    shop: "",
     website: "http://www.garavato.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/tavogaravato/",
-      twitter: "https://twitter.com/tavogaravato",
-      vimeo: "https://vimeo.com/garavato",
-      behance: "https://www.behance.net/garavato",
       facebook: "https://www.facebook.com/garavato.illustration",
+      twitter: "https://twitter.com/tavogaravato",
+      behance: "https://www.behance.net/garavato",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Crocuno",
     slug: "crocuno",
+    name: "CROCUNO",
     country: "Colombia",
     info:
       "I am an independent artist from Bogotá, Colombia. I believe in art as a tool to communicate my ideas and promoting change. Each of my works has a particular style that I have developed over the last decade; It comes from the combination of ethnic iconography and symbology, cartoon culture and rock from the 80s and 90s, having three shapes as a conceptual base: the circle, the triangle, and the square.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/crocuno.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/crocuno/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/crocunobta",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Owen Gibbons",
     slug: "owen-gibbons",
+    name: "Owen Gibbons",
     country: "Australia",
     info:
       "Otherwise known as Butcha, Owen is a professional graphic designer and self taught illustrator living in Canberra Australia who draws inspiration from dark arts, horror movies, cartoons and the down right absurd.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/owen-gibbons.jpg",
-    shop: "",
     website: "https://www.talenthouse.com/butcha",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/b_u_t_c_h_a/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Shakthi Hari",
     slug: "shakthi-hari",
+    name: "Shakthi Hari N V",
     country: "India",
     info:
       "I am a 24 year-old graphic designer specializing in illustrations who has been learning Graphic Design as an autodidact for the past 6 years. I am also a chemical engineer and I used to be a Business Technology Analyst. I have been crazy about motion-design and hand-lettering lately. Let's connect on Instagram or Dribbble 🙂",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/shakthi-hari.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/shakthiharinv/",
+      facebook: "",
+      twitter: "",
+      behance: "",
       dribbble: "https://dribbble.com/shakthiharinv",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Chragi Frei",
     slug: "chragi-frei",
+    name: "Chragi Frei",
     country: "Switzerland",
     info:
       "Chragokyberneticks (as known as CHKY to lazy people) is a small graphic design bureau run by Mr. Chragi Frei. It is located in the heart of Berne, Switzerland. CHKY was founded in spring 2004 just after Christoph graduated from the Hochschule der Künste Bern. Focusing on graphic storytelling, data visualisation and illustration, CHKY has since then completed a heap of projects for a great variety of clients ranging from banks and universities to poets and punk rockers. (all of which turned out to be nice people).",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/chragi-frei.jpg",
-    shop: "",
     website: "http://www.chky.ch/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/chragidraws",
-      society6: "https://society6.com/chragokyberneticks/prints",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/chky",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Andrew Nedzvedsky",
     slug: "andrew-nedzvedsky",
+    name: "Andrew Nedzvedsky",
     country: "Ukraine",
     info:
       "I am UI and UX designer working in game industry, originally graduated KABK in Den Haag, NL. Have worked in different countries across Europe and now i live in Berlin. I was doing design all my life and never had to do anything else. I have built a lot of different things from iPhone analog filters in the shape of the key hole to make weird photos to fully working electrical chopper to get my degree.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/andrew-nedzvedsky.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/hellmarkstudio/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Vebe",
     slug: "vebe",
+    name: "Thibaut van Boxtel",
     country: "Belgium",
     info:
       "Active since 2006 Thibaut van Boxtel, aka Vébé, is a Belgian multi award-winning visual artist & designer currently working and living near Brussels. He divides his time between his visual explorations, his commercial projects, his painting collective (www.33pourcent.com) and his family. Inspired by true relationships, nature's magic, the power of music, healthy eating, sustainable lifestyle but also fascinated by inventions, contrast, colors, composition, serendipity and any slightest details that awakens his curiosity. He designs & conceptualises for both cultural and commercial fields. Whether in the digital realm or on a handmade scale, he combines different disciplines and mediums to build engaging experiences.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/vebe.jpg",
-    shop: "",
     website: "http://www.vebe.be/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/__vebe__",
-      dribbble: "https://dribbble.com/vebe",
-      behance: "https://www.behance.net/vebe",
       facebook: "https://www.facebook.com/tibovebe",
+      twitter: "",
+      behance: "https://www.behance.net/vebe",
+      dribbble: "https://dribbble.com/vebe",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jessica Bartolini",
     slug: "jessica-bartolini",
+    name: "Jessica Bartolini",
     country: "Italy / United Kingdom",
     info:
       "Jessica Bartolini is the kind of person who prefers to act rather than speaking. She has a unique way to see the world and her approach is to learn something new every day, always looking for the best results when working. Her work is a mix of emotions wherein everyone can find and see what they want. There are no specific rules about how to paint or chose the subject when you feel something inside you just need to follow what your subconscious suggests. Every brush stroke she makes is like a feeling, as she pours herself into the drawing.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jessica-bartolini.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/bartolinijessica/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/jessbartolini",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Gaspart",
     slug: "gaspart",
+    name: "Gaspart",
     country: "France",
     info:
       "Salut! My name is Gaspart, I’m a 35 years old illustrator living in Paris. Ever since I can remember, I have always loved drawing. I like to make characters with over-exaggerated proportions. My style is minimalistic and simplified and the colors I use are most of the time bright, bold, vibrant and saturated.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/gaspart.jpg",
-    shop: "",
     website: "http://gaspart.fr/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/gaspart_illustration/",
-      dribbble: "https://dribbble.com/Gaspart",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/gaspart",
+      dribbble: "https://dribbble.com/Gaspart",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Fatima Bravo",
     slug: "fatima-bravo",
+    name: "Fátima Bravo",
     country: "Portugal",
     info:
       "Hi! I’m a graphic designer and illustrator born and raised in the north of Portugal, Vila Real in 1995. I graduated in Communication Design from the Faculty of Fine Arts of the University of Oporto (2013-2017), and in 2018 I moved to Spain for some new adventures. I did an Erasmus internship in Valencia at a screen printing studio (Lanevera Ediciones) where I developed my passion for illustration. That same year I moved to Barcelona to become an illustrator and there I did a postgraduate degree at BAU (Barcelona University Design Center). I currently live in Oporto as a freelance illustrator. Through my work as an illustrator you can feel the influence of design and whenever it's possible I try to combine the best of both worlds. The love for nature and the animal world are my biggest inspiration when it comes to drawing.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/fatima-bravo.jpg",
-    shop: "",
     website: "http://www.fatimabravo.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/_fatimabravo_/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Bobby Haiqalsyah",
     slug: "bobby-haiqalsyah",
+    name: "Bobby Haiqalsyah",
     country: "Australia",
     info:
       "Jakarta born, Melbourne based designer, illustrator, and letterer, formerly a cook and many other things.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/bobby-haiqalsyah.jpg",
-    shop: "",
     website: "https://bobsta14.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/bobsta14/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Maus Baus",
     slug: "maus-baus",
+    name: "Maus Baus",
     country: "Netherlands",
     info:
       "Maus Bullhorst creates editorial illustrations for Dutch media such as Trouw, De Correspondent and VPRO Gids. To him, an illustration is not a literal translation from text to image, but it creates a deeper level. He explores the abstraction of the figurative: how far can he diverge from natural forms and still maintain a human figure instead of a batch of blocks? Because of his work, it may happen that next time we pass a crane, we see an arm with a gripping claw instead.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/maus-baus.jpg",
-    shop: "",
     website: "http://mausbaus.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/bausmaus/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Luigi Leuce",
     slug: "luigi-leuce",
+    name: "Luigi Leuce",
     country: "Italy",
     info:
       "I'm Luigi, an Italian illustrator always looking for new techniques. Every day I capture moments, thoughts and subjects to report them on my white sheet. When I draw, I immerse myself in a new world, all mine. I like to look closely at everything around me. Ah! I love vintage. I believe in the power of ideas.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/luigi-leuce.jpg",
-    shop: "",
     website: "https://www.luigileucefactory.it/",
-    socials: {
+    shop: "https://www.luigileucefactory.it/shop/",
+    social: {
       instagram: "https://www.instagram.com/luigi_leuce/",
-      shop: "https://www.luigileucefactory.it/shop/",
       facebook: "https://www.facebook.com/luigileucefactory",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Rowanne Ahmed",
     slug: "rowanne-ahmed",
+    name: "Rowanne Ahmed",
     country: "Egypt",
     info: "Hello, I'm Rowanne and you're inside my head now.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/rowanne-ahmed.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/rowannes__/",
-      dribbble: "https://dribbble.com/rawan",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/rowanne",
+      dribbble: "https://dribbble.com/rawan",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ignacio Brito",
     slug: "ignacio-brito",
+    name: "Ignacio Brito",
     country: "Argentina",
     info:
       "I am a graphic designer / 3D artist. A nomad for 5 years now. From Buenos Aires to new york, to Vietnam, New Zealand and last Colombia. I  think 3D is the best way to mix my interests in graphic design and art.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ignacio-brito.jpg",
+    website: "",
     shop: "",
-    socials: [
-      { instagram: "https://www.instagram.com/not.a.render/" },
-      { instagram: "https://www.instagram.com/not.a.logo/" },
-      { behance: "https://www.behance.net/IgnacioBr" },
-    ],
+    social: {
+      instagram: "https://www.instagram.com/not.a.logo/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/IgnacioBr",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
   },
   {
-    name: "Zorrozombie",
     slug: "zorrozombie",
+    name: "zorrozombie",
     country: "Colombia",
     info:
       "I was born in the mountains of southern Colombia and had very little contact with civilization but my imagination always flew through the mountains and led me to think of amazing stories with strange characters and landscapes that became my imaginary pets. In this way the creative image came into my life, since then thinking with images is my priority.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/zorrozombie.jpg",
+    website: "",
     shop: "",
-    socials: {
-      store: "https://zorrozombie.bigcartel.com/",
+    social: {
       instagram: "https://www.instagram.com/zorrozombie/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/zorrozombie",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Roberlan Paresqui",
     slug: "roberlan-paresqui",
+    name: "Roberlan Paresqui",
     country: "Brazil",
     info:
       "My name is Roberlan Paresqui, 42. Im a brazilian illustrator, graphic and lettering designer. I've been working on advertising in the past 25 years now i work as independent artist. I live in Vitória, Brazil with my wife and 3 daughters. My work is fueled by coffee and music.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/roberlan-paresqui.jpg",
-    shop: "",
     website: "https://www.roberlan.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/thisisblase/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Dsorder",
     slug: "dsorder",
+    name: "DSORDER",
     country: "Spain",
     info:
       "DSORDER - Marti Serra is an art director, illustrator and a graphic designer. He likes to conceptualize, experiment and mix different techniques, from artisanal to digital, exploring different artistic disciplines according to the clients and project requeriments. In his personal work, he likes play with chromes, fluids and compositions inpired by  80's and 90's airbrushing process and aesthetic. Usually use 3d max, adobe illustrator and photoshop and create handmade illustrations and processes. He has worked  as Art Director for a differnet studios and agencies from Barcelona and Madrid. Actually he works as a freelance for agencies, studios  and brands around the globe.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/dsorder.jpg",
-    shop: "",
     website: "http://www.dsorder.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/dsorder",
+      facebook: "",
+      twitter: "",
       behance: "http://be.net/dsorder",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Francesca Rossi",
     slug: "francesca-rossi",
+    name: "Francesca Rossi",
     country: "Italy",
     info:
       "Hi! My name is Francesca I was born in Brescia, Italy and I'm 24. I’m a graphic designer, I like to experiment and to create new things. My graphic works are always influenced by my first love, Illustration. Drawing for me is more than just a passion, it’s my own way to interact with the world and to express myself and my creativity. I’m an extrovert and courious person, I like to learn new things, to voice my point of view and to put myself out there!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/francesca-rossi.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/fra_reds/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Eduardo Martinez",
     slug: "eduardo-martinez",
+    name: "Eduardo Martinez",
     country: "Spain",
     info:
       "Graphic designer and illustrator, born in Barcelona. Initially, my interest in digital art and photomontage led me to experiment with collage in a very intuitive way. Since then and through the networks, I have been meeting great contemporary collage artists, both digital and analog, with different styles and languages. I consider myself a 'Photomanipulator', influenced by surrealism and pop culture (music, album covers, comics ...), essential artistic sources to understand my creative universe. The color and coloring of images are very important in my work.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/eduardo-martinez.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/e.martinez555/",
-      behance: "http://behance.net/be55edu",
       facebook: "http://facebook.com/edumartinez53",
+      twitter: "",
+      behance: "http://behance.net/be55edu",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Patrycja Podkoscielny",
     slug: "patrycja-podkoscielny",
+    name: "Patrycja Podkościelny",
     country: "Poland",
     info:
       "Born in Gdynia, lives and works in Gdańsk, Poland. Deals with widely understood graphics, from lithography and illustration to visual design and typography. She conducts workshops and lectures at the Academy of Fine Arts in Gdańsk. Worked with clients such as Adobe, Nike, Netflix, Huffington Post and Newsweek. Exhibited in Poland, USA, England, Japan and China.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/patrycja-podkoscielny.jpg",
-    shop: "",
     website: "http://www.podkoscielny.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/podkoscielny",
       facebook: "http://www.facebook.com/patrycjapodkoscielny",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sean Loose",
     slug: "sean-loose",
+    name: "Sean Loose",
     country: "United States",
     info:
       "Hi! I’m Sean, an illustrator based out of New York City. I like to make work that plays with geometry, transparency, and human form. I’m often really inspired by the Art Deco forms that I see around the city, as well as Futurism and Cubism. When I’m not illustrating, I like to bake sourdough bread while listening to 90’s country music. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sean-loose.jpg",
-    shop: "",
     website: "http://www.looseillustration.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/looseillu/?hl=en",
-      etsy:
-        "https://www.etsy.com/shop/LooseIllustration?ref=seller-platform-mcnav",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/seanloose",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Alastair Temple",
     slug: "alastair-temple",
+    name: "Alastair Temple",
     country: "United Kingdom",
     info:
       "With a day job researching fires and how they impact on buildings I am primarily a hobbyist (although I am lucky enough to pick up the odd commission here and there). I enjoy creating science fiction space scenes and 3d abstract art, often mixing the two together.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/alastair-temple.jpg",
-    shop: "",
     website: "https://www.alastairtemple.co.uk/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/alastair.temple/",
-      twitter: "https://twitter.com/smilingdemon",
       facebook: "https://www.facebook.com/atempleartist/",
+      twitter: "https://twitter.com/smilingdemon",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Vinay Pittampally",
     slug: "vinay-pittampally",
+    name: "Vinay Pittampally",
     country: "India",
     info:
       "Vinay Pittampally is an Indian Illustrator. He loves to play with color, texture and perspective to create profound work. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/vinay-pittampally.jpg",
-    shop: "",
     website: "https://vinaypittampally.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/vinaypittampally/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/vinaypittampally",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Annemarieke Kloosterhof",
     slug: "annemarieke-kloosterhof",
+    name: "Annemarieke Kloosterhof",
     country: "United Kingdom",
     info:
       "Annemarieke Kloosterhof is a multi-disciplinary designer based in central London, originally from a small town in The Netherlands. With a background in BA-Hons Graphic Design and Illustration from Central Saint Martin’s, she now works as a professional Paper-Artist and Set Designer. Annemarieke’s Paper-Craft & Illustration work has been published in magazines, newspapers and online. She has exhibited her paper-craft pieces and she has illustrated a childrensbook (published in Dutch and English). Annemarieke has designed award winning Short-Films, as well as a range of commercials, music videos and branded online content. Annemarieke likes to play with colour, composition and texture, and enjoys creating anything hand-made: From 2D collages & illustrations, to 3D miniatures & life size paper sets. Though her portfolio is diverse, all her projects have 1 thing in common… an incredibly high level of detail & craftsmanship!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/annemarieke-kloosterhof.jpg",
-    shop: "",
     website: "http://www.annemariekekloosterhof.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/annemarieke.kloosterhof/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Carnivorum",
     slug: "carnivorum",
+    name: "Carnivorum",
     country: "Spain",
     info:
       "Behind Carnivorum I am hiding, Edu Morente, an illustrator and designer from Madrid based in Barcelona for more than 10 years. My style of illustration is the sum of many years going around different styles until I get one of my own and original that distinguishes me from the rest of illustrators, getting a stamp of its own based on the use of small drawings to get from portraits, typography, logos, shapes, ... to the personalization of products aimed at the world of advertising.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/carnivorum.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/carnivorum/",
-      behance: "https://www.behance.net/edumorente",
       facebook: "https://es-la.facebook.com/carnivorumcom/",
+      twitter: "",
+      behance: "https://www.behance.net/edumorente",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Dave Garbot",
     slug: "dave-garbot",
+    name: "Dave Garbot",
     country: "United States",
     info:
       "I'm a children's book illustrator & I live in Portland, Oregon. I've been drawing for as long as I can remember & have no doubt that I always will. Even though many of my assingments are for children, I create my images with all ages in mind. I always try to keep things simple, lighthearted, & with a touch of humor because we can all use a little smile sometimes. I'm inspired by the world around me, my imagination, childhood memories, & usually a good cup of coffee.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/dave-garbot.jpg",
-    shop: "",
     website: "https://garbot.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/davegarbot/",
-      behance: "https://www.behance.net/DaveGarbot",
       facebook: "https://www.facebook.com/davegarbotartist",
+      twitter: "",
+      behance: "https://www.behance.net/DaveGarbot",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Fernando Fom",
     slug: "fernando-fom",
+    name: "Fernando Fom",
     country: "Spain",
     info:
       "Designer and illustrator based in Spain. I enjoy working with different styles and techniques. I certainly feel more comfortable developing certain techniques, but I am always open to trying new materials and tools. I love working a handmade style with lettering and illustrations, as well as different vector styles with my computer. On the other hand, I also like to work with the challenges that my clients pose to me to contribute my vision to the world.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/fernando-fom.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/fernandofom/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/fernandofom",
       dribbble: "https://dribbble.com/fernandofom",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Impact",
     slug: "impact",
+    name: "Impact",
     country: "United Kingdom",
     info:
       "Impact is a London based 3D artist with a passion for creating surreal 3D imagery.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/impact.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/mindofimpact/",
-      behance: "https://www.behance.net/Mindofimpact",
+      facebook: "",
       twitter: "https://twitter.com/mindofimpact",
+      behance: "https://www.behance.net/Mindofimpact",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Zeynep",
     slug: "zeynep",
+    name: "Zeynep Kınlı Kurt",
     country: "Turkey",
     info:
       "Hi, I’m Zeynep a Visual Designer with 9 years of experience, based in Istanbul. I have worked in advertisement agencies such as Tribal DDB and McCann Erickson; in design agencies that serve clients in Norway & London and currently I’m working in IBM iX. I find great joy in illustration and try to reflect that feeling on others by expressing my ideas in clean geometric forms and bright colors.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/zeynep.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/zillustrates/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/zeynepkinli",
       dribbble: "https://dribbble.com/zeynepkinli",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Alex Tass",
     slug: "alex-tass",
+    name: "Alex Tass",
     country: "Europe",
     info:
       "Hello, I am Alex and I am a graphic designer specialized in logo and identity design. I am a husband and father passionate and inspired by any form of creativity, electronic music, movies and generally urban culture. I love working with geometric shapes and colors.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/alex-tass.jpg",
-    shop: "",
     website: "https://alextass.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/alextass_com/",
       facebook: "https://www.facebook.com/alextass.nocturn",
+      twitter: "",
       behance: "https://www.behance.net/AlexTass",
-      linkedin: "https://www.linkedin.com/in/alextass/",
       dribbble: "https://dribbble.com/alextass/",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Paykhan",
     slug: "paykhan",
+    name: "Paykhan",
     country: "France ",
     info:
       "I'm Paykhan, a multidisciplinary designer based in Paris & São Paulo, with a specialization in art direction and illustration. My visual work is influenced by a natural curiosity, an appetite for colors, global-cultures, and a playful vision of life.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/paykhan.jpg",
-    shop: "",
     website: "http://www.paykhan.com/",
-    socials: {
+    shop: "https://society6.com/paykhan",
+    social: {
       instagram: "https://www.instagram.com/paykhan.studio/",
-      shop: "https://society6.com/paykhan",
-      behance: "https://www.behance.net/Paykhan",
+      facebook: "",
       twitter: "https://twitter.com/Paykhan",
+      behance: "https://www.behance.net/Paykhan",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Hunky Dunky",
     slug: "hunky-dunky",
+    name: "Yonito Tanu",
     country: "Indonesia",
     info:
       "Yonito Tanu is an artist born in Indonesia and based in Valencia. He loves 3D and he like a lot of things related with the art, design and illustration. He was studying multimedia design since he was a teenager. After some years of experiences in different creatives fields, he is building imaginary world in hunky-dunky studio.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/hunky-dunky.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/hunky.dunky/",
       facebook: "https://www.facebook.com/hunkydunkyy/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marta Sorte",
     slug: "marta-sorte",
+    name: "Marta Sorte",
     country: "Italy",
     info:
       "I'm an illustrator for children's books, I'm born in Bergamo, north of Italy and now I live in Florence. I'm deeply inspired by the art style of French children's books. I love nature, green, mountains, gorgonzola and dogs.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marta-sorte.jpg",
-    shop: "",
     website: "http://www.martasorte.it/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/marta_sorte",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Happy Impulse",
     slug: "happy-impulse",
+    name: "Happy Impulse",
     country: "United States",
     info:
       "Happy Impulse is Roberta Hall, illustrated anarchy bringing madness to the sane.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/happy-impulse.jpg",
-    shop: "",
     website: "http://www.happyimpulse.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/happyimpulse",
       facebook: "http://www.facebook.com/happyimpulsecreative/",
-      behance: "http://www.behance.net/happyimpulse",
       twitter: "http://www.twitter.com/HappyImpulse",
-      pinterest: "http://www.pinterest.com/happyimpulse/",
+      behance: "http://www.behance.net/happyimpulse",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Brock Hofer",
     slug: "brock-hofer",
+    name: "Brock Hofer",
     country: "Canada",
     info:
       "Digital Illustrator based out of Canada. I've always had a ton of fun drawing monsters of all shapes and managed to turn it into a career while working with clients from all around the world.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/brock-hofer.jpg",
-    shop: "",
     website: "https://brockhoferart.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/brockhofer/",
+      facebook: "",
       twitter: "http://twitter.com/brockhofer",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jonas Soeder",
     slug: "jonas-soeder",
+    name: "Jonas Soeder",
     country: "Germany",
     info:
       "I am an independent graphic designer with a passion for illustration based out of Berlin.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jonas-soder.jpg",
-    shop: "",
     website: "https://www.jonassoeder.de/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/jonassoeder/",
-      behance: "https://www.behance.net/jonassoeder",
+      facebook: "",
       twitter: "https://twitter.com/jonassoeder",
+      behance: "https://www.behance.net/jonassoeder",
       dribbble: "https://dribbble.com/jonassoeder",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jaime Hayde",
     slug: "jaime-hayde",
+    name: "Jaime Hayde",
     country: "Spain",
     info:
       "I'm a graphic designer with illustrator soul, or was it the other way around?. I do love bezier curves and bold colors, I love to play with the line and the shapes.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jaime-hayde.jpg",
-    shop: "",
     website: "http://www.jaimehayde.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/jaime_hayde_illustration/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Lena Vargas",
     slug: "lena-vargas",
+    name: "Lena Vargas",
     country: "Dominican Republic",
     info:
       "Lena is an independent illustrator from the Caribbean with a curiosity for the underwater world and  the surrealism of nature. She believes in the healing properties of a good laugh and an interesting conversation. Among her client list are Wired, Los Angeles TIMES, Huffington Post, The Washington Post, Playboy, Johnnie Walker, Popular Science, Toyota, Juan Luis Guerra and other international brands. Her work has been  published in  Fantastic Illustration 5, Story Power of Illustration, Maps of the World, Map Mania, and Tales of Nonsense.She has been part of collective exhibitions in London, Cheltenham, Vienna, Dubai, Hamburg & Barcelona.Her first solo show was in  Summer 2019 at AquaRio, Rio de Janeiro Brazil  a show called Speaking Coral.  An entire alphabet created for the purpose of teaching about coral species and their importance. Since then been integrated into their kids education program so the kids can learn from this alphabet until this date.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/lena-vargas.jpg",
-    shop: "",
     website: "http://lenalaballena.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/lenalaballena/",
-      society6: "https://society6.com/lenalaballena",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/lenalaballena",
       dribbble: "https://dribbble.com/lenalaballena",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ezequiel Figueroa",
     slug: "ezequiel-figueroa",
+    name: "Ezequiel Figueroa",
     country: "Spain",
     info:
       "I’m really into Outer Space that’s why this topic is constantly on my artworks, as designer and Illustrator. For instance in the book “Holograma”, one of my latest projects were I participated as Creative Director, or the several comics and illustrations I have created for Fanzines. I also adore old sci-fy films and magazines, both a constant source of inspiration to create new imaginary worlds.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ezequiel-figueroa.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/xquirrel/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jamesp0p",
     slug: "jamesp0p",
+    name: "Jamesp0p",
     country: "United Kingdom",
     info:
       "James Oconnell AKA Jamesp0p is a UK based Creative Director and Illustrator with a passion for minimalism. He has developed a unique style of illustration that centers around curiosity for the likes of Wired, Riot Games, BBC, YouTube, TimeOut NY and a whole range of startups. James's linear expressions straddle the lines of editorial and product, a sweet spot for helping brands find their narrative through engaging visual storytelling.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jamesp0p.jpg",
-    shop: "",
-    socials: {
+    website: "",
+    shop: "http://www.colourandlines.com/",
+    social: {
       instagram: "http://instagram.com/Jamesp0p",
-      shop: "http://www.colourandlines.com/",
-      behance: "https://www.behance.net/james-oconnell",
+      facebook: "",
       twitter: "http://twitter.com/jamesp0p",
+      behance: "https://www.behance.net/james-oconnell",
       dribbble: "http://dribbble.com/jamesp0p",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Zeller",
     slug: "zeller",
+    name: "Zeller",
     country: "Russia",
     info:
       "I’m an illustrator from Saint-Petersburg, Russia. Graduated as a graphic designer, had been working in different studios, currently work as a freelancer. My main focus is an infographics and illustration.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/zeller.jpg",
-    shop: "",
     website: "http://zellerdes.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/zeller_illustration/",
       facebook: "http://www.facebook.com/zellerdes",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Andrea Galecio",
     slug: "andrea-galecio",
+    name: "Andrea Galecio",
     country: "Perú",
     info:
       "Andreaga is a freelance illustrator. She has worked with various companies such as Google, Disney, Adobe, among others. She is very active on social networks and has a YouTube channel where she teaches digital illustration processes and gives many tips, she is also a teacher on the online platform Crehana.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/andrea-galecio.jpg",
-    shop: "",
     website: "http://www.andreaga.com/",
-    socials: {
+    shop: "http://www.gumroad.com/andreaga",
+    social: {
       instagram: "http://instagram.com/andreagaart",
-      shop: "http://www.gumroad.com/andreaga",
-      youtube: "http://youtube.com/andreagailustracion",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Andreu Zaragoza",
     slug: "andreu-zaragoza",
+    name: "Andreu Zaragoza",
     country: "Spain",
     info:
       "I’m a Barcelona based illustrator and graphic designer. Attracted to drawing since I was a kid, my love for comic books and music artwork pushed me to study graphic design. After some years working as graphic designer, I decided to get back to my passion for pencils and brushes. My work is a mix of traditional ink drawing and digital techniques with textures and vivid colors.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/andreu-zaragoza.jpg",
-    shop: "",
     website: "http://www.andreu-zaragoza.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/andreuzaragoza/",
       facebook: "https://www.facebook.com/andreuzaragoza.illustration",
+      twitter: "",
       behance: "https://www.behance.net/andreuzaragoza",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Maria Ines Malacarne",
     slug: "maria-ines-malacarne",
+    name: "María Inés Malacarne",
     country: "Spain",
     info:
       "Hi, my name is Inés and I’m a Graphic Designer and a Visual Communicator from Argentina based in Barcelona. Currently exploring in the 3D world with motion graphics.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/maria-ines-malacarne.jpg?2",
-    shop: "",
     website: "https://mimalacarne.myportfolio.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/mines.k/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marek Mundok",
     slug: "marek-mundok",
+    name: "Marek Mundok",
     country: "Slovakia",
     info:
       "Marek Mundok is an animator and illustrator based in Slovakia. His work combines traditional animation techniques with After Effects and 3D. Many of his personal projects are inspired by skateboarding culture and punk-rock music.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marek-mundok.jpg",
-    shop: "",
     website: "https://marekmundok.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/marekmundok/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/marekmundok",
       dribbble: "https://dribbble.com/marekmundok",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Wenzhu Wei",
     slug: "wenzhu-wei",
+    name: "Wenzhu WEI",
     country: "Belgium",
     info:
       "Senior graphic- and web designer for Epic Agency (Belgium), my forte is illustration. I love highly contrasted colours, geometrical forms, and mystical stories. Fascinated by Marvel’s superheroes, ancient mythologies, Tolkien’s dragons and dwarves, or Link’s Adventure, I enjoy blending everything I see into a fantastic universe. “Samurai Hipster King”, or “Neverland’s Flying Whale” would be a few of them.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/wenzhu-wei.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/wenzhuwei/",
+      facebook: "",
+      twitter: "",
+      behance: "",
       dribbble: "https://dribbble.com/Outerspace_W",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Karyl Nerona",
     slug: "karyl-nerona",
+    name: "Karyl Nerona",
     country: "Philippines",
     info:
       "Art Director Karyl Nerona builds a number of well-known Filipino brands during the day but after 5, she hones her craft and creates worlds line after line. Currently, she likes creating pieces with dark themes and stories and masking it with strong, vibrant colors and finely detailed swirls, lines, and shapes.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/karyl-nerona.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/karylnerona/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/karylnerona",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "James Swain",
     slug: "james-swain",
+    name: "James Swain",
     country: "United Kingdom",
     info:
       "Linocut fanatic often cycling around or drinking beer in East London.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/james-swain.jpg",
-    shop: "",
     website: "https://jamesswainillustration.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/jamesswainillustration",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Aaron Lockwood",
     slug: "aaron-lockwood",
+    name: "Aaron Lockwood",
     country: "United Kingdom",
     info:
       "Aaron Lockwood is a freelance illustrator, animator and collage artist, when he isn't teaching as an Art & Design lecturer. Utilising both traditional and digital methods, he uses cultural references as the basis for his work, often incorporating interactive elements to create an engaging experience for the viewer. He loves all things vintage and textured, and can often be found wearing a pair of 3D glasses.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/aaron-lockwood.jpg",
-    shop: "",
     website: "http://www.aaronlockwood.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://instagram.com/deadkiriyama/",
+      facebook: "",
       twitter: "https://twitter.com/deadkiriyama",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Aron Vellekoop Leon",
     slug: "aron-vellekoop-leon",
+    name: "Aron Vellekoop León",
     country: "Netherlands",
     info:
       "Aron Vellekoop León (Fuerteventura, Spain 1987) is a Dutch/Spanish illustrator and visual artist, currently living and working in Amsterdam. For a living, Aron loves to push clear concepts to the max, whereas for fun you’ll find him turning his daydreams into paintings, prints and other shapes.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/aron-vellekoop-leon.jpg",
-    shop: "",
     website: "http://aronvl.com",
-    socials: {},
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
   },
   {
-    name: "Gianluca Natale",
     slug: "gianluca-natale",
+    name: "Gianluca Natale",
     country: "Italy",
     info:
       "Illustrator and art director based in Milan. I've been drawing since I remember. I'm lover of minimal illustrations and coffee. I think colors are the soul of the drawing and I love experimenting different combinations. Pizza addicted.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/gianluca-natale.jpg",
-    shop: "",
     website: "http://www.gianlucanatale.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/gianlucanatale_/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Itsmagichere",
     slug: "itsmagichere",
+    name: "ItsMagicHere",
     country: "Belgium",
     info:
       "Laurent Beuten going by @itsmagichere on the internet. Is a graphic designer and Illustrator living in Belgium. Mainly working with vectors but often switches it up or even mixes the two together. Laurent considers his art as a personal hobby which eventually turned out to be his full-time job.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/itsmagichere.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/itsmagichere/",
-      behance: "https://www.behance.net/itsmagichere",
+      facebook: "",
       twitter: "https://twitter.com/itsmagichere",
+      behance: "https://www.behance.net/itsmagichere",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Federico Bebber",
     slug: "federico-bebber",
+    name: "Federico Bebber",
     country: "Italy",
     info:
       "Federico Bebber’s subjects undergo a fantastical metamorphosis, as he warps portraits into a dreamlike, surreal environment. Starting with a photograph as a base, Federico digitally twists and distorts the image until it is unrecognizable, and the final result questions reality.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/federico-bebber.jpg",
-    shop: "",
     website: "https://www.saatchiart.com/eiko",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://instagram.com/bebber",
       facebook: "https://www.facebook.com/federico.bebber",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ruben Antorveza",
     slug: "ruben-antorveza",
+    name: "Ruben Antorveza",
     country: "Colombia",
     info:
       "Colombian graphic designer graduated from Jorge Tadeo Lozano University, with experience in Art Direction for audiovisual media in different cities such as Bogotá, New York, London, Beijing and Singapore.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ruben-antorveza.jpg",
-    shop: "",
     website: "http://www.rubenatorveza.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/zarco_bastardo/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marvin Chin",
     slug: "marvin-chin",
+    name: "Marvin Chín",
     country: "France",
     info:
       "As an avid cartoon fan, he draws inspiration from these worlds in each of his illustrations to convey a positive message filled with bright colours. To do so, he uses vectors by mixing geometric shapes and powerful gradients.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marvin-chin.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/mrvchin/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/MarvinChin",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Geert Verbis",
     slug: "geert-verbis",
+    name: "Geert Verbist",
     country: "Belgium ",
     info:
       "I’ve always been fascinated by drawing, comics, heroes and fantasy. In my early career I studied artists like Sal Buscema and Frank Cho, along with graphic novelists Craig Thompson and Charles Burns. In my final year of higher education, I drew my first graphic novel: ‘Amor Hereos’. This tribute to the genre I feel so passionate about, got me my Masters degree. Since graduating twelve years ago, I kept developing that ‘comic-style’ in illustrations for various clients and projects. The Deck of Crows, a comic-style tarot deck, is my most ambitious independent project so far. Most of my extra time goes into creating these cards and the story around it. My dream is to eventually get the deck fully crowdfunded & printed.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/geert-verbis.jpg",
-    shop: "",
     website: "http://www.deckofcrows.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/deckofcrows/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "John Joven",
     slug: "john-joven",
+    name: "John Joven",
     country: "Colombia",
     info:
       "Graphic designer, freelance illustrator based on Bogotá, Colombia. For 22 years John has collaborated in creative projects for a diverse range of companies around the world. His outstanding illustration and character creation talent have brought to life in several articles on magazines, funny ideas on children's books, and animation projects around the globe.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/john-joven.jpg",
-    shop: "",
     website: "http://www.johnjoven.com/",
-    socials: {
-      instagram: "https://www.instagram.com/jjovenart/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/jjovencomics/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "James Bennett",
     slug: "james-bennett",
+    name: "James Bennett",
     country: "United States",
     info:
       "I’ve been illustrating books, magazines and advertisements for 35 years. Sports Illustrated, TIME, MAD and Vanity Fair among others. I've done picture books with Jerry Seinfeld, Mel Brooks and Carl Reiner. My work is part of the permanent collections of The Society of Illustrators, The Baseball Hall of Fame, and The Negro League Museum.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/james-bennett.jpg",
-    shop: "",
     website: "http://jamesbennettart.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/jamesbennettart/",
+      facebook: "",
+      twitter: "",
       behance: "https://twitter.com/jamesbennettart",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jefferson Mesa",
     slug: "jefferson-mesa",
+    name: "Jefferson Mesa",
     country: "Spain",
     info:
       "I'm 24 years old and i was born in Colombia, but i have been living in Spain since 2010. as a kid i used to draw a lot of character from tv shows, anime or some Pokémon Cards. Nowadays, i'm trying to make my own name in the Illustration's road. I really like to challenge myself and get into new ways of expressions using my drawing skills as a tool. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jefferson-mesa.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/jeffnon96/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Stefano Ronchi",
     slug: "stefano-ronchi",
+    name: "Stefano Ronchi",
     country: "United Kingdom",
     info:
       "Treviglio (North Italy) 1985. Brought up in Trezzo sull'Adda (Milan), land of gloomy Viscontian memories, ambiguous Leonardian backgrounds, nocturnal Manzonian passages, our dark Jacovitti attended for many a year Bergamo's Liceo Artistico ('I failed a few times, I was really bad at everything other than art history'), and then at Brera Academy, where Bernardino Luino disclosed to him the secrets of engraving. In December 2011 he funded in the legendary Ca Laghetto, Milan, the group A.N.S.I.A. (Italian for 'anxiety'), together with other 'young romantic artists, symbolists, surrealists and expressionists'. He lives in London, in the Borough of Hackney. (Camillo Langone • Eccellenti Pittori)",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/stefano-ronchi.jpg",
-    shop: "",
     website: "http://ronch.co.uk/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/ronch1985/",
-      behance: "https://www.behance.net/Ronch",
       facebook: "https://www.facebook.com/ronch1985/",
-      tumblr: "https://stefanoronchi.tumblr.com/",
+      twitter: "",
+      behance: "https://www.behance.net/Ronch",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Roman Dementev",
     slug: "roman-dementev",
+    name: "Roma Dementev",
     country: "Russia",
     info:
       "I am an illustrator and graphic designer. I like dinosaurs, 80's sci-fi movies, and retro-consoles. I am a committed reader also. My favorite writer is Leo Tolstoy.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/roman-dementev.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/romashule/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/romashule",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Igor Duibanov",
     slug: "igor-duibanov",
+    name: "Igor Duibanov",
     country: "Russia",
     info: "Graphic designer",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/igor-duibanov.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/russoturisto_o/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/russoturisto",
       dribbble: "https://dribbble.com/russoturisto",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Martina Filippella",
     slug: "martina-filippella",
+    name: "Martina Filippella",
     country: "Italy",
     info:
       "I was born in 1993 in Milan, Italy. In 2016 I got a diploma in Editorial Illustration at Mimaster Illustrazione and in 2019 I graduated in Communication Design at NABA. I now work as a full time illustrator, but I am also into graphic design, communication and art. I love pop culture and not taking life too seriously.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/martina-filippella.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/martinafilippella/?hl=it",
       facebook: "https://it-it.facebook.com/martinafilippellaillustration/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Vanessa Gong",
     slug: "vanessa-gong",
+    name: "Vanessa Gong",
     country: "Norway",
     info:
       "Anything can be boiled down into simple truths. I tell mine through colour, shape and time.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/vanessa-gong.jpg",
-    shop: "",
     website: "http://vanessagong.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/vanessagong/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/VanessaGong",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sua Balac",
     slug: "sua-balac",
+    name: "Sua Balac",
     country: "Germany",
     info: "Hi, I am an illustrator.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sua-balac.jpg",
-    shop: "",
     website: "https://suabalac.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/s.balac/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/suabalac",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Kaloian Toshev",
     slug: "kaloian-toshev",
+    name: "Kaloian Toshev — MZK",
     country: "Bulgaria",
     info:
       "Kaloian Toshev is an visual artist, illustrator and designer, mainly focused at drawing female portraits. Drawing is his passion and his way of exploring new boundaries. His works are often colorful and vivid and a blend between illustrations and digital art. Kaloian’s works had been featured in various print and digital publications, most significant of which are Illustration Now! 4 - an annual illustration book by Taschen, 52 Aces Playing Cards by zeixs, The Design and Design book of the year, FormFiftyFive, Behance homepage and many more. Kaloian has been working with big name clients like Coca-Cola, Absolut, Audi, Ballantine's, Heineken and Wacom. He’s currently working as freelance illustrator and product designer at his second startup NobleHire.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/kaloian-toshev.jpg",
-    shop: "",
     website: "http://www.mzkmzk.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/mzkworks/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Tino Najera",
     slug: "tino-najera",
+    name: "Tino Najera",
     country: "Mexico",
     info:
       "Tino Najera is a Mexican graphic designer and illustrator based on Dubai. Tino believes in the power of design as a transformation and communication tool. Since 2012. he has worked in advertising agencies across BTL, POP, promotion and digital. His expertise lies in creating art and developing campaigns for different platforms, focusing on achieving the objectives of each campaign with precision, making sure it’s perfect every time.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/tino-najera.jpg",
-    shop: "",
     website: "http://www.tinonajera.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/tinonajera",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Mihai Dumitrache",
     slug: "mihai-dumitrache",
+    name: "Mihai Dumitrache",
     country: "Romania",
     info:
       "Hi! I'm Mihai - I am a freelance illustrator and graphic designer from Bucharest, Romania. I consider myself a versatile artist as I love playing with multiple illustration styles: from sketchy, inky designs to skeuomorphic and realistic vectors. I find my inspiration in all the things that surround me such as the crowded streets, the city itself, the nature, or music and films.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/mihai-dumitrache.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/mihai.dumi/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Glu By Kraft",
     slug: "glu-by-kraft",
+    name: "Glu by Kraft",
     country: "Poland",
     info:
       "My name is Dorota and I live in Toruń in Poland. I work as a freelance graphic designer. After work, I like to relax by creating illustrations. In my works I try to include a dose of absurdity and humor, I like to make people laugh. My favorite topics are girlhood, rewriting of classic artworks and of course humor. My main inspirations are 80s and 90s and skateboarding culture. My style can be described as clean, geometric with expressive colors.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/glu-by-kraft.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/glu_by_kraft/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Catarina Rosa",
     slug: "catarina-rosa",
+    name: "Catarina Rosa",
     country: "Portugal",
     info:
       "Hey there! My name is Catarina Rosa. I’m a freelance Designer, Illustrator and I love visuals. I have a passion for Photography and Video and believe that all these areas complement each other. I work with ambitious people to create and grow their projects and ideas. Also love to take some time to explore new challenges, like this one!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/catarina-rosa.jpg",
-    shop: "",
     website: "https://www.catarinaarosa.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/catarinaarosa/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Francesco Faggiano",
     slug: "francesco-faggiano",
+    name: "Francesco Faggiano",
     country: "Italy",
     info:
       "Hi there! My name is Francesco, Italian illustrator based in Las Palmas de Gran Canaria. I started freelance working in 2007 as graphic designer with small associations and clients in Milan, during university. I graduated in 2008 with a BSc. degree in Industrial Design and later in 2012 with a MSc. degree in Communication Design, officially starting my illustrator career. After many years spent in Milan, I moved to Gran Canaria in 2016 to start up my design studio and keep working as freelance illustrator with agencies and clients worldwide.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/francesco-faggiano.jpg",
-    shop: "",
     website: "http://www.francescofaggiano.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/francescofaggiano.illustrator/",
       facebook: "http://www.facebook.com/francescofaggianoillustrator",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Lidan Chen",
     slug: "lidan-chen",
+    name: "Lidan Chen",
     country: "China",
     info:
       "I am Lidan Chen, an illustrator who grew up in Beijing. I draw children’s book and comics. I enjoy telling stories with images!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/lidan-chen.jpg",
-    shop: "",
     website: "http://www.lichendan.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/lichendan/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ian Vicknair",
     slug: "ian-vicknair",
+    name: "Ian Vicknair",
     country: "United States",
     info:
       "I am a digital artist and matte painter working within the visual effects industry.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ian-vicknair.jpg",
+    website: "",
     shop: "",
-    socials: {
-      artstation: "https://www.artstation.com/ianvicknairs",
+    social: {
       instagram: "https://www.instagram.com/ianvicknair/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Laura Marcuet",
     slug: "laura-marcuet",
+    name: "Laura Marcuet",
     country: "France",
     info:
       "Appeared on this strange planet in 1995, I started drawing from an early age. After studies in graphic design, I decided to start as a freelance at the end of 2017. In the meantime, I realized a personal project that was very dear to me : an illustrated cards deck in black, white and red. I had this idea in mind since I discovered the Edition Two of Playing Arts thanks to Kerby Rosanes' participation. So participating to this 'Future' edition is an unbelievable opportunity and a heartfelt homecoming. Passionate about tattoos, plants, animals and all sorts of witchy shenanigans, I like using my drawings to share a positive message of self acceptance and raise awareness about ecology and feminism.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/laura-marcuet.jpg",
-    shop: "",
-    socials: {
+    website: "",
+    shop: "https://www.etsy.com/fr/shop/LauraMarcuet",
+    social: {
       instagram: "https://www.instagram.com/lauramarcuet/",
-      shop: "https://www.etsy.com/fr/shop/LauraMarcuet",
       facebook: "https://www.facebook.com/lauramarcuetillustration",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Lucia Antruejo",
     slug: "lucia-antruejo",
+    name: "Lucía Antruejo",
     country: "Spain",
     info:
       "My name is Lucía Antruejo and I work as a graphic designer but I consider myself an illustrator in my spare time. I have studied Fine Arts and I love traditional work, but the tools that we currently have make it difficult to ignore the digital world. I like illustration because it allows me to evade and express feelings that are otherwise more difficult to explain. It is another way of creating worlds.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/lucia-antruejo.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/lucia_antru/",
-      behance: "https://www.behance.net/luciaantruejo",
       facebook: "https://www.facebook.com/lucia.antruejo",
+      twitter: "",
+      behance: "https://www.behance.net/luciaantruejo",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Solin Sekkur",
     slug: "solin-sekkur",
+    name: "Sólin Sekkur",
     country: "México",
     info:
       "I'm a freelance illustrator based in Mexico City. I draw for magazines, books, and my own amusement.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/solin-sekkur.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/solinsekkur/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/solinsekkur",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Yahir Esquivel",
     slug: "yahir-esquivel",
+    name: "Yahir Esquivel",
     country: "México",
     info:
       "My name is Yahir Esquivel, I am a Mexican illustrator and designer. I graduated in Design and Visual Communication at FAD UNAM. My work is inspired by Latin American literary narrative, mythology, character design, Mexican culture and art in general. Something that I like to do in my work is to generate a visual narrative implementing concepts that I can find anywhere, either literature, cinema or everyday life. Currently I am dedicated to developing my work in the field of digital illustration while continuing to implement traditional forms of work such as drawing.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/yahir-esquivel.jpg",
+    website: "",
     shop: "",
-    socials: {
-      tumblr: "https://yahiresquivel.tumblr.com/",
+    social: {
       instagram: "https://www.instagram.com/yahiresquivvel/",
       facebook: "https://www.facebook.com/yahiresquivelart/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Diana Dementeva",
     slug: "diana-dementeva",
+    name: "Diana Dementeva",
     country: "Russia",
     info:
       "I graduated as a graphic designer in 2011 but working as a digital illustrator since 2012. I draw all my conscious life and I love it. I grew up in a big industrial city and now I live in a tiny town in the mountains, such a contrast. Most of all I like drawing people, I mean making characters. The book illustration is also my area, and I would like to make comics and graphic novels in future.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/diana-dementeva.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/nummygram/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/nummyworks",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Lucian Moldovan",
     slug: "lucian-moldovan",
+    name: "Lucian Moldovan",
     country: "Romania",
     info:
       "I am a non-award winning designer with a background in software engineering and I care about both function and beauty in design. With a soft spot for simplicity and minimalism l, I create digital and visual experiences by combining my knowledge in different areas of design, such as Graphic Design, User Experience Design and 3D Design. I am a firm believer that design, if done with the people in mind, can make the modern world a more enjoyable place.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/lucian-moldovan.jpg",
-    shop: "",
     website: "https://lucianmldvn.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/lucianmldvn/",
+      facebook: "",
+      twitter: "",
       behance: "https://be.net/lucianmldvn",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Smash Studio",
     slug: "smash-studio",
+    name: "Smash Studio",
     country: "Romania",
     info:
       "Smash Studio is a design studio based in Cluj-Napoca. Founded in 2017 by three designers and friends, the studio’s main practices are graphic design, illustration and merchandising. We are working with passion for every project, wanting to have a positive impact on our surroundings. Since we started this, we carried projects from logo design, to murals, to creating our own apparel.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/smash-studio.jpg",
-    shop: "",
     website: "https://www.smashstudio.ro",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/smash.studio/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Oliver Santiago",
     slug: "oliver-santiago",
+    name: "Oliver Santiago",
     country: "Philippines",
     info:
       "Designer and Illustrator based in the Art Capital of the Philippines.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/oliver-santiago.jpg",
-    shop: "",
     website: "http://oliversantiago.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/oliverpsantiago",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Nicolae Negura",
     slug: "nicolae-negura",
+    name: "Nicolae Negura",
     country: "Portugal",
     info:
       "Nicolae Negura is a Romanian illustrator that decided to make out of Lisbon his home and his source of inspiration, for the past few years. His work is a combination of strong and garish colors and a rough ink trace that resembles vintage comics. Keeping always the same expression his work speaks about people and the different experiences of humankind, from banal stories of daily life to dreams and wannabe superheroes as symbols of our consumerism.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/nicolae-negura.jpg",
-    shop: "",
     website: "https://nicolaenegura.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/nicolae_negura/",
-      redbubble: "http://cucubaou.redbubble.com/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ezgi Arslan",
     slug: "ezgi-arslan",
+    name: "Ezgi Arslan",
     country: "Turkey",
     info:
       "Hi! I'm Ezgi, born in 1999. I'm a freelance illustrator and graphic designer in Turkey. I'm on a endless journey to find myself. Feeling free and fearless about trying new things all the time. Colors are my biggest passion, so i feel like I'm playing an endless game. I love the illustrate my second passion, sport. Different types of motion, team spirit, always impress me. I also illustrate the moments, emotions, and thoughts in my life Illustration is everything for me.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ezgi-arslan.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://www.instagram.com/kfkfkfxo",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/ezgiarslan",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Isabelle Lutter",
     slug: "isabelle-lutter",
+    name: "Isabelle LUTTER",
     country: "France",
     info:
       "I am a Parisian based illustrator, I work mainly with publishing houses. I don’t consider myself a truly digital artist, I like to mix both analog and digital. Even 3D elements sometimes. Trying endlessly to combine paintings , drawings and photographs using Photoshop filters and tools. I aim to give a final warm organic feel to my illustrations. I like the notion of baroque to allude to my work. It is intricate, but one can see immediately in what universe it is dealing with…",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/isabelle-lutter.jpg",
-    shop: "",
     website: "http://thecreativefinder.com/terrelune",
-    socials: {},
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
   },
   {
-    name: "Malik Al Hashimi",
     slug: "malik-al-hashimi",
+    name: "Malik Al Hashimi",
     country: "France",
     info:
       "Malik Al Hashimi aka Kuro 222. After studies in graphic design I decided to focus on my passion, illustration and I was then led to discover tattooing. My work is melancholic and poetic, affected by ADHD my favorite themes are the feeling of maladjustment, difference, and the discomfort of the human condition.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/malik-al-hashimi.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/kuro.222",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/Kuro222",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Cirulli Marco",
     slug: "cirulli-marco",
+    name: "Cirulli Marco ",
     country: "Italy",
     info:
       "Hi, I'm Marco, I'm 25 years old and I'm from Turin, Italy, but I've been living in Barcelona for months and I'm an illustrator, graphic designer and freelance artist. I studied as an advertising graphic designer in Turin, but I have always been self-taught and I have seen my work grow and improve only with a lot of practice, which I continue to do today. I always liked to draw and that's why I want to make this passion my job.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/cirulli-marco.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/cirulli_marco_art_attackt/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Nico189",
     slug: "nico189",
+    name: "Nico189",
     country: "Italy",
     info:
       "Nico189 is a Milan based designer and illustrator. In the late ’90, Nico189 started painting along the streets of southern Italy exploring a spontaneous visual style by using clean-cut lines and geometric shapes initially inspired by the NY wild style. Often composed of urban landscapes and minimalistic patterns with a limited color palette, now Nico189’s work embodies a very recognizable visual style. From publishing to collaboration with international brands Nico189 interacts with a broad audience. He has collaborated with international brands such as Adidas, Fast Company, Fortune, Harvard Business Review, Ikea, Monocle, Swatch, The Good Life, Time Out NY, Travel+Leisure, Wired Uk, etc.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/nico189.jpg",
-    shop: "",
     website: "http://www.nico189.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/_nico189",
-      behance: "http://www.behance.net/nico189",
       facebook: "https://www.facebook.com/helloNico189",
+      twitter: "",
+      behance: "http://www.behance.net/nico189",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Bernie Jezowski",
     slug: "bernie-jezowski",
+    name: "Bernie Jezowski",
     country: "United Kingdom",
     info:
       "Bernie is a London based artist and designer, specifically in the entertainment sector. He has a real passion for films and games, and has produced work for some of the world’s top movie studios, raging between digital and print campaigns. Apart from his commercial design work, Bernie has been producing alternative movie and game posters and is an active member of a few artist poster communities and collectives. His work has been award-winning, exhibited and published globally.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/bernie-jezowski.jpg",
-    shop: "",
     website: "http://berniedave.co/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/berniedave/",
-      behance: "https://www.behance.net/berniedave",
       facebook: "https://www.facebook.com/berniedavedesign",
       twitter: "https://twitter.com/berniedave",
+      behance: "https://www.behance.net/berniedave",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Serge",
     slug: "serge",
+    name: "Serge",
     country: "Guatemala",
     info:
       "I’m a self taught digital illustrator focused on character design, I like to explore emotions and empathy through my characters, quirky looking and a bit anthropomorphous, currently based in Argentina.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/serge.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/nosoyserge/",
-      behance: "https://www.behance.net/nosoyserge",
+      facebook: "",
       twitter: "https://twitter.com/nosoyserge",
+      behance: "https://www.behance.net/nosoyserge",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Eliot Bemis",
     slug: "eliot-bemis",
+    name: "Eliot Bemis",
     country: "United States",
     info:
       "Design that makes people say 'damn' is what I live and breathe for. I love being able to express and communicate ideas through visual language. I grew up watching my grandmother chain-smoke cigarettes while playing Super Mario World & Tetris, so those early years inspire a lot of the work I do now. When I am not pushing pixels or fiddling with colors, I am typically riding my bike around Brooklyn somewhere.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/eliot-bemis.jpg",
-    shop: "",
     website: "http://eliotbemis.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/skinnybeams/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sergio Stuff",
     slug: "sergio-stuff",
+    name: "Sergio Stuff",
     country: "Puerto Rico",
     info:
       "I'm freelance Artist from the hyper tropical island of Puerto Rico. Studied graphic design in la Escuela De Artes Plásticas In San Juan. I like to work with a colorful, deconstructed, psychedelic,  pop, surrealism, kind of thing with a hint of symbolism. When I’m not illustrating, designing, doing a murals or making a new comic I’ll be traveling around the world or you can find me on a little ramen shop or pizza place near you!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sergio-stuff.jpg",
-    shop: "",
     website: "https://www.sergio-stuff.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/sergio_stuff/",
       facebook: "https://www.facebook.com/sergiovazquezstuff/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Andres Rigo",
     slug: "andres-rigo",
+    name: "Andrés Rigo",
     country: "Spain",
     info:
       "I’m Andrés Rigo, interface designer, illustrator and occasionally cat eater from Madrid. I’m dedicating my life to arts and design, actually I’ve been working for IBM or frog design, and parallel I’m illustrator for diverse magazines, packaging products or publications. I really enjoy traditional art, paint with acrylic, oil, watercolour or markers, and when I switch into digital, I like to maintain the textures and appearance that the traditional techniques give. My work is inspired by wildlife, people, realism, urban landscapes, future, darkness, videogames and weird things. Btw, I really hate the people on Instagram that are pretending to paint, with their shorts and face full of painting, and they don’t even know how to grab a pencil : )",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/andres-rigo.jpg",
-    shop: "",
     website: "http://www.rigostudios.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/rigostudios/",
-      behance: "https://www.behance.net/rigostudios",
       facebook: "https://www.facebook.com/rigostudios/",
+      twitter: "",
+      behance: "https://www.behance.net/rigostudios",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Donavon Brutus",
     slug: "donavon-brutus",
+    name: "Donavon Brutus",
     country: "United States",
     info:
       "Donavon is an African/Haitian American professional animator/illustrator that has worked in the entertainment, education, and marketing fields for over 11 years. He was born and raised in Arkansas, but currently resides in California. The cartoons of the 90’s inspired him to start drawing at an early age. He learned the fundamentals of fine art throughout high school focusing on sculpture, abstracts, and life drawing. He later got his first taste of digital art while earning a Bachelor’s of Fine Arts in Computer Animation in Florida. He does a lot of personal illustration work that is inspired by animals, the human form, his travels, mindfulness, diversity, music, and popular culture. He enjoys seeing the ways in which the stories and forms conveyed through it can impact others. His work has been shown in over 60 art exhibitions and festivals.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/donavon-brutus.jpg",
-    shop: "",
     website: "http://www.donavonbrutus.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/donavonmadethat",
       facebook: "http://www.facebook.com/donavonmadethat",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Radu Ilinca",
     slug: "radu-ilinca",
+    name: "Radu Ilinca",
     country: "Romania",
     info:
       "I'm a visual artist with a strange fascination for everything that could be described as psychedelic and bizarre.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/radu-ilinca.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://www.instagram.com/raduiln",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/raduilinca",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Acrylic Pixie",
     slug: "acrylic-pixie",
+    name: "Acrylic Pixie",
     country: "Latvia",
     info:
       "Hi guys! I'm a freelance graphic designer and artist. I draw inspiration from traditional tattoo art and experiment with colors and styles.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/acrylic-pixie.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/acrylic.pixie",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Shangning Wang",
     slug: "shangning-wang",
+    name: "Shangning Wang",
     country: "China",
     info:
       "Shangning Wang is a New York based graphic designer, art director, illustrator, and all around creative. He focuses on  branding design, data visualization, commercial art, illustration, report design, website design and poster design. He also sits on the jury for a number of design contests.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/shangning-wang.jpg",
-    shop: "",
     website: "http://shangningwang.com/",
-    socials: {
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/Shangning",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jeth Torres",
     slug: "jeth-torres",
+    name: "Jeth Torres",
     country: "Philippines",
     info:
       "Jeth Torres is a Graphic Designer from Manila. Most of his work concentrates on brand identity and typography. He also focuses on his personal style in calligraphy which is mainly inspired by Arabic strokes and calligrams, Western & Asian calligraphy, and Calligraffiti. The themes of his work usually revolves around dark visuals, paranormal, hip-hop culture and sports. He has worked with local and international clients — from start-ups, established companies, government agencies to streetwear brands.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jeth-torres.jpg",
-    shop: "",
     website: "https://www.behance.net/jethtorres",
-    socials: {
+    shop: "https://www.instagram.com/swashclothing/",
+    social: {
       instagram: "https://www.instagram.com/jethtorres/",
-      shop: "https://www.instagram.com/swashclothing/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ricardo Berber",
     slug: "ricardo-berber",
+    name: "Ricardo Berber",
     country: "México",
     info:
       "I really like creating creatures and playing with the different world where they will live. i am Illustrator 3D and Art Director from eight years.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ricardo-berber-duplicate.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/breli4/",
-      behance: "https://www.behance.net/brelia",
+      facebook: "",
       twitter: "https://twitter.com/Breli4",
+      behance: "https://www.behance.net/brelia",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sara Gummy",
     slug: "sara-gummy",
+    name: "Sara Gummy",
     country: "Spain",
     info:
       "I'm Sara Gummy, but my real name is Sara Gonzalez. I'm an Illustrator, Graphic Designer and Motion Grapher freelancer from Malaga, Spain. Actually working like Graphic Designer at Domestika and develop my personal growth. Also I have had the pleasure of working for magazines, agencies, apps and publishers. I usually draw with the wacom cintiq or ipad. Rarely take my sketchbook to create, though I don't discard it. The kawaii is my biggest ally, I always loved this trend and little by little it has become my biggest influence. For thousands of people who follow this trend, they describe it as the embodiment of positivity.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sara-gummy.jpg",
-    shop: "",
     website: "https://saragummy.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/saragummy/",
-      behance: "https://www.behance.net/saragummy",
+      facebook: "",
       twitter: "https://twitter.com/sara_gummy",
-      domestika: "https://www.domestika.org/es/saragummy/portfolio",
+      behance: "https://www.behance.net/saragummy",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Oleg Okunev",
     slug: "oleg-okunev",
+    name: "Oleg Okunev",
     country: "Ukraine",
     info:
       "Since I can remember, I’ve been drawing comics. I have finished the Tauride Art Lyceum in southern Ukraine where I have received a classical art education. It all started with the online newspaper Regiononline where my comical pictures and cartoons for the news feed were posted. Then I stepped on a thorny path of adult comics where I had to perceive all the fascination and charm of the human anatomy. At the moment my works are being published in the youth magazine of comics Bubble, which is dedicated to native superheroes.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/oleg-okunev.jpg",
-    shop: "",
     website: "http://okunevart.com/",
-    socials: {
+    shop: "",
+    social: {
+      instagram: "",
+      facebook: "",
       twitter: "https://twitter.com/OkunevArt",
-      patreon: "https://www.patreon.com/olegokunev",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Mork Work",
     slug: "mork-work",
+    name: "Mork Work",
     country: "Spain",
     info:
       "Mork Work are Glen Dias and Marcos Andrade. We met at the high school where we studied Visual Communication. In classes we communicated through messages drawn in our notebooks. After a time working for post-production agencies, we saw the potential of these drawings and decided to return to that style of illustration. We pursue to make it our personal stamp. This was the necessary impulse to keep those characters from being orphaned. This is how Mork Work was born, which means 'Love for work'.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/mork-work.jpg",
-    shop: "",
     website: "http://www.morkwork.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/morkwork",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Kloudhandz",
     slug: "kloudhandz",
+    name: "kloudhandz",
     country: "Belgium",
     info:
       "Greetings! My name is Seb Ferdinand, I'm a freelance vector illustrator from Belgium. I have a background in print design but it's the love for comics and anime that has driven me to do this kind of work. I appreciate the technical aspect that vector works require and the amount of detail one can add. Drawing inspiration from technology, science (fiction), movies and comics. I try to blend these subjects into my work.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/kloudhandz.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/kloudhandz/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/kloudhandz",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Oliver Bown",
     slug: "oliver-bown",
+    name: "Oliver Bown",
     country: "Hungary",
     info:
       "I am a freelance designer and illustrator, mostly focused on Science Fiction/ Fantasy themes.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/oliver-bown.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/oliverbown75/?hl=en",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/oliverbown",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Miguel Bencomo",
     slug: "miguel-bencomo",
+    name: "Miguel Bencomo",
     country: "Ecuador",
     info:
       "Illustrator by spiritual decree. Lover of artisanal and digital graphics. Influenced by urban currents such as Street Art, and Graffiti. Born in Havana (Cuba), living in Ecuador since 2000, with experience in advertising illustration and character design, currently art director in an advertising agency, There is something more important than logic, imagination.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/miguel-bencomo.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/bencomo_illustration/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/M_Bencomo",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Miopia",
     slug: "miopia",
+    name: "Miopia",
     country: "Brasil",
     info:
       "With strong roots in the independent music scene, the couple, Gustavo Magalhães and Carol Maia, started Miopia with the intention of collaborating with independent events / bands in the region. Heavily influenced by underground art and tattoo culture from an early age that directly influences the work of the pair, the studio has an organic and original style derived from the manual processes that the couple prioritizes in their work. Without rest and without stopping the couple have been collaborating with people from Brazil and the world since 2015.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/miopia.jpg",
-    shop: "",
     website: "https://estudiomiopia.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/estudiomiopia/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/estudiomiopia",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Burak Esmer",
     slug: "burak-esmer",
+    name: "Burak ESMER",
     country: "Turkey",
     info:
       "Hello there! I'm Burak ESMER. I am an Istanbul based art director, graphic designer and illustrator. I am producing in the field of graphic design, digital illustration and 3D.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/burak-esmer.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/burakesmers",
+      facebook: "",
+      twitter: "",
       behance: "http://behance.net/burakesmerco",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jane Gorelova",
     slug: "jane-gorelova",
+    name: "Jane Gorelova",
     country: "Russia",
     info: "I'm package designer at work and illustrator in my free time.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jane-gorelova.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/gorelova_evgeniya/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/EvgeniyaGorelova",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Nikita Ivanov",
     slug: "nikita-ivanov",
+    name: "Nikita Ivanov",
     country: "Ukraine",
     info:
       "Hi! My name is Nikita. I’m 30, born in 1989. I’m a Ukrainian designer and graphic artist. I have been painting since childhood and love to fantasize. I am very interested in the topic of alchemy and natural elements.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/nikita-ivanov.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/n.johansn/",
-      behance: "https://www.behance.net/n-johansn",
       facebook: "https://www.facebook.com/n.johansn",
+      twitter: "",
+      behance: "https://www.behance.net/n-johansn",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Vlad Sorescu",
     slug: "vlad-sorescu",
+    name: "Vlad Sorescu",
     country: "Romania",
     info:
       "Vlad Soresu is a twenty-seven-year-old creative who splits between visual design and art. His artistic side explores contemporary subjects, being inspired by various sociopolitical and economical contexts — the church's influence over society but also urban culture and music. Having a background in architecture, Vlad brings logic and functionality in design, emotion in art, and last but not least —aesthetics and passion in everything he does.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/vlad-sorescu.jpg",
-    shop: "",
     website: "https://sorescuvlad.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/vlad_sorescu/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/SorescuVlad",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Mario Ivanov Maxter",
     slug: "mario-ivanov-maxter",
+    name: "MAXTER",
     country: "Bulgaria",
     info:
       "My name is Mario Ivanov. I live and work in Sofia, Bulgaria. I work in the field of the graphic design and I specialize in packaging design. I like logo design, caricature and T-shirt design. I collect vinyl LPs and I find inspiration for my illustrations in music. You can see some of my works in the following links:",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/mario-ivanov-maxter.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/maxter_illustration/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/maxterdesign",
-      tumblr: "https://maxterdesign.tumblr.com/",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Rick A Crane",
     slug: "rick-a-crane",
+    name: "Rick A Crane",
     country: "United Kingdom",
     info:
       "Illustrator/designer creating geometric, minimalist artwork inspired by nature.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/rick-a-crane.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/rickacrane/",
       facebook: "https://www.facebook.com/thepapercrane/",
       twitter: "https://twitter.com/rickacrane",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Lina Kusaite",
     slug: "lina-kusaite",
+    name: "Lina Kusaite",
     country: "Belgium / Lithuania",
     info:
       "Lina Kusaite is an illustrator, life coach and eco-art designer, living in Belgium. Her work has appeared in a diverse range of high calibre international publications, computer games and exhibitions. Lina’s artwork was recently featured in the display in Times Square as part of the See Me, 2014 ‘Seemetakeover’ event. Her artwork has also been published in esteemed catalogues such as Always Me!: Self-Portraits of Global Illustrators published by Dopress Books, Magic Paintbrush by Illustration published in 2015 by Hightone and Mix & Match, Exploring Contemporary Collage by Ginko Press. Lina was recently awarded second place as best illustrator for the works featured within her book Feathers, Paws, Fins, and Claws: Fairy-Tale Beasts, at the Moonbeam Children’s Book Awards, US, 2016. Additionally, this publication was a finalist at the 2016 Next Generation Indie Book Awards, within the category Children’s Juvenile Fiction. In 2018 Lina won a gold medal for the Best Book Illustration at iJungle 2018 Illustration Awards. Lina is an enthusiastic all-around creative, with a unique illustrative aesthetic. She is continuously exploring new creative methods and media and loves collaborating on new projects with her reputable list of new and existing clients.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/lina-kusaite.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/cocooncharacters",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Kay Leathers",
     slug: "kay-leathers",
+    name: "Kay Leathers",
     country: "United Kingdom",
     info:
       "I’m a London-based illustrator and multimedia designer specialising in character drawing. I find inspiration in oddities, individuality and humour. I can’t help myself when it comes to drawing cute characters, sometimes irreverent but always lovable! I work a lot on animations, which I love, working closely with creative teams and animators to brainstorm concepts, create storyboards and build assets and characters ready for animations.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/kay-leathers.jpg",
-    shop: "",
     website: "https://www.kayleathers.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/kayleathers/",
       facebook: "https://www.facebook.com/kayleathersillustrations",
       twitter: "https://twitter.com/kayleathers1",
+      behance: "",
       dribbble: "https://dribbble.com/kay_leathers",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Sua Agape",
     slug: "sua-agape",
+    name: "Súa Agapé",
     country: "Guatemala",
     info:
       "My name is Súa Agapé. I’m freelance illustrator based in Guatemala. Since I was a little girl I love to draw, create and imagine new worlds. I’ve always been attracted to everything that is unique and different.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/sua-agape.jpg",
-    shop: "",
     website: "http://www.suagape.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/suagape/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Rob Armbrister",
     slug: "rob-armbrister",
+    name: "Rob Armbrister",
     country: "United States",
     info:
       "I’m ROB ARMBRISTER, a multi-disciplinary artist focusing in advertising, illustration and book design. Influenced by street art and animation, and with a background in illustration, I bring a vibrant and unique set of colors and characters into all projects.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/rob-armbrister.jpg",
-    shop: "",
     website: "http://artbrister.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/artbrister/",
+      facebook: "",
       twitter: "https://twitter.com/artbrister",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Virginie Mazureau",
     slug: "virginie-mazureau",
+    name: "Virginie Mazureau",
     country: "United States",
     info:
       "My name is Virginie Mazureau. I'm a french contemporary artist living in US. I breathe naive joy into my work, swept by splashes,and burst of colors, and the whimsical use of acrylic and vintage collages allows the viewer a reminiscence at once serene and surreal. Celebrating what is positive is a testament to my belief that children are the representatives of hope, those who will make the world of tomorrow.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/virginie-mazureau.jpg",
-    shop: "",
     website: "http://www.virginiemazureau.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/virginiemazureau",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Lindsey Chizever",
     slug: "lindsey-chizever",
+    name: "Lindsey Chizever",
     country: "United States",
     info:
       "Lindsey Chizever is a graphic designer based in Brooklyn, New York by way of Lancaster, Pennsylvania. She likes used bookstores, diners, and Frasier.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/lindsey-chizever.jpg",
-    shop: "",
     website: "http://lindseychizever.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/lindseychiz",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Claudia Silva Gopfert",
     slug: "claudia-silva-gopfert",
+    name: "Claudia Silva Göpfert",
     country: "Chile",
     info:
       "Claudia Silva Göpfert is a Graphic Designer with studies in Bachelor of Science and Veterinary Medicine that provided her valuable tools in disciplines of observation, analysis, and curiosity of the environment that surrounds her. Currently, she uses this scientific approach to her projects. She attended a specialization course at the New York School of Visual Arts (SVA) at the Creative Summer Workshop 'Creativity & Design' in 2012. She has always been interested in illustration and she is constantly seeking to specialize, learn, and experience different artistic techniques,  complementing analog and digital with each other.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/claudia-silva-gopfert.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/claudineillustration",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/clsilvag",
-      society6: "http://www.society6.com/claudineillustration",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Valentin Cioaca",
     slug: "valentin-cioaca",
+    name: "Valentin Cioaca",
     country: "Romania",
     info:
       "My name is Valentin and I'm an artist from Bucharest, Romania. After 6 years as a freelance graphic designer I ventured in illustration under the moniker Kitto Jason, as I found in it a better way to express myself and convey my thoughts and ideas. Through my work I want to inspire and encourage self-reflection and to offer a new perspective on things.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/valentin-cioaca.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/kitto.jason",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Lorenzo Fioranelli",
     slug: "lorenzo-fioranelli",
+    name: "Lorenzo Fioranelli",
     country: "Italy",
     info:
       "My name is Lorenzo Fioranelli and I'm a professional fine painter. When I'm not painting I work as a freelance illustrator and graphic designer, experimenting with new ideas and ways to combine techniques and media. I'm an insatiable curious artist, who looks at the human body and faceted gestures that are underneath, such a never-ending stack of images can be seen in many shapes and grades.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/lorenzo-fioranelli.jpg",
-    shop: "",
     website: "http://www.lorenzofioranelli.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/lorenzo.fioranelli/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/lorenzofioranelli",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Erika Szep Biro",
     slug: "erika-szep-biro",
+    name: "Erika Szép-Bíró",
     country: "Hungary",
     info:
       "Hello, I'm Erika Szép-Bíró, illustrator, pattern designer and geek girl. I was born in Budapest 1985, where I still live today even though I had a short 4 years bypass to the University of Kaposvár doing a Drawing and Visual communication major. After getting my diploma I started working at a media agency and later as a package designer. Currently I am illustrating, designing various patterns for fabrics and other graphic materials. In my personal work I try to endeavor uniqueness and the utility of symbols, and when I design for a client I am trying to find the solutions that fit best to the personality of the customer - so I am talking a lot with them and try to know them. :) I love to read and play, I like the creatively made fantasy or sci-fi worlds which often find their way into my works as well.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/erika-szep-biro.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://www.instagram.com/szisszmok/",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/szisszm0k",
-      "society6﻿": "http://www.society6.com/szisszm0k",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Pilar Vega",
     slug: "pilar-vega",
+    name: "Pilar Vega",
     country: "Spain",
     info:
       "I am an art director and illustrator based in a small city, Salamanca, Spain. Over the years I have been specializing in the collage technique, both digital and analog. I like to create 'monstrous characters' from small pieces of very different shapes.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/pilar-vega.jpg",
-    shop: "",
     website: "http://lapilivega.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/pilarvega_",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Edwin Perilla",
     slug: "edwin-perilla",
+    name: "Edwin Perilla",
     country: "Spain",
     info:
       "Hi everyone! My name is Edwin, I’m freelance illustrator and graphic design living in Valladolid, España but I’m Colombian, I draw inspirado from different cultural, music, books and enchanted by surrealism. My work is influenced by James Jean, Alberto Durero and Sachin Teng.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/edwin-perilla.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/Edwin_perilla",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/eadestudio",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Umberto Daina",
     slug: "umberto-daina",
+    name: "Umberto Daina",
     country: "Italy",
     info:
       "My name is Umberto Daina and I was born in Palermo in 1979 and for 20 years I live in Florence. I'm a 3D illustrator, a multidisciplinary artist and an art director focused on advertising.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/umberto-daina.jpg",
-    shop: "",
     website: "http://umbertodaina.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/umbertodaina",
+      facebook: "",
+      twitter: "",
       behance: "http://behance.net/udaina",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Tim Zhilin",
     slug: "tim-zhilin",
+    name: "Tim Zhilin",
     country: "Russia",
     info:
       "I'm a 19 year old architecture student from Moscow. Spent last 5 years making collages, attending exhibitions and having masterclasses! Making 'ordinvry' collage project with my dad!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/tim-zhilin.jpg",
+    website: "",
     shop: "",
-    socials: {
-      instagram: "https://www.instagram.com/_ordinvry_/",
+    social: {
+      instagram: "https://www.instagram.com/timofeyzhilinart/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Federica Fabbian",
     slug: "federica-fabbian",
+    name: "Federica Fabbian",
     country: "France",
     info:
       "I am an Italian illustrator based in Strasbourg, France. I'm always looking for a new image to express myself with a touch of irony and romance, because drawing has always been my favorite way of communicating. I often draw inspiration from everyday life without taking myself too seriously. My experience as a graphic designer has certainly influenced my illustrative style, made of essential lines, flat colors and textures.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/federica-fabbian.jpg",
-    shop: "",
     website: "https://www.federicafabbian.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/federica.fabbian/",
-      behance: "https://www.behance.net/federicafabbian",
       facebook: "https://www.facebook.com/federicafabbianillustrazione/",
+      twitter: "",
+      behance: "https://www.behance.net/federicafabbian",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Mr Maestre",
     slug: "mr-maestre",
+    name: "Mr. Maestre",
     country: "Spain",
     info:
       "I’ve been drawing strange images that have worried my parents and teachers since 1993, perhaps thanks to an early passion for Tim Burton films, roleplay creatures, and my unusual imagination. I went on to study Illustration, specializing in graphic design, and I currently work as the Art Director of a Spanish digital startup.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/mr-maestre.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/mrmaestre/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Anastasia Kochetkova",
     slug: "anastasia-kochetkova",
+    name: "Anastasia Kochetkova",
     country: "Russia",
     info:
       "Hi, my name is Anastasia Kochetkova and I am a photographer and freelance artist. I’m a cheerful, kind, curious and sporty person. I draw inspiration from different animals and life.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/anastasia-kochetkova.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/kochetkovart/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marcello Manchisi",
     slug: "marcello-manchisi",
+    name: "Marcello Manchisi",
     country: "Italy",
     info:
       "Hi! I'm Mello, I am a 1991 kid and I've always loved visual art! I've studied design, illustration, graphics, 3d art and animation (and I am not done yet!). Since 5 years I am working in animation field, and I have had the chance to face different projects as designer, illustrator and animator, often switching between 2d and 3d art. I stan Blue color, ducks, toys, funny characters, videogames. Whenever I am not working for my main job, I keep designing characters, inspired by all cool things above mentioned.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marcello-manchisi.jpg?2",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/blumello/",
-      behance: "http://behance.com/marcellomanchisi",
       facebook: "http://facebook.com/marcellomanchisi",
+      twitter: "",
+      behance: "http://behance.com/marcellomanchisi",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Burak Cinar",
     slug: "burak-cinar",
+    name: "Burak Cinar",
     country: "Turkey",
     info:
       "I'm a 30-year-old Turkish illustrator & senior game artist living in Barcelona. I've worked for magazines, animation studios, advertisement agencies, game studios. I would consider myself as a 'jack of all trades master of none' type of artist.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/burak-cinar.jpg",
-    shop: "",
     website: "http://www.burakcinar.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/burakdraws/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/burakcinar",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Kristyn Bailey",
     slug: "kristyn-bailey",
+    name: "Kristyn Bailey",
     country: "United States",
     info:
       "I am an illustrator and graphic designer based in Philadelphia, PA, USA. I enjoy bringing my quirky characters to life through the use of wonky shapes, vibrant colors, and bold lines. When I'm not illustrating, I love being active, attempting to cook, and spending time with my friends & family! ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/kristyn-bailey.jpg",
-    shop: "",
     website: "http://kristynbailey.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/kristynbailey_illustration",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ale De La Torre",
     slug: "ale-de-la-torre",
+    name: "Ale De la Torre",
     country: "Mexico",
     info:
       "My name is Ale De la Torre and I’m a freelance artist and illustrator from México. My work is inspired by Mexican culture, books, science, music and nature and I love working with both traditional and digital techniques. Frequent topics of my work are femininity, creatures, botany and all kind of emotions. I also love doing editorial illustration, record covers, children’s books and all kind of interesting projects. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ale-de-la-torre.jpg",
-    shop: "",
     website: "http://www.aledelatorre.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/aledelatorrec",
       facebook: "https://www.facebook.com/aledelatorreart",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "John Roeder Freeman",
     slug: "john-roeder-freeman",
+    name: "John Roeder Freeman",
     country: "United States",
     info:
       "John Roeder Freeman Jr. is an Illustrator based in the sunny town of Jupiter, Florida. In 2016, he received a BFA in Illustration from The University of The Arts in Philadelphia, Pennsylvania and has worked on books, murals, editorial illustration, surface design, fashion, fine art, and graphic design projects since. John’s work has been described to be playful, energetic, and colorful with a punch of positive. He hopes that his use of empathy, kindness, and encouragement creates an impact on the lives of those who embrace his creations.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/john-roeder-freeman.jpg",
-    shop: "",
     website: "http://www.nonnihil.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/john.roeder.freeman",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Yulia Yakimovich",
     slug: "yulia-yakimovich",
+    name: "Yulia Yakimovich",
     country: "Belarus",
     info:
       "My name is Julia Yakimovich. I am from Belarus. I have a higher art education. Now I am working as a UI / UX Designer in the mobile game development. I like to spend free time with my husband and little daughter. My hobby is a lifestyle photography. For me, participating in Playing Art challenge is an opportunity to create with great freedom and not be bound by commercial restrictions.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/yulia-yakimovich.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/y_yakim/",
-      behance: "https://www.behance.net/jjakim88d22d",
       facebook: "https://www.facebook.com/yuliya.yakimovich",
+      twitter: "",
+      behance: "https://www.behance.net/jjakim88d22d",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Diana Stanciulescu",
     slug: "diana-stanciulescu",
+    name: "Diana Stanciulescu",
     country: "Romania",
     info:
       "I am a designer / illustrator with an architecture background. For me, illustration is a means to escape the confines of reality, disobey the laws of physics and create stories that rely on the viewer’s imagination as much as on the drawn elements. I live in Bucharest with my boyfriend, my three cats, and my impostor syndrome.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/diana-stanciulescu.jpg",
+    website: "",
     shop: "",
-    socials: {
-      "society6﻿ shop": "https://society6.com/dianastanciulescu",
+    social: {
       instagram: "https://www.instagram.com/drawingdeedee",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/diana_s",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Harry Decker",
     slug: "harry-decker",
+    name: "Harry Decker",
     country: "Germany/USA",
     info:
       "I am a designer and Creative Director by trade and an artist in my remaining time. I love Tiki, Hawaiian shirts and Polynesian Pop. I also love painting in Procreate and Photoshop—and experimenting with rum cocktails. Combine all that and shake it up—and you get the colorful and rum-soaked Tiki art of Harry Decker. The Hula Hideaway is my hidden little Tiki Bar I built in our backyard in San Diego, California. When I am not experimenting with rum cocktails, the bar doubles as my art studio and inspiration for my work.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/harry-decker.jpg",
-    shop: "",
     website: "https://www.doubledeckerdesign.com/art",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/hulahideaway",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/hairballoramac442",
-      "etsy shop": "https://www.etsy.com/shop/HulaHideawayArt",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Tuyet Duyet",
     slug: "tuyet-duyet",
+    name: "Tuyệt Duyệt",
     country: "Vietnam",
     info:
       "My name is Khanh also known as Tuyệt Duyệt. I'm a graphic designer & illustrator based in Saigon, Republic of Vietnam. Unique handcrafted illustration, who carries a little pencil at his small studio.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/tuyet-duyet.jpg",
-    shop: "",
     website: "http://www.tuyetduyet.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/tuyetduyetstudio",
-      behance: "https://www.behance.net/tuyetduyet",
       facebook: "https://www.facebook.com/tuyetduyet",
-      dribbble: "https://dribbble.com/tuyetduyet",
-      "society6 shop": "https://society6.com/tuyetduyet",
       twitter: "https://twitter.com/tuyetduyet",
+      behance: "https://www.behance.net/tuyetduyet",
+      dribbble: "https://dribbble.com/tuyetduyet",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Vera Q",
     slug: "vera-q",
+    name: "Vera Q",
     country: "Russia",
     info:
       "I was born in a majestic and very international part of Russia - Moscow.  For a long time I was focused on developing myself in a designer sphere and that brought to my nowadays passion - illustrating. I have a lot of experience with big and small companies as if on Russian and International scale. The choice to become an illustrator has never been more right decision for me - I found myself in creativity, lines and colors.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/vera-q.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/veranda88d96b",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Silvan Borer",
     slug: "silvan-borer",
+    name: "Silvan Borer",
     country: "Switzerland",
     info:
       "Silvan Borer is a freelance illustrator based in Zurich, Switzerland. He works on editorial and advertising illustrations as well as children’s books.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/silvan-borer.jpg",
-    shop: "",
     website: "https://silvanborer.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/silvanborer/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Hazel Ang",
     slug: "hazel-ang",
+    name: "Hazel Ang",
     country: "Germany",
     info:
       "Hazel Ang is a Munich based aritst from Canada. She has exhibited at art fairs, group exhibitions and has had a few solo shows. She curates and organises Arcana, a tarot card themed art show in Munich. She is inspired by folklore, flora & fauna, and the human condition.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/hazel-ang.jpg",
-    shop: "",
     website: "https://hazelang.art/",
-    socials: {
+    shop: "https://hazelangart.company.site/",
+    social: {
       instagram: "https://www.instagram.com/hazel.ang.art/",
-      shop: "https://hazelangart.company.site/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Corey Rivera",
     slug: "corey-rivera",
+    name: "Corey Rivera",
     country: "United States",
     info:
       "As an illustrator I like to work in the fantasy and sci-fi genres. I make art for book covers, posters, albums, and character art and backgrounds for animation and game. As an artist I like to take influence from different artists and media to experiment with incorporating it in my own art. As I continue freelancing I hope to work in many industries and with many artists, so that my art can grow along with my experiences.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/corey-rivera.jpg",
-    shop: "",
     website: "https://www.crivera.net/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/criver24/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jan Janeczek",
     slug: "jan-janeczek",
+    name: "Jan Janeczek",
     country: "Poland",
     info:
       "I am a designer with many years of experience and I'm not afraid of new things and experiments. Every day I look for what inspires my creativity and always try to respond positively to new opportunities that appear on my horizon. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jan-janeczek.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/janjaneczek",
-      "twitter﻿": "https://twitter.com/janekjaneczek",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Fatih Ozturk",
     slug: "fatih-ozturk",
+    name: "Fatih Öztürk",
     country: "Turkey",
     info:
       "İ am an illustrator from İstanbul, While creating my works, i push the limits of traditional contour knowledge and with my minimalist color palette i try to attract the audience to the atmosphere that I created. I also like to disrupt perspective in my paintings and it makes me feel like destroying gravity.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/fatih-ozturk.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/faturkoztih/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/fthoztrk",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Itsacat",
     slug: "itsacat",
+    name: "Itsacat",
     country: "Spain",
     info:
       "Itsacat is Catarina Alves´ alter ego. Born in 1992, she is a Portuguese graphic designer and illustrator who currently lives in Barcelona. She has an undergraduate degree in Graphic Design and a post-graduate degree in Motion Design. Apart from her personal projects, this artist has worked for 5 years in an animation production company where mainly worked in illustration and art direction. She is a digital artist who has found inspiration in daily scenes where the woman and nature is almost always the protagonist. Passionate by the sea and constantly diving into the world of shapes and colours! She loves to create graphics and histories full of joy and bring them to life with animation! ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/itsacat.jpg",
-    shop: "",
     website: "https://itsacatstudio.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/itsacat.studio/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/itsacat",
-      linkedin: "https://www.linkedin.com/in/itsacat/",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Joaquin Rodriguez",
     slug: "joaquin-rodriguez",
+    name: "Joaquín Rodríguez",
     country: "Spain",
     info:
       "I was born in Madrid, Spain and sort of fit the ideal of wanting to draw since I was a kid although I spent some years studying architecture before dragging me into full time drawing. I focus on black and white drawings ballpoint pen drawings and like to portrait characters influenced by abstract shapes and/or surreal elements that twist them up a bit. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/joaquin-rodriguez.jpg",
-    shop: "",
     website: "http://joaquinrodriguez.es/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/joaquinrodriguezart",
+      facebook: "",
+      twitter: "",
       behance: "http://behance.net/joaqrodart",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jade Sabado",
     slug: "jade-sabado",
+    name: "Jade Sabado",
     country: "Philippines",
     info:
       "Yow! Jade is an illustrator and graphic designer from Philippines. He creates vector base artwork/design of random stuff for freelance job and personal art. He enjoy experimenting/twisting concept, composition, color palette and styles for illustrations, posters, portraits and doodle arts.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jade-sabado.jpg",
+    website: "",
     shop: "",
-    socials: {
-      talenthouse: "http://www.talenthouse.com/blablajade",
+    social: {
       instagram: "http://www.instagram.com/blablajade/",
-      behance: "http://www.behance.net/blablajade",
       facebook: "http://www.facebook.com/christianjade.sabado",
-      posterspy: "http://www.posterspy.com/profile/blablajade",
+      twitter: "",
+      behance: "http://www.behance.net/blablajade",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Tophee Coquia",
     slug: "tophee-coquia",
+    name: "Tophee Coquia",
     country: "Philippines",
     info:
       "Tophee Coquia is a Graphic Designer and Illustrator based in the Philippines. He earned his bachelors degree in Multimedia Arts at Asia Pacific College. He focuses more on vector-based illustrations and designs in telling the story of his ideas.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/tophee-coquia.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/tofu.arts/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marco Alama",
     slug: "marco-alama",
+    name: "Marco Alama",
     country: "Italy",
     info:
       "I was born in 1991 in a small city by the sea. Currently I live in Rome, where I work in digital marketing and illustrate as a freelancer. I like toys, plushes and coffee. I also love to illustrate books, sew, write and draw comic books, code and develop indie games.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marco-alama.jpg",
-    shop: "",
     website: "http://marcoalama.com/",
-    socials: {
+    shop: "https://marcoalama.bigcartel.com/",
+    social: {
       instagram: "https://www.instagram.com/artlightyear/",
       facebook: "https://www.facebook.com/marco.alama",
-      shop: "https://marcoalama.bigcartel.com/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Glish Glish",
     slug: "glish-glish",
+    name: "Glish Glish",
     country: "Canada",
     info:
       "Everyone calls me Glish, short for Glish Glish, slang for Glitch Glitch. As you might have understood, I'm a glitch artist. A glitch is a sudden malfunction or irregularity, but visually it is esthetic. It's a way of showing people that imperfections can be beautiful and actually, imperfection is perfection. My influences come from Vaporwave, Psychedelic Art and Retrowave. I love to express the nostalgia of the early stage of the internet, but mostly, I visually render my emotions through the digital realm. I only showcase my work on Instagram, why? Instagram uses perfection to create needs. I use imperfection to make people feel better and more connected. It's a way of fighting the ugly algorithm that drives people into craziness. We need more love, we need more authenticity.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/glish-glish.jpg",
-    shop: "",
     website: "https://glishcorp.company.site/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/glishglish/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Mark Schwindt",
     slug: "mark-schwindt",
+    name: "Mark Schwindt",
     country: "Germany",
     info:
       "Mark Schwindt is an independent designer and visual artist from Düsseldorf, Germany. He has been working with educational organizations and innovative startups for many years and enjoys promoting science and culture. Obsessed with geometry and optical illusions he loves to explore (and exploit) the boundaries of a given medium to express complex ideas.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/mark-schwindt.jpg",
-    shop: "",
     website: "https://www.markschwindt.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/mark.schwindt/",
-      behance: "https://www.behance.net/MarkSchwindt",
+      facebook: "",
       twitter: "https://twitter.com/markschwindtfd",
+      behance: "https://www.behance.net/MarkSchwindt",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Luq Luca Qiu",
     slug: "luq-luca-qiu",
+    name: "luq (Luca Qiu)",
     country: "Italy",
     info:
       "luq (Luca Qiu) is an Italian illustrator and graphic designer based in Palermo. Of Chinese parents, but born and raised in Rome, luq has been passionate about drawing and colors since he was a child. In 2006 he attended the painting course at the Academy of Fine Arts in Rome where he refined his artistic techniques, while in 2009 he enrolled in the advertising graphic course at the AANT where he learned to handle the various software and to have a more graphic approach. From these combinations between traditional and digital art, between Eastern and Western culture, its artistic character is formed. Apparently random signs and brush strokes and splashes of color are the main elements of his style and it is what defines his works.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/luq-luca-qiu.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://www.instagram.com/luca_qiu/",
       facebook: "http://www.facebook.com/qiuluca",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marina Okhromenko",
     slug: "marina-okhromenko",
+    name: "Marina Okhromenko",
     country: "Russia",
     info:
       "I draw portraits, decorate interiors and create colorful illustrations. I believe that every touch is option to create something outstanding, to change the world with beauty.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marina-okhromenko.jpg",
+    website: "",
     shop: "",
-    socials: {
-      "more@o-re.com": "mailto:more@o-re.com",
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Yana Klochkova",
     slug: "yana-klochkova",
+    name: "Yana Klochkova",
     country: "Spain",
     info:
       "Hi there! My name is Yana, I am freelance illustrator and art director from Ukraine living in Barcelona, Spain. I draw inspiration from different cultures and folklore.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/yana-klochkova.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://instagram.com/yanamalevala",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Massimo",
     slug: "massimo",
+    name: "Massimo",
     country: "Italy",
     info:
       "Hi, my name is Massimo Zanini and I am an Italian graphic designer. I’m a curious, professional and sporty person. The expression I use to describe my passion is: 'Drawing to excite and excite myself!'",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/massimo.jpg",
-    shop: "",
     website: "https://www.massimozanini.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/m4zz1/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Mr Aramanada",
     slug: "mr-aramanada",
+    name: "Mr. Aramanada",
     country: "Philippines",
     info:
       "Mr. Aramanada is an artist from Cebu, Philippines. He is a freelance illustrator that does shirt designs, book covers, and posters. He draws inspiration from textile designs, tattoo motifs and other indigenous arts and crafts which characterizes his works by dazzling patterns, symmetries, and saturated colors. Mr. Aramanada continues to explore and incorporate Philippine indigenous designs and motifs in his works to showcase the vibrancy and richness of his people's culture.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/mr-aramanada.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/mr.aramanada/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jonas Devacht",
     slug: "jonas-devacht",
+    name: "Jonas Devacht",
     country: "Belgium",
     info:
       "I am Jonas Devacht, an Illustrator from Belgium and specialize in illustration for commercial applications such as packaging, apparel and advertising. I’ve always been into drawing but really started focusing on my illustration work early 2015 during my first year of college. Ever since then I have been honing my skills and pushing myself to get better in illustration and design. Because of that, I’ve had the chance to work with some great people and work in amazing studios in different parts of the world, which I’m very grateful for.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jonas-devacht.jpg",
-    shop: "",
     website: "https://jonasdevacht.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/jonasdevacht/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/jonasdevacht",
-      linkedin: "https://www.linkedin.com/in/jonas-devacht-b1a449170/",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Magdalena Sikora",
     slug: "magdalena-sikora",
+    name: "Magdalena Sikora",
     country: "Poland",
     info:
       "Hi, my name is Magdalena, and I’m an artist and illustrator, working mostly with watercolor, ink, and digital media.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/magdalena-sikora.jpg",
-    shop: "",
     website: "http://magdalena-sikora.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://www.instagram.com/_musictodrawto",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/magdalenasikora",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Laus",
     slug: "laus",
+    name: "Laus",
     country: "Mexico",
     info:
       "Laura Gomez Castillo is a Mexican illustrator born in San Luis Potosi, who loves music, books, coffee and mezcal. She uses illustration to express different situations and feelings, showing strong and powerful female characters in her work.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/laus.jpg",
-    shop: "",
     website: "http://www.lauspms.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/laus_pms/",
-      behance: "https://www.behance.net/LausPMS",
       facebook: "https://www.facebook.com/lauspms/",
+      twitter: "",
+      behance: "https://www.behance.net/LausPMS",
       dribbble: "https://dribbble.com/lauspms",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Umberto Pezzini",
     slug: "umberto-pezzini",
+    name: "Umberto Pezzini",
     country: "United Kingdom",
     info:
       "Hi, I'm Umberto, a London based Illustrator and Graphic designer. I was born in Italy in the 1989, after my bachelor degree in fine arts I moved to the UK capital to pursue my passions. Deeply addicted by NBA, sci-fi and fantasy material (movies, series, books, videogames), documentaries, graffiti, and obviously, drawing. I also love to feed my brain with readings about science, filosophy, ancient cultures, history. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/umberto-pezzini.jpg",
-    shop: "",
     website: "https://www.umbertopezzini.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/artbyumbe/",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/umbertopezzini",
-      linkedin: "https://www.linkedin.com/in/u-pezzini/",
       dribbble: "https://dribbble.com/Umberto_Pezzini",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Artem Pavlov",
     slug: "artem-pavlov",
+    name: "Artem Pavlov",
     country: "Belarus",
     info:
       "Artem Pavlov is an illustrator from Belarus. Artem's style is based on graphics including street art techniques. In his works, such means of expression as dynamics, splashes, aggressive lines are applied. Artem is higly-focused on providing the best quality and unique design, so he always developes his style to bring it on a new level, because personal style is very important to achieve goals of quality and originality.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/artem-pavlov.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/digital.pavlov",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/Dagon_UBN",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Hamed Sarhadi",
     slug: "hamed-sarhadi",
+    name: "Hamed Sarhadi",
     country: "Iran",
     info:
       "Here I am. A 33-year-old Architecture Visualizer from Tehran, Iran. I’ve worked in different Architectural Offices for 12 years as a phase one designer and Archviz expert, the job that I extremely love. It contributes me to make a balance between my ideas about the world outside and the passions inside of me. I think the world around us has two layers: One deeper layer contains Concepts, Abstracts and Huge waves, the other one includes Connections, Details and Tiny Waves. So, my purpose is to show their relationship, or help to build a connection between them. I’ve always tried to look, figure out and discover the abstract of the spaces that we are living in and show it in an attractive and meaningful visual way.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/hamed-sarhadi.jpg",
-    shop: "",
     website: "http://www.hamedsarhadi.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/hamed.sarhadi/",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/haamedsarhadi",
-      linkedin: "http://www.linkedin.com/in/hamed-sarhadi5834608-a/",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Marwan Shahin",
     slug: "marwan-shahin",
+    name: "Marwan Shahin",
     country: "Egypt",
     info:
       "Marwan Shahin, Egyptian Artist based in Los Angeles, California. Developing his practice from his home-studio, creating a striking depth with his idiosyncratic line and hatching technique to make art as a commitment to always using his craft to represent others with less of a voice than him. Creating mystical political pieces and cultural restitant works infused with dark humor. With his rich graphic design skills and his artistic abilities Marwan started off creating cover artwork for some of the biggest names in the music industry. Later after grabbing the world's eyes with his infamous 'The 2Vth' Mural during the Egyptian revolution, his work is being exhibited worldwide and soon got the attention of his peers and idols. Now painting murals all over Los Angeles as he always collaborating with talented creatives & brands on different eclectic mediums conceptualizing his unique vision to life.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/marwan-shahin.jpg",
-    shop: "",
     website: "https://www.marwanshahin.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/marwanshahin/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Burc Pulathaneli",
     slug: "burc-pulathaneli",
+    name: "Burç Pulathaneli",
     country: "Turkey",
     info:
       "I was born in 1980 in Istanbul. I have worked for different disciplines of art for about 20 years. I have been a freelance artist for the mobile game industry for the past 10 years. I continue my work in a quiet seaside town.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/burc-pulathaneli.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
+      instagram: "",
+      facebook: "",
+      twitter: "",
       behance: "https://www.behance.net/burcpulathaneli",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Dejvid Knezevic",
     slug: "dejvid-knezevic",
+    name: "Dejvid Knežević",
     country: "Slovenia",
     info:
       "I am a stippling illustrator, who works in a black and white ink technique for the past 5 years. Each illustration is constructed from individual dots, the diameter of each dot is 0,13 mm. I focus on storytelling, so every artwork has it's own narrative or perspective.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/dejvid-knezevic.jpg",
-    shop: "",
     website: "https://www.dejvid.net/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/dejvid.knezevic/",
       facebook: "https://www.facebook.com/DejvidIllustration/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Cat Finnie",
     slug: "cat-finnie",
+    name: "Cat Finnie",
     country: "United Kingdom",
     info:
       "Cat Finnie is a freelance illustrator, living in London, UK. She enjoys creating colourful, digital illustrations in a decorative conceptual style. Her work often brings in an element of the surreal as she is interested in creating images with a dreamlike quality - a sense of ambiguity and the mysterious.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/cat-finnie.jpg",
-    shop: "",
     website: "http://www.catfinnie.co.uk/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/catfinnieillustration",
       facebook: "https://www.facebook.com/catfinnieillustration/",
       twitter: "https://twitter.com/CatFinnie",
-      "print shop": "http://www.inprnt.com/gallery/catfinnie/",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Valentina Brostean",
     slug: "valentina-brostean",
+    name: "Valentina Brostean",
     country: "Italy",
     info:
       "Valentina Brostean is a multidisciplinary artist, originally from Novi Sad, Serbia, based for many years now in beautiful city Turin, in Italy. Graduated from Faculty of Fine Arts Novi Sad, she holds a BFA degree in graphic design and an MFA degree in Illustration and Book design. Her bold, colorful style, often described as Pop Art meets Surreal Expressionism, is a striking lesson in the use of courageous, unexpected compositions and bold, bright colors that are perfectly describing her state of mind and wild temperament. Valentina has specialized in Editorial and Fashion illustration mostly using her well know playful collage technique, working both with digital and traditional media. Her widely recognizable style has established her as one of the emerging contemporary artists appreciated by selected international clients such as Armani Exchange, Washington Post, Corriere Della Sera, Bicycle USA amongst many others.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/valentina-brostean.jpg",
-    shop: "",
     website: "http://www.valentinabrostean.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/brostean_valentina_art/",
-      behance: "https://www.behance.net/valentinabrostean",
       facebook: "https://www.facebook.com/VALENTINA.BROSTEAN",
-      linkedin: "https://www.linkedin.com/in/valentinabrostean/",
+      twitter: "",
+      behance: "https://www.behance.net/valentinabrostean",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Effe",
     slug: "effe",
+    name: "Effe",
     country: "Portugal",
     info:
       "Effe is an artist born in Portugal. From illustration and digital design to the streets with bold colors and a lot of contrast! Freelancer working with brands, music bands and people! Combining different ideas, making collabs with different artists and sharing my work and thoughts is everything to me, it is always about leaving something positive where I go and in every project, I am part of. A simple shape, one tag, something that identifies and represents me as an artist in every place I pass by.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/effe.jpg",
-    shop: "",
     website: "http://www.effe.news/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/effe.news/",
+      facebook: "",
+      twitter: "",
+      behance: "",
       dribbble: "http://dribbble.com/effenews",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Paolo Stralla",
     slug: "paolo-stralla",
+    name: "Paolo Stralla",
     country: "Italy",
     info:
       "Paolo Stralla is a 3d artist and graphic designer from Italy who loves surrealism and the concepts behind it, and tries to deliver the same feelings with his art in its own way, with tools like 3d softwares, photography and photo manipulation.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/paolo-stralla.jpg",
+    website: "",
     shop: "",
-    socials: {
-      "society6 shop": "https://society6.com/paolostralla",
+    social: {
       instagram: "https://www.instagram.com/palofuz/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Edward Christianto",
     slug: "edward-christianto",
+    name: "Edward Christianto",
     country: "Indonesia",
     info:
       "Hello! my name is Edward Christianto, and I come from Bandung, Indonesia. considering myself as an full-time art admirer and part-time architect. always curious to discovering the vast variety of the nature especially animals where it usually became my source of inspiration to create some artworks, and later combine it with flowing shapes and colours.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/edward-christianto.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "http://www.instagram.com/edwrdch_",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/edwrdch",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Nouran Zedan",
     slug: "nouran-zedan",
+    name: "Nouran Zedan",
     country: "United Kingdom",
     info:
       "I'm a freelance illustrator, animator, digital designer living in London, UK. I find my inspiration from how shapes are affected by light, listening to music and watching other artists illustrate and work. I find my style is usually simple and always changing.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/nouran-zedan.jpg",
-    shop: "",
     website: "https://www.nouranzedan.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/nzsdesign/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Magnus Riise",
     slug: "magnus-riise",
+    name: "Magnus Riise",
     country: "Norway",
     info:
       "My name is Magnus. I'm a freelance illustrator and graphic designer from Norway. I design book covers, illustrate children's books and also make surface patterns and illustrations for food packaging, among other things. I usually work with vector.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/magnus-riise.jpg",
-    shop: "",
     website: "http://magnusriise.no/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/magnusriisedesign/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Zcape",
     slug: "zcape",
+    name: "Zcäpe",
     country: "France",
     info:
       "Hi! My name is Zcäpe, or Scäpe if you prefer. I’m 48, born in 1972. I’m a French self-taught artist, and I have very little to say about me because my work speaks for me you know, I’m making pictures and if I have to use verbal to explain what eyes should see by themselves, for me it’s a failure… I’m graffiti artist and illustrator, I’ve started to draw and paint seriously in the early 90’s and the only advice I could give is very simple: Sketch Or Die guys!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/zcape.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/zcape_hec/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Staycute Illustration",
     slug: "staycute-illustration",
+    name: "StayCute Illustration",
     country: "Denmark",
     info:
       "StayCute Illustration is a one-woman illustration bureau with a specialty in creating cute and humourous illustration to put a smile on your face.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/staycute-illustration.jpg",
-    shop: "",
-    socials: {
-      shop: "https://www.etsy.com/dk-en/shop/StayCuteShop",
+    website: "",
+    shop: "https://www.etsy.com/dk-en/shop/StayCuteShop",
+    social: {
       instagram: "https://www.instagram.com/staycuteillustration/",
       facebook: "https://www.facebook.com/staycuteillustration/",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Kala Kuns",
     slug: "kala-kuns",
+    name: "Kala Kuns",
     country: "Spain",
     info:
       "Hi! My name is Andrea Lara, I am a graphic designer and illustrator in Barcelona. I like nature, music, theatre... My illustrations are analogue and digital. Most of the time I'm using the line with a few touches of colour. ",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/kala-kuns.jpg",
-    shop: "",
     website: "http://www.kalakuns.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/kala_kuns",
+      facebook: "",
       twitter: "https://twitter.com/kala_kuns",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ciro Giobbe",
     slug: "ciro-giobbe",
+    name: "Ciro Giobbe",
     country: "Italy",
     info:
       "My name is ciro giobbe I am an illustrator and graphic design, I was born in Naples in 1996, Italy. I have always had a passion for art since childhood, attending art institutes and academies, during my years, I have experimented with all drawing techniques, but one of which I am passionate about is illustration.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ciro-giobbe.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/cirogiobbe_",
+      facebook: "",
+      twitter: "",
       behance: "http://www.behance.net/ciro_giobbe",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ingrid Godinez",
     slug: "ingrid-godinez",
+    name: "Ingrid Godínez",
     country: "Guatemala",
     info:
       "Hello, I’m Ingrid Godínez, I was born in Guatemala (Central America). I am a woman who found her voice through strokes, color and art. In my work I try to reflect the Guatemalan culture, its flora and fauna, as well as integrate positive messages.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ingrid-godinez.jpg",
+    website: "",
     shop: "",
-    socials: {
+    social: {
       instagram: "https://www.instagram.com/is.gk/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Norma Rodricks",
     slug: "norma-rodricks",
+    name: "Norma Rodricks",
     country: "India",
     info:
       "Hello world! I’m Norma Rodricks, Creative Director at The Republic, Mumbai. From Monday to Friday, I work on building brands and brand communication, and create identities and packaging for clients across industries – from F&B to B2B brands. But come the weekend, you’ll find me illustrating characters and creatures from my imagination, footballers, bots and more bots, and working on my own little venture, The Design Caravan. When I need a break from it all, you’ll find me playing with Lego!",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/norma-rodricks.jpg",
-    shop: "",
     website: "http://thedesigncaravan.net/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/thedesigncaravan",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Yma Jae",
     slug: "yma-jae",
+    name: "Yma Jae",
     country: "Philippines",
     info:
       "I work as a print Graphic Designer for 5 years. Doing Illustrations are part of my hobby and passion. I do Digital Painting and sketches most of the time, but I also do part time Info Graphic Illustrations and Character Design.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/yma-jae.jpg",
+    website: "",
     shop: "",
-    socials: {
-      artstation: "http://ymajae.artstation.com/",
+    social: {
       instagram: "http://instagram.com/ymajae",
-      twitter: "https://twitter.com/ymajaeart",
-      tumblr: "https://ymajaeart.tumblr.com/",
       facebook: "http://facebook.com/ymajae.art",
+      twitter: "https://twitter.com/ymajaeart",
       behance: "http://behance.net/ymajae",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Ben Bauchau",
     slug: "ben-bauchau",
+    name: "Ben Bauchau",
     country: "Belgium",
     info:
       "Mainly inspired by ukiyo-e art and other kinds of engraving arts, but also comics, I chose pens and brushpens as my main tools to draw moving characters evolving in surreal worlds, influenced by past cultures as well as our contemparary era. Digital tools being a great way to add a layer to ink linework, I use these to bring my illustrations in colors, which I usually keep within a few tones to picture a certain mood.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/ben-bauchau.jpg",
-    shop: "",
     website: "https://benbauchau.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/benbauchau/",
       facebook: "https://www.facebook.com/benbauchauart/",
+      twitter: "",
       behance: "https://www.behance.net/benbauchau",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Cuong Bui Manh",
     slug: "cuong-bui-manh",
+    name: "Cuong Bui Manh",
     country: "Germany",
     info:
       "Juten Tach! That's how we say hello in Berlin. My name is Cuong Bui Manh, I was born 1997 in Vietnam, then I moved to the Big-B (Berlin) in 2002. Growing up in a gastronomic family, I have worked in the kitchen since I was 14. That never reduced my interest in art and design, which was present from my Early childhood on.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/cuong-bui-manh.jpg",
-    shop: "",
     website: "https://www.cuongbuimanh.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/cuongillustrator/",
       facebook: "https://www.facebook.com/cuongillustrator",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jeremie Gauthier",
     slug: "jeremie-gauthier",
+    name: "Jérémie Gauthier",
     country: "France",
     info:
       "I'm a Graphic & Type Designer based in Lyon, France. Working at Almarena agency. I love to play with 3D and lettering.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jeremie-gauthier.jpg",
+    website: "",
     shop: "",
-    socials: {
-      behance: "https://www.behance.net/jeremiegauthier",
+    social: {
       instagram: "https://www.instagram.com/jeremie_gthr/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/jeremiegauthier",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Jaen",
     slug: "jaen",
+    name: "Jæn",
     country: "France",
     info:
       "Combining traditional and digital magic to create pop surrealist and psychedelic hybrids of intimate and collective mythologies, I leave indeterminacy areas for the viewer's own mythology to resonate freely with it. I have explored creativity through drawing, painting, sculpture, music, animated GIFs, photo, virtual reality, 3D printing & augmented reality in urban art, and research. As an artist and illustrator, I do my best to breach through the viewer's rational mind, and widen that gate to the things on which words slip, but not feelings. Past clients, venues & publications include: Disney / Diesel / Paypal /  Google / Pictoplasma / Best 200 Illustrators Worldwide (Lürzer's Archive) / Urban Spree / Tumo Center / Institut Bernard Magrez / Cultura / Stickerbomb / CAPC Contemporary Art Museum.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/jaen.jpg",
-    shop: "",
     website: "https://jaen.art/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "https://www.instagram.com/jaen.art/",
       facebook: "https://www.facebook.com/jaen.artist/",
+      twitter: "",
       behance: "https://www.behance.net/jaen",
-      "inprnt shop﻿": "https://www.inprnt.com/gallery/jaen/",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Knysh Ksenya",
     slug: "knysh-ksenya",
+    name: "Knysh Ksenya",
     country: "Russia",
     info:
       "Knysh Ksenya is an artist who work in watercolor technique. Her works are used for books, magazines and advertising etc. Creates illustrations that show connection between human with the surrounding environment, the internal state of human and his emotions. Inspired by game of light and shadows, music, and attention to detail. 'In my works I always try to focus on showing my feelings, emotions throughout the human characters. Watercolor give me the chance to tell this for viewers through the colors, shape or a little line on the white paper. And I hope that you can feel and find something yours in my illustrations.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/knysh-ksenya.jpg",
-    shop: "",
-    socials: {
-      behance: "https://www.behance.net/knyshk326656d/",
+    website: "",
+    shop: "https://www.inprnt.com/gallery/knysh_ksenya/",
+    social: {
       instagram: "http://www.instagram.com/knysh_ksenya/",
-      shop: "https://www.inprnt.com/gallery/knysh_ksenya/",
+      facebook: "",
+      twitter: "",
+      behance: "https://www.behance.net/knyshk326656d/",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "Pablo Balzo",
     slug: "pablo-balzo",
+    name: "Pablo Balzo",
     country: "Chile",
     info: "Graphic designer, ilustrator, and a University teacher",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/pablo-balzo.jpg",
-    shop: "",
     website: "http://www.pablobalzo.cl/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/pablobalzo",
-      blog: "http://www.noseloquecuento.com/",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
   {
-    name: "David Oku",
     slug: "david-oku",
+    name: "David Oku",
     country: "Italy",
     info:
       "Hello Guys, I'm David Oku, I was born in Dortmund, Germany and my roots are half Italian and other half Nigerian. At the age of 3 me and my family moved and lived in Lagos, until i was 11 when they decided to return to europe in the place I call my home town Milan. I'm crazy about illustration it's bordering on an addiction. In my professional environment, I'm known for Logo Design, Icons, Layouts, Web Templates, branding & Typography. My work has been used for various purposes including exhibitions, advertising, t-shirt design, branding and books. I have 2 years studio experience before I Graduated as a creative art-worker for Mediaticamente in Milan. In 2011, I moved to London obtaining a Degree in Design for Visual Communication at London College of Communication. Till a month ago, I was working as a Lead Graphic Designer / Illustrator & Art Director for Creams Franchising the gelato company, but have returned freelancing ever since.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/david-oku.jpg",
-    shop: "",
     website: "http://www.davidoku.com/",
-    socials: {
+    shop: "",
+    social: {
       instagram: "http://instagram.com/d.okuart",
+      facebook: "",
+      twitter: "",
+      behance: "",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
     },
   },
-
   {
     slug: "naniii",
     name: "Naniii",
-    website: "http://naniii.fr",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://naniii.fr",
     shop: "",
     social: {
       instagram: "",
@@ -3618,10 +7519,10 @@ export const artists = [
   {
     slug: "yasir-b.-eryilmaz",
     name: "Yasir B. Eryilmaz",
-    website: "http://www.yasir.be",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.yasir.be",
     shop: "",
     social: {
       instagram: "",
@@ -3641,10 +7542,10 @@ export const artists = [
   {
     slug: "christian-jade-sabado",
     name: "Christian Jade Sabado",
-    website: "http://behance.net/blablajade",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "http://behance.net/blablajade",
     shop: "",
     social: {
       instagram: "",
@@ -3664,10 +7565,10 @@ export const artists = [
   {
     slug: "wes-l-cockx",
     name: "Wes L Cockx",
-    website: "https://www.behance.net/creamvisualdesign",
     country: "Belgium",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/creamvisualdesign",
     shop: "",
     social: {
       instagram: "",
@@ -3687,10 +7588,10 @@ export const artists = [
   {
     slug: "juan-molinet",
     name: "Juan Molinet",
-    website: "http://www.lebureau.tv",
     country: "Argentina",
     info: "",
     userpic: "",
+    website: "http://www.lebureau.tv",
     shop: "",
     social: {
       instagram: "",
@@ -3710,10 +7611,10 @@ export const artists = [
   {
     slug: "nicolas-gazut",
     name: "Nicolas Gazut",
-    website: "http://www.iamcion.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.iamcion.com",
     shop: "",
     social: {
       instagram: "",
@@ -3733,10 +7634,10 @@ export const artists = [
   {
     slug: "nacho-rojo",
     name: "Nacho Rojo",
-    website: "http://www.nachorojo.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.nachorojo.com",
     shop: "",
     social: {
       instagram: "",
@@ -3756,10 +7657,10 @@ export const artists = [
   {
     slug: "john-karlsson",
     name: "John Karlsson",
-    website: "http://johnkarlsson.se",
     country: "Sweden",
     info: "",
     userpic: "",
+    website: "http://johnkarlsson.se",
     shop: "",
     social: {
       instagram: "",
@@ -3779,10 +7680,10 @@ export const artists = [
   {
     slug: "julian-mayerhofer",
     name: "Julian Mayerhofer",
-    website: "https://www.instagram.com/DeadCakeBoy/",
     country: "Austria",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/DeadCakeBoy/",
     shop: "",
     social: {
       instagram: "",
@@ -3802,10 +7703,10 @@ export const artists = [
   {
     slug: "essi-kimpimaki",
     name: "Essi Kimpimaki",
-    website: "http://www.essillustration.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.essillustration.com",
     shop: "",
     social: {
       instagram: "",
@@ -3825,10 +7726,10 @@ export const artists = [
   {
     slug: "douard-paul",
     name: "DOUARD Paul",
-    website: "https://www.behance.net/douardp",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/douardp",
     shop: "",
     social: {
       instagram: "",
@@ -3848,10 +7749,10 @@ export const artists = [
   {
     slug: "mark-gmehling",
     name: "mark gmehling",
-    website: "http://www.be.net/markgmehling",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.be.net/markgmehling",
     shop: "",
     social: {
       instagram: "",
@@ -3871,10 +7772,10 @@ export const artists = [
   {
     slug: "marta-rojas",
     name: "Marta Rojas",
-    website: "http://www.martarojas.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.martarojas.com",
     shop: "",
     social: {
       instagram: "",
@@ -3894,10 +7795,10 @@ export const artists = [
   {
     slug: "elvis-benicio",
     name: "Elvis Benicio",
-    website: "http://www.elvisbenicio.com.br",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://www.elvisbenicio.com.br",
     shop: "",
     social: {
       instagram: "",
@@ -3917,10 +7818,10 @@ export const artists = [
   {
     slug: "frederico-birchal",
     name: "Frederico Birchal",
-    website: "http://fredbirchal.com",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://fredbirchal.com",
     shop: "",
     social: {
       instagram: "",
@@ -3940,10 +7841,10 @@ export const artists = [
   {
     slug: "yuriy-skorohod",
     name: "Yuriy Skorohod",
-    website: "https://www.behance.net/artsc0re",
     country: "Belarus",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/artsc0re",
     shop: "",
     social: {
       instagram: "",
@@ -3963,10 +7864,10 @@ export const artists = [
   {
     slug: "hugo-santos",
     name: "Hugo Santos",
-    website: "http://www.hugraphic.com",
     country: "Portugal",
     info: "",
     userpic: "",
+    website: "http://www.hugraphic.com",
     shop: "",
     social: {
       instagram: "",
@@ -3986,10 +7887,10 @@ export const artists = [
   {
     slug: "antigoon",
     name: "Antigoon",
-    website: "http://www.behance.net/antigoon",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/antigoon",
     shop: "",
     social: {
       instagram: "",
@@ -4009,10 +7910,10 @@ export const artists = [
   {
     slug: "chow-hon-lam",
     name: "Chow Hon Lam",
-    website: "https://www.behance.net/flyingmouse",
     country: "Malaysia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/flyingmouse",
     shop: "",
     social: {
       instagram: "",
@@ -4032,10 +7933,10 @@ export const artists = [
   {
     slug: "antónio-segurado",
     name: "António Segurado",
-    website: "http://www.antoniosegurado.com",
     country: "Portugal",
     info: "",
     userpic: "",
+    website: "http://www.antoniosegurado.com",
     shop: "",
     social: {
       instagram: "",
@@ -4055,10 +7956,10 @@ export const artists = [
   {
     slug: "sasha-prood",
     name: "Sasha Prood",
-    website: "http://www.sashaprood.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.sashaprood.com",
     shop: "",
     social: {
       instagram: "",
@@ -4078,10 +7979,10 @@ export const artists = [
   {
     slug: "phil.-m",
     name: "Phil. M",
-    website: "http://www.behance.net/philphilphil",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/philphilphil",
     shop: "",
     social: {
       instagram: "",
@@ -4101,10 +8002,10 @@ export const artists = [
   {
     slug: "dmitriy",
     name: "Dmitriy",
-    website: "http://www.behance.net/podessto",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/podessto",
     shop: "",
     social: {
       instagram: "",
@@ -4124,10 +8025,10 @@ export const artists = [
   {
     slug: "luis-nessi",
     name: "Luis Nessi",
-    website: "https://www.behance.net/luisnessi",
     country: "Venezuela",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/luisnessi",
     shop: "",
     social: {
       instagram: "",
@@ -4147,10 +8048,10 @@ export const artists = [
   {
     slug: "marie-bergeron",
     name: "Marie Bergeron",
-    website: "http://www.mariebergeron.com",
     country: "Canada",
     info: "",
     userpic: "",
+    website: "http://www.mariebergeron.com",
     shop: "",
     social: {
       instagram: "",
@@ -4170,10 +8071,10 @@ export const artists = [
   {
     slug: "flüke",
     name: "Flüke",
-    website: "http://www.flukegraf.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.flukegraf.com",
     shop: "",
     social: {
       instagram: "",
@@ -4193,10 +8094,10 @@ export const artists = [
   {
     slug: "daniel-osses",
     name: "Daniel Osses",
-    website: "https://www.behance.net/Vectatory",
     country: "Chile",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/Vectatory",
     shop: "",
     social: {
       instagram: "",
@@ -4216,10 +8117,10 @@ export const artists = [
   {
     slug: "domenico-sellaro",
     name: "Domenico Sellaro",
-    website: "http://www.behance.net/DomenicoSellaro",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/DomenicoSellaro",
     shop: "",
     social: {
       instagram: "",
@@ -4239,10 +8140,10 @@ export const artists = [
   {
     slug: "marco-pichardo",
     name: "Marco Pichardo",
-    website: "http://charringo.net",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://charringo.net",
     shop: "",
     social: {
       instagram: "",
@@ -4262,10 +8163,10 @@ export const artists = [
   {
     slug: "nicolas-monin-baroille",
     name: "Nicolas Monin-Baroille",
-    website: "http://www.unknownbeing.com/",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.unknownbeing.com/",
     shop: "",
     social: {
       instagram: "",
@@ -4285,10 +8186,10 @@ export const artists = [
   {
     slug: "dimitrios-sakkas",
     name: "Dimitrios Sakkas",
-    website: "https://www.behance.net/dimitrissakkas",
     country: "Greece",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/dimitrissakkas",
     shop: "",
     social: {
       instagram: "",
@@ -4308,10 +8209,10 @@ export const artists = [
   {
     slug: "roman-dementev",
     name: "Roman Dementev",
-    website: "http://www.behance.net/romashule",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/romashule",
     shop: "",
     social: {
       instagram: "",
@@ -4331,10 +8232,10 @@ export const artists = [
   {
     slug: "toni-lópez",
     name: "Toni López",
-    website: "http://retoka.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://retoka.com",
     shop: "",
     social: {
       instagram: "",
@@ -4354,10 +8255,10 @@ export const artists = [
   {
     slug: "helen-kaur",
     name: "Helen Kaur",
-    website: "http://www.helenkaur.com",
     country: "Singapore",
     info: "",
     userpic: "",
+    website: "http://www.helenkaur.com",
     shop: "",
     social: {
       instagram: "",
@@ -4377,10 +8278,10 @@ export const artists = [
   {
     slug: "angel-alejandro",
     name: "Angel Alejandro",
-    website: "https://www.behance.net/angelalejandro",
     country: "Peru",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/angelalejandro",
     shop: "",
     social: {
       instagram: "",
@@ -4400,10 +8301,10 @@ export const artists = [
   {
     slug: "monika-mitkute",
     name: "Monika Mitkute",
-    website: "http://www.facebook.com/dream2bapencil",
     country: "Lithuania",
     info: "",
     userpic: "",
+    website: "http://www.facebook.com/dream2bapencil",
     shop: "",
     social: {
       instagram: "",
@@ -4423,10 +8324,10 @@ export const artists = [
   {
     slug: "hardi-lim",
     name: "Hardi Lim",
-    website: "http://behance.net/hardilim",
     country: "Indonesia",
     info: "",
     userpic: "",
+    website: "http://behance.net/hardilim",
     shop: "",
     social: {
       instagram: "",
@@ -4446,10 +8347,10 @@ export const artists = [
   {
     slug: "oscar-moctezuma",
     name: "Oscar Moctezuma",
-    website: "http://www.oscarmoctezuma.com",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://www.oscarmoctezuma.com",
     shop: "",
     social: {
       instagram: "",
@@ -4469,10 +8370,10 @@ export const artists = [
   {
     slug: "nikita-abakumov",
     name: "Nikita Abakumov",
-    website: "http://www.behance.net/n-abakumov",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/n-abakumov",
     shop: "",
     social: {
       instagram: "",
@@ -4492,10 +8393,10 @@ export const artists = [
   {
     slug: "eakkarlak's",
     name: "Eakkarlak'S",
-    website: "http://be.net/stu_p",
     country: "Thailand",
     info: "",
     userpic: "",
+    website: "http://be.net/stu_p",
     shop: "",
     social: {
       instagram: "",
@@ -4515,10 +8416,10 @@ export const artists = [
   {
     slug: "lucas-suancha",
     name: "Lucas Suancha",
-    website: "https://www.behance.net/josuan",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/josuan",
     shop: "",
     social: {
       instagram: "",
@@ -4538,10 +8439,10 @@ export const artists = [
   {
     slug: "anastasia-kochetkova",
     name: "Anastasia Kochetkova",
-    website: "http://www.instagram.com/kochetkovart/",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.instagram.com/kochetkovart/",
     shop: "",
     social: {
       instagram: "",
@@ -4561,10 +8462,10 @@ export const artists = [
   {
     slug: "mgng",
     name: "MGNG",
-    website: "http://www.behance.net/MGNG",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/MGNG",
     shop: "",
     social: {
       instagram: "",
@@ -4584,10 +8485,10 @@ export const artists = [
   {
     slug: "penko-gelev",
     name: "Penko Gelev",
-    website: "http://penkogelev.wix.com/penkogelev",
     country: "Bulgaria",
     info: "",
     userpic: "",
+    website: "http://penkogelev.wix.com/penkogelev",
     shop: "",
     social: {
       instagram: "",
@@ -4607,10 +8508,10 @@ export const artists = [
   {
     slug: "ángel-daniel-puente-ramirez",
     name: "Ángel Daniel Puente Ramirez",
-    website: "http://www.behance.net/AngelPuente",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/AngelPuente",
     shop: "",
     social: {
       instagram: "",
@@ -4630,10 +8531,10 @@ export const artists = [
   {
     slug: "wayne-danting-langdale",
     name: "Wayne Danting-Langdale",
-    website: "http://www.whistlingbearillustrations.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.whistlingbearillustrations.com",
     shop: "",
     social: {
       instagram: "",
@@ -4653,10 +8554,10 @@ export const artists = [
   {
     slug: "mete-kaplan-eker",
     name: "Mete Kaplan Eker",
-    website: "https://www.behance.net/metekaplaneker",
     country: "Turkey",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/metekaplaneker",
     shop: "",
     social: {
       instagram: "",
@@ -4676,10 +8577,10 @@ export const artists = [
   {
     slug: "furkan-şener",
     name: "Furkan ŞENER",
-    website: "http://www.furkansener.com",
     country: "Turkey",
     info: "",
     userpic: "",
+    website: "http://www.furkansener.com",
     shop: "",
     social: {
       instagram: "",
@@ -4699,10 +8600,10 @@ export const artists = [
   {
     slug: "kayankwok",
     name: "kayankwok",
-    website: "http://cargocollective.com/kayankwok",
     country: "Hong Kong",
     info: "",
     userpic: "",
+    website: "http://cargocollective.com/kayankwok",
     shop: "",
     social: {
       instagram: "",
@@ -4722,10 +8623,10 @@ export const artists = [
   {
     slug: "cristian-boian",
     name: "Cristian Boian",
-    website: "https://www.behance.net/cristianboian",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/cristianboian",
     shop: "",
     social: {
       instagram: "",
@@ -4745,10 +8646,10 @@ export const artists = [
   {
     slug: "joanna-forrester",
     name: "Joanna Forrester",
-    website: "http://www.behance.net/joatzie",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/joatzie",
     shop: "",
     social: {
       instagram: "",
@@ -4768,10 +8669,10 @@ export const artists = [
   {
     slug: "esmeraldii",
     name: "Esmeraldii",
-    website: "http://esmeraldii.tumblr.com",
     country: "Venezuela",
     info: "",
     userpic: "",
+    website: "http://esmeraldii.tumblr.com",
     shop: "",
     social: {
       instagram: "",
@@ -4791,10 +8692,10 @@ export const artists = [
   {
     slug: "lett-yice",
     name: "lett yice",
-    website: "http://www.behance.net/lettyice",
     country: "China",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/lettyice",
     shop: "",
     social: {
       instagram: "",
@@ -4814,10 +8715,10 @@ export const artists = [
   {
     slug: "tianhua-mao",
     name: "Tianhua Mao",
-    website: "http://www.tianhuamao.com/",
     country: "China",
     info: "",
     userpic: "",
+    website: "http://www.tianhuamao.com/",
     shop: "",
     social: {
       instagram: "",
@@ -4837,10 +8738,10 @@ export const artists = [
   {
     slug: "g.-haller",
     name: "G. Haller",
-    website: "http://www.instagram.com/g_haller",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.instagram.com/g_haller",
     shop: "",
     social: {
       instagram: "",
@@ -4860,10 +8761,10 @@ export const artists = [
   {
     slug: "tita-wong-argenzio",
     name: "TITA WONG ARGENZIO",
-    website: "http://titawong.wix.com/portfolio",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://titawong.wix.com/portfolio",
     shop: "",
     social: {
       instagram: "",
@@ -4883,10 +8784,10 @@ export const artists = [
   {
     slug: "chan-yee-von",
     name: "Chan Yee Von",
-    website: "http://www.chanyeevon.com/",
     country: "Malaysia",
     info: "",
     userpic: "",
+    website: "http://www.chanyeevon.com/",
     shop: "",
     social: {
       instagram: "",
@@ -4906,10 +8807,10 @@ export const artists = [
   {
     slug: "knysh-ksenya",
     name: "Knysh Ksenya",
-    website: "http://www.behance.net/knyshk326656d",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/knyshk326656d",
     shop: "",
     social: {
       instagram: "",
@@ -4929,10 +8830,10 @@ export const artists = [
   {
     slug: "bnomio",
     name: "Bnomio",
-    website: "http://www.behance.net/bnomio",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/bnomio",
     shop: "",
     social: {
       instagram: "",
@@ -4952,10 +8853,10 @@ export const artists = [
   {
     slug: "victor-bregante",
     name: "Victor Bregante",
-    website: "http://www.victorbregante.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.victorbregante.com",
     shop: "",
     social: {
       instagram: "",
@@ -4975,10 +8876,10 @@ export const artists = [
   {
     slug: "mart-biemans",
     name: "Mart Biemans",
-    website: "http://www.martbiemans.com/",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "http://www.martbiemans.com/",
     shop: "",
     social: {
       instagram: "",
@@ -4998,10 +8899,10 @@ export const artists = [
   {
     slug: "teis-albers",
     name: "Teis Albers",
-    website: "http://www.teisalbers.com",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "http://www.teisalbers.com",
     shop: "",
     social: {
       instagram: "",
@@ -5021,10 +8922,10 @@ export const artists = [
   {
     slug: "murat-kalkavan",
     name: "Murat Kalkavan",
-    website: "http://muratkalkavan.com/",
     country: "Turkey",
     info: "",
     userpic: "",
+    website: "http://muratkalkavan.com/",
     shop: "",
     social: {
       instagram: "",
@@ -5044,10 +8945,10 @@ export const artists = [
   {
     slug: "sebastien-morales",
     name: "Sebastien Morales",
-    website: "http://www.creamcrackers.fr",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.creamcrackers.fr",
     shop: "",
     social: {
       instagram: "",
@@ -5067,10 +8968,10 @@ export const artists = [
   {
     slug: "tom-kitchen",
     name: "Tom kitchen",
-    website: "http://tom-kitchen.co.uk/folio.php",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://tom-kitchen.co.uk/folio.php",
     shop: "",
     social: {
       instagram: "",
@@ -5090,10 +8991,10 @@ export const artists = [
   {
     slug: "flavio-morais",
     name: "Flavio Morais",
-    website: "http://www.flaviomorais.net",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.flaviomorais.net",
     shop: "",
     social: {
       instagram: "",
@@ -5113,10 +9014,10 @@ export const artists = [
   {
     slug: "nuria-madrid",
     name: "nuria madrid",
-    website: "http://www.nuriamadrid.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.nuriamadrid.com",
     shop: "",
     social: {
       instagram: "",
@@ -5136,10 +9037,10 @@ export const artists = [
   {
     slug: "jæn",
     name: "Jæn",
-    website: "http://www.art-jaen.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.art-jaen.com",
     shop: "",
     social: {
       instagram: "",
@@ -5159,10 +9060,10 @@ export const artists = [
   {
     slug: "donough-o'malley",
     name: "Donough O'Malley",
-    website: "http://www.pencilrobot.net",
     country: "Ireland",
     info: "",
     userpic: "",
+    website: "http://www.pencilrobot.net",
     shop: "",
     social: {
       instagram: "",
@@ -5182,10 +9083,10 @@ export const artists = [
   {
     slug: "slava-levanovich",
     name: "Slava Levanovich",
-    website: "http://www.behance.net/slava",
     country: "Belarus",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/slava",
     shop: "",
     social: {
       instagram: "",
@@ -5205,10 +9106,10 @@ export const artists = [
   {
     slug: "yukai-du",
     name: "Yukai Du",
-    website: "http://www.yukaidu.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.yukaidu.com",
     shop: "",
     social: {
       instagram: "",
@@ -5228,10 +9129,10 @@ export const artists = [
   {
     slug: "josé-bernabé",
     name: "José Bernabé",
-    website: "http://www.josebernabe.com/",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "http://www.josebernabe.com/",
     shop: "",
     social: {
       instagram: "",
@@ -5251,10 +9152,10 @@ export const artists = [
   {
     slug: "cecilia-botta",
     name: "Cecilia Botta",
-    website: "http://www.ceciliabotta.it",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.ceciliabotta.it",
     shop: "",
     social: {
       instagram: "",
@@ -5274,10 +9175,10 @@ export const artists = [
   {
     slug: "chervelle-fryer",
     name: "Chervelle Fryer",
-    website: "http://chervelle.co.uk",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://chervelle.co.uk",
     shop: "",
     social: {
       instagram: "",
@@ -5297,10 +9198,10 @@ export const artists = [
   {
     slug: "zarja-menart",
     name: "Zarja Menart",
-    website: "http://www.behance.net/zarjamenart",
     country: "Slovenia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/zarjamenart",
     shop: "",
     social: {
       instagram: "",
@@ -5320,10 +9221,10 @@ export const artists = [
   {
     slug: "cecilia-pettersson",
     name: "cecilia pettersson",
-    website: "http://www.ceciliapettersson.se",
     country: "Sweden",
     info: "",
     userpic: "",
+    website: "http://www.ceciliapettersson.se",
     shop: "",
     social: {
       instagram: "",
@@ -5343,10 +9244,10 @@ export const artists = [
   {
     slug: "enisaurus",
     name: "Enisaurus",
-    website: "http://enisaurus.com/",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://enisaurus.com/",
     shop: "",
     social: {
       instagram: "",
@@ -5366,10 +9267,10 @@ export const artists = [
   {
     slug: "lorena-g",
     name: "Lorena G",
-    website: "http://lorena-g.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://lorena-g.com",
     shop: "",
     social: {
       instagram: "",
@@ -5389,10 +9290,10 @@ export const artists = [
   {
     slug: "laura-be",
     name: "Laura Be",
-    website: "http://www.laurabertinelli.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.laurabertinelli.com",
     shop: "",
     social: {
       instagram: "",
@@ -5412,10 +9313,10 @@ export const artists = [
   {
     slug: "burak-beceren",
     name: "Burak Beceren",
-    website: "https://www.behance.net/BurakBeceren",
     country: "Turkey",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/BurakBeceren",
     shop: "",
     social: {
       instagram: "",
@@ -5435,10 +9336,10 @@ export const artists = [
   {
     slug: "tarin-yuangtrakul",
     name: "Tarin Yuangtrakul",
-    website: "http://tabna.me",
     country: "Thailand",
     info: "",
     userpic: "",
+    website: "http://tabna.me",
     shop: "",
     social: {
       instagram: "",
@@ -5458,10 +9359,10 @@ export const artists = [
   {
     slug: "rodrigo-ico",
     name: "Rodrigo ICO",
-    website: "https://www.behance.net/RodrigoICO",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/RodrigoICO",
     shop: "",
     social: {
       instagram: "",
@@ -5481,10 +9382,10 @@ export const artists = [
   {
     slug: "léonard-dupond",
     name: "Léonard Dupond",
-    website: "https://www.behance.net/illuleo",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/illuleo",
     shop: "",
     social: {
       instagram: "",
@@ -5504,10 +9405,10 @@ export const artists = [
   {
     slug: "pablo-alvarez",
     name: "Pablo Alvarez",
-    website: "http://www.pabloalvin.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.pabloalvin.com",
     shop: "",
     social: {
       instagram: "",
@@ -5527,10 +9428,10 @@ export const artists = [
   {
     slug: "asione",
     name: "Asione",
-    website: "http://www.behance.net/ASION3",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/ASION3",
     shop: "",
     social: {
       instagram: "",
@@ -5550,10 +9451,10 @@ export const artists = [
   {
     slug: "flavio-melchiorre",
     name: "Flavio Melchiorre",
-    website: "http://www.flaviomelchiorre.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.flaviomelchiorre.com",
     shop: "",
     social: {
       instagram: "",
@@ -5573,10 +9474,10 @@ export const artists = [
   {
     slug: "benkee-chang",
     name: "Benkee chang",
-    website: "http://www.benkeechang.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.benkeechang.com",
     shop: "",
     social: {
       instagram: "",
@@ -5596,10 +9497,10 @@ export const artists = [
   {
     slug: "fonzy-nils",
     name: "Fonzy Nils",
-    website: "http://www.fonzynils.com/",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.fonzynils.com/",
     shop: "",
     social: {
       instagram: "",
@@ -5619,10 +9520,10 @@ export const artists = [
   {
     slug: "nacho-huizar",
     name: "Nacho Huizar",
-    website: "http://behance.net/huizar",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://behance.net/huizar",
     shop: "",
     social: {
       instagram: "",
@@ -5642,10 +9543,10 @@ export const artists = [
   {
     slug: "avita-flit",
     name: "Avita Flit",
-    website: "https://www.behance.net/avita",
     country: "Israel",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/avita",
     shop: "",
     social: {
       instagram: "",
@@ -5665,10 +9566,10 @@ export const artists = [
   {
     slug: "jelena-vasiljevic",
     name: "Jelena Vasiljevic",
-    website: "http://jelenavasiljevic.tumblr.com/",
     country: "Serbia",
     info: "",
     userpic: "",
+    website: "http://jelenavasiljevic.tumblr.com/",
     shop: "",
     social: {
       instagram: "",
@@ -5688,10 +9589,10 @@ export const artists = [
   {
     slug: "giannis-georgantas",
     name: "Giannis Georgantas",
-    website: "http://rimadi.com",
     country: "Greece",
     info: "",
     userpic: "",
+    website: "http://rimadi.com",
     shop: "",
     social: {
       instagram: "",
@@ -5711,10 +9612,10 @@ export const artists = [
   {
     slug: "evan-raditya-pratomo",
     name: "Evan Raditya Pratomo",
-    website: "https://www.behance.net/evanrp",
     country: "Indonesia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/evanrp",
     shop: "",
     social: {
       instagram: "",
@@ -5734,10 +9635,10 @@ export const artists = [
   {
     slug: "naka",
     name: "Naka",
-    website: "http://nastya-razbegaeva.ru/",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://nastya-razbegaeva.ru/",
     shop: "",
     social: {
       instagram: "",
@@ -5757,10 +9658,10 @@ export const artists = [
   {
     slug: "lauren-sebastian",
     name: "Lauren Sebastian",
-    website: "http://www.laurensebastian.com/#!portfolio/component_41229",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.laurensebastian.com/#!portfolio/component_41229",
     shop: "",
     social: {
       instagram: "",
@@ -5780,10 +9681,10 @@ export const artists = [
   {
     slug: "patrick-seymour",
     name: "Patrick Seymour",
-    website: "https://www.behance.net/patrickseymour",
     country: "Canada",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/patrickseymour",
     shop: "",
     social: {
       instagram: "",
@@ -5803,10 +9704,10 @@ export const artists = [
   {
     slug: "katerina-murysina",
     name: "Katerina Murysina",
-    website: "http://murysina.com",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://murysina.com",
     shop: "",
     social: {
       instagram: "",
@@ -5826,10 +9727,10 @@ export const artists = [
   {
     slug: "wojciech-pijecki",
     name: "Wojciech Pijecki",
-    website: "http://be.net/synectic",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "http://be.net/synectic",
     shop: "",
     social: {
       instagram: "",
@@ -5849,10 +9750,10 @@ export const artists = [
   {
     slug: "emory-allen",
     name: "Emory Allen",
-    website: "http://www.ocularinvasion.com/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.ocularinvasion.com/",
     shop: "",
     social: {
       instagram: "",
@@ -5872,10 +9773,10 @@ export const artists = [
   {
     slug: "cornelia-li",
     name: "Cornelia Li",
-    website: "http://www.corneliali.com",
     country: "Canada",
     info: "",
     userpic: "",
+    website: "http://www.corneliali.com",
     shop: "",
     social: {
       instagram: "",
@@ -5895,10 +9796,10 @@ export const artists = [
   {
     slug: "milica-golubovic",
     name: "Milica Golubovic",
-    website: "https://www.behance.net/milicagolubovic",
     country: "Serbia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/milicagolubovic",
     shop: "",
     social: {
       instagram: "",
@@ -5918,10 +9819,10 @@ export const artists = [
   {
     slug: "fireye",
     name: "FIREYE",
-    website: "http://www.behance.net/Fireye",
     country: "China",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/Fireye",
     shop: "",
     social: {
       instagram: "",
@@ -5941,10 +9842,10 @@ export const artists = [
   {
     slug: "giulia-santopadre",
     name: "Giulia Santopadre",
-    website: "http://www.giuliasantopadre.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.giuliasantopadre.com",
     shop: "",
     social: {
       instagram: "",
@@ -5964,10 +9865,10 @@ export const artists = [
   {
     slug: "arthur-coppens",
     name: "Arthur Coppens",
-    website: "http://futhurnathur.wordpress.com",
     country: "Belgium",
     info: "",
     userpic: "",
+    website: "http://futhurnathur.wordpress.com",
     shop: "",
     social: {
       instagram: "",
@@ -5987,10 +9888,10 @@ export const artists = [
   {
     slug: "petr-kollarcik",
     name: "Petr Kollarcik",
-    website: "http://petrkoll.com",
     country: "Czech Republic",
     info: "",
     userpic: "",
+    website: "http://petrkoll.com",
     shop: "",
     social: {
       instagram: "",
@@ -6010,10 +9911,10 @@ export const artists = [
   {
     slug: "anna-aniskina",
     name: "Anna Aniskina",
-    website: "https://www.behance.net/annapaff",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/annapaff",
     shop: "",
     social: {
       instagram: "",
@@ -6033,10 +9934,10 @@ export const artists = [
   {
     slug: "sara-gonzalez",
     name: "Sara Gonzalez",
-    website: "http://saragonzalez.eu",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://saragonzalez.eu",
     shop: "",
     social: {
       instagram: "",
@@ -6056,10 +9957,10 @@ export const artists = [
   {
     slug: "cyla-costa",
     name: "Cyla Costa",
-    website: "https://www.behance.net/cylacosta",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/cylacosta",
     shop: "",
     social: {
       instagram: "",
@@ -6079,10 +9980,10 @@ export const artists = [
   {
     slug: "fabio-mancini",
     name: "Fabio MAncini",
-    website: "http://fabio-mancini.it/",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://fabio-mancini.it/",
     shop: "",
     social: {
       instagram: "",
@@ -6102,10 +10003,10 @@ export const artists = [
   {
     slug: "ricardo-bracho",
     name: "Ricardo Bracho",
-    website: "http://www.behance.net/art3sano",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/art3sano",
     shop: "",
     social: {
       instagram: "",
@@ -6125,10 +10026,10 @@ export const artists = [
   {
     slug: "tommy-chandra",
     name: "Tommy Chandra",
-    website: "http://tommychandra.com",
     country: "Indonesia",
     info: "",
     userpic: "",
+    website: "http://tommychandra.com",
     shop: "",
     social: {
       instagram: "",
@@ -6148,10 +10049,10 @@ export const artists = [
   {
     slug: "kurt-chang",
     name: "Kurt Chang",
-    website: "http://www.kurtchang.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.kurtchang.com",
     shop: "",
     social: {
       instagram: "",
@@ -6171,10 +10072,10 @@ export const artists = [
   {
     slug: "alexis-feniser",
     name: "Alexis Feniser",
-    website: "http://alexisfeniser.tumblr.com/",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://alexisfeniser.tumblr.com/",
     shop: "",
     social: {
       instagram: "",
@@ -6194,10 +10095,10 @@ export const artists = [
   {
     slug: "tu-bui",
     name: "Tu Bui",
-    website: "http://www.behance.net/xoyooyox",
     country: "Vietnam",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/xoyooyox",
     shop: "",
     social: {
       instagram: "",
@@ -6217,10 +10118,10 @@ export const artists = [
   {
     slug: "sam-seoane",
     name: "Sam Seoane",
-    website: "http://www.samseoane.com/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.samseoane.com/",
     shop: "",
     social: {
       instagram: "",
@@ -6240,10 +10141,10 @@ export const artists = [
   {
     slug: "jérémy-schiavo",
     name: "Jérémy SCHIAVO",
-    website: "http://www.jeremyschiavo.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.jeremyschiavo.com",
     shop: "",
     social: {
       instagram: "",
@@ -6263,10 +10164,10 @@ export const artists = [
   {
     slug: "mojo-wang",
     name: "Mojo Wang",
-    website: "http://www.mojowang.com",
     country: "China",
     info: "",
     userpic: "",
+    website: "http://www.mojowang.com",
     shop: "",
     social: {
       instagram: "",
@@ -6286,10 +10187,10 @@ export const artists = [
   {
     slug: "olivier-bonhomme",
     name: "Olivier Bonhomme",
-    website: "http://www.olivierbonhomme.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.olivierbonhomme.com",
     shop: "",
     social: {
       instagram: "",
@@ -6309,10 +10210,10 @@ export const artists = [
   {
     slug: "anna-katharina-jansen",
     name: "Anna Katharina Jansen",
-    website: "http://AnnaKatharinaJansen.de",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://AnnaKatharinaJansen.de",
     shop: "",
     social: {
       instagram: "",
@@ -6332,10 +10233,10 @@ export const artists = [
   {
     slug: "peachmunkey",
     name: "Peachmunkey",
-    website: "http://peachmunkey.tumblr.com/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://peachmunkey.tumblr.com/",
     shop: "",
     social: {
       instagram: "",
@@ -6355,10 +10256,10 @@ export const artists = [
   {
     slug: "roberto-hikimi-blefari",
     name: "Roberto Hikimi Blefari",
-    website: "http://www.hikimi.it",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.hikimi.it",
     shop: "",
     social: {
       instagram: "",
@@ -6378,10 +10279,10 @@ export const artists = [
   {
     slug: "tomasz-usyk",
     name: "Tomasz Usyk",
-    website: "http://www.behance.net/tomaszusyk",
     country: "Ireland",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/tomaszusyk",
     shop: "",
     social: {
       instagram: "",
@@ -6401,10 +10302,10 @@ export const artists = [
   {
     slug: "luisa-rivera",
     name: "Luisa Rivera",
-    website: "http://www.luisarivera.cl",
     country: "Chile",
     info: "",
     userpic: "",
+    website: "http://www.luisarivera.cl",
     shop: "",
     social: {
       instagram: "",
@@ -6424,10 +10325,10 @@ export const artists = [
   {
     slug: "artiom-branchel-(a.bran)",
     name: "Artiom Branchel (A.Bran)",
-    website: "http://abran.lt",
     country: "Lithuania",
     info: "",
     userpic: "",
+    website: "http://abran.lt",
     shop: "",
     social: {
       instagram: "",
@@ -6447,10 +10348,10 @@ export const artists = [
   {
     slug: "jorge-parra-velez",
     name: "Jorge Parra Velez",
-    website: "http://www.harpopan.com/design/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.harpopan.com/design/",
     shop: "",
     social: {
       instagram: "",
@@ -6470,10 +10371,10 @@ export const artists = [
   {
     slug: "jean-balogh-(gyöngyi)",
     name: "Jean Balogh (Gyöngyi)",
-    website: "http://jeanbalogh.com/portfolio/",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "http://jeanbalogh.com/portfolio/",
     shop: "",
     social: {
       instagram: "",
@@ -6493,10 +10394,10 @@ export const artists = [
   {
     slug: "alexandru-nimurad",
     name: "Alexandru Nimurad",
-    website: "https://www.behance.net/Nimurad",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/Nimurad",
     shop: "",
     social: {
       instagram: "",
@@ -6516,10 +10417,10 @@ export const artists = [
   {
     slug: "alain-daniel-husson",
     name: "Alain Daniel Husson",
-    website: "https://www.behance.net/alain_daniel_husson",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/alain_daniel_husson",
     shop: "",
     social: {
       instagram: "",
@@ -6539,10 +10440,10 @@ export const artists = [
   {
     slug: "alberto-antoniazzi",
     name: "Alberto Antoniazzi",
-    website: "http://www.albertoantoniazzi.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.albertoantoniazzi.com",
     shop: "",
     social: {
       instagram: "",
@@ -6562,10 +10463,10 @@ export const artists = [
   {
     slug: "sharm-murugiah",
     name: "Sharm Murugiah",
-    website: "http://www.sharmmurugiah.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.sharmmurugiah.com",
     shop: "",
     social: {
       instagram: "",
@@ -6585,10 +10486,10 @@ export const artists = [
   {
     slug: "stefan-chinoff",
     name: "Stefan Chinoff",
-    website: "https://www.behance.net/chin2off",
     country: "Bulgaria",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/chin2off",
     shop: "",
     social: {
       instagram: "",
@@ -6608,10 +10509,10 @@ export const artists = [
   {
     slug: "laura-redburn",
     name: "laura redburn",
-    website: "http://cardboardcities.co.uk",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://cardboardcities.co.uk",
     shop: "",
     social: {
       instagram: "",
@@ -6631,10 +10532,10 @@ export const artists = [
   {
     slug: "luis-guizado-aka-guizo",
     name: "Luis Guizado aka Guizo",
-    website: "http://www.behance.net/lguizo",
     country: "Peru",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/lguizo",
     shop: "",
     social: {
       instagram: "",
@@ -6654,10 +10555,10 @@ export const artists = [
   {
     slug: "olga-shtonda",
     name: "Olga Shtonda",
-    website: "http://www.behance.net/OlgaShtonda",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/OlgaShtonda",
     shop: "",
     social: {
       instagram: "",
@@ -6677,10 +10578,10 @@ export const artists = [
   {
     slug: "alejandro-lópez",
     name: "Alejandro López",
-    website: "http://www.muokkaa.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.muokkaa.com",
     shop: "",
     social: {
       instagram: "",
@@ -6700,10 +10601,10 @@ export const artists = [
   {
     slug: "annika-de-korte",
     name: "Annika de Korte",
-    website: "https://www.behance.net/shimmy",
     country: "South Africa",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/shimmy",
     shop: "",
     social: {
       instagram: "",
@@ -6723,10 +10624,10 @@ export const artists = [
   {
     slug: "victor-vergara",
     name: "Victor Vergara",
-    website: "http://www.victorscomics.com",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "http://www.victorscomics.com",
     shop: "",
     social: {
       instagram: "",
@@ -6746,10 +10647,10 @@ export const artists = [
   {
     slug: "ola-szpunar",
     name: "Ola Szpunar",
-    website: "http://www.behance.net/oleandra",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/oleandra",
     shop: "",
     social: {
       instagram: "",
@@ -6769,10 +10670,10 @@ export const artists = [
   {
     slug: "cloiseau-alan",
     name: "Cloiseau Alan",
-    website: "http://www.alancloiseau.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.alancloiseau.com",
     shop: "",
     social: {
       instagram: "",
@@ -6792,10 +10693,10 @@ export const artists = [
   {
     slug: "lucía-gómez",
     name: "Lucía Gómez",
-    website: "http://www.lucecitagmz.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.lucecitagmz.com",
     shop: "",
     social: {
       instagram: "",
@@ -6815,10 +10716,10 @@ export const artists = [
   {
     slug: "buba-viedma",
     name: "Buba Viedma",
-    website: "http://www.mentecalamar.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.mentecalamar.com",
     shop: "",
     social: {
       instagram: "",
@@ -6838,10 +10739,10 @@ export const artists = [
   {
     slug: "yido",
     name: "Yido",
-    website: "http://www.behance.net/yido",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/yido",
     shop: "",
     social: {
       instagram: "",
@@ -6861,10 +10762,10 @@ export const artists = [
   {
     slug: "morgan-ramberg",
     name: "Morgan Ramberg",
-    website: "https://www.behance.net/morgandesign",
     country: "United States",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/morgandesign",
     shop: "",
     social: {
       instagram: "",
@@ -6884,10 +10785,10 @@ export const artists = [
   {
     slug: "sergio-ingravalle",
     name: "Sergio Ingravalle",
-    website: "http://maivisto.de",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://maivisto.de",
     shop: "",
     social: {
       instagram: "",
@@ -6907,10 +10808,10 @@ export const artists = [
   {
     slug: "sandra-suy",
     name: "Sandra Suy",
-    website: "http://www.sandrasuy.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.sandrasuy.com",
     shop: "",
     social: {
       instagram: "",
@@ -6930,10 +10831,10 @@ export const artists = [
   {
     slug: "birgit-palma",
     name: "Birgit Palma",
-    website: "http://www.birgitpalma.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.birgitpalma.com",
     shop: "",
     social: {
       instagram: "",
@@ -6953,10 +10854,10 @@ export const artists = [
   {
     slug: "felipe-navarro",
     name: "Felipe Navarro",
-    website: "https://www.behance.net/felipenavarro",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/felipenavarro",
     shop: "",
     social: {
       instagram: "",
@@ -6976,10 +10877,10 @@ export const artists = [
   {
     slug: "ion-lucin",
     name: "Ion Lucin",
-    website: "https://www.behance.net/ionL",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/ionL",
     shop: "",
     social: {
       instagram: "",
@@ -6999,10 +10900,10 @@ export const artists = [
   {
     slug: "koivo",
     name: "Koivo",
-    website: "http://www.koivo.com",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.koivo.com",
     shop: "",
     social: {
       instagram: "",
@@ -7022,10 +10923,10 @@ export const artists = [
   {
     slug: "oscar-diodoro",
     name: "Oscar Diodoro",
-    website: "http://www.odd-house.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.odd-house.com",
     shop: "",
     social: {
       instagram: "",
@@ -7045,10 +10946,10 @@ export const artists = [
   {
     slug: "daniel-vidal",
     name: "Daniel Vidal",
-    website: "https://www.behance.net/danielvidal",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/danielvidal",
     shop: "",
     social: {
       instagram: "",
@@ -7068,10 +10969,10 @@ export const artists = [
   {
     slug: "pau-molas",
     name: "Pau Molas",
-    website: "https://www.behance.net/molasmazo",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/molasmazo",
     shop: "",
     social: {
       instagram: "",
@@ -7091,10 +10992,10 @@ export const artists = [
   {
     slug: "elena-pancorbo",
     name: "Elena Pancorbo",
-    website: "https://www.behance.net/ElenaPancorbo",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/ElenaPancorbo",
     shop: "",
     social: {
       instagram: "",
@@ -7114,10 +11015,10 @@ export const artists = [
   {
     slug: "jim-wong",
     name: "Jim Wong",
-    website: "http://www.gd-morning.org/jim",
     country: "Hong Kong",
     info: "",
     userpic: "",
+    website: "http://www.gd-morning.org/jim",
     shop: "",
     social: {
       instagram: "",
@@ -7137,10 +11038,10 @@ export const artists = [
   {
     slug: "miguel-dias",
     name: "Miguel Dias",
-    website: "https://www.behance.net/miguelrdias",
     country: "Portugal",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/miguelrdias",
     shop: "",
     social: {
       instagram: "",
@@ -7160,10 +11061,10 @@ export const artists = [
   {
     slug: "lucas-doerre",
     name: "Lucas Doerre",
-    website: "http://www.lucasdoerre.com",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.lucasdoerre.com",
     shop: "",
     social: {
       instagram: "",
@@ -7183,10 +11084,10 @@ export const artists = [
   {
     slug: "stefano-agabio",
     name: "Stefano Agabio",
-    website: "http://www.everythingisanumber.com/",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.everythingisanumber.com/",
     shop: "",
     social: {
       instagram: "",
@@ -7206,10 +11107,10 @@ export const artists = [
   {
     slug: "bart-van-delft",
     name: "Bart van Delft",
-    website: "http://www.web-farm.nl",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "http://www.web-farm.nl",
     shop: "",
     social: {
       instagram: "",
@@ -7229,10 +11130,10 @@ export const artists = [
   {
     slug: "dmitry-stolz",
     name: "Dmitry Stolz",
-    website: "http://www.behance.net/2stlz",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/2stlz",
     shop: "",
     social: {
       instagram: "",
@@ -7252,10 +11153,10 @@ export const artists = [
   {
     slug: "patrícia-mafra",
     name: "Patrícia Mafra",
-    website: "http://www.patriciamafra.com/",
     country: "Portugal",
     info: "",
     userpic: "",
+    website: "http://www.patriciamafra.com/",
     shop: "",
     social: {
       instagram: "",
@@ -7275,10 +11176,10 @@ export const artists = [
   {
     slug: "iryna-korshak",
     name: "Iryna Korshak",
-    website: "https://www.behance.net/IraKorshak",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/IraKorshak",
     shop: "",
     social: {
       instagram: "",
@@ -7298,10 +11199,10 @@ export const artists = [
   {
     slug: "anna-caban",
     name: "Anna Caban",
-    website: "http://annacaban.pl/",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "http://annacaban.pl/",
     shop: "",
     social: {
       instagram: "",
@@ -7321,10 +11222,10 @@ export const artists = [
   {
     slug: "jérôme-masi",
     name: "Jérôme MASI",
-    website: "http://www.behance.net/jeromemasi",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/jeromemasi",
     shop: "",
     social: {
       instagram: "",
@@ -7344,10 +11245,10 @@ export const artists = [
   {
     slug: "nuttaphon-suriyavarakul",
     name: "Nuttaphon Suriyavarakul",
-    website: "http://behance.net/warhead",
     country: "Thailand",
     info: "",
     userpic: "",
+    website: "http://behance.net/warhead",
     shop: "",
     social: {
       instagram: "",
@@ -7367,10 +11268,10 @@ export const artists = [
   {
     slug: "diego-riselli",
     name: "Diego Riselli",
-    website: "http://www.behance.net/diegoriselli",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/diegoriselli",
     shop: "",
     social: {
       instagram: "",
@@ -7390,10 +11291,10 @@ export const artists = [
   {
     slug: "meni-chatzipanagiotou",
     name: "Meni Chatzipanagiotou",
-    website: "http://menisart.com",
     country: "Greece",
     info: "",
     userpic: "",
+    website: "http://menisart.com",
     shop: "",
     social: {
       instagram: "",
@@ -7413,10 +11314,10 @@ export const artists = [
   {
     slug: "matteo-ruisi",
     name: "Matteo Ruisi",
-    website: "http://matteoruisi.wix.com/portfolio",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://matteoruisi.wix.com/portfolio",
     shop: "",
     social: {
       instagram: "",
@@ -7436,10 +11337,10 @@ export const artists = [
   {
     slug: "karolina-szymkiewicz",
     name: "Karolina Szymkiewicz",
-    website: "http://www.karolfulillustration.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.karolfulillustration.com",
     shop: "",
     social: {
       instagram: "",
@@ -7459,10 +11360,10 @@ export const artists = [
   {
     slug: "sun-lee-siew-loo",
     name: "Sun Lee Siew Loo",
-    website: "http://www.growwithsun.com",
     country: "Singapore",
     info: "",
     userpic: "",
+    website: "http://www.growwithsun.com",
     shop: "",
     social: {
       instagram: "",
@@ -7482,10 +11383,10 @@ export const artists = [
   {
     slug: "swindler-&-swindler",
     name: "Swindler & Swindler",
-    website: "http://swindlerandswindler.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://swindlerandswindler.com",
     shop: "",
     social: {
       instagram: "",
@@ -7505,10 +11406,10 @@ export const artists = [
   {
     slug: "adi",
     name: "Adi",
-    website: "http://adidizdarevic.com/",
     country: "Bosnia and Herzegovina",
     info: "",
     userpic: "",
+    website: "http://adidizdarevic.com/",
     shop: "",
     social: {
       instagram: "",
@@ -7528,10 +11429,10 @@ export const artists = [
   {
     slug: "ladislas-chachignot",
     name: "Ladislas Chachignot",
-    website: "https://www.behance.net/ladislas",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/ladislas",
     shop: "",
     social: {
       instagram: "",
@@ -7551,10 +11452,10 @@ export const artists = [
   {
     slug: "andreas-wikström",
     name: "Andreas Wikström",
-    website: "http://www.andreaswikstrom.com",
     country: "Sweden",
     info: "",
     userpic: "",
+    website: "http://www.andreaswikstrom.com",
     shop: "",
     social: {
       instagram: "",
@@ -7574,10 +11475,10 @@ export const artists = [
   {
     slug: "siggeir",
     name: "Siggeir",
-    website: "http://sigvicious.com",
     country: "Iceland",
     info: "",
     userpic: "",
+    website: "http://sigvicious.com",
     shop: "",
     social: {
       instagram: "",
@@ -7597,10 +11498,10 @@ export const artists = [
   {
     slug: "alexis-gérard",
     name: "Alexis Gérard",
-    website: "https://www.behance.net/IcyBomb",
     country: "Belgium",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/IcyBomb",
     shop: "",
     social: {
       instagram: "",
@@ -7620,10 +11521,10 @@ export const artists = [
   {
     slug: "sara-penco",
     name: "Sara Penco",
-    website: "http://www.behance.net/sara_penco",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/sara_penco",
     shop: "",
     social: {
       instagram: "",
@@ -7643,10 +11544,10 @@ export const artists = [
   {
     slug: "nicoletta-pagano",
     name: "Nicoletta Pagano",
-    website: "http://daltronde.nicolettapagano.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://daltronde.nicolettapagano.com",
     shop: "",
     social: {
       instagram: "",
@@ -7666,10 +11567,10 @@ export const artists = [
   {
     slug: "8:00-am",
     name: "8:00 AM",
-    website: "http://www.08AM.net",
     country: "Shouth Korea",
     info: "",
     userpic: "",
+    website: "http://www.08AM.net",
     shop: "",
     social: {
       instagram: "",
@@ -7689,10 +11590,10 @@ export const artists = [
   {
     slug: "laranoia",
     name: "Laranoia",
-    website: "http://laranoia.com/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://laranoia.com/",
     shop: "",
     social: {
       instagram: "",
@@ -7712,10 +11613,10 @@ export const artists = [
   {
     slug: "matteo-cuccato",
     name: "Matteo Cuccato",
-    website: "http://www.matteocuccato.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.matteocuccato.com",
     shop: "",
     social: {
       instagram: "",
@@ -7735,10 +11636,10 @@ export const artists = [
   {
     slug: "marcos-navarro",
     name: "Marcos Navarro",
-    website: "http://www.marcosnavarro.es/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.marcosnavarro.es/",
     shop: "",
     social: {
       instagram: "",
@@ -7758,10 +11659,10 @@ export const artists = [
   {
     slug: "nick-kumbari",
     name: "Nick Kumbari",
-    website: "https://dribbble.com/kumbari",
     country: "Georgia",
     info: "",
     userpic: "",
+    website: "https://dribbble.com/kumbari",
     shop: "",
     social: {
       instagram: "",
@@ -7781,10 +11682,10 @@ export const artists = [
   {
     slug: "pavel",
     name: "Pavel",
-    website: "http://www.behance.net/pavelsmolyakov",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/pavelsmolyakov",
     shop: "",
     social: {
       instagram: "",
@@ -7804,10 +11705,10 @@ export const artists = [
   {
     slug: "stelios-spanoudakis",
     name: "Stelios Spanoudakis",
-    website: "http://junkart.gr/",
     country: "Greece",
     info: "",
     userpic: "",
+    website: "http://junkart.gr/",
     shop: "",
     social: {
       instagram: "",
@@ -7827,10 +11728,10 @@ export const artists = [
   {
     slug: "gui-zamarioli",
     name: "Gui Zamarioli",
-    website: "http://www.zamarioli.co/",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://www.zamarioli.co/",
     shop: "",
     social: {
       instagram: "",
@@ -7850,10 +11751,10 @@ export const artists = [
   {
     slug: "eduardo-dosuá",
     name: "Eduardo Dosuá",
-    website: "http://www.eduardodosua.com/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.eduardodosua.com/",
     shop: "",
     social: {
       instagram: "",
@@ -7873,10 +11774,10 @@ export const artists = [
   {
     slug: "michael-wandelmaier",
     name: "Michael Wandelmaier",
-    website: "https://dribbble.com/wandelmaier",
     country: "Canada",
     info: "",
     userpic: "",
+    website: "https://dribbble.com/wandelmaier",
     shop: "",
     social: {
       instagram: "",
@@ -7896,10 +11797,10 @@ export const artists = [
   {
     slug: "sabeena-karnik",
     name: "Sabeena Karnik",
-    website: "http://www.sabeenakarnik.com",
     country: "India",
     info: "",
     userpic: "",
+    website: "http://www.sabeenakarnik.com",
     shop: "",
     social: {
       instagram: "",
@@ -7919,10 +11820,10 @@ export const artists = [
   {
     slug: "brent-black",
     name: "Brent Black",
-    website: "http://www.behance.net/pinacolada",
     country: "South Africa",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/pinacolada",
     shop: "",
     social: {
       instagram: "",
@@ -7942,10 +11843,10 @@ export const artists = [
   {
     slug: "shinyoung-kim",
     name: "Shinyoung Kim",
-    website: "http://shin0kim.com/",
     country: "South Korea",
     info: "",
     userpic: "",
+    website: "http://shin0kim.com/",
     shop: "",
     social: {
       instagram: "",
@@ -7965,10 +11866,10 @@ export const artists = [
   {
     slug: "paul-mcmahon",
     name: "Paul McMahon",
-    website: "https://www.behance.net/therustedpixel",
     country: "Ireland",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/therustedpixel",
     shop: "",
     social: {
       instagram: "",
@@ -7988,10 +11889,10 @@ export const artists = [
   {
     slug: "rudo-company",
     name: "Rudo Company",
-    website: "http://www.rudocompany.com/",
     country: "Argentina",
     info: "",
     userpic: "",
+    website: "http://www.rudocompany.com/",
     shop: "",
     social: {
       instagram: "",
@@ -8011,10 +11912,10 @@ export const artists = [
   {
     slug: "craig-halili",
     name: "Craig Halili",
-    website: "https://www.behance.net/CraigHalili",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/CraigHalili",
     shop: "",
     social: {
       instagram: "",
@@ -8034,10 +11935,10 @@ export const artists = [
   {
     slug: "victor-c-castilvz",
     name: "Victor C Castilvz",
-    website: "http://castilvzdesign.tumblr.com/",
     country: "Venezuela",
     info: "",
     userpic: "",
+    website: "http://castilvzdesign.tumblr.com/",
     shop: "",
     social: {
       instagram: "",
@@ -8057,10 +11958,10 @@ export const artists = [
   {
     slug: "riccardo-corda",
     name: "Riccardo Corda",
-    website: "http://www.riccardocorda.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.riccardocorda.com",
     shop: "",
     social: {
       instagram: "",
@@ -8080,10 +11981,10 @@ export const artists = [
   {
     slug: "alberto-vacca-lepri-(vacaliebres)",
     name: "Alberto Vacca Lepri (vacaliebres)",
-    website: "http://www.vacaliebres.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.vacaliebres.com",
     shop: "",
     social: {
       instagram: "",
@@ -8103,10 +12004,10 @@ export const artists = [
   {
     slug: "charlie-valderrama",
     name: "Charlie Valderrama",
-    website: "http://www.dodoconyoyo.com",
     country: "Peru",
     info: "",
     userpic: "",
+    website: "http://www.dodoconyoyo.com",
     shop: "",
     social: {
       instagram: "",
@@ -8126,10 +12027,10 @@ export const artists = [
   {
     slug: "roberto-saldaña",
     name: "Roberto Saldaña",
-    website: "https://www.behance.net/alltropicanacompany",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/alltropicanacompany",
     shop: "",
     social: {
       instagram: "",
@@ -8149,10 +12050,10 @@ export const artists = [
   {
     slug: "randy-amoakohene",
     name: "Randy Amoakohene",
-    website: "http://ryadraws.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://ryadraws.com",
     shop: "",
     social: {
       instagram: "",
@@ -8172,10 +12073,10 @@ export const artists = [
   {
     slug: "bazak",
     name: "Bazak",
-    website: "http://www.bazakattack.com/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.bazakattack.com/",
     shop: "",
     social: {
       instagram: "",
@@ -8195,10 +12096,10 @@ export const artists = [
   {
     slug: "douala-sophie",
     name: "Douala Sophie",
-    website: "http://sophiedouala.com",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://sophiedouala.com",
     shop: "",
     social: {
       instagram: "",
@@ -8218,10 +12119,10 @@ export const artists = [
   {
     slug: "felix_勺子",
     name: "FELIX_勺子",
-    website: "https://www.behance.net/felix_shaozi",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/felix_shaozi",
     shop: "",
     social: {
       instagram: "",
@@ -8241,10 +12142,10 @@ export const artists = [
   {
     slug: "joël-cohen",
     name: "Joël Cohen",
-    website: "https://www.behance.net/joeledition",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/joeledition",
     shop: "",
     social: {
       instagram: "",
@@ -8264,10 +12165,10 @@ export const artists = [
   {
     slug: "jacopo-ferretti",
     name: "Jacopo Ferretti",
-    website: "http://jacopoferretti.com/",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://jacopoferretti.com/",
     shop: "",
     social: {
       instagram: "",
@@ -8287,10 +12188,10 @@ export const artists = [
   {
     slug: "claire-o'brien",
     name: "Claire O'Brien",
-    website: "http://www.claireobrienillustration.com",
     country: "Ireland",
     info: "",
     userpic: "",
+    website: "http://www.claireobrienillustration.com",
     shop: "",
     social: {
       instagram: "",
@@ -8310,10 +12211,10 @@ export const artists = [
   {
     slug: "lloyd-de-guzman",
     name: "Lloyd de Guzman",
-    website: "http://www.lloyddeguzman.com",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "http://www.lloyddeguzman.com",
     shop: "",
     social: {
       instagram: "",
@@ -8333,10 +12234,10 @@ export const artists = [
   {
     slug: "edu-rubio",
     name: "Edu Rubio",
-    website: "http://www.edurubio.com/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.edurubio.com/",
     shop: "",
     social: {
       instagram: "",
@@ -8356,10 +12257,10 @@ export const artists = [
   {
     slug: "joseph-veazey",
     name: "Joseph Veazey",
-    website: "http://josephveazey.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://josephveazey.com",
     shop: "",
     social: {
       instagram: "",
@@ -8379,10 +12280,10 @@ export const artists = [
   {
     slug: "janusz-jurek",
     name: "Janusz Jurek",
-    website: "https://www.behance.net/januszjurek",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/januszjurek",
     shop: "",
     social: {
       instagram: "",
@@ -8402,10 +12303,10 @@ export const artists = [
   {
     slug: "josh-thomas",
     name: "Josh Thomas",
-    website: "http://www.ainsoph.net",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.ainsoph.net",
     shop: "",
     social: {
       instagram: "",
@@ -8425,10 +12326,10 @@ export const artists = [
   {
     slug: "javier-pérez",
     name: "Javier Pérez",
-    website: "http://www.javierperez.ws",
     country: "Ecuador",
     info: "",
     userpic: "",
+    website: "http://www.javierperez.ws",
     shop: "",
     social: {
       instagram: "",
@@ -8448,10 +12349,10 @@ export const artists = [
   {
     slug: "nadzeya-lebedzeva",
     name: "Nadzeya Lebedzeva",
-    website: "https://readymag.com/nadzeya/527564/",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "https://readymag.com/nadzeya/527564/",
     shop: "",
     social: {
       instagram: "",
@@ -8471,10 +12372,10 @@ export const artists = [
   {
     slug: "vet-orso",
     name: "VET ORSO",
-    website: "https://www.behance.net/vet",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/vet",
     shop: "",
     social: {
       instagram: "",
@@ -8494,10 +12395,10 @@ export const artists = [
   {
     slug: "elina-novak",
     name: "Elina Novak",
-    website: "http://www.behance.net/ElinaNovak",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/ElinaNovak",
     shop: "",
     social: {
       instagram: "",
@@ -8517,10 +12418,10 @@ export const artists = [
   {
     slug: "black-madre",
     name: "Black Madre",
-    website: "http://blackmadre.com",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://blackmadre.com",
     shop: "",
     social: {
       instagram: "",
@@ -8540,10 +12441,10 @@ export const artists = [
   {
     slug: "giovanna-giuliano",
     name: "Giovanna Giuliano",
-    website: "http://www.giovannagiuliano.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.giovannagiuliano.com",
     shop: "",
     social: {
       instagram: "",
@@ -8563,10 +12464,10 @@ export const artists = [
   {
     slug: "mirko-càmia",
     name: "Mirko Càmia",
-    website: "http://www.atd-world.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.atd-world.com",
     shop: "",
     social: {
       instagram: "",
@@ -8586,10 +12487,10 @@ export const artists = [
   {
     slug: "pat-simons",
     name: "Pat Simons",
-    website: "http://www.patricksimons.net",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "http://www.patricksimons.net",
     shop: "",
     social: {
       instagram: "",
@@ -8609,10 +12510,10 @@ export const artists = [
   {
     slug: "eva-vilhelmiina-eskelinen",
     name: "Eva Vilhelmiina Eskelinen",
-    website: "http://be.net/evelmiina",
     country: "Finland",
     info: "",
     userpic: "",
+    website: "http://be.net/evelmiina",
     shop: "",
     social: {
       instagram: "",
@@ -8632,10 +12533,10 @@ export const artists = [
   {
     slug: "sílfide-oscura",
     name: "Sílfide Oscura",
-    website: "http://www.artstation.com/artist/lasilfideoscura",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.artstation.com/artist/lasilfideoscura",
     shop: "",
     social: {
       instagram: "",
@@ -8655,10 +12556,10 @@ export const artists = [
   {
     slug: "bryan-gallardo",
     name: "Bryan Gallardo",
-    website: "https://www.behance.net/bs13",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/bs13",
     shop: "",
     social: {
       instagram: "",
@@ -8678,10 +12579,10 @@ export const artists = [
   {
     slug: "igor-kozak",
     name: "Igor Kozak",
-    website: "https://www.behance.net/iggy-rocketboy",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/iggy-rocketboy",
     shop: "",
     social: {
       instagram: "",
@@ -8701,10 +12602,10 @@ export const artists = [
   {
     slug: "alessandro-monaco",
     name: "Alessandro Monaco",
-    website: "http://www.alessandromonaco.co.uk",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.alessandromonaco.co.uk",
     shop: "",
     social: {
       instagram: "",
@@ -8724,10 +12625,10 @@ export const artists = [
   {
     slug: "gabriel-villena",
     name: "Gabriel Villena",
-    website: "https://www.behance.net/gabrielvillena",
     country: "Chile",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/gabrielvillena",
     shop: "",
     social: {
       instagram: "",
@@ -8747,10 +12648,10 @@ export const artists = [
   {
     slug: "sharon-farrow",
     name: "Sharon Farrow",
-    website: "http://www.sharonfarrow.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.sharonfarrow.com",
     shop: "",
     social: {
       instagram: "",
@@ -8770,10 +12671,10 @@ export const artists = [
   {
     slug: "andy-pallavicini",
     name: "Andy Pallavicini",
-    website: "http://behance.net/kirubeen",
     country: "Chile",
     info: "",
     userpic: "",
+    website: "http://behance.net/kirubeen",
     shop: "",
     social: {
       instagram: "",
@@ -8793,10 +12694,10 @@ export const artists = [
   {
     slug: "shiffa",
     name: "SHIFFA",
-    website: "http://www.dashiffa.com",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://www.dashiffa.com",
     shop: "",
     social: {
       instagram: "",
@@ -8816,10 +12717,10 @@ export const artists = [
   {
     slug: "pelayo-rodríguez",
     name: "Pelayo Rodríguez",
-    website: "http://mellamanpel.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://mellamanpel.com",
     shop: "",
     social: {
       instagram: "",
@@ -8839,10 +12740,10 @@ export const artists = [
   {
     slug: "makers-company",
     name: "Makers Company",
-    website: "http://www.themakers.company",
     country: "South Africa",
     info: "",
     userpic: "",
+    website: "http://www.themakers.company",
     shop: "",
     social: {
       instagram: "",
@@ -8862,10 +12763,10 @@ export const artists = [
   {
     slug: "kuchu-pack",
     name: "Kuchu Pack",
-    website: "https://www.behance.net/kuchu",
     country: "Thailand",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/kuchu",
     shop: "",
     social: {
       instagram: "",
@@ -8885,10 +12786,10 @@ export const artists = [
   {
     slug: "massimiliano-panzironi",
     name: "massimiliano panzironi",
-    website: "http://www.dolceq.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.dolceq.com",
     shop: "",
     social: {
       instagram: "",
@@ -8908,10 +12809,10 @@ export const artists = [
   {
     slug: "pliska-dasha",
     name: "pliska dasha",
-    website: "http://www.behance.net/zarbie",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/zarbie",
     shop: "",
     social: {
       instagram: "",
@@ -8931,10 +12832,10 @@ export const artists = [
   {
     slug: "isabel-albertos",
     name: "Isabel Albertos",
-    website: "http://www.isabelalbertosjohnston.com/",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.isabelalbertosjohnston.com/",
     shop: "",
     social: {
       instagram: "",
@@ -8954,10 +12855,10 @@ export const artists = [
   {
     slug: "onasup",
     name: "Onasup",
-    website: "http://onasup.com",
     country: "South Korea",
     info: "",
     userpic: "",
+    website: "http://onasup.com",
     shop: "",
     social: {
       instagram: "",
@@ -8977,10 +12878,10 @@ export const artists = [
   {
     slug: "aleksei-goferman",
     name: "Aleksei Goferman",
-    website: "http://www.visio-art.de",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.visio-art.de",
     shop: "",
     social: {
       instagram: "",
@@ -9000,10 +12901,10 @@ export const artists = [
   {
     slug: "reno-nogaj",
     name: "Reno Nogaj",
-    website: "http://www.behance.net/RenoNogaj",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/RenoNogaj",
     shop: "",
     social: {
       instagram: "",
@@ -9023,10 +12924,10 @@ export const artists = [
   {
     slug: "nadzeya",
     name: "Nadzeya",
-    website: "http://nadzeya-makeyeva.com",
     country: "Belarus",
     info: "",
     userpic: "",
+    website: "http://nadzeya-makeyeva.com",
     shop: "",
     social: {
       instagram: "",
@@ -9046,10 +12947,10 @@ export const artists = [
   {
     slug: "anton-kostenko",
     name: "Anton Kostenko",
-    website: "http://www.askdesign.in.ua",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "http://www.askdesign.in.ua",
     shop: "",
     social: {
       instagram: "",
@@ -9069,10 +12970,10 @@ export const artists = [
   {
     slug: "petros-afshar",
     name: "Petros Afshar",
-    website: "http://www.behance.net/petrosafshar",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/petrosafshar",
     shop: "",
     social: {
       instagram: "",
@@ -9092,10 +12993,10 @@ export const artists = [
   {
     slug: "raylau",
     name: "Raylau",
-    website: "http://cargocollective.com/raylau",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://cargocollective.com/raylau",
     shop: "",
     social: {
       instagram: "",
@@ -9115,10 +13016,10 @@ export const artists = [
   {
     slug: "charlotte",
     name: "Charlotte",
-    website: "http://charlottedaydesign.com/",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://charlottedaydesign.com/",
     shop: "",
     social: {
       instagram: "",
@@ -9138,10 +13039,10 @@ export const artists = [
   {
     slug: "davide-mazzuchin",
     name: "Davide Mazzuchin",
-    website: "http://www.davidemazzuchin.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.davidemazzuchin.com",
     shop: "",
     social: {
       instagram: "",
@@ -9161,10 +13062,10 @@ export const artists = [
   {
     slug: "daniel-morgenstern",
     name: "Daniel Morgenstern",
-    website: "http://www.danielmorgenstern.com",
     country: "Israel",
     info: "",
     userpic: "",
+    website: "http://www.danielmorgenstern.com",
     shop: "",
     social: {
       instagram: "",
@@ -9184,10 +13085,10 @@ export const artists = [
   {
     slug: "andrey-kokorin",
     name: "Andrey Kokorin",
-    website: "http://www.behance.net/akok",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/akok",
     shop: "",
     social: {
       instagram: "",
@@ -9207,10 +13108,10 @@ export const artists = [
   {
     slug: "luca&sinem",
     name: "Luca&Sinem",
-    website: "http://lucaandsinem.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://lucaandsinem.com",
     shop: "",
     social: {
       instagram: "",
@@ -9230,10 +13131,10 @@ export const artists = [
   {
     slug: "maria-paula-moreno-quintero",
     name: "Maria Paula Moreno Quintero",
-    website: "http://www.behance.net/mariapapita",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/mariapapita",
     shop: "",
     social: {
       instagram: "",
@@ -9253,10 +13154,10 @@ export const artists = [
   {
     slug: "sr.reny",
     name: "Sr.Reny",
-    website: "http://www.srreny.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.srreny.com",
     shop: "",
     social: {
       instagram: "",
@@ -9276,10 +13177,10 @@ export const artists = [
   {
     slug: "tempzey",
     name: "Tempzey",
-    website: "http://www.behance.net/tempzey",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/tempzey",
     shop: "",
     social: {
       instagram: "",
@@ -9299,10 +13200,10 @@ export const artists = [
   {
     slug: "matt-sloe",
     name: "Matt Sloe",
-    website: "https://manyformatt.com/",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "https://manyformatt.com/",
     shop: "",
     social: {
       instagram: "",
@@ -9322,10 +13223,10 @@ export const artists = [
   {
     slug: "ahmed-sidky-a.k.a.-kenny-poppins",
     name: "Ahmed Sidky a.k.a. Kenny Poppins",
-    website: "http://kennypoppins.myportfolio.com/",
     country: "Canada",
     info: "",
     userpic: "",
+    website: "http://kennypoppins.myportfolio.com/",
     shop: "",
     social: {
       instagram: "",
@@ -9345,10 +13246,10 @@ export const artists = [
   {
     slug: "tamar-dovrat",
     name: "Tamar Dovrat",
-    website: "http://cargocollective.com/tamar-dovrat",
     country: "Israel",
     info: "",
     userpic: "",
+    website: "http://cargocollective.com/tamar-dovrat",
     shop: "",
     social: {
       instagram: "",
@@ -9368,10 +13269,10 @@ export const artists = [
   {
     slug: "kate-huang",
     name: "Kate Huang",
-    website: "http://www.behance.net/gracekate",
     country: "Taiwan",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/gracekate",
     shop: "",
     social: {
       instagram: "",
@@ -9391,10 +13292,10 @@ export const artists = [
   {
     slug: "anderson-koyama",
     name: "Anderson Koyama",
-    website: "http://www.behance.net/anderkoy",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/anderkoy",
     shop: "",
     social: {
       instagram: "",
@@ -9414,10 +13315,10 @@ export const artists = [
   {
     slug: "roberto-morales",
     name: "Roberto Morales",
-    website: "https://www.behance.net/robertomorales",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/robertomorales",
     shop: "",
     social: {
       instagram: "",
@@ -9437,10 +13338,10 @@ export const artists = [
   {
     slug: "daniel-ramos",
     name: "Daniel Ramos",
-    website: "http://www.behance.net/vakero",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/vakero",
     shop: "",
     social: {
       instagram: "",
@@ -9460,10 +13361,10 @@ export const artists = [
   {
     slug: "henrique-barone",
     name: "Henrique Barone",
-    website: "http://www.henriquebarone.com",
     country: "Canada",
     info: "",
     userpic: "",
+    website: "http://www.henriquebarone.com",
     shop: "",
     social: {
       instagram: "",
@@ -9483,10 +13384,10 @@ export const artists = [
   {
     slug: "james-gifford",
     name: "James Gifford",
-    website: "http://www.jamesgiffordillustration.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.jamesgiffordillustration.com",
     shop: "",
     social: {
       instagram: "",
@@ -9506,10 +13407,10 @@ export const artists = [
   {
     slug: "geraldine-sy",
     name: "Geraldine Sy",
-    website: "http://www.geraldinesy.com/",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "http://www.geraldinesy.com/",
     shop: "",
     social: {
       instagram: "",
@@ -9529,10 +13430,10 @@ export const artists = [
   {
     slug: "jaebum-joo",
     name: "JaeBum Joo",
-    website: "http://joojaebum.com/",
     country: "South Korea",
     info: "",
     userpic: "",
+    website: "http://joojaebum.com/",
     shop: "",
     social: {
       instagram: "",
@@ -9552,10 +13453,10 @@ export const artists = [
   {
     slug: "omar-shammah",
     name: "Omar Shammah",
-    website: "http://www.behance.net/omarshammah",
     country: "Syria",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/omarshammah",
     shop: "",
     social: {
       instagram: "",
@@ -9575,10 +13476,10 @@ export const artists = [
   {
     slug: "flou",
     name: "flou",
-    website: "http://cargocollective.com/madebyflou",
     country: "Slovakia",
     info: "",
     userpic: "",
+    website: "http://cargocollective.com/madebyflou",
     shop: "",
     social: {
       instagram: "",
@@ -9598,10 +13499,10 @@ export const artists = [
   {
     slug: "cristiana-fasano",
     name: "Cristiana Fasano",
-    website: "http://www.behance.net/CristianaFasano",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/CristianaFasano",
     shop: "",
     social: {
       instagram: "",
@@ -9621,10 +13522,10 @@ export const artists = [
   {
     slug: "fabrizio-morra",
     name: "Fabrizio Morra",
-    website: "http://hellodamn.com/",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://hellodamn.com/",
     shop: "",
     social: {
       instagram: "",
@@ -9644,10 +13545,10 @@ export const artists = [
   {
     slug: "andré-fernandes-trindade",
     name: "André Fernandes Trindade",
-    website: "http://cargocollective.com/atrindade",
     country: "Portugal",
     info: "",
     userpic: "",
+    website: "http://cargocollective.com/atrindade",
     shop: "",
     social: {
       instagram: "",
@@ -9667,10 +13568,10 @@ export const artists = [
   {
     slug: "the-woork-co",
     name: "The Woork Co",
-    website: "http://www.thewoork.co",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.thewoork.co",
     shop: "",
     social: {
       instagram: "",
@@ -9690,10 +13591,10 @@ export const artists = [
   {
     slug: "rudi-de-wet",
     name: "Rudi de Wet",
-    website: "http://www.rudidewet.com",
     country: "South Africa",
     info: "",
     userpic: "",
+    website: "http://www.rudidewet.com",
     shop: "",
     social: {
       instagram: "",
@@ -9713,10 +13614,10 @@ export const artists = [
   {
     slug: "ivan-blazetic-|-sumski",
     name: "Ivan Blazetic | Sumski",
-    website: "http://www.behance.net/IvanBlazetic",
     country: "Croatia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/IvanBlazetic",
     shop: "",
     social: {
       instagram: "",
@@ -9736,10 +13637,10 @@ export const artists = [
   {
     slug: "nevena-katalina",
     name: "Nevena Katalina",
-    website: "https://www.behance.net/Nevena_Katalina",
     country: "Bosnia and Herzegovina",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/Nevena_Katalina",
     shop: "",
     social: {
       instagram: "",
@@ -9759,10 +13660,10 @@ export const artists = [
   {
     slug: "razvan-cornici",
     name: "Razvan Cornici",
-    website: "http://cargocollective.com/razvancornici",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "http://cargocollective.com/razvancornici",
     shop: "",
     social: {
       instagram: "",
@@ -9782,10 +13683,10 @@ export const artists = [
   {
     slug: "reeo-zerkos",
     name: "Reeo Zerkos",
-    website: "http://www.reeozerkos.com",
     country: "China",
     info: "",
     userpic: "",
+    website: "http://www.reeozerkos.com",
     shop: "",
     social: {
       instagram: "",
@@ -9805,10 +13706,10 @@ export const artists = [
   {
     slug: "sean-lee",
     name: "Sean Lee",
-    website: "https://www.behance.net/SeanLee",
     country: "Singapore",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/SeanLee",
     shop: "",
     social: {
       instagram: "",
@@ -9828,10 +13729,10 @@ export const artists = [
   {
     slug: "bárbara-perdiguera",
     name: "Bárbara Perdiguera",
-    website: "http://www.kippleroom.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.kippleroom.com",
     shop: "",
     social: {
       instagram: "",
@@ -9851,10 +13752,10 @@ export const artists = [
   {
     slug: "mikolaj-cielniak",
     name: "Mikolaj Cielniak",
-    website: "https://www.behance.net/mikolajcielniakart",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/mikolajcielniakart",
     shop: "",
     social: {
       instagram: "",
@@ -9874,10 +13775,10 @@ export const artists = [
   {
     slug: "raf-banzuela",
     name: "Raf Banzuela",
-    website: "http://behance.net/rafbanzuela",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "http://behance.net/rafbanzuela",
     shop: "",
     social: {
       instagram: "",
@@ -9897,10 +13798,10 @@ export const artists = [
   {
     slug: "livia-coloji",
     name: "Livia Coloji",
-    website: "http://liviacoloji.ro",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "http://liviacoloji.ro",
     shop: "",
     social: {
       instagram: "",
@@ -9920,10 +13821,10 @@ export const artists = [
   {
     slug: "luis-pinto",
     name: "Luis Pinto",
-    website: "http://luispintodesign.com",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://luispintodesign.com",
     shop: "",
     social: {
       instagram: "",
@@ -9943,10 +13844,10 @@ export const artists = [
   {
     slug: "ausra-kiudulaite",
     name: "Ausra Kiudulaite",
-    website: "https://www.behance.net/menulis",
     country: "Lithuania",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/menulis",
     shop: "",
     social: {
       instagram: "",
@@ -9966,10 +13867,10 @@ export const artists = [
   {
     slug: "eli-garcía",
     name: "Eli García",
-    website: "http://eligarcia.me",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://eligarcia.me",
     shop: "",
     social: {
       instagram: "",
@@ -9989,10 +13890,10 @@ export const artists = [
   {
     slug: "ahmet-ozcan",
     name: "Ahmet Ozcan",
-    website: "http://www.behance.net/ahmetozcan",
     country: "Turkey",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/ahmetozcan",
     shop: "",
     social: {
       instagram: "",
@@ -10012,10 +13913,10 @@ export const artists = [
   {
     slug: "hellofreaks",
     name: "Hellofreaks",
-    website: "http://www.hellofreaks.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.hellofreaks.com",
     shop: "",
     social: {
       instagram: "",
@@ -10035,10 +13936,10 @@ export const artists = [
   {
     slug: "sergey-snurnik",
     name: "Sergey Snurnik",
-    website: "https://www.behance.net/SergeySnurnik",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/SergeySnurnik",
     shop: "",
     social: {
       instagram: "",
@@ -10058,10 +13959,10 @@ export const artists = [
   {
     slug: "jisook-park",
     name: "JiSook Park",
-    website: "https://www.behance.net/dazzle1023",
     country: "South Korea",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/dazzle1023",
     shop: "",
     social: {
       instagram: "",
@@ -10081,10 +13982,10 @@ export const artists = [
   {
     slug: "vinicius-santos",
     name: "Vinicius Santos",
-    website: "http://www.vinisantos.com",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://www.vinisantos.com",
     shop: "",
     social: {
       instagram: "",
@@ -10104,10 +14005,10 @@ export const artists = [
   {
     slug: "pinchepasha",
     name: "Pinchepasha",
-    website: "http://pashagotohell.com",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://pashagotohell.com",
     shop: "",
     social: {
       instagram: "",
@@ -10127,10 +14028,10 @@ export const artists = [
   {
     slug: "alongkorn-sanguansook",
     name: "Alongkorn Sanguansook",
-    website: "https://www.behance.net/GuGGGar",
     country: "Thailand",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/GuGGGar",
     shop: "",
     social: {
       instagram: "",
@@ -10150,10 +14051,10 @@ export const artists = [
   {
     slug: "luca-di-battista",
     name: "Luca Di Battista",
-    website: "http://lucadibattista.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://lucadibattista.com",
     shop: "",
     social: {
       instagram: "",
@@ -10173,10 +14074,10 @@ export const artists = [
   {
     slug: "simone-hodgskiss-aka-pearly-yon",
     name: "Simone Hodgskiss aka Pearly Yon",
-    website: "http://www.pearlyyon.com/",
     country: "South Africa",
     info: "",
     userpic: "",
+    website: "http://www.pearlyyon.com/",
     shop: "",
     social: {
       instagram: "",
@@ -10196,10 +14097,10 @@ export const artists = [
   {
     slug: "mohammad-azad",
     name: "Mohammad Azad",
-    website: "http://www.behance.net/azad2014",
     country: "India",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/azad2014",
     shop: "",
     social: {
       instagram: "",
@@ -10219,10 +14120,10 @@ export const artists = [
   {
     slug: "rodrigo-bento-almeida",
     name: "Rodrigo Bento Almeida",
-    website: "http://www.be.net/rodrigoba",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.be.net/rodrigoba",
     shop: "",
     social: {
       instagram: "",
@@ -10242,10 +14143,10 @@ export const artists = [
   {
     slug: "noem9-studio",
     name: "Noem9 Studio",
-    website: "http://www.noem9studio.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.noem9studio.com",
     shop: "",
     social: {
       instagram: "",
@@ -10265,10 +14166,10 @@ export const artists = [
   {
     slug: "erwin-kho",
     name: "Erwin Kho",
-    website: "http://www.zerbamine.nl/",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "http://www.zerbamine.nl/",
     shop: "",
     social: {
       instagram: "",
@@ -10288,10 +14189,10 @@ export const artists = [
   {
     slug: "inga-dagilė",
     name: "Inga Dagilė",
-    website: "http://www.dagilis.lt",
     country: "Lithuania",
     info: "",
     userpic: "",
+    website: "http://www.dagilis.lt",
     shop: "",
     social: {
       instagram: "",
@@ -10311,10 +14212,10 @@ export const artists = [
   {
     slug: "giulio-bonasera",
     name: "Giulio Bonasera",
-    website: "http://www.giuliobonasera.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.giuliobonasera.com",
     shop: "",
     social: {
       instagram: "",
@@ -10334,10 +14235,10 @@ export const artists = [
   {
     slug: "yana-beylinson",
     name: "Yana Beylinson",
-    website: "https://www.behance.net/LiquidPixel",
     country: "United States",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/LiquidPixel",
     shop: "",
     social: {
       instagram: "",
@@ -10357,11 +14258,11 @@ export const artists = [
   {
     slug: "joão-gomes",
     name: "João Gomes",
-    website:
-      "https://meocloud.pt/link/daaa0846-a0aa-425e-8b0f-ce8c5bf92e38/Illustration/",
     country: "Portugal",
     info: "",
     userpic: "",
+    website:
+      "https://meocloud.pt/link/daaa0846-a0aa-425e-8b0f-ce8c5bf92e38/Illustration/",
     shop: "",
     social: {
       instagram: "",
@@ -10381,10 +14282,10 @@ export const artists = [
   {
     slug: "anna-kostiv",
     name: "Anna Kostiv",
-    website: "http://www.behance.net/annfable",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/annfable",
     shop: "",
     social: {
       instagram: "",
@@ -10404,10 +14305,10 @@ export const artists = [
   {
     slug: "dean-falsify-cook",
     name: "Dean Falsify Cook",
-    website: "http://www.sonarfates.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.sonarfates.com",
     shop: "",
     social: {
       instagram: "",
@@ -10427,10 +14328,10 @@ export const artists = [
   {
     slug: "joaquin-aldeguer",
     name: "Joaquin Aldeguer",
-    website: "https://www.behance.net/JAldeguer",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/JAldeguer",
     shop: "",
     social: {
       instagram: "",
@@ -10450,10 +14351,10 @@ export const artists = [
   {
     slug: "matthias",
     name: "Matthias",
-    website: "http://www.tirli.de",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.tirli.de",
     shop: "",
     social: {
       instagram: "",
@@ -10473,10 +14374,10 @@ export const artists = [
   {
     slug: "jacinto-caetano",
     name: "Jacinto Caetano",
-    website: "http://jacintocaetano.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://jacintocaetano.com",
     shop: "",
     social: {
       instagram: "",
@@ -10496,10 +14397,10 @@ export const artists = [
   {
     slug: "zuco",
     name: "zuco",
-    website: "http://behance.net/zuco",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://behance.net/zuco",
     shop: "",
     social: {
       instagram: "",
@@ -10519,10 +14420,10 @@ export const artists = [
   {
     slug: "robin-gillet",
     name: "Robin Gillet",
-    website: "https://www.behance.net/Air_G",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/Air_G",
     shop: "",
     social: {
       instagram: "",
@@ -10542,10 +14443,10 @@ export const artists = [
   {
     slug: "vinicius-gut",
     name: "Vinicius Gut",
-    website: "http://gut42.com",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://gut42.com",
     shop: "",
     social: {
       instagram: "",
@@ -10565,10 +14466,10 @@ export const artists = [
   {
     slug: "le-funky",
     name: "Le Funky",
-    website: "http://www.behance.net/gabrock",
     country: "Portugal",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/gabrock",
     shop: "",
     social: {
       instagram: "",
@@ -10588,10 +14489,10 @@ export const artists = [
   {
     slug: "andres-morales",
     name: "Andres Morales",
-    website: "http://www.behance.net/andymode",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/andymode",
     shop: "",
     social: {
       instagram: "",
@@ -10611,10 +14512,10 @@ export const artists = [
   {
     slug: "eva-saranova",
     name: "Eva Saranova",
-    website: "http://www.behance.net/EvaSara",
     country: "Gibraltar",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/EvaSara",
     shop: "",
     social: {
       instagram: "",
@@ -10634,10 +14535,10 @@ export const artists = [
   {
     slug: "shycheeks",
     name: "Shycheeks",
-    website: "http://www.shycheeks.net",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.shycheeks.net",
     shop: "",
     social: {
       instagram: "",
@@ -10657,10 +14558,10 @@ export const artists = [
   {
     slug: "gavilán",
     name: "Gavilán",
-    website: "http://gvln.tumblr.com/",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "http://gvln.tumblr.com/",
     shop: "",
     social: {
       instagram: "",
@@ -10680,10 +14581,10 @@ export const artists = [
   {
     slug: "ion-oprea",
     name: "Ion Oprea",
-    website: "https://www.behance.net/ionoprea",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/ionoprea",
     shop: "",
     social: {
       instagram: "",
@@ -10703,10 +14604,10 @@ export const artists = [
   {
     slug: "giovanny-zapata",
     name: "Giovanny Zapata",
-    website: "https://www.behance.net/giovannyzapata",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/giovannyzapata",
     shop: "",
     social: {
       instagram: "",
@@ -10726,10 +14627,10 @@ export const artists = [
   {
     slug: "riccardo-fano",
     name: "Riccardo Fano",
-    website: "http://www.riccardofano.it",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.riccardofano.it",
     shop: "",
     social: {
       instagram: "",
@@ -10749,10 +14650,10 @@ export const artists = [
   {
     slug: "maufield-(mauricio-molina)",
     name: "Maufield (Mauricio Molina)",
-    website: "http://www.behance.net/maufield",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/maufield",
     shop: "",
     social: {
       instagram: "",
@@ -10772,10 +14673,10 @@ export const artists = [
   {
     slug: "louise-hubbard",
     name: "Louise Hubbard",
-    website: "http://www.louisehubbard.co.uk",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.louisehubbard.co.uk",
     shop: "",
     social: {
       instagram: "",
@@ -10795,10 +14696,10 @@ export const artists = [
   {
     slug: "sophie-light",
     name: "Sophie Light",
-    website: "http://slightdesign.co.uk/",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://slightdesign.co.uk/",
     shop: "",
     social: {
       instagram: "",
@@ -10818,10 +14719,10 @@ export const artists = [
   {
     slug: "fernando-fuentes",
     name: "Fernando Fuentes",
-    website: "http://www.homelandstudio.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.homelandstudio.com",
     shop: "",
     social: {
       instagram: "",
@@ -10841,10 +14742,10 @@ export const artists = [
   {
     slug: "rob-peters",
     name: "Rob Peters",
-    website: "http://www.rob-peters.com/color-portfolio.html",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.rob-peters.com/color-portfolio.html",
     shop: "",
     social: {
       instagram: "",
@@ -10864,10 +14765,10 @@ export const artists = [
   {
     slug: "hansel",
     name: "Hansel",
-    website: "http://www.hanzmade.net",
     country: "Venezuela",
     info: "",
     userpic: "",
+    website: "http://www.hanzmade.net",
     shop: "",
     social: {
       instagram: "",
@@ -10887,10 +14788,10 @@ export const artists = [
   {
     slug: "mickael-brana",
     name: "Mickael Brana",
-    website: "http://www.mickaelbrana.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://www.mickaelbrana.com",
     shop: "",
     social: {
       instagram: "",
@@ -10910,10 +14811,10 @@ export const artists = [
   {
     slug: "józsef-vass",
     name: "József Vass",
-    website: "https://www.behance.net/vassjozsef",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/vassjozsef",
     shop: "",
     social: {
       instagram: "",
@@ -10933,10 +14834,10 @@ export const artists = [
   {
     slug: "brady-scott",
     name: "Brady Scott",
-    website: "http://www.bscottart.com/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.bscottart.com/",
     shop: "",
     social: {
       instagram: "",
@@ -10956,10 +14857,10 @@ export const artists = [
   {
     slug: "maria-elisabeta-cucu",
     name: "Maria Elisabeta Cucu",
-    website: "https://www.facebook.com/mariaelisabetacucu",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "https://www.facebook.com/mariaelisabetacucu",
     shop: "",
     social: {
       instagram: "",
@@ -10979,10 +14880,10 @@ export const artists = [
   {
     slug: "angie-brown",
     name: "Angie Brown",
-    website: "http://www.galacticbloom.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.galacticbloom.com",
     shop: "",
     social: {
       instagram: "",
@@ -11002,10 +14903,10 @@ export const artists = [
   {
     slug: "alex-sander",
     name: "Alex Sander",
-    website: "http://alexsander.pro/",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://alexsander.pro/",
     shop: "",
     social: {
       instagram: "",
@@ -11025,10 +14926,10 @@ export const artists = [
   {
     slug: "aero-tagura",
     name: "Aero Tagura",
-    website: "https://www.behance.net/Aerotagura",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/Aerotagura",
     shop: "",
     social: {
       instagram: "",
@@ -11048,10 +14949,10 @@ export const artists = [
   {
     slug: "moritz-adam-schmitt",
     name: "Moritz Adam Schmitt",
-    website: "https://www.instagram.com/m.a.s_design/",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/m.a.s_design/",
     shop: "",
     social: {
       instagram: "",
@@ -11071,10 +14972,10 @@ export const artists = [
   {
     slug: "billy-french",
     name: "Billy French",
-    website: "http://www.billyfrench.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.billyfrench.com",
     shop: "",
     social: {
       instagram: "",
@@ -11094,10 +14995,10 @@ export const artists = [
   {
     slug: "marcelo-jesus",
     name: "Marcelo Jesus",
-    website: "https://www.behance.net/marcelojesus",
     country: "United States",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/marcelojesus",
     shop: "",
     social: {
       instagram: "",
@@ -11117,11 +15018,11 @@ export const artists = [
   {
     slug: "joana-arieiro",
     name: "Joana Arieiro",
-    website:
-      "https://www.facebook.com/media/set/?set=a.1615925358630206.1073741828.1615913321964743&type=3&uploaded=3",
     country: "Portugal",
     info: "",
     userpic: "",
+    website:
+      "https://www.facebook.com/media/set/?set=a.1615925358630206.1073741828.1615913321964743&type=3&uploaded=3",
     shop: "",
     social: {
       instagram: "",
@@ -11141,10 +15042,10 @@ export const artists = [
   {
     slug: "bosquet",
     name: "Bosquet",
-    website: "http://www.pbosquet.com",
     country: "Switzerland",
     info: "",
     userpic: "",
+    website: "http://www.pbosquet.com",
     shop: "",
     social: {
       instagram: "",
@@ -11164,10 +15065,10 @@ export const artists = [
   {
     slug: "amber-morgan",
     name: "Amber Morgan",
-    website: "http://www.heyinstigator.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.heyinstigator.com",
     shop: "",
     social: {
       instagram: "",
@@ -11187,10 +15088,10 @@ export const artists = [
   {
     slug: "daksheeta-pattni",
     name: "Daksheeta Pattni",
-    website: "http://www.daksheetapattni.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.daksheetapattni.com",
     shop: "",
     social: {
       instagram: "",
@@ -11210,10 +15111,10 @@ export const artists = [
   {
     slug: "riddhi",
     name: "Riddhi",
-    website: "http://www.tinyfarm.in",
     country: "India",
     info: "",
     userpic: "",
+    website: "http://www.tinyfarm.in",
     shop: "",
     social: {
       instagram: "",
@@ -11233,10 +15134,10 @@ export const artists = [
   {
     slug: "fahad-karim",
     name: "Fahad Karim",
-    website: "http://www.fahadkarim.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.fahadkarim.com",
     shop: "",
     social: {
       instagram: "",
@@ -11256,10 +15157,10 @@ export const artists = [
   {
     slug: "max-morlock",
     name: "Max Morlock",
-    website: "http://behance.net/morlockness",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://behance.net/morlockness",
     shop: "",
     social: {
       instagram: "",
@@ -11279,10 +15180,10 @@ export const artists = [
   {
     slug: "eddy-ymeri",
     name: "Eddy Ymeri",
-    website: "http://ymeri.com/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://ymeri.com/",
     shop: "",
     social: {
       instagram: "",
@@ -11302,10 +15203,10 @@ export const artists = [
   {
     slug: "jo-jacobs",
     name: "Jo Jacobs",
-    website: "http://www.jojacobs.de",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.jojacobs.de",
     shop: "",
     social: {
       instagram: "",
@@ -11325,10 +15226,10 @@ export const artists = [
   {
     slug: "kim-zeluck",
     name: "Kim Zeluck",
-    website: "http://www.kimzeluck.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.kimzeluck.com",
     shop: "",
     social: {
       instagram: "",
@@ -11348,10 +15249,10 @@ export const artists = [
   {
     slug: "stefan-große-halbuer",
     name: "Stefan Große Halbuer",
-    website: "http://www.grossehalbuer.com",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.grossehalbuer.com",
     shop: "",
     social: {
       instagram: "",
@@ -11371,10 +15272,10 @@ export const artists = [
   {
     slug: "suraj-barthy",
     name: "Suraj Barthy",
-    website: "http://surajbarthy.com/",
     country: "India",
     info: "",
     userpic: "",
+    website: "http://surajbarthy.com/",
     shop: "",
     social: {
       instagram: "",
@@ -11394,10 +15295,10 @@ export const artists = [
   {
     slug: "mayka-ienova",
     name: "Mayka ienova",
-    website: "http://can2ienova.com",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://can2ienova.com",
     shop: "",
     social: {
       instagram: "",
@@ -11417,10 +15318,10 @@ export const artists = [
   {
     slug: "daniel-viberg",
     name: "Daniel Viberg",
-    website: "http://www.dawnland.com",
     country: "Sweden",
     info: "",
     userpic: "",
+    website: "http://www.dawnland.com",
     shop: "",
     social: {
       instagram: "",
@@ -11440,10 +15341,10 @@ export const artists = [
   {
     slug: "fernando-palma---volkana-design",
     name: "Fernando Palma - Volkana Design",
-    website: "http://www.volkanadesign.com",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://www.volkanadesign.com",
     shop: "",
     social: {
       instagram: "",
@@ -11463,10 +15364,10 @@ export const artists = [
   {
     slug: "olivia-ariferiani",
     name: "Olivia Ariferiani",
-    website: "https://www.behance.net/oliviaariferiani",
     country: "Malaysia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/oliviaariferiani",
     shop: "",
     social: {
       instagram: "",
@@ -11486,10 +15387,10 @@ export const artists = [
   {
     slug: "marco-arlotti",
     name: "Marco Arlotti",
-    website: "https://www.behance.net/mj7design",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/mj7design",
     shop: "",
     social: {
       instagram: "",
@@ -11509,10 +15410,10 @@ export const artists = [
   {
     slug: "david-campbell",
     name: "David Campbell",
-    website: "http://davidcampbell105.myportfolio.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://davidcampbell105.myportfolio.com",
     shop: "",
     social: {
       instagram: "",
@@ -11532,10 +15433,10 @@ export const artists = [
   {
     slug: "edzel-rubite",
     name: "Edzel Rubite",
-    website: "http://www.behance.net/edzelrubite",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/edzelrubite",
     shop: "",
     social: {
       instagram: "",
@@ -11555,10 +15456,10 @@ export const artists = [
   {
     slug: "anouck-sessa",
     name: "Anouck Sessa",
-    website: "http://www.judski.com",
     country: "Switzerland",
     info: "",
     userpic: "",
+    website: "http://www.judski.com",
     shop: "",
     social: {
       instagram: "",
@@ -11578,10 +15479,10 @@ export const artists = [
   {
     slug: "joseph-catimbang",
     name: "Joseph Catimbang",
-    website: "http://www.pentasticarts.com/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.pentasticarts.com/",
     shop: "",
     social: {
       instagram: "",
@@ -11601,10 +15502,10 @@ export const artists = [
   {
     slug: "rimantas-juskaitis",
     name: "Rimantas Juskaitis",
-    website: "https://www.behance.net/mrRJ",
     country: "Lithuania",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/mrRJ",
     shop: "",
     social: {
       instagram: "",
@@ -11624,10 +15525,10 @@ export const artists = [
   {
     slug: "sylvain-weiss",
     name: "Sylvain Weiss",
-    website: "https://www.behance.net/sylvainweiss",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/sylvainweiss",
     shop: "",
     social: {
       instagram: "",
@@ -11647,10 +15548,10 @@ export const artists = [
   {
     slug: "stewart-harris",
     name: "Stewart Harris",
-    website: "http://stewartharrisdesigns.myportfolio.com/",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://stewartharrisdesigns.myportfolio.com/",
     shop: "",
     social: {
       instagram: "",
@@ -11670,10 +15571,10 @@ export const artists = [
   {
     slug: "valentin-lachayze",
     name: "Valentin Lachayze",
-    website: "https://www.behance.net/valentinlac",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/valentinlac",
     shop: "",
     social: {
       instagram: "",
@@ -11693,10 +15594,10 @@ export const artists = [
   {
     slug: "philipp-jungwirth",
     name: "Philipp Jungwirth",
-    website: "http://www.facebook.com/jungwirth.artsJ/?fref=ts",
     country: "Austria",
     info: "",
     userpic: "",
+    website: "http://www.facebook.com/jungwirth.artsJ/?fref=ts",
     shop: "",
     social: {
       instagram: "",
@@ -11716,10 +15617,10 @@ export const artists = [
   {
     slug: "sasita-samarnpharb",
     name: "Sasita Samarnpharb",
-    website: "https://www.behance.net/ssince1989",
     country: "Thailand",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/ssince1989",
     shop: "",
     social: {
       instagram: "",
@@ -11739,10 +15640,10 @@ export const artists = [
   {
     slug: "jeff-langevin",
     name: "Jeff Langevin",
-    website: "http://www.jefflangevin.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.jefflangevin.com",
     shop: "",
     social: {
       instagram: "",
@@ -11762,10 +15663,10 @@ export const artists = [
   {
     slug: "aren-vandenburgh",
     name: "Aren Vandenburgh",
-    website: "http://www.arenv.com/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.arenv.com/",
     shop: "",
     social: {
       instagram: "",
@@ -11785,10 +15686,10 @@ export const artists = [
   {
     slug: "maria-fedoseeva",
     name: "Maria Fedoseeva",
-    website: "http://www.behance.net/msavchenko",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/msavchenko",
     shop: "",
     social: {
       instagram: "",
@@ -11808,10 +15709,10 @@ export const artists = [
   {
     slug: "mantas-tumosa",
     name: "Mantas Tumosa",
-    website: "http://www.hellomosa.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.hellomosa.com",
     shop: "",
     social: {
       instagram: "",
@@ -11831,10 +15732,10 @@ export const artists = [
   {
     slug: "jocelyn-gardner",
     name: "Jocelyn Gardner",
-    website: "http://joss0ne.com",
     country: "Canada",
     info: "",
     userpic: "",
+    website: "http://joss0ne.com",
     shop: "",
     social: {
       instagram: "",
@@ -11854,10 +15755,10 @@ export const artists = [
   {
     slug: "andre-levy-a.k.a.-zhion",
     name: "Andre Levy a.k.a. Zhion",
-    website: "http://www.zhion.com.br",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.zhion.com.br",
     shop: "",
     social: {
       instagram: "",
@@ -11877,10 +15778,10 @@ export const artists = [
   {
     slug: "marco-aguirre",
     name: "Marco Aguirre",
-    website: "https://www.behance.net/sienone",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/sienone",
     shop: "",
     social: {
       instagram: "",
@@ -11900,10 +15801,10 @@ export const artists = [
   {
     slug: "shayom",
     name: "Shayom",
-    website: "https://www.behance.net/shayom_satuluri",
     country: "India",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/shayom_satuluri",
     shop: "",
     social: {
       instagram: "",
@@ -11923,10 +15824,10 @@ export const artists = [
   {
     slug: "luis-paulo-bonadio",
     name: "Luis Paulo Bonadio",
-    website: "http://www.behance.net/luispaulobonadio",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/luispaulobonadio",
     shop: "",
     social: {
       instagram: "",
@@ -11946,10 +15847,10 @@ export const artists = [
   {
     slug: "shreya-gupta",
     name: "Shreya Gupta",
-    website: "http://www.shreyaillustrations.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.shreyaillustrations.com",
     shop: "",
     social: {
       instagram: "",
@@ -11969,10 +15870,10 @@ export const artists = [
   {
     slug: "marc-antoine-herrmann",
     name: "Marc Antoine HERRMANN",
-    website: "http://rockheads-illustration.com",
     country: "France",
     info: "",
     userpic: "",
+    website: "http://rockheads-illustration.com",
     shop: "",
     social: {
       instagram: "",
@@ -11992,10 +15893,10 @@ export const artists = [
   {
     slug: "shakthi-hari--n-v",
     name: "Shakthi Hari  N V",
-    website: "https://dribbble.com/shakthiharinv",
     country: "India",
     info: "",
     userpic: "",
+    website: "https://dribbble.com/shakthiharinv",
     shop: "",
     social: {
       instagram: "",
@@ -12015,10 +15916,10 @@ export const artists = [
   {
     slug: "jatin-pandya",
     name: "Jatin Pandya",
-    website: "http://behance.net/jpandya",
     country: "India",
     info: "",
     userpic: "",
+    website: "http://behance.net/jpandya",
     shop: "",
     social: {
       instagram: "",
@@ -12038,10 +15939,10 @@ export const artists = [
   {
     slug: "reda-el-mraki",
     name: "Reda El Mraki",
-    website: "http://www.behance.net/RedaElmraki",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/RedaElmraki",
     shop: "",
     social: {
       instagram: "",
@@ -12061,10 +15962,10 @@ export const artists = [
   {
     slug: "laura-palumbo",
     name: "Laura Palumbo",
-    website: "https://www.behance.net/Laurapal",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/Laurapal",
     shop: "",
     social: {
       instagram: "",
@@ -12084,10 +15985,10 @@ export const artists = [
   {
     slug: "debbie-kennedy",
     name: "Debbie Kennedy",
-    website: "http://dribbble.com/debbie-k",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://dribbble.com/debbie-k",
     shop: "",
     social: {
       instagram: "",
@@ -12107,10 +16008,10 @@ export const artists = [
   {
     slug: "simona-bunardzhieva",
     name: "Simona Bunardzhieva",
-    website: "http://www.simoneone.com/",
     country: "Bulgaria",
     info: "",
     userpic: "",
+    website: "http://www.simoneone.com/",
     shop: "",
     social: {
       instagram: "",
@@ -12130,10 +16031,10 @@ export const artists = [
   {
     slug: "bradley-mclaughlin",
     name: "Bradley McLaughlin",
-    website: "https://www.behance.net/Bradley-McLaughlin",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/Bradley-McLaughlin",
     shop: "",
     social: {
       instagram: "",
@@ -12153,10 +16054,10 @@ export const artists = [
   {
     slug: "david",
     name: "David",
-    website: "http://www.davewindett.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.davewindett.com",
     shop: "",
     social: {
       instagram: "",
@@ -12176,10 +16077,10 @@ export const artists = [
   {
     slug: "jesper-bolther",
     name: "Jesper Bolther",
-    website: "https://www.behance.net/JesperBolther",
     country: "Denmark",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/JesperBolther",
     shop: "",
     social: {
       instagram: "",
@@ -12199,10 +16100,10 @@ export const artists = [
   {
     slug: "jhonny-núñez",
     name: "Jhonny Núñez",
-    website: "https://www.behance.net/dblackhand",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/dblackhand",
     shop: "",
     social: {
       instagram: "",
@@ -12222,10 +16123,10 @@ export const artists = [
   {
     slug: "harris",
     name: "Harris",
-    website: "http://www.behance.net/HarrisMargas",
     country: "Greece",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/HarrisMargas",
     shop: "",
     social: {
       instagram: "",
@@ -12245,10 +16146,10 @@ export const artists = [
   {
     slug: "alberto-carbonell",
     name: "Alberto Carbonell",
-    website: "http://www.behance.net/albertocarbonell",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/albertocarbonell",
     shop: "",
     social: {
       instagram: "",
@@ -12268,10 +16169,10 @@ export const artists = [
   {
     slug: "stefano-flonta",
     name: "Stefano Flonta",
-    website: "http://papercanvasfilm.tumblr.com",
     country: "Australia",
     info: "",
     userpic: "",
+    website: "http://papercanvasfilm.tumblr.com",
     shop: "",
     social: {
       instagram: "",
@@ -12291,10 +16192,10 @@ export const artists = [
   {
     slug: "lucy-yu",
     name: "Lucy Yu",
-    website: "http://www.lucyyu.net",
     country: "Australia",
     info: "",
     userpic: "",
+    website: "http://www.lucyyu.net",
     shop: "",
     social: {
       instagram: "",
@@ -12314,10 +16215,10 @@ export const artists = [
   {
     slug: "michel-martins",
     name: "Michel Martins",
-    website: "https://www.behance.net/michelcopafdd5",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/michelcopafdd5",
     shop: "",
     social: {
       instagram: "",
@@ -12337,10 +16238,10 @@ export const artists = [
   {
     slug: "thodoris-pappas",
     name: "Thodoris Pappas",
-    website: "http://www.behance.net/Tedybeary",
     country: "Greece",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/Tedybeary",
     shop: "",
     social: {
       instagram: "",
@@ -12360,10 +16261,10 @@ export const artists = [
   {
     slug: "vladimir-stankovic",
     name: "Vladimir Stankovic",
-    website: "http://www.behance.net/vladimirsartdesign",
     country: "Denmark",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/vladimirsartdesign",
     shop: "",
     social: {
       instagram: "",
@@ -12383,10 +16284,10 @@ export const artists = [
   {
     slug: "hunky-dunky",
     name: "Hunky-dunky",
-    website: "https://www.behance.net/hunky-dunky",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/hunky-dunky",
     shop: "",
     social: {
       instagram: "",
@@ -12406,10 +16307,10 @@ export const artists = [
   {
     slug: "sanuri-zulkefli",
     name: "Sanuri Zulkefli",
-    website: "https://www.behance.net/sanuri",
     country: "Malaysia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/sanuri",
     shop: "",
     social: {
       instagram: "",
@@ -12429,10 +16330,10 @@ export const artists = [
   {
     slug: "irvin-ranada",
     name: "Irvin Ranada",
-    website: "https://www.instagram.com/irvinranada/",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/irvinranada/",
     shop: "",
     social: {
       instagram: "",
@@ -12452,10 +16353,10 @@ export const artists = [
   {
     slug: "mark-allender",
     name: "Mark Allender",
-    website: "http://allendercreative.myportfolio.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://allendercreative.myportfolio.com",
     shop: "",
     social: {
       instagram: "",
@@ -12475,10 +16376,10 @@ export const artists = [
   {
     slug: "christopher-wilson",
     name: "Christopher Wilson",
-    website: "http://www.chriswilsonarts.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.chriswilsonarts.com",
     shop: "",
     social: {
       instagram: "",
@@ -12498,10 +16399,10 @@ export const artists = [
   {
     slug: "huihong-huang",
     name: "Huihong Huang",
-    website: "http://hom718.lofter.com/",
     country: "China",
     info: "",
     userpic: "",
+    website: "http://hom718.lofter.com/",
     shop: "",
     social: {
       instagram: "",
@@ -12521,10 +16422,10 @@ export const artists = [
   {
     slug: "joshua-brancheau",
     name: "Joshua Brancheau",
-    website: "http://www.behance.net/gallery/9816661/Royal-Suite",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/gallery/9816661/Royal-Suite",
     shop: "",
     social: {
       instagram: "",
@@ -12544,10 +16445,10 @@ export const artists = [
   {
     slug: "shmakoff",
     name: "Shmakoff",
-    website: "http://instagram.com/shmakoff_com",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://instagram.com/shmakoff_com",
     shop: "",
     social: {
       instagram: "",
@@ -12567,10 +16468,10 @@ export const artists = [
   {
     slug: "mariela-di-nardo",
     name: "Mariela Di Nardo",
-    website: "http://www.marieladinardo.com",
     country: "Venezuela",
     info: "",
     userpic: "",
+    website: "http://www.marieladinardo.com",
     shop: "",
     social: {
       instagram: "",
@@ -12590,10 +16491,10 @@ export const artists = [
   {
     slug: "black-fury",
     name: "Black Fury",
-    website: "http://illustrators.ru/users/Black_Fury",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://illustrators.ru/users/Black_Fury",
     shop: "",
     social: {
       instagram: "",
@@ -12613,10 +16514,10 @@ export const artists = [
   {
     slug: "yuliia-bahniuk",
     name: "Yuliia Bahniuk",
-    website: "http://yuliiabahniuk.blogspot.com",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "http://yuliiabahniuk.blogspot.com",
     shop: "",
     social: {
       instagram: "",
@@ -12636,10 +16537,10 @@ export const artists = [
   {
     slug: "prathmesh-wadekar",
     name: "Prathmesh Wadekar",
-    website: "https://dribbble.com/minimumpixels",
     country: "India",
     info: "",
     userpic: "",
+    website: "https://dribbble.com/minimumpixels",
     shop: "",
     social: {
       instagram: "",
@@ -12659,11 +16560,11 @@ export const artists = [
   {
     slug: "andonasty",
     name: "AndonastY",
-    website:
-      "http://issuu.com/manupropria-part1/docs/andonasty_-selected_works_b7cc1c1f8ce175",
     country: "Bulgaria",
     info: "",
     userpic: "",
+    website:
+      "http://issuu.com/manupropria-part1/docs/andonasty_-selected_works_b7cc1c1f8ce175",
     shop: "",
     social: {
       instagram: "",
@@ -12683,10 +16584,10 @@ export const artists = [
   {
     slug: "kolcsar-sz.-zsolt",
     name: "Kolcsar Sz. Zsolt",
-    website: "https://www.behance.net/KZsolt",
     country: "Hungary",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/KZsolt",
     shop: "",
     social: {
       instagram: "",
@@ -12706,10 +16607,10 @@ export const artists = [
   {
     slug: "sophia-murray",
     name: "Sophia Murray",
-    website: "http://www.flowermoonstudio.com",
     country: "Ireland",
     info: "",
     userpic: "",
+    website: "http://www.flowermoonstudio.com",
     shop: "",
     social: {
       instagram: "",
@@ -12729,10 +16630,10 @@ export const artists = [
   {
     slug: "daniela-sosa",
     name: "Daniela Sosa",
-    website: "http://www.behance.net/E11a",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/E11a",
     shop: "",
     social: {
       instagram: "",
@@ -12752,10 +16653,10 @@ export const artists = [
   {
     slug: "waqas-maqsood",
     name: "Waqas Maqsood",
-    website: "http://www.waqasmaqsood.com/",
     country: "United Arab Emirates",
     info: "",
     userpic: "",
+    website: "http://www.waqasmaqsood.com/",
     shop: "",
     social: {
       instagram: "",
@@ -12775,10 +16676,10 @@ export const artists = [
   {
     slug: "miran-nudell",
     name: "Miran Nudell",
-    website: "http://www.apogee-studio.com",
     country: "Israel",
     info: "",
     userpic: "",
+    website: "http://www.apogee-studio.com",
     shop: "",
     social: {
       instagram: "",
@@ -12798,10 +16699,10 @@ export const artists = [
   {
     slug: "hussein",
     name: "Hussein",
-    website: "https://www.behance.net/husseinfakih",
     country: "Cote d'Ivoire",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/husseinfakih",
     shop: "",
     social: {
       instagram: "",
@@ -12821,10 +16722,10 @@ export const artists = [
   {
     slug: "jorik-van-ruiswijk",
     name: "Jorik van Ruiswijk",
-    website: "http://www.behance.net/JorikVanRuiswijk",
     country: "Netherlands",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/JorikVanRuiswijk",
     shop: "",
     social: {
       instagram: "",
@@ -12844,10 +16745,10 @@ export const artists = [
   {
     slug: "patty-scott",
     name: "Patty Scott",
-    website: "http://pscottdesign.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://pscottdesign.com",
     shop: "",
     social: {
       instagram: "",
@@ -12867,10 +16768,10 @@ export const artists = [
   {
     slug: "francesco-bonvecchio",
     name: "Francesco Bonvecchio",
-    website: "https://www.behance.net/francescobonvecchio",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/francescobonvecchio",
     shop: "",
     social: {
       instagram: "",
@@ -12890,10 +16791,10 @@ export const artists = [
   {
     slug: "milionis-stefanos",
     name: "Milionis Stefanos",
-    website: "http://www.behance.net/Rkuan",
     country: "Greece",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/Rkuan",
     shop: "",
     social: {
       instagram: "",
@@ -12913,10 +16814,10 @@ export const artists = [
   {
     slug: "niall-grant",
     name: "Niall Grant",
-    website: "http://niallgrant.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://niallgrant.com",
     shop: "",
     social: {
       instagram: "",
@@ -12936,10 +16837,10 @@ export const artists = [
   {
     slug: "olga",
     name: "Olga",
-    website: "http://www.behance.net/balabolka",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/balabolka",
     shop: "",
     social: {
       instagram: "",
@@ -12959,10 +16860,10 @@ export const artists = [
   {
     slug: "gerome-jean",
     name: "Gerome Jean",
-    website: "http://grmjean.portfoliobox.net/",
     country: "Belgium",
     info: "",
     userpic: "",
+    website: "http://grmjean.portfoliobox.net/",
     shop: "",
     social: {
       instagram: "",
@@ -12982,10 +16883,10 @@ export const artists = [
   {
     slug: "martin-rossouw",
     name: "Martin Rossouw",
-    website: "http://www.behance.net/MartinRossouw",
     country: "South Africa",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/MartinRossouw",
     shop: "",
     social: {
       instagram: "",
@@ -13005,10 +16906,10 @@ export const artists = [
   {
     slug: "dean-ira",
     name: "Dean Ira",
-    website: "http://www.zananazine.com",
     country: "South Africa",
     info: "",
     userpic: "",
+    website: "http://www.zananazine.com",
     shop: "",
     social: {
       instagram: "",
@@ -13028,10 +16929,10 @@ export const artists = [
   {
     slug: "alexander-jackson",
     name: "Alexander Jackson",
-    website: "http://alexanderjackson.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://alexanderjackson.com",
     shop: "",
     social: {
       instagram: "",
@@ -13051,10 +16952,10 @@ export const artists = [
   {
     slug: "marko-vuleta-djukanov",
     name: "Marko Vuleta-Djukanov",
-    website: "http://www.markovuletadjukanov.com",
     country: "Serbia",
     info: "",
     userpic: "",
+    website: "http://www.markovuletadjukanov.com",
     shop: "",
     social: {
       instagram: "",
@@ -13074,10 +16975,10 @@ export const artists = [
   {
     slug: "brian-omolo",
     name: "Brian Omolo",
-    website: "http://www.behance.net/brianomolo",
     country: "Kenya",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/brianomolo",
     shop: "",
     social: {
       instagram: "",
@@ -13097,10 +16998,10 @@ export const artists = [
   {
     slug: "jose-carcavilla",
     name: "Jose Carcavilla",
-    website: "http://www.jcarcavilla.com",
     country: "Chile",
     info: "",
     userpic: "",
+    website: "http://www.jcarcavilla.com",
     shop: "",
     social: {
       instagram: "",
@@ -13120,10 +17021,10 @@ export const artists = [
   {
     slug: "andrea-dudgeon",
     name: "Andrea Dudgeon",
-    website: "http://www.andreadudgeon.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.andreadudgeon.com",
     shop: "",
     social: {
       instagram: "",
@@ -13143,11 +17044,11 @@ export const artists = [
   {
     slug: "adelina-gavrila",
     name: "Adelina Gavrila",
-    website:
-      "http://www.facebook.com/adelina.gavrila/media_set?set=a.1743893896878.72627.1824677673&type=3",
     country: "Romania",
     info: "",
     userpic: "",
+    website:
+      "http://www.facebook.com/adelina.gavrila/media_set?set=a.1743893896878.72627.1824677673&type=3",
     shop: "",
     social: {
       instagram: "",
@@ -13167,10 +17068,10 @@ export const artists = [
   {
     slug: "justas-cekauskas",
     name: "Justas Cekauskas",
-    website: "http://www.cekauskas.com",
     country: "Denmark",
     info: "",
     userpic: "",
+    website: "http://www.cekauskas.com",
     shop: "",
     social: {
       instagram: "",
@@ -13190,10 +17091,10 @@ export const artists = [
   {
     slug: "antonios-antoniou",
     name: "Antonios Antoniou",
-    website: "http://www.behance.net/antonios-noxis",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/antonios-noxis",
     shop: "",
     social: {
       instagram: "",
@@ -13213,10 +17114,10 @@ export const artists = [
   {
     slug: "stephanie-landi",
     name: "stephanie landi",
-    website: "http://www.stephanielandi.com/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.stephanielandi.com/",
     shop: "",
     social: {
       instagram: "",
@@ -13236,10 +17137,10 @@ export const artists = [
   {
     slug: "liam-ball",
     name: "Liam Ball",
-    website: "http://www.behance.net/LiamBall",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/LiamBall",
     shop: "",
     social: {
       instagram: "",
@@ -13259,11 +17160,11 @@ export const artists = [
   {
     slug: "tenbomb-artwork",
     name: "Tenbomb Artwork",
-    website:
-      "https://www.facebook.com/Tenbomb-Artwork-483872708457200/?fref=nf",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website:
+      "https://www.facebook.com/Tenbomb-Artwork-483872708457200/?fref=nf",
     shop: "",
     social: {
       instagram: "",
@@ -13283,10 +17184,10 @@ export const artists = [
   {
     slug: "anna-stankevich",
     name: "Anna Stankevich",
-    website: "http://www.ankastanillustration.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.ankastanillustration.com",
     shop: "",
     social: {
       instagram: "",
@@ -13306,10 +17207,10 @@ export const artists = [
   {
     slug: "seva-mfn",
     name: "Seva MFN",
-    website: "http://www.behance.net/seva-vyvodtsev",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/seva-vyvodtsev",
     shop: "",
     social: {
       instagram: "",
@@ -13329,10 +17230,10 @@ export const artists = [
   {
     slug: "daniel-ebert",
     name: "Daniel Ebert",
-    website: "https://www.behance.net/creature_and_graphic",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/creature_and_graphic",
     shop: "",
     social: {
       instagram: "",
@@ -13352,10 +17253,10 @@ export const artists = [
   {
     slug: "laura-facci",
     name: "Laura Facci",
-    website: "http://www.behance.net/laurafacci",
     country: "Venezuela",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/laurafacci",
     shop: "",
     social: {
       instagram: "",
@@ -13375,10 +17276,10 @@ export const artists = [
   {
     slug: "paula-zuñiga",
     name: "Paula Zuñiga",
-    website: "http://behance.net/thepickofthecrab",
     country: "Chile",
     info: "",
     userpic: "",
+    website: "http://behance.net/thepickofthecrab",
     shop: "",
     social: {
       instagram: "",
@@ -13398,10 +17299,10 @@ export const artists = [
   {
     slug: "hannah-bess-ross",
     name: "Hannah Bess Ross",
-    website: "http://www.hannahbessross.com/illustration/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.hannahbessross.com/illustration/",
     shop: "",
     social: {
       instagram: "",
@@ -13421,10 +17322,10 @@ export const artists = [
   {
     slug: "anna-mckay",
     name: "Anna McKay",
-    website: "http://annamckayartist.com/",
     country: "New Zealand",
     info: "",
     userpic: "",
+    website: "http://annamckayartist.com/",
     shop: "",
     social: {
       instagram: "",
@@ -13444,10 +17345,10 @@ export const artists = [
   {
     slug: "tahnee-vitrian",
     name: "Tahnee Vitrian",
-    website: "https://www.upwork.com/freelancers/~01824428b256b1b64a",
     country: "Venezuela",
     info: "",
     userpic: "",
+    website: "https://www.upwork.com/freelancers/~01824428b256b1b64a",
     shop: "",
     social: {
       instagram: "",
@@ -13467,10 +17368,10 @@ export const artists = [
   {
     slug: "angelyn-de-jesus",
     name: "Angelyn De Jesus",
-    website: "http://www.behance.net/gelyndj",
     country: "Philippines",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/gelyndj",
     shop: "",
     social: {
       instagram: "",
@@ -13490,10 +17391,10 @@ export const artists = [
   {
     slug: "maki-kawakami",
     name: "Maki Kawakami",
-    website: "http://www.makikawakami.com/",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.makikawakami.com/",
     shop: "",
     social: {
       instagram: "",
@@ -13513,10 +17414,10 @@ export const artists = [
   {
     slug: "lilly-friedeberg-aka-elfriedes",
     name: "Lilly Friedeberg aka Elfriedes",
-    website: "http://www.instagram.com/elfriede_s/",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://www.instagram.com/elfriede_s/",
     shop: "",
     social: {
       instagram: "",
@@ -13536,10 +17437,10 @@ export const artists = [
   {
     slug: "tomas-brechler",
     name: "tomas brechler",
-    website: "http://www.tomasbrechler.com",
     country: "Czech Republic",
     info: "",
     userpic: "",
+    website: "http://www.tomasbrechler.com",
     shop: "",
     social: {
       instagram: "",
@@ -13559,10 +17460,10 @@ export const artists = [
   {
     slug: "iain-glynn",
     name: "Iain Glynn",
-    website: "http://iainglynn.co.uk",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://iainglynn.co.uk",
     shop: "",
     social: {
       instagram: "",
@@ -13582,10 +17483,10 @@ export const artists = [
   {
     slug: "hugo-russell",
     name: "Hugo Russell",
-    website: "http://www.behance.com/hesor",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://www.behance.com/hesor",
     shop: "",
     social: {
       instagram: "",
@@ -13605,10 +17506,10 @@ export const artists = [
   {
     slug: "rodrock",
     name: "rodrock",
-    website: "http://www.behance.net/rodrock",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/rodrock",
     shop: "",
     social: {
       instagram: "",
@@ -13628,10 +17529,10 @@ export const artists = [
   {
     slug: "ren-vasiliev",
     name: "Ren Vasiliev",
-    website: "http://www.renvasiliev.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.renvasiliev.com",
     shop: "",
     social: {
       instagram: "",
@@ -13651,10 +17552,10 @@ export const artists = [
   {
     slug: "picciotto-giuliano",
     name: "Picciotto Giuliano",
-    website: "http://www.equilibriarte.org/profile/grottesco/works",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.equilibriarte.org/profile/grottesco/works",
     shop: "",
     social: {
       instagram: "",
@@ -13674,10 +17575,10 @@ export const artists = [
   {
     slug: "jade-ormsby",
     name: "Jade Ormsby",
-    website: "https://www.behance.net/jadebrannon",
     country: "New Zealand",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/jadebrannon",
     shop: "",
     social: {
       instagram: "",
@@ -13697,10 +17598,10 @@ export const artists = [
   {
     slug: "natalia-grezina",
     name: "Natalia Grezina",
-    website: "https://www.behance.net/basilisk_of_grezina",
     country: "Ukraine",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/basilisk_of_grezina",
     shop: "",
     social: {
       instagram: "",
@@ -13720,10 +17621,10 @@ export const artists = [
   {
     slug: "fernando-fom",
     name: "FERNANDO FOM",
-    website: "https://www.behance.net/fernandofom",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/fernandofom",
     shop: "",
     social: {
       instagram: "",
@@ -13743,10 +17644,10 @@ export const artists = [
   {
     slug: "javaria-m.-rafiq",
     name: "Javaria M. Rafiq",
-    website: "https://www.behance.net/abuujb",
     country: "Pakistan",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/abuujb",
     shop: "",
     social: {
       instagram: "",
@@ -13766,10 +17667,10 @@ export const artists = [
   {
     slug: "victor-beltrán",
     name: "Victor Beltrán",
-    website: "https://www.behance.net/vicbel",
     country: "Venezuela",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/vicbel",
     shop: "",
     social: {
       instagram: "",
@@ -13789,10 +17690,10 @@ export const artists = [
   {
     slug: "harry-lewis-irlam",
     name: "Harry Lewis-Irlam",
-    website: "http://www.heligraphica.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.heligraphica.com",
     shop: "",
     social: {
       instagram: "",
@@ -13812,10 +17713,10 @@ export const artists = [
   {
     slug: "mateusz-krol",
     name: "Mateusz Krol",
-    website: "http://mateuszkrol.com",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "http://mateuszkrol.com",
     shop: "",
     social: {
       instagram: "",
@@ -13835,10 +17736,10 @@ export const artists = [
   {
     slug: "mongo-gushi",
     name: "Mongo Gushi",
-    website: "http://mongodraws.tumblr.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://mongodraws.tumblr.com",
     shop: "",
     social: {
       instagram: "",
@@ -13858,10 +17759,10 @@ export const artists = [
   {
     slug: "susana-téllez-montoro",
     name: "Susana Téllez Montoro",
-    website: "http://websta.me/n/stm.ilustracion",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://websta.me/n/stm.ilustracion",
     shop: "",
     social: {
       instagram: "",
@@ -13881,10 +17782,10 @@ export const artists = [
   {
     slug: "kevin-ruda",
     name: "Kevin Ruda",
-    website: "https://www.behance.net/kevinruda",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/kevinruda",
     shop: "",
     social: {
       instagram: "",
@@ -13904,10 +17805,10 @@ export const artists = [
   {
     slug: "james-kendall",
     name: "James Kendall",
-    website: "http://jmkreative.com/",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://jmkreative.com/",
     shop: "",
     social: {
       instagram: "",
@@ -13927,10 +17828,10 @@ export const artists = [
   {
     slug: "daria-golab",
     name: "Daria Golab",
-    website: "http://dariagolab.com/",
     country: "Poland",
     info: "",
     userpic: "",
+    website: "http://dariagolab.com/",
     shop: "",
     social: {
       instagram: "",
@@ -13950,10 +17851,10 @@ export const artists = [
   {
     slug: "marta-sorte",
     name: "Marta Sorte",
-    website: "http://www.martasorte.it/",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.martasorte.it/",
     shop: "",
     social: {
       instagram: "",
@@ -13973,10 +17874,10 @@ export const artists = [
   {
     slug: "francesco-amorosino",
     name: "Francesco Amorosino",
-    website: "http://www.francescoamorosino.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.francescoamorosino.com",
     shop: "",
     social: {
       instagram: "",
@@ -13996,10 +17897,10 @@ export const artists = [
   {
     slug: "giulia-baratella",
     name: "Giulia Baratella",
-    website: "http://www.giuliabaratella.it",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://www.giuliabaratella.it",
     shop: "",
     social: {
       instagram: "",
@@ -14019,10 +17920,10 @@ export const artists = [
   {
     slug: "aneliya-barenska",
     name: "Aneliya Barenska",
-    website: "https://www.behance.net/aneliyabarenska",
     country: "Bulgaria",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/aneliyabarenska",
     shop: "",
     social: {
       instagram: "",
@@ -14042,10 +17943,10 @@ export const artists = [
   {
     slug: "christopher-bowden",
     name: "Christopher Bowden",
-    website: "http://csbowden.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://csbowden.com",
     shop: "",
     social: {
       instagram: "",
@@ -14065,10 +17966,10 @@ export const artists = [
   {
     slug: "janine-kocher",
     name: "Janine Kocher",
-    website: "https://www.instagram.com/artntag/",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/artntag/",
     shop: "",
     social: {
       instagram: "",
@@ -14088,10 +17989,10 @@ export const artists = [
   {
     slug: "diego-l.-rodríguez",
     name: "Diego L. Rodríguez",
-    website: "http://paranoidme.com",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://paranoidme.com",
     shop: "",
     social: {
       instagram: "",
@@ -14111,10 +18012,10 @@ export const artists = [
   {
     slug: "nico-lc",
     name: "Nico LC",
-    website: "http://behance.com/nicolc",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://behance.com/nicolc",
     shop: "",
     social: {
       instagram: "",
@@ -14134,10 +18035,10 @@ export const artists = [
   {
     slug: "julien-grunhagel",
     name: "Julien Grunhagel",
-    website: "https://www.instagram.com/rspt8201/",
     country: "Switzerland",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/rspt8201/",
     shop: "",
     social: {
       instagram: "",
@@ -14157,10 +18058,10 @@ export const artists = [
   {
     slug: "ollanski",
     name: "Ollanski",
-    website: "http://ollanski.com",
     country: "Germany",
     info: "",
     userpic: "",
+    website: "http://ollanski.com",
     shop: "",
     social: {
       instagram: "",
@@ -14180,10 +18081,10 @@ export const artists = [
   {
     slug: "fausto-gallego",
     name: "Fausto Gallego",
-    website: "http://faustodraws.com",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "http://faustodraws.com",
     shop: "",
     social: {
       instagram: "",
@@ -14203,10 +18104,10 @@ export const artists = [
   {
     slug: "robert-lövgren",
     name: "Robert Lövgren",
-    website: "http://www.designbylovgren.se",
     country: "Sweden",
     info: "",
     userpic: "",
+    website: "http://www.designbylovgren.se",
     shop: "",
     social: {
       instagram: "",
@@ -14226,10 +18127,10 @@ export const artists = [
   {
     slug: "danilo-agutoli",
     name: "Danilo Agutoli",
-    website: "http://www.daniloagutoli.com",
     country: "Sweden",
     info: "",
     userpic: "",
+    website: "http://www.daniloagutoli.com",
     shop: "",
     social: {
       instagram: "",
@@ -14249,10 +18150,10 @@ export const artists = [
   {
     slug: "yana",
     name: "Yana",
-    website: "http://www.instagram.com/yanamalevala/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.instagram.com/yanamalevala/",
     shop: "",
     social: {
       instagram: "",
@@ -14272,10 +18173,10 @@ export const artists = [
   {
     slug: "giovanni-maisto",
     name: "giovanni maisto",
-    website: "https://www.behance.net/GiovanniMaisto",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/GiovanniMaisto",
     shop: "",
     social: {
       instagram: "",
@@ -14295,10 +18196,10 @@ export const artists = [
   {
     slug: "verónica-llinares-benadero",
     name: "Verónica Llinares Benadero",
-    website: "http://www.behance.net/VeronicaLlB",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/VeronicaLlB",
     shop: "",
     social: {
       instagram: "",
@@ -14318,10 +18219,10 @@ export const artists = [
   {
     slug: "ben-barter",
     name: "Ben Barter",
-    website: "http://www.benbarter.com",
     country: "United Kingdom",
     info: "",
     userpic: "",
+    website: "http://www.benbarter.com",
     shop: "",
     social: {
       instagram: "",
@@ -14341,10 +18242,10 @@ export const artists = [
   {
     slug: "valentina-pelizziari",
     name: "Valentina Pelizziari",
-    website: "http://valentinaocchiblu.daportfolio.com",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "http://valentinaocchiblu.daportfolio.com",
     shop: "",
     social: {
       instagram: "",
@@ -14364,10 +18265,10 @@ export const artists = [
   {
     slug: "neuneu-wu",
     name: "Neuneu Wu",
-    website: "http://www.behance.net/neuneu",
     country: "Singapore",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/neuneu",
     shop: "",
     social: {
       instagram: "",
@@ -14387,10 +18288,10 @@ export const artists = [
   {
     slug: "cédric-delahaye",
     name: "Cédric Delahaye",
-    website: "https://www.behance.net/cedricdelahaye",
     country: "France",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/cedricdelahaye",
     shop: "",
     social: {
       instagram: "",
@@ -14410,10 +18311,10 @@ export const artists = [
   {
     slug: "diego-fernandez",
     name: "Diego Fernandez",
-    website: "http://www.diegofernandezart.com",
     country: "Argentina",
     info: "",
     userpic: "",
+    website: "http://www.diegofernandezart.com",
     shop: "",
     social: {
       instagram: "",
@@ -14433,10 +18334,10 @@ export const artists = [
   {
     slug: "mathias-doblhammer",
     name: "Mathias Doblhammer",
-    website: "http://deeait.com",
     country: "Austria",
     info: "",
     userpic: "",
+    website: "http://deeait.com",
     shop: "",
     social: {
       instagram: "",
@@ -14456,10 +18357,10 @@ export const artists = [
   {
     slug: "alexandru-atanasiu-(-tokyotoys-)",
     name: "Alexandru Atanasiu ( tokyotoys )",
-    website: "http://www.instagram.com/tokyotoys",
     country: "Romania",
     info: "",
     userpic: "",
+    website: "http://www.instagram.com/tokyotoys",
     shop: "",
     social: {
       instagram: "",
@@ -14479,10 +18380,10 @@ export const artists = [
   {
     slug: "mayank",
     name: "Mayank",
-    website: "https://issuu.com/mynk33/docs/mayank_chavda_portfolio_web_upload",
     country: "Qatar",
     info: "",
     userpic: "",
+    website: "https://issuu.com/mynk33/docs/mayank_chavda_portfolio_web_upload",
     shop: "",
     social: {
       instagram: "",
@@ -14502,10 +18403,10 @@ export const artists = [
   {
     slug: "kanak-mishra",
     name: "Kanak Mishra",
-    website: "https://www.instagram.com/artdhatura/?hl=en",
     country: "Qatar",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/artdhatura/?hl=en",
     shop: "",
     social: {
       instagram: "",
@@ -14525,10 +18426,10 @@ export const artists = [
   {
     slug: "igor-šćekić",
     name: "Igor Šćekić",
-    website: "https://www.behance.net/virus69",
     country: "Croatia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/virus69",
     shop: "",
     social: {
       instagram: "",
@@ -14548,10 +18449,10 @@ export const artists = [
   {
     slug: "daniel-dobleu",
     name: "Daniel Dobleu",
-    website: "http://www.danieldobl.eu",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "http://www.danieldobl.eu",
     shop: "",
     social: {
       instagram: "",
@@ -14571,10 +18472,10 @@ export const artists = [
   {
     slug: "sam-thielemans",
     name: "Sam Thielemans",
-    website: "http://samthielemans.deviantart.com/gallery/",
     country: "Belgium",
     info: "",
     userpic: "",
+    website: "http://samthielemans.deviantart.com/gallery/",
     shop: "",
     social: {
       instagram: "",
@@ -14594,10 +18495,10 @@ export const artists = [
   {
     slug: "marcela-lanna",
     name: "Marcela Lanna",
-    website: "http://marcelalanna.com",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://marcelalanna.com",
     shop: "",
     social: {
       instagram: "",
@@ -14617,10 +18518,10 @@ export const artists = [
   {
     slug: "ja-hale",
     name: "Ja Hale",
-    website: "http://www.ingeniumway.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.ingeniumway.com",
     shop: "",
     social: {
       instagram: "",
@@ -14640,10 +18541,10 @@ export const artists = [
   {
     slug: "mariya-li",
     name: "Mariya Li",
-    website: "https://www.instagram.com/color_zy/",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/color_zy/",
     shop: "",
     social: {
       instagram: "",
@@ -14663,10 +18564,10 @@ export const artists = [
   {
     slug: "cristian-eres",
     name: "Cristian Eres",
-    website: "http://www.cristianeres.com/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.cristianeres.com/",
     shop: "",
     social: {
       instagram: "",
@@ -14686,10 +18587,10 @@ export const artists = [
   {
     slug: "stefano-pietramala",
     name: "Stefano Pietramala",
-    website: "https://www.behance.net/stefanopietramala",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/stefanopietramala",
     shop: "",
     social: {
       instagram: "",
@@ -14709,10 +18610,10 @@ export const artists = [
   {
     slug: "maría-fernanda-castro",
     name: "María Fernanda Castro",
-    website: "http://www.behance.net/fernandacastro",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/fernandacastro",
     shop: "",
     social: {
       instagram: "",
@@ -14729,13 +18630,13 @@ export const artists = [
       showtime: "",
     },
   },
-
   {
-    name: "Jonathan Calugi",
     slug: "jonathan-calugi",
+    name: "Jonathan Calugi",
     country: "",
     info: "",
     userpic: "",
+    website: "",
     shop: "",
     social: {
       instagram: "",
@@ -14755,10 +18656,10 @@ export const artists = [
   {
     slug: "mayank",
     name: "Mayank",
-    website: "https://issuu.com/mynk33/docs/mayank_chavda_portfolio_web_upload",
     country: "Qatar",
     info: "",
     userpic: "",
+    website: "https://issuu.com/mynk33/docs/mayank_chavda_portfolio_web_upload",
     shop: "",
     social: {
       instagram: "",
@@ -14778,10 +18679,10 @@ export const artists = [
   {
     slug: "kanak-mishra",
     name: "Kanak Mishra",
-    website: "https://www.instagram.com/artdhatura/?hl=en",
     country: "Qatar",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/artdhatura/?hl=en",
     shop: "",
     social: {
       instagram: "",
@@ -14801,10 +18702,10 @@ export const artists = [
   {
     slug: "igor-šćekić",
     name: "Igor Šćekić",
-    website: "https://www.behance.net/virus69",
     country: "Croatia",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/virus69",
     shop: "",
     social: {
       instagram: "",
@@ -14824,10 +18725,10 @@ export const artists = [
   {
     slug: "daniel-dobleu",
     name: "Daniel Dobleu",
-    website: "http://www.danieldobl.eu",
     country: "Colombia",
     info: "",
     userpic: "",
+    website: "http://www.danieldobl.eu",
     shop: "",
     social: {
       instagram: "",
@@ -14847,10 +18748,10 @@ export const artists = [
   {
     slug: "sam-thielemans",
     name: "Sam Thielemans",
-    website: "http://samthielemans.deviantart.com/gallery/",
     country: "Belgium",
     info: "",
     userpic: "",
+    website: "http://samthielemans.deviantart.com/gallery/",
     shop: "",
     social: {
       instagram: "",
@@ -14870,10 +18771,10 @@ export const artists = [
   {
     slug: "marcela-lanna",
     name: "Marcela Lanna",
-    website: "http://marcelalanna.com",
     country: "Brazil",
     info: "",
     userpic: "",
+    website: "http://marcelalanna.com",
     shop: "",
     social: {
       instagram: "",
@@ -14893,10 +18794,10 @@ export const artists = [
   {
     slug: "ja-hale",
     name: "Ja Hale",
-    website: "http://www.ingeniumway.com",
     country: "United States",
     info: "",
     userpic: "",
+    website: "http://www.ingeniumway.com",
     shop: "",
     social: {
       instagram: "",
@@ -14916,10 +18817,10 @@ export const artists = [
   {
     slug: "mariya-li",
     name: "Mariya Li",
-    website: "https://www.instagram.com/color_zy/",
     country: "Russia",
     info: "",
     userpic: "",
+    website: "https://www.instagram.com/color_zy/",
     shop: "",
     social: {
       instagram: "",
@@ -14939,10 +18840,10 @@ export const artists = [
   {
     slug: "cristian-eres",
     name: "Cristian Eres",
-    website: "http://www.cristianeres.com/",
     country: "Spain",
     info: "",
     userpic: "",
+    website: "http://www.cristianeres.com/",
     shop: "",
     social: {
       instagram: "",
@@ -14962,10 +18863,10 @@ export const artists = [
   {
     slug: "stefano-pietramala",
     name: "Stefano Pietramala",
-    website: "https://www.behance.net/stefanopietramala",
     country: "Italy",
     info: "",
     userpic: "",
+    website: "https://www.behance.net/stefanopietramala",
     shop: "",
     social: {
       instagram: "",
@@ -14985,10 +18886,10 @@ export const artists = [
   {
     slug: "maría-fernanda-castro",
     name: "María Fernanda Castro",
-    website: "http://www.behance.net/fernandacastro",
     country: "Mexico",
     info: "",
     userpic: "",
+    website: "http://www.behance.net/fernandacastro",
     shop: "",
     social: {
       instagram: "",
@@ -15005,10 +18906,9 @@ export const artists = [
       showtime: "",
     },
   },
-
   {
-    name: "Jonathan Calugi",
     slug: "jonathan-calugi",
+    name: "Jonathan Calugi",
     country: "Italy",
     info:
       "Jonathan is a young illustrator hailing from Pistoia, Italy. It’s nearly impossible to not recognize his signature style: what at first appears to be a child-like doodling, a closer look will reveal a world of intricate, carefully crafted patterns and eccentric geometric forms.",
@@ -15032,8 +18932,8 @@ export const artists = [
     },
   },
   {
-    name: "Jon Lau",
     slug: "jon-lau",
+    name: "Jon Lau",
     country: "United States",
     info:
       "Jon is an illustrator based in Los Angeles. He graduated from Art Center College of Design in 2011, and loves garlic.",
@@ -15057,8 +18957,8 @@ export const artists = [
     },
   },
   {
-    name: "Maria Grønlund",
     slug: "maria-grønlund",
+    name: "Maria Grønlund",
     country: "Denmark",
     info:
       "Maria Grønlund is a Denmark-based Graphic Designer primary working with logo design, branding and digital art.",
@@ -15082,8 +18982,8 @@ export const artists = [
     },
   },
   {
-    name: "Fictive Artist",
     slug: "fictive-artist",
+    name: "Fictive Artist",
     country: "Spain",
     info: "Fictive Artist is a digital illustrator based in Barcelona.",
     userpic:
@@ -15106,8 +19006,8 @@ export const artists = [
     },
   },
   {
-    name: "Tamer Köseli",
     slug: "tamer-köseli",
+    name: "Tamer Köseli",
     country: "Turkey",
     info:
       "Istanbul based illustrator and designer. He was born in Switzerland in 1985 and raised in Turkey after 1994. He graduated with a Bachelor Degree in Fashion Design (1st Major, 2010) and Industrial Design (2nd Major, 2011) from Anatolia University. In 2010, he founded his own studio based in Istanbul. So far, he had the privilege of working with companies such as: Arte, Knack magazine, Men’s health, Monocle, Nike, Pop mech, The Wall Street Journal, Square, The North Face, 290sqm and more.",
@@ -15131,8 +19031,8 @@ export const artists = [
     },
   },
   {
-    name: "Zipeng Zhu",
     slug: "zipeng-zhu",
+    name: "Zipeng Zhu",
     country: "United States",
     info:
       "Zipeng Zhu is a designer in New York City who wants to make everyday a razzle-dazzle musical. Before he ate cheese and spoke English, he was eating rice and speaking Mandarin and Cantonese in China.",
@@ -15156,8 +19056,8 @@ export const artists = [
     },
   },
   {
-    name: "Oscar Ramos",
     slug: "oscar-ramos",
+    name: "Oscar Ramos",
     country: "Chile",
     info:
       "I’m a graphic designer who love the illustration. I learned the basis of the drawing with an advertising illustrator who defined my current style, I worked as animator and producer of animated spots and videos. But the illustration and painting is my real passion, developing an elaborate cartoon style, with great attention to detail, definition, and above all the expressiveness and humor with a finish more closer to realism. Now I work with the principal advertising agencies around the world and on other animated projects.",
@@ -15181,8 +19081,8 @@ export const artists = [
     },
   },
   {
-    name: "Steven Wilson",
     slug: "steven-wilson",
+    name: "Steven Wilson",
     country: "United Kingdom",
     info:
       "Steven is an Illustrator who lives and works in Brighton, UK. Originally from North London Steven fell in love with Brighton whilst studying on the renowned Illustration course there. He can often be found foraging through the local flea markets for obscure books and discarded paraphernalia to use as inspiration for his varied and experimental work which he generalizes as ‘somewhere between pop and psychedelia’.",
@@ -15206,8 +19106,8 @@ export const artists = [
     },
   },
   {
-    name: "Jeff Rogers",
     slug: "jeff-rogers",
+    name: "Jeff Rogers",
     country: "United States",
     info:
       "Jeff Rogers is a multidisciplinary designer and illustrator specializing in custom lettering of all shapes and sizes. Stocking his Brooklyn studio with paint brushes, pens, markers, and a couple of humongous computers, he creates unique and joyful work for a wide range of smart clients.",
@@ -15231,8 +19131,8 @@ export const artists = [
     },
   },
   {
-    name: "FOREAL™",
     slug: "foreal",
+    name: "FOREAL™",
     country: "Germany",
     info:
       "FOREAL™ is a young design studio with a creative focus on illustration and art direction founded by Benjamin Simon and Dirk Schuster.",
@@ -15256,8 +19156,8 @@ export const artists = [
     },
   },
   {
-    name: "Steve Simpson",
     slug: "steve-simpson",
+    name: "Steve Simpson",
     country: "Ireland",
     info:
       "With over 30 years experience, Steve Simpsons whimsical approach to his work has earned him top international awards for illustration, packaging design and his art for children’s books. Steve has regularly had his work exhibited in London, LA & New York along with many publications all over the world. Steve is originally from the UK with a background in animation and comics but has made Ireland his home and Illustration his passion for the last 20 years. Steve also has a cat named Buddy, but they’re not very close...",
@@ -15281,8 +19181,8 @@ export const artists = [
     },
   },
   {
-    name: "Mikey Burton",
     slug: "mikey-burton",
+    name: "Mikey Burton",
     country: "United States",
     info:
       "Mikey Burton is a part time designer and a part time illustrator—which adds up to a full time Designy Illustrator. He’s been working professionally for about 10 years now, which is the same length of time Facebook has been a thing. I think they are both ‘still figuring it out.’ He’s done a lot of work in that time for clients such as Converse, ESPN, Target, The New York Times, Time Magazine, and Esquire, among others. Burton spent his formative years and earned a masters degree from the great Kent State University in Ohio.",
@@ -15306,8 +19206,8 @@ export const artists = [
     },
   },
   {
-    name: "Patrick Seymour",
     slug: "patrick-seymour",
+    name: "Patrick Seymour",
     country: "Canada",
     info:
       "Patrick Seymour is an Illustrator based in Montreal, Canada. His fields of expertise are in digital art, illustration, and typography. He uses a variation of line thickness and curves to create a 3D image that pops out of the digital canvas. Every placement of the line is well thought out and intricate, which transcends beautifully into a finely detailed character design. By simply changing the thickness and curvature of the lines, Seymour creates an eye-popping 3D illustration. Each of his work exerts great control over line and symmetry.",
@@ -15331,8 +19231,8 @@ export const artists = [
     },
   },
   {
-    name: "Charles Williams",
     slug: "charles-williams",
+    name: "Charles Williams",
     country: "United Kingdom",
     info:
       "Hailing from Manchester, Charles worked in graphic design for several years, which led him to developing his distinctive illustrative style, which he continues to push in new directions. Charles draws everything by hand in detail before working digitally, and has developed an approach to his work that guides each project: fluid, geometric, interconnected, multi-dimensional... the work is constantly evolving, but always rooted in the same aesthetic mindset.",
@@ -15356,8 +19256,8 @@ export const artists = [
     },
   },
   {
-    name: "Gabriel Moreno",
     slug: "gabriel-moreno",
+    name: "Gabriel Moreno",
     country: "Spain",
     info:
       "Artist based in Madrid. He has been chosen as one of the hundred most influential illustrators in the world of advertising over the past decade by the publication 100 Illustrators by Taschen and was featured on the cover of Illustration Now! 4. He has also created covers for the Wall Street Journal and is the only illustrator to ever make the cover for the Los Angeles Times. Moreno’s work is featured regularly in the Wall Street Journal, Esquire London, GQ USA, The Country Weekly, Sunday Times and Rolling Stone.",
@@ -15381,8 +19281,8 @@ export const artists = [
     },
   },
   {
-    name: "MIGHTY SHORT",
     slug: "mighty-short",
+    name: "MIGHTY SHORT",
     country: "France",
     info:
       "Davy Le Chevance / MIGHTY SHORT is an Art Director, Graphic Designer and illustrator from France. His vibrant urban style has adorned a multitude of apparel, skateborads and editorial slots on international stage.",
@@ -15406,8 +19306,8 @@ export const artists = [
     },
   },
   {
-    name: "Ian Jepson",
     slug: "ian-jepson",
+    name: "Ian Jepson",
     country: "South Africa",
     info:
       "Ian Jepson is an illustrator/pizza enthusiast living in Cape Town, South Africa.",
@@ -15431,8 +19331,8 @@ export const artists = [
     },
   },
   {
-    name: "FREAK CITY",
     slug: "freak-city",
+    name: "FREAK CITY",
     country: "France",
     info:
       "Freak City is a french illustrator born in 1984. He lives and works in Bordeaux.",
@@ -15456,8 +19356,8 @@ export const artists = [
     },
   },
   {
-    name: "Zansky",
     slug: "zansky",
+    name: "Zansky",
     country: "Brasil",
     info:
       "Zansky is an illustrator based in Sao Paulo – Brazil. His acidic, absurdly colourful style can be seen in magazines, books and objects around the globe. He loves to work with different techniques, especially within the drawing and printing processes like silkscreen. Besides he paints murals and site specifics in the collective BASE-V and is editor and printer in project Edições de Zaster (Editions de Zaster), a self publishing project of zines and posters in screen printing and rubber stamps.",
@@ -15481,8 +19381,8 @@ export const artists = [
     },
   },
   {
-    name: "Sakiroo",
     slug: "sakiroo",
+    name: "Sakiroo",
     country: "Sounth Korea",
     info:
       "I’m Sakiroo and I am working on character-designing and illustration in South Korea. I’m performing like freelancer and representative of SAKIROOPICTURES. I would like to share lots of info and trends with people from this field around the world. So we can make great design stuff to go forward.",
@@ -15506,8 +19406,8 @@ export const artists = [
     },
   },
   {
-    name: "Antoni Tudisco",
     slug: "antoni-tudisco",
+    name: "Antoni Tudisco",
     country: "Germany",
     info:
       "My name is Antoni Tudisco, born and raised in Germany by my Filipina mother and my Italian father. I’m a fan of extraordinary things ever since I was a child. I had my own world as a kid. I started to sketch during lessons when I was attending elementary school, [and] I didn’t really listen to the teacher i just drew and scribbled. I guess that characteristic of mine developed into being creative and original today.",
@@ -15531,8 +19431,8 @@ export const artists = [
     },
   },
   {
-    name: "Choco Toy",
     slug: "choco-toy",
+    name: "Choco Toy",
     country: "Venezuela",
     info:
       "Born from the union of creativity, craziness, anger, talent, emotions, with a characteristic outline and colors that catch the attention of anyone. Pleasant shapes that make you laugh seeing them, a style you are unaccustomed to see but you do like. Is a mixture of a toy or a candy that always make you laugh and enjoy. This is CHOCOTOY, a new brand to enjoy it, share it, and use it made by young VENEZUELAN people...",
@@ -15556,8 +19456,8 @@ export const artists = [
     },
   },
   {
-    name: "Van Orton Design",
     slug: "van-orton-design",
+    name: "Van Orton Design",
     country: "Italy",
     info:
       "Twins from Italy grown up with the Orange Zapper Gun, dreaming one day to drive a flying Delorean hunting the One-Eyed Willie treasure. For them, the 80s are more alive than ever: they’re a cult, a religion to follow in their own cathedral where glass windows become cult movies. We grew up in the 80s! need I say more? Very important for their illustrations is to find an order in the chaos of lines, patterns and colors. Symmetry is the key to everything.",
@@ -15581,8 +19481,8 @@ export const artists = [
     },
   },
   {
-    name: "Rubens Scarelli",
     slug: "rubens-scarelli",
+    name: "Rubens Scarelli",
     country: "Brasil",
     info:
       "Rubens Scarelli, also known as Rusc, is an illustrator and graphic designer based in Sao Paulo, Brazil. His creations can be seen on T-shirts, magazines, packaging and various other products. Specializing in creating characters, comics and fashion design, is globally represented by the agency of illustrators Illozoo.",
@@ -15606,8 +19506,8 @@ export const artists = [
     },
   },
   {
-    name: "Viktor Miller-Gausa",
     slug: "viktor-miller-gausa",
+    name: "Viktor Miller-Gausa",
     country: "Russia",
     info: "Illustrator, designer, art director, JMB workshop.",
     userpic:
@@ -15630,8 +19530,8 @@ export const artists = [
     },
   },
   {
-    name: "Irina Vinnik",
     slug: "irina-vinnik",
+    name: "Irina Vinnik",
     country: "Russia",
     info:
       "I was born, studied, and still living and working in St. Petersburg, Russia. I was educated as an architect. Worked as a web designer. Now I am writing and illustrating children’s books and try to implement my own projects, such as a calendar.",
@@ -15655,8 +19555,8 @@ export const artists = [
     },
   },
   {
-    name: "Pichet Rujivararat",
     slug: "pichet-rujivararat",
+    name: "Pichet Rujivararat",
     country: "Thailand",
     info:
       "I’m Pichet Rujivararat aka Tikkywow, a Graphic Designer, who was born in Bangkok Thailand. I’m infatuated with Art since I was young, and always take a few moments each day to improve my art skills by doing the art pieces. My distinctive art fascination pushes me to make the decision to attend Chulalongkorn University, graduating in Bachelor of Arts Education. I’m now a graphic Designer in Advertising Agency, also a freelance illustrator.",
@@ -15680,8 +19580,8 @@ export const artists = [
     },
   },
   {
-    name: "Mike / Creative Mints",
     slug: "mike-creative-mints",
+    name: "Mike / Creative Mints",
     country: "Czech Republic",
     info:
       "Hey! My name is Mike, a Prague based designer and illustrator. I love diverse projects, from web to mobile, from concept art to games. Always up for new interesting projects!",
@@ -15705,8 +19605,8 @@ export const artists = [
     },
   },
   {
-    name: "Kerby Rosanes",
     slug: "kerby-rosanes",
+    name: "Kerby Rosanes",
     country: "Philippines",
     info:
       "Philippines-based illustrator Kerby Rosanes works mainly with ordinary black pens to magically illustrate his “doodle” world. The 23-year old artist considers his art as a personal hobby which turned out to be his part-time freelance work after being recognized by various design blogs, international magazines and online communities.",
@@ -15730,8 +19630,8 @@ export const artists = [
     },
   },
   {
-    name: "David Sossella",
     slug: "david-sossella",
+    name: "David Sossella",
     country: "Italy",
     info:
       "Graduated with honors in painting from the Accademia di Belle Arti in Venice. Over the years he has worked as illustrator with several agencies in the United States (San Francisco, New York) and Europe (Monaco, Barcelona). A successful career takes him to various publications and exhibitions (group and solo) in Italy and abroad. His Behance profile is one of the most visited and featured with almost 30.000 followers. He is already the author of a limited series (120 prints) Rare Prints made for Never Hide campaign of Ray-Ban.",
@@ -15755,8 +19655,8 @@ export const artists = [
     },
   },
   {
-    name: "Marcelo Schultz",
     slug: "marcelo-schultz",
+    name: "Marcelo Schultz",
     country: "Brasil",
     info:
       "Graphic Artist and Illustrator based in Curitiba, Brazil. Working since 2003 as professional Designer and Creative director, now I am focused on Lettering and Illustration. I create works that are well known by the realistic textures, a lot of depth and good attention to small details.",
@@ -15780,8 +19680,8 @@ export const artists = [
     },
   },
   {
-    name: "Yury Ustsinau",
     slug: "yury-ustsinau",
+    name: "Yury Ustsinau",
     country: "Germany",
     info:
       "Yury Ustsinau is a designer, artist, and illustrator who lives in Frankfurt am Main, Germany. He is from Vitebsk, Belarus, where he graduated Vitebsk State Technological University with a degree in Product Design. Since his graduation, Yury has gone on to have his work shown in galleries, he successfully participated in many competitions and art exhibitions, as well as worked as a commercial illustrator on various projects.",
@@ -15806,8 +19706,8 @@ export const artists = [
     },
   },
   {
-    name: "Stavros Damos",
     slug: "stavros-damos",
+    name: "Stavros Damos",
     country: "Greece",
     info:
       "I’m a professional freelance illustrator from Greece, drawing and painting mostly for magazines, newspapers and publishing companies. I also illustrate custom portraits and caricatures. I live and work in Thessaloniki.",
@@ -15831,8 +19731,8 @@ export const artists = [
     },
   },
   {
-    name: "Julian Ardila",
     slug: "julian-ardila",
+    name: "Julian Ardila",
     country: "Colombia",
     info:
       "My name is Julian Ardila. I’m a graphic designer and illustrator. I’m from Colombia but nowadays I live in Mexico DF. When i was a child i started to illustrate cartoons and eventually i found the way to express myself in design and illustration. I always try to tell short stories in each of my works or to have a character, a nice detail which connects to the person taking a look at it. The composition describes a little bit my job, I try to make everything fit into the illustration. People say that devil is in the details, that’s why I pay all my attention to them. I usually get inspired by popular art, music and street stories.",
@@ -15856,8 +19756,8 @@ export const artists = [
     },
   },
   {
-    name: "Peter Donnelly",
     slug: "peter-donnelly",
+    name: "Peter Donnelly",
     country: "Ireland",
     info:
       "Peter is an Irish illustrator whose work displays a love for folk art, mid century and vintage print design. His illustrations are recognised internationally by The Creative Quarterly Journal of Art and Design , American Illustration, 3X3 Professional Illustration Awards, 3X3 Children’s Book Awards and TASCHEN’s Illustration Now! series. He is represented in the US and Canada by John Brewster Creative Services and in Australia by Katie Perrott at The Illustration Room.",
@@ -15881,8 +19781,8 @@ export const artists = [
     },
   },
   {
-    name: "Pablo Jurado Ruiz",
     slug: "pablo-jurado-ruiz",
+    name: "Pablo Jurado Ruiz",
     country: "Spain",
     info:
       "Born in Málaga, Spain in 1973. Since 1999 I live and work as a Creative Director in Madrid, Spain. I began my studies at the School of Arts and Crafts in Málaga (Spain) and after discovering the graphic design and advertising, I graduated in techniques and methods of design (Bachelor of Arts). I left my hometown and spend a few years living in Anchorage (Alaska) and Manchester (UK) to finally return to Spain and settle me in Madrid. Throughout all my life I have been interested in creativity and art. My grandfather was a painter and from very young I spent hours watching him painting and composing his paintings. Music is also an essential element in my life. It is possible that my way to synthesize a thought or idea is very influenced by lyrics. I also like cinema, books, nature, comics, advertising...",
@@ -15906,8 +19806,8 @@ export const artists = [
     },
   },
   {
-    name: "Orlando Arocena",
     slug: "orlando-arocena",
+    name: "Orlando Arocena",
     country: "United States",
     info:
       "Orlando Arocena (mexifunk) is an artist and graphic designer who works in traditional and digital mediums. After graduating from Pratt Institute, he drew his way through Europe, co-founded Uptown Arts, and discovered he had a knack for digital commercial communications. With an 18-year track record of delivering creative solutions for some of the world’s most recognizable brands, he has established himself as a non-conventional vector illustrator who explores cultural iconography, pop culture, and speculative narratives. In addition to commercial endeavors, he is presently collaborating with New York City and Los Angeles art organizations such as Republic Worldwide Inc., The Lodge Gallery, The Fountain Art Fair, Gallery 1988, Iam8Bit Gallery, Hero Complex Gallery and the Poster Posse.",
@@ -15931,8 +19831,8 @@ export const artists = [
     },
   },
   {
-    name: "ZSO (Sara Blake)",
     slug: "sara-blake",
+    name: "ZSO (Sara Blake)",
     country: "United States",
     info:
       "Hi I’m ZSO or Sara Blake, if you like. I’m an illustrator, fine artist, and designer-art-director-person, living and loving in New York City. I graduated from New York University’s Gallatin School of Individualized Study and I’ve been working in design, illustration, and art direction ever since. Based out of the West Village, I work both as a designer as well as an independent illustration studio. I also own and manage a small textile company called ZSO-NYC specializing in women’s apparel. I also love to travel and teach about my process. I use a mix of hand drawn and digital elements in my work.",
@@ -15956,8 +19856,8 @@ export const artists = [
     },
   },
   {
-    name: "Burak Sentürk",
     slug: "burak-sentürk",
+    name: "Burak Sentürk",
     country: "Turkey",
     info:
       "I was born in Istanbul. I studied Graphic Arts at the Faculty of Fine Arts, in Marmara University. I started my professional career by drawing and writing caricatures for humour magazines which were managed by Oğuz Aral, who was a world-famous master illustrator. After that, I made designs and illustrations for some major advertising agencies and brands both in Turkey and worldwide. In addition, I worked with some publishers in the USA, Singapore, the UK, the Netherlands and Turkey. I am currently designing T-shirts for the biggest textile company in my country and feel free to contact me for illustrations, collaborative projects or exhibitions. Mail me bsenturk@gmail.com.",
@@ -15981,8 +19881,8 @@ export const artists = [
     },
   },
   {
-    name: "Alexis Marcou",
     slug: "alexis-marcou",
+    name: "Alexis Marcou",
     country: "Greece",
     info:
       "Alexis Marcou graduated from Plymouth College of Art. He has been doing freelance work since 2007 for a wide range of clients such as Cisco, Atomic Skis, Acco Brands, Hewlett Packard, Gatorade, Air Jordan and Nike.",
@@ -16006,8 +19906,8 @@ export const artists = [
     },
   },
   {
-    name: "YoAz",
     slug: "yoaz",
+    name: "YoAz",
     country: "France",
     info:
       "I love the aesthetic of card , also the colors so i wanted to keep this and do a king of heart very close to the existant versions.",
@@ -16031,8 +19931,8 @@ export const artists = [
     },
   },
   {
-    name: "Yeaaah! Studio",
     slug: "yeaaah-studio",
+    name: "Yeaaah! Studio",
     country: "France",
     info:
       "Yeaaah! Studio is the design studio of Stéphane Casier and an independent apparel brand based in Paris, France.",
@@ -16056,8 +19956,8 @@ export const artists = [
     },
   },
   {
-    name: "STUDIO BLUP",
     slug: "studio-blup",
+    name: "STUDIO BLUP",
     country: "United Kingdom",
     info:
       "STUDIO BLUP, are an experienced multi-disciplinary design agency. We are most successful working with forward-thinking companies that recognise excellence, and see design as a differentiator for business. Our ethos is to have a cutting edge approach to design, producing awe-inspiring work for our clients.",
@@ -16081,8 +19981,8 @@ export const artists = [
     },
   },
   {
-    name: "Ars Thanea",
     slug: "ars-thanea",
+    name: "Ars Thanea",
     country: "Poland",
     info:
       "Ars Thanea is an Advertising and Production Agency founded in 2007, home to 60 talented people who make work that matters and breathe excellence. We are known for challenging the way stories are told. Our work often blends mixtures of ideas and craft wrapped around extremely engaging stories that deliver results. Our works have been awarded with „One Show”, „AdFest”, „PromaxBDA”, „DMMA On-line Star”, „World Luxury Festival” and many more.",
@@ -16106,8 +20006,8 @@ export const artists = [
     },
   },
   {
-    name: "Zombie Yeti",
     slug: "zombie-yeti",
+    name: "Zombie Yeti",
     country: "United States",
     info:
       "It describes its work by defining a new term; a self proclaimed movement called ‘Esoteric Americana’. On the surface its style reflects its love of comic books &amp; cartoons – with a dash of humor, an emphasis on story, character, silhouette, line. While beneath, its aesthetic results resemble a twisted take on representations of traditional art.",
@@ -16131,8 +20031,8 @@ export const artists = [
     },
   },
   {
-    name: "Danny Ivan",
     slug: "danny-ivan",
+    name: "Danny Ivan",
     country: "Portugal",
     info: "Graphic Artist & Art Director.",
     userpic:
@@ -16155,8 +20055,8 @@ export const artists = [
     },
   },
   {
-    name: "Amrei Hofstätter",
     slug: "amrei-hofstätter",
+    name: "Amrei Hofstätter",
     country: "Germany",
     info:
       "Amrei Hofstätter is a freelance illustrator and artist currently residing in Berlin. Her digitally created works are abstract and geometric hallucinations of a world in which mostly female characters merge with shapes and objects inspired by classic origami. This results in the creation of surreal hybrids, whose existential purpose seems to consist of nothing other than their entire and absolute unfolding and abstraction. Far Eastern aesthetics, ritual, magic and quasi esoteric-religious symbolism and iconography confront the viewer with a complex and not always easily decipherable theme.",
@@ -16180,8 +20080,8 @@ export const artists = [
     },
   },
   {
-    name: "Riccardo Guasco",
     slug: "riccardo-guasco",
+    name: "Riccardo Guasco",
     country: "Italy",
     info:
       "I’m Riccardo Guasco an italian painter and illustrator based in Wales. I research the lightness of form and color of the heat and I do it with a few colors and simple lines. I loves old posters of the 30’s, Picasso, Depero, Feininger, the russian suprematism, the cubism and heroic cycling of old times.",
@@ -16205,8 +20105,8 @@ export const artists = [
     },
   },
   {
-    name: "Zooka",
     slug: "zooka",
+    name: "Zooka",
     country: "South Korea",
     info:
       "Zooka is an illustrator from South Korea. he majored biology before, so he has deep interests in nature,animal like birds,insects and mysterious monsters that seems not exist in the world. mostly his works are consist of these things.",
@@ -16230,8 +20130,8 @@ export const artists = [
     },
   },
   {
-    name: "Wade Jeffree",
     slug: "wade-jeffree",
+    name: "Wade Jeffree",
     country: "United States",
     info:
       "Wade Jeffree is a New York based Designer, Art Director and metal-loving Vegan from Melbourne, Australia. Through use of strong, clear, and occasionally humorous visuals, Wade’s work is both visually arresting and extremely communicative throughout print, digital, and beyond. While he does not believe work and play should be separated, he does believe in the effectiveness of strong, clear, and succinct communication being the best way to reach an intended audience.",
@@ -16255,8 +20155,8 @@ export const artists = [
     },
   },
   {
-    name: "Kate O’Hara",
     slug: "kate-ohara",
+    name: "Kate O’Hara",
     country: "United States",
     info:
       "Kate O’Hara is a freelance illustrator currently living in Reno, Nevada. She graduated from the Illustration program at the University of the Arts in Philadelphia, in 2014. She creates nature inspired illustrations that draw people in through their nostalgic mood and intricate detail. She often uses interactions between plants, animals and their environment as concepts to illustrate human behavior.",
@@ -16280,8 +20180,8 @@ export const artists = [
     },
   },
   {
-    name: "David McLeod",
     slug: "david-mcleod",
+    name: "David McLeod",
     country: "United States",
     info:
       "David is a digital artist and animator living and working in New York.",
@@ -16305,8 +20205,8 @@ export const artists = [
     },
   },
   {
-    name: "Burnt Toast Creative",
     slug: "burnt-toast-creative",
+    name: "Burnt Toast Creative",
     country: "Canada",
     info:
       "Burnt Toast Creative is the working alias for Canadian illustrator, Scott Martin. Scott has worked with a list of companies that includes Dropbox, Red Bull and Google.",
@@ -16330,8 +20230,8 @@ export const artists = [
     },
   },
   {
-    name: "Dan Matutina",
     slug: "dan-matutina",
+    name: "Dan Matutina",
     country: "Philippines",
     info:
       "Dan Matutina is a graphic designer and illustrator based in the Philippines. His style is described as a combination of angular, graphic shapes layered with hand-painted textures. Dan’s illustrations have appeared in print, digital and animation. He has worked on projects for brands such as Google, Pinterest, Airbnb, Samsung, WIRED Magazine, Fast Co., Wallpaper*, The Guardian, The Wall Street Journal, Coca-Cola, Havaianas, Heineken, Nike, Uniqlo to name a few.",
@@ -16355,8 +20255,8 @@ export const artists = [
     },
   },
   {
-    name: "Antonio Rodrigues Jr",
     slug: "antonio-rodrigues-jr",
+    name: "Antonio Rodrigues Jr",
     country: "Brazil",
     info:
       "Antonio Rodrigues Jr. is a graphic artist based in Brasilia, Brazil, with a BA in Visual Arts. Working with various styles and techniques, his portfolio includes projects in the fields of branding, graphic design, illustration, photo-manipulation typography and craft. His work has been featured in books, magazines (both printed and online), as well as in some collective exhibitions in France, United States and United Kingdom. arjr@ymail.com",
@@ -16380,8 +20280,8 @@ export const artists = [
     },
   },
   {
-    name: "Victor Vergara",
     slug: "victor-vergara",
+    name: "Victor Vergara",
     country: "Colombia",
     info:
       "My work is mainly inspired by nature and the female body, although not in the literal sense. I like the characters in my mind become illustrations for the world.",
@@ -16405,8 +20305,8 @@ export const artists = [
     },
   },
   {
-    name: "Edgar Rozo",
     slug: "edgar-rozo",
+    name: "Edgar Rozo",
     country: "Colombia",
     info: "Illustrator from Bogota, Colombia.",
     userpic:
@@ -16430,8 +20330,8 @@ export const artists = [
     },
   },
   {
-    name: "Tobias Hall",
     slug: "tobias-hall",
+    name: "Tobias Hall",
     country: "United Kingdom",
     info:
       "Having initially started out life as a conceptual illustrator, Tobias started working with typography and lettering soon after graduating in 2010 and hasn’t looked back since. His versatility has meant he’s been lucky enough to work on an eclectic mix of projects for a growing list of international clients.When he’s not writing in the third-person, Tobias likes to draw stuff inspired by the music that he listens to or things that he reads.",
@@ -16455,8 +20355,8 @@ export const artists = [
     },
   },
   {
-    name: "Inkration studio",
     slug: "inkration-studio",
+    name: "Inkration studio",
     country: "United Kingdom",
     info:
       "A team of creative guys, specializing in game design and illustration.",
@@ -16480,8 +20380,8 @@ export const artists = [
     },
   },
   {
-    name: "Justin Poulter",
     slug: "justin-poulter",
+    name: "Justin Poulter",
     country: "United Kingdom",
     info:
       "Justin Poulter grew up in a quaint seaside town on the outskirts of Cape Town, South Africa where he learnt how to skateboard and ride bikes with his friend Dan.The first time Justin took a liking to typography was at the age of 9, when he rose to the top of his class at forging the Stüssy logo. Being the best at drawing made him a hero at school, which is why, when a boring outing to the whale museum led to his creating a comic book called ‘Whale Bones’, it was met with praise and adoration instead of detention. Having recently moved over, he now lives in London with his home-girl Lucille, with the intention of getting a cat. Clients include: Vans, Hunter, Nike, Coca Cola, Bacardi, Hot Key Books, The South African Reserve Bank, Red Bull, Nedbank, The Webby Awards, Men’s Health Magazine.",
@@ -16505,8 +20405,8 @@ export const artists = [
     },
   },
   {
-    name: "Leandro Castelao",
     slug: "leandro-castelao",
+    name: "Leandro Castelao",
     country: "Italy",
     info:
       "Leandro Castelao is an Argentinean Designer and Illustrator based in Brooklyn, NY.",
@@ -16530,8 +20430,8 @@ export const artists = [
     },
   },
   {
-    name: "Middle Boop (Gordon Reid)",
     slug: "middle-boop",
+    name: "Middle Boop (Gordon Reid)",
     country: "United Kingdom",
     info:
       "Spanning art direction, graphic design and illustration, I’m Gordon Reid, AKA Middle Boop (don’t ask why), a London-­based, award­-winning creative. With a portfolio of work for big-name clients, smaller businesses and all things in between, I believe in helping grow and build brands through creative ideas, strong direction and superb design. Whatever the brief, by involving myself in every stage of the process from the initial spark of an idea to a projects’ final delivery, I ensure we always create something that exceeds expectations. Previous projects include everything from record sleeves to global Olympic campaigns, I’ve worked for agencies including Saatchi & Saatchi, McCann and Grey London. My client list includes the BBC, Toyota, Computer Arts, Red Bull and Warp Records, I have exhibited my work worldwide including galleries in Los Angeles, New York and Berlin and I have spoken at conferences including Grafik’s Letterform Live series, London Illustration Fair and The London Design Festival at V&A.",
@@ -16555,8 +20455,8 @@ export const artists = [
     },
   },
   {
-    name: "Francisco Miranda",
     slug: "francisco-miranda",
+    name: "Francisco Miranda",
     country: "Argentina",
     info:
       "Visual Artist & Graphic Designer. Owner of TOOCO Studio. Had been teaching Graphic Design for 8 years on the University of Buenos Aires. Showed work both in Argentina and abroad.",
@@ -16580,8 +20480,8 @@ export const artists = [
     },
   },
   {
-    name: "Man-Tsun",
     slug: "man-tsun",
+    name: "Man-Tsun",
     country: "Hong Kong",
     info:
       "Man-Tsun is an illustrator & art director from Rock N Pop Graphix, based in Hong Kong. As a manga and video game freak, His works carry a very strong manga & anime DNA and emphasize on detail and stroke fluidity. While working on commercial works, He has been actively contributing his original artwork to domestic and foreign art/illustration-related events, exhibitions, media and received several awards from Bromax & BDA, and Great China Illustration Awards.",
@@ -16605,8 +20505,8 @@ export const artists = [
     },
   },
   {
-    name: "Charis Tsevis",
     slug: "charis-tsevis",
+    name: "Charis Tsevis",
     country: "Greece",
     info: "Visual designer living on the sunny side of the planet.",
     userpic:
@@ -16629,8 +20529,8 @@ export const artists = [
     },
   },
   {
-    name: "Saddo",
     slug: "saddo",
+    name: "Saddo",
     country: "Romania",
     info:
       "Romanian artist, illustrator and muralist, Saddo started his artistic career as founder of one of the first Romanian street art collectives, The Playground. His street art activity brought a fresh fun vibe to his way of perceiving art and the world, and opened doors to many different projects, commissions for advertising agencies, collaborations with galleries in Bucharest, Vienna, Berlin, Copenhagen, Stockholm, New York, Los Angeles, Montreal, Glasgow, Salvador, etc. Going through many different phases and influences, from horror movie posters, street art, comics, Saddo has recently developed his style into more elaborate shapes, with many different influences from Giuseppe Arcimboldo, Bosch, Brueghel, Walton Ford, Henri Rousseau, naturalistic illustrations of plants and animals, Islamic miniatures, pop surrealism, religion, mythology. His latest projects include his first solo-show, “Rise of The Bird People” at Objectos Misturados Gallery in Portugal, the “Coffins” duo-show with Aitch at La Petite Mort Gallery, Ottawa, in 2014, and his second solo-show, “A Stranger in the Garden” at BC Gallery in Berlin.",
@@ -16654,8 +20554,8 @@ export const artists = [
     },
   },
   {
-    name: "Rafael Mayani",
     slug: "rafael-mayani",
+    name: "Rafael Mayani",
     country: "Mexico",
     info:
       "I’m an illustrator from Mexico City currently working as an Art Director at Giant Ant in Vancouver.",
@@ -16679,8 +20579,8 @@ export const artists = [
     },
   },
   {
-    name: "AJ Frena",
     slug: "aj-frena",
+    name: "AJ Frena",
     country: "United States",
     info:
       "AJ Frena is an illustrator from Texas who focuses on surreal imagery featuring wildlife. Their work has been featured by publications such as ImagineFX, Hi-Fructose Magazine, 2D Artist Magazine, Lost at E Minor, Comics Beat, Empty Kingdom, and Illustration Friday, and has been published in the prestigious American Illustration annuals. AJ currently lives and works in Pittsburgh, PA with a lucky black cat and a lazy border collie.",
@@ -16704,8 +20604,8 @@ export const artists = [
     },
   },
   {
-    name: "Pierre Kleinhouse",
     slug: "pierre-kleinhouse",
+    name: "Pierre Kleinhouse",
     country: "Israel",
     info:
       "Pierre Klienhouse is a freelance illustrator and designer, currently based in Tel Aviv. He likes to draw animals, plants and people, and mixing his digital work with old school silk screen printing. He has worked with client such as Stella Artois, Krispy Kreme, BBC and Oxford University Press.",
@@ -16729,8 +20629,8 @@ export const artists = [
     },
   },
   {
-    name: "Amaia Arrazola",
     slug: "amaia-arrazola",
+    name: "Amaia Arrazola",
     country: "Spain",
     info:
       "An basque illustrator living in barcelona. I love drawing, graphic design, typography, ceramics, embroidery, children tales, the old stuff, the weird stuff, UFos, unicorns, the yeti, the pink color, the purple, constellations, the right side of the bed, pizza, hamburguers, milkshakes and koalas. I´ve got an imaginary dog.",
@@ -16754,8 +20654,8 @@ export const artists = [
     },
   },
   {
-    name: "Mike Perry",
     slug: "mike-perry",
+    name: "Mike Perry",
     country: "United States",
     info: "Artist.",
     userpic:
@@ -16778,8 +20678,8 @@ export const artists = [
     },
   },
   {
-    name: "Karol Banach",
     slug: "karol-banach",
+    name: "Karol Banach",
     country: "Poland",
     info:
       "I’m a fifth year illustration student of Nicolai University in Toruń, Poland. Soon I graduate, I hope! In my free time i like to ride my bike or watch tv series with my girl.",
@@ -16803,8 +20703,8 @@ export const artists = [
     },
   },
   {
-    name: "Ery Burns",
     slug: "ery-burns",
+    name: "Ery Burns",
     country: "United Kingdom",
     info:
       "Graphic doodler and magic maker from the UK. My everyday thoughts: Pens, doodling, where is the sun? Snorkelling and banana flavours. I love animals, patterns, and inordinately bright colours. My hobbies include climbing, the hula hoop, and dancing like I’m in a Thriller video. X",
@@ -16828,8 +20728,8 @@ export const artists = [
     },
   },
   {
-    name: "Will Scobie",
     slug: "will-scobie",
+    name: "Will Scobie",
     country: "United Kingdom",
     info: "Drawing, black coffee & new perspectives. Artist / Illustrator.",
     userpic:
@@ -16852,8 +20752,8 @@ export const artists = [
     },
   },
   {
-    name: "Jackson Alves",
     slug: "jackson-alves",
+    name: "Jackson Alves",
     country: "Brazil",
     info:
       "Jackson Alves is a letterer, calligrapher and teacher based in Brazil. After graduating in 2003 with a degree in Graphic Design, Jackson has accumulated over 15 years of experience, working locally, nationally, and internationally. In the last five years, Jackson has made his mark on the typography world, collaborating with clients from Brazil, the USA, the UK, France, Switzerland, Russia, and Australia. Jackson’s background in calligraphy has shaped his lettering style, with fluid and graceful curves, bold style choices, and a keen eye for aesthetics. As well as being published in multiple design blogs, books and magazines, Jackson was awarded the 10th Graphic Design Biennial Award in Brazil in 2013 and the Type Directors Club “Certificate of Typographic Excellence” in 2016. Jackson continues to grow as an artist and encouraging others as well, teaching workshops around the world.",
@@ -16877,8 +20777,8 @@ export const artists = [
     },
   },
   {
-    name: "Daniel Shaffer",
     slug: "daniel-shaffer",
+    name: "Daniel Shaffer",
     country: "United States",
     info:
       "Daniel Shaffer is a freelance illustrator that is currently based in Atlanta, Georgia.",
@@ -16902,8 +20802,8 @@ export const artists = [
     },
   },
   {
-    name: "Bratislav Milenkovic",
     slug: "bratislav-milenkovic",
+    name: "Bratislav Milenkovic",
     country: "Serbia",
     info:
       "My name is Bratislav Milenković, and I am an illustrator based in Belgrade, Serbia, where I graduated at the Illustration department of Faculty of Applied Arts. Having been a freelance illustrator for the past couple of years, I had the opportunity to work with a wide range of clients from all around the world.",
@@ -16927,8 +20827,8 @@ export const artists = [
     },
   },
   {
-    name: "Mister Thoms",
     slug: "mister-thoms",
+    name: "Mister Thoms",
     country: "Italy",
     info:
       "THOMS! It ’an onomatopoeic sound of something bouncing from one surface to another, in a continuous motion a dynamic soft elasticity that allows it to move in many different places, but always maintaining a cadence, a pace that characterizes his style.",
@@ -16952,8 +20852,8 @@ export const artists = [
     },
   },
   {
-    name: "Alvaro Tapia Hidalgo",
     slug: "alvaro-tapia-hidalgo",
+    name: "Alvaro Tapia Hidalgo",
     country: "Chile",
     info: "Illustrator and graphic designer based in Viña del Mar, Chile.",
     userpic:
@@ -16976,8 +20876,8 @@ export const artists = [
     },
   },
   {
-    name: "Roman Klonek",
     slug: "roman-klonek",
+    name: "Roman Klonek",
     country: "Poland",
     info:
       "Roman Klonek, born in Kattowitz/Poland, has a spot for old fashioned cartoons, especially east european styles. In the 90s he studied Graphic Arts in Duesseldorf and discovered a passion for woodcut printing. Since 15 years now, he is doing posters with a wide range of whimsical creatures, mostly half animal/half human, preferential in awkward situations. You will find a bizarre balancing act between propaganda, folklore and pop. He works together with friends in a studio in Düsseldorf, Germany.",
@@ -17001,8 +20901,8 @@ export const artists = [
     },
   },
   {
-    name: "Grzegorz Domaradzki",
     slug: "grzegorz-domaradzki",
+    name: "Grzegorz Domaradzki",
     country: "Poland",
     info:
       "Gabz graduated from the Academy of Fine Arts in Poznań with a Master’s degree in Graphic Arts and Drawing. After the graduation, he first worked as an illustrator and later as a graphic designer for various advertising agencies. In 2005, he went freelance and hasn’t looked back since.",
@@ -17026,8 +20926,8 @@ export const artists = [
     },
   },
   {
-    name: "Nikita Kaun",
     slug: "nikita-kaun",
+    name: "Nikita Kaun",
     country: "Russia",
     info:
       "I’m self taught artist, based out of Saint-Petersburg, Russia. “His style is a mixture of predominantly black and white realistically rendered forms falling into a dreamlike darkness with minimal pops of color.” - Juxtapoz. “always awesome...” - SupersonicArt. “...Nikita’s works are almost hypnotic, if only for their surrealism. Looking at his illustrations is like peeking into a dream right as the dream-image begins to morph into its still-shapeless reiteration...” - Parallel Planets. “Gruing gothic, gorgeously occult, lines heavy, feeling worn; color limited and bracing when employed, Nikita Kaun’s grainy darks break to soft spells that seem to promise a new and special kind of light.” - thechromaticwatch.com",
@@ -17051,8 +20951,8 @@ export const artists = [
     },
   },
   {
-    name: "NICOLLE Florian",
     slug: "nicolle-florian",
+    name: "NICOLLE Florian",
     country: "France",
     info:
       "My name is Florian Nicolle (neo), illustrator freelance since 2009. I try to create an image that retains its freshness of the first paint stroke, the expressions of the line have to be very free and spontaneous. While keeping a rigorous drawing.",
@@ -17076,8 +20976,8 @@ export const artists = [
     },
   },
   {
-    name: "Alessandro Pautasso",
     slug: "alessandro-pautasso",
+    name: "Alessandro Pautasso",
     country: "Italy",
     info:
       "Alessandro Pautasso aka Kaneda is a Illustrator and Graphic Designer whose specialty lies in digital art and mixed media. He began drawing when he was a child, as when Alessandro discovered an illustration book about the Beatles by Alan Aldridge that he realized that he wanted to become a designer/illustrator. His work has been featured on many magazines and books.",
@@ -17101,8 +21001,8 @@ export const artists = [
     },
   },
   {
-    name: "D.Vicente",
     slug: "d.vicente",
+    name: "D.Vicente",
     country: "France",
     info:
       "David Vicente, Illustrator. Born in France in 1968 he like to draw pin-up, hot-rod, motorcycle, skull, devil, tattoo design...",
@@ -17126,8 +21026,8 @@ export const artists = [
     },
   },
   {
-    name: "Angga Tantama",
     slug: "angga-tantama",
+    name: "Angga Tantama",
     country: "Indonesia",
     info:
       "I’m Angga Tantama, an Illustrator from Indonesia. I have been working as a freelance artist since 2010. I love vector image, t-shirt design and cheese!",
@@ -17151,8 +21051,8 @@ export const artists = [
     },
   },
   {
-    name: "Denis Zilber",
     slug: "denis-zilber",
+    name: "Denis Zilber",
     country: "Israel",
     info: "Freelance Illustrator and Character Designer.",
     userpic:
@@ -17175,8 +21075,8 @@ export const artists = [
     },
   },
   {
-    name: "Jonny Wan",
     slug: "jonny-wan",
+    name: "Jonny Wan",
     country: "United Kingdom",
     info: "Illustrator working in advertising, editorial and publishing.",
     userpic:
@@ -17199,8 +21099,8 @@ export const artists = [
     },
   },
   {
-    name: "Joan Tarragó",
     slug: "joan-tarragó",
+    name: "Joan Tarragó",
     country: "Spain",
     info:
       "Joan Tarragó is a Barcelona based Illustrator. His career started 10 years ago when he moved to Athens for a school internship. Since this time he became modern nomad of everyday life, always on the move between Barcelona and Berlin, Paris and Biarritz. He is in an interdisciplinary journey between illustration and graphic design, two-and three-dimensionality. He believes illustration is no longer bound by the flat format, but very often inspects and develops space. With his projects he tries to build bridges between art and design, where illustration, painting, street & communication all play an important role. Joan illustrates his fantastic animal’s world and characters, holy scenarios filled with symbolism and curious lines and textures. A ritual atmosphere ready to melt with typography and endless traces of organic lines growing fanciful. He currently lives in Barcelona and keeps spreading his world through his studio taking part in art festivals, preparing new exhibitions and collaborating with brands and non corporate organizations.",
@@ -17224,8 +21124,8 @@ export const artists = [
     },
   },
   {
-    name: "Jesse Hernandez",
     slug: "jesse-hernandez",
+    name: "Jesse Hernandez",
     country: "United States",
     info:
       "Jesse Hernandez (@UrbanAztec) is an artist born and raised in the Bay area, most widely recognized for his vinyl art toys, Street art murals and Illustration work. Hernandez’s artwork has been featured in the Oakland Museum, Rolling Stone, Juxtapoz, Playstation, Outside Lands, and the Cosmopolitan Las Vegas. Hernandez has shown art in galleries and museums around the world, and painted murals in Oakland, San Francisco, Los Angeles, Mexico city & Amsterdam.",
@@ -17249,8 +21149,8 @@ export const artists = [
     },
   },
   {
-    name: "GMUNK",
     slug: "gmunk",
+    name: "GMUNK",
     country: "United States",
     info:
       "GMUNK is a Designer, Director and Galactic Crusader who devoutly believes in Hot Bulgarians and Dark Crystals.",
@@ -17274,8 +21174,8 @@ export const artists = [
     },
   },
   {
-    name: "Blackout Brother",
     slug: "blackout-brother",
+    name: "Blackout Brother",
     country: "Indonesia",
     info: "I’m a full-time freelancer when i’m blackout.",
     userpic:
@@ -17298,8 +21198,8 @@ export const artists = [
     },
   },
   {
-    name: "Juan Díaz-Faes",
     slug: "juan-diaz-faes",
+    name: "Juan Díaz-Faes",
     country: "Spain",
     info: "Draw, eats and laughs equally.",
     userpic:
@@ -17322,8 +21222,8 @@ export const artists = [
     },
   },
   {
-    name: "Wes Art Studio",
     slug: "wes-art-studio",
+    name: "Wes Art Studio",
     country: "Mexico",
     info:
       "We are a graphic design and illustration studio established in Mexico City since 2008.",
@@ -17347,11 +21247,13 @@ export const artists = [
     },
   },
   {
-    name: "Bonnie Pang",
     slug: "bonnie-pang",
+    name: "Bonnie Pang",
     country: "Hong Kong",
-    info: "Hi, I'm Bonnie Pang! I'm born and raised in Hong Kong, a tiny city in South East Asia. I graduated from The Chinese University of Hong Kong with a Bachelor's degree in Geography and Resource Management, then went on to pursue a Master's degree in Illustration at The Academy of Art University. I completed the 4-year curriculum in 2016 and started to be a full time illustrator.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/bonnie-pang.jpg",
+    info:
+      "Hi, I'm Bonnie Pang! I'm born and raised in Hong Kong, a tiny city in South East Asia. I graduated from The Chinese University of Hong Kong with a Bachelor's degree in Geography and Resource Management, then went on to pursue a Master's degree in Illustration at The Academy of Art University. I completed the 4-year curriculum in 2016 and started to be a full time illustrator.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/bonnie-pang.jpg",
     website: "https://www.bonniepangart.com/",
     shop: "",
     social: {
@@ -17370,11 +21272,13 @@ export const artists = [
     },
   },
   {
-    name: "Giselle Vitali",
     slug: "giselle-vitali",
+    name: "Giselle Vitali",
     country: "Spain",
-    info: "Ilustradora especializada | Profesora de dibujo e ilustración médica",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/giselle-vitali.jpg",
+    info:
+      "Ilustradora especializada | Profesora de dibujo e ilustración médica",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/giselle-vitali.jpg",
     website: "https://gisellevitali.com/",
     shop: "",
     social: {
@@ -17393,11 +21297,13 @@ export const artists = [
     },
   },
   {
-    name: "Alexander Grahovsky",
     slug: "alexander-grahovsky",
+    name: "Alexander Grahovsky",
     country: "Spain",
-    info: "Alexander Grahovsky’s paintings are portraits of people who look without looking. They could spend their whole lives crouched behind their sunglasses, absorbed in the ritual of their gum chewing. And chewing gum is a figure of spleen. The neurotic repetition of the eternal present. With the chewing gum in tension, time stops. It is the suspension that can be felt in the interior scenes of Hopper’s paintings … as a slight threat in the environment. ",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/alexander-grahovsky.jpg",
+    info:
+      "Alexander Grahovsky’s paintings are portraits of people who look without looking. They could spend their whole lives crouched behind their sunglasses, absorbed in the ritual of their gum chewing. And chewing gum is a figure of spleen. The neurotic repetition of the eternal present. With the chewing gum in tension, time stops. It is the suspension that can be felt in the interior scenes of Hopper’s paintings … as a slight threat in the environment. ",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/alexander-grahovsky.jpg",
     website: "http://alexandergrahovsky.com/",
     shop: "",
     social: {
@@ -17416,11 +21322,13 @@ export const artists = [
     },
   },
   {
-    name: "Elia S.Martín",
     slug: "elia-s.martín",
+    name: "Elia S.Martín",
     country: "Spain",
-    info: "I was born in 1987 in Valladolid. In 2007 I started my studies of conservation and restauration of easel paintings in Madrid, where I learnt many drawing and painting techniques. When I graduated, I spent one year continuing my training as a curator while working as a freelancer, and after another year I moved to London. There, I enrolled the prestigious Central Saint Martins College, where I studied illustration and practiced digital techniques, discovering that my true vocation was illustration. ",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/elia-smartin.jpg",
+    info:
+      "I was born in 1987 in Valladolid. In 2007 I started my studies of conservation and restauration of easel paintings in Madrid, where I learnt many drawing and painting techniques. When I graduated, I spent one year continuing my training as a curator while working as a freelancer, and after another year I moved to London. There, I enrolled the prestigious Central Saint Martins College, where I studied illustration and practiced digital techniques, discovering that my true vocation was illustration. ",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/elia-smartin.jpg",
     website: "https://www.arstalent.com/artists/elia-sanchez-martin/",
     shop: "",
     social: {
@@ -17439,11 +21347,13 @@ export const artists = [
     },
   },
   {
-    name: "Ivan Belikov",
     slug: "ivan-belikov",
+    name: "Ivan Belikov",
     country: "Russia",
-    info: "Ivan Belikov is a contemporary illustrator passionate about beasts and feathers and into combining folklore and cultural motifs with modern influences.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/ivan-belikov.jpg",
+    info:
+      "Ivan Belikov is a contemporary illustrator passionate about beasts and feathers and into combining folklore and cultural motifs with modern influences.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/ivan-belikov.jpg",
     website: "https://ivanbelikov.com/",
     shop: "",
     social: {
@@ -17462,11 +21372,12 @@ export const artists = [
     },
   },
   {
-    name: "Đặng Trọng Khanh",
     slug: "dang-trong-khanh",
+    name: "Đặng Trọng Khanh",
     country: "Vietnam",
     info: "Who carries a little pencil",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/dang-trong-khanh.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/dang-trong-khanh.jpg",
     website: "",
     shop: "http://society6.com/tuyetduyet",
     social: {
@@ -17485,11 +21396,12 @@ export const artists = [
     },
   },
   {
-    name: "Konstantin Shalev",
     slug: "konstantin-shalev",
+    name: "Konstantin Shalev",
     country: "Russia",
     info: "Illustrations / Graphic design / Art direction",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/konstantin-shalev.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/konstantin-shalev.jpg",
     website: "",
     shop: "",
     social: {
@@ -17508,11 +21420,12 @@ export const artists = [
     },
   },
   {
-    name: "Ian Trajlov",
     slug: "ian-trajlov",
+    name: "Ian Trajlov",
     country: "Sebia",
     info: "Graphic Designer",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/ian-trajlov.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/ian-trajlov.jpg",
     website: "",
     shop: "",
     social: {
@@ -17531,11 +21444,12 @@ export const artists = [
     },
   },
   {
-    name: "Adam McCausland",
     slug: "adam-mccausland",
+    name: "Adam McCausland",
     country: "United Kingdom",
     info: "Brand / Graphic Design, Illustration",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/adam-mccausland.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/adam-mccausland.jpg",
     website: "",
     shop: "",
     social: {
@@ -17554,11 +21468,12 @@ export const artists = [
     },
   },
   {
+    slug: "beto-garza-helbetico",
     name: "Beto Garza 'Helbetico'",
-    slug: "beto-garza-helbetico'",
     country: "Mexico",
     info: "Mexican illustrator and video game aficionado",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/beto-garza-helbetico.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/beto-garza-helbetico.jpg",
     website: "",
     shop: "",
     social: {
@@ -17577,11 +21492,12 @@ export const artists = [
     },
   },
   {
-    name: "Chiara Vercesi",
     slug: "chiara-vercesi",
+    name: "Chiara Vercesi",
     country: "Netherlands",
     info: "Freelance Illustrator. Co-founder of Sail Ho Studio",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/chiara-vercesi.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/chiara-vercesi.jpg",
     website: "http://www.chiaravercesi.com/",
     shop: "",
     social: {
@@ -17600,11 +21516,12 @@ export const artists = [
     },
   },
   {
-    name: "Emi Haze",
     slug: "emi-haze",
+    name: "Emi Haze",
     country: "Italy",
     info: "FOUNDER of VALTARI DESIGN // VISUAL ARTIST",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/emi-haze.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/emi-haze.jpg",
     website: "https://www.shophaze.com/",
     shop: "",
     social: {
@@ -17623,11 +21540,13 @@ export const artists = [
     },
   },
   {
-    name: "Polina Fearon",
     slug: "polina-fearon",
+    name: "Polina Fearon",
     country: "United States",
-    info: "I am a Belarusian-Canadian illustrator and visual designer based in Oakville, ON. I specialize in technical illustration, iconography and graphic design.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/.jpg",
+    info:
+      "I am a Belarusian-Canadian illustrator and visual designer based in Oakville, ON. I specialize in technical illustration, iconography and graphic design.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/.jpg",
     website: "https://polinafearon.com",
     shop: "",
     social: {
@@ -17646,11 +21565,12 @@ export const artists = [
     },
   },
   {
-    name: "Chamo San",
     slug: "chamo-san",
+    name: "Chamo San",
     country: "Spain",
     info: "Artist",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/chamo-san.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/chamo-san.jpg",
     website: "https://chamosan.com/",
     shop: "https://chamosan.bigcartel.com/",
     social: {
@@ -17669,11 +21589,12 @@ export const artists = [
     },
   },
   {
-    name: "Six N. Five",
     slug: "six-n-five",
+    name: "Six N. Five",
     country: "Spain",
     info: "Digital and Physical explorations.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/six-n-five.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/six-n-five.jpg",
     website: "https://sixnfive.com/",
     shop: "",
     social: {
@@ -17692,11 +21613,12 @@ export const artists = [
     },
   },
   {
-    name: "Umberto Daina",
     slug: "umberto-daina",
+    name: "Umberto Daina",
     country: "Itlay",
     info: "Visual Designer - Art Director",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/umberto-daina.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/umberto-daina.jpg",
     website: "https://umbertodaina.com/",
     shop: "",
     social: {
@@ -17715,11 +21637,12 @@ export const artists = [
     },
   },
   {
-    name: "Thibault Daumain",
     slug: "thibault-daumain",
+    name: "Thibault Daumain",
     country: "France",
     info: "Art Director & Illustrator",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/thibault-daumain.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/thibault-daumain.jpg",
     website: "https://thibaultdaumain.fr/",
     shop: "https://thibaultdaumain.bigcartel.com/",
     social: {
@@ -17738,11 +21661,12 @@ export const artists = [
     },
   },
   {
-    name: "Katlego Phatlane",
     slug: "katlego-phatlane",
+    name: "Katlego Phatlane",
     country: "South Africa",
     info: "3D illustration. 3D Art & Typography",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/katlego-phatlane.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/katlego-phatlane.jpg",
     website: "https://kattphatt.com/",
     shop: "",
     social: {
@@ -17761,11 +21685,12 @@ export const artists = [
     },
   },
   {
-    name: "Tano Bonfanti",
     slug: "tano-bonfanti",
+    name: "Tano Bonfanti",
     country: "Argentina",
     info: "2d concept artist and illustrator",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/tano-bonfanti.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/tano-bonfanti.jpg",
     website: "https://tanobonfanti.myportfolio.com/",
     shop: "",
     social: {
@@ -17784,11 +21709,13 @@ export const artists = [
     },
   },
   {
-    name: "Ryogo Toyoda",
     slug: "ryogo-toyoda",
+    name: "Ryogo Toyoda",
     country: "Japan",
-    info: "3D illustrator / Motion Designer / Author born and based in Tokyo. I specialize for 3D Design, character design and motion design projects.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/ryogo-toyoda.jpg",
+    info:
+      "3D illustrator / Motion Designer / Author born and based in Tokyo. I specialize for 3D Design, character design and motion design projects.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/ryogo-toyoda.jpg",
     website: "http://rgtd.net/",
     shop: "",
     social: {
@@ -17807,11 +21734,12 @@ export const artists = [
     },
   },
   {
-    name: "Michele Durazzi",
     slug: "michele-durazzi",
+    name: "Michele Durazzi",
     country: "Italy",
     info: "3D media, architecture, advertising",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/michele-durazzi.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/michele-durazzi.jpg",
     website: "",
     shop: "",
     social: {
@@ -17830,11 +21758,12 @@ export const artists = [
     },
   },
   {
-    name: "peter gutierrez",
     slug: "peter-gutierrez",
+    name: "peter gutierrez",
     country: "United States",
     info: "Graphic Designer / Illustrator",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/peter-gutierrez.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/peter-gutierrez.jpg",
     website: "http://www.graphicblack.com/",
     shop: "",
     social: {
@@ -17853,11 +21782,13 @@ export const artists = [
     },
   },
   {
-    name: "Rob Snow",
     slug: "rob-snow",
+    name: "Rob Snow",
     country: "Greece",
-    info: "Creative illustrator using both pencils and pixels to explore the aesthetic world of lateral thinking, animals and general art and design.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/rob-snow.jpg",
+    info:
+      "Creative illustrator using both pencils and pixels to explore the aesthetic world of lateral thinking, animals and general art and design.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/rob-snow.jpg",
     website: "https://robsnow.eu/",
     shop: "",
     social: {
@@ -17876,11 +21807,12 @@ export const artists = [
     },
   },
   {
-    name: "Elina V.G.",
     slug: "elina-vg",
+    name: "Elina V.G.",
     country: "Denmark",
     info: "Elina V.G. is a self taught watercolour artist.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/elina-vg.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/elina-vg.jpg",
     website: "https://elinavgart.com/",
     shop: "",
     social: {
@@ -17899,11 +21831,12 @@ export const artists = [
     },
   },
   {
-    name: "Redmer Hoekstra",
     slug: "redmer-hoekstra",
+    name: "Redmer Hoekstra",
     country: "Netherlands",
     info: "Dutch artist based in Elst. Between Arnhem and Nijmegen.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/redmer-hoekstra.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/redmer-hoekstra.jpg",
     website: "https://www.redmerhoekstra.nl/",
     shop: "",
     social: {
@@ -17922,11 +21855,13 @@ export const artists = [
     },
   },
   {
-    name: "María Suarez inclan",
     slug: "maria-suarez-inclan",
+    name: "María Suarez inclan",
     country: "Spain",
-    info: "I’m Maria Suarez-Inclan. I'm a Spanish senior conceptual designer & illustrator currently working at Design Bridge Amsterdam. In my free time, I love to illustrate.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/maria-suarez-inclan.gif",
+    info:
+      "I’m Maria Suarez-Inclan. I'm a Spanish senior conceptual designer & illustrator currently working at Design Bridge Amsterdam. In my free time, I love to illustrate.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/maria-suarez-inclan.gif",
     website: "http://www.msinclan.com/",
     shop: "",
     social: {
@@ -17945,11 +21880,13 @@ export const artists = [
     },
   },
   {
-    name: "David Perez",
     slug: "david-perez",
+    name: "David Perez",
     country: "Venezuela",
-    info: "Hola!, I'm a graphic designer and illustrator. you can buy original t-shirts and art in my shop.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/david-perez.jpg",
+    info:
+      "Hola!, I'm a graphic designer and illustrator. you can buy original t-shirts and art in my shop.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/david-perez.jpg",
     website: "https://www.erdavid.com/",
     shop: "",
     social: {
@@ -17968,11 +21905,13 @@ export const artists = [
     },
   },
   {
-    name: "Nico Castro",
     slug: "nico-castro",
+    name: "Nico Castro",
     country: "Spain",
-    info: "Born in Beunos Aires but based in Spain, Nico Castro is a Creative Designer and Art Director. Honouring the colour, composition, and oddity, he has worked in TV Branding, high quality visuals and animation.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/nico-castro.jpg",
+    info:
+      "Born in Beunos Aires but based in Spain, Nico Castro is a Creative Designer and Art Director. Honouring the colour, composition, and oddity, he has worked in TV Branding, high quality visuals and animation.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/nico-castro.jpg",
     website: "http://www.nicolascastro.net/",
     shop: "",
     social: {
@@ -17991,11 +21930,12 @@ export const artists = [
     },
   },
   {
-    name: "Danya Dolotov",
     slug: "danya-dolotov",
+    name: "Danya Dolotov",
     country: "Russia",
     info: "You can turn off your device, but you can't hide.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/danya-dolotov.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/danya-dolotov.jpg",
     website: "https://danyadolotov.com/",
     shop: "",
     social: {
@@ -18014,16 +21954,19 @@ export const artists = [
     },
   },
   {
-    name: "Nandita Pal",
     slug: "nandita-pal",
+    name: "Nandita Pal",
     country: "India",
-    info: "Nandita Pal is an illustrator and designer from India. She specializes in digital Illustration as well as watercolor and ink illustration, packaging and label design, presentation design, infographics, and other graphic design work . Her work is often recognized by its minimalist and illustrative style. ",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/nandita-pal.jpg",
+    info:
+      "Nandita Pal is an illustrator and designer from India. She specializes in digital Illustration as well as watercolor and ink illustration, packaging and label design, presentation design, infographics, and other graphic design work . Her work is often recognized by its minimalist and illustrative style. ",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/nandita-pal.jpg",
     website: "https://www.nanditapal.com/",
     shop: "",
     social: {
       instagram: "https://www.instagram.com/nanditapalart/",
-      facebook: "https://www.facebook.com/artofnanditapal/?ref=pages_you_manage",
+      facebook:
+        "https://www.facebook.com/artofnanditapal/?ref=pages_you_manage",
       twitter: "https://twitter.com/nanditapalart",
       behance: "https://behance.net/nanditapalart",
       dribbble: "",
@@ -18037,11 +21980,13 @@ export const artists = [
     },
   },
   {
-    name: "Uma Brand Studio",
     slug: "uma-brand-studio",
+    name: "Uma Brand Studio",
     country: "Portugal",
-    info: "We are UMA, a design studio with the ambition to bring innovative thinking into branding through creativity and design.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/uma-brand-studio.jpg",
+    info:
+      "We are UMA, a design studio with the ambition to bring innovative thinking into branding through creativity and design.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/uma-brand-studio.jpg",
     website: "https://www.uma-studio.com/",
     shop: "",
     social: {
@@ -18060,11 +22005,13 @@ export const artists = [
     },
   },
   {
-    name: "Don Carson",
     slug: "don-carson",
+    name: "Don Carson",
     country: "United States",
-    info: "My name is Don Carson, I am an Art Director and Designer in the theme park, video game, virtual world, and live events industries.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/don-carson.jpg",
+    info:
+      "My name is Don Carson, I am an Art Director and Designer in the theme park, video game, virtual world, and live events industries.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/don-carson.jpg",
     website: "http://www.doncarsoncreative.com/",
     shop: "",
     social: {
@@ -18083,11 +22030,12 @@ export const artists = [
     },
   },
   {
-    name: "Yana Moskaluk",
     slug: "yana-moskaluk",
+    name: "Yana Moskaluk",
     country: "Russia",
     info: "artist and illustrator",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/yana-moskaluk.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/yana-moskaluk.jpg",
     website: "https://yanamoskaluk.com/",
     shop: "",
     social: {
@@ -18106,11 +22054,12 @@ export const artists = [
     },
   },
   {
-    name: "Roman Novak",
     slug: "roman-novak",
+    name: "Roman Novak",
     country: "Russia",
     info: "Illustrator, Graphic designer, logomaker.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/roman-novak.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/roman-novak.jpg",
     website: "",
     shop: "",
     social: {
@@ -18129,11 +22078,12 @@ export const artists = [
     },
   },
   {
-    name: "Carolyn Duan",
     slug: "carolyn-duan",
+    name: "Carolyn Duan",
     country: "United States",
     info: "Artist",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/carolyn-duan.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/carolyn-duan.jpg",
     website: "",
     shop: "",
     social: {
@@ -18152,11 +22102,13 @@ export const artists = [
     },
   },
   {
-    name: "Gemma Gould",
     slug: "gemma-gould",
+    name: "Gemma Gould",
     country: "United Kingdom",
-    info: "A freelance Illustrator based in beautiful rural Shropshire, England.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/gemma-gould.jpg",
+    info:
+      "A freelance Illustrator based in beautiful rural Shropshire, England.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/gemma-gould.jpg",
     website: "",
     shop: "",
     social: {
@@ -18175,11 +22127,12 @@ export const artists = [
     },
   },
   {
-    name: "Olga Skomorokhova",
     slug: "olga",
+    name: "Olga Skomorokhova",
     country: "Russia",
     info: "Illustrator",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/olga.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/olga.jpg",
     website: "",
     shop: "",
     social: {
@@ -18198,11 +22151,13 @@ export const artists = [
     },
   },
   {
-    name: "Gladys Creative Studio",
     slug: "gladys-creative-studio",
+    name: "Gladys Creative Studio",
     country: "Argentina",
-    info: "Gladys is a multidimensional Creative Studio crafted through the noble arts of sorcery, chemistry and magic.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/gladys-creative-studio.jpg",
+    info:
+      "Gladys is a multidimensional Creative Studio crafted through the noble arts of sorcery, chemistry and magic.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/gladys-creative-studio.jpg",
     website: "http://www.gladys.tv/",
     shop: "https://society6.com/gladyscreativestudio",
     social: {
@@ -18221,11 +22176,13 @@ export const artists = [
     },
   },
   {
-    name: "Mitt Roshin",
     slug: "mitt-roshin",
+    name: "Mitt Roshin",
     country: "Russia",
-    info: "I am Mitt Roshin, and I am illustrator. I was born in Russia, but it were not bears or grey taiga wolves who raised me. I have not even tried vodka for quite a long time and not once in my life have played balalaika. Actually I was born not even in Moscow, but in another city on the bank of the great Russian river Volga.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/mitt-roshin.jpg",
+    info:
+      "I am Mitt Roshin, and I am illustrator. I was born in Russia, but it were not bears or grey taiga wolves who raised me. I have not even tried vodka for quite a long time and not once in my life have played balalaika. Actually I was born not even in Moscow, but in another city on the bank of the great Russian river Volga.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/mitt-roshin.jpg",
     website: "https://mittroshin.com/",
     shop: "https://society6.com/mittroshin",
     social: {
@@ -18244,11 +22201,13 @@ export const artists = [
     },
   },
   {
-    name: "Osvaldo Casanova",
     slug: "osvaldo-casanova",
+    name: "Osvaldo Casanova",
     country: "Italy",
-    info: "Illustrator based in Vicenza, Italia. Loves superheroes, beer and Lanerossi Vicenza. Hates all the people who call football soccer.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/osvaldo-casanova.jpg",
+    info:
+      "Illustrator based in Vicenza, Italia. Loves superheroes, beer and Lanerossi Vicenza. Hates all the people who call football soccer.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/osvaldo-casanova.jpg",
     website: "https://thankyoufortheroses.myportfolio.com/",
     shop: "https://society6.com/osvaldocasanova",
     social: {
@@ -18267,12 +22226,15 @@ export const artists = [
     },
   },
   {
-    name: "Davide Magliacano",
     slug: "davide-magliacano",
+    name: "Davide Magliacano",
     country: "Italy",
-    info: "Raffaello Davide Magliacano is an Italian artist born in 1975. He is interested in various activities such as painting , sculpting with different materials, photography, 3D graphic modeling and animation, and has a great passion for the Japanese language and culture. Basically... He doesn't follow a single direction.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/davide-magliacano.jpg",
-    website: "http://www.davidemagliacano.com/davidemagliacano.com/Benvenuto.html",
+    info:
+      "Raffaello Davide Magliacano is an Italian artist born in 1975. He is interested in various activities such as painting , sculpting with different materials, photography, 3D graphic modeling and animation, and has a great passion for the Japanese language and culture. Basically... He doesn't follow a single direction.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/davide-magliacano.jpg",
+    website:
+      "http://www.davidemagliacano.com/davidemagliacano.com/Benvenuto.html",
     shop: "",
     social: {
       instagram: "",
@@ -18290,11 +22252,13 @@ export const artists = [
     },
   },
   {
-    name: "André Pires",
     slug: "andre-pires",
+    name: "André Pires",
     country: "Portugal",
-    info: "3D Character artist specialized in Game Ready Assets and Real time Hair. Im experienced also in Hard surface. I have 10 years experience making content for games.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/andre-pires.jpg",
+    info:
+      "3D Character artist specialized in Game Ready Assets and Real time Hair. Im experienced also in Hard surface. I have 10 years experience making content for games.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/andre-pires.jpg",
     website: "https://torix.artstation.com/",
     shop: "",
     social: {
@@ -18313,11 +22277,13 @@ export const artists = [
     },
   },
   {
-    name: "Bart Miko",
     slug: "bart-miko",
+    name: "Bart Miko",
     country: "Poland",
-    info: "London based Freelance Motion Art Director / Creative Technical 3D Designer.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/bart-miko.jpg",
+    info:
+      "London based Freelance Motion Art Director / Creative Technical 3D Designer.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/bart-miko.jpg",
     website: "http://www.bartmiko.com/",
     shop: "",
     social: {
@@ -18336,11 +22302,13 @@ export const artists = [
     },
   },
   {
-    name: "Mark Oliver",
     slug: "mark-oliver",
+    name: "Mark Oliver",
     country: "United Kingdom",
-    info: "Mark Oliver is a full time, professional Artist and Award winning Illustrator.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/mark-oliver.jpg",
+    info:
+      "Mark Oliver is a full time, professional Artist and Award winning Illustrator.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/mark-oliver.jpg",
     website: "https://markoliver.myportfolio.com",
     shop: "",
     social: {
@@ -18359,11 +22327,13 @@ export const artists = [
     },
   },
   {
-    name: "Gaby Zermeño",
     slug: "gaby-zermeno",
+    name: "Gaby Zermeño",
     country: "Mexico",
-    info: "I'm Gaby Zermeño, I'm 27 years old and I'm based in Mexico City. I focus on digital illustration and visual development.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/gaby-zermeno.jpg",
+    info:
+      "I'm Gaby Zermeño, I'm 27 years old and I'm based in Mexico City. I focus on digital illustration and visual development.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/gaby-zermeno.jpg",
     website: "https://gabyzermeno.com/",
     shop: "",
     social: {
@@ -18382,11 +22352,12 @@ export const artists = [
     },
   },
   {
-    name: "Kevin Davis",
     slug: "kevin-davis",
+    name: "Kevin Davis",
     country: "United States",
     info: "Hello. I'm Kevin Davis, a Brooklyn-based illustrator and designer.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/kevin-davis.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/kevin-davis.jpg",
     website: "http://www.kdillustration.com/",
     shop: "",
     social: {
@@ -18405,11 +22376,13 @@ export const artists = [
     },
   },
   {
-    name: "Elen Winata",
     slug: "elen-winata",
+    name: "Elen Winata",
     country: "Singapore",
-    info: "Elen Winata is an art director and illustrator based in Singapore who ironically hates writing in 3rd person.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/elen-winata.jpg",
+    info:
+      "Elen Winata is an art director and illustrator based in Singapore who ironically hates writing in 3rd person.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/elen-winata.jpg",
     website: "http://www.elenwinata.com/",
     shop: "https://shop.elenwinata.com/",
     social: {
@@ -18428,11 +22401,13 @@ export const artists = [
     },
   },
   {
-    name: "Vincent Rhafael Aseo",
     slug: "vincent-rhafael-aseo",
+    name: "Vincent Rhafael Aseo",
     country: "Philippines",
-    info: "An Illustrator based in PH, Vincent Rhafael Aseo or more commonly known as “Vincent Aseo” is a graduate of AB in Multimedia Arts in Asia Pacific College batch 2007.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/vincent-rhafael-aseo.jpg",
+    info:
+      "An Illustrator based in PH, Vincent Rhafael Aseo or more commonly known as “Vincent Aseo” is a graduate of AB in Multimedia Arts in Asia Pacific College batch 2007.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/vincent-rhafael-aseo.jpg",
     website: "https://www.vincentaseo.com/",
     shop: "",
     social: {
@@ -18451,11 +22426,12 @@ export const artists = [
     },
   },
   {
-    name: "Polina Chemeris",
     slug: "polina-chemeris",
+    name: "Polina Chemeris",
     country: "Russia",
     info: "Graphic designer at Steve Edge Design",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/polina-chemeris.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/polina-chemeris.jpg",
     website: "https://www.polinachemeris.com/",
     shop: "",
     social: {
@@ -18474,11 +22450,12 @@ export const artists = [
     },
   },
   {
-    name: "Mr Lemonade",
     slug: "mr-lemonade",
+    name: "Mr Lemonade",
     country: "Mexico",
     info: "Everything it’s better with lemon.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/mr-lemonade.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/mr-lemonade.jpg",
     website: "http://mrlemonade.mx/",
     shop: "",
     social: {
@@ -18497,11 +22474,12 @@ export const artists = [
     },
   },
   {
-    name: "Konstantin Alekyan",
     slug: "konstantin-alekyan",
+    name: "Konstantin Alekyan",
     country: "Ukraine",
     info: "Illustrations, characters design and stuff.",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/konstantin-alekyan.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/konstantin-alekyan.jpg",
     website: "http://alekyan.com/",
     shop: "",
     social: {
@@ -18520,11 +22498,12 @@ export const artists = [
     },
   },
   {
-    name: "Zack Anderson",
     slug: "zack-anderson",
+    name: "Zack Anderson",
     country: "United States",
     info: "Illustrator & Designer from Chicago",
-    userpic: "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/zack-anderson.jpg",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/special/zack-anderson.jpg",
     website: "https://thezanderson.com/",
     shop: "",
     social: {
@@ -18543,8 +22522,8 @@ export const artists = [
     },
   },
   {
-    name: "Tang Yau Hoong",
     slug: "tang-yau-hoong",
+    name: "Tang Yau Hoong",
     country: "Malaysia",
     info:
       "Tang Yau Hoong is an artist, illustrator, graphic designer living in Kuala Lumpur, Malaysia. With a passion for creative thinking, he creates art that is conceptual, surreal and fun in a simplistic and unique way. He works with various clients for advertising, editorial, and many other design projects.",
@@ -18568,8 +22547,8 @@ export const artists = [
     },
   },
   {
-    name: "Yema Yema",
     slug: "yema-yema",
+    name: "Yema Yema",
     country: "United States",
     info:
       "Yema Yema or Mercedes Crespo is a designer born in Guayaquil Ecuador. She graduated with a degree in animation but found more joy in drawing aspect of it. In 2010 she launched a very fun and unique tee shirt line which she called Yema Yema based on crazy, colorful and strange character designs.",
@@ -18593,8 +22572,8 @@ export const artists = [
     },
   },
   {
-    name: "Peter Tarka",
     slug: "peter-tarka",
+    name: "Peter Tarka",
     country: "Poland",
     info:
       "Peter Tarka is a young graphic designer and illustrator from Poland (Wrocław). He has worked as an graphic designer since 2008. His works being featured in many magazines and sites about graphic design (Behance, Abduzeedo, PSDtuts and many many more). Peter sure knows how to deliver a strong creative typographic works.",
@@ -18618,8 +22597,8 @@ export const artists = [
     },
   },
   {
-    name: "Mattias Adolfsson",
     slug: "mattias-adolfsson",
+    name: "Mattias Adolfsson",
     country: "Sweden",
     info:
       "Mattias Adolfsson freelance illustrator living in Sweden has published three books with his personal drawings, the latest the Second in line from publisher Sanatorium. Commissions work The New York times, Disney, Nickelodeon, Google, IBM, Wired magazine etc.",
@@ -18643,8 +22622,8 @@ export const artists = [
     },
   },
   {
-    name: "Fernando Chamarelli",
     slug: "fernando-chamarelli",
+    name: "Fernando Chamarelli",
     country: "Brasil",
     info:
       "Born and raised in Brazil, artist Fernando Chamarelli has a degree in graphic design and illustration. His early artistic interests started with drawing cartoons, caricatures and realistic portraids. Later,his interests expanded to street art and tattoo.",
@@ -18668,8 +22647,8 @@ export const artists = [
     },
   },
   {
-    name: "Carne Griffiths",
     slug: "carne-griffiths",
+    name: "Carne Griffiths",
     country: "United Kingdom",
     info:
       "Working primarily with calligraphy inks, graphite and liquids, such as tea, brandy and vodka Griffiths’ fascination with drawing focuses on the creation and manipulation of the drawn line. Images explore human, geometric and floral forms, in a combination of both literal and abstract translation and in response to images and situations encountered in daily life.",
@@ -18693,8 +22672,8 @@ export const artists = [
     },
   },
   {
-    name: "Mercedes deBellard",
     slug: "mercedes-debellard",
+    name: "Mercedes deBellard",
     country: "Spain",
     info:
       "Hello, my name is Mercedes deBellard. I´m a freelance illustrator currently living and working in Granada, Spain. My work has been featured in fashion magazines and various editorial projects in Spain, England and USA.",
@@ -18718,8 +22697,8 @@ export const artists = [
     },
   },
   {
-    name: "Teagan White",
     slug: "teagan-white",
+    name: "Teagan White",
     country: "United States",
     info:
       "Teagan White is a freelance designer and illustrator from Chicago, now living and working in Minnesota, where she earned her BFA in Illustration from the Minneapolis College of Art & Design in 2012. Her work encompasses intricate drawings of flora and fauna, playful watercolors of anthropomorphic critters, illustrated typography, and everything in between.",
@@ -18743,8 +22722,8 @@ export const artists = [
     },
   },
   {
-    name: "MUTI",
     slug: "muti",
+    name: "MUTI",
     country: "South Africa",
     info:
       "MUTI is a creative studio started in 2011 and is based in the city of Cape Town, South Africa. We work on a broad range of projects from digital painting to vector icons and custom typography.",
@@ -18768,8 +22747,8 @@ export const artists = [
     },
   },
   {
-    name: "Peter Olschinsky",
     slug: "peter-olschinsky",
+    name: "Peter Olschinsky",
     country: "Austria",
     info:
       "Peter Olschinsky, head of Atelier Olschinsky, is a graphic designer from Vienna, Austria. Influenced by sci-fi movies, comics, video games, and artificial architecture, he creates complexely constructed compositions and never ending mazes of shapes, textures, and layers.",
@@ -18793,8 +22772,8 @@ export const artists = [
     },
   },
   {
-    name: "Serial Cut™",
     slug: "serial-cut",
+    name: "Serial Cut™",
     country: "Spain",
     info:
       "Serial Cut is a Madrid based studio, established in 1999 by Sergio del Puerto, working on a wide variety of worldwide projects, but focussing mainly on Art Direction.",
@@ -18818,8 +22797,8 @@ export const artists = [
     },
   },
   {
-    name: "Valerie Ann Chua",
     slug: "valerie-ann-chua",
+    name: "Valerie Ann Chua",
     country: "Philippines",
     info:
       "Valerie Ann Chua is a visual artist from the Philippines who specializes in watercolor and acrylic on paper. Her work is predominantly influenced by East Asian watercolor artists and magical realism literature and poetry.",
@@ -18843,8 +22822,8 @@ export const artists = [
     },
   },
   {
-    name: "Fab Ciraolo",
     slug: "fab-ciraolo",
+    name: "Fab Ciraolo",
     country: "Spain",
     info: "Freelance Illustrator.",
     userpic:
@@ -18867,8 +22846,8 @@ export const artists = [
     },
   },
   {
-    name: "Aitch",
     slug: "aitch",
+    name: "Aitch",
     country: "Romania",
     info:
       "Inspired by my travels, naturalistic illustrations, Naive Art, childhood memories, legends and folklore, I create colorful watercolor artworks on paper, characters cut out of wood, painted murals and intricate patterns and illustrations for clients allover the world.",
@@ -18892,8 +22871,8 @@ export const artists = [
     },
   },
   {
-    name: "Musketon",
     slug: "musketon",
+    name: "Musketon",
     country: "Belgium",
     info:
       "Musketon, a young illustrator based in Belgium or as I like to call it Hellgium. Just last year Musketon won a Red Bull Elektropedia Award for best design, worked with Steve Aoki, Nike Inc, Richard Simmons, Footlocker and many more. Musketon is trying to conquer the world via The Pentool (P).",
@@ -18917,8 +22896,8 @@ export const artists = [
     },
   },
   {
-    name: "Tobias van Schneider",
     slug: "tobias-van-schneider",
+    name: "Tobias van Schneider",
     country: "United States",
     info:
       "Tobias van Schneider is a german designer, raised in Austria and currently living/working in New York City. Focused on Branding, Art Direction & Product Design he had the privilege of working with companies such as Red Bull, BMW, Google, Wacom, Sony, Fantasy Interactive, Stinkdigital, Toyota, Ralph Lauren, Bwin & more. Currently a product design lead building new products with the great Spotify team in New York.",
@@ -18942,8 +22921,8 @@ export const artists = [
     },
   },
   {
-    name: "VASAVA",
     slug: "vasava",
+    name: "VASAVA",
     country: "Spain",
     info:
       "In Vasava we understand that the journey is the destination. We, as a studio, take pride in continual learning, creative experimentation, and risk-taking. We believe in technology in support of creativity, whether we are programming for the web, editing video, or designing for print, we continually find ways to push the boundaries of our craft, with a passion that shines through in everything we do.",
@@ -18967,8 +22946,8 @@ export const artists = [
     },
   },
   {
-    name: "Javier Medellin Puyou",
     slug: "jilipollo",
+    name: "Javier Medellin Puyou",
     country: "Mexico",
     info:
       "Javier Medellin Puyou is a Mexico based illustrator, visual artist and architecture designer. Ink with brush and watercolour are the techniques he uses the most, and often take cues from traditional asian arts, 70′s vintage and contemporary stuff, exotic icons and girls with a peculiar expression and mood as his inspiration.",
@@ -18992,8 +22971,8 @@ export const artists = [
     },
   },
   {
-    name: "Fernando Volken Togni",
     slug: "fernando-volken-togni",
+    name: "Fernando Volken Togni",
     country: "Brasil",
     info:
       "I am a Brazilian illustrator based in London. I love illustrating daily life with a passion for details. My illustrations are mainly geometrical with bold use of colours and shapes filled by itrincate elements. My compositions have been utilised by clients including Google, IBM, Nokia, Trip Advisor and Qatar Airways, Wired Magazine. I have a few products licensed by Heys from Canada with my name and iPhone bamboo cases by Grove.",
@@ -19017,8 +22996,8 @@ export const artists = [
     },
   },
   {
-    name: "Krzysztof CHKN Nowak",
     slug: "krzysztof-chkn-nowak",
+    name: "Krzysztof CHKN Nowak",
     country: "Poland",
     info:
       "I am a graphic designer and illustrator based in Ruda Slaska, Poland. I am specializing myself in vector based graphics, I mainly deal with corporate identities and textile graphic designs and I run a small design studio called Miszmaszyna™. I do graphics and I love to draw things.",
@@ -19042,8 +23021,8 @@ export const artists = [
     },
   },
   {
-    name: "Matt W. Moore",
     slug: "matt-w.-moore",
+    name: "Matt W. Moore",
     country: "United States",
     info:
       "Matt W. Moore works to the credo of ‘range is conducive to growth.’ Like many artists of his generation, Matt’s background was in action board sports and the action art of graffiti, each with their core value of speed, do-it-yourself ethic, enthusiasm for new terrain, and sheer fun of collaboration. Over the past decade, he’s applied those principles to his bold, graphic aesthetic in media both analog and digital, for projects both personal and commercial.",
@@ -19067,8 +23046,8 @@ export const artists = [
     },
   },
   {
-    name: "Felix LaFlamme",
     slug: "felix-laflamme",
+    name: "Felix LaFlamme",
     country: "Canada",
     info:
       "I am a self-taught French-Canadian artist from Quebec and I grew up to comic books and saturday morning cartoons. My love for drawing monsters, skulls, zombies and creatures of all kind is insatiable. I am specialized in merch design but found this Creative Cards project so refreshing. Past clients includes: Bullet for my Valentine, The Ramones, Michael Jacksons, Element, Billabong, Suicide Silence, Guns & Roses...",
@@ -19092,8 +23071,8 @@ export const artists = [
     },
   },
   {
-    name: "Muxxi",
     slug: "muxxi",
+    name: "Muxxi",
     country: "Guatemala",
     info: "Illustrator of magical creatures.",
     userpic:
@@ -19116,8 +23095,8 @@ export const artists = [
     },
   },
   {
-    name: "El Grand Chamaco",
     slug: "el-grand-chamaco",
+    name: "El Grand Chamaco",
     country: "Mexico",
     info:
       "I first learned to draw than to write. I see with both eyes, but I prefer the left one to put to work the right hemisphere. After the arrival of Internet to his town, Grand Chamaco begins to exploit his talent and show it to the World, first through social Networks, and then… we don’t know...",
@@ -19141,8 +23120,8 @@ export const artists = [
     },
   },
   {
-    name: "Jthree Concepts",
     slug: "jthree-concepts",
+    name: "Jthree Concepts",
     country: "United States",
     info:
       "Jthree Concepts is Seattle-based artist Jared K. Nickerson. Jared is a professional digital illustrator originally from Halifax, Nova Scotia. With various moves westward across North America he is now based in Seattle, WA. Jared is co-founder of renowned vector community, Blood Sweat Vector, (BSV for short). His main focus is branding, character, logo, videogame, editorial, and textile design. He also specializes in art direction and consulting.",
@@ -19166,8 +23145,8 @@ export const artists = [
     },
   },
   {
-    name: "Gary Fernández",
     slug: "gary-fernández",
+    name: "Gary Fernández",
     country: "United States",
     info:
       "Detail in simplicity is a theme that Gary Fernández has been perfecting throughout his illustration career. His perfectly rhythmic and orchestrated compositions work almost like a ballet, where all the characters are acrobats, dancers or gymnasts on a big stage. There is also an intriguing darkness in his characters that catches the viewers attention. Sometimes his illustrations tell a story, sometimes it has a way of enabling you to imagine one.",
@@ -19191,8 +23170,8 @@ export const artists = [
     },
   },
   {
-    name: "Pirecco",
     slug: "pirecco",
+    name: "Pirecco",
     country: "Brasil",
     info:
       "Pirecco (Ricardo Trombini Pires) Porto Alegre, Brazil 1984. I am a graphic designer, illustrator and fine artist based in Porto Alegre / Brazil who loves to draw and paint. As a designer, art director, and illustrator I have worked for many years in advertising agencies, design studios, as well as different companies in the fashion arena.",
@@ -19216,8 +23195,8 @@ export const artists = [
     },
   },
   {
-    name: "Carlos Lerma",
     slug: "carlos-lerma",
+    name: "Carlos Lerma",
     country: "Mexico",
     info:
       "I am a visual artist with over ten years of experience in illustration and graphic design. I like movies, music, videogames, and books, but who doesnt? I wish I could write stories, or film movies, but I cant, so my only option is to draw. I am an currently an associate illustrator at golpeavisa.mx, a graphic design studio specializing in illustration, art direction and branding.",
@@ -19241,8 +23220,8 @@ export const artists = [
     },
   },
   {
-    name: "Hey",
     slug: "hey",
+    name: "Hey",
     country: "Spain",
     info:
       "We are a design studio based in Barcelona. We mostly work in brand identity, illustration and editorial design. Geometry, color, direct typography. Let’s say purity. When we look back over our work we feel it is consistent, but we usually prefer to look forward. We are small. We like it that way because it lets us stay close to our clients, be flexible and take care of every single detail at every step of the process.",
@@ -19266,8 +23245,8 @@ export const artists = [
     },
   },
   {
-    name: "Lei Melendres",
     slug: "lei-melendres",
+    name: "Lei Melendres",
     country: "Philippines",
     info:
       "Lei Melendres is a freelance professional doodle artist and illustrator from the Philippines. The main focus of his art is known as “Doodle Art”. The usual elements included in his art are monsters, creatures, robots, aliens, patterns, typography and other stuff both common and weird. He is also the head of a big doodle community in the Philippines named Doodle Art Enthusiasts which consist of around 600 plus young professional and amateur doodle artists.",
@@ -19291,8 +23270,8 @@ export const artists = [
     },
   },
   {
-    name: "Caramelaw",
     slug: "caramelaw",
+    name: "Caramelaw",
     country: "Singapore",
     info:
       "Caramelaw A.K.A Sheena Aw - motion graphic artist/video editor by day and a candyland superhero by night. She was raised in sunny Singapore and majored in animation back in college, after then ventured into broadcast when she started working. She’s an adventurer, a dreamer and a monster creator. After a hard day’s work in the office during the day, Caramelaw retreats into her studio for a bit of action, making candyart, customizing vinyl toys and dolls.",
@@ -19316,8 +23295,8 @@ export const artists = [
     },
   },
   {
-    name: "Bicicleta Sem Freio",
     slug: "bicicleta-sem-freio",
+    name: "Bicicleta Sem Freio",
     country: "Brasil",
     info:
       "Art, design and rock ’n’ roll. It might sound as a cliché but this is the simplest, most honest and coherent way of trying to explain this power trio of illustrators that answers to the name “Bicicleta sem Freio” (Bicycle Without Brakes in English). Most of the early work was posters for rock concerts and cultural events. In a way this experience would directly influence the birth of the band Black Drawing Chalks (of the three just Renato isn’t in the band).",
@@ -19341,8 +23320,8 @@ export const artists = [
     },
   },
   {
-    name: "Bakea",
     slug: "bakea",
+    name: "Bakea",
     country: "Spain",
     info:
       "Juan Carlos Paz, aka Bakea, began his career in the advertising world, after working with the best spanish agencies, he decided to unleash their imagination and shape the world living inside his brain. Under Bakea name lots of surreal beings living in extravagant landscapes. A disturbing formula that mix irony and humor.",
@@ -19366,8 +23345,8 @@ export const artists = [
     },
   },
   {
-    name: "Newfren",
     slug: "newfren",
+    name: "Newfren",
     country: "Chile",
     info:
       "Newfren, Chilean artist and designer, full time freelancer. I work on vectors and my specialty is urban issues, skateboarder and musician.",
@@ -19391,8 +23370,8 @@ export const artists = [
     },
   },
   {
-    name: "Seb Niark1",
     slug: "seb-niark1",
+    name: "Seb Niark1",
     country: "France",
     info:
       "Hello, my name is Sébastien Féraut aka Niark1. I’m a french artist / illustrator based in Paris - France.",
@@ -19416,8 +23395,8 @@ export const artists = [
     },
   },
   {
-    name: "Ise Ananphada",
     slug: "ise-ananphada",
+    name: "Ise Ananphada",
     country: "Thailand",
     info:
       "Based in Bangkok, Thailand. Known as feminine figure illustration style with delicate detail and pastel color palettes. Im always interesting in symbolic meaning, It be mysterious, deep and succulent.I have passionate in my works,Passionate are the mysteriousness and beautiful in women eyes expression that I drew.",
@@ -19441,8 +23420,8 @@ export const artists = [
     },
   },
   {
-    name: "agnes-cecile",
     slug: "agnes-cecile",
+    name: "agnes-cecile",
     country: "Italy",
     info:
       "Silvia Pelissero was born in 1991, in Rome. She is an Italian painter best known as agnes-cecile. After high school, she has continued as a self-taught. She deals in multiple traditional mediums including watercolor, oil and acrylic, ink and enamel paint.",
@@ -19466,8 +23445,8 @@ export const artists = [
     },
   },
   {
-    name: "Conrad Roset",
     slug: "conrad-roset",
+    name: "Conrad Roset",
     country: "Spain",
     info:
       "Conrad Roset spent the first part of his 28 years in Terrassa, his native city, among boxes of crayons, felt-tip pens and notebooks; the other part in Barcelona, surrounded by paints, Moleskine notebooks, muses, colored pencils, and in the company of his grey cat. “I search the beauty the body exudes, I like drawing the female figure.”",
@@ -19491,8 +23470,8 @@ export const artists = [
     },
   },
   {
-    name: "David Mack",
     slug: "david-mack",
+    name: "David Mack",
     country: "United States",
     info:
       "David Mack is the New York Times Best Selling author and artist of the KABUKI Graphic Novels, the writer and artist of Daredevil from Marvel Comics, including DAREDEVIL: End of Days which just debuted in hardcover as #1 on the New York Times Best Sellers List, and the author and artist of his children’s book THE SHY CREATURES from MacMillan.",
@@ -19516,8 +23495,8 @@ export const artists = [
     },
   },
   {
-    name: "Saturno (THE CREATTER)",
     slug: "saturno",
+    name: "Saturno (THE CREATTER)",
     country: "Spain",
     info:
       "Miguel Ángel Sánchez is the name behind the pseudonym of SATURNO ags (the CREATTER). This talented artist was born in 1979 in a small city of Barcelona, far away from town and graffiti, he could only be in contact with graffiti through the TV and small zines that other friends used to post him. Since the beginning he was a self-taught person and specially because he was living apart from the scene in 1994, when he started painting walls. His influences were Toast, Mode2, Won, Sip,Sendys, Poseidon, Rostro, T-Zak...",
@@ -19541,8 +23520,8 @@ export const artists = [
     },
   },
   {
-    name: "Yulia Brodskaya",
     slug: "yulia-brodskaya",
+    name: "Yulia Brodskaya",
     country: "Russia",
     info:
       "Yulia Brodskaya is a highly regarded paper artist and illustrator. She uses two simple materials—paper and glue, and a simple technique that involves the placement of carefully cut and bent strips of paper —to make lush, vibrant, threedimensional paper artworks. Her modern take on the paper craft practice has helped her build an impressive list of clients in just a few short years, from Hermès to Starbucks to Godiva, Target, Sephora, The New York Times Magazine and more than 100 others clients from all around the world.",
@@ -19566,8 +23545,8 @@ export const artists = [
     },
   },
   {
-    name: "Jordan Debney",
     slug: "jordan-debney",
+    name: "Jordan Debney",
     country: "New Zealand",
     info: "Artist, muralist, illustrator from Wellington, New Zealand.",
     userpic:
@@ -19590,8 +23569,8 @@ export const artists = [
     },
   },
   {
-    name: "Mike Friedrich",
     slug: "mike-friedrich",
+    name: "Mike Friedrich",
     country: "Germany",
     info: "Mike Friedrich is a Berlin born and based Illustrator and Artist.",
     userpic:
@@ -19604,1160 +23583,6 @@ export const artists = [
       twitter: "",
       behance: "",
       dribbble: "https://dribbble.com/mikefriedrich",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Gian Wong",
-    slug: "gian-wong",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Diego Marmolejo",
-    slug: "diego-marmolejo",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Olga Zalite",
-    slug: "olga-zalite",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Abraham Mast",
-    slug: "abraham-mast",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Antoine Goulet",
-    slug: "antoine-goulet",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "el Diex",
-    slug: "el-diex",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Mike Karolos",
-    slug: "mike-karolos",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Angela Bardakjian",
-    slug: "angela-bardakjian",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Toma Studio",
-    slug: "toma-studio",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Maria Kulinskaya",
-    slug: "maria-kulinskaya",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Luis Pinto",
-    slug: "luis-pinto",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Manuel Kilger",
-    slug: "manuel-kilger",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Evgenia Makarova",
-    slug: "evgenia-makarova",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Antonio Uve",
-    slug: "antonio-uve",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Javier Perez",
-    slug: "javier-perez",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Andrea Bojkovska",
-    slug: "andrea-bojkovska",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Ana Gomez Bernaus",
-    slug: "ana-gomez-bernaus",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Adriana Garcia",
-    slug: "adriana-garcia",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "PJ Offner",
-    slug: "pj-offner",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Ollie Hirst",
-    slug: "ollie-hirst",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Marc Urtasun",
-    slug: "marc-urtasun",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Fran Labuschagne",
-    slug: "fran-labuschagne",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Ryan Coleman",
-    slug: "ryan-coleman",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Long Vu",
-    slug: "long-vu",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Peter Cobo",
-    slug: "peter-cobo",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Noonmoon",
-    slug: "noonmoon",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Laimutė Varkalaitė",
-    slug: "laimutė-varkalaitė",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Mildeo",
-    slug: "mildeo",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Maria Fedoseeva",
-    slug: "maria-fedoseeva",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Alex Pogrebniak",
-    slug: "alex-pogrebniak",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Xave (Xavier Sánchez)",
-    slug: "xave-(xavier-sánchez)",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Ilyas Bentaleb",
-    slug: "ilyas-bentaleb",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Andra Popovici",
-    slug: "andra-popovici",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Charlie Davis",
-    slug: "charlie-davis",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Daniel Shubin",
-    slug: "daniel-shubin",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Zinkete",
-    slug: "zinkete",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Aleksandra Marchocka",
-    slug: "aleksandra-marchocka",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Anna Kuptsova",
-    slug: "anna-kuptsova",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Ruben Ireland",
-    slug: "ruben-ireland",
-    country: "United Kingdom",
-    info:
-      "Ruben Ireland is a graphic artist and illustrator that produces images that are haunting and sombre, with faces and bodies that at first glance seem normal but upon closer inspection reveal themselves to be altogether out of kilter with the standard proportions of a Human figure, exaggerating certain parts of the face and body such as the head or eyes to very much make the viewer feel that they are looking into a constructed world, not of our own physical experience but that of a warped dream-like world whose inhabitants stare straight through you with blanked eyes.",
-    userpic:
-      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/one/4h.jpg",
-    website: "https://www.rubenireland.co.uk/",
-    shop: "",
-    social: {
-      instagram: "https://www.instagram.com/wildlingsnft",
-      facebook: "https://www.facebook.com/rubenirelandillustration",
-      twitter: "https://www.twitter.com/wildlingsnft",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "One Horse Town",
-    slug: "one-horse-town",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Renaud Lavency",
-    slug: "renaud-lavency",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Raúl Gil",
-    slug: "raúl-gil",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Luna Buschinelli",
-    slug: "luna-buschinelli",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Marcelo Anache",
-    slug: "marcelo-anache",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Patrycja Krawczyk",
-    slug: "patrycja-krawczyk",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Sergey Serebrennikov",
-    slug: "sergey-serebrennikov",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Iain Macarthur",
-    slug: "iain-macarthur",
-    country: "United Kingdom",
-    info:
-      "I’m a freelance illustrator based in London. Mostly work in Black and white, my illustrations are a mixture of intricate detail and whimsical patterns inspired from symmetrical tattoos and Asian textile. sometimes i experiment with random cartoon drawing and soft pencil portrait drawings with my pattern style.",
-    userpic:
-      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/one/as.jpg",
-    website: "https://www.iainmacarthur.com/",
-    shop: "https://www.inprnt.com/gallery/iainmacarthur/",
-    social: {
-      instagram: "https://www.instagram.com/iain.macarthur/",
-      facebook: "https://www.facebook.com/IainMcarthur/",
-      twitter: "https://twitter.com/iainmacarthur",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Dima Krab",
-    slug: "dima-krab",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Adnan Ali",
-    slug: "adnan-ali",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    name: "Dani Blázquez",
-    slug: "dani-blázquez",
-    country: "",
-    info: "",
-    userpic: "",
-    website: "",
-    shop: "",
-    social: {
-      instagram: "",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
       foundation: "",
       superrare: "",
       makersplace: "",
