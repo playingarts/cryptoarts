@@ -8,6 +8,11 @@ import Chevron from "../Icons/Chevron";
 import Button from "../Button";
 import Line from "../Line";
 import Grid from "../Grid";
+import Twitter from "../Icons/Twitter";
+import { socialLinks } from "../../source/consts";
+import Instagram from "../Icons/Instagram";
+import Facebook from "../Icons/Facebook";
+import Behance from "../Icons/Behance";
 
 const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   return (
@@ -169,21 +174,38 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
         >
           {[
             {
-              Icon: Discord,
-              href: "discort",
+              Icon: Twitter,
+              href: socialLinks.twitter,
             },
             {
-              Icon: Pinterest,
-              href: "pinterest",
+              Icon: Instagram,
+              href: socialLinks.instagram,
+            },
+            {
+              Icon: Facebook,
+              href: socialLinks.facebook,
+            },
+            {
+              Icon: Behance,
+              href: socialLinks.behance,
             },
             {
               Icon: Youtube,
-              href: "youtube",
+              href: socialLinks.youtube,
+            },
+            {
+              Icon: Pinterest,
+              href: socialLinks.pinterest,
+            },
+            {
+              Icon: Discord,
+              href: socialLinks.discord,
             },
           ].map(({ Icon, href }) => (
             <Button
               key={href}
               component={Link}
+              target="_blank"
               href={href}
               Icon={Icon}
               css={{ opacity: 0.5 }}
