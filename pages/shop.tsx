@@ -21,6 +21,8 @@ import ComposedFaq from "../components/_composed/Faq";
 import LatestRelease from "../components/LatestRelease";
 import NFTHolder from "../components/NFTHolder";
 
+const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
+
 type ProductListsTypes = "sheet" | "deck" | "bundle";
 
 const Content: FC = () => {
@@ -31,17 +33,32 @@ const Content: FC = () => {
     return null;
   }
 
-  const { sheet: sheets, deck: decks, bundle: bundles } = products.reduce<
-    Record<ProductListsTypes, GQL.Product[]>
+  const {
+    sheet: sheets,
+    deck: decks,
+    bundle: bundles,
+    latestRelease,
+  } = products.reduce<
+    Record<ProductListsTypes, GQL.Product[]> & { latestRelease?: GQL.Product }
   >(
     (lists, product) => ({
       ...lists,
-      [product.type]: [...lists[product.type as ProductListsTypes], product],
+      ...(latestReleaseSlug &&
+      product.type === "deck" &&
+      product.deck &&
+      product.deck.slug === latestReleaseSlug
+        ? {
+            latestRelease: product,
+          }
+        : {
+            [product.type]: [
+              ...lists[product.type as ProductListsTypes],
+              product,
+            ],
+          }),
     }),
     { sheet: [], deck: [], bundle: [] }
   );
-
-  const cryptoDeck = decks.find(({ deck }) => deck && deck.slug === "crypto");
 
   return (
     <Fragment>
@@ -76,21 +93,21 @@ const Content: FC = () => {
           background: theme.colors.page_bg_gray,
         })}
       >
-        {cryptoDeck && (
+        {latestRelease && (
           <Grid css={(theme) => ({ marginBottom: theme.spacing(3) })}>
             <LatestRelease
               css={{ gridColumn: "span 9" }}
-              price={cryptoDeck.price}
+              price={latestRelease.price}
               ButtonProps={{
-                onClick: () => addItem(cryptoDeck._id),
+                onClick: () => addItem(latestRelease._id),
               }}
             />
 
-            {cryptoDeck.deck && (
+            {latestRelease.deck && (
               <NFTHolder
                 css={{ gridColumn: "span 3" }}
-                deckId={cryptoDeck.deck._id}
-                productId={cryptoDeck._id}
+                deckId={latestRelease.deck._id}
+                productId={latestRelease._id}
               />
             )}
           </Grid>
