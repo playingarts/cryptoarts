@@ -101,7 +101,7 @@ const Content: FC = () => {
             rowGap: theme.spacing(3),
           })}
         >
-          {decks.map((product, index) =>
+          {decks.map(({ title: _, ...product }, index) =>
             product.status === "instock" ? (
               <Fragment key={product._id}>
                 {index === 2 && (
