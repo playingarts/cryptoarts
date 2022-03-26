@@ -15,9 +15,9 @@ export let products = [
     status: "instock",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero-01.jpg",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero-2.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero-02.jpg",
     info: "Deck of Cards",
   },
   {
@@ -29,9 +29,9 @@ export let products = [
     status: "instock",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one-01.jpg",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one-02.jpg",
     info: "Deck of Cards",
   },
   {
@@ -43,9 +43,9 @@ export let products = [
     status: "instock",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-two.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-two-01.jpg",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-two.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-two-02.jpg",
     info: "Deck of Cards",
   },
   {
@@ -57,9 +57,9 @@ export let products = [
     status: "instock",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-three.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-three-01.jpg",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-three.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-three-02.jpg",
     info: "Deck of Cards",
   },
   {
@@ -71,9 +71,9 @@ export let products = [
     status: "soldout",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special-01.jpg",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special-02.jpg",
     info: "Deck of Cards",
   },
   {
@@ -85,9 +85,9 @@ export let products = [
     status: "instock",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i-01.jpg",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i-02.jpg",
     info: "Deck of Cards",
   },
   {
@@ -99,9 +99,9 @@ export let products = [
     status: "instock",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii-01.jpg",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii-02.jpg",
     info: "Deck of Cards",
   },
   {
