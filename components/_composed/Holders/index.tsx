@@ -11,6 +11,7 @@ import Line from "../../Line";
 import Stat from "../../Stat";
 import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
 import Text from "../../Text";
+import { socialLinks } from "../../../source/consts";
 
 interface Props extends StatBlockProps {
   deck: string;
@@ -27,7 +28,11 @@ const ComposedHolders: FC<Props> = ({ deck, ...props }) => {
     <StatBlock
       {...props}
       title="holders"
-      action={{ children: "Leaderboard", href: "/" }}
+      action={{
+        children: "Leaderboard",
+        href: socialLinks.leaderboard,
+        target: "_blank",
+      }}
     >
       <div css={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <Grid css={{ gridTemplateColumns: "1fr 1fr" }}>

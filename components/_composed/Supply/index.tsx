@@ -5,6 +5,7 @@ import Charts from "../../Charts";
 import Line from "../../Line";
 import Stat from "../../Stat";
 import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
+import { socialLinks } from "../../../source/consts";
 
 interface Props extends StatBlockProps {
   deck: string;
@@ -48,7 +49,11 @@ const ComposedSupply: FC<Props> = ({ deck, ...props }) => {
     <StatBlock
       {...props}
       title="supply"
-      action={{ href: "/", children: "All tokens" }}
+      action={{
+        href: socialLinks.allTokens,
+        children: "All tokens",
+        target: "_blank",
+      }}
     >
       <div
         css={{

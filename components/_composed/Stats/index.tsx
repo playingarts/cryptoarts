@@ -2,6 +2,7 @@ import { FC, Fragment } from "react";
 import { useOpensea } from "../../../hooks/opensea";
 import Stat from "../../Stat";
 import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
+import { socialLinks } from "../../../source/consts";
 
 interface Props extends StatBlockProps {
   deck: string;
@@ -42,7 +43,11 @@ const ComposedStats: FC<Props> = ({ deck, ...props }) => {
     <StatBlock
       {...props}
       title="Stats"
-      action={{ children: "All stats", href: "/" }}
+      action={{
+        children: "All stats",
+        href: socialLinks.allStats,
+        target: "_blank",
+      }}
     >
       {opensea && <Content {...opensea.stats} />}
     </StatBlock>
