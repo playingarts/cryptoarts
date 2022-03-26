@@ -14,7 +14,6 @@ import ShopCheckoutItem, {
   Props as CheckoutItemProps,
 } from "../components/Shop/CheckoutItem";
 import EurToUsd from "../components/EurToUsd";
-import ComposedGallery from "../components/_composed/Gallery";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Arrowed from "../components/Arrowed";
 import ComposedFaq from "../components/_composed/Faq";
@@ -248,16 +247,6 @@ const Content: FC = () => {
                 </div>
               </div>
             </Grid>
-          </Layout>
-
-          <Layout
-            css={(theme) => ({
-              background: theme.colors.light_gray,
-              paddingTop: theme.spacing(9),
-              paddingBottom: theme.spacing(9),
-            })}
-          >
-            <ComposedGallery />
           </Layout>
         </Fragment>
       )}
