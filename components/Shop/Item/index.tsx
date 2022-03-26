@@ -50,14 +50,14 @@ const ShopItem: FC<Props> = ({
           backgroundCss,
           { transition: theme.transitions.fast("opacity") },
         ]}
-        style={{ backgroundImage: `url(${image}` }}
+        style={{ backgroundImage: `url(${image})` }}
       />
       <div
         css={(theme) => [
           backgroundCss,
           { transition: theme.transitions.fast("opacity") },
         ]}
-        style={{ backgroundImage: `url(${image2}`, opacity: +hovered }}
+        style={{ backgroundImage: `url(${image2})`, opacity: +hovered }}
       />
 
       <div
