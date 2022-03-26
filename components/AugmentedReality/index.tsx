@@ -8,13 +8,14 @@ import Line from "../Line";
 import Link from "../Link";
 import StatBlock from "../StatBlock";
 import Text from "../Text";
-import Hand from "./hand.png";
 
 const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => (
   <StatBlock
     {...props}
     css={(theme) => ({
-      background: `url(${Hand.src}) 100% 100% no-repeat`,
+      background:
+        "url(https://s3.amazonaws.com/img.playingarts.com/www/static/ar_app.jpg) bottom right no-repeat",
+      backgroundSize: "50%",
       backgroundColor: theme.colors.page_bg_white,
       color: theme.colors.text_title_dark,
       padding: 0,
