@@ -3,7 +3,6 @@ import Button, { Props as ButtonProps } from "../Button";
 import Eth from "../Icons/Eth";
 import StatBlock, { Props as StatBlockProps } from "../StatBlock";
 import Text from "../Text";
-import background from "./background.png";
 
 interface Props
   extends Omit<StatBlockProps, "title" | "action">,
@@ -15,7 +14,8 @@ const LatestRelease: FC<Props> = ({ price, ButtonProps, ...props }) => (
   <StatBlock
     {...props}
     css={(theme) => ({
-      background: `#000 url(${background.src}) 100% 100% no-repeat`,
+      background: `#000 url(https://s3.amazonaws.com/img.playingarts.com/www/shop/crypto_bg.png) bottom right no-repeat`,
+      backgroundSize: "85%",
       color: theme.colors.text_title_light,
       position: "relative",
     })}
