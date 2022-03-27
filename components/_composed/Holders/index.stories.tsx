@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Holders from ".";
 import { HoldersQuery } from "../../../hooks/opensea";
+import { mockDeck } from "../../../mocks/deck";
 
 export default {
   title: "Composed/Holders",
@@ -13,7 +14,7 @@ const Template: ComponentStory<typeof Holders> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  deck: "deck",
+  contract: mockDeck.openseaContract,
 };
 Primary.parameters = {
   apolloClient: {
@@ -23,16 +24,14 @@ Primary.parameters = {
         request: {
           query: HoldersQuery,
           variables: {
-            deck: Primary.args.deck,
+            contract: Primary.args.contract,
           },
         },
         result: {
           data: {
             holders: {
-              fullDeck: [
-                { jokers: true, user: "" },
-                { jokers: false, user: "" },
-              ],
+              fullDecks: ["1", "2"],
+              fullDecksWithJokers: ["1"],
               spades: ["1", "2"],
               hearts: ["1"],
               diamonds: ["1", "2", "3", "4"],

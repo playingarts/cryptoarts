@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Supply from ".";
 import { OpenseaQuery } from "../../../hooks/opensea";
+import { mockDeck } from "../../../mocks/deck";
 
 export default {
   title: "Composed/Supply",
@@ -11,7 +12,7 @@ const Template: ComponentStory<typeof Supply> = (args) => <Supply {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  deck: "deck",
+  collection: mockDeck.openseaCollection,
 };
 Primary.parameters = {
   apolloClient: {
@@ -21,7 +22,7 @@ Primary.parameters = {
         request: {
           query: OpenseaQuery,
           variables: {
-            deck: Primary.args.deck,
+            collection: Primary.args.collection,
           },
         },
         result: {
@@ -50,7 +51,7 @@ NoResult.parameters = {
         request: {
           query: OpenseaQuery,
           variables: {
-            deck: Primary.args.deck,
+            collection: Primary.args.collection,
           },
         },
         result: {

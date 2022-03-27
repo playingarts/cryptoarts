@@ -121,8 +121,11 @@ const Content: FC<{
         <CardList deckId={deck._id} />
       </Layout>
 
-      {deck.openseaCollection && !artistId && (
-        <ComposedPace collection={deck.openseaCollection} />
+      {deck.openseaCollection && deck.openseaContract && !artistId && (
+        <ComposedPace
+          collection={deck.openseaCollection}
+          contract={deck.openseaContract}
+        />
       )}
 
       <Layout

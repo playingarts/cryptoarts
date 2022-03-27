@@ -8,10 +8,11 @@ import ComposedStats from "../Stats";
 import ComposedSupply from "../Supply";
 
 interface Props {
-  collection: string;
+  collection: NonNullable<GQL.Deck["openseaCollection"]>;
+  contract: NonNullable<GQL.Deck["openseaContract"]>;
 }
 
-const ComposedPace: FC<Props> = ({ collection }) => {
+const ComposedPace: FC<Props> = ({ collection, contract }) => {
   return (
     <Layout
       css={(theme) => ({
@@ -61,7 +62,7 @@ const ComposedPace: FC<Props> = ({ collection }) => {
             background: theme.colors.dark_gray,
             color: theme.colors.text_title_light,
           })}
-          deck={collection}
+          collection={collection}
         />
 
         <ComposedHolders
@@ -70,7 +71,7 @@ const ComposedPace: FC<Props> = ({ collection }) => {
             background: theme.colors.dark_gray,
             color: theme.colors.text_title_light,
           })}
-          deck={collection}
+          contract={contract}
         />
 
         <ComposedStats
@@ -79,7 +80,7 @@ const ComposedPace: FC<Props> = ({ collection }) => {
             color: theme.colors.text_title_light,
             gridColumn: "10 / span 3",
           })}
-          deck={collection}
+          collection={collection}
         />
       </Grid>
     </Layout>

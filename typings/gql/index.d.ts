@@ -65,12 +65,12 @@ interface QueryConvertEurToUsdArgs {
 
 
 interface QueryOpenseaArgs {
-  deck: Scalars['ID'];
+  collection: Scalars['String'];
 }
 
 
 interface QueryHoldersArgs {
-  deck: Scalars['ID'];
+  contract: Scalars['String'];
 }
 
 
@@ -251,20 +251,12 @@ interface Stats {
 
 interface Holders {
   __typename?: 'Holders';
-  fullDeck: Array<Holder>;
+  fullDecks: Array<Scalars['String']>;
+  fullDecksWithJokers: Array<Scalars['String']>;
   spades: Array<Scalars['String']>;
   diamonds: Array<Scalars['String']>;
   hearts: Array<Scalars['String']>;
   clubs: Array<Scalars['String']>;
-}
-
-interface Holder {
-  __typename?: 'Holder';
-  address?: Maybe<Scalars['String']>;
-  jokers?: Maybe<Scalars['Boolean']>;
-  profile_img_url?: Maybe<Scalars['String']>;
-  profile_url?: Maybe<Scalars['String']>;
-  user?: Maybe<Scalars['String']>;
 }
 
 interface Deal {
@@ -373,7 +365,6 @@ export type ResolversTypes = {
   PrimaryAssetContract: ResolverTypeWrapper<PrimaryAssetContract>;
   Stats: ResolverTypeWrapper<Stats>;
   Holders: ResolverTypeWrapper<Holders>;
-  Holder: ResolverTypeWrapper<Holder>;
   Deal: ResolverTypeWrapper<Deal>;
 };
 
@@ -396,7 +387,6 @@ export type ResolversParentTypes = {
   PrimaryAssetContract: PrimaryAssetContract;
   Stats: Stats;
   Holders: Holders;
-  Holder: Holder;
   Deal: Deal;
 };
 
@@ -412,8 +402,8 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
-  opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'deck'>>;
-  holders?: Resolver<ResolversTypes['Holders'], ParentType, ContextType, RequireFields<QueryHoldersArgs, 'deck'>>;
+  opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'collection'>>;
+  holders?: Resolver<ResolversTypes['Holders'], ParentType, ContextType, RequireFields<QueryHoldersArgs, 'contract'>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deck'>>;
   dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
 };
@@ -589,20 +579,12 @@ export type StatsResolvers<ContextType = { req: Request, res: Response }, Parent
 };
 
 export type HoldersResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Holders'] = ResolversParentTypes['Holders']> = {
-  fullDeck?: Resolver<Array<ResolversTypes['Holder']>, ParentType, ContextType>;
+  fullDecks?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  fullDecksWithJokers?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   spades?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   diamonds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   hearts?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   clubs?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type HolderResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Holder'] = ResolversParentTypes['Holder']> = {
-  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  jokers?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  profile_img_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  profile_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  user?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -629,7 +611,6 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   PrimaryAssetContract?: PrimaryAssetContractResolvers<ContextType>;
   Stats?: StatsResolvers<ContextType>;
   Holders?: HoldersResolvers<ContextType>;
-  Holder?: HolderResolvers<ContextType>;
   Deal?: DealResolvers<ContextType>;
 };
 

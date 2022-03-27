@@ -14,11 +14,11 @@ import Text from "../../Text";
 import { socialLinks } from "../../../source/consts";
 
 interface Props extends StatBlockProps {
-  deck: string;
+  contract: NonNullable<GQL.Deck["openseaContract"]>;
 }
 
-const ComposedHolders: FC<Props> = ({ deck, ...props }) => {
-  const { holders } = useHolders({ variables: { deck } });
+const ComposedHolders: FC<Props> = ({ contract, ...props }) => {
+  const { holders } = useHolders({ variables: { contract } });
 
   if (!holders) {
     return null;
@@ -38,11 +38,11 @@ const ComposedHolders: FC<Props> = ({ deck, ...props }) => {
         <Grid css={{ gridTemplateColumns: "1fr 1fr" }}>
           <Stat
             label="54-card deck (incl jokers)"
-            value={holders.fullDeck.filter(({ jokers }) => !!jokers).length}
+            value={holders.fullDecksWithJokers.length}
           />
           <Stat
             label="52-card deck (excl jokers)"
-            value={holders.fullDeck.length}
+            value={holders.fullDecks.length}
           />
         </Grid>
         <Text

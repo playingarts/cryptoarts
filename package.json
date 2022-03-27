@@ -31,7 +31,6 @@
     "@emotion/serialize": "^1.0.2",
     "@graphql-tools/stitch": "<8",
     "apollo-link-schema": "^1.2.5",
-    "aws-sdk": "^2.1074.0",
     "chalk": "^4",
     "colord": "^2.9.2",
     "date-fns": "^2.28.0",

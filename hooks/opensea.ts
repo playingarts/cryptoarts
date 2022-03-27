@@ -1,8 +1,8 @@
 import { gql, QueryHookOptions, useQuery } from "@apollo/client";
 
 export const OpenseaQuery = gql`
-  query Opensea($deck: ID!) {
-    opensea(deck: $deck) {
+  query Opensea($collection: String!) {
+    opensea(collection: $collection) {
       stats {
         num_owners
         total_volume
@@ -14,12 +14,10 @@ export const OpenseaQuery = gql`
 `;
 
 export const HoldersQuery = gql`
-  query Holders($deck: ID!) {
-    holders(deck: $deck) {
-      fullDeck {
-        jokers
-        user
-      }
+  query Holders($contract: String!) {
+    holders(contract: $contract) {
+      fullDecks
+      fullDecksWithJokers
       spades
       clubs
       hearts

@@ -1,22 +1,11 @@
 import { gql } from "@apollo/client";
-import S3 from "aws-sdk/clients/s3";
 import GraphQLJSON from "graphql-type-json";
 import Web3 from "web3";
 import { OpenSeaPort, Network } from "opensea-js";
 import memoizee from "memoizee";
+import { CardSuits } from "../../enums";
 
-const {
-  FULL_DECK_HOLDERS_FILE_NAME = "",
-  DIAMONDS_SET_OWNERS_FILE_NAME = "",
-  CLUBS_SET_OWNERS_FILE_NAME = "",
-  HEARTS_SET_OWNERS_FILE_NAME = "",
-  SPADES_SET_OWNERS_FILE_NAME = "",
-  S3_BUCKET: Bucket = "",
-  S3_KEY: accessKeyId = "",
-  S3_SECRET: secretAccessKey = "",
-  OPENSEA_KEY: apiKey = "",
-} = process.env;
-const s3Client = new S3({ accessKeyId, secretAccessKey });
+const { OPENSEA_KEY: apiKey = "" } = process.env;
 const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io");
 const seaport = new OpenSeaPort(provider, {
   networkName: Network.Main,
@@ -25,6 +14,9 @@ const seaport = new OpenSeaPort(provider, {
 
 interface Asset {
   token_id: string;
+  owner: {
+    address: string;
+  };
   sell_orders: {
     base_price: string;
   }[];
@@ -59,7 +51,7 @@ const getAssetsRaw = (
       return getAssetsRaw(contract, allAssets, next);
     })
     .catch((error) => {
-      console.log("Failed to get OpenSea Assets:", error);
+      console.error("Failed to get OpenSea Assets:", error);
 
       return new Promise<Asset[]>((resolve) =>
         setTimeout(
@@ -118,18 +110,99 @@ const getAssets = memoizee(
   }
 );
 
-const readKey: <T = GQL.Holder[]>(Key: string) => Promise<T> = (Key) =>
-  new Promise((resolve) =>
-    s3Client.getObject({ Bucket, Key }, (error, data) => {
-      if (error || !data.Body) {
-        throw error;
+type CardSuitsType = CardSuits.s | CardSuits.c | CardSuits.h | CardSuits.d;
+
+const getHolders = async (contract: string) => {
+  const assets = await getAssets(contract);
+
+  const holders = assets.reduce<
+    Record<string, { suit: CardSuitsType; value: string; tokens: string[] }[]>
+  >((data, { owner: { address }, traits, token_id }) => {
+    if (!data[address]) {
+      data[address] = [];
+    }
+
+    const suitTrait = traits.find(
+      ({ trait_type }) => trait_type === "Suit" || trait_type === "Color"
+    );
+    const valueTrait = traits.find(({ trait_type }) => trait_type === "Value");
+
+    if (!suitTrait || !valueTrait) {
+      return data;
+    }
+
+    const exists = data[address].find(
+      ({ suit, value }) =>
+        suit === suitTrait.value.toLowerCase() &&
+        value === valueTrait.value.toLowerCase()
+    );
+
+    if (!exists) {
+      data[address].push({
+        suit: suitTrait.value.toLowerCase() as CardSuitsType,
+        value: valueTrait.value.toLowerCase(),
+        tokens: [token_id],
+      });
+    } else {
+      exists.tokens.push(token_id);
+    }
+
+    return data;
+  }, {});
+
+  const deckHolders = Object.entries(holders).reduce<{
+    fullDecks: string[];
+    fullDecksWithJokers: string[];
+  }>(
+    (data, [owner, cards]) => {
+      if (cards.length >= 52) {
+        if (cards.length === 54) {
+          data.fullDecksWithJokers.push(owner);
+        }
+
+        return {
+          ...data,
+          fullDecks: [...data.fullDecks, owner],
+        };
       }
 
-      const fullDeckHolders = JSON.parse(data.Body.toString());
-
-      resolve(fullDeckHolders);
-    })
+      return data;
+    },
+    { fullDecks: [], fullDecksWithJokers: [] }
   );
+
+  const suitHolders = Object.entries(holders).reduce<
+    Record<CardSuitsType, string[]>
+  >(
+    (data, [owner, cards]) => {
+      const suits = cards.reduce<Record<CardSuitsType, number>>(
+        (data, { suit }) => ({
+          ...data,
+          [suit]: data[suit] + 1,
+        }),
+        { spades: 0, diamonds: 0, clubs: 0, hearts: 0 }
+      );
+
+      return {
+        spades: [...data.spades, ...(suits.spades === 13 ? [owner] : [])],
+        diamonds: [...data.diamonds, ...(suits.diamonds === 13 ? [owner] : [])],
+        clubs: [...data.clubs, ...(suits.clubs === 13 ? [owner] : [])],
+        hearts: [...data.hearts, ...(suits.hearts === 13 ? [owner] : [])],
+      };
+    },
+    {
+      spades: [],
+      diamonds: [],
+      clubs: [],
+      hearts: [],
+    }
+  );
+
+  return {
+    ...deckHolders,
+    ...suitHolders,
+  };
+};
 
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
@@ -143,23 +216,17 @@ export const resolvers: GQL.Resolvers = {
     stats: ({ stats = {} }) => stats,
   },
   Query: {
-    opensea: async (_, { deck }) => {
-      const { collection } = await (
-        await fetch(`https://api.opensea.io/api/v1/collection/${deck}`)
+    opensea: async (_, { collection }) => {
+      const response = await (
+        await fetch(`https://api.opensea.io/api/v1/collection/${collection}`)
       ).json();
 
       return {
-        ...collection,
-        id: deck,
+        ...response.collection,
+        id: collection,
       };
     },
-    holders: async () => ({
-      fullDeck: await readKey(FULL_DECK_HOLDERS_FILE_NAME),
-      spades: await readKey(SPADES_SET_OWNERS_FILE_NAME),
-      hearts: await readKey(HEARTS_SET_OWNERS_FILE_NAME),
-      diamonds: await readKey(DIAMONDS_SET_OWNERS_FILE_NAME),
-      clubs: await readKey(CLUBS_SET_OWNERS_FILE_NAME),
-    }),
+    holders: (_, { contract }) => getHolders(contract),
   },
 };
 
@@ -167,8 +234,8 @@ export const typeDefs = gql`
   scalar JSON
 
   type Query {
-    opensea(deck: ID!): Opensea!
-    holders(deck: ID!): Holders!
+    opensea(collection: String!): Opensea!
+    holders(contract: String!): Holders!
   }
 
   type Opensea {
@@ -264,18 +331,11 @@ export const typeDefs = gql`
   }
 
   type Holders {
-    fullDeck: [Holder!]!
+    fullDecks: [String!]!
+    fullDecksWithJokers: [String!]!
     spades: [String!]!
     diamonds: [String!]!
     hearts: [String!]!
     clubs: [String!]!
-  }
-
-  type Holder {
-    address: String
-    jokers: Boolean
-    profile_img_url: String
-    profile_url: String
-    user: String
   }
 `;
