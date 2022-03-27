@@ -9,28 +9,28 @@ import {
   useState,
 } from "react";
 import { NextPage } from "next";
-import { useDeck } from "../../hooks/deck";
-import Layout from "../../components/Layout";
-import { withApollo } from "../../source/apollo";
+import { useDeck } from "../hooks/deck";
+import Layout from "../components/Layout";
+import { withApollo } from "../source/apollo";
 import { useRouter } from "next/router";
-import DeckBlock from "../../components/DeckBlock";
-import BlockTitle from "../../components/BlockTitle";
-import Text from "../../components/Text";
-import Line from "../../components/Line";
-import DeckNav from "../../components/DeckNav";
-import Grid from "../../components/Grid";
-import Esquire from "../../components/Icons/Esquire";
-import FastCompany from "../../components/Icons/FastCompany";
-import CreativeBloq from "../../components/Icons/CreativeBloq";
-import DigitalArts from "../../components/Icons/DigitalArts";
-import Quote from "../../components/Quote";
+import DeckBlock from "../components/DeckBlock";
+import BlockTitle from "../components/BlockTitle";
+import Text from "../components/Text";
+import Line from "../components/Line";
+import DeckNav from "../components/DeckNav";
+import Grid from "../components/Grid";
+import Esquire from "../components/Icons/Esquire";
+import FastCompany from "../components/Icons/FastCompany";
+import CreativeBloq from "../components/Icons/CreativeBloq";
+import DigitalArts from "../components/Icons/DigitalArts";
+import Quote from "../components/Quote";
 import throttle from "just-throttle";
-import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
-import ComposedCardContent from "../../components/_composed/CardContent";
-import ComposedPace from "../../components/_composed/Pace";
-import CardList from "../../components/Card/List";
-import { Sections } from "../../source/enums";
-import AugmentedReality from "../../components/AugmentedReality";
+import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
+import ComposedCardContent from "../components/_composed/CardContent";
+import ComposedPace from "../components/_composed/Pace";
+import CardList from "../components/Card/List";
+import { Sections } from "../source/enums";
+import AugmentedReality from "../components/AugmentedReality";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -176,7 +176,7 @@ const Content: FC<{
   );
 });
 
-const Deck: NextPage = () => {
+const Page: NextPage = () => {
   const {
     query: { cardId, deckId },
   } = useRouter();
@@ -229,4 +229,4 @@ const Deck: NextPage = () => {
   );
 };
 
-export default withApollo(Deck);
+export default withApollo(Page);

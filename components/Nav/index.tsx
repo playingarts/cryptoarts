@@ -31,7 +31,7 @@ const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {decks.map(({ slug, short }) => (
         <Link
           key={slug}
-          href={`/decks/${slug}`}
+          href={`/${slug}`}
           activeCss={(theme) => ({
             color: theme.colors.text_subtitle_light,
           })}

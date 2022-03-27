@@ -3,10 +3,11 @@ import next from "next";
 import redirector from "redirect-https";
 import { expressLogger } from "./logger";
 import { connect } from "./mongoose";
+import routes from "./routes";
 
 const { PORT = "3000" } = process.env;
 const app = next({ dev: process.env.NODE_ENV === "development" });
-const handle = app.getRequestHandler();
+const handler = routes.getRequestHandler(app);
 
 app
   .prepare()
@@ -20,6 +21,6 @@ app
       server.use(redirector({ trustProxy: true }));
     }
 
-    server.all("*", (req, res) => handle(req, res));
+    server.use(handler);
     server.listen(PORT);
   });
