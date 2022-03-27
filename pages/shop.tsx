@@ -118,7 +118,7 @@ const Content: FC = () => {
             rowGap: theme.spacing(3),
           })}
         >
-          {decks.map(({ title: _, ...product }, index) =>
+          {decks.map(({ title, ...product }, index) =>
             product.status === "instock" ? (
               <Fragment key={product._id}>
                 {index === 2 && (
@@ -157,7 +157,7 @@ const Content: FC = () => {
             ) : (
               <Fragment>
                 <ShopSoldOut
-                  title="Special Edition"
+                  title={title}
                   css={{ gridColumn: "2 / span 4", alignSelf: "center" }}
                 />
                 {product.deck && (
