@@ -31,6 +31,7 @@ import ComposedPace from "../components/_composed/Pace";
 import CardList from "../components/Card/List";
 import { Sections } from "../source/enums";
 import AugmentedReality from "../components/AugmentedReality";
+import Error from "next/error";
 
 const Content: FC<{
   galleryRef: RefObject<HTMLElement>;
@@ -43,8 +44,12 @@ const Content: FC<{
   } = useRouter();
   const { deck, loading } = useDeck({ variables: { slug: deckId } });
 
-  if (loading || !deck) {
+  if (loading) {
     return null;
+  }
+
+  if (!deck) {
+    return <Error statusCode={404} />;
   }
 
   return (
