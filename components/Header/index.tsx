@@ -139,10 +139,7 @@ const Header: FC<Props> = ({
             <Text
               variant="h5"
               component={Link}
-              href={{
-                pathname: `/decks/[deckId]`,
-                query: { deckId },
-              }}
+              href={`/${deckId}`}
               css={(theme) => ({
                 position: "absolute",
                 transform: "translateY(0)",

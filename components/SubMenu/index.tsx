@@ -42,7 +42,7 @@ const SubMenu: FC<Props> = ({ currentdeck, ...props }) => {
         {decks &&
           decks.map((deck, index) => {
             return (
-              <Link href={`/decks/${deck.slug}`} key={deck.slug}>
+              <Link href={`/${deck.slug}`} key={deck.slug}>
                 <a
                   css={(theme) => ({
                     height: "100%",

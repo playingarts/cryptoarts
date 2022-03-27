@@ -40,7 +40,7 @@ const Content: FC<{
   deckNavRef: RefObject<HTMLElement>;
 }> = memo(({ galleryRef, deckRef, cardsRef, deckNavRef }) => {
   const {
-    query: { cardId, deckId, section },
+    query: { artistId, deckId, section },
   } = useRouter();
   const { deck, loading } = useDeck({ variables: { slug: deckId } });
 
@@ -54,18 +54,18 @@ const Content: FC<{
 
   return (
     <Fragment>
-      {typeof cardId === "string" && (
+      {typeof artistId === "string" && (
         <ComposedCardContent
           css={(theme) => ({
             background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
             color: theme.colors.page_bg_light,
           })}
           deck={deck}
-          cardId={cardId}
+          artistId={artistId}
         />
       )}
 
-      {!cardId && (
+      {!artistId && (
         <Layout
           css={(theme) => ({
             background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
@@ -109,7 +109,7 @@ const Content: FC<{
       >
         <Grid>
           <BlockTitle
-            title={cardId ? deck.title : "Cards"}
+            title={artistId ? deck.title : "Cards"}
             subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
             css={(theme) => ({
               gridColumn: "2 / span 10",
@@ -121,7 +121,7 @@ const Content: FC<{
         <CardList deckId={deck._id} />
       </Layout>
 
-      {deck.openseaCollection && !cardId && (
+      {deck.openseaCollection && !artistId && (
         <ComposedPace collection={deck.openseaCollection} />
       )}
 

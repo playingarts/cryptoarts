@@ -13,7 +13,7 @@ const JokerCard: FC<
   <Link
     {...props}
     href={{
-      pathname: "/decks/[deckId]",
+      pathname: "/[deckId]",
       query: { deckId, cardValue: "joker", cardSuit: suit },
     }}
   >

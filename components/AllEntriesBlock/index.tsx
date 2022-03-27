@@ -107,7 +107,7 @@ const AllEntriesBlock: FC<Props> = ({ cards, deckId, ...props }) => {
               <Link
                 key={suit}
                 href={{
-                  pathname: "/decks/[deckId]",
+                  pathname: "/[deckId]",
                   query: {
                     deckId,
                     cardValue,

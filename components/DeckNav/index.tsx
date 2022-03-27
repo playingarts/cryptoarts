@@ -30,7 +30,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
   { links = {}, refs, ...props },
   ref
 ) => {
-  const { query } = useRouter();
+  const { query, pathname } = useRouter();
 
   const bringIntoViewHandler = (blockRef: RefObject<HTMLElement>) => () => {
     if (!blockRef.current) {
@@ -84,7 +84,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
       {refs.cardsRef && (
         <Link
           href={{
-            pathname: `/[deckId]/[section]`,
+            pathname,
             query: { ...query, section: Sections.cards },
           }}
           shallow={true}
@@ -115,7 +115,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
       {refs.deckRef && (
         <Link
           href={{
-            pathname: `/[deckId]/[section]`,
+            pathname,
             query: { ...query, section: Sections.deck },
           }}
           shallow={true}
@@ -133,7 +133,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
       {refs.galleryRef && (
         <Link
           href={{
-            pathname: `/[deckId]/[section]`,
+            pathname,
             query: { ...query, section: Sections.gallery },
           }}
           shallow={true}

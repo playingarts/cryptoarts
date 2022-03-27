@@ -15,6 +15,7 @@ export const CardsQuery = gql`
         info
         country
         website
+        slug
         social {
           website
           instagram

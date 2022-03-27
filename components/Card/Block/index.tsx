@@ -68,12 +68,7 @@ const CardBlock: FC<Props> = ({
           </Text>
           <Text
             component={Link}
-            href={{
-              pathname: "/decks/[deckId]",
-              query: {
-                deckId: deck.slug,
-              },
-            }}
+            href={`/${deck.slug}`}
             variant="label"
             css={{ opacity: 0.5 }}
           >
@@ -89,15 +84,7 @@ const CardBlock: FC<Props> = ({
           </Quote>
           <Line spacing={3} />
 
-          <Button
-            component={Link}
-            href={{
-              pathname: "/decks/[deckId]",
-              query: {
-                deckId: deck.slug,
-              },
-            }}
-          >
+          <Button component={Link} href={`/${deck.slug}`}>
             View {deck.title}
           </Button>
         </Fragment>

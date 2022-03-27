@@ -5,10 +5,10 @@ import ComposedCardBlock from "../CardBlock";
 
 interface Props extends CardNavProps {
   deck: GQL.Deck;
-  cardId: string;
+  artistId: string;
 }
 
-const ComposedCardContent: FC<Props> = ({ cardId, deck, ...props }) => {
+const ComposedCardContent: FC<Props> = ({ artistId, deck, ...props }) => {
   const { loadCards, cards, loading } = useLoadCards();
 
   useEffect(() => {
@@ -24,7 +24,9 @@ const ComposedCardContent: FC<Props> = ({ cardId, deck, ...props }) => {
   }
 
   const card =
-    cards && cardId ? cards.find(({ _id }) => _id === cardId) : undefined;
+    cards && artistId
+      ? cards.find(({ artist }) => artist.slug === artistId)
+      : undefined;
 
   if (!card) {
     return null;
@@ -33,25 +35,15 @@ const ComposedCardContent: FC<Props> = ({ cardId, deck, ...props }) => {
   const currentCardIndex = card
     ? cards.findIndex(({ _id }) => _id === card._id)
     : -2;
-  const prevCardLink = card && cards[currentCardIndex - 1];
-  const nextCardLink = card && cards[currentCardIndex + 1];
+  const prevCard = card && cards[currentCardIndex - 1];
+  const nextCard = card && cards[currentCardIndex + 1];
 
   return (
     <CardNav
       {...props}
-      prevLink={
-        prevCardLink && {
-          pathname: `/decks/${deck.slug}`,
-          query: { cardId: prevCardLink._id },
-        }
-      }
-      nextLink={
-        nextCardLink && {
-          pathname: `/decks/${deck.slug}`,
-          query: { cardId: nextCardLink._id },
-        }
-      }
-      closeLink={`/decks/${deck.slug}`}
+      prevLink={prevCard && `/${deck.slug}/${prevCard.artist.slug}`}
+      nextLink={nextCard && `/${deck.slug}/${nextCard.artist.slug}`}
+      closeLink={`/${deck.slug}`}
     >
       <ComposedCardBlock card={card} deck={deck} />
     </CardNav>

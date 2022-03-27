@@ -42,7 +42,7 @@ const artist: GQL.Artist = {
 export const Primary = Template.bind({});
 Primary.args = {
   deck: mockDeck,
-  cardId: "cardId",
+  artistId: "artistId",
 };
 Primary.parameters = {
   apolloClient: {
@@ -74,7 +74,10 @@ Primary.parameters = {
               },
               {
                 deck: mockDeck,
-                artist,
+                artist: {
+                  ...artist,
+                  slug: Primary.args.artistId,
+                },
                 value: "",
                 _id: "cardId",
                 img:
@@ -111,7 +114,7 @@ Primary.parameters = {
 export const First = Template.bind({});
 First.args = {
   deck: mockDeck,
-  cardId: "cardId",
+  artistId: "artistId",
 };
 First.parameters = {
   apolloClient: {
@@ -129,7 +132,10 @@ First.parameters = {
             cards: [
               {
                 deck: mockDeck,
-                artist,
+                artist: {
+                  ...artist,
+                  slug: Primary.args.artistId,
+                },
                 value: "",
                 _id: "cardId",
                 img:
@@ -166,7 +172,7 @@ First.parameters = {
 export const Last = Template.bind({});
 Last.args = {
   deck: mockDeck,
-  cardId: "cardId",
+  artistId: "artistId",
 };
 Last.parameters = {
   apolloClient: {
@@ -198,7 +204,10 @@ Last.parameters = {
               },
               {
                 deck: mockDeck,
-                artist,
+                artist: {
+                  ...artist,
+                  slug: Primary.args.artistId,
+                },
                 value: "jack",
                 _id: "cardId",
                 img:
@@ -221,7 +230,7 @@ Last.parameters = {
 export const NoCard = Template.bind({});
 NoCard.args = {
   deck: mockDeck,
-  cardId: "cardId",
+  artistId: "artistId",
 };
 NoCard.parameters = {
   apolloClient: {
