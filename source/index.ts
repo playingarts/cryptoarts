@@ -21,6 +21,10 @@ app
       server.use(redirector({ trustProxy: true }));
     }
 
+    server.get("/en/*", (req, res) =>
+      res.redirect(301, req.url.replace(/^\/en/, ""))
+    );
+
     server.use(handler);
     server.listen(PORT);
   });
