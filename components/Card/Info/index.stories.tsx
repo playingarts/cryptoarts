@@ -1,5 +1,7 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import CardInfo from ".";
+import { CardQuery } from "../../../hooks/card";
+import { mockDeck } from "../../../mocks/deck";
 
 export default {
   title: "Card/Info",
@@ -19,6 +21,7 @@ Primary.args = {
     userpic: "",
     social: {},
   },
+  deck: mockDeck,
 };
 
 const TemplateBlack: ComponentStory<typeof CardInfo> = (args) => (
@@ -30,4 +33,33 @@ const TemplateBlack: ComponentStory<typeof CardInfo> = (args) => (
 export const WithPrice = TemplateBlack.bind({});
 WithPrice.args = {
   ...Primary.args,
+  deck: {
+    ...mockDeck,
+    slug: "crypto",
+  },
+  opensea: "opensea",
+  cardId: "cardId",
+};
+WithPrice.parameters = {
+  apolloClient: {
+    mocks: [
+      {
+        delay: 1000,
+        request: {
+          query: CardQuery,
+          variables: {
+            id: WithPrice.args.cardId,
+          },
+        },
+        result: {
+          data: {
+            card: {
+              _id: WithPrice.args.cardId,
+              price: "10.00",
+            },
+          },
+        },
+      },
+    ],
+  },
 };

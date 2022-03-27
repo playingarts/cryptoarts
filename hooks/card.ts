@@ -46,7 +46,7 @@ export const RandomCardsQuery = gql`
   }
 `;
 
-const CardQuery = gql`
+export const CardQuery = gql`
   query Card($id: ID!) {
     card(id: $id) {
       _id

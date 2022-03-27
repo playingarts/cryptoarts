@@ -7,29 +7,25 @@ import Line from "../../Line";
 import Bag from "../../Icons/Bag";
 import Link from "../../Link";
 import { useLoadCard } from "../../../hooks/card";
-import { useRouter } from "next/router";
 import Loader from "../../Loader";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   artist: GQL.Artist;
   deck: GQL.Deck;
   opensea?: string;
+  cardId: string;
 }
 
-const CardInfo: FC<Props> = ({ artist, deck, opensea, ...props }) => {
-  const {
-    query: { cardId },
-  } = useRouter();
-
+const CardInfo: FC<Props> = ({ artist, cardId, deck, opensea, ...props }) => {
   const { card, loadCard, loading } = useLoadCard();
 
   useEffect(() => {
-    if (deck.slug !== "crypto") {
+    if (!opensea) {
       return;
     }
 
     loadCard({ variables: { id: cardId } });
-  }, [deck.slug, cardId, loadCard]);
+  }, [opensea, cardId, loadCard]);
 
   return (
     <div {...props}>
