@@ -40,6 +40,9 @@ const Home: NextPage = () => {
           overflow: "hidden",
           paddingTop: theme.spacing(26),
           paddingBottom: theme.spacing(6.5),
+          backgroundImage:
+            "url(https://s3.amazonaws.com/img.playingarts.com/www/static/home_bg.jpg)",
+          backgroundSize: "cover",
         })}
       >
         <Grid>
