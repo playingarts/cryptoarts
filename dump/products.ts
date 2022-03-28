@@ -127,9 +127,9 @@ export let products = [
     status: "bundle",
     type: "bundle",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-bundle-2.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-02.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-bundle-2.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-02.png",
     info: "Decks: Future Editions I + II",
   },
   {
@@ -141,9 +141,9 @@ export let products = [
     status: "bundle",
     type: "bundle",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-bundle-3.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-01.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-bundle-3.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-01.png",
     info: "Decks: Editions One + Two + Three",
   },
   {

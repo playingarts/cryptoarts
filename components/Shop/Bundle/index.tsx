@@ -32,6 +32,7 @@ const ShopBundle: FC<Props> = ({
           backgroundSize: "contain",
           backgroundPosition: "50% 50%",
           backgroundRepeat: "no-repeat",
+          aspectRatio: "495/400",
           flexGrow: 1,
           minHeight: theme.spacing(10),
         })}
