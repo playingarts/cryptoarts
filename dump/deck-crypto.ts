@@ -827,7 +827,7 @@ export const cards = [
   },
 
   {
-    artist: "stu-ballinger",
+    artist: "stu-ballinger-2",
     info:
       "“An experiment in kaleidoscopic refractions, produced by forming a lens out of an array of prisms.”",
     suit: "",

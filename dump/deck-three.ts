@@ -650,7 +650,7 @@ export const cards = [
       "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/joker-3-juan-diaz-faes.jpg",
     video: "",
     opensea: "",
-    artist: "juan-diaz-faes",
+    artist: "juan-diaz-faes-2",
     suit: "blue",
     deck: "three",
     info: "",

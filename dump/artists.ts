@@ -1,6 +1,58 @@
 import { Artist } from "../source/graphql/schemas/artist";
 import { connect } from "../source/mongoose";
 
+const repeatedArtists = [
+  {
+    slug: "juan-diaz-faes",
+    name: "Juan Díaz-Faes",
+    country: "Spain",
+    info: "Draw, eats and laughs equally.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/three/bck.jpg",
+    website: "http://juandiazfaes.com/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/diazfaes/",
+      facebook: "https://www.facebook.com/juandiazfaes",
+      twitter: "https://twitter.com/diazfaes",
+      behance: "https://www.behance.net/diazfaes",
+      dribbble: "",
+      foundation: "",
+      superrare: "",
+      makersplace: "",
+      knownorigin: "",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+  {
+    slug: "stu-ballinger",
+    name: "Stu Ballinger",
+    country: "Australia",
+    info:
+      "25 year old abstract digital artist from Horsham, a small city in rural Victoria, Australia. I’ve been creating digital art for nearly a decade, after falling in love with Photoshop at 16. I create intricate and colorful artworks that provoke the imagination.",
+    userpic:
+      "https://s3.amazonaws.com/img.playingarts.com/crypto/upics/stu-ballinger.jpg",
+    website: "https://stuballinger.art/",
+    shop: "",
+    social: {
+      instagram: "https://www.instagram.com/stuballingerart/",
+      facebook: "",
+      twitter: "https://twitter.com/astronaughtyart",
+      behance: "https://www.behance.net/stuballinger",
+      dribbble: "",
+      foundation: "https://foundation.app/stuballingerart",
+      superrare: "",
+      makersplace: "https://makersplace.com/astronaughtyart/",
+      knownorigin: "https://knownorigin.io/stu-ballinger",
+      rarible: "",
+      niftygateway: "",
+      showtime: "",
+    },
+  },
+];
+
 export const artists = [
   {
     slug: "gian-wong",
@@ -21197,29 +21249,10 @@ export const artists = [
       showtime: "",
     },
   },
+  repeatedArtists.find(({ slug }) => slug === "juan-diaz-faes"),
   {
-    slug: "juan-diaz-faes",
-    name: "Juan Díaz-Faes",
-    country: "Spain",
-    info: "Draw, eats and laughs equally.",
-    userpic:
-      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/three/bck.jpg",
-    website: "http://juandiazfaes.com/",
-    shop: "",
-    social: {
-      instagram: "https://www.instagram.com/diazfaes/",
-      facebook: "https://www.facebook.com/juandiazfaes",
-      twitter: "https://twitter.com/diazfaes",
-      behance: "https://www.behance.net/diazfaes",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
+    ...repeatedArtists.find(({ slug }) => slug === "juan-diaz-faes"),
+    slug: "juan-diaz-faes-2",
   },
   {
     slug: "wes-art-studio",
@@ -26683,30 +26716,10 @@ export const artists = [
       showtime: "",
     },
   },
+  repeatedArtists.find(({ slug }) => slug === "stu-ballinger"),
   {
-    slug: "stu-ballinger",
-    name: "Stu Ballinger",
-    country: "Australia",
-    info:
-      "25 year old abstract digital artist from Horsham, a small city in rural Victoria, Australia. I’ve been creating digital art for nearly a decade, after falling in love with Photoshop at 16. I create intricate and colorful artworks that provoke the imagination.",
-    userpic:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/upics/stu-ballinger.jpg",
-    website: "https://stuballinger.art/",
-    shop: "",
-    social: {
-      instagram: "https://www.instagram.com/stuballingerart/",
-      facebook: "",
-      twitter: "https://twitter.com/astronaughtyart",
-      behance: "https://www.behance.net/stuballinger",
-      dribbble: "",
-      foundation: "https://foundation.app/stuballingerart",
-      superrare: "",
-      makersplace: "https://makersplace.com/astronaughtyart/",
-      knownorigin: "https://knownorigin.io/stu-ballinger",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
+    ...repeatedArtists.find(({ slug }) => slug === "stu-ballinger"),
+    slug: "stu-ballinger-2",
   },
   {
     slug: "bakaarts",
