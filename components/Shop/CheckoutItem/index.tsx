@@ -4,7 +4,7 @@ import Text from "../../Text";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  price: number;
+  price?: number;
   image?: string;
   info?: string | JSX.Element;
   info2?: string | JSX.Element;
@@ -94,12 +94,14 @@ const ShopCheckoutItem: FC<Props> = ({
             flexShrink: 0,
           })}
         >
-          <Text variant={priceVariant} css={{ margin: 0 }}>
-            {price.toLocaleString(undefined, {
-              style: "currency",
-              currency: "EUR",
-            })}
-          </Text>
+          {price && (
+            <Text variant={priceVariant} css={{ margin: 0 }}>
+              {price.toLocaleString(undefined, {
+                style: "currency",
+                currency: "EUR",
+              })}
+            </Text>
+          )}
           {remove && (
             <Text
               component="button"

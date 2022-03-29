@@ -65,7 +65,7 @@ const Content: FC = () => {
   const freeShippingAt = !process.env.NEXT_PUBLIC_FREE_SHIPPING_AT
     ? Infinity
     : parseFloat(process.env.NEXT_PUBLIC_FREE_SHIPPING_AT);
-  const shippingPrice = totalPrice < freeShippingAt ? 5.95 : 0;
+  const shippingPrice = 0; // totalPrice < freeShippingAt ? 5.95 : 0;
 
   totalPrice = parseFloat((totalPrice + shippingPrice).toFixed(2));
 
@@ -162,15 +162,25 @@ const Content: FC = () => {
                   )}
                 <ShopCheckoutItem
                   title="Shipping and handling"
-                  price={shippingPrice}
+                  // price={shippingPrice}
                   titleVariant="h5"
                   info={
                     <Fragment>
                       <Text css={{ opacity: 0.5 }}>
-                        Your order will be dispatched in 2 to 5 days.
-                        {freeShippingAt > 0 &&
+                        Your order will be dispatched in 2 to 5 days. Shipping
+                        costs calculated at checkout.
+                        {products.find(
+                          ({ deck }) => deck && deck.slug === "crypto"
+                        ) && Object.keys(bag).length > 1 ? (
+                          <Fragment>
+                            <br />
+                            <br />
+                            Your order will arrive in two different packages.
+                          </Fragment>
+                        ) : null}
+                        {/* {freeShippingAt > 0 &&
                           freeShippingAt !== Infinity &&
-                          ` Free delivery for orders over €${freeShippingAt}. Enjoy!`}
+                          ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
                       </Text>
                       <Text
                         variant="label"
@@ -187,7 +197,7 @@ const Content: FC = () => {
                   css={(theme) => ({ marginLeft: theme.spacing(21) })}
                 />
                 <ShopCheckoutItem
-                  title="Total (incl. taxes)"
+                  title="Subtotal (incl. taxes)"
                   price={totalPrice}
                   info2={<EurToUsd css={{ opacity: 0.5 }} eur={totalPrice} />}
                   priceVariant="h4"
@@ -211,7 +221,7 @@ const Content: FC = () => {
                     })}
                   >
                     <Text component="h6" css={{ opacity: 0.5, margin: 0 }}>
-                      Your bag total
+                      BAG SUBTOTAL
                     </Text>
                     <Text
                       variant="h4"
