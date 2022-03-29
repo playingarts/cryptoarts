@@ -177,7 +177,7 @@ const Content: FC = () => {
           )}
         </Grid>
 
-        <Grid>
+        <Grid css={(theme) => ({ marginTop: theme.spacing(12) })}>
           <div css={{ gridColumn: "2 / span 10" }}>
             <BlockTitle
               title="Bundles"
