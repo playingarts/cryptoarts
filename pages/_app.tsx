@@ -15,7 +15,7 @@ declare module "@emotion/react" {
       slow: (property: string | string[]) => string;
     };
     colors: {
-      page_bg_white: "#FFF";
+      white: "#FFFFFF";
       page_bg_light_gray: "#f2f2f2";
       page_bg_gray: "#e5e5e5";
       page_bg_dark: "#0A0A0A";
@@ -86,7 +86,7 @@ export const theme: Theme = {
         : attrs.map((attr) => `${attr} 0.25s ease`).join(", "),
   },
   colors: {
-    page_bg_white: "#FFF",
+    white: "#FFFFFF",
     page_bg_light_gray: "#f2f2f2",
     page_bg_gray: "#e5e5e5",
     page_bg_dark: "#0A0A0A",

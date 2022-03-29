@@ -1,6 +1,9 @@
+import { Theme, Interpolation } from "@emotion/react";
+import { colord } from "colord";
 import { useMetaMask } from "metamask-react";
 import { MetaMaskState } from "metamask-react/lib/metamask-context";
 import { FC } from "react";
+import { theme } from "../../pages/_app";
 import { PartialRecord } from "../../source/utils";
 import Button, { Props as ButtonProps } from "../Button";
 import Metamask from "../Icons/Metamask";
@@ -10,9 +13,13 @@ interface Props
   extends ButtonProps,
     PartialRecord<MetaMaskState["status"], string> {
   noLabel?: boolean;
+  backgroundColor: keyof typeof theme.colors;
+  textColor: keyof typeof theme.colors;
 }
 
 const MetamaskButton: FC<Props> = ({
+  textColor,
+  backgroundColor,
   connected = "Connected",
   notConnected = "Connect MetaMask",
   connecting = "Connecting",
@@ -22,92 +29,61 @@ const MetamaskButton: FC<Props> = ({
   ...props
 }) => {
   const { status, connect } = useMetaMask();
+  let { css, action, label } = {
+    css: (theme) => ({
+      backgroundColor: theme.colors[backgroundColor],
+      color: theme.colors[textColor],
+      transition: theme.transitions.fast(["opacity", "color", "background"]),
+      "&:hover": {
+        opacity: 0.9,
+      },
+    }),
+  } as {
+    css: Interpolation<Theme>;
+    label?: string;
+    action?: ButtonProps;
+  };
 
   if (status === "connected") {
-    return (
-      <Button
-        {...props}
-        Icon={Metamask}
-        css={(theme) => ({
-          background: theme.colors.green,
-          color: theme.colors.text_title_light,
-        })}
-        title={connected}
-      >
-        {!noLabel && connected}
-      </Button>
-    );
+    css = (theme) => ({
+      backgroundColor: colord(theme.colors.white).alpha(0).toRgbString(),
+      color: theme.colors[backgroundColor],
+      "&:hover": {
+        background: colord(theme.colors.white).alpha(0.1).toRgbString(),
+      },
+    });
+    label = connected;
   }
 
   if (status === "notConnected") {
-    return (
-      <Button
-        {...props}
-        Icon={Metamask}
-        css={(theme) => ({
-          background: theme.colors.orange,
-          color: theme.colors.text_title_light,
-        })}
-        onClick={connect}
-        title={notConnected}
-      >
-        {!noLabel && notConnected}
-      </Button>
-    );
+    action = {
+      onClick: connect,
+    };
+    label = notConnected;
   }
 
   if (status === "connecting") {
-    return (
-      <Button
-        {...props}
-        Icon={Metamask}
-        css={(theme) => ({
-          background: theme.colors.spades,
-          color: theme.colors.text_title_light,
-        })}
-        title={connecting}
-      >
-        {!noLabel && connecting}
-      </Button>
-    );
+    label = connecting;
   }
 
   if (status === "initializing") {
-    return (
-      <Button
-        {...props}
-        Icon={Metamask}
-        css={(theme) => ({
-          background: theme.colors.spades,
-          color: theme.colors.text_title_light,
-        })}
-        title={initializing}
-      >
-        {!noLabel && initializing}
-      </Button>
-    );
+    label = initializing;
   }
 
   if (status === "unavailable") {
-    return (
-      <Button
-        {...props}
-        Icon={Metamask}
-        css={(theme) => ({
-          background: "red",
-          color: theme.colors.text_title_light,
-        })}
-        component={Link}
-        href="https://metamask.io/download/"
-        target="_blank"
-        title={unavailable}
-      >
-        {!noLabel && unavailable}
-      </Button>
-    );
+    action = {
+      component: Link,
+      href: "https://metamask.io/download/",
+      target: "_blank",
+    };
+    label = unavailable;
   }
 
-  return null;
+  return (
+    <Button {...props} Icon={Metamask} css={css} {...action} title={status}>
+      {!noLabel && label}
+    </Button>
+  );
 };
 
 export default MetamaskButton;

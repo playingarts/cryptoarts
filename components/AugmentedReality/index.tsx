@@ -16,7 +16,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = (props) => (
       background:
         "url(https://s3.amazonaws.com/img.playingarts.com/www/static/ar_app.jpg) bottom right no-repeat",
       backgroundSize: "50%",
-      backgroundColor: theme.colors.page_bg_white,
+      backgroundColor: theme.colors.white,
       color: theme.colors.text_title_dark,
       padding: 0,
       paddingTop: theme.spacing(10),

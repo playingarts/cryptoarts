@@ -193,6 +193,8 @@ const Header: FC<Props> = ({
 
         <MetamaskButton
           noLabel={true}
+          backgroundColor={palette === "gradient" ? "dark_gray" : "white"}
+          textColor={palette === "gradient" ? "white" : "dark_gray"}
           css={(theme) => ({
             marginRight: theme.spacing(2),
           })}

@@ -38,7 +38,7 @@ const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           css={(theme) => ({
             paddingLeft: theme.spacing(2.5),
             paddingRight: theme.spacing(2.5),
-            color: theme.colors.page_bg_white,
+            color: theme.colors.white,
             textDecoration: "none",
             lineHeight: "60px",
             textTransform: "uppercase",

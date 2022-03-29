@@ -35,7 +35,14 @@ const NFTHolder: FC<Props> = ({ productId, deckId, ...props }) => {
           backgroundColor: theme.colors.dark_gray,
           color: theme.colors.text_title_light,
         })}
-        action={<MetamaskButton notConnected="Connect" unavailable="Install" />}
+        action={
+          <MetamaskButton
+            textColor="white"
+            backgroundColor="orange"
+            notConnected="Connect"
+            unavailable="Install"
+          />
+        }
         {...props}
       >
         <Text component="h4" css={{ margin: 0 }}>
