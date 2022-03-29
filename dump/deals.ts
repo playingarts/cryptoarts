@@ -2,7 +2,7 @@ import { Deal } from "../source/graphql/schemas/deal";
 import { connect } from "../source/mongoose";
 import { populateDeckId } from "./_utils";
 
-export let deals = [
+let deals = [
   {
     code: "HELLOWORLD",
     hash: "0xeE441DB569670589Dc5Bf22fDDE5Fb05DD2035a5",
@@ -16,6 +16,14 @@ export let deals = [
     deck: "crypto",
   },
 ];
+
+if (process.env.NODE_ENV === "production") {
+  try {
+    deals = require("./deals-real.json");
+  } catch (exception) {
+    console.error("Failed to get real deals.");
+  }
+}
 
 const dump = async () => {
   await connect();

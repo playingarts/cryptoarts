@@ -38,3 +38,5 @@ yarn-error.log*
 /dist
 tsconfig.tsbuildinfo
 /stories
+
+/dump/deals-real.json
