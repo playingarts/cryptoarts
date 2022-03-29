@@ -1,5 +1,5 @@
 export const socialLinks = (() => {
-  const data = process.env.NEXT_PUBLIC_SOCIAL_LINKS || "";
+  const data = process.env.NEXT_PUBLIC_SOCIAL_LINKS || "{}";
   let parsedData: object | undefined;
 
   try {

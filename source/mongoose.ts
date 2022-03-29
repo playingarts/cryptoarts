@@ -1,27 +1,29 @@
 import mongoose from "mongoose";
 
 const {
-  MONGOURL = "127.0.0.1",
+  MONGOURL = "mongodb://127.0.0.1",
   MONGODB,
   MONGOUSER,
   MONGOPASS,
-  MONGOCERT,
+  MONGOCERT = "",
 } = process.env;
 
 export const connect = async () => {
   await mongoose.connect(MONGOURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    dbName: MONGODB,
     user: MONGOUSER,
     pass: MONGOPASS,
-    ...(MONGOCERT
+    dbName: MONGODB,
+    ...(process.env.NODE_ENV === "development"
       ? {
+          tlsAllowInvalidCertificates: true,
+        }
+      : {
           sslValidate: true,
           ssl: true,
           sslCA: [MONGOCERT],
-        }
-      : {}),
+        }),
   });
 
   mongoose.set("useFindAndModify", false);
