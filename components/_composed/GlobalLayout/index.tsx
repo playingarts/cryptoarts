@@ -24,19 +24,17 @@ const ComposedGlobalLayout: FC<
   children,
 }) => {
   const {
-    query: { scrollIntoViev: queryScrollIntoView, ...query },
+    query: { scrollIntoView, scrollIntoViewBehavior, ...query },
     replace,
   } = useRouter();
 
   useEffect(() => {
-    if (!queryScrollIntoView) {
+    if (!scrollIntoView) {
       return;
     }
 
     const element = document.querySelector(
-      queryScrollIntoView instanceof Array
-        ? queryScrollIntoView[0]
-        : queryScrollIntoView
+      scrollIntoView instanceof Array ? scrollIntoView[0] : scrollIntoView
     );
 
     if (element) {
@@ -44,12 +42,18 @@ const ComposedGlobalLayout: FC<
         scroll: false,
         shallow: true,
       });
-      element.scrollIntoView({
-        behavior: "auto",
-        block: "center",
-      });
+
+      return () => {
+        element.scrollIntoView({
+          behavior:
+            scrollIntoViewBehavior === "smooth"
+              ? scrollIntoViewBehavior
+              : "auto",
+          block: "center",
+        });
+      };
     }
-  }, [query, replace, queryScrollIntoView]);
+  }, [query, replace, scrollIntoView, scrollIntoViewBehavior]);
 
   return (
     <Fragment>

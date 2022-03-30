@@ -46,7 +46,7 @@ const ComposedCardContent: FC<Props> = ({ artistId, deck, ...props }) => {
       closeLink={{
         pathname: `/${deck.slug}`,
         query: {
-          scrollIntoViev: `[href*="/${deck.slug}/${card.artist.slug}"]`,
+          scrollIntoView: `[href*="/${deck.slug}/${card.artist.slug}"]`,
         },
       }}
     >

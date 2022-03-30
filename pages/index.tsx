@@ -55,6 +55,15 @@ const Home: NextPage = () => {
               magic.
             </Text>
             <Button
+              component={Link}
+              href={{
+                query: {
+                  scrollIntoView: "[data-id='block-about']",
+                  scrollIntoViewBehavior: "smooth",
+                },
+              }}
+              shallow={true}
+              scroll={false}
               variant="bordered"
               Icon={Chevron}
               size="small"
@@ -71,6 +80,7 @@ const Home: NextPage = () => {
           paddingTop: theme.spacing(14),
           paddingBottom: theme.spacing(12),
         })}
+        data-id="block-about"
       >
         <Grid
           css={(theme) => ({
