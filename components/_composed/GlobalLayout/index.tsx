@@ -1,7 +1,8 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, useEffect } from "react";
 import Layout from "../../../components/Layout";
 import Header, { Props as HeaderProps } from "../../../components/Header";
 import Footer from "../../../components/Footer";
+import { useRouter } from "next/router";
 
 const ComposedGlobalLayout: FC<
   Pick<
@@ -21,47 +22,77 @@ const ComposedGlobalLayout: FC<
   deckId,
   palette,
   children,
-}) => (
-  <Fragment>
-    <Header
-      css={(theme) => ({
-        position: "fixed",
-        left: theme.spacing(1),
-        right: theme.spacing(1),
-        top: theme.spacing(1),
-        zIndex: 10,
+}) => {
+  const {
+    query: { scrollIntoViev: queryScrollIntoView, ...query },
+    replace,
+  } = useRouter();
 
-        "@media (min-width: 1440px)": {
-          maxWidth: theme.spacing(142),
-          left: "50%",
-          transform: "translate(-50%, 0)",
-          width: "100%",
-        },
-      })}
-      deckId={deckId}
-      altNav={altNav}
-      showAltNav={showAltNav}
-      customShopButton={customShopButton}
-      noNav={noNav}
-      palette={palette}
-    />
+  useEffect(() => {
+    if (!queryScrollIntoView) {
+      return;
+    }
 
-    {children}
+    const element = document.querySelector(
+      queryScrollIntoView instanceof Array
+        ? queryScrollIntoView[0]
+        : queryScrollIntoView
+    );
 
-    <Layout css={(theme) => ({ marginTop: theme.spacing(1) })}>
-      <Footer
+    if (element) {
+      replace({ query }, undefined, {
+        scroll: false,
+        shallow: true,
+      });
+      element.scrollIntoView({
+        behavior: "auto",
+        block: "center",
+      });
+    }
+  }, [query, replace, queryScrollIntoView]);
+
+  return (
+    <Fragment>
+      <Header
         css={(theme) => ({
-          marginBottom: theme.spacing(1),
-          marginLeft: -theme.spacing(9.5),
-          marginRight: -theme.spacing(9.5),
-          paddingLeft: theme.spacing(9.5),
-          paddingRight: theme.spacing(9.5),
-          paddingTop: theme.spacing(6),
-          paddingBottom: theme.spacing(6),
+          position: "fixed",
+          left: theme.spacing(1),
+          right: theme.spacing(1),
+          top: theme.spacing(1),
+          zIndex: 10,
+
+          "@media (min-width: 1440px)": {
+            maxWidth: theme.spacing(142),
+            left: "50%",
+            transform: "translate(-50%, 0)",
+            width: "100%",
+          },
         })}
+        deckId={deckId}
+        altNav={altNav}
+        showAltNav={showAltNav}
+        customShopButton={customShopButton}
+        noNav={noNav}
+        palette={palette}
       />
-    </Layout>
-  </Fragment>
-);
+
+      {children}
+
+      <Layout css={(theme) => ({ marginTop: theme.spacing(1) })}>
+        <Footer
+          css={(theme) => ({
+            marginBottom: theme.spacing(1),
+            marginLeft: -theme.spacing(9.5),
+            marginRight: -theme.spacing(9.5),
+            paddingLeft: theme.spacing(9.5),
+            paddingRight: theme.spacing(9.5),
+            paddingTop: theme.spacing(6),
+            paddingBottom: theme.spacing(6),
+          })}
+        />
+      </Layout>
+    </Fragment>
+  );
+};
 
 export default ComposedGlobalLayout;

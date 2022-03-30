@@ -43,7 +43,12 @@ const ComposedCardContent: FC<Props> = ({ artistId, deck, ...props }) => {
       {...props}
       prevLink={prevCard && `/${deck.slug}/${prevCard.artist.slug}`}
       nextLink={nextCard && `/${deck.slug}/${nextCard.artist.slug}`}
-      closeLink={`/${deck.slug}`}
+      closeLink={{
+        pathname: `/${deck.slug}`,
+        query: {
+          scrollIntoViev: `[href*="/${deck.slug}/${card.artist.slug}"]`,
+        },
+      }}
     >
       <ComposedCardBlock card={card} deck={deck} />
     </CardNav>
