@@ -136,7 +136,7 @@ const Home: NextPage = () => {
               color: theme.colors.text_title_light,
               gridColumn: "span 6",
             })}
-            title="Podcast"
+            title="PLAYING ARTS PODCAST・EP17"
             {...(socialLinks.podcastYoutube && {
               action: {
                 children: "All episodes",
@@ -161,9 +161,6 @@ const Home: NextPage = () => {
                   })}
                 >
                   Bram Vanhaeren
-                </Text>
-                <Text variant="h6" css={{ margin: 0, opacity: 0.5 }}>
-                  EP01 - 10/13 - 12:00 PST
                 </Text>
                 <div
                   css={(theme) => ({
@@ -215,6 +212,9 @@ const Home: NextPage = () => {
                   background: "#000",
                   borderRadius: "50%",
                   flexShrink: 0,
+                  backgroundImage:
+                    "url(https://s3.amazonaws.com/img.playingarts.com/www/podcast/prateek-vatash.jpg)",
+                  backgroundSize: "cover",
                 })}
               ></div>
             </div>
@@ -226,13 +226,6 @@ const Home: NextPage = () => {
               position: "relative",
               overflow: "hidden",
               gridColumn: "7 / span 3",
-            })}
-            {...(socialLinks.discord && {
-              action: {
-                children: "2910 Members",
-                href: socialLinks.discord,
-                target: "_blank",
-              },
             })}
           >
             <Discord
@@ -248,7 +241,7 @@ const Home: NextPage = () => {
                 right: "0",
                 top: "50%",
                 transform: "translate(50%, -50%)",
-                height: "100%",
+                height: "80%",
                 width: "100%",
                 fill: "url(#gradient)",
                 opacity: 0.5,
@@ -280,13 +273,6 @@ const Home: NextPage = () => {
               overflow: "hidden",
               gridColumn: "10 / span 3",
             })}
-            {...(socialLinks.twitter && {
-              action: {
-                children: "9910 Followers",
-                href: socialLinks.twitter,
-                target: "_blank",
-              },
-            })}
           >
             <Twitter
               css={{
@@ -301,7 +287,7 @@ const Home: NextPage = () => {
                 right: "0",
                 top: "50%",
                 transform: "translate(50%, -50%)",
-                height: "100%",
+                height: "80%",
                 width: "100%",
                 fill: "url(#gradient)",
                 opacity: 0.5,
