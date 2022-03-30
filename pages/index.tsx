@@ -165,7 +165,7 @@ const Home: NextPage = () => {
                     marginBottom: theme.spacing(1),
                   })}
                 >
-                  Bram Vanhaeren
+                  Prateek Vatash
                 </Text>
                 <div
                   css={(theme) => ({
