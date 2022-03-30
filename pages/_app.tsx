@@ -200,6 +200,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
+        <title>Playing Arts</title>
       </Head>
 
       <MetaMaskProvider>

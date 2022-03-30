@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "source/",
   "license": "MIT",
-  "description": "Crypto Arts",
+  "description": "Playing Arts",
   "repository": "git@github.com:playingarts/cryptoarts.git",
   "author": "Gleb Ryshkov",
   "private": true,

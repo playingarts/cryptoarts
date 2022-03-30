@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { FC, Fragment } from "react";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
@@ -278,10 +277,6 @@ const Content: FC = () => {
 
 const Checkout: NextPage = () => (
   <ComposedGlobalLayout customShopButton={<CheckOutButton />} noNav={true}>
-    <Head>
-      <title>Crypto Arts</title>
-    </Head>
-
     <Content />
   </ComposedGlobalLayout>
 );

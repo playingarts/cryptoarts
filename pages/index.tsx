@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import Hero from "../components/Hero";
@@ -29,10 +28,6 @@ import { socialLinks } from "../source/consts";
 const Home: NextPage = () => {
   return (
     <ComposedGlobalLayout>
-      <Head>
-        <title>Crypto Arts</title>
-      </Head>
-
       <Layout
         css={(theme) => ({
           background: theme.colors.dark_gray,

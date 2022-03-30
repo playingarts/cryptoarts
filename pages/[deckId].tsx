@@ -1,4 +1,3 @@
-import Head from "next/head";
 import {
   FC,
   Fragment,
@@ -253,10 +252,6 @@ const Page: NextPage = () => {
       deckId={deckId instanceof Array ? deckId[0] : deckId}
       palette={artistId ? undefined : "gradient"}
     >
-      <Head>
-        <title>Crypto Arts</title>
-      </Head>
-
       <Content
         galleryRef={galleryRef}
         deckRef={deckRef}

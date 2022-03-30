@@ -1,4 +1,4 @@
-# Crypto Arts
+# Playing Arts
 
 ## Running locally
 

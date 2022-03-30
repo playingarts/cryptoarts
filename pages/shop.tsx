@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
@@ -233,10 +232,6 @@ const Content: FC = () => {
 const Shop: NextPage = () => {
   return (
     <ComposedGlobalLayout customShopButton={<BagButton />} noNav={true}>
-      <Head>
-        <title>Crypto Arts</title>
-      </Head>
-
       <Content />
     </ComposedGlobalLayout>
   );
