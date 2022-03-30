@@ -1,18 +1,27 @@
-import { FC } from "react";
+import { useRouter } from "next/router";
+import { forwardRef, ForwardRefRenderFunction } from "react";
+import { Sections } from "../../../source/enums";
 import BlockTitle from "../../BlockTitle";
 import Grid from "../../Grid";
 import Opensea from "../../Icons/Opensea";
-import Layout from "../../Layout";
+import Layout, { Props as LayoutProps } from "../../Layout";
 import ComposedHolders from "../Holders";
 import ComposedStats from "../Stats";
 import ComposedSupply from "../Supply";
 
-interface Props {
+interface Props extends LayoutProps {
   collection: NonNullable<GQL.Deck["openseaCollection"]>;
   contract: NonNullable<GQL.Deck["openseaContract"]>;
 }
 
-const ComposedPace: FC<Props> = ({ collection, contract }) => {
+const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
+  { collection, contract, ...props },
+  ref
+) => {
+  const {
+    query: { section },
+  } = useRouter();
+
   return (
     <Layout
       css={(theme) => ({
@@ -21,6 +30,9 @@ const ComposedPace: FC<Props> = ({ collection, contract }) => {
         paddingTop: theme.spacing(15),
         paddingBottom: theme.spacing(15),
       })}
+      ref={ref}
+      scrollIntoView={section === Sections.nft}
+      {...props}
     >
       <Grid>
         <BlockTitle
@@ -87,4 +99,4 @@ const ComposedPace: FC<Props> = ({ collection, contract }) => {
   );
 };
 
-export default ComposedPace;
+export default forwardRef(ComposedPace);

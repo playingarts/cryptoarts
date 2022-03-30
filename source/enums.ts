@@ -2,6 +2,7 @@ export enum Sections {
   cards = "cards",
   deck = "deck",
   gallery = "gallery",
+  nft = "nft",
 }
 
 export enum CardSuits {

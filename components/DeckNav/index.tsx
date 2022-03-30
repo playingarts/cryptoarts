@@ -101,7 +101,12 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
       )}
       {refs.nftRef && (
         <Link
-          href="/"
+          href={{
+            pathname,
+            query: { ...query, section: Sections.nft },
+          }}
+          shallow={true}
+          scroll={false}
           css={(theme) => ({
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),

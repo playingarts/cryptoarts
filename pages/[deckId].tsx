@@ -38,7 +38,8 @@ const Content: FC<{
   deckRef: RefObject<HTMLElement>;
   cardsRef: RefObject<HTMLElement>;
   deckNavRef: RefObject<HTMLElement>;
-}> = memo(({ galleryRef, deckRef, cardsRef, deckNavRef }) => {
+  nftRef: RefObject<HTMLElement>;
+}> = memo(({ galleryRef, deckRef, cardsRef, deckNavRef, nftRef }) => {
   const {
     query: { artistId, deckId, section },
   } = useRouter();
@@ -83,7 +84,18 @@ const Content: FC<{
               <Line spacing={3} />
               <DeckNav
                 ref={deckNavRef}
-                refs={{ cardsRef, deckRef, galleryRef }}
+                refs={{
+                  nftRef:
+                    (deck &&
+                      deck.openseaCollection &&
+                      deck.openseaContract &&
+                      !artistId &&
+                      nftRef) ||
+                    undefined,
+                  cardsRef,
+                  deckRef,
+                  galleryRef,
+                }}
                 links={{
                   ...(deck.slug === "crypto"
                     ? {
@@ -123,6 +135,7 @@ const Content: FC<{
 
       {deck.openseaCollection && deck.openseaContract && !artistId && (
         <ComposedPace
+          ref={nftRef}
           collection={deck.openseaCollection}
           contract={deck.openseaContract}
         />
@@ -186,16 +199,18 @@ const Content: FC<{
 
 const Page: NextPage = () => {
   const {
-    query: { cardId, deckId },
+    query: { artistId, deckId },
   } = useRouter();
   const galleryRef = useRef<HTMLElement>(null);
   const deckRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLElement>(null);
   const deckNavRef = useRef<HTMLElement>(null);
+  const nftRef = useRef<HTMLElement>(null);
   const [altNavVisible, showAltNav] = useState(false);
+  const { deck } = useDeck({ variables: { slug: deckId } });
 
   useEffect(() => {
-    if (cardId) {
+    if (artistId) {
       return showAltNav(true);
     }
 
@@ -214,14 +229,29 @@ const Page: NextPage = () => {
     window.addEventListener("scroll", handler);
 
     return () => window.removeEventListener("scroll", handler);
-  }, [cardId, deckId]);
+  }, [artistId, deckId]);
 
   return (
     <ComposedGlobalLayout
-      altNav={<DeckNav refs={{ cardsRef, deckRef, galleryRef }} />}
+      altNav={
+        <DeckNav
+          refs={{
+            nftRef:
+              (deck &&
+                deck.openseaCollection &&
+                deck.openseaContract &&
+                !artistId &&
+                nftRef) ||
+              undefined,
+            cardsRef,
+            deckRef,
+            galleryRef,
+          }}
+        />
+      }
       showAltNav={altNavVisible}
       deckId={deckId instanceof Array ? deckId[0] : deckId}
-      palette={cardId ? undefined : "gradient"}
+      palette={artistId ? undefined : "gradient"}
     >
       <Head>
         <title>Crypto Arts</title>
@@ -232,6 +262,7 @@ const Page: NextPage = () => {
         deckRef={deckRef}
         cardsRef={cardsRef}
         deckNavRef={deckNavRef}
+        nftRef={nftRef}
       />
     </ComposedGlobalLayout>
   );
