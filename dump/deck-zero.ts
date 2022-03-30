@@ -9,7 +9,13 @@ export const deck = {
   slug,
   info: "",
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_zero.jpg",
-  properties: {},
+  properties: {
+    size: "Poker, 88.9 × 63.5mm",
+    inside: "52 Playing cards + 2 Jokers + Info card",
+    material: "Bicycle® paper with Air-cushion finish",
+  },
+  description:
+    'Originally called "Creative Cards", this deck have been completely sold out for about five years now. Now, we are bringing it back in a new and improved version! Pre-order today to reserve your very own copy of this unique deck!',
 };
 
 export const cards = [

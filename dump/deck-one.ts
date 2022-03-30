@@ -9,7 +9,13 @@ export const deck = {
   slug,
   info: "",
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_one.jpg",
-  properties: {},
+  properties: {
+    size: "Poker, 88.9 × 63.5mm",
+    inside: "52 Playing cards + 2 Jokers + Info card",
+    material: "Bicycle® paper with Air-cushion finish",
+  },
+  description:
+    "Enjoy colorful, original artwork from 55 todays leading international illustrators, all in the palm of your hand!",
 };
 
 export const cards = [

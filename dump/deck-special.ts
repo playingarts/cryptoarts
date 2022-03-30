@@ -11,7 +11,13 @@ export const deck = {
     "537 artists from 67 countries participated in design contest, showing their vision of the custom playing cards. Each contestant was asked to create an artwork for one particular card in their distinct style.",
   image:
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_special.jpg",
-  properties: {},
+  properties: {
+    size: "Poker, 88.9 × 63.5mm",
+    inside: "52 Playing cards + 2 Jokers + Info card",
+    material: "Bicycle® paper with Air-cushion finish",
+  },
+  description:
+    "Enjoy colorful, original artwork from 55 todays leading international illustrators, all in the palm of your hand!",
 };
 
 export const cards = [
