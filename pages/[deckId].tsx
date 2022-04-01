@@ -84,6 +84,7 @@ const Content: FC<{
               background: `url(${deck.backgroundImage}) 50% 50%`,
               backgroundSize: "cover",
               backgroundAttachment: "fixed",
+              minHeight: "100%",
             }}
           />
           <Grid css={{ zIndex: 1, position: "relative" }}>
