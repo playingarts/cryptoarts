@@ -111,9 +111,9 @@ const Content: FC<{
                 links={{
                   ...(deck.slug === "crypto"
                     ? {
-                        opensea: "/opensea",
+                        opensea: `https://opensea.io/collection/${deck.openseaCollection}`,
                       }
-                    : { buyNow: "/buyNow" }),
+                    : { buyNow: "/shop" }),
                   shop: "/shop",
                 }}
               />
