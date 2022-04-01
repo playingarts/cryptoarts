@@ -1,11 +1,11 @@
-import { Product } from "../source/graphql/schemas/product";
+import { MongoProduct, Product } from "../source/graphql/schemas/product";
 import { connect } from "../source/mongoose";
 import { populateDeckId } from "./_utils";
 
 const generateMongoId = (shopifyId: string) =>
   "0".repeat(24 - shopifyId.length) + shopifyId;
 
-export let products = [
+export let products: MongoProduct[] = [
   {
     _id: generateMongoId("22124868567121"),
     title: "Edition Zero",

@@ -42,23 +42,25 @@ export const createDeck = async (
 };
 
 export const populateDeckId = async <T>(
-  array: Array<Omit<T, "deck"> & { deck: string }>
+  array: Array<Omit<T, "deck"> & { deck?: string }>
 ) =>
   Promise.all(
     array.map(async (item) => {
       let deck = item.deck;
 
-      const { _id } = (await Deck.findOne({ slug: item.deck })) || {
-        _id: undefined,
-      };
+      if (deck) {
+        const { _id } = (await Deck.findOne({ slug: item.deck })) || {
+          _id: undefined,
+        };
 
-      if (!_id) {
-        throw new Error(
-          `Cannot reference deck: ${deck} in: ${JSON.stringify(item)}.`
-        );
+        if (!_id) {
+          throw new Error(
+            `Cannot reference deck: ${deck} in: ${JSON.stringify(item)}.`
+          );
+        }
+
+        deck = _id;
       }
-
-      deck = _id;
 
       return { ...item, deck };
     })

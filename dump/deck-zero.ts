@@ -3,7 +3,7 @@ import { createDeck } from "./_utils";
 
 export const slug = "zero";
 
-export const deck = {
+export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Edition Zero",
   short: "Zero",
   slug,

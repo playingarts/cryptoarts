@@ -1,8 +1,8 @@
-import { Deal } from "../source/graphql/schemas/deal";
+import { Deal, MongoDeal } from "../source/graphql/schemas/deal";
 import { connect } from "../source/mongoose";
 import { populateDeckId } from "./_utils";
 
-let deals = [
+let deals: Omit<MongoDeal, "_id">[] = [
   {
     code: "HELLOWORLD",
     hash: "0xeE441DB569670589Dc5Bf22fDDE5Fb05DD2035a5",
@@ -33,7 +33,10 @@ const dump = async () => {
   deals = await populateDeckId<typeof deals[0]>(deals);
 
   await Deal.insertMany(
-    deals.map((deal) => ({ ...deal, hash: deal.hash.toLowerCase() }))
+    deals.map((deal) => ({
+      ...deal,
+      ...(deal.hash ? { hash: deal.hash.toLowerCase() } : {}),
+    }))
   );
 };
 
