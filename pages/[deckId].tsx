@@ -74,7 +74,19 @@ const Content: FC<{
             paddingBottom: theme.spacing(6),
           })}
         >
-          <Grid>
+          <div
+            css={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              width: "100vw",
+              height: "100vh",
+              background: `url(${deck.backgroundImage}) 50% 50%`,
+              backgroundSize: "cover",
+              backgroundAttachment: "fixed",
+            }}
+          />
+          <Grid css={{ zIndex: 1, position: "relative" }}>
             <div css={{ gridColumn: "2 / span 10" }}>
               <Text component="h1" css={{ margin: 0 }}>
                 {deck.title}

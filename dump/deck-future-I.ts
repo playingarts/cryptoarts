@@ -11,6 +11,8 @@ export const deck: Omit<GQL.Deck, "_id"> = {
     "299 international artists, designers and studios were using playing card as a canvas to illustrate their vision of what the world will look like 100 years from now. Selected artworks formed two Future Edition decks.",
   image:
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_future01.jpg",
+  backgroundImage:
+    "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_future-i_bg.jpg",
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     inside: "52 Playing cards + 2 Jokers + Info card",

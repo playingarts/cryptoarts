@@ -42,9 +42,6 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
         css={(theme) => ({
           maxWidth: theme.spacing(123),
           margin: "0 auto",
-          position: "relative",
-          // left: 50%;
-          // transform: translate(-50%, 0);
         })}
       >
         {children}

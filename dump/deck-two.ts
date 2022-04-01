@@ -9,6 +9,8 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   slug,
   info: "",
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_two.jpg",
+  backgroundImage:
+    "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_two_bg.jpg",
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     inside: "52 Playing cards + 2 Jokers + Info card",

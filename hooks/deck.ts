@@ -12,6 +12,7 @@ const DeckDataFragment = gql`
     image
     properties
     description
+    backgroundImage
   }
 `;
 
