@@ -76,7 +76,7 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/3-of-diamonds-zipeng-zhu.gif.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/3-of-diamonds-zipeng-zhu.gif",
     artist: "zipeng-zhu",
     value: "3",
     suit: "diamonds",
