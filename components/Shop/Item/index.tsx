@@ -39,11 +39,12 @@ const ShopItem: FC<Props> = ({
       {...props}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      css={{
+      css={(theme) => ({
         overflow: "hidden",
         position: "relative",
         transform: "translate3d(0, 0, 0)",
-      }}
+        backgroundColor: theme.colors.page_bg_light_gray,
+      })}
     >
       <div
         css={(theme) => [
