@@ -12,8 +12,11 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const ShopSheets: FC<Props> = ({ products, ...props }) => {
+  const notSoldout = ({ status }: GQL.Product) => status !== "soldout";
   const { addItem } = useBag();
-  const [product, setProduct] = useState(products[0]);
+  const [product, setProduct] = useState(
+    products.find(notSoldout) || products[0]
+  );
   const options = products.reduce(
     (options, { title }) => ({ ...options, [title]: title }),
     {}
@@ -78,9 +81,15 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             columnGap: theme.spacing(2),
           })}
         >
-          <Button color="black" Icon={Bag} onClick={addToBag}>
-            Add to bag
-          </Button>
+          {notSoldout(product) ? (
+            <Button color="black" Icon={Bag} onClick={addToBag}>
+              Add to bag
+            </Button>
+          ) : (
+            <Button disabled={true} color="black">
+              sold out
+            </Button>
+          )}
           <Select
             value={product.title}
             onChange={changeProduct}
