@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
 import { useLoadCards } from "../../../hooks/card";
 import CardNav, { Props as CardNavProps } from "../../Card/Nav";
 import ComposedCardBlock from "../CardBlock";
@@ -8,7 +8,10 @@ interface Props extends CardNavProps {
   artistId: string;
 }
 
-const ComposedCardContent: FC<Props> = ({ artistId, deck, ...props }) => {
+const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { artistId, deck, ...props },
+  ref
+) => {
   const { loadCards, cards, loading } = useLoadCards();
 
   useEffect(() => {
@@ -41,6 +44,7 @@ const ComposedCardContent: FC<Props> = ({ artistId, deck, ...props }) => {
   return (
     <CardNav
       {...props}
+      ref={ref}
       prevLink={prevCard && `/${deck.slug}/${prevCard.artist.slug}`}
       nextLink={nextCard && `/${deck.slug}/${nextCard.artist.slug}`}
       closeLink={{
@@ -55,4 +59,4 @@ const ComposedCardContent: FC<Props> = ({ artistId, deck, ...props }) => {
   );
 };
 
-export default ComposedCardContent;
+export default forwardRef(ComposedCardContent);

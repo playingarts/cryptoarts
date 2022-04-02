@@ -26,7 +26,7 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
       behavior: "auto",
       block: "start",
     });
-  }, [ref, scrollIntoView]);
+  }, []);
 
   return (
     <section

@@ -1,5 +1,10 @@
 import { useRouter } from "next/router";
-import { FC, HTMLAttributes, useEffect } from "react";
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  HTMLAttributes,
+  useEffect,
+} from "react";
 import Button from "../../Button";
 import Chevron from "../../Icons/Chevron";
 import Close from "../../Icons/Close";
@@ -11,13 +16,10 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   closeLink?: LinkProps["href"];
 }
 
-const CardNav: FC<Props> = ({
-  prevLink,
-  nextLink,
-  closeLink,
-  children,
-  ...props
-}) => {
+const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { prevLink, nextLink, closeLink, children, ...props },
+  ref
+) => {
   const { push } = useRouter();
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const CardNav: FC<Props> = ({
   }, [push, prevLink, nextLink, closeLink]);
 
   return (
-    <div {...props}>
+    <div {...props} ref={ref}>
       <div
         css={{
           position: "sticky",
@@ -99,4 +101,4 @@ const CardNav: FC<Props> = ({
   );
 };
 
-export default CardNav;
+export default forwardRef(CardNav);

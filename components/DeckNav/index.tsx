@@ -14,10 +14,10 @@ import Link from "../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   refs: {
+    aboutRef?: RefObject<HTMLElement>;
     cardsRef?: RefObject<HTMLElement>;
     nftRef?: RefObject<HTMLElement>;
     deckRef?: RefObject<HTMLElement>;
-    galleryRef?: RefObject<HTMLElement>;
   };
   links?: {
     buyNow?: string;
@@ -30,7 +30,10 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
   { links = {}, refs, ...props },
   ref
 ) => {
-  const { query, pathname } = useRouter();
+  const {
+    query: { section: _, ...query },
+    pathname,
+  } = useRouter();
 
   const bringIntoViewHandler = (blockRef: RefObject<HTMLElement>) => () => {
     if (!blockRef.current) {
@@ -81,6 +84,24 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         >
           Buy now
         </Button>
+      )}
+      {refs.aboutRef && (
+        <Link
+          href={{
+            pathname,
+            query: { ...query },
+          }}
+          shallow={true}
+          scroll={false}
+          css={(theme) => ({
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+            fontWeight: 600,
+          })}
+          onClick={bringIntoViewHandler(refs.aboutRef)}
+        >
+          About
+        </Link>
       )}
       {refs.cardsRef && (
         <Link
@@ -136,24 +157,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           Deck
         </Link>
       )}
-      {refs.galleryRef && (
-        <Link
-          href={{
-            pathname,
-            query: { ...query, section: Sections.gallery },
-          }}
-          shallow={true}
-          scroll={false}
-          css={(theme) => ({
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(2),
-            fontWeight: 600,
-          })}
-          onClick={bringIntoViewHandler(refs.galleryRef)}
-        >
-          Gallery
-        </Link>
-      )}
+
       {links.shop && (
         <Link
           href={links.shop}

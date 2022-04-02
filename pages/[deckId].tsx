@@ -33,12 +33,12 @@ import AugmentedReality from "../components/AugmentedReality";
 import Error from "next/error";
 
 const Content: FC<{
-  galleryRef: RefObject<HTMLElement>;
+  aboutRef: RefObject<HTMLDivElement>;
   deckRef: RefObject<HTMLElement>;
   cardsRef: RefObject<HTMLElement>;
   deckNavRef: RefObject<HTMLElement>;
   nftRef: RefObject<HTMLElement>;
-}> = memo(({ galleryRef, deckRef, cardsRef, deckNavRef, nftRef }) => {
+}> = memo(({ aboutRef, deckRef, cardsRef, deckNavRef, nftRef }) => {
   const {
     query: { artistId, deckId, section },
   } = useRouter();
@@ -62,6 +62,7 @@ const Content: FC<{
           })}
           deck={deck}
           artistId={artistId}
+          ref={aboutRef}
         />
       )}
 
@@ -73,6 +74,7 @@ const Content: FC<{
             paddingTop: theme.spacing(36.5),
             paddingBottom: theme.spacing(6),
           })}
+          ref={aboutRef}
         >
           <div
             css={{
@@ -106,7 +108,6 @@ const Content: FC<{
                     undefined,
                   cardsRef,
                   deckRef,
-                  galleryRef,
                 }}
                 links={{
                   ...(deck.slug === "crypto"
@@ -172,8 +173,6 @@ const Content: FC<{
       </Layout>
 
       <Layout
-        scrollIntoView={section === Sections.gallery}
-        ref={galleryRef}
         css={(theme) => ({
           paddingTop: theme.spacing(12),
           paddingBottom: theme.spacing(12),
@@ -213,7 +212,7 @@ const Page: NextPage = () => {
   const {
     query: { artistId, deckId },
   } = useRouter();
-  const galleryRef = useRef<HTMLElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLElement>(null);
   const deckNavRef = useRef<HTMLElement>(null);
@@ -257,7 +256,7 @@ const Page: NextPage = () => {
               undefined,
             cardsRef,
             deckRef,
-            galleryRef,
+            aboutRef,
           }}
         />
       }
@@ -266,11 +265,11 @@ const Page: NextPage = () => {
       palette={artistId ? undefined : "gradient"}
     >
       <Content
-        galleryRef={galleryRef}
         deckRef={deckRef}
         cardsRef={cardsRef}
         deckNavRef={deckNavRef}
         nftRef={nftRef}
+        aboutRef={aboutRef}
       />
     </ComposedGlobalLayout>
   );
