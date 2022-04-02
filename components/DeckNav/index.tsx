@@ -65,6 +65,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             background: theme.colors.gradient,
             marginRight: theme.spacing(2),
           })}
+          target="_blank"
         >
           Opensea
         </Button>
