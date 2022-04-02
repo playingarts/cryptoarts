@@ -53,7 +53,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
           border: "none",
         },
         variant === "bordered" && {
-          border: `1px solid currentColor`,
+          border: "2px solid currentColor",
         },
         children
           ? {

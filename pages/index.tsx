@@ -17,13 +17,13 @@ import Play from "../components/Icons/Play";
 import Itunes from "../components/Icons/Itunes";
 import Spotify from "../components/Icons/Spotify";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
-import Chevron from "../components/Icons/Chevron";
 import Kickstarter from "../components/Icons/Kickstarter";
 import Arrowed from "../components/Arrowed";
 import StatBlock from "../components/StatBlock";
 import ComposedEditions from "../components/_composed/Editions";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
 import { socialLinks } from "../source/consts";
+import CutoutChevron from "../components/Icons/CutoutChevron";
 
 const Home: NextPage = () => {
   return (
@@ -59,10 +59,7 @@ const Home: NextPage = () => {
               }}
               shallow={true}
               scroll={false}
-              variant="bordered"
-              Icon={Chevron}
-              size="small"
-              iconProps={{ css: { height: 16, transform: "rotate(90deg)" } }}
+              Icon={CutoutChevron}
             />
           </div>
           <Hero css={{ gridColumn: "8 / span 5" }} />
