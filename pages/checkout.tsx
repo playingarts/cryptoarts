@@ -260,7 +260,7 @@ const Content: FC = () => {
         </Fragment>
       )}
 
-      <Layout css={(theme) => ({ background: theme.colors.page_bg_gray })}>
+      <Layout css={(theme) => ({ background: theme.colors.white })}>
         <Grid>
           <ComposedFaq
             css={(theme) => ({

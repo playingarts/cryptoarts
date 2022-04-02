@@ -214,15 +214,16 @@ const Content: FC = () => {
       >
         <ShopSheets products={sheets} />
       </Layout>
-      <Layout css={(theme) => ({ background: theme.colors.page_bg_gray })}>
+      <Layout
+        data-id="block-faq"
+        css={(theme) => ({
+          background: theme.colors.white,
+          paddingTop: theme.spacing(15),
+          paddingBottom: theme.spacing(15),
+        })}
+      >
         <Grid>
-          <ComposedFaq
-            css={(theme) => ({
-              marginTop: theme.spacing(15),
-              marginBottom: theme.spacing(15),
-              gridColumn: "2 / span 10",
-            })}
-          />
+          <ComposedFaq css={{ gridColumn: "2 / span 10" }} />
         </Grid>
       </Layout>
     </Fragment>

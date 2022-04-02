@@ -59,7 +59,14 @@ const NFTHolder: FC<Props> = ({ productId, deckId, ...props }) => {
           css={{
             opacity: 0.5,
           }}
-          href="/"
+          href={{
+            query: {
+              scrollIntoView: "[data-id='block-faq']",
+              scrollIntoViewBehavior: "smooth",
+            },
+          }}
+          shallow={true}
+          scroll={false}
         >
           <Arrowed>How It Works</Arrowed>
         </Text>
@@ -103,7 +110,14 @@ const NFTHolder: FC<Props> = ({ productId, deckId, ...props }) => {
         css={{
           opacity: 0.5,
         }}
-        href="/"
+        href={{
+          query: {
+            scrollIntoView: "[data-id='block-faq']",
+            scrollIntoViewBehavior: "smooth",
+          },
+        }}
+        shallow={true}
+        scroll={false}
       >
         <Arrowed>Details</Arrowed>
       </Text>

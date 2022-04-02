@@ -29,6 +29,8 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   variant?: keyof typeof theme.typography | "h7";
   href?: LinkProps["href"];
   target?: LinkProps["target"];
+  shallow?: LinkProps["shallow"];
+  scroll?: LinkProps["scroll"];
 }
 
 const Text: ForwardRefRenderFunction<any, Props> = (
