@@ -9,7 +9,9 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const SubMenu: FC<Props> = ({ currentdeck, ...props }) => {
-  const { decks = [], loading } = useDecks();
+  const { decks = [], loading } = useDecks({
+    variables: { withProduct: false },
+  });
 
   if (loading) {
     return null;

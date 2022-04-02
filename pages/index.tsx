@@ -20,10 +20,11 @@ import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Kickstarter from "../components/Icons/Kickstarter";
 import Arrowed from "../components/Arrowed";
 import StatBlock from "../components/StatBlock";
-import ComposedEditions from "../components/_composed/Editions";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
 import { socialLinks } from "../source/consts";
 import CutoutChevron from "../components/Icons/CutoutChevron";
+import BrowseCollection from "../components/_composed/BrowseCollection";
+import BlockTitle from "../components/BlockTitle";
 
 const Home: NextPage = () => {
   return (
@@ -105,13 +106,20 @@ const Home: NextPage = () => {
         </Grid>
       </Layout>
 
-      <Layout>
-        <ComposedEditions
-          css={(theme) => ({
-            marginTop: theme.spacing(10),
-            marginBottom: theme.spacing(10),
-          })}
-        />
+      <Layout
+        css={(theme) => ({
+          paddingTop: theme.spacing(10),
+          paddingBottom: theme.spacing(10),
+        })}
+      >
+        <Grid>
+          <BlockTitle
+            variant="h3"
+            title="Browse Collection"
+            css={{ gridColumn: "2 / span 10" }}
+          />
+        </Grid>
+        <BrowseCollection css={(theme) => ({ marginTop: theme.spacing(4) })} />
       </Layout>
 
       <ComposedCardOfTheDay

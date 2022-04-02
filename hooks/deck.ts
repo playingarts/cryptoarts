@@ -19,9 +19,12 @@ const DeckDataFragment = gql`
 export const DecksQuery = gql`
   ${DeckDataFragment}
 
-  query Decks {
+  query Decks($withProduct: Boolean!) {
     decks {
       ...DeckDataFragment
+      product @include(if: $withProduct) {
+        image
+      }
     }
   }
 `;

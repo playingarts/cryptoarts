@@ -71,7 +71,7 @@ export let products: MongoProduct[] = [
     status: "soldout",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck_special.png",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special.png",
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special-02.jpg",
     info: "Deck of Cards",

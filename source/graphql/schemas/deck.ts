@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model } from "mongoose";
 import GraphQLJSON from "graphql-type-json";
+import { getProduct } from "./product";
 
 const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   title: String,
@@ -28,6 +29,7 @@ export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
   Deck: {
     properties: ({ properties }) => properties || {},
+    product: ({ _id }) => getProduct({ deck: _id }),
   },
   Query: {
     decks: getDecks,
@@ -56,5 +58,6 @@ export const typeDefs = gql`
     properties: JSON!
     description: String
     backgroundImage: String
+    product: Product
   }
 `;

@@ -93,6 +93,7 @@ interface Deck {
   properties: Scalars['JSON'];
   description?: Maybe<Scalars['String']>;
   backgroundImage?: Maybe<Scalars['String']>;
+  product?: Maybe<Product>;
 }
 
 interface Artist {
@@ -422,6 +423,7 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   properties?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   backgroundImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

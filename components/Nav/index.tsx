@@ -4,7 +4,9 @@ import Link from "../Link";
 import { colord } from "colord";
 
 const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  const { decks = [], loading } = useDecks();
+  const { decks = [], loading } = useDecks({
+    variables: { withProduct: false },
+  });
 
   if (loading) {
     return null;

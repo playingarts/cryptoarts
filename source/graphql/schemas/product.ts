@@ -21,6 +21,10 @@ const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
 export const Product =
   (models.Product as Model<MongoProduct>) || model("Product", schema);
 
+export const getProduct = async (
+  options: Pick<MongoProduct, "deck"> | Pick<MongoProduct, "_id">
+) => ((await Product.findOne(options)) as GQL.Product) || undefined;
+
 const getProducts = (ids?: string[]) =>
   ids ? Product.find({ _id: { $in: ids } }) : Product.find();
 
