@@ -105,7 +105,7 @@ const Content: FC = () => {
             {latestRelease.deck && (
               <NFTHolder
                 css={{ gridColumn: "span 3" }}
-                deckId={latestRelease.deck._id}
+                deck={latestRelease.deck}
                 productId={latestRelease._id}
               />
             )}

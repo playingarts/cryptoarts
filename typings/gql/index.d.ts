@@ -76,7 +76,7 @@ interface QueryHoldersArgs {
 
 interface QueryDealArgs {
   hash: Scalars['String'];
-  deck: Scalars['String'];
+  deckId: Scalars['String'];
 }
 
 interface Deck {
@@ -406,7 +406,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
   opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'collection'>>;
   holders?: Resolver<ResolversTypes['Holders'], ParentType, ContextType, RequireFields<QueryHoldersArgs, 'contract'>>;
-  deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deck'>>;
+  deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deckId'>>;
   dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
 };
 

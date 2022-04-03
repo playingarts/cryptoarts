@@ -96,7 +96,7 @@ export const getCardPrice = async (card: GQL.Card) => {
   }, undefined);
 };
 
-const getAssets = memoizee(
+export const getAssets = memoizee(
   process.env.NODE_ENV === "development"
     ? async () =>
         // eslint-disable-next-line @typescript-eslint/no-var-requires
