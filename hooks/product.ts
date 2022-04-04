@@ -16,6 +16,7 @@ export const ProductsQuery = gql`
         _id
         slug
         openseaContract
+        openseaCollection
       }
     }
   }
