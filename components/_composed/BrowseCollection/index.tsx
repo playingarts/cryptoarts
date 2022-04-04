@@ -29,6 +29,10 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
               backgroundSize: "cover",
               backgroundPosition: "50% 50%",
               backgroundColor: theme.colors.page_bg_light_gray,
+              transition: theme.transitions.fast("background-color"),
+              "&:hover": {
+                backgroundColor: theme.colors.white,
+              },
             })}
             style={{ backgroundImage: `url(${product.image})` }}
           />
