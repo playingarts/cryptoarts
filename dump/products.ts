@@ -130,7 +130,7 @@ export let products: MongoProduct[] = [
       "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-02.png",
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-02.png",
-    info: "Decks: Future Editions I + II",
+    info: "Future Editions I + II",
   },
   {
     _id: generateMongoId("21312509018193"),
@@ -144,7 +144,7 @@ export let products: MongoProduct[] = [
       "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-01.png",
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-01.png",
-    info: "Decks: Editions One + Two + Three",
+    info: "Editions One + Two + Three",
   },
   {
     _id: generateMongoId("32395075846192"),

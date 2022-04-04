@@ -12,7 +12,7 @@ let deals: Omit<MongoDeal, "_id">[] = [
   {
     code: "VLADCODE",
     hash: "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
-    decks: 1000,
+    decks: 999,
     deck: "crypto",
   },
 ];
