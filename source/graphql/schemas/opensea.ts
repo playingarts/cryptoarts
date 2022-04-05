@@ -4,6 +4,7 @@ import Web3 from "web3";
 import { OpenSeaPort, Network } from "opensea-js";
 import memoizee from "memoizee";
 import { CardSuits } from "../../enums";
+import intersect from "just-intersect";
 
 const { OPENSEA_KEY: apiKey = "" } = process.env;
 const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io");
@@ -110,7 +111,13 @@ export const getAssets = memoizee(
   }
 );
 
-type CardSuitsType = CardSuits.s | CardSuits.c | CardSuits.h | CardSuits.d;
+type CardSuitsType =
+  | CardSuits.s
+  | CardSuits.c
+  | CardSuits.h
+  | CardSuits.d
+  | CardSuits.r
+  | CardSuits.b;
 
 const getHolders = async (contract: string) => {
   const assets = await getAssets(contract);
@@ -180,7 +187,7 @@ const getHolders = async (contract: string) => {
           ...data,
           [suit]: data[suit] + 1,
         }),
-        { spades: 0, diamonds: 0, clubs: 0, hearts: 0 }
+        { spades: 0, diamonds: 0, clubs: 0, hearts: 0, red: 0, black: 0 }
       );
 
       return {
@@ -188,6 +195,8 @@ const getHolders = async (contract: string) => {
         diamonds: [...data.diamonds, ...(suits.diamonds === 13 ? [owner] : [])],
         clubs: [...data.clubs, ...(suits.clubs === 13 ? [owner] : [])],
         hearts: [...data.hearts, ...(suits.hearts === 13 ? [owner] : [])],
+        red: [...data.red, ...(suits.red === 1 ? [owner] : [])],
+        black: [...data.hearts, ...(suits.black === 1 ? [owner] : [])],
       };
     },
     {
@@ -195,10 +204,13 @@ const getHolders = async (contract: string) => {
       diamonds: [],
       clubs: [],
       hearts: [],
+      red: [],
+      black: [],
     }
   );
 
   return {
+    jokers: intersect(suitHolders.black, suitHolders.red),
     ...deckHolders,
     ...suitHolders,
   };
@@ -337,5 +349,6 @@ export const typeDefs = gql`
     diamonds: [String!]!
     hearts: [String!]!
     clubs: [String!]!
+    jokers: [String!]!
   }
 `;

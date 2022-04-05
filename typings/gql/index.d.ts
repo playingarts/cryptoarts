@@ -259,6 +259,7 @@ interface Holders {
   diamonds: Array<Scalars['String']>;
   hearts: Array<Scalars['String']>;
   clubs: Array<Scalars['String']>;
+  jokers: Array<Scalars['String']>;
 }
 
 interface Deal {
@@ -589,6 +590,7 @@ export type HoldersResolvers<ContextType = { req: Request, res: Response }, Pare
   diamonds?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   hearts?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   clubs?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
+  jokers?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

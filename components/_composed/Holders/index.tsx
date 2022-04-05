@@ -12,6 +12,7 @@ import Stat from "../../Stat";
 import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
 import Text from "../../Text";
 import { socialLinks } from "../../../source/consts";
+import Joker from "../../Icons/Joker";
 
 interface Props extends StatBlockProps {
   contract: NonNullable<GQL.Deck["openseaContract"]>;
@@ -60,7 +61,6 @@ const ComposedHolders: FC<Props> = ({ contract, ...props }) => {
           withTooltip={true}
           css={(theme) => ({
             flexGrow: 1,
-            width: theme.spacing(41.2),
             color: theme.colors.dark_gray,
             marginTop: theme.spacing(1.5),
             marginBottom: theme.spacing(1.5),
@@ -89,6 +89,12 @@ const ComposedHolders: FC<Props> = ({ contract, ...props }) => {
               value: holders.diamonds.length,
               color: theme.colors.diamonds,
               icon: <Diamonds />,
+            },
+            {
+              name: "jokers",
+              value: holders.jokers.length,
+              color: theme.colors.joker,
+              icon: <Joker />,
             },
           ]}
         />

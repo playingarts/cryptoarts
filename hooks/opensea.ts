@@ -22,6 +22,7 @@ export const HoldersQuery = gql`
       clubs
       hearts
       diamonds
+      jokers
     }
   }
 `;
