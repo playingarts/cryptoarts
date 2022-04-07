@@ -100,11 +100,6 @@ const Content: FC = () => {
                 <Text component="h2" css={{ margin: 0 }}>
                   Your Bag
                 </Text>
-                <Text variant="body2">
-                  Please note for the festive season, all online purchases made
-                  between 03/11/21 and 15/12/2021 can be returned up to
-                  31/01/22.
-                </Text>
               </Fragment>
             )}
           </div>
