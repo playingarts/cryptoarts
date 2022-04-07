@@ -51,20 +51,24 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
           padding: 0,
           alignItems: "center",
           border: "none",
+          ...(color === "black"
+            ? {
+                color: theme.colors.page_bg_light,
+                background: theme.colors.page_bg_dark,
+              }
+            : {}),
         },
         variant === "bordered" && {
           border: "2px solid currentColor",
         },
         children
           ? {
-              color:
-                color === "black"
-                  ? theme.colors.page_bg_light
-                  : theme.colors.page_bg_dark,
-              background:
-                color === "black"
-                  ? theme.colors.page_bg_dark
-                  : theme.colors.page_bg_light,
+              ...(color !== "black"
+                ? {
+                    color: theme.colors.page_bg_dark,
+                    background: theme.colors.page_bg_light,
+                  }
+                : {}),
               fontSize: 18,
               fontWeight: 600,
               lineHeight: "50px",
@@ -73,7 +77,11 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
               paddingRight: theme.spacing(2.5),
             }
           : {
-              color: "inherit",
+              ...(color !== "black"
+                ? {
+                    color: "inherit",
+                  }
+                : {}),
               justifyContent: "center",
               width: theme.spacing(size === "small" ? 4 : 5),
               height: theme.spacing(size === "small" ? 4 : 5),
