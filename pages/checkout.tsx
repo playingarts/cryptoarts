@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import { NextPage } from "next";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
@@ -19,23 +19,9 @@ import ComposedFaq from "../components/_composed/Faq";
 import Grid from "../components/Grid";
 import StatBlock from "../components/StatBlock";
 
-const CheckOutButton: FC<ButtonProps> = (props) => {
-  const { bag } = useBag();
-
-  return (
-    <Button
-      {...props}
-      component={Link}
-      href={`https://store.playingarts.com/cart/${Object.entries(bag)
-        .map(([id, quantity]) => `${parseInt(id, 10)}:${quantity}`)
-        .join(",")}`}
-    >
-      Check out
-    </Button>
-  );
-};
-
-const Content: FC = () => {
+const Content: FC<{ CheckoutButton: FC<ButtonProps> }> = ({
+  CheckoutButton,
+}) => {
   const { bag, updateQuantity, removeItem } = useBag();
   const { products } = useProducts({
     variables: {
@@ -229,7 +215,7 @@ const Content: FC = () => {
                         currency: "EUR",
                       })}
                     </Text>
-                    <CheckOutButton color="black" />
+                    <CheckoutButton color="black" />
                     <Line spacing={3} />
                     <Text css={{ margin: 0, opacity: 0.5 }}>
                       <Lock css={{ verticalAlign: "baseline" }} /> Secure
@@ -254,7 +240,45 @@ const Content: FC = () => {
           </Layout>
         </Fragment>
       )}
+    </Fragment>
+  );
+};
 
+const Checkout: NextPage = () => {
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    if (loading) {
+      timeout = setTimeout(() => setLoading(false), 3000);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [loading]);
+
+  const CheckoutButton: FC<ButtonProps> = (props) => {
+    const { bag } = useBag();
+    const startLoading = () => setLoading(true);
+
+    return (
+      <Button
+        {...props}
+        component={Link}
+        href={`https://store.playingarts.com/cart/${Object.entries(bag)
+          .map(([id, quantity]) => `${parseInt(id, 10)}:${quantity}`)
+          .join(",")}`}
+        onClick={startLoading}
+        loading={loading}
+      >
+        CHECK OUT
+      </Button>
+    );
+  };
+
+  return (
+    <ComposedGlobalLayout customShopButton={<CheckoutButton />} noNav={true}>
+      <Content CheckoutButton={CheckoutButton} />
       <Layout css={(theme) => ({ background: theme.colors.white })}>
         <Grid>
           <ComposedFaq
@@ -266,14 +290,8 @@ const Content: FC = () => {
           />
         </Grid>
       </Layout>
-    </Fragment>
+    </ComposedGlobalLayout>
   );
 };
-
-const Checkout: NextPage = () => (
-  <ComposedGlobalLayout customShopButton={<CheckOutButton />} noNav={true}>
-    <Content />
-  </ComposedGlobalLayout>
-);
 
 export default withApollo(Checkout);

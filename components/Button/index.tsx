@@ -7,6 +7,7 @@ import {
   HTMLAttributes,
 } from "react";
 import { Props as LinkProps } from "../Link";
+import Loader from "../Loader";
 
 export interface Props extends Omit<LinkProps, "component" | "href"> {
   href?: LinkProps["href"];
@@ -18,6 +19,7 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   disabled?: ButtonHTMLAttributes<HTMLButtonElement>["disabled"];
   size?: "small" | "normal";
   color?: "black";
+  loading?: boolean;
 }
 
 const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -30,6 +32,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     size = "normal",
     variant = "default",
     color,
+    loading,
     ...props
   },
   ref
@@ -45,6 +48,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
             cursor: "default",
             opacity: 0.3,
           },
+          position: "relative",
           background: "none",
           display: "inline-flex",
           borderRadius: theme.spacing(size === "small" ? 4 : 5),
@@ -60,6 +64,9 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
         },
         variant === "bordered" && {
           border: "2px solid currentColor",
+        },
+        loading && {
+          pointerEvents: "none",
         },
         children
           ? {
@@ -97,12 +104,24 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
                 css: (theme) => [
                   iconProps && iconProps.css,
                   { marginRight: theme.spacing(1) },
+                  loading && { opacity: 0.1 },
                 ],
               }
             : {})}
         />
       )}
-      {children && <span>{children}</span>}
+      {children && <span css={loading && { opacity: 0.1 }}>{children}</span>}
+      {loading && (
+        <Loader
+          css={{
+            position: "absolute",
+            left: "50%",
+            top: "50%",
+            transform: "translate(-50%, -50%)",
+            lineHeight: 1,
+          }}
+        />
+      )}
     </Component>
   );
 };

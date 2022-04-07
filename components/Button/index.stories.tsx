@@ -29,6 +29,13 @@ ButtonIcon.args = {
   Icon: Bell,
 };
 
+export const ButtonLoading = Template.bind({});
+ButtonLoading.args = {
+  Icon: Bell,
+  children: "With Icon",
+  loading: true,
+};
+
 export const LinkPrimary = Template.bind({});
 LinkPrimary.args = {
   component: Link,
@@ -49,4 +56,13 @@ LinkIcon.args = {
   component: Link,
   href: "/",
   Icon: Bell,
+};
+
+export const LinkLoading = Template.bind({});
+LinkLoading.args = {
+  component: Link,
+  href: "/",
+  Icon: Bell,
+  children: "With Icon",
+  loading: true,
 };
