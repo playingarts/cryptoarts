@@ -73,10 +73,6 @@ const Content: FC = () => {
             <Text component="h2" css={{ margin: 0 }}>
               Shop
             </Text>
-            <Text variant="body2">
-              The best way to buy the products you love. Hover the card to see
-              animation. Click to read the story behind the artwork.
-            </Text>
           </div>
           <div css={{ gridColumn: "2 / span 10" }}>
             <Line spacing={3} css={{ marginTop: 0 }} />
@@ -129,17 +125,17 @@ const Content: FC = () => {
                     })}
                     artist={{
                       _id: "",
-                      name: "Gleb Ryshkov",
-                      slug: "gleb-ryshkov",
+                      name: "Wim V.",
+                      slug: "wim-v",
                       userpic: "",
                       social: {},
                     }}
                     moreLink="/"
                   >
-                    “I love these cards. Each colored deck has its charms. I own
-                    at least one of each. As I’ve refreshed my supply, I’ve
-                    watched the graphics and materials evolve. They’re great
-                    out-of-the-case and break in well”
+                    “Thank you for the smooth handling of getting the playing
+                    cards I ordered to me; not only are they little gems by
+                    their own right, they are also a perfect way to discover new
+                    talented artists, who I may otherwise never come across.”
                   </Quote>
                 )}
                 <ShopItem
