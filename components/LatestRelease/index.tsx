@@ -1,5 +1,6 @@
 import { FC } from "react";
 import Button, { Props as ButtonProps } from "../Button";
+import Bag from "../Icons/Bag";
 import Eth from "../Icons/Eth";
 import StatBlock, { Props as StatBlockProps } from "../StatBlock";
 import Text from "../Text";
@@ -20,7 +21,7 @@ const LatestRelease: FC<Props> = ({ price, ButtonProps, ...props }) => (
       position: "relative",
     })}
     action={
-      <Button {...ButtonProps} css={{ alignSelf: "flex-start" }}>
+      <Button {...ButtonProps} Icon={Bag} css={{ alignSelf: "flex-start" }}>
         Add to bag
       </Button>
     }
