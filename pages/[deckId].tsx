@@ -71,7 +71,7 @@ const Content: FC<{
           css={(theme) => ({
             background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
             color: theme.colors.light_gray,
-            paddingTop: theme.spacing(36.5),
+            paddingTop: theme.spacing(25),
             paddingBottom: theme.spacing(6),
           })}
           ref={aboutRef}
