@@ -15,7 +15,6 @@ import ShopSheets from "../components/Shop/Sheets";
 import CardFan from "../components/Card/Fan";
 import Grid from "../components/Grid";
 import Text from "../components/Text";
-import Line from "../components/Line";
 import ComposedFaq from "../components/_composed/Faq";
 import LatestRelease from "../components/LatestRelease";
 import NFTHolder from "../components/NFTHolder";
@@ -69,15 +68,9 @@ const Content: FC = () => {
         })}
       >
         <Grid>
-          <div css={{ gridColumn: "2 / span 7" }}>
-            <Text component="h2" css={{ margin: 0 }}>
-              Shop
-            </Text>
-          </div>
-          <div css={{ gridColumn: "2 / span 10" }}>
-            <Line spacing={3} css={{ marginTop: 0 }} />
-            <BagButton />
-          </div>
+          <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 7" }}>
+            Shop products
+          </Text>
         </Grid>
       </Layout>
 
