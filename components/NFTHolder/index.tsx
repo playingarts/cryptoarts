@@ -178,7 +178,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
       {...props}
     >
       <Text component="h4" css={{ margin: 0 }}>
-        GM chad!
+        GM!
       </Text>
 
       <Text variant="body2">
