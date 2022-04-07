@@ -39,9 +39,7 @@ const LatestRelease: FC<Props> = ({ price, ButtonProps, ...props }) => (
           Crypto Edition
         </Text>
         <Text variant="body2" css={{ opacity: 0.5 }}>
-          Playing Arts Crypto Edition (PACE) is a deck of playing cards
-          featuring works of 55 leading digital artists living on the Ethereum
-          blockchain.
+          Deck of playing cards featuring works of 55 leading digital artists.
         </Text>
       </div>
 
