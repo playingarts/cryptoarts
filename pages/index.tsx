@@ -348,9 +348,8 @@ const Home: NextPage = () => {
           })}
         >
           <Quote css={{ gridColumn: "2 / span 10" }}>
-            “Two is a sign of union. And diamonds are a sign of prosperity. I
-            wanted to show the duality using my Ugly character wearing a
-            twofaced mask.”
+            “This really is a unique deck. The concept is playful, and elegant
+            at the same time. The colors are vibrant. A wonderful price of art.”
           </Quote>
         </Grid>
       </Layout>
