@@ -8,7 +8,7 @@ const BagButton: FC<ButtonProps> = (props) => {
   const { bag } = useBag();
 
   return (
-    <Button {...props} component={Link} href="/checkout" Icon={Bag}>
+    <Button {...props} component={Link} href="/bag" Icon={Bag}>
       Bag – {Object.values(bag).reduce((a, b) => a + b, 0)}
     </Button>
   );
