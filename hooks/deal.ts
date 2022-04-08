@@ -1,8 +1,8 @@
 import { gql, QueryHookOptions, useLazyQuery } from "@apollo/client";
 
 export const DealQuery = gql`
-  query Deal($hash: String!, $deckId: String!) {
-    deal(hash: $hash, deckId: $deckId) {
+  query Deal($hash: String!, $deckId: String!, $signature: String!) {
+    deal(hash: $hash, deckId: $deckId, signature: $signature) {
       _id
       code
       hash

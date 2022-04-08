@@ -1,7 +1,8 @@
-import { gql } from "@apollo/client";
+import { ApolloError, gql } from "@apollo/client";
 import { Schema, model, models, Model, Types } from "mongoose";
 import { getDeck } from "./deck";
 import { getAssets } from "./opensea";
+import { recoverPersonalSignature } from "@metamask/eth-sig-util";
 
 export type MongoDeal = Omit<GQL.Deal, "deck"> & {
   deck?: string;
@@ -17,14 +18,28 @@ const schema = new Schema<GQL.Deal, Model<GQL.Deal>, GQL.Deal>({
 
 export const Deal = (models.Deal as Model<MongoDeal>) || model("Deal", schema);
 
-const { DISCOUNT_CODE: discountCode } = process.env;
+const {
+  DISCOUNT_CODE: discountCode,
+  NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
+} = process.env;
 
-const getDeal = ({ hash, deckId }: GQL.QueryDealArgs) =>
+const getDeal = ({ hash, deckId }: Omit<GQL.QueryDealArgs, "signature">) =>
   Deal.findOne({ hash: hash.toLowerCase(), deck: deckId });
 
 export const resolvers: GQL.Resolvers = {
   Query: {
-    deal: async (_, { hash, deckId }) => {
+    deal: async (_, { hash, deckId, signature }) => {
+      const recoveredAddress = recoverPersonalSignature({
+        data: signatureMessage,
+        signature,
+      });
+
+      if (hash !== recoveredAddress) {
+        throw new ApolloError({
+          errorMessage: "Failed to verify the account.",
+        });
+      }
+
       const deal = (await (getDeal({ hash, deckId }).populate([
         "deck",
       ]) as unknown)) as GQL.Deal;
@@ -58,7 +73,7 @@ export const resolvers: GQL.Resolvers = {
 
 export const typeDefs = gql`
   type Query {
-    deal(hash: String!, deckId: String!): Deal
+    deal(hash: String!, deckId: String!, signature: String!): Deal
   }
 
   type Deal {

@@ -1,5 +1,5 @@
 import { useMetaMask } from "metamask-react";
-import { FC, HTMLAttributes, useEffect } from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { useBag } from "../../hooks/bag";
 import { useLoadDeal } from "../../hooks/deal";
 import Arrowed from "../Arrowed";
@@ -11,6 +11,7 @@ import Loader from "../Loader";
 import MetamaskButton from "../MetamaskButton";
 import StatBlock from "../StatBlock";
 import Text from "../Text";
+import store from "store";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   productId: string;
@@ -18,17 +19,39 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
-  const { status, account } = useMetaMask();
+  const { status, ethereum, account } = useMetaMask();
   const { loadDeal, deal, loading } = useLoadDeal();
   const { addItem } = useBag();
+  const [{ expiry, signature }, setSignature] = useState(
+    (store.get("signature") as { expiry: number; signature: string }) || {}
+  );
 
   useEffect(() => {
     if (!account) {
       return;
     }
 
-    loadDeal({ variables: { hash: account, deckId: deck._id } });
-  }, [account, loadDeal, deck._id]);
+    if (!signature || expiry < Date.now()) {
+      return ethereum
+        .request({
+          method: "personal_sign",
+          params: [process.env.NEXT_PUBLIC_SIGNATURE_MESSAGE, account],
+        })
+        .then((signature: string) =>
+          setSignature({ expiry: Date.now() + 1000 * 60 * 60, signature })
+        );
+    }
+
+    store.set("signature", { expiry, signature });
+
+    loadDeal({
+      variables: {
+        signature,
+        hash: account,
+        deckId: deck._id,
+      },
+    });
+  }, [account, signature, ethereum, loadDeal, deck._id, expiry]);
 
   if (status !== "connected") {
     return (
