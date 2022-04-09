@@ -23,37 +23,29 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
   const { loadDeal, deal, loading } = useLoadDeal();
   const { addItem } = useBag();
   const [
-    { account: signedAccount, expiry, signature },
+    { account: signedAccount, expiry, signature, signing },
     setSignature,
   ] = useState(
     (store.get("signature") as {
-      account: string;
-      expiry: number;
-      signature: string;
+      account?: string;
+      expiry?: number;
+      signature?: string;
+      signing?: boolean;
     }) || {}
   );
 
   useEffect(() => {
-    if (!account) {
+    if (
+      !account ||
+      !signature ||
+      !expiry ||
+      expiry < Date.now() ||
+      signedAccount !== account
+    ) {
       return;
     }
 
-    if (!signature || expiry < Date.now() || signedAccount !== account) {
-      return ethereum
-        .request({
-          method: "personal_sign",
-          params: [process.env.NEXT_PUBLIC_SIGNATURE_MESSAGE, account],
-        })
-        .then((signature: string) =>
-          setSignature({
-            account,
-            expiry: Date.now() + 1000 * 60 * 60,
-            signature,
-          })
-        );
-    }
-
-    store.set("signature", { account, expiry, signature });
+    store.set("signature", { expiry, signature, account });
 
     loadDeal({
       variables: {
@@ -62,9 +54,9 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
         deckId: deck._id,
       },
     });
-  }, [account, signature, ethereum, loadDeal, deck._id, expiry, signedAccount]);
+  }, [account, signature, loadDeal, deck._id, expiry, signedAccount]);
 
-  if (status !== "connected") {
+  if (!account || status !== "connected") {
     return (
       <StatBlock
         css={(theme) => ({
@@ -105,6 +97,50 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
           scroll={false}
         >
           <Arrowed>How It Works</Arrowed>
+        </Text>
+      </StatBlock>
+    );
+  }
+
+  if (account !== signedAccount) {
+    const requestSignature = () => {
+      setSignature((prev) => ({ ...prev, signing: true }));
+
+      ethereum
+        .request({
+          method: "personal_sign",
+          params: [process.env.NEXT_PUBLIC_SIGNATURE_MESSAGE, account],
+        })
+        .then((signature: string) =>
+          setSignature({
+            account,
+            expiry: Date.now() + 1000 * 60 * 60,
+            signature,
+            signing: false,
+          })
+        )
+        .catch(() => setSignature((prev) => ({ ...prev, signing: false })));
+    };
+
+    return (
+      <StatBlock
+        css={(theme) => ({
+          backgroundColor: theme.colors.dark_gray,
+          color: theme.colors.text_title_light,
+        })}
+        action={
+          <Button loading={signing} onClick={requestSignature}>
+            {signing ? "signing" : "sign"}
+          </Button>
+        }
+        {...props}
+      >
+        <Text component="h4" css={{ margin: 0 }}>
+          NFT holder?
+        </Text>
+
+        <Text variant="body2">
+          Please sign to verify that you’re the owner of this ETH address.
         </Text>
       </StatBlock>
     );
