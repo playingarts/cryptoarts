@@ -20,7 +20,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
   const { status, ethereum, account } = useMetaMask();
-  const { loadDeal, deal, loading } = useLoadDeal();
+  const { loadDeal, deal, loading, error } = useLoadDeal();
   const { addItem } = useBag();
   const [
     { account: signedAccount, expiry, signature, signing },
@@ -42,6 +42,9 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
       expiry < Date.now() ||
       signedAccount !== account
     ) {
+      setSignature({});
+      store.remove("signature");
+
       return;
     }
 
@@ -55,6 +58,35 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
       },
     });
   }, [account, signature, loadDeal, deck._id, expiry, signedAccount]);
+
+  useEffect(() => {
+    if (error) {
+      setSignature({});
+      store.remove("signature");
+    }
+  }, [error]);
+
+  if (error) {
+    return (
+      <StatBlock
+        css={(theme) => ({
+          backgroundColor: theme.colors.dark_gray,
+          color: theme.colors.text_title_light,
+        })}
+        {...props}
+      >
+        <Text component="h4" css={{ margin: 0 }}>
+          Error
+        </Text>
+
+        <Text variant="body2">
+          Something went wrong.
+          <br />
+          Try again later.
+        </Text>
+      </StatBlock>
+    );
+  }
 
   if (!account || status !== "connected") {
     return (
@@ -102,7 +134,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
     );
   }
 
-  if (account !== signedAccount) {
+  if (account !== signedAccount || deal === undefined) {
     const requestSignature = () => {
       setSignature((prev) => ({ ...prev, signing: true }));
 
@@ -158,7 +190,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
     );
   }
 
-  if (!deal) {
+  if (deal === null) {
     return (
       <StatBlock
         css={(theme) => ({

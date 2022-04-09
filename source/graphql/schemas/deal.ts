@@ -34,15 +34,16 @@ export const resolvers: GQL.Resolvers = {
         signature,
       });
 
-      if (hash !== recoveredAddress) {
+      if (hash.toLowerCase() !== recoveredAddress.toLowerCase()) {
         throw new ApolloError({
           errorMessage: "Failed to verify the account.",
         });
       }
 
-      const deal = (await (getDeal({ hash, deckId }).populate([
-        "deck",
-      ]) as unknown)) as GQL.Deal;
+      const deal = (await (getDeal({
+        hash: hash.toLowerCase(),
+        deckId,
+      }).populate(["deck"]) as unknown)) as GQL.Deal;
 
       if (!deal && discountCode) {
         const deck = await getDeck({ _id: deckId });
