@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, useState } from "react";
-import { useBag } from "../../../hooks/bag";
-import Button, { Props as ButtonProps } from "../../Button";
+import AddToBagButton from "../../AddToBagButton";
+import Button from "../../Button";
 import Grid from "../../Grid";
 import Bag from "../../Icons/Bag";
 import Line from "../../Line";
@@ -13,7 +13,6 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 const ShopSheets: FC<Props> = ({ products, ...props }) => {
   const notSoldout = ({ status }: GQL.Product) => status !== "soldout";
-  const { addItem } = useBag();
   const [product, setProduct] = useState(
     products.find(notSoldout) || products[0]
   );
@@ -26,7 +25,6 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
       products.find(({ title }) => title === target.value) || products[0]
     );
   };
-  const addToBag: ButtonProps["onClick"] = () => addItem(product._id);
 
   return (
     <Grid
@@ -82,9 +80,7 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           })}
         >
           {notSoldout(product) ? (
-            <Button color="black" Icon={Bag} onClick={addToBag}>
-              Add to bag
-            </Button>
+            <AddToBagButton productId={product._id} color="black" Icon={Bag} />
           ) : (
             <Button disabled={true} color="black">
               sold out

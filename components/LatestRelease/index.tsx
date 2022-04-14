@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Button, { Props as ButtonProps } from "../Button";
+import AddToBagButton from "../AddToBagButton";
 import Bag from "../Icons/Bag";
 import Eth from "../Icons/Eth";
 import StatBlock, { Props as StatBlockProps } from "../StatBlock";
@@ -8,10 +8,10 @@ import Text from "../Text";
 interface Props
   extends Omit<StatBlockProps, "title" | "action">,
     Pick<GQL.Product, "price"> {
-  ButtonProps: ButtonProps;
+  productId: string;
 }
 
-const LatestRelease: FC<Props> = ({ price, ButtonProps, ...props }) => (
+const LatestRelease: FC<Props> = ({ productId, price, ...props }) => (
   <StatBlock
     {...props}
     css={(theme) => ({
@@ -20,11 +20,7 @@ const LatestRelease: FC<Props> = ({ price, ButtonProps, ...props }) => (
       color: theme.colors.text_title_light,
       position: "relative",
     })}
-    action={
-      <Button {...ButtonProps} Icon={Bag} css={{ alignSelf: "flex-start" }}>
-        Add to bag
-      </Button>
-    }
+    action={<AddToBagButton Icon={Bag} productId={productId} />}
     title="LATEST RELEASE"
   >
     <div

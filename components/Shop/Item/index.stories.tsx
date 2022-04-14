@@ -22,7 +22,7 @@ Primary.args = {
 
 const StretchedTemplate: ComponentStory<typeof ShopItem> = (args) => (
   <div css={{ height: 500, display: "flex" }}>
-    <ShopItem {...args} ButtonProps={{ color: "black" }} />
+    <ShopItem {...args} />
   </div>
 );
 export const StretchedDark = StretchedTemplate.bind({});

@@ -1,24 +1,20 @@
 import { css } from "@emotion/react";
 import { FC, HTMLAttributes, useState } from "react";
-import Button, { Props as ButtonProps } from "../../Button";
+import AddToBagButton from "../../AddToBagButton";
 import Bag from "../../Icons/Bag";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
 
-interface Props extends HTMLAttributes<HTMLElement> {
-  image: string;
-  image2: string;
-  price: number;
-  short: string;
-  ButtonProps: ButtonProps;
-}
+interface Props
+  extends HTMLAttributes<HTMLElement>,
+    Omit<GQL.Product, "title"> {}
 
 const ShopItem: FC<Props> = ({
   image,
   image2,
   price,
   short,
-  ButtonProps,
+  _id,
   ...props
 }) => {
   const [hovered, hover] = useState(false);
@@ -85,9 +81,11 @@ const ShopItem: FC<Props> = ({
             })}
           </Text>
         </div>
-        <Button {...ButtonProps} Icon={Bag}>
-          Add to bag
-        </Button>
+        <AddToBagButton
+          productId={_id}
+          Icon={Bag}
+          css={{ alignSelf: "flex-end" }}
+        />
       </div>
     </StatBlock>
   );

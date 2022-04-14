@@ -6,7 +6,6 @@ import Quote from "../components/Quote";
 import ShopSoldOut from "../components/Shop/SoldOut";
 import BlockTitle from "../components/BlockTitle";
 import ShopBundle from "../components/Shop/Bundle";
-import { useBag } from "../hooks/bag";
 import BagButton from "../components/BagButton";
 import { useProducts } from "../hooks/product";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
@@ -24,7 +23,6 @@ const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 type ProductListsTypes = "sheet" | "deck" | "bundle";
 
 const Content: FC = () => {
-  const { addItem } = useBag();
   const { products } = useProducts();
 
   if (!products) {
@@ -84,11 +82,9 @@ const Content: FC = () => {
         {latestRelease && (
           <Grid css={(theme) => ({ marginBottom: theme.spacing(3) })}>
             <LatestRelease
+              productId={latestRelease._id}
               css={{ gridColumn: "span 9" }}
               price={latestRelease.price}
-              ButtonProps={{
-                onClick: () => addItem(latestRelease._id),
-              }}
             />
 
             {latestRelease.deck && (
@@ -137,9 +133,6 @@ const Content: FC = () => {
                     height: theme.spacing(50),
                     gridColumn: "span 6",
                   })}
-                  ButtonProps={{
-                    onClick: () => addItem(product._id),
-                  }}
                 />
               </Fragment>
             ) : (
@@ -181,13 +174,7 @@ const Content: FC = () => {
               }}
             >
               {bundles.map((product) => (
-                <ShopBundle
-                  key={product._id}
-                  {...product}
-                  ButtonProps={{
-                    onClick: () => addItem(product._id),
-                  }}
-                />
+                <ShopBundle key={product._id} {...product} />
               ))}
             </Grid>
           </div>

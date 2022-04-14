@@ -1,7 +1,7 @@
 import { useMetaMask } from "metamask-react";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { useBag } from "../../hooks/bag";
 import { useLoadDeal } from "../../hooks/deal";
+import AddToBagButton from "../AddToBagButton";
 import Arrowed from "../Arrowed";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
@@ -14,14 +14,14 @@ import Text from "../Text";
 import store from "store";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  productId: string;
   deck: GQL.Deck;
+  productId: string;
 }
 
 const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
   const { status, ethereum, account } = useMetaMask();
   const { loadDeal, deal, loading, error } = useLoadDeal();
-  const { addItem } = useBag();
+
   const [
     { account: signedAccount, expiry, signature, signing },
     setSignature,
@@ -273,9 +273,9 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
         color: theme.colors.text_title_light,
       })}
       action={
-        <Button onClick={() => addItem(productId, deal.decks)} Icon={Bag}>
+        <AddToBagButton productId={productId} amount={deal.decks} Icon={Bag}>
           Add all {deal.decks}
-        </Button>
+        </AddToBagButton>
       }
       {...props}
     >
