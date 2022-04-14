@@ -13,6 +13,7 @@ const ComposedGlobalLayout: FC<
     | "noNav"
     | "deckId"
     | "palette"
+    | "isCardPage"
   >
 > = ({
   noNav,
@@ -22,6 +23,7 @@ const ComposedGlobalLayout: FC<
   deckId,
   palette,
   children,
+  isCardPage,
 }) => {
   const {
     query: { scrollIntoView, scrollIntoViewBehavior, ...query },
@@ -78,6 +80,7 @@ const ComposedGlobalLayout: FC<
         customShopButton={customShopButton}
         noNav={noNav}
         palette={palette}
+        isCardPage={isCardPage}
       />
 
       {children}

@@ -54,7 +54,7 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         },
       }}
     >
-      <ComposedCardBlock card={card} deck={deck} />
+      <ComposedCardBlock card={card} deck={deck} ref={ref} />
     </CardNav>
   );
 };

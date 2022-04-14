@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { forwardRef, ForwardRefRenderFunction } from "react";
 import CardBlock from "../../Card/Block";
 import Layout, { Props as LayoutProps } from "../../Layout";
 
@@ -8,21 +8,20 @@ export interface Props extends LayoutProps {
   cardOfTheDay?: boolean;
 }
 
-const ComposedCardBlock: FC<Props> = ({
-  cardOfTheDay,
-  card,
-  deck,
-  ...props
-}) => (
+const ComposedCardBlock: ForwardRefRenderFunction<HTMLElement, Props> = (
+  { cardOfTheDay, card, deck, ...props },
+  ref
+) => (
   <Layout
     {...props}
     css={(theme) => ({
       paddingBottom: theme.spacing(14),
       paddingTop: theme.spacing(14),
     })}
+    ref={ref}
   >
     <CardBlock stick={14} cardOfTheDay={cardOfTheDay} card={card} deck={deck} />
   </Layout>
 );
 
-export default ComposedCardBlock;
+export default forwardRef(ComposedCardBlock);

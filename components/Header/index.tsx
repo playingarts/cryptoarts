@@ -17,6 +17,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   showAltNav?: boolean;
   noNav?: boolean;
   deckId?: string;
+  isCardPage?: boolean;
 }
 
 const Header: FC<Props> = ({
@@ -26,6 +27,7 @@ const Header: FC<Props> = ({
   showAltNav,
   noNav,
   deckId,
+  isCardPage,
   ...props
 }) => {
   const { deck } = useDeck({ variables: { slug: deckId } });
@@ -40,35 +42,28 @@ const Header: FC<Props> = ({
       return setExpanded(false);
     }
 
+    if (!isCardPage) {
+      setExpanded(true);
+    } else if (isCardPage) {
+      setExpanded(false);
+    }
+
     let lastScrollTop = 0;
 
     const handler = throttle(() => {
-      const documentHeight = Math.max(
-        document.body.scrollHeight
-        // document.body.offsetHeight,
-        // document.documentElement.clientHeight,
-        // document.documentElement.scrollHeight,
-        // document.documentElement.offsetHeight
-      );
+      const scrollTop = window.pageYOffset;
 
-      const scrollTop = Math.min(
-        documentHeight - window.innerHeight,
-        Math.max(
-          0,
-          window.pageYOffset
-          //  document.documentElement.scrollTop
-        )
+      setExpanded(
+        scrollTop < 15 ? (isCardPage ? false : true) : scrollTop < lastScrollTop
       );
-
-      setExpanded(scrollTop <= 0 ? true : scrollTop <= lastScrollTop);
 
       lastScrollTop = scrollTop;
-    }, 100);
+    }, 10);
 
     window.addEventListener("scroll", handler);
 
     return () => window.removeEventListener("scroll", handler);
-  }, [hovered, noNav]);
+  }, [hovered, noNav, isCardPage]);
 
   return (
     <header {...props}>
@@ -128,7 +123,7 @@ const Header: FC<Props> = ({
             })}
             style={{
               transform: `translateY(${
-                deck && ((showAltNav && "-250%") || "-50%")
+                deck && (((isCardPage || showAltNav) && "-250%") || "-50%")
               })`,
             }}
           >
@@ -146,7 +141,9 @@ const Header: FC<Props> = ({
                 transition: theme.transitions.normal("transform"),
               })}
               style={{
-                transform: `translateY(${(showAltNav && "-50%") || "200%"})`,
+                transform: `translateY(${
+                  ((isCardPage || showAltNav) && "-50%") || "200%"
+                })`,
               }}
             >
               {deck.title}

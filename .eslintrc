@@ -18,6 +18,7 @@
         "argsIgnorePattern": "^_+$",
         "varsIgnorePattern": "^_+$"
       }
-    ]
+    ],
+    "curly": ["error"]
   }
 }

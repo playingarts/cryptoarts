@@ -3,7 +3,7 @@ import {
   Fragment,
   memo,
   RefObject,
-  useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -217,24 +217,25 @@ const Page: NextPage = () => {
   const deckNavRef = useRef<HTMLElement>(null);
   const nftRef = useRef<HTMLElement>(null);
   const [altNavVisible, showAltNav] = useState(false);
+  const [isCardPage, setIsCardPage] = useState(false);
   const { deck } = useDeck({ variables: { slug: deckId } });
 
-  useEffect(() => {
-    if (artistId) {
-      return showAltNav(true);
+  useLayoutEffect(() => {
+    if (!aboutRef.current) {
+      showAltNav(false);
     }
 
+    setIsCardPage(!!artistId);
+
     const handler = throttle(() => {
-      if (!deckNavRef.current) {
+      if (!aboutRef.current) {
         return;
       }
 
-      const { top, height } = deckNavRef.current.getBoundingClientRect();
+      const { top, height } = aboutRef.current.getBoundingClientRect();
 
       showAltNav(top + height < 0);
     }, 100);
-
-    handler();
 
     window.addEventListener("scroll", handler);
 
@@ -262,6 +263,7 @@ const Page: NextPage = () => {
       showAltNav={altNavVisible}
       deckId={deckId instanceof Array ? deckId[0] : deckId}
       palette={artistId ? undefined : "gradient"}
+      isCardPage={isCardPage}
     >
       <Content
         deckRef={deckRef}
