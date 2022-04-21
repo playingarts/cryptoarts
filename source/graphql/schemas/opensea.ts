@@ -216,6 +216,11 @@ const getHolders = async (contract: string) => {
   };
 };
 
+export const setOnSale = (asset: Asset) => ({
+  ...asset,
+  on_sale: !!asset.sell_orders,
+});
+
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
   Opensea: {
