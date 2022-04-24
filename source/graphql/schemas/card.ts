@@ -49,6 +49,17 @@ export const getCard = ({ id }: GQL.QueryCardArgs) =>
     "deck",
   ]) as unknown) as Promise<GQL.Card>;
 
+export const getCardByTraits = ({
+  suit,
+  value,
+  deck,
+}: Pick<MongoCard, "value" | "suit" | "deck">) =>
+  (Card.findOne({
+    suit,
+    value,
+    deck,
+  }) as unknown) as Promise<GQL.Card>;
+
 export const resolvers: GQL.Resolvers = {
   Card: {
     background: async ({ background, deck }) =>

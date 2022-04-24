@@ -22,7 +22,10 @@ export const Deck = (models.Deck as Model<GQL.Deck>) || model("Deck", schema);
 const getDecks = async () => Deck.find();
 
 export const getDeck = async (
-  options: Pick<GQL.Deck, "slug"> | Pick<GQL.Deck, "_id">
+  options:
+    | Pick<GQL.Deck, "slug">
+    | Pick<GQL.Deck, "_id">
+    | Pick<GQL.Deck, "openseaContract">
 ) => (await Deck.findOne(options)) || undefined;
 
 export const resolvers: GQL.Resolvers = {

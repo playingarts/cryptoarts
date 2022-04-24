@@ -1,6 +1,7 @@
 import { NextApiHandler } from "next";
 import {
   getAssets,
+  setCard,
   setOnSale,
 } from "../../../../source/graphql/schemas/opensea";
 
@@ -30,7 +31,9 @@ const handler: NextApiHandler = async (req, res) => {
       (asset) => asset.owner.address.toLowerCase() === address.toLowerCase()
     );
 
-    res.json(addressAssets.map(setOnSale));
+    res.json(
+      await Promise.all(addressAssets.map(setOnSale).map(setCard(contractId)))
+    );
   } catch (error) {
     res.status(500).json({
       message: "Something went wrong. Try again later.",

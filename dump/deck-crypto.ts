@@ -7,9 +7,10 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Crypto Edition",
   short: "Crypto",
   slug,
-  info: "A deck of playing cards featuring works of 55 leading artists. Unique digital art collectibles living on the Ethereum blockchain.",
+  info:
+    "A deck of playing cards featuring works of 55 leading artists. Unique digital art collectibles living on the Ethereum blockchain.",
   openseaCollection: "cryptoedition",
-  openseaContract: "0xC22616E971a670E72F35570337e562c3E515FBFE",
+  openseaContract: "0xc22616e971a670e72f35570337e562c3e515fbfe",
   cardBackground: "#181818",
   image:
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_crypto.jpg",

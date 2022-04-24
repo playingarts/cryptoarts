@@ -5,6 +5,8 @@ import { OpenSeaPort, Network } from "opensea-js";
 import memoizee from "memoizee";
 import { CardSuits } from "../../enums";
 import intersect from "just-intersect";
+import { getDeck } from "./deck";
+import { getCardByTraits } from "./card";
 
 const { OPENSEA_KEY: apiKey = "" } = process.env;
 const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io");
@@ -220,6 +222,31 @@ export const setOnSale = (asset: Asset) => ({
   ...asset,
   on_sale: !!asset.sell_orders,
 });
+
+export const setCard = (contractId: string) => async (asset: Asset) => {
+  const deck = await getDeck({
+    openseaContract: contractId.toLowerCase(),
+  });
+
+  if (!deck) {
+    return asset;
+  }
+
+  const valueTrait = asset.traits.find((trait) => trait.trait_type === "Value");
+  const suitTrait = asset.traits.find((trait) => trait.trait_type === "Suit");
+
+  if (!suitTrait || !valueTrait) {
+    return asset;
+  }
+
+  const card = await getCardByTraits({
+    deck: deck._id.toString(),
+    suit: suitTrait.value.toLowerCase(),
+    value: valueTrait.value.toLowerCase(),
+  }).catch(() => null);
+
+  return { ...asset, card };
+};
 
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
