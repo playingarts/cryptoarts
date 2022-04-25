@@ -1,7 +1,8 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model, Types } from "mongoose";
 import { getDeck } from "./deck";
-import { getCardPrice } from "./opensea";
+import { getAssets } from "./opensea";
+import Web3 from "web3";
 
 export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
   artist?: string;
@@ -68,7 +69,40 @@ export const resolvers: GQL.Resolvers = {
       (await getDeck({ _id: (deck as unknown) as string }).then(
         (deck) => deck && deck.cardBackground
       )),
-    price: getCardPrice,
+    price: async (card: GQL.Card) => {
+      if (!card.suit || !card.deck || !card.deck.openseaContract) {
+        return;
+      }
+
+      const assets = await getAssets(card.deck.openseaContract);
+      const orders = assets
+        .filter(
+          ({ token_id, sell_orders, traits }) =>
+            token_id &&
+            sell_orders &&
+            traits.filter(
+              ({ trait_type, value }) =>
+                (trait_type === "Suit" && value.toLowerCase() === card.suit) ||
+                (trait_type === "Value" && value.toLowerCase() === card.value)
+            ).length === 2
+        )
+        .map((item) => item.sell_orders)
+        .flat();
+
+      return orders.reduce<number | undefined>((minPrice, { base_price }) => {
+        if (!base_price) {
+          return minPrice;
+        }
+
+        const price = parseFloat(Web3.utils.fromWei(base_price, "ether"));
+
+        if (!minPrice) {
+          return price;
+        }
+
+        return Math.min(price, minPrice);
+      }, undefined);
+    },
   },
   Query: {
     cards: (_, args) => getCards(args),
