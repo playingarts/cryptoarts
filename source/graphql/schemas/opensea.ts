@@ -29,40 +29,54 @@ interface Asset {
   }[];
 }
 
-const getAssetsRaw = (
+const cachedAssets: Record<string, Asset[]> = {};
+
+export const getAssetsRaw = (
   contract: string,
   allAssets: Asset[] = [],
   cursor = ""
-): Promise<Asset[]> =>
-  seaport.api
-    .get<{
-      assets: Asset[];
-      next: string | null;
-    }>("/api/v1/assets", {
-      asset_contract_address: contract,
-      limit: 200,
-      include_orders: true,
-      cursor,
-    })
-    .then(({ assets, next }) => {
-      allAssets = [...allAssets, ...assets];
+): Promise<Asset[]> => {
+  const callForAssets = () =>
+    seaport.api
+      .get<{
+        assets: Asset[];
+        next: string | null;
+      }>("/api/v1/assets", {
+        asset_contract_address: contract,
+        limit: 200,
+        include_orders: true,
+        cursor,
+      })
+      .then(({ assets, next }) => {
+        allAssets = [...allAssets, ...assets];
 
-      if (!next) {
-        return allAssets;
-      }
+        if (!next) {
+          cachedAssets[contract] = allAssets;
 
-      return getAssetsRaw(contract, allAssets, next);
-    })
-    .catch((error) => {
-      console.error("Failed to get OpenSea Assets:", error);
+          return allAssets;
+        }
 
-      return new Promise<Asset[]>((resolve) =>
-        setTimeout(
-          () => resolve(getAssetsRaw(contract, allAssets, cursor)),
-          error.message.includes("Error 429") ? 1000 : 500
-        )
-      );
-    });
+        return getAssetsRaw(contract, allAssets, next);
+      })
+      .catch((error) => {
+        console.error("Failed to get OpenSea Assets:", error);
+
+        return new Promise<Asset[]>((resolve) =>
+          setTimeout(
+            () => resolve(getAssetsRaw(contract, allAssets, cursor)),
+            error.message.includes("Error 429") ? 1000 : 500
+          )
+        );
+      });
+
+  if (cachedAssets[contract]) {
+    callForAssets();
+
+    return Promise.resolve(cachedAssets[contract]);
+  }
+
+  return callForAssets();
+};
 
 export const getAssets = memoizee(
   process.env.NODE_ENV === "development"
