@@ -210,7 +210,9 @@ export const setCard = (contractId: string) => async (asset: Asset) => {
   }
 
   const valueTrait = asset.traits.find((trait) => trait.trait_type === "Value");
-  const suitTrait = asset.traits.find((trait) => trait.trait_type === "Suit");
+  const suitTrait = asset.traits.find(
+    (trait) => trait.trait_type === "Suit" || trait.trait_type === "Color"
+  );
 
   if (!suitTrait || !valueTrait) {
     return asset;
