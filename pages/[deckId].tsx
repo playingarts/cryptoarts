@@ -31,6 +31,7 @@ import CardList from "../components/Card/List";
 import { Sections } from "../source/enums";
 import AugmentedReality from "../components/AugmentedReality";
 import Error from "next/error";
+import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
 
 const Content: FC<{
   aboutRef: RefObject<HTMLDivElement>;
@@ -153,7 +154,29 @@ const Content: FC<{
           contract={deck.openseaContract}
         />
       )}
-
+      {deck.slug === "crypto" && (
+        <Layout
+          css={(theme) => ({
+            backgroundColor: theme.colors.page_bg_dark,
+            paddingTop: theme.spacing(6),
+            paddingBottom: theme.spacing(15),
+          })}
+        >
+          <Grid>
+            <BlockTitle
+              css={(theme) => ({
+                color: theme.colors.white,
+                gridColumn: "2/ span 10",
+                marginBottom: theme.spacing(6),
+              })}
+              title="Roadmap"
+            />
+          </Grid>
+          <Grid>
+            <ComposedRoadmap css={{ gridColumn: "2 / span 10" }} />
+          </Grid>
+        </Layout>
+      )}
       <Layout
         css={(theme) => ({
           paddingTop: theme.spacing(15),

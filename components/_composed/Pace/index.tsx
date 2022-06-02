@@ -28,7 +28,6 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
         background: theme.colors.page_bg_dark,
         color: theme.colors.text_title_light,
         paddingTop: theme.spacing(15),
-        paddingBottom: theme.spacing(15),
       })}
       ref={ref}
       scrollIntoView={section === Sections.nft}
@@ -64,8 +63,8 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
 
       <Grid
         css={(theme) => ({
-          marginTop: theme.spacing(4),
-          marginBottom: theme.spacing(3),
+          paddingTop: theme.spacing(4),
+          paddingBottom: theme.spacing(3),
         })}
       >
         <ComposedSupply

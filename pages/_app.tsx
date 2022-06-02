@@ -37,6 +37,7 @@ declare module "@emotion/react" {
       orange: "#F89D35";
       green: "#05CE78";
       red: "#C4161C";
+      lavender: "#8582F9";
     };
     mq: { [index: string]: string };
     typography: {
@@ -110,6 +111,7 @@ export const theme: Theme = {
     orange: "#F89D35",
     green: "#05CE78",
     red: "#C4161C",
+    lavender: "#8582F9",
   },
   typography: {
     h1: {
