@@ -7,6 +7,7 @@ import Line from "../../Line";
 import Link from "../../Link";
 import Quote from "../../Quote";
 import Text from "../../Text";
+import Podcast from "../../_composed/Podcast";
 import CardInfo from "../Info";
 
 interface Props extends GridProps {
@@ -109,6 +110,13 @@ const CardBlock: FC<Props> = ({
         >
           {card.info}
         </Quote>
+        <Podcast
+          css={(theme) => ({ marginTop: theme.spacing(5.5) })}
+          smallTitle={true}
+          withoutAction={true}
+          title="PODCAST"
+          name={card.artist.name}
+        />
       </div>
     )}
   </Grid>

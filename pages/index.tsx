@@ -13,9 +13,6 @@ import Link from "../components/Link";
 import Button from "../components/Button";
 import Twitter from "../components/Icons/Twitter";
 import Discord from "../components/Icons/Discord";
-import Play from "../components/Icons/Play";
-import Itunes from "../components/Icons/Itunes";
-import Spotify from "../components/Icons/Spotify";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Kickstarter from "../components/Icons/Kickstarter";
 import Arrowed from "../components/Arrowed";
@@ -25,6 +22,7 @@ import { socialLinks } from "../source/consts";
 import CutoutChevron from "../components/Icons/CutoutChevron";
 import BrowseCollection from "../components/_composed/BrowseCollection";
 import BlockTitle from "../components/BlockTitle";
+import Podcast from "../components/_composed/Podcast";
 
 const Home: NextPage = () => {
   return (
@@ -140,95 +138,7 @@ const Home: NextPage = () => {
             alignItems: "flex-start",
           }}
         >
-          <StatBlock
-            css={(theme) => ({
-              background: "#510EAC",
-              color: theme.colors.text_title_light,
-              gridColumn: "span 6",
-            })}
-            title="PLAYING ARTS PODCAST・EP17"
-            {...(socialLinks.podcastYoutube && {
-              action: {
-                children: "All episodes",
-                href: socialLinks.podcastYoutube,
-                target: "_blank",
-              },
-            })}
-          >
-            <div
-              css={{
-                display: "flex",
-                columnGap: 50,
-              }}
-            >
-              <div css={{ flexGrow: 1 }}>
-                <Text
-                  component="h3"
-                  css={(theme) => ({
-                    textTransform: "uppercase",
-                    marginTop: 0,
-                    marginBottom: theme.spacing(1),
-                  })}
-                >
-                  Prateek Vatash
-                </Text>
-                <div
-                  css={(theme) => ({
-                    marginTop: theme.spacing(2),
-                    display: "flex",
-                    alignItems: "center",
-                    columnGap: theme.spacing(2),
-                  })}
-                >
-                  {socialLinks.podcastYoutube && (
-                    <Button
-                      Icon={Play}
-                      css={{ color: "#510EAC" }}
-                      component={Link}
-                      href={socialLinks.podcastYoutube}
-                      target="_blank"
-                    >
-                      Watch
-                    </Button>
-                  )}
-                  {socialLinks.podcastAppleMusic && (
-                    <Button
-                      variant="bordered"
-                      size="small"
-                      Icon={Itunes}
-                      css={{ opacity: 0.5 }}
-                      component={Link}
-                      href={socialLinks.podcastAppleMusic}
-                      target="_blank"
-                    />
-                  )}
-                  {socialLinks.podcastSpotify && (
-                    <Button
-                      variant="bordered"
-                      size="small"
-                      Icon={Spotify}
-                      css={{ opacity: 0.5 }}
-                      component={Link}
-                      href={socialLinks.podcastSpotify}
-                      target="_blank"
-                    />
-                  )}
-                </div>
-              </div>
-              <div
-                css={(theme) => ({
-                  width: theme.spacing(16),
-                  height: theme.spacing(16),
-                  background: "#000",
-                  borderRadius: "50%",
-                  flexShrink: 0,
-                  backgroundImage:
-                    "url(https://s3.amazonaws.com/img.playingarts.com/www/podcast/prateek-vatash.jpg)",
-                  backgroundSize: "cover",
-                })}
-              ></div>
-            </div>
-          </StatBlock>
+          <Podcast title="PLAYING ARTS PODCAST" />
           <StatBlock
             css={(theme) => ({
               background: "#5865F2",

@@ -16,6 +16,13 @@ export const CardsQuery = gql`
         country
         website
         slug
+        podcast {
+          image
+          youtube
+          spotify
+          apple
+          episode
+        }
         social {
           website
           instagram

@@ -9,6 +9,7 @@ import deckSpecial from "./deck-special";
 import deckThree from "./deck-three";
 import deckTwo from "./deck-two";
 import deals from "./deals";
+import podcasts from "./podcasts";
 
 (async () => {
   await artists();
@@ -22,6 +23,7 @@ import deals from "./deals";
   await deckCrypto();
   await products();
   await deals();
+  await podcasts();
 
   process.exit();
 })();

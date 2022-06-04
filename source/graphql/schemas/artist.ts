@@ -9,6 +9,16 @@ const schema = new Schema<GQL.Artist, Model<GQL.Artist>, GQL.Artist>({
   shop: String,
   country: String,
   slug: String,
+  podcast: {
+    type: {
+      image: String,
+      youtube: String,
+      apple: String,
+      spotify: String,
+      episode: Number,
+    },
+    default: undefined,
+  },
   social: {
     instagram: String,
     facebook: String,
@@ -32,11 +42,29 @@ export const resolvers: GQL.Resolvers = {
   Artist: {
     social: ({ website, social }) => ({ website, ...social }),
   },
+  Query: {
+    artists: async (_, { hasPodcast, shuffle, limit }) => {
+      let artists = await Artist.find(
+        hasPodcast ? { podcast: { $ne: undefined } } : {}
+      );
+
+      if (shuffle) {
+        artists.sort(() => Math.random() - Math.random())[0];
+      }
+
+      if (limit) {
+        artists = artists.slice(0, limit);
+      }
+
+      return artists;
+    },
+  },
 };
 
 export const typeDefs = gql`
   type Query {
     artist(id: ID!): Artist
+    artists(hasPodcast: Boolean, shuffle: Boolean, limit: Int): [Artist]!
   }
 
   type Artist {
@@ -47,6 +75,7 @@ export const typeDefs = gql`
     userpic: String!
     website: String
     shop: String
+    podcast: Podcast
     social: Socials!
     country: String
   }

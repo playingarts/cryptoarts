@@ -26247,7 +26247,7 @@ export const artists = [
   },
   {
     slug: "kaloian-toshev",
-    name: "Kaloian Toshev MZK",
+    name: "Kaloian Toshev — MZK",
     country: "Bulgaria",
     info:
       "Creator, Visual Artist, Designer. On a mission to bring more beauty to the world. Drawing and creating digital stuff for 17 years. Clients — Coca Cola, Absolut, Ballantines, Audi, Heineken, Wacom.",

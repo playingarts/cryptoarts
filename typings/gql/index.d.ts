@@ -21,6 +21,7 @@ interface Query {
   decks: Array<Deck>;
   deck?: Maybe<Deck>;
   artist?: Maybe<Artist>;
+  artists: Array<Maybe<Artist>>;
   cards: Array<Card>;
   card?: Maybe<Card>;
   products: Array<Product>;
@@ -29,6 +30,7 @@ interface Query {
   holders: Holders;
   deal?: Maybe<Deal>;
   dailyCard: Card;
+  podcasts: Array<Maybe<Podcast>>;
 }
 
 
@@ -39,6 +41,13 @@ interface QueryDeckArgs {
 
 interface QueryArtistArgs {
   id: Scalars['ID'];
+}
+
+
+interface QueryArtistsArgs {
+  hasPodcast?: Maybe<Scalars['Boolean']>;
+  shuffle?: Maybe<Scalars['Boolean']>;
+  limit?: Maybe<Scalars['Int']>;
 }
 
 
@@ -80,6 +89,13 @@ interface QueryDealArgs {
   signature: Scalars['String'];
 }
 
+
+interface QueryPodcastsArgs {
+  name?: Maybe<Scalars['String']>;
+  shuffle?: Maybe<Scalars['Boolean']>;
+  limit?: Maybe<Scalars['Int']>;
+}
+
 interface Deck {
   __typename?: 'Deck';
   _id: Scalars['String'];
@@ -106,6 +122,7 @@ interface Artist {
   userpic: Scalars['String'];
   website?: Maybe<Scalars['String']>;
   shop?: Maybe<Scalars['String']>;
+  podcast?: Maybe<Podcast>;
   social: Socials;
   country?: Maybe<Scalars['String']>;
 }
@@ -272,6 +289,17 @@ interface Deal {
   deck?: Maybe<Deck>;
   claimed?: Maybe<Scalars['Boolean']>;
 }
+
+interface Podcast {
+  __typename?: 'Podcast';
+  image?: Maybe<Scalars['String']>;
+  youtube?: Maybe<Scalars['String']>;
+  apple?: Maybe<Scalars['String']>;
+  spotify?: Maybe<Scalars['String']>;
+  episode: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  podcastName?: Maybe<Scalars['String']>;
+}
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 
@@ -370,6 +398,7 @@ export type ResolversTypes = {
   Stats: ResolverTypeWrapper<Stats>;
   Holders: ResolverTypeWrapper<Holders>;
   Deal: ResolverTypeWrapper<Deal>;
+  Podcast: ResolverTypeWrapper<Podcast>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -392,6 +421,7 @@ export type ResolversParentTypes = {
   Stats: Stats;
   Holders: Holders;
   Deal: Deal;
+  Podcast: Podcast;
 };
 
 export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
@@ -402,6 +432,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   decks?: Resolver<Array<ResolversTypes['Deck']>, ParentType, ContextType>;
   deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType, RequireFields<QueryDeckArgs, 'slug'>>;
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
+  artists?: Resolver<Array<Maybe<ResolversTypes['Artist']>>, ParentType, ContextType, RequireFields<QueryArtistsArgs, never>>;
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsArgs, never>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
@@ -410,6 +441,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   holders?: Resolver<ResolversTypes['Holders'], ParentType, ContextType, RequireFields<QueryHoldersArgs, 'contract'>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deckId' | 'signature'>>;
   dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
+  podcasts?: Resolver<Array<Maybe<ResolversTypes['Podcast']>>, ParentType, ContextType, RequireFields<QueryPodcastsArgs, never>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -437,6 +469,7 @@ export type ArtistResolvers<ContextType = { req: Request, res: Response }, Paren
   userpic?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   shop?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  podcast?: Resolver<Maybe<ResolversTypes['Podcast']>, ParentType, ContextType>;
   social?: Resolver<ResolversTypes['Socials'], ParentType, ContextType>;
   country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -605,6 +638,17 @@ export type DealResolvers<ContextType = { req: Request, res: Response }, ParentT
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type PodcastResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Podcast'] = ResolversParentTypes['Podcast']> = {
+  image?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  youtube?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  apple?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  spotify?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  episode?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  podcastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   JSON?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
@@ -619,6 +663,7 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Stats?: StatsResolvers<ContextType>;
   Holders?: HoldersResolvers<ContextType>;
   Deal?: DealResolvers<ContextType>;
+  Podcast?: PodcastResolvers<ContextType>;
 };
 
 
