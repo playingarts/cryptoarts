@@ -267,6 +267,7 @@ interface Stats {
   num_reports?: Maybe<Scalars['Int']>;
   market_cap?: Maybe<Scalars['Float']>;
   floor_price?: Maybe<Scalars['Float']>;
+  onSale?: Maybe<Scalars['Int']>;
 }
 
 interface Holders {
@@ -614,6 +615,7 @@ export type StatsResolvers<ContextType = { req: Request, res: Response }, Parent
   num_reports?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   market_cap?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   floor_price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  onSale?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

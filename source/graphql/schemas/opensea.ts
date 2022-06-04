@@ -227,6 +227,34 @@ export const setCard = (contractId: string) => async (asset: Asset) => {
   return { ...asset, card };
 };
 
+const getOnSale = async (
+  primary_asset_contracts: GQL.PrimaryAssetContract[]
+) => {
+  if (!primary_asset_contracts[0] || !primary_asset_contracts[0].address) {
+    return;
+  }
+
+  const onSale = async (assets: Asset[]) => {
+    return assets
+      .filter(({ token_id, sell_orders }) => token_id && sell_orders)
+      .map((item) => item.sell_orders)
+      .flat().length;
+  };
+
+  return primary_asset_contracts.reduce<Promise<number> | number>(
+    async (prev, { address }) => {
+      if (!address) {
+        return prev;
+      }
+
+      const assets = await getAssets(address);
+
+      return (await prev) + (await onSale(assets));
+    },
+    0
+  );
+};
+
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
   Opensea: {
@@ -236,7 +264,14 @@ export const resolvers: GQL.Resolvers = {
     primary_asset_contracts: ({ primary_asset_contracts = [] }) =>
       primary_asset_contracts,
     traits: ({ traits = {} }) => traits,
-    stats: ({ stats = {} }) => stats,
+    stats: async ({ stats = {}, primary_asset_contracts }) => {
+      const onSale = await getOnSale(primary_asset_contracts);
+
+      return {
+        ...stats,
+        onSale,
+      };
+    },
   },
   Query: {
     opensea: async (_, { collection }) => {
@@ -351,6 +386,7 @@ export const typeDefs = gql`
     num_reports: Int
     market_cap: Float
     floor_price: Float
+    onSale: Int
   }
 
   type Holders {

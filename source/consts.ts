@@ -26,6 +26,8 @@ export const socialLinks = (() => {
     behance: "https://behance.net/playing-arts",
     facebook: "https://facebook.com/playingarts",
     allTokens: "https://opensea.io/collection/cryptoedition",
+    onSale:
+      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[toggles][0]=BUY_NOW",
     leaderboard:
       "https://nftnerds.ai/collection/0xc22616e971a670e72f35570337e562c3e515fbfe",
     allStats: "https://getpaced.xyz/",

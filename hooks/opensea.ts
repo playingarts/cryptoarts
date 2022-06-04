@@ -8,6 +8,7 @@ export const OpenseaQuery = gql`
         total_volume
         floor_price
         total_supply
+        onSale
       }
     }
   }
