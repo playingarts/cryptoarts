@@ -1,15 +1,17 @@
 import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
 import { useLoadCards } from "../../../hooks/card";
+import { OwnedCard } from "../../../pages/[deckId]";
 import CardNav, { Props as CardNavProps } from "../../Card/Nav";
 import ComposedCardBlock from "../CardBlock";
 
 interface Props extends CardNavProps {
   deck: GQL.Deck;
   artistId: string;
+  ownedCards?: OwnedCard[];
 }
 
 const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { artistId, deck, ...props },
+  { ownedCards, artistId, deck, ...props },
   ref
 ) => {
   const { loadCards, cards, loading } = useLoadCards();
@@ -54,7 +56,12 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         },
       }}
     >
-      <ComposedCardBlock card={card} deck={deck} ref={ref} />
+      <ComposedCardBlock
+        ownedCards={ownedCards}
+        card={card}
+        deck={deck}
+        ref={ref}
+      />
     </CardNav>
   );
 };

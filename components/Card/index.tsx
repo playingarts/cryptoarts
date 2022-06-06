@@ -11,6 +11,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   size?: "big";
   interactive?: boolean;
   noInfo?: boolean;
+  owned?: boolean;
 }
 
 const Card: FC<Props> = ({
@@ -20,6 +21,7 @@ const Card: FC<Props> = ({
   size,
   interactive,
   noInfo,
+  owned,
   ...props
 }) => {
   const [hovered, setHover] = useState(false);
@@ -50,13 +52,9 @@ const Card: FC<Props> = ({
     <div
       {...props}
       css={(theme) => ({
-        "&:hover": {
-          color: "rgba(10, 10, 10, 0.7)",
-        },
         transition: theme.transitions.fast("color"),
         width: theme.spacing(width),
         textAlign: "center",
-        color: theme.colors.text_subtitle_dark,
         fontWeight: 500,
         fontsize: 18,
         lineheight: 21,
@@ -65,6 +63,45 @@ const Card: FC<Props> = ({
       onMouseLeave={() => setHover(false)}
     >
       <div
+        css={(theme) => [
+          {
+            transition: theme.transitions.fast(["transform", "box-shadow"]),
+            position: "relative",
+            borderRadius: 15,
+            boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
+          },
+          owned && {
+            ":before": {
+              pointerEvents: "none",
+              content: '""',
+              position: "absolute",
+              boxSizing: "content-box",
+              top: -5,
+              left: -5,
+              padding: 5,
+              width: "100%",
+              height: "100%",
+              borderRadius: 15,
+              backgroundImage: theme.colors.eth,
+            },
+          },
+          hovered &&
+            !interactive &&
+            !isStatic && {
+              transform: `translate(0, -${theme.spacing(2)}px)`,
+              boxShadow: "0 20px 10px rgba(0, 0, 0, 0.25)",
+            },
+        ]}
+        style={
+          (hovered &&
+            interactive && {
+              transition: "initial",
+              transform: `perspective(${theme.spacing(width)}px) rotateX(${
+                -y * 10
+              }deg) rotateY(${x * 10}deg) scale3d(1, 1, 1)`,
+            }) ||
+          undefined
+        }
         {...(interactive && {
           onMouseMove: ({ clientX, clientY }) => {
             if (!wrapper.current) {
@@ -89,39 +126,19 @@ const Card: FC<Props> = ({
         <div
           css={(theme) => [
             {
-              transition: theme.transitions.fast(["transform", "box-shadow"]),
               overflow: "hidden",
-              boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
               position: "relative",
               height: theme.spacing(height),
               borderRadius: theme.spacing(1.5),
               background: card.background || theme.colors.text_title_light,
             },
-            hovered &&
-              !interactive &&
-              !isStatic && {
-                transform: `translate(0, -${theme.spacing(2)}px)`,
-                boxShadow: "0 20px 10px rgba(0, 0, 0, 0.25)",
-              },
           ]}
-          style={
-            (hovered &&
-              interactive && {
-                transition: "initial",
-                transform: `perspective(${theme.spacing(width)}px) rotateX(${
-                  -y * 10
-                }deg) rotateY(${x * 10}deg) scale3d(1, 1, 1)`,
-              }) ||
-            undefined
-          }
         >
           {!animated && (
             <div
               style={{
-                position: "absolute",
                 opacity: loaded ? 1 : 0,
                 transition: theme.transitions.slow("opacity"),
-                zIndex: hovered ? -1 : 1,
               }}
             >
               <Image
@@ -143,8 +160,12 @@ const Card: FC<Props> = ({
               playsInline
               ref={video}
               css={(theme) => ({
-                opacity: loaded ? 1 : 0,
-                transition: theme.transitions.slow("opacity"),
+                position: "absolute",
+                top: 0,
+                left: 0,
+                borderRadius: 15,
+                overflow: "hidden",
+                opacity: animated ? 1 : hovered ? (loaded ? 1 : 0) : 0,
                 width: theme.spacing(width),
                 height: theme.spacing(height),
               })}

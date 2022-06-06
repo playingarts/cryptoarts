@@ -8,6 +8,7 @@ import { PartialRecord } from "../../source/utils";
 import Button, { Props as ButtonProps } from "../Button";
 import Metamask from "../Icons/Metamask";
 import Link from "../Link";
+import { useSignature } from "../SignatureContext";
 
 interface Props
   extends ButtonProps,
@@ -29,6 +30,8 @@ const MetamaskButton: FC<Props> = ({
   ...props
 }) => {
   const { status, connect } = useMetaMask();
+  const { askSig } = useSignature();
+
   let { css, action, label } = {
     css: (theme) => ({
       backgroundColor: theme.colors[backgroundColor],
@@ -52,6 +55,10 @@ const MetamaskButton: FC<Props> = ({
         background: colord(theme.colors.white).alpha(0.1).toRgbString(),
       },
     });
+
+    action = {
+      onClick: askSig,
+    };
     label = connected;
   }
 

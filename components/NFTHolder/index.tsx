@@ -1,5 +1,11 @@
 import { useMetaMask } from "metamask-react";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import {
+  FC,
+  HTMLAttributes,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useLoadDeal } from "../../hooks/deal";
 import AddToBagButton from "../AddToBagButton";
 import Arrowed from "../Arrowed";
@@ -11,7 +17,7 @@ import Loader from "../Loader";
 import MetamaskButton from "../MetamaskButton";
 import StatBlock from "../StatBlock";
 import Text from "../Text";
-import store from "store";
+import { useSignature } from "../SignatureContext";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   deck: GQL.Deck;
@@ -19,52 +25,40 @@ interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
-  const { status, ethereum, account } = useMetaMask();
+  const { status, account } = useMetaMask();
+  const { getSig, removeSig, askSig } = useSignature();
   const { loadDeal, deal, loading, error } = useLoadDeal();
 
-  const [
-    { account: signedAccount, expiry, signature, signing },
-    setSignature,
-  ] = useState(
-    (store.get("signature") as {
-      account?: string;
-      expiry?: number;
-      signature?: string;
-      signing?: boolean;
-    }) || {}
-  );
+  const [currentDeal, setCurrentDeal] = useState<typeof deal>();
 
-  useEffect(() => {
-    if (
-      !account ||
-      !signature ||
-      !expiry ||
-      expiry < Date.now() ||
-      signedAccount !== account
-    ) {
-      setSignature({});
-      store.remove("signature");
+  useLayoutEffect(() => {
+    setCurrentDeal(undefined);
+  }, [account]);
 
+  useLayoutEffect(() => {
+    setCurrentDeal(deal);
+  }, [deal]);
+
+  useLayoutEffect(() => {
+    const sig = getSig();
+    if (!sig || !sig.signature) {
       return;
     }
 
-    store.set("signature", { expiry, signature, account });
-
     loadDeal({
       variables: {
-        signature,
+        signature: sig.signature,
         hash: account,
         deckId: deck._id,
       },
     });
-  }, [account, signature, loadDeal, deck._id, expiry, signedAccount]);
+  }, [getSig, account, deck._id, loadDeal]);
 
   useEffect(() => {
     if (error) {
-      setSignature({});
-      store.remove("signature");
+      removeSig();
     }
-  }, [error]);
+  }, [error, removeSig]);
 
   if (error) {
     return (
@@ -88,7 +82,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
     );
   }
 
-  if (!account || status !== "connected") {
+  if (!account || status !== "connected" || !getSig()) {
     return (
       <StatBlock
         css={(theme) => ({
@@ -134,48 +128,32 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
     );
   }
 
-  if (account !== signedAccount || deal === undefined) {
-    const requestSignature = () => {
-      setSignature((prev) => ({ ...prev, signing: true }));
+  if (currentDeal === undefined) {
+    const sig = getSig();
+    if (sig) {
+      return (
+        <StatBlock
+          css={(theme) => ({
+            backgroundColor: theme.colors.dark_gray,
+            color: theme.colors.text_title_light,
+          })}
+          action={
+            <Button loading={sig.signing || loading} onClick={askSig}>
+              {sig.signing ? "signing" : "sign"}
+            </Button>
+          }
+          {...props}
+        >
+          <Text component="h4" css={{ margin: 0 }}>
+            NFT holder?
+          </Text>
 
-      ethereum
-        .request({
-          method: "personal_sign",
-          params: [process.env.NEXT_PUBLIC_SIGNATURE_MESSAGE, account],
-        })
-        .then((signature: string) =>
-          setSignature({
-            account,
-            expiry: Date.now() + 1000 * 60 * 60,
-            signature,
-            signing: false,
-          })
-        )
-        .catch(() => setSignature((prev) => ({ ...prev, signing: false })));
-    };
-
-    return (
-      <StatBlock
-        css={(theme) => ({
-          backgroundColor: theme.colors.dark_gray,
-          color: theme.colors.text_title_light,
-        })}
-        action={
-          <Button loading={signing} onClick={requestSignature}>
-            {signing ? "signing" : "sign"}
-          </Button>
-        }
-        {...props}
-      >
-        <Text component="h4" css={{ margin: 0 }}>
-          NFT holder?
-        </Text>
-
-        <Text variant="body2">
-          Please sign to verify that you’re the owner of this ETH address.
-        </Text>
-      </StatBlock>
-    );
+          <Text variant="body2">
+            Please sign to verify that you’re the owner of this ETH address.
+          </Text>
+        </StatBlock>
+      );
+    }
   }
 
   if (loading) {
@@ -190,7 +168,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
     );
   }
 
-  if (deal === null) {
+  if (currentDeal === null || !currentDeal) {
     return (
       <StatBlock
         css={(theme) => ({
@@ -227,7 +205,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
     );
   }
 
-  if (deal._id === "discountCode") {
+  if (currentDeal._id === "discountCode") {
     return (
       <StatBlock
         css={(theme) => ({
@@ -241,8 +219,9 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
         </Text>
 
         <Text variant="body2">
-          You hold {deal.decks} PACE NFT card! Use following code on checkout to
-          get 50% on all items in your bag: “<b>{deal.code}</b>”.
+          You hold {currentDeal.decks} PACE NFT card! Use following code on
+          checkout to get 50% on all items in your bag: “
+          <b>{currentDeal.code}</b>”.
         </Text>
 
         <Text
@@ -273,8 +252,12 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
         color: theme.colors.text_title_light,
       })}
       action={
-        <AddToBagButton productId={productId} amount={deal.decks} Icon={Bag}>
-          Add all {deal.decks}
+        <AddToBagButton
+          productId={productId}
+          amount={currentDeal.decks}
+          Icon={Bag}
+        >
+          Add all {currentDeal.decks}
         </AddToBagButton>
       }
       {...props}
@@ -284,8 +267,8 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
       </Text>
 
       <Text variant="body2">
-        You’re eligible for {deal.decks} free Crypto Edition decks! Use
-        following code on checkout: <b>{deal.code}</b>.
+        You’re eligible for {currentDeal.decks} free Crypto Edition decks! Use
+        following code on checkout: <b>{currentDeal.code}</b>.
       </Text>
 
       <Text

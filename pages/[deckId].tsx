@@ -32,6 +32,11 @@ import { Sections } from "../source/enums";
 import AugmentedReality from "../components/AugmentedReality";
 import Error from "next/error";
 import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
+import { useMetaMask } from "metamask-react";
+import { useSignature } from "../components/SignatureContext";
+import { useLoadOwnedAssets } from "../hooks/opensea";
+
+export type OwnedCard = { value: string; suit: string };
 
 const Content: FC<{
   aboutRef: RefObject<HTMLDivElement>;
@@ -43,7 +48,62 @@ const Content: FC<{
   const {
     query: { artistId, deckId, section },
   } = useRouter();
+  const { status, account } = useMetaMask();
+  const { getSig } = useSignature();
   const { deck, loading } = useDeck({ variables: { slug: deckId } });
+
+  const { ownedAssets, loadOwnedAssets } = useLoadOwnedAssets();
+
+  const [ownedCards, setOwnedCards] = useState<OwnedCard[]>([]);
+
+  useLayoutEffect(() => {
+    if (!deck) {
+      return;
+    }
+
+    const currentSig = getSig();
+
+    if (!currentSig) {
+      return;
+    }
+
+    const { account: signedAccount, signature } = currentSig;
+
+    loadOwnedAssets({
+      variables: {
+        contractAddress: deck.openseaContract,
+        address: signedAccount,
+        signature,
+      },
+    });
+  }, [deck, getSig, loadOwnedAssets]);
+
+  useLayoutEffect(() => {
+    setOwnedCards([]);
+  }, [account]);
+
+  useLayoutEffect(() => {
+    if (!ownedAssets) {
+      return;
+    }
+
+    setOwnedCards(
+      ownedAssets.map(({ traits }) => {
+        const value = traits.find((trait) => trait.trait_type === "Value");
+        const suit = traits.find(
+          (trait) => trait.trait_type === "Suit" || trait.trait_type === "Color"
+        );
+
+        if (value && suit) {
+          return {
+            value: value.value.toLowerCase(),
+            suit: suit.value.toLowerCase(),
+          };
+        }
+        return { value: "", suit: "" };
+      })
+    );
+  }, [ownedAssets]);
 
   if (loading) {
     return null;
@@ -61,6 +121,7 @@ const Content: FC<{
             background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
             color: theme.colors.page_bg_light,
           })}
+          ownedCards={ownedCards}
           deck={deck}
           artistId={artistId}
           ref={aboutRef}
@@ -128,7 +189,14 @@ const Content: FC<{
         scrollIntoView={section === Sections.cards}
         ref={cardsRef}
         css={(theme) => ({
-          background: theme.colors.page_bg_gray,
+          background:
+            status === "connected"
+              ? "linear-gradient(180deg, #0A0A0A 0%, #111111 100%)"
+              : theme.colors.page_bg_light,
+          color:
+            status === "connected"
+              ? theme.colors.text_title_light
+              : theme.colors.text_title_dark,
           paddingTop: theme.spacing(15),
           paddingBottom: theme.spacing(15),
         })}
@@ -144,7 +212,16 @@ const Content: FC<{
           />
         </Grid>
 
-        <CardList deckId={deck._id} />
+        <CardList
+          {...(deck.openseaContract && {
+            openseaContract: deck.openseaContract,
+          })}
+          metamaskProps={{
+            account,
+            ownedCards,
+          }}
+          deckId={deck._id}
+        />
       </Layout>
 
       {deck.openseaCollection && deck.openseaContract && !artistId && (

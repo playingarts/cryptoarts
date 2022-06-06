@@ -1,4 +1,4 @@
-import { gql } from "@apollo/client";
+import { ApolloError, gql } from "@apollo/client";
 import GraphQLJSON from "graphql-type-json";
 import Web3 from "web3";
 import { OpenSeaPort, Network } from "opensea-js";
@@ -7,8 +7,12 @@ import { CardSuits } from "../../enums";
 import intersect from "just-intersect";
 import { getDeck } from "./deck";
 import { getCardByTraits } from "./card";
+import { recoverPersonalSignature } from "@metamask/eth-sig-util";
 
-const { OPENSEA_KEY: apiKey = "" } = process.env;
+const {
+  OPENSEA_KEY: apiKey = "",
+  NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
+} = process.env;
 const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io");
 const seaport = new OpenSeaPort(provider, {
   networkName: Network.Main,
@@ -72,7 +76,10 @@ export const getAssets = memoizee<typeof getAssetsRaw>(
   process.env.NODE_ENV === "development"
     ? async () =>
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require("../../../mocks/assets.json") as Asset[]
+        [
+          ...require("../../../mocks/assets.json"),
+          ...require("../../../mocks/myassets.json"),
+        ] as Asset[]
     : (contract) => {
         if (cachedAssets[contract]) {
           getAssetsRaw(contract);
@@ -254,6 +261,12 @@ const getOnSale = async (
     0
   );
 };
+export const signatureValid = (address: string, signature: string) =>
+  address.toLowerCase() ===
+  recoverPersonalSignature({
+    data: signatureMessage,
+    signature,
+  }).toLowerCase();
 
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
@@ -284,6 +297,19 @@ export const resolvers: GQL.Resolvers = {
         id: collection,
       };
     },
+    ownedAssets: async (_, { contractAddress, address, signature }) => {
+      if (!signatureValid(address, signature)) {
+        throw new ApolloError({
+          errorMessage: "Failed to verify the account.",
+        });
+      }
+
+      const assets = await getAssets(contractAddress);
+
+      return assets.filter(
+        ({ owner }) => owner.address.toLowerCase() === address.toLowerCase()
+      );
+    },
     holders: (_, { contract }) => getHolders(contract),
   },
 };
@@ -292,8 +318,33 @@ export const typeDefs = gql`
   scalar JSON
 
   type Query {
+    ownedAssets(
+      contractAddress: String!
+      address: String!
+      signature: String!
+    ): [Asset!]!
     opensea(collection: String!): Opensea!
     holders(contract: String!): Holders!
+  }
+
+  type Asset {
+    token_id: String!
+    owner: Owner!
+    sell_orders: [SellOrder]!
+    traits: [Trait!]!
+  }
+
+  type Trait {
+    trait_type: String!
+    value: String!
+  }
+
+  type SellOrder {
+    base_price: String!
+  }
+
+  type Owner {
+    address: String!
   }
 
   type Opensea {

@@ -26,6 +26,7 @@ interface Query {
   card?: Maybe<Card>;
   products: Array<Product>;
   convertEurToUsd?: Maybe<Scalars['Float']>;
+  ownedAssets: Array<Asset>;
   opensea: Opensea;
   holders: Holders;
   deal?: Maybe<Deal>;
@@ -70,6 +71,13 @@ interface QueryProductsArgs {
 
 interface QueryConvertEurToUsdArgs {
   eur: Scalars['Float'];
+}
+
+
+interface QueryOwnedAssetsArgs {
+  contractAddress: Scalars['String'];
+  address: Scalars['String'];
+  signature: Scalars['String'];
 }
 
 
@@ -171,6 +179,30 @@ interface Product {
   image2: Scalars['String'];
   info?: Maybe<Scalars['String']>;
   short: Scalars['String'];
+}
+
+interface Asset {
+  __typename?: 'Asset';
+  token_id: Scalars['String'];
+  owner: Owner;
+  sell_orders: Array<Maybe<SellOrder>>;
+  traits: Array<Trait>;
+}
+
+interface Trait {
+  __typename?: 'Trait';
+  trait_type: Scalars['String'];
+  value: Scalars['String'];
+}
+
+interface SellOrder {
+  __typename?: 'SellOrder';
+  base_price: Scalars['String'];
+}
+
+interface Owner {
+  __typename?: 'Owner';
+  address: Scalars['String'];
 }
 
 interface Opensea {
@@ -393,6 +425,10 @@ export type ResolversTypes = {
   Socials: ResolverTypeWrapper<Socials>;
   Card: ResolverTypeWrapper<Card>;
   Product: ResolverTypeWrapper<Product>;
+  Asset: ResolverTypeWrapper<Asset>;
+  Trait: ResolverTypeWrapper<Trait>;
+  SellOrder: ResolverTypeWrapper<SellOrder>;
+  Owner: ResolverTypeWrapper<Owner>;
   Opensea: ResolverTypeWrapper<Opensea>;
   PaymentToken: ResolverTypeWrapper<PaymentToken>;
   PrimaryAssetContract: ResolverTypeWrapper<PrimaryAssetContract>;
@@ -416,6 +452,10 @@ export type ResolversParentTypes = {
   Socials: Socials;
   Card: Card;
   Product: Product;
+  Asset: Asset;
+  Trait: Trait;
+  SellOrder: SellOrder;
+  Owner: Owner;
   Opensea: Opensea;
   PaymentToken: PaymentToken;
   PrimaryAssetContract: PrimaryAssetContract;
@@ -438,6 +478,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
+  ownedAssets?: Resolver<Array<ResolversTypes['Asset']>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'contractAddress' | 'address' | 'signature'>>;
   opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'collection'>>;
   holders?: Resolver<ResolversTypes['Holders'], ParentType, ContextType, RequireFields<QueryHoldersArgs, 'contract'>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deckId' | 'signature'>>;
@@ -519,6 +560,30 @@ export type ProductResolvers<ContextType = { req: Request, res: Response }, Pare
   image2?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type AssetResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Asset'] = ResolversParentTypes['Asset']> = {
+  token_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  owner?: Resolver<ResolversTypes['Owner'], ParentType, ContextType>;
+  sell_orders?: Resolver<Array<Maybe<ResolversTypes['SellOrder']>>, ParentType, ContextType>;
+  traits?: Resolver<Array<ResolversTypes['Trait']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TraitResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Trait'] = ResolversParentTypes['Trait']> = {
+  trait_type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type SellOrderResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['SellOrder'] = ResolversParentTypes['SellOrder']> = {
+  base_price?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OwnerResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Owner'] = ResolversParentTypes['Owner']> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -659,6 +724,10 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Socials?: SocialsResolvers<ContextType>;
   Card?: CardResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
+  Asset?: AssetResolvers<ContextType>;
+  Trait?: TraitResolvers<ContextType>;
+  SellOrder?: SellOrderResolvers<ContextType>;
+  Owner?: OwnerResolvers<ContextType>;
   Opensea?: OpenseaResolvers<ContextType>;
   PaymentToken?: PaymentTokenResolvers<ContextType>;
   PrimaryAssetContract?: PrimaryAssetContractResolvers<ContextType>;

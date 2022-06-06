@@ -40,7 +40,6 @@ const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => (
 );
 const ComposedSupply: FC<Props> = ({ collection, ...props }) => {
   const { opensea } = useOpensea({ variables: { collection } });
-  opensea && console.log(opensea.stats);
 
   return (
     <StatBlock

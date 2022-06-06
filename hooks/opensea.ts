@@ -1,4 +1,4 @@
-import { gql, QueryHookOptions, useQuery } from "@apollo/client";
+import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 
 export const OpenseaQuery = gql`
   query Opensea($collection: String!) {
@@ -28,6 +28,25 @@ export const HoldersQuery = gql`
   }
 `;
 
+export const OwnedAssetsQuery = gql`
+  query OwnedAssets(
+    $contractAddress: String!
+    $address: String!
+    $signature: String!
+  ) {
+    ownedAssets(
+      contractAddress: $contractAddress
+      address: $address
+      signature: $signature
+    ) {
+      traits {
+        trait_type
+        value
+      }
+    }
+  }
+`;
+
 export const useOpensea = (
   options: QueryHookOptions<Pick<GQL.Query, "opensea">> = {}
 ) => {
@@ -48,4 +67,15 @@ export const useHolders = (
   );
 
   return { ...methods, holders };
+};
+
+export const useLoadOwnedAssets = (
+  options: QueryHookOptions<Pick<GQL.Query, "ownedAssets">> = {}
+) => {
+  const [
+    loadOwnedAssets,
+    { data: { ownedAssets } = { ownedAssets: undefined }, ...methods },
+  ] = useLazyQuery(OwnedAssetsQuery, options);
+
+  return { loadOwnedAssets, ...methods, ownedAssets };
 };

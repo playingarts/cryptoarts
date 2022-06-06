@@ -1,0 +1,19 @@
+[
+  {
+    "owner": {
+      "address": "0xe081de92957d89124eD0C2c7F53B5e4120DA1dD4"
+    },
+    "sell_orders": [],
+    "traits": [
+      {
+        "trait_type": "Value",
+        "value": "4"
+      },
+      {
+        "trait_type": "Suit",
+        "value": "Hearts"
+      }
+    ],
+    "token_id": "7767"
+  }
+]

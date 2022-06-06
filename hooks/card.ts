@@ -9,6 +9,8 @@ export const CardsQuery = gql`
       info
       background
       opensea
+      value
+      suit
       artist {
         name
         userpic

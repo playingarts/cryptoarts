@@ -1,4 +1,5 @@
 import { FC, Fragment } from "react";
+import { OwnedCard } from "../../../pages/[deckId]";
 import Arrowed from "../../Arrowed";
 import Button from "../../Button";
 import Card from "../../Card";
@@ -15,6 +16,7 @@ interface Props extends GridProps {
   deck: GQL.Deck;
   cardOfTheDay?: boolean;
   stick?: number;
+  ownedCards?: OwnedCard[];
 }
 
 const CardBlock: FC<Props> = ({
@@ -22,6 +24,7 @@ const CardBlock: FC<Props> = ({
   cardOfTheDay,
   deck,
   card,
+  ownedCards,
   ...props
 }) => (
   <Grid {...props}>
@@ -44,6 +47,14 @@ const CardBlock: FC<Props> = ({
         size="big"
         interactive={true}
         noInfo={true}
+        owned={
+          ownedCards &&
+          ownedCards.findIndex(
+            (owned) =>
+              owned.suit.toLowerCase() === card.suit &&
+              owned.value === card.value
+          ) !== -1
+        }
         css={{
           marginLeft: "auto",
           marginRight: "auto",
