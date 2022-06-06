@@ -18,6 +18,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     cardsRef?: RefObject<HTMLElement>;
     nftRef?: RefObject<HTMLElement>;
     deckRef?: RefObject<HTMLElement>;
+    roadmapRef?: RefObject<HTMLElement>;
   };
   links?: {
     buyNow?: string;
@@ -137,6 +138,24 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           onClick={bringIntoViewHandler(refs.nftRef)}
         >
           (PACE) nft
+        </Link>
+      )}
+      {refs.roadmapRef && (
+        <Link
+          href={{
+            pathname,
+            query: { ...query, section: Sections.roadmap },
+          }}
+          shallow={true}
+          scroll={false}
+          css={(theme) => ({
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+            fontWeight: 600,
+          })}
+          onClick={bringIntoViewHandler(refs.roadmapRef)}
+        >
+          ROADMAP
         </Link>
       )}
       {refs.deckRef && (

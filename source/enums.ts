@@ -3,6 +3,7 @@ export enum Sections {
   deck = "deck",
   gallery = "gallery",
   nft = "nft",
+  roadmap = "roadmap",
 }
 
 export enum CardSuits {

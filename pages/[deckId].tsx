@@ -44,7 +44,8 @@ const Content: FC<{
   cardsRef: RefObject<HTMLElement>;
   deckNavRef: RefObject<HTMLElement>;
   nftRef: RefObject<HTMLElement>;
-}> = memo(({ aboutRef, deckRef, cardsRef, deckNavRef, nftRef }) => {
+  roadmapRef: RefObject<HTMLElement>;
+}> = memo(({ aboutRef, deckRef, cardsRef, deckNavRef, nftRef, roadmapRef }) => {
   const {
     query: { artistId, deckId, section },
   } = useRouter();
@@ -161,6 +162,7 @@ const Content: FC<{
               <DeckNav
                 ref={deckNavRef}
                 refs={{
+                  roadmapRef,
                   nftRef:
                     (deck &&
                       deck.openseaCollection &&
@@ -238,6 +240,8 @@ const Content: FC<{
             paddingTop: theme.spacing(6),
             paddingBottom: theme.spacing(15),
           })}
+          ref={roadmapRef}
+          scrollIntoView={section === Sections.roadmap}
         >
           <Grid>
             <BlockTitle
@@ -316,6 +320,8 @@ const Page: NextPage = () => {
   const cardsRef = useRef<HTMLElement>(null);
   const deckNavRef = useRef<HTMLElement>(null);
   const nftRef = useRef<HTMLElement>(null);
+  const roadmapRef = useRef<HTMLElement>(null);
+
   const [altNavVisible, showAltNav] = useState(false);
   const [isCardPage, setIsCardPage] = useState(false);
   const { deck } = useDeck({ variables: { slug: deckId } });
@@ -347,6 +353,7 @@ const Page: NextPage = () => {
       altNav={
         <DeckNav
           refs={{
+            roadmapRef,
             nftRef:
               (deck &&
                 deck.openseaCollection &&
@@ -370,6 +377,7 @@ const Page: NextPage = () => {
         cardsRef={cardsRef}
         deckNavRef={deckNavRef}
         nftRef={nftRef}
+        roadmapRef={roadmapRef}
         aboutRef={aboutRef}
       />
     </ComposedGlobalLayout>
