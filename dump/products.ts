@@ -113,7 +113,7 @@ export let products: MongoProduct[] = [
     status: "soon",
     type: "deck",
     image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-crypto-01.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-crypto.png",
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-crypto.png",
     info: "Deck of Cards",
