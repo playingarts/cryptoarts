@@ -3,11 +3,6 @@ import Layout from "../components/Layout";
 import Hero from "../components/Hero";
 import { withApollo } from "../source/apollo";
 import Grid from "../components/Grid";
-import Esquire from "../components/Icons/Esquire";
-import FastCompany from "../components/Icons/FastCompany";
-import CreativeBloq from "../components/Icons/CreativeBloq";
-import DigitalArts from "../components/Icons/DigitalArts";
-import Quote from "../components/Quote";
 import Text from "../components/Text";
 import Link from "../components/Link";
 import Button from "../components/Button";
@@ -26,7 +21,7 @@ import Podcast from "../components/_composed/Podcast";
 
 const Home: NextPage = () => {
   return (
-    <ComposedGlobalLayout>
+    <ComposedGlobalLayout extended={true}>
       <Layout
         css={(theme) => ({
           background: theme.colors.dark_gray,
@@ -39,8 +34,8 @@ const Home: NextPage = () => {
           backgroundSize: "cover",
         })}
       >
-        <Grid>
-          <div css={{ gridColumn: "2 / span 6" }}>
+        <Grid short={true}>
+          <div css={{ gridColumn: "span 6" }}>
             <Text component="h1" css={{ margin: 0 }}>
               Collective Art Project
             </Text>
@@ -61,7 +56,7 @@ const Home: NextPage = () => {
               Icon={CutoutChevron}
             />
           </div>
-          <Hero css={{ gridColumn: "8 / span 5" }} />
+          <Hero />
         </Grid>
       </Layout>
 
@@ -74,33 +69,32 @@ const Home: NextPage = () => {
         data-id="block-about"
       >
         <Grid
+          short={true}
           css={(theme) => ({
             background: theme.colors.page_bg_light_gray,
           })}
         >
-          <Grid css={{ gridColumn: "2 / span 10" }}>
-            <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
-              About
+          <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
+            About
+          </Text>
+          <div css={{ margin: 0, gridColumn: "span 7" }}>
+            <Text variant="body3">
+              Playing Arts is a collective art project where leading artists
+              from all over the world express their vision of an ordinary
+              playing card using personal styles, techniques and imagination.
             </Text>
-            <div css={{ margin: 0, gridColumn: "span 7" }}>
-              <Text variant="body3">
-                Playing Arts is a collective art project where leading artists
-                from all over the world express their vision of an ordinary
-                playing card using personal styles, techniques and imagination.
-              </Text>
-              <Text
-                component={Link}
-                variant="label"
-                href="/"
-                css={{ opacity: 0.5 }}
-              >
-                <Arrowed>Read our story</Arrowed>
-              </Text>
-            </div>
-            <Text variant="body3" css={{ gridColumn: "9 / span 2" }}>
-              <Kickstarter />
+            <Text
+              component={Link}
+              variant="label"
+              href="/"
+              css={{ opacity: 0.5 }}
+            >
+              <Arrowed>Read our story</Arrowed>
             </Text>
-          </Grid>
+          </div>
+          <Text variant="body3" css={{ gridColumn: "span 2 / -1" }}>
+            <Kickstarter />
+          </Text>
         </Grid>
       </Layout>
 
@@ -110,13 +104,7 @@ const Home: NextPage = () => {
           paddingBottom: theme.spacing(10),
         })}
       >
-        <Grid>
-          <BlockTitle
-            variant="h3"
-            title="Browse Collection"
-            css={{ gridColumn: "2 / span 10" }}
-          />
-        </Grid>
+        <BlockTitle variant="h3" title="Browse Collection" />
         <BrowseCollection css={(theme) => ({ marginTop: theme.spacing(4) })} />
       </Layout>
 
@@ -134,9 +122,13 @@ const Home: NextPage = () => {
         })}
       >
         <Grid
-          css={{
+          css={(theme) => ({
             alignItems: "flex-start",
-          }}
+            gap: theme.spacing(3),
+            [theme.maxMQ.md]: {
+              gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
+            },
+          })}
         >
           <Podcast title="PLAYING ARTS PODCAST" />
           <StatBlock
@@ -145,7 +137,7 @@ const Home: NextPage = () => {
               color: theme.colors.text_title_light,
               position: "relative",
               overflow: "hidden",
-              gridColumn: "7 / span 3",
+              gridColumn: "span 3",
             })}
           >
             <Discord
@@ -191,7 +183,7 @@ const Home: NextPage = () => {
               color: theme.colors.text_title_light,
               position: "relative",
               overflow: "hidden",
-              gridColumn: "10 / span 3",
+              gridColumn: "span 3",
             })}
           >
             <Twitter
@@ -231,36 +223,6 @@ const Home: NextPage = () => {
               )}
             </div>
           </StatBlock>
-        </Grid>
-        <Grid
-          css={(theme) => ({
-            marginBottom: theme.spacing(10),
-            marginTop: theme.spacing(16),
-          })}
-        >
-          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-            <Esquire />
-          </div>
-          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-            <FastCompany />
-          </div>
-          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-            <CreativeBloq />
-          </div>
-          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-            <DigitalArts />
-          </div>
-        </Grid>
-        <Grid
-          css={(theme) => ({
-            marginBottom: theme.spacing(10),
-            marginTop: theme.spacing(10),
-          })}
-        >
-          <Quote css={{ gridColumn: "2 / span 10" }}>
-            “This really is a unique deck. The concept is playful, and elegant
-            at the same time. The colors are vibrant. A wonderful price of art.”
-          </Quote>
         </Grid>
       </Layout>
     </ComposedGlobalLayout>

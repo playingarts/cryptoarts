@@ -12,17 +12,11 @@ import { useDeck } from "../hooks/deck";
 import Layout from "../components/Layout";
 import { withApollo } from "../source/apollo";
 import { useRouter } from "next/router";
-import DeckBlock from "../components/DeckBlock";
 import BlockTitle from "../components/BlockTitle";
 import Text from "../components/Text";
 import Line from "../components/Line";
 import DeckNav from "../components/DeckNav";
 import Grid from "../components/Grid";
-import Esquire from "../components/Icons/Esquire";
-import FastCompany from "../components/Icons/FastCompany";
-import CreativeBloq from "../components/Icons/CreativeBloq";
-import DigitalArts from "../components/Icons/DigitalArts";
-import Quote from "../components/Quote";
 import throttle from "just-throttle";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedCardContent from "../components/_composed/CardContent";
@@ -37,6 +31,7 @@ import { useSignature } from "../components/SignatureContext";
 import { useLoadOwnedAssets } from "../hooks/opensea";
 
 export type OwnedCard = { value: string; suit: string };
+import DeckBlock from "../components/DeckBlock";
 
 const Content: FC<{
   aboutRef: RefObject<HTMLDivElement>;
@@ -144,16 +139,16 @@ const Content: FC<{
               position: "absolute",
               left: 0,
               top: 0,
-              width: "100vw",
-              height: "100vh",
+              width: "100%",
+              height: "100%",
               background: `url(${deck.backgroundImage}) 50% 50%`,
               backgroundSize: "cover",
               backgroundAttachment: "fixed",
               minHeight: "100%",
             }}
           />
-          <Grid css={{ zIndex: 1, position: "relative" }}>
-            <div css={{ gridColumn: "2 / span 10" }}>
+          <Grid css={{ zIndex: 1, position: "relative" }} short={true}>
+            <div css={{ gridColumn: "1 / -1" }}>
               <Text component="h1" css={{ margin: 0 }}>
                 {deck.title}
               </Text>
@@ -203,16 +198,13 @@ const Content: FC<{
           paddingBottom: theme.spacing(15),
         })}
       >
-        <Grid>
-          <BlockTitle
-            title={artistId ? deck.title : "Cards"}
-            subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
-            css={(theme) => ({
-              gridColumn: "2 / span 10",
-              marginBottom: theme.spacing(4),
-            })}
-          />
-        </Grid>
+        <BlockTitle
+          title={artistId ? deck.title : "Cards"}
+          subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
+          css={(theme) => ({
+            marginBottom: theme.spacing(1),
+          })}
+        />
 
         <CardList
           {...(deck.openseaContract && {
@@ -243,19 +235,15 @@ const Content: FC<{
           ref={roadmapRef}
           scrollIntoView={section === Sections.roadmap}
         >
-          <Grid>
-            <BlockTitle
-              css={(theme) => ({
-                color: theme.colors.white,
-                gridColumn: "2/ span 10",
-                marginBottom: theme.spacing(6),
-              })}
-              title="Roadmap"
-            />
-          </Grid>
-          <Grid>
-            <ComposedRoadmap css={{ gridColumn: "2 / span 10" }} />
-          </Grid>
+          <BlockTitle
+            css={(theme) => ({
+              color: theme.colors.white,
+              gridColumn: "2/ span 10",
+              marginBottom: theme.spacing(6),
+            })}
+            title="Roadmap"
+          />
+          <ComposedRoadmap />
         </Layout>
       )}
       <Layout
@@ -267,45 +255,20 @@ const Content: FC<{
         ref={deckRef}
         scrollIntoView={section === Sections.deck}
       >
-        <DeckBlock deck={deck} />
+        <Grid>
+          <DeckBlock deck={deck} css={{ gridColumn: "1/-1" }} />
+        </Grid>
 
         {deck.slug === "crypto" && (
-          <AugmentedReality
-            css={(theme) => ({ marginTop: theme.spacing(9) })}
-          />
+          <Grid>
+            <AugmentedReality
+              css={(theme) => ({
+                marginTop: theme.spacing(9),
+                gridColumn: "1 / -1",
+              })}
+            />
+          </Grid>
         )}
-      </Layout>
-
-      <Layout
-        css={(theme) => ({
-          paddingTop: theme.spacing(12),
-          paddingBottom: theme.spacing(12),
-        })}
-      >
-        <Grid>
-          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-            <Esquire />
-          </div>
-          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-            <FastCompany />
-          </div>
-          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-            <CreativeBloq />
-          </div>
-          <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-            <DigitalArts />
-          </div>
-        </Grid>
-        <Grid
-          css={(theme) => ({
-            marginTop: theme.spacing(10),
-          })}
-        >
-          <Quote css={{ gridColumn: "2 / span 10" }}>
-            “This really is a unique deck. The concept is playful, and elegant
-            at the same time. The colors are vibrant. A wonderful price of art.”
-          </Quote>
-        </Grid>
       </Layout>
     </Fragment>
   );
@@ -350,6 +313,7 @@ const Page: NextPage = () => {
 
   return (
     <ComposedGlobalLayout
+      extended={true}
       altNav={
         <DeckNav
           refs={{

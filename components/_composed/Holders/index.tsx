@@ -36,7 +36,14 @@ const ComposedHolders: FC<Props> = ({ contract, ...props }) => {
       }}
     >
       <div css={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <Grid css={{ gridTemplateColumns: "1fr 1fr" }}>
+        <Grid
+          css={(theme) => ({
+            gridTemplateColumns: "1fr !important",
+            [theme.mq.xsm]: {
+              gridTemplateColumns: "1fr 1fr !important",
+            },
+          })}
+        >
           <Stat
             label="54-card deck (incl jokers)"
             value={holders.fullDecksWithJokers.length}

@@ -17,6 +17,9 @@ import Text from "../components/Text";
 import ComposedFaq from "../components/_composed/Faq";
 import LatestRelease from "../components/LatestRelease";
 import NFTHolder from "../components/NFTHolder";
+import AddToBagButton from "../components/AddToBagButton";
+import Bag from "../components/Icons/Bag";
+import Line from "../components/Line";
 
 const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
@@ -65,9 +68,13 @@ const Content: FC = () => {
           paddingBottom: theme.spacing(5),
         })}
       >
-        <Grid>
-          <Text component="h2" css={{ margin: 0, gridColumn: "2 / span 7" }}>
-            Shop products
+        <Grid short={true} css={(theme) => ({ rowGap: theme.spacing(2) })}>
+          <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
+            Shop
+          </Text>
+          <Text variant="body2" css={{ margin: 0, gridColumn: "span 7" }}>
+            The best way to buy the products you love. Hover the card to see
+            animation. Click to read the story behind the artwork.
           </Text>
         </Grid>
       </Layout>
@@ -77,13 +84,19 @@ const Content: FC = () => {
           paddingTop: theme.spacing(6),
           paddingBottom: theme.spacing(15),
           background: theme.colors.page_bg_gray,
+          overflow: "hidden",
         })}
       >
         {latestRelease && (
           <Grid css={(theme) => ({ marginBottom: theme.spacing(3) })}>
             <LatestRelease
               productId={latestRelease._id}
-              css={{ gridColumn: "span 9" }}
+              css={(theme) => ({
+                gridColumn: "span 9",
+                [theme.maxMQ.md]: {
+                  gridColumn: "span 6",
+                },
+              })}
               price={latestRelease.price}
             />
 
@@ -97,88 +110,172 @@ const Content: FC = () => {
           </Grid>
         )}
 
-        <Grid
-          css={(theme) => ({
-            rowGap: theme.spacing(3),
-          })}
-        >
-          {decks.map(({ title, ...product }, index) =>
-            product.status === "instock" ? (
-              <Fragment key={product._id}>
-                {index === 2 && (
-                  <Quote
-                    css={(theme) => ({
-                      gridColumn: "2 / span 10",
-                      marginTop: theme.spacing(9),
-                      marginBottom: theme.spacing(9),
-                    })}
-                    artist={{
-                      _id: "",
-                      name: "Wim V.",
-                      slug: "wim-v",
-                      userpic: "",
-                      social: {},
-                    }}
-                    moreLink="/"
-                  >
-                    “Thank you for the smooth handling of getting the playing
-                    cards I ordered to me; not only are they little gems by
-                    their own right, they are also a perfect way to discover new
-                    talented artists, who I may otherwise never come across.”
-                  </Quote>
-                )}
-                <ShopItem
-                  {...product}
-                  css={(theme) => ({
-                    height: theme.spacing(50),
-                    gridColumn: "span 6",
-                  })}
-                />
-              </Fragment>
-            ) : (
-              <Fragment>
-                <ShopSoldOut
-                  title={title}
-                  css={{ gridColumn: "2 / span 4", alignSelf: "center" }}
-                />
-                {product.deck && (
+        <Grid>
+          <Grid
+            shop={true}
+            css={(theme) => ({ gap: theme.spacing(3), gridColumn: "1 / -1" })}
+          >
+            {decks.map(({ title, ...product }, index) =>
+              product.status === "instock" ? (
+                <Fragment key={product._id}>
+                  {index === 2 && (
+                    <Fragment>
+                      <Line
+                        spacing={1}
+                        css={(theme) => ({
+                          gridColumn: "1 / -1",
+                          width: "100%",
+                          [theme.mq.md]: {
+                            display: "none",
+                          },
+                        })}
+                      />
+                      <Grid
+                        short={true}
+                        css={{
+                          gridColumn: "1 / -1",
+                        }}
+                      >
+                        <Quote
+                          css={(theme) => ({
+                            marginTop: theme.spacing(9),
+                            marginBottom: theme.spacing(9),
+                            gridColumn: "1 / -1",
+                          })}
+                          artist={{
+                            _id: "",
+                            name: "Wim V.",
+                            slug: "wim-v",
+                            userpic: "",
+                            social: {},
+                          }}
+                          moreLink="/"
+                        >
+                          “Thank you for the smooth handling of getting the
+                          playing cards I ordered to me; not only are they
+                          little gems by their own right, they are also a
+                          perfect way to discover new talented artists, who I
+                          may otherwise never come across.”
+                        </Quote>
+                      </Grid>
+                    </Fragment>
+                  )}
                   <div
                     css={(theme) => ({
-                      textAlign: "center",
-                      gridColumn: "7 / span 6",
-                      marginTop: theme.spacing(4),
-                      marginBottom: theme.spacing(16),
+                      gridColumn: "span 4",
+                      [theme.mq.md]: {
+                        gridColumn: "span 6",
+                      },
                     })}
                   >
-                    <CardFan deck={product.deck} />
+                    <ShopItem
+                      {...product}
+                      css={(theme) => ({
+                        aspectRatio: "0.99",
+                        [theme.mq.md]: {
+                          aspectRatio: "1.2",
+                        },
+                      })}
+                    />
+                    <div
+                      css={(theme) => ({
+                        marginBottom: theme.spacing(5),
+                        [theme.mq.md]: {
+                          display: "none",
+                        },
+                      })}
+                    >
+                      <Text
+                        component="h4"
+                        css={(theme) => ({
+                          margin: 0,
+                          marginTop: theme.spacing(4),
+                        })}
+                      >
+                        {title}
+                      </Text>
+                      <Text variant="body2" css={{ opacity: 0.5, margin: 0 }}>
+                        {product.price.toLocaleString(undefined, {
+                          style: "currency",
+                          currency: "EUR",
+                        })}
+                      </Text>
+                      <AddToBagButton
+                        productId={product._id}
+                        Icon={Bag}
+                        color="black"
+                        css={(theme) => ({
+                          alignSelf: "flex-end",
+                          marginTop: theme.spacing(2),
+                        })}
+                      />
+                    </div>
                   </div>
-                )}
-              </Fragment>
-            )
-          )}
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <Line
+                    spacing={1}
+                    css={(theme) => ({
+                      gridColumn: "1 / -1",
+                      width: "100%",
+                      [theme.mq.md]: {
+                        display: "none",
+                      },
+                    })}
+                  />
+                  <Grid short={true} css={{ gridColumn: "1 / -1" }}>
+                    <ShopSoldOut
+                      title={title}
+                      css={{ gridColumn: "span 4", alignSelf: "center" }}
+                    />
+                    {product.deck && (
+                      <div
+                        css={(theme) => ({
+                          textAlign: "center",
+                          gridColumn: "span 3 / -1",
+                          marginTop: theme.spacing(4),
+                          marginBottom: theme.spacing(16),
+                        })}
+                      >
+                        <CardFan deck={product.deck} />
+                      </div>
+                    )}
+                  </Grid>
+                </Fragment>
+              )
+            )}
+          </Grid>
         </Grid>
 
-        <Grid css={(theme) => ({ marginTop: theme.spacing(12) })}>
-          <div css={{ gridColumn: "2 / span 10" }}>
-            <BlockTitle
-              title="Bundles"
-              subTitleText="For serious collectors and true art connoisseurs."
-              variant="h3"
-              css={(theme) => ({
-                marginBottom: theme.spacing(3),
-              })}
-            />
-            <Grid
-              css={{
-                gridTemplateColumns: "1fr 1fr",
-              }}
-            >
+        <Grid css={(theme) => ({ [theme.mq.md]: { display: "none" } })}>
+          <Line spacing={4} css={{ gridColumn: "1 / -1", width: "100%" }} />
+        </Grid>
+
+        <div css={(theme) => ({ marginTop: theme.spacing(9) })}>
+          <BlockTitle
+            title="Bundles"
+            subTitleText="For serious collectors and true art connoisseurs."
+            variant="h3"
+            css={(theme) => ({
+              marginBottom: theme.spacing(3),
+            })}
+          />
+          <Grid>
+            <Grid short={true} shop={true} css={{ gridColumn: "1/-1" }}>
               {bundles.map((product) => (
-                <ShopBundle key={product._id} {...product} />
+                <ShopBundle
+                  key={product._id}
+                  css={(theme) => ({
+                    gridColumn: "span 4",
+                    [theme.mq.md]: { gridColumn: "span 5" },
+                  })}
+                  {...product}
+                />
               ))}
             </Grid>
-          </div>
-        </Grid>
+          </Grid>
+        </div>
       </Layout>
 
       <Layout
@@ -198,8 +295,8 @@ const Content: FC = () => {
           paddingBottom: theme.spacing(15),
         })}
       >
-        <Grid>
-          <ComposedFaq css={{ gridColumn: "2 / span 10" }} />
+        <Grid short={true}>
+          <ComposedFaq css={{ gridColumn: "1 / -1" }} />
         </Grid>
       </Layout>
     </Fragment>

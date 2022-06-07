@@ -27,7 +27,7 @@ const ShopItem: FC<Props> = ({
     width: "100%",
     height: "100%",
     background: "50% 50% no-repeat",
-    backgroundSize: "contain",
+    backgroundSize: "cover",
   });
 
   return (
@@ -52,19 +52,24 @@ const ShopItem: FC<Props> = ({
       <div
         css={(theme) => [
           backgroundCss,
-          { transition: theme.transitions.fast("opacity") },
+          {
+            transition: theme.transitions.fast("opacity"),
+          },
         ]}
         style={{ backgroundImage: `url(${image2})`, opacity: +hovered }}
       />
 
       <div
         css={(theme) => ({
+          position: "relative",
+          [theme.maxMQ.md]: {
+            display: "none",
+          },
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-end",
           height: "100%",
           transition: theme.transitions.fast("opacity"),
-          position: "relative",
         })}
         style={{
           opacity: +hovered,

@@ -84,7 +84,8 @@ const Quote: FC<Props> = ({
                 ? {}
                 : {
                     marginLeft: theme.spacing(13.5),
-                    width: theme.spacing(22.5),
+                    // width: theme.spacing(22.5),
+                    minWidth: theme.spacing(18),
                     flexShrink: 0,
                   }),
             })}

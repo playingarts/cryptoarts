@@ -27,10 +27,7 @@ app
     );
 
     server.use("*", (req, res, next) => {
-      if (
-        !req.originalUrl.startsWith("/api/") &&
-        isMobile({ ua: req, tablet: true })
-      ) {
+      if (!req.originalUrl.startsWith("/api/") && isMobile({ ua: req })) {
         return res.redirect("https://www.playingarts.com/en" + req.originalUrl);
       }
 

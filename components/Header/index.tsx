@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import { FC, Fragment, HTMLAttributes, useEffect, useState } from "react";
 import throttle from "just-throttle";
 import LogoIcon from "../Icons/Logo";
 import MenuIcon from "../Icons/Menu";
@@ -77,6 +77,7 @@ const Header: FC<Props> = ({
             position: "relative",
             zIndex: 1,
             overflow: "hidden",
+            justifyContent: "space-between",
           },
           palette === "gradient"
             ? {
@@ -116,38 +117,75 @@ const Header: FC<Props> = ({
             variant="h5"
             component={Link}
             href="/"
-            css={(theme) => ({
-              position: "absolute",
-              transform: "translateY(-50%)",
-              transition: theme.transitions.normal("transform"),
-            })}
-            style={{
-              transform: `translateY(${
-                deck && (((isCardPage || showAltNav) && "-250%") || "-50%")
-              })`,
-            }}
+            css={(theme) => [
+              {
+                position: "absolute",
+                transition: theme.transitions.normal("transform"),
+                transform: "translateY(-50%)",
+                [theme.mq.md]: {
+                  transform: `translateY(${
+                    deck && (((isCardPage || showAltNav) && "-250%") || "-50%")
+                  })`,
+                },
+              },
+              deck && {
+                [theme.maxMQ.md]: {
+                  display: "none",
+                },
+              },
+            ]}
           >
             Playing Arts
           </Text>
 
           {deck && (
-            <Text
-              variant="h5"
-              component={Link}
-              href={`/${deckId}`}
-              css={(theme) => ({
-                position: "absolute",
-                transform: "translateY(0)",
-                transition: theme.transitions.normal("transform"),
-              })}
-              style={{
-                transform: `translateY(${
-                  ((isCardPage || showAltNav) && "-50%") || "200%"
-                })`,
-              }}
-            >
-              {deck.title}
-            </Text>
+            <Fragment>
+              <Text
+                variant="h5"
+                component={Link}
+                href={`/${deckId}`}
+                css={(theme) => ({
+                  position: "absolute",
+                  transform: "translateY(0)",
+                  transition: theme.transitions.normal("transform"),
+                  [theme.maxMQ.md]: {
+                    transform: `translateY(${
+                      (!expanded && showAltNav && "-250%") || "-50%"
+                    })`,
+                  },
+                  [theme.mq.md]: {
+                    transform: `translateY(${
+                      ((isCardPage || showAltNav) && "-50%") || "200%"
+                    })`,
+                  },
+                })}
+                style={{}}
+              >
+                {deck.title}
+              </Text>
+              {altNav && (
+                <div
+                  css={(theme) => ({
+                    position: "absolute",
+                    transition: theme.transitions.normal("transform"),
+                    textAlign: "center",
+                    width: "max-content",
+                    marginTop: "-0.25em",
+                    [theme.mq.md]: {
+                      display: "none",
+                    },
+                  })}
+                  style={{
+                    transform: `translateY(${
+                      (!expanded && showAltNav && "-50%") || "200%"
+                    })`,
+                  }}
+                  onClick={mouseEnter}
+                >
+                  {altNav}
+                </div>
+              )}
+            </Fragment>
           )}
         </div>
 
@@ -179,6 +217,10 @@ const Header: FC<Props> = ({
               textAlign: "center",
               position: "absolute",
               left: "50%",
+              width: "max-content",
+              [theme.maxMQ.md]: {
+                display: "none",
+              },
               top: (showAltNav && !expanded && "50%") || "150%",
               transform: "translate(-50%, -50%)",
             })}
@@ -188,28 +230,30 @@ const Header: FC<Props> = ({
           </div>
         )}
 
-        <MetamaskButton
-          noLabel={true}
-          backgroundColor={palette === "gradient" ? "dark_gray" : "white"}
-          textColor={palette === "gradient" ? "white" : "dark_gray"}
-          css={(theme) => ({
-            marginRight: theme.spacing(2),
-          })}
-        />
+        <div css={{ display: "flex" }}>
+          <MetamaskButton
+            noLabel={true}
+            backgroundColor={palette === "gradient" ? "dark_gray" : "white"}
+            textColor={palette === "gradient" ? "white" : "dark_gray"}
+            css={(theme) => ({
+              marginRight: theme.spacing(2),
+            })}
+          />
 
-        <div css={(theme) => ({ marginRight: theme.spacing(2) })}>
-          {customShopButton ? (
-            customShopButton
-          ) : (
-            <Button
-              component={Link}
-              href="/shop"
-              Icon={Bag}
-              color={palette === "gradient" ? "black" : undefined}
-            >
-              Shop
-            </Button>
-          )}
+          <div css={(theme) => ({ marginRight: theme.spacing(2) })}>
+            {customShopButton ? (
+              customShopButton
+            ) : (
+              <Button
+                component={Link}
+                href="/shop"
+                Icon={Bag}
+                color={palette === "gradient" ? "black" : undefined}
+              >
+                Shop
+              </Button>
+            )}
+          </div>
         </div>
       </div>
 

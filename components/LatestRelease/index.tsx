@@ -1,7 +1,7 @@
 import { FC } from "react";
 import AddToBagButton from "../AddToBagButton";
 import Bag from "../Icons/Bag";
-import Eth from "../Icons/Eth";
+import Ether from "../Icons/Ether";
 import StatBlock, { Props as StatBlockProps } from "../StatBlock";
 import Text from "../Text";
 
@@ -16,27 +16,39 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => (
     {...props}
     css={(theme) => ({
       background: `#000 url(https://s3.amazonaws.com/img.playingarts.com/www/shop/crypto_bg.png) bottom right no-repeat`,
-      backgroundSize: "85%",
+      [theme.maxMQ.md]: {
+        backgroundPositionX: theme.spacing(17),
+      },
+      backgroundSize: `${theme.spacing(74)}px ${theme.spacing(33)}px`,
       color: theme.colors.text_title_light,
       position: "relative",
+      overflow: "hidden",
     })}
     action={<AddToBagButton Icon={Bag} productId={productId} />}
     title="LATEST RELEASE"
   >
     <div
-      css={{
-        width: "55%",
+      css={(theme) => ({
+        width: theme.spacing(45.5),
         display: "flex",
         flexDirection: "column",
         height: "100%",
-      }}
+      })}
     >
       <div css={{ flexGrow: 1 }}>
         <Text component="h2" css={{ margin: 0 }}>
-          Crypto Edition
+          Crypto Edition is here. Finally.
         </Text>
-        <Text variant="body2" css={{ opacity: 0.5 }}>
-          Deck of playing cards featuring works of 55 leading digital artists.
+        <Text
+          variant="body2"
+          css={(theme) => ({
+            opacity: 0.5,
+            marginTop: theme.spacing(1),
+            marginBottom: theme.spacing(5.8),
+          })}
+        >
+          Playing Arts Crypto Edition (PACE) is a deck of playing cards
+          featuring.
         </Text>
       </div>
 
@@ -51,13 +63,16 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => (
       </Text>
     </div>
 
-    <Eth
+    <Ether
       css={(theme) => ({
-        opacity: 0.05,
-        height: theme.spacing(40),
-        width: theme.spacing(24),
+        color: theme.colors.white,
+        height: theme.spacing(40.3),
+        width: theme.spacing(23.8),
         right: theme.spacing(2.5),
         top: -theme.spacing(12),
+        [theme.maxMQ.md]: {
+          right: -theme.spacing(5.8),
+        },
         position: "absolute",
       })}
     />

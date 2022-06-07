@@ -20,6 +20,7 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   size?: "small" | "normal";
   color?: "black";
   loading?: boolean;
+  centeredText?: boolean;
 }
 
 const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -33,6 +34,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     variant = "default",
     color,
     loading,
+    centeredText,
     ...props
   },
   ref
@@ -110,7 +112,16 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
             : {})}
         />
       )}
-      {children && <span css={loading && { opacity: 0.1 }}>{children}</span>}
+      {children && (
+        <span
+          css={[
+            loading && { opacity: 0.1 },
+            centeredText && { margin: "auto" },
+          ]}
+        >
+          {children}
+        </span>
+      )}
       {loading && (
         <Loader
           css={{

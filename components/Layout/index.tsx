@@ -39,10 +39,9 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
       })}
     >
       <div
-        css={(theme) => ({
-          maxWidth: theme.spacing(123),
+        css={{
           margin: "0 auto",
-        })}
+        }}
       >
         {children}
       </div>

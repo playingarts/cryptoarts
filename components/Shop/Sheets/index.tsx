@@ -30,10 +30,18 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
     <Grid
       {...props}
       css={{
+        gridColumn: "1/-1",
         alignItems: "center",
       }}
     >
-      <div css={{ gridColumn: "span 5" }}>
+      <div
+        css={(theme) => ({
+          gridColumn: "span 4",
+          [theme.mq.md]: {
+            gridColumn: "span 5",
+          },
+        })}
+      >
         <img
           src={product.image}
           alt={product.title}
@@ -44,7 +52,12 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           })}
         />
       </div>
-      <div css={{ gridColumn: "7 / span 5" }}>
+      <div
+        css={(theme) => ({
+          gridColumn: "span 4 / -1",
+          [theme.mq.md]: { gridColumn: "7 / span 5" },
+        })}
+      >
         <Text css={{ margin: 0 }} component="h3">
           Uncut Sheets
         </Text>
@@ -75,8 +88,9 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
         <div
           css={(theme) => ({
             display: "flex",
+            flexWrap: "wrap",
             alignItems: "center",
-            columnGap: theme.spacing(2),
+            gap: theme.spacing(2),
           })}
         >
           {notSoldout(product) ? (
@@ -87,6 +101,11 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             </Button>
           )}
           <Select
+            css={(theme) => ({
+              [theme.maxMQ.md]: {
+                order: -1,
+              },
+            })}
             value={product.title}
             onChange={changeProduct}
             options={options}

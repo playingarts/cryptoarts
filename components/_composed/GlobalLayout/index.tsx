@@ -3,6 +3,12 @@ import Layout from "../../../components/Layout";
 import Header, { Props as HeaderProps } from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import { useRouter } from "next/router";
+import Grid from "../../Grid";
+import Esquire from "../../Icons/Esquire";
+import FastCompany from "../../Icons/FastCompany";
+import CreativeBloq from "../../Icons/CreativeBloq";
+import DigitalArts from "../../Icons/DigitalArts";
+import Quote from "../../Quote";
 
 const ComposedGlobalLayout: FC<
   Pick<
@@ -14,8 +20,11 @@ const ComposedGlobalLayout: FC<
     | "deckId"
     | "palette"
     | "isCardPage"
-  >
+  > & {
+    extended?: boolean;
+  }
 > = ({
+  extended,
   noNav,
   altNav,
   showAltNav,
@@ -84,15 +93,54 @@ const ComposedGlobalLayout: FC<
       />
 
       {children}
-
+      {extended && (
+        <Layout
+          css={(theme) => ({
+            paddingTop: theme.spacing(12),
+            paddingBottom: theme.spacing(12),
+          })}
+        >
+          <Grid
+            css={(theme) => ({
+              gap: theme.spacing(3),
+              [theme.maxMQ.md]: {
+                [theme.maxMQ.md]: {
+                  gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
+                },
+              },
+            })}
+          >
+            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+              <Esquire />
+            </div>
+            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+              <FastCompany />
+            </div>
+            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+              <CreativeBloq />
+            </div>
+            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+              <DigitalArts />
+            </div>
+          </Grid>
+          <Grid
+            short={true}
+            css={(theme) => ({
+              marginTop: theme.spacing(10),
+            })}
+          >
+            <Quote css={{ gridColumn: "1 / -1" }}>
+              “This really is a unique deck. The concept is playful, and elegant
+              at the same time. The colors are vibrant. A wonderful price of
+              art.”
+            </Quote>
+          </Grid>
+        </Layout>
+      )}
       <Layout css={(theme) => ({ marginTop: theme.spacing(1) })}>
         <Footer
           css={(theme) => ({
             marginBottom: theme.spacing(1),
-            marginLeft: -theme.spacing(9.5),
-            marginRight: -theme.spacing(9.5),
-            paddingLeft: theme.spacing(9.5),
-            paddingRight: theme.spacing(9.5),
             paddingTop: theme.spacing(6),
             paddingBottom: theme.spacing(6),
           })}

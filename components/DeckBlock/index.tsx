@@ -1,35 +1,47 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, HTMLAttributes } from "react";
 import BlockTitle from "../BlockTitle";
 import Button from "../Button";
-import Grid, { Props as GridProps } from "../Grid";
 import Bag from "../Icons/Bag";
 import Line from "../Line";
 import Link from "../Link";
 import Text from "../Text";
 
-interface Props extends GridProps {
+export interface Props extends HTMLAttributes<HTMLDivElement> {
   deck: GQL.Deck;
 }
 
 const DeckBlock: FC<Props> = ({ deck, ...props }) => (
-  <Grid {...props}>
+  <div
+    {...props}
+    css={(theme) => ({
+      display: "flex",
+      gap: theme.spacing(3),
+    })}
+  >
     <div
       css={{
-        gridColumn: "span 6",
+        flexGrow: 1,
+        flexBasis: "50%",
+        display: "block",
         background: `url(${deck.image}) 50% 50% no-repeat`,
         backgroundSize: "contain",
       }}
     />
     <div
-      css={{
-        gridColumn: "7 / span 5",
-      }}
+      css={(theme) => ({
+        flexGrow: 1,
+        flexBasis: "50%",
+        [theme.mq.md]: {
+          paddingRight: theme.spacing(10.5),
+        },
+      })}
     >
       <BlockTitle
         variant="h3"
         title={deck.title}
         subTitleText={deck.description}
         css={{
+          gridColumn: "span 5",
           display: "block",
         }}
       />
@@ -37,13 +49,17 @@ const DeckBlock: FC<Props> = ({ deck, ...props }) => (
         css={(theme) => ({
           color: theme.colors.text_title_dark,
           margin: 0,
-          alignSelf: "center",
         })}
       >
         {Object.entries(deck.properties).map(([key, value]) => (
           <Fragment key={key}>
-            <Grid
+            <div
               css={(theme) => ({
+                display: "grid",
+                gap: theme.spacing(3),
+                gridTemplateColumns: `repeat(auto-fit, ${theme.spacing(
+                  7.5
+                )}px) `,
                 paddingTop: theme.spacing(2),
                 paddingBottom: theme.spacing(2),
               })}
@@ -58,13 +74,13 @@ const DeckBlock: FC<Props> = ({ deck, ...props }) => (
               <Text
                 component="dd"
                 css={{
-                  gridColumn: "2 / span 4",
+                  gridColumn: "2 / -1",
                   margin: 0,
                 }}
               >
                 {value}
               </Text>
-            </Grid>
+            </div>
             <Line spacing={0} />
           </Fragment>
         ))}
@@ -79,7 +95,7 @@ const DeckBlock: FC<Props> = ({ deck, ...props }) => (
         Buy now
       </Button>
     </div>
-  </Grid>
+  </div>
 );
 
 export default DeckBlock;

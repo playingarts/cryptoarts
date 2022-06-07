@@ -21,3 +21,12 @@ export enum CardValues {
   k = "king",
   a = "ace",
 }
+
+export enum breakpoints {
+  mobile = 0,
+  xsm = 735,
+  sm = 1055,
+  md = 1340,
+  lg = 1755,
+  xl = 2070,
+}

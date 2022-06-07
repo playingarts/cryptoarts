@@ -27,14 +27,28 @@ const CardBlock: FC<Props> = ({
   ownedCards,
   ...props
 }) => (
-  <Grid {...props}>
+  <Grid
+    {...props}
+    short={true}
+    css={(theme) => ({
+      gap: theme.spacing(3),
+      [theme.maxMQ.md]: {
+        gridTemplateColumns: `repeat(7, ${theme.spacing(7.5)}px)`,
+      },
+    })}
+  >
     <div
       css={(theme) => [
         {
-          gridColumn: "span 6",
+          gridColumn: "2 / span 5",
+          [theme.mq.md]: {
+            gridColumn: "span 5",
+          },
         },
         stick !== undefined && {
-          position: "sticky",
+          [theme.mq.md]: {
+            position: "sticky",
+          },
           top: theme.spacing(stick),
           alignSelf: "flex-start",
         },
@@ -61,13 +75,25 @@ const CardBlock: FC<Props> = ({
         }}
       />
     </div>
-    <div css={{ gridColumn: "7 / span 5", alignSelf: "center" }}>
+    <div
+      css={(theme) => ({
+        gridColumn: "span 5",
+        alignSelf: "center",
+        [theme.maxMQ.md]: {
+          gridColumn: "span 7",
+          marginTop: theme.spacing(5),
+        },
+      })}
+    >
       {cardOfTheDay ? (
         <Fragment>
           <div
             css={(theme) => ({
               marginBottom: theme.spacing(5),
               marginTop: theme.spacing(5),
+              [theme.maxMQ.md]: {
+                marginTop: 0,
+              },
             })}
           >
             <Text component="div" variant="h6" css={{ opacity: 0.5 }}>
@@ -110,7 +136,14 @@ const CardBlock: FC<Props> = ({
       )}
     </div>
     {!cardOfTheDay && (
-      <div css={{ gridColumn: "7 / span 5" }}>
+      <div
+        css={(theme) => ({
+          gridColumn: "span 7 / -1",
+          [theme.mq.md]: {
+            gridColumn: "span 5 / -1",
+          },
+        })}
+      >
         <Quote
           key={card._id}
           fullArtist={true}

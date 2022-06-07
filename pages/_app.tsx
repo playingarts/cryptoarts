@@ -7,6 +7,7 @@ import { CSSInterpolation } from "@emotion/serialize";
 import smoothscroll from "smoothscroll-polyfill";
 import { MetaMaskProvider } from "metamask-react";
 import { SignatureProvider } from "../components/SignatureContext";
+import { breakpoints } from "../source/enums";
 
 declare module "@emotion/react" {
   export interface Theme {
@@ -33,6 +34,7 @@ declare module "@emotion/react" {
       text_title_light: "rgba(255, 255, 255, 0.9)";
       text_subtitle_light: "rgba(234, 234, 234, 0.5)";
       gradient: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)";
+      gradient_three: "linear-gradient(90deg, #7142D6 0%, #2FBACE 100%)";
       diamonds: "#CDB0FF";
       clubs: "#98F3FF";
       hearts: "#7BD4FF";
@@ -43,7 +45,8 @@ declare module "@emotion/react" {
       red: "#C4161C";
       lavender: "#8582F9";
     };
-    mq: { [index: string]: string };
+    mq: breakpointsObjectType;
+    maxMQ: breakpointsObjectType;
     typography: {
       h1: CSSInterpolation;
       h2: CSSInterpolation;
@@ -62,20 +65,27 @@ declare module "@emotion/react" {
   }
 }
 
-export const breakpoints: Record<string, number> = {
-  mobile: 0,
-  sm: 1124,
-  md: 1340,
-  lg: 1754,
-  xl: 2070,
-};
+type breakpointsObjectType = { [index in keyof typeof breakpoints]: string };
 
-const mq = Object.keys(breakpoints)
-  .map((key) => [key, breakpoints[key]] as [string, number])
-  .reduce((prev, [key, breakpoint]) => {
-    prev[key] = `@media only screen and (min-width: ${breakpoint}px)`;
-    return prev;
-  }, {} as { [index: string]: string });
+const mq = (Object.keys(breakpoints) as Array<keyof typeof breakpoints>)
+  .filter((value) => isNaN(Number(value)) !== false)
+  .reduce(
+    (prev, key) => ({
+      ...prev,
+      [key]: `@media only screen and (min-width: ${breakpoints[key]}px)`,
+    }),
+    {} as breakpointsObjectType
+  );
+
+const maxMQ = (Object.keys(breakpoints) as Array<keyof typeof breakpoints>)
+  .filter((value) => isNaN(Number(value)) !== false)
+  .reduce(
+    (prev, key) => ({
+      ...prev,
+      [key]: `@media only screen and (max-width: ${breakpoints[key] - 1}px)`,
+    }),
+    {} as breakpointsObjectType
+  );
 
 export const theme: Theme = {
   transitions: {
@@ -110,6 +120,7 @@ export const theme: Theme = {
     text_title_light: "rgba(255, 255, 255, 0.9)",
     text_subtitle_light: "rgba(234, 234, 234, 0.5)",
     gradient: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)",
+    gradient_three: "linear-gradient(90deg, #7142D6 0%, #2FBACE 100%)",
     diamonds: "#CDB0FF",
     clubs: "#98F3FF",
     hearts: "#7BD4FF",
@@ -195,7 +206,8 @@ export const theme: Theme = {
       fontWeight: 500,
     },
   },
-  mq: mq,
+  mq,
+  maxMQ,
   spacing: (size) => size * 10,
 };
 

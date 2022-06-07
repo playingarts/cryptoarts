@@ -63,8 +63,8 @@ const Content: FC<{ CheckoutButton: FC<ButtonProps> }> = ({
           paddingBottom: theme.spacing(5),
         })}
       >
-        <Grid>
-          <div css={{ gridColumn: "2 / span 7" }}>
+        <Grid short={true}>
+          <div css={{ gridColumn: "1 / -1" }}>
             {!products.length ? (
               <Fragment>
                 <Text component="h2" css={{ margin: 0 }}>
@@ -102,27 +102,36 @@ const Content: FC<{ CheckoutButton: FC<ButtonProps> }> = ({
             })}
           >
             <Grid>
-              <div css={{ gridColumn: "span 9" }}>
-                {products.map((product, index) => (
-                  <Fragment key={product._id}>
-                    {index !== 0 && (
-                      <Line
-                        spacing={3}
-                        css={(theme) => ({ marginLeft: theme.spacing(21) })}
+              <div
+                css={{
+                  gridColumn: "span 9",
+                  gridTemplateColumns: "repeat(9, 1fr)",
+                  gap: "inherit",
+                  display: "grid",
+                }}
+              >
+                <div css={{ gridColumn: "1/-1" }}>
+                  {products.map((product, index) => (
+                    <Fragment key={product._id}>
+                      {index !== 0 && (
+                        <Line
+                          spacing={3}
+                          css={(theme) => ({ marginLeft: theme.spacing(21) })}
+                        />
+                      )}
+                      <ShopCheckoutItem
+                        image={product.image}
+                        price={product.price}
+                        title={product.title}
+                        info={product.info}
+                        remove={remove(product._id)}
+                        quantity={bag[product._id]}
+                        changeQuantity={changeQuantity(product._id)}
                       />
-                    )}
-                    <ShopCheckoutItem
-                      image={product.image}
-                      price={product.price}
-                      title={product.title}
-                      info={product.info}
-                      remove={remove(product._id)}
-                      quantity={bag[product._id]}
-                      changeQuantity={changeQuantity(product._id)}
-                    />
-                  </Fragment>
-                ))}
-                <Line spacing={4} />
+                    </Fragment>
+                  ))}
+                  <Line spacing={4} />
+                </div>
                 {totalPrice - shippingPrice < freeShippingAt &&
                   totalPrice - shippingPrice + 15 >= freeShippingAt && (
                     <Text
@@ -140,24 +149,34 @@ const Content: FC<{ CheckoutButton: FC<ButtonProps> }> = ({
                       Add one more deck and get free shipping!
                     </Text>
                   )}
+                {products.find(({ deck }) => deck && deck.slug === "crypto") &&
+                Object.keys(bag).length > 1 ? (
+                  <Text
+                    variant="body"
+                    css={(theme) => ({
+                      gridColumn: "3 / span 7",
+                      paddingLeft: theme.spacing(2.5),
+                      lineHeight: `${theme.spacing(5)}px`,
+                      alignContent: "center",
+                      background: theme.colors.gradient_three,
+                      borderRadius: theme.spacing(1),
+                      color: theme.colors.text_title_light,
+                      fontWeight: 500,
+                    })}
+                  >
+                    Your order will arrive in two different packages.
+                  </Text>
+                ) : null}
                 <ShopCheckoutItem
                   title="Shipping and handling"
                   // price={shippingPrice}
                   titleVariant="h5"
+                  css={{ gridColumn: "span 9" }}
                   info={
                     <Fragment>
                       <Text css={{ opacity: 0.5 }}>
                         Your order will be dispatched in 2 to 5 days. Shipping
                         costs calculated at checkout.
-                        {products.find(
-                          ({ deck }) => deck && deck.slug === "crypto"
-                        ) && Object.keys(bag).length > 1 ? (
-                          <Fragment>
-                            <br />
-                            <br />
-                            Your order will arrive in two different packages.
-                          </Fragment>
-                        ) : null}
                         {/* {freeShippingAt > 0 &&
                           freeShippingAt !== Infinity &&
                           ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
@@ -174,30 +193,88 @@ const Content: FC<{ CheckoutButton: FC<ButtonProps> }> = ({
                 />
                 <Line
                   spacing={4}
-                  css={(theme) => ({ marginLeft: theme.spacing(21) })}
+                  css={(theme) => ({
+                    marginLeft: theme.spacing(21),
+                    gridColumn: "span 7",
+                    width: "100%",
+                  })}
                 />
                 <ShopCheckoutItem
                   title="Subtotal (incl. taxes)"
                   price={totalPrice}
                   info2={<EurToUsd css={{ opacity: 0.5 }} eur={totalPrice} />}
                   priceVariant="h4"
+                  css={(theme) => ({
+                    [theme.maxMQ.md]: {
+                      display: "none",
+                    },
+                    gridColumn: "span 9",
+                  })}
                 />
               </div>
               <div
-                css={{
-                  gridColumn: "10 / span 3",
-                }}
+                css={(theme) => ({
+                  position: "sticky",
+                  gridColumn: "3 / span 7",
+                  [theme.mq.md]: {
+                    gridColumn: "span 3",
+                  },
+                  height: "fit-content",
+                  top: theme.spacing(15),
+                  textAlign: "center",
+                })}
               >
-                <div
+                <StatBlock
                   css={(theme) => ({
-                    position: "sticky",
-                    top: theme.spacing(15),
-                    textAlign: "center",
+                    background: theme.colors.text_title_light,
                   })}
                 >
-                  <StatBlock
+                  <div
                     css={(theme) => ({
-                      background: theme.colors.text_title_light,
+                      display: "flex",
+                      justifyContent: "space-between",
+                      [theme.mq.md]: {
+                        display: "none",
+                      },
+                    })}
+                  >
+                    <Text component="h4" css={{ margin: 0 }}>
+                      Subtotal (incl. taxes)
+                    </Text>
+                    <div
+                      css={(theme) => ({
+                        minWidth: theme.spacing(18),
+                        textAlign: "initial",
+                      })}
+                    >
+                      <Text component="h4" css={{ margin: 0 }}>
+                        {totalPrice.toLocaleString(undefined, {
+                          style: "currency",
+                          currency: "EUR",
+                        })}
+                      </Text>
+                      <Text
+                        component="p"
+                        css={(theme) => ({
+                          margin: 0,
+                          marginTop: theme.spacing(0.5),
+                          marginBottom: theme.spacing(2),
+                          color: theme.colors.text_subtitle_dark,
+                        })}
+                      >
+                        ~
+                        {totalPrice.toLocaleString(undefined, {
+                          style: "currency",
+                          currency: "USD",
+                        })}
+                      </Text>
+                    </div>
+                  </div>
+                  <div
+                    css={(theme) => ({
+                      [theme.maxMQ.md]: {
+                        display: "none",
+                      },
                     })}
                   >
                     <Text component="h6" css={{ opacity: 0.5, margin: 0 }}>
@@ -215,26 +292,29 @@ const Content: FC<{ CheckoutButton: FC<ButtonProps> }> = ({
                         currency: "EUR",
                       })}
                     </Text>
-                    <CheckoutButton color="black" />
-                    <Line spacing={3} />
-                    <Text css={{ margin: 0, opacity: 0.5 }}>
-                      <Lock css={{ verticalAlign: "baseline" }} /> Secure
-                      payment
-                    </Text>
-                  </StatBlock>
-                  <Text
-                    component={Link}
-                    href="/shop"
-                    variant="label"
-                    css={(theme) => ({
-                      display: "inline-block",
-                      marginTop: theme.spacing(3),
-                      opacity: 0.5,
-                    })}
-                  >
-                    <Arrowed position="prepend">Continue shopping</Arrowed>
+                  </div>
+                  <CheckoutButton
+                    color="black"
+                    css={{ width: "100%" }}
+                    centeredText={true}
+                  />
+                  <Line spacing={3} />
+                  <Text css={{ margin: 0, opacity: 0.5 }}>
+                    <Lock css={{ verticalAlign: "baseline" }} /> Secure payment
                   </Text>
-                </div>
+                </StatBlock>
+                <Text
+                  component={Link}
+                  href="/shop"
+                  variant="label"
+                  css={(theme) => ({
+                    display: "inline-block",
+                    marginTop: theme.spacing(3),
+                    opacity: 0.5,
+                  })}
+                >
+                  <Arrowed position="prepend">Continue shopping</Arrowed>
+                </Text>
               </div>
             </Grid>
           </Layout>
@@ -280,12 +360,12 @@ const Checkout: NextPage = () => {
     <ComposedGlobalLayout customShopButton={<CheckoutButton />} noNav={true}>
       <Content CheckoutButton={CheckoutButton} />
       <Layout css={(theme) => ({ background: theme.colors.white })}>
-        <Grid>
+        <Grid short={true}>
           <ComposedFaq
             css={(theme) => ({
               marginTop: theme.spacing(15),
               marginBottom: theme.spacing(15),
-              gridColumn: "2 / span 10",
+              gridColumn: "1 / -1",
             })}
           />
         </Grid>

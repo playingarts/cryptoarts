@@ -1,11 +1,11 @@
 import { Interpolation, Theme } from "@emotion/react";
-import { FC, HTMLAttributes } from "react";
+import { FC } from "react";
 import Button, { Props as ButtonProps } from "../Button";
-import Grid from "../Grid";
+import Grid, { Props as GridProps } from "../Grid";
 import Line from "../Line";
 import Text from "../Text";
 
-interface Props extends Omit<HTMLAttributes<HTMLElement>, "title"> {
+interface Props extends Omit<GridProps, "title"> {
   buttonProps?: ButtonProps & { css?: Interpolation<Theme> };
   title: string | JSX.Element;
   subTitleText?: string | JSX.Element;
@@ -22,12 +22,19 @@ const BlockTitle: FC<Props> = ({
   ...props
 }) => {
   return (
-    <Grid {...props}>
-      <div css={{ gridColumn: "span 7" }}>
+    <Grid short={true} {...props}>
+      <div
+        css={{
+          gridColumn: "span 5",
+        }}
+      >
         <Text
           component="h2"
           variant={variant}
-          css={{ margin: 0, gridColumn: "span 10" }}
+          css={{
+            margin: 0,
+            gridColumn: "1/-1",
+          }}
         >
           {title}
         </Text>
@@ -42,17 +49,20 @@ const BlockTitle: FC<Props> = ({
       </div>
       {(action || buttonProps) && (
         <div
-          css={{
-            gridColumn: "8 / span 3",
-            textAlign: "right",
+          css={(theme) => ({
+            [theme.maxMQ.md]: {
+              gridTemplateColumns: `repeat(9, ${theme.spacing(7.5)}px)`,
+              gridColumn: "span 2 / -1",
+            },
+            gridColumn: "span 3 / -1",
             alignSelf: "flex-end",
-          }}
+          })}
         >
           {action || <Button {...buttonProps} />}
         </div>
       )}
-      <div css={{ gridColumn: "span 10" }}>
-        <Line css={{ marginBottom: 0 }} spacing={3} />
+      <div css={{ gridColumn: "-1 / 1" }}>
+        <Line spacing={3} />
       </div>
     </Grid>
   );

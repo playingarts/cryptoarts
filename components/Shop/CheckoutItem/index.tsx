@@ -13,6 +13,8 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   priceVariant?: "h4" | "h5";
   changeQuantity?: SelectProps["onChange"];
   remove?: MouseEventHandler<HTMLElement>;
+  withoutPic?: boolean;
+  withoutSelect?: boolean;
 }
 
 const ShopCheckoutItem: FC<Props> = ({
@@ -26,6 +28,7 @@ const ShopCheckoutItem: FC<Props> = ({
   priceVariant = "h5",
   changeQuantity,
   remove,
+  withoutPic,
   ...props
 }) => {
   const options: SelectProps["options"] = Array.from({
@@ -40,20 +43,22 @@ const ShopCheckoutItem: FC<Props> = ({
 
   return (
     <div {...props} css={{ display: "flex", alignItems: "center" }}>
-      <div
-        css={(theme) => ({
-          width: theme.spacing(18),
-          backgroundSize: "contain",
-          backgroundPosition: "50% 50%",
-          backgroundRepeat: "no-repeat",
-          marginRight: theme.spacing(3),
-          flexShrink: 0,
-          ...(image && {
-            backgroundImage: `url(${image})`,
-            height: theme.spacing(15),
-          }),
-        })}
-      />
+      {!withoutPic && (
+        <div
+          css={(theme) => ({
+            width: theme.spacing(18),
+            backgroundSize: "contain",
+            backgroundPosition: "50% 50%",
+            backgroundRepeat: "no-repeat",
+            marginRight: theme.spacing(3),
+            flexShrink: 0,
+            ...(image && {
+              backgroundImage: `url(${image})`,
+              height: theme.spacing(15),
+            }),
+          })}
+        />
+      )}
       <div
         css={{
           display: "flex",

@@ -25,39 +25,42 @@ const CardList: FC<Props> = ({ deckId, metamaskProps, ...props }) => {
   }
 
   return (
-    <Grid
-      {...props}
-      css={(theme) => ({
-        display: "flex",
-        rowGap: theme.spacing(6),
-        flexWrap: "wrap",
-        justifyContent: "center",
-      })}
-    >
-      {cards.map((card) => (
-        <Link key={card._id} href={`/${query.deckId}/${card.artist.slug}`}>
-          <Card
-            css={(theme) => ({
-              color: metamaskProps
-                ? theme.colors.text_subtitle_light
-                : theme.colors.text_subtitle_dark,
-              ":hover": {
+    <Grid {...props}>
+      <div
+        css={(theme) => ({
+          gridColumn: "1/-1",
+          display: "flex",
+          gap: "inherit",
+          rowGap: theme.spacing(6),
+          flexWrap: "wrap",
+          justifyContent: "center",
+        })}
+      >
+        {cards.map((card) => (
+          <Link key={card._id} href={`/${query.deckId}/${card.artist.slug}`}>
+            <Card
+              css={(theme) => ({
                 color: metamaskProps
-                  ? theme.colors.text_title_light
-                  : theme.colors.text_title_dark,
-              },
-            })}
-            card={card}
-            owned={
-              metamaskProps &&
-              metamaskProps.ownedCards.findIndex(
-                (owned) =>
-                  owned.suit === card.suit && owned.value === card.value
-              ) !== -1
-            }
-          />
-        </Link>
-      ))}
+                  ? theme.colors.text_subtitle_light
+                  : theme.colors.text_subtitle_dark,
+                ":hover": {
+                  color: metamaskProps
+                    ? theme.colors.text_title_light
+                    : theme.colors.text_title_dark,
+                },
+              })}
+              card={card}
+              owned={
+                metamaskProps &&
+                metamaskProps.ownedCards.findIndex(
+                  (owned) =>
+                    owned.suit === card.suit && owned.value === card.value
+                ) !== -1
+              }
+            />
+          </Link>
+        ))}
+      </div>
     </Grid>
   );
 };

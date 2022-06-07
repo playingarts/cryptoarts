@@ -25,7 +25,10 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
     <Grid>
       <div
         css={(theme) => ({
-          gridColumn: "span 7",
+          gridColumn: "span 4",
+          [theme.mq.md]: {
+            gridColumn: "span 7",
+          },
           opacity: 0.5,
           color: theme.colors.text_subtitle_dark,
         })}
