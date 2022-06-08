@@ -69,6 +69,17 @@ const Card: FC<Props> = ({
             position: "relative",
             borderRadius: 15,
             boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
+            "@keyframes gradient": {
+              "0%": {
+                backgroundPosition: "0% 50%",
+              },
+              "50%": {
+                backgroundPosition: "100% 50%",
+              },
+              "100%": {
+                backgroundPosition: "0% 50%",
+              },
+            },
           },
           owned && {
             ":before": {
@@ -76,13 +87,15 @@ const Card: FC<Props> = ({
               content: '""',
               position: "absolute",
               boxSizing: "content-box",
-              top: -5,
-              left: -5,
-              padding: 5,
+              top: -theme.spacing(0.5),
+              left: -theme.spacing(0.5),
+              padding: theme.spacing(0.5),
               width: "100%",
               height: "100%",
-              borderRadius: 15,
-              backgroundImage: theme.colors.eth,
+              borderRadius: theme.spacing(2),
+              background: theme.colors.eth,
+              backgroundSize: "400% 100%",
+              animation: "gradient 10s ease infinite",
             },
           },
           hovered &&

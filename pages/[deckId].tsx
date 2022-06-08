@@ -77,7 +77,6 @@ const Content: FC<{
   useLayoutEffect(() => {
     setOwnedCards([]);
   }, [account]);
-  console.log(artistId);
 
   useLayoutEffect(() => {
     if (!ownedAssets) {
@@ -211,10 +210,12 @@ const Content: FC<{
           {...(deck.openseaContract && {
             openseaContract: deck.openseaContract,
           })}
-          metamaskProps={{
-            account,
-            ownedCards,
-          }}
+          {...(deck.openseaCollection && {
+            metamaskProps: {
+              account,
+              ownedCards,
+            },
+          })}
           deckId={deck._id}
         />
       </Layout>
