@@ -53,13 +53,13 @@ const Content: FC<{
   const [ownedCards, setOwnedCards] = useState<OwnedCard[]>([]);
 
   useLayoutEffect(() => {
-    if (!deck) {
+    if (!deck || !deck.openseaContract) {
       return;
     }
 
     const currentSig = getSig();
 
-    if (!currentSig) {
+    if (!currentSig || !currentSig.signature || !currentSig.account) {
       return;
     }
 
