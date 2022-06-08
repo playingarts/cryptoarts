@@ -77,6 +77,7 @@ const Content: FC<{
   useLayoutEffect(() => {
     setOwnedCards([]);
   }, [account]);
+  console.log(artistId);
 
   useLayoutEffect(() => {
     if (!ownedAssets) {
@@ -225,7 +226,7 @@ const Content: FC<{
           contract={deck.openseaContract}
         />
       )}
-      {deck.slug === "crypto" && (
+      {deck.slug === "crypto" && !artistId && (
         <Layout
           css={(theme) => ({
             backgroundColor: theme.colors.page_bg_dark,
