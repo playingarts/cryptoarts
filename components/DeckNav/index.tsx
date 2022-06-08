@@ -33,6 +33,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
 ) => {
   const {
     query: { section: _, ...query },
+    query: { deckId },
     pathname,
   } = useRouter();
 
@@ -140,7 +141,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           (PACE) nft
         </Link>
       )}
-      {refs.roadmapRef && (
+      {deckId === "crypto" && refs.roadmapRef && (
         <Link
           href={{
             pathname,

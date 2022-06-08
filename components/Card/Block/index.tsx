@@ -42,7 +42,7 @@ const CardBlock: FC<Props> = ({
         {
           gridColumn: "2 / span 5",
           [theme.mq.md]: {
-            gridColumn: "span 5",
+            gridColumn: "span 4",
           },
         },
         stick !== undefined && {
@@ -77,7 +77,7 @@ const CardBlock: FC<Props> = ({
     </div>
     <div
       css={(theme) => ({
-        gridColumn: "span 5",
+        gridColumn: "span 5 / -1",
         alignSelf: "center",
         [theme.maxMQ.md]: {
           gridColumn: "span 7",

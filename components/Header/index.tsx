@@ -1,4 +1,4 @@
-import { FC, Fragment, HTMLAttributes, useEffect, useState } from "react";
+import { FC, Fragment, HTMLAttributes, useLayoutEffect, useState } from "react";
 import throttle from "just-throttle";
 import LogoIcon from "../Icons/Logo";
 import MenuIcon from "../Icons/Menu";
@@ -37,16 +37,24 @@ const Header: FC<Props> = ({
   const mouseEnter = () => setHovered(true);
   const mouseLeave = () => setHovered(false);
 
-  useEffect(() => {
-    if (noNav || hovered) {
-      return setExpanded(false);
-    }
-
+  useLayoutEffect(() => {
     if (!isCardPage) {
       setExpanded(true);
     } else if (isCardPage) {
       setExpanded(false);
     }
+  }, [isCardPage]);
+
+  useLayoutEffect(() => {
+    if (noNav || hovered) {
+      return setExpanded(false);
+    }
+
+    // if (!isCardPage) {
+    // setExpanded(true);
+    // } else if (isCardPage) {
+    // setExpanded(false);
+    // }
 
     let lastScrollTop = 0;
 

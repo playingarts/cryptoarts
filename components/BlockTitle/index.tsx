@@ -23,30 +23,28 @@ const BlockTitle: FC<Props> = ({
 }) => {
   return (
     <Grid short={true} {...props}>
-      <div
+      <Text
+        component="h2"
+        variant={variant}
         css={{
+          margin: 0,
           gridColumn: "span 5",
         }}
       >
+        {title}
+      </Text>
+      {subTitleText && (
         <Text
-          component="h2"
-          variant={variant}
-          css={{
+          css={(theme) => ({
             margin: 0,
-            gridColumn: "1/-1",
-          }}
+            marginTop: theme.spacing(2),
+            gridColumn: "1 / -1",
+          })}
+          variant="body2"
         >
-          {title}
+          {subTitleText}
         </Text>
-        {subTitleText && (
-          <Text
-            css={(theme) => ({ margin: 0, marginTop: theme.spacing(2) })}
-            variant="body2"
-          >
-            {subTitleText}
-          </Text>
-        )}
-      </div>
+      )}
       {(action || buttonProps) && (
         <div
           css={(theme) => ({

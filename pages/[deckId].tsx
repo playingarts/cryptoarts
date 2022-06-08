@@ -187,11 +187,11 @@ const Content: FC<{
         ref={cardsRef}
         css={(theme) => ({
           background:
-            status === "connected"
+            status === "connected" && deckId === "crypto"
               ? "linear-gradient(180deg, #0A0A0A 0%, #111111 100%)"
               : theme.colors.page_bg_light,
           color:
-            status === "connected"
+            status === "connected" && deckId === "crypto"
               ? theme.colors.text_title_light
               : theme.colors.text_title_dark,
           paddingTop: theme.spacing(15),
@@ -229,7 +229,7 @@ const Content: FC<{
         <Layout
           css={(theme) => ({
             backgroundColor: theme.colors.page_bg_dark,
-            paddingTop: theme.spacing(6),
+            paddingTop: theme.spacing(15),
             paddingBottom: theme.spacing(15),
           })}
           ref={roadmapRef}

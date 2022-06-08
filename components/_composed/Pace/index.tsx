@@ -19,7 +19,7 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
   ref
 ) => {
   const {
-    query: { section },
+    query: { section, artistId },
   } = useRouter();
 
   return (
@@ -46,6 +46,10 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
             (PACE) NFT
           </span>
         }
+        {...(artistId && {
+          subTitleText:
+            "This card is a part of Crypto Edition NFT drop. Are you a holder? Connect your metamask to see what you are eligible for.",
+        })}
         buttonProps={{
           Icon: Opensea,
           children: "Buy nft",
@@ -58,7 +62,6 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
       <Grid
         css={(theme) => ({
           paddingTop: theme.spacing(4),
-          paddingBottom: theme.spacing(3),
           gap: theme.spacing(3),
           [theme.mq.xsm]: {
             gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px) `,

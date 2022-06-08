@@ -32,7 +32,11 @@ const CardInfo: FC<Props> = ({ artist, cardId, deck, opensea, ...props }) => {
       <Text component="h2" css={{ margin: 0 }}>
         {artist.name}
       </Text>
-      <Text component="div" variant="h6">
+      <Text
+        component="div"
+        variant="h6"
+        css={(theme) => ({ color: theme.colors.text_subtitle_light })}
+      >
         {artist.country}
       </Text>
       <Line size={1} spacing={3} />
