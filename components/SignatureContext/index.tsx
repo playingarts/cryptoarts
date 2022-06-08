@@ -85,6 +85,10 @@ export const SignatureProvider: FC = ({ children }) => {
   };
 
   useEffect(() => {
+    setSignatures((prev) => prev.map((sig) => ({ ...sig, signing: false })));
+  }, []);
+
+  useEffect(() => {
     askSig();
   }, [account]);
 
