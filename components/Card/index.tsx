@@ -217,7 +217,11 @@ const Card: FC<Props> = ({
           variant="label"
           css={(theme) => ({ margin: 0, marginTop: theme.spacing(0.5) })}
         >
-          {card.price ? `Ξ${card.price}` : "Not On Sale"}
+          {card.price ? (
+            `Ξ${card.price}`
+          ) : (
+            <span css={{ opacity: 0.5 }}>Not On Sale</span>
+          )}
         </Text>
       )}
     </div>
