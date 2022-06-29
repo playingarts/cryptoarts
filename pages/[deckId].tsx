@@ -263,8 +263,8 @@ const Page: NextPage = () => {
 
       const { top, height } = aboutRef.current.getBoundingClientRect();
 
-      showAltNav(top + height < 0);
-    }, 100);
+      showAltNav(top + height - 1 < 0);
+    }, 12);
 
     window.addEventListener("scroll", handler);
 
