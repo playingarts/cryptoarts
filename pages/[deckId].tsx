@@ -21,7 +21,6 @@ import throttle from "just-throttle";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedCardContent from "../components/_composed/CardContent";
 import ComposedPace from "../components/_composed/Pace";
-import CardList from "../components/Card/List";
 import { Sections } from "../source/enums";
 import AugmentedReality from "../components/AugmentedReality";
 import Error from "next/error";
@@ -32,6 +31,7 @@ import { useLoadOwnedAssets } from "../hooks/opensea";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
 import DeckBlock from "../components/DeckBlock";
+import ComposedCardList from "../components/_composed/ComposedCardList";
 
 const Content: FC<{
   aboutRef: RefObject<HTMLDivElement>;
@@ -44,7 +44,7 @@ const Content: FC<{
   const {
     query: { artistId, deckId, section },
   } = useRouter();
-  const { status, account } = useMetaMask();
+  const { account } = useMetaMask();
   const { getSig } = useSignature();
   const { deck, loading } = useDeck({ variables: { slug: deckId } });
 
@@ -110,6 +110,7 @@ const Content: FC<{
     return <Error statusCode={404} />;
   }
 
+  console.log(ownedCards);
   return (
     <Fragment>
       {typeof artistId === "string" && (
@@ -179,43 +180,11 @@ const Content: FC<{
         </Layout>
       )}
 
-      <Layout
-        scrollIntoView={section === Sections.cards}
-        ref={cardsRef}
-        css={(theme) => ({
-          background:
-            status === "connected" && deckId === "crypto"
-              ? "linear-gradient(180deg, #0A0A0A 0%, #111111 100%)"
-              : theme.colors.page_bg_light,
-          color:
-            status === "connected" && deckId === "crypto"
-              ? theme.colors.text_title_light
-              : theme.colors.text_title_dark,
-          paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(15),
-        })}
-      >
-        <BlockTitle
-          title={artistId ? deck.title : "Cards"}
-          subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
-          css={(theme) => ({
-            marginBottom: theme.spacing(1),
-          })}
-        />
+      <ComposedCardList deck={deck} ref={cardsRef} ownedCards={ownedCards} />
 
-        <CardList
-          setOwnedCards={setOwnedCards}
-          {...(ownedCards && {
-            metamaskProps: {
-              account,
-              ownedCards,
-            },
-          })}
-          deckId={deck._id}
-        />
-      </Layout>
-
-      {!artistId && <ComposedPace deckId={deck._id} ref={nftRef} />}
+      {!artistId && deck.openseaCollection && (
+        <ComposedPace deckId={deck._id} ref={nftRef} />
+      )}
       {deck.slug === "crypto" && !artistId && (
         <Layout
           css={(theme) => ({

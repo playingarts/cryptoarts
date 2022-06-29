@@ -28,7 +28,7 @@ const BlockTitle: FC<Props> = ({
         variant={variant}
         css={{
           margin: 0,
-          gridColumn: "span 5",
+          gridColumn: "1/ span 5",
         }}
       >
         {title}
@@ -38,7 +38,11 @@ const BlockTitle: FC<Props> = ({
           css={(theme) => ({
             margin: 0,
             marginTop: theme.spacing(2),
-            gridColumn: "1 / -1",
+
+            gridColumn: "1 / span 7",
+            [theme.maxMQ.md]: {
+              gridColumn: "1 / span 6",
+            },
           })}
           variant="body2"
         >
@@ -47,14 +51,13 @@ const BlockTitle: FC<Props> = ({
       )}
       {(action || buttonProps) && (
         <div
-          css={(theme) => ({
-            [theme.maxMQ.md]: {
-              gridTemplateColumns: `repeat(9, ${theme.spacing(7.5)}px)`,
-              gridColumn: "span 2 / -1",
-            },
+          css={{
             gridColumn: "span 3 / -1",
             alignSelf: "flex-end",
-          })}
+            zIndex: 1,
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
         >
           {action || <Button {...buttonProps} />}
         </div>

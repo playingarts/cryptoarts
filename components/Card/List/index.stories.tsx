@@ -1,6 +1,5 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Card from ".";
-import { CardsQuery } from "../../../hooks/card";
 import { mockDeck } from "../../../mocks/deck";
 
 export default {
@@ -39,76 +38,56 @@ const Template: ComponentStory<typeof Card> = (args) => <Card {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  deckId: mockDeck._id,
-};
-Primary.parameters = {
-  apolloClient: {
-    mocks: [
-      {
-        delay: 1000,
-        request: {
-          query: CardsQuery,
-          variables: {
-            deck: mockDeck._id,
-          },
-        },
-        result: {
-          data: {
-            cards: [
-              {
-                deck: mockDeck,
-                artist,
-                value: "",
-                _id: "_id",
-                img:
-                  "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
-                info: "",
-                video: "",
-                opensea: "opensea",
-                background: "background",
-              },
-              {
-                deck: mockDeck,
-                artist,
-                value: "",
-                _id: "_id2",
-                img:
-                  "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
-                video:
-                  "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
-                opensea: "opensea",
-                background: "background",
-                info: "",
-              },
-              {
-                deck: mockDeck,
-                artist,
-                value: "",
-                _id: "_id",
-                img:
-                  "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
-                video: "",
-                opensea: "opensea",
-                background: "background",
-                info: "",
-              },
-              {
-                deck: mockDeck,
-                artist,
-                value: "",
-                _id: "_id2",
-                img:
-                  "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
-                video:
-                  "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
-                opensea: "opensea",
-                background: "background",
-                info: "",
-              },
-            ],
-          },
-        },
-      },
-    ],
-  },
+  cards: [
+    {
+      deck: mockDeck,
+      artist,
+      value: "",
+      _id: "_id",
+      img:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      info: "",
+      video: "",
+      opensea: "opensea",
+      background: "background",
+    },
+    {
+      deck: mockDeck,
+      artist,
+      value: "",
+      _id: "_id2",
+      img:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
+      opensea: "opensea",
+      background: "background",
+      info: "",
+    },
+    {
+      deck: mockDeck,
+      artist,
+      value: "",
+      _id: "_id",
+      img:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      video: "",
+      opensea: "opensea",
+      background: "background",
+      info: "",
+    },
+    {
+      deck: mockDeck,
+      artist,
+      value: "",
+      _id: "_id2",
+      img:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      video:
+        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
+      opensea: "opensea",
+      background: "background",
+      info: "",
+    },
+  ],
 };

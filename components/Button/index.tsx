@@ -21,6 +21,7 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   color?: "black";
   loading?: boolean;
   centeredText?: boolean;
+  shape?: "round" | "square";
 }
 
 const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
@@ -35,6 +36,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     color,
     loading,
     centeredText,
+    shape = "round",
     ...props
   },
   ref
@@ -53,7 +55,6 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
           position: "relative",
           background: "none",
           display: "inline-flex",
-          borderRadius: theme.spacing(size === "small" ? 4 : 5),
           padding: 0,
           alignItems: "center",
           border: "none",
@@ -64,6 +65,13 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
               }
             : {}),
         },
+        shape === "round"
+          ? {
+              borderRadius: theme.spacing(size === "small" ? 4 : 5),
+            }
+          : {
+              borderRadius: theme.spacing(1),
+            },
         variant === "bordered" && {
           border: "2px solid currentColor",
         },
@@ -82,8 +90,15 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
               fontWeight: 600,
               lineHeight: "50px",
               textTransform: "uppercase",
-              paddingLeft: theme.spacing(2.5),
-              paddingRight: theme.spacing(2.5),
+              ...(shape === "round"
+                ? {
+                    paddingLeft: theme.spacing(2.5),
+                    paddingRight: theme.spacing(2.5),
+                  }
+                : {
+                    paddingLeft: theme.spacing(1.7),
+                    paddingRight: theme.spacing(1.7),
+                  }),
             }
           : {
               ...(color !== "black"

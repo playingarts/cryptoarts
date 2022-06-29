@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { theme } from "../../pages/_app";
 import Image from "next/image";
 import Loader from "../Loader";
+import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   card: GQL.Card;
@@ -12,6 +13,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   interactive?: boolean;
   noInfo?: boolean;
   owned?: boolean;
+  sorted?: boolean;
 }
 
 const Card: FC<Props> = ({
@@ -22,6 +24,7 @@ const Card: FC<Props> = ({
   interactive,
   noInfo,
   owned,
+  sorted,
   ...props
 }) => {
   const [hovered, setHover] = useState(false);
@@ -202,9 +205,20 @@ const Card: FC<Props> = ({
         </div>
       </div>
       {!noInfo && (
-        <div css={(theme) => ({ marginTop: theme.spacing(2) })}>
+        <Text
+          variant="label"
+          css={(theme) => ({ margin: 0, marginTop: theme.spacing(2) })}
+        >
           {card.artist.name}
-        </div>
+        </Text>
+      )}
+      {sorted && (
+        <Text
+          variant="label"
+          css={(theme) => ({ margin: 0, marginTop: theme.spacing(0.5) })}
+        >
+          {card.price ? `Ξ${card.price}` : "Not On Sale"}
+        </Text>
       )}
     </div>
   );

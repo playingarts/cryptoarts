@@ -1,69 +1,33 @@
 import { useRouter } from "next/router";
-import { FC, HTMLAttributes, SetStateAction, useEffect } from "react";
-import { useCards } from "../../../hooks/card";
+import { FC, HTMLAttributes } from "react";
 import { OwnedCard } from "../../../pages/[deckId]";
-import { Asset } from "../../../source/graphql/schemas/opensea";
 import Card from "../../Card";
 import Grid from "../../Grid";
 import Link from "../../Link";
 
-interface Props extends HTMLAttributes<HTMLElement> {
-  deckId: string;
+export interface Props extends HTMLAttributes<HTMLElement> {
+  status:
+    | "initializing"
+    | "unavailable"
+    | "notConnected"
+    | "connecting"
+    | "connected";
   metamaskProps?: {
     account: string | null;
     ownedCards: OwnedCard[];
   };
-  setOwnedCards?: (value: SetStateAction<OwnedCard[]>) => void;
+  cards: GQL.Card[];
+  sorted?: boolean;
 }
 
 const CardList: FC<Props> = ({
-  deckId,
   metamaskProps,
-  setOwnedCards,
+  cards,
+  sorted,
+  status,
   ...props
 }) => {
   const { query } = useRouter();
-  const { cards, loading } = useCards({
-    variables: { deck: deckId },
-  });
-
-  useEffect(() => {
-    if (!setOwnedCards || !cards || !metamaskProps) {
-      return;
-    }
-
-    Promise.all(
-      cards
-        .filter((card) => card.erc1155)
-        .flatMap(async (card) => {
-          if (!card.erc1155) {
-            return { value: "", suit: "", token_id: "" };
-          }
-
-          const res: Asset = await (
-            await fetch(
-              `https://api.opensea.io/api/v1/asset/${card.erc1155.contractAddress}/${card.erc1155.token_id}/?account_address=${metamaskProps.account}`
-            )
-          ).json();
-          if (res.ownership) {
-            return { value: "", suit: "", token_id: res.token_id };
-          }
-          return { value: "", suit: "", token_id: "" };
-        })
-    ).then((compl) =>
-      setOwnedCards((prev) => [
-        ...prev.filter(
-          (ownd) =>
-            compl.findIndex((erc) => erc.token_id === ownd.token_id) === -1
-        ),
-        ...compl,
-      ])
-    );
-  }, [cards]);
-
-  if (loading || !cards) {
-    return null;
-  }
 
   return (
     <Grid {...props}>
@@ -80,19 +44,23 @@ const CardList: FC<Props> = ({
         {cards.map((card) => (
           <Link key={card._id} href={`/${query.deckId}/${card.artist.slug}`}>
             <Card
+              sorted={sorted}
               css={(theme) => ({
-                color: metamaskProps
-                  ? theme.colors.text_subtitle_light
-                  : theme.colors.text_subtitle_dark,
+                color:
+                  status === "connected" && metamaskProps
+                    ? theme.colors.text_subtitle_light
+                    : theme.colors.text_subtitle_dark,
                 ":hover": {
-                  color: metamaskProps
-                    ? theme.colors.text_title_light
-                    : theme.colors.text_title_dark,
+                  color:
+                    status === "connected" && metamaskProps
+                      ? theme.colors.text_title_light
+                      : theme.colors.text_title_dark,
                 },
               })}
               card={card}
               owned={
                 metamaskProps &&
+                status === "connected" &&
                 metamaskProps.ownedCards.findIndex(
                   (owned) =>
                     (owned.suit.toLowerCase() === card.suit &&

@@ -108,8 +108,18 @@ const createApolloClient = (initialState = {}, config?: object) => {
       Deck: {
         keyFields: ["slug"],
       },
+      Card: {
+        keyFields: ["_id"],
+      },
       Query: {
         fields: {
+          card: {
+            read: (_, { args, toReference }) =>
+              toReference({
+                __typename: "Card",
+                _id: args && args.id,
+              }),
+          },
           deck: {
             read: (_, { args, toReference }) =>
               toReference({

@@ -44,6 +44,7 @@ declare module "@emotion/react" {
       green: "#05CE78";
       red: "#C4161C";
       lavender: "#8582F9";
+      black: "#000000";
     };
     mq: breakpointsObjectType;
     maxMQ: breakpointsObjectType;
@@ -130,6 +131,7 @@ export const theme: Theme = {
     green: "#05CE78",
     red: "#C4161C",
     lavender: "#8582F9",
+    black: "#000000",
   },
   typography: {
     h1: {

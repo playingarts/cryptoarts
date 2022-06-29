@@ -317,7 +317,7 @@ export const resolvers: GQL.Resolvers = {
       const contracts = await getContracts({ deck: deck });
 
       if (!contracts) {
-        return [];
+        return;
       }
 
       const assets = (await Promise.all(
@@ -338,7 +338,7 @@ export const typeDefs = gql`
   scalar JSON
 
   type Query {
-    ownedAssets(deck: ID!, address: String!, signature: String!): [Asset!]!
+    ownedAssets(deck: ID!, address: String!, signature: String!): [Asset!]
     opensea(deck: ID!): Opensea!
     holders(deck: ID!): Holders!
   }
