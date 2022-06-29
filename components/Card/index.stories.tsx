@@ -13,6 +13,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   card: {
     value: "",
+    suit: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -31,6 +32,7 @@ export const WithVideo = Template.bind({});
 WithVideo.args = {
   card: {
     value: "",
+    suit: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -52,6 +54,7 @@ Animated.args = {
   animated: true,
   card: {
     value: "",
+    suit: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -73,6 +76,7 @@ Static.args = {
   isStatic: true,
   card: {
     value: "",
+    suit: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -94,6 +98,7 @@ Big.args = {
   size: "big",
   card: {
     value: "",
+    suit: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -116,6 +121,7 @@ BigInteractive.args = {
   interactive: true,
   card: {
     value: "",
+    suit: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
@@ -138,6 +144,7 @@ NoInfo.args = {
   card: {
     _id: "_id",
     value: "",
+    suit: "",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
@@ -157,6 +164,7 @@ export const CustomBackground = Template.bind({});
 CustomBackground.args = {
   card: {
     value: "",
+    suit: "",
     _id: "_id",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",

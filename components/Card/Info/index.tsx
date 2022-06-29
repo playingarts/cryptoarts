@@ -12,20 +12,19 @@ import Loader from "../../Loader";
 interface Props extends HTMLAttributes<HTMLDivElement> {
   artist: GQL.Artist;
   deck: GQL.Deck;
-  opensea?: string;
   cardId: string;
 }
 
-const CardInfo: FC<Props> = ({ artist, cardId, deck, opensea, ...props }) => {
+const CardInfo: FC<Props> = ({ artist, cardId, deck, ...props }) => {
   const { card, loadCard, loading } = useLoadCard();
 
   useEffect(() => {
-    if (!opensea) {
+    if (!deck.openseaCollection) {
       return;
     }
 
     loadCard({ variables: { id: cardId } });
-  }, [opensea, cardId, loadCard]);
+  }, [deck.openseaCollection, cardId, loadCard]);
 
   return (
     <div {...props}>
@@ -45,10 +44,11 @@ const CardInfo: FC<Props> = ({ artist, cardId, deck, opensea, ...props }) => {
           width: "100%",
           display: "flex",
           alignItems: "center",
+          justifyContent: "space-between",
           height: theme.spacing(5),
         })}
       >
-        {opensea ? (
+        {deck.openseaCollection ? (
           loading ? (
             <Loader
               css={{
@@ -59,13 +59,25 @@ const CardInfo: FC<Props> = ({ artist, cardId, deck, opensea, ...props }) => {
               }}
             />
           ) : (
-            card &&
-            (card.price ? (
+            card && (
               <Fragment>
                 <Button
                   Icon={Opensea}
                   component={Link}
-                  href={opensea}
+                  href={
+                    card.erc1155
+                      ? `https://opensea.io/assets/${card.erc1155.contractAddress}/${card.erc1155.token_id}`
+                      : `https://opensea.io/collection/${
+                          deck.openseaCollection.name
+                        }?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=${
+                          card.value.charAt(0).toUpperCase() +
+                          card.value.slice(1)
+                        }&search[stringTraits][1][name]=${
+                          card.value === "joker" ? "Color" : "Suit"
+                        }&search[stringTraits][1][values][0]=${
+                          card.suit.charAt(0).toUpperCase() + card.suit.slice(1)
+                        }${card.price ? "&search[toggles][0]=BUY_NOW" : ""}`
+                  }
                   target="_blank"
                   css={(theme) => ({
                     color: theme.colors.dark_gray,
@@ -73,29 +85,39 @@ const CardInfo: FC<Props> = ({ artist, cardId, deck, opensea, ...props }) => {
                     marginRight: theme.spacing(2),
                   })}
                 >
-                  Buy NFT
+                  {card.price ? "Buy NFT" : "Make An Offer"}
                 </Button>
-                <Text
-                  variant="h4"
-                  component="div"
-                  css={{
-                    flexGrow: 1,
-                    display: "flex",
-                    justifyContent: "flex-end",
-                    alignItems: "baseline",
-                  }}
-                >
-                  <span>{card.price}</span>
-                  <Eth
+                {card.price ? (
+                  <Text
+                    variant="h4"
+                    component="div"
+                    css={{
+                      flexGrow: 1,
+                      display: "flex",
+                      justifyContent: "flex-end",
+                      alignItems: "baseline",
+                    }}
+                  >
+                    <span>{card.price}</span>
+                    <Eth
+                      css={(theme) => ({
+                        marginLeft: theme.spacing(1),
+                      })}
+                    />
+                  </Text>
+                ) : (
+                  <Text
+                    component="div"
+                    variant="h6"
                     css={(theme) => ({
-                      marginLeft: theme.spacing(1),
+                      color: theme.colors.text_subtitle_light,
                     })}
-                  />
-                </Text>
+                  >
+                    Sold Out
+                  </Text>
+                )}
               </Fragment>
-            ) : (
-              <Button disabled={true}>Sold out</Button>
-            ))
+            )
           )
         ) : (
           <Button

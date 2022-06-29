@@ -1,23 +1,5 @@
 import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 
-// const CardDataFragment = gql`
-//   fragment CardDataFragment on Card {
-//     _id
-//     info
-//     title
-//     slug
-//     openseaCollection {
-//       name
-//       address
-//     }
-//     short
-//     image
-//     properties
-//     description
-//     backgroundImage
-//   }
-// `;
-
 export const CardsQuery = gql`
   query Cards($deck: ID) {
     cards(deck: $deck) {
@@ -26,7 +8,6 @@ export const CardsQuery = gql`
       video
       info
       background
-      opensea
       value
       suit
       erc1155 {
@@ -83,6 +64,12 @@ export const CardQuery = gql`
     card(id: $id) {
       _id
       price
+      value
+      suit
+      erc1155 {
+        token_id
+        contractAddress
+      }
     }
   }
 `;

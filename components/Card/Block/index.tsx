@@ -128,12 +128,7 @@ const CardBlock: FC<Props> = ({
           </Button>
         </Fragment>
       ) : (
-        <CardInfo
-          artist={card.artist}
-          deck={deck}
-          opensea={card.opensea}
-          cardId={card._id}
-        />
+        <CardInfo artist={card.artist} deck={deck} cardId={card._id} />
       )}
     </div>
     {!cardOfTheDay && (

@@ -21,6 +21,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   card: {
     value: "",
+    suit: "",
     deck: mockDeck,
     _id: "cardId",
     artist: {
@@ -47,6 +48,7 @@ CardOfTheDay.args = {
   cardOfTheDay: true,
   card: {
     value: "",
+    suit: "",
     deck: mockDeck,
     _id: "cardId",
     artist: {

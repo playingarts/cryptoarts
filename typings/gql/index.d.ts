@@ -173,9 +173,8 @@ interface Card {
   artist: Artist;
   info?: Maybe<Scalars['String']>;
   deck: Deck;
-  suit?: Maybe<Scalars['String']>;
+  suit: Scalars['String'];
   value: Scalars['String'];
-  opensea?: Maybe<Scalars['String']>;
   background?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
   erc1155?: Maybe<Erc1155>;
@@ -580,9 +579,8 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   artist?: Resolver<ResolversTypes['Artist'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   deck?: Resolver<ResolversTypes['Deck'], ParentType, ContextType>;
-  suit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  suit?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  opensea?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   background?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   erc1155?: Resolver<Maybe<ResolversTypes['ERC1155']>, ParentType, ContextType>;

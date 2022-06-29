@@ -17,7 +17,6 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   value: String,
   background: { type: String, default: null },
   suit: String,
-  opensea: String,
   erc1155: {
     type: {
       contractAddress: String,
@@ -143,9 +142,8 @@ export const typeDefs = gql`
     artist: Artist!
     info: String
     deck: Deck!
-    suit: String
+    suit: String!
     value: String!
-    opensea: String
     background: String
     price: Float
     erc1155: ERC1155

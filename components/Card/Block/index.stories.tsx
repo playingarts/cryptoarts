@@ -14,6 +14,7 @@ const Template: ComponentStory<typeof CardBlock> = (args) => (
 export const Primary = Template.bind({});
 Primary.args = {
   card: {
+    suit: "",
     value: "",
     deck: mockDeck,
     _id: "cardId",
@@ -40,6 +41,7 @@ export const CardOfTheDay = Template.bind({});
 CardOfTheDay.args = {
   cardOfTheDay: true,
   card: {
+    suit: "",
     value: "",
     deck: mockDeck,
     _id: "cardId",
@@ -66,6 +68,7 @@ Sticky.args = {
   cardOfTheDay: true,
   stick: 0,
   card: {
+    suit: "",
     value: "",
     deck: mockDeck,
     _id: "cardId",

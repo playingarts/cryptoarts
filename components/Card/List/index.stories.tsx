@@ -43,24 +43,24 @@ Primary.args = {
       deck: mockDeck,
       artist,
       value: "",
+      suit: "",
       _id: "_id",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       info: "",
       video: "",
-      opensea: "opensea",
       background: "background",
     },
     {
       deck: mockDeck,
       artist,
       value: "",
+      suit: "",
       _id: "_id2",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
-      opensea: "opensea",
       background: "background",
       info: "",
     },
@@ -68,11 +68,11 @@ Primary.args = {
       deck: mockDeck,
       artist,
       value: "",
+      suit: "",
       _id: "_id",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video: "",
-      opensea: "opensea",
       background: "background",
       info: "",
     },
@@ -80,12 +80,12 @@ Primary.args = {
       deck: mockDeck,
       artist,
       value: "",
+      suit: "",
       _id: "_id2",
       img:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
-      opensea: "opensea",
       background: "background",
       info: "",
     },

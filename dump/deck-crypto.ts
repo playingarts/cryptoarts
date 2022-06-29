@@ -35,8 +35,6 @@ export const cards = [
     suit: "spades",
     value: "2",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=2&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.jpg",
     video:
@@ -50,8 +48,6 @@ export const cards = [
     suit: "hearts",
     value: "2",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=2&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-h-4si4nh43.jpg",
     video:
@@ -65,8 +61,6 @@ export const cards = [
     suit: "clubs",
     value: "2",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=2&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-c-jpi8Q728.jpg",
     video:
@@ -80,8 +74,6 @@ export const cards = [
     suit: "diamonds",
     value: "2",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=2&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-d-QK444t2B.jpg",
     video:
@@ -95,8 +87,6 @@ export const cards = [
     suit: "spades",
     value: "3",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=3&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-s-i8m8y6K6.jpg",
     video:
@@ -110,8 +100,6 @@ export const cards = [
     suit: "hearts",
     value: "3",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=3&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
@@ -125,8 +113,6 @@ export const cards = [
     suit: "clubs",
     value: "3",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=3&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-c-74h8P8ea.jpg",
     video:
@@ -139,8 +125,6 @@ export const cards = [
     suit: "diamonds",
     value: "3",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=3&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-d-49uM72Vj.jpg",
     video:
@@ -154,8 +138,6 @@ export const cards = [
     suit: "spades",
     value: "4",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=4&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/4-s-23Yoz7D8.jpg",
     video:
@@ -169,8 +151,6 @@ export const cards = [
     suit: "hearts",
     value: "4",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=4&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/4-h-sB7393iz.jpg",
     video:
@@ -184,8 +164,6 @@ export const cards = [
     suit: "clubs",
     value: "4",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=4&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/4-c-977Jh2ML.jpg",
     video:
@@ -199,8 +177,6 @@ export const cards = [
     suit: "diamonds",
     value: "4",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=4&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/4-d-9Egv9F37.jpg",
     video:
@@ -214,8 +190,6 @@ export const cards = [
     suit: "spades",
     value: "5",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=5&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/5-s-gd8kN968.jpg",
     video:
@@ -229,8 +203,6 @@ export const cards = [
     suit: "hearts",
     value: "5",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=5&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/5-h-4zt6a92h.jpg",
     video:
@@ -244,8 +216,6 @@ export const cards = [
     suit: "clubs",
     value: "5",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=5&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/5-c-k44Q6m9v.jpg",
     video:
@@ -258,8 +228,6 @@ export const cards = [
     suit: "diamonds",
     value: "5",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=5&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/5-d-2Yb48c3D.jpg",
     video:
@@ -273,8 +241,7 @@ export const cards = [
     suit: "spades",
     value: "6",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=6&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
+
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/6-s-sx39U4U8.jpg",
     video:
@@ -288,8 +255,6 @@ export const cards = [
     suit: "hearts",
     value: "6",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=6&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/6-h-8d9idu23.jpg",
     video:
@@ -303,8 +268,6 @@ export const cards = [
     suit: "clubs",
     value: "6",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=6&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/6-c-in3B49g6.jpg",
     video:
@@ -318,8 +281,6 @@ export const cards = [
     suit: "diamonds",
     value: "6",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=6&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/6-d-6mH3F99H.jpg",
     video:
@@ -333,8 +294,6 @@ export const cards = [
     suit: "spades",
     value: "7",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=7&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/7-s-4293BgEn.jpg",
     video:
@@ -348,8 +307,6 @@ export const cards = [
     suit: "hearts",
     value: "7",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=7&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/7-h-XW4Qx464.jpg",
     video:
@@ -363,8 +320,6 @@ export const cards = [
     suit: "clubs",
     value: "7",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=7&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/7-c-D8q934nr.jpg",
     video:
@@ -378,8 +333,6 @@ export const cards = [
     suit: "diamonds",
     value: "7",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=7&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/7-d-3H4G33ZA.jpg",
     video:
@@ -393,8 +346,6 @@ export const cards = [
     suit: "spades",
     value: "8",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=8&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/8-s-n2B4b6T3.jpg",
     video:
@@ -408,8 +359,6 @@ export const cards = [
     suit: "hearts",
     value: "8",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=8&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/8-h-V3AR64f2.jpg",
     video:
@@ -422,8 +371,6 @@ export const cards = [
     suit: "clubs",
     value: "8",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=8&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/8-c-cZ76N43Z.jpg",
     video:
@@ -436,8 +383,6 @@ export const cards = [
     suit: "diamonds",
     value: "8",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=8&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/8-d-6Z3H92Kv.jpg",
     video:
@@ -451,8 +396,6 @@ export const cards = [
     suit: "spades",
     value: "9",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=9&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/9-s-g43c26dj.jpg",
     video:
@@ -466,8 +409,6 @@ export const cards = [
     suit: "hearts",
     value: "9",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=9&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/9-h-Hj4nb676.jpg",
     video:
@@ -481,8 +422,6 @@ export const cards = [
     suit: "clubs",
     value: "9",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=9&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/9-c-y6x3v47U.jpg",
     video:
@@ -496,8 +435,6 @@ export const cards = [
     suit: "diamonds",
     value: "9",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=9&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/9-d-8w3v6JM6.jpg",
     video:
@@ -511,8 +448,6 @@ export const cards = [
     suit: "spades",
     value: "10",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=10&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/10-s-239yn6fp.jpg",
     video:
@@ -526,8 +461,6 @@ export const cards = [
     suit: "hearts",
     value: "10",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=10&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/10-h-383VH3zR.jpg",
     video:
@@ -541,8 +474,6 @@ export const cards = [
     suit: "clubs",
     value: "10",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=10&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/10-c-okp7333D.jpg",
     video:
@@ -556,8 +487,6 @@ export const cards = [
     suit: "diamonds",
     value: "10",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=10&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/10-d-49RMR27K.jpg",
     video:
@@ -571,8 +500,6 @@ export const cards = [
     suit: "spades",
     value: "jack",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Jack&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/j-s-3NE4b2t4.jpg",
     video:
@@ -586,8 +513,6 @@ export const cards = [
     suit: "hearts",
     value: "jack",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Jack&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/j-h-2H49J7bj.jpg",
     video:
@@ -601,8 +526,6 @@ export const cards = [
     suit: "clubs",
     value: "jack",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Jack&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/j-c-93y2dRL8.jpg",
     video:
@@ -616,8 +539,6 @@ export const cards = [
     suit: "diamonds",
     value: "jack",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Jack&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/j-d-X37rjw98.jpg",
     video:
@@ -631,8 +552,6 @@ export const cards = [
     suit: "spades",
     value: "queen",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Queen&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/q-s-4F8hN98q.jpg",
     video:
@@ -646,8 +565,6 @@ export const cards = [
     suit: "hearts",
     value: "queen",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Queen&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/q-h-9m4cg37g.jpg",
     video:
@@ -661,8 +578,6 @@ export const cards = [
     suit: "clubs",
     value: "queen",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Queen&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/q-c-jE72m69y.jpg",
     video:
@@ -675,8 +590,6 @@ export const cards = [
     suit: "diamonds",
     value: "queen",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Queen&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/q-d-4N4a42sM.jpg",
     video:
@@ -690,8 +603,6 @@ export const cards = [
     suit: "spades",
     value: "king",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=King&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/k-s-b2dD263P.jpg",
     video:
@@ -705,8 +616,6 @@ export const cards = [
     suit: "hearts",
     value: "king",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=King&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/k-h-36QTB8R9.jpg",
     video:
@@ -720,8 +629,6 @@ export const cards = [
     suit: "clubs",
     value: "king",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=King&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/k-c-w47o9Vp8.jpg",
     video:
@@ -735,8 +642,6 @@ export const cards = [
     suit: "diamonds",
     value: "king",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=King&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/k-d-9ex8HW27.jpg",
     video:
@@ -750,8 +655,6 @@ export const cards = [
     suit: "spades",
     value: "ace",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Spades&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-s-26vr86EL.jpg",
     video:
@@ -765,8 +668,6 @@ export const cards = [
     suit: "hearts",
     value: "ace",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Hearts&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-h-x89CxW27.jpg",
     video:
@@ -780,8 +681,6 @@ export const cards = [
     suit: "clubs",
     value: "ace",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Clubs&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-c-R22N86fN.jpg",
     video:
@@ -795,8 +694,6 @@ export const cards = [
     suit: "diamonds",
     value: "ace",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Value&search[stringTraits][0][values][0]=Ace&search[stringTraits][1][name]=Suit&search[stringTraits][1][values][0]=Diamonds&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-d-Mk33LV47.jpg",
     video:
@@ -809,8 +706,6 @@ export const cards = [
     suit: "black",
     value: "joker",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Color&search[stringTraits][0][values][0]=Black&search[stringTraits][1][name]=Value&search[stringTraits][1][values][0]=Joker&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/joker-PQy3C426.jpg",
     video:
@@ -823,8 +718,6 @@ export const cards = [
     suit: "crystal",
     value: "backside",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/60343876818614931036759583401419826937339570281218946026720664961069625638921",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/crystal-back.jpg",
     video:
@@ -844,8 +737,6 @@ export const cards = [
     suit: "crystal",
     value: "backside",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/assets/0x495f947276749ce646f68ac8c248420045cb7b5e/60343876818614931036759583401419826937339570281218946026720664959970114011172",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/back-iV67Z67p.jpg",
     video:
@@ -865,8 +756,6 @@ export const cards = [
     suit: "red",
     value: "joker",
     deck: "crypto",
-    opensea:
-      "https://opensea.io/collection/cryptoedition?search[sortAscending]=true&search[sortBy]=PRICE&search[stringTraits][0][name]=Color&search[stringTraits][0][values][0]=Red&search[stringTraits][1][name]=Value&search[stringTraits][1][values][0]=Joker&search[toggles][0]=BUY_NOW",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/joker2-aB2fC925.jpg",
     video:

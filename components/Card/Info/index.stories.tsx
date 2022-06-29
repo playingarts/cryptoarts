@@ -37,7 +37,6 @@ WithPrice.args = {
     ...mockDeck,
     slug: "crypto",
   },
-  opensea: "opensea",
   cardId: "cardId",
 };
 WithPrice.parameters = {

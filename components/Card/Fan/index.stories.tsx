@@ -20,6 +20,7 @@ const artist = {
 const cards: GQL.Card[] = [
   {
     value: "",
+    suit: "",
     _id: "1",
     artist,
     img:
@@ -31,6 +32,7 @@ const cards: GQL.Card[] = [
   },
   {
     value: "",
+    suit: "",
     _id: "2",
     artist,
     img:
@@ -42,6 +44,7 @@ const cards: GQL.Card[] = [
   },
   {
     value: "",
+    suit: "",
     _id: "3",
     artist,
     img:
@@ -53,6 +56,7 @@ const cards: GQL.Card[] = [
   },
   {
     value: "",
+    suit: "",
     _id: "4",
     artist,
     img:
@@ -64,6 +68,7 @@ const cards: GQL.Card[] = [
   },
   {
     value: "",
+    suit: "",
     _id: "5",
     artist,
     img:
@@ -75,6 +80,7 @@ const cards: GQL.Card[] = [
   },
   {
     value: "",
+    suit: "",
     _id: "6",
     artist,
     img:
