@@ -8,7 +8,7 @@ import { socialLinks } from "../../../source/consts";
 import { theme } from "../../../pages/_app";
 
 interface Props extends StatBlockProps {
-  collection: NonNullable<GQL.Deck["openseaCollection"]>;
+  deckId: string;
 }
 
 const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => (
@@ -38,8 +38,8 @@ const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => (
     )}
   </Fragment>
 );
-const ComposedSupply: FC<Props> = ({ collection, ...props }) => {
-  const { opensea } = useOpensea({ variables: { collection } });
+const ComposedSupply: FC<Props> = ({ deckId, ...props }) => {
+  const { opensea } = useOpensea({ variables: { deck: deckId } });
 
   return (
     <StatBlock

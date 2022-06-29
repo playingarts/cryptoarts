@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof Holders> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  contract: mockDeck.openseaContract,
+  deckId: mockDeck._id,
 };
 Primary.parameters = {
   apolloClient: {
@@ -24,7 +24,7 @@ Primary.parameters = {
         request: {
           query: HoldersQuery,
           variables: {
-            contract: Primary.args.contract,
+            deck: Primary.args.deckId,
           },
         },
         result: {
@@ -35,7 +35,8 @@ Primary.parameters = {
               spades: ["1", "2"],
               hearts: ["1"],
               diamonds: ["1", "2", "3", "4"],
-              clubs: [],
+              clubs: ["1"],
+              jokers: ["1", "1"],
             },
           },
         },

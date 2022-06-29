@@ -9,13 +9,15 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   slug,
   info:
     "A deck of playing cards featuring works of 55 leading artists. Unique digital art collectibles living on the Ethereum blockchain.",
-  openseaCollection: "cryptoedition",
-  openseaContract: "0xc22616e971a670e72f35570337e562c3e515fbfe",
   cardBackground: "#181818",
   image:
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_crypto.jpg",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_crypto_bg.jpg",
+  openseaCollection: {
+    address: "0xc22616e971a670e72f35570337e562c3e515fbfe",
+    name: "cryptoedition",
+  },
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     inside: "52 Playing cards + 2 Jokers + Info card",
@@ -827,13 +829,19 @@ export const cards = [
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/crystal-back.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/crystal-back.mp4",
+    erc1155: {
+      token_id:
+        "60343876818614931036759583401419826937339570281218946026720664961069625638921",
+      contractAddress: "0x495f947276749ce646f68ac8c248420045cb7b5e",
+      contractName: "pa-backsides",
+    },
   },
 
   {
     artist: "stu-ballinger-2",
     info:
       "“An experiment in kaleidoscopic refractions, produced by forming a lens out of an array of prisms.”",
-    suit: "",
+    suit: "crystal",
     value: "backside",
     deck: "crypto",
     opensea:
@@ -842,6 +850,12 @@ export const cards = [
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/back-iV67Z67p.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/back-iV67Z67p.mp4",
+    erc1155: {
+      token_id:
+        "60343876818614931036759583401419826937339570281218946026720664959970114011172",
+      contractAddress: "0x495f947276749ce646f68ac8c248420045cb7b5e",
+      contractName: "pa-backsides",
+    },
   },
 
   {

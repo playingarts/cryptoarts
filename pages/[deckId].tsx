@@ -30,7 +30,7 @@ import { useMetaMask } from "metamask-react";
 import { useSignature } from "../components/SignatureContext";
 import { useLoadOwnedAssets } from "../hooks/opensea";
 
-export type OwnedCard = { value: string; suit: string };
+export type OwnedCard = { value: string; suit: string; token_id: string };
 import DeckBlock from "../components/DeckBlock";
 
 const Content: FC<{
@@ -53,7 +53,7 @@ const Content: FC<{
   const [ownedCards, setOwnedCards] = useState<OwnedCard[]>([]);
 
   useLayoutEffect(() => {
-    if (!deck || !deck.openseaContract) {
+    if (!deck) {
       return;
     }
 
@@ -67,7 +67,7 @@ const Content: FC<{
 
     loadOwnedAssets({
       variables: {
-        contractAddress: deck.openseaContract,
+        deck: deck._id,
         address: signedAccount,
         signature,
       },
@@ -84,7 +84,7 @@ const Content: FC<{
     }
 
     setOwnedCards(
-      ownedAssets.map(({ traits }) => {
+      ownedAssets.flatMap(({ traits, token_id }) => {
         const value = traits.find((trait) => trait.trait_type === "Value");
         const suit = traits.find(
           (trait) => trait.trait_type === "Suit" || trait.trait_type === "Color"
@@ -94,9 +94,10 @@ const Content: FC<{
           return {
             value: value.value.toLowerCase(),
             suit: suit.value.toLowerCase(),
+            token_id,
           };
         }
-        return { value: "", suit: "" };
+        return { value: "", suit: "", token_id };
       })
     );
   }, [ownedAssets]);
@@ -159,19 +160,15 @@ const Content: FC<{
                 refs={{
                   roadmapRef,
                   nftRef:
-                    (deck &&
-                      deck.openseaCollection &&
-                      deck.openseaContract &&
-                      !artistId &&
-                      nftRef) ||
+                    (deck && deck.openseaCollection && !artistId && nftRef) ||
                     undefined,
                   cardsRef,
                   deckRef,
                 }}
                 links={{
-                  ...(deck.slug === "crypto"
+                  ...(deck.openseaCollection
                     ? {
-                        opensea: `https://opensea.io/collection/${deck.openseaCollection}`,
+                        opensea: `https://opensea.io/collection/${deck.openseaCollection.name}`,
                       }
                     : { buyNow: "/shop" }),
                   shop: "/shop",
@@ -207,10 +204,8 @@ const Content: FC<{
         />
 
         <CardList
-          {...(deck.openseaContract && {
-            openseaContract: deck.openseaContract,
-          })}
-          {...(deck.openseaCollection && {
+          setOwnedCards={setOwnedCards}
+          {...(ownedCards && {
             metamaskProps: {
               account,
               ownedCards,
@@ -220,13 +215,7 @@ const Content: FC<{
         />
       </Layout>
 
-      {deck.openseaCollection && deck.openseaContract && !artistId && (
-        <ComposedPace
-          ref={nftRef}
-          collection={deck.openseaCollection}
-          contract={deck.openseaContract}
-        />
-      )}
+      {!artistId && <ComposedPace deckId={deck._id} ref={nftRef} />}
       {deck.slug === "crypto" && !artistId && (
         <Layout
           css={(theme) => ({
@@ -321,11 +310,7 @@ const Page: NextPage = () => {
           refs={{
             roadmapRef,
             nftRef:
-              (deck &&
-                deck.openseaCollection &&
-                deck.openseaContract &&
-                !artistId &&
-                nftRef) ||
+              (deck && deck.openseaCollection && !artistId && nftRef) ||
               undefined,
             cardsRef,
             deckRef,

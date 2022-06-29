@@ -179,7 +179,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
           deck.openseaCollection ? (
             <Button
               component={Link}
-              href={`https://opensea.io/collection/${deck.openseaCollection}`}
+              href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
               target="_blank"
               Icon={Opensea}
               css={(theme) => ({

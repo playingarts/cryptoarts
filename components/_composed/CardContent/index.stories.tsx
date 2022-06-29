@@ -20,6 +20,18 @@ const artist: GQL.Artist = {
     "https://s3.amazonaws.com/img.playingarts.com/crypto/upics/leonardoworx.jpg",
   info:
     "Leonardo Betti, better known as Leonardoworx, is a…tions in international art galleries and museums.",
+  podcast: {
+    name: "Jason Naylor",
+    podcastName: "Jason Naylor",
+    image: "https://s3.amazonaws.com/img.playingarts.com/www/podcast/ep1.jpg",
+    youtube:
+      "https://www.youtube.com/watch?v=i78vXb2d06w&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    spotify:
+      "https://open.spotify.com/episode/5gUf4nI9UqEXvlUyzAz1zW?si=788c9cb6870c4ba5",
+    apple:
+      "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep01-jason-naylor/id1605752620?i=1000548214960",
+    episode: 1,
+  },
   website: "website",
   country: "country",
   social: {
@@ -71,6 +83,10 @@ Primary.parameters = {
                   "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
                 opensea: "opensea",
                 background: "background",
+                erc1155: {
+                  contractAddress: "1",
+                  token_id: "1",
+                },
               },
               {
                 deck: mockDeck,
@@ -88,11 +104,16 @@ Primary.parameters = {
                   "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
                 opensea: "opensea",
                 background: "background",
+                erc1155: {
+                  contractAddress: "1",
+                  token_id: "1",
+                },
               },
               {
                 deck: mockDeck,
                 artist,
                 value: "",
+                suit: "",
                 _id: "2",
                 img:
                   "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.jpg",
@@ -102,6 +123,10 @@ Primary.parameters = {
                   "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
                 opensea: "opensea",
                 background: "background",
+                erc1155: {
+                  contractAddress: "1",
+                  token_id: "1",
+                },
               },
             ],
           },
@@ -137,6 +162,7 @@ First.parameters = {
                   slug: Primary.args.artistId,
                 },
                 value: "",
+                suit: "",
                 _id: "cardId",
                 img:
                   "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.jpg",
@@ -151,6 +177,7 @@ First.parameters = {
                 deck: mockDeck,
                 artist,
                 value: "",
+                suit: "",
                 _id: "2",
                 img:
                   "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.jpg",

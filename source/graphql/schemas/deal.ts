@@ -1,5 +1,6 @@
 import { ApolloError, gql } from "@apollo/client";
 import { Schema, model, models, Model, Types } from "mongoose";
+import { getContract } from "./contract";
 import { getDeck } from "./deck";
 import { getAssets, signatureValid } from "./opensea";
 
@@ -44,8 +45,14 @@ export const resolvers: GQL.Resolvers = {
       if (!deal && discountCode) {
         const deck = await getDeck({ _id: deckId });
 
-        if (deck && deck.openseaContract) {
-          const assets = await getAssets(deck.openseaContract);
+        if (!deck) {
+          return;
+        }
+
+        const contract = await getContract({ deck: deck._id });
+
+        if (contract) {
+          const assets = await getAssets(contract.address);
 
           const assetsOwned = assets.filter(
             ({ owner: { address } }) => address === hash

@@ -5,9 +5,9 @@ import { OpenSeaPort, Network } from "opensea-js";
 import memoizee from "memoizee";
 import { CardSuits } from "../../enums";
 import intersect from "just-intersect";
-import { getDeck } from "./deck";
 import { getCardByTraits } from "./card";
 import { recoverPersonalSignature } from "@metamask/eth-sig-util";
+import { getContract, getContracts } from "./contract";
 
 const {
   OPENSEA_KEY: apiKey = "",
@@ -19,7 +19,7 @@ const seaport = new OpenSeaPort(provider, {
   apiKey,
 });
 
-interface Asset {
+export interface Asset {
   token_id: string;
   owner: {
     address: string;
@@ -31,6 +31,11 @@ interface Asset {
     trait_type: string;
     value: string;
   }[];
+  ownership?: {
+    owner: {
+      address: string;
+    };
+  };
 }
 
 const cachedAssets: Record<string, Asset[]> = {};
@@ -79,6 +84,7 @@ export const getAssets = memoizee<typeof getAssetsRaw>(
         [
           ...require("../../../mocks/assets.json"),
           ...require("../../../mocks/myassets.json"),
+          ...require("../../../mocks/pa-backside.json"),
         ] as Asset[]
     : (contract) => {
         if (cachedAssets[contract]) {
@@ -105,8 +111,10 @@ type CardSuitsType =
   | CardSuits.r
   | CardSuits.b;
 
-const getHolders = async (contract: string) => {
-  const assets = await getAssets(contract);
+const getHolders = async (deck: string) => {
+  const contract = await getContract({ deck });
+
+  const assets = await getAssets(contract.address);
 
   const holders = assets.reduce<
     Record<string, { suit: CardSuitsType; value: string; tokens: string[] }[]>
@@ -208,11 +216,11 @@ export const setOnSale = (asset: Asset) => ({
 });
 
 export const setCard = (contractId: string) => async (asset: Asset) => {
-  const deck = await getDeck({
-    openseaContract: contractId.toLowerCase(),
+  const contract = await getContract({
+    address: contractId.toLowerCase(),
   });
 
-  if (!deck) {
+  if (!contract) {
     return asset;
   }
 
@@ -226,7 +234,7 @@ export const setCard = (contractId: string) => async (asset: Asset) => {
   }
 
   const card = await getCardByTraits({
-    deck: deck._id.toString(),
+    deck: contract.deck._id.toString(),
     suit: suitTrait.value.toLowerCase(),
     value: valueTrait.value.toLowerCase(),
   }).catch(() => null);
@@ -287,30 +295,42 @@ export const resolvers: GQL.Resolvers = {
     },
   },
   Query: {
-    opensea: async (_, { collection }) => {
+    opensea: async (_, { deck }) => {
+      const contract = await getContract({ deck });
+
       const response = await (
-        await fetch(`https://api.opensea.io/api/v1/collection/${collection}`)
+        await fetch(`https://api.opensea.io/api/v1/collection/${contract.name}`)
       ).json();
 
       return {
         ...response.collection,
-        id: collection,
+        id: contract.name,
       };
     },
-    ownedAssets: async (_, { contractAddress, address, signature }) => {
+    ownedAssets: async (_, { deck, address, signature }) => {
       if (!signatureValid(address, signature)) {
         throw new ApolloError({
           errorMessage: "Failed to verify the account.",
         });
       }
 
-      const assets = await getAssets(contractAddress);
+      const contracts = await getContracts({ deck: deck });
 
-      return assets.filter(
-        ({ owner }) => owner.address.toLowerCase() === address.toLowerCase()
-      );
+      if (!contracts) {
+        return [];
+      }
+
+      const assets = (await Promise.all(
+        contracts.map(async (contract) => await getAssets(contract.address))
+      )) as Asset[][];
+
+      return assets
+        .flat()
+        .filter(
+          ({ owner }) => owner.address.toLowerCase() === address.toLowerCase()
+        );
     },
-    holders: (_, { contract }) => getHolders(contract),
+    holders: (_, { deck }) => getHolders(deck),
   },
 };
 
@@ -318,13 +338,9 @@ export const typeDefs = gql`
   scalar JSON
 
   type Query {
-    ownedAssets(
-      contractAddress: String!
-      address: String!
-      signature: String!
-    ): [Asset!]!
-    opensea(collection: String!): Opensea!
-    holders(contract: String!): Holders!
+    ownedAssets(deck: ID!, address: String!, signature: String!): [Asset!]!
+    opensea(deck: ID!): Opensea!
+    holders(deck: ID!): Holders!
   }
 
   type Asset {

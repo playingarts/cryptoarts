@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof Stats> = (args) => <Stats {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-  collection: mockDeck.openseaCollection,
+  deckId: mockDeck._id,
 };
 Primary.parameters = {
   apolloClient: {
@@ -22,7 +22,7 @@ Primary.parameters = {
         request: {
           query: OpenseaQuery,
           variables: {
-            collection: Primary.args.collection,
+            deck: Primary.args.deckId,
           },
         },
         result: {
@@ -32,6 +32,8 @@ Primary.parameters = {
                 num_owners: 1200,
                 total_volume: 123.456,
                 floor_price: 0.123,
+                total_supply: 1000,
+                onSale: 130,
               },
             },
           },
@@ -50,7 +52,7 @@ NoResult.parameters = {
         request: {
           query: OpenseaQuery,
           variables: {
-            collection: Primary.args.collection,
+            deck: Primary.args.deckId,
           },
         },
         result: {

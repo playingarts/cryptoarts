@@ -15,11 +15,13 @@ import { socialLinks } from "../../../source/consts";
 import Joker from "../../Icons/Joker";
 
 interface Props extends StatBlockProps {
-  contract: NonNullable<GQL.Deck["openseaContract"]>;
+  deckId: string;
 }
 
-const ComposedHolders: FC<Props> = ({ contract, ...props }) => {
-  const { holders } = useHolders({ variables: { contract } });
+const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
+  const { holders } = useHolders({
+    variables: { deck: deckId },
+  });
 
   if (!holders) {
     return null;

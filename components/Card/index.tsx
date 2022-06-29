@@ -95,7 +95,7 @@ const Card: FC<Props> = ({
               borderRadius: theme.spacing(2),
               background: theme.colors.eth,
               backgroundSize: "400% 100%",
-              animation: "gradient 10s ease infinite",
+              animation: "gradient 5s ease infinite",
             },
           },
           hovered &&

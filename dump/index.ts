@@ -10,6 +10,7 @@ import deckThree from "./deck-three";
 import deckTwo from "./deck-two";
 import deals from "./deals";
 import podcasts from "./podcasts";
+import contracts from "./contracts";
 
 (async () => {
   await artists();
@@ -24,6 +25,7 @@ import podcasts from "./podcasts";
   await products();
   await deals();
   await podcasts();
+  await contracts();
 
   process.exit();
 })();

@@ -1,8 +1,8 @@
 import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 
 export const OpenseaQuery = gql`
-  query Opensea($collection: String!) {
-    opensea(collection: $collection) {
+  query Opensea($deck: ID!) {
+    opensea(deck: $deck) {
       stats {
         num_owners
         total_volume
@@ -15,8 +15,8 @@ export const OpenseaQuery = gql`
 `;
 
 export const HoldersQuery = gql`
-  query Holders($contract: String!) {
-    holders(contract: $contract) {
+  query Holders($deck: ID!) {
+    holders(deck: $deck) {
       fullDecks
       fullDecksWithJokers
       spades
@@ -29,20 +29,13 @@ export const HoldersQuery = gql`
 `;
 
 export const OwnedAssetsQuery = gql`
-  query OwnedAssets(
-    $contractAddress: String!
-    $address: String!
-    $signature: String!
-  ) {
-    ownedAssets(
-      contractAddress: $contractAddress
-      address: $address
-      signature: $signature
-    ) {
+  query OwnedAssets($deck: ID!, $address: String!, $signature: String!) {
+    ownedAssets(deck: $deck, address: $address, signature: $signature) {
       traits {
         trait_type
         value
       }
+      token_id
     }
   }
 `;

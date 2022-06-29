@@ -11,9 +11,8 @@ const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   image: String,
   backgroundImage: { type: String, default: null },
   description: { type: String, default: null },
+  openseaCollection: { type: Object, default: null },
   properties: { type: Object, default: {} },
-  openseaCollection: { type: String, default: null },
-  openseaContract: { type: String, default: null },
   cardBackground: { type: String, default: null },
 });
 
@@ -22,12 +21,8 @@ export const Deck = (models.Deck as Model<GQL.Deck>) || model("Deck", schema);
 const getDecks = async () => Deck.find();
 
 export const getDeck = async (
-  options:
-    | Pick<GQL.Deck, "slug">
-    | Pick<GQL.Deck, "_id">
-    | Pick<GQL.Deck, "openseaContract">
+  options: Pick<GQL.Deck, "slug"> | Pick<GQL.Deck, "_id">
 ) => (await Deck.findOne(options)) || undefined;
-
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
   Deck: {
@@ -54,13 +49,17 @@ export const typeDefs = gql`
     short: String!
     info: String!
     slug: ID!
-    openseaCollection: String
-    openseaContract: String
+    openseaCollection: OpenseaCollection
     cardBackground: String
     image: String
     properties: JSON!
     description: String
     backgroundImage: String
     product: Product
+  }
+
+  type OpenseaCollection {
+    name: String!
+    address: String!
   }
 `;

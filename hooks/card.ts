@@ -11,6 +11,10 @@ export const CardsQuery = gql`
       opensea
       value
       suit
+      erc1155 {
+        contractAddress
+        token_id
+      }
       artist {
         name
         userpic

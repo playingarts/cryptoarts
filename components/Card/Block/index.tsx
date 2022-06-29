@@ -65,8 +65,9 @@ const CardBlock: FC<Props> = ({
           ownedCards &&
           ownedCards.findIndex(
             (owned) =>
-              owned.suit.toLowerCase() === card.suit &&
-              owned.value === card.value
+              (owned.suit.toLowerCase() === card.suit &&
+                owned.value === card.value) ||
+              (card.erc1155 && card.erc1155.token_id === owned.token_id)
           ) !== -1
         }
         css={{

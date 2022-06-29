@@ -1,8 +1,9 @@
 import { gql } from "@apollo/client";
 import { Schema, model, models, Model, Types } from "mongoose";
 import { getDeck } from "./deck";
-import { getAssets } from "./opensea";
+import { Asset, getAssets } from "./opensea";
 import Web3 from "web3";
+import { getContracts } from "./contract";
 
 export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
   artist?: string;
@@ -17,6 +18,13 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   background: { type: String, default: null },
   suit: String,
   opensea: String,
+  erc1155: {
+    type: {
+      contractAddress: String,
+      token_id: String,
+    },
+    default: null,
+  },
   artist: { type: Types.ObjectId, ref: "Artist" },
   deck: { type: Types.ObjectId, ref: "Deck" },
 });
@@ -70,21 +78,33 @@ export const resolvers: GQL.Resolvers = {
         (deck) => deck && deck.cardBackground
       )),
     price: async (card: GQL.Card) => {
-      if (!card.suit || !card.deck || !card.deck.openseaContract) {
+      if (!card.suit || !card.deck) {
+        return;
+      }
+      const contracts = await getContracts({ deck: card.deck._id });
+
+      if (!contracts) {
         return;
       }
 
-      const assets = await getAssets(card.deck.openseaContract);
+      const assets = ((await Promise.all(
+        contracts.map(async (contract) => await getAssets(contract.address))
+      )) as Asset[][]).flat();
+
       const orders = assets
         .filter(
           ({ token_id, sell_orders, traits }) =>
             token_id &&
             sell_orders &&
-            traits.filter(
-              ({ trait_type, value }) =>
-                (trait_type === "Suit" && value.toLowerCase() === card.suit) ||
-                (trait_type === "Value" && value.toLowerCase() === card.value)
-            ).length === 2
+            (card.erc1155
+              ? card.erc1155.token_id === token_id
+              : traits.filter(
+                  ({ trait_type, value }) =>
+                    ((trait_type === "Suit" || trait_type === "Color") &&
+                      value.toLowerCase() === card.suit) ||
+                    (trait_type === "Value" &&
+                      value.toLowerCase() === card.value)
+                ).length === 2)
         )
         .map((item) => item.sell_orders)
         .flat();
@@ -128,5 +148,11 @@ export const typeDefs = gql`
     opensea: String
     background: String
     price: Float
+    erc1155: ERC1155
+  }
+
+  type ERC1155 {
+    contractAddress: String!
+    token_id: String!
   }
 `;

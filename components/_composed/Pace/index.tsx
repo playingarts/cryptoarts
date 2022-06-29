@@ -10,12 +10,11 @@ import ComposedStats from "../Stats";
 import ComposedSupply from "../Supply";
 
 interface Props extends LayoutProps {
-  collection: NonNullable<GQL.Deck["openseaCollection"]>;
-  contract: NonNullable<GQL.Deck["openseaContract"]>;
+  deckId: string;
 }
 
 const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { collection, contract, ...props },
+  { deckId, ...props },
   ref
 ) => {
   const {
@@ -77,7 +76,7 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
             background: theme.colors.dark_gray,
             color: theme.colors.text_title_light,
           })}
-          collection={collection}
+          deckId={deckId}
         />
 
         <ComposedHolders
@@ -92,7 +91,7 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
             background: theme.colors.dark_gray,
             color: theme.colors.text_title_light,
           })}
-          contract={contract}
+          deckId={deckId}
         />
 
         <ComposedStats
@@ -101,7 +100,7 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
             color: theme.colors.text_title_light,
             gridColumn: "span 3",
           })}
-          collection={collection}
+          deckId={deckId}
         />
       </Grid>
     </Layout>
