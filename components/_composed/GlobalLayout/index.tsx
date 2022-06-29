@@ -60,7 +60,7 @@ const ComposedGlobalLayout: FC<
             scrollIntoViewBehavior === "smooth"
               ? scrollIntoViewBehavior
               : "auto",
-          block: "start",
+          block: "center",
         });
       };
     }
