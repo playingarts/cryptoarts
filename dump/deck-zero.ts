@@ -7,7 +7,8 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Edition Zero",
   short: "Zero",
   slug,
-  info: "Originally called Creative Cards, this deck have been completely sold out for about five years now. We are bringing it back in a new and improved version!",
+  info:
+    "Originally called Creative Cards, this deck have been completely sold out for about five years now. We are bringing it back in a new and improved version!",
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_zero.jpg",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_zero_bg.jpg",
@@ -17,7 +18,7 @@ export const deck: Omit<GQL.Deck, "_id"> = {
     material: "Bicycle® paper with Air-cushion finish",
   },
   description:
-    'Enjoy colorful, original artwork from 55 todays leading international illustrators, all in the palm of your hand!',
+    "Enjoy colorful, original artwork from 55 todays leading international illustrators, all in the palm of your hand!",
 };
 
 export const cards = [

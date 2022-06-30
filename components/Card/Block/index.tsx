@@ -17,6 +17,7 @@ interface Props extends GridProps {
   cardOfTheDay?: boolean;
   stick?: number;
   ownedCards?: OwnedCard[];
+  contest?: boolean;
 }
 
 const CardBlock: FC<Props> = ({
@@ -25,6 +26,7 @@ const CardBlock: FC<Props> = ({
   deck,
   card,
   ownedCards,
+  contest,
   ...props
 }) => (
   <Grid
@@ -128,10 +130,15 @@ const CardBlock: FC<Props> = ({
           </Button>
         </Fragment>
       ) : (
-        <CardInfo artist={card.artist} deck={deck} cardId={card._id} />
+        <CardInfo
+          contest={contest}
+          artist={card.artist}
+          deck={deck}
+          cardId={card._id}
+        />
       )}
     </div>
-    {!cardOfTheDay && (
+    {!cardOfTheDay && !contest && (
       <div
         css={(theme) => ({
           gridColumn: "span 7 / -1",

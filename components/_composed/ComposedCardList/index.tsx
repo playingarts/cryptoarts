@@ -17,6 +17,7 @@ import { useCards } from "../../../hooks/card";
 import { Asset } from "../../../source/graphql/schemas/opensea";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { useMetaMask } from "metamask-react";
+import Grid from "../../Grid";
 
 interface Props
   extends Omit<ListProps, "metamaskProps" | "status" | "deckId" | "cards"> {
@@ -33,9 +34,25 @@ const ComposedCardList: ForwardRefRenderFunction<HTMLElement, Props> = (
     query: { artistId, section },
   } = useRouter();
 
-  const { cards, loading } = useCards({
+  const { cards: queryCards, loading } = useCards({
     variables: { deck: deck._id },
   });
+
+  const cards =
+    queryCards &&
+    queryCards.map((card) => ({
+      ...card,
+      href: `/${deck.slug}/${card.artist.slug}`,
+      owned:
+        deck.openseaCollection &&
+        status === "connected" &&
+        ownedCards.findIndex(
+          (owned) =>
+            (owned.suit.toLowerCase() === card.suit &&
+              owned.value === card.value) ||
+            (card.erc1155 && card.erc1155.token_id === owned.token_id)
+        ) !== -1,
+    }));
 
   const [listState, setListState] = useState(false);
 
@@ -63,12 +80,12 @@ const ComposedCardList: ForwardRefRenderFunction<HTMLElement, Props> = (
   const currentSelected = buttonState.find(({ selected }) => selected === true);
 
   useEffect(() => {
-    if (!cards || ownedCards.length === 0) {
+    if (!queryCards || ownedCards.length === 0) {
       return;
     }
 
     Promise.all(
-      cards
+      queryCards
         .filter((card) => card.erc1155)
         .flatMap(async (card) => {
           if (!card.erc1155) {
@@ -94,7 +111,7 @@ const ComposedCardList: ForwardRefRenderFunction<HTMLElement, Props> = (
         ...compl,
       ])
     );
-  }, [cards, ownedCards, account]);
+  }, [queryCards, ownedCards, account]);
 
   return (
     <Layout
@@ -206,7 +223,15 @@ const ComposedCardList: ForwardRefRenderFunction<HTMLElement, Props> = (
             </div>
           )
         }
-        title={artistId ? deck.title : "Cards"}
+        title={
+          artistId
+            ? deck.title
+            : ((deck.slug === "special" ||
+                deck.slug === "future_i" ||
+                deck.slug === "future_ii") &&
+                "Winners") ||
+              "Cards"
+        }
         subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
         css={(theme) => ({
           marginBottom: theme.spacing(1),
@@ -214,29 +239,31 @@ const ComposedCardList: ForwardRefRenderFunction<HTMLElement, Props> = (
       />
 
       {loading || !cards || !currentSelected ? null : (
-        <CardList
-          status={status}
-          cards={
-            currentSelected.children === "ascending"
-              ? [...cards].sort((a, b) =>
-                  a.price ? (b.price ? a.price - b.price : -1) : 0
-                )
-              : currentSelected.children === "descending"
-              ? [...cards].sort((a, b) =>
-                  a.price ? (b.price ? b.price - a.price : -1) : 0
-                )
-              : cards
-          }
-          {...(deck.openseaCollection && {
-            metamaskProps: {
-              account,
-              ownedCards: [...ownedCards, ...ERC1155],
-            },
-          })}
-          sorted={
-            deck.openseaCollection && currentSelected.children !== "default"
-          }
-        />
+        <Grid>
+          <CardList
+            status={status}
+            cards={
+              currentSelected.children === "ascending"
+                ? [...cards].sort((a, b) =>
+                    a.price ? (b.price ? a.price - b.price : -1) : 0
+                  )
+                : currentSelected.children === "descending"
+                ? [...cards].sort((a, b) =>
+                    a.price ? (b.price ? b.price - a.price : -1) : 0
+                  )
+                : cards
+            }
+            {...(deck.openseaCollection && {
+              metamaskProps: {
+                account,
+                ownedCards: [...ownedCards, ...ERC1155],
+              },
+            })}
+            sorted={
+              deck.openseaCollection && currentSelected.children !== "default"
+            }
+          />
+        </Grid>
       )}
     </Layout>
   );

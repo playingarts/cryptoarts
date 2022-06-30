@@ -67,6 +67,19 @@ export const typeDefs = gql`
     artists(hasPodcast: Boolean, shuffle: Boolean, limit: Int): [Artist]!
   }
 
+  type LoserArtist {
+    _id: ID
+    name: String
+    info: String
+    slug: String
+    userpic: String
+    website: String
+    shop: String
+    podcast: Podcast
+    social: Socials
+    country: String
+  }
+
   type Artist {
     _id: ID!
     name: String!

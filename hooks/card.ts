@@ -1,8 +1,8 @@
 import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 
 export const CardsQuery = gql`
-  query Cards($deck: ID) {
-    cards(deck: $deck) {
+  query Cards($deck: ID, $losers: Boolean) {
+    cards(deck: $deck, losers: $losers) {
       _id
       img
       video
@@ -102,7 +102,10 @@ export const useCards = (
     options
   );
 
-  return { ...methods, cards };
+  return {
+    ...methods,
+    cards,
+  };
 };
 
 export const useLoadCards = (
@@ -113,7 +116,11 @@ export const useLoadCards = (
     { data: { cards } = { cards: undefined }, ...methods },
   ] = useLazyQuery(CardsQuery, options);
 
-  return { loadCards, ...methods, cards };
+  return {
+    loadCards,
+    ...methods,
+    cards,
+  };
 };
 
 export const useLoadCard = (

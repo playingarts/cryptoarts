@@ -47,13 +47,13 @@ WithPrice.parameters = {
         request: {
           query: CardQuery,
           variables: {
-            id: WithPrice.args.cardId,
+            id: "artistId",
           },
         },
         result: {
           data: {
             card: {
-              _id: WithPrice.args.cardId,
+              _id: "artistId",
               price: "10.00",
             },
           },

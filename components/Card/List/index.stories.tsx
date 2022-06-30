@@ -50,6 +50,7 @@ Primary.args = {
       info: "",
       video: "",
       background: "background",
+      href: "",
     },
     {
       deck: mockDeck,
@@ -63,6 +64,7 @@ Primary.args = {
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
       background: "background",
       info: "",
+      href: "",
     },
     {
       deck: mockDeck,
@@ -75,6 +77,8 @@ Primary.args = {
       video: "",
       background: "background",
       info: "",
+      href: "",
+      owned: true,
     },
     {
       deck: mockDeck,
@@ -88,6 +92,7 @@ Primary.args = {
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
       background: "background",
       info: "",
+      href: "",
     },
   ],
 };

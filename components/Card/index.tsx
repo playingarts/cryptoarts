@@ -105,7 +105,7 @@ const Card: FC<Props> = ({
             !interactive &&
             !isStatic && {
               transform: `translate(0, -${theme.spacing(2)}px)`,
-              boxShadow: "0 20px 10px rgba(0, 0, 0, 0.25)",
+              boxShadow: "0px 10px 20px 4px rgba(0, 0, 0, 0.25)",
             },
         ]}
         style={

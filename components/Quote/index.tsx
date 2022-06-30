@@ -50,32 +50,34 @@ const Quote: FC<Props> = ({
           ...(vertical ? { flexDirection: "column" } : {}),
         }}
       >
-        <div>
-          {truncate ? (
-            <Truncate lines={truncate} variant="body3" css={{ marginTop: 0 }}>
-              {children}
-            </Truncate>
-          ) : (
-            <Text css={{ margin: 0 }} variant="body3">
-              {children}
-            </Text>
-          )}
+        {children && (
+          <div>
+            {truncate ? (
+              <Truncate lines={truncate} variant="body3" css={{ marginTop: 0 }}>
+                {children}
+              </Truncate>
+            ) : (
+              <Text css={{ margin: 0 }} variant="body3">
+                {children}
+              </Text>
+            )}
 
-          {moreLink && (
-            <Text
-              component={Link}
-              href={moreLink}
-              variant="label"
-              css={(theme) => ({
-                marginTop: theme.spacing(2),
-                display: "inline-block",
-                color: theme.colors.text_subtitle_dark,
-              })}
-            >
-              <Arrowed>Read more</Arrowed>
-            </Text>
-          )}
-        </div>
+            {moreLink && (
+              <Text
+                component={Link}
+                href={moreLink}
+                variant="label"
+                css={(theme) => ({
+                  marginTop: theme.spacing(2),
+                  display: "inline-block",
+                  color: theme.colors.text_subtitle_dark,
+                })}
+              >
+                <Arrowed>Read more</Arrowed>
+              </Text>
+            )}
+          </div>
+        )}
         {artist && (
           <div
             key={artist.info}

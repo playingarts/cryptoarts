@@ -8,23 +8,30 @@ export interface Props extends LayoutProps {
   deck: GQL.Deck;
   cardOfTheDay?: boolean;
   ownedCards?: OwnedCard[];
+  contest?: boolean;
 }
 
 const ComposedCardBlock: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { ownedCards, cardOfTheDay, card, deck, ...props },
+  { ownedCards, cardOfTheDay, card, deck, contest, ...props },
   ref
 ) => (
   <Layout
     {...props}
-    css={(theme) => ({
-      paddingBottom: theme.spacing(14),
-      paddingTop: theme.spacing(14),
-    })}
+    css={(theme) => [
+      {
+        paddingBottom: theme.spacing(14),
+        paddingTop: theme.spacing(14),
+      },
+      contest && {
+        minHeight: "100vh",
+      },
+    ]}
     ref={ref}
   >
     <CardBlock
       ownedCards={ownedCards}
       stick={14}
+      contest={contest}
       cardOfTheDay={cardOfTheDay}
       card={card}
       deck={deck}

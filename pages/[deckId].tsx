@@ -3,6 +3,7 @@ import {
   Fragment,
   memo,
   RefObject,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -23,216 +24,252 @@ import ComposedCardContent from "../components/_composed/CardContent";
 import ComposedPace from "../components/_composed/Pace";
 import { Sections } from "../source/enums";
 import AugmentedReality from "../components/AugmentedReality";
-import Error from "next/error";
 import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
 import { useMetaMask } from "metamask-react";
-import { useSignature } from "../components/SignatureContext";
+import { useSignature } from "../contexts/SignatureContext";
 import { useLoadOwnedAssets } from "../hooks/opensea";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
 import DeckBlock from "../components/DeckBlock";
 import ComposedCardList from "../components/_composed/ComposedCardList";
+import ArtContest from "../components/_composed/ArtContest";
+import ComposedEntries from "../components/_composed/ComposedEntries";
+import Modal from "../components/Modal";
+import { useLoadLosersValues } from "../hooks/loser";
 
 const Content: FC<{
+  losersExist?: boolean;
   aboutRef: RefObject<HTMLDivElement>;
   deckRef: RefObject<HTMLElement>;
   cardsRef: RefObject<HTMLElement>;
+  contestRef: RefObject<HTMLElement>;
   deckNavRef: RefObject<HTMLElement>;
   nftRef: RefObject<HTMLElement>;
   roadmapRef: RefObject<HTMLElement>;
-}> = memo(({ aboutRef, deckRef, cardsRef, deckNavRef, nftRef, roadmapRef }) => {
-  const {
-    query: { artistId, deckId, section },
-  } = useRouter();
-  const { account } = useMetaMask();
-  const { getSig } = useSignature();
-  const { deck, loading } = useDeck({ variables: { slug: deckId } });
+}> = memo(
+  ({
+    losersExist,
+    aboutRef,
+    deckRef,
+    cardsRef,
+    deckNavRef,
+    nftRef,
+    roadmapRef,
+    contestRef,
+  }) => {
+    const {
+      query: { artistId, deckId, section },
+      pathname,
+    } = useRouter();
+    const { account } = useMetaMask();
+    const { getSig } = useSignature();
+    const { deck, loading } = useDeck({ variables: { slug: deckId } });
 
-  const { ownedAssets, loadOwnedAssets } = useLoadOwnedAssets();
+    const { ownedAssets, loadOwnedAssets } = useLoadOwnedAssets();
 
-  const [ownedCards, setOwnedCards] = useState<OwnedCard[]>([]);
+    const [ownedCards, setOwnedCards] = useState<OwnedCard[]>([]);
 
-  useLayoutEffect(() => {
-    if (!deck) {
-      return;
+    const contest = pathname.includes("/contest/");
+    useLayoutEffect(() => {
+      if (!deck) {
+        return;
+      }
+
+      const currentSig = getSig();
+
+      if (!currentSig || !currentSig.signature || !currentSig.account) {
+        return;
+      }
+
+      const { account: signedAccount, signature } = currentSig;
+
+      loadOwnedAssets({
+        variables: {
+          deck: deck._id,
+          address: signedAccount,
+          signature,
+        },
+      });
+    }, [deck, getSig, loadOwnedAssets]);
+
+    useLayoutEffect(() => {
+      setOwnedCards([]);
+    }, [account]);
+
+    useLayoutEffect(() => {
+      if (!ownedAssets) {
+        return;
+      }
+
+      setOwnedCards(
+        ownedAssets.flatMap(({ traits, token_id }) => {
+          const value = traits.find((trait) => trait.trait_type === "Value");
+          const suit = traits.find(
+            (trait) =>
+              trait.trait_type === "Suit" || trait.trait_type === "Color"
+          );
+
+          if (value && suit) {
+            return {
+              value: value.value.toLowerCase(),
+              suit: suit.value.toLowerCase(),
+              token_id,
+            };
+          }
+          return { value: "", suit: "", token_id };
+        })
+      );
+    }, [ownedAssets]);
+
+    if (loading || !deck) {
+      return null;
     }
 
-    const currentSig = getSig();
-
-    if (!currentSig || !currentSig.signature || !currentSig.account) {
-      return;
-    }
-
-    const { account: signedAccount, signature } = currentSig;
-
-    loadOwnedAssets({
-      variables: {
-        deck: deck._id,
-        address: signedAccount,
-        signature,
-      },
-    });
-  }, [deck, getSig, loadOwnedAssets]);
-
-  useLayoutEffect(() => {
-    setOwnedCards([]);
-  }, [account]);
-
-  useLayoutEffect(() => {
-    if (!ownedAssets) {
-      return;
-    }
-
-    setOwnedCards(
-      ownedAssets.flatMap(({ traits, token_id }) => {
-        const value = traits.find((trait) => trait.trait_type === "Value");
-        const suit = traits.find(
-          (trait) => trait.trait_type === "Suit" || trait.trait_type === "Color"
-        );
-
-        if (value && suit) {
-          return {
-            value: value.value.toLowerCase(),
-            suit: suit.value.toLowerCase(),
-            token_id,
-          };
-        }
-        return { value: "", suit: "", token_id };
-      })
-    );
-  }, [ownedAssets]);
-
-  if (loading) {
-    return null;
-  }
-
-  if (!deck) {
-    return <Error statusCode={404} />;
-  }
-
-  console.log(ownedCards);
-  return (
-    <Fragment>
-      {typeof artistId === "string" && (
-        <ComposedCardContent
-          css={(theme) => ({
-            background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
-            color: theme.colors.page_bg_light,
-          })}
-          ownedCards={ownedCards}
-          deck={deck}
-          artistId={artistId}
-          ref={aboutRef}
-        />
-      )}
-
-      {!artistId && (
-        <Layout
-          css={(theme) => ({
-            background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
-            color: theme.colors.light_gray,
-            paddingTop: theme.spacing(26),
-            paddingBottom: theme.spacing(6),
-          })}
-          ref={aboutRef}
-        >
-          <div
-            css={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              width: "100%",
-              height: "100%",
-              background: `url(${deck.backgroundImage}) 50% 50%`,
-              backgroundSize: "cover",
-              backgroundAttachment: "fixed",
-              minHeight: "100%",
-            }}
-          />
-          <Grid css={{ zIndex: 1, position: "relative" }} short={true}>
-            <div css={{ gridColumn: "1 / -1" }}>
-              <Text component="h1" css={{ margin: 0 }}>
-                {deck.title}
-              </Text>
-              <Text variant="body3">{deck.info}</Text>
-              <Line spacing={3} />
-              <DeckNav
-                ref={deckNavRef}
-                refs={{
-                  roadmapRef,
-                  nftRef:
-                    (deck && deck.openseaCollection && !artistId && nftRef) ||
-                    undefined,
-                  cardsRef,
-                  deckRef,
-                }}
-                links={{
-                  ...(deck.openseaCollection
-                    ? {
-                        opensea: `https://opensea.io/collection/${deck.openseaCollection.name}`,
-                      }
-                    : { buyNow: "/shop" }),
-                  shop: "/shop",
-                }}
-              />
-            </div>
-          </Grid>
-        </Layout>
-      )}
-
-      <ComposedCardList deck={deck} ref={cardsRef} ownedCards={ownedCards} />
-
-      {!artistId && deck.openseaCollection && (
-        <ComposedPace deckId={deck._id} ref={nftRef} />
-      )}
-      {deck.slug === "crypto" && !artistId && (
-        <Layout
-          css={(theme) => ({
-            backgroundColor: theme.colors.page_bg_dark,
-            paddingTop: theme.spacing(15),
-            paddingBottom: theme.spacing(15),
-          })}
-          ref={roadmapRef}
-          scrollIntoView={section === Sections.roadmap}
-        >
-          <BlockTitle
+    return (
+      <Fragment>
+        {typeof artistId === "string" && (
+          <ComposedCardContent
             css={(theme) => ({
-              color: theme.colors.white,
-              gridColumn: "2/ span 10",
-              marginBottom: theme.spacing(6),
+              background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
+              color: theme.colors.page_bg_light,
             })}
-            title="Roadmap"
+            ownedCards={ownedCards}
+            deck={deck}
+            contest={contest}
+            artistId={artistId}
+            ref={aboutRef}
           />
-          <ComposedRoadmap />
-        </Layout>
-      )}
-      <Layout
-        css={(theme) => ({
-          paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(6),
-          background: theme.colors.page_bg_light_gray,
-        })}
-        ref={deckRef}
-        scrollIntoView={section === Sections.deck}
-      >
-        <Grid>
-          <DeckBlock deck={deck} css={{ gridColumn: "1/-1" }} />
-        </Grid>
-
-        {deck.slug === "crypto" && (
-          <Grid>
-            <AugmentedReality
-              css={(theme) => ({
-                marginTop: theme.spacing(9),
-                gridColumn: "1 / -1",
-              })}
-            />
-          </Grid>
         )}
-      </Layout>
-    </Fragment>
-  );
-});
+
+        {!artistId && (
+          <Layout
+            css={(theme) => ({
+              background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
+              color: theme.colors.light_gray,
+              paddingTop: theme.spacing(26),
+              paddingBottom: theme.spacing(6),
+            })}
+            ref={aboutRef}
+          >
+            <div
+              css={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                width: "100%",
+                height: "100%",
+                background: `url(${deck.backgroundImage}) 50% 50%`,
+                backgroundSize: "cover",
+                backgroundAttachment: "fixed",
+                minHeight: "100%",
+              }}
+            />
+            <Grid css={{ zIndex: 1, position: "relative" }} short={true}>
+              <div css={{ gridColumn: "1 / -1" }}>
+                <Text component="h1" css={{ margin: 0 }}>
+                  {deck.title}
+                </Text>
+                <Text variant="body3">{deck.info}</Text>
+                <Line spacing={3} />
+                <DeckNav
+                  ref={deckNavRef}
+                  refs={{
+                    roadmapRef,
+                    nftRef:
+                      (deck && deck.openseaCollection && !artistId && nftRef) ||
+                      undefined,
+                    cardsRef,
+                    contestRef: (losersExist && contestRef) || undefined,
+                    deckRef,
+                  }}
+                  links={{
+                    ...(deck.openseaCollection
+                      ? {
+                          opensea: `https://opensea.io/collection/${deck.openseaCollection.name}`,
+                        }
+                      : { buyNow: "/shop" }),
+                    shop: "/shop",
+                  }}
+                />
+              </div>
+            </Grid>
+          </Layout>
+        )}
+
+        {!contest && (
+          <ComposedCardList
+            deck={deck}
+            ref={cardsRef}
+            ownedCards={ownedCards}
+          />
+        )}
+
+        {contest && <ArtContest deck={deck} />}
+
+        {losersExist && (
+          <ComposedEntries
+            scrollIntoView={section === Sections.contest}
+            ref={contestRef}
+            deck={deck}
+          />
+        )}
+
+        {!contest && (
+          <Fragment>
+            {!artistId && deck.openseaCollection && (
+              <ComposedPace deckId={deck._id} ref={nftRef} />
+            )}
+            {deck.slug === "crypto" && !artistId && (
+              <Layout
+                css={(theme) => ({
+                  backgroundColor: theme.colors.page_bg_dark,
+                  paddingTop: theme.spacing(15),
+                  paddingBottom: theme.spacing(15),
+                })}
+                ref={roadmapRef}
+                scrollIntoView={section === Sections.roadmap}
+              >
+                <BlockTitle
+                  css={(theme) => ({
+                    color: theme.colors.white,
+                    gridColumn: "2/ span 10",
+                    marginBottom: theme.spacing(6),
+                  })}
+                  title="Roadmap"
+                />
+                <ComposedRoadmap />
+              </Layout>
+            )}
+            <Layout
+              css={(theme) => ({
+                paddingTop: theme.spacing(15),
+                paddingBottom: theme.spacing(6),
+                background: theme.colors.page_bg_light_gray,
+              })}
+              ref={deckRef}
+              scrollIntoView={section === Sections.deck}
+            >
+              <Grid>
+                <DeckBlock deck={deck} css={{ gridColumn: "1/-1" }} />
+              </Grid>
+
+              {deck.slug === "crypto" && (
+                <Grid>
+                  <AugmentedReality
+                    css={(theme) => ({
+                      marginTop: theme.spacing(9),
+                      gridColumn: "1 / -1",
+                    })}
+                  />
+                </Grid>
+              )}
+            </Layout>
+          </Fragment>
+        )}
+      </Fragment>
+    );
+  }
+);
 
 const Page: NextPage = () => {
   const {
@@ -241,6 +278,7 @@ const Page: NextPage = () => {
   const aboutRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLElement>(null);
+  const contestRef = useRef<HTMLElement>(null);
   const deckNavRef = useRef<HTMLElement>(null);
   const nftRef = useRef<HTMLElement>(null);
   const roadmapRef = useRef<HTMLElement>(null);
@@ -248,6 +286,18 @@ const Page: NextPage = () => {
   const [altNavVisible, showAltNav] = useState(false);
   const [isCardPage, setIsCardPage] = useState(false);
   const { deck } = useDeck({ variables: { slug: deckId } });
+
+  const { losers, loadLosersValues } = useLoadLosersValues();
+
+  useEffect(() => {
+    if (deck) {
+      loadLosersValues({
+        variables: { deck: deck._id },
+      });
+    }
+  }, [deck]);
+
+  const losersExist = losers && losers.length !== 0;
 
   useLayoutEffect(() => {
     if (!aboutRef.current) {
@@ -272,35 +322,41 @@ const Page: NextPage = () => {
   }, [artistId, deckId]);
 
   return (
-    <ComposedGlobalLayout
-      extended={true}
-      altNav={
-        <DeckNav
-          refs={{
-            roadmapRef,
-            nftRef:
-              (deck && deck.openseaCollection && !artistId && nftRef) ||
-              undefined,
-            cardsRef,
-            deckRef,
-            aboutRef,
-          }}
+    <Fragment>
+      <Modal />
+      <ComposedGlobalLayout
+        extended={true}
+        altNav={
+          <DeckNav
+            refs={{
+              roadmapRef,
+              contestRef: (losersExist && contestRef) || undefined,
+              nftRef:
+                (deck && deck.openseaCollection && !artistId && nftRef) ||
+                undefined,
+              cardsRef,
+              deckRef,
+              aboutRef,
+            }}
+          />
+        }
+        showAltNav={altNavVisible}
+        deckId={deckId instanceof Array ? deckId[0] : deckId}
+        palette={artistId ? undefined : "gradient"}
+        isCardPage={isCardPage}
+      >
+        <Content
+          losersExist={losersExist}
+          aboutRef={aboutRef}
+          deckRef={deckRef}
+          cardsRef={cardsRef}
+          contestRef={contestRef}
+          deckNavRef={deckNavRef}
+          nftRef={nftRef}
+          roadmapRef={roadmapRef}
         />
-      }
-      showAltNav={altNavVisible}
-      deckId={deckId instanceof Array ? deckId[0] : deckId}
-      palette={artistId ? undefined : "gradient"}
-      isCardPage={isCardPage}
-    >
-      <Content
-        deckRef={deckRef}
-        cardsRef={cardsRef}
-        deckNavRef={deckNavRef}
-        nftRef={nftRef}
-        roadmapRef={roadmapRef}
-        aboutRef={aboutRef}
-      />
-    </ComposedGlobalLayout>
+      </ComposedGlobalLayout>
+    </Fragment>
   );
 };
 

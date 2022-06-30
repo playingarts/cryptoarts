@@ -4,6 +4,7 @@ export enum Sections {
   gallery = "gallery",
   nft = "nft",
   roadmap = "roadmap",
+  contest = "contest",
 }
 
 export enum CardSuits {
@@ -25,7 +26,7 @@ export enum CardValues {
 export enum breakpoints {
   mobile = 0,
   xsm = 735,
-  sm = 1055,
+  sm = 1200,
   md = 1340,
   lg = 1755,
   xl = 2070,

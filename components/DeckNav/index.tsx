@@ -17,6 +17,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     aboutRef?: RefObject<HTMLElement>;
     cardsRef?: RefObject<HTMLElement>;
     nftRef?: RefObject<HTMLElement>;
+    contestRef?: RefObject<HTMLElement>;
     deckRef?: RefObject<HTMLElement>;
     roadmapRef?: RefObject<HTMLElement>;
   };
@@ -120,7 +121,29 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           })}
           onClick={bringIntoViewHandler(refs.cardsRef)}
         >
-          Cards
+          {((deckId === "special" ||
+            deckId === "future_i" ||
+            deckId === "future_ii") &&
+            "Winners") ||
+            "Cards"}
+        </Link>
+      )}
+      {refs.contestRef && (
+        <Link
+          href={{
+            pathname,
+            query: { ...query, section: Sections.contest },
+          }}
+          shallow={true}
+          scroll={false}
+          css={(theme) => ({
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+            fontWeight: 600,
+          })}
+          onClick={bringIntoViewHandler(refs.contestRef)}
+        >
+          all entries
         </Link>
       )}
       {refs.nftRef && (

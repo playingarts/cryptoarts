@@ -17,7 +17,7 @@ import Loader from "../Loader";
 import MetamaskButton from "../MetamaskButton";
 import StatBlock from "../StatBlock";
 import Text from "../Text";
-import { useSignature } from "../SignatureContext";
+import { useSignature } from "../../contexts/SignatureContext";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   deck: GQL.Deck;

@@ -46,7 +46,7 @@ const Header: FC<Props> = ({
   }, [isCardPage]);
 
   useLayoutEffect(() => {
-    if (noNav || hovered) {
+    if (noNav || (hovered && showAltNav)) {
       return setExpanded(false);
     }
 
@@ -71,7 +71,7 @@ const Header: FC<Props> = ({
     window.addEventListener("scroll", handler);
 
     return () => window.removeEventListener("scroll", handler);
-  }, [hovered, noNav, isCardPage]);
+  }, [hovered, noNav, isCardPage, showAltNav]);
 
   return (
     <header {...props}>
@@ -274,7 +274,7 @@ const Header: FC<Props> = ({
               right: 0,
               top: 0,
               transition: theme.transitions.fast("transform"),
-              transform: `translate3d(0, 10px, 0)`,
+              transform: `translate3d(0, 8px, 0)`,
             },
             expanded && {
               paddingTop: theme.spacing(1),

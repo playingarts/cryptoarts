@@ -26,14 +26,19 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   },
   artist: { type: Types.ObjectId, ref: "Artist" },
   deck: { type: Types.ObjectId, ref: "Deck" },
+  reversible: Boolean,
 });
 
 export const Card = (models.Card as Model<MongoCard>) || model("Card", schema);
+
+export const Loser =
+  (models.Loser as Model<MongoCard>) || model("Loser", schema);
 
 export const getCards = async ({
   deck,
   shuffle,
   limit,
+  losers,
 }: GQL.QueryCardsArgs) => {
   if (deck && !Types.ObjectId.isValid(deck)) {
     const { _id } = (await getDeck({ slug: deck })) || {};
@@ -41,14 +46,19 @@ export const getCards = async ({
     deck = _id;
   }
 
-  return ((Card.find(deck ? { deck } : {}).populate([
-    "artist",
-    "deck",
-  ]) as unknown) as Promise<GQL.Card[]>)
-    .then((cards) =>
-      shuffle ? cards.sort(() => Math.random() - Math.random()) : cards
-    )
-    .then((cards) => (limit ? cards.slice(0, limit) : cards));
+  let cards = await (((losers ? Loser : Card)
+    .find(deck ? { deck } : {})
+    .populate(["artist", "deck"]) as unknown) as Promise<GQL.Card[]>);
+
+  if (shuffle) {
+    cards = cards.sort(() => Math.random() - Math.random());
+  }
+
+  if (limit) {
+    cards = cards.slice(0, limit);
+  }
+
+  return cards;
 };
 
 export const getCard = ({ id }: GQL.QueryCardArgs) =>
@@ -124,14 +134,14 @@ export const resolvers: GQL.Resolvers = {
     },
   },
   Query: {
-    cards: (_, args) => getCards(args),
+    cards: async (_, args) => await getCards(args),
     card: (_, args) => getCard(args),
   },
 };
 
 export const typeDefs = gql`
   type Query {
-    cards(deck: ID, shuffle: Boolean, limit: Int): [Card!]!
+    cards(deck: ID, shuffle: Boolean, limit: Int, losers: Boolean): [Card!]!
     card(id: ID!): Card
   }
 
@@ -147,6 +157,7 @@ export const typeDefs = gql`
     background: String
     price: Float
     erc1155: ERC1155
+    reversible: Boolean
   }
 
   type ERC1155 {

@@ -8,7 +8,7 @@ import { PartialRecord } from "../../source/utils";
 import Button, { Props as ButtonProps } from "../Button";
 import Metamask from "../Icons/Metamask";
 import Link from "../Link";
-import { useSignature } from "../SignatureContext";
+import { useSignature } from "../../contexts/SignatureContext";
 
 interface Props
   extends ButtonProps,

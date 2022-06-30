@@ -11,6 +11,7 @@ import deckTwo from "./deck-two";
 import deals from "./deals";
 import podcasts from "./podcasts";
 import contracts from "./contracts";
+import losers from "./losers";
 
 (async () => {
   await artists();
@@ -26,6 +27,7 @@ import contracts from "./contracts";
   await deals();
   await podcasts();
   await contracts();
+  await losers();
 
   process.exit();
 })();

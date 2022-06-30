@@ -57,6 +57,9 @@ Primary.args = {
   artistId: "artistId",
 };
 Primary.parameters = {
+  nextRouter: {
+    query: { cardId: "cardId" },
+  },
   apolloClient: {
     mocks: [
       {
@@ -142,6 +145,9 @@ First.args = {
   artistId: "artistId",
 };
 First.parameters = {
+  nextRouter: {
+    query: { cardId: "cardId" },
+  },
   apolloClient: {
     mocks: [
       {
@@ -202,6 +208,9 @@ Last.args = {
   artistId: "artistId",
 };
 Last.parameters = {
+  nextRouter: {
+    query: { cardId: "cardId" },
+  },
   apolloClient: {
     mocks: [
       {
@@ -260,6 +269,9 @@ NoCard.args = {
   artistId: "artistId",
 };
 NoCard.parameters = {
+  nextRouter: {
+    query: { cardId: "cardId" },
+  },
   apolloClient: {
     mocks: [
       {

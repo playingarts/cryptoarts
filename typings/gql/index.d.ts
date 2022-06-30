@@ -33,6 +33,8 @@ interface Query {
   dailyCard: Card;
   podcasts: Array<Maybe<Podcast>>;
   contract?: Maybe<Contract>;
+  losersValues: Array<Loser>;
+  losers: Array<Loser>;
 }
 
 
@@ -57,6 +59,7 @@ interface QueryCardsArgs {
   deck?: Maybe<Scalars['ID']>;
   shuffle?: Maybe<Scalars['Boolean']>;
   limit?: Maybe<Scalars['Int']>;
+  losers?: Maybe<Scalars['Boolean']>;
 }
 
 
@@ -112,6 +115,16 @@ interface QueryContractArgs {
   deck?: Maybe<Scalars['ID']>;
 }
 
+
+interface QueryLosersValuesArgs {
+  deck: Scalars['ID'];
+}
+
+
+interface QueryLosersArgs {
+  deck: Scalars['ID'];
+}
+
 interface Deck {
   __typename?: 'Deck';
   _id: Scalars['String'];
@@ -132,6 +145,20 @@ interface OpenseaCollection {
   __typename?: 'OpenseaCollection';
   name: Scalars['String'];
   address: Scalars['String'];
+}
+
+interface LoserArtist {
+  __typename?: 'LoserArtist';
+  _id?: Maybe<Scalars['ID']>;
+  name?: Maybe<Scalars['String']>;
+  info?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  userpic?: Maybe<Scalars['String']>;
+  website?: Maybe<Scalars['String']>;
+  shop?: Maybe<Scalars['String']>;
+  podcast?: Maybe<Podcast>;
+  social?: Maybe<Socials>;
+  country?: Maybe<Scalars['String']>;
 }
 
 interface Artist {
@@ -178,6 +205,7 @@ interface Card {
   background?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
   erc1155?: Maybe<Erc1155>;
+  reversible?: Maybe<Scalars['Boolean']>;
 }
 
 interface Erc1155 {
@@ -359,6 +387,22 @@ interface Contract {
   address: Scalars['String'];
   deck: Deck;
 }
+
+interface Loser {
+  __typename?: 'Loser';
+  _id?: Maybe<Scalars['ID']>;
+  img?: Maybe<Scalars['String']>;
+  video?: Maybe<Scalars['String']>;
+  artist?: Maybe<LoserArtist>;
+  info?: Maybe<Scalars['String']>;
+  deck?: Maybe<Deck>;
+  suit?: Maybe<Scalars['String']>;
+  value?: Maybe<Scalars['String']>;
+  background?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['Float']>;
+  erc1155?: Maybe<Erc1155>;
+  reversible?: Maybe<Scalars['Boolean']>;
+}
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
 
@@ -448,6 +492,7 @@ export type ResolversTypes = {
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Deck: ResolverTypeWrapper<Deck>;
   OpenseaCollection: ResolverTypeWrapper<OpenseaCollection>;
+  LoserArtist: ResolverTypeWrapper<LoserArtist>;
   Artist: ResolverTypeWrapper<Artist>;
   Socials: ResolverTypeWrapper<Socials>;
   Card: ResolverTypeWrapper<Card>;
@@ -465,6 +510,7 @@ export type ResolversTypes = {
   Deal: ResolverTypeWrapper<Deal>;
   Podcast: ResolverTypeWrapper<Podcast>;
   Contract: ResolverTypeWrapper<Contract>;
+  Loser: ResolverTypeWrapper<Loser>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -478,6 +524,7 @@ export type ResolversParentTypes = {
   Float: Scalars['Float'];
   Deck: Deck;
   OpenseaCollection: OpenseaCollection;
+  LoserArtist: LoserArtist;
   Artist: Artist;
   Socials: Socials;
   Card: Card;
@@ -495,6 +542,7 @@ export type ResolversParentTypes = {
   Deal: Deal;
   Podcast: Podcast;
   Contract: Contract;
+  Loser: Loser;
 };
 
 export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
@@ -517,6 +565,8 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
   podcasts?: Resolver<Array<Maybe<ResolversTypes['Podcast']>>, ParentType, ContextType, RequireFields<QueryPodcastsArgs, never>>;
   contract?: Resolver<Maybe<ResolversTypes['Contract']>, ParentType, ContextType, RequireFields<QueryContractArgs, never>>;
+  losersValues?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersValuesArgs, 'deck'>>;
+  losers?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersArgs, 'deck'>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -538,6 +588,20 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
 export type OpenseaCollectionResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['OpenseaCollection'] = ResolversParentTypes['OpenseaCollection']> = {
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LoserArtistResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['LoserArtist'] = ResolversParentTypes['LoserArtist']> = {
+  _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userpic?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  shop?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  podcast?: Resolver<Maybe<ResolversTypes['Podcast']>, ParentType, ContextType>;
+  social?: Resolver<Maybe<ResolversTypes['Socials']>, ParentType, ContextType>;
+  country?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -584,6 +648,7 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   background?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   erc1155?: Resolver<Maybe<ResolversTypes['ERC1155']>, ParentType, ContextType>;
+  reversible?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -767,11 +832,28 @@ export type ContractResolvers<ContextType = { req: Request, res: Response }, Par
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type LoserResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Loser'] = ResolversParentTypes['Loser']> = {
+  _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  video?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  artist?: Resolver<Maybe<ResolversTypes['LoserArtist']>, ParentType, ContextType>;
+  info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
+  suit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  value?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  background?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
+  erc1155?: Resolver<Maybe<ResolversTypes['ERC1155']>, ParentType, ContextType>;
+  reversible?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   JSON?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
   OpenseaCollection?: OpenseaCollectionResolvers<ContextType>;
+  LoserArtist?: LoserArtistResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;
   Socials?: SocialsResolvers<ContextType>;
   Card?: CardResolvers<ContextType>;
@@ -789,6 +871,7 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Deal?: DealResolvers<ContextType>;
   Podcast?: PodcastResolvers<ContextType>;
   Contract?: ContractResolvers<ContextType>;
+  Loser?: LoserResolvers<ContextType>;
 };
 
 

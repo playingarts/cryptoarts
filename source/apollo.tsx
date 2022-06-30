@@ -111,8 +111,18 @@ const createApolloClient = (initialState = {}, config?: object) => {
       Card: {
         keyFields: ["_id"],
       },
+      Loser: {
+        keyFields: ["_id"],
+      },
       Query: {
         fields: {
+          loser: {
+            read: (_, { args, toReference }) =>
+              toReference({
+                __typename: "Loser",
+                img: args && args.img,
+              }),
+          },
           card: {
             read: (_, { args, toReference }) =>
               toReference({

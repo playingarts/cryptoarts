@@ -1,20 +1,31 @@
 import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useLoadCards } from "../../../hooks/card";
+import { useLoadLosers } from "../../../hooks/loser";
 import { OwnedCard } from "../../../pages/[deckId]";
+import { Sections } from "../../../source/enums";
 import CardNav, { Props as CardNavProps } from "../../Card/Nav";
 import ComposedCardBlock from "../CardBlock";
 
 interface Props extends CardNavProps {
   deck: GQL.Deck;
   artistId: string;
+
+  contest: boolean;
   ownedCards?: OwnedCard[];
 }
 
 const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
-  { ownedCards, artistId, deck, ...props },
+  { ownedCards, artistId, deck, contest, ...props },
+
   ref
 ) => {
-  const { loadCards, cards, loading } = useLoadCards();
+  const {
+    query: { cardValue, cardSuit },
+  } = useRouter();
+
+  const { loadCards, cards: winners, loading } = useLoadCards();
+  const { loadLosers, losers, loading: loadingLosers } = useLoadLosers();
 
   useEffect(() => {
     loadCards({
@@ -22,20 +33,33 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         deck: deck._id,
       },
     });
-  }, [deck, loadCards]);
 
-  if (loading || !cards) {
+    loadLosers({
+      variables: {
+        deck: deck._id,
+      },
+    });
+  }, [deck, loadCards, loadLosers]);
+
+  if (loading || !winners || loadingLosers) {
     return null;
   }
 
-  const card =
-    cards && artistId
-      ? cards.find(({ artist }) => artist.slug === artistId)
-      : undefined;
+  const allCards = [...winners, ...(losers ? losers : [])] as GQL.Card[];
+
+  const card = artistId
+    ? allCards.find(({ artist }) => artist.slug === artistId)
+    : undefined;
 
   if (!card) {
     return null;
   }
+
+  const cards = contest
+    ? allCards.filter(
+        ({ suit, value }) => value === card.value && suit === card.suit
+      )
+    : winners;
 
   const currentCardIndex = card
     ? cards.findIndex(({ _id }) => _id === card._id)
@@ -47,17 +71,36 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     <CardNav
       {...props}
       ref={ref}
-      prevLink={prevCard && `/${deck.slug}/${prevCard.artist.slug}`}
-      nextLink={nextCard && `/${deck.slug}/${nextCard.artist.slug}`}
+      disableKeys={!!cardValue && !!cardSuit}
+      prevLink={
+        prevCard && {
+          pathname: `/${deck.slug}${contest ? "/contest" : ""}/${
+            prevCard.artist.slug
+          }`,
+        }
+      }
+      nextLink={
+        nextCard && {
+          pathname: `/${deck.slug}${contest ? "/contest" : ""}/${
+            nextCard.artist.slug
+          }`,
+        }
+      }
       closeLink={{
         pathname: `/${deck.slug}`,
-        query: {
-          scrollIntoView: `[href*="/${deck.slug}/${card.artist.slug}"]`,
-        },
+        query: contest
+          ? {
+              section: Sections.contest,
+              scrollIntoView: "[data-id='block-contest']",
+            }
+          : {
+              scrollIntoView: `[href*="/${deck.slug}/${card.artist.slug}"]`,
+            },
       }}
     >
       <ComposedCardBlock
         ownedCards={ownedCards}
+        contest={contest}
         card={card}
         deck={deck}
         ref={ref}

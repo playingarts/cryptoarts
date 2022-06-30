@@ -7,13 +7,25 @@ import * as deal from "./schemas/deal";
 import * as content from "./schemas/content";
 import * as podcast from "./schemas/podcast";
 import * as contract from "./schemas/contract";
+import * as loser from "./schemas/loser";
 import { stitchSchemas } from "@graphql-tools/stitch";
 import { DocumentNode } from "apollo-link";
 
 const entities: {
   resolvers?: GQL.Resolvers;
   typeDefs: DocumentNode;
-}[] = [deck, artist, card, product, opensea, deal, content, podcast, contract];
+}[] = [
+  deck,
+  artist,
+  card,
+  product,
+  opensea,
+  deal,
+  content,
+  podcast,
+  contract,
+  loser,
+];
 
 export const schema = stitchSchemas(
   entities.reduce<{
