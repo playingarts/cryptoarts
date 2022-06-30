@@ -15,8 +15,10 @@ export const ProductsQuery = gql`
       deck {
         _id
         slug
-        openseaContract
-        openseaCollection
+        openseaCollection {
+          name
+          address
+        }
       }
     }
   }
