@@ -102,7 +102,7 @@ const Content: FC<{
       }
 
       setOwnedCards(
-        ownedAssets.flatMap(({ traits, token_id }) => {
+        (ownedAssets as GQL.Asset[]).flatMap(({ traits, token_id }) => {
           const value = traits.find((trait) => trait.trait_type === "Value");
           const suit = traits.find(
             (trait) =>

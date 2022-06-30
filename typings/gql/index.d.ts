@@ -26,9 +26,9 @@ interface Query {
   card?: Maybe<Card>;
   products: Array<Product>;
   convertEurToUsd?: Maybe<Scalars['Float']>;
-  ownedAssets?: Maybe<Array<Asset>>;
+  ownedAssets: Array<Maybe<Asset>>;
   opensea: Opensea;
-  holders: Holders;
+  holders?: Maybe<Holders>;
   deal?: Maybe<Deal>;
   dailyCard: Card;
   podcasts: Array<Maybe<Podcast>>;
@@ -558,9 +558,9 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
-  ownedAssets?: Resolver<Maybe<Array<ResolversTypes['Asset']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;
+  ownedAssets?: Resolver<Array<Maybe<ResolversTypes['Asset']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;
   opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'deck'>>;
-  holders?: Resolver<ResolversTypes['Holders'], ParentType, ContextType, RequireFields<QueryHoldersArgs, 'deck'>>;
+  holders?: Resolver<Maybe<ResolversTypes['Holders']>, ParentType, ContextType, RequireFields<QueryHoldersArgs, 'deck'>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deckId' | 'signature'>>;
   dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
   podcasts?: Resolver<Array<Maybe<ResolversTypes['Podcast']>>, ParentType, ContextType, RequireFields<QueryPodcastsArgs, never>>;

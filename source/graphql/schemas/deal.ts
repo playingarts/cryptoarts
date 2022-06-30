@@ -52,10 +52,10 @@ export const resolvers: GQL.Resolvers = {
         const contract = await getContract({ deck: deck._id });
 
         if (contract) {
-          const assets = await getAssets(contract.address);
+          const assets = await getAssets(contract.address, contract.name);
 
           const assetsOwned = assets.filter(
-            ({ owner: { address } }) => address === hash
+            ({ owner }) => owner && owner.address === hash
           ).length;
 
           if (assetsOwned > 0) {

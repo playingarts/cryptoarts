@@ -97,7 +97,9 @@ export const resolvers: GQL.Resolvers = {
       }
 
       const assets = ((await Promise.all(
-        contracts.map(async (contract) => await getAssets(contract.address))
+        contracts.map(
+          async (contract) => await getAssets(contract.address, contract.name)
+        )
       )) as Asset[][]).flat();
 
       const orders = assets

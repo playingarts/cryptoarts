@@ -25,7 +25,12 @@ export const getContract = async (
   ])) as unknown) as Promise<GQL.Contract>) || undefined;
 
 export const getContracts = async (options: Pick<MongoContract, "deck">) =>
-  await Contract.find(options);
+  process.env.NODE_ENV === "development"
+    ? (([
+        ...(await Contract.find(options)),
+        { name: "myassets", address: "", deck: "" },
+      ] as unknown) as GQL.Contract[])
+    : await Contract.find(options);
 
 export const resolvers: GQL.Resolvers = {
   // Query: {

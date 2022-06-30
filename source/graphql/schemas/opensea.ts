@@ -42,6 +42,7 @@ const cachedAssets: Record<string, Asset[]> = {};
 
 export const getAssetsRaw = (
   contract: string,
+  contractSlug?: string,
   allAssets: Asset[] = [],
   cursor = ""
 ): Promise<Asset[]> =>
@@ -51,6 +52,7 @@ export const getAssetsRaw = (
       next: string | null;
     }>("/api/v1/assets", {
       asset_contract_address: contract,
+      ...(contractSlug && { collection_slug: contractSlug }),
       limit: 200,
       include_orders: true,
       cursor,
@@ -64,14 +66,15 @@ export const getAssetsRaw = (
         return allAssets;
       }
 
-      return getAssetsRaw(contract, allAssets, next);
+      return getAssetsRaw(contract, contractSlug, allAssets, next);
     })
     .catch((error) => {
       console.error("Failed to get OpenSea Assets:", error);
 
       return new Promise<Asset[]>((resolve) =>
         setTimeout(
-          () => resolve(getAssetsRaw(contract, allAssets, cursor)),
+          () =>
+            resolve(getAssetsRaw(contract, contractSlug, allAssets, cursor)),
           error.message.includes("Error 429") ? 1000 : 500
         )
       );
@@ -79,21 +82,17 @@ export const getAssetsRaw = (
 
 export const getAssets = memoizee<typeof getAssetsRaw>(
   process.env.NODE_ENV === "development"
-    ? async () =>
+    ? async (_contract, contractSlug) =>
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        [
-          ...require("../../../mocks/assets.json"),
-          ...require("../../../mocks/myassets.json"),
-          ...require("../../../mocks/pa-backside.json"),
-        ] as Asset[]
-    : (contract) => {
+        require(`../../../mocks/${contractSlug}.json`) as Asset[]
+    : (contract, contractSlug) => {
         if (cachedAssets[contract]) {
-          getAssetsRaw(contract);
+          getAssetsRaw(contract, contractSlug);
 
           return Promise.resolve(cachedAssets[contract]);
         }
 
-        return getAssetsRaw(contract);
+        return getAssetsRaw(contract, contractSlug);
       },
   {
     length: 1,
@@ -114,9 +113,13 @@ type CardSuitsType =
 const getHolders = async (deck: string) => {
   const contract = await getContract({ deck });
 
-  const assets = await getAssets(contract.address);
+  const assets = await getAssets(contract.address, contract.name);
 
-  const holders = assets.reduce<
+  const holders = ((assets.filter(
+    (asset) => !!asset.owner
+  ) as unknown) as (Omit<Asset, "owner"> & {
+    owner: { address: string };
+  })[]).reduce<
     Record<string, { suit: CardSuitsType; value: string; tokens: string[] }[]>
   >((data, { owner: { address }, traits, token_id }) => {
     if (!data[address]) {
@@ -317,18 +320,20 @@ export const resolvers: GQL.Resolvers = {
       const contracts = await getContracts({ deck: deck });
 
       if (!contracts) {
-        return;
+        return [];
       }
 
-      const assets = (await Promise.all(
-        contracts.map(async (contract) => await getAssets(contract.address))
-      )) as Asset[][];
+      const assets = ((await Promise.all(
+        contracts.map(
+          async (contract) => await getAssets(contract.address, contract.name)
+        )
+      )) as Asset[][]).flat();
 
-      return assets
-        .flat()
-        .filter(
-          ({ owner }) => owner.address.toLowerCase() === address.toLowerCase()
-        );
+      return assets.filter(
+        (asset) =>
+          asset.owner &&
+          asset.owner.address.toLowerCase() === address.toLowerCase()
+      );
     },
     holders: (_, { deck }) => getHolders(deck),
   },
@@ -338,9 +343,9 @@ export const typeDefs = gql`
   scalar JSON
 
   type Query {
-    ownedAssets(deck: ID!, address: String!, signature: String!): [Asset!]
+    ownedAssets(deck: ID!, address: String!, signature: String!): [Asset]!
     opensea(deck: ID!): Opensea!
-    holders(deck: ID!): Holders!
+    holders(deck: ID!): Holders
   }
 
   type Asset {
