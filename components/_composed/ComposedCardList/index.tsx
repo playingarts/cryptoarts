@@ -232,7 +232,13 @@ const ComposedCardList: ForwardRefRenderFunction<HTMLElement, Props> = (
                 "Winners") ||
               "Cards"
         }
-        subTitleText="Hover the card to see animation. Click to read the story behind the artwork."
+        subTitleText={
+          deck.slug === "crypto"
+            ? "Hover the card to see animation. Click to read the story behind the artwork."
+            : deck.slug === "future_i" || deck.slug === "future_ii"
+            ? "Click to read the story behind the artwork."
+            : undefined
+        }
         css={(theme) => ({
           marginBottom: theme.spacing(1),
         })}

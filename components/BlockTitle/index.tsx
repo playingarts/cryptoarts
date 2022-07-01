@@ -35,15 +35,22 @@ const BlockTitle: FC<Props> = ({
       </Text>
       {subTitleText && (
         <Text
-          css={(theme) => ({
-            margin: 0,
-            marginTop: theme.spacing(2),
-
-            gridColumn: "1 / span 7",
-            [theme.maxMQ.md]: {
-              gridColumn: "1 / span 6",
+          css={(theme) => [
+            {
+              margin: 0,
+              marginTop: theme.spacing(2),
             },
-          })}
+            action || buttonProps
+              ? {
+                  gridColumn: "1 / span 7",
+                  [theme.maxMQ.md]: {
+                    gridColumn: "1 / span 6",
+                  },
+                }
+              : {
+                  gridColumn: "1 / -1",
+                },
+          ]}
           variant="body2"
         >
           {subTitleText}
