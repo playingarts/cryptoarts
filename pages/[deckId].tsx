@@ -217,7 +217,7 @@ const Content: FC<{
         {!contest && (
           <Fragment>
             {!artistId && deck.openseaCollection && (
-              <ComposedPace deckId={deck._id} ref={nftRef} />
+              <ComposedPace deck={deck} ref={nftRef} />
             )}
             {deck.slug === "crypto" && !artistId && (
               <Layout

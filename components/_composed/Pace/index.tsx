@@ -10,11 +10,11 @@ import ComposedStats from "../Stats";
 import ComposedSupply from "../Supply";
 
 interface Props extends LayoutProps {
-  deckId: string;
+  deck: GQL.Deck;
 }
 
 const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { deckId, ...props },
+  { deck, ...props },
   ref
 ) => {
   const {
@@ -38,6 +38,8 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
           <span
             css={(theme) => ({
               background: theme.colors.eth,
+              backgroundSize: "400% 100%",
+              animation: "gradient 5s ease infinite",
               color: "transparent",
               backgroundClip: "text",
             })}
@@ -50,10 +52,17 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
             "This card is a part of Crypto Edition NFT drop. Are you a holder? Connect your metamask to see what you are eligible for.",
         })}
         buttonProps={{
+          target: "_blank",
+          href: `https://opensea.io/collection/${
+            (deck as GQL.Deck & { openseaCollection: { name: string } })
+              .openseaCollection.name
+          }`,
           Icon: Opensea,
           children: "Buy nft",
           css: (theme) => ({
             background: theme.colors.eth,
+            backgroundSize: "400% 100%",
+            animation: "gradient 5s ease infinite",
           }),
         }}
       />
@@ -76,7 +85,7 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
             background: theme.colors.dark_gray,
             color: theme.colors.text_title_light,
           })}
-          deckId={deckId}
+          deckId={deck._id}
         />
 
         <ComposedHolders
@@ -91,7 +100,7 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
             background: theme.colors.dark_gray,
             color: theme.colors.text_title_light,
           })}
-          deckId={deckId}
+          deckId={deck._id}
         />
 
         <ComposedStats
@@ -100,7 +109,7 @@ const ComposedPace: ForwardRefRenderFunction<HTMLElement, Props> = (
             color: theme.colors.text_title_light,
             gridColumn: "span 3",
           })}
-          deckId={deckId}
+          deckId={deck._id}
         />
       </Grid>
     </Layout>

@@ -91,8 +91,10 @@ const CardInfo: FC<Props> = ({ contest, artist, cardId, deck, ...props }) => {
                     }
                     target="_blank"
                     css={(theme) => ({
+                      background: theme.colors.eth,
+                      backgroundSize: "400% 100%",
+                      animation: "gradient 5s ease infinite",
                       color: theme.colors.dark_gray,
-                      background: theme.colors.gradient,
                       marginRight: theme.spacing(2),
                     })}
                   >

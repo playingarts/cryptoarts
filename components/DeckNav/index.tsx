@@ -68,7 +68,9 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           href={links.opensea}
           Icon={Opensea}
           css={(theme) => ({
-            background: theme.colors.gradient,
+            background: theme.colors.eth,
+            backgroundSize: "400% 100%",
+            animation: "gradient 5s ease infinite",
             marginRight: theme.spacing(2),
           })}
           target="_blank"

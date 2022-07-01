@@ -72,6 +72,8 @@ const Card: FC<Props> = ({
             position: "relative",
             borderRadius: 15,
             boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
+          },
+          owned && {
             "@keyframes gradient": {
               "0%": {
                 backgroundPosition: "0% 50%",
@@ -83,8 +85,6 @@ const Card: FC<Props> = ({
                 backgroundPosition: "0% 50%",
               },
             },
-          },
-          owned && {
             ":before": {
               pointerEvents: "none",
               content: '""',
