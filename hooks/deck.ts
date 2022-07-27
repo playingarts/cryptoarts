@@ -10,6 +10,11 @@ const DeckDataFragment = gql`
       name
       address
     }
+    editions {
+      img
+      name
+      url
+    }
     short
     image
     properties

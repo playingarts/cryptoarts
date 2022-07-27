@@ -1,15 +1,15 @@
 import { FC, Fragment, HTMLAttributes } from "react";
 
+import { useRouter } from "next/router";
+import { useViewed } from "../../contexts/viewedContext";
+import { CardSuits, CardValues } from "../../source/enums";
+import AllEntriesCard from "../AllEntriesCard";
 import Clubs from "../Icons/Clubs";
 import Diamonds from "../Icons/Diamonds";
 import Hearts from "../Icons/Hearts";
 import Spades from "../Icons/Spades";
-import AllEntriesCard from "../AllEntriesCard";
 import Link from "../Link";
-import { CardSuits, CardValues } from "../../source/enums";
 import JokerCard from "./JokerCard";
-import { useRouter } from "next/router";
-import { useViewed } from "../../contexts/viewedContext";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   cards: (GQL.Card | GQL.Loser)[];
@@ -115,7 +115,14 @@ const AllEntriesBlock: FC<Props> = ({ cards, deckId, ...props }) => {
                 suit={CardSuits.r}
                 deckId={deckId}
                 cards={filteredCards["joker"]["red"]}
-                css={{ justifySelf: "flex-end" }}
+                css={(theme) => [
+                  {
+                    justifySelf: "flex-end",
+                    [theme.maxMQ.sm]: {
+                      order: 3,
+                    },
+                  },
+                ]}
               />
             )}
 

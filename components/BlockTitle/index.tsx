@@ -137,13 +137,16 @@ const BlockTitle: FC<Props> = ({
               [theme.maxMQ.sm]: {
                 transition: theme.transitions.fast("height"),
                 height: truncate !== true ? height : 0,
-                overflow: "hidden",
+                // overflow: "hidden",
+                contain: "paint",
               },
               gridColumn: "1/-1",
             },
           ]}
         >
-          <div ref={ref}>{children}</div>
+          <div ref={ref} css={{ position: "relative" }}>
+            {children}
+          </div>
         </div>
       }
     </Fragment>

@@ -4,6 +4,7 @@ import { Loser } from "./card";
 const getLosers = async ({ deck }: GQL.QueryLosersArgs) => {
   const cards = await ((Loser.find({ deck }).populate([
     "artist",
+    "deck",
   ]) as unknown) as Promise<GQL.Loser[]>);
 
   //   return cards.map((card) => ({ value: card.value, suit: card.suit }));
@@ -11,7 +12,7 @@ const getLosers = async ({ deck }: GQL.QueryLosersArgs) => {
 };
 
 const getLosersValues = async ({ deck }: GQL.QueryLosersValuesArgs) => {
-  const cards = await Loser.find({ deck });
+  const cards = await Loser.find({ deck }).populate(["deck"]);
 
   //   return cards.map((card) => ({ value: card.value, suit: card.suit }));
   return cards as GQL.Loser[];

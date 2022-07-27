@@ -17,6 +17,7 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   value: String,
   background: { type: String, default: null },
   suit: String,
+  edition: String,
   erc1155: {
     type: {
       contractAddress: String,
@@ -39,6 +40,7 @@ export const getCards = async ({
   shuffle,
   limit,
   losers,
+  edition,
 }: GQL.QueryCardsArgs) => {
   if (deck && !Types.ObjectId.isValid(deck)) {
     const { _id } = (await getDeck({ slug: deck })) || {};
@@ -47,7 +49,7 @@ export const getCards = async ({
   }
 
   let cards = await (((losers ? Loser : Card)
-    .find(deck ? { deck } : {})
+    .find(deck ? (edition && { deck, edition }) || { deck } : {})
     .populate(["artist", "deck"]) as unknown) as Promise<GQL.Card[]>);
 
   if (shuffle) {
@@ -143,7 +145,13 @@ export const resolvers: GQL.Resolvers = {
 
 export const typeDefs = gql`
   type Query {
-    cards(deck: ID, shuffle: Boolean, limit: Int, losers: Boolean): [Card!]!
+    cards(
+      deck: ID
+      shuffle: Boolean
+      limit: Int
+      losers: Boolean
+      edition: String
+    ): [Card!]!
     card(id: ID!): Card
   }
 
@@ -160,6 +168,7 @@ export const typeDefs = gql`
     price: Float
     erc1155: ERC1155
     reversible: Boolean
+    edition: String
   }
 
   type ERC1155 {

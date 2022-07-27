@@ -33,74 +33,65 @@ const ArtContest: FC<{ deck: GQL.Deck }> = ({ deck }) => {
         background: "#F9F9F9",
         paddingTop: theme.spacing(15),
         paddingBottom: theme.spacing(10.5),
+        [theme.maxMQ.sm]: {
+          paddingBottom: theme.spacing(2.5),
+        },
       })}
+      notTruncatable={true}
     >
-      <Grid>
-        <BlockTitle
-          title="Art Contest"
-          subTitleText={deck.info}
-          css={(theme) => ({
-            gridColumn: "2 / span 10",
-            marginBottom: theme.spacing(4),
-          })}
-        />
-      </Grid>
-      <Grid>
-        <div
-          css={{
-            gridColumn: "2 / span 10",
-            display: "flex",
-            columnGap: 98,
-          }}
-        >
-          <div>
-            <Text variant="h3" css={{ margin: 0 }}>
-              {
-                Array.from(new Set(cards.map((card) => card.artist.name)))
-                  .length
-              }
-            </Text>
-            <Text
-              variant="h6"
-              css={(theme) => ({
-                margin: 0,
-                color: colord(theme.colors.dark_gray).alpha(0.5).toRgbString(),
-              })}
-            >
-              participants
-            </Text>
-          </div>
-          <div>
-            <Text variant="h3" css={{ margin: 0 }}>
-              {
-                Array.from(new Set(cards.map((card) => card.artist.country)))
-                  .length
-              }
-            </Text>
-            <Text
-              variant="h6"
-              css={(theme) => ({
-                margin: 0,
-                color: colord(theme.colors.dark_gray).alpha(0.5).toRgbString(),
-              })}
-            >
-              countries
-            </Text>
-          </div>
-          <div>
-            <Text variant="h3" css={{ margin: 0 }}>
-              {winners.length}
-            </Text>
-            <Text
-              variant="h6"
-              css={(theme) => ({
-                margin: 0,
-                color: colord(theme.colors.dark_gray).alpha(0.5).toRgbString(),
-              })}
-            >
-              winners
-            </Text>
-          </div>
+      <BlockTitle
+        title="Art Contest"
+        subTitleText={deck.info}
+        css={(theme) => ({
+          gridColumn: "2 / span 10",
+          marginBottom: theme.spacing(4),
+        })}
+      />
+      <Grid short={true}>
+        <div css={{ gridColumn: "span 2" }}>
+          <Text variant="h3" css={{ margin: 0 }}>
+            {Array.from(new Set(cards.map((card) => card.artist.name))).length}
+          </Text>
+          <Text
+            variant="h6"
+            css={(theme) => ({
+              margin: 0,
+              color: colord(theme.colors.dark_gray).alpha(0.5).toRgbString(),
+            })}
+          >
+            participants
+          </Text>
+        </div>
+        <div css={{ gridColumn: "span 2" }}>
+          <Text variant="h3" css={{ margin: 0 }}>
+            {
+              Array.from(new Set(cards.map((card) => card.artist.country)))
+                .length
+            }
+          </Text>
+          <Text
+            variant="h6"
+            css={(theme) => ({
+              margin: 0,
+              color: colord(theme.colors.dark_gray).alpha(0.5).toRgbString(),
+            })}
+          >
+            countries
+          </Text>
+        </div>
+        <div css={{ gridColumn: "span 2" }}>
+          <Text variant="h3" css={{ margin: 0 }}>
+            {winners.length}
+          </Text>
+          <Text
+            variant="h6"
+            css={(theme) => ({
+              margin: 0,
+              color: colord(theme.colors.dark_gray).alpha(0.5).toRgbString(),
+            })}
+          >
+            winners
+          </Text>
         </div>
       </Grid>
     </Layout>

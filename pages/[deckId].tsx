@@ -249,8 +249,10 @@ const Content: FC<{
                   },
                 {
                   display: "grid",
-                  gap: theme.spacing(1),
                   marginBottom: theme.spacing(2.5),
+                },
+                !contest && {
+                  gap: theme.spacing(1),
                 },
               ],
             },
@@ -308,6 +310,7 @@ const Content: FC<{
 
           {losersExist && (
             <ComposedEntries
+              contest={contest}
               scrollIntoView={section === Sections.contest}
               ref={contestRef}
               deck={deck}

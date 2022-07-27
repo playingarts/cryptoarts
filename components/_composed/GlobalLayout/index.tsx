@@ -37,7 +37,12 @@ const ComposedGlobalLayout: FC<
   isCardPage,
 }) => {
   const {
-    query: { scrollIntoView, scrollIntoViewBehavior, ...query },
+    query: {
+      scrollIntoView,
+      scrollIntoViewBehavior,
+      scrollIntoViewPosition,
+      ...query
+    },
     replace,
   } = useRouter();
 
@@ -62,7 +67,7 @@ const ComposedGlobalLayout: FC<
             scrollIntoViewBehavior === "smooth"
               ? scrollIntoViewBehavior
               : "auto",
-          block: "center",
+          block: (scrollIntoViewPosition as ScrollLogicalPosition) || "center",
         });
       };
     }

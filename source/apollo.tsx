@@ -111,9 +111,6 @@ const createApolloClient = (initialState = {}, config?: object) => {
       Card: {
         keyFields: ["_id"],
       },
-      Loser: {
-        keyFields: ["_id"],
-      },
       Query: {
         fields: {
           loser: {

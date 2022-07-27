@@ -8900,6 +8900,1949 @@ export const cards: Omit<MongoCard, "_id">[] = [
       "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-dani-blazquez.jpg",
     deck: "future_ii",
   },
+  {
+    value: "10",
+    suit: "spades",
+    artist: "carilla-karahan",
+    deck: "future",
+    info:
+      "Future will turned out not so bright as we thought. Corporations started blending humans with robots creating a new type called cyborgs. It started with military program then descended into the ordinary world like plague. You could no more distinguish artificial from real. Robots will taken all from us. Humans will become a slave, be controlled by them, and die if not needed.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-carilla-karahan.jpg",
+    reversible: true,
+  },
+  {
+    value: "6",
+    suit: "spades",
+    artist: "anton-yermolov",
+    deck: "future",
+    info:
+      "The times are changing, but people of the future will always follow traditions of the past. It happened with all civilisations. My illustration is a reference to Saint Lucy, who has been tortured by eye-gouging. I showed how this medieval symbol can be transformed with the help of technology. It is the example that culture, art, religion will never be taken away from our life completely, but morph into something new.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-anton-yermolov.jpg",
+  },
+  {
+    value: "2",
+    suit: "spades",
+    artist: "oguzhan-secir",
+    deck: "future",
+    info:
+      "Future will be probably in the space. Maybe on another planet. It's possible to meet new friendly creatures or enemies.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-oguzhan-secir.jpg",
+    reversible: true,
+  },
+  {
+    value: "jack",
+    suit: "clubs",
+    artist: "jethro-olba",
+    deck: "future",
+    info:
+      "When I am imagining the future I think about the birth of the new species. The world will not only be exclusive to humans and animals. Androids, humanoids, extraterrestrials, genetically-engineered creatures, and the like will be part of the community. Thus, humans will live with them normally. To some extent, human intelligence will be inevitable in producing impeccable discoveries from time to time. A new breed of Jacks will bloom and there's no luck about that.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-jethro-olba.jpg",
+  },
+  {
+    value: "queen",
+    suit: "clubs",
+    artist: "noah",
+    deck: "future",
+    info:
+      "The future waits behind and the past is seen ahead. I have always thought that time is a circle where the past is a step forward, what we see ahead and we pass it, so future itself is a sentence where things repeat themselves eternally. Only the scenarios and the actors change, the actions are constant.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-noah.jpg",
+    reversible: true,
+  },
+  {
+    value: "6",
+    suit: "diamonds",
+    artist: "jilipollo",
+    deck: "future",
+    info:
+      "As situations, overpopulation, technology and possible nature (and human) dangers are driving us to stay away from everybody else, along with the avatars we want people to see from us hiding what we really are, this image represents all these characteristics in a simple concept way. I know, the panorama is not that bright in this future.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-jilipollo.jpg",
+  },
+  {
+    value: "5",
+    suit: "hearts",
+    artist: "alessandra-b-b",
+    deck: "future",
+    info:
+      "Over the past couple of years I have been working with a fundamental part of our life: natural products, such as vegetables and fruits. The forms created by nature is a perfect in any shape. It is easy for us to admire the beauty of a ripe apple, but difficult to see the harmony in a spoiled fruit. Consumption in our society has constricted our perception to a narrow point: how often do we not see the true essence of things! All the time we run somewhere, throw out stuff that has expired or we grew bored of, and do not notice the escaping beauty that surround us. My art is founded on a real object: in any natural item there is an incredible concentration of harmony immediately visible to a keen eye. Throughout my work, I explore the process of transformation of such object, its changes. I enjoy reflecting on my interactions with these discoveries, as I am a part of nature as well. I, too, fade like a fruit, and my body deteriorates. This way of thinking is typical for most people. Old age does not paint anyone. But is that true? I want to reflect the idea of the future changes in my work. The march of time is going by itself & it's not depend on our desires. But our awareness is based on us. It is important to be aware of yourself & of your body without pressure of stereotipes or society's conventions.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-alessandra-b-b.jpg",
+  },
+  {
+    value: "9",
+    suit: "clubs",
+    artist: "marcos-abdallah",
+    deck: "future",
+    info:
+      "I believe our future will be not that different from what we live today, unfortunately. I see things getting more and more hidden from the public eye so our sense of well being and being in control will grow, but the reality couldn't be further from the truth. Each year that passes we will be more controlled and yet feel we're more free than any generation ever was. The perfect dystopia. Some say we already live that.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-marcos-abdallah.jpg",
+  },
+  {
+    value: "queen",
+    suit: "spades",
+    artist: "carlos-sanchez",
+    deck: "future",
+    info:
+      "Technology is understood as magic to the civilizations that are less developed. In my future (2120), humanity survived an apocalypse (that happened in 2052) and they need to re-start. Now, the few survivors need to deal with a world that they don't understand, mutant creatures, acid rain, radioactivity and some kinds of magic  (technology of the humans pre-apocalypse). On my card, you can see Charlotte dealing with magic gas (hopefully not a dangerous one, but who knows, the old magic it's unpredictable...)",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-carlos-sanchez.jpg",
+  },
+  {
+    value: "7",
+    suit: "hearts",
+    artist: "dani-loureiro",
+    deck: "future",
+    info:
+      "I hope that in 100 years time, mankind will have learned from our current mistakes and that we will live in harmony with our planet. Without protecting our environment we won’t have a future.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-dani-loureiro.jpg",
+  },
+  {
+    value: "ace",
+    suit: "clubs",
+    artist: "olga-skomorokhova",
+    deck: "future",
+    info:
+      "With an idea of a grave cross I invite you to contemplate what you want to see buried in your own future. I would personally write the word ‘violence’ in that blank space, an ugly human anachronism which I would like to consider dead. I believe humanity overall still have too many ‘words’ to put there: racism, abuse, war, betray, and so many more. But there can be something very personal too, global positive future depends on how every individual feels. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-olga-skomorokhova.jpg",
+  },
+  {
+    value: "jack",
+    suit: "hearts",
+    artist: "renato-quirino",
+    deck: "future",
+    info:
+      "The future will be just a little different from now. The mega-rich will continue to have fun and support each other, while the rest of us fight dogs for food. Some things will be enhanced with the use of high tech, which will increase the contrast with the low quality of life.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-renato-quirino.jpg",
+    reversible: true,
+  },
+  {
+    value: "jack",
+    suit: "clubs",
+    artist: "jacob-stead",
+    deck: "future",
+    info:
+      "The suit of clubs is analogous to the wands in the tarot deck, which is associated with creativity and spirituality and the jack represents the common man. Taking the Hermetic dictum ‘As above, so below’, I envisioned a future scenario where we wrestle for autonomy and creative control with our robotic creations. How will AI reflect our own selves and will the human imagination become obsolete? ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-jacob-stead.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "diamonds",
+    artist: "francisco-rossi",
+    deck: "future",
+    info:
+      "I built a tiny world of what I think it would be a near future, connected but still very alianted one from each other based on the rules of some kind of a mystic power.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-francisco-rossi.jpg",
+  },
+  {
+    value: "8",
+    suit: "hearts",
+    artist: "knife-dance",
+    deck: "future",
+    info:
+      "After years of abuse, the soil is once again rebirthing from centuries of poison injected into it. Human footprints no longer imprint the ground and the insects have un-knowingly inherited the world. The sun is slowly dying but the Earth is rebirthing, with nature’s beauty resurfacing through the cracks of what was. The vibrant colours of flowers become valuable as gold was but never as vibrant as yesteryear but still, they stand out amongst their grey and battered surroundings. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-knife-dance.jpg",
+  },
+  {
+    value: "8",
+    suit: "spades",
+    artist: "marion-kamper",
+    deck: "future",
+    info:
+      "The interplay of the two stags depicts an ambivalence. On the one hand, it may be seen as a joyful feast celebrated by the animals – as a utopian vision of nature's victory. On the other hand, the entangled stags seem threatening and remind us of genetic manipulation and the dystopia of anthropogenic destruction.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-marion-kamper.jpg",
+    reversible: true,
+  },
+  {
+    value: "10",
+    suit: "spades",
+    artist: "magda-wolna",
+    deck: "future",
+    info:
+      "I believe the future belongs to the animals, who will be reborn after years of human supremacy. The world full of these innocent creatures will be magnificent and fair. I think I got 10 of Spades for a reason, because this card means mourning, crying and sadness. My card is very personal: the future hegemony of the animals is represented by my beloved female dog, Sabinka, who has recently passed away. I miss her very much. In fact she was light ginger with white collar.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-magda-wolna.jpg",
+  },
+  {
+    value: "9",
+    suit: "spades",
+    artist: "mark-verhaagen",
+    deck: "future",
+    info:
+      "In the future, our bodies will be enhanced by technological additions: robotic limbs, sensors for health monitoring and a brain connected to the Internet. Inspired by this thought, I drew this scientific illustration of a human skeleton. A hundred years from now, kids in school will not only have to learn about the bones of the traditional skeleton, but also about the new enhancement possibilities. Or would we just download the required knowledge from the Internet straight into our brains, making learning a thing of the past?",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-mark-verhaagen.jpg",
+  },
+  {
+    value: "ace",
+    suit: "hearts",
+    artist: "james-roper",
+    deck: "future",
+    info:
+      "The futurist Arthur C. Clarke once described how the technology of the future would be “indistinguishable from magic”. With our incessant scrambling towards novel new technologies we can easily take for granted the magical soft technologies of our very own biology. My card depicts how our infatuation with computer mechanisation may encroach upon our awareness of the amazing mechanisms, such as the human heart, that already exist within each one of us.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-james-roper.jpg",
+  },
+  {
+    value: "9",
+    suit: "diamonds",
+    artist: "gracmor",
+    deck: "future",
+    info:
+      "The nine regions refer to the underworld of Mexica mythology, it is a world view of Nahua beliefs related to space time, structuring a universe in regions determined by living forces. My work is based on Mexican pre-Hispanic cultures and is a composition in cerograffia (background or foreground), which are abstract letters in Mayan numbers and the representative skull of death.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-gracmor.jpg",
+  },
+  {
+    value: "7",
+    suit: "clubs",
+    artist: "emma-clinton",
+    deck: "future",
+    info:
+      "The work illustrates how the world could go one of two ways, depending on choices made now. A land with nature, a land without. Find the 7 clubs!",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-emma-clinton.jpg",
+    reversible: true,
+  },
+  {
+    value: "7",
+    suit: "spades",
+    artist: "angie-jerez",
+    deck: "future",
+    info:
+      "A parallel ecosystem intertwined with technology. I imagine in the future we will be artificially imitating nature, humans will be more conscious about what we would have lost and will try to reproduce the environment. A chaos circling between personal connections and nature.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-angie-jerez.jpg",
+    reversible: true,
+  },
+  {
+    value: "2",
+    suit: "diamonds",
+    artist: "hamza-idrissi",
+    deck: "future",
+    info:
+      "In the future, the mankind will be enhanced with biomechatronic body parts and what we call cyborg will reveal those who are half-human half-machines who have strong instincts and immunity against all diseases. They will conquer the world. As a result of this a new world will emerge with new laws and new concepts.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-hamza-idrissi.jpg",
+  },
+  {
+    value: "8",
+    suit: "hearts",
+    artist: "marta-zubieta",
+    deck: "future",
+    info:
+      "Liquid love. In the future as in my world love is liquid. Desires, dreams and purpose become fluid. We let the flow to carry us away. Our relations become more shallow and ephimeral and we keep on looking for the perfect story in short term bases, failing and trying again with the next without knowing very well why. Why would it matter? There are too many fishes in the sea to lose time fighting for imperfect love.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-marta-zubieta.jpg",
+    reversible: true,
+  },
+  {
+    value: "4",
+    suit: "clubs",
+    artist: "ekiem",
+    deck: "future",
+    info:
+      "I wanted to pay homage to this very offbeat cartoon character from the ‘90s. The four of clubs is an ominous card in fortune-telling. It describes a threat that may materialize in the form of health problems or an unforeseen event with negative consequences. So I chose Ren as a character and adapted some rather POP colours and patterns.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-ekiem.jpg",
+  },
+  {
+    value: "2",
+    suit: "clubs",
+    artist: "blake-stevenson",
+    deck: "future",
+    info:
+      "The future will consist of machines that have adapted and taken on organic forms. They will acclimate, living amongst other more traditional lifeforms, completely indistinguishable from them. Creating surreal worlds is such a fun sandbox for me to play in. The best part of a  playing card is that it has no right side. Up is down and down is up. I wanted to develop a graphic that lived in that limbo world. A globulous mass of a character, suspended within the world of the card, pulling for attention whichever direction it is placed. The card acts as a gravity free specimen jar of a nano robotic future. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-blake-stevenson.jpg",
+  },
+  {
+    value: "9",
+    suit: "diamonds",
+    artist: "emre-karaoglu",
+    deck: "future",
+    info:
+      "A bat changed history of humanity a 100 years ago. They say with the curse of the bat everything has changed. People locked down in their cages thus nature was free. Now, life is different. Some people worship the sacred bat, they believe it saved the earth. On the contrary, some people hate it because they think it restricted their lives. That’s our probable distopia. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-emre-karaoglu.jpg",
+  },
+  {
+    value: "7",
+    suit: "spades",
+    artist: "hania-olos",
+    deck: "future",
+    info:
+      "I try to think positively about our world in 2120, but I still see our future in quite dystopian colors. Although for some people this picture that I presented may not seem like it at all. We live in a time when we are chasing perfection, this is especially visible on social media. I think that in the near future we will be able to completely change our appearance, personality and even program different skills in our mind and body. It will be ubiquitous, generally available as if we were choosing a new outfit in a clothing store. Over time, people will be less and less human, and will become more a machine like, which entails more questions and doubts about our future. I do really hope that my predictions will remain only in science fiction movies.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-hania-olos.jpg",
+    reversible: true,
+  },
+  {
+    value: "4",
+    suit: "diamonds",
+    artist: "sandra-rivero",
+    deck: "future",
+    info:
+      "The current trend is minimal and I imagine the minimalistic concept extending even more everywhere on everything we use daily, toning down our busy human made environment, maybe that way nature will stand out more and in some ways we'll go back to the primitive times where we didn't 'need' to possess things, obviously having technology but incorporated in a more subtle way. Hiding the machine part, blending it with everything else, giving the sense of almost magic. Maybe then we'll realize that we don't need material things to find happiness.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-sandra-rivero.jpg",
+    reversible: true,
+  },
+  {
+    value: "jack",
+    suit: "spades",
+    artist: "nicho333",
+    deck: "future",
+    info:
+      "My card, jack of spades, reflects a spiritual, insightful, bold sense and represents by nature the scam that takes what you want when you least expect it. Converting it into a symbol of extreme wisdom, because it perceives everything and nothing is hidden from it. In other words, death.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-nicho333.jpg",
+  },
+  {
+    value: "3",
+    suit: "spades",
+    artist: "tunc-eren",
+    deck: "future",
+    info:
+      "Because of their stupid decisions the human poulation is extinct but the robots they created still exist and they keep improving. There are still some human trace left in their code, they are not perfect yet. They still have feelings, they love, they like to look at stuff 'defined' as beautiful. And here, in the drawing, the robots look at their ancestors' rarest artifacts, 'plants'. Such a beautiful view for them.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-tunc-eren.jpg",
+  },
+  {
+    value: "ace",
+    suit: "hearts",
+    artist: "anna-caban",
+    deck: "future",
+    info:
+      "I see future as a combination of two worlds: organic, which is a base of our existence and technological one, which will extend our abilities beyond our present limitations. The future is a symbiosis between our lives and in-body mechanics and electronics. My ace of heart is made of two parts one mechanical and second organic, both collaborating to give a human kind an ideal abilities for development. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-anna-caban.jpg",
+  },
+  {
+    value: "8",
+    suit: "diamonds",
+    artist: "doruk-aki",
+    deck: "future",
+    info:
+      "Recently I read Dan Brown's book, Origin. It tells the story about where we came from, and where we are going. I loved the idea of new living style, combined with technology and enabling limitless life and potential. Merging biology with cybernetics. My main style starts with character creation and working on it as the theme progresses. With this project I tried to find the best medium to design a playing card by incorporating my monsters with future themes, with bionic parts.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-doruk-aki.jpg",
+    reversible: true,
+  },
+  {
+    value: "ace",
+    suit: "diamonds",
+    artist: "mele-de-la-yglesia",
+    deck: "future",
+    info:
+      "This is actually a very good moment in human history to have a vision about the future and co-create this future we want for us and for the next generations. My vision of the planet earth in one hundred years is very optimistic, despite what is actually going on right now in 2020. I am sure, this is part of the process. It is a place where we are more conscious about nature, where we are much more respectful with each other. Where we find better ways of doing politics, better ways of consumption and production. There is more art and beauty everywhere, more colors on the cities instead of cold grey concrete landscapes. We use the energy of the sun and the wind in a sustainable way and we can share this wonderful planet as one race.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-mele-de-la-yglesia.jpg",
+    reversible: true,
+  },
+  {
+    value: "king",
+    suit: "clubs",
+    artist: "serena-gianoli",
+    deck: "future",
+    info:
+      "Considering this year’s recent events, tested how fragile is our existence on this planet and how a small thing like a virus can affect enormously our life, our routines and our priorities. During the quarantine period, while us, humans, locked down, we witnessed from our windows nature rebirth. Therefore in 100 years I see plants and nature taking humanity over and finally flourish.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-serena-gianoli.jpg",
+    reversible: true,
+  },
+  {
+    value: "king",
+    suit: "spades",
+    artist: "sophie-mo",
+    deck: "future",
+    info:
+      "Thinking about what 2120 would be like, my mind immediately creates a dystopian futuristic apocalypse where the human race has been overtaken by technology and are unable to disconnect from it. I tried to reflect that in the card that's been given to me, the king of spades. Think cyborgs, Ghost in the Shell and Blade Runner. Our fascination with technology has given it the platform to take control over us. Every digital piece of information and data creates algorithms that dictate our lives via a higher power.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-sophie-mo.jpg",
+  },
+  {
+    value: "8",
+    suit: "clubs",
+    artist: "joluvian",
+    deck: "future",
+    info:
+      "Future it's an abstract subject, when having to imagine it my mind first goes back in history, at the origin of our civilization. The card wants to remind of the place where Sapiens came from, Africa. The black rectangle, inspired by the legendary Kubrick's film 2001: A Space Odyssey, also resembles an African mask imagining the new mask humanity will put on. The colors want to remind of the heat, one of the few events in physics that proves the passing of time from past to future. The circles in the middle mimic the infinity shape as well as the symbol of the clubs. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-joluvian.jpg",
+    reversible: true,
+  },
+  {
+    value: "4",
+    suit: "spades",
+    artist: "joshua-canty",
+    deck: "future",
+    info:
+      "There is no surprise that we have fully developed robotic technology by the year 2120, however the result of that development was completely different than what we had all expected. Due to fantasy genres and video games, we all thought that the new robotic race would resemble humanity, looking like us and talking like us, however scientific discovery allowed for it to take a different form. Scientists realized that designing robots to look, act and grow like plants allowed them to better understand our Earth. We quickly learned how to use technology to help foster a more healthy and safe environment. Our planet thrived and we continued to breathe in fresh air and got to experience our Earth return to its natural glory.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-joshua-canty.jpg",
+  },
+  {
+    value: "6",
+    suit: "spades",
+    artist: "nataliia-soiko",
+    deck: "future",
+    info:
+      "One hundred years from today is not a huge time frame. But it's enough to change some social habits, political processes, etc. It seems to me that it is possible that soon we will feel more control. Who can develop and educate artificial intelligence, who has all new technologies in their pockets, who knows everything about society's daily routines, will dirige the global situation more and more. So in this picture, I show a drone that sees what's going on in the scrapyards. It considers the smallest moves. This way, we can only imagine how many details they can see in the cities. Besides that, I wanted to show the ecological situation. We make some efforts today. However, in a couple of decades, we may have some ugly zones outside the beautiful and clean cities. I hope the future will be better. But who knows.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-nataliia-soiko.jpg",
+  },
+  {
+    value: "4",
+    suit: "spades",
+    artist: "stelios-spanoudakis",
+    deck: "future",
+    info:
+      "In the future there will be many spare parts but we will have to share hearts...",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-stelios-spanoudakis.jpg",
+    reversible: true,
+  },
+  {
+    value: "10",
+    suit: "diamonds",
+    artist: "sangram-soni",
+    deck: "future",
+    info:
+      "After 100 years, the inevitable future at this pace is definitely a water crisis, ironically being surrounded in water. Technology is scratching the surface, survival is real and science is too young to understand the transcendental truths, myths for some. Floods will be the new normal. Nature will take over swallowing this concrete mess with grace, inhabiting the remaining species with love. We might have found some water pods on Mars but will still be left wondering and annoyed at an instinctive level. Rather than having strong opinions on information, may be its time to have a stand on knowledge and move on in sync with nature. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-sangram-soni.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "hearts",
+    artist: "flownart",
+    deck: "future",
+    info:
+      "Actually, I think it can be 2 different futures, the one I think it will happen cause everything is fucked up, starting from society and ending with the condition of the planet (thank us), we are the fucking virus. This one is represented by the skeleton and a polluted world in flames. But there's still a bit of hope in me, and I think lots of us can do great things for the planet and the values of our society, I represent that in the girl that is surrounded by nature and life.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-flownart.jpg",
+    reversible: true,
+  },
+  {
+    value: "king",
+    suit: "spades",
+    artist: "ece-agirtmis",
+    deck: "future",
+    info:
+      "People have learned to live in peace with nature. The number of plants and animals in the world has increased. Even the King of spades has become a sweet-hearted king and the happiness rate in the world has increased.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-ece-agirtmis.jpg",
+    reversible: true,
+  },
+  {
+    value: "2",
+    suit: "clubs",
+    artist: "crocuno",
+    deck: "future",
+    info:
+      "It is the year 2120. the Princess Lianpu has the government of the world, after three decades. Lianpu is a descendant of a clan of humanoids created to support humanity and the few surviving animal species, with supernatural powers given by technology. She fights hard against radioactive epidemics created by Queen Death. I represent the two clovers as a letter of the fight, reversible, ambiguous, between life and death, the good and the bad, love and hate. I think in the future how we will lean on technology to be able to stay alive, help other species without destroying the ecosystem.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-crocuno.jpg",
+    reversible: true,
+  },
+  {
+    value: "joker",
+    suit: "red",
+    artist: "owen-gibbons",
+    deck: "future",
+    info:
+      "What I am about to tell you can only be what lies ahead of the human race existence. It is the year 2120 and all life, including humans, cease to exist. However, the interstellar chickens live on to roam the galaxy in search of the orbs of canned corn, the only source of nutrients left in the solar system. A tasty treat of tender kernels in brine, or the creamed variety, is a must for any hen.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-owen-gibbons.jpg",
+  },
+  {
+    value: "6",
+    suit: "hearts",
+    artist: "shakthi-hari",
+    deck: "future",
+    info:
+      "My idea of the world after a century is sustainable co-existence. Humankind would have cracked a solution to all the problems in the current world through the time. We would exist with the nature in a balanced way. However he would have lost his ability to express his emotions. But he would still feel the need to be loved and he might end up creating a technology to do so. I'm visualizing the human brains being connected to create a formation of hearts (the six hearts actually) and the technology might help us transfer the emotions to the other being. As human evolves alongside technology, he might lose the ability to speak since humans would have found a way to communicate their thoughts via brain signals and devices to transfer the same. Though humans evolve, the basic element required for existence is love and that can't be changed.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-shakthi-hari.jpg",
+    reversible: true,
+  },
+  {
+    value: "6",
+    suit: "clubs",
+    artist: "vebe",
+    deck: "future",
+    info:
+      "I love to start a new project on a blank sheet (from scratch). With some constraints but not too much ;-) That's a good way for me to explore, improvise with spontaneity. That kind of process does always surprise myself. It learns me a lot, above all, to surpass myself. Awaiting/expecting what the final result will be. The process is just as important as the final result. Starting with number 6 and a club symbol I try to find some similarities between them. And I observed that they both have a rounded part but also a sharpened portion. These both details are opposites, contradictory but also complementary. As in the 'Yin & Yang' symbol, it is a concept of dualism, describing how seemingly opposite or contrary forces may actually be complementary, interconnected, and interdependent in the natural world, and how they may give rise to each other as they interrelate to one another. (source: wikipedia). Black color, spikes and roundings were my starting points. The final illustration is the result of my visual exploration including these elements.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-vebe.jpg",
+  },
+  {
+    value: "9",
+    suit: "clubs",
+    artist: "jessica-bartolini",
+    deck: "future",
+    info:
+      "I think in the future we'll be a result of many things, busy filling our lives with pieces of nature and looking for answers running into time to meet our different personalities. Our feelings will be colourful stains able to increase their sizes when we need to treat them.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-jessica-bartolini.jpg",
+  },
+  {
+    value: "jack",
+    suit: "diamonds",
+    artist: "gaspart",
+    deck: "future",
+    info:
+      "Water, earth, air and living organisms, including humans, interact together to form an ecosystem. We are all linked and interdependent, so I imagine that in 100 years, we will have more than ever, a role to play in the protection of this fragile and yet so important biodiversity. After all that we have just experienced, I wanted to share with you an optimistic vision of our future and I hope that it will speak to you as much as it does to me.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-gaspart.jpg",
+    reversible: true,
+  },
+  {
+    value: "3",
+    suit: "clubs",
+    artist: "fatima-bravo",
+    deck: "future",
+    info:
+      "I want to believe that 100 years from now we will be able to respect and love Mother Nature as much as she loves us. We must understand that She is the reason we breathe, She gives us the opportunity to live in this wonderful world, we owe her the love and respect that every good mother deserves. Like all mothers, she never abandons us, and we are letting her down. I hope in the future we will be more aware of her importance and learn to live better in conformity with the natural world.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-fatima-bravo.jpg",
+  },
+  {
+    value: "8",
+    suit: "clubs",
+    artist: "bobby-haiqalsyah",
+    deck: "future",
+    info:
+      "The future will bring us many things; endings and beginning, rise and fall. The snake eating it’s own tail or the Ouroboros seems to represent this well, and make up the number 8 for the card. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-bobby-haiqalsyah.jpg",
+    reversible: true,
+  },
+  {
+    value: "8",
+    suit: "spades",
+    artist: "maus-baus",
+    deck: "future",
+    info:
+      "In the future of 2120, Nature will make a comeback on it's own. With flesh-eating plants, trees going back to their roots, and presidents growing bald. No need for recycling, when the cycle of life is on infinity mode. It's our only job to design robots, while nature protects itself. Now robots are living in the woods, we feel even more, that Big Brother is watching us. Can we resist the luring snake for tempting us to take a bite? Or this will start all over again.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-maus-baus.jpg",
+    reversible: true,
+  },
+  {
+    value: "5",
+    suit: "hearts",
+    artist: "luigi-leuce",
+    deck: "future",
+    info:
+      "In such a particular moment that we are living, I hope that love will always remain and always triumph, in 2120 I imagine that each of us can fulfill their dreams, live in places they want, love without waging war and make everything very colorful by building his landscape as he wishes through technology but above all through his heart.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-luigi-leuce.jpg",
+  },
+  {
+    value: "9",
+    suit: "diamonds",
+    artist: "rowanne-ahmed",
+    deck: "future",
+    info:
+      "The year 2120 could be bright and promising and the sky might start raining marvels everywhere. But in these desperate times -the present- this can be hard to believe in. So will the human race retain hope or will the world rob us of it? Will we collapse and turn into lifeless creatures blind to all that's beautiful?",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-rowanne-ahmed.jpg",
+  },
+  {
+    value: "6",
+    suit: "clubs",
+    artist: "ignacio-brito",
+    deck: "future",
+    info:
+      "I started thinking about what the future may be like. I mean WAY into the future. Some of the trends we see now: isolation and everything becoming more digitalis are inevitable. So I thought about how a teenage girl's life might be like. She is a mix between human and machine and she lives in a shapeshifting room that is just floating in space (breathing is a thing of the past!). Is she sleeping? is she dreaming? or is she just recharging with solar power? Who knows.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-ignacio-brito.jpg",
+  },
+  {
+    value: "2",
+    suit: "diamonds",
+    artist: "zorrozombie",
+    deck: "future",
+    info:
+      "These are difficult times and we are simply disconnected from our identity because we are in a constant race to 'be better people', it is time to turn to look back and realize what we left behind, our root.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-zorrozombie.jpg",
+  },
+  {
+    value: "3",
+    suit: "spades",
+    artist: "roberlan-paresqui",
+    deck: "future",
+    info:
+      "In the future, people will no longer have a identity, they will be who they want. The technology will allow you to be whoever you want. Your DNA will be the same, but you can just change your face or your mood to be whatever you are.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-roberlan-paresqui.jpg",
+  },
+  {
+    value: "ace",
+    suit: "hearts",
+    artist: "dsorder",
+    deck: "future",
+    info:
+      "Be strong, with a big heart, and we can change this world. The idea is to show a strong but soft protected heart, with a street aesthetic representing the power of people, claiming our rights to change the system in our world. Justice, equality, powers, freedom, security, peace, and a lot of love ...",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-dsorder.jpg",
+  },
+  {
+    value: "3",
+    suit: "clubs",
+    artist: "francesca-rossi",
+    deck: "future",
+    info:
+      "Human beings have exploited all the resources Earth could provide. We realized we harmed Her, but now it’s too late. The only way to survive and to save the Earth is moving to other planets and let ours recover and heal itself, once relieved from the stress mankind has caused until this moment. Who knows, maybe one day we will be able to come back home and to have another chance, this time with the awareness to respect the planet that hosts us.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-francesca-rossi.jpg",
+  },
+  {
+    value: "king",
+    suit: "clubs",
+    artist: "eduardo-martinez",
+    deck: "future",
+    info:
+      "Using the collage technique, I have created a retro-futuristic or vintage-futuristic fighter, part man part machine, with graphic elements that symbolize 'The king of the fight' in this card of the king of clubs.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-eduardo-martinez.jpg",
+  },
+  {
+    value: "queen",
+    suit: "hearts",
+    artist: "patrycja-podkoscielny",
+    deck: "future",
+    info:
+      "In times like this, it's especially important that we try to fill the void with love.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-patrycja-podkoscielny.jpg",
+  },
+  {
+    value: "king",
+    suit: "hearts",
+    artist: "sean-loose",
+    deck: "future",
+    info:
+      "It’s the year 2120. The governments of the world have given way to autocracy, and 104 years of close-minded leadership have led to cultural suppression and a dying planet. Self-expression has been all but snuffed-out, when a mysterious inter-dimensional being appears outside of Earth’s orbit. Drawn in and moved by radio waves carrying century-old scraps of queer culture, this being takes the form of a drag queen and, for humans who reject hate, opens a wormhole to a planet where bigotry does not exist. Everybody say LOVE.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-sean-loose.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "diamonds",
+    artist: "alastair-temple",
+    deck: "future",
+    info:
+      "In my illustration I wanted to maintain the traditional structure of the 9 of diamonds playing card while illustrating my story. I am showing a 'generation ship' travelling into deep space on its way to colonise the stars. While I am not completely convinced this is something we will ever manage, space and it's boundless wonders have always fascinated me and I definitely hope we do! However art can be a number of things: a reflection of reality,  satire, predictive of the future or a means of escapism. Maybe this is more hopefully escapism than serious prediction!",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-alastair-temple.jpg",
+  },
+  {
+    value: "5",
+    suit: "diamonds",
+    artist: "vinay-pittampally",
+    deck: "future",
+    info:
+      "Five of Diamonds is a card of reconciliation. 100 years from now, this will be more relevant than ever. The advancement of science is beyond imagination but with every hike in technology, the human relationships are deteriorated. Moments became posts and emotions became emojis. I’m afraid of the day when the global loneliness will take over and humans will never have a ‘real’ shoulder to lean on.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-vinay-pittampally.jpg",
+    reversible: true,
+  },
+  {
+    value: "6",
+    suit: "diamonds",
+    artist: "annemarieke-kloosterhof",
+    deck: "future",
+    info:
+      "The theme of '100 years into the future' seems to be even harder to imagine that usual, during these crazy uncertain times. I find it hard to even predict what I’ll have for lunch tomorrow, let alone what 2120 will look like. It seems impossible to fathom what will happen with technology, human development, the impact on nature etc etc… so my design focuses on the only solid thing I can be certain of right now: Architecture. And more specifically: our homes… (which is where we’re spending most/all of our time now). With an ever growing population, and humans living longer, I think cities will expand and we will take to the skies for housing, building clusters of high-rise residential flats as little islands of communities, creating cities that never sleep and a constant buzz of excitement and opportunity... The sky is literally the limit. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-annemarieke-kloosterhof.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "spades",
+    artist: "carnivorum",
+    deck: "future",
+    info:
+      "Every day the world is in need of technology, whether for the world of work or for social life. This leads me to the conclusion that in the future technology and people will come to merge by creating a new cyber-human society prepared for both the development of more effective and rapid activities and for survival in a world threatened by factors such as pandemics and climate change. Conclusion, if we do not change our habits of socialization and care for the world in which we live, we will end up in dehumanization.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-carnivorum.jpg",
+  },
+  {
+    value: "2",
+    suit: "diamonds",
+    artist: "dave-garbot",
+    deck: "future",
+    info:
+      "So one day in the future we will not have cars. Instead we will all have our very own personal space cruiser nestled in our garage. Everything in life will be different, but the one thing that remain the same from today will be our quest for a really good cup of coffee. However, now we will not be confined to our neighborhood offerings, or earth for that matter. We will be free to search the galaxy & every astoroid for the perfect coffee shop (fly thru, or sit down), & our favorite barista (alien, or human).",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-dave-garbot.jpg",
+  },
+  {
+    value: "10",
+    suit: "clubs",
+    artist: "fernando-fom",
+    deck: "future",
+    info:
+      "We have to be responsible if we want nature to be able to coexist with the technology of the future. So this card is a wake-up call titled 'The allegory of future: the final fight of nature vs. technology'. It is already a reality, technology is part of the human being and will soon be integrated into us, however we can not forget at any time that the engine of our life is nature. Technology is one of the greatest creations of man, and implies one of the greatest challenges of humanity, so we must not lose the connection with mother nature.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-fernando-fom.jpg",
+  },
+  {
+    value: "2",
+    suit: "clubs",
+    artist: "zeynep",
+    deck: "future",
+    info:
+      "A hundred years from now, existence is very effortless; no restrictions on ways of being, of time and place. One can be anything and experience what it’s like to be any type of life form; be any age in a chosen point in time and go anywhere free of country borders through enhanced virtual reality. Mundane discomforts of every day life no longer exist; we live eternally with pleasure, following our deepest passions and curiosity.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-zeynep.jpg",
+  },
+  {
+    value: "2",
+    suit: "hearts",
+    artist: "alex-tass",
+    deck: "future",
+    info:
+      "To imagine what the future will look like in 100 years from now, I tried to compare the present times to the 100 years ago reality. Technology made incredible advancements although it was already here 100 years ago making the first steps in various domains. I think that what has changed the most in these 100 years is human interaction. We depend and interact more and more with technology in our inter human relations. I imagine that in 100 years from now, in an unpredictable stage of technological evolution, in a technology dominated society human interaction will face a digitalisation of the feelings and emotions. I think that beyond any unimaginable now evolution of technology we will depend more and more on the machines to feel and transmite any thoughts and feelings. My design presents a large abstract number 2 formed by 2 mirrored hearts in the shape of a building with flying entities surrounding them. Geometric digital hearts enclosed within buildings. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-alex-tass.jpg",
+    reversible: true,
+  },
+  {
+    value: "jack",
+    suit: "hearts",
+    artist: "paykhan",
+    deck: "future",
+    info:
+      "What if the new technologies we rely on for our future are made of Nature?  I imagine a humanity sustaining their civilization sheltering themselves somewhere in the solar system by embracing our natural essence.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-paykhan.jpg",
+    video:
+      "https://s3.amazonaws.com/img.playingarts.com/zero-video/jack-hearts_01.mp4",
+  },
+  {
+    value: "5",
+    suit: "diamonds",
+    artist: "hunky-dunky",
+    deck: "future",
+    info:
+      "Once, I was lying down on the floor. It was really hot. One of those old days that you had to eat your ice-cream really fast before it dropped over your hands. I heard the crowd, the sirens of an imminent emergency, cars and motorcycles. The thermometer reached 42 degrees, I felt troubled and asleep. When I got up, I saw a silhouette of a diamond. It was a reflection, almost like a mirage. I thought I had found a treasure. I looked around and it all seemed calm, balanced. Vibrant green grass took over the pavement and I could only hear nature. I felt peace. It wasn’t a treasure, it was the future.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-hunky-dunky.jpg",
+  },
+  {
+    value: "6",
+    suit: "hearts",
+    artist: "marta-sorte",
+    deck: "future",
+    info:
+      "Death which brings to new life, even the smallest one. The future that I picture in 100 years is a future in which the man, regardless of his evolution, will continue to give his little contribution to the process that nature reveals to us every day, in front of our eyes. But in the end, nature will take back its own spaces and times",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-marta-sorte.jpg",
+  },
+  {
+    value: "3",
+    suit: "spades",
+    artist: "happy-impulse",
+    deck: "future",
+    info:
+      "Our connection with Mother Nature continuously evolves with each spin of the globe. This 3 of Spades exhibits how we've fused technology into our environment, causing each to affect the other, forming a collaboration between humanity's inventions and the earth. We have developed smart seeds and smart crops and will perhaps find ourselves among Artificial Intelligent Agriculture.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-happy-impulse.jpg",
+  },
+  {
+    value: "joker",
+    suit: "red",
+    artist: "brock-hofer",
+    deck: "future",
+    info:
+      "Once we’ve realized we can only advance so far with technology the only other choice will be to expand our minds. Focusing on developing the brain and storing more and more information within we’ll eventually awaken another kind of consciousness. It will overtake us and become itself a new form of life with the goal of understanding it's place on Earth. It will evolve to a point where it’s basic human needs are no longer required, the new mind simply feeding on the accumulated information of the world to sustain itself until all the minds of the worlds coalesce into one being of pure knowledge. With everything past and present known to it on Earth the being will project it’s collective mind into space in search of more knowledge to feed on.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-brock-hofer.jpg",
+  },
+  {
+    value: "7",
+    suit: "spades",
+    artist: "jonas-soeder",
+    deck: "future",
+    info:
+      "Looking at the technological advancements of the last decades I imagine the year 2120 as a full digitalized era with only one device, given at birth, replacing and combining the most essential things. No ID, no documents, no cash, no cables, no classic monitors anymore. Only one device with ultra secured encryption, backed up and mirrored in everyones personal cloud, always ready. Learning how to use the device will be a part of the modern education system, starting in pre school.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-jonas-soeder.jpg",
+  },
+  {
+    value: "king",
+    suit: "diamonds",
+    artist: "jaime-hayde",
+    deck: "future",
+    info:
+      "As the human race was evolving and the development of technology growing so did the individualism. Humans were connected but somehow alone, longing for some love some care. There was a huge universe to look for love, many species, many creatures. After a long Journey He found love on himself and a whole new universe was opened to him.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-jaime-hayde.jpg",
+  },
+  {
+    value: "3",
+    suit: "hearts",
+    artist: "ezequiel-figueroa",
+    deck: "future",
+    info:
+      "Year 2120, Yorico Robotics, the biggest developer of ai, has created androids with a higher intelligence than the human being. It was so superior that the humans could not avoid the revolt against their race when the bots realized that they were nothing but a mere entertainment for their creators, just a joke of their own existence only living to serve them. The awakening produced many disturbs. As a result, the humans started to deactivate all the units against them, once more the human being was destroying something different, something beyond their understanding. My artwork it’s about a rebel an antisystem that run away. She lives on the streets by herself under her own rules, hidden, but at least free. Forced to live like a wild beast, she has her own family, she’s not alone anymore, she has a home with her three buddies, street rats like herself. More intelligent than what a human could understand, making their way to freedom taking what is needed to survive.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-ezequiel-figueroa.jpg",
+  },
+  {
+    value: "3",
+    suit: "clubs",
+    artist: "jamesp0p",
+    deck: "future",
+    info:
+      "The underworld of the future won’t be as gritty or dark as we think - but more pastel, pinks and permissive. I wanted to portray a career criminal of the future, meet Tressa. When she’s not jacking precious data from fortune 500s or crashing banks for crypto, she’ll be cruising the deep-dark-web for macabre trinkets that hold the spark of human life.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-jamesp0p.jpg",
+    video:
+      "https://s3.amazonaws.com/img.playingarts.com/future/videos/3c-video-low.mp4",
+  },
+  {
+    value: "10",
+    suit: "clubs",
+    artist: "zeller",
+    deck: "future",
+    info:
+      "The Future is always at once painful and tempting topic for me. Whatever awaits us — technological disasters, epidemics, rise of machines - future remains a question of confrontation between life and death. And for me this is more the philosophic question than the question of some futuristic progress. Life itself is eternal and our atoms will be traveling between galactics for million years after our death. So trying to reflect about the future I refer to some symbols of Life, it’s continuation, extension, transformation, something that is created beyond our will. Also I’ve found info about what the 10 of Clubs means: as a rule it represents some meaningful success in personal life - a strong feeling or fatal meeting. All these thought come rather from heart than reason and it’s hard to put them into words and better to express within creation. So these ideas compose a background for my illustration.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-zeller.jpg",
+  },
+  {
+    value: "4",
+    suit: "diamonds",
+    artist: "andrea-galecio",
+    deck: "future",
+    info:
+      "The idea is telepathy and the spirit world. A holistic world, where human beings will have other spiritual abilities.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-andrea-galecio.jpg",
+  },
+  {
+    value: "3",
+    suit: "clubs",
+    artist: "maria-ines-malacarne",
+    deck: "future",
+    info:
+      "Stimulus - Currently we are not aware of what it costs us to connect with other people, personally I believe that in the future, like now, we will only interact through stimuli and act inertia to it. We live in a constant capsule where the events that happen to us lead us to react but not to feel. We live numb.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-maria-ines-malacarne.jpg?2",
+    video:
+      "https://s3.amazonaws.com/img.playingarts.com/future/videos/maria-ines-malacarne.mp4?2",
+  },
+  {
+    value: "5",
+    suit: "clubs",
+    artist: "marek-mundok",
+    deck: "future",
+    info:
+      "In 2120, intergalactic traveling through space portals is available for everyone. This humanoid is on its way to meet its new master on planet Earth.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-marek-mundok.jpg",
+  },
+  {
+    value: "2",
+    suit: "spades",
+    artist: "wenzhu-wei",
+    deck: "future",
+    info:
+      "In the Norse mythology, where worlds are connected through the mythical tree of Yggdrasil, gods will soon fight giants in a great war. A two-headed raven (symbolising wisdom and clairvoyance) and a snake(meaning destiny) by her sides, the Oracle (Volvä) summons the Nine Worlds’ power and, through her third eye, probes the fate of Midgard (being the Middle Earth, the Land of Humans).",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-wenzhu-wei.jpg",
+  },
+  {
+    value: "7",
+    suit: "clubs",
+    artist: "karyl-nerona",
+    deck: "future",
+    info:
+      "I’ve always loved animals and often feel sorry for all the pain and suffering they go through in the hands of our greedy, selfish species. In my entry, I imagine a future wherein animals live freely while humans tend to them. The total opposite of today, where we’re taught the world is made for our consumption. This artwork shows a reborn world where every living thing lives in harmony. When you say “future”, the first thing that would come to mind are huge leaps in technology but for me, true progress is when we transcend our worldly desires and start using our consciousness to craft better futures for all.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-karyl-nerona.jpg",
+  },
+  {
+    value: "jack",
+    suit: "spades",
+    artist: "james-swain",
+    deck: "future",
+    info:
+      "All I wanted to do with this design is take our traditional Jack of Spades and make him some kind of noble space explorer. One side is if everything goes right on his adventure and the reverse is if everything goes wrong.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-james-swain.jpg",
+    reversible: true,
+  },
+  {
+    value: "queen",
+    suit: "diamonds",
+    artist: "aaron-lockwood",
+    deck: "future",
+    info:
+      "My Queen of Diamonds depicts a strong female character of the future using an interactive overlay technique to give 3 different views in one piece. I have drawn inspiration from iconic sci-fi players, Rachel from Blade Runner and Dolores depicted in the 2020 Westworld series, as well as the empowering artwork of Shepard Fairey. To get the most out of this design, view though 3D glasses, closing alternate eyes.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-aaron-lockwood.jpg",
+    reversible: true,
+  },
+  {
+    value: "3",
+    suit: "diamonds",
+    artist: "aron-vellekoop-leon",
+    deck: "future",
+    info:
+      "What strikes me when thinking about ordinary playing cards is the (visual) status a king, queen and jack hold against the far more plain symbol suits. I wanted to find a way to give the symbol more body and a face. Or better, use the symbol as a face and thereby characterize the numbers. And so here it is; Meet the Diamonds, a far more ordinary suburban family than you would imagine.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-aron-vellekoop-leon.jpg",
+  },
+  {
+    value: "10",
+    suit: "hearts",
+    artist: "itsmagichere",
+    deck: "future",
+    info:
+      "It's the year 2120, gadgets have become more intelligent and are now integrated into our bodies. We are co-existing with AIs based on much more powerful clusters of hardware, whose intelligence far outstrip our natural intelligence. Neuroscientists are even capable to disassociated our memories and consciousness from the body. Our brain is then preserved in a virtual environment where we co-exist with everyone who ever digitized. With all these new advancements people on earth will have more pressure to consider their place in the world, who they are and what they want to do.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-itsmagichere.jpg",
+  },
+  {
+    value: "queen",
+    suit: "spades",
+    artist: "federico-bebber",
+    deck: "future",
+    info:
+      "There's no special story cause, honestly, we will simply be extinguished in 100 years.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-federico-bebber.jpg",
+  },
+  {
+    value: "jack",
+    suit: "hearts",
+    artist: "marvin-chin",
+    deck: "future",
+    info:
+      "In 2120, the era when virtual assistants are indispensable to everyone's life, whether to keep us company, manage our social networks or take pictures of us, they are materializing to satisfy us anywhere and anytime. 'Servants are no longer limited to kings.'",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-marvin-chin.jpg",
+    reversible: true,
+  },
+  {
+    value: "2",
+    suit: "diamonds",
+    artist: "geert-verbis",
+    deck: "future",
+    info:
+      "The concept 'Future' ofcourse raises many questions, for instance: how will technology develop? Will we use it to our advantage? Will we respect nature and our planet, or will materialism & decadence be our downfall? Global events like the virus-outbreak show us that our civilisation is fragile and still very vulnerable.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-geert-verbis.jpg",
+    reversible: true,
+  },
+  {
+    value: "8",
+    suit: "diamonds",
+    artist: "john-joven",
+    deck: "future",
+    info:
+      "Year: 2020, A hidden secret laboratory in nowhere with mad scientists start a massive war for likes..! One Hundred years later, they have released the magnificent 'Selfie Monster' a mythical creature with a selfie stick and a 125px frontal camera phone, gaining millions of followers in seconds, when nobody cares anything times, becoming in Trending Topic! ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-john-joven.jpg",
+  },
+  {
+    value: "7",
+    suit: "hearts",
+    artist: "james-bennett",
+    deck: "future",
+    info:
+      "I was intrigued by the subject of “Future”, particularly now. When I thought of what the majority of artists would portray, I envisioned a lot of pessimism about the future. Everyone wearing masks, dark imagery of a frightening future. So I wanted to take a lighter view, hopefully get a chuckle. I wanted to think of something that’s happened in the past, could happen today and in the future. So I envisioned a minor fender bender in future, complete with an irate cabbie and an older couple.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-james-bennett.jpg",
+  },
+  {
+    value: "jack",
+    suit: "clubs",
+    artist: "roman-dementev",
+    deck: "future",
+    info:
+      "His name was Jack Marx. But everybody knew him as Jack_with_Clubs_64, one of the greatest warriors of the Green Sphere Arena (Level 3, modded by Lazy T_T, ARGUS anti-cheat required). His nickname was at the top of the game ratings for most of the time. For many, he was an idol, but some, on the other hand, considered him a cheater and a vote-buyer. But anyway, he was famous in his circles - that's for sure. Moreover, he was a well-known teacher and spiritual mentor. He taught how to win the game and many people bought his courses willingly. But there was a rumor that he never revealed the secrets of his special tricks like “Hot curling” or “Creeping stack”. He devoted his whole life to the game. And finally it happened - he earned his first million green points. He'd been striving for this for a very long time. His name was added to the list of heroes of the Green Sphere Arena (Level 3, modded by Lazy T_T, ARGUS anti-cheat required). And he himself received a gift - a virtual tour to Rome (for two devices) and a month's supply of protein-carbohydrate mucus, which was very useful, since the annual subscription to mega-pizza was already drawing to a close. He was happy, young (56 years old), and full of new hopes. It was the 84th year of quarantine.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-roman-dementev.jpg",
+  },
+  {
+    value: "7",
+    suit: "diamonds",
+    artist: "igor-duibanov",
+    deck: "future",
+    info:
+      "The Past attracts me, the Present frightens me, because the Future is death. - Guy de Maupassant. I play around two quotes from the past about the Future. It's Carpe Diem and Memento mori. The first way means to grab opportunities and live life to the fullest today, without any reference to the Future (only one thing about the Future can be determined - death will happen one from 7 Days of week). And the second way is about irreversibility of the future and living proper life today (without committing any of 7 Deadly sins). So, my concept is the mix between the future, death and 7 D (7 days and 7 deadly sins).",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-igor-duibanov.jpg",
+  },
+  {
+    value: "8",
+    suit: "diamonds",
+    artist: "vanessa-gong",
+    deck: "future",
+    info:
+      "Starting from the pit lane, 'Eight of diamonds' accelerates along the infinite path. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-vanessa-gong.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "hearts",
+    artist: "sua-balac",
+    deck: "future",
+    info:
+      "I really hope that sometime in the future we will be able to customize our own bodies; the very first thing that comes to mind (well, at least to me) are cool cyborg arms, you could have ones with tattoos and if they get boring switch to another. And if you continue this though/concept it should be easy to replace organs (like the heart) or even your whole gender, your whole body. I tried to combine all of my ideas into one illustration, the heart in the centre with nine different arms and if you rotate the card it changes from female to male and vice versa.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-sua-balac.jpg",
+    reversible: true,
+  },
+  {
+    value: "jack",
+    suit: "diamonds",
+    artist: "tino-najera",
+    deck: "future",
+    info:
+      "I really found like a challenge work on this piece, i like a lot. I imagine the main character with his traditional armor but take it, re think it and converting for something in the future. With different shapes, colors, and all the engraving things.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-tino-najera.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "hearts",
+    artist: "mihai-dumitrache",
+    deck: "future",
+    info:
+      "Year 2120. Things changed. Technology evolved rapidly in many fields such as transportation,  communication or medicine. However the human body remained the same. Although there are now cures for most of the diseases, humanity battles against an invisible enemy: depression. Lack of human interaction lead to an increased percentage of humans who are facing loneliness, anxiety,and sadness. In order to help the suffering people,  a group of researchers and volunteers  established Heart Now - an air delivery company which delivers energetic hearts that are balancing  individuals' magnetic field by boosting happiness into it.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-mihai-dumitrache.jpg",
+  },
+  {
+    value: "4",
+    suit: "clubs",
+    artist: "glu-by-kraft",
+    deck: "future",
+    info:
+      "Regardless of the times we live in, people are overpowered by idea of space. It fascinated us but at the same time terrified with its limitlessness and mystery. But space also appears as a potential solution for humanity. For me, the idea of traveling into space is soothing because it gives a sense of hope. A light and fun form of work, with stylistic reference to sci fi movies from the 1950s ('Forbidden Planet', 'Destination Moon', 'Godzilla'), let me mentally escape from pessimistic visions of the future. My interpretation of the topic is more a dream than actual prediction.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-glu-by-kraft.jpg",
+  },
+  {
+    value: "3",
+    suit: "hearts",
+    artist: "catarina-rosa",
+    deck: "future",
+    info:
+      "I'm not really sure how 2120 is going to be, but one thing I know. The power of creativity is not going to change. Even if what surrounds us seems dark or is not what we expected, we have the power to change it, the power to take what's inside us, and make something better, brighter.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-catarina-rosa.jpg",
+  },
+  {
+    value: "8",
+    suit: "diamonds",
+    artist: "francesco-faggiano",
+    deck: "future",
+    info:
+      "In a century, technology will make great strides and the world of medicine will be largely characterized by an adjective: bionic. In fact, we will be able to install very advanced instruments on our body to control psychophysical capacities and vital functions. We will reach an absolute goal in the knowledge of human organs and the heart can be completely replaced by a mechanical one, a perfect technological symbiosis between an organic and an inorganic intelligence. The human heart is replaced by a cold, non-human diamond, symbolizing the loss of part of our humanity as technology advances.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-francesco-faggiano.jpg",
+    reversible: true,
+  },
+  {
+    value: "10",
+    suit: "diamonds",
+    artist: "ian-vicknair",
+    deck: "future",
+    info:
+      "This was in tribute to my grandmother. She loved birds; especially the 'Cardinal Bird' and growing up overseas she taught me about birds and flowers which. Also growing up overseas we played a lot of card games as a family every Sunday which made this project even more unique for me. I brought these two ideas together, the memory of my grandmother and her lessons on birds and flowers together with the memory of playing card games with my family. In this design I transformed this bird by incorporating abstract shapes (much like a flower) with branches encompassing the bird. These branches are also in the shape of a diamond and if you look closely, there are shapes of the diamond within a diamond. ",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-ian-vicknair.jpg",
+  },
+  {
+    value: "8",
+    suit: "hearts",
+    artist: "laura-marcuet",
+    deck: "future",
+    info:
+      "If there is one thing we are certain of about the future, it's that it's very much uncertain, even more so considering the actual health situation. Humanity put technological advancement and economical growth first at the expense of our own planet up to the point where we will have to question and change our ways or run to our ruin. So I wanted to represent the fact that we are holding all the cards to move forward and make 2120 possible. Like the arcana of death indicates, a transition along with important changes are both necessary and unavoidable to ensure this Future. I also dare to hope that, in the next hundred years, women will have taken their place in a more reassuring world, a more lucid, more responsible, more Humane world.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-laura-marcuet.jpg",
+  },
+  {
+    value: "4",
+    suit: "hearts",
+    artist: "lucia-antruejo",
+    deck: "future",
+    info:
+      "Who hasn't thought that sooner or later we'll end up living in the space? Inhabiting other planets is a possibility that over the years we have accepted as real. Living on the Moon or Mars is something we've all fantasized about once.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-lucia-antruejo.jpg",
+  },
+  {
+    value: "6",
+    suit: "hearts",
+    artist: "solin-sekkur",
+    deck: "future",
+    info:
+      "Technology is moving faster, and is really exciting to imagine how advanced it will be in the years ahead. I think that in the future robots and A.I. will be around us in daily life, and they will be quite advanced to the point they will have a consciousness of their own. Because of this, we'll be able to understand each other in a deeper way, developing a complex human-robot/A.I. relationship and giving rise to a whole new era, full of endless possibilities.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-solin-sekkur.jpg",
+  },
+  {
+    value: "king",
+    suit: "diamonds",
+    artist: "yahir-esquivel",
+    deck: "future",
+    info:
+      "Inspired by the god Aeon from Greek mythology, Eón is the being of the new chrono (etymologically time). It was created under the concept of artificial life and developed in order to support the conquest of the human species through the universe. The cloak symbolizes the ability to take interestellar journeys, the ax represents the virtue to achieve victory in combat and the station of creation and regeneration to which he is connected represents the ability to remain prosperous and enduring without beginning or end in time. Technological advance is a human ability capable of killing and in turn generating the survival of our species. In the future we will be able to create artificial life, create beings that can journey through physical and virtual places to conquer unknown worlds in the universe.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-yahir-esquivel.jpg",
+  },
+  {
+    value: "6",
+    suit: "clubs",
+    artist: "lucian-moldovan",
+    deck: "future",
+    info:
+      "The year is 2120 and by now most of the people have left Earth to colonize other planets. Since the request for energy dropped significantly, the people who stayed managed to stop climate change and eliminate pollution. Mostly empty, but still full of life, the Earth is now a clean and beautiful planet, as it once was, and became the main tourist attraction for all the galaxy, providing a relaxation oasis for everyone that wants to escape the day-by-day chaos.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/lucian-moldovan.jpg",
+  },
+  {
+    value: "10",
+    suit: "diamonds",
+    artist: "smash-studio",
+    deck: "future",
+    info:
+      "When we think of our future in 100 years, we want to imagine a world that is extraordinary at using its own planet’s energy, that can control and harness its planetary system, and possibly galaxy.  We are picturing a future in which humanity left earth behind in its quest to conquer space through the use of giant geometrical space bases. Space really is the final frontier for us humans and we barely scratched the surface.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/smash-studio.jpg",
+    reversible: true,
+  },
+  {
+    value: "jack",
+    suit: "diamonds",
+    artist: "nicolae-negura",
+    deck: "future",
+    info:
+      "It is not easy for me to think about the future and not get anxious about how it might play out, especially in today's world. I like to think that the future can be one where we may live in harmony with nature & each other, truly understand & befriend technology, treat animals like our neighbors, and get to know more about ourselves and our time here so as to achieve equality for all.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/nicolae-negura.jpg",
+  },
+  {
+    value: "2",
+    suit: "hearts",
+    artist: "ezgi-arslan",
+    deck: "future",
+    info:
+      "First of all, with fear of the unknown future, I can not accept the fact that technology wil dominate our lives. Human being is trying to go further by technology, however this progress will go back where it all started, to the primitive era. We think we can ignore our primitive roots and create a whole new modern human. All this things are so wrong and fake to me. Instincts, feeling, emotions and being imperfect makes us a human being. We will turn back our roots slowly. I serve you 'true' world that we afraid to face off.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/ezgi-arslan.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "spades",
+    artist: "isabelle-lutter",
+    deck: "future",
+    info:
+      "So my future is a dream of a city floating in the sky, watched over by a gigantic digital cat (9 lives, yes ?). But it is not so peaceful, there are storms and Nature is gradually taking over…",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/isabelle-lutter.jpg",
+  },
+  {
+    value: "10",
+    suit: "hearts",
+    artist: "malik-al-hashimi",
+    deck: "future",
+    info:
+      "Hard to consider the future without considering the present. As technologies continue to evolve the climate and natural resources, they continue to run out. Human beings fascinated by the virtual world around them no longer marvel at nature. Worse, they think they control it and have passed it. I wanted to illustrate a future where the man would have been decimated by using this cliché image of the person who has his nose on his smartphone and in which we can all recognize ourselves, in order to symbolize the pride of humanity. Forever frozen in its navel-gazing in the middle of a world where nature would have taken over.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/malik-al-hashimi.jpg",
+  },
+  {
+    value: "3",
+    suit: "hearts",
+    artist: "cirulli-marco",
+    deck: "future",
+    info:
+      "This illustration can represent a hypothetical freer future society, without limits, without prejudice, where one can choose whether to be above or below or in the middle, without thoughts and thinking only of being good for oneself and then being well with others. A futuristic society where there are no taboos on sex and love, where a person can freely live his sexuality and also wanting to love more people without the fear of being misjudged, where everyone lives preaching peace and love for personal and common well-being :)",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/cirulli-marco.jpg",
+    reversible: true,
+  },
+  {
+    value: "8",
+    suit: "clubs",
+    artist: "nico189",
+    deck: "future",
+    info:
+      "Brands constantly searched for new ways to translate emotions, VR will be part of our daily lives in the near future.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/nico189.jpg",
+  },
+  {
+    value: "10",
+    suit: "spades",
+    artist: "serge",
+    deck: "future",
+    info:
+      "My piece takes the challenge of imagining what the future will hold for us, I hope in a 100 years from now, humans (and any other type of life from this or other planets) would evolve and develop new ways of communication, maybe in the future we can have long conversations in the blink of an eye with someone who is far away and it will all happen inside our minds, and maybe new technologies will help us achieve a greater sense of being.",
+    img: "https://s3.amazonaws.com/img.playingarts.com/future/cards/serge.jpg",
+  },
+  {
+    value: "6",
+    suit: "diamonds",
+    artist: "eliot-bemis",
+    deck: "future",
+    info:
+      "The future looks different when energy is not so abundant. My concept revolves around people needing to wear high tech suits with solar panels that power all the things they need to survive. I wanted the world I see to come through in this illustration. Heavy and bold neon colors reinforce the idea of a futuristic setting. I had the 6 of diamonds, hence the six solar panels.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/eliot-bemis.jpg",
+  },
+  {
+    value: "jack",
+    suit: "hearts",
+    artist: "sergio-stuff",
+    deck: "future",
+    info:
+      "In a future where a dangerous virus threats life in the outside world forces people to stay inside their homes. Not long after humans develop a hand held quantum computer that  allows people to travel between alternate realities in order to interact with each other,. A highly intelligent underground society tired of living a reality that is not theirs, start traveling  between  multiple realities researching different species of flora and fauna  in order to find a cure for the virus.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/sergio-stuff.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "clubs",
+    artist: "andres-rigo",
+    deck: "future",
+    info:
+      "With the challenge how do I imagine the future in 100 years, I rather asked myself what future I want to have in 100 years, and then, I thought about respect, responsability and better behaviours from humans and technology, for this I drew a self taught woman, with the dress that she wants to wear, no matter where, no matter ideologies, politics, money, borders… meaning that humans are capable of whatever we propose, but knowing that we need to take care of ourselves and planet today if we really want to be able to see changes in the future…",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/andres-rigo.jpg",
+  },
+  {
+    value: "4",
+    suit: "clubs",
+    artist: "donavon-brutus",
+    deck: "future",
+    info:
+      "This piece is titled 'Freedom 4a: Club of 4.' Video Chatting has been around for a while. But now it's become essential to every one of our daily lives. In the future it will continue to be and even more so as we spread across the planet and maybe even the universe. An private soirée is no longer confined to a single location in the future.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/donavon-brutus.jpg",
+  },
+  {
+    value: "7",
+    suit: "spades",
+    artist: "radu-ilinca",
+    deck: "future",
+    info:
+      "I believe the future of humankind is beyond our planet. More than 50 years ago we managed to put a man on the moon, about a year ago we landed space probes on meteorites, and we're planning to reach Mars pretty soon as well. The truth is we can't really know what the world would be like 100 years from now, but space exploration will surely be part of it.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/radu-ilinca.jpg",
+  },
+  {
+    value: "2",
+    suit: "diamonds",
+    artist: "jeth-torres",
+    deck: "future",
+    info:
+      "Considering how the world's catastrophic situation happens every now and then, the certain thing that will always occur is progression—facing every challenge and finding ways to address them. This can be quite depressing to everyone but the truth is, it's inevitable for problems to arise in this lifetime that all we can do is rise above them all. As evident in this 2 of Diamonds card using calligraphy strokes, the earth exists where all beings live. An hourglass is formed through the lower half of the top diamond and the upper half of the lower diamond which represents progressive changes with the fleeting time. Meanwhile, both of the diamonds found at the upper and lower half of the blue circle signify thriving and difficulty, respectively. After all, we can imagine that the world we are living in will always go back to its nature over the next 100 years.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/jeth-torres.jpg",
+    reversible: true,
+  },
+  {
+    value: "3",
+    suit: "spades",
+    artist: "ricardo-berber",
+    deck: "future",
+    info:
+      "I believe that in the future we can explore the universe in search of new resources and civilizations, understand how this great universe works. And these little robot friends could help in the attempt.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/ricardo-berber-duplicate.jpg",
+  },
+  {
+    value: "8",
+    suit: "clubs",
+    artist: "sara-gummy",
+    deck: "future",
+    info:
+      "I was inspired by the cyberpunk universe, because think it's the closest vision to a world governed by technology, our future. Over the years, we are living a constant transformation. We can already attend concerts where the artist can be a hologram, we have the facial recognition technology on our phones and we can even play a video game in virtual reality. Before it seemed impossible, but now anyone can enjoy this evolution. My character is a recreation of how a player from the future is enjoying a total immersion game, as if it were a dream. Where he is seen looking at his game statistics, without the need for remote control or scrolling in real life. Wouldn't it be interesting to be able to be in a game where the console is installed in your head? I think so. As curious detail, I have made a mention to the 8 of clubs. If you draw a line around the illustration you will see the clover and if you draw it only on the character you will see the 8 number.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/sara-gummy.jpg",
+  },
+  {
+    value: "7",
+    suit: "hearts",
+    artist: "oleg-okunev",
+    deck: "future",
+    info:
+      "The design of the card symbolizes that despite all the difficulties that await humanity in the next 100 years, such as epidemics, wars, environmental problems, only love will help humanity survive and pass these tests with dignity.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/oleg-okunev.jpg",
+  },
+  {
+    value: "8",
+    suit: "spades",
+    artist: "mork-work",
+    deck: "future",
+    info:
+      "Can you imagine your data flying around the universe? Keep your memories safe! Connect to a virtual world and relax living multiple lives while you rest... Welcome to the XXII century.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/mork-work.jpg",
+  },
+  {
+    value: "joker",
+    suit: "black",
+    artist: "kloudhandz",
+    deck: "future",
+    info:
+      "I made a futuristic cybernetic version of the joker card. One that's 89% machine and the rest is just a trace of what once was a human being. The line between man and machine keeps getting more vague. Some believe that eventually, for the human race to survive, we will have to merge with our technology. We will then become a new sort of humans. We will be enhanced in every way, upgrading parts of our bodies to become efficient machines, losing our humanity in the process.. And in this future, we might just need a joker card.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/kloudhandz.jpg",
+  },
+  {
+    value: "king",
+    suit: "hearts",
+    artist: "oliver-bown",
+    deck: "future",
+    info:
+      "In the year 2120, the King of Hearts is really the King of Hearts and Minds and the flow of information and how it is controlled is the true power. Having received a face card I knew that I wanted to create a reversible design, inspired by the traditional playing card style. On one hand, we have the Megacorporation and the other, the Open Source Guild.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/oliver-bown.jpg",
+    reversible: true,
+  },
+  {
+    value: "ace",
+    suit: "spades",
+    artist: "miopia",
+    deck: "future",
+    info:
+      "With the fast advance of technology and the lack of opportunities for everybody, we'll see even more the contrast between the rich and poor people. The only thing that we have left is to hold into our spirituality and try to reconnect with our selves and with our ancient and inside world, that will be the only way to escape from all the surveillance and lack of decency in world full of injustices we created.",
+    img: "https://s3.amazonaws.com/img.playingarts.com/future/cards/miopia.jpg",
+  },
+  {
+    value: "king",
+    suit: "spades",
+    artist: "burak-esmer",
+    deck: "future",
+    info:
+      "In the future, we will be flying rather than walking. Time will progress at a snail speed.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/burak-esmer.jpg",
+  },
+  {
+    value: "9",
+    suit: "clubs",
+    artist: "jane-gorelova",
+    deck: "future",
+    info:
+      "The idea of this illustration is to show how our future can become. I really hope that I am mistaken in such a vision of the world. All people in world will be 'blind and shrouded in tentacles', from which there is no power to get rid. Many people can already understand these feelings, right? We can't to see really important things and waste to fool problems of our life. Let this illustration be a reference to what should not happen to us.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/jane-gorelova.jpg",
+    reversible: true,
+  },
+  {
+    value: "4",
+    suit: "hearts",
+    artist: "nikita-ivanov",
+    deck: "future",
+    info:
+      "Who will be after a human? I depicted a robot with a biological heart that holds 4 spheres with the main natural elements: fire, water, earth, air. My illustration means that in a hundred years people will create technology that could possibly become a new kind of life on Earth. It will be a machine that can understand nature and feel as if they had a heart.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/nikita-ivanov.jpg",
+  },
+  {
+    value: "6",
+    suit: "spades",
+    artist: "vlad-sorescu",
+    deck: "future",
+    info:
+      "In 2021 scientists accidentally discover that high potassium levels immunize people from the Corona virus, so we all started eating tons of banans. Over time we contained the virus and society moved on. Naturally, a religion called Bananism developed. Bananism continued to grow as a religion and reached peak levels in 2066, but, due to the war with the Spaghetti Monster believers from 2084 (we called it the Food War now ), started to decline in popularity. Now, in 2120, you can still find Bananist priests with their disciples, traveling and trying to gather followers. But what are they really? Few people call them visionaries, some people call them weird, but most people just call them bananaz.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/vlad-sorescu.jpg",
+  },
+  {
+    value: "7",
+    suit: "clubs",
+    artist: "mario-ivanov-maxter",
+    deck: "future",
+    info:
+      "How do I imagine the world in 100 years? Technologies will certainly be developing very rapidly and dynamically. Robots are taking more and more places in our daily lives. I hope in the year 2120 robots will be not just the machines that process accurate data, but they will also be capable of feeling, thinking and finding inspiration in the books and music created by our classics.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/mario-ivanov-maxter.jpg",
+  },
+  {
+    value: "4",
+    suit: "diamonds",
+    artist: "rick-a-crane",
+    deck: "future",
+    info:
+      "After several mass extinctions and runaway climate chaos humanity now clings to a few remaining specimens from the once abundant natural world. Only a century ago there were 600 species of oak but now, in 2120, only a handful of trees remain. These greatly cherished specimens are on life support, sealed behind glass in climate controlled environments. Visiting elders gaze with sad nostalgia whilst children stand in awe, imagining what it might be like to climb the branches or sit under it's shade. This suit of diamonds represents the material world and it's corresponding element is Earth. The 4 of diamonds can signify major change, future troubles, important revelations or good advice from an old friend. It’s tarot equivalent; the 4 of Pentacles is associated with scarcity, conservation, security, control, possessiveness and greed. This card symbolises the need for humanity to listen to nature and radically transform our overly materialistic and unsustainable lifestyles, to avoid a grim and impoverished future.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/rick-a-crane.jpg",
+  },
+  {
+    value: "8",
+    suit: "hearts",
+    artist: "lina-kusaite",
+    deck: "future",
+    info:
+      "To me it is not about the look, but more about how can we transform our present way of being into more intelligent, co-existing and co-creating species within all life forms on earth. The work that I am using for Playing Art challenge is the images from a bigger project that I worked on in 2016. I created a sequence of visuals that represented the transformation of human/nature relationships from history to the present moment and into a vision for the future. The work that I am using for Playing Art challenge, questions human relationship with nature and what does that mean to be human and how we choose to understand ourselves within the context of the world. Through creating this art work, I explored different ideas about the limitation of human perception, about self-reflection in our relationship and behavior towards nature, each other and in the end – ourselves. What the world will look like in 100 years from now if we would drop the concept of a human as a singular individual form and experiencing ourselves as a part of, or a particle within, larger organisms; an integral part of collective or social life, or maybe even energy that is an inseparable part of the universe? The way I chose to approach these questions and ideas via merging the visuals of different human body parts with parts of plants and animals and creating almost unrecognizable combinations of forms, and structures. I wanted to show how similar we are, how the same we are and how all of us belong to one magical body – the universe. The number 8 is also representation of eternity and therefor invitation to see ourselves as an infinite possibilities.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/lina-kusaite.jpg",
+  },
+  {
+    value: "6",
+    suit: "clubs",
+    artist: "kay-leathers",
+    deck: "future",
+    info:
+      "It’s 2020. The humans have pushed past the limits of the planet, scorched the earth, turning everything in sight to sand and dust. All that remains are the ruins of cities, a few roaches and some dark places. But what’s that coming from the darkness…? Finally able to step up and seize their opportunity to rule, the lizard people have shed their human skin disguises and are celebrating their new freedom with a fabulous fiesta! The moonshine is flowing and the lizards are glowing! Ay Ay Ay!",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/kay-leathers.jpg",
+  },
+  {
+    value: "4",
+    suit: "diamonds",
+    artist: "sua-agape",
+    deck: "future",
+    info:
+      "100 years from now, we'll be exploring new worlds but above all, we'll be exploring and discovering what we do not yet know about our own planet.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/sua-agape.jpg",
+  },
+  {
+    value: "7",
+    suit: "spades",
+    artist: "rob-armbrister",
+    deck: "future",
+    info:
+      "For my piece, when thinking about the future I imagine that things like vertical farming will become more and more commonplace. I see a combination of vertical farming and the growth of robotics. This illustration depicts a lone horticulture robot drone tending to it's piece of a vertical farm. I would say have a pretty optimistic view of the future. I think humans will find new ways to improve tasks through technology, but also don't imagine in 100 years that everything will be crisp, clean and perfect. The garden here is a little overgrown and the structure may need some fixing up but the robot sticks to it regardless. Within the design of the structure I also incorporated the number seven as a fun eyecatching element.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/rob-armbrister.jpg",
+  },
+  {
+    value: "queen",
+    suit: "hearts",
+    artist: "virginie-mazureau",
+    deck: "future",
+    info:
+      "The current health crisis is here to remind us, now more than ever, that it is essential to preserve our natural habitat from any kind of threats, especially from ourselves. If we do not put any effort in changing our behavior as well as our way of life, our habitat could be lost forever. I want to believe that, a hundred years from now,the next generations will have a chance to live in harmony with this planet , and that they will cherish it more then we ever could. My Queen of Hearts, or rather, my kind-hearted queen, is represented in the form of a young, pure hearted girl, mesmerized by all the beauty of the fauna and flora covering the surface of the Earth, as well as nature in general, which has become a part of her.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/virginie-mazureau.jpg",
+  },
+  {
+    value: "9",
+    suit: "spades",
+    artist: "lindsey-chizever",
+    deck: "future",
+    info:
+      "My hope for the future is that the broken pieces of the world start being put back together. I divided the spade into 9 sections—the fragments uniting to create one complete spade, but they still have some way to go.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/lindsey-chizever.jpg",
+  },
+  {
+    value: "6",
+    suit: "clubs",
+    artist: "claudia-silva-gopfert",
+    deck: "future",
+    info:
+      "A prosperous world of infinite possibilities. The creation of new paradigms and templates, where we´ll behave as an authentic and real human being that we are to fulfill our true purpose on planet earth. There will be harmony, balance, peace, joy, abundance, compassion, hope, happiness, empathy, respect, justice, beauty and mainly there will be LOVE among us along with mother earth. We´ll vibrate high and we´ll be all connected from our hearts to listen and feel the infinite universe that surrounds us because WE ARE ALL ONE, WE ARE LOVE.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/claudia-silva-gopfert.jpg",
+  },
+  {
+    value: "2",
+    suit: "clubs",
+    artist: "valentin-cioaca",
+    deck: "future",
+    info:
+      "Technology keeps getting better and better while we evolve at a much slower pace. In an attempt to keep up, in 100 years will become mandatory to merge with it - making it part of us should allow us to reach our full potential. This change will be met with skepticism and will divide the people, some will support it while others will criticize it. 2 sides and 2 possibillities: It will give us more freedom or it will trap us? It will bring us closer together or it will make us drift further apart from eachother? For better or for worse, once the choice is made, it will be a point of no return.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/valentin-cioaca.jpg",
+  },
+  {
+    value: "7",
+    suit: "clubs",
+    artist: "erika-szep-biro",
+    deck: "future",
+    info:
+      "As I said before I'm in love with fantasy and science fiction, especially the old ones because my dad was a huge geek back in the '80s when I was little. Thanks to him I was raised on Lord of the Rings, Dune, Asimov and Barbarella. These were the main inspirations for this card too. I also love pinup art, the awroks of Bill Randall and Peter Stevens are influencing this card too! In the future everything will be kept in glass globes, jars and containers because one has to shelter everything from the hazardous environment. You can see 6 clubs floating in these protective glass orbs, but the 7th spehere is the astronaut girl herself, because a girl has to keep herself safe too!",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/erika-szep-biro.jpg",
+  },
+  {
+    value: "5",
+    suit: "hearts",
+    artist: "edwin-perilla",
+    deck: "future",
+    info:
+      "My illustration is a representation of the Japanese legend 'the girl with the red eye', the girl had been born with a deformity that prevented her from finding someone to marry and with her heart shattered, she committed suicide. With this representation I highlight the eye as a form of manipulation where most people have included it as a tool to know sins, frustrations, deceits, however hidden they may be and in this time 2025 the eyes are replaced by technology that manipulates us which is the event that represents the TV.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/edwin-perilla.jpg",
+  },
+  {
+    value: "4",
+    suit: "clubs",
+    artist: "umberto-daina",
+    deck: "future",
+    info:
+      "The Importance of Being 4 ♣ Clubs. Even if we're not kings, queens, aces or jokers, we can win the biggest games...now and in the future.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/umberto-daina.jpg",
+  },
+  {
+    value: "4",
+    suit: "hearts",
+    artist: "federica-fabbian",
+    deck: "future",
+    info:
+      "In year 2120, dogs have finally reclaimed their human's-best-friend status, after decades of alpaca hegemony. In this snippet of real life, a female human is helping her pet finding their soulmate, by a process reminiscent of early 21th century 'social media'.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/federica-fabbian.jpg",
+  },
+  {
+    value: "king",
+    suit: "hearts",
+    artist: "mr-maestre",
+    deck: "future",
+    info:
+      "In the near future, virtual reality plays a significant role in dating apps, making it possible to 'meet' the person you are chatting with virtually and even create a perfect partner for yourself. Cybercriminals, taking advantage of the personal information users might share in these kinds of meetings, have created a virus that impersonates other users. The virus has impersonated one of your dating contacts and has taken control of your accounts and passwords, as well as your personal information, and is posting it on the dark web. The more you interact with the virus, the better it gets to know you, allowing it to better impersonate you in order to infect the next person. The International Bureau of Cyber Security has named this virus the 'King of Hearts.'",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/mr-maestre.jpg",
+  },
+  {
+    value: "4",
+    suit: "spades",
+    artist: "anastasia-kochetkova",
+    deck: "future",
+    info:
+      "In the future people's actions will destroy nature at all. Almost all kinds of animals and plants will become extinct, Earth will run out of resources to support the species. Megacities will devour almost all living things. This deer is a symbol of living nature that we still have a possibility to witness. It is a chance for Humanity to think how we can save wildlife of our planet or at least what’s left of it.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/anastasia-kochetkova.jpg",
+  },
+  {
+    value: "3",
+    suit: "hearts",
+    artist: "kristyn-bailey",
+    deck: "future",
+    info:
+      "In 100 years from now I like to imagine a world where we can coexist with extraterrestrial life. In previous years there's been talk about humans colonizing the moon or even Mars in the future. It currently seems like a very distant idea, but in the year 2120, who knows? As we continue to push the limits of space exploration we may find that alien life really does exist. This concept inspired my illustration, which depicts a woman with her alien husband and their half human, half alien child.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/kristyn-bailey.jpg",
+  },
+  {
+    value: "9",
+    suit: "clubs",
+    artist: "john-roeder-freeman",
+    deck: "future",
+    info:
+      "With the integration of technology and sciences, I’d like to imagine what it could be like for humans to survive in an aquatic ecosystem. Our advancements are at exponential rates of growth, especially in the past century. Through the ages, tales of merfolk have been prominent in a variety of cultures. Could this be foreshadowing? *Also look for the nine hidden clubs in the card!",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/john-roeder-freeman.jpg",
+  },
+  {
+    value: "2",
+    suit: "diamonds",
+    artist: "yulia-yakimovich",
+    deck: "future",
+    info:
+      "It seems as though humanity is building the future relying on high technologies and innovations, it is creating an environment where everything is made for the convenience and comfort of people. But what if our civilization goes through hardships and tribulations, humanity faces Its ultimate survival, and the culture slips into deep decay? It is hard to foresee what our world will look like in the future but, certainly, right now we are influencing the way it will look in a hundred years.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/yulia-yakimovich.jpg",
+  },
+  {
+    value: "5",
+    suit: "diamonds",
+    artist: "diana-stanciulescu",
+    deck: "future",
+    info:
+      "What if the future will be similar to what Gene Roddenberry imagined? A world of plenty, where material needs have been met for everybody, where humans spend their lives learning, exploring, creating. Improbable, but interesting to imagine! Ah, and there will be teleportation, of course.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/diana-stanciulescu.jpg",
+  },
+  {
+    value: "4",
+    suit: "clubs",
+    artist: "tuyet-duyet",
+    deck: "future",
+    info:
+      "A thing isn't beautiful because it lasts - humans are fucking odd. They think they are the owners of the Earth and try to exploit, destroy and control it, but everything has consequences. The world after 100 years, everything is turned to ashes, people will have to live in deep underground tunnels and cave systems recreated from caves in nature. The entire surface of the earth will become a desert filled with dust and sand, the air will become seriously polluted. Humans only exist in small forms and their bodies are almost impossible to see in the current environment, when they go outside they must wear masks to breathe in the air and underwater. People are looking for a cleaner environment and it is far from the mainland. It may be places that humans have not discovered and explored yet. The ocean is exactly where they are looking for, humans may have set foot on the Moon or Mars, or other solar systems. But on their own planet - the ocean is always a mysterious place that they haven't discovered yet.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/tuyet-duyet.jpg",
+  },
+  {
+    value: "2",
+    suit: "hearts",
+    artist: "vera-q",
+    deck: "future",
+    info:
+      "By that time our technologies would reach an incredibly high level at that point that you could share your imaginary world with everyone, with the people you love. You can create it and make it real. You could share your dreams. Imagine something really special and sincere, some place you always dreamed of. The smell, the feelings, surrounding - you are the creator and you are the owner. But now you can also invite people to go through that experience with you, together. Your world, your emotions, your reality.",
+    img: "https://s3.amazonaws.com/img.playingarts.com/future/cards/vera-q.jpg",
+  },
+  {
+    value: "queen",
+    suit: "diamonds",
+    artist: "hazel-ang",
+    deck: "future",
+    info:
+      "While making this card, Covid 19 continues to be a plague amongst us. We are all impacted in negative ways. Human contact has been severed and we now live in a world where “Social Distancing“ has become a norm  – Now in the back of our minds, the idea that physical contact with other humans brings about sickness has been implanted by our governments and the media. In the future, we will be needing robots to interact with us and assist us in our daily tasks. It is a thought that deeply disturbs and frightens me, and this is what my card is all about.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/hazel-ang.jpg",
+    reversible: true,
+  },
+  {
+    value: "10",
+    suit: "clubs",
+    artist: "corey-rivera",
+    deck: "future",
+    info:
+      "When I think of 100 years in the future I image cities advancing to what we see in stories and films of science fiction and fantasy. Every year our devices become more accessible, streamlined, and necessary for everyday life. Eventually it may become an extension of our own bodies or a replacement altogether.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/corey-rivera.jpg",
+  },
+  {
+    value: "5",
+    suit: "diamonds",
+    artist: "jan-janeczek",
+    deck: "future",
+    info:
+      "The future is something we don't know. We don't know what will happen to the world, and we don't even know what will happen to us. My work contains three things that, I think, associate with the future. Human - is a character without identity. We don't know who it is. Distorted, unrecognizable. It can't be caught even for a second. It is like a puzzle to us. With curiosity but also uncertainty, we observe and wait what will happen. Diamond - Shape taken from the card I drew. We see there, a part of the world which the character in the graphic comes from. It's colorful, full of different shapes and forms. It emerges in our direction. Digitization - Distortion of reality. That's why we don't know who the character is and what world he comes from. Is it real or virtual? By using various digital paiting techniques, I created a pixelation effect that absorbs the whole image and creating a mystery mood.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/jan-janeczek.jpg",
+  },
+  {
+    value: "2",
+    suit: "clubs",
+    artist: "fatih-ozturk",
+    deck: "future",
+    info:
+      "The inevitable happened. Planet's resources were finally exhausted by the humankind. Earth became hostile towards its expansive guest. Unable to adapt this sudden change in climate and settle with low to none resources people migrated to the underneath of the earth crust. Now humans crawl underground and try to build a 'new normal' in this cold environment.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/fatih-ozturk.jpg",
+    reversible: true,
+  },
+  {
+    value: "10",
+    suit: "spades",
+    artist: "itsacat",
+    deck: "future",
+    info:
+      "It is not easy to imagine what the world will look like in 100 years. One of the tools that allowed us to get where we are today was our brain, and it seems that we use only a small percentage of it. I think that in 100 years from now we will be able to use it even more and have the power to create amazing things with our minds. The world will evolve in many different ways, but I believe that there will be more and more people fighting for a better planet, like real heroes. We can already find many of these heroes today! I like to think that one day we will find the perfect balance.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/itsacat.jpg",
+  },
+  {
+    value: "7",
+    suit: "hearts",
+    artist: "tophee-coquia",
+    deck: "future",
+    info:
+      "The concept of 'Royalty' has always been an intriguing topic for me when watching it in movies. A royal family must provide a child as the heir to the throne in order to guarantee the survival of the monarchy. The death of one ruler is the rise of another. But what if we remove death out of the equation? By year 2120, we would have aquired the medical and technological capabilities in infusing mechanics to the human body. With this, we are able to lenghten our lifespan as long as the necessary materials and resources are available. Through this advancement, a ruling person would be able to continue their heir to the throne for as long as they want. Will they use it to prosper peace and love over to those they rule especially with the wisdom that they acquired throughout the years, or will greed and the thirst for power rule over their heart?",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/tophee-coquia.jpg",
+  },
+  {
+    value: "4",
+    suit: "hearts",
+    artist: "marco-alama",
+    deck: "future",
+    info:
+      "I can't really say anything about what there will be or won't be in the future, but I know for sure that Love will be a powerful source of inspiration. So, as today we believe that Santa Claus comes on a sleigh, in the future we will be gazing to the sky hoping to spot a colourful mini-van roaming among the clouds, spreading Love among us.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/marco-alama.jpg",
+  },
+  {
+    value: "4",
+    suit: "diamonds",
+    artist: "glish-glish",
+    deck: "future",
+    info:
+      "The idea behind this work is to represent how our world is going to change. Obviously, people are going to start fearing meeting in real life, afraid of catching any disease around them and present in the air. That means humanity is going to have to create a new way of communicating with each other life like. This is where I introduce the hologram. A hologram system could allow you to broadcast yourself anywhere and whenever you want in all security, from home. Our future might be lacking of human contact but it will obviously be more secure.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/glish-glish.jpg",
+  },
+  {
+    value: "2",
+    suit: "hearts",
+    artist: "mark-schwindt",
+    deck: "future",
+    info:
+      "I imagine that our future will bring change on a much fundamental level. In the last hundred years, a lot of great scientists have made groundbreaking discoveries that have radically improved our understanding of the universe. These include black holes, gravitational waves, quantum superposition, and dark matter. Such breakthroughs will continue to change our lives in ways we can't even comprehend. After all, there are endless windows of opportunity for every particle in the multiverse.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/mark-schwindt.jpg",
+    video:
+      "https://s3.amazonaws.com/img.playingarts.com/future/videos/mark-schwindt.mp4",
+  },
+  {
+    value: "5",
+    suit: "diamonds",
+    artist: "luq-luca-qiu",
+    deck: "future",
+    info:
+      "2120. After a series of epidemics that halved the population, remaining human beings have closed themselves off from world, fearing any form of physical contacts. How does this ancient species manage to survive? The solution came from technology, a robotic replacement body called QTY23! It allows humanity to do everything it did before, such as working, meeting friends or taking a walk. Fully customizable, QTY23 gives the illusion of being anything you want and also makes you feel free despite physical captivity.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/luq-luca-qiu.jpg",
+  },
+  {
+    value: "10",
+    suit: "hearts",
+    artist: "marina-okhromenko",
+    deck: "future",
+    info:
+      "The future is always represented better than the present. This is property of hope. If there is no future, what's the point of being alive? I also have no doubt that the future will be better - new technologies will appear, people will live longer and become happier. I hope. But I am also confident that the arrival of new technologies will provide a whole new level of opportunity to put digital dog collar on us. This is why my artwork is more as warning. We are already seeing likelihood that some groups of influence or governments will want to do this. Various problems and disasters will be used by them to try to further restrict our freedoms. I can already see this clearly from Russia. So we need to wipe our rose-colored glasses and try to see the intent behind Agent Smith's glasses. This is a amazing symbol of possible 'beautiful' future from legendary film The Matrix. It has been 20 years since the film was released, and we can see now how relevant warnings from of tandem Wachowski. So I want to wish you and our world in 100 years more technology, more choice, more options and most important more freedom!",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/marina-okhromenko.jpg",
+  },
+  {
+    value: "queen",
+    suit: "hearts",
+    artist: "yana-klochkova",
+    deck: "future",
+    info:
+      "Even when technology has finally taken over minds, when humanity has faced deadly epidemics and learned to overcome death, when there is not a single unexplored corner left in space, when there is nothing to fear and nothing to surprise, look around: people are still religious.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/yana-klochkova.jpg",
+  },
+  {
+    value: "7",
+    suit: "clubs",
+    artist: "massimo",
+    deck: "future",
+    info:
+      "In the early 2000s, bees were responsible for around 70% of the reproduction of all plant species living on the planet, guaranteeing around 35% of global food production. A selfish search for profit, intensive agriculture and pesticides have significantly reduced insects and led to a botanical impoverishment. It seemed just an urban legend, but we were forced to create drones to encourage the pollination of flowers and plants and therefore avoid their extinction.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/massimo.jpg",
+  },
+  {
+    value: "jack",
+    suit: "spades",
+    artist: "magdalena-sikora",
+    deck: "future",
+    info:
+      "Who is he in 2120? Is he a human or a hybrid or a projection? I think that in 100 years people will be close to achieving immortality one way or another. Maybe it will be through genetic modification, 3D bioprinting, AI enhancements or creating hybrids and mutants. Probably people will be able to design their custom ideal body. Maybe human consciousness will be able to control multiple avatars: holograms or clones, allowing them to function in different places at the same time. Or finally, people will overcome the limits of the physical body with a mind transfer, achieving digital immortality. Maybe our definition of „Human Being” will change. Will there be a place for flaws and imperfections? If we immortalize our mind or body, what will happen to the soul? I guess you will always find it in music.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/magdalena-sikora.jpg",
+  },
+  {
+    value: "queen",
+    suit: "clubs",
+    artist: "laus",
+    deck: "future",
+    info:
+      "Wondering about the future and talking with a friend about how everything is a cycle, made me think about the beginning of times and the creation, so thought on going back to the start to a Queen Eve look-alikes, covering with clubs instead of the leafs, (there's also a little hand reference from the painting of 'The Creation of Adam'). Wanted to show how these 2 Eves are creating the new future, but as everything in life it has the good and the bad, so it's kinda your choice how the future ends in 2120.",
+    img: "https://s3.amazonaws.com/img.playingarts.com/future/cards/laus.jpg",
+    reversible: true,
+  },
+  {
+    value: "king",
+    suit: "clubs",
+    artist: "artem-pavlov",
+    deck: "future",
+    info:
+      "2120 shows a world in which nature still remains harmonious. The bee is still the same bee with a matching her needs flower. She doesn’t care about feelings as much as she cares about the mechanics that she performed both in the 21st and earlier. Human has always wanted to gain supremacy over nature. Over time, he achieves this. But will he notice how he will create for himself a reality in which he ceases to feel? And who the hell will need it, if in a new reality you won’t be able to FEEL your superiority?",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/artem-pavlov.jpg",
+  },
+  {
+    value: "king",
+    suit: "clubs",
+    artist: "marwan-shahin",
+    deck: "future",
+    info:
+      "In the future, the human race will actualize unity and desegregation. They will understand the need for being kind to one another, reaching the point where governors, rulers and presidents are no longer needed. They will take down hierarchical figures with the realization that they can figure things out amongst themselves as eco systematic communities and that true power and wisdom lies within themselves.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/marwan-shahin.jpg",
+  },
+  {
+    value: "6",
+    suit: "diamonds",
+    artist: "burc-pulathaneli",
+    deck: "future",
+    info:
+      "It is very difficult to imagine future technology. Everything we know now may not be in the future. Some look pessimistic. Some look with hope. I think it will be a mixture of high technology and primitive. More precisely, I hope. People will return to nature again. Yes, robots will be in our lives and they will be part of us. They will take care of the fields. The human population will have to decrease. We will remember to be happy with simple things. We will remember that what is precious is nature and our family.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/burc-pulathaneli.jpg",
+  },
+  {
+    value: "ace",
+    suit: "clubs",
+    artist: "dejvid-knezevic",
+    deck: "future",
+    info:
+      "I have a nagging suspicion that if we ever manage to save the environment, it will be due to economic necessity rather than moral obligation. We will need the environment so the economy continues to prosper, the fact nature gives us life will fall secondary to 'growth'. It's like doing charity for the sake of publicity; you are doing a good thing, the right thing, but it's coming from the wrong place and lacks any genuineness. Somehow, to me, this feels more evil than open arrogance or carelessness. But maybe that's just me. The idea for this project grew from this thought.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/dejvid-knezevic.jpg",
+  },
+  {
+    value: "queen",
+    suit: "clubs",
+    artist: "cat-finnie",
+    deck: "future",
+    info:
+      "I wanted to retain the key features of Queen of Clubs, while keeping the theme of 'Future' in mind. My QoC is decked out with retro-futuristic headphones and wearable tech in the form of a visor. She has brand new sounds on her playlist and is tuned in to events all over the world via her visor.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/cat-finnie.jpg",
+    reversible: true,
+  },
+  {
+    value: "7",
+    suit: "hearts",
+    artist: "effe",
+    deck: "future",
+    info:
+      "The year is 2120. Movies about the future continue to tell us about flying cars and robots that will destroy the world, but no. Our evolution was way more subtle and far more intelligent than we could imagine. The dark ambiance in the cities and all the drones flying around are now in contrast with the immense green of plants. We are able to take a deep breath, we are free, fast and spontaneous. There is no more discrimination, we don’t judge the others by appearance, race or color. Those characteristics are no longer visible to us…",
+    img: "https://s3.amazonaws.com/img.playingarts.com/future/cards/effe.jpg",
+  },
+  {
+    value: "8",
+    suit: "diamonds",
+    artist: "paolo-stralla",
+    deck: "future",
+    info:
+      "In 100 years the climate change has already made humans extinct. The rising of the seas and the air pollution have created an incredibly difficult ecosystem to live in, and just a lonely apple tree has survived. Oh, and aliens have arrived on Earth! Though they are gonna be quite unhappy to see just a living three in this entire watery planet...",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/paolo-stralla.jpg",
+    video:
+      "https://s3.amazonaws.com/img.playingarts.com/future/videos/paolo-stralla.mp4",
+  },
+  {
+    value: "3",
+    suit: "diamonds",
+    artist: "edward-christianto",
+    deck: "future",
+    info:
+      "Future as described to having so much innovation and easiness for mankind, are always sided with bitter stories about the sacrificed parts, such as nature and wildlife. many times the technology ends up try to replicating how nature works instead of recover it. in other words, creating illusions. there will be a time when seeing a flock of flamingos swarming in the lake of sunset are just a mere virtual features in the click of our hands.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/edward-christianto.jpg",
+  },
+  {
+    value: "3",
+    suit: "diamonds",
+    artist: "staycute-illustration",
+    deck: "future",
+    info:
+      "In the future my biggest wish is that there will be more focus on mental health both individually and in our society. I myself suffer from chronic depression, which is one of the mental illnesses that is in the prospect of becoming a leading mental health problem in the future because of lack of treatment options. So in the future I hope that we can all take better care of ourselves, each other and have a larger focus on taking care of our brains to contain the growing numbers of people mental health issues.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/staycute-illustration.jpg",
+  },
+  {
+    value: "5",
+    suit: "spades",
+    artist: "kala-kuns",
+    deck: "future",
+    info:
+      "My mind imagines that in 2120 the humanity will go in search of a new habitable planet, since the Earth will have run out of resources to support the species. But this departure will leave space for plants and animals to evolve and adapt to a new planet Earth, very different from how we know it today, giving rise to new species.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/kala-kuns.jpg",
+  },
+  {
+    value: "3",
+    suit: "spades",
+    artist: "ciro-giobbe",
+    deck: "future",
+    info:
+      "The reconquest of nature. If man leaves, nature takes back what is his. The planet has been here before us and it will be good even without us, but sooner or later nature takes possession of what we have taken away from it, and that's how I imagine the world in 2120. My illustration represents a hand that goes to disperse with leaves that weave it.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/ciro-giobbe.jpg",
+  },
+  {
+    value: "6",
+    suit: "hearts",
+    artist: "ingrid-godinez",
+    deck: "future",
+    info:
+      "The concept that manages my illustration is based on an allusion to the movie of Atlantis the lost empire of Disney. When I was little my dad once told me that it follows that Central America can disappear due to a sinking allowing North America and South America to unite, however this will happen in a long time. Then the idea came and I asked myself, how about the same thing happens to us as Atlantis before the get sink? This is because my country is characterized for having been one of the areas where the Mayan culture existed, for which we have a great wealth in Mayan art, sculpture, painting and architecture. What struck me about the film is that the development of technology does not generate the loss of culture and what I want to reflect in my illustration, first is that my country can have a greater appreciation and respect for what characterizes us and that if best used technology can help us flourish.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/ingrid-godinez.jpg",
+  },
+  {
+    value: "4",
+    suit: "spades",
+    artist: "norma-rodricks",
+    deck: "future",
+    info:
+      "Growing up, I’ve always been fascinated by aliens, curious about space, and have major love for robots. A 100 years from now, I see aliens, humans and robots co-existing in a world that’s, well alien, to the world we inhabit now – and it’s going to be one big party! My card is a reflection of this vision – an electronic dance party the likes of which our current world is yet to experience.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/norma-rodricks.jpg",
+    reversible: true,
+  },
+  {
+    value: "6",
+    suit: "clubs",
+    artist: "yma-jae",
+    deck: "future",
+    info:
+      "My concept is Escaping Reality; with the boxes representing people that are brought up to be certain someone or something, cutting down ideas and such, follow rules, and in summary a toxic environment which what the black background represents. And maybe in the future, having a portal to escape those norms and be someone you want to be, which what the random shapes and colors represent. The clean background and random lines represent a fresh start and freedom.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/yma-jae.jpg",
+    reversible: true,
+  },
+  {
+    value: "9",
+    suit: "hearts",
+    artist: "jeremie-gauthier",
+    deck: "future",
+    info:
+      "I think that in the future, with the advance of technology and artificial intelligence, we will have an ultra-evolved medicine that will allow us to see the infinitely small and thus better understand every little mechanism that makes up our body.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/jeremie-gauthier.jpg",
+  },
+  {
+    value: "5",
+    suit: "spades",
+    artist: "jaen",
+    deck: "future",
+    info:
+      "Besides the necessary change I absolutely want for the world (environmental and social balance), I imagine that at some point, we'll be able to give AIs actual creative freedom, and that there will be some kind of strange virtual wilderness to explore, something that will be literally otherworldly. And to be able to dive in it and process this reality through our consciousness, a kind of sensory translator will have to guide us through these unexpected lands.",
+    img: "https://s3.amazonaws.com/img.playingarts.com/future/cards/jaen.jpg",
+  },
+  {
+    value: "6",
+    suit: "spades",
+    artist: "pablo-balzo",
+    deck: "future",
+    info:
+      "The story of my idea is a future in harmony with nature, where nature has recover his place in earth, humans use some technology based in steam, is some kind of steampunk future.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/pablo-balzo.jpg",
+  },
+  {
+    value: "joker",
+    suit: "red",
+    artist: "david-oku",
+    deck: "future",
+    info:
+      "Where will the world be in 100 years? There is only one conclusion a world of ROBOTICS & ALIEN LIFE. I imagine a world beyond space, a world where we and other life forms live together in a future ruled by artificial intelligence.",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/future/cards/david-oku.jpg",
+  },
 ];
 
 const dump = async () => {

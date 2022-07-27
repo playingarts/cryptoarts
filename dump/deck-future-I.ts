@@ -1,5 +1,5 @@
+import { Deck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
-import { createDeck } from "./_utils";
 
 export const slug = "future_i";
 
@@ -550,7 +550,8 @@ export const cards = [
 
 const dump = async () => {
   await connect();
-  await createDeck(slug, deck, cards);
+  await Deck.deleteMany({ slug });
+  // await createDeck(slug, deck, cards);
 };
 
 export default dump;

@@ -60,6 +60,7 @@ interface QueryCardsArgs {
   shuffle?: Maybe<Scalars['Boolean']>;
   limit?: Maybe<Scalars['Int']>;
   losers?: Maybe<Scalars['Boolean']>;
+  edition?: Maybe<Scalars['String']>;
 }
 
 
@@ -139,6 +140,14 @@ interface Deck {
   description?: Maybe<Scalars['String']>;
   backgroundImage?: Maybe<Scalars['String']>;
   product?: Maybe<Product>;
+  editions?: Maybe<Array<Edition>>;
+}
+
+interface Edition {
+  __typename?: 'Edition';
+  name: Scalars['String'];
+  url: Scalars['String'];
+  img?: Maybe<Scalars['String']>;
 }
 
 interface OpenseaCollection {
@@ -206,6 +215,7 @@ interface Card {
   price?: Maybe<Scalars['Float']>;
   erc1155?: Maybe<Erc1155>;
   reversible?: Maybe<Scalars['Boolean']>;
+  edition?: Maybe<Scalars['String']>;
 }
 
 interface Erc1155 {
@@ -491,6 +501,7 @@ export type ResolversTypes = {
   Int: ResolverTypeWrapper<Scalars['Int']>;
   Float: ResolverTypeWrapper<Scalars['Float']>;
   Deck: ResolverTypeWrapper<Deck>;
+  Edition: ResolverTypeWrapper<Edition>;
   OpenseaCollection: ResolverTypeWrapper<OpenseaCollection>;
   LoserArtist: ResolverTypeWrapper<LoserArtist>;
   Artist: ResolverTypeWrapper<Artist>;
@@ -523,6 +534,7 @@ export type ResolversParentTypes = {
   Int: Scalars['Int'];
   Float: Scalars['Float'];
   Deck: Deck;
+  Edition: Edition;
   OpenseaCollection: OpenseaCollection;
   LoserArtist: LoserArtist;
   Artist: Artist;
@@ -582,6 +594,14 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   backgroundImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType>;
+  editions?: Resolver<Maybe<Array<ResolversTypes['Edition']>>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type EditionResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Edition'] = ResolversParentTypes['Edition']> = {
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  url?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -649,6 +669,7 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
   erc1155?: Resolver<Maybe<ResolversTypes['ERC1155']>, ParentType, ContextType>;
   reversible?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+  edition?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -852,6 +873,7 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   JSON?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
+  Edition?: EditionResolvers<ContextType>;
   OpenseaCollection?: OpenseaCollectionResolvers<ContextType>;
   LoserArtist?: LoserArtistResolvers<ContextType>;
   Artist?: ArtistResolvers<ContextType>;

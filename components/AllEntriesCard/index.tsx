@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes, useState } from "react";
-import { CardSuits } from "../../source/enums";
+import { breakpoints, CardSuits } from "../../source/enums";
+import { useSize } from "../SizeProvider";
 import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -20,17 +21,14 @@ const AllEntriesCard: FC<Props> = ({
 }) => {
   const [hovered, setHover] = useState(false);
 
+  const { width } = useSize();
+
   return (
     <div
-      css={(theme) => [
+      css={[
         {
           display: "inline-block",
           position: "relative",
-          transition: theme.transitions.fast("top"),
-          top: 0,
-        },
-        hovered && {
-          top: theme.spacing(-1),
         },
       ]}
       onMouseEnter={() => setHover(true)}
@@ -57,6 +55,17 @@ const AllEntriesCard: FC<Props> = ({
             width: theme.spacing(7.5),
             position: "relative",
             zIndex: 1,
+            top: 0,
+            transition: theme.transitions.fast("top"),
+            // [theme.maxMQ.sm]: {
+            //   height: theme.spacing(7.5),
+            //   width: theme.spacing(),
+            // },
+            [theme.mq.sm]: [
+              hovered && {
+                top: theme.spacing(-1),
+              },
+            ],
           },
           viewed && {
             background: theme.colors.page_bg_light,
@@ -67,7 +76,7 @@ const AllEntriesCard: FC<Props> = ({
         {cardValue !== "joker" && (
           <Text
             component="div"
-            variant="h4"
+            variant={width >= breakpoints.sm ? "h4" : "h3"}
             css={{ textTransform: "uppercase" }}
           >
             {Number(cardValue) || cardValue[0]}
@@ -88,7 +97,7 @@ const AllEntriesCard: FC<Props> = ({
               "max-height",
               "margin-top",
             ]),
-            marginTop: 12,
+            pointerEvents: "none",
             opacity: 0,
             fontSize: theme.spacing(1.5),
             position: "absolute",
@@ -98,10 +107,13 @@ const AllEntriesCard: FC<Props> = ({
             left: "50%",
             transform: "translateX(-50%)",
             whiteSpace: "nowrap",
-            "div:hover + &": {
-              opacity: 0.5,
-              maxHeight: theme.spacing(10),
-            },
+            [theme.mq.sm]: [
+              hovered && {
+                marginTop: theme.spacing(0.3),
+                opacity: 0.5,
+                maxHeight: theme.spacing(10),
+              },
+            ],
           })}
         >
           {viewed ? "Viewed" : note}

@@ -78,12 +78,12 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           {
             position: "sticky",
             [theme.maxMQ.sm]: {
-              position: "relative",
+              // position: "relative",
               top: "85vh",
             },
             top: "100vh",
             zIndex: 1,
-            color: theme.colors.text_subtitle_light,
+            // color: theme.colors.text_subtitle_light,
           },
         ]}
       >

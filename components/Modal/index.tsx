@@ -2,17 +2,17 @@ import { colord } from "colord";
 import { useRouter } from "next/router";
 import { FC, useEffect } from "react";
 import { useViewed } from "../../contexts/viewedContext";
-import { useLoadLosers } from "../../hooks/loser";
 import { useLoadCards } from "../../hooks/card";
 import { useDeck } from "../../hooks/deck";
+import { useLoadLosers } from "../../hooks/loser";
 import { CardSuits, Sections } from "../../source/enums";
 import BlockTitle from "../BlockTitle";
+import Button from "../Button";
+import CardList from "../Card/List";
 import CardNav from "../Card/Nav";
+import Close from "../Icons/Close";
 import Layout from "../Layout";
 import Link from "../Link";
-import Button from "../Button";
-import Close from "../Icons/Close";
-import CardList from "../Card/List";
 
 type CardSuitsType = CardSuits.s | CardSuits.c | CardSuits.h | CardSuits.d;
 
@@ -161,6 +161,7 @@ const Modal: FC = () => {
               borderRadius: theme.spacing(1.5),
               position: "relative",
             })}
+            notTruncatable={true}
           >
             <CardNav
               css={(theme) => ({
@@ -219,8 +220,14 @@ const Modal: FC = () => {
               <div
                 css={(theme) => ({
                   position: "sticky",
-                  paddingBottom: theme.spacing(6),
                   top: 0,
+                  zIndex: 1,
+                  [theme.mq.sm]: {
+                    paddingBottom: theme.spacing(6),
+                  },
+                  [theme.maxMQ.sm]: {
+                    top: theme.spacing(1.5),
+                  },
                 })}
               >
                 <Button
@@ -232,6 +239,8 @@ const Modal: FC = () => {
                     pathname,
                     query: {
                       deckId,
+                      scrollIntoView: "[data-id='block-contest']",
+                      scrollIntoViewPosition: "start",
                       ...query,
                     },
                   }}
@@ -242,6 +251,9 @@ const Modal: FC = () => {
                       .toRgbString(),
                     right: theme.spacing(0),
                     top: theme.spacing(1),
+                    [theme.maxMQ.sm]: {
+                      top: theme.spacing(-1),
+                    },
                   })}
                 />
               </div>
@@ -276,8 +288,12 @@ const Modal: FC = () => {
               >
                 <CardList
                   css={(theme) => ({
-                    paddingLeft: theme.spacing(12),
-                    paddingRight: theme.spacing(12),
+                    paddingLeft: theme.spacing(6),
+                    paddingRight: theme.spacing(6),
+                    [theme.mq.sm]: {
+                      paddingLeft: theme.spacing(12),
+                      paddingRight: theme.spacing(12),
+                    },
                   })}
                   cards={(cards as GQL.Card[])
                     .filter(

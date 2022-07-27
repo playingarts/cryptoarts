@@ -1,8 +1,8 @@
 import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 
 export const CardsQuery = gql`
-  query Cards($deck: ID, $losers: Boolean) {
-    cards(deck: $deck, losers: $losers) {
+  query Cards($deck: ID, $losers: Boolean, $edition: String) {
+    cards(deck: $deck, losers: $losers, edition: $edition) {
       _id
       img
       video
@@ -10,6 +10,7 @@ export const CardsQuery = gql`
       background
       value
       suit
+      edition
       erc1155 {
         contractAddress
         token_id
@@ -49,16 +50,6 @@ export const CardsQuery = gql`
   }
 `;
 
-export const RandomCardsQuery = gql`
-  query RandomCards($deck: ID, $limit: Int) {
-    cards(deck: $deck, limit: $limit, shuffle: true) {
-      _id
-      img
-      video
-    }
-  }
-`;
-
 export const CardQuery = gql`
   query Card($id: ID!) {
     card(id: $id) {
@@ -66,10 +57,21 @@ export const CardQuery = gql`
       price
       value
       suit
+      edition
       erc1155 {
         token_id
         contractAddress
       }
+    }
+  }
+`;
+
+export const RandomCardsQuery = gql`
+  query RandomCards($deck: ID, $limit: Int) {
+    cards(deck: $deck, limit: $limit, shuffle: true) {
+      _id
+      img
+      video
     }
   }
 `;

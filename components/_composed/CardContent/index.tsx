@@ -59,6 +59,8 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     ? allCards.filter(
         ({ suit, value }) => value === card.value && suit === card.suit
       )
+    : card.edition && deck.editions
+    ? winners.filter(({ edition }) => edition === card.edition)
     : winners;
 
   const currentCardIndex = card

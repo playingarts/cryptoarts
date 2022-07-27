@@ -24,8 +24,13 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
     query: { artistId },
   } = useRouter();
 
+  const [edition, setEdition] = useState(0);
+
   const { cards: queryCards, loading } = useCards({
-    variables: { deck: deck._id },
+    variables: {
+      deck: deck._id,
+      ...(deck.editions && { edition: deck.editions[edition].name }),
+    },
   });
 
   const cards =
@@ -199,9 +204,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
       title={
         artistId
           ? deck.title
-          : ((deck.slug === "special" ||
-              deck.slug === "future_i" ||
-              deck.slug === "future_ii") &&
+          : ((deck.slug === "special" || deck.slug === "future") &&
               "Winners") ||
             "Cards"
       }
@@ -219,6 +222,64 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         },
       ]}
     >
+      {deck.editions && (
+        <div
+          css={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+        >
+          <div
+            css={{
+              position: "sticky",
+              zIndex: 1,
+              top: "calc(100% - 100px)",
+              marginTop: "500px",
+              height: 46,
+              marginBottom: "50px",
+              alignSelf: "flex-start",
+            }}
+          >
+            <div
+              css={(theme) => ({
+                margin: "0 auto",
+                width: "fit-content",
+                borderRadius: theme.spacing(5),
+                backgroundColor: "black",
+                position: "relative",
+                border: "2px solid black",
+              })}
+            >
+              <Button
+                color="black"
+                onClick={() => setEdition(0)}
+                css={(theme) => [
+                  edition === 0 && {
+                    background: theme.colors.gradient,
+                    color: "black",
+                  },
+                ]}
+              >
+                {deck.editions[0].name}
+              </Button>
+              <Button
+                color="black"
+                onClick={() => setEdition(1)}
+                css={(theme) => [
+                  edition === 1 && {
+                    background: theme.colors.gradient,
+                    color: "black",
+                  },
+                  {
+                    // borderRadius: `0 ${theme.spacing(5)}px ${theme.spacing(
+                    //   5
+                    // )}px 0`,
+                  },
+                ]}
+              >
+                {deck.editions[1].name}
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
       <Grid {...props}>
         <CardList
           status={status}

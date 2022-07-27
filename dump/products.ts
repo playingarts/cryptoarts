@@ -79,7 +79,7 @@ export let products: MongoProduct[] = [
   {
     _id: generateMongoId("42012346384571"),
     title: "Future Edition I",
-    deck: "future_i",
+    deck: "future",
     short: "Future",
     price: 14.95,
     status: "instock",
@@ -94,7 +94,7 @@ export let products: MongoProduct[] = [
     _id: generateMongoId("42012347072699"),
     title: "Future Edition II",
     short: "Future II",
-    deck: "future_ii",
+    deck: "future",
     price: 14.95,
     status: "instock",
     type: "deck",
@@ -219,7 +219,7 @@ export let products: MongoProduct[] = [
   {
     _id: generateMongoId("39371993874480"),
     title: "Future Edition I",
-    deck: "future_i",
+    deck: "future",
     short: "Future",
     price: 34.95,
     status: "soldout",
@@ -233,7 +233,7 @@ export let products: MongoProduct[] = [
   {
     title: "Future Edition II",
     _id: generateMongoId("39371995807792"),
-    deck: "future_ii",
+    deck: "future",
     short: "Future II",
     type: "sheet",
     price: 34.95,

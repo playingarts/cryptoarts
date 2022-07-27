@@ -1,18 +1,30 @@
-import { forwardRef, ForwardRefRenderFunction } from "react";
-import { useCards } from "../../../hooks/card";
+import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
+import { useLoadCards } from "../../../hooks/card";
 import { useLosersValues } from "../../../hooks/loser";
 import AllEntriesBlock from "../../AllEntriesBlock";
 import BlockTitle from "../../BlockTitle";
-import Grid from "../../Grid";
 import Layout, { Props as LayoutProps } from "../../Layout";
 
 const ComposedEntries: ForwardRefRenderFunction<
   HTMLElement,
-  { deck: GQL.Deck } & LayoutProps
-> = ({ deck, ...props }, ref) => {
-  const { cards: winners, loading: winnersLoading } = useCards({
-    variables: { deck: deck._id },
-  });
+  { deck: GQL.Deck; contest?: boolean } & LayoutProps
+> = ({ deck, contest, ...props }, ref) => {
+  const { cards: winners, loading: winnersLoading, loadCards } = useLoadCards();
+
+  useEffect(() => {
+    if (!deck.editions) {
+      loadCards({
+        variables: { deck: deck._id },
+      });
+      return;
+    }
+
+    deck.editions.map((edition) => {
+      loadCards({
+        variables: { deck: deck._id, edition: edition.name },
+      });
+    });
+  }, [deck]);
 
   const { losers, loading } = useLosersValues({
     variables: { deck: deck._id },
@@ -33,33 +45,40 @@ const ComposedEntries: ForwardRefRenderFunction<
 
   return (
     <Layout
-      css={(theme) => ({
-        background: theme.colors.page_bg_gray,
-        paddingTop: theme.spacing(15),
-        paddingBottom: theme.spacing(8.5),
-      })}
+      css={(theme) => [
+        contest && { borderRadius: 0 + "!important" },
+        {
+          [theme.mq.sm]: {
+            background: theme.colors.page_bg_gray,
+            paddingTop: theme.spacing(15),
+            paddingBottom: theme.spacing(8.5),
+          },
+        },
+      ]}
       ref={ref}
       data-id="block-contest"
       {...props}
+      notTruncatable={contest}
     >
-      <Grid>
-        <BlockTitle
-          title={"All Entries"}
-          subTitleText={`All ${
-            allCards.filter((card) => card.value !== "backside").length
-          } entries submitted for the contest`}
+      <BlockTitle
+        title={"All Entries"}
+        subTitleText={`All ${
+          allCards.filter((card) => card.value !== "backside").length
+        } entries submitted for the contest`}
+      >
+        <AllEntriesBlock
           css={(theme) => ({
-            gridColumn: "2 / span 10",
-            marginBottom: theme.spacing(4),
+            maxWidth: theme.spacing(105),
+            margin: "auto",
+            paddingTop: theme.spacing(4),
+            [theme.maxMQ.sm]: {
+              paddingBottom: theme.spacing(2.5),
+            },
           })}
+          cards={allCards.filter((card) => card.value !== "backside")}
+          deckId={deck.slug}
         />
-      </Grid>
-
-      <AllEntriesBlock
-        css={(theme) => ({ maxWidth: theme.spacing(105), margin: "auto" })}
-        cards={allCards.filter((card) => card.value !== "backside")}
-        deckId={deck.slug}
-      />
+      </BlockTitle>
     </Layout>
   );
 };
