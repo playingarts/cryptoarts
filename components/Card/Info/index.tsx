@@ -1,14 +1,14 @@
 import { FC, Fragment, HTMLAttributes, useEffect } from "react";
+import { useLoadCard } from "../../../hooks/card";
+import Arrowed from "../../Arrowed";
 import Button from "../../Button";
-import Text from "../../Text";
+import Bag from "../../Icons/Bag";
 import Eth from "../../Icons/Eth";
 import Opensea from "../../Icons/Opensea";
 import Line from "../../Line";
-import Bag from "../../Icons/Bag";
 import Link from "../../Link";
-import { useLoadCard } from "../../../hooks/card";
 import Loader from "../../Loader";
-import Arrowed from "../../Arrowed";
+import Text from "../../Text";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   artist: GQL.Artist;
@@ -40,7 +40,17 @@ const CardInfo: FC<Props> = ({ contest, artist, cardId, deck, ...props }) => {
       >
         {artist.country}
       </Text>
-      <Line size={1} spacing={3} />
+      <Line
+        spacing={3}
+        css={(theme) => [
+          {
+            [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(1.5),
+              marginBottom: theme.spacing(1.5),
+            },
+          },
+        ]}
+      />
       {contest ? (
         <div css={(theme) => ({ color: theme.colors.text_subtitle_light })}>
           <Text variant="body2">

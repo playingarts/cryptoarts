@@ -1,14 +1,15 @@
-import { Fragment, useEffect } from "react";
-import { ThemeProvider, Theme } from "@emotion/react";
-import Head from "next/head";
-import { AppProps } from "next/app";
-import "modern-normalize/modern-normalize.css";
+import { Theme, ThemeProvider } from "@emotion/react";
 import { CSSInterpolation } from "@emotion/serialize";
-import smoothscroll from "smoothscroll-polyfill";
 import { MetaMaskProvider } from "metamask-react";
+import "modern-normalize/modern-normalize.css";
+import { AppProps } from "next/app";
+import Head from "next/head";
+import { Fragment, useEffect } from "react";
+import smoothscroll from "smoothscroll-polyfill";
+import SizeProvider from "../components/SizeProvider";
 import { SignatureProvider } from "../contexts/SignatureContext";
-import { breakpoints } from "../source/enums";
 import { ViewedProvider } from "../contexts/viewedContext";
+import { breakpoints } from "../source/enums";
 
 declare module "@emotion/react" {
   export interface Theme {
@@ -18,6 +19,7 @@ declare module "@emotion/react" {
       slow: (property: string | string[]) => string;
     };
     colors: {
+      svggray: "#C4C4C4";
       charcoal_gray: "#404040";
       lavender_blue: "#8582F9";
       light_cyan: "#A6FCF7";
@@ -46,6 +48,7 @@ declare module "@emotion/react" {
       red: "#C4161C";
       lavender: "#8582F9";
       black: "#000000";
+      brightGray: "#EFEFEF";
     };
     mq: breakpointsObjectType;
     maxMQ: breakpointsObjectType;
@@ -61,6 +64,7 @@ declare module "@emotion/react" {
       body: CSSInterpolation;
       body2: CSSInterpolation;
       body3: CSSInterpolation;
+      body4: CSSInterpolation;
       label: CSSInterpolation;
     };
     spacing: (size: number) => number;
@@ -133,35 +137,53 @@ export const theme: Theme = {
     red: "#C4161C",
     lavender: "#8582F9",
     black: "#000000",
+    brightGray: "#EFEFEF",
+    svggray: "#C4C4C4",
   },
   typography: {
     h1: {
-      fontSize: 100,
-      fontWeight: 400,
-      letterSpacing: "-0.05em",
-      lineHeight: 105 / 100,
-      fontFamily: "Aldrich, sans-serif",
-    },
-    h2: {
       fontSize: 60,
       fontWeight: 400,
       letterSpacing: "-0.05em",
-      lineHeight: 65 / 60,
+      lineHeight: 1.1,
       fontFamily: "Aldrich, sans-serif",
+      [mq.sm]: {
+        fontSize: 100,
+        lineHeight: 105 / 100,
+      },
+    },
+    h2: {
+      fontSize: 40,
+      lineHeight: 1.2,
+      fontWeight: 400,
+      letterSpacing: "-0.05em",
+      fontFamily: "Aldrich, sans-serif",
+      [mq.sm]: {
+        fontSize: 60,
+        lineHeight: 65 / 60,
+      },
     },
     h3: {
-      fontSize: 45,
+      fontSize: 30,
+      lineHeight: 1,
       fontWeight: 400,
       letterSpacing: "-0.05em",
-      lineHeight: 50 / 45,
       fontFamily: "Aldrich, sans-serif",
+      [mq.sm]: {
+        fontSize: 45,
+        lineHeight: 50 / 45,
+      },
     },
     h4: {
-      fontSize: 35,
+      fontSize: 20,
+      lineHeight: 1,
       fontWeight: 400,
       letterSpacing: "-0.05em",
-      lineHeight: 40 / 35,
       fontFamily: "Aldrich, sans-serif",
+      [mq.sm]: {
+        fontSize: 35,
+        lineHeight: 40 / 35,
+      },
     },
     h5: {
       fontSize: 25,
@@ -172,41 +194,74 @@ export const theme: Theme = {
       textTransform: "uppercase",
     },
     h6: {
-      fontSize: 18,
       fontWeight: 400,
       letterSpacing: "-0.05em",
-      lineHeight: 30 / 18,
+      fontSize: 16,
+      lineHeight: 30 / 16,
       fontFamily: "Aldrich, sans-serif",
       textTransform: "uppercase",
+      [mq.sm]: {
+        fontSize: 18,
+        lineHeight: 30 / 18,
+      },
     },
     h7: {
-      fontSize: 15,
+      fontSize: 13,
+      lineHeight: 30 / 13,
       fontWeight: 400,
       letterSpacing: "-0.05em",
-      lineHeight: 30 / 15,
       fontFamily: "Aldrich, sans-serif",
       textTransform: "uppercase",
+      [mq.sm]: {
+        fontSize: 15,
+        lineHeight: 30 / 15,
+      },
     },
     body0: {
-      fontSize: 14,
-      lineHeight: 18 / 14,
+      fontSize: 12,
+      lineHeight: 1.5,
+      [mq.sm]: {
+        fontSize: 14,
+        lineHeight: 18 / 14,
+      },
     },
     body: {
       fontSize: 18,
       lineHeight: 27 / 18,
     },
     body2: {
-      fontSize: 22,
-      lineHeight: 33 / 22,
+      fontSize: 16,
+      lineHeight: 24 / 16,
+      [mq.sm]: {
+        fontSize: 22,
+        lineHeight: 33 / 22,
+      },
     },
     body3: {
-      fontSize: 30,
-      lineHeight: 45 / 30,
+      fontSize: 20,
+      lineHeight: 30 / 20,
+      [mq.sm]: {
+        fontSize: 30,
+        lineHeight: 45 / 30,
+      },
     },
+    body4: {
+      fontSize: 20,
+      lineHeight: 1.5,
+      [mq.sm]: {
+        fontSize: 22,
+        lineHeight: 33 / 22,
+      },
+    },
+
     label: {
-      fontSize: 18,
-      lineHeight: 21 / 18,
+      fontSize: 16,
+      lineHeight: 19 / 16,
       fontWeight: 500,
+      [mq.sm]: {
+        fontSize: 18,
+        lineHeight: 21 / 18,
+      },
     },
   },
   mq,
@@ -235,7 +290,9 @@ const App = ({ Component, pageProps }: AppProps) => {
         <SignatureProvider>
           <ThemeProvider theme={theme}>
             <ViewedProvider>
-              <Component {...pageProps} />
+              <SizeProvider>
+                <Component {...pageProps} />
+              </SizeProvider>
             </ViewedProvider>
           </ThemeProvider>
         </SignatureProvider>

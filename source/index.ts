@@ -4,7 +4,7 @@ import redirector from "redirect-https";
 import { expressLogger } from "./logger";
 import { connect } from "./mongoose";
 import routes from "./routes";
-import isMobile from "is-mobile";
+// import isMobile from "is-mobile";
 
 const { PORT = "3000" } = process.env;
 const app = next({ dev: process.env.NODE_ENV === "development" });
@@ -26,13 +26,13 @@ app
       res.redirect(301, req.url.replace(/^\/en/, ""))
     );
 
-    server.use("*", (req, res, next) => {
-      if (!req.originalUrl.startsWith("/api/") && isMobile({ ua: req })) {
-        return res.redirect("https://www.playingarts.com/en" + req.originalUrl);
-      }
+    // server.use("*", (req, res, next) => {
+    //   if (!req.originalUrl.startsWith("/api/") && isMobile({ ua: req })) {
+    //     return res.redirect("https://www.playingarts.com/en" + req.originalUrl);
+    //   }
 
-      next();
-    });
+    //   next();
+    // });
 
     server.use(handler);
     server.listen(PORT);

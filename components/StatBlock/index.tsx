@@ -16,7 +16,13 @@ const StatBlock: FC<Props> = ({ action, title, children, ...props }) => (
       display: "flex",
       flexDirection: "column",
       borderRadius: theme.spacing(2),
-      padding: theme.spacing(4),
+
+      [theme.maxMQ.sm]: {
+        padding: theme.spacing(2.5),
+      },
+      [theme.mq.sm]: {
+        padding: theme.spacing(4),
+      },
     })}
   >
     {title && (
@@ -40,6 +46,9 @@ const StatBlock: FC<Props> = ({ action, title, children, ...props }) => (
       <div
         css={(theme) => ({
           marginTop: theme.spacing(2.5),
+          [theme.maxMQ.sm]: {
+            marginTop: theme.spacing(2),
+          },
         })}
       >
         {isValidElement(action) ? (

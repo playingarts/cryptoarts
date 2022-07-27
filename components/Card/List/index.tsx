@@ -34,6 +34,9 @@ const CardList: FC<Props> = ({
       rowGap: theme.spacing(6),
       flexWrap: "wrap",
       justifyContent: "center",
+      [theme.maxMQ.sm]: {
+        rowGap: theme.spacing(3),
+      },
     })}
   >
     {cards.map((card) => (
@@ -45,11 +48,13 @@ const CardList: FC<Props> = ({
               status === "connected" && metamaskProps
                 ? theme.colors.text_subtitle_light
                 : theme.colors.text_subtitle_dark,
-            ":hover": {
-              color:
-                status === "connected" && metamaskProps
-                  ? theme.colors.text_title_light
-                  : theme.colors.text_title_dark,
+            [theme.mq.sm]: {
+              ":hover": {
+                color:
+                  status === "connected" && metamaskProps
+                    ? theme.colors.text_title_light
+                    : theme.colors.text_title_dark,
+              },
             },
           })}
           card={card}

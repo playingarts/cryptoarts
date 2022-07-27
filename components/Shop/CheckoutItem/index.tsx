@@ -1,5 +1,8 @@
 import { FC, HTMLAttributes, MouseEventHandler } from "react";
+import { breakpoints } from "../../../source/enums";
+import Cross from "../../Icons/Cross";
 import Select, { Props as SelectProps } from "../../Select";
+import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -41,8 +44,23 @@ const ShopCheckoutItem: FC<Props> = ({
     {}
   );
 
+  const { width } = useSize();
+
   return (
-    <div {...props} css={{ display: "flex", alignItems: "center" }}>
+    <div
+      {...props}
+      css={(theme) => [
+        {
+          display: "flex",
+          width: "100%",
+          alignItems: "center",
+          [theme.maxMQ.sm]: {
+            flexWrap: "wrap",
+            display: "inline-flex",
+          },
+        },
+      ]}
+    >
       {!withoutPic && (
         <div
           css={(theme) => ({
@@ -50,41 +68,101 @@ const ShopCheckoutItem: FC<Props> = ({
             backgroundSize: "contain",
             backgroundPosition: "50% 50%",
             backgroundRepeat: "no-repeat",
-            marginRight: theme.spacing(3),
+            [theme.mq.sm]: {
+              marginRight: theme.spacing(3),
+              height: theme.spacing(15),
+            },
+            [theme.maxMQ.sm]: {
+              order: 0,
+              flexBasis: "63%",
+              flexGrow: 1,
+              // aspectRatio: "1.9",
+              // height: "calc(100%)",
+              // width: "100%",
+              // position: "relative",
+              height: theme.spacing(18),
+              marginBottom: theme.spacing(1),
+              backgroundSize: "contain",
+            },
             flexShrink: 0,
             ...(image && {
               backgroundImage: `url(${image})`,
-              height: theme.spacing(15),
             }),
           })}
         />
       )}
-      <div
+      {/* <div
         css={{
           display: "flex",
           alignItems: "baseline",
           flexGrow: 1,
         }}
+      > */}
+      <div
+        css={(theme) => [
+          {
+            flexGrow: 1,
+            // minWidth: "max-content",
+            [theme.maxMQ.sm]: {
+              order: 3,
+              flexBasis: "50%",
+              marginBottom: theme.spacing(1),
+            },
+          },
+        ]}
       >
-        <div css={{ flexGrow: 1 }}>
-          <Text css={{ margin: 0 }} variant={titleVariant}>
-            {title}
-          </Text>
-
-          <div css={(theme) => ({ marginTop: theme.spacing(0.5) })}>
-            {typeof info === "string" ? (
-              <Text css={{ margin: 0, opacity: 0.5 }}>{info}</Text>
-            ) : (
-              info
-            )}
-          </div>
-        </div>
+        <Text
+          css={[{ margin: 0 }]}
+          {...(width >= breakpoints.sm
+            ? { variant: titleVariant }
+            : {
+                component: "h3",
+              })}
+        >
+          {title}
+        </Text>
         <div
           css={(theme) => ({
-            marginLeft: theme.spacing(3),
-            ...(quantity === undefined && { visibility: "hidden" }),
+            marginTop: theme.spacing(0.5),
           })}
         >
+          {typeof info === "string" ? (
+            <Text
+              variant="label"
+              css={{ fontWeight: 400, margin: 0, opacity: 0.5 }}
+            >
+              {info}
+            </Text>
+          ) : (
+            info
+          )}
+        </div>
+      </div>
+      {quantity !== undefined && (
+        <div
+          css={(theme) => ({
+            [theme.maxMQ.sm]: {
+              order: 4,
+            },
+            marginLeft: theme.spacing(3),
+            // ...{ visibility: "hidden" },
+          })}
+        >
+          {remove && width < breakpoints.sm && (
+            <Text
+              component="button"
+              css={(theme) => [
+                {
+                  opacity: 0.2,
+                  marginTop: 7,
+                  color: theme.colors.black + "!important",
+                },
+              ]}
+              onClick={remove}
+            >
+              <Cross />
+            </Text>
+          )}
           <Select
             value={quantity}
             onChange={changeQuantity}
@@ -92,11 +170,19 @@ const ShopCheckoutItem: FC<Props> = ({
             align="right"
           />
         </div>
+      )}
+      {(price || remove) && (
         <div
           css={(theme) => ({
-            width: theme.spacing(18),
-            marginLeft: theme.spacing(3),
+            [theme.mq.sm]: {
+              width: theme.spacing(18),
+              marginLeft: theme.spacing(3),
+            },
             flexShrink: 0,
+            [theme.maxMQ.sm]: {
+              order: 1,
+              // flexBasis: "37%",
+            },
           })}
         >
           {price && (
@@ -107,10 +193,15 @@ const ShopCheckoutItem: FC<Props> = ({
               })}
             </Text>
           )}
-          {remove && (
+          {remove && width >= breakpoints.sm && (
             <Text
               component="button"
-              css={{ opacity: 0.5, marginTop: 7 }}
+              css={[
+                {
+                  opacity: 0.5,
+                  marginTop: 7,
+                },
+              ]}
               onClick={remove}
             >
               Remove
@@ -124,8 +215,9 @@ const ShopCheckoutItem: FC<Props> = ({
             )}
           </div>
         </div>
-      </div>
+      )}
     </div>
+    // </div>
   );
 };
 

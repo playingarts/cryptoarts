@@ -6,10 +6,12 @@ import {
   MouseEventHandler,
   useState,
 } from "react";
+import { breakpoints } from "../../source/enums";
+import { useSize } from "../SizeProvider";
 import Text from "../Text";
+import ColumnChart, { Props as ColumnChartProps } from "./ColumnChart";
 import LineChart, { Props as LineChartProps } from "./LineChart";
 import PieChart from "./PieChart";
-import ColumnChart, { Props as ColumnChartProps } from "./ColumnChart";
 
 const charts = {
   pie: PieChart,
@@ -62,6 +64,8 @@ const Charts: FC<Props> = ({
     data?: ChartProps["dataPoints"][0];
   }>({ x: 0, y: 0 });
 
+  const { width } = useSize();
+
   if (!withTooltip) {
     return <Component {...props} />;
   }
@@ -82,31 +86,33 @@ const Charts: FC<Props> = ({
           onHideTooltip: hideTooltip,
         }}
       />
-      <div css={{ position: "fixed", top: 0, left: 0 }}>
-        <Text
-          variant="h6"
-          component="div"
-          css={(theme) => ({
-            position: "absolute",
-            background: theme.colors.text_title_light,
-            borderRadius: theme.spacing(0.5),
-            paddingLeft: theme.spacing(1),
-            paddingRight: theme.spacing(1),
-            marginTop: theme.spacing(1),
-            marginLeft: theme.spacing(1),
-            transition: theme.transitions.fast("opacity"),
-            color: theme.colors.text_subtitle_dark,
-            whiteSpace: "nowrap",
-          })}
-          style={{
-            top: y,
-            left: x,
-            ...(data ? { opacity: 1 } : { opacity: 0 }),
-          }}
-        >
-          {data && <TooltipFormatter {...data} />}
-        </Text>
-      </div>
+      {width >= breakpoints.sm && (
+        <div css={{ position: "fixed", top: 0, left: 0 }}>
+          <Text
+            variant="h6"
+            component="div"
+            css={(theme) => ({
+              position: "absolute",
+              background: theme.colors.text_title_light,
+              borderRadius: theme.spacing(0.5),
+              paddingLeft: theme.spacing(1),
+              paddingRight: theme.spacing(1),
+              marginTop: theme.spacing(1),
+              marginLeft: theme.spacing(1),
+              transition: theme.transitions.fast("opacity"),
+              color: theme.colors.text_subtitle_dark,
+              whiteSpace: "nowrap",
+            })}
+            style={{
+              top: y,
+              left: x,
+              ...(data ? { opacity: 1 } : { opacity: 0 }),
+            }}
+          >
+            {data && <TooltipFormatter {...data} />}
+          </Text>
+        </div>
+      )}
     </Fragment>
   );
 };

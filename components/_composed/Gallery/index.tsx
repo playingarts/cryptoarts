@@ -2,7 +2,7 @@ import { FC, Fragment, useState } from "react";
 import Arrowed from "../../Arrowed";
 import BlockTitle from "../../BlockTitle";
 import Button from "../../Button";
-import Carousel, { Props as CarouselProps } from "../../Carousel";
+import { Props as CarouselProps } from "../../Carousel";
 import Grid, { Props as GridProps } from "../../Grid";
 import Chevron from "../../Icons/Chevron";
 import Link from "../../Link";
@@ -76,12 +76,13 @@ const ComposedGallery: FC<GridProps> = (props) => {
           gridColumn: "2 / span 10",
         }}
       />
-      <Carousel
+      {/* <Carousel
+        width={width}
         css={(theme) => ({ gridColumn: "1 / -1", marginTop: theme.spacing(4) })}
         items={items}
         index={index}
         onIndexChange={changeIndex}
-      />
+      /> */}
     </Grid>
   );
 };

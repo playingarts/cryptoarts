@@ -1,14 +1,16 @@
-import { FC, Fragment, HTMLAttributes, useLayoutEffect, useState } from "react";
 import throttle from "just-throttle";
-import LogoIcon from "../Icons/Logo";
-import MenuIcon from "../Icons/Menu";
-import Nav from "../Nav";
-import Text from "../Text";
+import { FC, Fragment, HTMLAttributes, useLayoutEffect, useState } from "react";
+import { useDeck } from "../../hooks/deck";
+import { breakpoints } from "../../source/enums";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
+import LogoIcon from "../Icons/Logo";
+import MenuIcon from "../Icons/Menu";
 import Link from "../Link";
-import { useDeck } from "../../hooks/deck";
 import MetamaskButton from "../MetamaskButton";
+import Nav from "../Nav";
+import { useSize } from "../SizeProvider";
+import Text from "../Text";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "gradient";
@@ -79,6 +81,8 @@ const Header: FC<Props> = ({
     }
   }, [showAltNav]);
 
+  const { width } = useSize();
+
   return (
     <header {...props}>
       <div
@@ -109,6 +113,10 @@ const Header: FC<Props> = ({
             border: 0,
             width: theme.spacing(7),
             height: theme.spacing(7),
+            [theme.maxMQ.sm]: {
+              width: theme.spacing(6),
+              height: theme.spacing(6),
+            },
             marginRight: theme.spacing(2.5),
             padding: 0,
             color:
@@ -120,102 +128,106 @@ const Header: FC<Props> = ({
           <MenuIcon />
         </button>
 
-        <div
-          css={{
-            flexGrow: 1,
-            position: "relative",
-            marginTop: "0.5em",
-          }}
-        >
-          <Text
-            variant="h5"
-            component={Link}
-            href="/"
-            css={(theme) => [
-              {
-                position: "absolute",
-                transition: theme.transitions.normal("transform"),
-                transform: "translateY(-50%)",
-                [theme.mq.md]: {
-                  transform: `translateY(${
-                    deck && (((isCardPage || showAltNav) && "-250%") || "-50%")
-                  })`,
-                },
-              },
-              deck && {
-                [theme.maxMQ.md]: {
-                  display: "none",
-                },
-              },
-            ]}
+        {width >= breakpoints.sm && (
+          <div
+            css={{
+              flexGrow: 1,
+              position: "relative",
+              marginTop: "0.5em",
+            }}
           >
-            Playing Arts
-          </Text>
-
-          {deck && (
-            <Fragment>
+            {(deck ? width >= breakpoints.md : true) && (
               <Text
                 variant="h5"
                 component={Link}
-                href={`/${deckId}`}
-                css={(theme) => ({
-                  position: "absolute",
-                  transform: "translateY(0)",
-                  transition: theme.transitions.normal("transform"),
-                  [theme.maxMQ.md]: {
-                    transform: `translateY(${
-                      (!expanded && showAltNav && "-250%") || "-50%"
-                    })`,
-                  },
-                  [theme.mq.md]: {
-                    transform: `translateY(${
-                      ((isCardPage || showAltNav) && "-50%") || "200%"
-                    })`,
-                  },
-                })}
-                style={{}}
-              >
-                {deck.title}
-              </Text>
-              {altNav && (
-                <div
-                  css={(theme) => ({
+                href="/"
+                css={(theme) => [
+                  {
                     position: "absolute",
                     transition: theme.transitions.normal("transform"),
-                    textAlign: "center",
-                    width: "max-content",
-                    marginTop: "-0.25em",
+                    transform: "translateY(-50%)",
                     [theme.mq.md]: {
-                      display: "none",
+                      transform: `translateY(${
+                        deck &&
+                        (((isCardPage || showAltNav) && "-250%") || "-50%")
+                      })`,
+                    },
+                  },
+                ]}
+              >
+                Playing Arts
+              </Text>
+            )}
+
+            {deck && (
+              <Fragment>
+                <Text
+                  variant="h5"
+                  component={Link}
+                  href={`/${deckId}`}
+                  css={(theme) => ({
+                    position: "absolute",
+                    transform: "translateY(0)",
+                    transition: theme.transitions.normal("transform"),
+                    [theme.maxMQ.md]: {
+                      transform: `translateY(${
+                        (!expanded && showAltNav && "-250%") || "-50%"
+                      })`,
+                    },
+                    [theme.mq.md]: {
+                      transform: `translateY(${
+                        ((isCardPage || showAltNav) && "-50%") || "200%"
+                      })`,
                     },
                   })}
-                  style={{
-                    transform: `translateY(${
-                      (!expanded && showAltNav && "-50%") || "200%"
-                    })`,
-                  }}
-                  onClick={mouseEnter}
+                  style={{}}
                 >
-                  {altNav}
-                </div>
-              )}
-            </Fragment>
-          )}
-        </div>
-
+                  {deck.title}
+                </Text>
+                {altNav && width < breakpoints.md && (
+                  <div
+                    css={(theme) => ({
+                      position: "absolute",
+                      transition: theme.transitions.normal("transform"),
+                      textAlign: "center",
+                      width: "max-content",
+                      marginTop: "-0.25em",
+                    })}
+                    style={{
+                      transform: `translateY(${
+                        (!expanded && showAltNav && "-50%") || "200%"
+                      })`,
+                    }}
+                    onClick={mouseEnter}
+                  >
+                    {altNav}
+                  </div>
+                )}
+              </Fragment>
+            )}
+          </div>
+        )}
         <div
           css={(theme) => ({
             transition: theme.transitions.normal("top"),
             textAlign: "center",
             position: "absolute",
             left: "50%",
-            top: (showAltNav && !expanded && "-50%") || "50%",
+            top: "50%",
+            [theme.mq.sm]: {
+              top: (showAltNav && !expanded && "-50%") || "50%",
+            },
             transform: "translate(-50%, -50%)",
           })}
         >
           <Link href="/">
             <LogoIcon
               css={(theme) => [
+                {
+                  [theme.maxMQ.sm]: {
+                    height: theme.spacing(2),
+                  },
+                },
                 palette !== "gradient" && {
                   color: theme.colors.text_subtitle_light,
                 },
@@ -224,7 +236,7 @@ const Header: FC<Props> = ({
           </Link>
         </div>
 
-        {altNav && (
+        {altNav && width >= breakpoints.md && (
           <div
             css={(theme) => ({
               transition: theme.transitions.normal("top"),
@@ -232,9 +244,6 @@ const Header: FC<Props> = ({
               position: "absolute",
               left: "50%",
               width: "max-content",
-              [theme.maxMQ.md]: {
-                display: "none",
-              },
               top: (showAltNav && !expanded && "50%") || "150%",
               transform: "translate(-50%, -50%)",
             })}
@@ -245,27 +254,51 @@ const Header: FC<Props> = ({
         )}
 
         <div css={{ display: "flex" }}>
-          <MetamaskButton
-            noLabel={true}
-            backgroundColor={palette === "gradient" ? "dark_gray" : "white"}
-            textColor={palette === "gradient" ? "white" : "dark_gray"}
+          {width >= breakpoints.sm && (
+            <MetamaskButton
+              noLabel={true}
+              backgroundColor={palette === "gradient" ? "dark_gray" : "white"}
+              textColor={palette === "gradient" ? "white" : "dark_gray"}
+              css={(theme) => ({
+                marginRight: theme.spacing(2),
+              })}
+            />
+          )}
+
+          <div
             css={(theme) => ({
               marginRight: theme.spacing(2),
-            })}
-          />
 
-          <div css={(theme) => ({ marginRight: theme.spacing(2) })}>
+              [theme.maxMQ.sm]: {
+                marginRight: theme.spacing(1),
+              },
+            })}
+          >
             {customShopButton ? (
               customShopButton
             ) : (
-              <Button
-                component={Link}
-                href="/shop"
-                Icon={Bag}
-                color={palette === "gradient" ? "black" : undefined}
-              >
-                Shop
-              </Button>
+              <Fragment>
+                <Button
+                  component={Link}
+                  href="/shop"
+                  Icon={Bag}
+                  color={palette === "gradient" ? "black" : undefined}
+                  css={(theme) => ({
+                    [theme.maxMQ.sm]: {
+                      color:
+                        palette === "gradient"
+                          ? theme.colors.page_bg_light
+                          : theme.colors.text_title_dark,
+                      background:
+                        palette === "gradient"
+                          ? theme.colors.text_title_dark
+                          : theme.colors.page_bg_light,
+                    },
+                  })}
+                >
+                  {width >= breakpoints.sm && "Shop"}
+                </Button>
+              </Fragment>
             )}
           </div>
         </div>
@@ -284,7 +317,10 @@ const Header: FC<Props> = ({
             },
             expanded && {
               paddingTop: theme.spacing(1),
-              transform: `translate3d(0, ${theme.spacing(6)}px, 0)`,
+              transform: `translate3d(0, ${theme.spacing(4)}px, 0)`,
+              [theme.mq.sm]: {
+                transform: `translate3d(0, ${theme.spacing(6)}px, 0)`,
+              },
             },
           ]}
         />

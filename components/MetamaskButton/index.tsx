@@ -14,12 +14,14 @@ interface Props
   extends ButtonProps,
     PartialRecord<MetaMaskState["status"], string> {
   noLabel?: boolean;
+  noIcon?: boolean;
   backgroundColor: keyof typeof theme.colors;
   textColor: keyof typeof theme.colors;
 }
 
 const MetamaskButton: FC<Props> = ({
   textColor,
+  noIcon,
   backgroundColor,
   connected = "Connected",
   notConnected = "Connect MetaMask",
@@ -27,6 +29,7 @@ const MetamaskButton: FC<Props> = ({
   initializing = "Initializing",
   unavailable = "Install MetaMask",
   noLabel,
+  children,
   ...props
 }) => {
   const { status, connect } = useMetaMask();
@@ -87,8 +90,14 @@ const MetamaskButton: FC<Props> = ({
   }
 
   return (
-    <Button {...props} Icon={Metamask} css={css} {...action} title={status}>
-      {!noLabel && label}
+    <Button
+      {...props}
+      {...(!noIcon && { Icon: Metamask })}
+      css={css}
+      {...action}
+      title={status}
+    >
+      {!noLabel && (children || label)}
     </Button>
   );
 };

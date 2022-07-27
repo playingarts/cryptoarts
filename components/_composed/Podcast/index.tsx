@@ -1,13 +1,15 @@
 import { FC, HTMLAttributes } from "react";
+import { usePodcasts } from "../../../hooks/podcast";
 import { socialLinks } from "../../../source/consts";
+import { breakpoints } from "../../../source/enums";
 import Button from "../../Button";
 import Itunes from "../../Icons/Itunes";
 import Play from "../../Icons/Play";
 import Spotify from "../../Icons/Spotify";
 import Link from "../../Link";
+import { useSize } from "../../SizeProvider";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
-import { usePodcasts } from "../../../hooks/podcast";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   withoutAction?: boolean;
@@ -27,6 +29,8 @@ const Podcast: FC<Props> = ({
   });
 
   const podcast = podcasts && podcasts[0];
+
+  const { width } = useSize();
 
   if (!podcast) {
     return null;
@@ -63,7 +67,9 @@ const Podcast: FC<Props> = ({
           css={(theme) => ({
             flexGrow: 1,
             display: "inline",
-            paddingRight: theme.spacing(17),
+            [theme.mq.sm]: {
+              paddingRight: theme.spacing(17),
+            },
           })}
         >
           <Text
@@ -72,6 +78,7 @@ const Podcast: FC<Props> = ({
               textTransform: "uppercase",
               marginTop: 0,
               marginBottom: theme.spacing(1),
+              [theme.maxMQ.sm]: theme.typography.h3,
             })}
           >
             {podcastName}
@@ -119,21 +126,23 @@ const Podcast: FC<Props> = ({
             )}
           </div>
         </div>
-        <div
-          css={(theme) => ({
-            width: theme.spacing(16),
-            height: theme.spacing(16),
-            background: "#000",
-            borderRadius: "50%",
-            flexShrink: 0,
-            backgroundImage: `url(${image})`,
-            backgroundSize: "cover",
-            position: "absolute",
-            right: theme.spacing(4),
-            top: "50%",
-            transform: "translateY(-50%)",
-          })}
-        />
+        {width >= breakpoints.sm && (
+          <div
+            css={(theme) => ({
+              width: theme.spacing(16),
+              height: theme.spacing(16),
+              background: "#000",
+              borderRadius: "50%",
+              flexShrink: 0,
+              backgroundImage: `url(${image})`,
+              backgroundSize: "cover",
+              position: "absolute",
+              right: theme.spacing(4),
+              top: "50%",
+              transform: "translateY(-50%)",
+            })}
+          />
+        )}
       </div>
     </StatBlock>
   );

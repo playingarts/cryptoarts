@@ -16,20 +16,35 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => (
     {...props}
     css={(theme) => ({
       background: `#000 url(https://s3.amazonaws.com/img.playingarts.com/www/shop/crypto_bg.png) bottom right no-repeat`,
-      [theme.maxMQ.md]: {
-        backgroundPositionX: theme.spacing(17),
+      [theme.mq.sm]: {
+        [theme.maxMQ.md]: {
+          backgroundPositionX: theme.spacing(17),
+        },
       },
       backgroundSize: `${theme.spacing(74)}px ${theme.spacing(33)}px`,
       color: theme.colors.text_title_light,
       position: "relative",
       overflow: "hidden",
+      [theme.maxMQ.sm]: {
+        backgroundPositionX: theme.spacing(-18),
+        backgroundSize: "175%",
+        paddingBottom: theme.spacing(27.7),
+      },
     })}
-    action={<AddToBagButton Icon={Bag} productId={productId} />}
+    action={
+      <AddToBagButton
+        Icon={Bag}
+        productId={productId}
+        css={(theme) => [{ [theme.maxMQ.sm]: { display: "none" } }]}
+      />
+    }
     title="LATEST RELEASE"
   >
     <div
       css={(theme) => ({
-        width: theme.spacing(45.5),
+        [theme.mq.sm]: {
+          width: theme.spacing(45.5),
+        },
         display: "flex",
         flexDirection: "column",
         height: "100%",
@@ -45,22 +60,49 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => (
             opacity: 0.5,
             marginTop: theme.spacing(1),
             marginBottom: theme.spacing(5.8),
+            [theme.maxMQ.sm]: {
+              display: "none",
+            },
           })}
         >
           Playing Arts Crypto Edition (PACE) is a deck of playing cards
           featuring.
         </Text>
       </div>
-
-      <Text
-        variant="body2"
-        css={{
-          opacity: 0.5,
-          margin: 0,
-        }}
+      <div
+        css={(theme) => [
+          {
+            gap: theme.spacing(2),
+            display: "flex",
+            alignItems: "center",
+            marginTop: theme.spacing(2),
+          },
+        ]}
       >
-        €{price}
-      </Text>
+        <AddToBagButton
+          Icon={Bag}
+          productId={productId}
+          css={(theme) => [
+            {
+              [theme.mq.sm]: { display: "none" },
+              width: "max-content",
+            },
+          ]}
+        >
+          Add
+        </AddToBagButton>
+        <Text
+          variant="body4"
+          css={{
+            display: "inline",
+            width: "min-content",
+            opacity: 0.5,
+            margin: 0,
+          }}
+        >
+          €{price}
+        </Text>
+      </div>
     </div>
 
     <Ether

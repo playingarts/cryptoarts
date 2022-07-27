@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import {
   ApolloClient,
+  ApolloLink,
   ApolloProvider,
+  HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
-  ApolloLink,
-  HttpLink,
 } from "@apollo/client";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 
@@ -123,6 +123,34 @@ const createApolloClient = (initialState = {}, config?: object) => {
                 img: args && args.img,
               }),
           },
+          // products: {
+          //   read: (refs, { args, toReference, canRead }) => {
+
+          //     const references: any =
+          //       args &&
+          //       args.ids &&
+          //       args.ids.map((id: string) => {
+          //         console.log(1);
+
+          //         return toReference({
+          //           __typename: "Product",
+          //           _id: id,
+          //         });
+          //       });
+
+          //     // console.log(references.length, refs, args.ids.length);
+          //     console.log(args && args.ids && references);
+
+          //     return (
+          //       (args &&
+          //         args.ids &&
+          //         references &&
+          //         references.length < args.ids.length &&
+          //         references) ||
+          //       refs
+          //     );
+          //   },
+          // },
           card: {
             read: (_, { args, toReference }) =>
               toReference({

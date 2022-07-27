@@ -5,8 +5,8 @@ import {
   HTMLAttributes,
 } from "react";
 import { theme } from "../../pages/_app";
-import { Props as LinkProps } from "../Link";
 import { Props as ButtonProps } from "../Button";
+import { Props as LinkProps } from "../Link";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   component?:

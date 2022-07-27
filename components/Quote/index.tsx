@@ -53,7 +53,7 @@ const Quote: FC<Props> = ({
         {children && (
           <div>
             {truncate ? (
-              <Truncate lines={truncate} variant="body3" css={{ marginTop: 0 }}>
+              <Truncate lines={truncate} variant="body3" css={{ margin: 0 }}>
                 {children}
               </Truncate>
             ) : (
@@ -92,7 +92,19 @@ const Quote: FC<Props> = ({
                   }),
             })}
           >
-            {vertical && <Line spacing={4} />}
+            {vertical && (
+              <Line
+                spacing={4}
+                css={(theme) => [
+                  {
+                    [theme.maxMQ.sm]: {
+                      marginBottom: theme.spacing(3),
+                      marginTop: theme.spacing(3),
+                    },
+                  },
+                ]}
+              />
+            )}
             <div css={{ display: "flex", alignItems: "top" }}>
               {fullArtist && (
                 <div

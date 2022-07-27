@@ -1,6 +1,6 @@
-import { Fragment } from "react";
-import { Html, Head, Main, NextScript } from "next/document";
 import { Global } from "@emotion/react";
+import { Head, Html, Main, NextScript } from "next/document";
+import { Fragment } from "react";
 import { theme } from "./_app";
 
 export const Links = () => (
@@ -13,6 +13,7 @@ export const Links = () => (
         h4: theme.typography.h4,
         h5: theme.typography.h5,
         h6: theme.typography.h6,
+        h7: theme.typography.h7,
         body: {
           background: theme.colors.white,
           fontFamily: "Work Sans, sans-serif",
@@ -50,6 +51,7 @@ const Document = () => (
       <Links />
     </Head>
 
+    {/* <body css={[{ background: theme.colors.page_bg_dark }]}> */}
     <body>
       <Main />
       <NextScript />

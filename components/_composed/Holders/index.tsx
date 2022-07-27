@@ -1,18 +1,20 @@
 import { FC } from "react";
 import { useHolders } from "../../../hooks/opensea";
 import { theme } from "../../../pages/_app";
+import { socialLinks } from "../../../source/consts";
+import { breakpoints } from "../../../source/enums";
 import Charts from "../../Charts";
 import Grid from "../../Grid";
 import Clubs from "../../Icons/Clubs";
 import Diamonds from "../../Icons/Diamonds";
 import Hearts from "../../Icons/Hearts";
+import Joker from "../../Icons/Joker";
 import Spades from "../../Icons/Spades";
 import Line from "../../Line";
+import { useSize } from "../../SizeProvider";
 import Stat from "../../Stat";
 import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
 import Text from "../../Text";
-import { socialLinks } from "../../../source/consts";
-import Joker from "../../Icons/Joker";
 
 interface Props extends StatBlockProps {
   deckId: string;
@@ -22,6 +24,8 @@ const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
   const { holders } = useHolders({
     variables: { deck: deckId },
   });
+
+  const { width } = useSize();
 
   if (!holders) {
     return null;
@@ -38,20 +42,17 @@ const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
       }}
     >
       <div css={{ display: "flex", flexDirection: "column", height: "100%" }}>
-        <Grid
-          css={(theme) => ({
-            gridTemplateColumns: "1fr !important",
-            [theme.mq.xsm]: {
-              gridTemplateColumns: "1fr 1fr !important",
-            },
-          })}
-        >
+        <Grid css={{ gridTemplateColumns: "1fr 1fr !important" }}>
           <Stat
-            label="54-card deck (incl jokers)"
+            label={`54-card deck${
+              (width >= breakpoints.sm && " (incl jokers)") || ""
+            }`}
             value={holders.fullDecksWithJokers.length}
           />
           <Stat
-            label="52-card deck (excl jokers)"
+            label={`52-card deck${
+              (width >= breakpoints.sm && " (excl jokers)") || ""
+            }`}
             value={holders.fullDecks.length}
           />
         </Grid>

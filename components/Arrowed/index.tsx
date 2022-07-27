@@ -3,16 +3,21 @@ import Arrow from "../Icons/Arrow";
 
 interface Props {
   position?: "append" | "prepend";
+  rotation?: number;
 }
 
-const Arrowed: FC<Props> = ({ position = "append", children }) => (
+const Arrowed: FC<Props> = ({
+  position = "append",
+  rotation = 180,
+  children,
+}) => (
   <Fragment>
     {position === "prepend" && (
       <Arrow
         css={(theme) => ({
           marginRight: theme.spacing(0.7),
           verticalAlign: "baseline",
-          transform: "rotate(180deg)",
+          transform: `rotate(${rotation}deg)`,
         })}
       />
     )}
@@ -24,6 +29,7 @@ const Arrowed: FC<Props> = ({ position = "append", children }) => (
         css={(theme) => ({
           marginLeft: theme.spacing(0.7),
           verticalAlign: "baseline",
+          transform: `rotate(${rotation - 180}deg)`,
         })}
       />
     )}

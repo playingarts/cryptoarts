@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from "react";
-import Text from "../../Text";
-import { ChartProps } from "..";
 import { useResizeDetector } from "react-resize-detector";
+import { ChartProps } from "..";
+import Text from "../../Text";
 
 export interface Props extends HTMLAttributes<HTMLElement>, ChartProps {
   minHeight?: number;
@@ -35,6 +35,9 @@ const ColumnChart: FC<Props> = ({
         flexWrap: "wrap",
         height: "100%",
         gap: theme.spacing(2),
+        [theme.maxMQ.sm]: {
+          gap: theme.spacing(1),
+        },
       })}
       ref={ref}
       {...props}
@@ -59,6 +62,9 @@ const ColumnChart: FC<Props> = ({
               borderRadius: theme.spacing(1),
               rowGap: theme.spacing(2),
               width: theme.spacing(8.8),
+              [theme.maxMQ.sm]: {
+                width: theme.spacing(5),
+              },
             })}
             style={{
               minHeight: minHeight,
@@ -74,7 +80,13 @@ const ColumnChart: FC<Props> = ({
             })}
           >
             {icon}
-            <Text variant="h4" css={{ margin: 0 }}>
+            <Text
+              variant="h4"
+              css={(theme) => ({
+                margin: 0,
+                [theme.maxMQ.sm]: [theme.typography.h3, { fontSize: 25 }],
+              })}
+            >
               {value}
             </Text>
           </div>

@@ -1,7 +1,9 @@
 import { css } from "@emotion/react";
 import { FC, HTMLAttributes, useState } from "react";
+import { breakpoints } from "../../../source/enums";
 import AddToBagButton from "../../AddToBagButton";
 import Bag from "../../Icons/Bag";
+import { useSize } from "../../SizeProvider";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
 
@@ -30,6 +32,8 @@ const ShopItem: FC<Props> = ({
     backgroundSize: "cover",
   });
 
+  const { width } = useSize();
+
   return (
     <StatBlock
       {...props}
@@ -40,58 +44,119 @@ const ShopItem: FC<Props> = ({
         position: "relative",
         transform: "translate3d(0, 0, 0)",
         backgroundColor: theme.colors.page_bg_light_gray,
+        [theme.maxMQ.sm]: {
+          backgroundColor: theme.colors.white,
+        },
       })}
     >
       <div
         css={(theme) => [
           backgroundCss,
-          { transition: theme.transitions.fast("opacity") },
+          {
+            transition: theme.transitions.fast("opacity"),
+            [theme.maxMQ.sm]: {
+              height: theme.spacing(34),
+              // minWidth: theme.spacing(40.8),
+              aspectRatio: "1 / 1",
+              // backgroundSize: "130%",
+              backgroundSize: "contain",
+              maxHeight: theme.spacing(34),
+              // margin: "0 auto",
+              backgroundPosition: "center",
+              // backgroundPositionY: "-50px",
+            },
+          },
         ]}
         style={{ backgroundImage: `url(${image})` }}
       />
-      <div
-        css={(theme) => [
-          backgroundCss,
-          {
-            transition: theme.transitions.fast("opacity"),
-          },
-        ]}
-        style={{ backgroundImage: `url(${image2})`, opacity: +hovered }}
-      />
-
-      <div
-        css={(theme) => ({
-          position: "relative",
-          [theme.maxMQ.md]: {
-            display: "none",
-          },
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-end",
-          height: "100%",
-          transition: theme.transitions.fast("opacity"),
-        })}
-        style={{
-          opacity: +hovered,
-        }}
-      >
-        <div>
-          <Text component="h3" css={{ margin: 0 }}>
-            {short}
-          </Text>
-          <Text variant="body2" css={{ opacity: 0.5, margin: 0 }}>
-            {price.toLocaleString(undefined, {
-              style: "currency",
-              currency: "EUR",
-            })}
-          </Text>
-        </div>
-        <AddToBagButton
-          productId={_id}
-          Icon={Bag}
-          css={{ alignSelf: "flex-end" }}
+      {width >= breakpoints.sm && (
+        <div
+          css={(theme) => [
+            backgroundCss,
+            {
+              transition: theme.transitions.fast("opacity"),
+            },
+          ]}
+          style={{ backgroundImage: `url(${image2})`, opacity: +hovered }}
         />
-      </div>
+      )}
+
+      {(width >= breakpoints.md || width < breakpoints.sm) && (
+        <div
+          css={(theme) => ({
+            position: "relative",
+            [theme.mq.sm]: {
+              justifyContent: "space-between",
+              opacity: +hovered,
+              alignItems: "flex-end",
+            },
+            [theme.maxMQ.sm]: {
+              gap: theme.spacing(1.5),
+              flexDirection: "column",
+              justifyContent: "end",
+              flexWrap: "wrap",
+            },
+            display: "flex",
+            height: "100%",
+            transition: theme.transitions.fast("opacity"),
+          })}
+        >
+          <div>
+            <Text component="h3" css={{ margin: 0 }}>
+              {short}
+            </Text>
+            {width >= breakpoints.sm && (
+              <Text
+                variant="body4"
+                css={[
+                  {
+                    opacity: 0.5,
+                    margin: 0,
+                  },
+                ]}
+              >
+                {price.toLocaleString(undefined, {
+                  style: "currency",
+                  currency: "EUR",
+                })}
+              </Text>
+            )}
+          </div>
+          <div css={{ alignItems: "center", display: "flex" }}>
+            <AddToBagButton
+              productId={_id}
+              Icon={Bag}
+              {...(width < breakpoints.sm && { color: "black" })}
+              css={(theme) => [
+                {
+                  [theme.mq.sm]: { alignSelf: "flex-end" },
+                  width: "fit-content",
+                },
+              ]}
+            >
+              {width >= breakpoints.sm ? "Add to bag" : "Add"}
+            </AddToBagButton>
+            {width < breakpoints.sm && (
+              <Text
+                variant="body4"
+                css={(theme) => [
+                  {
+                    opacity: 0.5,
+                    margin: 0,
+                    marginLeft: theme.spacing(1.5),
+                    display: "inline",
+                  },
+                ]}
+              >
+                {price.toLocaleString(undefined, {
+                  style: "currency",
+                  currency: "EUR",
+                })}
+              </Text>
+            )}
+          </div>
+        </div>
+      )}
     </StatBlock>
   );
 };

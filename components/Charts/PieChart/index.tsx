@@ -1,22 +1,16 @@
-import {
-  FC,
-  Fragment,
-  HTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { FC, Fragment, HTMLAttributes } from "react";
+import { useResizeDetector } from "react-resize-detector";
 import { ChartProps } from "..";
 import { theme } from "../../../pages/_app";
 
 interface Props extends HTMLAttributes<HTMLDivElement>, ChartProps {}
 
 const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
-  const [{ width, height }, setSize] = useState<{
-    width: number;
-    height: number;
-  }>({ width: 0, height: 0 });
-  const ref = useRef<HTMLDivElement>(null);
+  // const [{ width, height }, setSize] = useState<{
+  //   width: number;
+  //   height: number;
+  // }>({ width: 0, height: 0 });
+  const { width = 0, height = 0, ref } = useResizeDetector<HTMLDivElement>();
   const total = dataPoints.reduce((sum, obj) => obj.value + sum, 0);
   const getCoordinatesForPercent = (percent: number) => [
     Math.cos(2 * Math.PI * percent),
@@ -43,14 +37,6 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
       fill: dataPoint.color,
     };
   });
-
-  useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
-
-    setSize(ref.current.getBoundingClientRect());
-  }, []);
 
   return (
     <div

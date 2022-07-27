@@ -1,7 +1,7 @@
 import throttle from "just-throttle";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
-import { useLoadRandomCards } from "../../../hooks/card";
 import Card from "..";
+import { useLoadRandomCards } from "../../../hooks/card";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   deck: GQL.Deck;
@@ -60,11 +60,17 @@ const CardFan: FC<Props> = ({ deck, ...props }) => {
             isStatic={true}
             noInfo={true}
             interactive={true}
-            css={{
-              top: 0,
-              position: index === 0 ? "relative" : "absolute",
-              zIndex: cardsLength - 1 * index,
-            }}
+            css={(theme) => [
+              {
+                top: 0,
+                position: index === 0 ? "relative" : "absolute",
+                zIndex: cardsLength - 1 * index,
+                [theme.maxMQ.sm]: {
+                  "--width": theme.spacing(20) + "px !important",
+                  "--height": theme.spacing(28) + "px !important",
+                },
+              },
+            ]}
             style={{
               transform: `translate3d(${index * 16 * spread}%, ${
                 Math.abs(index) * 4

@@ -1,14 +1,16 @@
-import { FC, Fragment, useEffect } from "react";
-import Layout from "../../../components/Layout";
-import Header, { Props as HeaderProps } from "../../../components/Header";
-import Footer from "../../../components/Footer";
 import { useRouter } from "next/router";
+import { FC, Fragment, useEffect } from "react";
+import Footer from "../../../components/Footer";
+import Header, { Props as HeaderProps } from "../../../components/Header";
+import Layout from "../../../components/Layout";
+import { breakpoints } from "../../../source/enums";
 import Grid from "../../Grid";
-import Esquire from "../../Icons/Esquire";
-import FastCompany from "../../Icons/FastCompany";
 import CreativeBloq from "../../Icons/CreativeBloq";
 import DigitalArts from "../../Icons/DigitalArts";
+import Esquire from "../../Icons/Esquire";
+import FastCompany from "../../Icons/FastCompany";
 import Quote from "../../Quote";
+import { useSize } from "../../SizeProvider";
 
 const ComposedGlobalLayout: FC<
   Pick<
@@ -66,6 +68,8 @@ const ComposedGlobalLayout: FC<
     }
   }, [query, replace, scrollIntoView, scrollIntoViewBehavior]);
 
+  const { width } = useSize();
+
   return (
     <Fragment>
       <Header
@@ -75,8 +79,13 @@ const ComposedGlobalLayout: FC<
           right: theme.spacing(1),
           top: theme.spacing(1),
           zIndex: 10,
+          [theme.maxMQ.sm]: {
+            left: theme.spacing(0.5),
+            right: theme.spacing(0.5),
+            top: theme.spacing(0.5),
+          },
 
-          "@media (min-width: 1440px)": {
+          [theme.mq.laptop]: {
             maxWidth: theme.spacing(142),
             left: "50%",
             transform: "translate(-50%, 0)",
@@ -93,7 +102,7 @@ const ComposedGlobalLayout: FC<
       />
 
       {children}
-      {extended && (
+      {extended && width >= breakpoints.sm && (
         <Layout
           css={(theme) => ({
             paddingTop: theme.spacing(12),
@@ -137,14 +146,20 @@ const ComposedGlobalLayout: FC<
           </Grid>
         </Layout>
       )}
-      <Layout css={(theme) => ({ marginTop: theme.spacing(1) })}>
-        <Footer
-          css={(theme) => ({
-            marginBottom: theme.spacing(1),
-            paddingTop: theme.spacing(6),
-            paddingBottom: theme.spacing(6),
-          })}
-        />
+      <Layout
+        css={(theme) => ({
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
+          [theme.maxMQ.sm]: {
+            paddingTop: theme.spacing(4),
+            paddingBottom: theme.spacing(4),
+          },
+          margin: theme.spacing(1),
+          background: theme.colors.page_bg_light_gray,
+          borderRadius: theme.spacing(1),
+        })}
+      >
+        <Footer />
       </Layout>
     </Fragment>
   );

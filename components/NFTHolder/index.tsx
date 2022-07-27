@@ -1,12 +1,16 @@
 import { useMetaMask } from "metamask-react";
 import {
   FC,
+  Fragment,
   HTMLAttributes,
   useEffect,
   useLayoutEffect,
   useState,
 } from "react";
+import { useSignature } from "../../contexts/SignatureContext";
 import { useLoadDeal } from "../../hooks/deal";
+import { useProducts } from "../../hooks/product";
+import { breakpoints } from "../../source/enums";
 import AddToBagButton from "../AddToBagButton";
 import Arrowed from "../Arrowed";
 import Button from "../Button";
@@ -15,16 +19,26 @@ import Opensea from "../Icons/Opensea";
 import Link from "../Link";
 import Loader from "../Loader";
 import MetamaskButton from "../MetamaskButton";
+import { useSize } from "../SizeProvider";
 import StatBlock from "../StatBlock";
 import Text from "../Text";
-import { useSignature } from "../../contexts/SignatureContext";
+
+const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  deck: GQL.Deck;
-  productId: string;
+  gradient?: boolean;
+  noDesc?: boolean;
 }
+const NFTHolder: FC<Props> = ({ noDesc, gradient, ...props }) => {
+  const { products } = useProducts();
 
-const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
+  const product =
+    products &&
+    products.find(
+      (product) => product.deck && product.deck.slug === latestReleaseSlug
+    );
+  // const { deck, _id: productId } = product;
+
   const { status, account } = useMetaMask();
   const { getSig, removeSig, askSig } = useSignature();
   const { loadDeal, deal, loading, error } = useLoadDeal();
@@ -41,7 +55,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
 
   useLayoutEffect(() => {
     const sig = getSig();
-    if (!sig || !sig.signature) {
+    if (!sig || !sig.signature || !product || !product.deck) {
       return;
     }
 
@@ -49,10 +63,10 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
       variables: {
         signature: sig.signature,
         hash: account,
-        deckId: deck._id,
+        deckId: product.deck._id,
       },
     });
-  }, [getSig, account, deck._id, loadDeal]);
+  }, [getSig, account, product, loadDeal]);
 
   useEffect(() => {
     if (error) {
@@ -60,12 +74,25 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
     }
   }, [error, removeSig]);
 
+  const { width } = useSize();
+
+  if (!products) {
+    return null;
+  }
+
+  if (!product || !product.deck) {
+    return null;
+  }
+
   if (error) {
     return (
       <StatBlock
         css={(theme) => ({
           backgroundColor: theme.colors.dark_gray,
           color: theme.colors.text_title_light,
+          [theme.maxMQ.sm]: {
+            paddingTop: theme.spacing(4),
+          },
         })}
         {...props}
       >
@@ -88,42 +115,92 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
         css={(theme) => ({
           backgroundColor: theme.colors.dark_gray,
           color: theme.colors.text_title_light,
+          [theme.maxMQ.sm]: {
+            paddingTop: theme.spacing(4),
+          },
         })}
         action={
-          <MetamaskButton
-            textColor="white"
-            backgroundColor="orange"
-            notConnected="Connect"
-            unavailable="Install"
-          />
+          <Fragment>
+            <MetamaskButton
+              textColor="white"
+              backgroundColor="orange"
+              notConnected="Connect"
+              unavailable="Install"
+              noIcon={width < breakpoints.sm}
+              css={(theme) => [
+                gradient && {
+                  background: theme.colors.page_bg_dark,
+                },
+                {
+                  [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
+                },
+              ]}
+            >
+              <span
+                css={(theme) => [
+                  gradient && {
+                    color: "transparent",
+                    background: theme.colors.eth,
+                    backgroundClip: "text",
+                  },
+                ]}
+              >
+                connect metamask
+              </span>
+            </MetamaskButton>
+          </Fragment>
         }
         {...props}
       >
-        <Text component="h4" css={{ margin: 0 }}>
+        <Text
+          component="h4"
+          css={(theme) => [
+            {
+              margin: 0,
+              [theme.maxMQ.sm]: {
+                textAlign: "center",
+                textTransform: "uppercase",
+              },
+            },
+          ]}
+        >
           NFT holder?
         </Text>
 
-        <Text variant="body2">
-          Connect your MetaMask wallet and see if you’re eligible for a bonus!
-        </Text>
+        {!noDesc && (
+          <Text
+            variant="body2"
+            css={(theme) => [
+              {
+                [theme.maxMQ.sm]: {
+                  textAlign: "center",
+                  margin: 0,
+                  marginTop: theme.spacing(2),
+                },
+              },
+            ]}
+          >
+            Connect your MetaMask wallet and see if you’re eligible for a bonus!
+          </Text>
+        )}
 
-        <Text
-          component={Link}
-          variant="label"
-          css={{
-            opacity: 0.5,
-          }}
-          href={{
-            query: {
-              scrollIntoView: "[data-id='block-faq']",
-              scrollIntoViewBehavior: "smooth",
-            },
-          }}
-          shallow={true}
-          scroll={false}
-        >
-          <Arrowed>How It Works</Arrowed>
-        </Text>
+        {width >= breakpoints.sm && (
+          <Text
+            component={Link}
+            variant="label"
+            css={[{ opacity: 0.5 }]}
+            href={{
+              query: {
+                scrollIntoView: "[data-id='block-faq']",
+                scrollIntoViewBehavior: "smooth",
+              },
+            }}
+            shallow={true}
+            scroll={false}
+          >
+            <Arrowed>How It Works</Arrowed>
+          </Text>
+        )}
       </StatBlock>
     );
   }
@@ -136,6 +213,9 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
           css={(theme) => ({
             backgroundColor: theme.colors.dark_gray,
             color: theme.colors.text_title_light,
+            [theme.maxMQ.sm]: {
+              paddingTop: theme.spacing(4),
+            },
           })}
           action={
             <Button loading={sig.signing || loading} onClick={askSig}>
@@ -144,7 +224,7 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
           }
           {...props}
         >
-          <Text component="h4" css={{ margin: 0 }}>
+          <Text component="h4" css={{ margin: 0, textTransform: "uppercase" }}>
             NFT holder?
           </Text>
 
@@ -174,17 +254,24 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
         css={(theme) => ({
           backgroundColor: theme.colors.dark_gray,
           color: theme.colors.text_title_light,
+          [theme.maxMQ.sm]: {
+            paddingTop: theme.spacing(4),
+          },
         })}
         action={
-          deck.openseaCollection ? (
+          product.deck.openseaCollection ? (
             <Button
               component={Link}
-              href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
+              href={`https://opensea.io/collection/${product.deck.openseaCollection.name}`}
               target="_blank"
               Icon={Opensea}
               css={(theme) => ({
                 background: theme.colors.gradient,
                 marginRight: theme.spacing(2),
+                [theme.maxMQ.sm]: {
+                  width: "100%",
+                  justifyContent: "center",
+                },
               })}
             >
               Buy NFT
@@ -193,11 +280,34 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
         }
         {...props}
       >
-        <Text component="h4" css={{ margin: 0 }}>
-          GM!
+        <Text
+          component="h4"
+          css={(theme) => [
+            {
+              margin: 0,
+              [theme.maxMQ.sm]: {
+                textAlign: "center",
+
+                textTransform: "uppercase",
+              },
+            },
+          ]}
+        >
+          GM Fren!
         </Text>
 
-        <Text variant="body2">
+        <Text
+          variant="body2"
+          css={(theme) => [
+            {
+              margin: 0,
+              [theme.maxMQ.sm]: {
+                textAlign: "center",
+                marginTop: theme.spacing(2),
+              },
+            },
+          ]}
+        >
           You’re not holding any PACE NFT cards yet. Get one and check here
           again!
         </Text>
@@ -211,11 +321,26 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
         css={(theme) => ({
           backgroundColor: theme.colors.crypto,
           color: theme.colors.text_title_light,
+          [theme.maxMQ.sm]: {
+            paddingTop: theme.spacing(4),
+          },
         })}
         {...props}
       >
-        <Text component="h4" css={{ margin: 0 }}>
-          GM!
+        <Text
+          css={(theme) => [
+            {
+              margin: 0,
+              [theme.maxMQ.sm]: {
+                textAlign: "center",
+
+                textTransform: "uppercase",
+              },
+            },
+          ]}
+          component="h4"
+        >
+          GM Fren!
         </Text>
 
         <Text variant="body2">
@@ -250,44 +375,83 @@ const NFTHolder: FC<Props> = ({ deck, productId, ...props }) => {
       css={(theme) => ({
         backgroundColor: theme.colors.dark_gray,
         color: theme.colors.text_title_light,
+        [theme.maxMQ.sm]: {
+          paddingTop: theme.spacing(4),
+        },
       })}
       action={
         <AddToBagButton
-          productId={productId}
+          productId={product._id}
           amount={currentDeal.decks}
           Icon={Bag}
+          css={(theme) => [
+            {
+              [theme.maxMQ.sm]: {
+                width: "100%",
+                justifyContent: "center",
+              },
+            },
+          ]}
         >
-          Add all {currentDeal.decks}
+          Add {width >= breakpoints.sm ? "all " : ""}
+          {currentDeal.decks}
+          {width < breakpoints.sm ? " to bag" : ""}
         </AddToBagButton>
       }
       {...props}
     >
-      <Text component="h4" css={{ margin: 0 }}>
-        GM!
+      <Text
+        component="h4"
+        css={(theme) => [
+          {
+            margin: 0,
+            [theme.maxMQ.sm]: {
+              textAlign: "center",
+              textTransform: "uppercase",
+            },
+          },
+        ]}
+      >
+        GM Fren!
       </Text>
 
-      <Text variant="body2">
+      <Text
+        variant="body2"
+        css={(theme) => [
+          {
+            margin: 0,
+            [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(2),
+              textAlign: "center",
+            },
+          },
+        ]}
+      >
         You’re eligible for {currentDeal.decks} free Crypto Edition decks! Use
         following code on checkout: <b>{currentDeal.code}</b>.
       </Text>
 
-      <Text
-        component={Link}
-        variant="label"
-        css={{
-          opacity: 0.5,
-        }}
-        href={{
-          query: {
-            scrollIntoView: "[data-id='block-faq']",
-            scrollIntoViewBehavior: "smooth",
-          },
-        }}
-        shallow={true}
-        scroll={false}
-      >
-        <Arrowed>Details</Arrowed>
-      </Text>
+      {width >= breakpoints.sm && (
+        <Text
+          component={Link}
+          variant="label"
+          css={[
+            {
+              opacity: 0.5,
+            },
+          ]}
+          href={{
+            query: {
+              scrollIntoView: "[data-id='block-faq']",
+              scrollIntoViewBehavior: "smooth",
+            },
+          }}
+          shallow={true}
+          scroll={false}
+        >
+          <Arrowed>Details</Arrowed>
+        </Text>
+      )}
     </StatBlock>
   );
 };

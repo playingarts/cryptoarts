@@ -1,25 +1,27 @@
 import { NextPage } from "next";
-import Layout from "../components/Layout";
-import Hero from "../components/Hero";
-import { withApollo } from "../source/apollo";
-import Grid from "../components/Grid";
-import Text from "../components/Text";
-import Link from "../components/Link";
-import Button from "../components/Button";
-import Twitter from "../components/Icons/Twitter";
-import Discord from "../components/Icons/Discord";
-import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
-import Kickstarter from "../components/Icons/Kickstarter";
-import Arrowed from "../components/Arrowed";
-import StatBlock from "../components/StatBlock";
-import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
-import { socialLinks } from "../source/consts";
-import CutoutChevron from "../components/Icons/CutoutChevron";
-import BrowseCollection from "../components/_composed/BrowseCollection";
 import BlockTitle from "../components/BlockTitle";
+import Button from "../components/Button";
+import Grid from "../components/Grid";
+import Hero from "../components/Hero";
+import CutoutChevron from "../components/Icons/CutoutChevron";
+import Discord from "../components/Icons/Discord";
+import Kickstarter from "../components/Icons/Kickstarter";
+import Twitter from "../components/Icons/Twitter";
+import Layout from "../components/Layout";
+import Link from "../components/Link";
+import { useSize } from "../components/SizeProvider";
+import StatBlock from "../components/StatBlock";
+import Text from "../components/Text";
+import BrowseCollection from "../components/_composed/BrowseCollection";
+import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
+import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Podcast from "../components/_composed/Podcast";
+import { withApollo } from "../source/apollo";
+import { socialLinks } from "../source/consts";
+import { breakpoints } from "../source/enums";
 
 const Home: NextPage = () => {
+  const { width } = useSize();
   return (
     <ComposedGlobalLayout extended={true}>
       <Layout
@@ -32,6 +34,10 @@ const Home: NextPage = () => {
           backgroundImage:
             "url(https://s3.amazonaws.com/img.playingarts.com/www/static/home_bg.jpg)",
           backgroundSize: "cover",
+          [theme.maxMQ.sm]: {
+            paddingTop: theme.spacing(22.8),
+            paddingBottom: theme.spacing(4),
+          },
         })}
       >
         <Grid short={true}>
@@ -39,7 +45,7 @@ const Home: NextPage = () => {
             <Text component="h1" css={{ margin: 0 }}>
               Collective Art Project
             </Text>
-            <Text variant="body3">
+            <Text variant="body3" css={{ margin: 0 }}>
               For creative people who are into art, playing cards and sometimes
               magic.
             </Text>
@@ -51,12 +57,26 @@ const Home: NextPage = () => {
                   scrollIntoViewBehavior: "smooth",
                 },
               }}
+              css={(theme) => ({
+                marginTop: theme.spacing(5),
+                [theme.maxMQ.sm]: {
+                  marginTop: theme.spacing(2.6),
+                },
+              })}
               shallow={true}
               scroll={false}
               Icon={CutoutChevron}
             />
           </div>
-          <Hero />
+          <Hero
+            css={(theme) => [
+              {
+                [theme.maxMQ.sm]: {
+                  order: -1,
+                },
+              },
+            ]}
+          />
         </Grid>
       </Layout>
 
@@ -65,6 +85,11 @@ const Home: NextPage = () => {
           background: theme.colors.page_bg_light_gray,
           paddingTop: theme.spacing(14),
           paddingBottom: theme.spacing(12),
+          [theme.maxMQ.sm]: {
+            paddingBottom: theme.spacing(6),
+            paddingTop: theme.spacing(6),
+            position: "relative",
+          },
         })}
         data-id="block-about"
       >
@@ -83,16 +108,32 @@ const Home: NextPage = () => {
               from all over the world express their vision of an ordinary
               playing card using personal styles, techniques and imagination.
             </Text>
-            <Text
+            {/* <Text
               component={Link}
               variant="label"
               href="/"
               css={{ opacity: 0.5 }}
             >
               <Arrowed>Read our story</Arrowed>
-            </Text>
+            </Text> */}
           </div>
-          <Text variant="body3" css={{ gridColumn: "span 2 / -1" }}>
+          <Text
+            variant="body3"
+            css={(theme) => [
+              {
+                gridColumn: "span 2 / -1",
+                width: theme.spacing(18),
+                height: theme.spacing(18),
+                [theme.maxMQ.sm]: {
+                  position: "absolute",
+                  top: -theme.spacing(6.2),
+                  right: theme.spacing(2.5),
+                  width: theme.spacing(12),
+                  height: theme.spacing(12),
+                },
+              },
+            ]}
+          >
             <Kickstarter />
           </Text>
         </Grid>
@@ -102,10 +143,27 @@ const Home: NextPage = () => {
         css={(theme) => ({
           paddingTop: theme.spacing(10),
           paddingBottom: theme.spacing(10),
+          [theme.maxMQ.sm]: {
+            paddingTop: theme.spacing(5),
+            paddingBottom: theme.spacing(5),
+          },
         })}
+        notTruncatable={true}
       >
-        <BlockTitle variant="h3" title="Browse Collection" />
-        <BrowseCollection css={(theme) => ({ marginTop: theme.spacing(4) })} />
+        <div
+          css={[
+            {
+              overflow: "hidden",
+            },
+          ]}
+        >
+          <BlockTitle variant="h3" title="Browse Collection" />
+          <BrowseCollection
+            css={(theme) => ({
+              marginTop: theme.spacing(4),
+            })}
+          />
+        </div>
       </Layout>
 
       <ComposedCardOfTheDay
@@ -126,7 +184,10 @@ const Home: NextPage = () => {
             alignItems: "flex-start",
             gap: theme.spacing(3),
             [theme.maxMQ.md]: {
-              gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
+              gap: theme.spacing(2),
+              [theme.mq.sm]: {
+                gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
+              },
             },
           })}
         >
@@ -137,7 +198,10 @@ const Home: NextPage = () => {
               color: theme.colors.text_title_light,
               position: "relative",
               overflow: "hidden",
-              gridColumn: "span 3",
+              gridColumn: "-1/ 1",
+              [theme.mq.sm]: {
+                gridColumn: "span 3",
+              },
             })}
           >
             <Discord
@@ -159,11 +223,28 @@ const Home: NextPage = () => {
                 opacity: 0.5,
               }}
             />
-            <div css={{ position: "relative" }}>
+            <div
+              css={(theme) => ({
+                position: "relative",
+                [theme.maxMQ.sm]: {
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                },
+              })}
+            >
               <Text component="h4" css={{ margin: 0 }}>
                 Discord
               </Text>
-              <Text css={{ marginTop: 0 }}>Join the conversation</Text>
+              {width >= breakpoints.sm && (
+                <Text
+                  css={{
+                    marginTop: 0,
+                  }}
+                >
+                  Join the conversation
+                </Text>
+              )}
               {socialLinks.discord && (
                 <Button
                   Icon={Discord}
@@ -183,7 +264,10 @@ const Home: NextPage = () => {
               color: theme.colors.text_title_light,
               position: "relative",
               overflow: "hidden",
-              gridColumn: "span 3",
+              gridColumn: "-1/ 1",
+              [theme.mq.sm]: {
+                gridColumn: "span 3",
+              },
             })}
           >
             <Twitter
@@ -205,11 +289,28 @@ const Home: NextPage = () => {
                 opacity: 0.5,
               }}
             />
-            <div css={{ position: "relative" }}>
+            <div
+              css={(theme) => ({
+                position: "relative",
+                [theme.maxMQ.sm]: {
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                },
+              })}
+            >
               <Text component="h4" css={{ margin: 0 }}>
                 Twitter
               </Text>
-              <Text css={{ marginTop: 0 }}>Follow our latest news</Text>
+              {width >= breakpoints.sm && (
+                <Text
+                  css={{
+                    marginTop: 0,
+                  }}
+                >
+                  Follow our latest news
+                </Text>
+              )}
               {socialLinks.twitter && (
                 <Button
                   Icon={Twitter}

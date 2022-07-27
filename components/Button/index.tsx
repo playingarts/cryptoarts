@@ -78,28 +78,38 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
         loading && {
           pointerEvents: "none",
         },
+
         children
-          ? {
-              ...(color !== "black"
+          ? [
+              {
+                ...(color !== "black"
+                  ? {
+                      color: theme.colors.page_bg_dark,
+                      background: theme.colors.page_bg_light,
+                    }
+                  : {}),
+                fontSize: 18,
+                fontWeight: 600,
+                lineHeight: "50px",
+                [theme.maxMQ.sm]: {
+                  lineHeight: "42px",
+                },
+                textTransform: "uppercase",
+              },
+              shape === "round"
                 ? {
-                    color: theme.colors.page_bg_dark,
-                    background: theme.colors.page_bg_light,
-                  }
-                : {}),
-              fontSize: 18,
-              fontWeight: 600,
-              lineHeight: "50px",
-              textTransform: "uppercase",
-              ...(shape === "round"
-                ? {
+                    [theme.maxMQ.sm]: {
+                      paddingLeft: theme.spacing(1.7),
+                      paddingRight: theme.spacing(2),
+                    },
                     paddingLeft: theme.spacing(2.5),
                     paddingRight: theme.spacing(2.5),
                   }
                 : {
                     paddingLeft: theme.spacing(1.7),
                     paddingRight: theme.spacing(1.7),
-                  }),
-            }
+                  },
+            ]
           : {
               ...(color !== "black"
                 ? {
@@ -107,8 +117,12 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
                   }
                 : {}),
               justifyContent: "center",
-              width: theme.spacing(size === "small" ? 4 : 5),
-              height: theme.spacing(size === "small" ? 4 : 5),
+              width: theme.spacing(size === "small" ? 3.8 : 4.2),
+              height: theme.spacing(size === "small" ? 3.8 : 4.2),
+              [theme.mq.sm]: {
+                width: theme.spacing(size === "small" ? 3.8 : 5),
+                height: theme.spacing(size === "small" ? 3.8 : 5),
+              },
               lineHeight: 1,
             },
       ]}

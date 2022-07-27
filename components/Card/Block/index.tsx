@@ -34,15 +34,25 @@ const CardBlock: FC<Props> = ({
     short={true}
     css={(theme) => ({
       gap: theme.spacing(3),
-      [theme.maxMQ.md]: {
-        gridTemplateColumns: `repeat(7, ${theme.spacing(7.5)}px)`,
+      [theme.mq.sm]: {
+        [theme.maxMQ.md]: {
+          gridTemplateColumns: `repeat(7, ${theme.spacing(7.5)}px)`,
+        },
+      },
+      [theme.maxMQ.sm]: {
+        columnGap: 0,
       },
     })}
   >
     <div
       css={(theme) => [
         {
-          gridColumn: "2 / span 5",
+          gridColumn: "1 / -1",
+          [theme.maxMQ.md]: {
+            [theme.mq.sm]: {
+              gridColumn: "2 / span 5",
+            },
+          },
           [theme.mq.md]: {
             gridColumn: "span 4",
           },
@@ -72,19 +82,29 @@ const CardBlock: FC<Props> = ({
               (card.erc1155 && card.erc1155.token_id === owned.token_id)
           ) !== -1
         }
-        css={{
-          marginLeft: "auto",
-          marginRight: "auto",
-        }}
+        css={[
+          {
+            marginLeft: "auto",
+            marginRight: "auto",
+          },
+        ]}
       />
     </div>
     <div
       css={(theme) => ({
-        gridColumn: "span 5 / -1",
         alignSelf: "center",
-        [theme.maxMQ.md]: {
+        marginTop: theme.spacing(5),
+        [theme.maxMQ.sm]: {
+          marginTop: theme.spacing(2),
+        },
+
+        gridColumn: "-1 / 1",
+        [theme.mq.sm]: {
           gridColumn: "span 7",
-          marginTop: theme.spacing(5),
+        },
+        [theme.mq.md]: {
+          marginTop: 0,
+          gridColumn: "span 5 / -1",
         },
       })}
     >
@@ -119,7 +139,9 @@ const CardBlock: FC<Props> = ({
             fullArtist={true}
             vertical={true}
             truncate={7}
-            css={(theme) => ({ marginTop: theme.spacing(13) })}
+            css={(theme) => ({
+              marginTop: theme.spacing(13),
+            })}
           >
             {card.info}
           </Quote>
@@ -154,6 +176,13 @@ const CardBlock: FC<Props> = ({
           withoutName={true}
           vertical={true}
           truncate={7}
+          css={(theme) => [
+            {
+              [theme.maxMQ.sm]: {
+                marginBottom: theme.spacing(3),
+              },
+            },
+          ]}
         >
           {card.info}
         </Quote>

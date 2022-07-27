@@ -1,19 +1,30 @@
-import { FC, HTMLAttributes } from "react";
+import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
 
 export type Props = HTMLAttributes<HTMLDivElement> & {
   short?: boolean;
   shop?: boolean;
 };
 
-const Grid: FC<Props> = ({ shop, children, short, ...props }) => (
+const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
+  { shop, children, short, ...props },
+  ref
+) => (
   <div
+    ref={ref}
     {...props}
     css={(theme) => [
       {
         display: "grid",
         // gridTemplateColumns: `repeat(12, ${theme.spacing(7.5)}px)`,
         columnGap: theme.spacing(3),
+        // [theme.maxMQ.sm]:{
 
+        // }
+        "--columnWidth": `${theme.spacing(7.5)}px`,
+        [theme.maxMQ.sm]: {
+          columnGap: theme.spacing(2),
+          "--columnWidth": `${theme.spacing(4)}px`,
+        },
         justifyContent: "center",
       },
       shop
@@ -33,7 +44,7 @@ const Grid: FC<Props> = ({ shop, children, short, ...props }) => (
             //   gridTemplateColumns: `repeat(9, ${theme.spacing(7.5)}px)`,
             // },
             [theme.maxMQ.md]: {
-              gridTemplateColumns: `repeat(9, ${theme.spacing(7.5)}px)`,
+              gridTemplateColumns: "repeat(9, var(--columnWidth))",
             },
 
             // [theme.mq.lg]: {
@@ -60,10 +71,16 @@ const Grid: FC<Props> = ({ shop, children, short, ...props }) => (
               gridTemplateColumns: `repeat(12, ${theme.spacing(7.5)}px)`,
             },
           },
+      {
+        [theme.maxMQ.sm]: {
+          // gridTemplateColumns: "repeat(6, var(--columnWidth))",
+          gridTemplateColumns: "repeat(6, 1fr)",
+        },
+      },
     ]}
   >
     {children}
   </div>
 );
 
-export default Grid;
+export default forwardRef(Grid);

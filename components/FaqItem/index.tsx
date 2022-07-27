@@ -17,12 +17,32 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
         component="span"
         variant="body2"
         onClick={toggle}
-        css={{ textAlign: "left", cursor: "pointer" }}
+        css={(theme) => [
+          {
+            textAlign: "left",
+            cursor: "pointer",
+            color: theme.colors.text_subtitle_dark,
+          },
+        ]}
         role="button"
       >
         {question}
       </Text>
-      {opened && <Text css={{ margin: 0 }}>{children}</Text>}
+      {opened && (
+        <Text
+          variant="label"
+          css={(theme) => ({
+            margin: 0,
+            marginTop: theme.spacing(1.5),
+            color: theme.colors.text_title_dark,
+            [theme.maxMQ.sm]: {
+              lineHeight: 27 / 18,
+            },
+          })}
+        >
+          {children}
+        </Text>
+      )}
     </div>
   );
 };

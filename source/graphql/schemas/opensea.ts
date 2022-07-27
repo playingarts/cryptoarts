@@ -1,12 +1,12 @@
 import { ApolloError, gql } from "@apollo/client";
-import GraphQLJSON from "graphql-type-json";
-import Web3 from "web3";
-import { OpenSeaPort, Network } from "opensea-js";
-import memoizee from "memoizee";
-import { CardSuits } from "../../enums";
-import intersect from "just-intersect";
-import { getCardByTraits } from "./card";
 import { recoverPersonalSignature } from "@metamask/eth-sig-util";
+import GraphQLJSON from "graphql-type-json";
+import intersect from "just-intersect";
+import memoizee from "memoizee";
+import { Network, OpenSeaPort } from "opensea-js";
+import Web3 from "web3";
+import { CardSuits } from "../../enums";
+import { getCardByTraits } from "./card";
 import { getContract, getContracts } from "./contract";
 
 const {
@@ -26,6 +26,9 @@ export interface Asset {
   };
   sell_orders: {
     base_price: string;
+  }[];
+  seaport_sell_orders: {
+    order_hash: string;
   }[];
   traits: {
     trait_type: string;
@@ -254,7 +257,10 @@ const getOnSale = async (
 
   const onSale = async (assets: Asset[]) => {
     return assets
-      .filter(({ token_id, sell_orders }) => token_id && sell_orders)
+      .filter(
+        ({ token_id, sell_orders, seaport_sell_orders }) =>
+          token_id && (sell_orders || seaport_sell_orders)
+      )
       .map((item) => item.sell_orders)
       .flat().length;
   };

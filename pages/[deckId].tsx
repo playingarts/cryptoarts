@@ -1,3 +1,7 @@
+import throttle from "just-throttle";
+import { useMetaMask } from "metamask-react";
+import { NextPage } from "next";
+import { useRouter } from "next/router";
 import {
   FC,
   Fragment,
@@ -8,34 +12,34 @@ import {
   useRef,
   useState,
 } from "react";
-import { NextPage } from "next";
-import { useDeck } from "../hooks/deck";
-import Layout from "../components/Layout";
-import { withApollo } from "../source/apollo";
-import { useRouter } from "next/router";
-import BlockTitle from "../components/BlockTitle";
-import Text from "../components/Text";
-import Line from "../components/Line";
+import AugmentedReality from "../components/AugmentedReality";
+import Button from "../components/Button";
+import DeckBlock from "../components/DeckBlock";
 import DeckNav from "../components/DeckNav";
 import Grid from "../components/Grid";
-import throttle from "just-throttle";
-import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
+import Bag from "../components/Icons/Bag";
+import Layout from "../components/Layout";
+import Line from "../components/Line";
+import Link from "../components/Link";
+import Modal from "../components/Modal";
+import NFTHolder from "../components/NFTHolder";
+import { useSize } from "../components/SizeProvider";
+import Text from "../components/Text";
+import ArtContest from "../components/_composed/ArtContest";
 import ComposedCardContent from "../components/_composed/CardContent";
-import ComposedPace from "../components/_composed/Pace";
-import { Sections } from "../source/enums";
-import AugmentedReality from "../components/AugmentedReality";
+import ComposedCardList from "../components/_composed/ComposedCardList";
+import ComposedEntries from "../components/_composed/ComposedEntries";
 import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
-import { useMetaMask } from "metamask-react";
+import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
+import ComposedPace from "../components/_composed/Pace";
 import { useSignature } from "../contexts/SignatureContext";
+import { useDeck } from "../hooks/deck";
+import { useLoadLosersValues } from "../hooks/loser";
 import { useLoadOwnedAssets } from "../hooks/opensea";
+import { withApollo } from "../source/apollo";
+import { breakpoints, Sections } from "../source/enums";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
-import DeckBlock from "../components/DeckBlock";
-import ComposedCardList from "../components/_composed/ComposedCardList";
-import ArtContest from "../components/_composed/ArtContest";
-import ComposedEntries from "../components/_composed/ComposedEntries";
-import Modal from "../components/Modal";
-import { useLoadLosersValues } from "../hooks/loser";
 
 const Content: FC<{
   losersExist?: boolean;
@@ -61,7 +65,7 @@ const Content: FC<{
       query: { artistId, deckId, section },
       pathname,
     } = useRouter();
-    const { account } = useMetaMask();
+    const { account, status } = useMetaMask();
     const { getSig } = useSignature();
     const { deck, loading } = useDeck({ variables: { slug: deckId } });
 
@@ -70,6 +74,7 @@ const Content: FC<{
     const [ownedCards, setOwnedCards] = useState<OwnedCard[]>([]);
 
     const contest = pathname.includes("/contest/");
+
     useLayoutEffect(() => {
       if (!deck) {
         return;
@@ -121,6 +126,8 @@ const Content: FC<{
       );
     }, [ownedAssets]);
 
+    const { width } = useSize();
+
     if (loading || !deck) {
       return null;
     }
@@ -148,6 +155,10 @@ const Content: FC<{
               color: theme.colors.light_gray,
               paddingTop: theme.spacing(26),
               paddingBottom: theme.spacing(6),
+              [theme.maxMQ.sm]: {
+                paddingTop: theme.spacing(19),
+                paddingBottom: theme.spacing(4),
+              },
             })}
             ref={aboutRef}
           >
@@ -169,103 +180,251 @@ const Content: FC<{
                 <Text component="h1" css={{ margin: 0 }}>
                   {deck.title}
                 </Text>
-                <Text variant="body3">{deck.info}</Text>
-                <Line spacing={3} />
-                <DeckNav
-                  ref={deckNavRef}
-                  refs={{
-                    roadmapRef,
-                    nftRef:
-                      (deck && deck.openseaCollection && !artistId && nftRef) ||
-                      undefined,
-                    cardsRef,
-                    contestRef: (losersExist && contestRef) || undefined,
-                    deckRef,
-                  }}
-                  links={{
-                    ...(deck.openseaCollection
-                      ? {
-                          opensea: `https://opensea.io/collection/${deck.openseaCollection.name}`,
-                        }
-                      : { buyNow: "/shop" }),
-                    shop: "/shop",
-                  }}
+                <Text variant="body3" css={{ margin: 0 }}>
+                  {deck.info}
+                </Text>
+                <Line
+                  css={(theme) => [
+                    deck.slug === "crypto" && {
+                      background: theme.colors.eth,
+                      animation: "gradient 5s ease infinite",
+                      backgroundSize: "400% 100%",
+                      opacity: 1,
+                    },
+                  ]}
+                  spacing={3}
                 />
+                {deck.openseaCollection && width <= breakpoints.sm && (
+                  <Button
+                    Icon={Bag}
+                    component={Link}
+                    target="_blank"
+                    css={(theme) => ({
+                      background: theme.colors.eth,
+                      width: "100%",
+                      justifyContent: "center",
+                    })}
+                    href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
+                  >
+                    buy nft
+                  </Button>
+                )}
+                {width >= breakpoints.sm && (
+                  <DeckNav
+                    ref={deckNavRef}
+                    refs={{
+                      roadmapRef,
+                      nftRef:
+                        (deck &&
+                          deck.openseaCollection &&
+                          !artistId &&
+                          nftRef) ||
+                        undefined,
+                      cardsRef,
+                      contestRef: (losersExist && contestRef) || undefined,
+                      deckRef,
+                    }}
+                    links={{
+                      ...(deck.openseaCollection
+                        ? {
+                            opensea: `https://opensea.io/collection/${deck.openseaCollection.name}`,
+                          }
+                        : { buyNow: "/shop" }),
+                      shop: "/shop",
+                    }}
+                  />
+                )}
               </div>
             </Grid>
           </Layout>
         )}
 
-        {!contest && (
-          <ComposedCardList
-            deck={deck}
-            ref={cardsRef}
-            ownedCards={ownedCards}
-          />
-        )}
-
-        {contest && <ArtContest deck={deck} />}
-
-        {losersExist && (
-          <ComposedEntries
-            scrollIntoView={section === Sections.contest}
-            ref={contestRef}
-            deck={deck}
-          />
-        )}
-
-        {!contest && (
-          <Fragment>
-            {!artistId && deck.openseaCollection && (
-              <ComposedPace deck={deck} ref={nftRef} />
-            )}
-            {deck.slug === "crypto" && !artistId && (
-              <Layout
-                css={(theme) => ({
-                  backgroundColor: theme.colors.page_bg_dark,
-                  paddingTop: theme.spacing(15),
-                  paddingBottom: theme.spacing(15),
-                })}
-                ref={roadmapRef}
-                scrollIntoView={section === Sections.roadmap}
-              >
-                <BlockTitle
-                  css={(theme) => ({
-                    color: theme.colors.white,
-                    gridColumn: "2/ span 10",
-                    marginBottom: theme.spacing(6),
-                  })}
-                  title="Roadmap"
-                />
-                <ComposedRoadmap />
-              </Layout>
-            )}
-            <Layout
-              css={(theme) => ({
-                paddingTop: theme.spacing(15),
-                paddingBottom: theme.spacing(6),
-                background: theme.colors.page_bg_light_gray,
-              })}
-              ref={deckRef}
-              scrollIntoView={section === Sections.deck}
-            >
-              <Grid>
-                <DeckBlock deck={deck} css={{ gridColumn: "1/-1" }} />
-              </Grid>
-
-              {deck.slug === "crypto" && (
-                <Grid>
-                  <AugmentedReality
-                    css={(theme) => ({
-                      marginTop: theme.spacing(9),
+        <div
+          css={(theme) => [
+            {
+              [theme.maxMQ.sm]: [
+                deck.openseaCollection &&
+                  status === "connected" && {
+                    background: theme.colors.page_bg_dark,
+                  },
+                {
+                  display: "grid",
+                  gap: theme.spacing(1),
+                  marginBottom: theme.spacing(2.5),
+                },
+              ],
+            },
+          ]}
+        >
+          {deck.openseaCollection && width < breakpoints.sm && (
+            <Layout>
+              <NFTHolder
+                gradient={true}
+                noDesc={true}
+                css={(theme) => [
+                  {
+                    marginTop: theme.spacing(2.5),
+                    marginBottom: theme.spacing(1.5),
+                    [theme.maxMQ.sm]: {
                       gridColumn: "1 / -1",
-                    })}
-                  />
-                </Grid>
-              )}
+                    },
+                  },
+                ]}
+              />
             </Layout>
-          </Fragment>
-        )}
+          )}
+          {!contest && (
+            <Layout
+              scrollIntoView={section === Sections.cards}
+              ref={cardsRef}
+              palette={
+                status === "connected" && deck.openseaCollection
+                  ? "dark"
+                  : "light"
+              }
+              css={(theme) => [
+                {
+                  [theme.mq.sm]: {
+                    color:
+                      status === "connected" && deck.openseaCollection
+                        ? theme.colors.text_title_light
+                        : theme.colors.text_title_dark,
+                    background:
+                      status === "connected" && deck.openseaCollection
+                        ? theme.colors.page_bg_dark
+                        : theme.colors.page_bg_light,
+                    paddingTop: theme.spacing(15),
+                    paddingBottom: theme.spacing(15),
+                  },
+                },
+              ]}
+              truncateInit={false}
+            >
+              <ComposedCardList deck={deck} ownedCards={ownedCards} />
+            </Layout>
+          )}
+
+          {contest && <ArtContest deck={deck} />}
+
+          {losersExist && (
+            <ComposedEntries
+              scrollIntoView={section === Sections.contest}
+              ref={contestRef}
+              deck={deck}
+            />
+          )}
+
+          {!contest && (
+            <Fragment>
+              {!artistId && deck.openseaCollection && (
+                <Layout
+                  css={(theme) => ({
+                    [theme.mq.sm]: {
+                      background: theme.colors.page_bg_dark,
+                      paddingTop: theme.spacing(15),
+                    },
+                  })}
+                  ref={nftRef}
+                  scrollIntoView={section === Sections.nft}
+                  palette={
+                    status === "connected" && deck.openseaCollection
+                      ? "dark"
+                      : "light"
+                  }
+                >
+                  <ComposedPace
+                    palette={
+                      status === "connected" && deck.openseaCollection
+                        ? "dark"
+                        : "light"
+                    }
+                    deck={
+                      deck as GQL.Deck & {
+                        openseaCollection: Record<string, string>;
+                      }
+                    }
+                  />
+                </Layout>
+              )}
+              {deck.slug === "crypto" && !artistId && (
+                <Layout
+                  css={(theme) => ({
+                    [theme.mq.sm]: {
+                      background: theme.colors.page_bg_dark,
+                      color: theme.colors.text_title_light,
+                      paddingTop: theme.spacing(15),
+                      paddingBottom: theme.spacing(15),
+                    },
+                  })}
+                  ref={roadmapRef}
+                  scrollIntoView={section === Sections.roadmap}
+                  palette={
+                    status === "connected" && deck.openseaCollection
+                      ? "dark"
+                      : "light"
+                  }
+                >
+                  <ComposedRoadmap
+                    palette={status === "connected" ? "light" : "dark"}
+                  />
+                </Layout>
+              )}
+              <Layout
+                css={(theme) => [
+                  {
+                    [theme.mq.sm]: {
+                      paddingTop: theme.spacing(15),
+                      paddingBottom: theme.spacing(5.4),
+                      background: theme.colors.page_bg_light_gray,
+                    },
+                  },
+                ]}
+                ref={deckRef}
+                scrollIntoView={section === Sections.deck}
+                palette={
+                  status === "connected" && deck.openseaCollection
+                    ? "dark"
+                    : "light"
+                }
+              >
+                <DeckBlock
+                  palette={
+                    status === "connected" && deck.openseaCollection
+                      ? "dark"
+                      : "light"
+                  }
+                  deck={deck}
+                />
+              </Layout>
+              {deck.slug === "crypto" && (
+                <Layout
+                  css={(theme) => [
+                    {
+                      [theme.mq.sm]: {
+                        paddingBottom: theme.spacing(6),
+                        paddingTop: theme.spacing(6),
+                        background: theme.colors.page_bg_light_gray,
+                      },
+                    },
+                  ]}
+                  palette={
+                    status === "connected" && deck.openseaCollection
+                      ? "dark"
+                      : "light"
+                  }
+                >
+                  <AugmentedReality
+                    palette={
+                      status === "connected" && deck.openseaCollection
+                        ? "dark"
+                        : "light"
+                    }
+                  />
+                </Layout>
+              )}
+            </Fragment>
+          )}
+        </div>
       </Fragment>
     );
   }

@@ -14,6 +14,9 @@ const Line: FC<Props> = ({ size = 1, spacing = 1, vertical, ...props }) => (
       border: 0,
       marginTop: theme.spacing(spacing),
       marginBottom: theme.spacing(spacing),
+      // [theme.maxMQ.sm]: {
+      //   opacity: 0.25,
+      // },
       opacity: 0.1,
       ...(vertical
         ? {

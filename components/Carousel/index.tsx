@@ -4,12 +4,19 @@ import { theme } from "../../pages/_app";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   index: number;
-  items: string[];
+  items: (JSX.Element | null)[];
   onIndexChange: (offset: number) => void;
+  width: number;
 }
 
-const Carousel: FC<Props> = ({ index, items, onIndexChange, ...props }) => {
-  const width = theme.spacing(39);
+const Carousel: FC<Props> = ({
+  index,
+  width,
+  items,
+  onIndexChange,
+  ...props
+}) => {
+  // const width = theme.spacing(39);
   const columnGap = theme.spacing(3);
   const ref = useRef<HTMLUListElement>(null);
   const handlers = useSwipeable({
@@ -20,7 +27,7 @@ const Carousel: FC<Props> = ({ index, items, onIndexChange, ...props }) => {
 
       ref.current.style.transition = "none";
     },
-    onSwiped: ({ absX, deltaX }) => {
+    onSwiped: ({ absX, deltaX, velocity }) => {
       if (!ref.current) {
         return;
       }
@@ -28,14 +35,19 @@ const Carousel: FC<Props> = ({ index, items, onIndexChange, ...props }) => {
       ref.current.style.transition = theme.transitions.fast("left");
       ref.current.style.left = `${-(index * (width + columnGap))}px`;
 
-      if (width / 2 < absX) {
-        const offset = Math.floor((absX - width / 2) / width) + 1;
+      if (width / 10 < absX) {
+        const offset =
+          Math.floor(
+            (velocity < 1
+              ? absX - width / 10
+              : velocity * 2 * absX - width / 10) / width
+          ) + 1;
 
         onIndexChange(deltaX < 0 ? offset : -offset);
       }
     },
-    onSwiping: ({ deltaX }) => {
-      if (!ref.current) {
+    onSwiping: ({ deltaX, first }) => {
+      if (!ref.current || first) {
         return;
       }
 
@@ -49,7 +61,6 @@ const Carousel: FC<Props> = ({ index, items, onIndexChange, ...props }) => {
       {...props}
       {...handlers}
       css={(theme) => ({
-        overflow: "hidden",
         borderRadius: theme.spacing(2),
       })}
     >
@@ -57,6 +68,7 @@ const Carousel: FC<Props> = ({ index, items, onIndexChange, ...props }) => {
         css={(theme) => [
           {
             display: "flex",
+            height: "100%",
             padding: 0,
             margin: 0,
             listStyle: "none",
@@ -70,7 +82,7 @@ const Carousel: FC<Props> = ({ index, items, onIndexChange, ...props }) => {
           left: -(index * (width + columnGap)),
         }}
       >
-        {items.map((item) => (
+        {/* {items.map((item) => (
           <li
             key={item}
             css={(theme) => ({
@@ -82,6 +94,42 @@ const Carousel: FC<Props> = ({ index, items, onIndexChange, ...props }) => {
               backgroundPosition: "50% 50%",
             })}
             style={{ backgroundImage: `url(${item})` }}
+          />
+        ))} */}
+        {items}
+      </ul>
+      <ul
+        css={(theme) => [
+          {
+            listStyle: "none",
+            position: "relative",
+            display: "flex",
+            width: "100%",
+            padding: 0,
+            margin: 0,
+            justifyContent: "center",
+            gridColumn: "1 / -1",
+            gap: theme.spacing(1),
+            marginTop: theme.spacing(1.5),
+          },
+        ]}
+      >
+        {items.map((_, currentIndex) => (
+          <div
+            key={"bulletitem" + currentIndex}
+            css={(theme) => [
+              {
+                width: theme.spacing(0.8),
+                height: theme.spacing(0.8),
+                flex: "none",
+                background:
+                  index === currentIndex
+                    ? theme.colors.text_subtitle_dark
+                    : theme.colors.page_bg_light,
+                borderRadius: "100%",
+                transition: theme.transitions.fast("background-color"),
+              },
+            ]}
           />
         ))}
       </ul>

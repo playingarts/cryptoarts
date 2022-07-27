@@ -1,8 +1,9 @@
-import { FC, HTMLAttributes, useRef } from "react";
-import { useEffect, useState } from "react";
+import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
 import { theme } from "../../pages/_app";
-import Image from "next/image";
+import { breakpoints } from "../../source/enums";
+// import Image from "next/image";
 import Loader from "../Loader";
+import { useSize } from "../SizeProvider";
 import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
@@ -29,8 +30,8 @@ const Card: FC<Props> = ({
 }) => {
   const [hovered, setHover] = useState(false);
   const video = useRef<HTMLVideoElement>(null);
-  const width = size === "big" ? 37 : 28.5;
-  const height = size === "big" ? 52 : 40;
+  // const width = size === "big" ? 37 : 28.5;
+  // const height = size === "big" ? 52 : 40;
   const wrapper = useRef<HTMLDivElement>(null);
   const [{ x, y }, setSkew] = useState({ x: 0, y: 0 });
   const [loaded, setLoaded] = useState(false);
@@ -51,12 +52,30 @@ const Card: FC<Props> = ({
     }
   }, [hovered, animated]);
 
+  const { width } = useSize();
+
   return (
     <div
       {...props}
       css={(theme) => ({
+        [theme.maxMQ.sm]: {
+          "--width": `${
+            size === "big" ? theme.spacing(26) : theme.spacing(16)
+          }px`,
+          "--height": `${
+            size === "big" ? theme.spacing(36.5) : theme.spacing(22.4)
+          }px`,
+        },
+        [theme.mq.sm]: {
+          "--width": `${
+            size === "big" ? theme.spacing(37) : theme.spacing(28.5)
+          }px`,
+          "--height": `${
+            size === "big" ? theme.spacing(52) : theme.spacing(40)
+          }px`,
+        },
         transition: theme.transitions.fast("color"),
-        width: theme.spacing(width),
+        width: "var(--width)",
         textAlign: "center",
         fontWeight: 500,
         fontsize: 18,
@@ -70,21 +89,16 @@ const Card: FC<Props> = ({
           {
             transition: theme.transitions.fast(["transform", "box-shadow"]),
             position: "relative",
-            borderRadius: 15,
+            [theme.mq.sm]: {
+              borderRadius: theme.spacing(1.5),
+            },
+            [theme.maxMQ.sm]: {
+              borderRadius: theme.spacing(1),
+            },
+            overflow: "hidden",
             boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
           },
           owned && {
-            "@keyframes gradient": {
-              "0%": {
-                backgroundPosition: "0% 50%",
-              },
-              "50%": {
-                backgroundPosition: "100% 50%",
-              },
-              "100%": {
-                backgroundPosition: "0% 50%",
-              },
-            },
             ":before": {
               pointerEvents: "none",
               content: '""',
@@ -96,28 +110,35 @@ const Card: FC<Props> = ({
               width: "100%",
               height: "100%",
               borderRadius: theme.spacing(2),
+
               background: theme.colors.eth,
               backgroundSize: "400% 100%",
               animation: "gradient 5s ease infinite",
             },
           },
-          hovered &&
-            !interactive &&
-            !isStatic && {
-              transform: `translate(0, -${theme.spacing(2)}px)`,
-              boxShadow: "0px 10px 20px 4px rgba(0, 0, 0, 0.25)",
-            },
+          {
+            [theme.mq.sm]: [
+              hovered &&
+                !interactive &&
+                !isStatic && {
+                  transform: `translate(0, -${theme.spacing(2)}px)`,
+                  boxShadow: "0px 10px 20px 4px rgba(0, 0, 0, 0.25)",
+                },
+            ],
+          },
         ]}
-        style={
-          (hovered &&
-            interactive && {
-              transition: "initial",
-              transform: `perspective(${theme.spacing(width)}px) rotateX(${
-                -y * 10
-              }deg) rotateY(${x * 10}deg) scale3d(1, 1, 1)`,
-            }) ||
-          undefined
-        }
+        style={{
+          [theme.mq.sm]: [
+            (hovered &&
+              interactive && {
+                transition: "initial",
+                transform: `perspective(var(--width)) rotateX(${
+                  -y * 10
+                }deg) rotateY(${x * 10}deg) scale3d(1, 1, 1)`,
+              }) ||
+              undefined,
+          ],
+        }}
         {...(interactive && {
           onMouseMove: ({ clientX, clientY }) => {
             if (!wrapper.current) {
@@ -144,8 +165,7 @@ const Card: FC<Props> = ({
             {
               overflow: "hidden",
               position: "relative",
-              height: theme.spacing(height),
-              borderRadius: theme.spacing(1.5),
+              height: "var(--height)",
               background: card.background || theme.colors.text_title_light,
             },
           ]}
@@ -157,34 +177,43 @@ const Card: FC<Props> = ({
                 transition: theme.transitions.slow("opacity"),
               }}
             >
-              <Image
-                quality={100}
-                width={theme.spacing(width)}
-                height={theme.spacing(height)}
+              <img
+                loading="lazy"
                 src={card.img}
                 alt={card.info}
-                css={(theme) => ({ borderRadius: theme.spacing(1.5) })}
-                onLoadingComplete={hideLoader}
-                unoptimized={true}
+                css={{
+                  width: "var(--width)",
+                  height: "var(--height)",
+                }}
+                onLoad={hideLoader}
               />
             </div>
           )}
-          {card.video && (
+          {card.video && (!animated ? width >= breakpoints.sm : true) && (
             <video
               loop
               muted
               playsInline
               ref={video}
-              css={(theme) => ({
-                position: "absolute",
-                top: 0,
-                left: 0,
-                borderRadius: 15,
-                overflow: "hidden",
-                opacity: animated ? 1 : hovered ? (loaded ? 1 : 0) : 0,
-                width: theme.spacing(width),
-                height: theme.spacing(height),
-              })}
+              css={(theme) => [
+                {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  [theme.mq.sm]: {
+                    borderRadius: theme.spacing(1.5),
+                  },
+                  [theme.maxMQ.sm]: {
+                    borderRadius: theme.spacing(1),
+                  },
+                  overflow: "hidden",
+                  [theme.mq.sm]: {
+                    opacity: animated ? 1 : hovered ? (loaded ? 1 : 0) : 0,
+                  },
+                  width: "var(--width)",
+                  height: "var(--height)",
+                },
+              ]}
               onLoadedData={hideLoader}
               {...(animated ? { autoPlay: true } : { preload: "none" })}
             >
@@ -207,7 +236,14 @@ const Card: FC<Props> = ({
       {!noInfo && (
         <Text
           variant="label"
-          css={(theme) => ({ margin: 0, marginTop: theme.spacing(2) })}
+          css={(theme) => ({
+            margin: 0,
+            marginTop: theme.spacing(2),
+            [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(1),
+              fontSize: 15,
+            },
+          })}
         >
           {card.artist.name}
         </Text>
@@ -215,7 +251,13 @@ const Card: FC<Props> = ({
       {sorted && (
         <Text
           variant="label"
-          css={(theme) => ({ margin: 0, marginTop: theme.spacing(0.5) })}
+          css={(theme) => ({
+            margin: 0,
+            marginTop: theme.spacing(0.5),
+            [theme.maxMQ.sm]: {
+              fontSize: 15,
+            },
+          })}
         >
           {card.price ? (
             `Ξ${card.price}`

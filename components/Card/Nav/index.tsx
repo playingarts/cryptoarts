@@ -7,10 +7,13 @@ import {
   HTMLAttributes,
   useEffect,
 } from "react";
+import { breakpoints } from "../../../source/enums";
 import Button from "../../Button";
 import Chevron from "../../Icons/Chevron";
-import Close from "../../Icons/Close";
+import Cross from "../../Icons/Cross";
+import ThickChevron from "../../Icons/ThickChevron";
 import Link, { Props as LinkProps } from "../../Link";
+import { useSize } from "../../SizeProvider";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   prevLink?: LinkProps["href"];
@@ -66,21 +69,30 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     return () => window.removeEventListener("keydown", keyHandler);
   }, [push, prevLink, nextLink, closeLink, disableKeys]);
 
+  const { width } = useSize();
+
   return (
     <div {...props} ref={ref}>
       <div
-        css={{
-          position: "sticky",
-          top: "100vh",
-          zIndex: 1,
-        }}
+        css={(theme) => [
+          {
+            position: "sticky",
+            [theme.maxMQ.sm]: {
+              position: "relative",
+              top: "85vh",
+            },
+            top: "100vh",
+            zIndex: 1,
+            color: theme.colors.text_subtitle_light,
+          },
+        ]}
       >
         {prevLink && (
           <Button
             {...options}
             {...prevLinkOptions}
             component={Link}
-            Icon={Chevron}
+            Icon={width >= breakpoints.sm ? Chevron : ThickChevron}
             href={prevLink}
             css={(theme) => ({
               position: "absolute",
@@ -89,6 +101,18 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               transform: `translate(${theme.spacing(
                 5
               )}px, 50%) rotate(-180deg)`,
+
+              [theme.mq.sm]: {
+                width: theme.spacing(3.2),
+                height: theme.spacing(5.7),
+              },
+              [theme.maxMQ.sm]: {
+                width: theme.spacing(2),
+                height: theme.spacing(1.3),
+                transform: `translate(${theme.spacing(
+                  2.5
+                )}px, 50%) rotate(-180deg)`,
+              },
             })}
           />
         )}
@@ -97,13 +121,22 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             {...options}
             {...nextLinkOptions}
             component={Link}
-            Icon={Chevron}
+            Icon={width >= breakpoints.sm ? Chevron : ThickChevron}
             href={nextLink}
             css={(theme) => ({
               position: "absolute",
               bottom: "50vh",
               right: 0,
               transform: `translate(-${theme.spacing(5)}px, 50%)`,
+              [theme.mq.sm]: {
+                width: theme.spacing(3.2),
+                height: theme.spacing(5.7),
+              },
+              [theme.maxMQ.sm]: {
+                width: theme.spacing(2),
+                height: theme.spacing(1.3),
+                transform: `translate(-${theme.spacing(2.5)}px, 50%)`,
+              },
             })}
           />
         )}
@@ -114,7 +147,7 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 {...options}
                 {...closeLinkOptions}
                 component={Link}
-                Icon={Close}
+                Icon={Cross}
                 href={closeLink}
                 {...(closeLinkOptions && {
                   className: cx(
@@ -132,6 +165,16 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                   transform: `translate(-${theme.spacing(5)}px, ${theme.spacing(
                     14
                   )}px)`,
+                  [theme.mq.sm]: {
+                    borderRadius: "100%",
+                    border: `${theme.spacing(0.2)}px solid currentColor`,
+                  },
+                  [theme.maxMQ.sm]: {
+                    top: "-90vh",
+                    transform: `translate(-${theme.spacing(
+                      1.5
+                    )}px, ${theme.spacing(14)}px)`,
+                  },
                 })}
               />
             )}
