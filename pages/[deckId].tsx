@@ -194,7 +194,7 @@ const Content: FC<{
                   ]}
                   spacing={3}
                 />
-                {deck.openseaCollection && width <= breakpoints.sm && (
+                {deck.openseaCollection && width < breakpoints.sm && (
                   <Button
                     Icon={Bag}
                     component={Link}
