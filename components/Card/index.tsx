@@ -95,7 +95,6 @@ const Card: FC<Props> = ({
             [theme.maxMQ.sm]: {
               borderRadius: theme.spacing(1),
             },
-            overflow: "hidden",
             boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
           },
           owned && {
@@ -167,6 +166,12 @@ const Card: FC<Props> = ({
               position: "relative",
               height: "var(--height)",
               background: card.background || theme.colors.text_title_light,
+              [theme.mq.sm]: {
+                borderRadius: theme.spacing(1.5),
+              },
+              [theme.maxMQ.sm]: {
+                borderRadius: theme.spacing(1),
+              },
             },
           ]}
         >
