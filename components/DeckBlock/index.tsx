@@ -26,11 +26,24 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
 }) => {
   const { width } = useSize();
   return (
-    <Grid>
+    <Grid
+      css={(theme) => [
+        {
+          [theme.mq.sm]: {
+            background: `url(${deck.image}) no-repeat`,
+            backgroundSize: `${theme.spacing(50)}px ${theme.spacing(50)}px`,
+            backgroundPosition: "bottom left",
+            width: "fit-content",
+            margin: "0 auto",
+          },
+        },
+      ]}
+    >
       <BlockTitle
         variant="h3"
         title={width < breakpoints.sm ? "Physical Deck" : deck.title}
         subTitleText={deck.description}
+        noLine={true}
         css={(theme) => [
           {
             [theme.maxMQ.sm]: {
@@ -49,33 +62,35 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
       >
         <Grid {...props} css={{ gridColumn: "1/-1" }}>
           {width < breakpoints.sm && (
-            <Text variant="body2" css={[{ gridColumn: "1/-1" }]}>
-              {deck.description}
-            </Text>
-          )}
-          <div
-            css={(theme) => [
-              {
-                [theme.maxMQ.sm]: [
+            <Fragment>
+              <Text variant="body2" css={[{ gridColumn: "1/-1" }]}>
+                {deck.description}
+              </Text>
+              <div
+                css={(theme) => [
                   {
-                    gridColumn: "1 / -1",
-                    height: theme.spacing(28),
+                    [theme.maxMQ.sm]: [
+                      {
+                        gridColumn: "1 / -1",
+                        height: theme.spacing(28),
+                      },
+                    ],
+                    [theme.mq.sm]: {
+                      gridColumn: "span 5",
+                      gridRow: "span 3",
+                    },
+                    [theme.mq.md]: {
+                      gridColumn: "span 6",
+                    },
+                    flexBasis: "50%",
+                    display: "block",
+                    background: `url(${deck.image}) 50% 50% no-repeat`,
+                    backgroundSize: "contain",
                   },
-                ],
-                [theme.mq.sm]: {
-                  gridColumn: "span 5",
-                  gridRow: "span 3",
-                },
-                [theme.mq.md]: {
-                  gridColumn: "span 6",
-                },
-                flexBasis: "50%",
-                display: "block",
-                background: `url(${deck.image}) 50% 50% no-repeat`,
-                backgroundSize: "contain",
-              },
-            ]}
-          />
+                ]}
+              />
+            </Fragment>
+          )}
 
           <dl
             css={(theme) => ({
@@ -100,6 +115,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
               },
             })}
           >
+            <Line spacing={1} />
             {Object.entries(deck.properties).map(([key, value]) => (
               <Fragment key={key}>
                 <div
@@ -109,8 +125,8 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
                     gridTemplateColumns: `repeat(auto-fit, ${theme.spacing(
                       7.5
                     )}px) `,
-                    paddingTop: theme.spacing(2),
-                    paddingBottom: theme.spacing(2),
+                    paddingTop: theme.spacing(0.5),
+                    paddingBottom: theme.spacing(0.5),
                   })}
                 >
                   <Text
@@ -148,7 +164,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
                     {value}
                   </Text>
                 </div>
-                <Line spacing={0} />
+                <Line spacing={1} />
               </Fragment>
             ))}
           </dl>
