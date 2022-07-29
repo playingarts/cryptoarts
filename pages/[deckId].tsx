@@ -137,8 +137,8 @@ const Content: FC<{
         {typeof artistId === "string" && (
           <ComposedCardContent
             css={(theme) => ({
+              color: theme.colors.text_subtitle_light,
               background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
-              color: theme.colors.page_bg_light,
             })}
             ownedCards={ownedCards}
             deck={deck}

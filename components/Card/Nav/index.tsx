@@ -26,6 +26,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
     css?: ((_: Theme) => CSSInterpolation) | CSSObject;
   };
   disableKeys?: boolean;
+  stopOnMobile?: boolean;
 }
 
 const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -39,6 +40,7 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     options,
     disableKeys,
     closeLinkOptions,
+    stopOnMobile,
     ...props
   },
   ref
@@ -77,13 +79,11 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         css={(theme) => [
           {
             position: "sticky",
-            [theme.maxMQ.sm]: {
-              // position: "relative",
-              top: "85vh",
-            },
             top: "100vh",
+            // top: theme.spacing(36.5),
+            // bottom: "-100vh",
             zIndex: 1,
-            // color: theme.colors.text_subtitle_light,
+            [theme.maxMQ.sm]: [stopOnMobile && { position: "relative" }],
           },
         ]}
       >
@@ -95,12 +95,13 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             Icon={width >= breakpoints.sm ? Chevron : ThickChevron}
             href={prevLink}
             css={(theme) => ({
+              top: "-100vh",
+              // bottom: theme.spacing(44.5),
               position: "absolute",
-              bottom: "50vh",
               left: 0,
-              transform: `translate(${theme.spacing(
-                5
-              )}px, 50%) rotate(-180deg)`,
+              transform: `translate(${theme.spacing(5)}px, ${theme.spacing(
+                37.2
+              )}px) rotate(-180deg)`,
 
               [theme.mq.sm]: {
                 width: theme.spacing(3.2),
@@ -109,9 +110,9 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               [theme.maxMQ.sm]: {
                 width: theme.spacing(2),
                 height: theme.spacing(1.3),
-                transform: `translate(${theme.spacing(
-                  2.5
-                )}px, 50%) rotate(-180deg)`,
+                transform: `translate(${theme.spacing(2.5)}px, ${theme.spacing(
+                  29.75
+                )}px) rotate(-180deg)`,
               },
             })}
           />
@@ -124,10 +125,14 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             Icon={width >= breakpoints.sm ? Chevron : ThickChevron}
             href={nextLink}
             css={(theme) => ({
+              top: "-100vh",
               position: "absolute",
-              bottom: "50vh",
+              // top: theme.spacing(-42.5),
+              bottom: theme.spacing(44.5),
               right: 0,
-              transform: `translate(-${theme.spacing(5)}px, 50%)`,
+              transform: `translate(-${theme.spacing(5)}px, ${theme.spacing(
+                37.2
+              )}px)`,
               [theme.mq.sm]: {
                 width: theme.spacing(3.2),
                 height: theme.spacing(5.7),
@@ -135,7 +140,9 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               [theme.maxMQ.sm]: {
                 width: theme.spacing(2),
                 height: theme.spacing(1.3),
-                transform: `translate(-${theme.spacing(2.5)}px, 50%)`,
+                transform: `translate(-${theme.spacing(2.5)}px, ${theme.spacing(
+                  29.75
+                )}px)`,
               },
             })}
           />
@@ -170,10 +177,9 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                     border: `${theme.spacing(0.2)}px solid currentColor`,
                   },
                   [theme.maxMQ.sm]: {
-                    top: "-90vh",
                     transform: `translate(-${theme.spacing(
                       1.5
-                    )}px, ${theme.spacing(14)}px)`,
+                    )}px, ${theme.spacing(11)}px)`,
                   },
                 })}
               />

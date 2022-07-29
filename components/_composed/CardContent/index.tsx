@@ -1,5 +1,5 @@
-import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
 import { useRouter } from "next/router";
+import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
 import { useLoadCards } from "../../../hooks/card";
 import { useLoadLosers } from "../../../hooks/loser";
 import { OwnedCard } from "../../../pages/[deckId]";
@@ -71,6 +71,7 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   return (
     <CardNav
+      stopOnMobile={true}
       {...props}
       ref={ref}
       disableKeys={!!cardValue && !!cardSuit}
@@ -101,6 +102,11 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       }}
     >
       <ComposedCardBlock
+        css={(theme) => [
+          {
+            color: theme.colors.page_bg_light,
+          },
+        ]}
         ownedCards={ownedCards}
         contest={contest}
         card={card}
