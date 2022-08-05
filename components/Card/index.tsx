@@ -109,6 +109,9 @@ const Card: FC<Props> = ({
               width: "100%",
               height: "100%",
               borderRadius: theme.spacing(2),
+              [theme.maxMQ.sm]: {
+                borderRadius: theme.spacing(1.5),
+              },
 
               background: theme.colors.eth,
               backgroundSize: "400% 100%",
