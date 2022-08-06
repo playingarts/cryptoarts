@@ -7,6 +7,8 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   items: (JSX.Element | null)[];
   onIndexChange: (offset: number) => void;
   width: number;
+  columnGap?: number;
+  noDots?: boolean;
 }
 
 const Carousel: FC<Props> = ({
@@ -14,10 +16,12 @@ const Carousel: FC<Props> = ({
   width,
   items,
   onIndexChange,
+  noDots,
+  columnGap = theme.spacing(3),
   ...props
 }) => {
   // const width = theme.spacing(39);
-  const columnGap = theme.spacing(3);
+  // const columnGap = theme.spacing(3);
   const ref = useRef<HTMLUListElement>(null);
   const handlers = useSwipeable({
     onSwipeStart: () => {
@@ -82,57 +86,45 @@ const Carousel: FC<Props> = ({
           left: -(index * (width + columnGap)),
         }}
       >
-        {/* {items.map((item) => (
-          <li
-            key={item}
-            css={(theme) => ({
-              width,
-              height: width,
-              borderRadius: theme.spacing(2),
-              flexShrink: 0,
-              backgroundSize: "cover",
-              backgroundPosition: "50% 50%",
-            })}
-            style={{ backgroundImage: `url(${item})` }}
-          />
-        ))} */}
         {items}
       </ul>
-      <ul
-        css={(theme) => [
-          {
-            listStyle: "none",
-            position: "relative",
-            display: "flex",
-            width: "100%",
-            padding: 0,
-            margin: 0,
-            justifyContent: "center",
-            gridColumn: "1 / -1",
-            gap: theme.spacing(1),
-            marginTop: theme.spacing(1.5),
-          },
-        ]}
-      >
-        {items.map((_, currentIndex) => (
-          <div
-            key={"bulletitem" + currentIndex}
-            css={(theme) => [
-              {
-                width: theme.spacing(0.8),
-                height: theme.spacing(0.8),
-                flex: "none",
-                background:
-                  index === currentIndex
-                    ? theme.colors.text_subtitle_dark
-                    : theme.colors.page_bg_light,
-                borderRadius: "100%",
-                transition: theme.transitions.fast("background-color"),
-              },
-            ]}
-          />
-        ))}
-      </ul>
+      {!noDots && (
+        <ul
+          css={(theme) => [
+            {
+              listStyle: "none",
+              position: "relative",
+              display: "flex",
+              width: "100%",
+              padding: 0,
+              margin: 0,
+              justifyContent: "center",
+              gridColumn: "1 / -1",
+              gap: theme.spacing(1),
+              marginTop: theme.spacing(1.5),
+            },
+          ]}
+        >
+          {items.map((_, currentIndex) => (
+            <div
+              key={"bulletitem" + currentIndex}
+              css={(theme) => [
+                {
+                  width: theme.spacing(0.8),
+                  height: theme.spacing(0.8),
+                  flex: "none",
+                  background:
+                    index === currentIndex
+                      ? theme.colors.text_subtitle_dark
+                      : theme.colors.page_bg_light,
+                  borderRadius: "100%",
+                  transition: theme.transitions.fast("background-color"),
+                },
+              ]}
+            />
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

@@ -1,22 +1,25 @@
-import { Theme, Interpolation } from "@emotion/react";
+import { Interpolation, Theme } from "@emotion/react";
+import { CSSPropertiesWithMultiValues } from "@emotion/serialize";
 import { colord } from "colord";
 import { useMetaMask } from "metamask-react";
 import { MetaMaskState } from "metamask-react/lib/metamask-context";
 import { FC } from "react";
+import { useSignature } from "../../contexts/SignatureContext";
 import { theme } from "../../pages/_app";
 import { PartialRecord } from "../../source/utils";
 import Button, { Props as ButtonProps } from "../Button";
 import Metamask from "../Icons/Metamask";
 import Link from "../Link";
-import { useSignature } from "../../contexts/SignatureContext";
 
 interface Props
   extends ButtonProps,
     PartialRecord<MetaMaskState["status"], string> {
   noLabel?: boolean;
   noIcon?: boolean;
-  backgroundColor: keyof typeof theme.colors;
-  textColor: keyof typeof theme.colors;
+  backgroundColor:
+    | keyof typeof theme.colors
+    | CSSPropertiesWithMultiValues["backgroundColor"];
+  textColor: keyof typeof theme.colors | CSSPropertiesWithMultiValues["color"];
 }
 
 const MetamaskButton: FC<Props> = ({
@@ -37,11 +40,19 @@ const MetamaskButton: FC<Props> = ({
 
   let { css, action, label } = {
     css: (theme) => ({
-      backgroundColor: theme.colors[backgroundColor],
-      color: theme.colors[textColor],
+      backgroundColor:
+        (theme.colors as Record<string, string>)[
+          backgroundColor as keyof typeof theme.colors
+        ] || backgroundColor,
+      color:
+        (theme.colors as Record<string, string>)[
+          textColor as keyof typeof theme.colors
+        ] || textColor,
       transition: theme.transitions.fast(["opacity", "color", "background"]),
-      "&:hover": {
-        opacity: 0.9,
+      [theme.mq.sm]: {
+        "&:hover": {
+          opacity: 0.9,
+        },
       },
     }),
   } as {
@@ -53,7 +64,10 @@ const MetamaskButton: FC<Props> = ({
   if (status === "connected") {
     css = (theme) => ({
       backgroundColor: colord(theme.colors.white).alpha(0).toRgbString(),
-      color: theme.colors[backgroundColor],
+      color:
+        (theme.colors as Record<string, string>)[
+          backgroundColor as keyof typeof theme.colors
+        ] || backgroundColor,
       "&:hover": {
         background: colord(theme.colors.white).alpha(0.1).toRgbString(),
       },

@@ -4,12 +4,20 @@ interface Props extends HTMLAttributes<HTMLHRElement> {
   size?: number;
   spacing?: number;
   vertical?: boolean;
+  palette?: "dark" | "light";
 }
 
-const Line: FC<Props> = ({ size = 1, spacing = 1, vertical, ...props }) => (
+const Line: FC<Props> = ({
+  palette = "light",
+  size = 1,
+  spacing = 1,
+  vertical,
+  ...props
+}) => (
   <hr
     {...props}
     css={(theme) => ({
+      color: palette === "dark" ? theme.colors.white : theme.colors.black,
       background: "currentColor",
       border: 0,
       marginTop: theme.spacing(spacing),

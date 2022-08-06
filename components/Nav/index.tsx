@@ -1,11 +1,15 @@
 import { colord } from "colord";
-import { FC, HTMLAttributes } from "react";
+import { Dispatch, FC, HTMLAttributes, SetStateAction } from "react";
 import { useDecks } from "../../hooks/deck";
 import { breakpoints } from "../../source/enums";
 import Link from "../Link";
 import { useSize } from "../SizeProvider";
 
-const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+const Nav: FC<
+  HTMLAttributes<HTMLElement> & {
+    setModal?: Dispatch<SetStateAction<boolean>>;
+  }
+> = ({ setModal, ...props }) => {
   const { decks = [], loading } = useDecks({
     variables: { withProduct: false },
   });
@@ -41,15 +45,23 @@ const Nav: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         color: theme.colors.white,
       })}
     >
-      {width < breakpoints.sm && (
-        <div
+      {width < breakpoints.sm && setModal && (
+        <button
           css={{
+            padding: 0,
+            fontWeight: "inherit",
+            textTransform: "uppercase",
+            background: "none",
+            color: "inherit",
+            fontSize: "inherit",
+            border: "none",
             opacity: 0.7,
             lineHeight: "40px",
           }}
+          onClick={() => setModal(true)}
         >
           browse collection
-        </div>
+        </button>
       )}
       {width >= breakpoints.sm && (
         <div>

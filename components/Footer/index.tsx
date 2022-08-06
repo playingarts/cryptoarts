@@ -1,3 +1,4 @@
+import { colord } from "colord";
 import { useMetaMask } from "metamask-react";
 import { FC, Fragment, HTMLAttributes } from "react";
 import { socialLinks } from "../../source/consts";
@@ -18,71 +19,86 @@ import { useSize } from "../SizeProvider";
 import StoreButtons from "../StoreButtons";
 import Text from "../Text";
 
-const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
+interface Props extends HTMLAttributes<HTMLDivElement> {
+  noStore?: boolean;
+  noTop?: boolean;
+  palette?: "dark";
+}
+
+const Footer: FC<Props> = ({ noStore, noTop, palette, ...props }) => {
   const { status } = useMetaMask();
 
   const { width } = useSize();
 
   return (
-    <Grid {...props}>
-      <div
-        css={(theme) => ({
-          gridColumn: "1 / -1",
-          [theme.mq.sm]: {
-            [theme.maxMQ.md]: {
-              gridColumn: "span 4",
-            },
-          },
-          [theme.mq.md]: {
-            gridColumn: "span 7",
-          },
-          opacity: 0.5,
-          color: theme.colors.text_subtitle_dark,
-        })}
-      >
-        <Text
-          component="h6"
-          css={(theme) => ({
-            margin: 0,
-            fontSize: theme.spacing(2),
-            lineHeight: 1,
-            [theme.mq.sm]: {
-              fontSize: theme.spacing(2.3),
-            },
-          })}
-        >
-          playing arts project
-        </Text>
-        <Text variant="body0">
-          All rights reserved. Any artwork displayed on this website may not be
-          reproduced or used in any manner whatsoever without the express
-          written permission of Digital Abstracts or their respective owners.
-        </Text>
-        <Text
-          variant="body0"
-          css={{
-            marginBottom: 0,
-          }}
-        >
-          © 2012—2021 Digital Abstracts SL Privacy statement Patent Pending
-        </Text>
-      </div>
-
-      {width >= breakpoints.sm && (
-        <Line
-          css={(theme) => ({
-            color: theme.colors.black,
-          })}
-          vertical={true}
-          spacing={0}
-        />
+    <Grid
+      {...props}
+      css={(theme) => [
+        {
+          color:
+            palette === "dark"
+              ? colord(theme.colors.text_subtitle_light)
+                  .alpha(0.25)
+                  .toRgbString()
+              : colord(theme.colors.text_subtitle_dark)
+                  .alpha(0.25)
+                  .toRgbString(),
+        },
+      ]}
+    >
+      {!noTop && (
+        <Fragment>
+          <div
+            css={(theme) => ({
+              gridColumn: "1 / -1",
+              [theme.mq.sm]: {
+                [theme.maxMQ.md]: {
+                  gridColumn: "span 4",
+                },
+              },
+              [theme.mq.md]: {
+                gridColumn: "span 7",
+              },
+            })}
+          >
+            <Text
+              component="h6"
+              css={(theme) => ({
+                margin: 0,
+                fontSize: theme.spacing(2),
+                lineHeight: 1,
+                [theme.mq.sm]: {
+                  fontSize: theme.spacing(2.3),
+                },
+              })}
+            >
+              playing arts project
+            </Text>
+            <Text variant="body0">
+              All rights reserved. Any artwork displayed on this website may not
+              be reproduced or used in any manner whatsoever without the express
+              written permission of Digital Abstracts or their respective
+              owners.
+            </Text>
+            <Text
+              variant="body0"
+              css={{
+                marginBottom: 0,
+              }}
+            >
+              © 2012—2021 Digital Abstracts SL Privacy statement Patent Pending
+            </Text>
+          </div>
+          {width >= breakpoints.sm && (
+            <Line {...{ palette }} vertical={true} spacing={0} />
+          )}
+        </Fragment>
       )}
+
       <nav
         css={(theme) => ({
           display: "flex",
           flexWrap: "wrap",
-          color: theme.colors.text_subtitle_dark,
-          opacity: 0.5,
           gridColumn: "1 / -1",
           [theme.maxMQ.sm]: {
             justifyContent: "center",
@@ -154,53 +170,72 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
         {width < breakpoints.sm && (
           <Fragment>
             <Line
-              css={(theme) => ({
-                gridColumn: "1 / -1",
-                width: "100%",
-                color: theme.colors.black,
-              })}
+              palette={palette}
+              css={[
+                {
+                  gridColumn: "1 / -1",
+                  width: "100%",
+                },
+              ]}
               spacing={3}
             />
 
             {status !== "connected" && (
               <MetamaskButton
                 noIcon={true}
-                textColor="text_title_light"
-                backgroundColor="text_title_light"
+                textColor={
+                  palette === "dark" ? "transparent" : "text_title_light"
+                }
+                backgroundColor={
+                  palette === "dark" ? "dark_gray" : "text_subtitle_dark"
+                }
                 css={(theme) => [
                   {
-                    backgroundColor: theme.colors.text_subtitle_dark,
-                    "&:hover": {
-                      backgroundColor: theme.colors.text_subtitle_dark,
-                    },
                     width: "100%",
                     marginBottom: theme.spacing(2.5),
+                  },
+                  palette !== "dark" && {
+                    opacity: 0.5,
                   },
                 ]}
                 centeredText={true}
               >
-                Connect metamask
+                <span
+                  css={(theme) => [
+                    palette === "dark" && {
+                      color: "transparent",
+                      background: theme.colors.eth,
+                      backgroundClip: "text",
+                    },
+                  ]}
+                >
+                  Connect metamask
+                </span>
               </MetamaskButton>
             )}
           </Fragment>
         )}
-        <StoreButtons
-          css={{
-            alignSelf: "flex-end",
-          }}
-          ButtonProps={{
-            variant: "bordered",
-          }}
-        />
-        {width < breakpoints.sm && (
-          <Line
-            css={(theme) => ({
-              gridColumn: "1 / -1",
-              width: "100%",
-              color: theme.colors.black,
-            })}
-            spacing={3}
-          />
+        {!noStore && (
+          <Fragment>
+            <StoreButtons
+              css={{
+                alignSelf: "flex-end",
+              }}
+              ButtonProps={{
+                variant: "bordered",
+              }}
+            />
+            {width < breakpoints.sm && (
+              <Line
+                {...{ palette }}
+                css={{
+                  gridColumn: "1 / -1",
+                  width: "100%",
+                }}
+                spacing={3}
+              />
+            )}
+          </Fragment>
         )}
       </nav>
     </Grid>

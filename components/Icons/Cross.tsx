@@ -1,6 +1,8 @@
 import { FC, HTMLAttributes } from "react";
 
-const Cross: FC<HTMLAttributes<SVGElement>> = (props) => {
+const Cross: FC<
+  HTMLAttributes<SVGElement> & { height?: string; width?: string }
+> = ({ ...props }) => {
   return (
     <svg
       width="18"
