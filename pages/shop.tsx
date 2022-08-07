@@ -120,6 +120,7 @@ const Content: FC = () => {
             />
 
             <NFTHolder
+              metamaskText="connect"
               css={(theme) => [
                 {
                   gridColumn: "span 3",

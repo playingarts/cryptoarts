@@ -1,7 +1,6 @@
 import { useMetaMask } from "metamask-react";
 import {
   FC,
-  Fragment,
   HTMLAttributes,
   useEffect,
   useLayoutEffect,
@@ -28,8 +27,14 @@ const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 interface Props extends HTMLAttributes<HTMLElement> {
   gradient?: boolean;
   noDesc?: boolean;
+  metamaskText?: string;
 }
-const NFTHolder: FC<Props> = ({ noDesc, gradient, ...props }) => {
+const NFTHolder: FC<Props> = ({
+  metamaskText = "connect metamask",
+  noDesc,
+  gradient,
+  ...props
+}) => {
   const { products } = useProducts();
 
   const product =
@@ -120,35 +125,33 @@ const NFTHolder: FC<Props> = ({ noDesc, gradient, ...props }) => {
           },
         })}
         action={
-          <Fragment>
-            <MetamaskButton
-              textColor="white"
-              backgroundColor="orange"
-              notConnected="Connect"
-              unavailable="Install"
-              noIcon={width < breakpoints.sm}
+          <MetamaskButton
+            textColor="white"
+            backgroundColor="orange"
+            notConnected="Connect"
+            unavailable="Install"
+            noIcon={width < breakpoints.sm}
+            css={(theme) => [
+              gradient && {
+                background: theme.colors.page_bg_dark,
+              },
+              {
+                [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
+              },
+            ]}
+          >
+            <span
               css={(theme) => [
                 gradient && {
-                  background: theme.colors.page_bg_dark,
-                },
-                {
-                  [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
+                  color: "transparent",
+                  background: theme.colors.eth,
+                  backgroundClip: "text",
                 },
               ]}
             >
-              <span
-                css={(theme) => [
-                  gradient && {
-                    color: "transparent",
-                    background: theme.colors.eth,
-                    backgroundClip: "text",
-                  },
-                ]}
-              >
-                connect metamask
-              </span>
-            </MetamaskButton>
-          </Fragment>
+              {metamaskText}
+            </span>
+          </MetamaskButton>
         }
         {...props}
       >
