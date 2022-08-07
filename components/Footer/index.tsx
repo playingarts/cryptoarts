@@ -21,11 +21,17 @@ import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   noStore?: boolean;
-  noTop?: boolean;
   palette?: "dark";
+  reverseMobile?: boolean;
 }
 
-const Footer: FC<Props> = ({ noStore, noTop, palette, ...props }) => {
+const Footer: FC<Props> = ({
+  noStore,
+  reverseMobile,
+  palette,
+  children,
+  ...props
+}) => {
   const { status } = useMetaMask();
 
   const { width } = useSize();
@@ -46,21 +52,21 @@ const Footer: FC<Props> = ({ noStore, noTop, palette, ...props }) => {
         },
       ]}
     >
-      {!noTop && (
-        <Fragment>
-          <div
-            css={(theme) => ({
-              gridColumn: "1 / -1",
-              [theme.mq.sm]: {
-                [theme.maxMQ.md]: {
-                  gridColumn: "span 4",
-                },
-              },
-              [theme.mq.md]: {
-                gridColumn: "span 7",
-              },
-            })}
-          >
+      <div
+        css={(theme) => ({
+          gridColumn: "1 / -1",
+          [theme.mq.sm]: {
+            [theme.maxMQ.md]: {
+              gridColumn: "span 4",
+            },
+          },
+          [theme.mq.md]: {
+            gridColumn: "span 7",
+          },
+        })}
+      >
+        {children || (
+          <Fragment>
             <Text
               component="h6"
               css={(theme) => ({
@@ -88,11 +94,11 @@ const Footer: FC<Props> = ({ noStore, noTop, palette, ...props }) => {
             >
               © 2012—2021 Digital Abstracts SL Privacy statement Patent Pending
             </Text>
-          </div>
-          {width >= breakpoints.sm && (
-            <Line {...{ palette }} vertical={true} spacing={0} />
-          )}
-        </Fragment>
+          </Fragment>
+        )}
+      </div>
+      {width >= breakpoints.sm && (
+        <Line {...{ palette }} vertical={true} spacing={0} />
       )}
 
       <nav
@@ -100,11 +106,15 @@ const Footer: FC<Props> = ({ noStore, noTop, palette, ...props }) => {
           display: "flex",
           flexWrap: "wrap",
           gridColumn: "1 / -1",
-          [theme.maxMQ.sm]: {
-            justifyContent: "center",
-            order: -1,
-            // gap: theme.spacing(1.8),
-          },
+          [theme.maxMQ.sm]: [
+            !reverseMobile && {
+              order: -1,
+            },
+            {
+              justifyContent: "center",
+              // gap: theme.spacing(1.8),
+            },
+          ],
           [theme.mq.sm]: {
             // gap: theme.spacing(2),
             gridColumn: "span 4",

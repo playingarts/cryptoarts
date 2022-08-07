@@ -69,7 +69,7 @@ const Carousel: FC<Props> = ({
       })}
     >
       <ul
-        css={(theme) => [
+        css={[
           {
             display: "flex",
             height: "100%",
@@ -77,7 +77,6 @@ const Carousel: FC<Props> = ({
             margin: 0,
             listStyle: "none",
             columnGap,
-            transition: theme.transitions.fast("left"),
             position: "relative",
           },
         ]}

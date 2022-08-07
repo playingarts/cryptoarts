@@ -8,8 +8,10 @@ import { useSize } from "../SizeProvider";
 const Nav: FC<
   HTMLAttributes<HTMLElement> & {
     setModal?: Dispatch<SetStateAction<boolean>>;
+    setHover?: Dispatch<SetStateAction<number>>;
+    vertical?: boolean;
   }
-> = ({ setModal, ...props }) => {
+> = ({ setHover, setModal, vertical, ...props }) => {
   const { decks = [], loading } = useDecks({
     variables: { withProduct: false },
   });
@@ -23,41 +25,47 @@ const Nav: FC<
   return (
     <nav
       {...props}
-      css={(theme) => ({
-        background: colord(theme.colors.text_title_dark)
-          .alpha(0.95)
-          .toRgbString(),
-        borderRadius: theme.spacing(1),
-        borderTopRightRadius: 0,
-        borderTopLeftRadius: 0,
-        height: theme.spacing(5),
-        alignItems: "flex-end",
-        display: "flex",
-        justifyContent: "center",
-        fontSize: theme.spacing(1.2),
-        [theme.mq.sm]: {
-          height: theme.spacing(6),
-          fontSize: theme.spacing(1.8),
+      css={(theme) => [
+        {
+          background: colord(theme.colors.text_title_dark)
+            .alpha(0.95)
+            .toRgbString(),
+          borderRadius: theme.spacing(1),
+          borderTopRightRadius: 0,
+          borderTopLeftRadius: 0,
+          alignItems: "flex-end",
+          display: "flex",
+          justifyContent: "center",
+          fontSize: theme.spacing(1.2),
+          [theme.mq.sm]: {
+            fontSize: theme.spacing(1.8),
+          },
+          boxSizing: "content-box",
+          textTransform: "uppercase",
+          fontWeight: 600,
+          color: colord(theme.colors.white).alpha(0.7).toRgbString(),
         },
-        boxSizing: "content-box",
-        textTransform: "uppercase",
-        fontWeight: 600,
-        color: theme.colors.white,
-      })}
+        vertical && {
+          alignItems: "center",
+        },
+      ]}
     >
       {width < breakpoints.sm && setModal && (
         <button
-          css={{
-            padding: 0,
-            fontWeight: "inherit",
-            textTransform: "uppercase",
-            background: "none",
-            color: "inherit",
-            fontSize: "inherit",
-            border: "none",
-            opacity: 0.7,
-            lineHeight: "40px",
-          }}
+          css={(theme) => [
+            {
+              padding: 0,
+              fontWeight: "inherit",
+              textTransform: "uppercase",
+              background: "none",
+              color: "inherit",
+              fontSize: "inherit",
+              border: "none",
+              marginTop: theme.spacing(1),
+              lineHeight: "40px",
+              width: "100%",
+            },
+          ]}
           onClick={() => setModal(true)}
         >
           browse collection
@@ -65,20 +73,26 @@ const Nav: FC<
       )}
       {width >= breakpoints.sm && (
         <div>
-          {decks.map(({ slug, short }) => (
+          {decks.map(({ slug, short, openseaCollection }, index) => (
             <Link
               key={slug}
               href={`/${slug}`}
-              // activeCss={(theme) => ({
-              //   color: theme.colors.text_subtitle_light,
-              // })}
+              {...(setHover && { onMouseEnter: () => setHover(index) })}
+              {...(setModal && { onClick: () => setModal(false) })}
+              activeCss={
+                !openseaCollection
+                  ? (theme) => ({
+                      color: theme.colors.white,
+                    })
+                  : {}
+              }
               css={(theme) => [
+                vertical && { display: "block" },
                 {
                   paddingLeft: theme.spacing(2.5),
                   paddingRight: theme.spacing(2.5),
                   textDecoration: "none",
                   lineHeight: "60px",
-                  opacity: 0.7,
                   "@keyframes gradient": {
                     "0%": {
                       backgroundPosition: "0% 50%",
@@ -91,15 +105,22 @@ const Nav: FC<
                     },
                   },
                 },
-                slug === "crypto" && [
-                  {
-                    color: "transparent",
-                    background: theme.colors.eth,
-                    backgroundClip: "text",
-                    backgroundSize: "400% 100%",
-                    animation: "gradient 5s ease infinite",
-                  },
-                ],
+                openseaCollection
+                  ? [
+                      {
+                        color: "transparent",
+                        background: theme.colors.eth,
+                        backgroundClip: "text",
+                        backgroundSize: "400% 100%",
+                        animation: "gradient 5s ease infinite",
+                      },
+                    ]
+                  : {
+                      transition: theme.transitions.fast("color"),
+                      "&:hover": {
+                        color: theme.colors.white,
+                      },
+                    },
               ]}
             >
               {short}

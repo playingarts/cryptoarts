@@ -1,5 +1,8 @@
 import { Theme, ThemeProvider } from "@emotion/react";
-import { CSSInterpolation } from "@emotion/serialize";
+import {
+  CSSInterpolation,
+  CSSPropertiesWithMultiValues,
+} from "@emotion/serialize";
 import { MetaMaskProvider } from "metamask-react";
 import "modern-normalize/modern-normalize.css";
 import { AppProps } from "next/app";
@@ -11,12 +14,18 @@ import { SignatureProvider } from "../contexts/SignatureContext";
 import { ViewedProvider } from "../contexts/viewedContext";
 import { breakpoints } from "../source/enums";
 
+type transitionProperty =
+  | string
+  | keyof CSSPropertiesWithMultiValues
+  | (keyof CSSPropertiesWithMultiValues)[]
+  | string[];
+
 declare module "@emotion/react" {
   export interface Theme {
     transitions: {
-      fast: (property: string | string[]) => string;
-      normal: (property: string | string[]) => string;
-      slow: (property: string | string[]) => string;
+      fast: (property: transitionProperty) => string;
+      normal: (property: transitionProperty) => string;
+      slow: (property: transitionProperty) => string;
     };
     colors: {
       svggray: "#C4C4C4";
@@ -96,9 +105,9 @@ const maxMQ = (Object.keys(breakpoints) as Array<keyof typeof breakpoints>)
 export const theme: Theme = {
   transitions: {
     fast: (attrs) =>
-      typeof attrs === "string"
-        ? `${attrs} 0.25s ease`
-        : attrs.map((attr) => `${attr} 0.25s ease`).join(", "),
+      typeof attrs === "object"
+        ? attrs.map((attr) => `${attr} 0.25s ease`).join(", ")
+        : `${attrs} 0.25s ease`,
     normal: (attrs) =>
       typeof attrs === "string"
         ? `${attrs} 0.4s ease`

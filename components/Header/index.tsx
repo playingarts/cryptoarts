@@ -116,9 +116,13 @@ const Header: FC<Props> = ({
               zIndex: 2,
             },
           ]}
+          onClick={() => setModalState(false)}
         >
           <ModalMenu
-            onClick={() => setModalState(false)}
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            onItemClick={() => setModalState(false)}
             css={(theme) => [
               {
                 background: theme.colors.page_bg_dark,
