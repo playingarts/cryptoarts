@@ -285,12 +285,15 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           status={status}
           cards={
             currentSelected.children === "ascending"
-              ? [...cards].sort((a, b) =>
-                  a.price ? (b.price ? a.price - b.price : -1) : 0
-                )
+              ? [
+                  ...[...cards]
+                    .sort((a, b) => (a.price as number) - (b.price as number))
+                    .filter(({ price }) => price !== null),
+                  ...[...cards].filter(({ price }) => price === null),
+                ]
               : currentSelected.children === "descending"
-              ? [...cards].sort((a, b) =>
-                  a.price ? (b.price ? b.price - a.price : -1) : 0
+              ? [...cards].sort(
+                  (a, b) => (b.price as number) - (a.price as number)
                 )
               : cards
           }
