@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
-import { Schema, model, models, Model } from "mongoose";
-import { getCards, getCard } from "./card";
+import { model, Model, models, Schema } from "mongoose";
+import { getCard, getCards } from "./card";
 
 export interface MongoContent {
   key: string;
@@ -17,6 +17,7 @@ export const Content =
 
 const getDailyCard = async () => {
   const content = await Content.findOne({ key: "dailyCard" });
+
   const { date, cardId } = (content ? content.data : {}) as {
     date: number;
     cardId: string;

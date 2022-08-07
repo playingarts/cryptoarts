@@ -1,6 +1,8 @@
+import { Card } from "../source/graphql/schemas/card";
+import { connect } from "../source/mongoose";
 import artists from "./artists";
-import products from "./products";
-import deckZero from "./deck-zero";
+import contracts from "./contracts";
+import deals from "./deals";
 import deckCrypto from "./deck-crypto";
 import deckFuture from "./deck-future";
 import deckFuture1 from "./deck-future-I";
@@ -9,12 +11,14 @@ import deckOne from "./deck-one";
 import deckSpecial from "./deck-special";
 import deckThree from "./deck-three";
 import deckTwo from "./deck-two";
-import deals from "./deals";
-import podcasts from "./podcasts";
-import contracts from "./contracts";
+import deckZero from "./deck-zero";
 import losers from "./losers";
+import podcasts from "./podcasts";
+import products from "./products";
 
 (async () => {
+  await connect();
+  await Card.deleteMany({});
   await artists();
   await deckZero();
   await deckOne();
