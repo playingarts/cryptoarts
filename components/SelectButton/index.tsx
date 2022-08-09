@@ -6,7 +6,6 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { theme } from "../../pages/_app";
 import Button from "../Button";
 import Sort from "../Icons/Sort";
 import ThickChevron from "../Icons/ThickChevron";
@@ -101,7 +100,6 @@ const SelectButton: FC<Props> = memo(
                   display: "block",
                   height: "fit-content",
                   transition: theme.transitions.fast("margin-top"),
-                  marginTop: 0,
                 },
                 (palette === "light" && {
                   background: theme.colors.white,
@@ -111,9 +109,12 @@ const SelectButton: FC<Props> = memo(
                   }),
               ]}
               style={{
-                zIndex: btn.selected ? 1 : "initial",
                 marginTop:
-                  (!listState && index !== 0 && -theme.spacing(5)) || 0,
+                  (!listState &&
+                    index !== 0 &&
+                    "calc(var(--buttonHeight) * -1)") ||
+                  0,
+                zIndex: btn.selected ? 1 : "initial",
               }}
             >
               <Button

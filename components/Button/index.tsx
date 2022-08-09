@@ -117,12 +117,19 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
                   }
                 : {}),
               justifyContent: "center",
-              width: theme.spacing(size === "small" ? 3.8 : 4.2),
-              height: theme.spacing(size === "small" ? 3.8 : 4.2),
-              [theme.mq.sm]: {
-                width: theme.spacing(size === "small" ? 3.8 : 5),
-                height: theme.spacing(size === "small" ? 3.8 : 5),
-              },
+              width:
+                size === "small"
+                  ? "var(--buttonSmallWidth)"
+                  : "var(--buttonWidth)",
+              height:
+                size === "small"
+                  ? "var(--buttonSmallHeight)"
+                  : "var(--buttonHeight)",
+              // height: theme.spacing(size === "small" ? 3.8 : 4.2),
+              // [theme.mq.sm]: {
+              //   width: theme.spacing(size === "small" ? 3.8 : 5),
+              //   height: theme.spacing(size === "small" ? 3.8 : 5),
+              // },
               lineHeight: 1,
             },
       ]}

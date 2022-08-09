@@ -52,7 +52,28 @@ const Document = () => (
     </Head>
 
     {/* <body css={[{ background: theme.colors.page_bg_dark }]}> */}
-    <body>
+    <body
+      css={[
+        {
+          // width: theme.spacing(size === "small" ? 3.8 : 4.2),
+          // height: theme.spacing(size === "small" ? 3.8 : 4.2),
+          // [theme.mq.sm]: {
+          //   width: theme.spacing(size === "small" ? 3.8 : 5),
+          //   height: theme.spacing(size === "small" ? 3.8 : 5),
+          // },
+          "--buttonSmallWidth": `${theme.spacing(3.8)}px`,
+          "--buttonSmallHeight": `${theme.spacing(3.8)}px`,
+          [theme.maxMQ.sm]: {
+            "--buttonHeight": `${theme.spacing(4.2)}px`,
+            "--buttonWidth": `${theme.spacing(4.2)}px`,
+          },
+          [theme.mq.sm]: {
+            "--buttonHeight": `${theme.spacing(5)}px`,
+            "--buttonWidth": `${theme.spacing(5)}px`,
+          },
+        },
+      ]}
+    >
       <Main />
       <NextScript />
     </body>
