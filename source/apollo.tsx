@@ -3,9 +3,11 @@ import {
   ApolloClient,
   ApolloLink,
   ApolloProvider,
+  gql,
   HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
+  Reference,
 } from "@apollo/client";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 
@@ -120,34 +122,37 @@ const createApolloClient = (initialState = {}, config?: object) => {
                 img: args && args.img,
               }),
           },
-          // products: {
-          //   read: (refs, { args, toReference, canRead }) => {
+          products: {
+            read: (refs, { args, toReference, cache }) => {
+              const references: Reference[] | undefined =
+                args &&
+                args.ids &&
+                args.ids.map((id: string) => {
+                  return toReference({
+                    __typename: "Product",
+                    _id: id,
+                  });
+                });
 
-          //     const references: any =
-          //       args &&
-          //       args.ids &&
-          //       args.ids.map((id: string) => {
-          //         console.log(1);
+              const fragments =
+                references &&
+                references.filter(
+                  (reference) =>
+                    cache.readFragment({
+                      id: reference.__ref,
+                      fragment: gql`
+                        fragment MyProduct on Products {
+                          _id
+                        }
+                      `,
+                    }) !== null
+                );
 
-          //         return toReference({
-          //           __typename: "Product",
-          //           _id: id,
-          //         });
-          //       });
-
-          //     // console.log(references.length, refs, args.ids.length);
-          //     console.log(args && args.ids && references);
-
-          //     return (
-          //       (args &&
-          //         args.ids &&
-          //         references &&
-          //         references.length < args.ids.length &&
-          //         references) ||
-          //       refs
-          //     );
-          //   },
-          // },
+              return fragments && references.length === fragments.length
+                ? references
+                : refs;
+            },
+          },
           card: {
             read: (_, { args, toReference }) =>
               toReference({
