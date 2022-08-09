@@ -5,7 +5,7 @@ import Button from "../../Button";
 import Grid from "../../Grid";
 import Bag from "../../Icons/Bag";
 import Line from "../../Line";
-import Select, { Props as SelectProps } from "../../Select";
+import SelectButton from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
 
@@ -18,14 +18,9 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
   const [product, setProduct] = useState(
     products.find(notSoldout) || products[0]
   );
-  const options = products.reduce(
-    (options, { title }) => ({ ...options, [title]: title }),
-    {}
-  );
-  const changeProduct: SelectProps["onChange"] = ({ target }) => {
-    setProduct(
-      products.find(({ title }) => title === target.value) || products[0]
-    );
+
+  const changeProduct = (selected: string) => {
+    setProduct(products.find(({ title }) => title === selected) || products[0]);
   };
 
   const image = (
@@ -144,6 +139,7 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             <AddToBagButton
               productId={product._id}
               Icon={Bag}
+              color="black"
               css={(theme) => [
                 {
                   [theme.mq.sm]: { alignSelf: "flex-end" },
@@ -167,15 +163,21 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
               €{product.price}
             </Text>
           )}
-          <Select
+          <SelectButton
+            noIcon={true}
             css={(theme) => ({
+              zIndex: 1,
+              [theme.mq.sm]: {
+                marginLeft: theme.spacing(2),
+              },
               [theme.maxMQ.md]: {
+                width: "100%",
                 order: -1,
               },
             })}
             value={product.title}
-            onChange={changeProduct}
-            options={options}
+            states={products.map(({ title }) => title)}
+            setter={changeProduct}
           />
         </div>
       </div>
