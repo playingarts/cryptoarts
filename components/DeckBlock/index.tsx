@@ -43,7 +43,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         variant="h3"
         title={width < breakpoints.sm ? "Physical Deck" : deck.title}
         subTitleText={deck.description}
-        noLine={true}
+        noLine={width >= breakpoints.sm}
         css={(theme) => [
           {
             [theme.maxMQ.sm]: {
@@ -108,6 +108,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
                 },
               ],
               [theme.mq.sm]: {
+                marginTop: theme.spacing(2.5),
                 gridColumn: "span 4 / 10",
               },
               [theme.mq.md]: {
