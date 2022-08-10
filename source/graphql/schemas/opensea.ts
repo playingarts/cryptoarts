@@ -29,6 +29,7 @@ export interface Asset {
   }[];
   seaport_sell_orders: {
     order_hash: string;
+    current_price: string;
   }[];
   traits: {
     trait_type: string;

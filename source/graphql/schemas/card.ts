@@ -1,9 +1,9 @@
 import { gql } from "@apollo/client";
-import { Schema, model, models, Model, Types } from "mongoose";
-import { getDeck } from "./deck";
-import { Asset, getAssets } from "./opensea";
+import { model, Model, models, Schema, Types } from "mongoose";
 import Web3 from "web3";
 import { getContracts } from "./contract";
+import { getDeck } from "./deck";
+import { Asset, getAssets } from "./opensea";
 
 export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
   artist?: string;
@@ -98,17 +98,21 @@ export const resolvers: GQL.Resolvers = {
         return;
       }
 
+      console.log(contracts);
+
       const assets = ((await Promise.all(
         contracts.map(
           async (contract) => await getAssets(contract.address, contract.name)
         )
       )) as Asset[][]).flat();
 
+      console.log(assets.length, card);
+
       const orders = assets
         .filter(
-          ({ token_id, sell_orders, traits }) =>
+          ({ token_id, sell_orders, traits, seaport_sell_orders }) =>
             token_id &&
-            sell_orders &&
+            (sell_orders || seaport_sell_orders) &&
             (card.erc1155
               ? card.erc1155.token_id === token_id
               : traits.filter(
@@ -119,10 +123,15 @@ export const resolvers: GQL.Resolvers = {
                       value.toLowerCase() === card.value)
                 ).length === 2)
         )
-        .map((item) => item.sell_orders)
+        .map((item) => item.sell_orders || item.seaport_sell_orders)
         .flat();
 
-      return orders.reduce<number | undefined>((minPrice, { base_price }) => {
+      return (orders as {
+        base_price?: string;
+        current_price?: string;
+      }[]).reduce<number | undefined>((minPrice, order) => {
+        const base_price = order.base_price || order.current_price;
+
         if (!base_price) {
           return minPrice;
         }
