@@ -122,7 +122,7 @@ const ComposedSupply: FC<Props> = ({ deckId, ...props }) => {
       >
         {opensea && <Content {...opensea.stats} />}
         <div>
-          <Line spacing={0} />
+          <Line palette="dark" spacing={0} />
         </div>
       </div>
     </StatBlock>

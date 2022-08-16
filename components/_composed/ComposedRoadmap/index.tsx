@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
 
 const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
   return (
-    <BlockTitle css={{ gridColumn: "1/-1" }} title="Roadmap">
+    <BlockTitle css={{ gridColumn: "1/-1" }} title="Roadmap" palette={palette}>
       <Grid short={true}>
         <Roadmap
           palette={palette}

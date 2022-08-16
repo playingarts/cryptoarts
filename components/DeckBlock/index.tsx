@@ -116,7 +116,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
               },
             })}
           >
-            <Line spacing={1} />
+            <Line spacing={1} palette={palette} />
             {Object.entries(deck.properties).map(([key, value]) => (
               <Fragment key={key}>
                 <div
@@ -165,7 +165,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
                     {value}
                   </Text>
                 </div>
-                <Line spacing={1} />
+                <Line spacing={1} palette={palette} />
               </Fragment>
             ))}
           </dl>

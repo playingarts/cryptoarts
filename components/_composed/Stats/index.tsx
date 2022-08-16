@@ -28,6 +28,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({
   >
     {num_owners && (
       <Stat
+        palette="dark"
         label="Total holders"
         value={num_owners.toLocaleString()}
         css={(theme) => [
@@ -40,6 +41,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({
     )}
     {floor_price && (
       <Stat
+        palette="dark"
         label="FLOOR PRICE"
         value={parseFloat(floor_price.toFixed(2)).toLocaleString()}
         eth={true}
@@ -53,6 +55,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({
     )}
     {total_volume && (
       <Stat
+        palette="dark"
         label="VOLUME TRADED"
         value={parseFloat(total_volume.toFixed(2)).toLocaleString()}
         eth={true}

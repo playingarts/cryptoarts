@@ -19,6 +19,7 @@ interface Props extends Omit<GridProps, "title"> {
   action?: JSX.Element;
   alwaysSubtitle?: boolean;
   noLine?: boolean;
+  palette?: "light" | "dark";
 }
 
 const BlockTitle: FC<Props> = ({
@@ -29,6 +30,7 @@ const BlockTitle: FC<Props> = ({
   action,
   alwaysSubtitle,
   noLine,
+  palette = "light",
   children,
   ...props
 }) => {
@@ -119,6 +121,7 @@ const BlockTitle: FC<Props> = ({
         {!noLine && (
           <div css={{ gridColumn: "-1 / 1" }}>
             <Line
+              palette={palette}
               spacing={3}
               css={(theme) => ({
                 [theme.maxMQ.sm]: {

@@ -168,7 +168,7 @@ const ModalMenu: FC<
                 />
                 <Line
                   spacing={1}
-                  palette={"dark"}
+                  palette="dark"
                   css={(theme) => [
                     {
                       gridColumn: "1/-1",

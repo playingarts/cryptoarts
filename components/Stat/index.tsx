@@ -7,9 +7,10 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   label: string | JSX.Element;
   value: string | number;
   eth?: boolean;
+  palette?: "light" | "dark";
 }
 
-const Stat: FC<Props> = ({ label, value, eth, ...props }) => {
+const Stat: FC<Props> = ({ palette, label, value, eth, ...props }) => {
   return (
     <div {...props}>
       <Text
@@ -47,7 +48,7 @@ const Stat: FC<Props> = ({ label, value, eth, ...props }) => {
       >
         {label}
       </Text>
-      <Line spacing={0.5} css={{ marginBottom: 0 }} />
+      <Line palette={palette} spacing={0.5} css={{ marginBottom: 0 }} />
     </div>
   );
 };

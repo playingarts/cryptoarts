@@ -37,6 +37,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
   return (
     <div {...props}>
       <BlockTitle
+        palette={width >= breakpoints.sm ? "dark" : palette}
         variant="h2"
         title={
           <span
@@ -157,7 +158,11 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
             >
               19 August 2021
             </Text>
-            <Line spacing={1} css={{ gridColumn: "1/-1", width: "100%" }} />
+            <Line
+              palette={width < breakpoints.sm ? palette : "dark"}
+              spacing={1}
+              css={{ gridColumn: "1/-1", width: "100%" }}
+            />
 
             <Text
               variant="h7"
@@ -229,7 +234,11 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
                 </Arrowed>
               </Text>
             </Link>
-            <Line spacing={1} css={{ gridColumn: "1/-1", width: "100%" }} />
+            <Line
+              palette={width < breakpoints.sm ? palette : "dark"}
+              spacing={1}
+              css={{ gridColumn: "1/-1", width: "100%" }}
+            />
           </Grid>
 
           {width < breakpoints.sm && (

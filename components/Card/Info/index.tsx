@@ -41,6 +41,7 @@ const CardInfo: FC<Props> = ({ contest, artist, cardId, deck, ...props }) => {
         {artist.country}
       </Text>
       <Line
+        palette="dark"
         spacing={3}
         css={(theme) => [
           {

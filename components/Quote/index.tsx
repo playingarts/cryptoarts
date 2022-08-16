@@ -28,6 +28,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   vertical?: boolean;
   fullArtist?: boolean;
   truncate?: number;
+  palette?: "dark" | "light";
 }
 
 const Quote: FC<Props> = ({
@@ -39,6 +40,7 @@ const Quote: FC<Props> = ({
   vertical,
   fullArtist,
   truncate,
+  palette,
   ...props
 }) => {
   return (
@@ -95,6 +97,7 @@ const Quote: FC<Props> = ({
             {vertical && (
               <Line
                 spacing={4}
+                palette={palette}
                 css={(theme) => [
                   {
                     [theme.maxMQ.sm]: {

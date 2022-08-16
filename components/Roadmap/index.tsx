@@ -123,7 +123,7 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
             css={(theme) => ({
               [theme.maxMQ.sm]: [
                 theme.typography.body3,
-                palette === "light" && {
+                palette === "dark" && {
                   color: theme.colors.white,
                 },
               ],
@@ -142,7 +142,7 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
                 {
                   fontSize: 16,
                   color:
-                    palette === "light"
+                    palette === "dark"
                       ? theme.colors.text_subtitle_light
                       : theme.colors.text_title_dark,
                 },
@@ -182,6 +182,7 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
 
           {index !== items.length - 1 && width < breakpoints.sm && (
             <Line
+              palette={palette}
               spacing={1}
               css={(theme) => ({
                 marginTop: theme.spacing(2),

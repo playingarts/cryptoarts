@@ -184,6 +184,7 @@ const Content: FC<{
                   {deck.info}
                 </Text>
                 <Line
+                  palette="dark"
                   css={(theme) => [
                     deck.slug === "crypto" && {
                       background: theme.colors.eth,
@@ -368,7 +369,7 @@ const Content: FC<{
                   }
                 >
                   <ComposedRoadmap
-                    palette={status === "connected" ? "light" : "dark"}
+                    palette={status === "connected" ? "dark" : "light"}
                   />
                 </Layout>
               )}
@@ -392,7 +393,9 @@ const Content: FC<{
               >
                 <DeckBlock
                   palette={
-                    status === "connected" && deck.openseaCollection
+                    width < breakpoints.sm &&
+                    status === "connected" &&
+                    deck.openseaCollection
                       ? "dark"
                       : "light"
                   }

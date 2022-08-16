@@ -44,12 +44,14 @@ const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
       <div css={{ display: "flex", flexDirection: "column", height: "100%" }}>
         <Grid css={{ gridTemplateColumns: "1fr 1fr !important" }}>
           <Stat
+            palette="dark"
             label={`54-card deck${
               (width >= breakpoints.sm && " (incl jokers)") || ""
             }`}
             value={holders.fullDecksWithJokers.length}
           />
           <Stat
+            palette="dark"
             label={`52-card deck${
               (width >= breakpoints.sm && " (excl jokers)") || ""
             }`}
@@ -109,7 +111,7 @@ const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
           ]}
         />
         <div>
-          <Line spacing={0} />
+          <Line palette="dark" spacing={0} />
         </div>
       </div>
     </StatBlock>

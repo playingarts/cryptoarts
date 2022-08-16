@@ -86,7 +86,9 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
                 Playing Arts is a collective art project for creative people who
                 are into Art, Playing Cards, NFTs and sometimes magic.
               </Text>
-              {width >= breakpoints.sm && <Line spacing={3} />}
+              {width >= breakpoints.sm && (
+                <Line palette={palette} spacing={3} />
+              )}
               <StoreButtons
                 palette={palette}
                 ButtonProps={{ color: "black" }}

@@ -122,7 +122,7 @@ const CardBlock: FC<Props> = ({
             <Text component="div" variant="h6" css={{ opacity: 0.5 }}>
               Card of the day
             </Text>
-            <Line spacing={1} />
+            <Line palette="dark" spacing={1} />
           </div>
           <Text component="h2" css={{ margin: 0 }}>
             {card.artist.name}
@@ -136,6 +136,7 @@ const CardBlock: FC<Props> = ({
             <Arrowed>For {deck.title}</Arrowed>
           </Text>
           <Quote
+            palette="dark"
             fullArtist={true}
             vertical={true}
             truncate={7}
@@ -145,7 +146,7 @@ const CardBlock: FC<Props> = ({
           >
             {card.info}
           </Quote>
-          <Line spacing={3} />
+          <Line palette="dark" spacing={3} />
 
           <Button component={Link} href={`/${deck.slug}`}>
             View {deck.title}
@@ -170,6 +171,7 @@ const CardBlock: FC<Props> = ({
         })}
       >
         <Quote
+          palette="dark"
           key={card._id}
           fullArtist={true}
           artist={card.artist}
