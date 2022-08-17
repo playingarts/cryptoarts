@@ -48,7 +48,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
     }));
 
   const [ERC1155, setERC1155] = useState<OwnedCard[]>([]);
-  const [currentSelected, setCurrentSelected] = useState("");
+  const [currentSelected, setCurrentSelected] = useState("default");
   //  buttonState.find(({ selected }) => selected === true);
 
   useEffect(() => {
