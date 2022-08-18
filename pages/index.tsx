@@ -35,7 +35,8 @@ const Home: NextPage = () => {
             "url(https://s3.amazonaws.com/img.playingarts.com/www/static/home_bg.jpg)",
           backgroundSize: "cover",
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(22.8),
+            paddingTop: theme.spacing(34),
+            // paddingTop: theme.spacing(22.8),
             paddingBottom: theme.spacing(4),
           },
         })}
@@ -71,7 +72,11 @@ const Home: NextPage = () => {
           <Hero
             css={(theme) => [
               {
+                [theme.mq.sm]: {
+                  marginLeft: theme.spacing(3.5),
+                },
                 [theme.maxMQ.sm]: {
+                  marginTop: -theme.spacing(25),
                   order: -1,
                 },
               },

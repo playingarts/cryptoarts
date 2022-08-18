@@ -18,9 +18,12 @@ const Hero: FC<Props> = (props) => {
   return (
     <div
       {...props}
-      css={{
-        position: "relative",
-      }}
+      css={[
+        {
+          position: "relative",
+          height: 0,
+        },
+      ]}
     >
       {cards.map((card, index) => (
         <Card
@@ -36,25 +39,31 @@ const Hero: FC<Props> = (props) => {
                   filter: "blur(1px)",
                   position: "absolute",
                   left: theme.spacing(30),
+                  [theme.mq.sm]: {
+                    marginTop: -theme.spacing(2.3),
+                  },
                   [theme.maxMQ.sm]: {
                     transform: "rotate(15deg) scale(1)",
                     left: theme.spacing(15.2),
-                    marginTop: -theme.spacing(8.5),
-                    "--width": `${theme.spacing(11.4)}px`,
-                    "--height": `${theme.spacing(16.1)}px`,
+                    // marginTop: -theme.spacing(8.5),
+                    marginTop: theme.spacing(1.5),
+                    "--width": `${theme.spacing(11.4)}px !important`,
+                    "--height": `${theme.spacing(16.1)}px !important`,
                   },
                 }
               : {
                   transform: "rotate(-15deg) scale(0.85)",
-                  marginTop: -theme.spacing(8),
+                  [theme.mq.sm]: {
+                    marginTop: -theme.spacing(8.5),
+                  },
                   marginLeft: -theme.spacing(3),
                   [theme.maxMQ.sm]: {
                     transform: "rotate(-15deg) scale(1)",
-                    marginTop: -theme.spacing(10),
+                    // marginTop: -theme.spacing(10),
                     marginBottom: theme.spacing(3),
                     marginLeft: theme.spacing(2.5),
-                    "--width": `${theme.spacing(13.6)}px`,
-                    "--height": `${theme.spacing(19.1)}px`,
+                    "--width": `${theme.spacing(13.6)}px !important`,
+                    "--height": `${theme.spacing(19.1)}px !important`,
                   },
                 }
           }
