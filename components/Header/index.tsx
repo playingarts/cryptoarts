@@ -114,6 +114,7 @@ const Header: FC<Props> = ({
               position: "fixed",
               background: theme.colors.text_subtitle_dark,
               zIndex: 2,
+              overflowY: "scroll",
             },
           ]}
           onClick={() => setModalState(false)}
@@ -127,7 +128,19 @@ const Header: FC<Props> = ({
               {
                 background: theme.colors.page_bg_dark,
                 [theme.maxMQ.sm]: {
+                  // "&::-webkit-scrollbar": {
+                  //   display: "none",
+                  // },
+                  // MsOverflowStyle: "none",
+                  // scrollbarWidth: "none",
+                  // maxHeight: theme.spacing(65),
+                  marginTop: theme.spacing(0.5),
+                  marginLeft: theme.spacing(0.5),
+                  marginRight: theme.spacing(0.5),
+                  marginBottom: theme.spacing(0.5),
+                  paddingBottom: theme.spacing(3),
                   paddingTop: theme.spacing(6),
+                  borderRadius: theme.spacing(1),
                 },
               },
             ]}

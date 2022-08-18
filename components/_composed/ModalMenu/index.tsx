@@ -61,11 +61,14 @@ const ModalMenu: FC<
   const { width: windowWidth } = useSize();
 
   return (
-    <Layout {...props} css={[{ overflow: "hidden" }]}>
+    <Layout {...props} css={[{ overflowX: "hidden" }]}>
       <Grid ref={ref}>
         <Footer
+          noCopyright={width >= breakpoints.sm}
+          // showNav={width < breakpoints.sm}
+          showNav={true}
+          copyrightLast={true}
           reverseMobile={true}
-          noStore={windowWidth < breakpoints.sm}
           palette="dark"
           css={(theme) => [
             {
@@ -78,107 +81,121 @@ const ModalMenu: FC<
             },
           ]}
         >
-          {decks &&
-            (windowWidth >= breakpoints.sm ? (
-              <Grid auto={true}>
-                <Nav
-                  vertical={true}
-                  setHover={setCurrentIndex}
-                  setModal={onItemClick}
-                />
-                <div
-                  css={(theme) => [
-                    {
-                      gridColumn: "2 / -1",
-                      height: theme.spacing(50),
-                      position: "relative",
-                    },
-                  ]}
-                >
-                  {decks.map(({ product, slug }, index) =>
-                    product ? (
-                      <div
-                        key={slug}
-                        css={(theme) => [
-                          {
-                            opacity: 0,
-                            position: "absolute",
-                            top: 0,
-                            right: 0,
-                            left: 0,
-                            bottom: 0,
-                            [theme.mq.md]: {
-                              backgroundSize: "cover",
+          <div
+            css={(theme) => [
+              {
+                gridColumn: "1 / 5",
+                [theme.mq.md]: {
+                  gridColumn: "1 / 8",
+                },
+                [theme.maxMQ.sm]: {
+                  gridColumn: "1 / -1",
+                },
+              },
+            ]}
+          >
+            {decks &&
+              (windowWidth >= breakpoints.sm ? (
+                <Grid auto={true}>
+                  <Nav
+                    vertical={true}
+                    setHover={setCurrentIndex}
+                    setModal={onItemClick}
+                  />
+                  <div
+                    css={(theme) => [
+                      {
+                        gridColumn: "2 / -1",
+                        height: theme.spacing(50),
+                        position: "relative",
+                      },
+                    ]}
+                  >
+                    {decks.map(({ product, slug }, index) =>
+                      product ? (
+                        <div
+                          key={slug}
+                          css={(theme) => [
+                            {
+                              opacity: 0,
+                              position: "absolute",
+                              top: 0,
+                              right: 0,
+                              left: 0,
+                              bottom: 0,
+                              [theme.mq.md]: {
+                                backgroundSize: "cover",
+                              },
+                              backgroundImage: `url(${product.image})`,
+                              backgroundRepeat: "no-repeat",
+                              backgroundSize: "150%",
+                              backgroundPosition: "center",
+                              transition: theme.transitions.fast("opacity"),
                             },
-                            backgroundImage: `url(${product.image})`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "150%",
-                            backgroundPosition: "center",
-                            transition: theme.transitions.fast("opacity"),
-                          },
-                          currentIndex === index && { opacity: 1 },
-                        ]}
-                      />
-                    ) : null
-                  )}
-                </div>
-              </Grid>
-            ) : (
-              <Fragment>
-                <Carousel
-                  noDots={true}
-                  index={currentIndex}
-                  onIndexChange={changeIndex}
-                  width={160}
-                  columnGap={0}
-                  css={(theme) => [
-                    {
-                      height: theme.spacing(23.5),
-                      gridColumn: "1/-1",
-                    },
-                  ]}
-                  items={decks.map(({ slug, product }) =>
-                    !product ? null : (
-                      <Link
-                        href={`/${slug}`}
-                        key={slug + slug}
-                        {...(onItemClick && {
-                          onClick: onItemClick,
-                        })}
-                        css={(theme) => [
-                          {
-                            width: theme.spacing(16),
-                            // backgroundColor: theme.colors.brightGray,
-                            backgroundColor: "transparent",
-                            // backgroundSize: `${theme.spa cing(40.8)}px 100%`,
-                            backgroundSize: "cover",
-                            backgroundPosition: "center",
-                            backgroundRepeat: "no-repeat",
-                            borderRadius: theme.spacing(2),
-                            flexGrow: 1,
-                            flexShrink: 0,
-                            display: "inline-block",
-                            height: theme.spacing(23.5),
-                          },
-                        ]}
-                        style={{ backgroundImage: `url(${product.image})` }}
-                      />
-                    )
-                  )}
-                />
-                <Line
-                  spacing={1}
-                  palette="dark"
-                  css={(theme) => [
-                    {
-                      gridColumn: "1/-1",
-                      width: "100%",
-                      marginBottom: theme.spacing(3),
-                    },
-                  ]}
-                />
-              </Fragment>
-            ))}
+                            currentIndex === index && { opacity: 1 },
+                          ]}
+                        />
+                      ) : null
+                    )}
+                  </div>
+                </Grid>
+              ) : (
+                <Fragment>
+                  <Carousel
+                    noDots={true}
+                    index={currentIndex}
+                    onIndexChange={changeIndex}
+                    width={160}
+                    columnGap={0}
+                    css={(theme) => [
+                      {
+                        height: theme.spacing(23.5),
+                        gridColumn: "1/-1",
+                      },
+                    ]}
+                    items={decks.map(({ slug, product }) =>
+                      !product ? null : (
+                        <Link
+                          href={`/${slug}`}
+                          key={slug + slug}
+                          {...(onItemClick && {
+                            onClick: onItemClick,
+                          })}
+                          css={(theme) => [
+                            {
+                              width: theme.spacing(16),
+                              // backgroundColor: theme.colors.brightGray,
+                              backgroundColor: "transparent",
+                              // backgroundSize: `${theme.spa cing(40.8)}px 100%`,
+                              backgroundSize: "cover",
+                              backgroundPosition: "center",
+                              backgroundRepeat: "no-repeat",
+                              borderRadius: theme.spacing(2),
+                              flexGrow: 1,
+                              flexShrink: 0,
+                              display: "inline-block",
+                              height: theme.spacing(23.5),
+                            },
+                          ]}
+                          style={{ backgroundImage: `url(${product.image})` }}
+                        />
+                      )
+                    )}
+                  />
+                  <Line
+                    spacing={1}
+                    palette="dark"
+                    css={(theme) => [
+                      {
+                        gridColumn: "1/-1",
+                        width: "100%",
+                        marginBottom: theme.spacing(3),
+                      },
+                    ]}
+                  />
+                </Fragment>
+              ))}
+          </div>
         </Footer>
       </Grid>
     </Layout>

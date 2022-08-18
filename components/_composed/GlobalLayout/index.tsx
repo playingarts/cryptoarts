@@ -164,7 +164,7 @@ const ComposedGlobalLayout: FC<
           borderRadius: theme.spacing(1),
         })}
       >
-        <Footer />
+        <Footer copyrightLast={width < breakpoints.sm} reverseMobile={true} />
       </Layout>
     </Fragment>
   );
