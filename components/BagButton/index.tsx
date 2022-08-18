@@ -26,7 +26,7 @@ const BagButton: FC<ButtonProps> = (props) => {
         },
       ]}
     >
-      {width < breakpoints.sm && "Bag – "}
+      {width >= breakpoints.sm && "Bag – "}
       {Object.values(bag).reduce((a, b) => a + b, 0)}
     </Button>
   );
