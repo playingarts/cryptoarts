@@ -65,11 +65,17 @@ const NFTHolder: FC<Props> = ({
     }
 
     loadDeal({
-      variables: {
-        signature: sig.signature,
-        hash: account,
-        deckId: product.deck._id,
-      },
+      variables: process.env.STORYBOOK
+        ? {
+            signature: "1",
+            hash: "1",
+            deckId: "1",
+          }
+        : {
+            signature: sig.signature,
+            hash: account,
+            deckId: product.deck._id,
+          },
     });
   }, [getSig, account, product, loadDeal]);
 
@@ -101,11 +107,30 @@ const NFTHolder: FC<Props> = ({
         })}
         {...props}
       >
-        <Text component="h4" css={{ margin: 0 }}>
+        <Text
+          component="h4"
+          css={(theme) => [
+            {
+              margin: 0,
+              [theme.maxMQ.sm]: {
+                textAlign: "center",
+              },
+            },
+          ]}
+        >
           Error
         </Text>
 
-        <Text variant="body2">
+        <Text
+          variant="body2"
+          css={(theme) => [
+            {
+              [theme.maxMQ.sm]: {
+                textAlign: "center",
+              },
+            },
+          ]}
+        >
           Something went wrong.
           <br />
           Try again later.
@@ -221,17 +246,45 @@ const NFTHolder: FC<Props> = ({
             },
           })}
           action={
-            <Button loading={sig.signing || loading} onClick={askSig}>
+            <Button
+              loading={sig.signing || loading}
+              onClick={askSig}
+              css={(theme) => [
+                {
+                  [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
+                },
+              ]}
+            >
               {sig.signing ? "signing" : "sign"}
             </Button>
           }
           {...props}
         >
-          <Text component="h4" css={{ margin: 0, textTransform: "uppercase" }}>
+          <Text
+            component="h4"
+            css={(theme) => [
+              {
+                margin: 0,
+                textTransform: "uppercase",
+                [theme.maxMQ.sm]: {
+                  textAlign: "center",
+                },
+              },
+            ]}
+          >
             NFT holder?
           </Text>
 
-          <Text variant="body2">
+          <Text
+            variant="body2"
+            css={(theme) => [
+              {
+                [theme.maxMQ.sm]: {
+                  textAlign: "center",
+                },
+              },
+            ]}
+          >
             Please sign to verify that you’re the owner of this ETH address.
           </Text>
         </StatBlock>
@@ -346,7 +399,14 @@ const NFTHolder: FC<Props> = ({
           GM Fren!
         </Text>
 
-        <Text variant="body2">
+        <Text
+          variant="body2"
+          css={(theme) => [
+            {
+              [theme.maxMQ.sm]: { textAlign: "center" },
+            },
+          ]}
+        >
           You hold {currentDeal.decks} PACE NFT card! Use following code on
           checkout to get 50% on all items in your bag: “
           <b>{currentDeal.code}</b>”.

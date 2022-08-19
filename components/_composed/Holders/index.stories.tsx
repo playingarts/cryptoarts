@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Holders from ".";
 import { HoldersQuery } from "../../../hooks/opensea";
 import { mockDeck } from "../../../mocks/deck";
@@ -11,7 +11,6 @@ export default {
 const Template: ComponentStory<typeof Holders> = (args) => (
   <Holders {...args} css={{ height: 500 }} />
 );
-
 export const Primary = Template.bind({});
 Primary.args = {
   deckId: mockDeck._id,
@@ -20,7 +19,6 @@ Primary.parameters = {
   apolloClient: {
     mocks: [
       {
-        delay: 1000,
         request: {
           query: HoldersQuery,
           variables: {
