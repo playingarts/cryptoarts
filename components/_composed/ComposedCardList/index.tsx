@@ -87,6 +87,9 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
 
   return loading || !cards ? null : (
     <BlockTitle
+      palette={
+        status === "connected" && deck.openseaCollection ? "dark" : "light"
+      }
       action={
         cards &&
         cards.find(({ price }) => price !== undefined && price !== null) && (
@@ -117,6 +120,8 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
       }
       css={(theme) => [
         {
+          marginRight: theme.spacing(2.5),
+          marginLeft: theme.spacing(2.5),
           [theme.maxMQ.sm]: [theme.typography.h3],
           gridColumn: "1/-1",
         },
@@ -180,7 +185,15 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           </div>
         </div>
       )}
-      <Grid {...props}>
+      <Grid
+        {...props}
+        css={(theme) => [
+          {
+            marginRight: theme.spacing(1),
+            marginLeft: theme.spacing(1),
+          },
+        ]}
+      >
         <CardList
           status={status}
           cards={
@@ -211,8 +224,6 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
                   [theme.maxMQ.sm]: {
                     paddingBottom: theme.spacing(6.6),
                   },
-                  marginRight: theme.spacing(-1),
-                  marginLeft: theme.spacing(-1),
                 },
               ],
               marginTop: theme.spacing(2),

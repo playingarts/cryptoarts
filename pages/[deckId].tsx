@@ -244,13 +244,16 @@ const Content: FC<{
           css={(theme) => [
             {
               [theme.maxMQ.sm]: [
-                deck.openseaCollection &&
-                  status === "connected" && {
-                    background: theme.colors.page_bg_dark,
-                  },
+                deck.openseaCollection && status === "connected"
+                  ? {
+                      background: theme.colors.page_bg_dark,
+                    }
+                  : {
+                      background: theme.colors.white,
+                    },
                 {
                   display: "grid",
-                  marginBottom: theme.spacing(2.5),
+                  paddingBottom: theme.spacing(2.5),
                 },
                 !contest && {
                   gap: theme.spacing(1),
@@ -287,6 +290,8 @@ const Content: FC<{
               }
               css={(theme) => [
                 {
+                  paddingRight: theme.spacing(0),
+                  paddingLeft: theme.spacing(0),
                   [theme.mq.sm]: {
                     color:
                       status === "connected" && deck.openseaCollection

@@ -55,6 +55,7 @@ const Document = () => (
     <body
       css={[
         {
+          background: theme.colors.page_bg_dark,
           // width: theme.spacing(size === "small" ? 3.8 : 4.2),
           // height: theme.spacing(size === "small" ? 3.8 : 4.2),
           // [theme.mq.sm]: {

@@ -110,6 +110,7 @@ const ComposedGlobalLayout: FC<
       {extended && width >= breakpoints.sm && (
         <Layout
           css={(theme) => ({
+            background: theme.colors.white,
             paddingTop: theme.spacing(12),
             paddingBottom: theme.spacing(12),
           })}
@@ -151,21 +152,29 @@ const ComposedGlobalLayout: FC<
           </Grid>
         </Layout>
       )}
-      <Layout
-        css={(theme) => ({
-          paddingTop: theme.spacing(6),
-          paddingBottom: theme.spacing(6),
-          [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(4),
-            paddingBottom: theme.spacing(4),
+      <div
+        css={(theme) => [
+          {
+            background: theme.colors.white,
+            padding: theme.spacing(1),
           },
-          margin: theme.spacing(1),
-          background: theme.colors.page_bg_light_gray,
-          borderRadius: theme.spacing(1),
-        })}
+        ]}
       >
-        <Footer copyrightLast={width < breakpoints.sm} reverseMobile={true} />
-      </Layout>
+        <Layout
+          css={(theme) => ({
+            paddingTop: theme.spacing(6),
+            paddingBottom: theme.spacing(6),
+            [theme.maxMQ.sm]: {
+              paddingTop: theme.spacing(4),
+              paddingBottom: theme.spacing(4),
+            },
+            background: theme.colors.page_bg_light_gray,
+            borderRadius: theme.spacing(1),
+          })}
+        >
+          <Footer copyrightLast={width < breakpoints.sm} reverseMobile={true} />
+        </Layout>
+      </div>
     </Fragment>
   );
 };

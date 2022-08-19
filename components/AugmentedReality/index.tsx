@@ -44,6 +44,7 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
         ]}
       >
         <BlockTitle
+          palette={width >= breakpoints.sm ? "light" : palette}
           title="Augmented Reality"
           variant="h3"
           css={(theme) => [
@@ -89,10 +90,7 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
               {width >= breakpoints.sm && (
                 <Line palette={palette} spacing={3} />
               )}
-              <StoreButtons
-                palette={palette}
-                ButtonProps={{ color: "black" }}
-              />
+              <StoreButtons palette="dark" ButtonProps={{ color: "black" }} />
             </div>
           </Grid>
         </BlockTitle>

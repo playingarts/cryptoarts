@@ -1,17 +1,24 @@
 import { FC, HTMLAttributes } from "react";
 import { socialLinks } from "../../../source/consts";
+import { breakpoints } from "../../../source/enums";
 import BlockTitle from "../../BlockTitle";
 import Grid from "../../Grid";
 import Link from "../../Link";
 import Roadmap from "../../Roadmap";
+import { useSize } from "../../SizeProvider";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   palette: "light" | "dark";
 }
 
 const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
+  const { width } = useSize();
   return (
-    <BlockTitle css={{ gridColumn: "1/-1" }} title="Roadmap" palette={palette}>
+    <BlockTitle
+      css={{ gridColumn: "1/-1" }}
+      title="Roadmap"
+      palette={width >= breakpoints.sm ? "dark" : palette}
+    >
       <Grid short={true}>
         <Roadmap
           palette={palette}
