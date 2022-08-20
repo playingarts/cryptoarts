@@ -148,6 +148,7 @@ const Home: NextPage = () => {
         css={(theme) => ({
           paddingTop: theme.spacing(10),
           paddingBottom: theme.spacing(10),
+          background: theme.colors.text_title_light,
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(5),
             paddingBottom: theme.spacing(5),
@@ -155,13 +156,7 @@ const Home: NextPage = () => {
         })}
         notTruncatable={true}
       >
-        <div
-          css={[
-            {
-              overflow: "hidden",
-            },
-          ]}
-        >
+        <div css={{ overflow: "hidden" }}>
           <BlockTitle variant="h3" title="Browse Collection" />
           <BrowseCollection
             css={(theme) => ({
@@ -182,6 +177,7 @@ const Home: NextPage = () => {
         css={(theme) => ({
           paddingTop: theme.spacing(6),
           paddingBottom: theme.spacing(6),
+          background: theme.colors.white,
         })}
       >
         <Grid
