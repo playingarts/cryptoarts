@@ -55,7 +55,11 @@ const Quote: FC<Props> = ({
         {children && (
           <div>
             {truncate ? (
-              <Truncate lines={truncate} variant="body3" css={{ margin: 0 }}>
+              <Truncate
+                lines={truncate}
+                variant="body3"
+                css={(theme) => [{ margin: 0, marginBottom: theme.spacing(2) }]}
+              >
                 {children}
               </Truncate>
             ) : (
@@ -94,7 +98,7 @@ const Quote: FC<Props> = ({
                   }),
             })}
           >
-            {vertical && (
+            {vertical && children && (
               <Line
                 spacing={4}
                 palette={palette}
@@ -140,7 +144,6 @@ const Quote: FC<Props> = ({
                     lines={2}
                     css={{
                       marginTop: 0,
-                      opacity: 0.5,
                     }}
                   >
                     {artist.info}
@@ -165,7 +168,13 @@ const Quote: FC<Props> = ({
                         key={key}
                         href={value}
                         target="_blank"
-                        css={{ alignSelf: "center", opacity: 0.2 }}
+                        css={(theme) => [
+                          {
+                            alignSelf: "center",
+                            opacity: 0.2,
+                            color: theme.colors.white,
+                          },
+                        ]}
                       >
                         <Icon />
                       </Link>

@@ -86,6 +86,24 @@ const DailyCardQuery = gql`
       background
       artist {
         name
+        country
+        userpic
+        info
+        social {
+          website
+          instagram
+          facebook
+          twitter
+          behance
+          dribbble
+          foundation
+          superrare
+          makersplace
+          knownorigin
+          rarible
+          niftygateway
+          showtime
+        }
       }
       deck {
         slug

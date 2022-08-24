@@ -18,13 +18,22 @@ const ComposedCardBlock: ForwardRefRenderFunction<HTMLElement, Props> = (
   <Layout
     {...props}
     css={(theme) => [
+      cardOfTheDay
+        ? {
+            [theme.maxMQ.sm]: {
+              paddingBottom: theme.spacing(6),
+              paddingTop: theme.spacing(6),
+            },
+          }
+        : {
+            [theme.maxMQ.sm]: {
+              paddingBottom: theme.spacing(2.5),
+              paddingTop: theme.spacing(11.5),
+            },
+          },
       {
         paddingBottom: theme.spacing(14),
         paddingTop: theme.spacing(14),
-        [theme.maxMQ.sm]: {
-          paddingBottom: theme.spacing(2.5),
-          paddingTop: theme.spacing(11.5),
-        },
       },
       contest && {
         minHeight: "100vh",

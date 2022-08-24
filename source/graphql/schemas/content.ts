@@ -24,6 +24,7 @@ const getDailyCard = async () => {
   };
 
   if (
+    process.env.NODE_ENV === "development" ||
     !cardId ||
     !date ||
     new Date(date).setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0)
