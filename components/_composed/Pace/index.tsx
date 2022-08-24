@@ -66,6 +66,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
             (deck as GQL.Deck & { openseaCollection: { name: string } })
               .openseaCollection.name
           }`,
+          component: Link,
           Icon: Opensea,
           children: "Buy nft",
           css: (theme) => ({
