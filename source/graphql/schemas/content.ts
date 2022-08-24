@@ -44,6 +44,14 @@ const getDailyCard = async () => {
       },
       { upsert: true }
     );
+    console.log(
+      "New daily card: " +
+        newCard.value +
+        " " +
+        newCard.suit +
+        " " +
+        newCard.deck.slug
+    );
 
     return newCard;
   }

@@ -1,4 +1,5 @@
 import { Card } from "../source/graphql/schemas/card";
+import { Content } from "../source/graphql/schemas/content";
 import { connect } from "../source/mongoose";
 import artists from "./artists";
 import contracts from "./contracts";
@@ -19,6 +20,7 @@ import products from "./products";
 (async () => {
   await connect();
   await Card.deleteMany({});
+  await Content.deleteMany({});
   await artists();
   await deckZero();
   await deckOne();
