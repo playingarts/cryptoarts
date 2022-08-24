@@ -325,7 +325,7 @@ const Content: FC<{
 
           {!contest && (
             <Fragment>
-              {!artistId && deck.openseaCollection && (
+              {deck.openseaCollection && (
                 <Layout
                   css={(theme) => ({
                     [theme.mq.sm]: {
@@ -501,9 +501,7 @@ const Page: NextPage = () => {
             refs={{
               roadmapRef,
               contestRef: (losersExist && contestRef) || undefined,
-              nftRef:
-                (deck && deck.openseaCollection && !artistId && nftRef) ||
-                undefined,
+              nftRef: (deck && deck.openseaCollection && nftRef) || undefined,
               cardsRef,
               deckRef,
               aboutRef,
