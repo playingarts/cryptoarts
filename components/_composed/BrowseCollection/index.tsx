@@ -2,6 +2,7 @@ import { FC, HTMLAttributes, useState } from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { useDecks } from "../../../hooks/deck";
 import { breakpoints } from "../../../source/enums";
+import Button from "../../Button";
 import Carousel from "../../Carousel";
 import Grid from "../../Grid";
 import Link from "../../Link";
@@ -12,6 +13,8 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const { decks, loading } = useDecks({ variables: { withProduct: true } });
 
   const { width = 0, ref } = useResizeDetector<HTMLDivElement>();
+
+  const [isCarousel, setIsCarousel] = useState(true);
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -31,7 +34,7 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
     <Grid ref={ref}>
       {!loading &&
         decks &&
-        (window.innerWidth < breakpoints.sm ? (
+        (isCarousel && window.innerWidth < breakpoints.sm ? (
           <div
             css={[
               {
@@ -78,11 +81,14 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
             {...props}
             css={(theme) => ({
               gap: theme.spacing(3),
+              [theme.maxMQ.sm]: {
+                gap: theme.spacing(2),
+              },
               gridColumn: "1 / -1",
             })}
             shop={true}
           >
-            {decks.map(({ slug, product }) =>
+            {decks.map(({ slug, product }, index) =>
               !product ? null : (
                 <Link
                   href={`/${slug}`}
@@ -91,12 +97,37 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
                     aspectRatio: "1",
                     gridColumn: "span 4",
                     borderRadius: theme.spacing(2),
-                    backgroundSize: "cover",
+                    [theme.maxMQ.sm]: [
+                      index === decks.length - 1
+                        ? {
+                            gridColumn: "1/-1",
+                            height: theme.spacing(34),
+                            width: "100%",
+                          }
+                        : {
+                            height: theme.spacing(16),
+                            width: "100%",
+                            borderRadius: theme.spacing(1),
+                            gridColumn: "span 2",
+                          },
+                    ],
+                    [theme.maxMQ.xsm]: [
+                      index !== decks.length - 1 && {
+                        height: theme.spacing(16),
+                        width: "100%",
+                        borderRadius: theme.spacing(1),
+                        gridColumn: "span 3",
+                      },
+                    ],
+                    backgroundSize: "contain",
+                    backgroundRepeat: "no-repeat",
                     backgroundPosition: "50% 50%",
                     backgroundColor: theme.colors.page_bg_light_gray,
                     transition: theme.transitions.fast("background-color"),
-                    "&:hover": {
-                      backgroundColor: theme.colors.white,
+                    [theme.mq.sm]: {
+                      "&:hover": {
+                        backgroundColor: theme.colors.white,
+                      },
                     },
                   })}
                   style={{ backgroundImage: `url(${product.image})` }}
@@ -105,6 +136,22 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
             )}
           </Grid>
         ))}
+      {isCarousel && width < breakpoints.sm && (
+        <Button
+          onClick={() => setIsCarousel(false)}
+          css={(theme) => [
+            {
+              marginTop: theme.spacing(2.5),
+              gridColumn: "1/-1",
+              color: theme.colors.text_subtitle_dark,
+              background: theme.colors.brightGray,
+              justifyContent: "center",
+            },
+          ]}
+        >
+          VIEW ALL EDITIONS
+        </Button>
+      )}
     </Grid>
   );
 };
