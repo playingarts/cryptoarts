@@ -129,18 +129,17 @@ const Card: FC<Props> = ({
             ],
           },
         ]}
-        style={{
-          [theme.mq.sm]: [
-            (hovered &&
-              interactive && {
-                transition: "initial",
-                transform: `perspective(var(--width)) rotateX(${
-                  -y * 10
-                }deg) rotateY(${x * 10}deg) scale3d(1, 1, 1)`,
-              }) ||
-              undefined,
-          ],
-        }}
+        style={
+          (width >= breakpoints.md &&
+            hovered &&
+            interactive && {
+              transition: "initial",
+              transform: `perspective(var(--width)) rotateX(${
+                -y * 10
+              }deg) rotateY(${x * 10}deg) scale3d(1, 1, 1)`,
+            }) ||
+          undefined
+        }
         {...(interactive && {
           onMouseMove: ({ clientX, clientY }) => {
             if (!wrapper.current) {
