@@ -25,6 +25,10 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
     episode: 16,
     youtube:
       "https://www.youtube.com/watch?v=PsKAHq-L0zw&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    apple:
+      "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep16-vini-naso/id1605752620?i=1000576644956",
+    spotify:
+      "https://open.spotify.com/episode/2WhPf3dneX7rMkAwKweTsB?si=1e1738f9941f441b",
   },
   {
     name: "Josh Pierce",
@@ -33,6 +37,10 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
     episode: 15,
     youtube:
       "https://www.youtube.com/watch?v=P0J1zVFA-d4&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    spotify:
+      "https://open.spotify.com/episode/545habL2Q9sL6kDZUnmHPt?si=da9a0aeb102a4830",
+    apple:
+      "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep15-josh-pierce/id1605752620?i=1000571569683",
   },
   {
     name: "RWR2",
@@ -41,6 +49,10 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
     episode: 14,
     youtube:
       "https://www.youtube.com/watch?v=BBtabPQJu_o&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    spotify:
+      "https://open.spotify.com/episode/7i1sv8HX2Ij02nRXkeQXvO?si=d022fd2eb2fe41e9",
+    apple:
+      "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep14-rodrigo-rezende/id1605752620?i=1000570806968",
   },
   {
     name: "Nicole Ruggiero",
@@ -49,6 +61,10 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
     episode: 12,
     youtube:
       "https://www.youtube.com/watch?v=oS0gxCI-OVo&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    spotify:
+      "https://open.spotify.com/episode/54T7C8Grzr8jPLcHHxVRZY?si=1a7e8d8af36b47f1",
+    apple:
+      "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep12-nicole-ruggiero/id1605752620?i=1000570019324",
   },
   {
     name: "Velvet Spectrum",
@@ -57,6 +73,10 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
     episode: 11,
     youtube:
       "https://www.youtube.com/watch?v=zOcsX3rWsEk&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    spotify:
+      "https://open.spotify.com/episode/2Mx5U0BQktSmV9gexSTB9p?si=7e3aa150a73a4942",
+    apple:
+      "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep11-velvet-spectrum/id1605752620?i=1000569260593",
   },
   {
     name: "David Ariew",
