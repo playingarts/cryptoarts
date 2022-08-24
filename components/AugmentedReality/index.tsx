@@ -32,11 +32,12 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
             ],
             [theme.mq.sm]: {
               backgroundColor: theme.colors.white,
+              padding: theme.spacing(10.5),
               [theme.maxMQ.md]: {
+                padding: theme.spacing(7.5),
                 backgroundPositionX: "120%",
               },
               backgroundSize: "50%",
-              padding: theme.spacing(10.5),
               // paddingTop: theme.spacing(10.5),
               // paddingBottom: theme.spacing(10.5),
             },
