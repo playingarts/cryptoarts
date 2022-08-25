@@ -23,6 +23,29 @@ export const deck: Omit<GQL.Deck, "_id"> = {
 
 export const cards = [
   {
+    artist: "mattias-adolfsson",
+    info:
+      "I made the 2 of spades, the number two has always been my favorite number. I wanted to do a rather traditional playing card but I wanted to give the number two of spades some more tender love and care that the card usually get, being a low card.",
+    suit: "spades",
+    value: "2",
+    deck: "one",
+    opensea: "",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-spades-mattias-adolfsson.jpg",
+    video: "",
+  },
+  {
+    artist: "peter-tarka",
+    info: "",
+    suit: "hearts",
+    value: "2",
+    deck: "one",
+    opensea: "",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-hearts-peter-tarka.jpg",
+    video: "",
+  },
+  {
     artist: "tang-yau-hoong",
     info:
       "I wanted to create a surreal and conceptual illustration in a minimalist style. To me, 2 of clubs means two world- reality vs dream.",
@@ -47,26 +70,27 @@ export const cards = [
     video: "",
   },
   {
-    artist: "peter-tarka",
-    info: "",
-    suit: "hearts",
-    value: "2",
+    artist: "teagan-white",
+    info:
+      "I’ve drawn the bodies of three starlings tangled in poppy plants. My card was the 3 of spades, and the suit of spades has always seemed ominous and dark to me — I frequently try to depict death and decay in a beautiful way in my drawings, and took this as an opportunity to continue that. I read that spades are the equivalent of the suits of swords and leaves in other types of decks, associated with the element of air, and sometimes symbolic of sickness and disappointment. I tried to take all of these factors into consideration when choosing my subject matter, as well as to create the composition out of groups of three — three starling, three large flowers, etc.",
+    suit: "spades",
+    value: "3",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-hearts-peter-tarka.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-spades-teagan-white.jpg",
     video: "",
   },
   {
-    artist: "mattias-adolfsson",
+    artist: "mercedes-debellard",
     info:
-      "I made the 2 of spades, the number two has always been my favorite number. I wanted to do a rather traditional playing card but I wanted to give the number two of spades some more tender love and care that the card usually get, being a low card.",
-    suit: "spades",
-    value: "2",
+      "I choose 3 of hearts cause i really like this card (don´t ask me why). The idea was that it will be three hearts on the card, so i decided to draw a good one. The girl on the card is a good friend of mine.",
+    suit: "hearts",
+    value: "3",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-spades-mattias-adolfsson.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-hearts-mercedes-debellard.jpg",
     video: "",
   },
   {
@@ -93,27 +117,26 @@ export const cards = [
     video: "",
   },
   {
-    artist: "mercedes-debellard",
-    info:
-      "I choose 3 of hearts cause i really like this card (don´t ask me why). The idea was that it will be three hearts on the card, so i decided to draw a good one. The girl on the card is a good friend of mine.",
-    suit: "hearts",
-    value: "3",
+    artist: "serial-cut",
+    info: "",
+    suit: "spades",
+    value: "4",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-hearts-mercedes-debellard.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/4-of-spades-serial-cut.jpg",
     video: "",
   },
   {
-    artist: "teagan-white",
+    artist: "ruben-ireland",
     info:
-      "I’ve drawn the bodies of three starlings tangled in poppy plants. My card was the 3 of spades, and the suit of spades has always seemed ominous and dark to me — I frequently try to depict death and decay in a beautiful way in my drawings, and took this as an opportunity to continue that. I read that spades are the equivalent of the suits of swords and leaves in other types of decks, associated with the element of air, and sometimes symbolic of sickness and disappointment. I tried to take all of these factors into consideration when choosing my subject matter, as well as to create the composition out of groups of three — three starling, three large flowers, etc.",
-    suit: "spades",
-    value: "3",
+      "I like to explore the natural world, which also means discovering the more basic make-up of humans, wether in the throws of love or hate, possessed by loss and suffering or awake in a moment of peace. The girl in ‘Four of Hearts’ hunts for lovers like prey. It won’t be until her fourth victim perishes from the wound of her loving arrow, that she’ll realise that she can’t hunt for love, but embody it with peace and kindness and allow it to find her instead.",
+    suit: "hearts",
+    value: "4",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-spades-teagan-white.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/4-of-hearts-ruben-ireland.jpg",
     video: "",
   },
   {
@@ -139,26 +162,27 @@ export const cards = [
     video: "",
   },
   {
-    artist: "ruben-ireland",
+    artist: "musketon",
     info:
-      "I like to explore the natural world, which also means discovering the more basic make-up of humans, wether in the throws of love or hate, possessed by loss and suffering or awake in a moment of peace. The girl in ‘Four of Hearts’ hunts for lovers like prey. It won’t be until her fourth victim perishes from the wound of her loving arrow, that she’ll realise that she can’t hunt for love, but embody it with peace and kindness and allow it to find her instead.",
-    suit: "hearts",
-    value: "4",
+      "Jebus is equally awesome as Jesus but had a more rock and roll vibe to it. Jebus started out as a character of mine a year ago. I made 2 very detailed vector illustrations of him, now I’m sharing him with the rest of the world via this card.",
+    suit: "spades",
+    value: "5",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/4-of-hearts-ruben-ireland.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/5-of-spades-musketon.jpg",
     video: "",
   },
   {
-    artist: "serial-cut",
-    info: "",
-    suit: "spades",
-    value: "4",
+    artist: "aitch",
+    info:
+      "The 5 of hearts seems to me a very animated mix of symbolism, that s why i imagined it to be a vibrant scene of colourful beasts and flora.",
+    suit: "hearts",
+    value: "5",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/4-of-spades-serial-cut.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/5-of-hearts-aitch.jpg",
     video: "",
   },
   {
@@ -185,27 +209,27 @@ export const cards = [
     video: "",
   },
   {
-    artist: "aitch",
+    artist: "fernando-volken-togni",
     info:
-      "The 5 of hearts seems to me a very animated mix of symbolism, that s why i imagined it to be a vibrant scene of colourful beasts and flora.",
-    suit: "hearts",
-    value: "5",
+      "I’ve drawn a knight which holds and protects the six blades/swords which represent nobility.",
+    suit: "spades",
+    value: "6",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/5-of-hearts-aitch.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/6-of-spades-fernando-volken-togni.jpg",
     video: "",
   },
   {
-    artist: "musketon",
+    artist: "jilipollo",
     info:
-      "Jebus is equally awesome as Jesus but had a more rock and roll vibe to it. Jebus started out as a character of mine a year ago. I made 2 very detailed vector illustrations of him, now I’m sharing him with the rest of the world via this card.",
-    suit: "spades",
-    value: "5",
+      "I always have been fascinated by 70’s icons and stuff, so I was looking through images that may inspire me or give me an idea for this card. At the same time, I started sketching trying to come up with ideas. Then I remembered there was this old movie from the 70’s called “Unholy rollers”. I love the look of these vintage girls, so this, obviously, is what made me come up with the idea of a roller fighting to be the best of the 6 hearts while she defeat the rest of these girls. Maybe she is trying to give her heart to you ;) I then collected a bunch of documentation images… I finally made the final sketch. This is one of the most important parts. …and finally the technique application. In this case, watercolour. Done!",
+    suit: "hearts",
+    value: "6",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/5-of-spades-musketon.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/6-of-hearts-javier-medellin-puyou.jpg",
     video: "",
   },
   {
@@ -232,27 +256,26 @@ export const cards = [
     video: "",
   },
   {
-    artist: "jilipollo",
-    info:
-      "I always have been fascinated by 70’s icons and stuff, so I was looking through images that may inspire me or give me an idea for this card. At the same time, I started sketching trying to come up with ideas. Then I remembered there was this old movie from the 70’s called “Unholy rollers”. I love the look of these vintage girls, so this, obviously, is what made me come up with the idea of a roller fighting to be the best of the 6 hearts while she defeat the rest of these girls. Maybe she is trying to give her heart to you ;) I then collected a bunch of documentation images… I finally made the final sketch. This is one of the most important parts. …and finally the technique application. In this case, watercolour. Done!",
-    suit: "hearts",
-    value: "6",
+    artist: "muxxi",
+    info: "",
+    suit: "spades",
+    value: "7",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/6-of-hearts-javier-medellin-puyou.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/7-of-spades-muxxi.jpg",
     video: "",
   },
   {
-    artist: "fernando-volken-togni",
+    artist: "felix-laflamme",
     info:
-      "I’ve drawn a knight which holds and protects the six blades/swords which represent nobility.",
-    suit: "spades",
-    value: "6",
+      "My original idea was to represent the seven main energy centers of the body and having each of them represented by a gem. The Heart, which is the emblem of the suit I chose, Is the main focus of the artwork. The Skeleton character of my card express a dying human race or society in general. He is doing the heart shape with his hands to encourage all of us to use the power of love, spread it all around and create a better world for the future. The Key is inside all of us.",
+    suit: "hearts",
+    value: "7",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/6-of-spades-fernando-volken-togni.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/7-of-hearts-felix-laflamme.jpg",
     video: "",
   },
   {
@@ -279,26 +302,25 @@ export const cards = [
     video: "",
   },
   {
-    artist: "felix-laflamme",
-    info:
-      "My original idea was to represent the seven main energy centers of the body and having each of them represented by a gem. The Heart, which is the emblem of the suit I chose, Is the main focus of the artwork. The Skeleton character of my card express a dying human race or society in general. He is doing the heart shape with his hands to encourage all of us to use the power of love, spread it all around and create a better world for the future. The Key is inside all of us.",
-    suit: "hearts",
-    value: "7",
+    artist: "gary-fernández",
+    info: "",
+    suit: "spades",
+    value: "8",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/7-of-hearts-felix-laflamme.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/8-of-spades-gary-fernandez.jpg",
     video: "",
   },
   {
-    artist: "muxxi",
+    artist: "raul-urias",
     info: "",
-    suit: "spades",
-    value: "7",
+    suit: "hearts",
+    value: "8",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/7-of-spades-muxxi.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/8-of-hearts-raul-urias.jpg",
     video: "",
   },
   {
@@ -324,25 +346,27 @@ export const cards = [
     video: "",
   },
   {
-    artist: "raul-urias",
-    info: "",
-    suit: "hearts",
-    value: "8",
+    artist: "anton-repponen",
+    info:
+      "I was very honored to be invited for the second time to be par of the collaborative project Playing Arts, where 54 extremely talented illustrators and designers together create a deck of playing cards. This year I got to draw 9 of Spades. I actually spent a lot of time thinking about the layout and how to position nine spade symbols in an interesting way and not to keep em flat. Here are some of the original sketches from the notebook. I didnt quite know which direction to go. I knew I wanted to have an isometric grid and play with 3 dimensions of it to position elements. First, I wanted to use shape on the number nine as a base and layout other elements around it. So I put together a grid in Photoshop and started to work around it. I also wanted to stick with just 2 colors this time too. At some point I decided to stick with a building idea and illustrate an utopian high rise apartment building that had an abandoned billboard on the roof top. I somehow saw the spades symbols as pills, so the banner shows three of them on the tongue. And number nine was treated in the other dimension/angle as a neon sign on the building, a welcome to a hotel or some other nasty joint.",
+    suit: "spades",
+    value: "9",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/8-of-hearts-raul-urias.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/9-of-spades-anton-repponen.jpg",
     video: "",
   },
   {
-    artist: "gary-fernández",
-    info: "",
-    suit: "spades",
-    value: "8",
+    artist: "carlos-lerma",
+    info:
+      "When doing my research I found that the 9 of Hearts card is related to wish fulfillment, specifically those wishes of an emotional nature and involving interpersonal relationships. I wanted to convey that longing for a wish to be granted, like a prayer, and I also included 9 different hearts in the character in different parts.",
+    suit: "hearts",
+    value: "9",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/8-of-spades-gary-fernandez.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/9-of-hearts-carlos-lerma.jpg",
     video: "",
   },
   {
@@ -369,27 +393,26 @@ export const cards = [
     video: "",
   },
   {
-    artist: "carlos-lerma",
-    info:
-      "When doing my research I found that the 9 of Hearts card is related to wish fulfillment, specifically those wishes of an emotional nature and involving interpersonal relationships. I wanted to convey that longing for a wish to be granted, like a prayer, and I also included 9 different hearts in the character in different parts.",
-    suit: "hearts",
-    value: "9",
+    artist: "bicicleta-sem-freio",
+    info: "",
+    suit: "spades",
+    value: "10",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/9-of-hearts-carlos-lerma.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/10-of-spades-bicicleta-sem-freio.jpg",
     video: "",
   },
   {
-    artist: "anton-repponen",
+    artist: "caramelaw",
     info:
-      "I was very honored to be invited for the second time to be par of the collaborative project Playing Arts, where 54 extremely talented illustrators and designers together create a deck of playing cards. This year I got to draw 9 of Spades. I actually spent a lot of time thinking about the layout and how to position nine spade symbols in an interesting way and not to keep em flat. Here are some of the original sketches from the notebook. I didnt quite know which direction to go. I knew I wanted to have an isometric grid and play with 3 dimensions of it to position elements. First, I wanted to use shape on the number nine as a base and layout other elements around it. So I put together a grid in Photoshop and started to work around it. I also wanted to stick with just 2 colors this time too. At some point I decided to stick with a building idea and illustrate an utopian high rise apartment building that had an abandoned billboard on the roof top. I somehow saw the spades symbols as pills, so the banner shows three of them on the tongue. And number nine was treated in the other dimension/angle as a neon sign on the building, a welcome to a hotel or some other nasty joint.",
-    suit: "spades",
-    value: "9",
+      "We see Captain Gumball Coner here from the land of Candy. All the 10 hearts we see in his head so indicates that he’s filled with love and lots to give. Every time he dispenses a one of his ‘loves’, another heart will generate within so rest assured, its always 10 of hearts within his shiny glass head. He’s well respected and all the candy critters love him.",
+    suit: "hearts",
+    value: "10",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/9-of-spades-anton-repponen.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/10-of-hearts-caramelaw.jpg",
     video: "",
   },
   {
@@ -415,26 +438,25 @@ export const cards = [
     video: "",
   },
   {
-    artist: "caramelaw",
-    info:
-      "We see Captain Gumball Coner here from the land of Candy. All the 10 hearts we see in his head so indicates that he’s filled with love and lots to give. Every time he dispenses a one of his ‘loves’, another heart will generate within so rest assured, its always 10 of hearts within his shiny glass head. He’s well respected and all the candy critters love him.",
-    suit: "hearts",
-    value: "10",
+    artist: "seb-niark1",
+    info: "",
+    suit: "spades",
+    value: "jack",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/10-of-hearts-caramelaw.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/jack-of-spades-seb-niark1.jpg",
     video: "",
   },
   {
-    artist: "bicicleta-sem-freio",
+    artist: "steve-simpson",
     info: "",
-    suit: "spades",
-    value: "10",
+    suit: "hearts",
+    value: "jack",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/10-of-spades-bicicleta-sem-freio.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/jack-of-hearts-steve-simpson.jpg",
     video: "",
   },
   {
@@ -460,25 +482,26 @@ export const cards = [
     video: "",
   },
   {
-    artist: "steve-simpson",
+    artist: "david-mack",
     info: "",
-    suit: "hearts",
-    value: "jack",
+    suit: "spades",
+    value: "queen",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/jack-of-hearts-steve-simpson.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/queen-of-spades-david-mack.jpg",
     video: "",
   },
   {
-    artist: "seb-niark1",
-    info: "",
-    suit: "spades",
-    value: "jack",
+    artist: "conrad-roset",
+    info:
+      "I chose the Queen of hearts card because I thought that its the one that fits bettter with my style. Its very feminine, and I always like to draw female body and my muses.",
+    suit: "hearts",
+    value: "queen",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/jack-of-spades-seb-niark1.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/queen-of-hearts-conrad-roset.jpg",
     video: "",
   },
   {
@@ -506,26 +529,26 @@ export const cards = [
     video: "",
   },
   {
-    artist: "conrad-roset",
+    artist: "yulia-brodskaya",
     info:
-      "I chose the Queen of hearts card because I thought that its the one that fits bettter with my style. Its very feminine, and I always like to draw female body and my muses.",
-    suit: "hearts",
-    value: "queen",
+      "I wanted to create a kind of ironic image of a king and I hope the audience will notice the little details that I incorporated into the artwork in order to achieve this. I really don’t want to be too descriptive here, I’m interested to know what people see in this work.",
+    suit: "spades",
+    value: "king",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/queen-of-hearts-conrad-roset.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/king-of-spades-yulia-brodskaya.jpg",
     video: "",
   },
   {
-    artist: "david-mack",
+    artist: "sara-blake",
     info: "",
-    suit: "spades",
-    value: "queen",
+    suit: "hearts",
+    value: "king",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/queen-of-spades-david-mack.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/king-of-hearts-sara-blake.jpg",
     video: "",
   },
   {
@@ -553,26 +576,26 @@ export const cards = [
     video: "",
   },
   {
-    artist: "sara-blake",
+    artist: "iain-macarthur",
     info: "",
-    suit: "hearts",
-    value: "king",
+    suit: "spades",
+    value: "ace",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/king-of-hearts-sara-blake.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/ace-of-spades-iain-macarthur.jpg",
     video: "",
   },
   {
-    artist: "yulia-brodskaya",
+    artist: "mr-kone",
     info:
-      "I wanted to create a kind of ironic image of a king and I hope the audience will notice the little details that I incorporated into the artwork in order to achieve this. I really don’t want to be too descriptive here, I’m interested to know what people see in this work.",
-    suit: "spades",
-    value: "king",
+      "Is the reinterpretation of love as view from our tradition, because we love all things and passionately believe that love is a feeling so passionate that we could even die for that reason. Since childhood I learned that when you want something so much, death itself can not part with it, death is only the way to the creation of new life. And it’s something that we see not grudgingly but joyfully.",
+    suit: "hearts",
+    value: "ace",
     deck: "one",
     opensea: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/king-of-spades-yulia-brodskaya.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/ace-of-hearts-mr-kone.jpg",
     video: "",
   },
   {
@@ -596,29 +619,6 @@ export const cards = [
     opensea: "",
     img:
       "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/ace-of-diamonds-jordan-debney.jpg",
-    video: "",
-  },
-  {
-    artist: "mr-kone",
-    info:
-      "Is the reinterpretation of love as view from our tradition, because we love all things and passionately believe that love is a feeling so passionate that we could even die for that reason. Since childhood I learned that when you want something so much, death itself can not part with it, death is only the way to the creation of new life. And it’s something that we see not grudgingly but joyfully.",
-    suit: "hearts",
-    value: "ace",
-    deck: "one",
-    opensea: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/ace-of-hearts-mr-kone.jpg",
-    video: "",
-  },
-  {
-    artist: "iain-macarthur",
-    info: "",
-    suit: "spades",
-    value: "ace",
-    deck: "one",
-    opensea: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/ace-of-spades-iain-macarthur.jpg",
     video: "",
   },
   {

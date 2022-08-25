@@ -25,6 +25,28 @@ export const cards = [
   {
     video: "",
     img:
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-spades-fictive-artist.jpg",
+    artist: "fictive-artist",
+    value: "2",
+    suit: "spades",
+    info:
+      "Accidentally, I’ve got the 2 of Spades. In my vision this card must be mystical, dark and a little bit enigmatic. I’ve decided to mix these features with a female character and this is how the final artwork has been created.",
+    deck: "two",
+  },
+  {
+    video: "",
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-hearts-maria-gronlund.jpg",
+    artist: "maria-grønlund",
+    value: "2",
+    suit: "hearts",
+    info:
+      "Well, getting the card Two of Hearts and drawing the graphics for it on Valentine’s day had a sweet synchronicity that of course had to inspire the theme and style. The two hearts on the card resembles red roses/rose pedals and it looks as if you can look into the chambers of the hearts. The hearts look soft, fluid, organic. All very romantic of course.",
+    deck: "two",
+  },
+  {
+    video: "",
+    img:
       "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-clubs-jonathan-calugi.jpg",
     artist: "jonathan-calugi",
     value: "2",
@@ -46,23 +68,23 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-hearts-maria-gronlund.jpg",
-    artist: "maria-grønlund",
-    value: "2",
-    suit: "hearts",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/3-of-spades-steven-wilson.jpg",
+    artist: "steven-wilson",
+    value: "3",
+    suit: "spades",
     info:
-      "Well, getting the card Two of Hearts and drawing the graphics for it on Valentine’s day had a sweet synchronicity that of course had to inspire the theme and style. The two hearts on the card resembles red roses/rose pedals and it looks as if you can look into the chambers of the hearts. The hearts look soft, fluid, organic. All very romantic of course.",
+      "It’s my take on the traditional representation of a 3 of Spades. I have been quite literal in the content but abstract and personal in the execution.",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/2-of-spades-fictive-artist.jpg",
-    artist: "fictive-artist",
-    value: "2",
-    suit: "spades",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/3-of-hearts-oscar-ramos.jpg",
+    artist: "oscar-ramos",
+    value: "3",
+    suit: "hearts",
     info:
-      "Accidentally, I’ve got the 2 of Spades. In my vision this card must be mystical, dark and a little bit enigmatic. I’ve decided to mix these features with a female character and this is how the final artwork has been created.",
+      "I always see the number 3 as a triangle, and when I received the assign- the 3 of hearts- was pretty obvious to me make a kind of love triangle, and a love triangle is always a little conflictive and sometimes bizarre. I don’t know why I use here just masculine characters, but definitely they are ambiguous, very different between them and slightly aggressive, maybe complicated in this situation... because three’s a crowd.",
     deck: "two",
   },
   {
@@ -90,23 +112,22 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/3-of-hearts-oscar-ramos.jpg",
-    artist: "oscar-ramos",
-    value: "3",
-    suit: "hearts",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-spades-anton-repponen.jpg",
+    artist: "anton-repponen",
+    value: "4",
+    suit: "spades",
     info:
-      "I always see the number 3 as a triangle, and when I received the assign- the 3 of hearts- was pretty obvious to me make a kind of love triangle, and a love triangle is always a little conflictive and sometimes bizarre. I don’t know why I use here just masculine characters, but definitely they are ambiguous, very different between them and slightly aggressive, maybe complicated in this situation... because three’s a crowd.",
+      "Four ghosts each represent a Spade with fourth one enlightening and leading the way.",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/3-of-spades-steven-wilson.jpg",
-    artist: "steven-wilson",
-    value: "3",
-    suit: "spades",
-    info:
-      "It’s my take on the traditional representation of a 3 of Spades. I have been quite literal in the content but abstract and personal in the execution.",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-hearts-steve-simpson.jpg",
+    artist: "steve-simpson",
+    value: "4",
+    suit: "hearts",
+    info: "",
     deck: "two",
   },
   {
@@ -134,22 +155,22 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-hearts-steve-simpson.jpg",
-    artist: "steve-simpson",
-    value: "4",
-    suit: "hearts",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/5-of-spades-gabriel-moreno.jpg",
+    artist: "gabriel-moreno",
+    value: "5",
+    suit: "spades",
     info: "",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-spades-anton-repponen.jpg",
-    artist: "anton-repponen",
-    value: "4",
-    suit: "spades",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/5-of-hearts-charles-williams.jpg",
+    artist: "charles-williams",
+    value: "5",
+    suit: "hearts",
     info:
-      "Four ghosts each represent a Spade with fourth one enlightening and leading the way.",
+      "I’ve been playing with stripes a lot recently, using undulating movements to create 3D shapes, based on an isometric grid. I wanted the type to be both bold, and sort of subtle/recessive. The red stripe was a last minute (1am) addition.",
     deck: "two",
   },
   {
@@ -176,22 +197,23 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/5-of-hearts-charles-williams.jpg",
-    artist: "charles-williams",
-    value: "5",
-    suit: "hearts",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/6-of-spades-zansky.jpg",
+    artist: "zansky",
+    value: "6",
+    suit: "spades",
     info:
-      "I’ve been playing with stripes a lot recently, using undulating movements to create 3D shapes, based on an isometric grid. I wanted the type to be both bold, and sort of subtle/recessive. The red stripe was a last minute (1am) addition.",
+      "Well, I collect tarot decks, so the idea of my card came from the tarot. The 6 of spades is a card to represent transition, changings, knowing a new world, ideas, feelings and elsewhere. Basically I reinterpreted this ideas.",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/5-of-spades-gabriel-moreno.jpg",
-    artist: "gabriel-moreno",
-    value: "5",
-    suit: "spades",
-    info: "",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/6-of-hearts-freak-city.jpg",
+    artist: "freak-city",
+    value: "6",
+    suit: "hearts",
+    info:
+      "The eyeball has been my trademark for quite some years, and i like to draw one in a composition whenever i can! Sometimes as a cartoon, sometimes as an icon, the point is to leave a mark with it. I chose to include some exotic yet fictionary plants, cause i like how wild and dense they look like. Drawing jungle is a good way to fight cold European winters.",
     deck: "two",
   },
   {
@@ -218,23 +240,22 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/6-of-hearts-freak-city.jpg",
-    artist: "freak-city",
-    value: "6",
-    suit: "hearts",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/7-of-spades-chocotoy.jpg",
+    artist: "choco-toy",
+    value: "7",
+    suit: "spades",
     info:
-      "The eyeball has been my trademark for quite some years, and i like to draw one in a composition whenever i can! Sometimes as a cartoon, sometimes as an icon, the point is to leave a mark with it. I chose to include some exotic yet fictionary plants, cause i like how wild and dense they look like. Drawing jungle is a good way to fight cold European winters.",
+      "The idea came from a biblical Word, where it explain how Jesus will come for the second time, he will show on a White horse with a White and shinny dress, with a sword in the hand and a Crown in the head. It speaks that the one that was called by love will come this time on a horse from the heaven with a White dress, a sword and a Crown to make justice, so we make a representation with our own style to describe this prophetic Word. With a research, we realize that the number seven it’s the number of perfection and the sword is associated to the divine Word.",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/6-of-spades-zansky.jpg",
-    artist: "zansky",
-    value: "6",
-    suit: "spades",
-    info:
-      "Well, I collect tarot decks, so the idea of my card came from the tarot. The 6 of spades is a card to represent transition, changings, knowing a new world, ideas, feelings and elsewhere. Basically I reinterpreted this ideas.",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/7-of-hearts-antoni-tudisco.jpg",
+    artist: "antoni-tudisco",
+    value: "7",
+    suit: "hearts",
+    info: "",
     deck: "two",
   },
   {
@@ -261,22 +282,22 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/7-of-hearts-antoni-tudisco.jpg",
-    artist: "antoni-tudisco",
-    value: "7",
-    suit: "hearts",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-spades-rubens-scarelli.jpg",
+    artist: "rubens-scarelli",
+    value: "8",
+    suit: "spades",
     info: "",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/7-of-spades-chocotoy.jpg",
-    artist: "choco-toy",
-    value: "7",
-    suit: "spades",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-hearts-van-orton-design.jpg",
+    artist: "van-orton-design",
+    value: "8",
+    suit: "hearts",
     info:
-      "The idea came from a biblical Word, where it explain how Jesus will come for the second time, he will show on a White horse with a White and shinny dress, with a sword in the hand and a Crown in the head. It speaks that the one that was called by love will come this time on a horse from the heaven with a White dress, a sword and a Crown to make justice, so we make a representation with our own style to describe this prophetic Word. With a research, we realize that the number seven it’s the number of perfection and the sword is associated to the divine Word.",
+      "We liked the idea of a wolf standing guard at a mega vintage synthesizer, a synthesizer that no one has ever played. Only the wolf knows the sound of the synthesizer. An image of a little dream that inspires us a lot.",
     deck: "two",
   },
   {
@@ -303,22 +324,23 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-hearts-van-orton-design.jpg",
-    artist: "van-orton-design",
-    value: "8",
-    suit: "hearts",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/9-of-spades-pichet-rujivararat.jpg",
+    artist: "pichet-rujivararat",
+    value: "9",
+    suit: "spades",
     info:
-      "We liked the idea of a wolf standing guard at a mega vintage synthesizer, a synthesizer that no one has ever played. Only the wolf knows the sound of the synthesizer. An image of a little dream that inspires us a lot.",
+      "My brief is to develop art piece from “Nine Spade”. What come in my mind the first thing is “Cat”. In Thailand, we believe that cat is one of the animal that has the longest life some says cat has nine life. Therefore, this is what inspired me to create this art. I also use illusion technique to create a picture of cat in two character so the audience could look at my work from both side.",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-spades-rubens-scarelli.jpg",
-    artist: "rubens-scarelli",
-    value: "8",
-    suit: "spades",
-    info: "",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/9-of-hearts-irina-vinnik.jpg",
+    artist: "irina-vinnik",
+    value: "9",
+    suit: "hearts",
+    info:
+      "I wanted to make an allusion to a figure of Don Juan, because he is able to collect as many hearts together. Therefore 9 hearts impaled on a sword and shrouded in a cloak.",
     deck: "two",
   },
   {
@@ -344,23 +366,21 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/9-of-hearts-irina-vinnik.jpg",
-    artist: "irina-vinnik",
-    value: "9",
-    suit: "hearts",
-    info:
-      "I wanted to make an allusion to a figure of Don Juan, because he is able to collect as many hearts together. Therefore 9 hearts impaled on a sword and shrouded in a cloak.",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/10-of-spades-marcelo-schultz.jpg",
+    artist: "marcelo-schultz",
+    value: "10",
+    suit: "spades",
+    info: "",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/9-of-spades-pichet-rujivararat.jpg",
-    artist: "pichet-rujivararat",
-    value: "9",
-    suit: "spades",
-    info:
-      "My brief is to develop art piece from “Nine Spade”. What come in my mind the first thing is “Cat”. In Thailand, we believe that cat is one of the animal that has the longest life some says cat has nine life. Therefore, this is what inspired me to create this art. I also use illusion technique to create a picture of cat in two character so the audience could look at my work from both side.",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/10-of-hearts-david-sossella.jpg",
+    artist: "david-sossella",
+    value: "10",
+    suit: "hearts",
+    info: "",
     deck: "two",
   },
   {
@@ -387,21 +407,23 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/10-of-hearts-david-sossella.jpg",
-    artist: "david-sossella",
-    value: "10",
-    suit: "hearts",
-    info: "",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/jack-of-spades-peter-donnelly.jpg",
+    artist: "peter-donnelly",
+    value: "jack",
+    suit: "spades",
+    info:
+      "Perched high on the Dublin mountains lies The Hellfire Club, an 18th century hunting lodge with an infamous history of outrageous behaviour and depravity. Accounts of the club’s meetings claim that members drank “scaltheen”, a mixture of whiskey and hot butter, and that they left a chair vacant at each gathering for the Devil. One of these accounts tells of a stranger who arrived at the club on a stormy night. Invited in, he joined the members in a card game. As one player dropped his card on the floor he bent under the table to retrieve it and noticed that the stranger had a cloven hoof. At this point the visitor disappeared in a ball of flames ;)",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/10-of-spades-marcelo-schultz.jpg",
-    artist: "marcelo-schultz",
-    value: "10",
-    suit: "spades",
-    info: "",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/jack-of-hearts-julian-ardila.jpg",
+    artist: "julian-ardila",
+    value: "jack",
+    suit: "hearts",
+    info:
+      "The illustration of J of hearts is inspired in the poker game. Who has never feel extremely happy after wining a hand, and after few seconds get blow with a dagger and stays there on the green fabric. Poker is the representation of a mathematical game, where feelings play an important role and we may lose everything.",
     deck: "two",
   },
   {
@@ -428,23 +450,21 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/jack-of-hearts-julian-ardila.jpg",
-    artist: "julian-ardila",
-    value: "jack",
-    suit: "hearts",
-    info:
-      "The illustration of J of hearts is inspired in the poker game. Who has never feel extremely happy after wining a hand, and after few seconds get blow with a dagger and stays there on the green fabric. Poker is the representation of a mathematical game, where feelings play an important role and we may lose everything.",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/queen-of-spades-zso-sara-blake.jpg",
+    artist: "sara-blake",
+    value: "queen",
+    suit: "spades",
+    info: "",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/jack-of-spades-peter-donnelly.jpg",
-    artist: "peter-donnelly",
-    value: "jack",
-    suit: "spades",
-    info:
-      "Perched high on the Dublin mountains lies The Hellfire Club, an 18th century hunting lodge with an infamous history of outrageous behaviour and depravity. Accounts of the club’s meetings claim that members drank “scaltheen”, a mixture of whiskey and hot butter, and that they left a chair vacant at each gathering for the Devil. One of these accounts tells of a stranger who arrived at the club on a stormy night. Invited in, he joined the members in a card game. As one player dropped his card on the floor he bent under the table to retrieve it and noticed that the stranger had a cloven hoof. At this point the visitor disappeared in a ball of flames ;)",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/queen-of-hearts-orlando-arocena.jpg",
+    artist: "orlando-arocena",
+    value: "queen",
+    suit: "hearts",
+    info: "",
     deck: "two",
   },
   {
@@ -471,21 +491,23 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/queen-of-hearts-orlando-arocena.jpg",
-    artist: "orlando-arocena",
-    value: "queen",
-    suit: "hearts",
-    info: "",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/king-of-spades-yeaaah-studio.jpg",
+    artist: "yeaaah-studio",
+    value: "king",
+    suit: "spades",
+    info:
+      "It’s a Lion-headed king slaying a snake. The design is based on a classic King card design, I just tried to put my style in it. I wrote キング in the banner, which is Japanese for “king”.",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/queen-of-spades-zso-sara-blake.jpg",
-    artist: "sara-blake",
-    value: "queen",
-    suit: "spades",
-    info: "",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/king-of-hearts-yoaz.jpg",
+    artist: "yoaz",
+    value: "king",
+    suit: "hearts",
+    info:
+      "I love the aesthetic of card, also the colours so i wanted to keep this and do a king of heart very close to the existant versions.",
     deck: "two",
   },
   {
@@ -513,23 +535,22 @@ export const cards = [
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/king-of-hearts-yoaz.jpg",
-    artist: "yoaz",
-    value: "king",
-    suit: "hearts",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/ace-of-spades-ars-thanea.jpg",
+    artist: "ars-thanea",
+    value: "ace",
+    suit: "spades",
     info:
-      "I love the aesthetic of card, also the colours so i wanted to keep this and do a king of heart very close to the existant versions.",
+      "The idea was to find some mighty and powerful animal character and mix it with various items to make it more grotesque and funny.",
     deck: "two",
   },
   {
     video: "",
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/king-of-spades-yeaaah-studio.jpg",
-    artist: "yeaaah-studio",
-    value: "king",
-    suit: "spades",
-    info:
-      "It’s a Lion-headed king slaying a snake. The design is based on a classic King card design, I just tried to put my style in it. I wrote キング in the banner, which is Japanese for “king”.",
+      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/ace-of-hearts-studio-blup.jpg",
+    artist: "studio-blup",
+    value: "ace",
+    suit: "hearts",
+    info: "",
     deck: "two",
   },
   {
@@ -552,27 +573,6 @@ export const cards = [
     suit: "diamonds",
     info:
       "Well everything I create is based on code and I have been totally dominated by using Delaunay Triangulation to create triangle structures… so it only made sense to doing something in the Diamonds family since I could incorporate triangle into the diamond form. So I requested the Ace of Diamonds, fingers crossed, and got it! Then I usually start to play with color… and the diamond family is red… so starting with red… I found a range from red to pink to purple… and then electrified it with mint. So why the Ace ? I knew if I got the Ace - I’d use an “A” with the knock out of the “A” having the diamond shape. The “A” would be subtle… with Triangle and Diamonds tearing apart. My style is abstraction… and I’m super happy with the texture and atmosphere my card turned into.",
-    deck: "two",
-  },
-  {
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/ace-of-hearts-studio-blup.jpg",
-    artist: "studio-blup",
-    value: "ace",
-    suit: "hearts",
-    info: "",
-    deck: "two",
-  },
-  {
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/ace-of-spades-ars-thanea.jpg",
-    artist: "ars-thanea",
-    value: "ace",
-    suit: "spades",
-    info:
-      "The idea was to find some mighty and powerful animal character and mix it with various items to make it more grotesque and funny.",
     deck: "two",
   },
   {

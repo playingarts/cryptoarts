@@ -25,6 +25,30 @@ export const deck: Omit<GQL.Deck, "_id"> = {
 export const cards = [
   {
     img:
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/2-of-spades-kate-ohara.jpg",
+    video: "",
+    opensea: "",
+    artist: "kate-ohara",
+    suit: "spades",
+    deck: "three",
+    info:
+      "I drew a pair of Genets raiding a birds nest. Most of my work incorporates natural elements and I like to draw animals that are not know very well. The Genet is a small fox like carnivore that lives in Spain and some areas of Europe. I also wanted to make sure my card was reversible like a traditional face card.",
+    value: "2",
+  },
+  {
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/2-of-hearts-wade-jeffree.jpg",
+    video: "",
+    opensea: "",
+    artist: "wade-jeffree",
+    suit: "hearts",
+    deck: "three",
+    info:
+      "Two of hearts! Two hearts that beat as one! I really love the song Two Of Hearts by Stacey Q. It’s catchy, kitschy and has a lots of positive vibes. I could sing it all day! I’m also a huge fan of the movie Hot Rod, which features a hilarious scene featuring the song.",
+    value: "2",
+  },
+  {
+    img:
       "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/2-of-clubs-riccardo-guasco.jpg",
     video: "",
     opensea: "",
@@ -47,29 +71,29 @@ export const cards = [
       "I like to draw the monsters which have two faces. so when I was given number 2 diamonds, It matched well with the concept. Basically I wanted to create really unique, mysterious, wicked character and have cute appearance monster.",
     value: "2",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/2-of-hearts-wade-jeffree.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/3-of-spades-antonio-rodrigues-jr.jpg",
     video: "",
     opensea: "",
-    artist: "wade-jeffree",
-    suit: "hearts",
+    artist: "antonio-rodrigues-jr",
+    suit: "spades",
     deck: "three",
-    info:
-      "Two of hearts! Two hearts that beat as one! I really love the song Two Of Hearts by Stacey Q. It’s catchy, kitschy and has a lots of positive vibes. I could sing it all day! I’m also a huge fan of the movie Hot Rod, which features a hilarious scene featuring the song.",
-    value: "2",
+    info: "",
+    value: "3",
   },
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/2-of-spades-kate-ohara.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/3-of-hearts-dan-matutina.jpg",
     video: "",
     opensea: "",
-    artist: "kate-ohara",
-    suit: "spades",
+    artist: "dan-matutina",
+    suit: "hearts",
     deck: "three",
     info:
-      "I drew a pair of Genets raiding a birds nest. Most of my work incorporates natural elements and I like to draw animals that are not know very well. The Genet is a small fox like carnivore that lives in Spain and some areas of Europe. I also wanted to make sure my card was reversible like a traditional face card.",
-    value: "2",
+      "I was trying to be “punny” with this particular illustration. Since I got the 3 of hearts, I thought why not create a “Tree of Hearts” emblem. Hahahaha. In the Lord of the Rings, Gondor one of the great kingdoms of Men had a White Tree as their emblem.",
+    value: "3",
   },
   {
     img:
@@ -95,28 +119,29 @@ export const cards = [
       "My work is combination of playfulness and cynicism. Although it may appear organic it is actually built on a very mathematical structure. This piece was designed and built within the diamond shape.",
     value: "3",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/3-of-hearts-dan-matutina.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/4-of-spades-inkration-studio.jpg",
     video: "",
     opensea: "",
-    artist: "dan-matutina",
-    suit: "hearts",
+    artist: "inkration-studio",
+    suit: "spades",
     deck: "three",
     info:
-      "I was trying to be “punny” with this particular illustration. Since I got the 3 of hearts, I thought why not create a “Tree of Hearts” emblem. Hahahaha. In the Lord of the Rings, Gondor one of the great kingdoms of Men had a White Tree as their emblem.",
-    value: "3",
+      "2 elements + 1 spontaneous idea = guardian of 4 spades. Actually, when we thought about 4 spades, the most obvious was to play with 2 elements: spade and number 4. We tried to get answers for the following: How to combine them? How to present them in the most creative way? How to make understandable for player to know which card he take in his hand even within watching in its value.",
+    value: "4",
   },
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/3-of-spades-antonio-rodrigues-jr.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/4-of-hearts-tobias-hall.jpg",
     video: "",
     opensea: "",
-    artist: "antonio-rodrigues-jr",
-    suit: "spades",
+    artist: "tobias-hall",
+    suit: "hearts",
     deck: "three",
     info: "",
-    value: "3",
+    value: "4",
   },
   {
     img:
@@ -142,28 +167,29 @@ export const cards = [
     info: "",
     value: "4",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/4-of-hearts-tobias-hall.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/5-of-spades-leandro-castelao.jpg",
     video: "",
     opensea: "",
-    artist: "tobias-hall",
-    suit: "hearts",
+    artist: "leandro-castelao",
+    suit: "spades",
     deck: "three",
     info: "",
-    value: "4",
+    value: "5",
   },
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/4-of-spades-inkration-studio.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/5-of-hearts-bram-vanhaeren.jpg",
     video: "",
     opensea: "",
-    artist: "inkration-studio",
-    suit: "spades",
+    artist: "bram-vanhaeren",
+    suit: "hearts",
     deck: "three",
     info:
-      "2 elements + 1 spontaneous idea = guardian of 4 spades. Actually, when we thought about 4 spades, the most obvious was to play with 2 elements: spade and number 4. We tried to get answers for the following: How to combine them? How to present them in the most creative way? How to make understandable for player to know which card he take in his hand even within watching in its value.",
-    value: "4",
+      "In a previous personal project I have been looking into a way to make letters sexy again. Why not apply this to numbers as well. The idea is to mislead the viewer into seeing a regular number, but at a second glare notice an appealing woman looking at the person. Maybe her look succeeds in getting the person attention and distract the player into a new dimension.",
+    value: "5",
   },
   {
     img:
@@ -189,28 +215,28 @@ export const cards = [
       "I choosed 5 Diamonds card and it was confirmed! I would like to play with the idea of building up a Jewel made of abstract clothes fluids full of energy in a sunset light background, where 5 energetic diamonds are the “power supply” to all this surreal machine.",
     value: "5",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/5-of-hearts-bram-vanhaeren.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/6-of-spades-charis-tsevis.jpg",
     video: "",
     opensea: "",
-    artist: "bram-vanhaeren",
-    suit: "hearts",
-    deck: "three",
-    info:
-      "In a previous personal project I have been looking into a way to make letters sexy again. Why not apply this to numbers as well. The idea is to mislead the viewer into seeing a regular number, but at a second glare notice an appealing woman looking at the person. Maybe her look succeeds in getting the person attention and distract the player into a new dimension.",
-    value: "5",
-  },
-  {
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/5-of-spades-leandro-castelao.jpg",
-    video: "",
-    opensea: "",
-    artist: "leandro-castelao",
+    artist: "charis-tsevis",
     suit: "spades",
     deck: "three",
     info: "",
-    value: "5",
+    value: "6",
+  },
+  {
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/6-of-hearts-man-tsun.jpg",
+    video: "",
+    opensea: "",
+    artist: "man-tsun",
+    suit: "hearts",
+    deck: "three",
+    info: "No heart, no game!",
+    value: "6",
   },
   {
     img:
@@ -236,27 +262,29 @@ export const cards = [
       "I’ve been always strongly inspired by nature. And birds are a part of nature that specifically always took my attention and admiration. This was the oportunity to create this 6 of diamonds paradise bird.",
     value: "6",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/6-of-hearts-man-tsun.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/7-of-spades-aj-frena.jpg",
     video: "",
     opensea: "",
-    artist: "man-tsun",
-    suit: "hearts",
-    deck: "three",
-    info: "No heart, no game!",
-    value: "6",
-  },
-  {
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/6-of-spades-charis-tsevis.jpg",
-    video: "",
-    opensea: "",
-    artist: "charis-tsevis",
+    artist: "aj-frena",
     suit: "spades",
     deck: "three",
     info: "",
-    value: "6",
+    value: "7",
+  },
+  {
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/7-of-hearts-velvet-spectrum.jpg",
+    video: "",
+    opensea: "",
+    artist: "velvet-spectrum",
+    suit: "hearts",
+    deck: "three",
+    info:
+      "This is literally came to me in the shower as i have a shower curtain with tattoo flash all over it. I noticed the elements of the anchor and rose resembled heart shapes, so i wanted to bring it to life in 3D like i have done with previous tattoo illustrations in the past.",
+    value: "7",
   },
   {
     img:
@@ -282,28 +310,29 @@ export const cards = [
       "I read a couple of descriptions of what the 7 of Diamonds meant and most of them related it with money and power, so I thought I could represent it as a sort of Sheriff of Nottingham who steals everyone’s possessions. He is wrapped in a golden diamond that is almost like a cage.",
     value: "7",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/7-of-hearts-velvet-spectrum.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/8-of-spades-mike-perry.jpg",
     video: "",
     opensea: "",
-    artist: "velvet-spectrum",
-    suit: "hearts",
+    artist: "mike-perry",
+    suit: "spades",
     deck: "three",
     info:
-      "This is literally came to me in the shower as i have a shower curtain with tattoo flash all over it. I noticed the elements of the anchor and rose resembled heart shapes, so i wanted to bring it to life in 3D like i have done with previous tattoo illustrations in the past.",
-    value: "7",
+      "I love the infinite loop of the number 8. I have always been attracted to its power. This piece is a celebration of the Infinite 8.",
+    value: "8",
   },
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/7-of-spades-aj-frena.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/8-of-hearts-amaia-arrazola.jpg",
     video: "",
     opensea: "",
-    artist: "aj-frena",
-    suit: "spades",
+    artist: "amaia-arrazola",
+    suit: "hearts",
     deck: "three",
     info: "",
-    value: "7",
+    value: "8",
   },
   {
     img:
@@ -329,28 +358,29 @@ export const cards = [
       "The 8 of diamonds represent power and powerful people. It’s also known as the card of fame and fortune. So I decided to represent it with a powerful animal (and one of my favourite) the bear. I like the idea of searching and finding your own “power source”, so this is what I was thinking about when creating this piece, if that makes any sense.",
     value: "8",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/8-of-hearts-amaia-arrazola.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/9-of-spades-jackson-alves.jpg",
     video: "",
     opensea: "",
-    artist: "amaia-arrazola",
-    suit: "hearts",
+    artist: "jackson-alves",
+    suit: "spades",
     deck: "three",
     info: "",
-    value: "8",
+    value: "9",
   },
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/8-of-spades-mike-perry.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/9-of-hearts-will-scobie.jpg",
     video: "",
     opensea: "",
-    artist: "mike-perry",
-    suit: "spades",
+    artist: "will-scobie",
+    suit: "hearts",
     deck: "three",
     info:
-      "I love the infinite loop of the number 8. I have always been attracted to its power. This piece is a celebration of the Infinite 8.",
-    value: "8",
+      "I based my design around a cats’ nine lives and the symmetry of life and death.",
+    value: "9",
   },
   {
     img:
@@ -376,28 +406,30 @@ export const cards = [
       "Hmmm...my artwork is on the spectrum of graphic, trippy, soulful, and wonderfilled. The idea behind my playing card was a vision that came to me of a space dwelling diamond lord who travels through the universe, sucking planets dry of their precious minerals like a protein shake before you go to the gym.",
     value: "9",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/9-of-hearts-will-scobie.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/10-of-spades-bratislav-milenkovic.jpg",
     video: "",
     opensea: "",
-    artist: "will-scobie",
-    suit: "hearts",
+    artist: "bratislav-milenkovic",
+    suit: "spades",
     deck: "three",
     info:
-      "I based my design around a cats’ nine lives and the symmetry of life and death.",
-    value: "9",
+      "I was looking to find the way to make a fun twist on 10 spades card, by incorporating the original element (ten spades) into the artwork – so I thought of having a fun looking guy with spades for his braces.",
+    value: "10",
   },
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/9-of-spades-jackson-alves.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/10-of-hearts-daniel-shaffer.jpg",
     video: "",
     opensea: "",
-    artist: "jackson-alves",
-    suit: "spades",
+    artist: "daniel-shaffer",
+    suit: "hearts",
     deck: "three",
-    info: "",
-    value: "9",
+    info:
+      "When I set out to make the card I jumped around in a lot of different directions. I originally was planning on making an image that related to the metasymbology of the card. At one point I was going to create a portrait of Jane Fonda as the iconic character Barbarella, because I found out Jane Fonda was born as a 10 of Hearts. In the end I ditched that idea because it felt too stiff. I agreed to loosen up and create an image that wasn’t related to metasymbology, but rather my own inclination when I thought of the words “Ten of Hearts.” Somehow I got to the image you see here. If I could sum up the image in a few words it would be: An elf is helping a tree grow anew. A tree stump felt like a strong base for a stand alone image, and the elf and plants grew around it to create the final idea.",
+    value: "10",
   },
   {
     img:
@@ -423,29 +455,29 @@ export const cards = [
       "Wanted to have some fun with the diamond shape. Thought I’d incorporate it into the ’10’ as a structure.",
     value: "10",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/10-of-hearts-daniel-shaffer.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/jack-of-spades-grzegorz-domaradzki.jpg",
     video: "",
     opensea: "",
-    artist: "daniel-shaffer",
-    suit: "hearts",
-    deck: "three",
-    info:
-      "When I set out to make the card I jumped around in a lot of different directions. I originally was planning on making an image that related to the metasymbology of the card. At one point I was going to create a portrait of Jane Fonda as the iconic character Barbarella, because I found out Jane Fonda was born as a 10 of Hearts. In the end I ditched that idea because it felt too stiff. I agreed to loosen up and create an image that wasn’t related to metasymbology, but rather my own inclination when I thought of the words “Ten of Hearts.” Somehow I got to the image you see here. If I could sum up the image in a few words it would be: An elf is helping a tree grow anew. A tree stump felt like a strong base for a stand alone image, and the elf and plants grew around it to create the final idea.",
-    value: "10",
-  },
-  {
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/10-of-spades-bratislav-milenkovic.jpg",
-    video: "",
-    opensea: "",
-    artist: "bratislav-milenkovic",
+    artist: "grzegorz-domaradzki",
     suit: "spades",
     deck: "three",
     info:
-      "I was looking to find the way to make a fun twist on 10 spades card, by incorporating the original element (ten spades) into the artwork – so I thought of having a fun looking guy with spades for his braces.",
-    value: "10",
+      "I wanted to have fun with this project, draw something I enjoy drawing, so I went with this sculpture-like fictional warrior.",
+    value: "jack",
+  },
+  {
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/jack-of-hearts-roman-klonek.jpg",
+    video: "",
+    opensea: "",
+    artist: "roman-klonek",
+    suit: "hearts",
+    deck: "three",
+    info: "",
+    value: "jack",
   },
   {
     img:
@@ -470,28 +502,30 @@ export const cards = [
     info: "",
     value: "jack",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/jack-of-hearts-roman-klonek.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/queen-of-spades-david-vicente.jpg",
     video: "",
     opensea: "",
-    artist: "roman-klonek",
-    suit: "hearts",
-    deck: "three",
-    info: "",
-    value: "jack",
-  },
-  {
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/jack-of-spades-grzegorz-domaradzki.jpg",
-    video: "",
-    opensea: "",
-    artist: "grzegorz-domaradzki",
+    artist: "d.vicente",
     suit: "spades",
     deck: "three",
     info:
-      "I wanted to have fun with this project, draw something I enjoy drawing, so I went with this sculpture-like fictional warrior.",
-    value: "jack",
+      "Before i design my card, i search some informations about the signification “Queen of Spades”. Queen of Spades: A malicious, dark woman, generally a widow. An unscrupulous woman. A very dark-haired woman. A cruel woman, one who interferes. For women, a betrayal by a good friend. For men, a woman who will use them for their own gain. Widowed or divorced woman; or a woman with Air predominating in her chart. Dark haired woman, seductive or unscrupulous, treachery, betrayal, malice, widow. Treachery, betrayal, malice; a widow or evil woman and death symbol… The concept was to create a design in the spirit and style of a card to play and represent a dangerous woman symbolizing death and the dark side of some women lend anything to happen to get the one they want. Playing cards and dice represent more or less the uncertainty of the intended.",
+    value: "queen",
+  },
+  {
+    img:
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/queen-of-hearts-alessandro-pautasso.jpg",
+    video: "",
+    opensea: "",
+    artist: "alessandro-pautasso",
+    suit: "hearts",
+    deck: "three",
+    info:
+      "The idea behind the artwork was to try not to illustrate a traditional Queen, I wanted to give her a more “natural” connotation, so I’ve tried to draw a crown made of abstract branches and twigs.",
+    value: "queen",
   },
   {
     img:
@@ -515,29 +549,28 @@ export const cards = [
     info: "",
     value: "queen",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/queen-of-hearts-alessandro-pautasso.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/king-of-spades-jonny-wan.jpg",
     video: "",
     opensea: "",
-    artist: "alessandro-pautasso",
-    suit: "hearts",
+    artist: "jonny-wan",
+    suit: "spades",
     deck: "three",
-    info:
-      "The idea behind the artwork was to try not to illustrate a traditional Queen, I wanted to give her a more “natural” connotation, so I’ve tried to draw a crown made of abstract branches and twigs.",
-    value: "queen",
+    info: "",
+    value: "king",
   },
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/queen-of-spades-david-vicente.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/king-of-hearts-denis-zilber.jpg",
     video: "",
     opensea: "",
-    artist: "d.vicente",
-    suit: "spades",
+    artist: "denis-zilber",
+    suit: "hearts",
     deck: "three",
-    info:
-      "Before i design my card, i search some informations about the signification “Queen of Spades”. Queen of Spades: A malicious, dark woman, generally a widow. An unscrupulous woman. A very dark-haired woman. A cruel woman, one who interferes. For women, a betrayal by a good friend. For men, a woman who will use them for their own gain. Widowed or divorced woman; or a woman with Air predominating in her chart. Dark haired woman, seductive or unscrupulous, treachery, betrayal, malice, widow. Treachery, betrayal, malice; a widow or evil woman and death symbol… The concept was to create a design in the spirit and style of a card to play and represent a dangerous woman symbolizing death and the dark side of some women lend anything to happen to get the one they want. Playing cards and dice represent more or less the uncertainty of the intended.",
-    value: "queen",
+    info: "",
+    value: "king",
   },
   {
     img:
@@ -562,27 +595,29 @@ export const cards = [
     info: "",
     value: "king",
   },
+
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/king-of-hearts-denis-zilber.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/ace-of-spades-gmunk.jpg",
     video: "",
     opensea: "",
-    artist: "denis-zilber",
-    suit: "hearts",
+    artist: "gmunk",
+    suit: "spades",
     deck: "three",
-    info: "",
-    value: "king",
+    info:
+      "I wanted it to be a recognizable Spade - that was the most important part - that it fit in with the Card Type.. Beyond that I wanted to make it somewhat Optical Art inspired, and playing heavily on perspective.",
+    value: "ace",
   },
   {
     img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/king-of-spades-jonny-wan.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/ace-of-hearts-jesse-hernandez.jpg",
     video: "",
     opensea: "",
-    artist: "jonny-wan",
-    suit: "spades",
+    artist: "jesse-hernandez",
+    suit: "hearts",
     deck: "three",
     info: "",
-    value: "king",
+    value: "ace",
   },
   {
     img:
@@ -607,29 +642,7 @@ export const cards = [
     info: "",
     value: "ace",
   },
-  {
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/ace-of-hearts-jesse-hernandez.jpg",
-    video: "",
-    opensea: "",
-    artist: "jesse-hernandez",
-    suit: "hearts",
-    deck: "three",
-    info: "",
-    value: "ace",
-  },
-  {
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/ace-of-spades-gmunk.jpg",
-    video: "",
-    opensea: "",
-    artist: "gmunk",
-    suit: "spades",
-    deck: "three",
-    info:
-      "I wanted it to be a recognizable Spade - that was the most important part - that it fit in with the Card Type.. Beyond that I wanted to make it somewhat Optical Art inspired, and playing heavily on perspective.",
-    value: "ace",
-  },
+
   {
     img:
       "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/joker-1-blackout-brother.jpg",
