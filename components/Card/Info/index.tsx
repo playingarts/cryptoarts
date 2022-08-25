@@ -132,16 +132,22 @@ const CardInfo: FC<Props> = ({
                             flexGrow: 1,
                             display: "flex",
                             justifyContent: "flex-end",
-                            alignItems: "baseline",
+                            alignItems: "center",
                             color: theme.colors.white,
                           },
                         ]}
                       >
-                        <span>{card.price}</span>
+                        <span>
+                          {((price: string[] = (card.price + "").split(".")) =>
+                            price[1] && price[1].length > 3
+                              ? price[0] + "," + price[1].slice(0, 3)
+                              : card.price)()}
+                        </span>
                         <Eth
                           css={(theme) => ({
                             opacity: 0.2,
                             marginLeft: theme.spacing(1),
+                            marginBottom: theme.spacing(0.7),
                           })}
                         />
                       </Text>
