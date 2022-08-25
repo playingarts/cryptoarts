@@ -2,6 +2,8 @@ import { FC, HTMLAttributes } from "react";
 
 const Chevron: FC<HTMLAttributes<SVGElement>> = (props) => (
   <svg
+    width="32"
+    height="57"
     viewBox="0 0 32 57"
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"

@@ -94,6 +94,14 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             component={Link}
             Icon={width >= breakpoints.sm ? Chevron : ThickChevron}
             href={prevLink}
+            iconProps={
+              width < breakpoints.sm
+                ? {
+                    width: "12.5px",
+                    height: "20.5px",
+                  }
+                : {}
+            }
             css={(theme) => ({
               top: "-100vh",
               // bottom: theme.spacing(44.5),
@@ -108,11 +116,13 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 height: theme.spacing(5.7),
               },
               [theme.maxMQ.sm]: {
-                width: theme.spacing(2),
-                height: theme.spacing(1.3),
-                transform: `translate(${theme.spacing(2.5)}px, ${theme.spacing(
+                width: theme.spacing(6),
+                height: theme.spacing(9),
+                transform: `translate(calc(-50% + ${theme.spacing(
+                  2.5
+                )}px + ${theme.spacing(1.25)}px), calc(-50% + ${theme.spacing(
                   29.75
-                )}px) rotate(-180deg)`,
+                )}px + ${theme.spacing(0.75)}px)) rotate(-180deg)`,
               },
             })}
           />
@@ -124,6 +134,14 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             component={Link}
             Icon={width >= breakpoints.sm ? Chevron : ThickChevron}
             href={nextLink}
+            iconProps={
+              width < breakpoints.sm
+                ? {
+                    width: "12.5px",
+                    height: "20.5px",
+                  }
+                : {}
+            }
             css={(theme) => ({
               top: "-100vh",
               position: "absolute",
@@ -138,11 +156,13 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 height: theme.spacing(5.7),
               },
               [theme.maxMQ.sm]: {
-                width: theme.spacing(2),
-                height: theme.spacing(1.3),
-                transform: `translate(-${theme.spacing(2.5)}px, ${theme.spacing(
+                width: theme.spacing(6),
+                height: theme.spacing(9),
+                transform: `translate(calc(50% - ${theme.spacing(
+                  2.5
+                )}px - ${theme.spacing(1.25)}px), calc(-50% + ${theme.spacing(
                   29.75
-                )}px)`,
+                )}px + ${theme.spacing(0.75)}px))`,
               },
             })}
           />

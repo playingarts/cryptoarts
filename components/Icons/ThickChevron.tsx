@@ -2,8 +2,8 @@ import { FC, HTMLAttributes } from "react";
 
 const ThickChevron: FC<HTMLAttributes<SVGElement>> = (props) => (
   <svg
-    // width="13"
-    // height="21"
+    width="13"
+    height="21"
     viewBox="0 0 13 21"
     fill="currentColor"
     {...props}

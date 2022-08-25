@@ -13,7 +13,11 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   href?: LinkProps["href"];
   Icon?: FC<HTMLAttributes<SVGElement>>;
   component?: "button" | FC<LinkProps>;
-  iconProps?: HTMLAttributes<SVGElement> & { css?: Interpolation<Theme> };
+  iconProps?: HTMLAttributes<SVGElement> & {
+    css?: Interpolation<Theme>;
+    width?: string;
+    height?: string;
+  };
   variant?: "default" | "bordered";
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   disabled?: ButtonHTMLAttributes<HTMLButtonElement>["disabled"];
