@@ -140,7 +140,7 @@ const CardInfo: FC<Props> = ({
                         <span>
                           {((price: string[] = (card.price + "").split(".")) =>
                             price[1] && price[1].length > 3
-                              ? price[0] + "," + price[1].slice(0, 3)
+                              ? price[0] + "." + price[1].slice(0, 3)
                               : card.price)()}
                         </span>
                         <Eth
