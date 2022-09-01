@@ -3,12 +3,16 @@ import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import { useCards } from "../../../hooks/card";
 import { OwnedCard } from "../../../pages/[deckId]";
+import { breakpoints } from "../../../source/enums";
 import { Asset } from "../../../source/graphql/schemas/opensea";
 import BlockTitle from "../../BlockTitle";
 import Button from "../../Button";
 import CardList, { Props as ListProps } from "../../Card/List";
 import Grid from "../../Grid";
+import defaultSort from "../../Icons/defaultSort";
+import Sort from "../../Icons/Sort";
 import SelectButton from "../../SelectButton";
+import { useSize } from "../../SizeProvider";
 
 interface Props
   extends Omit<ListProps, "metamaskProps" | "status" | "deckId" | "cards"> {
@@ -85,6 +89,8 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
     );
   }, [queryCards, ownedCards, account]);
 
+  const { width } = useSize();
+
   return loading || !cards ? null : (
     <BlockTitle
       palette={
@@ -93,15 +99,40 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
       action={
         cards &&
         cards.find(({ price }) => price !== undefined && price !== null) && (
-          <SelectButton
-            states={["default", "ascending", "descending"]}
-            setter={setCurrentSelected}
-            palette={
-              status === "connected" && deck.openseaCollection
-                ? "dark"
-                : "light"
-            }
-          />
+          <span
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            css={(theme) => [
+              {
+                [theme.maxMQ.sm]: {
+                  transform: "translateY(-18%)",
+                },
+              },
+            ]}
+          >
+            <SelectButton
+              css={{ zIndex: 10 }}
+              states={[
+                {
+                  children: "default",
+                  Icon: defaultSort,
+                },
+                {
+                  Icon: Sort,
+                  IconProps: { css: { transform: "scaleY(-1)" } },
+                  children: "ascending",
+                },
+                { Icon: Sort, children: "descending" },
+              ]}
+              setter={setCurrentSelected}
+              palette={
+                status === "connected" && deck.openseaCollection
+                  ? "dark"
+                  : "light"
+              }
+            />
+          </span>
         )
       }
       title={
@@ -194,6 +225,47 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           },
         ]}
       >
+        <div
+          css={(theme) => [
+            {
+              marginRight: theme.spacing(3.7),
+              marginLeft: theme.spacing(1.5),
+              maxWidth: "100%",
+              gridColumn: "1/-1",
+            },
+          ]}
+        >
+          {width < breakpoints.sm && (
+            <SelectButton
+              css={(theme) => [
+                {
+                  marginTop: theme.spacing(1),
+                  zIndex: 10,
+                  width: "100%",
+                  "--buttonHeight": `${theme.spacing(5)}px`,
+                },
+              ]}
+              states={[
+                {
+                  children: "default",
+                  Icon: defaultSort,
+                },
+                {
+                  Icon: Sort,
+                  IconProps: { css: { transform: "scaleY(-1)" } },
+                  children: "ascending",
+                },
+                { Icon: Sort, children: "descending" },
+              ]}
+              setter={setCurrentSelected}
+              palette={
+                status === "connected" && deck.openseaCollection
+                  ? "dark"
+                  : "light"
+              }
+            />
+          )}
+        </div>
         <CardList
           status={status}
           cards={

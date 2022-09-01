@@ -60,21 +60,25 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
           subTitleText:
             "This card is a part of Crypto Edition NFT drop. Are you a holder? Connect your metamask to see what you are eligible for.",
         })}
-        buttonProps={{
-          target: "_blank",
-          href: `https://opensea.io/collection/${
-            (deck as GQL.Deck & { openseaCollection: { name: string } })
-              .openseaCollection.name
-          }`,
-          component: Link,
-          Icon: Opensea,
-          children: "Buy nft",
-          css: (theme) => ({
-            background: theme.colors.eth,
-            backgroundSize: "400% 100%",
-            animation: "gradient 5s ease infinite",
-          }),
-        }}
+        buttonProps={
+          width >= breakpoints.sm
+            ? {
+                target: "_blank",
+                href: `https://opensea.io/collection/${
+                  (deck as GQL.Deck & { openseaCollection: { name: string } })
+                    .openseaCollection.name
+                }`,
+                component: Link,
+                Icon: Opensea,
+                children: "Buy nft",
+                css: (theme) => ({
+                  background: theme.colors.eth,
+                  backgroundSize: "400% 100%",
+                  animation: "gradient 5s ease infinite",
+                }),
+              }
+            : {}
+        }
         css={(theme) => [
           {
             [theme.mq.sm]: {

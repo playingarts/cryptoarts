@@ -164,7 +164,6 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             </Text>
           )}
           <SelectButton
-            noIcon={true}
             css={(theme) => ({
               zIndex: 1,
               [theme.mq.sm]: {
@@ -176,7 +175,7 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
               },
             })}
             value={product.title}
-            states={products.map(({ title }) => title)}
+            states={products.map(({ title }) => ({ children: title }))}
             setter={changeProduct}
           />
         </div>

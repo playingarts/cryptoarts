@@ -88,21 +88,40 @@ const BlockTitle: FC<Props> = ({
             </Text>
           )}
         {truncate !== undefined && width < breakpoints.sm && (
-          <div css={{ gridColumn: "span 1/-1" }}>
-            <Button
-              iconProps={{
-                css: {
-                  width: theme.spacing(0.8),
-                  height: theme.spacing(1.5),
-                  transform: truncate ? "rotate(90deg)" : "rotate(-90deg)",
+          <div
+            css={(theme) => [
+              {
+                gridColumn: "span 1/-1",
+                display: "flex",
+                zIndex: 1,
+                [theme.maxMQ.sm]: {
+                  justifyContent: "flex-end",
                 },
-              }}
-              css={(theme) => ({
-                height: theme.spacing(3),
-                float: "right",
-              })}
-              Icon={ThickChevron}
-            />
+                [theme.mq.sm]: {
+                  gridColumn: "span 3 / -1",
+                  alignSelf: "flex-end",
+                  justifyContent: "flex-end",
+                },
+              },
+            ]}
+          >
+            {width >= breakpoints.sm && (action || <Button {...buttonProps} />)}
+            {width < breakpoints.sm && truncate !== undefined && (
+              <Button
+                iconProps={{
+                  css: {
+                    width: theme.spacing(0.8),
+                    height: theme.spacing(1.5),
+                    transform: truncate ? "rotate(90deg)" : "rotate(-90deg)",
+                  },
+                }}
+                css={(theme) => ({
+                  height: theme.spacing(3),
+                  float: "right",
+                })}
+                Icon={ThickChevron}
+              />
+            )}
           </div>
         )}
         {(action || buttonProps) && width >= breakpoints.sm && (
