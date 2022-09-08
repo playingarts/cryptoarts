@@ -86,18 +86,15 @@ const Content: FC = () => {
           <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
             Shop
           </Text>
-          <Text variant="body2" css={{ margin: 0, gridColumn: "1/-1" }}>
+          {/* <Text variant="body2" css={{ margin: 0, gridColumn: "1/-1" }}>
             The best way to buy the products you love.
-          </Text>
+          </Text> */}
         </Grid>
       </Layout>
 
       <Layout
         notTruncatable={true}
         css={(theme) => ({
-          [theme.mq.sm]: {
-            paddingTop: theme.spacing(6),
-          },
           paddingBottom: theme.spacing(15),
           [theme.maxMQ.sm]: {
             paddingBottom: theme.spacing(2.5),
@@ -116,7 +113,6 @@ const Content: FC = () => {
                   gridColumn: "span 6",
                 },
               })}
-              price={latestRelease.price}
             />
 
             <NFTHolder
@@ -178,7 +174,6 @@ const Content: FC = () => {
                             userpic: "",
                             social: {},
                           }}
-                          moreLink="/"
                         >
                           “Thank you for the smooth handling of getting the
                           playing cards I ordered to me; not only are they

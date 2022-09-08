@@ -1,10 +1,4 @@
-import { CSSObject } from "@emotion/serialize";
 import { FC, HTMLAttributes } from "react";
-import { breakpoints } from "../../../source/enums";
-import Button from "../../Button";
-import Chevron from "../../Icons/Chevron";
-import Line from "../../Line";
-import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
 
 interface Props
@@ -12,7 +6,6 @@ interface Props
     Pick<GQL.Product, "title"> {}
 
 const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
-  const { width } = useSize();
   return (
     <div {...props}>
       <Text component="h3" css={{ margin: 0 }}>
@@ -30,7 +23,7 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
       >
         Sold out
       </Text>
-      <Line
+      {/* <Line
         spacing={width < breakpoints.sm ? 1 : 3}
         css={(theme) => [
           {
@@ -80,7 +73,7 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
             }),
           }}
         />
-      </form>
+      </form> */}
     </div>
   );
 };

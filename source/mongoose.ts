@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import { writeFileSync } from "fs";
+import mongoose from "mongoose";
 
 const {
   MONGOURL = "mongodb://127.0.0.1",
@@ -14,20 +14,23 @@ if (!isDevelopment) {
 }
 
 export const connect = async () => {
-  await mongoose.connect(MONGOURL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    dbName: MONGODB,
-    ...(isDevelopment
-      ? {
-          tlsAllowInvalidCertificates: true,
-        }
-      : {
-          sslValidate: true,
-          ssl: true,
-          tlsCAFile,
-        }),
-  });
+  await mongoose.connect(
+    process.env.MONGOLOCAL === "true" ? "mongodb://127.0.0.1:27017" : MONGOURL,
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      dbName: MONGODB,
+      ...(isDevelopment
+        ? {
+            tlsAllowInvalidCertificates: true,
+          }
+        : {
+            sslValidate: true,
+            ssl: true,
+            tlsCAFile,
+          }),
+    }
+  );
 
   mongoose.set("useFindAndModify", false);
   mongoose.set("returnOriginal", false);
