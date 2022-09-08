@@ -105,6 +105,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
             }}
             css={(theme) => [
               {
+                maxHeight: "var(--buttonHeight)",
                 [theme.maxMQ.sm]: {
                   transform: "translateY(-18%)",
                 },
@@ -112,7 +113,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
             ]}
           >
             <SelectButton
-              css={{ zIndex: 10 }}
+              css={{ zIndex: 10, overflow: "visible" }}
               states={[
                 {
                   children: "default",
@@ -228,10 +229,11 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         <div
           css={(theme) => [
             {
-              marginRight: theme.spacing(3.7),
+              marginRight: theme.spacing(1.5),
               marginLeft: theme.spacing(1.5),
               maxWidth: "100%",
               gridColumn: "1/-1",
+              maxHeight: "var(--buttonHeight)",
             },
           ]}
         >
@@ -242,7 +244,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
                   marginTop: theme.spacing(1),
                   zIndex: 10,
                   width: "100%",
-                  "--buttonHeight": `${theme.spacing(5)}px`,
+                  overflow: "visible",
                 },
               ]}
               states={[

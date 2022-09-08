@@ -9,6 +9,7 @@ import ThickChevron from "../components/Icons/ThickChevron";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
 import Link from "../components/Link";
+import { Props as SelectButtonProps } from "../components/SelectButton";
 import ShopCheckoutItem, {
   Props as CheckoutItemProps,
 } from "../components/Shop/CheckoutItem";
@@ -33,10 +34,13 @@ const Content: FC<{
     },
   });
 
-  const changeQuantity = (
-    _id: string
-  ): CheckoutItemProps["changeQuantity"] => ({ target }) =>
-    updateQuantity(_id, parseInt(target.value, 10));
+  const changeQuantity = (_id: string): CheckoutItemProps["changeQuantity"] => (
+    selected: SelectButtonProps["states"][0]["children"]
+  ) =>
+    updateQuantity(
+      _id,
+      typeof selected === "string" ? parseInt(selected, 10) : selected
+    );
 
   const remove = (_id: string): CheckoutItemProps["remove"] => () =>
     removeItem(_id);
@@ -97,7 +101,7 @@ const Content: FC<{
                 <Text component="h2" css={{ margin: 0 }}>
                   Your Bag
                 </Text>
-                <Text
+                {/* <Text
                   variant="body2"
                   css={(theme) => [
                     {
@@ -111,7 +115,7 @@ const Content: FC<{
                   Please note for the festive season, all online purchases made
                   between 03/11/21 and 15/12/2021 can be returned up to
                   31/01/22.
-                </Text>
+                </Text> */}
                 <Line spacing={1} />
               </Fragment>
             )}

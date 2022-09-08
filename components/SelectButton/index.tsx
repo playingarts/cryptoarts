@@ -9,23 +9,32 @@ import {
 import Button, { Props as ButtonProps } from "../Button";
 import ThickChevron from "../Icons/ThickChevron";
 
-interface Props extends HTMLAttributes<HTMLElement> {
+export interface Props extends HTMLAttributes<HTMLElement> {
   states: {
-    children: string;
+    children: string | number;
     Icon?: ButtonProps["Icon"];
     IconProps?: ButtonProps["iconProps"];
   }[];
-  setter?: Dispatch<SetStateAction<string>> | ((_: string) => void);
+  setter?: Dispatch<SetStateAction<any>> | ((_: any) => void);
   palette?: "dark" | "light";
-  value?: string;
+  value?: string | number;
   noText?: boolean;
+  keepOrder?: boolean;
 }
 
 const SelectButton: FC<Props> = memo(
-  ({ value, noText, palette = "light", states, setter, ...props }) => {
+  ({
+    keepOrder,
+    value,
+    noText,
+    palette = "light",
+    states,
+    setter,
+    ...props
+  }) => {
     const [listState, setListState] = useState(false);
 
-    const [buttonState, setButtonState] = useState(
+    const [buttonState, setButtonState] = useState(() =>
       value
         ? states.sort((a, b) =>
             a.children === value ? -1 : b.children === value ? 1 : 0
@@ -38,26 +47,36 @@ const SelectButton: FC<Props> = memo(
         setListState(true);
         return;
       }
+
       setButtonState((prev) => [
         { children, Icon, ...props },
-        ...prev.filter((state) => state.children !== children),
+        ...(keepOrder ? states : prev).filter(
+          (state) => state.children !== children
+        ),
       ]);
       setter && setter(children);
       setListState(false);
     };
 
     return (
-      <div
+      <ul
         {...props}
         onMouseEnter={() => setListState(true)}
         onMouseLeave={() => setListState(false)}
         css={(theme) => [
           {
-            height: "var(--buttonHeight)",
-            width: "min-content",
+            maxHeight: "inherit",
+            padding: 0,
+            margin: 0,
+            overflow: "hidden",
+            display: "inline-grid",
             position: "relative",
-            marginLeft: theme.spacing(2.2),
-            transform: `translateX(-${theme.spacing(2.2)}px)`,
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            MsOverflowStyle: "none",
+            scrollbarWidth: "none",
+            boxSizing: "content-box",
             [theme.maxMQ.sm]: [
               noText && {
                 transform: `translateX(-${theme.spacing(1.5)}px)`,
@@ -80,75 +99,77 @@ const SelectButton: FC<Props> = memo(
             width: theme.spacing(0.8),
             height: theme.spacing(1.2),
             transform: !listState
-              ? "rotate(90deg) translate(-75%, -10%)"
-              : "rotate(-90deg) translate(75%, 10%)",
+              ? `rotate(90deg) translate(-75%, ${theme.spacing(1.85)}px)`
+              : `rotate(-90deg) translate(75%, -${theme.spacing(1.85)}px)`,
             position: "absolute",
-            top: "50%",
+            top: "calc(var(--buttonHeight)/2)",
             pointerEvents: "none",
             color: "inherit",
           })}
         />
-        <ul
-          css={(theme) => [
-            {
-              borderRadius: theme.spacing(1),
-              padding: 0,
-              margin: 0,
-              display: "grid",
-              overflow: "hidden",
-              width: `calc(100% + ${theme.spacing(2.2)}px)`,
-            },
-          ]}
-        >
-          {buttonState.map(
-            (btn, index) =>
-              (!listState ? index === 0 : true) && (
-                <li
-                  key={btn.children}
-                  css={(theme) => [
-                    {
-                      display: "block",
-                      height: "fit-content",
-                    },
-                    (palette === "light" && {
-                      background: theme.colors.white,
-                    }) ||
-                      (palette === "dark" && {
-                        background: theme.colors.dark_gray,
+        {buttonState.map(
+          (btn, index) =>
+            (!listState ? index === 0 : true) && (
+              <li
+                key={btn.children}
+                css={(theme) => [
+                  !listState
+                    ? {
+                        borderRadius: theme.spacing(1),
+                      }
+                    : (index === 0 && {
+                        borderRadius: `${theme.spacing(1)}px ${theme.spacing(
+                          1
+                        )}px ${theme.spacing(0)}px ${theme.spacing(0)}px`,
+                      }) ||
+                      (index === buttonState.length - 1 && {
+                        borderRadius: `${theme.spacing(0)}px ${theme.spacing(
+                          0
+                        )}px ${theme.spacing(1)}px ${theme.spacing(1)}px`,
                       }),
+                  {
+                    display: "block",
+                    height: "fit-content",
+                    paddingRight: theme.spacing(2.2),
+                  },
+                  (palette === "light" && {
+                    background: theme.colors.white,
+                  }) ||
+                    (palette === "dark" && {
+                      background: theme.colors.dark_gray,
+                    }),
+                ]}
+                style={{
+                  marginTop:
+                    (!listState &&
+                      index !== 0 &&
+                      "calc(var(--buttonHeight) * -1)") ||
+                    0,
+                  zIndex: index === 0 ? 1 : "initial",
+                }}
+              >
+                <Button
+                  iconProps={btn.IconProps}
+                  Icon={btn.Icon}
+                  shape="square"
+                  css={[
+                    {
+                      color: "inherit",
+                      background: "inherit",
+                      whiteSpace: "nowrap",
+                    },
+                    !noText && {
+                      width: "100%",
+                    },
                   ]}
-                  style={{
-                    marginTop:
-                      (!listState &&
-                        index !== 0 &&
-                        "calc(var(--buttonHeight) * -1)") ||
-                      0,
-                    zIndex: index === 0 ? 1 : "initial",
-                  }}
+                  onClick={() => onClick(btn)}
                 >
-                  <Button
-                    iconProps={btn.IconProps}
-                    Icon={btn.Icon}
-                    shape="square"
-                    css={[
-                      {
-                        color: "inherit",
-                        background: "inherit",
-                        whiteSpace: "nowrap",
-                      },
-                      !noText && {
-                        width: "100%",
-                      },
-                    ]}
-                    onClick={() => onClick(btn)}
-                  >
-                    {btn.children}
-                  </Button>
-                </li>
-              )
-          )}
-        </ul>
-      </div>
+                  {btn.children}
+                </Button>
+              </li>
+            )
+        )}
+      </ul>
     );
   }
 );

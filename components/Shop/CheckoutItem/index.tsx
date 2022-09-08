@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes, MouseEventHandler } from "react";
 import { breakpoints } from "../../../source/enums";
 import Cross from "../../Icons/Cross";
-import Select, { Props as SelectProps } from "../../Select";
+import SelectButton, { Props as SelectButtonProps } from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
 
@@ -14,7 +14,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   quantity?: number;
   titleVariant?: "h4" | "h5";
   priceVariant?: "h4" | "h5";
-  changeQuantity?: SelectProps["onChange"];
+  changeQuantity?: SelectButtonProps["setter"];
   remove?: MouseEventHandler<HTMLElement>;
   withoutPic?: boolean;
   withoutSelect?: boolean;
@@ -34,15 +34,12 @@ const ShopCheckoutItem: FC<Props> = ({
   withoutPic,
   ...props
 }) => {
-  const options: SelectProps["options"] = Array.from({
-    length: !quantity || quantity < 10 ? 10 : quantity,
-  }).reduce<SelectProps["options"]>(
-    (options, _, index) => ({
-      ...options,
-      [index + 1]: index + 1,
-    }),
-    {}
-  );
+  const options = Array.from(
+    {
+      length: !quantity || quantity < 4 ? 4 : quantity,
+    },
+    (_, i) => i
+  ).filter((i) => !!i);
 
   const { width } = useSize();
 
@@ -54,6 +51,9 @@ const ShopCheckoutItem: FC<Props> = ({
           display: "flex",
           width: "100%",
           alignItems: "center",
+          [theme.mq.sm]: {
+            height: theme.spacing(15),
+          },
           [theme.maxMQ.sm]: {
             flexWrap: "wrap",
             display: "inline-flex",
@@ -91,13 +91,6 @@ const ShopCheckoutItem: FC<Props> = ({
           })}
         />
       )}
-      {/* <div
-        css={{
-          display: "flex",
-          alignItems: "baseline",
-          flexGrow: 1,
-        }}
-      > */}
       <div
         css={(theme) => [
           {
@@ -141,10 +134,17 @@ const ShopCheckoutItem: FC<Props> = ({
       {quantity !== undefined && (
         <div
           css={(theme) => ({
+            alignSelf: "end",
+            height: "calc(50% + var(--buttonHeight)/2)",
+
+            [theme.mq.sm]: {
+              marginLeft: theme.spacing(3),
+            },
             [theme.maxMQ.sm]: {
               order: 4,
+              maxHeight: "var(--buttonHeight)",
             },
-            marginLeft: theme.spacing(3),
+            // paddingTop: "50%",
             // ...{ visibility: "hidden" },
           })}
         >
@@ -156,6 +156,7 @@ const ShopCheckoutItem: FC<Props> = ({
                   opacity: 0.2,
                   marginTop: 7,
                   color: theme.colors.black + "!important",
+                  marginRight: theme.spacing(3),
                 },
               ]}
               onClick={remove}
@@ -163,11 +164,25 @@ const ShopCheckoutItem: FC<Props> = ({
               <Cross />
             </Text>
           )}
-          <Select
+          <SelectButton
+            keepOrder={true}
             value={quantity}
-            onChange={changeQuantity}
-            options={options}
-            align="right"
+            setter={changeQuantity}
+            states={options.map((option) => ({ children: option }))}
+            css={(theme) => [
+              {
+                zIndex: 1,
+                // maxHeight: "100%",
+                // maxHeight: "calc(var(--buttonHeight)*6)",
+                // overflowY: "scroll",
+                overflow: "visible",
+                width: theme.spacing(12.8),
+                [theme.maxMQ.sm]: {
+                  // maxHeight: "calc(var(--buttonHeight)*2.5)",
+                  width: theme.spacing(10),
+                },
+              },
+            ]}
           />
         </div>
       )}
