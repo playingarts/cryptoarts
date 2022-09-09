@@ -166,6 +166,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           <SelectButton
             css={(theme) => ({
               zIndex: 1,
+              height: "var(--buttonHeight)",
+              overflow: "visible",
               [theme.mq.sm]: {
                 marginLeft: theme.spacing(2),
               },
