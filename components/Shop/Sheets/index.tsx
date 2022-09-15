@@ -164,13 +164,11 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             </Text>
           )}
           <SelectButton
+            keepOrder={true}
             css={(theme) => ({
               zIndex: 1,
               height: "var(--buttonHeight)",
               overflow: "visible",
-              [theme.mq.sm]: {
-                marginLeft: theme.spacing(2),
-              },
               [theme.maxMQ.md]: {
                 width: "100%",
                 order: -1,

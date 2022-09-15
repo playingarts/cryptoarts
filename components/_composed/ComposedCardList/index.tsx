@@ -11,7 +11,7 @@ import CardList, { Props as ListProps } from "../../Card/List";
 import Grid from "../../Grid";
 import defaultSort from "../../Icons/defaultSort";
 import Sort from "../../Icons/Sort";
-import SelectButton from "../../SelectButton";
+import SelectButton, { Props as SelectButtonProps } from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
 
 interface Props
@@ -20,6 +20,33 @@ interface Props
   ownedCards: OwnedCard[];
 }
 
+const SortSelectButton: FC<
+  Omit<SelectButtonProps, "states"> & { cards: GQL.Card[]; deck: GQL.Deck }
+> = ({ cards, deck, setter, ...props }) =>
+  (cards &&
+    cards.find(({ price }) => price !== undefined && price !== null) && (
+      <SelectButton
+        {...props}
+        css={{ overflow: "visible" }}
+        states={[
+          {
+            children: "default",
+            Icon: defaultSort,
+          },
+          {
+            Icon: Sort,
+            IconProps: { css: { transform: "scaleY(-1)" } },
+            children: "ascending",
+          },
+          { Icon: Sort, children: "descending" },
+        ]}
+        setter={setter}
+        palette={
+          status === "connected" && deck.openseaCollection ? "dark" : "light"
+        }
+      />
+    )) ||
+  null;
 const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
   const { status, account } = useMetaMask();
   const {
@@ -97,44 +124,13 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         status === "connected" && deck.openseaCollection ? "dark" : "light"
       }
       action={
-        cards &&
-        cards.find(({ price }) => price !== undefined && price !== null) && (
-          <span
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            css={(theme) => [
-              {
-                maxHeight: "var(--buttonHeight)",
-                [theme.maxMQ.sm]: {
-                  transform: "translateY(-18%)",
-                },
-              },
-            ]}
-          >
-            <SelectButton
-              css={{ zIndex: 10, overflow: "visible" }}
-              states={[
-                {
-                  children: "default",
-                  Icon: defaultSort,
-                },
-                {
-                  Icon: Sort,
-                  IconProps: { css: { transform: "scaleY(-1)" } },
-                  children: "ascending",
-                },
-                { Icon: Sort, children: "descending" },
-              ]}
-              setter={setCurrentSelected}
-              palette={
-                status === "connected" && deck.openseaCollection
-                  ? "dark"
-                  : "light"
-              }
-            />
-          </span>
-        )
+        width >= breakpoints.sm ? (
+          <SortSelectButton
+            cards={cards}
+            deck={deck}
+            setter={setCurrentSelected}
+          />
+        ) : undefined
       }
       title={
         artistId
@@ -226,48 +222,23 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           },
         ]}
       >
-        <div
-          css={(theme) => [
-            {
-              marginRight: theme.spacing(1.5),
-              marginLeft: theme.spacing(1.5),
-              maxWidth: "100%",
-              gridColumn: "1/-1",
-              maxHeight: "var(--buttonHeight)",
-            },
-          ]}
-        >
-          {width < breakpoints.sm && (
-            <SelectButton
-              css={(theme) => [
-                {
-                  marginTop: theme.spacing(1),
-                  zIndex: 10,
-                  width: "100%",
-                  overflow: "visible",
-                },
-              ]}
-              states={[
-                {
-                  children: "default",
-                  Icon: defaultSort,
-                },
-                {
-                  Icon: Sort,
-                  IconProps: { css: { transform: "scaleY(-1)" } },
-                  children: "ascending",
-                },
-                { Icon: Sort, children: "descending" },
-              ]}
-              setter={setCurrentSelected}
-              palette={
-                status === "connected" && deck.openseaCollection
-                  ? "dark"
-                  : "light"
-              }
-            />
-          )}
-        </div>
+        {width < breakpoints.sm && (
+          <SortSelectButton
+            cards={cards}
+            deck={deck}
+            setter={setCurrentSelected}
+            css={(theme) => [
+              {
+                paddingRight: theme.spacing(1.5),
+                paddingLeft: theme.spacing(1.5),
+                paddingTop: theme.spacing(1),
+                marginBottom: theme.spacing(2),
+                width: "100%",
+                gridColumn: "1/-1",
+              },
+            ]}
+          />
+        )}
         <CardList
           status={status}
           cards={

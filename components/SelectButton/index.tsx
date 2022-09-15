@@ -59,117 +59,105 @@ const SelectButton: FC<Props> = memo(
     };
 
     return (
-      <ul
+      <div
         {...props}
-        onMouseEnter={() => setListState(true)}
-        onMouseLeave={() => setListState(false)}
+        onClick={(e) => e.stopPropagation()}
         css={(theme) => [
           {
-            maxHeight: "inherit",
-            padding: 0,
-            margin: 0,
-            overflow: "hidden",
-            display: "inline-grid",
-            position: "relative",
-            "&::-webkit-scrollbar": {
-              display: "none",
+            maxHeight: "var(--buttonHeight)",
+            [theme.maxMQ.sm]: {
+              // transform: "translateY(-18%)",
             },
-            MsOverflowStyle: "none",
-            scrollbarWidth: "none",
-            boxSizing: "content-box",
-            [theme.maxMQ.sm]: [
-              noText && {
-                transform: `translateX(-${theme.spacing(1.5)}px)`,
-                paddingRight: theme.spacing(0.7),
-              },
-            ],
           },
-          (palette === "light" && {
-            color: theme.colors.black,
-          }) ||
-            (palette === "dark" && {
-              color: theme.colors.text_title_light,
-            }),
         ]}
       >
-        <ThickChevron
-          css={(theme) => ({
-            zIndex: 3,
-            right: 0,
-            width: theme.spacing(0.8),
-            height: theme.spacing(1.2),
-            transform: !listState
-              ? `rotate(90deg) translate(-75%, ${theme.spacing(1.85)}px)`
-              : `rotate(-90deg) translate(75%, -${theme.spacing(1.85)}px)`,
-            position: "absolute",
-            top: "calc(var(--buttonHeight)/2)",
-            pointerEvents: "none",
-            color: "inherit",
-          })}
-        />
-        {buttonState.map(
-          (btn, index) =>
-            (!listState ? index === 0 : true) && (
-              <li
-                key={btn.children}
-                css={(theme) => [
-                  !listState
-                    ? {
-                        borderRadius: theme.spacing(1),
-                      }
-                    : (index === 0 && {
-                        borderRadius: `${theme.spacing(1)}px ${theme.spacing(
-                          1
-                        )}px ${theme.spacing(0)}px ${theme.spacing(0)}px`,
-                      }) ||
-                      (index === buttonState.length - 1 && {
-                        borderRadius: `${theme.spacing(0)}px ${theme.spacing(
-                          0
-                        )}px ${theme.spacing(1)}px ${theme.spacing(1)}px`,
-                      }),
-                  {
-                    display: "block",
-                    height: "fit-content",
-                    paddingRight: theme.spacing(2.2),
-                  },
-                  (palette === "light" && {
-                    background: theme.colors.white,
-                  }) ||
-                    (palette === "dark" && {
-                      background: theme.colors.dark_gray,
-                    }),
-                ]}
-                style={{
-                  marginTop:
-                    (!listState &&
-                      index !== 0 &&
-                      "calc(var(--buttonHeight) * -1)") ||
-                    0,
-                  zIndex: index === 0 ? 1 : "initial",
-                }}
-              >
-                <Button
-                  iconProps={btn.IconProps}
-                  Icon={btn.Icon}
-                  shape="square"
-                  css={[
+        <ul
+          onMouseEnter={() => setListState(true)}
+          onMouseLeave={() => setListState(false)}
+          css={(theme) => [
+            {
+              zIndex: 10,
+              padding: 0,
+              margin: 0,
+              width: "100%",
+              overflow: "hidden",
+              display: "inline-grid",
+              position: "relative",
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
+              MsOverflowStyle: "none",
+              scrollbarWidth: "none",
+              boxSizing: "content-box",
+              [theme.maxMQ.sm]: [
+                noText && {
+                  transform: `translateX(-${theme.spacing(1.5)}px)`,
+                  paddingRight: theme.spacing(0.7),
+                },
+              ],
+              borderRadius: theme.spacing(1),
+            },
+            (palette === "light" && {
+              color: theme.colors.black,
+              background: theme.colors.white,
+            }) ||
+              (palette === "dark" && {
+                color: theme.colors.text_title_light,
+                background: theme.colors.dark_gray,
+              }),
+          ]}
+        >
+          <ThickChevron
+            css={(theme) => ({
+              zIndex: 3,
+              right: 0,
+              width: theme.spacing(0.8),
+              height: theme.spacing(1.2),
+              transform: !listState
+                ? `rotate(90deg) translate(-75%, ${theme.spacing(1.85)}px)`
+                : `rotate(-90deg) translate(75%, -${theme.spacing(1.85)}px)`,
+              position: "absolute",
+              top: "calc(var(--buttonHeight)/2)",
+              pointerEvents: "none",
+              color: "inherit",
+            })}
+          />
+          {buttonState.map(
+            (btn, index) =>
+              (!listState ? index === 0 : true) && (
+                <li
+                  key={btn.children}
+                  css={(theme) => [
                     {
-                      color: "inherit",
-                      background: "inherit",
-                      whiteSpace: "nowrap",
-                    },
-                    !noText && {
-                      width: "100%",
+                      display: "block",
+                      height: "fit-content",
+                      paddingRight: theme.spacing(2.2),
                     },
                   ]}
-                  onClick={() => onClick(btn)}
                 >
-                  {btn.children}
-                </Button>
-              </li>
-            )
-        )}
-      </ul>
+                  <Button
+                    iconProps={btn.IconProps}
+                    Icon={btn.Icon}
+                    shape="square"
+                    css={[
+                      {
+                        color: "inherit",
+                        background: "inherit",
+                        whiteSpace: "nowrap",
+                      },
+                      !noText && {
+                        width: "100%",
+                      },
+                    ]}
+                    onClick={() => onClick(btn)}
+                  >
+                    {btn.children}
+                  </Button>
+                </li>
+              )
+          )}
+        </ul>
+      </div>
     );
   }
 );

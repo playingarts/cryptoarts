@@ -95,7 +95,6 @@ const ShopCheckoutItem: FC<Props> = ({
         css={(theme) => [
           {
             flexGrow: 1,
-            // minWidth: "max-content",
             [theme.maxMQ.sm]: {
               order: 3,
               flexBasis: "50%",
@@ -171,7 +170,7 @@ const ShopCheckoutItem: FC<Props> = ({
             states={options.map((option) => ({ children: option }))}
             css={(theme) => [
               {
-                zIndex: 1,
+                display: "inline-block",
                 // maxHeight: "100%",
                 // maxHeight: "calc(var(--buttonHeight)*6)",
                 // overflowY: "scroll",
