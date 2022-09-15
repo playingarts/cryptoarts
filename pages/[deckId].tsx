@@ -454,7 +454,7 @@ const Page: NextPage = () => {
   const roadmapRef = useRef<HTMLElement>(null);
 
   const [altNavVisible, showAltNav] = useState(false);
-  const [isCardPage, setIsCardPage] = useState(false);
+  const [isCardPage, setIsCardPage] = useState(0);
   const { deck } = useDeck({ variables: { slug: deckId } });
 
   const { losers, loadLosersValues } = useLoadLosersValues();
@@ -474,7 +474,7 @@ const Page: NextPage = () => {
       showAltNav(false);
     }
 
-    setIsCardPage(!!artistId);
+    setIsCardPage(artistId ? isCardPage + 1 : 0);
 
     const handler = throttle(() => {
       if (!aboutRef.current) {

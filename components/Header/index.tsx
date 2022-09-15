@@ -21,7 +21,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   showAltNav?: boolean;
   noNav?: boolean;
   deckId?: string;
-  isCardPage?: boolean;
+  isCardPage?: number;
 }
 
 const Header: FC<Props> = ({
