@@ -375,7 +375,7 @@ const Content: FC = () => {
 
       <Layout
         css={(theme) => ({
-          background: theme.colors.page_bg_light,
+          background: theme.colors.page_bg_light_gray,
           paddingTop: theme.spacing(11),
           paddingBottom: theme.spacing(11),
           [theme.maxMQ.sm]: {
