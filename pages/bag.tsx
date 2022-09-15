@@ -70,9 +70,6 @@ const Content: FC<{
         css={(theme) => ({
           background: theme.colors.page_bg_light,
           paddingTop: theme.spacing(20),
-          [theme.mq.sm]: {
-            paddingBottom: theme.spacing(5),
-          },
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(12.5),
           },
