@@ -56,6 +56,7 @@ const Quote: FC<Props> = ({
           <div>
             {truncate ? (
               <Truncate
+                onlyMore={true}
                 lines={truncate}
                 variant="body3"
                 css={(theme) => [{ margin: 0, marginBottom: theme.spacing(2) }]}
@@ -140,6 +141,7 @@ const Quote: FC<Props> = ({
                 )}
                 {fullArtist && (
                   <Truncate
+                    onlyMore={true}
                     variant="body2"
                     lines={2}
                     css={{

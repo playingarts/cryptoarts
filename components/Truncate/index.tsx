@@ -4,9 +4,10 @@ import Text, { Props as TextProps } from "../Text";
 
 interface Props extends TextProps {
   lines: number;
+  onlyMore?: boolean;
 }
 
-const Truncate: FC<Props> = ({ children, lines, ...props }) => {
+const Truncate: FC<Props> = ({ children, lines, onlyMore, ...props }) => {
   const [truncated, setTruncated] = useState(true);
   const [withTruncate, truncateNeeded] = useState(false);
   const ref = useRef<HTMLParagraphElement>(null);
@@ -44,7 +45,7 @@ const Truncate: FC<Props> = ({ children, lines, ...props }) => {
       >
         {children}
       </Text>
-      {withTruncate && (
+      {withTruncate && !(onlyMore && !truncated) && (
         <Text component="button" variant="label" onClick={toggle}>
           <Arrowed>{truncated ? "Read more" : "Read less"}</Arrowed>
         </Text>

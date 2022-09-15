@@ -112,6 +112,9 @@ const CardBlock: FC<Props> = ({
 
           gridColumn: "-1 / 1",
           [theme.mq.sm]: {
+            [theme.maxMQ.md]: {
+              marginTop: theme.spacing(5),
+            },
             gridColumn: "span 7",
           },
           [theme.mq.md]: [
