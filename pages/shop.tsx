@@ -256,13 +256,30 @@ const Content: FC = () => {
                       }}
                     />
                   )}
-                  <Grid short={true} css={{ gridColumn: "1 / -1" }}>
+                  <Grid
+                    short={true}
+                    css={(theme) => [
+                      {
+                        gridColumn: "1 / -1",
+                        background: theme.colors.page_bg_light_gray,
+                        borderRadius: theme.spacing(2),
+                        [theme.mq.sm]: {
+                          height: theme.spacing(55),
+                        },
+                      },
+                    ]}
+                  >
                     <ShopSoldOut
                       title={title}
                       css={(theme) => [
                         {
                           gridColumn: "span 4",
                           alignSelf: "center",
+                          [theme.mq.sm]: {
+                            [theme.maxMQ.md]: {
+                              paddingLeft: theme.spacing(4),
+                            },
+                          },
                           [theme.maxMQ.sm]: {
                             gridColumn: "1/ -1",
                             paddingLeft: theme.spacing(2.5),
@@ -290,7 +307,7 @@ const Content: FC = () => {
                             display: "flex",
                           },
                           marginTop: theme.spacing(4),
-                          marginBottom: theme.spacing(16),
+                          // marginBottom: theme.spacing(10),
                         })}
                       >
                         <CardFan deck={product.deck} />
