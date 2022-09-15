@@ -55,7 +55,19 @@ const LatestRelease: FC<Props> = ({ productId, ...props }) => {
         })}
       >
         <div css={{ flexGrow: 1 }}>
-          <Text component="h2" css={{ margin: 0 }}>
+          <Text
+            component="h2"
+            css={(theme) => [
+              {
+                margin: 0,
+                [theme.mq.sm]: {
+                  [theme.maxMQ.md]: {
+                    fontSize: 45,
+                  },
+                },
+              },
+            ]}
+          >
             Crypto Edition is here. Finally.
           </Text>
           <Text
@@ -82,18 +94,20 @@ const LatestRelease: FC<Props> = ({ productId, ...props }) => {
             },
           ]}
         >
-          <AddToBagButton
-            Icon={Bag}
-            productId={productId}
-            css={(theme) => [
-              {
-                [theme.mq.sm]: { display: "none" },
-                width: "max-content",
-              },
-            ]}
-          >
-            Add
-          </AddToBagButton>
+          {status === "connected" && (
+            <AddToBagButton
+              Icon={Bag}
+              productId={productId}
+              css={(theme) => [
+                {
+                  [theme.mq.sm]: { display: "none" },
+                  width: "max-content",
+                },
+              ]}
+            >
+              Add
+            </AddToBagButton>
+          )}
           {/* <Text
           variant="body4"
           css={{
