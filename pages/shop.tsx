@@ -390,8 +390,8 @@ const Content: FC = () => {
         data-id="block-faq"
         css={(theme) => ({
           background: theme.colors.white,
-          paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(15),
+          paddingTop: theme.spacing(10),
+          paddingBottom: theme.spacing(10),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(5),
             paddingBottom: theme.spacing(5),

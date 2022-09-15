@@ -530,8 +530,8 @@ const Checkout: NextPage = () => {
                 marginTop: theme.spacing(5),
                 marginBottom: theme.spacing(2),
               },
-              marginTop: theme.spacing(15),
-              marginBottom: theme.spacing(15),
+              marginTop: theme.spacing(10),
+              marginBottom: theme.spacing(10),
               gridColumn: "1 / -1",
             })}
           />
