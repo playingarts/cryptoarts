@@ -1,15 +1,16 @@
 import { FC, HTMLAttributes, useEffect } from "react";
-import { useLoadRandomCards } from "../../hooks/card";
+import { useLoadRandomCardsWithInfo } from "../../hooks/card";
 import Card from "../Card";
+import Link from "../Link";
 
 type Props = HTMLAttributes<HTMLElement>;
 
 const Hero: FC<Props> = (props) => {
-  const { cards, loadRandomCards } = useLoadRandomCards();
+  const { cards, loadRandomCardsWithInfo } = useLoadRandomCardsWithInfo();
 
   useEffect(() => {
-    loadRandomCards({ variables: { limit: 2, shuffle: true } });
-  }, [loadRandomCards]);
+    loadRandomCardsWithInfo({ variables: { limit: 2, shuffle: true } });
+  }, [loadRandomCardsWithInfo]);
 
   if (!cards) {
     return null;
@@ -26,12 +27,7 @@ const Hero: FC<Props> = (props) => {
       ]}
     >
       {cards.map((card, index) => (
-        <Card
-          key={card._id}
-          interactive={true}
-          noInfo={true}
-          card={card}
-          size={index % 2 === 0 ? undefined : "big"}
+        <Link
           css={(theme) =>
             index % 2 === 0
               ? {
@@ -52,6 +48,7 @@ const Hero: FC<Props> = (props) => {
                   },
                 }
               : {
+                  position: "absolute",
                   transform: "rotate(-15deg) scale(0.85)",
                   [theme.mq.sm]: {
                     marginTop: -theme.spacing(8.5),
@@ -67,7 +64,16 @@ const Hero: FC<Props> = (props) => {
                   },
                 }
           }
-        />
+          key={card._id}
+          href={`/${card.deck.slug}/${card.artist.slug}`}
+        >
+          <Card
+            interactive={true}
+            noInfo={true}
+            card={card}
+            size={index % 2 === 0 ? undefined : "big"}
+          />
+        </Link>
       ))}
     </div>
   );

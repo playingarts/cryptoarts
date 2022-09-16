@@ -4,6 +4,7 @@ import { breakpoints } from "../../../source/enums";
 import Card from "../../Card";
 import Grid, { Props as GridProps } from "../../Grid";
 import Line from "../../Line";
+import Link from "../../Link";
 import Quote from "../../Quote";
 import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
@@ -29,6 +30,32 @@ const CardBlock: FC<Props> = ({
   ...props
 }) => {
   const { width } = useSize();
+
+  const ComposedCard = (
+    <Card
+      key={card._id}
+      card={card}
+      animated={true}
+      size="big"
+      interactive={true}
+      noInfo={true}
+      owned={
+        ownedCards &&
+        ownedCards.findIndex(
+          (owned) =>
+            (owned.suit.toLowerCase() === card.suit &&
+              owned.value === card.value) ||
+            (card.erc1155 && card.erc1155.token_id === owned.token_id)
+        ) !== -1
+      }
+      css={[
+        {
+          marginLeft: "auto",
+          marginRight: "auto",
+        },
+      ]}
+    />
+  );
 
   return (
     <Grid
@@ -77,29 +104,13 @@ const CardBlock: FC<Props> = ({
           },
         ]}
       >
-        <Card
-          key={card._id}
-          card={card}
-          animated={true}
-          size="big"
-          interactive={true}
-          noInfo={true}
-          owned={
-            ownedCards &&
-            ownedCards.findIndex(
-              (owned) =>
-                (owned.suit.toLowerCase() === card.suit &&
-                  owned.value === card.value) ||
-                (card.erc1155 && card.erc1155.token_id === owned.token_id)
-            ) !== -1
-          }
-          css={[
-            {
-              marginLeft: "auto",
-              marginRight: "auto",
-            },
-          ]}
-        />
+        {cardOfTheDay ? (
+          <Link href={`/${card.deck.slug}/${card.artist.slug}`}>
+            {ComposedCard}
+          </Link>
+        ) : (
+          ComposedCard
+        )}
       </div>
       <div
         css={(theme) => ({
