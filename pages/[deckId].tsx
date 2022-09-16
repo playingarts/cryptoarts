@@ -331,6 +331,7 @@ const Content: FC<{
                     [theme.mq.sm]: {
                       background: theme.colors.page_bg_dark,
                       paddingTop: theme.spacing(15),
+                      paddingBottom: theme.spacing(15),
                     },
                   })}
                   ref={nftRef}
@@ -361,7 +362,6 @@ const Content: FC<{
                     [theme.mq.sm]: {
                       background: theme.colors.page_bg_dark,
                       color: theme.colors.text_title_light,
-                      paddingTop: theme.spacing(15),
                       paddingBottom: theme.spacing(15),
                     },
                   })}
