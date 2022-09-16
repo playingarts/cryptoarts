@@ -11,6 +11,7 @@ import Esquire from "../../Icons/Esquire";
 import FastCompany from "../../Icons/FastCompany";
 import Quote from "../../Quote";
 import { useSize } from "../../SizeProvider";
+import PrivacyNotice from "../PrivacyNotice";
 
 const ComposedGlobalLayout: FC<
   Pick<
@@ -175,6 +176,7 @@ const ComposedGlobalLayout: FC<
           <Footer copyrightLast={width < breakpoints.sm} reverseMobile={true} />
         </Layout>
       </div>
+      <PrivacyNotice />
     </Fragment>
   );
 };

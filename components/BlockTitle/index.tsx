@@ -11,7 +11,7 @@ import Line from "../Line";
 import { useSize } from "../SizeProvider";
 import Text from "../Text";
 
-interface Props extends Omit<GridProps, "title"> {
+export interface Props extends Omit<GridProps, "title"> {
   buttonProps?: ButtonProps & { css?: Interpolation<Theme> };
   title: string | JSX.Element;
   subTitleText?: string | JSX.Element;
@@ -55,7 +55,10 @@ const BlockTitle: FC<Props> = ({
             {
               [theme.maxMQ.sm]: [theme.typography.h3],
               margin: 0,
-              gridColumn: "1/ span 5",
+              gridColumn: "1/ -1",
+              [theme.maxMQ.sm]: {
+                gridColumn: "1/ span 5",
+              },
             },
           ]}
         >
@@ -126,13 +129,19 @@ const BlockTitle: FC<Props> = ({
         )}
         {(action || buttonProps) && width >= breakpoints.sm && (
           <div
-            css={{
-              gridColumn: "span 3 / -1",
-              alignSelf: "flex-end",
-              zIndex: 1,
-              display: "flex",
-              justifyContent: "flex-end",
-            }}
+            css={[
+              action && action.props.onClick
+                ? {
+                    alignSelf: "flex-end",
+                  }
+                : { marginTop: theme.spacing(2) },
+              {
+                gridColumn: "span 3 / -1",
+                zIndex: 1,
+                display: "flex",
+                justifyContent: "flex-end",
+              },
+            ]}
           >
             {action || <Button {...buttonProps} />}
           </div>
@@ -167,7 +176,30 @@ const BlockTitle: FC<Props> = ({
           ]}
         >
           <div ref={ref} css={{ position: "relative" }}>
-            {children}
+            {children ||
+              (width < breakpoints.sm && (
+                <Text
+                  css={(theme) => [
+                    {
+                      margin: 0,
+                      paddingTop: theme.spacing(2),
+                    },
+                    action || buttonProps
+                      ? {
+                          gridColumn: "1 / span 7",
+                          [theme.maxMQ.md]: {
+                            gridColumn: "1 / span 6",
+                          },
+                        }
+                      : {
+                          gridColumn: "1 / -1",
+                        },
+                  ]}
+                  variant="body2"
+                >
+                  {subTitleText}
+                </Text>
+              ))}
           </div>
         </div>
       }
