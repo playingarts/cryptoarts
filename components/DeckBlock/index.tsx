@@ -31,7 +31,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         {
           [theme.mq.sm]: {
             background: `url(${deck.image}) no-repeat`,
-            backgroundSize: `${theme.spacing(50)}px ${theme.spacing(50)}px`,
+            backgroundSize: `auto ${theme.spacing(50)}px`,
             backgroundPosition: "bottom left",
             width: "fit-content",
             margin: "0 auto",
