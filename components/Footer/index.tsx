@@ -99,7 +99,8 @@ const Footer: FC<Props> = ({
               marginBottom: 0,
             }}
           >
-            © 2012—2021 Digital Abstracts SL Privacy statement Patent Pending
+            © 2012—2022 Digital Abstracts SL{" "}
+            <Link href="/privacy"> Privacy Statement</Link> Patent Pending
           </Text>
         </div>
       )}
@@ -135,6 +136,7 @@ const Footer: FC<Props> = ({
                 auto={true}
                 css={(theme) => [
                   {
+                    rowGap: theme.spacing(1),
                     [theme.maxMQ.sm]: {
                       maxWidth: theme.spacing(32),
                       margin: "auto",
@@ -145,6 +147,7 @@ const Footer: FC<Props> = ({
                 {[
                   { href: "/", text: "Home" },
                   { href: "/shop", text: "Store" },
+                  { href: "/contact", text: "Contact" },
                 ].map(({ href, text }) => (
                   <Link
                     key={text}

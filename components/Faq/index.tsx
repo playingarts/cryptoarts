@@ -22,13 +22,13 @@ const faq = {
   "What is your return policy?":
     "We want you to be 100% satisfied with your Playing Arts purchase. Items in new condition can be returned or exchanged within 30 days of delivery. Please note that original shipping charges are non-refundable. If we made a mistake or the item arrived defective, please contact us and we’ll make things right.",
 };
-const Faq: FC = () => {
+const Faq: FC<{ title?: string }> = ({ title }) => {
   const { width } = useSize();
 
   return (
     <Fragment>
       <Text component="h5" css={{ margin: 0, opacity: 0.5 }}>
-        Shipping faq
+        {title || "Shipping faq"}
       </Text>
       <Line
         spacing={3}

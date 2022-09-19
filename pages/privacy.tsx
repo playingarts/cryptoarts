@@ -169,12 +169,12 @@ const Content: FC = () => {
         {
           color: theme.colors.text_subtitle_dark,
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(2),
+            paddingTop: theme.spacing(5),
           },
         },
       ]}
     >
-      <Text component="h6" css={{ margin: 0 }}>
+      <Text component="h5" css={{ margin: 0 }}>
         Contact
       </Text>
       <Text

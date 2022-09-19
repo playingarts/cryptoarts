@@ -6,9 +6,12 @@ import Mastercard from "../../Icons/Mastercard";
 import PayPal from "../../Icons/PayPal";
 import Visa from "../../Icons/Visa";
 
-const ComposedFaq: FC<HTMLAttributes<HTMLDivElement>> = (props) => (
+const ComposedFaq: FC<HTMLAttributes<HTMLDivElement> & { title?: string }> = ({
+  title,
+  ...props
+}) => (
   <div {...props} data-id="block-faq">
-    <Faq />
+    <Faq title={title} />
     <div
       css={(theme) => ({
         display: "flex",

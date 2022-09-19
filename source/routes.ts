@@ -5,4 +5,5 @@ export default new Routes()
   .add("shop", "/shop")
   .add("bag", "/bag")
   .add("privacy", "/privacy")
+  .add("contact", "/contact")
   .add("deck", "/:deckId", "[deckId]");
