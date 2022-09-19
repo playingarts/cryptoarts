@@ -55,7 +55,7 @@ const BlockTitle: FC<Props> = ({
             {
               [theme.maxMQ.sm]: [theme.typography.h3],
               margin: 0,
-              gridColumn: "1/ -1",
+              gridColumn: buttonProps ? "1/7" : "1/ -1",
               [theme.maxMQ.sm]: {
                 gridColumn: "1/ span 5",
               },
