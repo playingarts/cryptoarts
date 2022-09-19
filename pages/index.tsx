@@ -76,7 +76,7 @@ const Home: NextPage = () => {
                   marginLeft: theme.spacing(3.5),
                 },
                 [theme.maxMQ.sm]: {
-                  marginTop: -theme.spacing(25),
+                  marginTop: -theme.spacing(21.5),
                   order: -1,
                 },
               },

@@ -43,8 +43,8 @@ const Hero: FC<Props> = (props) => {
                     left: theme.spacing(15.2),
                     // marginTop: -theme.spacing(8.5),
                     marginTop: theme.spacing(1.5),
-                    "--width": `${theme.spacing(11.4)}px !important`,
-                    "--height": `${theme.spacing(16.1)}px !important`,
+                    // "--width": `${theme.spacing(11.4)}px !important`,
+                    // "--height": `${theme.spacing(16.1)}px !important`,
                   },
                 }
               : {
@@ -59,8 +59,8 @@ const Hero: FC<Props> = (props) => {
                     // marginTop: -theme.spacing(10),
                     marginBottom: theme.spacing(3),
                     marginLeft: theme.spacing(2.5),
-                    "--width": `${theme.spacing(13.6)}px !important`,
-                    "--height": `${theme.spacing(19.1)}px !important`,
+                    // "--width": `${theme.spacing(13.6)}px !important`,
+                    // "--height": `${theme.spacing(19.1)}px !important`,
                   },
                 }
           }
@@ -72,6 +72,21 @@ const Hero: FC<Props> = (props) => {
             noInfo={true}
             card={card}
             size={index % 2 === 0 ? undefined : "big"}
+            css={(theme) =>
+              index % 2 === 0
+                ? {
+                    [theme.maxMQ.sm]: {
+                      "--width": `${theme.spacing(11.4)}px !important`,
+                      "--height": `${theme.spacing(16.1)}px !important`,
+                    },
+                  }
+                : {
+                    [theme.maxMQ.sm]: {
+                      "--width": `${theme.spacing(13.6)}px !important`,
+                      "--height": `${theme.spacing(19.1)}px !important`,
+                    },
+                  }
+            }
           />
         </Link>
       ))}
