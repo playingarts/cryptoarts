@@ -170,7 +170,13 @@ const CardInfo: FC<Props> = ({
               <Button
                 Icon={Bag}
                 component={Link}
-                href="/shop"
+                href={{
+                  pathname: "/shop",
+                  query: {
+                    scrollIntoView: `[data-id='${deck.slug}']`,
+                    scrollIntoViewBehavior: "smooth",
+                  },
+                }}
                 css={(theme) => ({
                   marginRight: theme.spacing(2),
                 })}

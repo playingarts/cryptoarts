@@ -174,7 +174,13 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
           <Button
             color="black"
             component={Link}
-            href="/shop"
+            href={{
+              pathname: "/shop",
+              query: {
+                scrollIntoView: `[data-id='${deck.slug}']`,
+                scrollIntoViewBehavior: "smooth",
+              },
+            }}
             Icon={Bag}
             css={(theme) => [
               {

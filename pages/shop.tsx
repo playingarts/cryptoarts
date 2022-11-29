@@ -107,6 +107,11 @@ const Content: FC = () => {
           <Grid css={(theme) => ({ marginBottom: theme.spacing(3) })}>
             <LatestRelease
               productId={latestRelease._id}
+              // data-id="Latest"
+              // data-id={latestRelease.deck}
+              {...(latestRelease.deck && {
+                "data-id": latestRelease.deck.slug,
+              })}
               css={(theme) => ({
                 gridColumn: "span 9",
                 [theme.maxMQ.md]: {
@@ -196,6 +201,8 @@ const Content: FC = () => {
                     })}
                   >
                     <ShopItem
+                      // data-id={product.short}
+                      {...(product.deck && { "data-id": product.deck.slug })}
                       {...product}
                       css={(theme) => ({
                         [theme.maxMQ.sm]: {
@@ -257,6 +264,7 @@ const Content: FC = () => {
                     />
                   )}
                   <Grid
+                    {...(product.deck && { "data-id": product.deck.slug })}
                     short={true}
                     css={(theme) => [
                       {

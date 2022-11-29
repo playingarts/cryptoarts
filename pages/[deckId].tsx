@@ -195,21 +195,40 @@ const Content: FC<{
                   ]}
                   spacing={3}
                 />
-                {deck.openseaCollection && width < breakpoints.sm && (
-                  <Button
-                    Icon={Bag}
-                    component={Link}
-                    target="_blank"
-                    css={(theme) => ({
-                      background: theme.colors.eth,
-                      width: "100%",
-                      justifyContent: "center",
-                    })}
-                    href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
-                  >
-                    buy nft
-                  </Button>
-                )}
+                {width < breakpoints.sm &&
+                  (deck.openseaCollection ? (
+                    <Button
+                      Icon={Bag}
+                      component={Link}
+                      target="_blank"
+                      css={(theme) => ({
+                        background: theme.colors.eth,
+                        width: "100%",
+                        justifyContent: "center",
+                      })}
+                      href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
+                    >
+                      buy nft
+                    </Button>
+                  ) : (
+                    <Button
+                      Icon={Bag}
+                      component={Link}
+                      css={{
+                        width: "100%",
+                        justifyContent: "center",
+                      }}
+                      href={{
+                        pathname: "/shop",
+                        query: {
+                          scrollIntoView: `[data-id='${deck.slug}']`,
+                          scrollIntoViewBehavior: "smooth",
+                        },
+                      }}
+                    >
+                      buy now
+                    </Button>
+                  ))}
                 {width >= breakpoints.sm && (
                   <DeckNav
                     ref={deckNavRef}
@@ -230,7 +249,15 @@ const Content: FC<{
                         ? {
                             opensea: `https://opensea.io/collection/${deck.openseaCollection.name}`,
                           }
-                        : { buyNow: "/shop" }),
+                        : {
+                            buyNow: {
+                              pathname: "/shop",
+                              query: {
+                                scrollIntoView: `[data-id='${deck.slug}']`,
+                                scrollIntoViewBehavior: "smooth",
+                              },
+                            },
+                          }),
                       shop: "/shop",
                     }}
                   />

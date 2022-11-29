@@ -3,14 +3,14 @@ import {
   forwardRef,
   ForwardRefRenderFunction,
   HTMLAttributes,
-  RefObject,
+  RefObject
 } from "react";
 import { Sections } from "../../source/enums";
 import Arrowed from "../Arrowed";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Opensea from "../Icons/Opensea";
-import Link from "../Link";
+import Link, { Props as LinkProps } from "../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   refs: {
@@ -22,7 +22,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     roadmapRef?: RefObject<HTMLElement>;
   };
   links?: {
-    buyNow?: string;
+    buyNow?: LinkProps["href"];
     opensea?: string;
     shop?: string;
   };
