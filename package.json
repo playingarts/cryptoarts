@@ -8,7 +8,7 @@
   "author": "Gleb Ryshkov",
   "private": true,
   "scripts": {
-    "dev": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' .",
+    "dev": "NODE_OPTIONS=--max_old_space_size=4096 ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' .",
     "dump": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./dump",
     "build": "next build && tsc -P tsconfig.json --outDir dist --noEmit false --module commonjs",
     "start": "node dist/source",

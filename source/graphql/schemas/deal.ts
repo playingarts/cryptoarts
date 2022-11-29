@@ -1,5 +1,5 @@
 import { ApolloError, gql } from "@apollo/client";
-import { Schema, model, models, Model, Types } from "mongoose";
+import { model, Model, models, Schema, Types } from "mongoose";
 import { getContract } from "./contract";
 import { getDeck } from "./deck";
 import { getAssets, signatureValid } from "./opensea";
@@ -55,7 +55,11 @@ export const resolvers: GQL.Resolvers = {
           const assets = await getAssets(contract.address, contract.name);
 
           const assetsOwned = assets.filter(
-            ({ owner }) => owner && owner.address === hash
+            ({ top_ownerships }) =>
+              top_ownerships &&
+              top_ownerships.findIndex(
+                ({ owner }) => owner.address === hash
+              ) !== -1
           ).length;
 
           if (assetsOwned > 0) {

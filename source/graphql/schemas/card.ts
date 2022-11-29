@@ -93,23 +93,20 @@ export const resolvers: GQL.Resolvers = {
         return;
       }
 
-      console.log("Fetching Contracts");
-
       const contracts = await getContracts({ deck: card.deck._id });
 
       if (!contracts) {
         return;
       }
 
-      console.log("Fetching Assets");
-
-      const assets = ((await Promise.all(
+      const assets = (await Promise.all(
         contracts.map(
           async (contract) => await getAssets(contract.address, contract.name)
         )
-      )) as Asset[][]).flat();
+      )) as Asset[][];
 
       const orders = assets
+        .flat()
         .filter(
           ({ token_id, sell_orders, traits, seaport_sell_orders }) =>
             token_id &&

@@ -241,9 +241,14 @@ interface Product {
 interface Asset {
   __typename?: 'Asset';
   token_id: Scalars['String'];
-  owner: Owner;
+  top_ownerships?: Maybe<Array<Maybe<TopOwnerships>>>;
   sell_orders: Array<Maybe<SellOrder>>;
   traits: Array<Trait>;
+}
+
+interface TopOwnerships {
+  __typename?: 'TopOwnerships';
+  owner: Owner;
 }
 
 interface Trait {
@@ -510,6 +515,7 @@ export type ResolversTypes = {
   ERC1155: ResolverTypeWrapper<Erc1155>;
   Product: ResolverTypeWrapper<Product>;
   Asset: ResolverTypeWrapper<Asset>;
+  TopOwnerships: ResolverTypeWrapper<TopOwnerships>;
   Trait: ResolverTypeWrapper<Trait>;
   SellOrder: ResolverTypeWrapper<SellOrder>;
   Owner: ResolverTypeWrapper<Owner>;
@@ -543,6 +549,7 @@ export type ResolversParentTypes = {
   ERC1155: Erc1155;
   Product: Product;
   Asset: Asset;
+  TopOwnerships: TopOwnerships;
   Trait: Trait;
   SellOrder: SellOrder;
   Owner: Owner;
@@ -695,9 +702,14 @@ export type ProductResolvers<ContextType = { req: Request, res: Response }, Pare
 
 export type AssetResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Asset'] = ResolversParentTypes['Asset']> = {
   token_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  owner?: Resolver<ResolversTypes['Owner'], ParentType, ContextType>;
+  top_ownerships?: Resolver<Maybe<Array<Maybe<ResolversTypes['TopOwnerships']>>>, ParentType, ContextType>;
   sell_orders?: Resolver<Array<Maybe<ResolversTypes['SellOrder']>>, ParentType, ContextType>;
   traits?: Resolver<Array<ResolversTypes['Trait']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type TopOwnershipsResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['TopOwnerships'] = ResolversParentTypes['TopOwnerships']> = {
+  owner?: Resolver<ResolversTypes['Owner'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -882,6 +894,7 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   ERC1155?: Erc1155Resolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   Asset?: AssetResolvers<ContextType>;
+  TopOwnerships?: TopOwnershipsResolvers<ContextType>;
   Trait?: TraitResolvers<ContextType>;
   SellOrder?: SellOrderResolvers<ContextType>;
   Owner?: OwnerResolvers<ContextType>;

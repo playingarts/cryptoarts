@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { Schema, model, models, Model, Types } from "mongoose";
+import { model, Model, models, Schema, Types } from "mongoose";
 
 export type MongoContract = Omit<GQL.Contract, "deck"> & {
   deck?: string;

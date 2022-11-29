@@ -1,5 +1,5 @@
-import { connect } from "../source/mongoose";
 import { Contract } from "../source/graphql/schemas/contract";
+import { connect } from "../source/mongoose";
 import { populateDeckId } from "./_utils";
 
 export const contracts = [

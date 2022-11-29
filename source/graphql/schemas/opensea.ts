@@ -21,9 +21,11 @@ const seaport = new OpenSeaPort(provider, {
 
 export interface Asset {
   token_id: string;
-  owner: {
-    address: string;
-  };
+  top_ownerships: {
+    owner: {
+      address: string;
+    };
+  }[];
   sell_orders: {
     base_price: string;
   }[];
@@ -46,66 +48,164 @@ const cachedAssets: Record<string, Asset[]> = {};
 
 export const getAssetsRaw = (
   contract: string,
-  contractSlug?: string,
-  allAssets: Asset[] = [],
-  cursor = ""
-): Promise<Asset[]> =>
-  seaport.api
-    .get<{
-      assets: Asset[];
-      next: string | null;
-    }>("/api/v1/assets", {
-      asset_contract_address: contract,
-      ...(contractSlug && { collection_slug: contractSlug }),
-      limit: 200,
-      include_orders: true,
-      cursor,
-    })
-    .then(({ assets, next }) => {
-      allAssets = [...allAssets, ...assets];
+  name: string
+): Promise<Asset[]> => {
+  const getOwners = (
+    index: string,
+    cursor?: string,
+    allOwners: Asset["top_ownerships"] = []
+  ): Promise<Asset["top_ownerships"]> =>
+    seaport.api
+      .get<{ next: string; owners: Asset["top_ownerships"] }>(
+        `/api/v1/asset/${contract}/${index}/owners`,
+        { limit: 50, ...(cursor && { cursor }) }
+      )
+      .then(({ next, owners }) => {
+        allOwners = [...allOwners, ...owners];
+        if (next) {
+          return getOwners(index, next, allOwners);
+        }
 
-      if (!next) {
-        cachedAssets[contract] = allAssets;
+        return owners;
+      })
+      .catch((error) => {
+        console.error("Failed to get OpenSea Asset:", error);
 
-        return allAssets;
-      }
+        return new Promise<Asset["top_ownerships"]>((resolve) =>
+          setTimeout(
+            () => resolve(getOwners(index, cursor, allOwners)),
+            error.message.includes("Error 429") ? 1000 : 500
+          )
+        );
+      });
 
-      return getAssetsRaw(contract, contractSlug, allAssets, next);
-    })
-    .catch((error) => {
-      console.error("Failed to get OpenSea Assets:", error);
+  const getInitAssets = (
+    cursor?: string,
+    allAssets: Asset[] = []
+  ): Promise<Asset[]> =>
+    seaport.api
+      .get<{
+        assets: Asset[];
+        next: string | null;
+      }>("/api/v1/assets", {
+        collection_slug: name,
+        asset_contract_address: contract,
+        limit: 200,
+        include_orders: true,
+        ...(cursor && { cursor }),
+      })
+      .then(async ({ assets, next }) => {
+        console.log("Fetched Assets: " + (allAssets.length + assets.length));
+        for (const asset of assets) {
+          const owners = await getOwners(asset.token_id);
 
-      return new Promise<Asset[]>((resolve) =>
-        setTimeout(
-          () =>
-            resolve(getAssetsRaw(contract, contractSlug, allAssets, cursor)),
-          error.message.includes("Error 429") ? 1000 : 500
-        )
-      );
-    });
+          allAssets.push({ ...asset, top_ownerships: owners });
+        }
+
+        if (!next) {
+          return allAssets;
+        }
+
+        return getInitAssets(next, allAssets);
+      })
+
+      .catch((error) => {
+        console.error("Failed to get OpenSea Assets:", error);
+
+        return new Promise<Asset[]>((resolve) =>
+          setTimeout(
+            () => resolve(getInitAssets(cursor, allAssets)),
+            error.message.includes("Error 429") ? 1000 : 500
+          )
+        );
+      });
+
+  return getInitAssets();
+};
 
 export const getAssets = memoizee<typeof getAssetsRaw>(
   process.env.NODE_ENV === "development"
-    ? async (_contract, contractSlug) =>
+    ? async (_address, contract) =>
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require(`../../../mocks/${contractSlug}.json`) as Asset[]
-    : (contract, contractSlug) => {
+        require(`../../../mocks/${contract}.json`) as Asset[]
+    : (contract, name) => {
         if (cachedAssets[contract]) {
-          getAssetsRaw(contract, contractSlug);
+          getAssetsRaw(contract, name);
 
           return Promise.resolve(cachedAssets[contract]);
         }
 
-        return getAssetsRaw(contract, contractSlug);
+        return getAssetsRaw(contract, name);
       },
   {
     length: 1,
     primitive: true,
-    maxAge: 1000 * 60 * 60,
+    // maxAge: 1000 * 60 * 60,
     preFetch: true,
   }
 );
 
+// export const getAssetsRaw = (
+//   contract: string,
+//   contractSlug?: string,
+//   allAssets: Asset[] = [],
+//   cursor = ""
+// ): Promise<Asset[]> =>
+//   seaport.api
+//     .get<{
+//       assets: Asset[];
+//       next: string | null;
+//     }>("/api/v1/assets", {
+//       asset_contract_address: contract,
+//       ...(contractSlug && { collection_slug: contractSlug }),
+//       limit: 200,
+//       include_orders: true,
+//       cursor,
+//     })
+//     .then(({ assets, next }) => {
+//       allAssets = [...allAssets, ...assets];
+
+//       if (!next) {
+//         cachedAssets[contract] = allAssets;
+
+//         return allAssets;
+//       }
+
+//       return getAssetsRaw(contract, contractSlug, allAssets, next);
+//     })
+//     .catch((error) => {
+//       console.error("Failed to get OpenSea Assets:", error);
+
+//       return new Promise<Asset[]>((resolve) =>
+//         setTimeout(
+//           () =>
+//             resolve(getAssetsRaw(contract, contractSlug, allAssets, cursor)),
+//           error.message.includes("Error 429") ? 1000 : 500
+//         )
+//       );
+//     });
+
+// export const getAssets = memoizee<typeof getAssetsRaw>(
+//   process.env.NODE_ENV === "development"
+//     ? async (_contract, contractSlug) =>
+//         // eslint-disable-next-line @typescript-eslint/no-var-requires
+//         require(`../../../mocks/${contractSlug}.json`) as Asset[]
+//     : (contract, contractSlug) => {
+//         if (cachedAssets[contract]) {
+//           getAssetsRaw(contract, contractSlug);
+
+//           return Promise.resolve(cachedAssets[contract]);
+//         }
+
+//         return getAssetsRaw(contract, contractSlug);
+//       },
+//   {
+//     length: 1,
+//     primitive: true,
+//     maxAge: 1000 * 60 * 60,
+//     preFetch: true,
+//   }
+// );
 type CardSuitsType =
   | CardSuits.s
   | CardSuits.c
@@ -120,7 +220,7 @@ const getHolders = async (deck: string) => {
   const assets = await getAssets(contract.address, contract.name);
 
   const holders = ((assets.filter(
-    (asset) => !!asset.owner
+    (asset) => !!asset.top_ownerships[0]
   ) as unknown) as (Omit<Asset, "owner"> & {
     owner: { address: string };
   })[]).reduce<
@@ -267,12 +367,12 @@ const getOnSale = async (
   };
 
   return primary_asset_contracts.reduce<Promise<number> | number>(
-    async (prev, { address }) => {
-      if (!address) {
+    async (prev, { address, name }) => {
+      if (!address || !name) {
         return prev;
       }
 
-      const assets = await getAssets(address);
+      const assets = await getAssets(address, name);
 
       return (await prev) + (await onSale(assets));
     },
@@ -338,8 +438,9 @@ export const resolvers: GQL.Resolvers = {
 
       return assets.filter(
         (asset) =>
-          asset.owner &&
-          asset.owner.address.toLowerCase() === address.toLowerCase()
+          asset.top_ownerships &&
+          asset.top_ownerships[0].owner.address.toLowerCase() ===
+            address.toLowerCase()
       );
     },
     holders: (_, { deck }) => getHolders(deck),
@@ -357,9 +458,13 @@ export const typeDefs = gql`
 
   type Asset {
     token_id: String!
-    owner: Owner!
+    top_ownerships: [TopOwnerships]
     sell_orders: [SellOrder]!
     traits: [Trait!]!
+  }
+
+  type TopOwnerships {
+    owner: Owner!
   }
 
   type Trait {

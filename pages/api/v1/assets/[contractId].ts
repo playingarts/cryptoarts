@@ -1,4 +1,5 @@
 import { NextApiHandler } from "next";
+import { getContract } from "../../../../source/graphql/schemas/contract";
 import {
   getAssets,
   setCard,
@@ -27,8 +28,18 @@ const handler: NextApiHandler = async (req, res) => {
   }
 
   try {
-    const addressAssets = (await getAssets(contractId)).filter(
-      (asset) => asset.owner.address.toLowerCase() === address.toLowerCase()
+    const contract = await getContract({ address: contractId });
+
+    if (!contract) {
+      throw 500;
+    }
+
+    const addressAssets = (
+      await getAssets(contract.address, contract.name)
+    ).filter(
+      (asset) =>
+        asset.top_ownerships[0].owner.address.toLowerCase() ===
+        address.toLowerCase()
     );
 
     res.json(
