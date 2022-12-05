@@ -35,12 +35,15 @@ const handler: NextApiHandler = async (req, res) => {
     }
 
     const addressAssets = (
-      await getAssets(contract.address, contract.name)
-    ).filter(
-      (asset) =>
-        asset.top_ownerships[0].owner.address.toLowerCase() ===
+      await getAssets(
+        contract.address.toLowerCase(),
+        contract.name,
         address.toLowerCase()
-    );
+      )
+    ).map((asset) => ({
+      ...asset,
+      owner: asset.top_ownerships[0].owner,
+    }));
 
     res.json(
       await Promise.all(addressAssets.map(setOnSale).map(setCard(contractId)))

@@ -1,13 +1,62 @@
 import { ApolloError, gql } from "@apollo/client";
 import { recoverPersonalSignature } from "@metamask/eth-sig-util";
+import * as E from "fp-ts/Either";
+import { pipe } from "fp-ts/lib/function";
 import GraphQLJSON from "graphql-type-json";
+import * as T from "io-ts";
 import intersect from "just-intersect";
 import memoizee from "memoizee";
+import { model, Model, models, Schema } from "mongoose";
 import { Network, OpenSeaPort } from "opensea-js";
 import Web3 from "web3";
 import { CardSuits } from "../../enums";
 import { getCardByTraits } from "./card";
 import { getContract, getContracts } from "./contract";
+
+const AssetType = T.interface({
+  token_id: T.string,
+  asset_contract: T.type({
+    address: T.string,
+  }),
+  seaport_sell_orders: T.union([
+    T.null,
+    T.array(
+      T.type({
+        order_hash: T.string,
+        current_price: T.string,
+      })
+    ),
+  ]),
+  traits: T.array(
+    T.type({
+      trait_type: T.string,
+      value: T.string,
+    })
+  ),
+});
+
+const OwnerType = T.interface({
+  owner: T.type({
+    address: T.string,
+  }),
+});
+
+const OwnersType = T.array(OwnerType);
+const AssetsType = T.array(AssetType);
+
+const decodeWith = <
+  ApplicationType = any,
+  EncodeTo = ApplicationType,
+  DecodeFrom = unknown
+>(
+  codec: T.Type<ApplicationType, EncodeTo, DecodeFrom>
+) => (input: DecodeFrom): ApplicationType =>
+  pipe(
+    codec.decode(input),
+    E.getOrElseW((errors) => {
+      throw new Error("Error 666: " + errors[0]);
+    })
+  );
 
 const {
   OPENSEA_KEY: apiKey = "",
@@ -21,15 +70,18 @@ const seaport = new OpenSeaPort(provider, {
 
 export interface Asset {
   token_id: string;
+  asset_contract: {
+    address: string;
+  };
   top_ownerships: {
     owner: {
       address: string;
     };
   }[];
-  sell_orders: {
-    base_price: string;
-  }[];
-  seaport_sell_orders: {
+  // sell_orders: {
+  //   base_price: string;
+  // }[];
+  seaport_sell_orders?: {
     order_hash: string;
     current_price: string;
   }[];
@@ -37,18 +89,27 @@ export interface Asset {
     trait_type: string;
     value: string;
   }[];
-  ownership?: {
-    owner: {
-      address: string;
-    };
-  };
 }
+
+const schema = new Schema<GQL.Asset, Model<GQL.Asset>, GQL.Asset>({
+  token_id: String,
+  top_ownerships: [{ owner: { address: String } }],
+  seaport_sell_orders: [{ order_hash: String, current_price: String }],
+  traits: [{ trait_type: String, value: String }],
+  asset_contract: {
+    address: String,
+  },
+});
+
+export const Asset =
+  (models.Asset as Model<GQL.Asset>) || model("Asset", schema);
 
 const cachedAssets: Record<string, Asset[]> = {};
 
 export const getAssetsRaw = (
   contract: string,
-  name: string
+  name: string,
+  hash?: string
 ): Promise<Asset[]> => {
   const getOwners = (
     index: string,
@@ -61,6 +122,8 @@ export const getAssetsRaw = (
         { limit: 50, ...(cursor && { cursor }) }
       )
       .then(({ next, owners }) => {
+        decodeWith(OwnersType)(owners);
+
         allOwners = [...allOwners, ...owners];
         if (next) {
           return getOwners(index, next, allOwners);
@@ -71,6 +134,9 @@ export const getAssetsRaw = (
       .catch((error) => {
         console.error("Failed to get OpenSea Asset:", error);
 
+        if (error.message.includes("Error 666")) {
+          return [];
+        }
         return new Promise<Asset["top_ownerships"]>((resolve) =>
           setTimeout(
             () => resolve(getOwners(index, cursor, allOwners)),
@@ -96,13 +162,32 @@ export const getAssetsRaw = (
       })
       .then(async ({ assets, next }) => {
         console.log("Fetched Assets: " + (allAssets.length + assets.length));
+
+        decodeWith(AssetsType)(assets);
+
         for (const asset of assets) {
           const owners = await getOwners(asset.token_id);
 
-          allAssets.push({ ...asset, top_ownerships: owners });
+          allAssets.push({
+            ...asset,
+            asset_contract: {
+              address: asset.asset_contract.address.toLowerCase(),
+            },
+            top_ownerships: owners.map((owner) => ({
+              owner: { address: owner.owner.address.toLowerCase() },
+            })),
+          });
         }
 
         if (!next) {
+          cachedAssets[contract] = allAssets;
+
+          await Asset.deleteMany({ asset_contract: { address: contract } });
+
+          await Asset.insertMany(allAssets);
+
+          console.log("Updated assets for contract: " + contract);
+
           return allAssets;
         }
 
@@ -112,15 +197,27 @@ export const getAssetsRaw = (
       .catch((error) => {
         console.error("Failed to get OpenSea Assets:", error);
 
+        if (error.message.includes("Error 666")) {
+          return [];
+        }
         return new Promise<Asset[]>((resolve) =>
           setTimeout(
             () => resolve(getInitAssets(cursor, allAssets)),
-            error.message.includes("Error 429") ? 1000 : 500
+            // error.message.includes("Error 429") ? 1000 : 500
+            1000
           )
         );
       });
 
-  return getInitAssets();
+  const query = {
+    "asset_contract.address": contract,
+    ...(hash && {
+      top_ownerships: { $elemMatch: { owner: { address: hash } } },
+    }),
+  };
+  const memoizee = getInitAssets();
+
+  return (async () => await Asset.find(query).lean())() || memoizee;
 };
 
 export const getAssets = memoizee<typeof getAssetsRaw>(
@@ -128,19 +225,19 @@ export const getAssets = memoizee<typeof getAssetsRaw>(
     ? async (_address, contract) =>
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         require(`../../../mocks/${contract}.json`) as Asset[]
-    : (contract, name) => {
+    : (contract, name, hash) => {
         if (cachedAssets[contract]) {
-          getAssetsRaw(contract, name);
+          getAssetsRaw(contract, name, hash);
 
           return Promise.resolve(cachedAssets[contract]);
         }
 
-        return getAssetsRaw(contract, name);
+        return getAssetsRaw(contract, name, hash);
       },
   {
     length: 1,
     primitive: true,
-    // maxAge: 1000 * 60 * 60,
+    maxAge: 1000 * 60,
     preFetch: true,
   }
 );
@@ -217,43 +314,49 @@ type CardSuitsType =
 const getHolders = async (deck: string) => {
   const contract = await getContract({ deck });
 
+  if (!contract) {
+    return;
+  }
+
   const assets = await getAssets(contract.address, contract.name);
 
   const holders = ((assets.filter(
-    (asset) => !!asset.top_ownerships[0]
-  ) as unknown) as (Omit<Asset, "owner"> & {
-    owner: { address: string };
-  })[]).reduce<
+    (asset) => !!asset.top_ownerships
+  ) as unknown) as (Omit<Asset, "owner"> & Asset["top_ownerships"])[]).reduce<
     Record<string, { suit: CardSuitsType; value: string; tokens: string[] }[]>
-  >((data, { owner: { address }, traits, token_id }) => {
-    if (!data[address]) {
-      data[address] = [];
-    }
+  >((data, { top_ownerships, traits, token_id }) => {
+    top_ownerships.map(({ owner: { address } }) => {
+      if (!data[address]) {
+        data[address] = [];
+      }
 
-    const suitTrait = traits.find(
-      ({ trait_type }) => trait_type === "Suit" || trait_type === "Color"
-    );
-    const valueTrait = traits.find(({ trait_type }) => trait_type === "Value");
+      const suitTrait = traits.find(
+        ({ trait_type }) => trait_type === "Suit" || trait_type === "Color"
+      );
+      const valueTrait = traits.find(
+        ({ trait_type }) => trait_type === "Value"
+      );
 
-    if (!suitTrait || !valueTrait) {
-      return data;
-    }
+      if (!suitTrait || !valueTrait) {
+        return data;
+      }
 
-    const exists = data[address].find(
-      ({ suit, value }) =>
-        suit === suitTrait.value.toLowerCase() &&
-        value === valueTrait.value.toLowerCase()
-    );
+      const exists = data[address].find(
+        ({ suit, value }) =>
+          suit === suitTrait.value.toLowerCase() &&
+          value === valueTrait.value.toLowerCase()
+      );
 
-    if (!exists) {
-      data[address].push({
-        suit: suitTrait.value.toLowerCase() as CardSuitsType,
-        value: valueTrait.value.toLowerCase(),
-        tokens: [token_id],
-      });
-    } else {
-      exists.tokens.push(token_id);
-    }
+      if (!exists) {
+        data[address].push({
+          suit: suitTrait.value.toLowerCase() as CardSuitsType,
+          value: valueTrait.value.toLowerCase(),
+          tokens: [token_id],
+        });
+      } else {
+        exists.tokens.push(token_id);
+      }
+    });
 
     return data;
   }, {});
@@ -319,7 +422,7 @@ const getHolders = async (deck: string) => {
 
 export const setOnSale = (asset: Asset) => ({
   ...asset,
-  on_sale: !!asset.sell_orders,
+  on_sale: !!asset.seaport_sell_orders,
 });
 
 export const setCard = (contractId: string) => async (asset: Asset) => {
@@ -359,10 +462,9 @@ const getOnSale = async (
   const onSale = async (assets: Asset[]) => {
     return assets
       .filter(
-        ({ token_id, sell_orders, seaport_sell_orders }) =>
-          token_id && (sell_orders || seaport_sell_orders)
+        ({ token_id, seaport_sell_orders }) => token_id && seaport_sell_orders
       )
-      .map((item) => item.sell_orders)
+      .map((item) => item.seaport_sell_orders)
       .flat().length;
   };
 
@@ -439,14 +541,19 @@ export const resolvers: GQL.Resolvers = {
       return assets.filter(
         (asset) =>
           asset.top_ownerships &&
-          asset.top_ownerships[0].owner.address.toLowerCase() ===
-            address.toLowerCase()
+          asset.top_ownerships.findIndex(
+            ({ owner }) => owner.address.toLowerCase() === address.toLowerCase()
+          ) !== -1
       );
     },
     holders: (_, { deck }) => getHolders(deck),
   },
 };
 
+// sell_orders: [SellOrder]!
+//   type SellOrder {
+//     base_price: String!
+//   }
 export const typeDefs = gql`
   scalar JSON
 
@@ -458,9 +565,19 @@ export const typeDefs = gql`
 
   type Asset {
     token_id: String!
-    top_ownerships: [TopOwnerships]
-    sell_orders: [SellOrder]!
+    top_ownerships: [TopOwnerships!]!
+    seaport_sell_orders: [SeaportSellOrders!]
     traits: [Trait!]!
+    asset_contract: OpenseaContract!
+  }
+
+  type SeaportSellOrders {
+    order_hash: String!
+    current_price: String!
+  }
+
+  type OpenseaContract {
+    address: String!
   }
 
   type TopOwnerships {
@@ -470,10 +587,6 @@ export const typeDefs = gql`
   type Trait {
     trait_type: String!
     value: String!
-  }
-
-  type SellOrder {
-    base_price: String!
   }
 
   type Owner {

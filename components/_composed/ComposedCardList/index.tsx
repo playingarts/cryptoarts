@@ -1,10 +1,9 @@
 import { useMetaMask } from "metamask-react";
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import { useCards } from "../../../hooks/card";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { breakpoints } from "../../../source/enums";
-import { Asset } from "../../../source/graphql/schemas/opensea";
 import BlockTitle from "../../BlockTitle";
 import Button from "../../Button";
 import CardList, { Props as ListProps } from "../../Card/List";
@@ -78,43 +77,43 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         ) !== -1,
     }));
 
-  const [ERC1155, setERC1155] = useState<OwnedCard[]>([]);
+  // const [ERC1155, setERC1155] = useState<OwnedCard[]>([]);
   const [currentSelected, setCurrentSelected] = useState("default");
   //  buttonState.find(({ selected }) => selected === true);
 
-  useEffect(() => {
-    if (!queryCards || ownedCards.length === 0) {
-      return;
-    }
+  // useEffect(() => {
+  //   if (!queryCards || ownedCards.length === 0) {
+  //     return;
+  //   }
 
-    Promise.all(
-      queryCards
-        .filter((card) => card.erc1155)
-        .flatMap(async (card) => {
-          if (!card.erc1155) {
-            return { value: "", suit: "", token_id: "" };
-          }
+  //   Promise.all(
+  //     queryCards
+  //       .filter((card) => card.erc1155)
+  //       .flatMap(async (card) => {
+  //         if (!card.erc1155) {
+  //           return { value: "", suit: "", token_id: "" };
+  //         }
 
-          const res: Asset = await (
-            await fetch(
-              `https://api.opensea.io/api/v1/asset/${card.erc1155.contractAddress}/${card.erc1155.token_id}/?account_address=${account}`
-            )
-          ).json();
-          if (res.ownership) {
-            return { value: "", suit: "", token_id: res.token_id };
-          }
-          return { value: "", suit: "", token_id: "" };
-        })
-    ).then((compl) =>
-      setERC1155((prev) => [
-        ...prev.filter(
-          (ownd) =>
-            compl.findIndex((erc) => erc.token_id === ownd.token_id) === -1
-        ),
-        ...compl,
-      ])
-    );
-  }, [queryCards, ownedCards, account]);
+  //         const res: Asset = await (
+  //           await fetch(
+  //             `https://api.opensea.io/api/v1/asset/${card.erc1155.contractAddress}/${card.erc1155.token_id}/?account_address=${account}`
+  //           )
+  //         ).json();
+  //         if (res.ownership) {
+  //           return { value: "", suit: "", token_id: res.token_id };
+  //         }
+  //         return { value: "", suit: "", token_id: "" };
+  //       })
+  //   ).then((compl) =>
+  //     setERC1155((prev) => [
+  //       ...prev.filter(
+  //         (ownd) =>
+  //           compl.findIndex((erc) => erc.token_id === ownd.token_id) === -1
+  //       ),
+  //       ...compl,
+  //     ])
+  //   );
+  // }, [queryCards, ownedCards, account]);
 
   const { width } = useSize();
 
@@ -258,7 +257,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           {...(deck.openseaCollection && {
             metamaskProps: {
               account,
-              ownedCards: [...ownedCards, ...ERC1155],
+              ownedCards: [...ownedCards],
             },
           })}
           sorted={deck.openseaCollection && currentSelected !== "default"}

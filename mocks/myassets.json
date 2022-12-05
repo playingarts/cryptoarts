@@ -1,9 +1,13 @@
 [
   {
-    "owner": {
-      "address": "0xe081de92957d89124eD0C2c7F53B5e4120DA1dD4"
-    },
-    "sell_orders": [],
+    "top_ownerships": [
+      {
+        "owner": {
+          "address": "0xe081de92957d89124eD0C2c7F53B5e4120DA1dD4"
+        }
+      }
+    ],
+    "seaport_sell_orders": null,
     "traits": [
       {
         "trait_type": "Value",
@@ -15,5 +19,17 @@
       }
     ],
     "token_id": "7767"
+  },
+  {
+    "top_ownerships": [
+      {
+        "owner": {
+          "address": "0xe081de92957d89124eD0C2c7F53B5e4120DA1dD4"
+        }
+      }
+    ],
+    "seaport_sell_orders": null,
+    "traits": [],
+    "token_id": "60343876818614931036759583401419826937339570281218946026720664959970114011172"
   }
 ]

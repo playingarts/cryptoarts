@@ -95,10 +95,6 @@ export const resolvers: GQL.Resolvers = {
 
       const contracts = await getContracts({ deck: card.deck._id });
 
-      if (!contracts) {
-        return;
-      }
-
       const assets = (await Promise.all(
         contracts.map(
           async (contract) => await getAssets(contract.address, contract.name)
@@ -108,9 +104,9 @@ export const resolvers: GQL.Resolvers = {
       const orders = assets
         .flat()
         .filter(
-          ({ token_id, sell_orders, traits, seaport_sell_orders }) =>
+          ({ token_id, traits, seaport_sell_orders }) =>
             token_id &&
-            (sell_orders || seaport_sell_orders) &&
+            seaport_sell_orders &&
             (card.erc1155
               ? card.erc1155.token_id === token_id
               : traits.filter(
@@ -121,7 +117,7 @@ export const resolvers: GQL.Resolvers = {
                       value.toLowerCase() === card.value)
                 ).length === 2)
         )
-        .map((item) => item.sell_orders || item.seaport_sell_orders)
+        .map((item) => item.seaport_sell_orders)
         .flat();
 
       return (orders as {
