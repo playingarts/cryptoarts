@@ -106,10 +106,11 @@ export const Asset =
 
 const cachedAssets: Record<string, Asset[]> = {};
 
+let usingKey: "loading" | "loaded" = "loaded";
+
 export const getAssetsRaw = (
   contract: string,
-  name: string,
-  hash?: string
+  name: string
 ): Promise<Asset[]> => {
   const getOwners = (
     index: string,
@@ -181,6 +182,7 @@ export const getAssetsRaw = (
 
         if (!next) {
           cachedAssets[contract] = allAssets;
+          usingKey = "loaded";
 
           await Asset.deleteMany({ asset_contract: { address: contract } });
 
@@ -209,35 +211,45 @@ export const getAssetsRaw = (
         );
       });
 
-  const query = {
-    "asset_contract.address": contract,
-    ...(hash && {
-      top_ownerships: { $elemMatch: { owner: { address: hash } } },
-    }),
-  };
-  const memoizee = getInitAssets();
-
-  return (async () => await Asset.find(query).lean())() || memoizee;
+  return getInitAssets();
 };
 
-export const getAssets = memoizee<typeof getAssetsRaw>(
+export const getAssets = memoizee<
+  (contract: string, name: string, hash?: string) => Promise<Asset[]>
+>(
   process.env.NODE_ENV === "development"
     ? async (_address, contract) =>
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         require(`../../../mocks/${contract}.json`) as Asset[]
     : (contract, name, hash) => {
-        if (cachedAssets[contract]) {
-          getAssetsRaw(contract, name, hash);
+        const cachedContract = cachedAssets[contract];
 
-          return Promise.resolve(cachedAssets[contract]);
+        if (cachedContract && usingKey !== "loading") {
+          getAssetsRaw(contract, name);
+          usingKey = "loading";
+
+          return Promise.resolve(cachedContract);
+        } else if (!cachedContract) {
+          cachedAssets[contract] = [];
+          usingKey = "loading";
+
+          getAssetsRaw(contract, name);
         }
 
-        return getAssetsRaw(contract, name, hash);
+        return (async () =>
+          await Asset.find({
+            "asset_contract.address": contract,
+            ...(hash && {
+              top_ownerships: { $elemMatch: { owner: { address: hash } } },
+            }),
+          }).lean())();
+
+        // return getAssetsRaw(contract, name, hash);
       },
   {
     length: 1,
     primitive: true,
-    maxAge: 1000 * 60,
+    maxAge: 1000 * 60 * 5,
     preFetch: true,
   }
 );
