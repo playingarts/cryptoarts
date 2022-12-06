@@ -8,7 +8,6 @@ import {
   memo,
   RefObject,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from "react";
@@ -75,7 +74,7 @@ const Content: FC<{
 
     const contest = pathname.includes("/contest/");
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       if (!deck) {
         return;
       }
@@ -97,11 +96,11 @@ const Content: FC<{
       });
     }, [deck, getSig, loadOwnedAssets]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       setOwnedCards([]);
     }, [account]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
       if (!ownedAssets) {
         return;
       }
@@ -496,7 +495,7 @@ const Page: NextPage = () => {
 
   const losersExist = losers && losers.length !== 0;
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (!aboutRef.current) {
       showAltNav(false);
     }

@@ -1,11 +1,5 @@
 import { useMetaMask } from "metamask-react";
-import {
-  FC,
-  HTMLAttributes,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { useSignature } from "../../contexts/SignatureContext";
 import { useLoadDeal } from "../../hooks/deal";
 import { useProducts } from "../../hooks/product";
@@ -50,15 +44,15 @@ const NFTHolder: FC<Props> = ({
 
   const [currentDeal, setCurrentDeal] = useState<typeof deal>();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setCurrentDeal(undefined);
   }, [account]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setCurrentDeal(deal);
   }, [deal]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const sig = getSig();
     if (!sig || !sig.signature || !product || !product.deck) {
       return;

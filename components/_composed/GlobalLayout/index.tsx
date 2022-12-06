@@ -1,7 +1,8 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { FC, Fragment, useEffect } from "react";
 import Footer from "../../../components/Footer";
-import Header, { Props as HeaderProps } from "../../../components/Header";
+import { Props as HeaderProps } from "../../../components/Header";
 import Layout from "../../../components/Layout";
 import { breakpoints } from "../../../source/enums";
 import Grid from "../../Grid";
@@ -12,6 +13,9 @@ import FastCompany from "../../Icons/FastCompany";
 import Quote from "../../Quote";
 import { useSize } from "../../SizeProvider";
 import PrivacyNotice from "../PrivacyNotice";
+const Header = dynamic(() => import("../../../components/Header"), {
+  ssr: false,
+});
 
 const ComposedGlobalLayout: FC<
   Pick<
