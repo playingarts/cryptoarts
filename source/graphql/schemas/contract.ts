@@ -30,7 +30,7 @@ export const getContracts = async (options: Pick<MongoContract, "deck">) =>
         ...(await Contract.find(options)),
         { name: "myassets", address: "", deck: "" },
       ] as unknown) as GQL.Contract[])
-    : await Contract.find(options);
+    : await Contract.find(options).lean();
 
 export const resolvers: GQL.Resolvers = {
   // Query: {
