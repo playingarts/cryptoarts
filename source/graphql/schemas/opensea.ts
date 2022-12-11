@@ -104,8 +104,6 @@ const schema = new Schema<GQL.Asset, Model<GQL.Asset>, GQL.Asset>({
 export const Asset =
   (models.Asset as Model<GQL.Asset>) || model("Asset", schema);
 
-// const cachedAssets: Record<string, Asset[]> = {};
-
 const queue: { name: string; contract: string }[] = [];
 
 export const getAssetsRaw: {
@@ -139,11 +137,9 @@ export const getAssetsRaw: {
             // console.error(`Request was throttled while fetching owner`);
           } else {
             console.error("Failed to get OpenSea Asset:", error);
-          }
-
-          if (error.message.includes("Error 666")) {
             return [];
           }
+
           return new Promise<Asset["top_ownerships"]>((resolve) =>
             setTimeout(
               () => resolve(getOwners(index, cursor, allOwners)),
@@ -221,11 +217,12 @@ export const getAssetsRaw: {
             // console.error("Request was throttled while fetching assets");
           } else {
             console.error("Failed to get OpenSea Assets:", error);
+            return;
           }
 
-          if (error.message.includes("Error 666")) {
-            return [];
-          }
+          // if (error.message.includes("Error 666")) {
+          //   return;
+          // }
           return new Promise<any>((resolve) =>
             setTimeout(
               () => resolve(getInitAssets(cursor)),
@@ -255,19 +252,18 @@ export const getAssetsRaw: {
     //     });
     // }
 
-    if (this.state === "loading") {
-      if (
-        queue.findIndex(
-          (item) => item.contract === contract && item.name === name
-        ) === -1
-      ) {
-        queue.push({ contract, name });
-      }
-
-      // return Promise.resolve(cachedAssets[contract]);
-    } else {
-      this.state = "loading";
+    if (
+      queue.findIndex(
+        (item) =>
+          item.contract.toLowerCase() === contract.toLowerCase() &&
+          item.name === name
+      ) === -1
+    ) {
       queue.push({ contract, name });
+    }
+    if (this.state !== "loading") {
+      this.state = "loading";
+      console.log(queue);
 
       getInitAssets();
       // return Promise.resolve(cachedAssets[contract]);
@@ -286,16 +282,28 @@ export const getAssetsRaw: {
   },
 };
 
+const cachedAssets: Record<string, Asset[]> = {};
+
 const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
   async (contract) => {
-    const assets = await Asset.find({
+    if (!cachedAssets[contract]) {
+      const assets = await Asset.find({
+        "asset_contract.address": contract,
+      }).lean();
+      cachedAssets[contract] = assets;
+      return assets;
+    }
+    Asset.find({
       "asset_contract.address": contract,
-    }).lean();
-    return assets;
+    })
+      .lean()
+      .then((assets) => (cachedAssets[contract] = assets));
+    return cachedAssets[contract];
   },
   {
+    length: 1,
     primitive: true,
-    maxAge: 1000 * 20,
+    maxAge: 1000 * 30,
     preFetch: true,
   }
 );
@@ -518,7 +526,8 @@ export const setCard = (contractId: string) => async (asset: Asset) => {
 };
 
 const getOnSale = async (
-  primary_asset_contracts: GQL.PrimaryAssetContract[]
+  primary_asset_contracts: GQL.PrimaryAssetContract[],
+  slug: string
 ) => {
   if (!primary_asset_contracts[0] || !primary_asset_contracts[0].address) {
     return;
@@ -534,12 +543,12 @@ const getOnSale = async (
   };
 
   return primary_asset_contracts.reduce<Promise<number> | number>(
-    async (prev, { address, name }) => {
-      if (!address || !name) {
+    async (prev, { address }) => {
+      if (!address) {
         return prev;
       }
 
-      const assets = await getAssets(address, name);
+      const assets = await getAssets(address, slug);
 
       return (await prev) + (await onSale(assets));
     },
@@ -562,8 +571,8 @@ export const resolvers: GQL.Resolvers = {
     primary_asset_contracts: ({ primary_asset_contracts = [] }) =>
       primary_asset_contracts,
     traits: ({ traits = {} }) => traits,
-    stats: async ({ stats = {}, primary_asset_contracts }) => {
-      const onSale = await getOnSale(primary_asset_contracts);
+    stats: async ({ stats = {}, primary_asset_contracts, slug }) => {
+      const onSale = await getOnSale(primary_asset_contracts, slug);
 
       return {
         ...stats,
