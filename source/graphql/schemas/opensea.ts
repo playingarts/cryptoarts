@@ -104,7 +104,7 @@ const schema = new Schema<GQL.Asset, Model<GQL.Asset>, GQL.Asset>({
 export const Asset =
   (models.Asset as Model<GQL.Asset>) || model("Asset", schema);
 
-const cachedAssets: Record<string, Asset[]> = {};
+// const cachedAssets: Record<string, Asset[]> = {};
 
 const queue: { name: string; contract: string }[] = [];
 
@@ -136,7 +136,7 @@ export const getAssetsRaw: {
         })
         .catch((error) => {
           if (error.message.includes("Request was throttled")) {
-            console.error(`Request was throttled, fetching owner`);
+            // console.error(`Request was throttled while fetching owner`);
           } else {
             console.error("Failed to get OpenSea Asset:", error);
           }
@@ -152,10 +152,7 @@ export const getAssetsRaw: {
           );
         });
 
-    const getInitAssets = (
-      cursor?: string,
-      allAssets: Asset[] = []
-    ): Promise<Asset[]> =>
+    const getInitAssets = (cursor?: string): Promise<any> =>
       seaport.api
         .get<{
           assets: Asset[];
@@ -168,14 +165,16 @@ export const getAssetsRaw: {
           ...(cursor && { cursor }),
         })
         .then(async ({ assets, next }) => {
-          console.log("Fetched Assets: " + (allAssets.length + assets.length));
+          console.log("Fetched Assets");
 
           decodeWith(AssetsType)(assets);
+
+          const newAssets: Asset[] = [];
 
           for (const asset of assets) {
             const owners = await getOwners(asset.token_id);
 
-            allAssets.push({
+            newAssets.push({
               ...asset,
               asset_contract: {
                 address: asset.asset_contract.address.toLowerCase(),
@@ -186,32 +185,40 @@ export const getAssetsRaw: {
             });
           }
 
+          await Asset.deleteMany({
+            $or: newAssets.map(({ token_id, asset_contract }) => ({
+              token_id,
+              asset_contract,
+            })),
+          });
+
+          await Asset.insertMany(newAssets);
+
           if (!next) {
-            cachedAssets[queue[0].contract] = allAssets;
+            // cachedAssets[queue[0].contract] = newAssets;
 
             this.state = "loaded";
 
-            await Asset.deleteMany({
-              asset_contract: { address: queue[0].contract },
-            });
+            // await Asset.deleteMany({
+            //   asset_contract: { address: queue[0].contract },
+            // });
 
-            await Asset.insertMany(allAssets);
+            // await Asset.insertMany(allAssets);
 
             console.log("Updated assets for contract: " + queue[0].contract);
 
             queue.shift();
 
-            return allAssets;
+            // return allAssets;
+            return;
           }
 
-          return getInitAssets(next, allAssets);
+          return getInitAssets(next);
         })
 
         .catch((error) => {
           if (error.message.includes("Request was throttled")) {
-            console.error(
-              `Request was throttled, fetched ${allAssets.length}assets`
-            );
+            // console.error("Request was throttled while fetching assets");
           } else {
             console.error("Failed to get OpenSea Assets:", error);
           }
@@ -219,34 +226,34 @@ export const getAssetsRaw: {
           if (error.message.includes("Error 666")) {
             return [];
           }
-          return new Promise<Asset[]>((resolve) =>
+          return new Promise<any>((resolve) =>
             setTimeout(
-              () => resolve(getInitAssets(cursor, allAssets)),
+              () => resolve(getInitAssets(cursor)),
               // error.message.includes("Error 429") ? 1000 : 500
               1000
             )
           );
         });
 
-    if (!cachedAssets[contract]) {
-      cachedAssets[contract] = [];
-      queue.push({ contract, name });
-      if (this.state !== "loading") {
-        this.state = "loading";
-        getInitAssets();
-      }
-      return Asset.find({
-        "asset_contract.address": contract,
-        ...(hash && {
-          top_ownerships: { $elemMatch: { owner: { address: hash } } },
-        }),
-      })
-        .lean()
-        .then((assets) => {
-          cachedAssets[contract] = assets;
-          return assets;
-        });
-    }
+    // if (!cachedAssets[contract]) {
+    //   cachedAssets[contract] = [];
+    //   queue.push({ contract, name });
+    //   if (this.state !== "loading") {
+    //     this.state = "loading";
+    //     getInitAssets();
+    //   }
+    //   return Asset.find({
+    //     "asset_contract.address": contract,
+    //     ...(hash && {
+    //       top_ownerships: { $elemMatch: { owner: { address: hash } } },
+    //     }),
+    //   })
+    //     .lean()
+    //     .then((assets) => {
+    //       cachedAssets[contract] = assets;
+    //       return assets;
+    //     });
+    // }
 
     if (this.state === "loading") {
       if (
@@ -257,34 +264,48 @@ export const getAssetsRaw: {
         queue.push({ contract, name });
       }
 
-      return Promise.resolve(cachedAssets[contract]);
+      // return Promise.resolve(cachedAssets[contract]);
+    } else {
+      this.state = "loading";
+      queue.push({ contract, name });
+
+      getInitAssets();
+      // return Promise.resolve(cachedAssets[contract]);
     }
-
-    this.state = "loading";
-    queue.push({ contract, name });
-
-    console.log(queue);
-
-    getInitAssets();
-    return Promise.resolve(cachedAssets[contract]);
+    if (hash) {
+      return getCachedAssets(contract).then((assets) =>
+        assets.filter(
+          (asset) =>
+            asset.top_ownerships.findIndex(
+              ({ owner }) => owner.address === hash
+            ) !== -1
+        )
+      );
+    }
+    return getCachedAssets(contract);
   },
 };
 
-export const getAssets = memoizee<
-  (contract: string, name: string, hash?: string) => Promise<Asset[]>
->(
+const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
+  async (contract) => {
+    const assets = await Asset.find({
+      "asset_contract.address": contract,
+    }).lean();
+    return assets;
+  },
+  {
+    primitive: true,
+    maxAge: 1000 * 20,
+    preFetch: true,
+  }
+);
+
+export const getAssets: typeof getAssetsRaw.get =
   process.env.NODE_ENV === "development"
     ? async (_address, contract) =>
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         require(`../../../mocks/${contract}.json`) as Asset[]
-    : (contract, name, hash) => getAssetsRaw.get(contract, name, hash),
-  {
-    length: 1,
-    primitive: true,
-    maxAge: 1000,
-    preFetch: true,
-  }
-);
+    : (contract, name, hash) => getAssetsRaw.get(contract, name, hash);
 
 // export const getAssetsRaw = (
 //   contract: string,
