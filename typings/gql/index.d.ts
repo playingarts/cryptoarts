@@ -241,6 +241,7 @@ interface Product {
 interface Asset {
   __typename?: 'Asset';
   token_id: Scalars['String'];
+  name: Scalars['String'];
   top_ownerships: Array<TopOwnerships>;
   seaport_sell_orders?: Maybe<Array<SeaportSellOrders>>;
   traits: Array<Trait>;
@@ -711,6 +712,7 @@ export type ProductResolvers<ContextType = { req: Request, res: Response }, Pare
 
 export type AssetResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Asset'] = ResolversParentTypes['Asset']> = {
   token_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   top_ownerships?: Resolver<Array<ResolversTypes['TopOwnerships']>, ParentType, ContextType>;
   seaport_sell_orders?: Resolver<Maybe<Array<ResolversTypes['SeaportSellOrders']>>, ParentType, ContextType>;
   traits?: Resolver<Array<ResolversTypes['Trait']>, ParentType, ContextType>;

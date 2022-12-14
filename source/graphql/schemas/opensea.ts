@@ -18,6 +18,7 @@ const AssetType = T.interface({
   asset_contract: T.type({
     address: T.string,
   }),
+  name: T.string,
   seaport_sell_orders: T.union([
     T.null,
     T.array(
@@ -78,9 +79,7 @@ export interface Asset {
       address: string;
     };
   }[];
-  // sell_orders: {
-  //   base_price: string;
-  // }[];
+  name: string;
   seaport_sell_orders?: {
     order_hash: string;
     current_price: string;
@@ -93,6 +92,7 @@ export interface Asset {
 
 const schema = new Schema<GQL.Asset, Model<GQL.Asset>, GQL.Asset>({
   token_id: String,
+  name: String,
   top_ownerships: [{ owner: { address: String } }],
   seaport_sell_orders: [{ order_hash: String, current_price: String }],
   traits: [{ trait_type: String, value: String }],
@@ -639,6 +639,7 @@ export const typeDefs = gql`
 
   type Asset {
     token_id: String!
+    name: String!
     top_ownerships: [TopOwnerships!]!
     seaport_sell_orders: [SeaportSellOrders!]
     traits: [Trait!]!
