@@ -15,7 +15,7 @@ import Text from "../Text";
 import ModalMenu from "../_composed/ModalMenu";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
-  palette?: "gradient";
+  palette?: "light" | "dark";
   customShopButton?: JSX.Element;
   altNav?: JSX.Element;
   showAltNav?: boolean;
@@ -25,7 +25,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
 }
 
 const Header: FC<Props> = ({
-  palette,
+  palette = "dark",
   customShopButton,
   altNav,
   showAltNav,
@@ -36,7 +36,7 @@ const Header: FC<Props> = ({
 }) => {
   const { deck } = useDeck({ variables: { slug: deckId } });
 
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(isCardPage ? false : true);
   const [hovered, setHovered] = useState(false);
   const mouseEnter = () => setHovered(true);
   const mouseLeave = () => setHovered(false);
@@ -92,6 +92,7 @@ const Header: FC<Props> = ({
       return;
     }
 
+    // All entries expanded is true
     setExpanded(!modalState);
     document.body.style.overflow = "hidden";
 
@@ -114,7 +115,6 @@ const Header: FC<Props> = ({
               position: "fixed",
               background: theme.colors.text_subtitle_dark,
               zIndex: 2,
-              overflowY: "scroll",
             },
           ]}
           onClick={() => setModalState(false)}
@@ -127,6 +127,7 @@ const Header: FC<Props> = ({
             css={(theme) => [
               {
                 background: theme.colors.page_bg_dark,
+                borderRadius: `0 0 ${theme.spacing(5)}px ${theme.spacing(5)}px`,
                 [theme.maxMQ.sm]: {
                   // "&::-webkit-scrollbar": {
                   //   display: "none",
@@ -160,15 +161,29 @@ const Header: FC<Props> = ({
               zIndex: 1,
               overflow: "hidden",
               justifyContent: "space-between",
+              color:
+                palette === "dark"
+                  ? theme.colors.text_subtitle_light
+                  : theme.colors.dark_gray,
             },
-            palette === "gradient"
-              ? {
-                  background: theme.colors.gradient,
-                }
-              : {
-                  background: theme.colors.dark_gray,
-                  color: theme.colors.text_subtitle_light,
-                },
+
+            // palette === "gradient"
+            //   ? {
+            //       background: theme.colors.gradient,
+            //     }
+            //   : {
+            //       background: theme.colors.dark_gray,
+            //       color: theme.colors.text_subtitle_light,
+            //     },
+            {
+              background:
+                (!isCardPage &&
+                  deck &&
+                  theme.colors.decks[
+                    deck.slug as keyof typeof theme.colors.decks
+                  ].header) ||
+                theme.colors.dark_gray,
+            },
           ]}
         >
           <button
@@ -181,25 +196,43 @@ const Header: FC<Props> = ({
                 width: theme.spacing(6),
                 height: theme.spacing(6),
               },
+
               marginRight: theme.spacing(2.5),
               padding: 0,
               color:
-                palette !== "gradient"
+                palette === "dark"
                   ? theme.colors.text_subtitle_light
                   : theme.colors.dark_gray,
             })}
             onClick={() => setModalState(!modalState)}
           >
-            {modalState ? <Cross width="21" height="21" /> : <MenuIcon />}
+            {modalState ? (
+              <Cross
+                css={(theme) => ({
+                  [theme.mq.sm]: {
+                    "&:hover": {
+                      opacity: 0.8,
+                    },
+                    transition: theme.transitions.fast("opacity"),
+                  },
+                })}
+                width="21"
+                height="21"
+              />
+            ) : (
+              <MenuIcon animateOnHover={true} />
+            )}
           </button>
 
           {width >= breakpoints.sm && (
             <div
-              css={{
-                flexGrow: 1,
-                position: "relative",
-                marginTop: "0.5em",
-              }}
+              css={[
+                {
+                  flexGrow: 1,
+                  position: "relative",
+                  marginTop: "0.5em",
+                },
+              ]}
             >
               {(deck ? width >= breakpoints.md : true) && (
                 <Text
@@ -216,6 +249,12 @@ const Header: FC<Props> = ({
                           deck &&
                           (((isCardPage || showAltNav) && "-250%") || "-50%")
                         })`,
+                      },
+                      [theme.mq.sm]: {
+                        "&:hover": {
+                          opacity: 0.8,
+                        },
+                        transition: theme.transitions.fast("opacity"),
                       },
                     },
                   ]}
@@ -243,6 +282,12 @@ const Header: FC<Props> = ({
                         transform: `translateY(${
                           ((isCardPage || showAltNav) && "-50%") || "200%"
                         })`,
+                      },
+                      [theme.mq.sm]: {
+                        "&:hover": {
+                          opacity: 0.8,
+                        },
+                        transition: theme.transitions.fast("opacity"),
                       },
                     })}
                     style={{}}
@@ -289,11 +334,17 @@ const Header: FC<Props> = ({
               <LogoIcon
                 css={(theme) => [
                   {
+                    [theme.mq.sm]: {
+                      "&:hover": {
+                        opacity: 0.8,
+                      },
+                      transition: theme.transitions.fast("opacity"),
+                    },
                     [theme.maxMQ.sm]: {
                       height: theme.spacing(2),
                     },
                   },
-                  palette !== "gradient" && {
+                  palette === "dark" && {
                     color: theme.colors.text_subtitle_light,
                   },
                 ]}
@@ -322,8 +373,8 @@ const Header: FC<Props> = ({
             {width >= breakpoints.sm && (
               <MetamaskButton
                 noLabel={true}
-                backgroundColor={palette === "gradient" ? "dark_gray" : "white"}
-                textColor={palette === "gradient" ? "white" : "dark_gray"}
+                backgroundColor={palette !== "dark" ? "dark_gray" : "white"}
+                textColor={palette !== "dark" ? "white" : "dark_gray"}
                 css={(theme) => ({
                   marginRight: theme.spacing(2),
                 })}
@@ -332,11 +383,7 @@ const Header: FC<Props> = ({
 
             <div
               css={(theme) => ({
-                marginRight: theme.spacing(2),
-
-                [theme.maxMQ.sm]: {
-                  marginRight: theme.spacing(1),
-                },
+                marginRight: theme.spacing(1),
               })}
             >
               {customShopButton ? (
@@ -347,15 +394,15 @@ const Header: FC<Props> = ({
                     component={Link}
                     href="/shop"
                     Icon={Bag}
-                    color={palette === "gradient" ? "black" : undefined}
+                    color={palette === "light" ? "black" : undefined}
                     css={(theme) => ({
                       [theme.maxMQ.sm]: {
                         color:
-                          palette === "gradient"
+                          palette === "light"
                             ? theme.colors.page_bg_light
                             : theme.colors.text_title_dark,
                         background:
-                          palette === "gradient"
+                          palette === "light"
                             ? theme.colors.text_title_dark
                             : theme.colors.page_bg_light,
                       },

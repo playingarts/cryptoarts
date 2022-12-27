@@ -40,7 +40,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
     color,
     loading,
     centeredText,
-    shape = "round",
+    shape = "square",
     ...props
   },
   ref
@@ -65,13 +65,14 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
           ...(color === "black"
             ? {
                 color: theme.colors.page_bg_light,
-                background: theme.colors.page_bg_dark,
+                background: theme.colors.dark_gray,
               }
             : {}),
         },
         shape === "round"
           ? {
-              borderRadius: theme.spacing(size === "small" ? 4 : 5),
+              // borderRadius: theme.spacing(size === "small" ? 4 : 5),
+              borderRadius: "100%",
             }
           : {
               borderRadius: theme.spacing(1),

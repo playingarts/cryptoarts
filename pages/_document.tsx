@@ -15,7 +15,8 @@ export const Links = () => (
         h6: theme.typography.h6,
         h7: theme.typography.h7,
         body: {
-          background: theme.colors.white,
+          // background: theme.colors.white,
+          background: theme.colors.page_bg_dark,
           fontFamily: "Work Sans, sans-serif",
         },
         svg: {
@@ -28,6 +29,30 @@ export const Links = () => (
           color: "inherit",
           background: "none",
           border: 0,
+        },
+        // width: theme.spacing(size === "small" ? 3.8 : 4.2),
+        // height: theme.spacing(size === "small" ? 3.8 : 4.2),
+        // [theme.mq.sm]: {
+        //   width: theme.spacing(size === "small" ? 3.8 : 5),
+        //   height: theme.spacing(size === "small" ? 3.8 : 5),
+        // },
+        ":root": {
+          "--buttonSmallWidth": `${theme.spacing(3.8)}px`,
+          "--buttonSmallHeight": `${theme.spacing(3.8)}px`,
+          [theme.maxMQ.sm]: {
+            "--buttonHeight": `${theme.spacing(4.2)}px`,
+            "--buttonWidth": `${theme.spacing(4.2)}px`,
+          },
+          [theme.mq.sm]: {
+            "--buttonHeight": `${theme.spacing(5)}px`,
+            "--buttonWidth": `${theme.spacing(5)}px`,
+          },
+          ".shader-web-background-fallback": {
+            background: "white",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundAttachment: "fixed",
+          },
         },
       }}
     />
@@ -51,30 +76,7 @@ const Document = () => (
       <Links />
     </Head>
 
-    {/* <body css={[{ background: theme.colors.page_bg_dark }]}> */}
-    <body
-      css={[
-        {
-          background: theme.colors.page_bg_dark,
-          // width: theme.spacing(size === "small" ? 3.8 : 4.2),
-          // height: theme.spacing(size === "small" ? 3.8 : 4.2),
-          // [theme.mq.sm]: {
-          //   width: theme.spacing(size === "small" ? 3.8 : 5),
-          //   height: theme.spacing(size === "small" ? 3.8 : 5),
-          // },
-          "--buttonSmallWidth": `${theme.spacing(3.8)}px`,
-          "--buttonSmallHeight": `${theme.spacing(3.8)}px`,
-          [theme.maxMQ.sm]: {
-            "--buttonHeight": `${theme.spacing(4.2)}px`,
-            "--buttonWidth": `${theme.spacing(4.2)}px`,
-          },
-          [theme.mq.sm]: {
-            "--buttonHeight": `${theme.spacing(5)}px`,
-            "--buttonWidth": `${theme.spacing(5)}px`,
-          },
-        },
-      ]}
-    >
+    <body>
       <Main />
       <NextScript />
     </body>

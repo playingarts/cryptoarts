@@ -1,9 +1,9 @@
+import { MockedProvider } from "@apollo/client/testing";
 import { ThemeProvider } from "@emotion/react";
+import { RouterContext } from "next/dist/shared/lib/router-context";
+import * as NextImage from "next/image";
 import { theme } from "../pages/_app";
 import { Links } from "../pages/_document";
-import { RouterContext } from "next/dist/shared/lib/router-context";
-import { MockedProvider } from "@apollo/client/testing";
-import * as NextImage from "next/image";
 
 const OriginalNextImage = NextImage.default;
 

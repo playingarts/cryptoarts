@@ -37,6 +37,7 @@ import { useLoadLosersValues } from "../hooks/loser";
 import { useLoadOwnedAssets } from "../hooks/opensea";
 import { withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
+import { theme } from "./_app";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
 
@@ -536,7 +537,12 @@ const Page: NextPage = () => {
         }
         showAltNav={altNavVisible}
         deckId={deckId instanceof Array ? deckId[0] : deckId}
-        palette={artistId ? undefined : "gradient"}
+        {...(isCardPage === 0 && {
+          palette:
+            deck &&
+            theme.colors.decks[deck.slug as keyof typeof theme.colors.decks]
+              .palette,
+        })}
         isCardPage={isCardPage}
       >
         <Content

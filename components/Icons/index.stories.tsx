@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import LogoIcon from "./Logo";
 import MenuIcon from "./Menu";
 
@@ -14,7 +14,7 @@ const LogoTemplate: ComponentStory<typeof LogoIcon> = (args) => (
 export const Logo = LogoTemplate.bind({});
 
 const MenuTemplate: ComponentStory<typeof MenuIcon> = (args) => (
-  <MenuIcon {...args} />
+  <MenuIcon {...args} animateOnHover={true} />
 );
 
 export const Menu = MenuTemplate.bind({});

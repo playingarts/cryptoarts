@@ -1,4 +1,3 @@
-import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { FC, Fragment, useEffect } from "react";
 import Footer from "../../../components/Footer";
@@ -12,10 +11,11 @@ import Esquire from "../../Icons/Esquire";
 import FastCompany from "../../Icons/FastCompany";
 import Quote from "../../Quote";
 import { useSize } from "../../SizeProvider";
+import ComposedHeader from "../ComposedHeader";
 import PrivacyNotice from "../PrivacyNotice";
-const Header = dynamic(() => import("../../../components/Header"), {
-  ssr: false,
-});
+// const Header = dynamic(() => import("../../../components/Header"), {
+//   ssr: false,
+// });
 
 const ComposedGlobalLayout: FC<
   Pick<
@@ -82,26 +82,7 @@ const ComposedGlobalLayout: FC<
 
   return (
     <Fragment>
-      <Header
-        css={(theme) => ({
-          position: "fixed",
-          left: theme.spacing(1),
-          right: theme.spacing(1),
-          top: theme.spacing(1),
-          zIndex: 10,
-          [theme.maxMQ.sm]: {
-            left: theme.spacing(0.5),
-            right: theme.spacing(0.5),
-            top: theme.spacing(0.5),
-          },
-
-          [theme.mq.laptop]: {
-            maxWidth: theme.spacing(142),
-            left: "50%",
-            transform: "translate(-50%, 0)",
-            width: "100%",
-          },
-        })}
+      <ComposedHeader
         deckId={deckId}
         altNav={altNav}
         showAltNav={showAltNav}

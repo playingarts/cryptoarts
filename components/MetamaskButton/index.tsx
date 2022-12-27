@@ -41,13 +41,9 @@ const MetamaskButton: FC<Props> = ({
   let { css, action, label } = {
     css: (theme) => ({
       backgroundColor:
-        (theme.colors as Record<string, string>)[
-          backgroundColor as keyof typeof theme.colors
-        ] || backgroundColor,
-      color:
-        (theme.colors as Record<string, string>)[
-          textColor as keyof typeof theme.colors
-        ] || textColor,
+        theme.colors[backgroundColor as keyof typeof theme.colors] ||
+        backgroundColor,
+      color: theme.colors[textColor as keyof typeof theme.colors] || textColor,
       transition: theme.transitions.fast(["opacity", "color", "background"]),
       [theme.mq.sm]: {
         "&:hover": {
@@ -65,8 +61,8 @@ const MetamaskButton: FC<Props> = ({
     css = (theme) => ({
       backgroundColor: colord(theme.colors.white).alpha(0).toRgbString(),
       color:
-        (theme.colors as Record<string, string>)[
-          backgroundColor as keyof typeof theme.colors
+        theme.colors[
+          backgroundColor as keyof Omit<typeof theme.colors, "decks">
         ] || backgroundColor,
       "&:hover": {
         background: colord(theme.colors.white).alpha(0.1).toRgbString(),
@@ -110,6 +106,7 @@ const MetamaskButton: FC<Props> = ({
       css={css}
       {...action}
       title={status}
+      {...(noLabel && { shape: "round" })}
     >
       {!noLabel && (children || label)}
     </Button>

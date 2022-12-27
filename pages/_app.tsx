@@ -58,6 +58,15 @@ declare module "@emotion/react" {
       lavender: "#8582F9";
       black: "#000000";
       brightGray: "#EFEFEF";
+      decks: {
+        zero: { header: "#CBDA75"; palette: "light" };
+        one: { header: "#DCACA2"; palette: "light" };
+        two: { header: "#B3A2DC"; palette: "light" };
+        three: { header: "#A2C4DC"; palette: "light" };
+        special: { header: "#181818"; palette: "dark" };
+        future: { header: "#A6D4B7"; palette: "light" };
+        crypto: { header: "#E289C2"; palette: "light" };
+      };
     };
     mq: breakpointsObjectType;
     maxMQ: breakpointsObjectType;
@@ -111,11 +120,11 @@ export const theme: Theme = {
     normal: (attrs) =>
       typeof attrs === "string"
         ? `${attrs} 0.4s ease`
-        : attrs.map((attr) => `${attr} 0.25s ease`).join(", "),
+        : attrs.map((attr) => `${attr} 0.4s ease`).join(", "),
     slow: (attrs) =>
       typeof attrs === "string"
         ? `${attrs} 0.55s ease`
-        : attrs.map((attr) => `${attr} 0.25s ease`).join(", "),
+        : attrs.map((attr) => `${attr} 0.55s ease`).join(", "),
   },
   colors: {
     lavender_blue: "#8582F9",
@@ -148,6 +157,15 @@ export const theme: Theme = {
     black: "#000000",
     brightGray: "#EFEFEF",
     svggray: "#C4C4C4",
+    decks: {
+      zero: { header: "#CBDA75", palette: "light" },
+      one: { header: "#DCACA2", palette: "light" },
+      two: { header: "#B3A2DC", palette: "light" },
+      three: { header: "#A2C4DC", palette: "light" },
+      special: { header: "#181818", palette: "dark" },
+      future: { header: "#A6D4B7", palette: "light" },
+      crypto: { header: "#E289C2", palette: "light" },
+    },
   },
   typography: {
     h1: {
