@@ -27,7 +27,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         //     .background,
         borderRadius: `0 0 ${theme.spacing(5)}px ${theme.spacing(5)}px`,
         color: theme.colors.light_gray,
-        paddingTop: theme.spacing(26),
+        paddingTop: theme.spacing(25),
         paddingBottom: theme.spacing(6),
         [theme.mq.sm]: {
           height: `calc(100vh - ${theme.spacing(6)}px)`,
@@ -118,7 +118,17 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 </div>
               )}
             </Text>
-            <Text variant="body3" css={{ margin: 0 }}>
+            <Text
+              variant="body3"
+              css={(theme) => [
+                {
+                  margin: 0,
+                  [theme.mq.sm]: {
+                    marginTop: theme.spacing(1),
+                  },
+                },
+              ]}
+            >
               {subtitle}
             </Text>
           </div>

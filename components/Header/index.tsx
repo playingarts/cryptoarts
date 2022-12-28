@@ -167,6 +167,8 @@ const Header: FC<Props> = ({
               color:
                 palette === "dark"
                   ? theme.colors.text_subtitle_light
+                  : showAltNav
+                  ? theme.colors.text_subtitle_light
                   : theme.colors.dark_gray,
             },
 
@@ -179,8 +181,10 @@ const Header: FC<Props> = ({
             //       color: theme.colors.text_subtitle_light,
             //     },
             {
+              transition: theme.transitions.fast("background"),
               background:
                 (!isCardPage &&
+                  !showAltNav &&
                   deck &&
                   theme.colors.decks[
                     deck.slug as keyof typeof theme.colors.decks
@@ -204,6 +208,8 @@ const Header: FC<Props> = ({
               padding: 0,
               color:
                 palette === "dark"
+                  ? theme.colors.text_subtitle_light
+                  : showAltNav
                   ? theme.colors.text_subtitle_light
                   : theme.colors.dark_gray,
             })}
@@ -249,9 +255,9 @@ const Header: FC<Props> = ({
                   css={(theme) => [
                     {
                       position: "absolute",
-                      transition: theme.transitions.normal("transform"),
+                      transition: theme.transitions.normal("all"),
                       transform: "translateY(-50%)",
-                      fontWeight: 600,
+                      fontWeight: 400,
                       [theme.mq.md]: {
                         transform: `translateY(${
                           deck &&
@@ -262,7 +268,6 @@ const Header: FC<Props> = ({
                         "&:hover": {
                           opacity: 0.8,
                         },
-                        transition: theme.transitions.fast("opacity"),
                       },
                     },
                   ]}
@@ -280,8 +285,8 @@ const Header: FC<Props> = ({
                     css={(theme) => ({
                       position: "absolute",
                       transform: "translateY(0)",
-                      transition: theme.transitions.normal("transform"),
-                      fontWeight: 600,
+                      transition: theme.transitions.normal("all"),
+                      fontWeight: 400,
                       [theme.maxMQ.md]: {
                         transform: `translateY(${
                           (!expanded && showAltNav && "-250%") || "-50%"
@@ -296,10 +301,8 @@ const Header: FC<Props> = ({
                         "&:hover": {
                           opacity: 0.8,
                         },
-                        transition: theme.transitions.fast("opacity"),
                       },
                     })}
-                    style={{}}
                   >
                     {deck.title}
                   </Text>
@@ -353,9 +356,13 @@ const Header: FC<Props> = ({
                       height: theme.spacing(2),
                     },
                   },
-                  palette === "dark" && {
-                    color: theme.colors.text_subtitle_light,
-                  },
+                  palette === "dark"
+                    ? {
+                        color: theme.colors.text_subtitle_light,
+                      }
+                    : showAltNav && {
+                        color: theme.colors.text_subtitle_light,
+                      },
                 ]}
               />
             </Link>
@@ -382,8 +389,20 @@ const Header: FC<Props> = ({
             {width >= breakpoints.sm && (
               <MetamaskButton
                 noLabel={true}
-                backgroundColor={palette !== "dark" ? "dark_gray" : "white"}
-                textColor={palette !== "dark" ? "white" : "dark_gray"}
+                backgroundColor={
+                  palette !== "dark"
+                    ? showAltNav
+                      ? "white"
+                      : "dark_gray"
+                    : "white"
+                }
+                textColor={
+                  palette !== "dark"
+                    ? showAltNav
+                      ? "dark_gray"
+                      : "white"
+                    : "dark_gray"
+                }
                 css={(theme) => ({
                   marginRight: theme.spacing(1),
                 })}
@@ -398,28 +417,35 @@ const Header: FC<Props> = ({
               {customShopButton ? (
                 customShopButton
               ) : (
-                <Fragment>
-                  <Button
-                    component={Link}
-                    href="/shop"
-                    Icon={Bag}
-                    color={palette === "light" ? "black" : undefined}
-                    css={(theme) => ({
-                      [theme.maxMQ.sm]: {
-                        color:
-                          palette === "light"
-                            ? theme.colors.page_bg_light
-                            : theme.colors.text_title_dark,
-                        background:
-                          palette === "light"
-                            ? theme.colors.text_title_dark
-                            : theme.colors.page_bg_light,
-                      },
-                    })}
-                  >
-                    {width >= breakpoints.sm && "Shop"}
-                  </Button>
-                </Fragment>
+                <Button
+                  component={Link}
+                  href="/shop"
+                  Icon={Bag}
+                  color={
+                    palette === "light"
+                      ? showAltNav
+                        ? undefined
+                        : "black"
+                      : undefined
+                  }
+                  css={(theme) => ({
+                    transition: theme.transitions.fast("all"),
+                    [theme.maxMQ.sm]: {
+                      color:
+                        // palette === "light"
+                        !showAltNav
+                          ? theme.colors.page_bg_light
+                          : theme.colors.text_title_dark,
+                      background:
+                        // palette === "light"
+                        !showAltNav
+                          ? theme.colors.text_title_dark
+                          : theme.colors.page_bg_light,
+                    },
+                  })}
+                >
+                  {width >= breakpoints.sm && "Shop"}
+                </Button>
               )}
             </div>
           </div>

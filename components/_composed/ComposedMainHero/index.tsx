@@ -4,7 +4,7 @@ import { theme } from "../../../pages/_app";
 import { breakpoints } from "../../../source/enums";
 import Card from "../../Card";
 import SizeProvider, { useSize } from "../../SizeProvider";
-//12
+
 const cards = [
   {
     _id: "card",

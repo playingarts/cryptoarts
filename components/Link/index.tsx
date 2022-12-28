@@ -1,11 +1,11 @@
-import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
+import { ClassNames, CSSObject, Theme } from "@emotion/react";
+import { CSSInterpolation } from "@emotion/serialize";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
-import { ClassNames, Theme, CSSObject } from "@emotion/react";
-import { CSSInterpolation } from "@emotion/serialize";
+import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
 
 export interface Props
-  extends NextLinkProps,
+  extends Omit<NextLinkProps, "onClick" | "onMouseEnter" | "onTouchStart">,
     HTMLAttributes<HTMLAnchorElement | HTMLButtonElement> {
   component?: "a" | "button";
   activeCss?: ((_: Theme) => CSSInterpolation) | CSSObject;

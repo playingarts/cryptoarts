@@ -21,7 +21,7 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
       } else {
         setVisible(true);
       }
-    }, 100);
+    }, 10);
     handler();
 
     window.addEventListener("scroll", handler);
@@ -62,8 +62,6 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
             top: "50%",
             left: "50%",
             color: theme.colors.text_subtitle_dark,
-            width: theme.spacing(1.8),
-            height: theme.spacing(1.8),
           },
         ]}
       />
