@@ -114,7 +114,7 @@ const Header: FC<Props> = ({
               bottom: 0,
               position: "fixed",
               background: theme.colors.text_subtitle_dark,
-              zIndex: 2,
+              zIndex: 99998,
             },
           ]}
           onClick={() => setModalState(false)}
@@ -129,19 +129,22 @@ const Header: FC<Props> = ({
                 background: theme.colors.page_bg_dark,
                 borderRadius: `0 0 ${theme.spacing(5)}px ${theme.spacing(5)}px`,
                 [theme.maxMQ.sm]: {
-                  // "&::-webkit-scrollbar": {
-                  //   display: "none",
-                  // },
-                  // MsOverflowStyle: "none",
-                  // scrollbarWidth: "none",
-                  // maxHeight: theme.spacing(65),
-                  marginTop: theme.spacing(0.5),
-                  marginLeft: theme.spacing(0.5),
-                  marginRight: theme.spacing(0.5),
-                  marginBottom: theme.spacing(0.5),
-                  paddingBottom: theme.spacing(3),
+                  "&::-webkit-scrollbar": {
+                    display: "none",
+                  },
+                  MsOverflowStyle: "none",
+                  scrollbarWidth: "none",
+                  maxHeight: theme.spacing(65),
+                  // marginTop: theme.spacing(0.5),
+                  // marginLeft: theme.spacing(0.5),
+                  // marginRight: theme.spacing(0.5),
+                  // marginBottom: theme.spacing(0.5),
+                  // paddingBottom: theme.spacing(3),
                   paddingTop: theme.spacing(6),
-                  borderRadius: theme.spacing(1),
+                  // borderRadius: theme.spacing(1),
+                  borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(
+                    3
+                  )}px`,
                 },
               },
             ]}
@@ -212,8 +215,12 @@ const Header: FC<Props> = ({
                   [theme.mq.sm]: {
                     "&:hover": {
                       opacity: 0.8,
+                      transform: "rotate(90deg)",
                     },
-                    transition: theme.transitions.fast("opacity"),
+                    transition: theme.transitions.fast([
+                      "opacity",
+                      "transform",
+                    ]),
                   },
                 })}
                 width="21"
@@ -244,6 +251,7 @@ const Header: FC<Props> = ({
                       position: "absolute",
                       transition: theme.transitions.normal("transform"),
                       transform: "translateY(-50%)",
+                      fontWeight: 600,
                       [theme.mq.md]: {
                         transform: `translateY(${
                           deck &&
@@ -273,6 +281,7 @@ const Header: FC<Props> = ({
                       position: "absolute",
                       transform: "translateY(0)",
                       transition: theme.transitions.normal("transform"),
+                      fontWeight: 600,
                       [theme.maxMQ.md]: {
                         transform: `translateY(${
                           (!expanded && showAltNav && "-250%") || "-50%"
@@ -376,7 +385,7 @@ const Header: FC<Props> = ({
                 backgroundColor={palette !== "dark" ? "dark_gray" : "white"}
                 textColor={palette !== "dark" ? "white" : "dark_gray"}
                 css={(theme) => ({
-                  marginRight: theme.spacing(2),
+                  marginRight: theme.spacing(1),
                 })}
               />
             )}

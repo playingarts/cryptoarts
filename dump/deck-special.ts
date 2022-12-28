@@ -13,6 +13,7 @@ export const deck: Omit<GQL.Deck, "_id"> = {
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_special.jpg",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_special_bg.jpg",
+  labels: ["contest"],
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     inside: "52 Playing cards + 2 Jokers + Info card",

@@ -22,7 +22,7 @@ export interface Props extends Omit<LinkProps, "component" | "href"> {
   type?: ButtonHTMLAttributes<HTMLButtonElement>["type"];
   disabled?: ButtonHTMLAttributes<HTMLButtonElement>["disabled"];
   size?: "small" | "normal";
-  color?: "black";
+  color?: "black" | "custom";
   loading?: boolean;
   centeredText?: boolean;
   shape?: "round" | "square";
@@ -87,7 +87,7 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
         children
           ? [
               {
-                ...(color !== "black"
+                ...(color === undefined
                   ? {
                       color: theme.colors.page_bg_dark,
                       background: theme.colors.page_bg_light,
@@ -110,9 +110,14 @@ const Button: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
                     paddingLeft: theme.spacing(2.5),
                     paddingRight: theme.spacing(2.5),
                   }
+                : Icon
+                ? {
+                    paddingLeft: theme.spacing(1.5),
+                    paddingRight: theme.spacing(2),
+                  }
                 : {
-                    paddingLeft: theme.spacing(1.7),
-                    paddingRight: theme.spacing(1.7),
+                    paddingLeft: theme.spacing(2),
+                    paddingRight: theme.spacing(2),
                   },
             ]
           : {

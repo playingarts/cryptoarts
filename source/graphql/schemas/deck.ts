@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
-import { Schema, model, models, Model } from "mongoose";
 import GraphQLJSON from "graphql-type-json";
+import { model, Model, models, Schema } from "mongoose";
 import { getProduct } from "./product";
 
 const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
@@ -15,6 +15,7 @@ const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   properties: { type: Object, default: {} },
   editions: { type: Object, default: null },
   cardBackground: { type: String, default: null },
+  labels: { type: Object, default: null },
 });
 
 export const Deck = (models.Deck as Model<GQL.Deck>) || model("Deck", schema);
@@ -59,6 +60,7 @@ export const typeDefs = gql`
     backgroundImage: String
     product: Product
     editions: [Edition!]
+    labels: [String!]
   }
 
   type Edition {

@@ -59,13 +59,111 @@ declare module "@emotion/react" {
       black: "#000000";
       brightGray: "#EFEFEF";
       decks: {
-        zero: { header: "#CBDA75"; palette: "light" };
-        one: { header: "#DCACA2"; palette: "light" };
-        two: { header: "#B3A2DC"; palette: "light" };
-        three: { header: "#A2C4DC"; palette: "light" };
-        special: { header: "#181818"; palette: "dark" };
-        future: { header: "#A6D4B7"; palette: "light" };
-        crypto: { header: "#E289C2"; palette: "light" };
+        zero: {
+          header: "#CBDA75";
+          palette: "light";
+          background: "#181818";
+          textColor: "rgba(255, 255, 255, 0.9)";
+          nav: {
+            button: {
+              background: "rgba(255, 255, 255, 0.9)";
+              color: "#0A0A0A";
+              hoverColor: "#FFFFFF";
+            };
+            color: "rgba(255, 255, 255, 0.7)";
+            hoverColor: "#FFFFFF";
+          };
+        };
+        one: {
+          header: "#DCACA2";
+          palette: "light";
+          background: "#E9E4E0";
+          textColor: "#0A0A0A";
+          nav: {
+            button: {
+              color: "rgba(255, 255, 255, 0.9)";
+              background: "#0A0A0A";
+              hoverColor: "#0A0A0ACC";
+            };
+            color: "rgba(10, 10, 10, 0.5)";
+            hoverColor: "#181818";
+          };
+        };
+        two: {
+          header: "#B3A2DC";
+          palette: "light";
+          background: "#E7E0E9";
+          textColor: "#0A0A0A";
+          nav: {
+            button: {
+              color: "rgba(255, 255, 255, 0.9)";
+              background: "#0A0A0A";
+              hoverColor: "#0A0A0ACC";
+            };
+            color: "rgba(10, 10, 10, 0.5)";
+            hoverColor: "#181818";
+          };
+        };
+        three: {
+          header: "#A2C4DC";
+          palette: "light";
+          background: "#E0E6E9";
+          textColor: "#0A0A0A";
+          nav: {
+            button: {
+              color: "rgba(255, 255, 255, 0.9)";
+              background: "#0A0A0A";
+              hoverColor: "#0A0A0ACC";
+            };
+            color: "rgba(10, 10, 10, 0.5)";
+            hoverColor: "#181818";
+          };
+        };
+        special: {
+          header: "#181818";
+          palette: "dark";
+          background: "#E0E6E9";
+          textColor: "#0A0A0A";
+          nav: {
+            button: {
+              background: "rgba(255, 255, 255, 0.9)";
+              color: "#0A0A0A";
+              hoverColor: "#FFFFFF";
+            };
+            color: "rgba(10, 10, 10, 0.5)";
+            hoverColor: "#181818";
+          };
+        };
+        future: {
+          header: "#A6D4B7";
+          palette: "light";
+          background: "#181818";
+          textColor: "rgba(255, 255, 255, 0.9)";
+          nav: {
+            button: {
+              background: "#FFFDBF";
+              color: "#0A0A0A";
+              hoverColor: "#FFFFFF";
+            };
+            color: "#FFFDBF";
+            hoverColor: "#FFFFFF";
+          };
+        };
+        crypto: {
+          header: "#E289C2";
+          palette: "light";
+          background: "#181818";
+          textColor: "rgba(255, 255, 255, 0.9)";
+          nav: {
+            button: {
+              background: "#C9FFF7";
+              color: "#0A0A0A";
+              hoverColor: "#FFFFFF";
+            };
+            color: "#C9FFF7";
+            hoverColor: "#FFFFFF";
+          };
+        };
       };
     };
     mq: breakpointsObjectType;
@@ -158,13 +256,111 @@ export const theme: Theme = {
     brightGray: "#EFEFEF",
     svggray: "#C4C4C4",
     decks: {
-      zero: { header: "#CBDA75", palette: "light" },
-      one: { header: "#DCACA2", palette: "light" },
-      two: { header: "#B3A2DC", palette: "light" },
-      three: { header: "#A2C4DC", palette: "light" },
-      special: { header: "#181818", palette: "dark" },
-      future: { header: "#A6D4B7", palette: "light" },
-      crypto: { header: "#E289C2", palette: "light" },
+      zero: {
+        header: "#CBDA75",
+        palette: "light",
+        background: "#181818",
+        textColor: "rgba(255, 255, 255, 0.9)",
+        nav: {
+          button: {
+            background: "rgba(255, 255, 255, 0.9)",
+            color: "#0A0A0A",
+            hoverColor: "#FFFFFF",
+          },
+          color: "rgba(255, 255, 255, 0.7)",
+          hoverColor: "#FFFFFF",
+        },
+      },
+      one: {
+        header: "#DCACA2",
+        palette: "light",
+        background: "#E9E4E0",
+        textColor: "#0A0A0A",
+        nav: {
+          button: {
+            color: "rgba(255, 255, 255, 0.9)",
+            background: "#0A0A0A",
+            hoverColor: "#0A0A0ACC",
+          },
+          color: "rgba(10, 10, 10, 0.5)",
+          hoverColor: "#181818",
+        },
+      },
+      two: {
+        header: "#B3A2DC",
+        palette: "light",
+        background: "#E7E0E9",
+        textColor: "#0A0A0A",
+        nav: {
+          button: {
+            color: "rgba(255, 255, 255, 0.9)",
+            background: "#0A0A0A",
+            hoverColor: "#0A0A0ACC",
+          },
+          color: "rgba(10, 10, 10, 0.5)",
+          hoverColor: "#181818",
+        },
+      },
+      three: {
+        header: "#A2C4DC",
+        palette: "light",
+        background: "#E0E6E9",
+        textColor: "#0A0A0A",
+        nav: {
+          button: {
+            color: "rgba(255, 255, 255, 0.9)",
+            background: "#0A0A0A",
+            hoverColor: "#0A0A0ACC",
+          },
+          color: "rgba(10, 10, 10, 0.5)",
+          hoverColor: "#181818",
+        },
+      },
+      special: {
+        header: "#181818",
+        palette: "dark",
+        background: "#E0E6E9",
+        textColor: "#0A0A0A",
+        nav: {
+          button: {
+            background: "rgba(255, 255, 255, 0.9)",
+            color: "#0A0A0A",
+            hoverColor: "#FFFFFF",
+          },
+          color: "rgba(10, 10, 10, 0.5)",
+          hoverColor: "#181818",
+        },
+      },
+      future: {
+        header: "#A6D4B7",
+        palette: "light",
+        background: "#181818",
+        textColor: "rgba(255, 255, 255, 0.9)",
+        nav: {
+          button: {
+            background: "#FFFDBF",
+            color: "#0A0A0A",
+            hoverColor: "#FFFFFF",
+          },
+          color: "#FFFDBF",
+          hoverColor: "#FFFFFF",
+        },
+      },
+      crypto: {
+        header: "#E289C2",
+        palette: "light",
+        background: "#181818",
+        textColor: "rgba(255, 255, 255, 0.9)",
+        nav: {
+          button: {
+            background: "#C9FFF7",
+            color: "#0A0A0A",
+            hoverColor: "#FFFFFF",
+          },
+          color: "#C9FFF7",
+          hoverColor: "#FFFFFF",
+        },
+      },
     },
   },
   typography: {
@@ -268,8 +464,8 @@ export const theme: Theme = {
       fontSize: 20,
       lineHeight: 30 / 20,
       [mq.sm]: {
-        fontSize: 30,
-        lineHeight: 45 / 30,
+        fontSize: 26,
+        lineHeight: 1.5,
       },
     },
     body4: {

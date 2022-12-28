@@ -88,6 +88,7 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
       <div
         css={{
           margin: "0 auto",
+          height: "100%",
           // width: "fit-content",
         }}
       >

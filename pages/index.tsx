@@ -2,8 +2,6 @@ import { NextPage } from "next";
 import BlockTitle from "../components/BlockTitle";
 import Button from "../components/Button";
 import Grid from "../components/Grid";
-import Hero from "../components/Hero";
-import CutoutChevron from "../components/Icons/CutoutChevron";
 import Discord from "../components/Icons/Discord";
 import Kickstarter from "../components/Icons/Kickstarter";
 import Twitter from "../components/Icons/Twitter";
@@ -14,6 +12,8 @@ import StatBlock from "../components/StatBlock";
 import Text from "../components/Text";
 import BrowseCollection from "../components/_composed/BrowseCollection";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
+import ComposedMain from "../components/_composed/ComposedMain";
+import ComposedMainHero from "../components/_composed/ComposedMainHero";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Podcast from "../components/_composed/Podcast";
 import { withApollo } from "../source/apollo";
@@ -23,67 +23,111 @@ import { breakpoints } from "../source/enums";
 const Home: NextPage = () => {
   const { width } = useSize();
   return (
-    <ComposedGlobalLayout extended={true}>
-      <Layout
+    <ComposedGlobalLayout extended={true} scrollArrow="block-about">
+      <div
+        css={(theme) => [
+          {
+            position: "absolute",
+            height: theme.spacing(300),
+            overflowX: "hidden",
+            width: "100%",
+            top: 0,
+            left: 0,
+          },
+        ]}
+      >
+        <ComposedMainHero
+          css={(theme) => [
+            {
+              zIndex: 3,
+              position: "relative",
+              width: "max-content",
+              transform: "rotate(-15deg)",
+              top: theme.spacing(-30),
+              left: "20%",
+              [theme.maxMQ.sm]: {
+                "--width": `${theme.spacing(14)}px !important`,
+                "--height": `${theme.spacing(19.6)}px !important`,
+              },
+              [theme.mq.xsm]: {
+                left: "57%",
+              },
+              [theme.mq.sm]: {
+                top: theme.spacing(-35),
+                "--width": `${theme.spacing(25)}px !important`,
+                "--height": `${theme.spacing(35)}px !important`,
+              },
+            },
+          ]}
+        />
+      </div>
+      {/* <Layout
         css={(theme) => ({
-          background: theme.colors.dark_gray,
-          color: theme.colors.text_title_light,
+          // background: theme.colors.dark_gray,
+          color: theme.colors.dark_gray,
           overflow: "hidden",
           paddingTop: theme.spacing(26),
           paddingBottom: theme.spacing(6.5),
-          backgroundImage:
-            "url(https://s3.amazonaws.com/img.playingarts.com/www/static/home_bg.jpg)",
-          backgroundSize: "cover",
+          // backgroundImage:
+          //   "url(https://s3.amazonaws.com/img.playingarts.com/www/static/home_bg.jpg)",
+          // backgroundSize: "cover",
+          background: theme.colors.page_bg_light,
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(34),
             // paddingTop: theme.spacing(22.8),
             paddingBottom: theme.spacing(4),
           },
         })}
+      > */}
+      <ComposedMain
+        title="Collective Art Project"
+        subtitle="For creative people who are into illustrations, playing cards, NFTs and sometimes magic."
+        css={(theme) => [
+          {
+            color: theme.colors.dark_gray,
+            background: theme.colors.page_bg_light,
+          },
+        ]}
       >
-        <Grid short={true}>
+        <Button
+          component={Link}
+          href={{
+            query: {
+              scrollIntoView: "[data-id='block-about']",
+              scrollIntoViewBehavior: "smooth",
+            },
+          }}
+          css={(theme) => ({
+            marginTop: theme.spacing(5),
+            background: theme.colors.gradient_three,
+            color: theme.colors.white,
+            width: "fit-content",
+            [theme.mq.sm]: {
+              transition: theme.transitions.fast("opacity"),
+              "&:hover": {
+                opacity: 0.8,
+              },
+            },
+            [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(2.6),
+            },
+          })}
+        >
+          Learn more
+        </Button>
+      </ComposedMain>
+      {/* <Grid>
           <div css={{ gridColumn: "span 6" }}>
             <Text component="h1" css={{ margin: 0 }}>
               Collective Art Project
             </Text>
             <Text variant="body3" css={{ margin: 0 }}>
-              For creative people who are into art, playing cards and sometimes
-              magic.
+              For creative people who are into illustrations, playing cards,
+              NFTs and sometimes magic.
             </Text>
-            <Button
-              component={Link}
-              href={{
-                query: {
-                  scrollIntoView: "[data-id='block-about']",
-                  scrollIntoViewBehavior: "smooth",
-                },
-              }}
-              css={(theme) => ({
-                marginTop: theme.spacing(5),
-                [theme.maxMQ.sm]: {
-                  marginTop: theme.spacing(2.6),
-                },
-              })}
-              shallow={true}
-              scroll={false}
-              Icon={CutoutChevron}
-            />
           </div>
-          <Hero
-            css={(theme) => [
-              {
-                [theme.mq.sm]: {
-                  marginLeft: theme.spacing(3.5),
-                },
-                [theme.maxMQ.sm]: {
-                  marginTop: -theme.spacing(21.5),
-                  order: -1,
-                },
-              },
-            ]}
-          />
-        </Grid>
-      </Layout>
+        </Grid> */}
+      {/* </Layout> */}
 
       <Layout
         css={(theme) => ({

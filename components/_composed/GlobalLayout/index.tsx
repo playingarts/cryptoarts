@@ -10,6 +10,7 @@ import DigitalArts from "../../Icons/DigitalArts";
 import Esquire from "../../Icons/Esquire";
 import FastCompany from "../../Icons/FastCompany";
 import Quote from "../../Quote";
+import ScrollArrow from "../../ScrollArrow";
 import { useSize } from "../../SizeProvider";
 import ComposedHeader from "../ComposedHeader";
 import PrivacyNotice from "../PrivacyNotice";
@@ -29,6 +30,7 @@ const ComposedGlobalLayout: FC<
     | "isCardPage"
   > & {
     extended?: boolean;
+    scrollArrow?: string;
   }
 > = ({
   extended,
@@ -40,6 +42,7 @@ const ComposedGlobalLayout: FC<
   palette,
   children,
   isCardPage,
+  scrollArrow,
 }) => {
   const {
     query: {
@@ -162,6 +165,9 @@ const ComposedGlobalLayout: FC<
         </Layout>
       </div>
       <PrivacyNotice />
+      {scrollArrow && width >= breakpoints.sm && (
+        <ScrollArrow scrollTo={scrollArrow} />
+      )}
     </Fragment>
   );
 };

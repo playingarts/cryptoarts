@@ -36,8 +36,11 @@ const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                   },
                 }
               : {
-                  [theme.maxMQ.md]: {
+                  [theme.maxMQ.sm]: {
                     gridTemplateColumns: "repeat(9, var(--columnWidth))",
+                  },
+                  [theme.maxMQ.md]: {
+                    gridTemplateColumns: "repeat(10, var(--columnWidth))",
                   },
                 },
             short

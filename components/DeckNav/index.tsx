@@ -1,16 +1,16 @@
+import { Theme } from "@emotion/react";
+import { CSSInterpolation, CSSObject } from "@emotion/serialize";
 import { useRouter } from "next/router";
 import {
   forwardRef,
   ForwardRefRenderFunction,
   HTMLAttributes,
-  RefObject
+  RefObject,
 } from "react";
 import { Sections } from "../../source/enums";
-import Arrowed from "../Arrowed";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
-import Opensea from "../Icons/Opensea";
-import Link, { Props as LinkProps } from "../Link";
+import Link from "../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   refs: {
@@ -21,15 +21,12 @@ interface Props extends HTMLAttributes<HTMLElement> {
     deckRef?: RefObject<HTMLElement>;
     roadmapRef?: RefObject<HTMLElement>;
   };
-  links?: {
-    buyNow?: LinkProps["href"];
-    opensea?: string;
-    shop?: string;
-  };
+  deck?: GQL.Deck;
+  linkCss?: ((_: Theme) => CSSInterpolation) | CSSObject;
 }
 
 const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
-  { links = {}, refs, ...props },
+  { linkCss, deck, refs, ...props },
   ref
 ) => {
   const {
@@ -62,32 +59,41 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         },
       ]}
     >
-      {links.opensea && (
+      {deck && deck.product && (
         <Button
           component={Link}
-          href={links.opensea}
-          Icon={Opensea}
-          css={(theme) => ({
-            background: theme.colors.eth,
-            backgroundSize: "400% 100%",
-            animation: "gradient 5s ease infinite",
-            marginRight: theme.spacing(2),
-          })}
-          target="_blank"
-        >
-          Opensea
-        </Button>
-      )}
-      {links.buyNow && (
-        <Button
-          component={Link}
-          href={links.buyNow}
+          href={{
+            pathname: "/shop",
+            query: {
+              scrollIntoView: `[data-id='${deck.slug}']`,
+              scrollIntoViewBehavior: "smooth",
+            },
+          }}
           Icon={Bag}
           css={(theme) => ({
             marginRight: theme.spacing(2),
+            background:
+              theme.colors.decks[deck.slug as keyof typeof theme.colors.decks]
+                .nav.button.background,
+            color:
+              theme.colors.decks[deck.slug as keyof typeof theme.colors.decks]
+                .nav.button.color,
+            [theme.mq.sm]: {
+              transition: theme.transitions.fast("background"),
+              "&:hover": {
+                background:
+                  theme.colors.decks[
+                    deck.slug as keyof typeof theme.colors.decks
+                  ].nav.button.hoverColor,
+              },
+            },
           })}
         >
-          Buy now
+          {deck.openseaCollection
+            ? "Claim"
+            : deck.product.status === "soldout"
+            ? "Sold out"
+            : "Buy now"}
         </Button>
       )}
       {refs.aboutRef && (
@@ -98,11 +104,14 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           }}
           shallow={true}
           scroll={false}
-          css={(theme) => ({
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(2),
-            fontWeight: 600,
-          })}
+          css={(theme) => [
+            {
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              fontWeight: 600,
+              ...linkCss,
+            },
+          ]}
           onClick={bringIntoViewHandler(refs.aboutRef)}
         >
           About
@@ -120,6 +129,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             fontWeight: 600,
+            ...linkCss,
           })}
           onClick={bringIntoViewHandler(refs.cardsRef)}
         >
@@ -139,6 +149,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           shallow={true}
           scroll={false}
           css={(theme) => ({
+            ...linkCss,
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             fontWeight: 600,
@@ -157,13 +168,14 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           shallow={true}
           scroll={false}
           css={(theme) => ({
+            ...linkCss,
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             fontWeight: 600,
           })}
           onClick={bringIntoViewHandler(refs.nftRef)}
         >
-          (PACE) nft
+          nft
         </Link>
       )}
       {deckId === "crypto" && !artistId && refs.roadmapRef && (
@@ -175,6 +187,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           shallow={true}
           scroll={false}
           css={(theme) => ({
+            ...linkCss,
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             fontWeight: 600,
@@ -193,6 +206,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           shallow={true}
           scroll={false}
           css={(theme) => ({
+            ...linkCss,
             paddingLeft: theme.spacing(2),
             paddingRight: theme.spacing(2),
             fontWeight: 600,
@@ -200,19 +214,6 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           onClick={bringIntoViewHandler(refs.deckRef)}
         >
           Deck
-        </Link>
-      )}
-
-      {links.shop && (
-        <Link
-          href={links.shop}
-          css={(theme) => ({
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(2),
-            fontWeight: 600,
-          })}
-        >
-          <Arrowed>Shop</Arrowed>
         </Link>
       )}
     </nav>

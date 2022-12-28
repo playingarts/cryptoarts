@@ -15,24 +15,23 @@ import AugmentedReality from "../components/AugmentedReality";
 import Button from "../components/Button";
 import DeckBlock from "../components/DeckBlock";
 import DeckNav from "../components/DeckNav";
-import Grid from "../components/Grid";
+import Hero from "../components/Hero";
 import Bag from "../components/Icons/Bag";
 import Layout from "../components/Layout";
-import Line from "../components/Line";
 import Link from "../components/Link";
 import Modal from "../components/Modal";
 import NFTHolder from "../components/NFTHolder";
 import { useSize } from "../components/SizeProvider";
-import Text from "../components/Text";
 import ArtContest from "../components/_composed/ArtContest";
 import ComposedCardContent from "../components/_composed/CardContent";
 import ComposedCardList from "../components/_composed/ComposedCardList";
 import ComposedEntries from "../components/_composed/ComposedEntries";
+import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedPace from "../components/_composed/Pace";
 import { useSignature } from "../contexts/SignatureContext";
-import { useDeck } from "../hooks/deck";
+import { useDeck, useDeckWithProduct } from "../hooks/deck";
 import { useLoadLosersValues } from "../hooks/loser";
 import { useLoadOwnedAssets } from "../hooks/opensea";
 import { withApollo } from "../source/apollo";
@@ -67,7 +66,9 @@ const Content: FC<{
     } = useRouter();
     const { account, status } = useMetaMask();
     const { getSig } = useSignature();
-    const { deck, loading } = useDeck({ variables: { slug: deckId } });
+    const { deck, loading } = useDeckWithProduct({
+      variables: { slug: deckId },
+    });
 
     const { ownedAssets, loadOwnedAssets } = useLoadOwnedAssets();
 
@@ -149,122 +150,177 @@ const Content: FC<{
         )}
 
         {!artistId && (
-          <Layout
-            css={(theme) => ({
-              background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
-              color: theme.colors.light_gray,
-              paddingTop: theme.spacing(26),
-              paddingBottom: theme.spacing(6),
-              [theme.maxMQ.sm]: {
-                paddingTop: theme.spacing(19),
-                paddingBottom: theme.spacing(4),
-              },
-            })}
+          // <Layout
+          //   css={(theme) => ({
+          //     borderRadius: `0 0 ${theme.spacing(5)}px ${theme.spacing(5)}px`,
+          //     color: theme.colors.light_gray,
+          //     paddingTop: theme.spacing(26),
+          //     paddingBottom: theme.spacing(6),
+          //     [theme.mq.sm]: {
+          //       height: "100vh",
+          //       maxHeight: theme.spacing(74),
+          //     },
+          //     [theme.maxMQ.sm]: {
+          //       borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(3)}px`,
+          //       paddingTop: theme.spacing(19),
+          //       paddingBottom: theme.spacing(4),
+          //     },
+          //     overflow: "hidden",
+          //   })}
+          //   ref={aboutRef}
+          // >
+          <ComposedMain
+            title={deck.short}
+            subtitle={deck.info}
+            labels={deck.labels}
             ref={aboutRef}
-          >
-            <div
-              css={{
-                position: "absolute",
-                left: 0,
-                top: 0,
-                width: "100%",
-                height: "100%",
-                background: `url(${deck.backgroundImage}) 50% 50%`,
-                backgroundSize: "cover",
-                backgroundAttachment: "fixed",
-                minHeight: "100%",
-              }}
-            />
-            <Grid css={{ zIndex: 1, position: "relative" }} short={true}>
-              <div css={{ gridColumn: "1 / -1" }}>
-                <Text component="h1" css={{ margin: 0 }}>
-                  {deck.title}
-                </Text>
-                <Text variant="body3" css={{ margin: 0 }}>
-                  {deck.info}
-                </Text>
-                <Line
-                  palette="dark"
-                  css={(theme) => [
-                    deck.slug === "crypto" && {
-                      background: theme.colors.eth,
-                      animation: "gradient 5s ease infinite",
-                      backgroundSize: "400% 100%",
-                      opacity: 1,
+            css={(theme) => [
+              {
+                background:
+                  theme.colors.decks[
+                    deck.slug as keyof typeof theme.colors.decks
+                  ].background,
+                color:
+                  theme.colors.decks[
+                    deck.slug as keyof typeof theme.colors.decks
+                  ].textColor,
+              },
+            ]}
+            outerChildren={
+              <Hero
+                slug={deck.slug}
+                deck={deck._id}
+                css={(theme) => [
+                  {
+                    width: "100%",
+                    [theme.mq.sm]: {
+                      gridColumn: "span 3 / -1",
+                      marginLeft: theme.spacing(3.5),
                     },
-                  ]}
-                  spacing={3}
-                />
-                {width < breakpoints.sm &&
-                  (deck.openseaCollection ? (
-                    <Button
-                      Icon={Bag}
-                      component={Link}
-                      target="_blank"
-                      css={(theme) => ({
-                        background: theme.colors.eth,
-                        width: "100%",
-                        justifyContent: "center",
-                      })}
-                      href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
-                    >
-                      buy nft
-                    </Button>
-                  ) : (
-                    <Button
-                      Icon={Bag}
-                      component={Link}
-                      css={{
-                        width: "100%",
-                        justifyContent: "center",
-                      }}
-                      href={{
-                        pathname: "/shop",
-                        query: {
-                          scrollIntoView: `[data-id='${deck.slug}']`,
-                          scrollIntoViewBehavior: "smooth",
-                        },
-                      }}
-                    >
-                      buy now
-                    </Button>
-                  ))}
-                {width >= breakpoints.sm && (
-                  <DeckNav
-                    ref={deckNavRef}
-                    refs={{
-                      roadmapRef,
-                      nftRef:
-                        (deck &&
-                          deck.openseaCollection &&
-                          !artistId &&
-                          nftRef) ||
-                        undefined,
-                      cardsRef,
-                      contestRef: (losersExist && contestRef) || undefined,
-                      deckRef,
-                    }}
-                    links={{
-                      ...(deck.openseaCollection
-                        ? {
-                            opensea: `https://opensea.io/collection/${deck.openseaCollection.name}`,
-                          }
-                        : {
-                            buyNow: {
-                              pathname: "/shop",
-                              query: {
-                                scrollIntoView: `[data-id='${deck.slug}']`,
-                                scrollIntoViewBehavior: "smooth",
-                              },
-                            },
-                          }),
-                      shop: "/shop",
-                    }}
-                  />
-                )}
-              </div>
-            </Grid>
-          </Layout>
+                    [theme.mq.md]: {
+                      gridColumn: "span 5 / -1",
+                    },
+                    [theme.maxMQ.sm]: {
+                      marginLeft: theme.spacing(-1),
+                      position: "relative",
+                      marginTop: -theme.spacing(3.5),
+                      order: -1,
+                    },
+                  },
+                ]}
+              />
+            }
+          >
+            {width < breakpoints.sm && deck && deck.product && (
+              <Button
+                component={Link}
+                href={{
+                  pathname: "/shop",
+                  query: {
+                    scrollIntoView: `[data-id='${deck.slug}']`,
+                    scrollIntoViewBehavior: "smooth",
+                  },
+                }}
+                Icon={Bag}
+                css={(theme) => ({
+                  background:
+                    theme.colors.decks[
+                      deck.slug as keyof typeof theme.colors.decks
+                    ].nav.button.background,
+                  color:
+                    theme.colors.decks[
+                      deck.slug as keyof typeof theme.colors.decks
+                    ].nav.button.color,
+                  justifyContent: "center",
+                })}
+              >
+                {deck.openseaCollection
+                  ? "Claim"
+                  : deck.product.status === "soldout"
+                  ? "Sold out"
+                  : "Buy now"}
+              </Button>
+            )}
+            {width >= breakpoints.sm && (
+              <DeckNav
+                deck={deck}
+                linkCss={{
+                  [theme.mq.sm]: {
+                    transition: theme.transitions.fast("color"),
+                    "&:hover": {
+                      color:
+                        theme.colors.decks[
+                          deck.slug as keyof typeof theme.colors.decks
+                        ].nav.hoverColor,
+                    },
+                  },
+                }}
+                css={(theme) => [
+                  {
+                    color:
+                      theme.colors.decks[
+                        deck.slug as keyof typeof theme.colors.decks
+                      ].nav.color,
+                  },
+                ]}
+                ref={deckNavRef}
+                refs={{
+                  roadmapRef,
+                  nftRef:
+                    (deck && deck.openseaCollection && !artistId && nftRef) ||
+                    undefined,
+                  cardsRef,
+                  contestRef: (losersExist && contestRef) || undefined,
+                  deckRef,
+                }}
+              />
+            )}
+          </ComposedMain>
+          // {/* <Grid
+          //   css={(theme) => ({
+          //     zIndex: 1,
+          //     position: "relative",
+          //     color:
+          //       theme.colors.decks[
+          //         deck.slug as keyof typeof theme.colors.decks
+          //       ].textColor,
+          //     height: "100%",
+          //   })}
+          // >
+          //   <div
+          //     css={{
+          //       gridColumn: "1 / 7",
+          //       display: "flex",
+          //       flexDirection: "column",
+          //       [theme.maxMQ.sm]: {
+          //         // marginTop: -theme.spacing(21.5),
+          //         paddingTop: theme.spacing(18),
+          //         // order: -1,
+          //       },
+          //     }}
+          //   ></div>
+          //   <Hero
+          //     slug={deck.slug}
+          //     deck={deck._id}
+          //     css={(theme) => [
+          //       {
+          //         width: "100%",
+          //         [theme.mq.sm]: {
+          //           gridColumn: "span 3 / -1",
+          //           marginLeft: theme.spacing(3.5),
+          //         },
+          //         [theme.mq.md]: {
+          //           gridColumn: "span 5 / -1",
+          //         },
+          //         [theme.maxMQ.sm]: {
+          //           marginTop: -theme.spacing(5.5),
+          //           order: -1,
+          //         },
+          //       },
+          //     ]}
+          //   />
+          // </Grid> */}
+          // </Layout>
         )}
 
         <div
@@ -315,6 +371,7 @@ const Content: FC<{
                   ? "dark"
                   : "light"
               }
+              data-id="block-cards"
               css={(theme) => [
                 {
                   paddingRight: theme.spacing(0),
@@ -523,6 +580,7 @@ const Page: NextPage = () => {
       <Modal />
       <ComposedGlobalLayout
         extended={true}
+        scrollArrow="block-cards"
         altNav={
           <DeckNav
             refs={{

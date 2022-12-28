@@ -6,6 +6,7 @@ const DeckDataFragment = gql`
     info
     title
     slug
+    labels
     openseaCollection {
       name
       address
@@ -46,6 +47,19 @@ export const DeckQuery = gql`
   }
 `;
 
+export const DeckWithProductQuery = gql`
+  ${DeckDataFragment}
+
+  query DeckWithProduct($slug: String!) {
+    deck(slug: $slug) {
+      ...DeckDataFragment
+      product {
+        status
+      }
+    }
+  }
+`;
+
 export const useDecks = (
   options: QueryHookOptions<Pick<GQL.Query, "decks">> = {}
 ) => {
@@ -62,6 +76,17 @@ export const useDeck = (
 ) => {
   const { data: { deck } = { deck: undefined }, ...methods } = useQuery(
     DeckQuery,
+    options
+  );
+
+  return { ...methods, deck };
+};
+
+export const useDeckWithProduct = (
+  options: QueryHookOptions<Pick<GQL.Query, "deck">> = {}
+) => {
+  const { data: { deck } = { deck: undefined }, ...methods } = useQuery(
+    DeckWithProductQuery,
     options
   );
 

@@ -18,6 +18,7 @@ export const deck: Omit<GQL.Deck, "_id"> = {
     address: "0xc22616e971a670e72f35570337e562c3e515fbfe",
     name: "cryptoedition",
   },
+  labels: ["nft", "ar"],
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     inside: "52 Playing cards + 2 Jokers + Info card",

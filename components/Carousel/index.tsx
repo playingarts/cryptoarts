@@ -58,6 +58,7 @@ const Carousel: FC<Props> = ({
       ref.current.style.left = `${-(index * (width + columnGap)) + deltaX}px`;
     },
     trackMouse: true,
+    preventScrollOnSwipe: true,
   });
 
   return (

@@ -8,7 +8,7 @@ const ComposedHeader: FC<HeaderProps> = (props) => (
       left: theme.spacing(1),
       right: theme.spacing(1),
       top: theme.spacing(1),
-      zIndex: 10,
+      zIndex: 99999,
       [theme.maxMQ.sm]: {
         left: theme.spacing(0.5),
         right: theme.spacing(0.5),

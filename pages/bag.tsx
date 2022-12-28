@@ -173,16 +173,26 @@ const Content: FC<{
                 {totalPrice - shippingPrice < freeShippingAt &&
                   totalPrice - shippingPrice + 15 >= freeShippingAt && (
                     <Text
+                      variant="body"
                       css={(theme) => ({
-                        background: `linear-gradient(90deg, #7142D6 0%, #2FBACE 100%)`,
-                        borderRadius: theme.spacing(1),
-                        [theme.mq.sm]: { marginLeft: theme.spacing(21) },
-                        marginBottom: theme.spacing(3),
-                        textAlign: "center",
-                        color: theme.colors.text_title_light,
+                        gridColumn: "3 / span 7",
+                        [theme.maxMQ.sm]: {
+                          gridColumn: "1 / -1",
+                          fontSize: 13,
+                          padding: 0,
+                          textAlign: "center",
+                          lineHeight: `${theme.spacing(4.5)}px`,
+                        },
+                        paddingLeft: theme.spacing(2.5),
                         lineHeight: `${theme.spacing(5)}px`,
+                        alignContent: "center",
+                        background: theme.colors.gradient_three,
+                        borderRadius: theme.spacing(1),
+                        color: theme.colors.text_title_light,
+                        fontWeight: 500,
+                        margin: 0,
+                        marginBottom: theme.spacing(3),
                       })}
-                      variant="label"
                     >
                       Add one more deck and get free shipping!
                     </Text>

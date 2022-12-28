@@ -15,8 +15,8 @@ export const Links = () => (
         h6: theme.typography.h6,
         h7: theme.typography.h7,
         body: {
-          // background: theme.colors.white,
-          background: theme.colors.page_bg_dark,
+          // background: theme.colors.page_bg_light,
+          background: theme.colors.white,
           fontFamily: "Work Sans, sans-serif",
         },
         svg: {

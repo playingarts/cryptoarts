@@ -24,6 +24,7 @@ interface Query {
   artists: Array<Maybe<Artist>>;
   cards: Array<Card>;
   card?: Maybe<Card>;
+  heroCards: Array<Card>;
   products: Array<Product>;
   convertEurToUsd?: Maybe<Scalars['Float']>;
   ownedAssets: Array<Maybe<Asset>>;
@@ -66,6 +67,12 @@ interface QueryCardsArgs {
 
 interface QueryCardArgs {
   id: Scalars['ID'];
+}
+
+
+interface QueryHeroCardsArgs {
+  deck?: Maybe<Scalars['ID']>;
+  slug?: Maybe<Scalars['String']>;
 }
 
 
@@ -141,6 +148,7 @@ interface Deck {
   backgroundImage?: Maybe<Scalars['String']>;
   product?: Maybe<Product>;
   editions?: Maybe<Array<Edition>>;
+  labels?: Maybe<Array<Scalars['String']>>;
 }
 
 interface Edition {
@@ -585,6 +593,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   artists?: Resolver<Array<Maybe<ResolversTypes['Artist']>>, ParentType, ContextType, RequireFields<QueryArtistsArgs, never>>;
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsArgs, never>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
+  heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryHeroCardsArgs, never>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
   ownedAssets?: Resolver<Array<Maybe<ResolversTypes['Asset']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;
@@ -612,6 +621,7 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   backgroundImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType>;
   editions?: Resolver<Maybe<Array<ResolversTypes['Edition']>>, ParentType, ContextType>;
+  labels?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

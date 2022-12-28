@@ -131,6 +131,37 @@ const DailyCardQuery = gql`
   }
 `;
 
+export const HeroCardsQuery = gql`
+  query HeroCards($deck: ID, $slug: String) {
+    heroCards(deck: $deck, slug: $slug) {
+      _id
+      img
+      video
+      info
+      background
+      value
+      suit
+      edition
+      erc1155 {
+        contractAddress
+        token_id
+      }
+      price
+      deck {
+        slug
+      }
+      artist {
+        name
+        userpic
+        info
+        country
+        website
+        slug
+      }
+    }
+  }
+`;
+
 export const useCards = (
   options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
 ) => {
@@ -157,6 +188,21 @@ export const useLoadCards = (
     loadCards,
     ...methods,
     cards,
+  };
+};
+
+export const useLoadHeroCards = (
+  options: QueryHookOptions<Pick<GQL.Query, "heroCards">> = {}
+) => {
+  const [
+    loadHeroCards,
+    { data: { heroCards } = { heroCards: undefined }, ...methods },
+  ] = useLazyQuery(HeroCardsQuery, options);
+
+  return {
+    loadHeroCards,
+    ...methods,
+    heroCards,
   };
 };
 

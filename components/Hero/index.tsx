@@ -1,18 +1,45 @@
 import { FC, HTMLAttributes, useEffect } from "react";
-import { useLoadRandomCardsWithInfo } from "../../hooks/card";
+import { useLoadHeroCards } from "../../hooks/card";
 import Card from "../Card";
 import Link from "../Link";
 
-type Props = HTMLAttributes<HTMLElement>;
+type Props = HTMLAttributes<HTMLElement> & {
+  slug: string;
+  deck: string;
+};
 
-const Hero: FC<Props> = (props) => {
-  const { cards, loadRandomCardsWithInfo } = useLoadRandomCardsWithInfo();
+const Hero: FC<Props> = ({ slug, deck, ...props }) => {
+  const {
+    heroCards = ([
+      {
+        _id: "card01",
+        video: "",
+        img: "",
+        value: "",
+        suit: "",
+        info: "",
+        deck: "",
+        artist: "",
+      },
+      {
+        _id: "card02",
+        video: "",
+        img: "",
+        value: "",
+        suit: "",
+        info: "",
+        deck: "",
+        artist: "",
+      },
+    ] as unknown) as GQL.Card[],
+    loadHeroCards,
+  } = useLoadHeroCards();
 
   useEffect(() => {
-    loadRandomCardsWithInfo({ variables: { limit: 2, shuffle: true } });
-  }, [loadRandomCardsWithInfo]);
+    loadHeroCards({ variables: { deck, slug } });
+  }, [slug, deck, loadHeroCards]);
 
-  if (!cards) {
+  if (!heroCards) {
     return null;
   }
 
@@ -26,7 +53,7 @@ const Hero: FC<Props> = (props) => {
         },
       ]}
     >
-      {cards.map((card, index) => (
+      {heroCards.map((card, index) => (
         <Link
           css={(theme) =>
             index % 2 === 0
@@ -72,7 +99,9 @@ const Hero: FC<Props> = (props) => {
             noInfo={true}
             card={card}
             size={index % 2 === 0 ? undefined : "big"}
-            css={(theme) =>
+            animated={!!card.video}
+            filter={true}
+            css={(theme) => [
               index % 2 === 0
                 ? {
                     [theme.maxMQ.sm]: {
@@ -85,8 +114,8 @@ const Hero: FC<Props> = (props) => {
                       "--width": `${theme.spacing(13.6)}px !important`,
                       "--height": `${theme.spacing(19.1)}px !important`,
                     },
-                  }
-            }
+                  },
+            ]}
           />
         </Link>
       ))}

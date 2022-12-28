@@ -15,6 +15,8 @@ interface Props extends HTMLAttributes<HTMLElement> {
   noInfo?: boolean;
   owned?: boolean;
   sorted?: boolean;
+  filter?: boolean;
+  customSize?: boolean;
 }
 
 const Card: FC<Props> = ({
@@ -26,6 +28,8 @@ const Card: FC<Props> = ({
   noInfo,
   owned,
   sorted,
+  filter,
+  customSize,
   ...props
 }) => {
   const [hovered, setHover] = useState(false);
@@ -57,30 +61,34 @@ const Card: FC<Props> = ({
   return (
     <div
       {...props}
-      css={(theme) => ({
-        [theme.maxMQ.sm]: {
-          "--width": `${
-            size === "big" ? theme.spacing(26) : theme.spacing(16)
-          }px`,
-          "--height": `${
-            size === "big" ? theme.spacing(36.5) : theme.spacing(22.4)
-          }px`,
+      css={(theme) => [
+        !customSize && {
+          [theme.maxMQ.sm]: {
+            "--width": `${
+              size === "big" ? theme.spacing(26) : theme.spacing(16)
+            }px`,
+            "--height": `${
+              size === "big" ? theme.spacing(36.5) : theme.spacing(22.4)
+            }px`,
+          },
+          [theme.mq.sm]: {
+            "--width": `${
+              size === "big" ? theme.spacing(37) : theme.spacing(28.5)
+            }px`,
+            "--height": `${
+              size === "big" ? theme.spacing(52) : theme.spacing(40)
+            }px`,
+          },
         },
-        [theme.mq.sm]: {
-          "--width": `${
-            size === "big" ? theme.spacing(37) : theme.spacing(28.5)
-          }px`,
-          "--height": `${
-            size === "big" ? theme.spacing(52) : theme.spacing(40)
-          }px`,
+        {
+          transition: theme.transitions.fast("color"),
+          width: "var(--width)",
+          textAlign: "center",
+          fontWeight: 500,
+          fontsize: 18,
+          lineheight: 21,
         },
-        transition: theme.transitions.fast("color"),
-        width: "var(--width)",
-        textAlign: "center",
-        fontWeight: 500,
-        fontsize: 18,
-        lineheight: 21,
-      })}
+      ]}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
@@ -95,8 +103,14 @@ const Card: FC<Props> = ({
             [theme.maxMQ.sm]: {
               borderRadius: theme.spacing(1),
             },
-            boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
           },
+          filter
+            ? {
+                filter: "drop-shadow(0px 4px 100px rgba(0, 0, 0, 0.1))",
+              }
+            : {
+                boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
+              },
           owned && {
             ":before": {
               pointerEvents: "none",
@@ -188,10 +202,18 @@ const Card: FC<Props> = ({
                 loading="lazy"
                 src={card.img}
                 alt={card.info}
-                css={{
-                  width: "var(--width)",
-                  height: "var(--height)",
-                }}
+                css={(theme) => [
+                  {
+                    width: "var(--width)",
+                    height: "var(--height)",
+                    [theme.mq.sm]: {
+                      borderRadius: theme.spacing(1.5),
+                    },
+                    [theme.maxMQ.sm]: {
+                      borderRadius: theme.spacing(1),
+                    },
+                  },
+                ]}
                 onLoad={hideLoader}
               />
             </div>

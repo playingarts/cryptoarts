@@ -1,31 +1,43 @@
 import { colord } from "colord";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import store from "store";
+import { breakpoints } from "../../../source/enums";
 import Cross from "../../Icons/Cross";
 import Link from "../../Link";
+import { useSize } from "../../SizeProvider";
 
 const privacyDate = process.env.NEXT_PUBLIC_PRIVACY_DATE || "test";
 
 const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
   const [privacyStatus, setPrivacyStatus] = useState(
-    store.get(privacyDate, "") as string
+    store.get("privacy", "") as string
   );
 
   useEffect(() => {
-    store.set(privacyDate, privacyStatus);
+    store.set("privacy", privacyStatus);
   }, [privacyStatus]);
+
+  const { width } = useSize();
 
   return privacyStatus === privacyDate ? null : (
     <div
       css={(theme) => [
         {
           position: "fixed",
-          bottom: theme.spacing(4),
-          right: theme.spacing(4),
-          left: theme.spacing(4),
+          // bottom: theme.spacing(4),
+          // right: theme.spacing(4),
+          // left: theme.spacing(4),
+          bottom: 0,
+          right: 0,
+          left: 0,
           display: "flex",
           justifyContent: "center",
-          zIndex: 10,
+          zIndex: 99999,
+        },
+        privacyStatus !== privacyDate && {
+          background: colord(theme.colors.page_bg_light_gray)
+            .alpha(0.9)
+            .toRgbString(),
         },
       ]}
     >
@@ -33,18 +45,15 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
         css={(theme) => [
           {
             lineHeight: "var(--buttonHeight)",
-            borderRadius: theme.spacing(10),
-            backgroundColor: colord(theme.colors.black)
-              .alpha(0.8)
-              .toRgbString(),
-            color: theme.colors.text_subtitle_light,
-            paddingLeft: theme.spacing(4),
+            // borderRadius: theme.spacing(10),
+            paddingLeft: theme.spacing(1.5),
             paddingRight: theme.spacing(7.2),
             textTransform: "none",
-            position: "relative",
-            [theme.maxMQ.sm]: {
-              borderRadius: theme.spacing(5),
-            },
+            // position: "relative",
+            // [theme.maxMQ.sm]: {
+            //   borderRadius: theme.spacing(5),
+            // },
+            height: theme.spacing(6),
           },
         ]}
       >
@@ -53,42 +62,60 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             {
               verticalAlign: "middle",
               display: "inline-block",
-              lineHeight: 1.2,
-              paddingTop: theme.spacing(1.25),
-              paddingBottom: theme.spacing(1.25),
+              lineHeight: `${theme.spacing(6)}px`,
+              fontSize: 14,
+              color: theme.colors.text_subtitle_dark,
             },
           ]}
         >
-          We use cookies and similar technologies for statistics and marketing
-          purposes.{" "}
+          {width >= breakpoints.sm &&
+            "We use cookies and similar technologies for statistics and marketing purposes. "}
+          Check out our{" "}
           <Link
             href="/privacy"
             css={(theme) => [
               {
-                color: theme.colors.text_title_light,
+                color: theme.colors.text_title_dark,
               },
             ]}
           >
             Privacy Statement
           </Link>
         </span>
-
-        <Cross
+        <div
           onClick={() => setPrivacyStatus(privacyDate)}
-          css={(theme) => [
+          css={[
             {
               "&:hover": {
                 cursor: "pointer",
               },
               position: "absolute",
-              right: theme.spacing(2.7),
-              top: "50%",
-              transform: "translateY(-50%)",
-              width: theme.spacing(1.8),
-              height: theme.spacing(1.8),
+              right: 0,
+              top: "0",
+              bottom: "0",
+              // transform: "translateY(-50%) rotate(90deg)",
+              // height: "100%",
+              aspectRatio: "1",
             },
           ]}
-        />
+        >
+          <Cross
+            css={(theme) => [
+              {
+                "&:hover": {
+                  cursor: "pointer",
+                },
+                transform: "translateY(-50%) translateX(-50%) ",
+                position: "relative",
+                top: "50%",
+                left: "50%",
+                color: theme.colors.text_subtitle_dark,
+                width: theme.spacing(1.8),
+                height: theme.spacing(1.8),
+              },
+            ]}
+          />
+        </div>
       </div>
     </div>
   );

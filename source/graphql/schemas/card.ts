@@ -80,6 +80,92 @@ export const getCardByTraits = ({
     deck,
   }) as unknown) as Promise<GQL.Card>;
 
+const setCards = {
+  zero: [
+    {
+      suit: "spades",
+      value: "queen",
+    },
+    {
+      suit: "diamonds",
+      value: "5",
+    },
+  ],
+  one: [
+    {
+      suit: "clubs",
+      value: "6",
+    },
+    {
+      suit: "diamonds",
+      value: "ace",
+    },
+  ],
+  two: [
+    {
+      value: "5",
+      suit: "spades",
+    },
+    {
+      value: "8",
+      suit: "clubs",
+    },
+  ],
+  three: [
+    {
+      suit: "spades",
+      value: "ace",
+    },
+    {
+      suit: "clubs",
+      value: "3",
+    },
+  ],
+  special: [
+    {
+      value: "9",
+      suit: "clubs",
+    },
+    {
+      value: "4",
+      suit: "hearts",
+    },
+  ],
+  future: [
+    {
+      value: "queen",
+      suit: "hearts",
+    },
+    {
+      value: "ace",
+      suit: "hearts",
+    },
+  ],
+  crypto: [
+    {
+      suit: "clubs",
+      value: "5",
+    },
+    {
+      suit: "diamonds",
+      value: "8",
+    },
+  ],
+};
+
+const getHeroCards = async ({ deck, slug }: GQL.QueryHeroCardsArgs) => {
+  const cards = Promise.all(
+    setCards[slug as keyof typeof setCards].map(
+      async (card) =>
+        (await (Card.findOne({
+          ...card,
+          deck,
+        }).populate(["artist", "deck"]) as unknown)) as Promise<GQL.Card>
+    )
+  );
+  return cards;
+};
+
 export const resolvers: GQL.Resolvers = {
   Card: {
     background: async ({ background, deck }) =>
@@ -143,6 +229,7 @@ export const resolvers: GQL.Resolvers = {
   Query: {
     cards: async (_, args) => await getCards(args),
     card: (_, args) => getCard(args),
+    heroCards: (_, args) => getHeroCards(args),
   },
 };
 
@@ -156,6 +243,7 @@ export const typeDefs = gql`
       edition: String
     ): [Card!]!
     card(id: ID!): Card
+    heroCards(deck: ID, slug: String): [Card!]!
   }
 
   type Card {

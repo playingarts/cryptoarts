@@ -77,7 +77,7 @@ const ModalMenu: FC<
         {
           overflowX: "hidden",
           paddingTop: theme.spacing(15.7),
-          paddingBottom: theme.spacing(8.2),
+          paddingBottom: theme.spacing(3),
         },
       ]}
     >
@@ -239,7 +239,7 @@ const ModalMenu: FC<
               { href: "/", text: "Home" },
               { href: "/", text: "Reviews" },
               { href: "/shop", text: "Shop" },
-              { href: "/", text: "Tream" },
+              { href: "/", text: "Team" },
               { href: "/", text: "Podcast" },
               { href: "/contact", text: "Contact" },
               { href: "/", text: "Gallery" },
