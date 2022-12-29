@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
 import BlockTitle from "../components/BlockTitle";
 import Button from "../components/Button";
 import Grid from "../components/Grid";
@@ -23,53 +22,45 @@ import { breakpoints } from "../source/enums";
 const Home: NextPage = () => {
   const { width } = useSize();
 
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    setLoaded(true);
-  }, []);
-
   return (
     <ComposedGlobalLayout extended={true} scrollArrow="block-about">
-      {loaded && (
-        <div
+      <div
+        css={(theme) => [
+          {
+            position: "absolute",
+            height: theme.spacing(300),
+            overflowX: "hidden",
+            width: "100%",
+            top: 0,
+            left: 0,
+          },
+        ]}
+      >
+        <ComposedMainHero
           css={(theme) => [
             {
-              position: "absolute",
-              height: theme.spacing(300),
-              overflowX: "hidden",
-              width: "100%",
-              top: 0,
-              left: 0,
+              zIndex: 3,
+              position: "relative",
+              width: "max-content",
+              transform: "rotate(-15deg)",
+              top: theme.spacing(-30),
+              left: "20%",
+              [theme.maxMQ.sm]: {
+                "--width": `${theme.spacing(14)}px !important`,
+                "--height": `${theme.spacing(19.6)}px !important`,
+              },
+              [theme.mq.xsm]: {
+                left: "57%",
+              },
+              [theme.mq.sm]: {
+                top: theme.spacing(-35),
+                "--width": `${theme.spacing(25)}px !important`,
+                "--height": `${theme.spacing(35)}px !important`,
+              },
             },
           ]}
-        >
-          <ComposedMainHero
-            css={(theme) => [
-              {
-                zIndex: 3,
-                position: "relative",
-                width: "max-content",
-                transform: "rotate(-15deg)",
-                top: theme.spacing(-30),
-                left: "20%",
-                [theme.maxMQ.sm]: {
-                  "--width": `${theme.spacing(14)}px !important`,
-                  "--height": `${theme.spacing(19.6)}px !important`,
-                },
-                [theme.mq.xsm]: {
-                  left: "57%",
-                },
-                [theme.mq.sm]: {
-                  top: theme.spacing(-35),
-                  "--width": `${theme.spacing(25)}px !important`,
-                  "--height": `${theme.spacing(35)}px !important`,
-                },
-              },
-            ]}
-          />
-        </div>
-      )}
+        />
+      </div>
       {/* <Layout
         css={(theme) => ({
           // background: theme.colors.dark_gray,
@@ -151,12 +142,7 @@ const Home: NextPage = () => {
         })}
         data-id="block-about"
       >
-        <Grid
-          short={true}
-          css={(theme) => ({
-            background: theme.colors.page_bg_light_gray,
-          })}
-        >
+        <Grid short={true}>
           <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
             About
           </Text>

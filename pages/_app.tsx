@@ -35,7 +35,7 @@ declare module "@emotion/react" {
       joker: "#FFB0B0";
       crypto: "#510EAC";
       white: "#FFFFFF";
-      page_bg_light_gray: "#f2f2f2";
+      page_bg_light_gray: "#f5f5f5";
       page_bg_gray: "#e5e5e5";
       page_bg_dark: "#0A0A0A";
       dark_gray: "#181818";
@@ -231,7 +231,7 @@ export const theme: Theme = {
     joker: "#FFB0B0",
     crypto: "#510EAC",
     white: "#FFFFFF",
-    page_bg_light_gray: "#f2f2f2",
+    page_bg_light_gray: "#f5f5f5",
     page_bg_gray: "#e5e5e5",
     page_bg_dark: "#0A0A0A",
     dark_gray: "#181818",

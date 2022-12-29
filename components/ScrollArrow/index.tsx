@@ -10,6 +10,7 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
   const [visible, setVisible] = useState(true);
   const { query } = useRouter();
 
+  //todo: arrow disappear/appear
   useEffect(() => {
     const handler = throttle(() => {
       const element = document.querySelector(`[data-id='${scrollTo}']`);

@@ -6,6 +6,11 @@ module.exports = {
       use: ["@svgr/webpack"],
     });
 
+    config.module.rules.push({
+      test: /\.(glsl|vs|fs)$/,
+      type: 'asset/source'
+    });
+
     return config;
   },
   images: {

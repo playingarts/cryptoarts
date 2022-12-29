@@ -11,6 +11,7 @@ import Layout from "../components/Layout";
 import Line from "../components/Line";
 import NFTHolder from "../components/NFTHolder";
 import Quote from "../components/Quote";
+import ScrollIntoView from "../components/ScrollIntoView";
 import ShopBundle from "../components/Shop/Bundle";
 import ShopItem from "../components/Shop/Item";
 import ShopSheets from "../components/Shop/Sheets";
@@ -65,6 +66,7 @@ const Content: FC = () => {
 
   return (
     <Fragment>
+      <ScrollIntoView />
       <Layout
         css={(theme) => ({
           background: theme.colors.page_bg_light,

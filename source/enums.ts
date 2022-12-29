@@ -29,6 +29,7 @@ export enum breakpoints {
   sm = 1000,
   md = 1340,
   laptop = 1440,
+  background = 1600,
   lg = 1755,
   xl = 2070,
 }

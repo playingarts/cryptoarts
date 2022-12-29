@@ -1,5 +1,4 @@
-import { useRouter } from "next/router";
-import { FC, Fragment, useEffect } from "react";
+import { FC, Fragment } from "react";
 import Footer from "../../../components/Footer";
 import { Props as HeaderProps } from "../../../components/Header";
 import Layout from "../../../components/Layout";
@@ -11,6 +10,7 @@ import Esquire from "../../Icons/Esquire";
 import FastCompany from "../../Icons/FastCompany";
 import Quote from "../../Quote";
 import ScrollArrow from "../../ScrollArrow";
+import ScrollIntoView from "../../ScrollIntoView";
 import { useSize } from "../../SizeProvider";
 import ComposedHeader from "../ComposedHeader";
 import PrivacyNotice from "../PrivacyNotice";
@@ -44,47 +44,11 @@ const ComposedGlobalLayout: FC<
   isCardPage,
   scrollArrow,
 }) => {
-  const {
-    query: {
-      scrollIntoView,
-      scrollIntoViewBehavior,
-      scrollIntoViewPosition,
-      ...query
-    },
-    replace,
-  } = useRouter();
-
-  useEffect(() => {
-    if (!scrollIntoView) {
-      return;
-    }
-
-    const element = document.querySelector(
-      scrollIntoView instanceof Array ? scrollIntoView[0] : scrollIntoView
-    );
-
-    if (element) {
-      replace({ query }, undefined, {
-        scroll: false,
-        shallow: true,
-      });
-
-      return () => {
-        element.scrollIntoView({
-          behavior:
-            scrollIntoViewBehavior === "smooth"
-              ? scrollIntoViewBehavior
-              : "auto",
-          block: (scrollIntoViewPosition as ScrollLogicalPosition) || "center",
-        });
-      };
-    }
-  }, [query, replace, scrollIntoView, scrollIntoViewBehavior]);
-
   const { width } = useSize();
 
   return (
     <Fragment>
+      <ScrollIntoView />
       <ComposedHeader
         deckId={deckId}
         altNav={altNav}

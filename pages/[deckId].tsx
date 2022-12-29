@@ -11,6 +11,7 @@ import {
   useRef,
   useState,
 } from "react";
+import ShadertoyReact from "shadertoy-react";
 import AugmentedReality from "../components/AugmentedReality";
 import Button from "../components/Button";
 import DeckBlock from "../components/DeckBlock";
@@ -34,6 +35,7 @@ import { useSignature } from "../contexts/SignatureContext";
 import { useDeck, useDeckWithProduct } from "../hooks/deck";
 import { useLoadLosersValues } from "../hooks/loser";
 import { useLoadOwnedAssets } from "../hooks/opensea";
+import frag from "../Shaders/Xemantic/index.glsl";
 import { withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
 import { theme } from "./_app";
@@ -195,7 +197,7 @@ const Content: FC<{
                     width: "100%",
                     [theme.mq.sm]: {
                       gridColumn: "span 3 / -1",
-                      marginLeft: theme.spacing(3.5),
+                      marginLeft: theme.spacing(0.5),
                     },
                     [theme.mq.md]: {
                       gridColumn: "span 5 / -1",
@@ -209,6 +211,14 @@ const Content: FC<{
                   },
                 ]}
               />
+            }
+            layoutChildren={
+              deck.slug === "special" && (
+                <ShadertoyReact
+                  fs={frag}
+                  style={{ position: "absolute", top: 0, left: 0 }}
+                />
+              )
             }
           >
             {width < breakpoints.sm && deck && deck.product && (
@@ -384,7 +394,7 @@ const Content: FC<{
                     background:
                       status === "connected" && deck.openseaCollection
                         ? theme.colors.page_bg_dark
-                        : theme.colors.page_bg_light,
+                        : theme.colors.page_bg_light_gray,
                     paddingTop: theme.spacing(15),
                     paddingBottom: theme.spacing(15),
                   },

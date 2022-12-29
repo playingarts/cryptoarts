@@ -17,6 +17,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   sorted?: boolean;
   filter?: boolean;
   customSize?: boolean;
+  // noShadowOnHover?:boolean;
 }
 
 const Card: FC<Props> = ({
@@ -30,6 +31,7 @@ const Card: FC<Props> = ({
   sorted,
   filter,
   customSize,
+  // noShadowOnHover,
   ...props
 }) => {
   const [hovered, setHover] = useState(false);
@@ -135,11 +137,25 @@ const Card: FC<Props> = ({
           {
             [theme.mq.sm]: [
               hovered &&
-                !interactive &&
-                !isStatic && {
-                  transform: `translate(0, -${theme.spacing(2)}px)`,
-                  boxShadow: "0px 10px 20px 4px rgba(0, 0, 0, 0.25)",
-                },
+                // !interactive &&
+                !isStatic &&
+                (filter
+                  ? {
+                      // transform: `translate(0, -${theme.spacing(2)}px)`,
+                      filter: "drop-shadow(0px 4px 100px rgba(0, 0, 0, 0.1))",
+                    }
+                  : {
+                      // transform: `translate(0, -${theme.spacing(2)}px)`,
+                      // top: -theme.spacing(5),
+                      boxShadow: "0px 10px 20px 4px rgba(0, 0, 0, 0.15)",
+                      // boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
+                    }),
+              // {
+              //   transform: `translate(0, -${theme.spacing(2)}px)`,
+              //   // boxShadow: "0px 10px 20px 4px rgba(0, 0, 0, 0.25)",
+              //   boxShadow: "0px 10px 20px 4px rgba(0, 0, 0, 0.15)",
+              //   // boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
+              // },
             ],
           },
         ]}

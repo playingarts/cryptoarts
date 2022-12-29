@@ -43,6 +43,7 @@ const CardList: FC<Props> = ({
       <Link key={card._id} href={card.href}>
         <Card
           sorted={sorted}
+          interactive={true}
           css={(theme) => ({
             color:
               status === "connected" && metamaskProps

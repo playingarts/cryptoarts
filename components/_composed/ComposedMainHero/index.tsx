@@ -1,5 +1,5 @@
 import { CSSObject } from "@emotion/serialize";
-import { FC, Fragment, HTMLAttributes } from "react";
+import { FC, Fragment, HTMLAttributes, useEffect, useState } from "react";
 import { theme } from "../../../pages/_app";
 import { breakpoints } from "../../../source/enums";
 import Card from "../../Card";
@@ -137,6 +137,18 @@ const cards = [
   },
 ];
 
+const emptyCard = {
+  _id: "",
+  video: "",
+  img: "",
+  value: "",
+  suit: "",
+  info: "",
+  deck: "",
+  artist: "",
+  opensea: "",
+};
+
 const commonCss: CSSObject = {
   display: "inline-block",
   position: "relative",
@@ -146,13 +158,18 @@ const commonCss: CSSObject = {
 
 const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const { width } = useSize();
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
   return (
     <SizeProvider>
       <div {...props}>
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[0] as unknown) as GQL.Card}
+          card={((loaded ? cards[0] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -165,7 +182,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[1] as unknown) as GQL.Card}
+          card={((loaded ? cards[1] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -177,7 +194,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[2] as unknown) as GQL.Card}
+          card={((loaded ? cards[2] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -191,7 +208,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[3] as unknown) as GQL.Card}
+          card={((loaded ? cards[3] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -204,7 +221,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[4] as unknown) as GQL.Card}
+          card={((loaded ? cards[4] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -216,7 +233,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[5] as unknown) as GQL.Card}
+          card={((loaded ? cards[5] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -229,7 +246,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[6] as unknown) as GQL.Card}
+          card={((loaded ? cards[6] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -242,7 +259,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[7] as unknown) as GQL.Card}
+          card={((loaded ? cards[7] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -261,7 +278,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[8] as unknown) as GQL.Card}
+          card={((loaded ? cards[8] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={(theme) => [
@@ -276,7 +293,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <Card
           interactive={true}
           noInfo={true}
-          card={(cards[9] as unknown) as GQL.Card}
+          card={((loaded ? cards[9] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
           css={[
@@ -292,7 +309,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
             <Card
               interactive={true}
               noInfo={true}
-              card={(cards[10] as unknown) as GQL.Card}
+              card={((loaded ? cards[10] : emptyCard) as unknown) as GQL.Card}
               customSize={true}
               filter={true}
               css={(theme) => [
