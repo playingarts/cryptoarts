@@ -175,6 +175,12 @@ const Quote: FC<Props> = ({
                             alignSelf: "center",
                             opacity: 0.2,
                             color: theme.colors.white,
+                            [theme.mq.sm]: {
+                              transition: theme.transitions.slow("opacity"),
+                              "&:hover": {
+                                opacity: 1,
+                              },
+                            },
                           },
                         ]}
                       >

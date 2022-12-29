@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLHRElement> {
   size?: number;
@@ -7,14 +7,12 @@ interface Props extends HTMLAttributes<HTMLHRElement> {
   palette?: "dark" | "light";
 }
 
-const Line: FC<Props> = ({
-  palette = "light",
-  size = 1,
-  spacing = 1,
-  vertical,
-  ...props
-}) => (
+const Line: ForwardRefRenderFunction<HTMLHRElement, Props> = (
+  { palette = "light", size = 1, spacing = 1, vertical, ...props },
+  ref
+) => (
   <hr
+    ref={ref}
     {...props}
     css={(theme) => ({
       color: palette === "dark" ? theme.colors.white : theme.colors.black,
@@ -38,4 +36,4 @@ const Line: FC<Props> = ({
   />
 );
 
-export default Line;
+export default forwardRef(Line);

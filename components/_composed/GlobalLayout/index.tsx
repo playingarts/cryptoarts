@@ -66,6 +66,7 @@ const ComposedGlobalLayout: FC<
             background: theme.colors.white,
             paddingTop: theme.spacing(12),
             paddingBottom: theme.spacing(12),
+            borderRadius: "0px 0px 50px 50px",
           })}
         >
           <Grid
@@ -105,29 +106,9 @@ const ComposedGlobalLayout: FC<
           </Grid>
         </Layout>
       )}
-      <div
-        css={(theme) => [
-          {
-            background: theme.colors.white,
-            padding: theme.spacing(1),
-          },
-        ]}
-      >
-        <Layout
-          css={(theme) => ({
-            paddingTop: theme.spacing(6),
-            paddingBottom: theme.spacing(6),
-            [theme.maxMQ.sm]: {
-              paddingTop: theme.spacing(4),
-              paddingBottom: theme.spacing(4),
-            },
-            background: theme.colors.page_bg_light_gray,
-            borderRadius: theme.spacing(1),
-          })}
-        >
-          <Footer copyrightLast={width < breakpoints.sm} reverseMobile={true} />
-        </Layout>
-      </div>
+
+      <Footer />
+
       <PrivacyNotice />
       {scrollArrow && width >= breakpoints.sm && (
         <ScrollArrow scrollTo={scrollArrow} />

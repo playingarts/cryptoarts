@@ -40,7 +40,13 @@ const StoreButtons: FC<Props> = ({ palette, ButtonProps, ...props }) => (
             borderRadius: theme.spacing(0.8),
             paddingLeft: theme.spacing(1.5),
             paddingRight: theme.spacing(1.5),
-            [theme.mq.sm]: { width: "auto" },
+            [theme.mq.sm]: {
+              width: "auto",
+              transition: theme.transitions.slow("all"),
+              "&:hover": {
+                color: theme.colors.white,
+              },
+            },
             [theme.maxMQ.sm]: {
               height: theme.spacing(4.5),
               width: theme.spacing(14.1),
@@ -66,7 +72,15 @@ const StoreButtons: FC<Props> = ({ palette, ButtonProps, ...props }) => (
             width: "auto",
             paddingLeft: theme.spacing(1.5),
             paddingRight: theme.spacing(1.5),
-            [theme.mq.sm]: [{ width: "auto" }],
+            [theme.mq.sm]: [
+              {
+                width: "auto",
+                transition: theme.transitions.slow("all"),
+                "&:hover": {
+                  color: theme.colors.white,
+                },
+              },
+            ],
             [theme.maxMQ.sm]: [
               {
                 height: theme.spacing(4.5),

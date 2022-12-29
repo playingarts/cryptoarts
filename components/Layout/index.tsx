@@ -54,6 +54,7 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
       ref={ref}
       css={(theme) => [
         {
+          zIndex: 1,
           paddingLeft: theme.spacing(2.5),
           paddingRight: theme.spacing(2.5),
           position: "relative",

@@ -1,8 +1,7 @@
 import { colord } from "colord";
-import { useMetaMask } from "metamask-react";
-import { FC, Fragment, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useRef } from "react";
+import { theme } from "../../pages/_app";
 import { socialLinks } from "../../source/consts";
-import { breakpoints } from "../../source/enums";
 import Button from "../Button";
 import Grid from "../Grid";
 import Behance from "../Icons/Behance";
@@ -12,152 +11,133 @@ import Instagram from "../Icons/Instagram";
 import Pinterest from "../Icons/Pinterest";
 import Twitter from "../Icons/Twitter";
 import Youtube from "../Icons/Youtube";
+import Layout from "../Layout";
 import Line from "../Line";
 import Link from "../Link";
-import MetamaskButton from "../MetamaskButton";
 import { useSize } from "../SizeProvider";
 import StoreButtons from "../StoreButtons";
 import Text from "../Text";
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-  copyrightLast?: boolean;
-  palette?: "dark";
-  reverseMobile?: boolean;
-  noCopyright?: boolean;
-  showNav?: boolean;
-}
+const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
+  const lineRef = useRef<HTMLHRElement>(null);
 
-const Footer: FC<Props> = ({
-  copyrightLast,
-  showNav,
-  reverseMobile,
-  palette,
-  noCopyright,
-  children,
-  ...props
-}) => {
-  const { status } = useMetaMask();
+  const ref = useRef<HTMLElement>(null);
+  //todo rethink sticky logic
 
-  const { width } = useSize();
+  const { width: _ } = useSize();
 
   return (
-    <Grid
-      {...props}
-      css={(theme) => [
-        {
-          color:
-            palette === "dark"
-              ? colord(theme.colors.text_subtitle_light)
-                  .alpha(0.25)
-                  .toRgbString()
-              : colord(theme.colors.text_subtitle_dark)
-                  .alpha(0.25)
-                  .toRgbString(),
+    <div
+      css={[
+        ref.current && {
+          height: ref.current.clientHeight,
+          position: "relative",
+          zIndex: 0,
         },
       ]}
+      {...props}
     >
-      {children}
-
-      {!noCopyright && (
-        <div
-          css={(theme) => [
-            {
-              gridColumn: "1 / -1",
-              [theme.mq.sm]: {
-                [theme.maxMQ.md]: {
-                  gridColumn: "span 4",
-                },
-              },
-              [theme.mq.md]: {
-                gridColumn: "span 7",
-              },
+      <div
+        css={[
+          ref.current &&
+            lineRef.current && {
+              top: -lineRef.current.offsetTop,
+              position: "absolute",
+              width: "100%",
+              background: theme.colors.page_bg_dark,
             },
-            copyrightLast && { order: 1 },
-          ]}
-        >
-          <Text
-            component="h6"
-            css={(theme) => ({
-              margin: 0,
-              fontSize: theme.spacing(2),
-              lineHeight: 1,
-              [theme.mq.sm]: {
-                fontSize: theme.spacing(2.3),
-              },
-            })}
-          >
-            playing arts project
-          </Text>
-          <Text variant="body0">
-            All rights reserved. Any artwork displayed on this website may not
-            be reproduced or used in any manner whatsoever without the express
-            written permission of Digital Abstracts or their respective owners.
-          </Text>
-          <Text
-            variant="body0"
-            css={{
-              marginBottom: 0,
-            }}
-          >
-            © 2012—2022 Digital Abstracts SL{" "}
-            <Link href="/privacy"> Privacy Statement</Link> Patent Pending
-          </Text>
-        </div>
-      )}
-      {width >= breakpoints.sm && (
-        <Line {...{ palette }} vertical={true} spacing={0} />
-      )}
-      <Grid
-        auto={true}
-        css={(theme) => [
-          {
-            gridColumn: "span 4",
-            [theme.maxMQ.sm]: {
-              gridColumn: "1/-1",
-            },
-          },
         ]}
       >
-        {(showNav || width < breakpoints.sm) && (
-          <Fragment>
-            <nav
-              css={(theme) => [
-                {
-                  gridColumn: "1/-1",
-                  height: "fit-content",
-                  [theme.mq.sm]: {
-                    gridColumn: "span 4",
-                  },
-                  marginBottom: theme.spacing(2.5),
+        <div
+          css={[
+            lineRef.current && {
+              height: lineRef.current.offsetTop,
+            },
+          ]}
+        />
+        <Layout
+          ref={ref}
+          css={(theme) => [
+            lineRef.current &&
+              ref.current && {
+                bottom: lineRef.current.offsetTop - ref.current.clientHeight,
+              },
+            {
+              zIndex: 1,
+              position: "sticky",
+              // position: "fixed",
+              // bottom: 0,
+              // left: 0,
+              width: "100%",
+
+              paddingTop: theme.spacing(6),
+              paddingBottom: theme.spacing(6),
+              [theme.maxMQ.sm]: {
+                paddingTop: theme.spacing(4),
+                paddingBottom: theme.spacing(4),
+              },
+              // borderRadius: theme.spacing(1),
+            },
+          ]}
+        >
+          <Grid>
+            <div
+              css={{
+                // justifyContent: "center",
+                display: "flex",
+                gap: theme.spacing(2),
+                [theme.mq.sm]: {
+                  alignItems: "center",
+                  gap: theme.spacing(4),
                 },
-              ]}
+                flexDirection: "column",
+                gridColumn: "1/-1",
+              }}
             >
-              <Grid
-                auto={true}
+              <div
                 css={(theme) => [
                   {
-                    rowGap: theme.spacing(1),
                     [theme.maxMQ.sm]: {
-                      maxWidth: theme.spacing(32),
-                      margin: "auto",
+                      flexDirection: "column",
+                    },
+                    [theme.mq.sm]: {
+                      display: "flex",
                     },
                   },
                 ]}
               >
                 {[
                   { href: "/", text: "Home" },
-                  { href: "/shop", text: "Store" },
+                  { href: "/", text: "Reviews" },
+                  { href: "/shop", text: "Shop" },
+                  { href: "/", text: "Team" },
+                  { href: "/", text: "Podcast" },
                   { href: "/contact", text: "Contact" },
+                  { href: "/", text: "Gallery" },
                 ].map(({ href, text }) => (
                   <Link
                     key={text}
                     href={href}
                     css={(theme) => [
-                      theme.typography.body,
+                      theme.typography.label,
                       {
-                        gridColumn: "span 3",
+                        padding: `${theme.spacing(1.4)}px ${theme.spacing(
+                          0
+                        )}px`,
+                        color: "rgba(255,255,255,0.7)",
+                        width: "50%",
+                        float: "left",
+                        fontWeight: 600,
+                        textTransform: "uppercase",
+
                         [theme.mq.sm]: {
-                          gridColumn: "span 2",
+                          padding: `${theme.spacing(1.4)}px ${theme.spacing(
+                            2
+                          )}px`,
+                          transition: theme.transitions.slow("color"),
+                          "&:hover": {
+                            color: theme.colors.white,
+                          },
                         },
                       },
                     ]}
@@ -165,164 +145,130 @@ const Footer: FC<Props> = ({
                     {text}
                   </Link>
                 ))}
-              </Grid>
-              {width >= breakpoints.sm && (
-                <Line
-                  {...{ palette }}
-                  spacing={4}
-                  css={[{ width: "100%", gridColumn: "1/-1" }]}
-                />
-              )}
-            </nav>
-          </Fragment>
-        )}
-
-        <nav
-          css={(theme) => ({
-            display: "flex",
-            flexWrap: "wrap",
-            gridColumn: "1 / -1",
-            [theme.maxMQ.sm]: [
-              !reverseMobile && {
-                order: -1,
-              },
-              {
-                justifyContent: "center",
-                // gap: theme.spacing(1.8),
-              },
-            ],
-            [theme.mq.sm]: {
-              // gap: theme.spacing(2),
-              gridColumn: "span 4",
-            },
-          })}
-        >
-          <div
-            css={(theme) => ({
-              display: "flex",
-              flexWrap: "wrap",
-              [theme.maxMQ.sm]: {
-                gap: theme.spacing(1.8),
-              },
-              [theme.mq.sm]: {
-                gap: theme.spacing(2),
-                gridColumn: "span 4",
-              },
-            })}
-          >
-            {[
-              {
-                Icon: Twitter,
-                href: socialLinks.twitter,
-              },
-              {
-                Icon: Instagram,
-                href: socialLinks.instagram,
-              },
-              {
-                Icon: Facebook,
-                href: socialLinks.facebook,
-              },
-              {
-                Icon: Behance,
-                href: socialLinks.behance,
-              },
-              {
-                Icon: Youtube,
-                href: socialLinks.youtube,
-              },
-              {
-                Icon: Pinterest,
-                href: socialLinks.pinterest,
-              },
-              {
-                Icon: Discord,
-                href: socialLinks.discord,
-              },
-            ].map(({ Icon, href }) => (
-              <Button
-                css={(theme) => ({
-                  width: theme.spacing(3) + "px !important",
-                  height: theme.spacing(3) + "px !important",
-                })}
-                key={href}
-                component={Link}
-                target="_blank"
-                href={href}
-                Icon={Icon}
-              />
-            ))}
-          </div>
-          {width < breakpoints.sm && (
-            <Fragment>
-              <Line
-                palette={palette}
-                css={[
+              </div>
+              <div
+                css={(theme) => [
                   {
-                    gridColumn: "1 / -1",
-
-                    width: "100%",
+                    flexWrap: "wrap",
+                    color: colord(theme.colors.white).alpha(0.2).toRgbString(),
+                    alignItems: "center",
+                    [theme.maxMQ.sm]: {
+                      gap: theme.spacing(8),
+                    },
+                    [theme.mq.sm]: {
+                      height: theme.spacing(6),
+                      display: "flex",
+                      gap: theme.spacing(1),
+                    },
                   },
                 ]}
-                spacing={3}
-              />
-
-              {status !== "connected" && (
-                <MetamaskButton
-                  noIcon={true}
-                  textColor={
-                    palette === "dark" ? "transparent" : "text_title_light"
-                  }
-                  backgroundColor={
-                    palette === "dark" ? "dark_gray" : "text_subtitle_dark"
-                  }
-                  css={(theme) => [
-                    {
-                      width: "100%",
-                      marginBottom: theme.spacing(2.5),
-                    },
-                    palette !== "dark" && {
-                      opacity: 0.5,
-                    },
-                  ]}
-                  centeredText={true}
-                >
-                  <span
+              >
+                {[
+                  {
+                    Icon: Twitter,
+                    href: socialLinks.twitter,
+                  },
+                  {
+                    Icon: Instagram,
+                    href: socialLinks.instagram,
+                  },
+                  {
+                    Icon: Facebook,
+                    href: socialLinks.facebook,
+                  },
+                  {
+                    Icon: Behance,
+                    href: socialLinks.behance,
+                  },
+                  {
+                    Icon: Youtube,
+                    href: socialLinks.youtube,
+                  },
+                  {
+                    Icon: Pinterest,
+                    href: socialLinks.pinterest,
+                  },
+                  {
+                    Icon: Discord,
+                    href: socialLinks.discord,
+                  },
+                ].map(({ Icon, href }) => (
+                  <Button
                     css={(theme) => [
-                      palette === "dark" && {
-                        color: "transparent",
-                        background: theme.colors.eth,
-                        backgroundClip: "text",
+                      {
+                        [theme.maxMQ.sm]: {
+                          marginRight: theme.spacing(2),
+                          marginBottom: theme.spacing(2),
+                        },
+                        [theme.mq.sm]: {
+                          transition: theme.transitions.slow("all"),
+                          "&:hover": {
+                            color: theme.colors.white,
+                          },
+                        },
                       },
                     ]}
-                  >
-                    Connect metamask
-                  </span>
-                </MetamaskButton>
-              )}
-            </Fragment>
-          )}
-          <StoreButtons
-            css={{
-              alignSelf: "flex-end",
-            }}
-            ButtonProps={{
-              variant: "bordered",
-            }}
-          />
-          {width < breakpoints.sm && (
-            <Line
-              {...{ palette }}
-              css={{
-                gridColumn: "1 / -1",
-                width: "100%",
-              }}
-              spacing={3}
-            />
-          )}
-        </nav>
-      </Grid>
-    </Grid>
+                    key={href}
+                    component={Link}
+                    target="_blank"
+                    href={href}
+                    Icon={Icon}
+                  />
+                ))}
+              </div>
+              <StoreButtons
+                css={{
+                  color: colord(theme.colors.white).alpha(0.2).toRgbString(),
+                }}
+                ButtonProps={{
+                  variant: "bordered",
+                }}
+              />
+              <Line
+                ref={lineRef}
+                spacing={1}
+                palette="dark"
+                css={{ width: "100%" }}
+              />
+              {/* <div
+          css={{
+            color: "rgba(255, 255, 255, 0.15)",
+            display: "flex",
+            flexDirection: "column",
+            gap: theme.spacing(1),
+            alignItems: "center",
+          }}
+        >
+          <Text variant="label" css={{ margin: 0 }}>
+            Funded with
+          </Text>
+          <KickstarterLogo />
+        </div> */}
+              <Text
+                variant="body0"
+                css={[
+                  {
+                    margin: 0,
+                    color: "rgba(255, 255, 255, 0.15)",
+                    // maxWidth: theme.spacing(81),
+                    textAlign: "center",
+                    fontSize: 14,
+                  },
+                ]}
+              >
+                Copyright © 2012—2023 Digital Abstracts SL. All rights reserved.
+                Any artwork displayed on this website may not be reproduced or
+                used in any manner whatsoever without the express written
+                permission of Digital Abstracts or their respective owners.
+                Patent Pending. We use cookies and similar technologies for
+                statistics and marketing purposes. Check out our{" "}
+                <Link href="/privacy">Privacy Statement</Link>
+              </Text>
+            </div>
+          </Grid>
+        </Layout>
+      </div>
+    </div>
   );
 };
 

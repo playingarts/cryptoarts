@@ -22,6 +22,7 @@ import Nav from "../../Nav";
 import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
 
+const newsletterLink = process.env.NEXT_PUBLIC_NEWSLETTER;
 const ModalMenu: FC<
   HTMLAttributes<HTMLElement> & {
     onItemClick?: () => void;
@@ -78,6 +79,9 @@ const ModalMenu: FC<
           overflowX: "hidden",
           paddingTop: theme.spacing(15.7),
           paddingBottom: theme.spacing(3),
+          [theme.mq.sm]: {
+            paddingBottom: theme.spacing(9.1),
+          },
         },
       ]}
     >
@@ -102,6 +106,7 @@ const ModalMenu: FC<
                   vertical={true}
                   setHover={setCurrentIndex}
                   setModal={onItemClick}
+                  // css={{ alignItems: "flex-start" }}
                 />
                 <div
                   css={(theme) => [
@@ -274,8 +279,22 @@ const ModalMenu: FC<
               windowWidth >= breakpoints.sm) && (
               <Line palette="dark" css={{ width: "100%" }} spacing={4} />
             )}
-            <Button color="black">Subscribe to project news</Button>
-            <Text variant="body0">
+            <Button
+              color="black"
+              component={Link}
+              href={newsletterLink}
+              target="_blank"
+            >
+              Subscribe to project news
+            </Button>
+            <Text
+              variant="body0"
+              css={[
+                {
+                  color: "rgba(255, 255, 255, 0.15)",
+                },
+              ]}
+            >
               We will never share your details with others. Unsubscribe at any
               time!
             </Text>
@@ -328,6 +347,12 @@ const ModalMenu: FC<
                   css={(theme) => ({
                     width: theme.spacing(3) + "px !important",
                     height: theme.spacing(3) + "px !important",
+                    [theme.mq.sm]: {
+                      transition: theme.transitions.slow("all"),
+                      "&:hover": {
+                        color: theme.colors.white,
+                      },
+                    },
                   })}
                   key={href}
                   component={Link}

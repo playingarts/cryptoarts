@@ -4,9 +4,9 @@ import { useDeck } from "../../hooks/deck";
 import { breakpoints } from "../../source/enums";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
-import Cross from "../Icons/Cross";
 import LogoIcon from "../Icons/Logo";
 import MenuIcon from "../Icons/Menu";
+import MenuCross from "../Icons/MenuCross";
 import Link from "../Link";
 import MetamaskButton from "../MetamaskButton";
 import Nav from "../Nav";
@@ -216,7 +216,7 @@ const Header: FC<Props> = ({
             onClick={() => setModalState(!modalState)}
           >
             {modalState ? (
-              <Cross
+              <MenuCross
                 css={(theme) => ({
                   [theme.mq.sm]: {
                     "&:hover": {
@@ -229,8 +229,6 @@ const Header: FC<Props> = ({
                     ]),
                   },
                 })}
-                width="21"
-                height="21"
               />
             ) : (
               <MenuIcon animateOnHover={true} />

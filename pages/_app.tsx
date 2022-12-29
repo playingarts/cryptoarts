@@ -445,7 +445,7 @@ export const theme: Theme = {
       lineHeight: 1.5,
       [mq.sm]: {
         fontSize: 14,
-        lineHeight: 18 / 14,
+        // lineHeight: 18 / 14,
       },
     },
     body: {

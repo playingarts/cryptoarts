@@ -138,17 +138,26 @@ const Content: FC<{
     return (
       <Fragment>
         {typeof artistId === "string" && (
-          <ComposedCardContent
-            css={(theme) => ({
-              color: theme.colors.text_subtitle_light,
-              background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
-            })}
-            ownedCards={ownedCards}
-            deck={deck}
-            contest={contest}
-            artistId={artistId}
-            ref={aboutRef}
-          />
+          <div
+            css={(theme) => [
+              {
+                background: theme.colors.page_bg_light_gray,
+              },
+            ]}
+          >
+            <ComposedCardContent
+              css={(theme) => ({
+                color: theme.colors.text_subtitle_light,
+                background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
+                borderRadius: "0px 0px 50px 50px",
+              })}
+              ownedCards={ownedCards}
+              deck={deck}
+              contest={contest}
+              artistId={artistId}
+              ref={aboutRef}
+            />
+          </div>
         )}
 
         {!artistId && (

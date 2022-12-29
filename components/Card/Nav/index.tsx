@@ -108,10 +108,11 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 maxWidth: theme.spacing(142),
                 margin: "0 auto",
                 top: theme.spacing(37.2),
-                padding: `0 ${theme.spacing(1.4)}px`,
+                padding: `0 ${theme.spacing(5)}px`,
                 boxSizing: "content-box",
                 position: "relative",
                 [theme.maxMQ.sm]: {
+                  padding: `0 ${theme.spacing(1)}px`,
                   top: theme.spacing(28),
                 },
               },
@@ -215,12 +216,6 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                       component={Link}
                       Icon={Cross}
                       href={closeLink}
-                      iconProps={{
-                        css: (theme) => ({
-                          width: theme.spacing(1.8),
-                          height: theme.spacing(1.8),
-                        }),
-                      }}
                       {...(closeLinkOptions && {
                         className: cx(
                           css(
@@ -243,6 +238,8 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                         //   5
                         // )}px, ${theme.spacing(14)}px)`,
                         borderRadius: "100%",
+                        width: theme.spacing(5),
+                        height: theme.spacing(5),
                         [theme.mq.sm]: {
                           transition: theme.transitions.fast("all"),
                           "&:hover": {

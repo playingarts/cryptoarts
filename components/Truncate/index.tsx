@@ -46,9 +46,22 @@ const Truncate: FC<Props> = ({ children, lines, onlyMore, ...props }) => {
         {children}
       </Text>
       {withTruncate && !(onlyMore && !truncated) && (
-        <Text component="button" variant="label" onClick={toggle}>
-          <Arrowed>{truncated ? "Read more" : "Read less"}</Arrowed>
-        </Text>
+        <span
+          css={(theme) => [
+            {
+              [theme.mq.sm]: {
+                transition: theme.transitions.slow("color"),
+                "&:hover": {
+                  color: theme.colors.white,
+                },
+              },
+            },
+          ]}
+        >
+          <Text component="button" variant="label" onClick={toggle}>
+            <Arrowed>{truncated ? "Read more" : "Read less"}</Arrowed>
+          </Text>
+        </span>
       )}
     </Fragment>
   );
