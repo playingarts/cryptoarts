@@ -1,28 +1,29 @@
 import { FC, HTMLAttributes } from "react";
-import { OwnedCard } from "../../../pages/[deckId]";
 import Card from "../../Card";
 import Link, { Props as LinkProps } from "../../Link";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
-  status?:
-    | "initializing"
-    | "unavailable"
-    | "notConnected"
-    | "connecting"
-    | "connected";
-  metamaskProps?: {
-    account: string | null;
-    ownedCards: OwnedCard[];
-  };
+  // status?:
+  //   | "initializing"
+  //   | "unavailable"
+  //   | "notConnected"
+  //   | "connecting"
+  //   | "connected";
+  // metamaskProps?: {
+  //   account: string | null;
+  //   ownedCards: OwnedCard[];
+  // };
   cards: (GQL.Card & Pick<LinkProps, "href"> & { owned?: boolean })[];
   sorted?: boolean;
+  // dark: boolean;
+  palette?: "light" | "dark";
 }
 
 const CardList: FC<Props> = ({
-  metamaskProps,
+  palette = "light",
   cards,
   sorted,
-  status,
+  // status,
   ...props
 }) => (
   <div
@@ -46,13 +47,15 @@ const CardList: FC<Props> = ({
           interactive={true}
           css={(theme) => ({
             color:
-              status === "connected" && metamaskProps
+              // status === "connected" && metamaskProps
+              palette === "dark"
                 ? theme.colors.text_subtitle_light
                 : theme.colors.text_subtitle_dark,
             [theme.mq.sm]: {
               ":hover": {
                 color:
-                  status === "connected" && metamaskProps
+                  // status === "connected" && metamaskProps
+                  palette === "dark"
                     ? theme.colors.text_title_light
                     : theme.colors.text_title_dark,
               },

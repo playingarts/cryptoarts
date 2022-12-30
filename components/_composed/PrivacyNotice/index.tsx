@@ -1,4 +1,5 @@
 import { colord } from "colord";
+import { useRouter } from "next/router";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import store from "store";
 import { breakpoints } from "../../../source/enums";
@@ -19,6 +20,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
 
   const { width } = useSize();
 
+  const {
+    query: { deckId },
+  } = useRouter();
+
   return privacyStatus === privacyDate ? null : (
     <div
       css={(theme) => [
@@ -33,11 +38,12 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
           display: "flex",
           justifyContent: "center",
           zIndex: 99999,
-        },
-        privacyStatus !== privacyDate && {
-          background: colord(theme.colors.page_bg_light_gray)
-            .alpha(0.9)
-            .toRgbString(),
+          background:
+            deckId === "crypto"
+              ? theme.colors.page_bg_dark
+              : colord(theme.colors.page_bg_light_gray)
+                  .alpha(0.9)
+                  .toRgbString(),
         },
       ]}
     >
@@ -68,7 +74,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
               display: "inline-block",
               lineHeight: `${theme.spacing(6)}px`,
               fontSize: 14,
-              color: theme.colors.text_subtitle_dark,
+              color:
+                deckId === "crypto"
+                  ? theme.colors.text_subtitle_light
+                  : theme.colors.text_subtitle_dark,
             },
           ]}
         >
@@ -79,7 +88,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             href="/privacy"
             css={(theme) => [
               {
-                color: theme.colors.text_title_dark,
+                color:
+                  deckId === "crypto"
+                    ? theme.colors.text_title_light
+                    : theme.colors.text_title_dark,
               },
             ]}
           >
@@ -113,7 +125,11 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
                 position: "relative",
                 top: "50%",
                 left: "50%",
-                color: theme.colors.text_subtitle_dark,
+
+                color:
+                  deckId === "crypto"
+                    ? theme.colors.text_subtitle_light
+                    : theme.colors.text_subtitle_dark,
               },
             ]}
           />

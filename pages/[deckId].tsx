@@ -140,12 +140,16 @@ const Content: FC<{
         {typeof artistId === "string" && (
           <div
             css={(theme) => [
-              {
-                background: theme.colors.white,
-                [theme.mq.sm]: {
-                  background: theme.colors.page_bg_light_gray,
-                },
-              },
+              deck.slug === "crypto"
+                ? {
+                    background: theme.colors.page_bg_dark,
+                  }
+                : {
+                    background: theme.colors.white,
+                    [theme.mq.sm]: {
+                      background: theme.colors.page_bg_light_gray,
+                    },
+                  },
             ]}
           >
             <ComposedCardContent
@@ -191,6 +195,7 @@ const Content: FC<{
             subtitle={deck.info}
             labels={deck.labels}
             ref={aboutRef}
+            slug={deck.slug}
             css={(theme) => [
               {
                 background:
@@ -404,11 +409,13 @@ const Content: FC<{
                   },
                   [theme.mq.sm]: {
                     color:
-                      status === "connected" && deck.openseaCollection
+                      // status === "connected" && deck.openseaCollection
+                      deck.slug === "crypto"
                         ? theme.colors.text_title_light
                         : theme.colors.text_title_dark,
                     background:
-                      status === "connected" && deck.openseaCollection
+                      // status === "connected" && deck.openseaCollection
+                      deck.slug === "crypto"
                         ? theme.colors.page_bg_dark
                         : theme.colors.page_bg_light_gray,
                     paddingTop: theme.spacing(15),

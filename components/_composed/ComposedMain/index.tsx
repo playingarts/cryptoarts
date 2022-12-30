@@ -15,6 +15,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   subtitle: string;
   outerChildren?: ReactNode;
   layoutChildren?: ReactNode;
+  slug?: string;
 }
 
 const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
@@ -25,6 +26,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     title,
     subtitle,
     labels,
+    slug,
     ...props
   },
   ref
@@ -32,12 +34,16 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   return (
     <div
       css={(theme) => [
-        {
-          background: theme.colors.white,
-          [theme.mq.sm]: {
-            background: theme.colors.page_bg_light_gray,
-          },
-        },
+        slug === "crypto"
+          ? {
+              background: theme.colors.page_bg_dark,
+            }
+          : {
+              background: theme.colors.white,
+              [theme.mq.sm]: {
+                background: theme.colors.page_bg_light_gray,
+              },
+            },
       ]}
     >
       <Layout

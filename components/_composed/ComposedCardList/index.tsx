@@ -41,7 +41,8 @@ const SortSelectButton: FC<
         ]}
         setter={setter}
         palette={
-          status === "connected" && deck.openseaCollection ? "dark" : "light"
+          // status === "connected" && deck.openseaCollection ? "dark" : "light"
+          deck.slug === "crypto" ? "dark" : "light"
         }
       />
     )) ||
@@ -240,7 +241,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           />
         )}
         <CardList
-          status={status}
+          // status={status}
           cards={
             currentSelected === "ascending"
               ? [
@@ -261,7 +262,8 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
               ownedCards: [...ownedCards],
             },
           })}
-          sorted={deck.openseaCollection && currentSelected !== "default"}
+          sorted={!!deck.openseaCollection}
+          palette={deck.slug === "crypto" ? "dark" : "light"}
           css={(theme) => [
             {
               [theme.maxMQ.sm]: [
