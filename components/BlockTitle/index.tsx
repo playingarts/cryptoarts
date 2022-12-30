@@ -113,12 +113,26 @@ const BlockTitle: FC<Props> = ({
             {width < breakpoints.sm && truncate !== undefined && (
               <Button
                 iconProps={{
-                  css: {
-                    transform: truncate ? "rotate(90deg)" : "rotate(-90deg)",
-                    color: truncate
-                      ? theme.colors.black
-                      : colord(theme.colors.black).alpha(0.25).toRgbString(),
-                  },
+                  css: [
+                    {
+                      transform: truncate ? "rotate(90deg)" : "rotate(-90deg)",
+                    },
+                    palette === "light"
+                      ? {
+                          color: truncate
+                            ? theme.colors.black
+                            : colord(theme.colors.black)
+                                .alpha(0.25)
+                                .toRgbString(),
+                        }
+                      : {
+                          color: truncate
+                            ? theme.colors.white
+                            : colord(theme.colors.white)
+                                .alpha(0.25)
+                                .toRgbString(),
+                        },
+                  ],
                 }}
                 css={(theme) => ({
                   height: theme.spacing(3),

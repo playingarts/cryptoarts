@@ -66,7 +66,7 @@ const Content: FC<{
       query: { artistId, deckId, section },
       pathname,
     } = useRouter();
-    const { account, status } = useMetaMask();
+    const { account } = useMetaMask();
     const { getSig } = useSignature();
     const { deck, loading } = useDeckWithProduct({
       variables: { slug: deckId },
@@ -357,7 +357,8 @@ const Content: FC<{
           css={(theme) => [
             {
               [theme.maxMQ.sm]: [
-                deck.openseaCollection && status === "connected"
+                // deck.openseaCollection && status === "connected"
+                deck.slug === "crypto"
                   ? {
                       background: theme.colors.page_bg_dark,
                     }
@@ -395,9 +396,8 @@ const Content: FC<{
               scrollIntoView={section === Sections.cards}
               ref={cardsRef}
               palette={
-                status === "connected" && deck.openseaCollection
-                  ? "dark"
-                  : "light"
+                // status === "connected" && deck.openseaCollection
+                deck.slug === "crypto" ? "dark" : "light"
               }
               data-id="block-cards"
               css={(theme) => [
@@ -454,16 +454,14 @@ const Content: FC<{
                   ref={nftRef}
                   scrollIntoView={section === Sections.nft}
                   palette={
-                    status === "connected" && deck.openseaCollection
-                      ? "dark"
-                      : "light"
+                    // status === "connected" && deck.openseaCollection
+                    deck.slug === "crypto" ? "dark" : "light"
                   }
                 >
                   <ComposedPace
                     palette={
-                      status === "connected" && deck.openseaCollection
-                        ? "dark"
-                        : "light"
+                      // status === "connected" && deck.openseaCollection
+                      deck.slug === "crypto" ? "dark" : "light"
                     }
                     deck={
                       deck as GQL.Deck & {
@@ -485,13 +483,13 @@ const Content: FC<{
                   ref={roadmapRef}
                   scrollIntoView={section === Sections.roadmap}
                   palette={
-                    status === "connected" && deck.openseaCollection
-                      ? "dark"
-                      : "light"
+                    // status === "connected" && deck.openseaCollection
+                    deck.slug === "crypto" ? "dark" : "light"
                   }
                 >
                   <ComposedRoadmap
-                    palette={status === "connected" ? "dark" : "light"}
+                    // palette={status === "connected" ? "dark" : "light"}
+                    palette={deck.slug === "crypto" ? "dark" : "light"}
                   />
                 </Layout>
               )}
@@ -508,16 +506,16 @@ const Content: FC<{
                 ref={deckRef}
                 scrollIntoView={section === Sections.deck}
                 palette={
-                  status === "connected" && deck.openseaCollection
-                    ? "dark"
-                    : "light"
+                  // status === "connected" && deck.openseaCollection
+                  deck.slug === "crypto" ? "dark" : "light"
                 }
               >
                 <DeckBlock
                   palette={
                     width < breakpoints.sm &&
-                    status === "connected" &&
-                    deck.openseaCollection
+                    // status === "connected" &&
+                    // deck.openseaCollection
+                    deck.slug === "crypto"
                       ? "dark"
                       : "light"
                   }
@@ -536,16 +534,14 @@ const Content: FC<{
                     },
                   ]}
                   palette={
-                    status === "connected" && deck.openseaCollection
-                      ? "dark"
-                      : "light"
+                    // status === "connected" && deck.openseaCollection
+                    deck.slug === "crypto" ? "dark" : "light"
                   }
                 >
                   <AugmentedReality
                     palette={
-                      status === "connected" && deck.openseaCollection
-                        ? "dark"
-                        : "light"
+                      // status === "connected" && deck.openseaCollection
+                      deck.slug === "crypto" ? "dark" : "light"
                     }
                   />
                 </Layout>

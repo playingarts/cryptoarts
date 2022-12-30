@@ -154,11 +154,8 @@ const NFTHolder: FC<Props> = ({
               css={(theme) => [
                 {
                   [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
-                  [theme.mq.sm]: [
-                    gradient && {
-                      background: theme.colors.page_bg_dark,
-                    },
-                  ],
+                  background: theme.colors.page_bg_dark,
+                  [theme.mq.sm]: [gradient && {}],
                 },
               ]}
             >

@@ -311,9 +311,10 @@ const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
 export const getAssets: typeof getAssetsRaw.get =
   process.env.NODE_ENV === "development"
     ? async (_address, contract) =>
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        require(`../../../mocks/${contract}.json`) as Asset[]
-        
+        process.env.LOCALLOADASSETS === "true"
+          ? // eslint-disable-next-line @typescript-eslint/no-var-requires
+            (require(`../../../mocks/${contract}.json`) as Asset[])
+          : []
     : (contract, name, hash) => getAssetsRaw.get(contract, name, hash);
 
 // export const getAssetsRaw = (
