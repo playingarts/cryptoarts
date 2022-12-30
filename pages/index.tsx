@@ -5,6 +5,7 @@ import Grid from "../components/Grid";
 import Discord from "../components/Icons/Discord";
 import Twitter from "../components/Icons/Twitter";
 import Layout from "../components/Layout";
+import Line from "../components/Line";
 import Link from "../components/Link";
 import { useSize } from "../components/SizeProvider";
 import StatBlock from "../components/StatBlock";
@@ -149,6 +150,65 @@ const Home: NextPage = () => {
               from all over the world express their vision of an ordinary
               playing card using personal styles, techniques and imagination.
             </Text>
+            <div
+              css={(theme) => [
+                {
+                  marginTop: theme.spacing(5),
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: theme.spacing(3),
+                  [theme.mq.sm]: {
+                    gap: theme.spacing(3),
+                  },
+                },
+              ]}
+            >
+              {[
+                { title: "10", subtitle: "years" },
+                { title: "08", subtitle: "editions" },
+                { title: "1109", subtitle: "artists" },
+              ].map(({ title, subtitle }) => (
+                <div
+                  key={title}
+                  css={(theme) => [
+                    {
+                      display: "flex",
+                      height: theme.spacing(5),
+                      [theme.mq.sm]: {
+                        width: theme.spacing(18),
+                        height: theme.spacing(7),
+                      },
+                    },
+                  ]}
+                >
+                  <Line
+                    vertical={true}
+                    spacing={0}
+                    css={(theme) => [
+                      { margin: 0, marginRight: theme.spacing(2) },
+                    ]}
+                  />
+                  <div>
+                    <Text
+                      component="h3"
+                      css={(theme) => [
+                        { margin: 0, color: theme.colors.text_title_dark },
+                      ]}
+                    >
+                      {title}
+                    </Text>
+                    <Text
+                      component="h6"
+                      css={(theme) => [
+                        { margin: 0, color: theme.colors.text_subtitle_dark },
+                      ]}
+                    >
+                      {subtitle}
+                    </Text>
+                  </div>
+                </div>
+              ))}
+            </div>
             {/* <Text
               component={Link}
               variant="label"
