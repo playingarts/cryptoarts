@@ -27,6 +27,11 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
             paddingBottom: theme.spacing(1.5),
             transition: theme.transitions.slow("color"),
 
+            [theme.maxMQ.sm]: {
+              paddingTop: theme.spacing(0),
+              paddingBottom: theme.spacing(0),
+            },
+
             "&:hover" :{
               color: theme.colors.text_title_dark,
             }

@@ -291,12 +291,12 @@ const ModalMenu: FC<
               variant="body0"
               css={[
                 {
-                  color: "rgba(255, 255, 255, 0.15)",
+                  color: "rgba(255, 255, 255, 0.25)",
+                  lineHeight: "25px",
                 },
               ]}
             >
-              We will never share your details with others. Unsubscribe at any
-              time!
+              We will never share your details with others. Unsubscribe at anytime!
             </Text>
             <Line palette="dark" css={{ width: "100%" }} spacing={4} />
             <div

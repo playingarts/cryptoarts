@@ -1,10 +1,14 @@
 import { FC, HTMLAttributes } from "react";
+import Line from "../../Line";
+import Link from "../../Link";
+import Button from "../../Button";
 import Text from "../../Text";
 
 interface Props
   extends Omit<HTMLAttributes<HTMLDivElement>, "title">,
     Pick<GQL.Product, "title"> {}
-
+    
+const newsletterLink = process.env.NEXT_PUBLIC_NEWSLETTER;
 const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
   return (
     <div {...props}>
@@ -22,6 +26,34 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
         ]}
       >
         Sold out
+      </Text>
+      <Line
+        spacing={2.5}
+        css={[
+          {
+            width: "100%",
+            gridColumn: "1/-1",
+          },
+        ]}
+      />
+      <Button
+        color="black"
+        component={Link}
+        href={newsletterLink}
+        target="_blank"
+      >
+        Subscribe to project news
+      </Button>
+      <Text
+        variant="body0"
+        css={[
+          {
+            color: "rgba(0, 0, 0, 0.5)",
+            lineHeight: "25px",
+          },
+        ]}
+      >
+        We will let you know when this deck is back in stock. Unsubscribe at anytime!
       </Text>
       {/* <Line
         spacing={width < breakpoints.sm ? 1 : 3}

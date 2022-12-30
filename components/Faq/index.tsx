@@ -50,6 +50,8 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
                 borderBottom: "1px solid #E6E6E6",
                 [theme.maxMQ.sm]: {
                   marginTop: theme.spacing(0),
+                  marginBottom: theme.spacing(0),
+                  border: "0",
                 },
               })}
             >

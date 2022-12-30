@@ -1,6 +1,5 @@
 import { NextPage } from "next";
 import { FC, Fragment, useEffect, useState } from "react";
-import Arrowed from "../components/Arrowed";
 import Button, { Props as ButtonProps } from "../components/Button";
 import EurToUsd from "../components/EurToUsd";
 import Grid from "../components/Grid";
@@ -355,21 +354,13 @@ const Content: FC<{
                           centeredText={true}
                           noIcon={true}
                         />
-                        <Text
+                        <Button
+                          css={{ margin: "25px auto 0", opacity: 0.5 }}
                           component={Link}
                           href="/shop"
-                          variant="label"
-                          css={(theme) => ({
-                            display: "inline-block",
-                            textAlign: "center",
-                            marginTop: theme.spacing(3),
-                            opacity: 0.5,
-                          })}
                         >
-                          <Arrowed position="prepend">
-                            Continue shopping
-                          </Arrowed>
-                        </Text>
+                        Continue shopping
+                        </Button>
                       </Fragment>
                     )}
                   </Fragment>
@@ -384,7 +375,7 @@ const Content: FC<{
                       gridColumn: "span 3",
                     },
                     height: "fit-content",
-                    top: theme.spacing(15),
+                    top: theme.spacing(13),
                     textAlign: "center",
                   })}
                 >
@@ -435,7 +426,7 @@ const Content: FC<{
                     ) : (
                       <div>
                         <Text component="h6" css={{ opacity: 0.5, margin: 0 }}>
-                          BAG SUBTOTAL
+                          SUBTOTAL
                         </Text>
                         <Text
                           variant="h4"
@@ -456,24 +447,19 @@ const Content: FC<{
                       css={{ width: "100%" }}
                       centeredText={true}
                     />
-                    <Line spacing={3} />
+                    <Line spacing={2} />
                     <Text css={{ margin: 0, opacity: 0.5 }}>
                       <Lock css={{ verticalAlign: "baseline" }} /> Secure
                       payment
                     </Text>
                   </StatBlock>
-                  <Text
+                  <Button
+                    css={{ marginTop: "25px", opacity: 0.5 }}
                     component={Link}
                     href="/shop"
-                    variant="label"
-                    css={(theme) => ({
-                      display: "inline-block",
-                      marginTop: theme.spacing(3),
-                      opacity: 0.5,
-                    })}
                   >
-                    <Arrowed position="prepend">Continue shopping</Arrowed>
-                  </Text>
+                  go shopping
+                  </Button>
                 </div>
               )}
             </Grid>

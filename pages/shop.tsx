@@ -2,7 +2,6 @@ import { NextPage } from "next";
 import { FC, Fragment } from "react";
 import AddToBagButton from "../components/AddToBagButton";
 import BagButton from "../components/BagButton";
-import BlockTitle from "../components/BlockTitle";
 import CardFan from "../components/Card/Fan";
 import Grid from "../components/Grid";
 import Bag from "../components/Icons/Bag";
@@ -356,7 +355,7 @@ const Content: FC = () => {
             marginTop: theme.spacing(9),
           })}
         >
-          <BlockTitle
+          {/* <BlockTitle
             alwaysSubtitle={true}
             title="Bundles"
             subTitleText={
@@ -377,7 +376,7 @@ const Content: FC = () => {
             css={(theme) => ({
               marginBottom: theme.spacing(3),
             })}
-          />
+          /> */}
           <Grid>
             <Grid short={true} shop={true} css={{ gridColumn: "1/-1" }}>
               {bundles.map((product) => (
@@ -385,7 +384,7 @@ const Content: FC = () => {
                   <ShopBundle
                     css={(theme) => ({
                       gridColumn: "span 4",
-                      height: theme.spacing(60.3),
+                      height: theme.spacing(55),
                       [theme.maxMQ.sm]: {
                         gridColumn: "1 / -1",
                         height: theme.spacing(37.8),
