@@ -62,6 +62,7 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
           href={{
             query: {
               ...query,
+              deckId,
               scrollIntoView: `[data-id='${scrollTo}']`,
               scrollIntoViewBehavior: "smooth",
               scrollIntoViewPosition: "start",
