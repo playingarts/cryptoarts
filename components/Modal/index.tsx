@@ -10,7 +10,7 @@ import BlockTitle from "../BlockTitle";
 import Button from "../Button";
 import CardList from "../Card/List";
 import CardNav from "../Card/Nav";
-import Close from "../Icons/Close";
+import Cross from "../Icons/Cross";
 import Layout from "../Layout";
 import Link from "../Link";
 
@@ -122,7 +122,7 @@ const Modal: FC = () => {
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 20,
+        zIndex: 999999,
       })}
       ref={(ref) => ref && ref.focus()}
       onClick={() =>
@@ -165,14 +165,15 @@ const Modal: FC = () => {
           >
             <CardNav
               css={(theme) => ({
-                color: colord(theme.colors.text_subtitle_dark)
-                  .alpha(0.25)
+                color: colord(theme.colors.text_title_light)
+                  .alpha(1)
                   .toRgbString(),
               })}
               options={{
                 scroll: false,
               }}
               prevLinkOptions={{
+                
                 onClick: () =>
                   typeof prevValue === "string" &&
                   typeof prevSuit === "string" &&
@@ -220,7 +221,7 @@ const Modal: FC = () => {
               <div
                 css={(theme) => ({
                   position: "sticky",
-                  top: 0,
+                  top: 25,
                   zIndex: 1,
                   [theme.mq.sm]: {
                     paddingBottom: theme.spacing(6),
@@ -234,7 +235,7 @@ const Modal: FC = () => {
                   scroll={false}
                   shallow={true}
                   component={Link}
-                  Icon={Close}
+                  Icon={Cross}
                   href={{
                     pathname,
                     query: {
@@ -246,8 +247,10 @@ const Modal: FC = () => {
                   }}
                   css={(theme) => ({
                     position: "absolute",
+                    backgroundColor: "#ddd",
+                    borderRadius: "50px",
                     color: colord(theme.colors.text_subtitle_dark)
-                      .alpha(0.25)
+                      .alpha(0.5)
                       .toRgbString(),
                     right: theme.spacing(0),
                     top: theme.spacing(1),

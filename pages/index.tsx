@@ -248,7 +248,7 @@ const Home: NextPage = () => {
           <BlockTitle variant="h3" title="Browse Collection" />
           <BrowseCollection
             css={(theme) => ({
-              marginTop: theme.spacing(4),
+              marginTop: theme.spacing(2),
             })}
           />
         </div>
@@ -331,7 +331,7 @@ const Home: NextPage = () => {
               {width >= breakpoints.sm && (
                 <Text
                   css={{
-                    marginTop: 0,
+                    marginTop: 10,
                   }}
                 >
                   Join the conversation
@@ -400,7 +400,7 @@ const Home: NextPage = () => {
               {width >= breakpoints.sm && (
                 <Text
                   css={{
-                    marginTop: 0,
+                    marginTop: 10,
                   }}
                 >
                   Follow our latest news

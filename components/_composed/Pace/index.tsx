@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { FC } from "react";
 import { breakpoints } from "../../../source/enums";
 import Arrowed from "../../Arrowed";
@@ -28,9 +27,6 @@ interface Props extends LayoutProps {
 }
 
 const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
-  const {
-    query: { artistId },
-  } = useRouter();
 
   const { width } = useSize();
 
@@ -38,28 +34,28 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
     <div {...props}>
       <BlockTitle
         palette={width >= breakpoints.sm ? "dark" : palette}
-        variant={width >= breakpoints.sm ? "h2" : "h3"}
+        variant={width >= breakpoints.sm ? "h3" : "h3"}
         title={
           <span
             css={(theme) => [
               {
                 [theme.mq.sm]: {
-                  background: theme.colors.eth,
-                  backgroundSize: "400% 100%",
-                  animation: "gradient 5s ease infinite",
-                  color: "transparent",
-                  backgroundClip: "text",
+                  // background: theme.colors.eth,
+                  // backgroundSize: "400% 100%",
+                  // animation: "gradient 5s ease infinite",
+                  color: "#fff",
+                  // backgroundClip: "text",
                 },
               },
             ]}
           >
-            (PACE) NFT
+            NFT Collection
           </span>
         }
-        {...(artistId && {
-          subTitleText:
-            "This card is a part of Crypto Edition NFT drop. Are you a holder? Connect your metamask to see what you are eligible for.",
-        })}
+        // {...(artistId && {
+        //   subTitleText:
+        //     "This card is a part of Crypto Edition NFT drop. Are you a holder? Connect your metamask to see what you are eligible for.",
+        // })}
         buttonProps={
           width >= breakpoints.sm
             ? {
@@ -70,7 +66,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
                 }`,
                 component: Link,
                 Icon: Opensea,
-                children: "Buy nft",
+                children: "Opensea",
                 css: (theme) => ({
                   background: theme.colors.eth,
                   backgroundSize: "400% 100%",
@@ -90,7 +86,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
         <Grid
           css={(theme) => [
             {
-              paddingTop: theme.spacing(4),
+              paddingTop: theme.spacing(3),
               gap: theme.spacing(3),
               [theme.mq.sm]: {
                 gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px) `,
@@ -165,7 +161,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
             </Text>
             <Line
               palette={width < breakpoints.sm ? palette : "dark"}
-              spacing={1}
+              spacing={1.5}
               css={{ gridColumn: "1/-1", width: "100%" }}
             />
 
@@ -240,8 +236,59 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
               </Text>
             </Link>
             <Line
+                palette={width < breakpoints.sm ? palette : "dark"}
+                spacing={1.5}
+                css={{ gridColumn: "1/-1", width: "100%" }}
+              />
+              <Text
+              variant="h7"
+              css={(theme) => [
+                palette !== undefined && {
+                  color:
+                    palette === "dark"
+                      ? theme.colors.text_subtitle_light
+                      : theme.colors.text_subtitle_dark,
+                },
+                {
+                  gridColumn: "1 / 3",
+                  [theme.mq.sm]: {
+                    color: theme.colors.text_subtitle_light,
+                  },
+                  margin: 0,
+                },
+              ]}
+            >
+              TOKEN STANDART
+            </Text>
+            <Text
+              variant="body"
+              css={(theme) => [
+                palette !== undefined && {
+                  color:
+                    palette === "dark"
+                      ? theme.colors.page_bg_light
+                      : theme.colors.text_title_dark,
+                },
+                {
+                  width: "100%",
+                  margin: 0,
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                  gridColumn: "3 / -1",
+                  [theme.maxMQ.sm]: {
+                    fontSize: 16,
+                  },
+                  [theme.mq.sm]: {
+                    color: theme.colors.page_bg_light,
+                  },
+                },
+              ]}
+            >
+              ERC-721
+            </Text>
+            <Line
               palette={width < breakpoints.sm ? palette : "dark"}
-              spacing={1}
+              spacing={1.5}
               css={{ gridColumn: "1/-1", width: "100%" }}
             />
           </Grid>
@@ -263,7 +310,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
               })}
               href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
             >
-              buy nft
+              Opensea
             </Button>
           )}
 

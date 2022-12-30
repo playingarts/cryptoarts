@@ -16,7 +16,7 @@ export interface Props extends Omit<GridProps, "title"> {
   buttonProps?: ButtonProps & { css?: Interpolation<Theme> };
   title: string | JSX.Element;
   subTitleText?: string | JSX.Element;
-  variant?: "h2" | "h3";
+  variant?: "h2" | "h3" | "h4";
   action?: JSX.Element;
   alwaysSubtitle?: boolean;
   noLine?: boolean;
@@ -150,7 +150,7 @@ const BlockTitle: FC<Props> = ({
                 ? {
                     alignSelf: "flex-end",
                   }
-                : { marginTop: theme.spacing(2) },
+                : { marginTop: theme.spacing(0) },
               {
                 gridColumn: "span 3 / -1",
                 zIndex: 1,

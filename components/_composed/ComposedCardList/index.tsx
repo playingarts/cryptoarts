@@ -176,18 +176,18 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
               css={(theme) => ({
                 margin: "0 auto",
                 width: "fit-content",
-                borderRadius: theme.spacing(5),
+                borderRadius: theme.spacing(1.5),
                 backgroundColor: "black",
                 position: "relative",
-                border: "2px solid black",
+                border: "5px solid black",
               })}
             >
               <Button
                 color="black"
                 onClick={() => setEdition(0)}
-                css={(theme) => [
+                css={[
                   edition === 0 && {
-                    background: theme.colors.gradient,
+                    background: "#A6D4B7",
                     color: "black",
                   },
                 ]}
@@ -197,9 +197,9 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
               <Button
                 color="black"
                 onClick={() => setEdition(1)}
-                css={(theme) => [
+                css={[
                   edition === 1 && {
-                    background: theme.colors.gradient,
+                    background: "#A6D4B7",
                     color: "black",
                   },
                   {

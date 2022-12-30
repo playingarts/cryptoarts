@@ -107,7 +107,9 @@ const AllEntriesCard: FC<Props> = ({
             left: "50%",
             transform: "translateX(-50%)",
             whiteSpace: "nowrap",
-            [theme.mq.sm]: [
+            [theme.mq.sm]: [{
+              fontSize: theme.spacing(1.5),
+            },
               hovered && {
                 marginTop: theme.spacing(0.3),
                 opacity: 0.5,

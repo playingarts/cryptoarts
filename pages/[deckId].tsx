@@ -478,6 +478,7 @@ const Content: FC<{
                       background: theme.colors.page_bg_dark,
                       color: theme.colors.text_title_light,
                       paddingBottom: theme.spacing(15),
+                      borderRadius: "0 0 50px 50px",
                     },
                   })}
                   ref={roadmapRef}
