@@ -8,7 +8,9 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
   scrollTo,
 }) => {
   const [visible, setVisible] = useState(true);
-  const { query } = useRouter();
+  const {
+    query: { deckId, ...query },
+  } = useRouter();
 
   //todo: arrow disappear/appear
   useEffect(() => {
@@ -88,7 +90,10 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
                 position: "relative",
                 top: "50%",
                 left: "50%",
-                color: theme.colors.text_subtitle_dark,
+                color:
+                  deckId === "crypto"
+                    ? theme.colors.text_subtitle_light
+                    : theme.colors.text_subtitle_dark,
               },
             ]}
           />
