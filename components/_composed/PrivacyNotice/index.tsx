@@ -81,9 +81,6 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             },
           ]}
         >
-          {width >= breakpoints.sm &&
-            "We use cookies and similar technologies for statistics and marketing purposes. "}
-          Check out our{" "}
           <Link
             href="/privacy"
             css={(theme) => [
@@ -95,8 +92,11 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
               },
             ]}
           >
-            Privacy Statement
-          </Link>
+          We use cookies 
+          </Link>{" "}
+          and similar technologies
+          {width >= breakpoints.sm &&
+            " for statistics and marketing purposes."}
         </span>
         <div
           onClick={() => setPrivacyStatus(privacyDate)}
