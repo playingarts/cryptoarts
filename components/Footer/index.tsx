@@ -123,7 +123,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                 {[
                   { href: "/", text: "Home" },
                   { href: "/shop", text: "Shop" }, 
-                  { href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth", text: "Shipping" },
+                  { href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start", text: "Shipping" },
                   { href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L", target: "_blank", text: "Podcast" },
                   { href: "/", text: "Gallery" },
                   { href: "/contact", text: "Contact" },
