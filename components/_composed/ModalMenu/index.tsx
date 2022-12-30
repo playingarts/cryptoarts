@@ -242,16 +242,17 @@ const ModalMenu: FC<
           >
             {[
               { href: "/", text: "Home" },
-              { href: "/", text: "Reviews" },
               { href: "/shop", text: "Shop" },
-              { href: "/", text: "Team" },
-              { href: "/", text: "Podcast" },
-              { href: "/contact", text: "Contact" },
+              { href: "/shop", text: "Shipping" },
+              { href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L", target: "_blank", text: "Podcast" },
               { href: "/", text: "Gallery" },
-            ].map(({ href, text }) => (
+              { href: "/contact", text: "Contact" },
+              
+            ].map(({ href, text, target }) => (
               <Link
                 key={text}
                 href={href}
+                {...target&&{target}}
                 css={(theme) => [
                   {
                     gridColumn: "span 3",

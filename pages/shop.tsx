@@ -425,7 +425,7 @@ const Content: FC = () => {
         <ShopSheets products={sheets} />
       </Layout>
       <Layout
-        data-id="block-faq"
+        data-id="faq" 
         css={(theme) => ({
           background: theme.colors.white,
           paddingTop: theme.spacing(10),
