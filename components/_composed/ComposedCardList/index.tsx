@@ -126,7 +126,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         deck.slug === "crypto" ? "dark" : "light"
       }
       action={
-        width >= breakpoints.sm ? (
+        width >= breakpoints.sm && deck.openseaCollection ? (
           <SortSelectButton
             cards={cards}
             deck={deck}
