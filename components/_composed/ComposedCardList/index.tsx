@@ -138,16 +138,16 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         artistId
           ? deck.title
           : ((deck.slug === "special" || deck.slug === "future") &&
-              "Winners") ||
+              "Cards") ||
             "Cards"
       }
-      subTitleText={
-        deck.slug === "crypto"
-          ? "Hover the card to see animation. Click to read the story behind the artwork."
-          : deck.slug === "future_i" || deck.slug === "future_ii"
-          ? "Click to read the story behind the artwork."
-          : undefined
-      }
+      // subTitleText={
+      //   deck.slug === "crypto"
+      //     ? "Hover the card to see animation. Click to read the story behind the artwork."
+      //     : deck.slug === "future_i" || deck.slug === "future_ii"
+      //     ? "Click to read the story behind the artwork."
+      //     : undefined
+      // }
       css={(theme) => [
         {
           marginRight: theme.spacing(2.5),
