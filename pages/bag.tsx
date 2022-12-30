@@ -80,40 +80,48 @@ const Content: FC<{
             {!products.length ? (
               <Fragment>
                 <Text component="h2" css={{ margin: 0 }}>
-                  Your Bag Is Empty
+                  Bag Is Empty
                 </Text>
-                <Text variant="body2">
-                  <Text
-                    component={Link}
-                    variant="label"
-                    href="/shop"
-                    css={{ opacity: 0.5 }}
-                  >
-                    <Arrowed>Go shopping</Arrowed>
-                  </Text>
-                </Text>
+                <Line
+                  spacing={2}
+                  css={(theme) => [
+                    {
+                      [theme.maxMQ.sm]: {
+                        marginBottom: theme.spacing(1.5),
+                        marginTop: theme.spacing(1.5),
+                      },
+                    },
+                  ]}
+                />
+                <Button
+                  component={Link}
+                  href="/shop"
+                  css={(theme) => ({
+                    background: theme.colors.text_title_dark,
+                    color: theme.colors.white,
+                    width: "fit-content",
+                    marginTop: theme.spacing(3),
+                    marginBottom: theme.spacing(10),
+                    [theme.mq.sm]: {
+                      transition: theme.transitions.fast("opacity"),
+                      "&:hover": {
+                        opacity: 0.8,
+                      },
+                    },
+                    [theme.maxMQ.sm]: {
+                      marginTop: theme.spacing(2.6),
+                    },
+                  })}
+                >
+                  Go shopping
+                </Button>
               </Fragment>
             ) : (
               <Fragment>
                 <Text component="h2" css={{ margin: 0 }}>
-                  Your Bag
+                  Bag
                 </Text>
-                {/* <Text
-                  variant="body2"
-                  css={(theme) => [
-                    {
-                      margin: 0,
-                      gridColumn: "1/-1",
-                      marginTop: theme.spacing(1),
-                      marginBottom: theme.spacing(1),
-                    },
-                  ]}
-                >
-                  Please note for the festive season, all online purchases made
-                  between 03/11/21 and 15/12/2021 can be returned up to
-                  31/01/22.
-                </Text> */}
-                <Line spacing={1} />
+                <Line spacing={2} />
               </Fragment>
             )}
           </div>
@@ -126,7 +134,7 @@ const Content: FC<{
             css={(theme) => ({
               background: theme.colors.page_bg_light,
               [theme.mq.sm]: {
-                paddingTop: theme.spacing(6),
+                paddingTop: theme.spacing(3),
               },
               [theme.maxMQ.sm]: {
                 paddingBottom: theme.spacing(5.5),
@@ -256,7 +264,7 @@ const Content: FC<{
                           freeShippingAt !== Infinity &&
                           ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
                       </Text>
-                      <Link
+                      {/* <Link
                         shallow={true}
                         href={{
                           query: {
@@ -272,7 +280,7 @@ const Content: FC<{
                         >
                           <Arrowed>Shipping FAQ</Arrowed>
                         </Text>
-                      </Link>
+                      </Link> */}
                     </Fragment>
                   }
                 />

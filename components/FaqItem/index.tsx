@@ -15,13 +15,21 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
     <div {...props}>
       <Text
         component="span"
-        variant="body2"
+        variant="body"
         onClick={toggle}
         css={(theme) => [
           {
             textAlign: "left",
             cursor: "pointer",
+            display: "block",
             color: theme.colors.text_subtitle_dark,
+            paddingTop: theme.spacing(1.5),
+            paddingBottom: theme.spacing(1.5),
+            transition: theme.transitions.slow("color"),
+
+            "&:hover" :{
+              color: theme.colors.text_title_dark,
+            }
           },
         ]}
         role="button"
@@ -30,10 +38,8 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
       </Text>
       {opened && (
         <Text
-          variant="label"
           css={(theme) => ({
-            margin: 0,
-            marginTop: theme.spacing(1.5),
+            marginBottom: theme.spacing(2),
             color: theme.colors.text_title_dark,
             [theme.maxMQ.sm]: {
               lineHeight: 27 / 18,

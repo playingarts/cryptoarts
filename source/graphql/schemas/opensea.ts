@@ -313,6 +313,7 @@ export const getAssets: typeof getAssetsRaw.get =
     ? async (_address, contract) =>
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         require(`../../../mocks/${contract}.json`) as Asset[]
+        
     : (contract, name, hash) => getAssetsRaw.get(contract, name, hash);
 
 // export const getAssetsRaw = (

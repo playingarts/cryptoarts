@@ -88,6 +88,17 @@ const Content: FC = () => {
           <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
             Shop
           </Text>
+          <Line
+                  spacing={0}
+                  css={({
+                    gridColumn: "1 / -1",
+                    // [theme.maxMQ.sm]: {
+                    //   marginTop: theme.spacing(2.5),
+                    //   marginBottom: theme.spacing(2.5),
+                    // },
+                    width: "100%",
+                  })}
+                />
           {/* <Text variant="body2" css={{ margin: 0, gridColumn: "1/-1" }}>
             The best way to buy the products you love.
           </Text> */}

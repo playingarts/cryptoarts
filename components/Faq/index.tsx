@@ -27,11 +27,11 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
 
   return (
     <Fragment>
-      <Text component="h5" css={{ margin: 0, opacity: 0.5 }}>
-        {title || "Shipping faq"}
+      <Text component="h4" css={{ margin: 0, opacity: 0.5 }}>
+        {title || "Shipping Info"}
       </Text>
       <Line
-        spacing={3}
+        spacing={2}
         css={(theme) => [
           {
             [theme.maxMQ.sm]: {
@@ -47,7 +47,7 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
             <FaqItem
               question={question}
               css={(theme) => ({
-                marginTop: theme.spacing(2),
+                borderBottom: "1px solid #E6E6E6",
                 [theme.maxMQ.sm]: {
                   marginTop: theme.spacing(0),
                 },
