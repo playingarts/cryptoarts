@@ -180,7 +180,7 @@ const ModalMenu: FC<
                             backgroundSize: "cover",
                             backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
-                            borderRadius: theme.spacing(2),
+                            borderRadius: theme.spacing(3),
                             flexGrow: 1,
                             flexShrink: 0,
                             display: "inline-block",

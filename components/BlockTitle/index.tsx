@@ -1,4 +1,5 @@
 import { Interpolation, Theme } from "@emotion/react";
+import { colord } from "colord";
 import { FC, Fragment } from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { theme } from "../../pages/_app";
@@ -113,9 +114,10 @@ const BlockTitle: FC<Props> = ({
               <Button
                 iconProps={{
                   css: {
-                    width: theme.spacing(0.8),
-                    height: theme.spacing(1.5),
                     transform: truncate ? "rotate(90deg)" : "rotate(-90deg)",
+                    color: truncate
+                      ? theme.colors.black
+                      : colord(theme.colors.black).alpha(0.25).toRgbString(),
                   },
                 }}
                 css={(theme) => ({

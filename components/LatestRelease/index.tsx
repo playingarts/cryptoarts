@@ -1,17 +1,22 @@
 import { useMetaMask } from "metamask-react";
 import { FC } from "react";
-import AddToBagButton from "../AddToBagButton";
-import Bag from "../Icons/Bag";
+import { breakpoints } from "../../source/enums";
 import Ether from "../Icons/Ether";
+import MetamaskButton from "../MetamaskButton";
+import { useSize } from "../SizeProvider";
 import StatBlock, { Props as StatBlockProps } from "../StatBlock";
 import Text from "../Text";
 
-interface Props extends Omit<StatBlockProps, "title" | "action"> {
-  productId: string;
-}
+// interface Props extends Omit<StatBlockProps, "title" | "action"> {
+//   productId: string;
+// }
 
-const LatestRelease: FC<Props> = ({ productId, ...props }) => {
+const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
+  ...props
+}) => {
   const { status } = useMetaMask();
+
+  const { width } = useSize();
 
   return (
     <StatBlock
@@ -33,15 +38,15 @@ const LatestRelease: FC<Props> = ({ productId, ...props }) => {
           paddingBottom: theme.spacing(27.7),
         },
       })}
-      {...(status === "connected" && {
-        action: (
-          <AddToBagButton
-            Icon={Bag}
-            productId={productId}
-            css={(theme) => [{ [theme.maxMQ.sm]: { display: "none" } }]}
-          />
-        ),
-      })}
+      // {...(status === "connected" && {
+      //   action: (
+      //     <AddToBagButton
+      //       Icon={Bag}
+      //       productId={productId}
+      //       css={(theme) => [{ [theme.maxMQ.sm]: { display: "none" } }]}
+      //     />
+      //   ),
+      // })}
       title="LATEST RELEASE"
     >
       <div
@@ -54,7 +59,11 @@ const LatestRelease: FC<Props> = ({ productId, ...props }) => {
           height: "100%",
         })}
       >
-        <div css={{ flexGrow: 1 }}>
+        <div
+          css={{
+            flexGrow: 1,
+          }}
+        >
           <Text
             component="h2"
             css={(theme) => [
@@ -68,33 +77,58 @@ const LatestRelease: FC<Props> = ({ productId, ...props }) => {
               },
             ]}
           >
-            Crypto Edition is here. Finally.
+            Crypto Edition
           </Text>
           <Text
             variant="body2"
             css={(theme) => ({
               opacity: 0.5,
               marginTop: theme.spacing(1),
-              marginBottom: theme.spacing(5.8),
-              [theme.maxMQ.sm]: {
-                display: "none",
+              [theme.mq.sm]: {
+                marginBottom: theme.spacing(15),
               },
+              // [theme.maxMQ.sm]: {
+              //   display: "none",
+              // },
             })}
           >
-            This deck is only available for Crypto Edition (PACE) NFT holders.
+            This deck is only available for Playing Arts Crypto Edition (PACE)
+            NFT holders.
           </Text>
+          {width >= breakpoints.sm && status !== "connected" && (
+            <MetamaskButton
+              textColor="white"
+              backgroundColor="orange"
+              notConnected="Connect"
+              unavailable="Install"
+              noIcon={width < breakpoints.sm}
+              css={(theme) => [
+                {
+                  background: theme.colors.eth,
+                  color: theme.colors.page_bg_dark,
+                  animation: "gradient 5s ease infinite",
+                  backgroundSize: "400% 100%",
+                },
+                {
+                  [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
+                },
+              ]}
+            >
+              <span>connect wallet</span>
+            </MetamaskButton>
+          )}
         </div>
-        <div
-          css={(theme) => [
-            {
-              gap: theme.spacing(2),
-              display: "flex",
-              alignItems: "center",
-              marginTop: theme.spacing(2),
-            },
-          ]}
-        >
-          {status === "connected" && (
+        {/* {status === "connected" && (
+          <div
+            css={(theme) => [
+              {
+                gap: theme.spacing(2),
+                display: "flex",
+                alignItems: "center",
+                marginTop: theme.spacing(2),
+              },
+            ]}
+          >
             <AddToBagButton
               Icon={Bag}
               productId={productId}
@@ -107,19 +141,8 @@ const LatestRelease: FC<Props> = ({ productId, ...props }) => {
             >
               Add
             </AddToBagButton>
-          )}
-          {/* <Text
-          variant="body4"
-          css={{
-            display: "inline",
-            width: "min-content",
-            opacity: 0.5,
-            margin: 0,
-          }}
-        >
-          €{price}
-        </Text> */}
-        </div>
+          </div>
+        )} */}
       </div>
 
       <Ether

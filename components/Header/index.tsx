@@ -108,6 +108,7 @@ const Header: FC<Props> = ({
         <div
           css={(theme) => [
             {
+              animation: "gradient 5s ease infinite",
               top: 0,
               left: 0,
               right: 0,
@@ -152,7 +153,7 @@ const Header: FC<Props> = ({
         </div>
       )}
 
-      <header {...props}>
+      <header {...props} css={{}}>
         <div
           onMouseLeave={mouseLeave}
           css={(theme) => [
@@ -428,18 +429,12 @@ const Header: FC<Props> = ({
                   }
                   css={(theme) => ({
                     transition: theme.transitions.fast("all"),
-                    [theme.maxMQ.sm]: {
-                      color:
-                        // palette === "light"
-                        !showAltNav
-                          ? theme.colors.page_bg_light
-                          : theme.colors.text_title_dark,
-                      background:
-                        // palette === "light"
-                        !showAltNav
-                          ? theme.colors.text_title_dark
-                          : theme.colors.page_bg_light,
-                    },
+                    [theme.maxMQ.sm]: [
+                      palette === "dark" && {
+                        color: theme.colors.text_title_dark,
+                        background: theme.colors.page_bg_light,
+                      },
+                    ],
                   })}
                 >
                   {width >= breakpoints.sm && "Shop"}

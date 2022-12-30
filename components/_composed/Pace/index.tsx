@@ -38,7 +38,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
     <div {...props}>
       <BlockTitle
         palette={width >= breakpoints.sm ? "dark" : palette}
-        variant="h2"
+        variant={width >= breakpoints.sm ? "h2" : "h3"}
         title={
           <span
             css={(theme) => [

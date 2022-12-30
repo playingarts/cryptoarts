@@ -47,7 +47,7 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
         <BlockTitle
           palette={width >= breakpoints.sm ? "light" : palette}
           title="Augmented Reality"
-          variant="h3"
+          variant={"h3"}
           css={(theme) => [
             {
               [theme.mq.sm]: {

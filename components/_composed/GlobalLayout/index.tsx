@@ -67,6 +67,7 @@ const ComposedGlobalLayout: FC<
             paddingTop: theme.spacing(12),
             paddingBottom: theme.spacing(12),
             borderRadius: "0px 0px 50px 50px",
+            zIndex: 1,
           })}
         >
           <Grid

@@ -10,7 +10,7 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   info:
     "537 artists from 67 countries participated in design contest, showing their vision of the custom playing cards. Each contestant was asked to create an artwork for one particular card in their distinct style.",
   image:
-    "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_special.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_special.png",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_special_bg.jpg",
   labels: ["contest"],

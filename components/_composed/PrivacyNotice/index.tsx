@@ -49,7 +49,11 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             paddingLeft: theme.spacing(1.5),
             paddingRight: theme.spacing(7.2),
             textTransform: "none",
-            // position: "relative",
+            position: "relative",
+            maxWidth: theme.spacing(123),
+            width: "100%",
+            textAlign: "center",
+
             // [theme.maxMQ.sm]: {
             //   borderRadius: theme.spacing(5),
             // },
@@ -110,8 +114,6 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
                 top: "50%",
                 left: "50%",
                 color: theme.colors.text_subtitle_dark,
-                width: theme.spacing(1.8),
-                height: theme.spacing(1.8),
               },
             ]}
           />

@@ -141,7 +141,10 @@ const Content: FC<{
           <div
             css={(theme) => [
               {
-                background: theme.colors.page_bg_light_gray,
+                background: theme.colors.white,
+                [theme.mq.sm]: {
+                  background: theme.colors.page_bg_light_gray,
+                },
               },
             ]}
           >
@@ -149,7 +152,10 @@ const Content: FC<{
               css={(theme) => ({
                 color: theme.colors.text_subtitle_light,
                 background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
-                borderRadius: "0px 0px 50px 50px",
+                borderRadius: "0px 0px 30px 30px",
+                [theme.mq.sm]: {
+                  borderRadius: "0px 0px 50px 50px",
+                },
               })}
               ownedCards={ownedCards}
               deck={deck}
@@ -214,7 +220,7 @@ const Content: FC<{
                     [theme.maxMQ.sm]: {
                       marginLeft: theme.spacing(-1),
                       position: "relative",
-                      marginTop: -theme.spacing(3.5),
+                      marginTop: -theme.spacing(4),
                       order: -1,
                     },
                   },
@@ -371,8 +377,6 @@ const Content: FC<{
                 noDesc={true}
                 css={(theme) => [
                   {
-                    marginTop: theme.spacing(2.5),
-                    marginBottom: theme.spacing(1.5),
                     [theme.maxMQ.sm]: {
                       gridColumn: "1 / -1",
                     },
@@ -395,6 +399,9 @@ const Content: FC<{
                 {
                   paddingRight: theme.spacing(0),
                   paddingLeft: theme.spacing(0),
+                  [theme.maxMQ.sm]: {
+                    marginTop: theme.spacing(2),
+                  },
                   [theme.mq.sm]: {
                     color:
                       status === "connected" && deck.openseaCollection

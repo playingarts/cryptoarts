@@ -11,7 +11,7 @@ export const deck: Omit<GQL.Deck, "_id"> = {
     "A deck of playing cards featuring works of 55 leading artists. Unique digital art collectibles living on the Ethereum blockchain.",
   cardBackground: "#181818",
   image:
-    "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_crypto.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_crypto.png",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_crypto_bg.jpg",
   openseaCollection: {

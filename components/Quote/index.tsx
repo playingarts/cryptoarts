@@ -154,6 +154,7 @@ const Quote: FC<Props> = ({
                 <div
                   css={(theme) => ({
                     display: "flex",
+                    flexWrap: "wrap",
                     gap: theme.spacing(2),
                     marginTop: theme.spacing(3),
                   })}

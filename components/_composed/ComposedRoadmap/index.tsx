@@ -18,6 +18,7 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
       css={{ gridColumn: "1/-1" }}
       title="Roadmap"
       palette={width >= breakpoints.sm ? "dark" : palette}
+      variant={width < breakpoints.sm ? "h3" : undefined}
     >
       <Grid short={true}>
         <Roadmap

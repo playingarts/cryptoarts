@@ -17,7 +17,8 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
       if (!element) {
         return;
       }
-      if (element.getBoundingClientRect().top < 300) {
+
+      if (element.getBoundingClientRect().top + 150 < window.innerHeight) {
         setVisible(false);
       } else {
         setVisible(true);
@@ -31,42 +32,69 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
   }, [scrollTo, query]);
 
   return visible ? (
-    <Link
-      href={{
-        query: {
-          ...query,
-          scrollIntoView: `[data-id='${scrollTo}']`,
-          scrollIntoViewBehavior: "smooth",
-          scrollIntoViewPosition: "start",
-        },
-      }}
+    <div
       css={(theme) => [
         {
-          "&:hover": {
-            cursor: "pointer",
-          },
           position: "fixed",
+          bottom: 0,
           left: 0,
-          bottom: "0",
-          // transform: "translateY(-50%) rotate(90deg)",
+          right: 0,
           height: theme.spacing(6),
-          aspectRatio: "1",
           zIndex: 99999,
+          pointerEvents: "none",
         },
       ]}
     >
-      <ThickChevron
+      <div
         css={(theme) => [
           {
-            transform: "translateY(-50%) translateX(-50%) rotate(90deg)",
+            height: "100%",
             position: "relative",
-            top: "50%",
-            left: "50%",
-            color: theme.colors.text_subtitle_dark,
+            maxWidth: theme.spacing(123),
+            width: "100%",
+            margin: "0 auto",
           },
         ]}
-      />
-    </Link>
+      >
+        <Link
+          href={{
+            query: {
+              ...query,
+              scrollIntoView: `[data-id='${scrollTo}']`,
+              scrollIntoViewBehavior: "smooth",
+              scrollIntoViewPosition: "start",
+            },
+          }}
+          css={[
+            {
+              "&:hover": {
+                cursor: "pointer",
+              },
+              position: "absolute",
+              left: 0,
+              bottom: "0",
+              // transform: "translateY(-50%) rotate(90deg)",
+              aspectRatio: "1",
+              zIndex: 99999,
+              height: "100%",
+            },
+          ]}
+        >
+          <ThickChevron
+            css={(theme) => [
+              {
+                pointerEvents: "initial",
+                transform: "translateY(-50%) translateX(-50%) rotate(90deg)",
+                position: "relative",
+                top: "50%",
+                left: "50%",
+                color: theme.colors.text_subtitle_dark,
+              },
+            ]}
+          />
+        </Link>
+      </div>
+    </div>
   ) : null;
 };
 

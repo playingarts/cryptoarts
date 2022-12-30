@@ -1,7 +1,8 @@
 import { colord } from "colord";
-import { FC, HTMLAttributes, useRef } from "react";
+import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
 import { theme } from "../../pages/_app";
 import { socialLinks } from "../../source/consts";
+import { breakpoints } from "../../source/enums";
 import Button from "../Button";
 import Grid from "../Grid";
 import Behance from "../Icons/Behance";
@@ -24,15 +25,23 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const ref = useRef<HTMLElement>(null);
   //todo rethink sticky logic
 
-  const { width: _ } = useSize();
+  const { width } = useSize();
+
+  const [_, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   return (
     <div
       css={[
         ref.current && {
-          height: ref.current.clientHeight,
           position: "relative",
-          zIndex: 0,
+          [theme.mq.sm]: {
+            zIndex: 0,
+            height: ref.current.clientHeight,
+          },
         },
       ]}
       {...props}
@@ -41,37 +50,43 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
         css={[
           ref.current &&
             lineRef.current && {
-              top: -lineRef.current.offsetTop,
-              position: "absolute",
               width: "100%",
-              background: theme.colors.page_bg_dark,
+              background: theme.colors.dark_gray,
+              [theme.mq.sm]: {
+                top: -lineRef.current.offsetTop,
+                position: "absolute",
+              },
             },
         ]}
       >
-        <div
-          css={[
-            lineRef.current && {
-              height: lineRef.current.offsetTop,
-            },
-          ]}
-        />
+        {width >= breakpoints.sm && (
+          <div
+            css={[
+              lineRef.current && {
+                height: lineRef.current.offsetTop,
+              },
+            ]}
+          />
+        )}
         <Layout
           ref={ref}
           css={(theme) => [
-            lineRef.current &&
-              ref.current && {
-                bottom: lineRef.current.offsetTop - ref.current.clientHeight,
-              },
             {
-              zIndex: 1,
-              position: "sticky",
-              // position: "fixed",
-              // bottom: 0,
-              // left: 0,
               width: "100%",
 
               paddingTop: theme.spacing(6),
               paddingBottom: theme.spacing(6),
+              [theme.mq.sm]: [
+                lineRef.current &&
+                  ref.current && {
+                    bottom:
+                      lineRef.current.offsetTop - ref.current.clientHeight,
+                  },
+
+                {
+                  position: "sticky",
+                },
+              ],
               [theme.maxMQ.sm]: {
                 paddingTop: theme.spacing(4),
                 paddingBottom: theme.spacing(4),
@@ -83,7 +98,6 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
           <Grid>
             <div
               css={{
-                // justifyContent: "center",
                 display: "flex",
                 gap: theme.spacing(2),
                 [theme.mq.sm]: {
@@ -246,13 +260,16 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
         </div> */}
               <Text
                 variant="body0"
-                css={[
+                css={(theme) => [
                   {
                     margin: 0,
                     color: "rgba(255, 255, 255, 0.15)",
                     // maxWidth: theme.spacing(81),
                     textAlign: "center",
                     fontSize: 14,
+                    [theme.maxMQ.sm]: {
+                      fontSize: 12,
+                    },
                   },
                 ]}
               >

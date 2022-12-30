@@ -119,6 +119,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
 
   return loading || !cards ? null : (
     <BlockTitle
+      variant={width < breakpoints.sm ? "h3" : undefined}
       palette={
         status === "connected" && deck.openseaCollection ? "dark" : "light"
       }

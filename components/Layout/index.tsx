@@ -54,7 +54,6 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
       ref={ref}
       css={(theme) => [
         {
-          zIndex: 1,
           paddingLeft: theme.spacing(2.5),
           paddingRight: theme.spacing(2.5),
           position: "relative",
@@ -63,7 +62,7 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
               paddingTop: theme.spacing(3),
             },
             truncate === false && {
-              borderRadius: theme.spacing(1.5),
+              borderRadius: theme.spacing(3),
               background: theme.colors.page_bg_light_gray,
             },
             palette !== undefined && {

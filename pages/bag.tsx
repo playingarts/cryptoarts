@@ -532,7 +532,15 @@ const Checkout: NextPage = () => {
   return (
     <ComposedGlobalLayout customShopButton={<CheckoutButton />} noNav={true}>
       <Content CheckoutButton={CheckoutButton} />
-      <Layout css={(theme) => ({ background: theme.colors.white })}>
+      <Layout
+        css={(theme) => ({
+          background: theme.colors.white,
+          [theme.mq.sm]: {
+            zIndex: 1,
+            borderRadius: "0px 0px 50px 50px",
+          },
+        })}
+      >
         <Grid short={true}>
           <ComposedFaq
             css={(theme) => ({

@@ -18,6 +18,17 @@ export const Links = () => (
           // background: theme.colors.page_bg_light,
           background: theme.colors.white,
           fontFamily: "Work Sans, sans-serif",
+          "@keyframes gradient": {
+            "0%": {
+              backgroundPosition: "0% 50%",
+            },
+            "50%": {
+              backgroundPosition: "100% 50%",
+            },
+            "100%": {
+              backgroundPosition: "0% 50%",
+            },
+          },
         },
         svg: {
           verticalAlign: "top",

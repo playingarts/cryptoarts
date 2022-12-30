@@ -108,7 +108,7 @@ const Content: FC = () => {
         {latestRelease && (
           <Grid css={(theme) => ({ marginBottom: theme.spacing(3) })}>
             <LatestRelease
-              productId={latestRelease._id}
+              // productId={latestRelease._id}
               // data-id="Latest"
               // data-id={latestRelease.deck}
               {...(latestRelease.deck && {
@@ -116,6 +116,7 @@ const Content: FC = () => {
               })}
               css={(theme) => ({
                 gridColumn: "span 9",
+                // minHeight: theme.spacing(45),
                 [theme.maxMQ.md]: {
                   gridColumn: "span 6",
                 },
@@ -419,6 +420,10 @@ const Content: FC = () => {
           background: theme.colors.white,
           paddingTop: theme.spacing(10),
           paddingBottom: theme.spacing(10),
+          [theme.mq.sm]: {
+            zIndex: 1,
+            borderRadius: "0px 0px 50px 50px",
+          },
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(5),
             paddingBottom: theme.spacing(5),

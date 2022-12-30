@@ -1,9 +1,11 @@
 import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
 import { useLoadCards } from "../../../hooks/card";
 import { useLosersValues } from "../../../hooks/loser";
+import { breakpoints } from "../../../source/enums";
 import AllEntriesBlock from "../../AllEntriesBlock";
 import BlockTitle from "../../BlockTitle";
 import Layout, { Props as LayoutProps } from "../../Layout";
+import { useSize } from "../../SizeProvider";
 
 const ComposedEntries: ForwardRefRenderFunction<
   HTMLElement,
@@ -29,6 +31,8 @@ const ComposedEntries: ForwardRefRenderFunction<
   const { losers, loading } = useLosersValues({
     variables: { deck: deck._id },
   });
+
+  const { width } = useSize();
 
   if (
     loading ||
@@ -61,6 +65,7 @@ const ComposedEntries: ForwardRefRenderFunction<
       notTruncatable={contest}
     >
       <BlockTitle
+        variant={width < breakpoints.sm ? "h3" : undefined}
         title={"All Entries"}
         subTitleText={`All ${
           allCards.filter((card) => card.value !== "backside").length

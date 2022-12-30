@@ -33,7 +33,10 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     <div
       css={(theme) => [
         {
-          background: theme.colors.page_bg_light_gray,
+          background: theme.colors.white,
+          [theme.mq.sm]: {
+            background: theme.colors.page_bg_light_gray,
+          },
         },
       ]}
     >
@@ -55,8 +58,8 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           },
           [theme.maxMQ.sm]: {
             borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(3)}px`,
-            paddingTop: theme.spacing(16),
-            paddingBottom: theme.spacing(4),
+            paddingTop: theme.spacing(18),
+            paddingBottom: theme.spacing(3),
           },
           overflow: "hidden",
         })}
@@ -86,7 +89,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             ]}
           >
             <div
-              css={(theme) => [{ flexGrow: 1, marginBottom: theme.spacing(3) }]}
+              css={(theme) => [{ flexGrow: 1, marginBottom: theme.spacing(2) }]}
             >
               <Text
                 component="h1"
@@ -142,6 +145,9 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 variant="body3"
                 css={(theme) => [
                   {
+                    [theme.maxMQ.sm]: {
+                      fontSize: 18,
+                    },
                     margin: 0,
                     [theme.mq.sm]: {
                       marginTop: theme.spacing(1),

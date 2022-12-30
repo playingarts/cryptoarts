@@ -144,33 +144,37 @@ const NFTHolder: FC<Props> = ({
           },
         })}
         action={
-          <MetamaskButton
-            textColor="white"
-            backgroundColor="orange"
-            notConnected="Connect"
-            unavailable="Install"
-            noIcon={width < breakpoints.sm}
-            css={(theme) => [
-              gradient && {
-                background: theme.colors.page_bg_dark,
-              },
-              {
-                [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
-              },
-            ]}
-          >
-            <span
+          width < breakpoints.sm ? (
+            <MetamaskButton
+              textColor="white"
+              backgroundColor="orange"
+              notConnected="Connect"
+              unavailable="Install"
+              noIcon={width < breakpoints.sm}
               css={(theme) => [
-                gradient && {
-                  color: "transparent",
-                  background: theme.colors.eth,
-                  backgroundClip: "text",
+                {
+                  [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
+                  [theme.mq.sm]: [
+                    gradient && {
+                      background: theme.colors.page_bg_dark,
+                    },
+                  ],
                 },
               ]}
             >
-              {metamaskText}
-            </span>
-          </MetamaskButton>
+              <span
+                css={(theme) => [
+                  gradient && {
+                    color: "transparent",
+                    background: theme.colors.eth,
+                    backgroundClip: "text",
+                  },
+                ]}
+              >
+                {metamaskText}
+              </span>
+            </MetamaskButton>
+          ) : undefined
         }
         {...props}
       >
@@ -227,6 +231,7 @@ const NFTHolder: FC<Props> = ({
     );
   }
 
+  //todo deal is undefined
   if (currentDeal === undefined) {
     const sig = getSig();
     if (sig) {
@@ -350,8 +355,8 @@ const NFTHolder: FC<Props> = ({
           variant="body2"
           css={(theme) => [
             {
-              margin: 0,
               [theme.maxMQ.sm]: {
+                margin: 0,
                 textAlign: "center",
                 marginTop: theme.spacing(2),
               },
@@ -476,8 +481,8 @@ const NFTHolder: FC<Props> = ({
         variant="body2"
         css={(theme) => [
           {
-            margin: 0,
             [theme.maxMQ.sm]: {
+              margin: 0,
               marginTop: theme.spacing(2),
               textAlign: "center",
             },

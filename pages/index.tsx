@@ -98,18 +98,15 @@ const Home: NextPage = () => {
             },
           }}
           css={(theme) => ({
-            marginTop: theme.spacing(5),
             background: theme.colors.gradient_three,
             color: theme.colors.white,
             width: "fit-content",
             [theme.mq.sm]: {
+              marginTop: theme.spacing(5),
               transition: theme.transitions.fast("opacity"),
               "&:hover": {
                 opacity: 0.8,
               },
-            },
-            [theme.maxMQ.sm]: {
-              marginTop: theme.spacing(2.6),
             },
           })}
         >
@@ -265,7 +262,10 @@ const Home: NextPage = () => {
                 },
               })}
             >
-              <Text component="h4" css={{ margin: 0 }}>
+              <Text
+                component={width >= breakpoints.sm ? "h4" : "h3"}
+                css={{ margin: 0 }}
+              >
                 Discord
               </Text>
               {width >= breakpoints.sm && (
@@ -331,7 +331,10 @@ const Home: NextPage = () => {
                 },
               })}
             >
-              <Text component="h4" css={{ margin: 0 }}>
+              <Text
+                component={width >= breakpoints.sm ? "h4" : "h3"}
+                css={{ margin: 0 }}
+              >
                 Twitter
               </Text>
               {width >= breakpoints.sm && (

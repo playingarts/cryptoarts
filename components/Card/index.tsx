@@ -108,7 +108,7 @@ const Card: FC<Props> = ({
           },
           filter
             ? {
-                filter: "drop-shadow(0px 4px 100px rgba(0, 0, 0, 0.1))",
+                boxShadow: "0px 2px 50px rgba(0, 0, 0, 0.10)",
               }
             : {
                 boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
@@ -142,7 +142,8 @@ const Card: FC<Props> = ({
                 (filter
                   ? {
                       // transform: `translate(0, -${theme.spacing(2)}px)`,
-                      filter: "drop-shadow(0px 4px 100px rgba(0, 0, 0, 0.1))",
+                      // filter: "drop-shadow(0px 4px 100px rgba(0, 0, 0, 0.1))",
+                      boxShadow: "0px 10px 20px 4px rgba(0, 0, 0, 0.15)",
                     }
                   : {
                       // transform: `translate(0, -${theme.spacing(2)}px)`,
@@ -283,9 +284,9 @@ const Card: FC<Props> = ({
           variant="label"
           css={(theme) => ({
             margin: 0,
-            marginTop: theme.spacing(2),
+            marginTop: theme.spacing(2.5),
             [theme.maxMQ.sm]: {
-              marginTop: theme.spacing(1),
+              marginTop: theme.spacing(1.5),
               fontSize: 15,
             },
           })}

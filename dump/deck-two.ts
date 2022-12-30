@@ -9,7 +9,7 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   slug,
   info:
     "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
-  image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_two.jpg",
+  image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_two.png",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_two_bg.jpg",
   properties: {

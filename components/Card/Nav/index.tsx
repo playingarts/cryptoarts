@@ -134,36 +134,19 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                     {
                       zIndex: 50,
                       pointerEvents: "auto",
-                      // top: "-100vh",
-                      // bottom: theme.spacing(44.5),
-                      // position: "sticky",
-
-                      // transform: `translate(${theme.spacing(
-                      //   5
-                      // )}px, ${theme.spacing(37.2)}px) rotate(-180deg)`,
-                      // top: 372,
 
                       transform: `rotate(-180deg)`,
 
-                      background: theme.colors.dark_gray,
                       borderRadius: "100%",
                       width: theme.spacing(5),
                       height: theme.spacing(5),
                       [theme.mq.sm]: {
+                        background: theme.colors.dark_gray,
                         transition: theme.transitions.fast("all"),
                         "&:hover": {
                           color: theme.colors.white,
                         },
                       },
-                      // [theme.maxMQ.sm]: {
-                      //   transform: `translate(calc(-50% + ${theme.spacing(
-                      //     2.5
-                      //   )}px + ${theme.spacing(
-                      //     1.25
-                      //   )}px), calc(-50% + ${theme.spacing(
-                      //     29.75
-                      //   )}px + ${theme.spacing(0.75)}px)) rotate(-180deg)`,
-                      // },
                     },
                   ]}
                 />
@@ -176,33 +159,18 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                   Icon={ThickChevron}
                   href={nextLink}
                   css={(theme) => ({
-                    // top: "-100vh",
                     pointerEvents: "auto",
                     position: "absolute",
-                    // top: theme.spacing(-42.5),
-                    // bottom: theme.spacing(44.5),
                     right: 0,
-                    // transform: `translate(-${theme.spacing(5)}px, ${theme.spacing(
-                    //   37.2
-                    // )}px)`,
-                    background: theme.colors.dark_gray,
                     borderRadius: "100%",
                     width: theme.spacing(5),
                     height: theme.spacing(5),
                     [theme.mq.sm]: {
+                      background: theme.colors.dark_gray,
                       transition: theme.transitions.fast("all"),
                       "&:hover": {
                         color: theme.colors.white,
                       },
-                    },
-                    [theme.maxMQ.sm]: {
-                      // transform: `translate(calc(50% - ${theme.spacing(
-                      //   2.5
-                      // )}px - ${theme.spacing(
-                      //   1.25
-                      // )}px), calc(-50% + ${theme.spacing(
-                      //   29.75
-                      // )}px + ${theme.spacing(0.75)}px))`,
                     },
                   })}
                 />
@@ -226,31 +194,20 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                         ),
                       })}
                       css={(theme) => ({
-                        background: theme.colors.dark_gray,
                         position: "absolute",
-                        // right: -50,
                         right: 0,
-                        top: -theme.spacing(23.5),
-                        // top: 0,
-                        // top: "-100vh",
                         pointerEvents: "auto",
-                        // transform: `translate(-${theme.spacing(
-                        //   5
-                        // )}px, ${theme.spacing(14)}px)`,
                         borderRadius: "100%",
                         width: theme.spacing(5),
                         height: theme.spacing(5),
+                        top: -theme.spacing(18),
                         [theme.mq.sm]: {
+                          top: -theme.spacing(23.5),
+                          background: theme.colors.dark_gray,
                           transition: theme.transitions.fast("all"),
                           "&:hover": {
                             color: theme.colors.white,
                           },
-                        },
-                        [theme.maxMQ.sm]: {
-                          top: -theme.spacing(16),
-                          // transform: `translate(-${theme.spacing(
-                          //   1.5
-                          // )}px, ${theme.spacing(11)}px)`,
                         },
                       })}
                     />

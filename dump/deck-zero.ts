@@ -9,7 +9,7 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   slug,
   info:
     "Originally called Creative Cards, this deck have been completely sold out for about five years now. We are bringing it back in a new and improved version!",
-  image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_zero.jpg",
+  image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_zero.png",
   labels: ["ar"],
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_zero_bg.jpg",

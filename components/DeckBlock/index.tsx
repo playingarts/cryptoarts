@@ -40,7 +40,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
       ]}
     >
       <BlockTitle
-        variant="h3"
+        variant={"h3"}
         palette={palette}
         title={width < breakpoints.sm ? "Physical Deck" : deck.title}
         subTitleText={deck.description}
