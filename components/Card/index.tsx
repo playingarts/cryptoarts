@@ -308,7 +308,7 @@ const Card: FC<Props> = ({
           {card.price ? (
             `Ξ${card.price}`
           ) : (
-            <span css={{ opacity: 0.5 }}>Not On Sale</span>
+            <span css={{ opacity: 0.5, fontSize: 15 }}>Not On Sale</span>
           )}
         </Text>
       )}

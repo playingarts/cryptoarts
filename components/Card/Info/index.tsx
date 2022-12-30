@@ -160,7 +160,7 @@ const CardInfo: FC<Props> = ({
                           color: theme.colors.text_subtitle_light,
                         })}
                       >
-                        Sold Out
+                        Not on Sale
                       </Text>
                     )}
                   </Fragment>
