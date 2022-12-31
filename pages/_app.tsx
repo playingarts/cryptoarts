@@ -28,6 +28,8 @@ declare module "@emotion/react" {
       slow: (property: transitionProperty) => string;
     };
     colors: {
+      cadillac_pink: "#E289C2";
+      eggshell_blue: "#C9FFF7";
       svggray: "#C4C4C4";
       charcoal_gray: "#404040";
       lavender_blue: "#8582F9";
@@ -225,6 +227,8 @@ export const theme: Theme = {
         : attrs.map((attr) => `${attr} 0.55s ease`).join(", "),
   },
   colors: {
+    cadillac_pink: "#E289C2",
+    eggshell_blue: "#C9FFF7",
     lavender_blue: "#8582F9",
     light_cyan: "#A6FCF7",
     charcoal_gray: "#404040",

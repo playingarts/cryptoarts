@@ -137,8 +137,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
       title={
         artistId
           ? deck.title
-          : ((deck.slug === "special" || deck.slug === "future") &&
-              "Cards") ||
+          : ((deck.slug === "special" || deck.slug === "future") && "Cards") ||
             "Cards"
       }
       // subTitleText={

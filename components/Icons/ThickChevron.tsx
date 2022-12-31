@@ -1,6 +1,8 @@
 import { FC, HTMLAttributes } from "react";
 
-const ThickChevron: FC<HTMLAttributes<SVGElement>> = (props) => (
+const ThickChevron: FC<
+  HTMLAttributes<SVGElement> & { width?: number; height?: number }
+> = (props) => (
   <svg
     width="32"
     height="32"
