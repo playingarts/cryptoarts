@@ -10,7 +10,7 @@ const ComposedFaq: FC<HTMLAttributes<HTMLDivElement> & { title?: string }> = ({
   title,
   ...props
 }) => (
-  <div {...props} data-id="block-faq">
+  <div {...props}>
     <Faq title={title} />
     <div
       css={(theme) => ({

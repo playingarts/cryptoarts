@@ -49,119 +49,129 @@ const BlockTitle: FC<Props> = ({
         {...(setTruncate &&
           truncate !== undefined && { onClick: () => setTruncate(!truncate) })}
       >
-        <Text
-          component="h2"
-          variant={variant}
-          css={(theme) => [
-            {
-              [theme.maxMQ.sm]: [theme.typography.h3],
-              margin: 0,
-              gridColumn: buttonProps ? "1/7" : "1/ -1",
-              [theme.maxMQ.sm]: {
-                gridColumn: "1/ span 5",
-              },
-            },
-          ]}
-        >
-          {title}
-        </Text>
-        {subTitleText &&
-          (!alwaysSubtitle
-            ? !alwaysSubtitle && width >= breakpoints.sm
-            : true) && (
-            <Text
-              css={(theme) => [
-                {
-                  margin: 0,
-                  marginTop: theme.spacing(2),
-                },
-                action || buttonProps
-                  ? {
-                      gridColumn: "1 / span 7",
-                      [theme.maxMQ.md]: {
-                        gridColumn: "1 / span 6",
-                      },
-                    }
-                  : {
-                      gridColumn: "1 / -1",
-                    },
-              ]}
-              variant="body2"
-            >
-              {subTitleText}
-            </Text>
-          )}
-        {truncate !== undefined && width < breakpoints.sm && (
-          <div
+        <div css={{ gridColumn: "1/-1", position: "relative" }}>
+          <Text
+            component="h2"
+            variant={variant}
             css={(theme) => [
               {
-                gridColumn: "span 1/-1",
-                display: "flex",
-                zIndex: 1,
+                [theme.maxMQ.sm]: [theme.typography.h3],
+                margin: 0,
+                gridColumn: buttonProps ? "1/7" : "1/ -1",
                 [theme.maxMQ.sm]: {
-                  justifyContent: "flex-end",
-                },
-                [theme.mq.sm]: {
-                  gridColumn: "span 3 / -1",
-                  alignSelf: "flex-end",
-                  justifyContent: "flex-end",
+                  gridColumn: "1/ span 5",
                 },
               },
             ]}
           >
-            {width >= breakpoints.sm && (action || <Button {...buttonProps} />)}
-            {width < breakpoints.sm && truncate !== undefined && (
-              <Button
-                iconProps={{
-                  css: [
-                    {
-                      transform: truncate ? "rotate(90deg)" : "rotate(-90deg)",
-                    },
-                    palette === "light"
-                      ? {
-                          color: truncate
-                            ? theme.colors.black
-                            : colord(theme.colors.black)
-                                .alpha(0.25)
-                                .toRgbString(),
-                        }
-                      : {
-                          color: truncate
-                            ? theme.colors.white
-                            : colord(theme.colors.white)
-                                .alpha(0.25)
-                                .toRgbString(),
+            {title}
+          </Text>
+          {subTitleText &&
+            (!alwaysSubtitle
+              ? !alwaysSubtitle && width >= breakpoints.sm
+              : true) && (
+              <Text
+                css={(theme) => [
+                  {
+                    margin: 0,
+                    marginTop: theme.spacing(2),
+                  },
+                  action || buttonProps
+                    ? {
+                        gridColumn: "1 / span 7",
+                        [theme.maxMQ.md]: {
+                          gridColumn: "1 / span 6",
                         },
-                  ],
-                }}
-                css={(theme) => ({
-                  height: theme.spacing(3),
-                  float: "right",
-                })}
-                Icon={ThickChevron}
-              />
+                      }
+                    : {
+                        gridColumn: "1 / -1",
+                      },
+                ]}
+                variant="body2"
+              >
+                {subTitleText}
+              </Text>
             )}
-          </div>
-        )}
-        {(action || buttonProps) && width >= breakpoints.sm && (
-          <div
-            css={[
-              action && action.props.onClick
-                ? {
+          {truncate !== undefined && width < breakpoints.sm && (
+            <div
+              css={(theme) => [
+                {
+                  gridColumn: "span 1/-1",
+                  display: "flex",
+                  zIndex: 1,
+                  [theme.maxMQ.sm]: {
+                    justifyContent: "flex-end",
+                  },
+                  [theme.mq.sm]: {
+                    gridColumn: "span 3 / -1",
                     alignSelf: "flex-end",
-                  }
-                : { marginTop: theme.spacing(0) },
-              {
-                gridColumn: "span 3 / -1",
-                zIndex: 1,
-                display: "flex",
-                justifyContent: "flex-end",
-              },
-            ]}
-          >
-            {action || <Button {...buttonProps} />}
-          </div>
-        )}
+                    justifyContent: "flex-end",
+                  },
+                },
+              ]}
+            >
+              {width >= breakpoints.sm &&
+                (action || <Button {...buttonProps} />)}
+              {width < breakpoints.sm && truncate !== undefined && (
+                <Button
+                  iconProps={{
+                    css: [
+                      {
+                        transform: truncate
+                          ? "rotate(90deg)"
+                          : "rotate(-90deg)",
+                      },
+                      palette === "light"
+                        ? {
+                            color: truncate
+                              ? theme.colors.black
+                              : colord(theme.colors.black)
+                                  .alpha(0.25)
+                                  .toRgbString(),
+                          }
+                        : {
+                            color: truncate
+                              ? theme.colors.white
+                              : colord(theme.colors.white)
+                                  .alpha(0.25)
+                                  .toRgbString(),
+                          },
+                    ],
+                  }}
+                  css={{
+                    float: "right",
+                    position: "absolute",
+                    right: 0,
+                    bottom: 0,
+                  }}
+                  Icon={ThickChevron}
+                />
+              )}
+            </div>
+          )}
+          {(action || buttonProps) && width >= breakpoints.sm && (
+            <div
+              css={[
+                // action && action.props.onClick
+                //   ? {
+                //       alignSelf: "flex-end",
+                //     }
+                //   : { marginTop: theme.spacing(0) },
+                {
+                  // gridColumn: "span 3 / -1",
+                  zIndex: 1,
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  position: "absolute",
+                  right: 0,
+                  bottom: 0,
+                },
+              ]}
+            >
+              {action || <Button {...buttonProps} />}
+            </div>
+          )}
+        </div>
         {!noLine && (
           <div css={{ gridColumn: "-1 / 1" }}>
             <Line

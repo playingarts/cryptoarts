@@ -22,30 +22,30 @@ interface Props
 const SortSelectButton: FC<
   Omit<SelectButtonProps, "states"> & { cards: GQL.Card[]; deck: GQL.Deck }
 > = ({ cards, deck, setter, ...props }) =>
-  (cards &&
-    cards.find(({ price }) => price !== undefined && price !== null) && (
-      <SelectButton
-        {...props}
-        css={{ overflow: "visible" }}
-        states={[
-          {
-            children: "default",
-            Icon: defaultSort,
-          },
-          {
-            Icon: Sort,
-            IconProps: { css: { transform: "scaleY(-1)" } },
-            children: "ascending",
-          },
-          { Icon: Sort, children: "descending" },
-        ]}
-        setter={setter}
-        palette={
-          // status === "connected" && deck.openseaCollection ? "dark" : "light"
-          deck.slug === "crypto" ? "dark" : "light"
-        }
-      />
-    )) ||
+  (cards && (
+    // cards.find(({ price }) => price !== undefined && price !== null) &&
+    <SelectButton
+      {...props}
+      css={{ overflow: "visible" }}
+      states={[
+        {
+          children: "default",
+          Icon: defaultSort,
+        },
+        {
+          Icon: Sort,
+          IconProps: { css: { transform: "scaleY(-1)" } },
+          children: "ascending",
+        },
+        { Icon: Sort, children: "descending" },
+      ]}
+      setter={setter}
+      palette={
+        // status === "connected" && deck.openseaCollection ? "dark" : "light"
+        deck.slug === "crypto" ? "dark" : "light"
+      }
+    />
+  )) ||
   null;
 const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
   const { status, account } = useMetaMask();
@@ -137,8 +137,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
       title={
         artistId
           ? deck.title
-          : ((deck.slug === "special" || deck.slug === "future") &&
-              "Cards") ||
+          : ((deck.slug === "special" || deck.slug === "future") && "Cards") ||
             "Cards"
       }
       // subTitleText={

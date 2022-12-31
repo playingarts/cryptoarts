@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useState,
 } from "react";
+import { theme } from "../../pages/_app";
 import Button, { Props as ButtonProps } from "../Button";
 import ThickChevron from "../Icons/ThickChevron";
 
@@ -65,6 +66,9 @@ const SelectButton: FC<Props> = memo(
         css={(theme) => [
           {
             maxHeight: "var(--buttonHeight)",
+            "&:hover": {
+              cursor: "pointer",
+            },
             [theme.maxMQ.sm]: {
               // transform: "translateY(-18%)",
             },
@@ -108,19 +112,23 @@ const SelectButton: FC<Props> = memo(
           ]}
         >
           <ThickChevron
-            css={(theme) => ({
-              zIndex: 3,
-              right: 0,
-              width: theme.spacing(0.8),
-              height: theme.spacing(1.2),
-              transform: !listState
-                ? `rotate(90deg) translate(-75%, ${theme.spacing(1.85)}px)`
-                : `rotate(-90deg) translate(75%, -${theme.spacing(1.85)}px)`,
-              position: "absolute",
-              top: "calc(var(--buttonHeight)/2)",
-              pointerEvents: "none",
-              color: "inherit",
-            })}
+            width={theme.spacing(1.7)}
+            height={theme.spacing(1.7)}
+            css={(theme) => [
+              {
+                zIndex: 3,
+                right: theme.spacing(1.5),
+                // top: 0,
+                transform: !listState ? `rotate(90deg)` : `rotate(-90deg)`,
+                position: "absolute",
+                top: theme.spacing(1.2),
+                [theme.mq.sm]: {
+                  top: theme.spacing(1.7),
+                },
+                pointerEvents: "none",
+                color: "inherit",
+              },
+            ]}
           />
           {buttonState.map(
             (btn, index) =>
