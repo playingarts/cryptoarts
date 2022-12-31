@@ -1,5 +1,6 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Component from ".";
+import { theme } from "../../pages/_app";
 import { socialLinks } from "../../source/consts";
 import Link from "../Link";
 
@@ -16,7 +17,6 @@ export const Primary = Template.bind({});
 Primary.args = {
   items: [
     {
-      date: "Aug 1st ‘21",
       title: "And here we go…",
       paragraph: (
         <span>
@@ -37,27 +37,23 @@ Primary.args = {
       ),
     },
     {
-      date: "Aug 19th ‘21",
       title: "Official Launch",
       paragraph:
         "Start minting your cards. Fair launch, fair distribution: all packs cost 0.13 ETH and include a pair of random animated cards instantly revealed in your Ethereum wallet. (Sold out in 19 minutes).",
     },
     {
-      date: "Sep ‘21",
       title: "Back to the Community",
       paragraph:
         "Random airdrops from the artsists + 11 cards airdropped to Crypto Edition card holders. These were rolled out daily, highlighting the card and artist prior to selecting a lucky winner.",
       action: { text: "Giveaway results", href: "/" },
     },
     {
-      date: "1Q ‘22",
       title: "Digital to Physical",
       paragraph:
         "Production of the physical Crypto Edition deck. Printed on the premium quality playing card stock and paired with Augmented Reality mobile app to enjoy animations right in your diamond hands.",
       action: { text: "Claim your deck", href: "/shop" },
     },
     {
-      date: "2Q ‘22",
       title: "crypto battle game",
       paragraph: (
         <span>
@@ -69,6 +65,36 @@ Primary.args = {
           }
         </span>
       ),
+    },
+    {
+      title: "weekly podcast",
+      paragraph:
+        "Launch of the weekly podcast where we will put the spotlight on artists in our community.",
+      action: {
+        text: "Watch series",
+        href: "/",
+      },
+    },
+    {
+      accent: theme.colors.eggshell_blue,
+      status: "next up",
+      title: "playing arts game",
+      paragraph:
+        "You've got cards? Let's play games! We start to build a game where you'll be able to power-up your cards. How? In addition to mooning Art each card has dynamic stats sewed in that can be leveled up based on your activity in the game and will be reflected on OpenSea.",
+      action: {
+        text: "Join beta testers",
+        href: "/",
+      },
+    },
+    {
+      accent: theme.colors.cadillac_pink,
+      status: "in development",
+      title: "Roadmap 2.0",
+      paragraph: "We’re working on a new roadmap.",
+      action: {
+        text: "What should we build next?",
+        href: "/",
+      },
     },
   ],
 };
