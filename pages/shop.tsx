@@ -72,7 +72,7 @@ const Content: FC = () => {
           paddingTop: theme.spacing(20),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(12.5),
-            paddingBottom: theme.spacing(2.5),
+            paddingBottom: theme.spacing(0),
           },
           paddingBottom: theme.spacing(5),
         })}

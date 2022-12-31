@@ -42,7 +42,7 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
         href={newsletterLink}
         target="_blank"
       >
-        Subscribe to project news
+        Notify me
       </Button>
       <Text
         variant="body0"

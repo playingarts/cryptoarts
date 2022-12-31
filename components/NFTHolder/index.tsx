@@ -214,7 +214,7 @@ const NFTHolder: FC<Props> = ({
             css={[{ opacity: 0.5 }]}
             href={{
               query: {
-                scrollIntoView: "[data-id='block-faq']",
+                scrollIntoView: "[data-id='faq']",
                 scrollIntoViewBehavior: "smooth",
               },
             }}
@@ -345,7 +345,7 @@ const NFTHolder: FC<Props> = ({
             },
           ]}
         >
-          GM Fren!
+          GM Fren
         </Text>
 
         <Text
@@ -360,9 +360,25 @@ const NFTHolder: FC<Props> = ({
             },
           ]}
         >
-          You’re not holding any PACE NFT cards yet. Get one and check here
-          again!
+          You’re not holding any Playing Arts Crypto Edition NFT cards.
         </Text>
+        {width >= breakpoints.sm && (
+          <Text
+            component={Link}
+            variant="label"
+            css={[{ opacity: 0.5 }]}
+            href={{
+              query: {
+                scrollIntoView: "[data-id='faq']",
+                scrollIntoViewBehavior: "smooth",
+              },
+            }}
+            shallow={true}
+            scroll={false}
+          >
+            <Arrowed>How It Works</Arrowed>
+          </Text>
+        )}
       </StatBlock>
     );
   }

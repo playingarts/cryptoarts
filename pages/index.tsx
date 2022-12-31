@@ -340,7 +340,7 @@ const Home: NextPage = () => {
               {socialLinks.discord && (
                 <Button
                   Icon={Discord}
-                  css={{ color: "#5865F2" }}
+                  css={{  marginTop: 0, color: "#5865F2" }}
                   component={Link}
                   href={socialLinks.discord}
                   target="_blank"

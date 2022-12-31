@@ -27,7 +27,17 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
 
   return (
     <Fragment>
-      <Text component="h4" css={{ margin: 0, opacity: 0.5 }}>
+      <Text component="h4" css={(theme) => [
+          {
+            margin: "0",
+            opacity: ".5",
+
+            [theme.maxMQ.sm]: {
+              fontSize: "30px",
+              marginBottom: "30px",
+            },
+          },
+        ]}>
         {title || "Shipping Info"}
       </Text>
       <Line
