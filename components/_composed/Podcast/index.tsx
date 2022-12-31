@@ -75,7 +75,7 @@ const Podcast: FC<Props> = ({
           <Text
             component={smallTitle ? "h3" : "h2"}
             css={(theme) => ({
-              textTransform: "uppercase",
+              textTransform: "capitalize",
               marginTop: 0,
               marginBottom: theme.spacing(1),
               [theme.mq.sm]: [!smallTitle && theme.typography.h3],

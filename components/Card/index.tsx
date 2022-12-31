@@ -300,6 +300,7 @@ const Card: FC<Props> = ({
           css={(theme) => ({
             margin: 0,
             marginTop: theme.spacing(0.5),
+            fontSize: 15,
             [theme.maxMQ.sm]: {
               fontSize: 15,
             },

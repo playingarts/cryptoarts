@@ -280,7 +280,7 @@ const Home: NextPage = () => {
             },
           })}
         >
-          <Podcast title="PLAYING ARTS PODCAST" />
+          <Podcast title="PODCAST" />
           <StatBlock
             css={(theme) => ({
               background: "#5865F2",

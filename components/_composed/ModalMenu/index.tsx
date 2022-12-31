@@ -242,10 +242,11 @@ const ModalMenu: FC<
           >
             {[
               { href: "/", text: "Home" },
+              { href: "https://play2.playingarts.com/", text: "Game" },
               { href: "/shop", text: "Shop" },
-              { href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start", text: "Shipping" },
               { href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L", target: "_blank", text: "Podcast" },
-              { href: "/", text: "Gallery" },
+              { href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start", text: "Shipping" },
+              // { href: "/", text: "Gallery" },
               { href: "/contact", text: "Contact" },
               
             ].map(({ href, text, target }) => (
