@@ -63,7 +63,7 @@ const ComposedEntries: ForwardRefRenderFunction<
       <BlockTitle
         variant="h3"
         title="All Entries"
-        subTitleText={`All ${
+        subTitleText={`${
           allCards.filter((card) => card.value !== "backside").length
         } entries submitted for the contest`}
       >

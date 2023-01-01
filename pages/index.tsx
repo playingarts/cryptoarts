@@ -99,7 +99,7 @@ const Home: NextPage = () => {
             },
           }}
           css={(theme) => ({
-            background: theme.colors.gradient_three,
+            background: theme.colors.text_title_dark,
             color: theme.colors.white,
             width: "fit-content",
             [theme.mq.sm]: {
@@ -256,7 +256,7 @@ const Home: NextPage = () => {
 
       <ComposedCardOfTheDay
         css={(theme) => ({
-          background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
+          background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`,
           color: theme.colors.page_bg_light,
         })}
       />

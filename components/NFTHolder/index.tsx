@@ -125,9 +125,7 @@ const NFTHolder: FC<Props> = ({
             },
           ]}
         >
-          Something went wrong.
-          <br />
-          Try again later.
+          Something went wrong. Try again later.
         </Text>
       </StatBlock>
     );
@@ -318,7 +316,10 @@ const NFTHolder: FC<Props> = ({
               target="_blank"
               Icon={Opensea}
               css={(theme) => ({
-                background: theme.colors.gradient,
+                background: theme.colors.eth,
+                color: theme.colors.page_bg_dark,
+                animation: "gradient 5s ease infinite",
+                backgroundSize: "400% 100%",
                 marginRight: theme.spacing(2),
                 [theme.maxMQ.sm]: {
                   width: "100%",

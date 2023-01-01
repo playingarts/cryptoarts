@@ -108,7 +108,7 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
                   color: theme.colors.page_bg_dark,
                   animation: "gradient 5s ease infinite",
                   backgroundSize: "400% 100%",
-                },
+                }, 
                 {
                   [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
                 },

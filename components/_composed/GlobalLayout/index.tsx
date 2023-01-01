@@ -111,7 +111,7 @@ const ComposedGlobalLayout: FC<
       <Footer />
 
       <PrivacyNotice />
-      {scrollArrow && width >= breakpoints.sm && (
+      {scrollArrow && width >= breakpoints.sm && !isCardPage && (
         <ScrollArrow scrollTo={scrollArrow} />
       )}
     </Fragment>

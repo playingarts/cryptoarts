@@ -155,7 +155,7 @@ const Content: FC<{
             <ComposedCardContent
               css={(theme) => ({
                 color: theme.colors.text_subtitle_light,
-                background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, ${theme.colors.dark_gray} 100%)`,
+                background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`,
                 borderRadius: "0px 0px 30px 30px",
                 [theme.mq.sm]: {
                   borderRadius: "0px 0px 50px 50px",
@@ -416,7 +416,7 @@ const Content: FC<{
                     background:
                       // status === "connected" && deck.openseaCollection
                       deck.slug === "crypto"
-                        ? theme.colors.page_bg_dark
+                        ? `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`
                         : theme.colors.page_bg_light_gray,
                     paddingTop: theme.spacing(15),
                     paddingBottom: theme.spacing(15),
@@ -442,13 +442,13 @@ const Content: FC<{
 
           {!contest && (
             <Fragment>
-              {deck.openseaCollection && (
+              {deck.openseaCollection && !artistId && (
                 <Layout
                   css={(theme) => ({
                     [theme.mq.sm]: {
                       background: theme.colors.page_bg_dark,
                       paddingTop: theme.spacing(15),
-                      paddingBottom: theme.spacing(15),
+                      paddingBottom: theme.spacing(0),
                     },
                   })}
                   ref={nftRef}
@@ -477,6 +477,7 @@ const Content: FC<{
                     [theme.mq.sm]: {
                       background: theme.colors.page_bg_dark,
                       color: theme.colors.text_title_light,
+                      paddingTop: theme.spacing(15),
                       paddingBottom: theme.spacing(15),
                       borderRadius: "0 0 50px 50px",
                     },
