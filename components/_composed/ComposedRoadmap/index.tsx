@@ -60,7 +60,12 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
             {
               title: "Official Launch",
               paragraph:
-                "Start minting your cards. Fair launch, fair distribution: all packs cost 0.13 ETH and include a pair of random animated cards instantly revealed in your Ethereum wallet. (Sold out in 19 minutes).",
+                "Start minting your cards. Fair launch, fair distribution: cards are sold in packs with a pair of random animated cards instantly revealed in your Ethereum wallet. (Sold out in 19 minutes).",
+                action: {
+                  text: "Opensea collection",
+                  href: "https://opensea.io/collection/cryptoedition",
+                  blank: true,
+                },
             },
             {
               title: "Back to the Community",
@@ -75,17 +80,14 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
               action: { text: "Claim your deck", href: "/shop" },
             },
             {
-              title: "crypto battle game",
-              paragraph: (
-                <span>
-                  <span css={{ display: "block" }}>
-                    {"You've got cards? Let's play games!"}
-                  </span>
-                  {
-                    "We start to build a game where you'll be able to power-up your cards. How? In addition to mooning Art each card has dynamic stats sewed in that can be leveled up based on your activity in the game and will be reflected on OpenSea."
-                  }
-                </span>
-              ),
+              title: "Website Redesign",
+              paragraph:
+                  "Complete website redesign. Playing Arts API, Integration with Ethereum blockchain, Web3 ready.",
+                action: {
+                  text: "Suggest a feature",
+                  href: "https://discord.gg/u8gfv2zdG3",
+                  blank: true,
+                },
             },
             {
               title: "weekly podcast",
@@ -93,7 +95,8 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
                 "Launch of the weekly podcast where we will put the spotlight on artists in our community.",
               action: {
                 text: "Watch series",
-                href: "/",
+                href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+                blank: true,
               },
             },
             {
@@ -101,10 +104,11 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
               status: "next up",
               title: "playing arts game",
               paragraph:
-                "You've got cards? Let's play games! We start to build a game where you'll be able to power-up your cards. How? In addition to mooning Art each card has dynamic stats sewed in that can be leveled up based on your activity in the game and will be reflected on OpenSea.",
+                "You've got cards? Let's play games! We are building a game where you'll be able to power-up your cards. How? In addition to mooning Art each card has dynamic stats sewed in that can be leveled up based on your activity in the game and will be reflected on OpenSea.",
               action: {
                 text: "Join beta testers",
-                href: "/",
+                href: "https://discord.gg/u8gfv2zdG3",
+                blank: true,
               },
             },
             {
@@ -112,10 +116,11 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
               status: "in development",
               title: "Roadmap 2.0",
               paragraph: "We’re working on a new roadmap.",
-              action: {
-                text: "What should we build next?",
-                href: "/",
-              },
+              // action: {
+              //   text: "Let's discuss",
+              //   href: "https://discord.gg/u8gfv2zdG3",
+              //   blank: true,
+              // },
             },
           ]}
         />

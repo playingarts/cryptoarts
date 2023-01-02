@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     status?: string;
     title: string;
     paragraph: string | JSX.Element;
-    action?: { text: string; href: string };
+    action?: { text: string; href: string, blank?:boolean };
     accent?: string;
   }[];
   palette: "light" | "dark";
@@ -179,6 +179,7 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
           {item.action && (
             <Link
               href={item.action.href}
+              {...item.action.blank && {target:"_blank"}}
               css={(theme) => ({
                 marginTop: theme.spacing(1),
                 alignItems: "center",
