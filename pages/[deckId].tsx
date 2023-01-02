@@ -500,7 +500,10 @@ const Content: FC<{
                   {
                     [theme.mq.sm]: {
                       paddingTop: theme.spacing(15),
-                      paddingBottom: theme.spacing(5.4),
+                      paddingBottom:
+                        deck.slug === "crypto"
+                          ? theme.spacing(3)
+                          : theme.spacing(8),
                       background: theme.colors.page_bg_light_gray,
                     },
                   },
@@ -530,7 +533,8 @@ const Content: FC<{
                     {
                       [theme.mq.sm]: {
                         paddingBottom: theme.spacing(6),
-                        paddingTop: theme.spacing(6),
+                        paddingTop: theme.spacing(0),
+                        // paddingTop: theme.spacing(6),
                         background: theme.colors.page_bg_light_gray,
                       },
                     },

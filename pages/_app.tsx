@@ -22,6 +22,7 @@ type transitionProperty =
 
 declare module "@emotion/react" {
   export interface Theme {
+    spanColumns: (columns: number) => string;
     transitions: {
       fast: (property: transitionProperty) => string;
       normal: (property: transitionProperty) => string;
@@ -212,6 +213,14 @@ const maxMQ = (Object.keys(breakpoints) as Array<keyof typeof breakpoints>)
   );
 
 export const theme: Theme = {
+  spanColumns: (columns: number) =>
+    "calc(var(--columnWidth) * " +
+    columns +
+    " + " +
+    (columns - 1) +
+    " * " +
+    30 +
+    "px)",
   transitions: {
     fast: (attrs) =>
       typeof attrs === "object"
