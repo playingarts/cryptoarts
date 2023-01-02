@@ -27,7 +27,7 @@ const ShopCheckoutItem: FC<Props> = ({
   info2,
   quantity,
   price,
-  titleVariant = "h4",
+  titleVariant,
   priceVariant = "h5",
   changeQuantity,
   remove,
@@ -104,12 +104,12 @@ const ShopCheckoutItem: FC<Props> = ({
         ]}
       >
         <Text
-          component = "h3"
+          component="h3"
           css={[{ margin: 0 }]}
-          {...(width >= breakpoints.sm
+          {...(titleVariant
             ? { variant: titleVariant }
             : {
-                component: "h4"
+                component: "h3",
               })}
         >
           {title}
@@ -134,13 +134,13 @@ const ShopCheckoutItem: FC<Props> = ({
       {quantity !== undefined && (
         <div
           css={(theme) => ({
-            alignSelf: "end",
             height: "calc(50% + var(--buttonHeight)/2)",
 
             [theme.mq.sm]: {
               marginLeft: theme.spacing(3),
             },
             [theme.maxMQ.sm]: {
+              alignSelf: "end",
               order: 4,
               maxHeight: "var(--buttonHeight)",
             },
