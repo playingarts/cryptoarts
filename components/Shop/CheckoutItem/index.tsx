@@ -52,7 +52,7 @@ const ShopCheckoutItem: FC<Props> = ({
           width: "100%",
           alignItems: "center",
           [theme.mq.sm]: {
-            height: theme.spacing(15),
+            // height: theme.spacing(15),
           },
           [theme.maxMQ.sm]: {
             flexWrap: "wrap",
@@ -81,7 +81,7 @@ const ShopCheckoutItem: FC<Props> = ({
               // width: "100%",
               // position: "relative",
               height: theme.spacing(18),
-              marginBottom: theme.spacing(1),
+              // marginBottom: theme.spacing(1),
               backgroundSize: "contain",
             },
             flexShrink: 0,
@@ -98,17 +98,18 @@ const ShopCheckoutItem: FC<Props> = ({
             [theme.maxMQ.sm]: {
               order: 3,
               flexBasis: "50%",
-              marginBottom: theme.spacing(1),
+              // marginBottom: theme.spacing(1),
             },
           },
         ]}
       >
         <Text
+          component = "h3"
           css={[{ margin: 0 }]}
           {...(width >= breakpoints.sm
             ? { variant: titleVariant }
             : {
-                component: "h3",
+                component: "h4"
               })}
         >
           {title}
@@ -153,9 +154,9 @@ const ShopCheckoutItem: FC<Props> = ({
               css={(theme) => [
                 {
                   opacity: 0.2,
-                  marginTop: 7,
+                  marginTop: 0,
                   color: theme.colors.black + "!important",
-                  marginRight: theme.spacing(3),
+                  marginRight: theme.spacing(1),
                 },
               ]}
               onClick={remove}

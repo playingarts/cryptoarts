@@ -161,12 +161,12 @@ const Content: FC<{
                   {products.map((product, index) => (
                     <Fragment key={product._id}>
                       {index !== 0 && (
-                        <Line spacing={width < breakpoints.sm ? 1 : 3} />
+                        <Line spacing={width < breakpoints.sm ? 2 : 3} />
                       )}
                       <ShopCheckoutItem
                         image={product.image}
                         price={product.price}
-                        title={product.title}
+                        title={product.short}
                         info={product.info}
                         remove={remove(product._id)}
                         quantity={bag[product._id]}
@@ -175,7 +175,7 @@ const Content: FC<{
                     </Fragment>
                   ))}
 
-                  <Line spacing={width < breakpoints.sm ? 1 : 4} />
+                  <Line spacing={width < breakpoints.sm ? 2 : 4} />
                 </div>
                 {totalPrice - shippingPrice < freeShippingAt &&
                   totalPrice - shippingPrice + 15 >= freeShippingAt && (
@@ -234,13 +234,14 @@ const Content: FC<{
                 <ShopCheckoutItem
                   title="Shipping and handling"
                   // price={shippingPrice}
-                  titleVariant="h5"
+                  // titleVariant="h4"
                   withoutPic={true}
                   css={(theme) => [
                     {
                       gridColumn: "3 / 7",
+                      opacity: 0.5,
                       [theme.maxMQ.sm]: {
-                        marginTop: theme.spacing(4.5),
+                        marginTop: theme.spacing(2),
                         gridColumn: "1 / -1",
                       },
                     },
@@ -250,7 +251,7 @@ const Content: FC<{
                       <Text
                         css={(theme) => [
                           {
-                            opacity: 0.5,
+                            // opacity: 0.5,
                             [theme.maxMQ.sm]: {
                               fontSize: 16,
                             },
