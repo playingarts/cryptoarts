@@ -40,14 +40,27 @@ const CardInfo: FC<Props> = ({
     <div {...props}>
       <Text
         component="h2"
-        css={(theme) => [{ color: theme.colors.white, margin: 0 }]}
+        css={(theme) => [
+          {
+            color: theme.colors.white,
+            margin: 0,
+            [theme.maxMQ.sm]: {
+              textAlign: "center",
+            },
+          },
+        ]}
       >
         {artist.name}
       </Text>
       <Text
         component="div"
         variant="h6"
-        css={(theme) => ({ color: theme.colors.text_subtitle_light })}
+        css={(theme) => ({
+          color: theme.colors.text_subtitle_light,
+          [theme.maxMQ.sm]: {
+            textAlign: "center",
+          },
+        })}
       >
         {artist.country}
       </Text>
@@ -78,7 +91,16 @@ const CardInfo: FC<Props> = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              height: theme.spacing(5),
+              [theme.mq.sm]: {
+                height: theme.spacing(5),
+              },
+              [theme.maxMQ.sm]: [
+                card &&
+                  !card.price && {
+                    flexDirection: "column",
+                    gap: theme.spacing(2),
+                  },
+              ],
             })}
           >
             {deck.openseaCollection ? (
@@ -119,6 +141,14 @@ const CardInfo: FC<Props> = ({
                         animation: "gradient 5s ease infinite",
                         color: theme.colors.dark_gray,
                         marginRight: theme.spacing(2),
+
+                        [theme.maxMQ.sm]: [
+                          card &&
+                            !card.price && {
+                              width: "100%",
+                              justifyContent: "center",
+                            },
+                        ],
                       })}
                     >
                       {card.price ? "Buy NFT" : "Make An Offer"}
@@ -136,6 +166,7 @@ const CardInfo: FC<Props> = ({
                             color: theme.colors.white,
                             [theme.maxMQ.sm]: {
                               fontSize: 35,
+                              marginTop: theme.spacing(0.5),
                             },
                           },
                         ]}
@@ -178,7 +209,13 @@ const CardInfo: FC<Props> = ({
                   },
                 }}
                 css={(theme) => ({
-                  marginRight: theme.spacing(2),
+                  [theme.mq.sm]: {
+                    marginRight: theme.spacing(2),
+                  },
+                  [theme.maxMQ.sm]: {
+                    width: "100%",
+                    justifyContent: "center",
+                  },
                 })}
               >
                 Buy {deck.title}

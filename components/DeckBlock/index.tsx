@@ -14,11 +14,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
   deck,
   palette,
 }) => {
-  const common = (slug?: string, index?: string) => ({
-    ...(slug &&
-      index && {
-        backgroundImage: `url(https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${slug}-${index}.jpg)`,
-      }),
+  const common = () => ({
     borderRadius: "20px",
     [theme.maxMQ.sm]: {
       flexBasis: "40%",
@@ -34,9 +30,9 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
     backgroundRepeat: "no-repeat",
     backgroundColor:
       palette === "dark" ? theme.colors.dark_gray : theme.colors.page_bg_light,
-    backgroundSize: "cover",
-    backgroundPositionX: "center",
+    backgroundPosition: "center",
   });
+
   return (
     <BlockWithProperties
       title="Physical Deck"
@@ -61,8 +57,6 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
             {
               width: "100%",
               justifyContent: "center",
-              marginTop: theme.spacing(3.5),
-              marginBottom: theme.spacing(2.5),
               [theme.maxMQ.sm]: [
                 {
                   gridColumn: "1 / -1",
@@ -102,52 +96,70 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
           },
         ]}
       >
-        <div
+        <img
           css={[
             {
               ...common(),
+              objectFit: "cover",
               aspectRatio: "1",
-              backgroundImage: `url(${deck.image})`,
             },
           ]}
+          src={deck.image}
+          loading="lazy"
         />
-        <div
+        <img
+          loading="lazy"
           css={[
             {
               aspectRatio: "390 / 488",
-              ...common(deck.slug, "01"),
+              ...common(),
+              objectFit: "cover",
             },
           ]}
+          src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-01.jpg`}
         />
-        <div
+        <img
+          loading="lazy"
           css={[
             {
               aspectRatio: "390 / 488",
-              ...common(deck.slug, "02"),
+              ...common(),
+              objectFit: "cover",
             },
           ]}
+          src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-02.jpg`}
         />
-        <div
+        <img
+          loading="lazy"
+          src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-03.jpg`}
           css={[
             {
               aspectRatio: "1",
-              ...common(deck.slug, "03"),
+              ...common(),
+              objectFit: "cover",
             },
           ]}
         />
-        <div
+        <img
+          loading="lazy"
+          src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-04.jpg`}
           css={[
             {
               aspectRatio: "390 / 438",
-              ...common(deck.slug, "04"),
+              ...common(),
+              objectFit: "cover",
             },
           ]}
         />
-        <div
+        <img
+          loading="lazy"
+          src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-05.jpg`}
+          alt=""
           css={[
             {
               aspectRatio: "390 / 440",
-              ...common(deck.slug, "05"),
+              objectFit: "cover",
+              ...common(),
             },
           ]}
         />

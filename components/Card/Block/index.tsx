@@ -118,7 +118,7 @@ const CardBlock: FC<Props> = ({
 
           position: "relative",
           [theme.maxMQ.sm]: {
-            marginTop: theme.spacing(2),
+            // marginTop: theme.spacing(2),
           },
 
           gridColumn: "-1 / 1",

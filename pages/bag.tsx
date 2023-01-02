@@ -182,14 +182,7 @@ const Content: FC<{
                     <Text
                       variant="body"
                       css={(theme) => ({
-                        gridColumn: "3 / span 7",
-                        [theme.maxMQ.sm]: {
-                          gridColumn: "1 / -1",
-                          fontSize: 13,
-                          padding: 0,
-                          textAlign: "center",
-                          lineHeight: `${theme.spacing(4.5)}px`,
-                        },
+                        gridColumn: "1 / span 9",
                         paddingLeft: theme.spacing(2.5),
                         lineHeight: `${theme.spacing(5)}px`,
                         alignContent: "center",
@@ -198,7 +191,15 @@ const Content: FC<{
                         color: theme.colors.text_title_light,
                         fontWeight: 500,
                         margin: 0,
-                        marginBottom: theme.spacing(3),
+                        marginBottom: theme.spacing(5),
+                        [theme.maxMQ.sm]: {
+                          gridColumn: "1 / -1",
+                          fontSize: 13,
+                          padding: 0,
+                          textAlign: "center",
+                          lineHeight: `${theme.spacing(4.5)}px`,
+                          marginBottom: theme.spacing(3),
+                        },
                       })}
                     >
                       Add one more deck and get free shipping!
@@ -209,14 +210,7 @@ const Content: FC<{
                   <Text
                     variant="body"
                     css={(theme) => ({
-                      gridColumn: "3 / span 7",
-                      [theme.maxMQ.sm]: {
-                        gridColumn: "1 / -1",
-                        fontSize: 13,
-                        padding: 0,
-                        textAlign: "center",
-                        lineHeight: `${theme.spacing(4.5)}px`,
-                      },
+                      gridColumn: "1 / span 9",
                       paddingLeft: theme.spacing(2.5),
                       lineHeight: `${theme.spacing(5)}px`,
                       alignContent: "center",
@@ -225,16 +219,24 @@ const Content: FC<{
                       color: theme.colors.text_title_light,
                       fontWeight: 500,
                       margin: 0,
-                      marginBottom: theme.spacing(3),
+                      marginBottom: theme.spacing(5),
+                      [theme.maxMQ.sm]: {
+                        gridColumn: "1 / -1",
+                        fontSize: 13,
+                        padding: 0,
+                        textAlign: "center",
+                        lineHeight: `${theme.spacing(4.5)}px`,
+                        marginBottom: theme.spacing(3),
+                      },
                     })}
                   >
                     Your order will arrive in two different packages.
                   </Text>
                 ) : null}
                 <ShopCheckoutItem
-                  title="Shipping and handling"
+                  title="SHIPPING AND HANDLING"
                   // price={shippingPrice}
-                  // titleVariant="h4"
+                  titleVariant={width >= breakpoints.sm ? "h5" : "h4"}
                   withoutPic={true}
                   css={(theme) => [
                     {
@@ -314,7 +316,7 @@ const Content: FC<{
                       ]}
                     >
                       <Text
-                        component={width >= breakpoints.sm ? "h4" : "h3"}
+                        component={width >= breakpoints.sm ? "h3" : "h3"}
                         css={[
                           {
                             margin: 0,
@@ -360,7 +362,7 @@ const Content: FC<{
                           component={Link}
                           href="/shop"
                         >
-                        Continue shopping
+                          Continue shopping
                         </Button>
                       </Fragment>
                     )}
@@ -459,7 +461,7 @@ const Content: FC<{
                     component={Link}
                     href="/shop"
                   >
-                  go shopping
+                    go shopping
                   </Button>
                 </div>
               )}
@@ -513,11 +515,6 @@ const Checkout: NextPage = () => {
             },
           },
         ]}
-        iconProps={{
-          css: (theme) => [
-            { width: theme.spacing(1.25), height: theme.spacing(2) },
-          ],
-        }}
       >
         {width >= breakpoints.sm || noIcon ? "CHECK OUT" : ""}
       </Button>
