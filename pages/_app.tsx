@@ -431,7 +431,6 @@ export const theme: Theme = {
     },
     h6: {
       fontWeight: 400,
-      letterSpacing: "-0.05em",
       fontSize: 16,
       lineHeight: 30 / 16,
       fontFamily: "Aldrich, sans-serif",
@@ -445,7 +444,6 @@ export const theme: Theme = {
       fontSize: 13,
       lineHeight: 30 / 13,
       fontWeight: 400,
-      letterSpacing: "-0.05em",
       fontFamily: "Aldrich, sans-serif",
       textTransform: "uppercase",
       [mq.sm]: {

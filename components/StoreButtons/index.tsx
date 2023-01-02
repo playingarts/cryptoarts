@@ -44,7 +44,7 @@ const StoreButtons: FC<Props> = ({ palette, ButtonProps, ...props }) => (
               width: "auto",
               transition: theme.transitions.slow("all"),
               "&:hover": {
-                color: theme.colors.white,
+                color: "rgba(255, 255, 255, 0.5)",
               },
             },
             [theme.maxMQ.sm]: {
@@ -77,7 +77,7 @@ const StoreButtons: FC<Props> = ({ palette, ButtonProps, ...props }) => (
                 width: "auto",
                 transition: theme.transitions.slow("all"),
                 "&:hover": {
-                  color: theme.colors.white,
+                  color: "rgba(255, 255, 255, 0.5)",
                 },
               },
             ],

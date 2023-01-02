@@ -60,6 +60,7 @@ const MetamaskButton: FC<Props> = ({
   if (status === "connected") {
     css = (theme) => ({
       backgroundColor: colord(theme.colors.white).alpha(0).toRgbString(),
+      transition: theme.transitions.fast(["opacity", "color", "background"]),
       color:
         theme.colors[
           backgroundColor as keyof Omit<typeof theme.colors, "decks">

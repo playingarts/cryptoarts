@@ -217,7 +217,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                         [theme.mq.sm]: {
                           transition: theme.transitions.slow("all"),
                           "&:hover": {
-                            color: theme.colors.white,
+                            color: "rgba(255, 255, 255, 0.5)",
                           },
                         },
                       },
@@ -273,13 +273,21 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                   },
                 ]}
               >
-                Copyright © 2012—2023 Digital Abstracts SL. All rights reserved.
+                © 2012—2023 Digital Abstracts SL. 
                 Any artwork displayed on this website may not be reproduced or
                 used in any manner whatsoever without the express written
                 permission of Digital Abstracts or their respective owners.
                 Patent Pending. We use cookies and similar technologies for
-                statistics and marketing purposes. Check out our{" "}
-                <Link href="/privacy">Privacy Statement</Link>
+                statistics and marketing purposes. {" "}
+                <Link css={[
+                {
+                  color: "rgba(255, 255, 255, 0.25)",
+                  transition: theme.transitions.slow("all"),
+                  "&:hover": {
+                    color: "rgba(255, 255, 255, 0.5)",
+                  },
+                },
+              ]} href="/privacy">Privacy Statement</Link>
               </Text>
             </div>
           </Grid>

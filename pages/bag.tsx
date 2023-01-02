@@ -136,6 +136,7 @@ const Content: FC<{
                 paddingTop: theme.spacing(3),
               },
               [theme.maxMQ.sm]: {
+                paddingTop: theme.spacing(0),
                 paddingBottom: theme.spacing(5.5),
               },
               paddingBottom: theme.spacing(15),
@@ -316,15 +317,15 @@ const Content: FC<{
                       ]}
                     >
                       <Text
-                        component={width >= breakpoints.sm ? "h3" : "h3"}
+                        component="h4"
                         css={[
                           {
                             margin: 0,
                           },
                         ]}
                       >
-                        Subtotal
-                        {width >= breakpoints.sm ? " (incl. taxes)" : ""}
+                        Subtotal (incl. taxes)
+                        {/* {width >= breakpoints.sm ? " (incl. taxes)" : ""} */}
                       </Text>
                       <div
                         css={(theme) => [

@@ -104,12 +104,12 @@ const ShopCheckoutItem: FC<Props> = ({
         ]}
       >
         <Text
-          component="h3"
+          // component="h3"
           css={[{ margin: 0 }]}
           {...(titleVariant
-            ? { variant: titleVariant }
+            ? { component: titleVariant }
             : {
-                component: "h3",
+                component: "h4",
               })}
         >
           {title}

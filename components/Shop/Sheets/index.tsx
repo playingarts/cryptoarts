@@ -4,7 +4,6 @@ import AddToBagButton from "../../AddToBagButton";
 import Button from "../../Button";
 import Grid from "../../Grid";
 import Bag from "../../Icons/Bag";
-import Line from "../../Line";
 import SelectButton from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
@@ -70,15 +69,6 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
         <Text css={{ margin: 0 }} component="h3">
           Uncut Sheets
         </Text>
-        {width >= breakpoints.sm && (
-          <Fragment>
-            <Text css={[{ margin: 0, opacity: 0.5 }]} variant="body2">
-              €{product.price}
-            </Text>
-            <Line spacing={3} />
-          </Fragment>
-        )}
-
         <Text
           css={(theme) => [
             {
@@ -90,22 +80,18 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
         >
           An uncut sheet is a normal deck of playing cards - uncut. Just before
           the sheets were cut into decks at USPCC, some were removed - destined
-          for display on your wall.
+          for display on your wall. Size: 22x26,5 inches. Frame not included.
         </Text>
-        <Text
-          css={(theme) => [
-            {
-              [theme.maxMQ.sm]: {
-                fontSize: 16,
-              },
-              margin: 0,
-              opacity: 0.5,
-            },
-          ]}
-        >
-          Size: 22x26,5 inches. Frame not included.
-        </Text>
-        <Line spacing={3} />
+        
+        {width >= breakpoints.sm && (
+          <Fragment>
+            <Text css={[{ marginTop: "10px", marginBottom: "20px", opacity: 0.5 }]} variant="body2">
+              €{product.price}
+            </Text>
+          </Fragment>
+        )}
+        
+
         {width < breakpoints.sm && (
           <div
             css={(theme) => [
@@ -116,6 +102,7 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
                   paddingRight: theme.spacing(2.5),
                   paddingLeft: theme.spacing(2.5),
                   paddingBottom: theme.spacing(2.5),
+                  paddingTop: theme.spacing(2.5),
                 },
               },
             ]}
@@ -179,6 +166,24 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             setter={changeProduct}
           />
         </div>
+        
+        {/* <Text
+          css={(theme) => [
+            {
+              [theme.maxMQ.sm]: {
+                fontSize: 16,
+              },
+              margin: 0,
+              opacity: 0.5,
+            },
+          ]}
+        >
+          Size: 22x26,5 inches. Frame not included.
+        </Text> */}
+        
+        
+        {/* <Line spacing={3} /> */}
+        
       </div>
     </Grid>
   );

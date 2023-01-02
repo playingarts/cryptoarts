@@ -403,7 +403,7 @@ const Header: FC<Props> = ({
                     : "dark_gray"
                 }
                 css={(theme) => ({
-                  marginRight: theme.spacing(1),
+                  marginRight: theme.spacing(2),
                 })}
               />
             )}

@@ -305,7 +305,7 @@ const Content: FC = () => {
                             gridColumn: "1/ -1",
                             paddingLeft: theme.spacing(2.5),
                             paddingRight: theme.spacing(2.5),
-                            marginBottom: theme.spacing(1),
+                            marginBottom: theme.spacing(2.5),
                           },
                         },
                       ]}
@@ -352,7 +352,11 @@ const Content: FC = () => {
             [theme.maxMQ.sm]: {
               marginTop: theme.spacing(7.5),
             },
+            [theme.maxMQ.md]: {
+              marginTop: theme.spacing(0),
+            },
             marginTop: theme.spacing(9),
+            // tuta
           })}
         >
           {/* <BlockTitle
@@ -378,18 +382,18 @@ const Content: FC = () => {
             })}
           /> */}
           <Grid>
-            <Grid short={true} shop={true} css={{ gridColumn: "1/-1" }}>
+            <Grid shop={true} css={{ gridColumn: "1 / -1" }}>
               {bundles.map((product) => (
                 <Fragment key={product._id}>
                   <ShopBundle
                     css={(theme) => ({
                       gridColumn: "span 4",
-                      height: theme.spacing(55),
+                      height: theme.spacing(50),
                       [theme.maxMQ.sm]: {
                         gridColumn: "1 / -1",
                         height: theme.spacing(37.8),
                       },
-                      [theme.mq.md]: { gridColumn: "span 5" },
+                      [theme.mq.md]: { gridColumn: "span 6",  height: theme.spacing(60) },
                     })}
                     {...product}
                   />

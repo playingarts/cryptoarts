@@ -28,7 +28,7 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
         Sold out
       </Text>
       <Line
-        spacing={2.5}
+        spacing={2}
         css={[
           {
             width: "100%",
@@ -36,6 +36,19 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
           },
         ]}
       />
+      
+      <Text
+        // variant="body2"
+        css={[
+          {
+            color: "rgba(0, 0, 0, 0.5)",
+            lineHeight: "25px",
+            fontSize: "16px",
+          },
+        ]}
+      >
+        Subscribe to project news and we will let you know when this deck is back in stock.
+      </Text>
       <Button
         color="black"
         component={Link}
@@ -44,17 +57,6 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
       >
         Notify me
       </Button>
-      <Text
-        variant="body0"
-        css={[
-          {
-            color: "rgba(0, 0, 0, 0.5)",
-            lineHeight: "25px",
-          },
-        ]}
-      >
-        We will let you know when this deck is back in stock. Unsubscribe at anytime!
-      </Text>
       {/* <Line
         spacing={width < breakpoints.sm ? 1 : 3}
         css={(theme) => [

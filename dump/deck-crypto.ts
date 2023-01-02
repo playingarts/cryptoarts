@@ -21,8 +21,8 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   labels: ["nft", "ar"],
   properties: {
     size: "Poker, 88.9 × 63.5mm",
-    inside: "52 Playing cards + 2 Jokers + Info card",
     material: "Bicycle® paper with Air-cushion finish",
+    inside: "52 Playing cards + 2 Jokers + Info card",
   },
   description:
     "Enjoy colorful, original artwork from 55 todays leading international illustrators, all in the palm of your hand!",

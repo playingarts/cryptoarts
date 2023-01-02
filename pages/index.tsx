@@ -162,7 +162,7 @@ const Home: NextPage = () => {
               ]}
             >
               {[
-                { title: "10", subtitle: "years" },
+                { title: "11", subtitle: "years" },
                 { title: "08", subtitle: "editions" },
                 { title: "1109", subtitle: "artists" },
               ].map(({ title, subtitle }) => (
@@ -258,7 +258,7 @@ const Home: NextPage = () => {
           color: theme.colors.page_bg_light,
         })}
       />
-
+      
       <Layout
         css={(theme) => ({
           paddingTop: theme.spacing(6),

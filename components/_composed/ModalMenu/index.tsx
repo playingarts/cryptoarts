@@ -290,11 +290,11 @@ const ModalMenu: FC<
               Subscribe to project news
             </Button>
             <Text
-              variant="body0"
               css={[
                 {
                   color: "rgba(255, 255, 255, 0.25)",
                   lineHeight: "25px",
+                  fontSize: "16px",
                 },
               ]}
             >

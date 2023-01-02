@@ -126,7 +126,8 @@ const ShopItem: FC<Props> = ({
             <AddToBagButton
               productId={_id}
               Icon={Bag}
-              {...(width < breakpoints.sm && { color: "black" })}
+              // {...(width < breakpoints.sm && { color: "black" })}
+              color="black"
               css={(theme) => [
                 {
                   [theme.mq.sm]: { alignSelf: "flex-end" },
