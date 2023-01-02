@@ -104,11 +104,13 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
               aspectRatio: "1",
             },
           ]}
+          width={0}
           src={deck.image}
           loading="lazy"
         />
         <img
           loading="lazy"
+          width={0}
           css={[
             {
               aspectRatio: "390 / 488",
@@ -120,6 +122,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         />
         <img
           loading="lazy"
+          width={0}
           css={[
             {
               aspectRatio: "390 / 488",
@@ -131,6 +134,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         />
         <img
           loading="lazy"
+          width={0}
           src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-03.jpg`}
           css={[
             {
@@ -142,6 +146,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         />
         <img
           loading="lazy"
+          width={0}
           src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-04.jpg`}
           css={[
             {
@@ -153,6 +158,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         />
         <img
           loading="lazy"
+          width={0}
           src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-05.jpg`}
           alt=""
           css={[
