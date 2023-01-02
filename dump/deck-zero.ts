@@ -8,7 +8,7 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   short: "Zero",
   slug,
   info:
-    "Originally called Creative Cards, this deck have been completely sold out for about five years now. We are bringing it back in a new and improved version!",
+    "Released in 2012 and originally called Creative Cards, this deck marked the beginning of artistic deck series. Reissued in 2019 powered by Augmented Reality feature.",
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_zero.png",
   labels: ["ar"],
   backgroundImage:

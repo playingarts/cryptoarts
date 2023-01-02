@@ -146,9 +146,7 @@ const Home: NextPage = () => {
           </Text>
           <div css={{ margin: 0, gridColumn: "span 7" }}>
             <Text variant="body3">
-              Playing Arts is a collective art project where leading artists
-              from all over the world express their vision of an ordinary
-              playing card using personal styles, techniques and imagination.
+              Playing Arts is a global art initiative that brings together renowned artists from around the world to showcase their unique perspectives and artistic styles through the medium of playing cards. The result is a diverse and captivating collection of artwork that celebrates the endless possibilities that can be explored through the simple form of a playing card.
             </Text>
             <div
               css={(theme) => [
