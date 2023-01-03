@@ -59,6 +59,10 @@ const Home: NextPage = () => {
                 "--width": `${theme.spacing(25)}px !important`,
                 "--height": `${theme.spacing(35)}px !important`,
               },
+              [theme.mq.md]:{
+                left: "57%",
+
+              }
             },
           ]}
         />
@@ -208,14 +212,6 @@ const Home: NextPage = () => {
                 </div>
               ))}
             </div>
-            {/* <Text
-              component={Link}
-              variant="label"
-              href="/"
-              css={{ opacity: 0.5 }}
-            >
-              <Arrowed>Read our story</Arrowed>
-            </Text> */}
           </div>
         </Grid>
       </Layout>
