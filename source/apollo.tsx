@@ -10,6 +10,7 @@ import {
   Reference,
 } from "@apollo/client";
 import { NextComponentType, NextPage, NextPageContext } from "next";
+import { DeckDataFragment } from "../hooks/deck";
 
 interface Context {
   apolloState: object;
@@ -147,6 +148,7 @@ const createApolloClient = (initialState = {}, config?: object) => {
                       `,
                     }) !== null
                 );
+              console.log(references);
 
               return fragments && references.length === fragments.length
                 ? references
@@ -160,12 +162,37 @@ const createApolloClient = (initialState = {}, config?: object) => {
                 _id: args && args.id,
               }),
           },
+          // decks: {
+          //   read:(_)=>{
+
+          //   }
+          // },
           deck: {
-            read: (_, { args, toReference }) =>
-              toReference({
-                __typename: "Deck",
-                slug: args && args.slug,
-              }),
+            read: (refs, { args, toReference, cache }) => {
+              const reference: Reference | undefined =
+                args &&
+                args.slug &&
+                toReference({
+                  __typename: "Deck",
+                  slug: args.slug,
+                });
+
+              const fragment =
+                reference &&
+                cache.readFragment({
+                  id: reference.__ref,
+                  fragment: DeckDataFragment,
+                  // fragment: gql`
+                  //   fragment MyProduct on Deck {
+                  //     _id
+                  //   }
+                  // `,
+                });
+              // console.log(fragment, reference, args && args.slug, refs, cache);
+              console.log(fragment, reference, cache);
+
+              return fragment && reference ? reference : refs;
+            },
           },
         },
       },

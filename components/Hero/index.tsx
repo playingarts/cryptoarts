@@ -96,7 +96,11 @@ const Hero: FC<Props> = ({ slug, deck, ...props }) => {
                 }
           }
           key={card._id}
-          href={`/${card.deck.slug}/${card.artist.slug}`}
+          href={
+            card.deck.slug
+              ? `/${card.deck.slug}/${card.artist.slug}`
+              : `/${slug}`
+          }
         >
           <Card
             interactive={true}
