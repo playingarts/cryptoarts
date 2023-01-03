@@ -61,6 +61,9 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           [theme.mq.sm]: {
             height: `calc(100vh - ${theme.spacing(6)}px)`,
             maxHeight: theme.spacing(75),
+            paddingTop: theme.spacing(25),
+          },
+          [theme.maxMQ.md]: {
             paddingTop: theme.spacing(22),
           },
           [theme.maxMQ.sm]: {
