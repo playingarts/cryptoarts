@@ -77,9 +77,12 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
               <Link
                 href="https://etherscan.io/address/0xc22616e971a670e72f35570337e562c3e515fbfe"
                 target="_blank"
-                css={{
+                css={(theme) => [{
                   gridColumn: "3 / -1",
-                }}
+                  [theme.maxMQ.sm]: {
+                    gridColumn: "1 / -1",
+                  },
+                }]}
               >
                 <Text
                   variant="body"
@@ -108,6 +111,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
                         {
                           color: theme.colors.text_title_light,
                           [theme.maxMQ.sm]: {
+                            fontSize: 16,
                             color:
                               palette === "dark"
                                 ? theme.colors.page_bg_light
@@ -118,7 +122,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
                     >
                       {width >= breakpoints.sm
                         ? "0xC22616E971a670E72F35570337e562c3E515FBFE"
-                        : "0xC22616E.....515FBFE"}
+                        : "0xC22616E97.....2c3E515FBFE"}
                     </span>
                   </Arrowed>
                 </Text>

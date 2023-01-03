@@ -29,10 +29,10 @@ const BlockWithProperties: FC<Props> = ({
         css={(theme) => [
           {
             paddingTop: theme.spacing(3),
-            gap: theme.spacing(3),
-            // [theme.mq.sm]: {
-            //   gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px) `,
-            // },
+            [theme.mq.sm]: {
+              gap: theme.spacing(3),
+              // gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px) `,
+            },
             // [theme.mq.md]: {
             //   gridTemplateColumns: `repeat(12, ${theme.spacing(7.5)}px) `,
             // },
@@ -59,6 +59,9 @@ const BlockWithProperties: FC<Props> = ({
                     {
                       //   color: theme.colors.text_subtitle_light,
                       gridColumn: "1 / 3",
+                      [theme.maxMQ.sm]: {
+                        gridColumn: "1 / -1",
+                      },
                       margin: 0,
                       color:
                         palette === "dark"
@@ -89,6 +92,8 @@ const BlockWithProperties: FC<Props> = ({
                           : theme.colors.text_subtitle_dark,
                       [theme.maxMQ.sm]: {
                         fontSize: 16,
+                        gridColumn: "1 / -1",
+                        paddingTop: 5,
                       },
                     },
                   ]}

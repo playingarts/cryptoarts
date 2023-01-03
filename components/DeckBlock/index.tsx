@@ -1,8 +1,10 @@
 import { forwardRef, ForwardRefRenderFunction } from "react";
 import { theme } from "../../pages/_app";
+import { breakpoints } from "../../source/enums";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Link from "../Link";
+import { useSize } from "../SizeProvider";
 import BlockWithProperties from "../_composed/BlockWithProperties";
 
 export interface Props {
@@ -33,6 +35,45 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
       palette === "dark" ? theme.colors.dark_gray : theme.colors.page_bg_light,
     backgroundPosition: "center",
   });
+  const buyButton=<Button
+  color="black"
+  component={Link}
+  href={{
+    pathname: "/shop",
+    query: {
+      scrollIntoView: `[data-id='${deck.slug}']`,
+      scrollIntoViewBehavior: "smooth",
+    },
+  }}
+  Icon={Bag}
+  css={(theme) => [
+    {
+      width: "100%",
+      justifyContent: "center",
+      [theme.maxMQ.sm]: [
+        {
+          marginTop: 10,
+          marginBottom: 25,
+          gridColumn: "1 / -1",
+        },
+      ],
+      [theme.mq.sm]: {
+        gridColumn: "span 2/ 8",
+      },
+      [theme.mq.md]: {
+        gridColumn: "span 2/ 9",
+      },
+    },
+    palette === "dark" && {
+      background: theme.colors.page_bg_light,
+      color: theme.colors.page_bg_dark,
+    },
+  ]}
+>
+  Buy now
+</Button>
+
+const { width} = useSize();
 
   return (
     <BlockWithProperties
@@ -43,43 +84,10 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
       }))}
       palette={palette}
       action={
-        <Button
-          color="black"
-          component={Link}
-          href={{
-            pathname: "/shop",
-            query: {
-              scrollIntoView: `[data-id='${deck.slug}']`,
-              scrollIntoViewBehavior: "smooth",
-            },
-          }}
-          Icon={Bag}
-          css={(theme) => [
-            {
-              width: "100%",
-              justifyContent: "center",
-              [theme.maxMQ.sm]: [
-                {
-                  gridColumn: "1 / -1",
-                },
-              ],
-              [theme.mq.sm]: {
-                gridColumn: "span 2/ 8",
-              },
-              [theme.mq.md]: {
-                gridColumn: "span 2/ 9",
-              },
-            },
-            palette === "dark" && {
-              background: theme.colors.page_bg_light,
-              color: theme.colors.page_bg_dark,
-            },
-          ]}
-        >
-          Buy now
-        </Button>
+        buyButton
       }
     >
+      {width<breakpoints.sm? buyButton:null}
       <div
         css={(theme) => [
           {
