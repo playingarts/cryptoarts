@@ -221,7 +221,7 @@ const Content: FC<{
                     },
                     [theme.mq.md]: {
                       gridColumn: "span 5 / -1",
-                      marginTop: theme.spacing(3),
+                      marginTop: theme.spacing(0),
                     },
                     [theme.maxMQ.md]: {
                       marginTop: theme.spacing(3),
