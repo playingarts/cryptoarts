@@ -109,7 +109,7 @@ const ShopCheckoutItem: FC<Props> = ({
           {...(titleVariant
             ? { component: titleVariant }
             : {
-                component: "h4",
+                component: width>=breakpoints.sm?"h4": "h3",
               })}
         >
           {title}
@@ -176,10 +176,12 @@ const ShopCheckoutItem: FC<Props> = ({
                 // maxHeight: "calc(var(--buttonHeight)*6)",
                 // overflowY: "scroll",
                 overflow: "visible",
-                width: theme.spacing(12.8),
+                width: theme.spacing(8),
+                marginRight: 20,
                 [theme.maxMQ.sm]: {
                   // maxHeight: "calc(var(--buttonHeight)*2.5)",
                   width: theme.spacing(10),
+                  marginRight: 0,
                 },
               },
             ]}
@@ -201,7 +203,16 @@ const ShopCheckoutItem: FC<Props> = ({
           })}
         >
           {price && (
-            <Text variant={priceVariant} css={{ margin: 0 }}>
+            <Text variant={priceVariant} 
+            css={(theme) => ({
+              marginTop: 10,
+              marginBottom: 0,
+              fontSize: 30,
+              [theme.maxMQ.sm]: {
+                fontSize: 25
+              },
+            })}
+            >
               {price.toLocaleString(undefined, {
                 style: "currency",
                 currency: "EUR",
@@ -211,12 +222,13 @@ const ShopCheckoutItem: FC<Props> = ({
           {remove && width >= breakpoints.sm && (
             <Text
               component="button"
-              css={[
-                {
+              css={(theme) => ({
+                  transition: theme.transitions.slow("opacity"),
                   opacity: 0.5,
-                  marginTop: 7,
+                  "&:hover": {
+                    opacity: 1,
                 },
-              ]}
+              })}
               onClick={remove}
             >
               Remove

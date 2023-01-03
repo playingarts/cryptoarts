@@ -124,8 +124,10 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                   { href: "/", text: "Home" },
                   { href: "/shop", text: "Shop" }, 
                   { href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start", text: "Shipping" },
+                  { href: "https://play2.playingarts.com/", text: "Game" },
                   { href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L", target: "_blank", text: "Podcast" },
-                  { href: "/", text: "Gallery" },
+                  // { href: "/", text: "Gallery" },
+                  { href: "https://landing.mailerlite.com/webforms/landing/n4m6r2", target: "_blank", text: "News" },
                   { href: "/contact", text: "Contact" },
                 ].map(({ href, text, target }) => (
                   <Link
