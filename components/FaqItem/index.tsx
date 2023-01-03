@@ -28,6 +28,7 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
             transition: theme.transitions.slow("color"),
 
             [theme.maxMQ.sm]: {
+              fontSize: "15px",
               paddingTop: theme.spacing(0),
               paddingBottom: theme.spacing(0),
             },
@@ -47,6 +48,7 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
             marginBottom: theme.spacing(2),
             color: theme.colors.text_title_dark,
             [theme.maxMQ.sm]: {
+              fontSize: "15px",
               lineHeight: 27 / 18,
             },
           })}

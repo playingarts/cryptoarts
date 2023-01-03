@@ -417,7 +417,7 @@ const Content: FC<{
                       // status === "connected" && deck.openseaCollection
                       deck.slug === "crypto"
                         ? `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`
-                        : `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
+                        : `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`, 
                     paddingTop: theme.spacing(15),
                     paddingBottom: theme.spacing(10),
                   },

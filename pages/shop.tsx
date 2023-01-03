@@ -69,7 +69,7 @@ const Content: FC = () => {
       <Layout
         css={(theme) => ({
           background: theme.colors.page_bg_light,
-          paddingTop: theme.spacing(20),
+          paddingTop: theme.spacing(18),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(12.5),
             paddingBottom: theme.spacing(0),
@@ -420,7 +420,7 @@ const Content: FC = () => {
 
       <Layout
         css={(theme) => ({
-          background: theme.colors.page_bg_light_gray,
+          background: `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
           paddingTop: theme.spacing(11),
           paddingBottom: theme.spacing(11),
           [theme.maxMQ.sm]: {
@@ -434,7 +434,7 @@ const Content: FC = () => {
       <Layout
         data-id="faq" 
         css={(theme) => ({
-          background: theme.colors.white,
+          background: theme.colors.page_bg_light_gray,
           paddingTop: theme.spacing(10),
           paddingBottom: theme.spacing(10),
           [theme.mq.sm]: {

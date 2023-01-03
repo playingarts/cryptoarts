@@ -91,6 +91,7 @@ const CardInfo: FC<Props> = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
+              marginTop: theme.spacing(2.5),
               [theme.mq.sm]: {
                 height: theme.spacing(5),
               },

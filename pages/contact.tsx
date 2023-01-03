@@ -1,54 +1,13 @@
 import { NextPage } from "next";
-import { Fragment } from "react";
-import BlockTitle from "../components/BlockTitle";
 import Grid from "../components/Grid";
 import Layout from "../components/Layout";
-import { useSize } from "../components/SizeProvider";
 import Text from "../components/Text";
+import Line from "../components/Line";
 import ComposedFaq from "../components/_composed/Faq";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import { withApollo } from "../source/apollo";
-import { breakpoints } from "../source/enums";
 
 const Page: NextPage = () => {
-  const { width } = useSize();
-
-  const action = (
-    <div
-      css={(theme) => [
-        {
-          color: theme.colors.text_subtitle_dark,
-          width: "100%",
-          [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(5),
-          },
-        },
-      ]}
-    >
-      <Text component="h5" css={{ margin: 0 }}>
-        Company
-      </Text>
-      <Text
-        variant="label"
-        css={(theme) => [
-          {
-            margin: 0,
-            marginTop: theme.spacing(1),
-            lineHeight: 1.5,
-            [theme.mq.sm]: { lineHeight: 1.5 },
-          },
-        ]}
-      >
-        Digital Abstracts, S.L.
-        <br />
-        VAT No. B66760802
-        <br />
-        C/Alaba 60, 08005
-        <br />
-        Barcelona, Spain
-      </Text>
-    </div>
-  );
 
   return (
     <ComposedGlobalLayout>
@@ -66,43 +25,138 @@ const Page: NextPage = () => {
         ]}
         notTruncatable={true}
       >
-        <BlockTitle
-          noLine={true}
-          alwaysSubtitle={true}
-          title="Contact Us"
-          subTitleText={
-            <Fragment>
+        <Grid short={true}>
+          <div css={{ gridColumn: "1 / -1" }}>
+            <Text component="h2" css={{ margin: 0 }}>
+              Contact
+            </Text>
+            <Line
+              spacing={2}
+              css={(theme) => [
+                {
+                  [theme.maxMQ.sm]: {
+                    marginBottom: theme.spacing(1),
+                    marginTop: theme.spacing(1),
+                  },
+                },
+              ]}
+            />
+          </div>
+          <div
+            css={(theme) => [
+              {
+                gridColumn: "span 8",
+
+                [theme.maxMQ.sm]: {
+                  gridColumn: "span 6",
+                },
+              },
+            ]}
+          >
+            <Text variant="body3">
               You got questions concerning your order or a general matter?
               <br />
-              Please reach out to us on the following email address.
-              info@playingarts.com
+              Please reach out to us: info@playingarts.com
+            </Text>
+          </div>
+          <div
+            css={(theme) => [
+              {
+                gridColumn: "span 3",
+
+                [theme.maxMQ.sm]: {
+                  gridColumn: "span 6",
+                },
+              },
+            ]}
+          >
+            <Text
+              component="h5"
+              css={(theme) => [
+                {
+                  color: theme.colors.text_subtitle_dark,
+                  marginBottom: "0px",
+                },
+              ]}
+            >
+              Company
+            </Text>
+            <Text
+              variant="body2"
+              css={(theme) => [
+                {
+                  color: theme.colors.text_subtitle_dark,
+                },
+              ]}
+            >
+              Digital Abstracts, S.L.
               <br />
+              VAT No. B66760802
               <br />
-              Check out some of our Frequently Asked Questions below this page
-              for a quicker response time.
-            </Fragment>
-          }
-          action={action}
-        >
-          {width < breakpoints.sm && action}
-        </BlockTitle>
+              C/Alaba 60, 08005
+              <br />
+              Barcelona, Spain
+            </Text>
+          </div>
+          <div
+            css={(theme) => [
+              {
+                gridColumn: "span 3",
+
+                [theme.maxMQ.sm]: {
+                  gridColumn: "span 6",
+                },
+              },
+            ]}
+          >
+            <Text
+              component="h5"
+              css={(theme) => [
+                {
+                  color: theme.colors.text_subtitle_dark,
+                  marginBottom: "0px",
+                },
+              ]}
+            >
+              Returns
+            </Text>
+            <Text
+              variant="body2"
+              css={(theme) => [
+                {
+                  color: theme.colors.text_subtitle_dark,
+                },
+              ]}
+            >
+              Digital Abstracts, S.L.
+              <br />
+              AK-42, LV-1063
+              <br />
+              Riga, Latvia
+            </Text>
+          </div>
+        </Grid>
       </Layout>
       <Layout
-        data-id="block-faq"
         css={(theme) => ({
-          background: theme.colors.white,
-          paddingTop: theme.spacing(10),
-          paddingBottom: theme.spacing(10),
-          [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(5),
-            paddingBottom: theme.spacing(5),
+          background: theme.colors.page_bg_light_gray,
+          [theme.mq.sm]: {
+            zIndex: 1,
+            borderRadius: "0px 0px 50px 50px",
           },
         })}
       >
         <Grid short={true}>
           <ComposedFaq
-            title="Frequently Asked Questions"
-            css={{ gridColumn: "1 / -1" }}
+            css={(theme) => ({
+              [theme.maxMQ.sm]: {
+                marginTop: theme.spacing(5),
+                marginBottom: theme.spacing(2),
+              },
+              marginTop: theme.spacing(10),
+              marginBottom: theme.spacing(10),
+              gridColumn: "1 / -1",
+            })}
           />
         </Grid>
       </Layout>

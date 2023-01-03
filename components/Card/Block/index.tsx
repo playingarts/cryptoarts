@@ -213,7 +213,7 @@ const CardBlock: FC<Props> = ({
           </Quote>
           {!cardOfTheDay && (
             <Podcast
-              css={(theme) => ({ marginTop: theme.spacing(8) })}
+              css={(theme) => ({ marginTop: theme.spacing(5) })}
               smallTitle={true}
               withoutAction={true}
               title="PODCAST"

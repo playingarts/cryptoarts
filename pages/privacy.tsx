@@ -4,6 +4,8 @@ import BlockTitle from "../components/BlockTitle";
 import Grid from "../components/Grid";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
+import Link from "../components/Link";
+import Button from "../components/Button";
 import { useSize } from "../components/SizeProvider";
 import Text from "../components/Text";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
@@ -212,20 +214,51 @@ const Content: FC = () => {
         ]}
         notTruncatable={true}
       >
-        <BlockTitle
-          noLine={true}
-          alwaysSubtitle={true}
-          title="Privacy Statement"
-          subTitleText="Playing Arts project is legally represented by Digital Abstracts S.L. that cares about your privacy. This privacy statement provides details about the personal information that Digital Abstracts receives through this website (playingarts.com), and the ways this information might be used."
-          action={action}
-        >
-          {width < breakpoints.sm && action}
-        </BlockTitle>
+        <Grid short={true}>
+          <div css={{ gridColumn: "1 / -1" }}>
+            <Text component="h2" css={{ margin: 0 }}>
+              Privacy Statement
+            </Text>
+            <Line
+              spacing={2}
+              css={(theme) => [
+                {
+                  [theme.maxMQ.sm]: {
+                    marginBottom: theme.spacing(1),
+                    marginTop: theme.spacing(1),
+                  },
+                },
+              ]}
+            />
+          </div>
+          <div
+            css={(theme) => [
+              {
+                gridColumn: "span 8",
+
+                [theme.maxMQ.sm]: {
+                  gridColumn: "span 6",
+                },
+              },
+            ]}
+          >
+            <Text variant="body3">
+              Playing Arts project is legally represented by Digital Abstracts
+              S.L. that cares about your privacy. This privacy statement
+              provides details about the personal information that Digital
+              Abstracts receives through this website (playingarts.com), and the
+              ways this information might be used.
+            </Text>
+            <Button color="black" component={Link} href="/contact">
+              Contact Us
+            </Button>
+          </div>
+        </Grid>
       </Layout>
       <div
         css={(theme) => [
           {
-            background: theme.colors.white,
+            background: theme.colors.page_bg_light_gray,
             paddingTop: theme.spacing(10),
             paddingBottom: theme.spacing(10),
             [theme.maxMQ.sm]: {

@@ -68,7 +68,7 @@ const Content: FC<{
       <Layout
         css={(theme) => ({
           background: theme.colors.page_bg_light,
-          paddingTop: theme.spacing(20),
+          paddingTop: theme.spacing(18),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(12.5),
           },
@@ -86,8 +86,8 @@ const Content: FC<{
                   css={(theme) => [
                     {
                       [theme.maxMQ.sm]: {
-                        marginBottom: theme.spacing(1.5),
-                        marginTop: theme.spacing(1.5),
+                        marginBottom: theme.spacing(.5),
+                        marginTop: theme.spacing(1),
                       },
                     },
                   ]}
@@ -100,9 +100,10 @@ const Content: FC<{
                     color: theme.colors.white,
                     width: "fit-content",
                     marginTop: theme.spacing(3),
-                    marginBottom: theme.spacing(10),
+                    marginBottom: theme.spacing(6),
                     [theme.mq.sm]: {
                       transition: theme.transitions.fast("opacity"),
+                      marginBottom: theme.spacing(10),
                       "&:hover": {
                         opacity: 0.8,
                       },
@@ -190,7 +191,6 @@ const Content: FC<{
                         background: theme.colors.gradient_three,
                         borderRadius: theme.spacing(1),
                         color: theme.colors.text_title_light,
-                        fontWeight: 500,
                         margin: 0,
                         marginBottom: theme.spacing(5),
                         [theme.maxMQ.sm]: {
@@ -385,7 +385,7 @@ const Content: FC<{
                 >
                   <StatBlock
                     css={(theme) => ({
-                      background: theme.colors.text_title_light,
+                      background: theme.colors.page_bg_light_gray,
                     })}
                   >
                     {width < breakpoints.md ? (
@@ -527,7 +527,7 @@ const Checkout: NextPage = () => {
       <Content CheckoutButton={CheckoutButton} />
       <Layout
         css={(theme) => ({
-          background: theme.colors.white,
+          background: theme.colors.page_bg_light_gray,
           [theme.mq.sm]: {
             zIndex: 1,
             borderRadius: "0px 0px 50px 50px",

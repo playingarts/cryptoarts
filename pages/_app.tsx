@@ -461,13 +461,13 @@ export const theme: Theme = {
     },
     body: {
       fontSize: 18,
-      lineHeight: 27 / 18,
+      lineHeight: 27 / 18, 
     },
     body2: {
       fontSize: 16,
       lineHeight: 24 / 16,
       [mq.sm]: {
-        fontSize: 22,
+        fontSize: 20,
         lineHeight: 33 / 22,
       },
     },
@@ -483,7 +483,7 @@ export const theme: Theme = {
       fontSize: 20,
       lineHeight: 1.5,
       [mq.sm]: {
-        fontSize: 22,
+        fontSize: 20,
         lineHeight: 33 / 22,
       },
     },
