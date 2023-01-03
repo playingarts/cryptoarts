@@ -32,7 +32,7 @@ import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedPace from "../components/_composed/Pace";
 import { useSignature } from "../contexts/SignatureContext";
-import { useDeck, useDeckWithProduct } from "../hooks/deck";
+import { useDeck } from "../hooks/deck";
 import { useLoadLosersValues } from "../hooks/loser";
 import { useLoadOwnedAssets } from "../hooks/opensea";
 import frag from "../Shaders/Xemantic/index.glsl";
@@ -68,7 +68,7 @@ const Content: FC<{
     } = useRouter();
     const { account } = useMetaMask();
     const { getSig } = useSignature();
-    const { deck, loading } = useDeckWithProduct({
+    const { deck, loading } = useDeck({
       variables: { slug: deckId },
     });
 

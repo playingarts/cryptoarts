@@ -1,6 +1,6 @@
 import { gql, QueryHookOptions, useQuery } from "@apollo/client";
 
-const DeckDataFragment = gql`
+export const DeckDataFragment = gql`
   fragment DeckDataFragment on Deck {
     _id
     info
@@ -21,18 +21,19 @@ const DeckDataFragment = gql`
     properties
     description
     backgroundImage
+    product {
+      image
+      status
+    }
   }
 `;
 
 export const DecksQuery = gql`
   ${DeckDataFragment}
 
-  query Decks($withProduct: Boolean!) {
+  query Decks {
     decks {
       ...DeckDataFragment
-      product @include(if: $withProduct) {
-        image
-      }
     }
   }
 `;
@@ -43,19 +44,6 @@ export const DeckQuery = gql`
   query Deck($slug: String!) {
     deck(slug: $slug) {
       ...DeckDataFragment
-    }
-  }
-`;
-
-export const DeckWithProductQuery = gql`
-  ${DeckDataFragment}
-
-  query DeckWithProduct($slug: String!) {
-    deck(slug: $slug) {
-      ...DeckDataFragment
-      product {
-        status
-      }
     }
   }
 `;
@@ -76,17 +64,6 @@ export const useDeck = (
 ) => {
   const { data: { deck } = { deck: undefined }, ...methods } = useQuery(
     DeckQuery,
-    options
-  );
-
-  return { ...methods, deck };
-};
-
-export const useDeckWithProduct = (
-  options: QueryHookOptions<Pick<GQL.Query, "deck">> = {}
-) => {
-  const { data: { deck } = { deck: undefined }, ...methods } = useQuery(
-    DeckWithProductQuery,
     options
   );
 
