@@ -141,10 +141,12 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
           <Text
             component="h5"
             css={(theme) => ({
+
               [theme.maxMQ.sm]: [
-                theme.typography.body3,
+                // theme.typography.body3,
                 palette === "dark" && {
                   color: theme.colors.white,
+                  paddingTop: `${theme.spacing(1)}px`,
                 },
               ],
               [theme.mq.sm]: {

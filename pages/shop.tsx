@@ -185,9 +185,12 @@ const Content: FC = () => {
                             marginBottom: theme.spacing(9),
                             gridColumn: "1 / -1",
                           })}
+                          withoutUserPic={true}
+                          fullArtist={true}
                           artist={{
                             _id: "",
-                            name: "Wim V.",
+                            name: "Matthew V.",
+                            info: "United States",
                             slug: "wim-v",
                             userpic: "",
                             social: {},
@@ -353,7 +356,7 @@ const Content: FC = () => {
               marginTop: theme.spacing(7.5),
             },
             [theme.maxMQ.md]: {
-              marginTop: theme.spacing(0),
+              marginTop: theme.spacing(5),
             },
             marginTop: theme.spacing(9),
             // tuta

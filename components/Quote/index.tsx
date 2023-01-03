@@ -27,6 +27,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   artist?: GQL.Artist;
   vertical?: boolean;
   fullArtist?: boolean;
+  withoutUserPic?: boolean;
   truncate?: number;
   palette?: "dark" | "light";
 }
@@ -41,6 +42,7 @@ const Quote: FC<Props> = ({
   fullArtist,
   truncate,
   palette,
+  withoutUserPic,
   ...props
 }) => {
   return (
@@ -114,7 +116,7 @@ const Quote: FC<Props> = ({
               />
             )}
             <div css={{ display: "flex", alignItems: "top" }}>
-              {fullArtist && (
+              {fullArtist && !withoutUserPic && (
                 <div
                   css={(theme) => ({
                     width: theme.spacing(7.5),

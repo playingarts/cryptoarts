@@ -140,13 +140,14 @@ const CardInfo: FC<Props> = ({
                         backgroundSize: "400% 100%",
                         animation: "gradient 5s ease infinite",
                         color: theme.colors.dark_gray,
-                        marginRight: theme.spacing(2),
-
+                        
                         [theme.maxMQ.sm]: [
                           card &&
-                            !card.price && {
+                            !card.price ? {
                               width: "100%",
                               justifyContent: "center",
+                            }:{
+                              marginRight: theme.spacing(2),
                             },
                         ],
                       })}

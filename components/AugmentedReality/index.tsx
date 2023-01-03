@@ -89,7 +89,7 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
                 are into Art, Playing Cards, NFTs and sometimes magic.
               </Text>
               {width >= breakpoints.sm && (
-                <Line palette={palette} spacing={3} />
+                <Line palette={palette} spacing={1} />
               )}
               <StoreButtons palette="dark" ButtonProps={{ color: "black" }} />
             </div>

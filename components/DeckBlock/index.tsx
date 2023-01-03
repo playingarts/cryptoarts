@@ -17,7 +17,8 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
   const common = () => ({
     borderRadius: "20px",
     [theme.maxMQ.sm]: {
-      flexBasis: "40%",
+      borderRadius: "10px",
+      flexBasis: "100%",
       flexGrow: "1",
       aspectRatio: "1",
     },
@@ -84,14 +85,16 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
           {
             display: "flex",
             flexWrap: "wrap",
-            gap: theme.spacing(3),
+            gap: theme.spacing(2),
             gridColumn: "1/-1",
             [theme.mq.sm]: {
               flexDirection: "column",
               height: theme.spacing(67.2),
+              gap: theme.spacing(3),
             },
             [theme.mq.md]: {
               height: theme.spacing(90.8),
+              gap: theme.spacing(3),
             },
           },
         ]}

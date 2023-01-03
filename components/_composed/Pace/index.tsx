@@ -155,7 +155,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
           css={(theme) => [
             {
               gridColumn: "1/-1",
-              paddingTop: theme.spacing(3),
+              // paddingTop: theme.spacing(3),
               gap: theme.spacing(3),
               [theme.mq.sm]: {
                 gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px) `,

@@ -64,15 +64,16 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
             truncate === false && {
               borderRadius: theme.spacing(3),
               background: theme.colors.page_bg_light_gray,
+              [theme.maxMQ.sm]: palette === "dark" && {
+                background: "#111111",
+              },
             },
             palette !== undefined && {
               color:
                 palette === "dark"
                   ? theme.colors.text_title_light
                   : theme.colors.text_title_dark,
-              [theme.maxMQ.sm]: palette === "dark" && {
-                background: theme.colors.page_bg_dark,
-              },
+              
 
               // [theme.mq.sm]: {
               //   background:
