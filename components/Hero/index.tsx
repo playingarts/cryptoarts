@@ -65,6 +65,10 @@ const Hero: FC<Props> = ({ slug, deck, ...props }) => {
                   [theme.mq.sm]: {
                     marginTop: -theme.spacing(2.3),
                   },
+                  [theme.maxMQ.md]: {
+                    left: theme.spacing(17),
+                    marginTop: -theme.spacing(5),
+                  },
                   [theme.maxMQ.sm]: {
                     transform: "rotate(15deg) scale(1)",
                     left: theme.spacing(15.2),
@@ -104,12 +108,20 @@ const Hero: FC<Props> = ({ slug, deck, ...props }) => {
             css={(theme) => [
               index % 2 === 0
                 ? {
+                    [theme.maxMQ.md]: {
+                      "--width": `${theme.spacing(25)}px !important`,
+                      "--height": `${theme.spacing(35.2)}px !important`,
+                    },
                     [theme.maxMQ.sm]: {
                       "--width": `${theme.spacing(11.4)}px !important`,
                       "--height": `${theme.spacing(16.1)}px !important`,
                     },
                   }
                 : {
+                    [theme.maxMQ.md]: {
+                      "--width": `${theme.spacing(30)}px !important`,
+                      "--height": `${theme.spacing(42.2)}px !important`,
+                    },
                     [theme.maxMQ.sm]: {
                       "--width": `${theme.spacing(13.6)}px !important`,
                       "--height": `${theme.spacing(19.1)}px !important`,

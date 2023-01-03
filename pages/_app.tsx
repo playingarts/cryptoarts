@@ -384,6 +384,10 @@ export const theme: Theme = {
       lineHeight: 1.1,
       fontFamily: "Aldrich, sans-serif",
       [mq.sm]: {
+        fontSize: 80,
+        lineHeight: 105 / 100,
+      },
+      [mq.md]: {
         fontSize: 100,
         lineHeight: 105 / 100,
       },
@@ -475,6 +479,10 @@ export const theme: Theme = {
       fontSize: 20,
       lineHeight: 30 / 20,
       [mq.sm]: {
+        fontSize: 22,
+        lineHeight: 1.5,
+      },
+      [mq.md]: {
         fontSize: 26,
         lineHeight: 1.5,
       },

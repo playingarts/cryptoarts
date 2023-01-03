@@ -54,6 +54,7 @@ const Home: NextPage = () => {
                 left: "57%",
               },
               [theme.mq.sm]: {
+                left: "67%",
                 top: theme.spacing(-35),
                 "--width": `${theme.spacing(25)}px !important`,
                 "--height": `${theme.spacing(35)}px !important`,
@@ -103,7 +104,7 @@ const Home: NextPage = () => {
             color: theme.colors.white,
             width: "fit-content",
             [theme.mq.sm]: {
-              marginTop: theme.spacing(5),
+              marginTop: theme.spacing(1),
               transition: theme.transitions.fast("opacity"),
               "&:hover": {
                 opacity: 0.8,

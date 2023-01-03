@@ -269,6 +269,9 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
               top: theme.spacing(20.3),
               left: theme.spacing(7),
               zIndex: 1,
+              [theme.maxMQ.md]: {
+                left: theme.spacing(15),
+              },
               [theme.maxMQ.sm]: {
                 top: theme.spacing(35.5),
               },
