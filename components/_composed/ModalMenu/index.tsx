@@ -23,6 +23,7 @@ import Link from "../../Link";
 import Nav from "../../Nav";
 import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
+import { useOwnedAssets } from "../../../hooks/opensea";
 
 const newsletterLink = process.env.NEXT_PUBLIC_NEWSLETTER;
 const ModalMenu: FC<
@@ -72,6 +73,8 @@ const ModalMenu: FC<
   };
 
   const { width: windowWidth } = useSize();
+
+  const ownedAssets = useOwnedAssets("crypto");
 
   return (
     <Layout
@@ -244,36 +247,63 @@ const ModalMenu: FC<
           >
             {[
               { href: "/", text: "Home" },
-              // { href: "https://play2.playingarts.com/", text: "Game" },
-              
-              { href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L", target: "_blank", text: "Podcast" },
+
+              ownedAssets.length !== 0 && {
+                href: "https://play2.playingarts.com/",
+                text: "Game",
+              },
+
+              {
+                href:
+                  "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+                target: "_blank",
+                text: "Podcast",
+              },
               { href: "/shop", text: "Shop" },
               { href: "/contact", text: "Contact" },
-              { href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start", text: "Shipping" },
+              {
+                href:
+                  "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start",
+                text: "Shipping",
+              },
               // { href: "/", text: "Gallery" },
-              
-              
-            ].map(({ href, text, target }) => (
-              <Link
-                key={text}
-                href={href}
-                {...target&&{target}}
-                css={(theme) => [
-                  {
-                    gridColumn: "span 3",
-                    [theme.mq.sm]: {
-                      gridColumn: "span 2",
-                      "&:hover": {
-                        color: theme.colors.white,
-                        transition: theme.transitions.fast("color"),
+            ]
+              .filter(
+                (
+                  item
+                ): item is
+                  | {
+                      href: string;
+                      text: string;
+                      target?: undefined;
+                    }
+                  | {
+                      href: string;
+                      target: string;
+                      text: string;
+                    } => !!item
+              )
+              .map(({ href, text, target }) => (
+                <Link
+                  key={text}
+                  href={href}
+                  {...(target && { target })}
+                  css={(theme) => [
+                    {
+                      gridColumn: "span 3",
+                      [theme.mq.sm]: {
+                        gridColumn: "span 2",
+                        "&:hover": {
+                          color: theme.colors.white,
+                          transition: theme.transitions.fast("color"),
+                        },
                       },
                     },
-                  },
-                ]}
-              >
-                {text}
-              </Link>
-            ))}
+                  ]}
+                >
+                  {text}
+                </Link>
+              ))}
           </Grid>
           <div
             css={{
@@ -285,7 +315,7 @@ const ModalMenu: FC<
               windowWidth >= breakpoints.sm) && (
               <Line palette="dark" css={{ width: "100%" }} spacing={4} />
             )}
-            
+
             <div
               css={(theme) => ({
                 display: "flex",
@@ -368,19 +398,20 @@ const ModalMenu: FC<
                 },
               ]}
             >
-              We will never share your details with others. Unsubscribe at anytime!
+              We will never share your details with others. Unsubscribe at
+              anytime!
             </Text>
             <Line palette="dark" css={{ width: "100%" }} spacing={3.5} />
-            
+
             <StoreButtons
-                css={{
-                  color: colord(theme.colors.white).alpha(0.2).toRgbString(),
-                }}
-                ButtonProps={{
-                  variant: "bordered",
-                }}
-              />
-              {/* <Line
+              css={{
+                color: colord(theme.colors.white).alpha(0.2).toRgbString(),
+              }}
+              ButtonProps={{
+                variant: "bordered",
+              }}
+            />
+            {/* <Line
                 // ref={lineRef}
                 spacing={3}
                 palette="dark"

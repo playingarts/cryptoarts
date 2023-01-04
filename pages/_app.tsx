@@ -465,7 +465,7 @@ export const theme: Theme = {
     },
     body: {
       fontSize: 18,
-      lineHeight: 27 / 18, 
+      lineHeight: 27 / 18,
     },
     body2: {
       fontSize: 16,

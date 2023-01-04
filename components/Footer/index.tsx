@@ -1,6 +1,6 @@
-import { useMetaMask } from "metamask-react";
 import { colord } from "colord";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
+import { useOwnedAssets } from "../../hooks/opensea";
 import { theme } from "../../pages/_app";
 import { socialLinks } from "../../source/consts";
 import { breakpoints } from "../../source/enums";
@@ -22,7 +22,7 @@ import Text from "../Text";
 
 const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const lineRef = useRef<HTMLHRElement>(null);
-  const {status} = useMetaMask();
+  const ownedAssets = useOwnedAssets("crypto");
 
   const ref = useRef<HTMLElement>(null);
   //todo rethink sticky logic
@@ -124,7 +124,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
               >
                 {[
                   { href: "/", text: "Home" },
-                  
+
                   { href: "/shop", text: "Shop" },
 
                   {
@@ -133,9 +133,11 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                     text: "Shipping",
                   },
 
-                  status === "connected" &&
-                  { href: "https://play2.playingarts.com/", text: "Game" },
-                  
+                  ownedAssets.length !== 0 && {
+                    href: "https://play2.playingarts.com/",
+                    text: "Game",
+                  },
+
                   {
                     href:
                       "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
@@ -148,50 +150,58 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                     target: "_blank",
                     text: "News",
                   },
-                  
+
                   // { href: "/", text: "Gallery" },
 
                   { href: "/contact", text: "Contact" },
-                    ].filter((item): item is {
-                      href: string;
-                      text: string;
-                      target?: undefined;
-                  } | {
-                      href: string;
-                      target: string;
-                      text: string;
-                  } =>!!item).map(({ href, text, target }) => (
-                  <Link
-                    key={text}
-                    href={href}
-                    {...(target && { target })}
-                    css={(theme) => [
-                      theme.typography.label,
-                      {
-                        padding: `${theme.spacing(1.4)}px ${theme.spacing(
-                          0
-                        )}px`,
-                        color: "rgba(255,255,255,0.7)",
-                        width: "50%",
-                        float: "left",
-                        fontWeight: 600,
-                        textTransform: "uppercase",
-
-                        [theme.mq.sm]: {
+                ]
+                  .filter(
+                    (
+                      item
+                    ): item is
+                      | {
+                          href: string;
+                          text: string;
+                          target?: undefined;
+                        }
+                      | {
+                          href: string;
+                          target: string;
+                          text: string;
+                        } => !!item
+                  )
+                  .map(({ href, text, target }) => (
+                    <Link
+                      key={text}
+                      href={href}
+                      {...(target && { target })}
+                      css={(theme) => [
+                        theme.typography.label,
+                        {
                           padding: `${theme.spacing(1.4)}px ${theme.spacing(
-                            2
+                            0
                           )}px`,
-                          transition: theme.transitions.slow("color"),
-                          "&:hover": {
-                            color: theme.colors.white,
+                          color: "rgba(255,255,255,0.7)",
+                          width: "50%",
+                          float: "left",
+                          fontWeight: 600,
+                          textTransform: "uppercase",
+
+                          [theme.mq.sm]: {
+                            padding: `${theme.spacing(1.4)}px ${theme.spacing(
+                              2
+                            )}px`,
+                            transition: theme.transitions.slow("color"),
+                            "&:hover": {
+                              color: theme.colors.white,
+                            },
                           },
                         },
-                      },
-                    ]}
-                  >
-                    {text}
-                  </Link>
-                ))}
+                      ]}
+                    >
+                      {text}
+                    </Link>
+                  ))}
               </div>
               <div
                 css={(theme) => [

@@ -13,8 +13,7 @@ import Sort from "../../Icons/Sort";
 import SelectButton, { Props as SelectButtonProps } from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
 
-interface Props
-  extends Omit<ListProps, "metamaskProps" | "status" | "deckId" | "cards"> {
+interface Props extends Omit<ListProps, "status" | "deckId" | "cards"> {
   deck: GQL.Deck;
   ownedCards: OwnedCard[];
 }
@@ -48,7 +47,7 @@ const SortSelectButton: FC<
     )) ||
   null;
 const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
-  const { status, account } = useMetaMask();
+  const { status } = useMetaMask();
   const {
     query: { artistId },
   } = useRouter();
@@ -256,12 +255,12 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
                 )
               : cards
           }
-          {...(deck.openseaCollection && {
-            metamaskProps: {
-              account,
-              ownedCards: [...ownedCards],
-            },
-          })}
+          // {...(deck.openseaCollection && {
+          //   metamaskProps: {
+          //     account,
+          //     ownedCards: [...ownedCards],
+          //   },
+          // })}
           sorted={!!deck.openseaCollection}
           palette={deck.slug === "crypto" ? "dark" : "light"}
           css={(theme) => [

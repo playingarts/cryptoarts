@@ -31,10 +31,9 @@ import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedPace from "../components/_composed/Pace";
-import { useSignature } from "../contexts/SignatureContext";
 import { useDeck } from "../hooks/deck";
 import { useLoadLosersValues } from "../hooks/loser";
-import { useLoadOwnedAssets } from "../hooks/opensea";
+import { useOwnedAssets } from "../hooks/opensea";
 import frag from "../Shaders/Xemantic/index.glsl";
 import { withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
@@ -67,38 +66,15 @@ const Content: FC<{
       pathname,
     } = useRouter();
     const { account } = useMetaMask();
-    const { getSig } = useSignature();
     const { deck, loading } = useDeck({
       variables: { slug: deckId },
     });
 
-    const { ownedAssets, loadOwnedAssets } = useLoadOwnedAssets();
+    const ownedAssets = useOwnedAssets(deck && deck.slug);
 
     const [ownedCards, setOwnedCards] = useState<OwnedCard[]>([]);
 
     const contest = pathname.includes("/contest/");
-
-    useEffect(() => {
-      if (!deck) {
-        return;
-      }
-
-      const currentSig = getSig();
-
-      if (!currentSig || !currentSig.signature || !currentSig.account) {
-        return;
-      }
-
-      const { account: signedAccount, signature } = currentSig;
-
-      loadOwnedAssets({
-        variables: {
-          deck: deck._id,
-          address: signedAccount,
-          signature,
-        },
-      });
-    }, [deck, getSig, loadOwnedAssets]);
 
     useEffect(() => {
       setOwnedCards([]);
@@ -422,7 +398,7 @@ const Content: FC<{
                       // status === "connected" && deck.openseaCollection
                       deck.slug === "crypto"
                         ? `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`
-                        : `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`, 
+                        : `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
                     paddingTop: theme.spacing(15),
                     paddingBottom: theme.spacing(10),
                   },

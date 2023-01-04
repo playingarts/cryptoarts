@@ -1,4 +1,3 @@
-import { useMetaMask } from "metamask-react";
 import { NextPage } from "next";
 import BlockTitle from "../components/BlockTitle";
 import Button from "../components/Button";
@@ -15,6 +14,7 @@ import BrowseCollection from "../components/_composed/BrowseCollection";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
 import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedMainHero from "../components/_composed/ComposedMainHero";
+import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Podcast from "../components/_composed/Podcast";
 import { withApollo } from "../source/apollo";
@@ -23,7 +23,6 @@ import { breakpoints } from "../source/enums";
 
 const Home: NextPage = () => {
   const { width } = useSize();
-  const {status} = useMetaMask();
 
   return (
     <ComposedGlobalLayout extended={true} scrollArrow="block-about">
@@ -39,7 +38,6 @@ const Home: NextPage = () => {
           },
         ]}
       >
-
         {/* Home cards block start  */}
         <ComposedMainHero
           css={(theme) => [
@@ -63,14 +61,13 @@ const Home: NextPage = () => {
                 "--width": `${theme.spacing(25)}px !important`,
                 "--height": `${theme.spacing(35)}px !important`,
               },
-              [theme.mq.md]:{
+              [theme.mq.md]: {
                 left: "57%",
-              }
+              },
             },
           ]}
         />
         {/* Home cards block end  */}
-
       </div>
       {/* <Layout
         css={(theme) => ({
@@ -155,24 +152,33 @@ const Home: NextPage = () => {
             About
           </Text>
           <div
-              css={(theme) => [
-                {
-                  margin: 0, gridColumn: "span 7",
+            css={(theme) => [
+              {
+                margin: 0,
+                gridColumn: "span 7",
 
-                  [theme.maxMQ.md]: {
-                    margin: 0, gridColumn: "span 7",
-                  },
-                  [theme.maxMQ.sm]: {
-                    margin: 0, gridColumn: "span 5",
-                  },
-                  [theme.maxMQ.xsm]: {
-                    margin: 0, gridColumn: "span 6",
-                  },
+                [theme.maxMQ.md]: {
+                  margin: 0,
+                  gridColumn: "span 7",
                 },
-              ]}
-            >
+                [theme.maxMQ.sm]: {
+                  margin: 0,
+                  gridColumn: "span 5",
+                },
+                [theme.maxMQ.xsm]: {
+                  margin: 0,
+                  gridColumn: "span 6",
+                },
+              },
+            ]}
+          >
             <Text variant="body3">
-              Playing Arts is a global art initiative that brings together renowned artists from around the world to showcase their unique perspectives and artistic styles through the medium of playing cards. The result is a diverse and captivating collection of artwork that celebrates the endless possibilities that can be explored through the simple form of a playing card.
+              Playing Arts is a global art initiative that brings together
+              renowned artists from around the world to showcase their unique
+              perspectives and artistic styles through the medium of playing
+              cards. The result is a diverse and captivating collection of
+              artwork that celebrates the endless possibilities that can be
+              explored through the simple form of a playing card.
             </Text>
             <div
               css={(theme) => [
@@ -276,7 +282,7 @@ const Home: NextPage = () => {
           color: theme.colors.page_bg_light,
         })}
       />
-      
+
       <Layout
         css={(theme) => ({
           paddingTop: theme.spacing(6),
@@ -296,91 +302,8 @@ const Home: NextPage = () => {
             },
           })}
         >
-
           {/* Start Game promo */}
-          {status === "connected" &&
-          <StatBlock 
-            lessTitleMarginMobile={true}
-            css={(theme) => ({
-              background: theme.colors.page_bg_dark,
-              color: theme.colors.text_title_light,
-              // gridColumn: "span 6",
-              gridColumn: "1 / -1",
-              position: "relative",
-              backgroundImage:
-                "url(https://s3.amazonaws.com/img.playingarts.com/www/static/cards_bg.png)",
-              backgroundSize: "contain",
-              backgroundRepeat: "no-repeat",
-              backgroundPositionX: "right",
-              [theme.maxMQ.md]: {
-                [theme.mq.sm]: {
-                  // backgroundPositionY: "100%",
-                  paddingRight: theme.spacing(19.5),
-                  // transform: "scaleX(-1)",
-                  backgroundPositionX: theme.spacing(20),
-                },
-              },
-              [theme.maxMQ.sm]: {
-                paddingTop: theme.spacing(19.5),
-                backgroundSize: "57% auto",
-              },
-              [theme.maxMQ.xsm]: {
-                backgroundSize: "auto 210px",
-              },
-              [theme.mq.md]: {
-                paddingTop: theme.spacing(7.7),
-                paddingBottom: theme.spacing(7.7),
-                paddingLeft: theme.spacing(10.5),
-                paddingRight: theme.spacing(10.5),
-              },
-            })}
-            title="GAME"
-          >
-            <Text component="h2" css={{ margin: 0 }}>
-              Card Battle{" "}
-              <span
-                css={(theme) => [
-                  {
-                    border: "1px solid currentColor",
-                    borderRadius: 30,
-                    padding: `${theme.spacing(0.2)}px ${theme.spacing(1)}px`,
-                    verticalAlign: "middle",
-                    letterSpacing: 0,
-                    textTransform: "capitalize",
-                    fontWeight: 500,
-                    fontSize: 14,
-                    fontFamily: "Work Sans, sans-serif",
-                    [theme.maxMQ.sm]: {
-                      fontSize: 12,
-                      lineHeight: 1.5,
-                    },
-                  },
-                ]}
-              >
-                Beta
-              </span>
-            </Text>
-            <Text
-              variant="body2"
-              css={(theme) => [
-                {
-                  margin: 0,
-                  color: theme.colors.text_subtitle_light,
-                  marginTop: theme.spacing(1),
-                  maxWidth: theme.spacing(49.5),
-                },
-              ]}
-            >
-              Go head to head with opponents in turn-based playing card battle!
-            </Text>
-            <Button
-              css={(theme) => [{ marginTop: theme.spacing(2) }]}
-              href="https://play2.playingarts.com/"
-              component={Link}
-            >
-              Play now
-            </Button>
-          </StatBlock>}
+          <GamePromo />
           {/* End Game promo */}
 
           <Podcast title="PODCAST" />

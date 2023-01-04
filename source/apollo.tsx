@@ -148,7 +148,6 @@ const createApolloClient = (initialState = {}, config?: object) => {
                       `,
                     }) !== null
                 );
-              console.log(references);
 
               return fragments && references.length === fragments.length
                 ? references
@@ -189,7 +188,6 @@ const createApolloClient = (initialState = {}, config?: object) => {
                   // `,
                 });
               // console.log(fragment, reference, args && args.slug, refs, cache);
-              console.log(fragment, reference, cache);
 
               return fragment && reference ? reference : refs;
             },

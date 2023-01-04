@@ -1,4 +1,4 @@
-import { gql, QueryHookOptions, useQuery } from "@apollo/client";
+import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 
 export const DeckDataFragment = gql`
   fragment DeckDataFragment on Deck {
@@ -57,6 +57,17 @@ export const useDecks = (
   );
 
   return { ...methods, decks };
+};
+
+export const useLoadDeck = (
+  options: QueryHookOptions<Pick<GQL.Query, "deck">> = {}
+) => {
+  const [
+    loadDeck,
+    { data: { deck } = { deck: undefined }, ...methods },
+  ] = useLazyQuery(DeckQuery, options);
+
+  return { ...methods, loadDeck, deck };
 };
 
 export const useDeck = (
