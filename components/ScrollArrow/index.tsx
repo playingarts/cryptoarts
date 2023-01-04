@@ -91,10 +91,15 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
                 position: "relative",
                 top: "50%",
                 left: "50%",
+                opacity: .5,
+                transition: theme.transitions.slow("opacity"),
                 color:
                   deckId === "crypto"
                     ? theme.colors.text_subtitle_light
                     : theme.colors.text_subtitle_dark,
+                  "&:hover": {
+                    opacity: 1,
+                  },
               },
             ]}
           />
