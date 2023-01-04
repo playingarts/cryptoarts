@@ -5,6 +5,7 @@ import { useResizeDetector } from "react-resize-detector";
 import { useDecks } from "../../../hooks/deck";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
+import { theme } from "../../../pages/_app";
 import Button from "../../Button";
 import Carousel from "../../Carousel";
 import Grid from "../../Grid";
@@ -16,6 +17,7 @@ import Pinterest from "../../Icons/Pinterest";
 import Twitter from "../../Icons/Twitter";
 import Youtube from "../../Icons/Youtube";
 import Layout from "../../Layout";
+import StoreButtons from "../../StoreButtons";
 import Line from "../../Line";
 import Link from "../../Link";
 import Nav from "../../Nav";
@@ -78,7 +80,7 @@ const ModalMenu: FC<
         {
           overflowX: "hidden",
           paddingTop: theme.spacing(15.7),
-          paddingBottom: theme.spacing(3),
+          paddingBottom: theme.spacing(4),
           [theme.mq.sm]: {
             paddingBottom: theme.spacing(9.1),
           },
@@ -242,12 +244,14 @@ const ModalMenu: FC<
           >
             {[
               { href: "/", text: "Home" },
-              { href: "https://play2.playingarts.com/", text: "Game" },
-              { href: "/shop", text: "Shop" },
+              // { href: "https://play2.playingarts.com/", text: "Game" },
+              
               { href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L", target: "_blank", text: "Podcast" },
+              { href: "/shop", text: "Shop" },
+              { href: "/contact", text: "Contact" },
               { href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start", text: "Shipping" },
               // { href: "/", text: "Gallery" },
-              { href: "/contact", text: "Contact" },
+              
               
             ].map(({ href, text, target }) => (
               <Link
@@ -281,33 +285,15 @@ const ModalMenu: FC<
               windowWidth >= breakpoints.sm) && (
               <Line palette="dark" css={{ width: "100%" }} spacing={4} />
             )}
-            <Button
-              color="black"
-              component={Link}
-              href={newsletterLink}
-              target="_blank"
-            >
-              Subscribe to project news
-            </Button>
-            <Text
-              css={[
-                {
-                  color: "rgba(255, 255, 255, 0.25)",
-                  lineHeight: "25px",
-                  fontSize: "16px",
-                },
-              ]}
-            >
-              We will never share your details with others. Unsubscribe at anytime!
-            </Text>
-            <Line palette="dark" css={{ width: "100%" }} spacing={4} />
+            
             <div
               css={(theme) => ({
                 display: "flex",
                 flexWrap: "wrap",
+                marginBottom: 40,
                 color: colord(theme.colors.white).alpha(0.2).toRgbString(),
                 [theme.maxMQ.sm]: {
-                  gap: theme.spacing(1.8),
+                  gap: theme.spacing(1.6),
                 },
                 [theme.mq.sm]: {
                   gap: theme.spacing(2),
@@ -364,6 +350,42 @@ const ModalMenu: FC<
                 />
               ))}
             </div>
+
+            <Button
+              color="black"
+              component={Link}
+              href={newsletterLink}
+              target="_blank"
+            >
+              Subscribe to project news
+            </Button>
+            <Text
+              css={[
+                {
+                  color: "rgba(255, 255, 255, 0.25)",
+                  lineHeight: "25px",
+                  fontSize: "16px",
+                },
+              ]}
+            >
+              We will never share your details with others. Unsubscribe at anytime!
+            </Text>
+            <Line palette="dark" css={{ width: "100%" }} spacing={3.5} />
+            
+            <StoreButtons
+                css={{
+                  color: colord(theme.colors.white).alpha(0.2).toRgbString(),
+                }}
+                ButtonProps={{
+                  variant: "bordered",
+                }}
+              />
+              {/* <Line
+                // ref={lineRef}
+                spacing={3}
+                palette="dark"
+                css={{ width: "100%" }}
+              /> */}
           </div>
         </div>
       </Grid>

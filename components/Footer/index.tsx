@@ -122,18 +122,33 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
               >
                 {[
                   { href: "/", text: "Home" },
-                  { href: "/shop", text: "Shop" }, 
-                  { href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start", text: "Shipping" },
-                  { href: "https://play2.playingarts.com/", text: "Game" },
-                  { href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L", target: "_blank", text: "Podcast" },
+                  {
+                    href:
+                      "https://landing.mailerlite.com/webforms/landing/n4m6r2",
+                    target: "_blank",
+                    text: "News",
+                  },
+                  { href: "/shop", text: "Shop" },
+                  // { href: "https://play2.playingarts.com/", text: "Game" },
+                  {
+                    href:
+                      "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+                    target: "_blank",
+                    text: "Podcast",
+                  },
+                  {
+                    href:
+                      "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start",
+                    text: "Shipping",
+                  },
                   // { href: "/", text: "Gallery" },
-                  { href: "https://landing.mailerlite.com/webforms/landing/n4m6r2", target: "_blank", text: "News" },
+
                   { href: "/contact", text: "Contact" },
                 ].map(({ href, text, target }) => (
                   <Link
                     key={text}
                     href={href}
-                    {...target&&{target}}
+                    {...(target && { target })}
                     css={(theme) => [
                       theme.typography.label,
                       {
@@ -213,8 +228,8 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                     css={(theme) => [
                       {
                         [theme.maxMQ.sm]: {
-                          marginRight: theme.spacing(2),
-                          marginBottom: theme.spacing(2),
+                          marginRight: theme.spacing(0.5),
+                          marginBottom: theme.spacing(1),
                         },
                         [theme.mq.sm]: {
                           transition: theme.transitions.slow("all"),
@@ -247,19 +262,19 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                 css={{ width: "100%" }}
               />
               {/* <div
-          css={{
-            color: "rgba(255, 255, 255, 0.15)",
-            display: "flex",
-            flexDirection: "column",
-            gap: theme.spacing(1),
-            alignItems: "center",
-          }}
-        >
-          <Text variant="label" css={{ margin: 0 }}>
-            Funded with
-          </Text>
-          <KickstarterLogo />
-        </div> */}
+                css={{
+                  color: "rgba(255, 255, 255, 0.15)",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: theme.spacing(1),
+                  alignItems: "center",
+                }}
+              >
+                <Text variant="label" css={{ margin: 0 }}>
+                  Funded with
+                </Text>
+                <KickstarterLogo />
+              </div> */}
               <Text
                 variant="body0"
                 css={(theme) => [
@@ -275,21 +290,25 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                   },
                 ]}
               >
-                © 2012—2023 Digital Abstracts SL. 
-                Any artwork displayed on this website may not be reproduced or
-                used in any manner whatsoever without the express written
-                permission of Digital Abstracts or their respective owners.
-                Patent Pending. We use cookies and similar technologies for
-                statistics and marketing purposes. {" "}
-                <Link css={[
-                {
-                  color: "rgba(255, 255, 255, 0.25)",
-                  transition: theme.transitions.slow("all"),
-                  "&:hover": {
-                    color: "rgba(255, 255, 255, 0.5)",
-                  },
-                },
-              ]} href="/privacy">Privacy Statement</Link>
+                © 2012—2023 Digital Abstracts SL. Any artwork displayed on this
+                website may not be reproduced or used in any manner whatsoever
+                without the express written permission of Digital Abstracts or
+                their respective owners. Patent Pending. We use cookies and
+                similar technologies for statistics and marketing purposes.{" "}
+                <Link
+                  css={[
+                    {
+                      color: "rgba(255, 255, 255, 0.25)",
+                      transition: theme.transitions.slow("all"),
+                      "&:hover": {
+                        color: "rgba(255, 255, 255, 0.5)",
+                      },
+                    },
+                  ]}
+                  href="/privacy"
+                >
+                  Privacy Statement
+                </Link>
               </Text>
             </div>
           </Grid>

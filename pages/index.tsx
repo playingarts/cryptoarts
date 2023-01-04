@@ -275,9 +275,12 @@ const Home: NextPage = () => {
             },
           })}
         >
-          <StatBlock
+
+          {/* Start Game promo */}
+          <StatBlock 
             lessTitleMarginMobile={true}
             css={(theme) => ({
+              display: "none",
               background: theme.colors.page_bg_dark,
               color: theme.colors.text_title_light,
               // gridColumn: "span 6",
@@ -357,6 +360,8 @@ const Home: NextPage = () => {
               Play now
             </Button>
           </StatBlock>
+          {/* End Game promo */}
+
           <Podcast title="PODCAST" />
           <StatBlock
             css={(theme) => ({
