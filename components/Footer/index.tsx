@@ -1,3 +1,4 @@
+import { useMetaMask } from "metamask-react";
 import { colord } from "colord";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
 import { theme } from "../../pages/_app";
@@ -21,6 +22,7 @@ import Text from "../Text";
 
 const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const lineRef = useRef<HTMLHRElement>(null);
+  const {status} = useMetaMask();
 
   const ref = useRef<HTMLElement>(null);
   //todo rethink sticky logic
@@ -122,14 +124,18 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
               >
                 {[
                   { href: "/", text: "Home" },
+                  
+                  { href: "/shop", text: "Shop" },
+
                   {
                     href:
-                      "https://landing.mailerlite.com/webforms/landing/n4m6r2",
-                    target: "_blank",
-                    text: "News",
+                      "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start",
+                    text: "Shipping",
                   },
-                  { href: "/shop", text: "Shop" },
-                  // { href: "https://play2.playingarts.com/", text: "Game" },
+
+                  status === "connected" &&
+                  { href: "https://play2.playingarts.com/", text: "Game" },
+                  
                   {
                     href:
                       "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
@@ -138,13 +144,23 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                   },
                   {
                     href:
-                      "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start",
-                    text: "Shipping",
+                      "https://landing.mailerlite.com/webforms/landing/n4m6r2",
+                    target: "_blank",
+                    text: "News",
                   },
+                  
                   // { href: "/", text: "Gallery" },
 
                   { href: "/contact", text: "Contact" },
-                ].map(({ href, text, target }) => (
+                    ].filter((item): item is {
+                      href: string;
+                      text: string;
+                      target?: undefined;
+                  } | {
+                      href: string;
+                      target: string;
+                      text: string;
+                  } =>!!item).map(({ href, text, target }) => (
                   <Link
                     key={text}
                     href={href}

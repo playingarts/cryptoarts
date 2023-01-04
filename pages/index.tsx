@@ -1,3 +1,4 @@
+import { useMetaMask } from "metamask-react";
 import { NextPage } from "next";
 import BlockTitle from "../components/BlockTitle";
 import Button from "../components/Button";
@@ -22,6 +23,7 @@ import { breakpoints } from "../source/enums";
 
 const Home: NextPage = () => {
   const { width } = useSize();
+  const {status} = useMetaMask();
 
   return (
     <ComposedGlobalLayout extended={true} scrollArrow="block-about">
@@ -296,10 +298,10 @@ const Home: NextPage = () => {
         >
 
           {/* Start Game promo */}
+          {status === "connected" &&
           <StatBlock 
             lessTitleMarginMobile={true}
             css={(theme) => ({
-              display: "none",
               background: theme.colors.page_bg_dark,
               color: theme.colors.text_title_light,
               // gridColumn: "span 6",
@@ -378,7 +380,7 @@ const Home: NextPage = () => {
             >
               Play now
             </Button>
-          </StatBlock>
+          </StatBlock>}
           {/* End Game promo */}
 
           <Podcast title="PODCAST" />
