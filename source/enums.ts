@@ -24,7 +24,7 @@ export enum CardValues {
 }
 
 export enum breakpoints {
-  mobile = 0,
+  mobile = 0, 
   xsm = 660,
   sm = 1000,
   md = 1340,

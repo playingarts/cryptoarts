@@ -37,6 +37,8 @@ const Home: NextPage = () => {
           },
         ]}
       >
+
+        {/* Home cards block start  */}
         <ComposedMainHero
           css={(theme) => [
             {
@@ -45,27 +47,28 @@ const Home: NextPage = () => {
               width: "max-content",
               transform: "rotate(-15deg)",
               top: theme.spacing(-30),
-              left: "20%",
+              left: "15%",
               [theme.maxMQ.sm]: {
                 "--width": `${theme.spacing(14)}px !important`,
                 "--height": `${theme.spacing(19.6)}px !important`,
               },
               [theme.mq.xsm]: {
-                left: "57%",
+                left: "47%",
               },
               [theme.mq.sm]: {
                 left: "67%",
-                top: theme.spacing(-35),
+                top: theme.spacing(-33),
                 "--width": `${theme.spacing(25)}px !important`,
                 "--height": `${theme.spacing(35)}px !important`,
               },
               [theme.mq.md]:{
                 left: "57%",
-
               }
             },
           ]}
         />
+        {/* Home cards block end  */}
+
       </div>
       {/* <Layout
         css={(theme) => ({
@@ -149,7 +152,23 @@ const Home: NextPage = () => {
           <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
             About
           </Text>
-          <div css={{ margin: 0, gridColumn: "span 7" }}>
+          <div
+              css={(theme) => [
+                {
+                  margin: 0, gridColumn: "span 7",
+
+                  [theme.maxMQ.md]: {
+                    margin: 0, gridColumn: "span 7",
+                  },
+                  [theme.maxMQ.sm]: {
+                    margin: 0, gridColumn: "span 5",
+                  },
+                  [theme.maxMQ.xsm]: {
+                    margin: 0, gridColumn: "span 6",
+                  },
+                },
+              ]}
+            >
             <Text variant="body3">
               Playing Arts is a global art initiative that brings together renowned artists from around the world to showcase their unique perspectives and artistic styles through the medium of playing cards. The result is a diverse and captivating collection of artwork that celebrates the endless possibilities that can be explored through the simple form of a playing card.
             </Text>

@@ -256,6 +256,8 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           ]}
         />
         <br />
+        
+        {/* 7 of spades card */}
         <Card
           interactive={true}
           noInfo={true}
@@ -270,14 +272,21 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
               left: theme.spacing(7),
               zIndex: 1,
               [theme.maxMQ.md]: {
-                left: theme.spacing(15),
+                left: theme.spacing(0),
               },
               [theme.maxMQ.sm]: {
-                top: theme.spacing(35.5),
+                top: theme.spacing(37),
+                left: theme.spacing(15),
+              },
+              [theme.maxMQ.xsm]: {
+                margin: 0, gridColumn: "span 6",
+                left: theme.spacing(7),
               },
             },
           ]}
         />
+
+        {/* 5 of spades card */}
         <Card
           interactive={true}
           noInfo={true}
@@ -288,11 +297,12 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
             {
               ...commonCss,
               [theme.mq.sm]: {
-                top: theme.spacing(3.4),
+                top: theme.spacing(0),
               },
             },
           ]}
         />
+        
         <Card
           interactive={true}
           noInfo={true}
@@ -309,6 +319,8 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         {width >= breakpoints.sm && (
           <Fragment>
             <br />
+
+            {/* backside card */}
             <Card
               interactive={true}
               noInfo={true}
@@ -319,8 +331,8 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
                 {
                   ...commonCss,
                   transform: "translateX(100%) rotate(30deg)",
-                  marginLeft: theme.spacing(1),
-                  top: theme.spacing(38.5),
+                  marginLeft: -theme.spacing(5),
+                  top: theme.spacing(43),
                 },
               ]}
             />

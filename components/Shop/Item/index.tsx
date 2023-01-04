@@ -44,9 +44,6 @@ const ShopItem: FC<Props> = ({
         position: "relative",
         transform: "translate3d(0, 0, 0)",
         backgroundColor: theme.colors.page_bg_light_gray,
-        [theme.maxMQ.sm]: {
-          backgroundColor: theme.colors.white,
-        },
       })}
     >
       <div
