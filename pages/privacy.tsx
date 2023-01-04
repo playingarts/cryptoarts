@@ -1,11 +1,11 @@
 import { NextPage } from "next";
 import { FC, Fragment } from "react";
 import BlockTitle from "../components/BlockTitle";
+import Button from "../components/Button";
 import Grid from "../components/Grid";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
 import Link from "../components/Link";
-import Button from "../components/Button";
 import { useSize } from "../components/SizeProvider";
 import Text from "../components/Text";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
@@ -261,6 +261,8 @@ const Content: FC = () => {
             background: theme.colors.page_bg_light_gray,
             paddingTop: theme.spacing(10),
             paddingBottom: theme.spacing(10),
+            zIndex: 1,
+            position: "relative",
             [theme.maxMQ.sm]: {
               paddingTop: theme.spacing(5),
               paddingBottom: theme.spacing(5),
