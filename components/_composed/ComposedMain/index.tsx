@@ -46,6 +46,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             },
       ]}
     >
+      {/* Deck page header */}
       <Layout
         css={(theme) => ({
           // background:
@@ -123,6 +124,10 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                         gap: theme.spacing(1),
                         marginTop: theme.spacing(1),
                         marginBottom: theme.spacing(1),
+
+                        [theme.maxMQ.xsm]: {
+                          gap: theme.spacing(.5),
+                        },
                       },
                     ]}
                   >
@@ -135,7 +140,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                             fontFamily: "Work Sans, sans-serif",
                             border: "2px solid",
                             padding: `${theme.spacing(0.2)}px ${theme.spacing(
-                              1.2
+                              1
                             )}px `,
                             textTransform: "uppercase",
                             fontWeight: 600,
@@ -143,6 +148,10 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                             position: "relative",
                             letterSpacing: 0,
                             height: "fit-content",
+
+                            [theme.maxMQ.xsm]: {
+                              fontSize: "14px",
+                            },
                           },
                         ]}
                       >
