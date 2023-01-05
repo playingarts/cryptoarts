@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useOwnedAssets } from "../../../hooks/opensea";
 import Button from "../../Button";
 import Link from "../../Link";
@@ -8,7 +8,7 @@ import Text from "../../Text";
 const GamePromo: FC = () => {
   const ownedAssets = useOwnedAssets("crypto");
 
-  return ownedAssets.length !== 0 ? (
+  return ownedAssets ? (
     <StatBlock
       lessTitleMarginMobile={true}
       css={(theme) => ({
@@ -94,4 +94,4 @@ const GamePromo: FC = () => {
   ) : null;
 };
 
-export default GamePromo;
+export default memo(GamePromo);

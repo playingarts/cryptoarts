@@ -133,7 +133,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                     text: "Shipping",
                   },
 
-                  ownedAssets.length !== 0 && {
+                  ownedAssets && {
                     href: "https://play2.playingarts.com/",
                     text: "Game",
                   },

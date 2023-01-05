@@ -265,7 +265,7 @@ export const getAssetsRaw: {
       this.state = "loading";
       console.log(queue);
 
-      getInitAssets();
+      process.env.NODE_ENV !== "development" && getInitAssets();
       // return Promise.resolve(cachedAssets[contract]);
     }
     if (hash) {

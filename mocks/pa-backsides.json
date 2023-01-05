@@ -1,671 +1,200 @@
 [
   {
-    "id": 60608813,
-    "num_sales": 0,
-    "background_color": null,
-    "image_url": "https://i.seadn.io/gae/HZXQnnCES3rFrQKrLI95m78HOkC6oF2wqJmPso5bOP2R3BvN7lHtic-6WBVrNKlnM71oPGwMyI9omzvBOIdj-rtWf4_YWAN7DuHWDss?w=500&auto=format",
-    "image_preview_url": "https://i.seadn.io/gae/HZXQnnCES3rFrQKrLI95m78HOkC6oF2wqJmPso5bOP2R3BvN7lHtic-6WBVrNKlnM71oPGwMyI9omzvBOIdj-rtWf4_YWAN7DuHWDss?w=500&auto=format",
-    "image_thumbnail_url": "https://i.seadn.io/gae/HZXQnnCES3rFrQKrLI95m78HOkC6oF2wqJmPso5bOP2R3BvN7lHtic-6WBVrNKlnM71oPGwMyI9omzvBOIdj-rtWf4_YWAN7DuHWDss?w=500&auto=format",
-    "image_original_url": null,
-    "animation_url": "https://openseauserdata.com/files/8e784473a8fea4108043afa8c7ff1f81.mp4",
-    "animation_original_url": "https://storage.opensea.io/files/8e784473a8fea4108043afa8c7ff1f81.mp4",
-    "name": "Crypto Edition Crystal Backside",
-    "description": "**Crypto Edition Crystal Backside by Stu Ballinger**\n\nhttps://playingarts.com/en/crypto/crystal\n\nEdition of 9",
-    "external_link": "https://playingarts.com/en/crypto/crystal",
     "asset_contract": {
-      "address": "0x495f947276749ce646f68ac8c248420045cb7b5e",
-      "asset_contract_type": "semi-fungible",
-      "created_date": "2020-12-02T17:40:53.232025",
-      "name": "OpenSea Collection",
-      "nft_version": null,
-      "opensea_version": "2.0.0",
-      "owner": 458910490,
-      "schema_name": "ERC1155",
-      "symbol": "OPENSTORE",
-      "total_supply": null,
-      "description": "",
-      "external_link": null,
-      "image_url": "https://openseauserdata.com/files/860b94bee079e3864d04849383d2b4d1.bin",
-      "default_to_fiat": false,
-      "dev_buyer_fee_basis_points": 0,
-      "dev_seller_fee_basis_points": 0,
-      "only_proxied_transfers": false,
-      "opensea_buyer_fee_basis_points": 0,
-      "opensea_seller_fee_basis_points": 250,
-      "buyer_fee_basis_points": 0,
-      "seller_fee_basis_points": 250,
-      "payout_address": null
+      "address": "0x495f947276749ce646f68ac8c248420045cb7b5e"
     },
-    "permalink": "https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/60343876818614931036759583401419826937339570281218946026720664961069625638921",
-    "collection": {
-      "banner_image_url": "https://i.seadn.io/gae/4-L050tjH2QgYJUIWxEqDuyhrtIuhCZs-CQumBTOxtGWwQyyaT2d4Nv6q8n8TVsH8BKGuBq7DhCSdwbValxTMfpWVDq_UeipQVpv?w=500&auto=format",
-      "chat_url": null,
-      "created_date": "2021-09-22T10:34:42.572225+00:00",
-      "default_to_fiat": false,
-      "description": "A collection of Playing Arts backsides.\n\nhttps://playingarts.com",
-      "dev_buyer_fee_basis_points": "0",
-      "dev_seller_fee_basis_points": "500",
-      "discord_url": null,
-      "display_data": { "card_display_style": "cover" },
-      "external_url": "https://playingarts.com/en/crypto",
-      "featured": false,
-      "featured_image_url": "https://i.seadn.io/gae/4-L050tjH2QgYJUIWxEqDuyhrtIuhCZs-CQumBTOxtGWwQyyaT2d4Nv6q8n8TVsH8BKGuBq7DhCSdwbValxTMfpWVDq_UeipQVpv?w=500&auto=format",
-      "hidden": false,
-      "safelist_request_status": "not_requested",
-      "image_url": "https://i.seadn.io/gae/j7xjI6qNYyW47lByaVGZvdE0J4mnO4TmSEc6q1tIO5vRsJGx2zdRGHJVpWbt8VrRQv4UmwVAwi0nXv5F5mFX3n5_dIkGXhriH5Idvg?w=500&auto=format",
-      "is_subject_to_whitelist": false,
-      "large_image_url": "https://i.seadn.io/gae/4-L050tjH2QgYJUIWxEqDuyhrtIuhCZs-CQumBTOxtGWwQyyaT2d4Nv6q8n8TVsH8BKGuBq7DhCSdwbValxTMfpWVDq_UeipQVpv?w=500&auto=format",
-      "medium_username": null,
-      "name": "Playing Arts Backsides",
-      "only_proxied_transfers": false,
-      "opensea_buyer_fee_basis_points": "0",
-      "opensea_seller_fee_basis_points": "250",
-      "payout_address": "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
-      "require_email": false,
-      "short_description": null,
-      "slug": "pa-backsides",
-      "telegram_url": null,
-      "twitter_username": "playingarts",
-      "instagram_username": "playingarts",
-      "wiki_url": null,
-      "is_nsfw": false,
-      "fees": {
-        "seller_fees": { "0x85696c8684f13e4ac9399eec92604c03d708f7f2": 500 },
-        "opensea_fees": { "0x0000a26b00c1f0df003000390027140000faa719": 250 }
-      },
-      "is_rarity_enabled": false
-    },
-    "decimals": null,
-    "token_metadata": null,
-    "is_nsfw": false,
-    "owner": null,
+    "_id": "639a1a68868f1a1864672311",
+    "name": "Crypto Edition Crystal Backside",
     "seaport_sell_orders": null,
-    "creator": {
-      "user": { "username": "PlayingArts" },
-      "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/5.png",
-      "address": "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
-      "config": "verified"
-    },
     "traits": [],
-    "last_sale": null,
-    "top_bid": null,
-    "listing_date": null,
-    "supports_wyvern": true,
-    "rarity_data": null,
-    "transfer_fee": null,
-    "transfer_fee_payment_token": null,
     "token_id": "60343876818614931036759583401419826937339570281218946026720664961069625638921",
     "top_ownerships": [
       {
-        "owner": {
-          "user": { "username": "goldbeancat" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/17.png",
-          "address": "0x937af09bd43bd2601b21d68f5a5b7fdad45795cc",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2022-01-26T07:39:48.090967+00:00"
+        "owner": { "address": "0x937af09bd43bd2601b21d68f5a5b7fdad45795cc" },
+        "_id": "639a1a68868f1a1864672312"
       },
       {
-        "owner": {
-          "user": { "username": "yfimaxi" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/30.png",
-          "address": "0x50664ede715e131f584d3e7eaabd7818bb20a068",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-27T16:25:19.441670+00:00"
+        "owner": { "address": "0x50664ede715e131f584d3e7eaabd7818bb20a068" },
+        "_id": "639a1a68868f1a1864672313"
       },
       {
-        "owner": {
-          "user": { "username": "0xFish" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/32.png",
-          "address": "0x6e9fe041e0ba8c2af35215d900d188d53d7a9b41",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-27T16:24:15.547734+00:00"
+        "owner": { "address": "0x6e9fe041e0ba8c2af35215d900d188d53d7a9b41" },
+        "_id": "639a1a68868f1a1864672314"
       },
       {
-        "owner": {
-          "user": { "username": "infoparity" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/29.png",
-          "address": "0x88750a035f521812bffedbf9014357282cf2d2e7",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-27T16:24:13.387046+00:00"
+        "owner": { "address": "0x88750a035f521812bffedbf9014357282cf2d2e7" },
+        "_id": "639a1a68868f1a1864672315"
       },
       {
-        "owner": {
-          "user": { "username": null },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/3.png",
-          "address": "0x030adc393d007b2202fe93285d419018a6544745",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-27T16:22:58.706548+00:00"
+        "owner": { "address": "0x030adc393d007b2202fe93285d419018a6544745" },
+        "_id": "639a1a68868f1a1864672316"
       },
       {
-        "owner": {
-          "user": { "username": "M4T" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/15.png",
-          "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-27T16:22:27.008984+00:00"
+        "owner": { "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded" },
+        "_id": "639a1a68868f1a1864672317"
       },
       {
-        "owner": {
-          "user": { "username": "aaron_zang" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/2.png",
-          "address": "0x2bf960f432c71505881a289558846b136c6b8853",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-27T16:21:14.131041+00:00"
+        "owner": { "address": "0x2bf960f432c71505881a289558846b136c6b8853" },
+        "_id": "639a1a68868f1a1864672318"
       },
       {
-        "owner": {
-          "user": { "username": "Kekspawn" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/2.png",
-          "address": "0x9f8ba5fa5f32a625bb9bdf198058f72a5dfd2839",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-27T16:21:06.762420+00:00"
+        "owner": { "address": "0x9f8ba5fa5f32a625bb9bdf198058f72a5dfd2839" },
+        "_id": "639a1a68868f1a1864672319"
       },
       {
-        "owner": {
-          "user": { "username": "PlayingArts" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/5.png",
-          "address": "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
-          "config": "verified"
-        },
-        "quantity": "1",
-        "created_date": "2021-09-27T13:46:02.127575+00:00"
+        "owner": { "address": "0x85696c8684f13e4ac9399eec92604c03d708f7f2" },
+        "_id": "639a1a68868f1a186467231a"
       }
-    ]
+    ],
+    "__v": 0
   },
   {
-    "id": 57311571,
-    "num_sales": 2,
-    "background_color": null,
-    "image_url": "https://i.seadn.io/gae/wu5-GBqeHRUCnPkunZIqtYm7iwCv0zWg5J2J5L56tDh7SUrDtFKvsddR4oxLHMvfDJ454KvkvF_fLaR9Q1EQ0IQ3qxo3ng3gGpsjG04?w=500&auto=format",
-    "image_preview_url": "https://i.seadn.io/gae/wu5-GBqeHRUCnPkunZIqtYm7iwCv0zWg5J2J5L56tDh7SUrDtFKvsddR4oxLHMvfDJ454KvkvF_fLaR9Q1EQ0IQ3qxo3ng3gGpsjG04?w=500&auto=format",
-    "image_thumbnail_url": "https://i.seadn.io/gae/wu5-GBqeHRUCnPkunZIqtYm7iwCv0zWg5J2J5L56tDh7SUrDtFKvsddR4oxLHMvfDJ454KvkvF_fLaR9Q1EQ0IQ3qxo3ng3gGpsjG04?w=500&auto=format",
-    "image_original_url": null,
-    "animation_url": "https://openseauserdata.com/files/7cd165057448bd285f86b4917f6e9095.mp4",
-    "animation_original_url": "https://storage.opensea.io/files/7cd165057448bd285f86b4917f6e9095.mp4",
-    "name": "Crypto Edition Backside",
-    "description": "**Crypto Edition Backside by Stu Ballinger**\n\n“An experiment in kaleidoscopic refractions, produced by forming a lens out of an array of prisms.”\n\n[https://playingarts.com/en/crypto/stu-ballinger](https://playingarts.com/en/crypto/stu-ballinger)\n\nEdition of 36",
-    "external_link": "https://playingarts.com/en/crypto/stu-ballinger",
     "asset_contract": {
-      "address": "0x495f947276749ce646f68ac8c248420045cb7b5e",
-      "asset_contract_type": "semi-fungible",
-      "created_date": "2020-12-02T17:40:53.232025",
-      "name": "OpenSea Collection",
-      "nft_version": null,
-      "opensea_version": "2.0.0",
-      "owner": 458910490,
-      "schema_name": "ERC1155",
-      "symbol": "OPENSTORE",
-      "total_supply": null,
-      "description": "",
-      "external_link": null,
-      "image_url": "https://openseauserdata.com/files/860b94bee079e3864d04849383d2b4d1.bin",
-      "default_to_fiat": false,
-      "dev_buyer_fee_basis_points": 0,
-      "dev_seller_fee_basis_points": 0,
-      "only_proxied_transfers": false,
-      "opensea_buyer_fee_basis_points": 0,
-      "opensea_seller_fee_basis_points": 250,
-      "buyer_fee_basis_points": 0,
-      "seller_fee_basis_points": 250,
-      "payout_address": null
+      "address": "0x495f947276749ce646f68ac8c248420045cb7b5e"
     },
-    "permalink": "https://opensea.io/assets/ethereum/0x495f947276749ce646f68ac8c248420045cb7b5e/60343876818614931036759583401419826937339570281218946026720664959970114011172",
-    "collection": {
-      "banner_image_url": "https://i.seadn.io/gae/4-L050tjH2QgYJUIWxEqDuyhrtIuhCZs-CQumBTOxtGWwQyyaT2d4Nv6q8n8TVsH8BKGuBq7DhCSdwbValxTMfpWVDq_UeipQVpv?w=500&auto=format",
-      "chat_url": null,
-      "created_date": "2021-09-22T10:34:42.572225+00:00",
-      "default_to_fiat": false,
-      "description": "A collection of Playing Arts backsides.\n\nhttps://playingarts.com",
-      "dev_buyer_fee_basis_points": "0",
-      "dev_seller_fee_basis_points": "500",
-      "discord_url": null,
-      "display_data": { "card_display_style": "cover" },
-      "external_url": "https://playingarts.com/en/crypto",
-      "featured": false,
-      "featured_image_url": "https://i.seadn.io/gae/4-L050tjH2QgYJUIWxEqDuyhrtIuhCZs-CQumBTOxtGWwQyyaT2d4Nv6q8n8TVsH8BKGuBq7DhCSdwbValxTMfpWVDq_UeipQVpv?w=500&auto=format",
-      "hidden": false,
-      "safelist_request_status": "not_requested",
-      "image_url": "https://i.seadn.io/gae/j7xjI6qNYyW47lByaVGZvdE0J4mnO4TmSEc6q1tIO5vRsJGx2zdRGHJVpWbt8VrRQv4UmwVAwi0nXv5F5mFX3n5_dIkGXhriH5Idvg?w=500&auto=format",
-      "is_subject_to_whitelist": false,
-      "large_image_url": "https://i.seadn.io/gae/4-L050tjH2QgYJUIWxEqDuyhrtIuhCZs-CQumBTOxtGWwQyyaT2d4Nv6q8n8TVsH8BKGuBq7DhCSdwbValxTMfpWVDq_UeipQVpv?w=500&auto=format",
-      "medium_username": null,
-      "name": "Playing Arts Backsides",
-      "only_proxied_transfers": false,
-      "opensea_buyer_fee_basis_points": "0",
-      "opensea_seller_fee_basis_points": "250",
-      "payout_address": "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
-      "require_email": false,
-      "short_description": null,
-      "slug": "pa-backsides",
-      "telegram_url": null,
-      "twitter_username": "playingarts",
-      "instagram_username": "playingarts",
-      "wiki_url": null,
-      "is_nsfw": false,
-      "fees": {
-        "seller_fees": { "0x85696c8684f13e4ac9399eec92604c03d708f7f2": 500 },
-        "opensea_fees": { "0x0000a26b00c1f0df003000390027140000faa719": 250 }
-      },
-      "is_rarity_enabled": false
-    },
-    "decimals": null,
-    "token_metadata": null,
-    "is_nsfw": false,
-    "owner": null,
+    "_id": "639a1a68868f1a186467231b",
+    "name": "Crypto Edition Backside",
     "seaport_sell_orders": null,
-    "creator": {
-      "user": { "username": "PlayingArts" },
-      "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/5.png",
-      "address": "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
-      "config": "verified"
-    },
     "traits": [],
-    "last_sale": {
-      "asset": {
-        "decimals": null,
-        "token_id": "60343876818614931036759583401419826937339570281218946026720664959970114011172"
-      },
-      "asset_bundle": null,
-      "event_type": "successful",
-      "event_timestamp": "2022-02-09T15:24:33",
-      "auction_type": null,
-      "total_price": "500000000000000000",
-      "payment_token": {
-        "symbol": "ETH",
-        "address": "0x0000000000000000000000000000000000000000",
-        "image_url": "https://openseauserdata.com/files/6f8e2979d428180222796ff4a33ab929.svg",
-        "name": "Ether",
-        "decimals": 18,
-        "eth_price": "1.000000000000000",
-        "usd_price": "1215.779999999999973000"
-      },
-      "transaction": {
-        "block_hash": "0xa5de0e9f9193af1765c113f20d5036409696c46e96b1cca3839de370789ccb8d",
-        "block_number": "14172675",
-        "from_account": {
-          "user": { "username": "M4T" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/15.png",
-          "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded",
-          "config": ""
-        },
-        "id": 271412723,
-        "timestamp": "2022-02-09T15:24:33",
-        "to_account": {
-          "user": { "username": "OpenSea-Orders" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/22.png",
-          "address": "0x7be8076f4ea4a4ad08075c2508e481d6c946d12b",
-          "config": "verified"
-        },
-        "transaction_hash": "0xc2ca391e1bc977fd59d236e120f94edca908b4db1024a97798ee7ba2271f3cfb",
-        "transaction_index": "107"
-      },
-      "created_date": "2022-02-09T15:25:08.724156",
-      "quantity": "1"
-    },
-    "top_bid": null,
-    "listing_date": null,
-    "supports_wyvern": true,
-    "rarity_data": null,
-    "transfer_fee": null,
-    "transfer_fee_payment_token": null,
     "token_id": "60343876818614931036759583401419826937339570281218946026720664959970114011172",
     "top_ownerships": [
       {
-        "owner": {
-          "user": { "username": "goldbeancat" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/17.png",
-          "address": "0x937af09bd43bd2601b21d68f5a5b7fdad45795cc",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2022-01-26T07:39:47.784816+00:00"
+        "owner": { "address": "0x937af09bd43bd2601b21d68f5a5b7fdad45795cc" },
+        "_id": "639a1a68868f1a186467231c"
       },
       {
-        "owner": {
-          "user": { "username": "MrKokodi" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/20.png",
-          "address": "0x683ee084d5330fc8cd47008342f26a1e269bb6ba",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-10-01T17:47:30.244218+00:00"
+        "owner": { "address": "0x683ee084d5330fc8cd47008342f26a1e269bb6ba" },
+        "_id": "639a1a68868f1a186467231d"
       },
       {
-        "owner": {
-          "user": { "username": "ca33" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/14.png",
-          "address": "0xca33f1a1834ad59072cb7e2f6bfef3ba17a75828",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-28T09:53:30.590963+00:00"
+        "owner": { "address": "0xca33f1a1834ad59072cb7e2f6bfef3ba17a75828" },
+        "_id": "639a1a68868f1a186467231e"
       },
       {
-        "owner": {
-          "user": { "username": "Thicconite" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/24.png",
-          "address": "0x4cca9821c246acd39a42f34e6ae4e520a8224565",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:48:28.176350+00:00"
+        "owner": { "address": "0x4cca9821c246acd39a42f34e6ae4e520a8224565" },
+        "_id": "639a1a68868f1a186467231f"
       },
       {
-        "owner": {
-          "user": { "username": null },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/21.png",
-          "address": "0x3dc5be3cbfad5bbe981a2cb0c4a65e2dc056c741",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:27:34.590508+00:00"
+        "owner": { "address": "0x3dc5be3cbfad5bbe981a2cb0c4a65e2dc056c741" },
+        "_id": "639a1a68868f1a1864672320"
       },
       {
-        "owner": {
-          "user": null,
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/12.png",
-          "address": "0x11d06cadce8ac9c90353691cfeb2f12f886d7bda",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:27:05.025519+00:00"
+        "owner": { "address": "0x11d06cadce8ac9c90353691cfeb2f12f886d7bda" },
+        "_id": "639a1a68868f1a1864672321"
       },
       {
-        "owner": {
-          "user": null,
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/8.png",
-          "address": "0x3f6aaa7811d017eeb8b4bcca622671bded2c5851",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:26:47.863279+00:00"
+        "owner": { "address": "0x3f6aaa7811d017eeb8b4bcca622671bded2c5851" },
+        "_id": "639a1a68868f1a1864672322"
       },
       {
-        "owner": {
-          "user": { "username": null },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/15.png",
-          "address": "0x39f52180e71dbbae7e1b03cbb557f2ac3e7ac8df",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:26:45.663912+00:00"
+        "owner": { "address": "0x39f52180e71dbbae7e1b03cbb557f2ac3e7ac8df" },
+        "_id": "639a1a68868f1a1864672323"
       },
       {
-        "owner": {
-          "user": { "username": "MonsieurSeguin" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/21.png",
-          "address": "0xc1439e2a7eb64de0223287a0389dc865f4d909e1",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:26:45.645393+00:00"
+        "owner": { "address": "0xc1439e2a7eb64de0223287a0389dc865f4d909e1" },
+        "_id": "639a1a68868f1a1864672324"
       },
       {
-        "owner": {
-          "user": { "username": null },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/9.png",
-          "address": "0x0cc8dc80c7ab8f2cbaebc376824031b29bff0263",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:25:32.566694+00:00"
+        "owner": { "address": "0x0cc8dc80c7ab8f2cbaebc376824031b29bff0263" },
+        "_id": "639a1a68868f1a1864672325"
       },
       {
-        "owner": {
-          "user": { "username": "cyberpip" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/3.png",
-          "address": "0xc07f2785adfdd4ffe9288a1ab77ed5e147ade0bf",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:25:22.965289+00:00"
+        "owner": { "address": "0xc07f2785adfdd4ffe9288a1ab77ed5e147ade0bf" },
+        "_id": "639a1a68868f1a1864672326"
       },
       {
-        "owner": {
-          "user": { "username": "Its_Sh0wbiz_B4by" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/33.png",
-          "address": "0xa7d79d08c788860136fce0c3d6e82939b1d03a06",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:22:16.883064+00:00"
+        "owner": { "address": "0xa7d79d08c788860136fce0c3d6e82939b1d03a06" },
+        "_id": "639a1a68868f1a1864672327"
       },
       {
-        "owner": {
-          "user": { "username": "infoparity" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/29.png",
-          "address": "0x88750a035f521812bffedbf9014357282cf2d2e7",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:21:31.227167+00:00"
+        "owner": { "address": "0x88750a035f521812bffedbf9014357282cf2d2e7" },
+        "_id": "639a1a68868f1a1864672328"
       },
       {
-        "owner": {
-          "user": { "username": "0xFish" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/32.png",
-          "address": "0x6e9fe041e0ba8c2af35215d900d188d53d7a9b41",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:21:31.071481+00:00"
+        "owner": { "address": "0x6e9fe041e0ba8c2af35215d900d188d53d7a9b41" },
+        "_id": "639a1a68868f1a1864672329"
       },
       {
-        "owner": {
-          "user": { "username": null },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/3.png",
-          "address": "0x030adc393d007b2202fe93285d419018a6544745",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:06:23.527410+00:00"
+        "owner": { "address": "0x030adc393d007b2202fe93285d419018a6544745" },
+        "_id": "639a1a68868f1a186467232a"
       },
       {
-        "owner": {
-          "user": { "username": "Kekspawn" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/2.png",
-          "address": "0x9f8ba5fa5f32a625bb9bdf198058f72a5dfd2839",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:06:23.522071+00:00"
+        "owner": { "address": "0x9f8ba5fa5f32a625bb9bdf198058f72a5dfd2839" },
+        "_id": "639a1a68868f1a186467232b"
       },
       {
-        "owner": {
-          "user": { "username": "Wholesome_Scum" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/19.png",
-          "address": "0x819884634b84b3f9b71abde27ad1c599d8327176",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:06:23.442184+00:00"
+        "owner": { "address": "0x819884634b84b3f9b71abde27ad1c599d8327176" },
+        "_id": "639a1a68868f1a186467232c"
       },
       {
-        "owner": {
-          "user": { "username": "ele" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/12.png",
-          "address": "0x88e092adf7039676e6e16fb825004002f35763b2",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:05:36.147166+00:00"
+        "owner": { "address": "0x88e092adf7039676e6e16fb825004002f35763b2" },
+        "_id": "639a1a68868f1a186467232d"
       },
       {
-        "owner": {
-          "user": { "username": "Orli" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/24.png",
-          "address": "0xf7b18e107eb36797f4ce36de756630b9c30969ad",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:04:57.696111+00:00"
+        "owner": { "address": "0xf7b18e107eb36797f4ce36de756630b9c30969ad" },
+        "_id": "639a1a68868f1a186467232e"
       },
       {
-        "owner": {
-          "user": { "username": "M4T" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/15.png",
-          "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded",
-          "config": ""
-        },
-        "quantity": "3",
-        "created_date": "2021-09-23T12:04:33.899318+00:00"
+        "owner": { "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded" },
+        "_id": "639a1a68868f1a186467232f"
       },
       {
-        "owner": {
-          "user": { "username": "wawin" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/28.png",
-          "address": "0xd9d23db5632262033ad9f73ac8fbba8d76d00188",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:04:33.826433+00:00"
+        "owner": { "address": "0xd9d23db5632262033ad9f73ac8fbba8d76d00188" },
+        "_id": "639a1a68868f1a1864672330"
       },
       {
-        "owner": {
-          "user": { "username": "flur" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/11.png",
-          "address": "0xb32b4350c25141e779d392c1dbe857b62b60b4c9",
-          "config": "verified"
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:04:16.343617+00:00"
+        "owner": { "address": "0xb32b4350c25141e779d392c1dbe857b62b60b4c9" },
+        "_id": "639a1a68868f1a1864672331"
       },
       {
-        "owner": {
-          "user": null,
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/18.png",
-          "address": "0xcb8475a4f2347c98af453d2ea36d86e756650ee4",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:04:16.185687+00:00"
+        "owner": { "address": "0xcb8475a4f2347c98af453d2ea36d86e756650ee4" },
+        "_id": "639a1a68868f1a1864672332"
       },
       {
-        "owner": {
-          "user": { "username": null },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/24.png",
-          "address": "0x335de6459748718bf6e04888ec1f35696ad03967",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:04:16.017530+00:00"
+        "owner": { "address": "0x335de6459748718bf6e04888ec1f35696ad03967" },
+        "_id": "639a1a68868f1a1864672333"
       },
       {
-        "owner": {
-          "user": { "username": "rankbadger" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/19.png",
-          "address": "0x4b9ad0277fc290e48783315db1ce78ed513dd5d9",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:03:45.707261+00:00"
+        "owner": { "address": "0x4b9ad0277fc290e48783315db1ce78ed513dd5d9" },
+        "_id": "639a1a68868f1a1864672334"
       },
       {
-        "owner": {
-          "user": { "username": "CryptoHaas" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/21.png",
-          "address": "0xb413a48088cfb0074f75349c790062920434e321",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:03:44.283669+00:00"
+        "owner": { "address": "0xb413a48088cfb0074f75349c790062920434e321" },
+        "_id": "639a1a68868f1a1864672335"
       },
       {
-        "owner": {
-          "user": { "username": "yfimaxi" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/30.png",
-          "address": "0x50664ede715e131f584d3e7eaabd7818bb20a068",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:02:22.161659+00:00"
+        "owner": { "address": "0x50664ede715e131f584d3e7eaabd7818bb20a068" },
+        "_id": "639a1a68868f1a1864672336"
       },
       {
-        "owner": {
-          "user": { "username": "0x3841" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/32.png",
-          "address": "0xc6c60fdc5b2379aabc853d45ebeb12af7fc63841",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:01:23.999829+00:00"
+        "owner": { "address": "0xc6c60fdc5b2379aabc853d45ebeb12af7fc63841" },
+        "_id": "639a1a68868f1a1864672337"
       },
       {
-        "owner": {
-          "user": { "username": "MilkButcher" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/10.png",
-          "address": "0x09be9ab0eb61327d26904bae69efdc6633d5eec8",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:01:23.792094+00:00"
+        "owner": { "address": "0x09be9ab0eb61327d26904bae69efdc6633d5eec8" },
+        "_id": "639a1a68868f1a1864672338"
       },
       {
-        "owner": {
-          "user": { "username": "ce73D" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/13.png",
-          "address": "0x1005d96fd7a2135d380e6f5363f9b7bb5e8ce73d",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T12:00:22.811405+00:00"
+        "owner": { "address": "0x1005d96fd7a2135d380e6f5363f9b7bb5e8ce73d" },
+        "_id": "639a1a68868f1a1864672339"
       },
       {
-        "owner": {
-          "user": { "username": "69420_" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/15.png",
-          "address": "0xf4580a1f39dbdd9b03103741604a3a92f5b9a5c8",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T11:59:40.030280+00:00"
+        "owner": { "address": "0xf4580a1f39dbdd9b03103741604a3a92f5b9a5c8" },
+        "_id": "639a1a68868f1a186467233a"
       },
       {
-        "owner": {
-          "user": { "username": "yyctrader" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/3.png",
-          "address": "0xbd1293983cbdc189f986bafda8cbf9f37fb30e2c",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T11:59:02.435431+00:00"
+        "owner": { "address": "0xbd1293983cbdc189f986bafda8cbf9f37fb30e2c" },
+        "_id": "639a1a68868f1a186467233b"
       },
       {
-        "owner": {
-          "user": { "username": "aaron_zang" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/2.png",
-          "address": "0x2bf960f432c71505881a289558846b136c6b8853",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T11:57:43.112488+00:00"
+        "owner": { "address": "0x2bf960f432c71505881a289558846b136c6b8853" },
+        "_id": "639a1a68868f1a186467233c"
       },
       {
-        "owner": {
-          "user": { "username": "llabc" },
-          "profile_img_url": "https://storage.googleapis.com/opensea-static/opensea-profile/3.png",
-          "address": "0xd7e630afcf128feb8b9071a8412914478c00c22a",
-          "config": ""
-        },
-        "quantity": "1",
-        "created_date": "2021-09-23T11:56:58.400971+00:00"
+        "owner": { "address": "0xd7e630afcf128feb8b9071a8412914478c00c22a" },
+        "_id": "639a1a68868f1a186467233d"
       }
-    ]
+    ],
+    "__v": 0
   }
 ]
