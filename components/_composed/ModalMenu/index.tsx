@@ -3,9 +3,10 @@ import { useRouter } from "next/router";
 import { FC, Fragment, HTMLAttributes, useLayoutEffect, useState } from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { useDecks } from "../../../hooks/deck";
+import { useOwnedAssets } from "../../../hooks/opensea";
+import { theme } from "../../../pages/_app";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
-import { theme } from "../../../pages/_app";
 import Button from "../../Button";
 import Carousel from "../../Carousel";
 import Grid from "../../Grid";
@@ -17,13 +18,12 @@ import Pinterest from "../../Icons/Pinterest";
 import Twitter from "../../Icons/Twitter";
 import Youtube from "../../Icons/Youtube";
 import Layout from "../../Layout";
-import StoreButtons from "../../StoreButtons";
 import Line from "../../Line";
 import Link from "../../Link";
 import Nav from "../../Nav";
 import { useSize } from "../../SizeProvider";
+import StoreButtons from "../../StoreButtons";
 import Text from "../../Text";
-import { useOwnedAssets } from "../../../hooks/opensea";
 
 const newsletterLink = process.env.NEXT_PUBLIC_NEWSLETTER;
 const ModalMenu: FC<
@@ -248,7 +248,7 @@ const ModalMenu: FC<
             {[
               { href: "/", text: "Home" },
 
-              ownedAssets.length !== 0 && {
+              ownedAssets && {
                 href: "https://play2.playingarts.com/",
                 text: "Game",
               },

@@ -1,7 +1,7 @@
 import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 import { useEffect } from "react";
 import { useSignature } from "../contexts/SignatureContext";
-import { useDeck } from "./deck";
+import { useLoadDeck } from "./deck";
 
 export const OpenseaQuery = gql`
   query Opensea($deck: ID!) {
@@ -79,9 +79,15 @@ export const useLoadOwnedAssets = (
 export const useOwnedAssets = (slug?: string) => {
   const { ownedAssets, loadOwnedAssets } = useLoadOwnedAssets();
 
-  const { deck } = useDeck({ variables: { slug } });
+  const { deck, loadDeck } = useLoadDeck();
 
   const { getSig } = useSignature();
+
+  useEffect(() => {
+    if (slug) {
+      loadDeck({ variables: { slug } });
+    }
+  }, [slug]);
 
   useEffect(() => {
     if (!deck) {
@@ -105,5 +111,5 @@ export const useOwnedAssets = (slug?: string) => {
     });
   }, [deck, getSig, loadOwnedAssets]);
 
-  return ownedAssets || [];
+  return ownedAssets;
 };
