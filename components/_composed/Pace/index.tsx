@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { breakpoints } from "../../../source/enums";
 import Arrowed from "../../Arrowed";
 import Button from "../../Button";
@@ -26,6 +26,16 @@ interface Props extends LayoutProps {
 
 const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
   const { width } = useSize();
+
+  const [opensea, setOpensea] = useState<GQL.Opensea>();
+
+  useEffect(() => {
+    fetch(
+      `https://api.opensea.io/api/v1/collection/${deck.openseaCollection.name}`
+    )
+      .then((res) => res.json())
+      .then((data) => setOpensea(data.collection));
+  }, [deck]);
 
   return (
     <div {...props}>
@@ -77,12 +87,14 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
               <Link
                 href="https://etherscan.io/address/0xc22616e971a670e72f35570337e562c3e515fbfe"
                 target="_blank"
-                css={(theme) => [{
-                  gridColumn: "3 / -1",
-                  [theme.maxMQ.sm]: {
-                    gridColumn: "1 / -1",
+                css={(theme) => [
+                  {
+                    gridColumn: "3 / -1",
+                    [theme.maxMQ.sm]: {
+                      gridColumn: "1 / -1",
+                    },
                   },
-                }]}
+                ]}
               >
                 <Text
                   variant="body"
@@ -180,7 +192,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
               background: theme.colors.dark_gray,
               color: theme.colors.text_title_light,
             })}
-            deckId={deck._id}
+            opensea={opensea}
           />
 
           <ComposedHolders
@@ -209,7 +221,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
                 gridColumn: "1 / -1",
               },
             })}
-            deckId={deck._id}
+            opensea={opensea}
           />
 
           {width < breakpoints.sm && (

@@ -1,5 +1,4 @@
 import { FC, Fragment } from "react";
-import { useOpensea } from "../../../hooks/opensea";
 import { theme } from "../../../pages/_app";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
@@ -11,7 +10,7 @@ import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
 import Text from "../../Text";
 
 interface Props extends StatBlockProps {
-  deckId: string;
+  opensea?: GQL.Opensea;
 }
 
 const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => {
@@ -100,9 +99,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => {
   );
 };
 
-const ComposedSupply: FC<Props> = ({ deckId, ...props }) => {
-  const { opensea } = useOpensea({ variables: { deck: deckId } });
-
+const ComposedSupply: FC<Props> = ({ opensea, ...props }) => {
   return (
     <StatBlock
       {...props}

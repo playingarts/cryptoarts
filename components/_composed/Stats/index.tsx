@@ -1,11 +1,10 @@
 import { FC } from "react";
-import { useOpensea } from "../../../hooks/opensea";
 import { socialLinks } from "../../../source/consts";
 import Stat from "../../Stat";
 import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
 
 interface Props extends StatBlockProps {
-  deckId: string;
+  opensea?: GQL.Opensea;
 }
 
 const Content: FC<GQL.Opensea["stats"]> = ({
@@ -65,9 +64,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({
   </div>
 );
 
-const ComposedStats: FC<Props> = ({ deckId, ...props }) => {
-  const { opensea } = useOpensea({ variables: { deck: deckId } });
-
+const ComposedStats: FC<Props> = ({ opensea, ...props }) => {
   return (
     <StatBlock
       {...props}
