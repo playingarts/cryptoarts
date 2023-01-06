@@ -7,6 +7,7 @@ import { MetaMaskProvider } from "metamask-react";
 import "modern-normalize/modern-normalize.css";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Fragment, useEffect } from "react";
 import smoothscroll from "smoothscroll-polyfill";
 import SizeProvider from "../components/SizeProvider";
@@ -533,6 +534,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           <ThemeProvider theme={theme}>
             <ViewedProvider>
               <SizeProvider>
+                <GoogleAnalytics trackPageViews />
                 <Component {...pageProps} />
               </SizeProvider>
             </ViewedProvider>
