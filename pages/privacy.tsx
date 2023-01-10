@@ -338,7 +338,7 @@ const Page: NextPage = () => {
   return (
     <Fragment>
       <Head>
-        <title>Privacy</title>
+        <title>Privacy - Playing Arts Project</title>
         <meta name="description" content="Information we receive and collect" />
       </Head>
       <ComposedGlobalLayout>

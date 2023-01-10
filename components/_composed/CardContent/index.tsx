@@ -81,14 +81,14 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         <Head>
           <title>
             {(
-              deck.title +
-              " - " +
+              card.artist.name + " - " +
               (card.value === "joker"
                 ? card.suit + " " + card.value
                 : card.value +
-                  (card.value !== "backside" ? " of " + card.suit : "")) +
-              " - " +
-              card.artist.name
+                  (card.value !== "backside" ? " of " + card.suit : ""))
+                  + " for "
+              + deck.title
+              + " - Playing Arts Project"
             ).replace(/\b\w/g, (l) => l.toUpperCase())}
           </title>
           {card.info ? <meta name="description" content={card.info} /> : null}

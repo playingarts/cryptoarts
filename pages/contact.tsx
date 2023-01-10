@@ -13,7 +13,7 @@ const Page: NextPage = () => {
   return (
     <Fragment>
       <Head>
-        <title>Contact</title>
+        <title>Contact - Playing Arts Project</title>
       </Head>
       <ComposedGlobalLayout>
         <Layout
