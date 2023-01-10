@@ -1,6 +1,7 @@
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
 import { NextPage } from "next";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import {
   FC,
@@ -593,6 +594,12 @@ const Page: NextPage = () => {
 
   return (
     <Fragment>
+      {deck && !artistId && (
+        <Head>
+          <title>{deck.title}</title>
+          <meta name="description" content={deck.description} />
+        </Head>
+      )}
       <Modal />
       <ComposedGlobalLayout
         extended={true}

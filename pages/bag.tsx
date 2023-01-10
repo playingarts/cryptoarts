@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import { FC, Fragment, useEffect, useState } from "react";
 import Button, { Props as ButtonProps } from "../components/Button";
 import EurToUsd from "../components/EurToUsd";
@@ -65,6 +66,9 @@ const Content: FC<{
 
   return (
     <Fragment>
+      <Head>
+        <title>Bag</title>
+      </Head>
       <Layout
         css={(theme) => ({
           background: theme.colors.page_bg_light,
@@ -86,7 +90,7 @@ const Content: FC<{
                   css={(theme) => [
                     {
                       [theme.maxMQ.sm]: {
-                        marginBottom: theme.spacing(.5),
+                        marginBottom: theme.spacing(0.5),
                         marginTop: theme.spacing(1),
                       },
                     },

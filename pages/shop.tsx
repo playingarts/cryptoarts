@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import { FC, Fragment } from "react";
 import AddToBagButton from "../components/AddToBagButton";
 import BagButton from "../components/BagButton";
@@ -396,7 +397,10 @@ const Content: FC = () => {
                         gridColumn: "1 / -1",
                         height: theme.spacing(37.8),
                       },
-                      [theme.mq.md]: { gridColumn: "span 6",  height: theme.spacing(60) },
+                      [theme.mq.md]: {
+                        gridColumn: "span 6",
+                        height: theme.spacing(60),
+                      },
                     })}
                     {...product}
                   />
@@ -432,7 +436,7 @@ const Content: FC = () => {
         <ShopSheets products={sheets} />
       </Layout>
       <Layout
-        data-id="faq" 
+        data-id="faq"
         css={(theme) => ({
           background: theme.colors.page_bg_light_gray,
           paddingTop: theme.spacing(10),
@@ -457,9 +461,14 @@ const Content: FC = () => {
 
 const Shop: NextPage = () => {
   return (
-    <ComposedGlobalLayout customShopButton={<BagButton />} noNav={true}>
-      <Content />
-    </ComposedGlobalLayout>
+    <Fragment>
+      <Head>
+        <title>Shop</title>
+      </Head>
+      <ComposedGlobalLayout customShopButton={<BagButton />} noNav={true}>
+        <Content />
+      </ComposedGlobalLayout>
+    </Fragment>
   );
 };
 

@@ -1,5 +1,11 @@
+import Head from "next/head";
 import { useRouter } from "next/router";
-import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
+import {
+  forwardRef,
+  ForwardRefRenderFunction,
+  Fragment,
+  useEffect,
+} from "react";
 import { useLoadCards } from "../../../hooks/card";
 import { useLoadLosers } from "../../../hooks/loser";
 import { OwnedCard } from "../../../pages/[deckId]";
@@ -70,50 +76,69 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   const nextCard = card && cards[currentCardIndex + 1];
 
   return (
-    <CardNav
-      stopOnMobile={true}
-      {...props}
-      ref={ref}
-      disableKeys={!!cardValue && !!cardSuit}
-      prevLink={
-        prevCard && {
-          pathname: `/${deck.slug}${contest ? "/contest" : ""}/${
-            prevCard.artist.slug
-          }`,
-        }
-      }
-      nextLink={
-        nextCard && {
-          pathname: `/${deck.slug}${contest ? "/contest" : ""}/${
-            nextCard.artist.slug
-          }`,
-        }
-      }
-      closeLink={{
-        pathname: `/${deck.slug}`,
-        query: contest
-          ? {
-              section: Sections.contest,
-              scrollIntoView: "[data-id='block-contest']",
-            }
-          : {
-              scrollIntoView: `[href*="/${deck.slug}/${card.artist.slug}"]`,
-            },
-      }}
-    >
-      <ComposedCardBlock
-        css={(theme) => [
-          {
-            color: theme.colors.page_bg_light,
-          },
-        ]}
-        ownedCards={ownedCards}
-        contest={contest}
-        card={card}
-        deck={deck}
+    <Fragment>
+      {card && (
+        <Head>
+          <title>
+            {(
+              deck.title +
+              " - " +
+              (card.value === "joker"
+                ? card.suit + " " + card.value
+                : card.value +
+                  (card.value !== "backside" ? " of " + card.suit : "")) +
+              " - " +
+              card.artist.name
+            ).replace(/\b\w/g, (l) => l.toUpperCase())}
+          </title>
+          {card.info ? <meta name="description" content={card.info} /> : null}
+        </Head>
+      )}
+      <CardNav
+        stopOnMobile={true}
+        {...props}
         ref={ref}
-      />
-    </CardNav>
+        disableKeys={!!cardValue && !!cardSuit}
+        prevLink={
+          prevCard && {
+            pathname: `/${deck.slug}${contest ? "/contest" : ""}/${
+              prevCard.artist.slug
+            }`,
+          }
+        }
+        nextLink={
+          nextCard && {
+            pathname: `/${deck.slug}${contest ? "/contest" : ""}/${
+              nextCard.artist.slug
+            }`,
+          }
+        }
+        closeLink={{
+          pathname: `/${deck.slug}`,
+          query: contest
+            ? {
+                section: Sections.contest,
+                scrollIntoView: "[data-id='block-contest']",
+              }
+            : {
+                scrollIntoView: `[href*="/${deck.slug}/${card.artist.slug}"]`,
+              },
+        }}
+      >
+        <ComposedCardBlock
+          css={(theme) => [
+            {
+              color: theme.colors.page_bg_light,
+            },
+          ]}
+          ownedCards={ownedCards}
+          contest={contest}
+          card={card}
+          deck={deck}
+          ref={ref}
+        />
+      </CardNav>
+    </Fragment>
   );
 };
 

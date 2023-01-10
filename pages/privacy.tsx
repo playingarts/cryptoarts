@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import { FC, Fragment } from "react";
 import BlockTitle from "../components/BlockTitle";
 import Button from "../components/Button";
@@ -335,9 +336,15 @@ const Content: FC = () => {
 
 const Page: NextPage = () => {
   return (
-    <ComposedGlobalLayout>
-      <Content />
-    </ComposedGlobalLayout>
+    <Fragment>
+      <Head>
+        <title>Privacy</title>
+        <meta name="description" content="Information we receive and collect" />
+      </Head>
+      <ComposedGlobalLayout>
+        <Content />
+      </ComposedGlobalLayout>
+    </Fragment>
   );
 };
 
