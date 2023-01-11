@@ -148,7 +148,15 @@ const Home: NextPage = () => {
         data-id="block-about"
       >
         <Grid short={true}>
-          <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
+          <Text
+            component="h2"
+            css={{
+              margin: 0,
+              paddingLeft: theme.spacing(1.5),
+              paddingRight: theme.spacing(1.5),
+              gridColumn: "1 / -1",
+            }}
+          >
             About
           </Text>
           <div
@@ -164,6 +172,8 @@ const Home: NextPage = () => {
                 [theme.maxMQ.sm]: {
                   margin: 0,
                   gridColumn: "span 5",
+                  paddingLeft: theme.spacing(1.5),
+                  paddingRight: theme.spacing(1.5),
                 },
                 [theme.maxMQ.xsm]: {
                   margin: 0,
@@ -269,27 +279,31 @@ const Home: NextPage = () => {
         >
           {/* <BlockTitle variant="h3" title="Browse Collection" /> */}
           <Grid short={true}>
-          <Text
-                component="h3"
-                css={{
-                  margin: 0,
-                  gridColumn: "1 / 6",
-                  display: "flex",
-                  flexWrap: "wrap",
-                }}
-              >
-                Browse Collection
-              </Text>
-              <Line
-                spacing={3}
-                css={{
-                  [theme.mq.sm]: {
-                    gridColumn: "1 / -1",
-                    width: "100%",
-                  },
-                }}
-              />
-              </Grid>
+            <Text
+              component="h3"
+              css={{
+                margin: 0,
+                gridColumn: "1 / 6",
+                display: "flex",
+                flexWrap: "wrap",
+                [theme.maxMQ.sm]: {
+                  paddingLeft: theme.spacing(1.5),
+                  paddingRight: theme.spacing(1.5),
+                },
+              }}
+            >
+              Browse Collection
+            </Text>
+            <Line
+              spacing={3}
+              css={{
+                [theme.mq.sm]: {
+                  gridColumn: "1 / -1",
+                  width: "100%",
+                },
+              }}
+            />
+          </Grid>
           <BrowseCollection
             css={(theme) => ({
               marginTop: theme.spacing(2),

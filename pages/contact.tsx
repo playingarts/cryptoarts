@@ -25,6 +25,8 @@ const Page: NextPage = () => {
               [theme.maxMQ.sm]: {
                 paddingTop: theme.spacing(17.5),
                 paddingBottom: theme.spacing(5),
+                paddingLeft: theme.spacing(2.5),
+                paddingRight: theme.spacing(2.5),
               },
             },
           ]}

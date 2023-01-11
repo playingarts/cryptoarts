@@ -71,6 +71,8 @@ const CardBlock: FC<Props> = ({
         },
         [theme.maxMQ.sm]: {
           columnGap: 0,
+          paddingLeft: theme.spacing(1.5),
+          paddingRight: theme.spacing(1.5),
         },
       })}
     >

@@ -16,7 +16,11 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
   const { width } = useSize();
   return (
     <BlockTitle
-      css={{ gridColumn: "1/-1" }}
+      css={{
+        gridColumn: "1/-1",
+        paddingLeft: theme.spacing(1.5),
+        paddingRight: theme.spacing(1.5),
+      }}
       title="Roadmap"
       palette={width >= breakpoints.sm ? "dark" : palette}
       variant="h3"
@@ -31,6 +35,7 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
               [theme.maxMQ.sm]: [
                 {
                   marginTop: theme.spacing(3),
+                  paddingRight: theme.spacing(1.5),
                 },
               ],
             },
@@ -61,11 +66,11 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
               title: "Official Launch",
               paragraph:
                 "Start minting your cards. Fair launch, fair distribution: cards are sold in packs with a pair of random animated cards instantly revealed in your Ethereum wallet. (Sold out in 19 minutes).",
-                action: {
-                  text: "Opensea collection",
-                  href: "https://opensea.io/collection/cryptoedition",
-                  blank: true,
-                },
+              action: {
+                text: "Opensea collection",
+                href: "https://opensea.io/collection/cryptoedition",
+                blank: true,
+              },
             },
             {
               title: "Back to the Community",
@@ -82,12 +87,12 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
             {
               title: "Website Redesign",
               paragraph:
-                  "Complete website redesign. Playing Arts API, Integration with Ethereum blockchain, Web3 ready.",
-                action: {
-                  text: "Suggest a feature",
-                  href: "https://discord.gg/u8gfv2zdG3",
-                  blank: true,
-                },
+                "Complete website redesign. Playing Arts API, Integration with Ethereum blockchain, Web3 ready.",
+              action: {
+                text: "Suggest a feature",
+                href: "https://discord.gg/u8gfv2zdG3",
+                blank: true,
+              },
             },
             {
               title: "weekly podcast",
@@ -95,7 +100,8 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
                 "Launch of the weekly podcast where we will put the spotlight on artists in our community.",
               action: {
                 text: "Watch series",
-                href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+                href:
+                  "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
                 blank: true,
               },
             },

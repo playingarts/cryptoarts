@@ -77,6 +77,8 @@ const Content: FC = () => {
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(12.5),
             paddingBottom: theme.spacing(0),
+            paddingLeft: theme.spacing(2.5),
+            paddingRight: theme.spacing(2.5),
           },
           paddingBottom: theme.spacing(5),
         })}
@@ -131,9 +133,9 @@ const Content: FC = () => {
             spacing={0}
             css={{
               [theme.mq.sm]: {
-              gridColumn: "1 / -1",
-              width: "100%",
-            },
+                gridColumn: "1 / -1",
+                width: "100%",
+              },
             }}
           />
           {/* <Text variant="body2" css={{ margin: 0, gridColumn: "1/-1" }}>
@@ -448,6 +450,12 @@ const Content: FC = () => {
                         {
                           width: "100%",
                           gridColumn: "1/-1",
+
+                          [theme.maxMQ.sm]: {
+                            width: "auto",
+                            marginLeft: theme.spacing(1.5),
+                            marginRight: theme.spacing(1.5),
+                          },
                         },
                       ]}
                     />

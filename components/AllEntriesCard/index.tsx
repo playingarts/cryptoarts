@@ -57,10 +57,10 @@ const AllEntriesCard: FC<Props> = ({
             zIndex: 1,
             top: 0,
             transition: theme.transitions.fast("top"),
-            // [theme.maxMQ.sm]: {
-            //   height: theme.spacing(7.5),
-            //   width: theme.spacing(),
-            // },
+            [theme.maxMQ.sm]: {
+              height: theme.spacing(8),
+              width: theme.spacing(6),
+            },
             [theme.mq.sm]: [
               hovered && {
                 top: theme.spacing(-1),

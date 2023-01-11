@@ -26,7 +26,10 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
 
             [theme.maxMQ.sm]: [
               {
-                padding: 0,
+                paddingLeft: theme.spacing(1.5),
+                paddingRight: theme.spacing(1.5),
+                paddingTop: 0,
+                paddingBottom: 0,
                 background: "none",
               },
             ],
@@ -85,7 +88,8 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
               ]}
             >
               <Text variant="body2">
-                This deck is powered by AR! Install and open the app, point on the physical card and see how it animates right in your hands!
+                This deck is powered by AR! Install and open the app, point on
+                the physical card and see how it animates right in your hands!
               </Text>
               {width >= breakpoints.sm && (
                 <Line palette={palette} spacing={1} />

@@ -90,6 +90,10 @@ const AllEntriesBlock: FC<Props> = ({ cards, deckId, ...props }) => {
           flexWrap: "wrap",
           justifyContent: "center",
           gap: theme.spacing(3),
+
+          [theme.maxMQ.sm]: {
+            gap: theme.spacing(1),
+          },
         })}
       >
         {cardValues.map((cardValue) => (

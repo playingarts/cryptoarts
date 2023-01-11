@@ -66,6 +66,12 @@ const ComposedEntries: ForwardRefRenderFunction<
         subTitleText={`${
           allCards.filter((card) => card.value !== "backside").length
         } entries submitted for the contest`}
+        css={(theme) => ({
+          [theme.maxMQ.sm]: {
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+          },
+        })}
       >
         <AllEntriesBlock
           css={(theme) => ({
@@ -74,6 +80,9 @@ const ComposedEntries: ForwardRefRenderFunction<
             paddingTop: theme.spacing(4),
             [theme.maxMQ.sm]: {
               paddingBottom: theme.spacing(2.5),
+              paddingTop: theme.spacing(2),
+              paddingLeft: theme.spacing(2.5),
+              paddingRight: theme.spacing(2.5),
             },
           })}
           cards={allCards.filter((card) => card.value !== "backside")}

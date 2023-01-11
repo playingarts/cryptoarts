@@ -4,7 +4,6 @@ import {
   HTMLAttributes,
   ReactNode,
 } from "react";
-import { breakpoints } from "../../../source/enums";
 import Grid from "../../Grid";
 import Layout from "../../Layout";
 import Text from "../../Text";
@@ -56,13 +55,14 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           color: theme.colors.light_gray,
           paddingTop: theme.spacing(25),
           paddingBottom: theme.spacing(6),
-          maxWidth: breakpoints.lg,
+          // maxWidth: breakpoints.lg,
           margin: "0 auto",
           // maxWidth: 1440,
           [theme.mq.sm]: {
             height: `calc(100vh - ${theme.spacing(6)}px)`,
             maxHeight: theme.spacing(75),
             paddingTop: theme.spacing(25),
+            
           },
           [theme.maxMQ.md]: {
             paddingTop: theme.spacing(22),
@@ -71,6 +71,8 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(3)}px`,
             paddingTop: theme.spacing(18),
             paddingBottom: theme.spacing(3),
+            paddingLeft: theme.spacing(2.5),
+            paddingRight: theme.spacing(2.5),
           },
           overflow: "hidden",
         })}

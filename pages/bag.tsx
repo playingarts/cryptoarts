@@ -76,6 +76,8 @@ const Content: FC<{
           paddingTop: theme.spacing(18),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(12.5),
+            paddingLeft: theme.spacing(2.5),
+            paddingRight: theme.spacing(2.5),
           },
         })}
       >
@@ -98,8 +100,7 @@ const Content: FC<{
                 css={{
                   gridColumn: "1 / -1",
                   width: "100%",
-                  [theme.mq.sm]: {
-                  },
+                  [theme.mq.sm]: {},
                 }}
               />
               <Button
@@ -163,6 +164,8 @@ const Content: FC<{
               [theme.maxMQ.sm]: {
                 paddingTop: theme.spacing(0),
                 paddingBottom: theme.spacing(5.5),
+                paddingLeft: theme.spacing(2.5),
+            paddingRight: theme.spacing(2.5),
               },
               paddingBottom: theme.spacing(15),
             })}

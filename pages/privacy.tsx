@@ -166,39 +166,6 @@ const data = [
 const Content: FC = () => {
   const { width } = useSize();
 
-  const action = (
-    <div
-      css={(theme) => [
-        {
-          color: theme.colors.text_subtitle_dark,
-          [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(5),
-          },
-        },
-      ]}
-    >
-      <Text component="h5" css={{ margin: 0 }}>
-        Contact
-      </Text>
-      <Text
-        variant="label"
-        css={(theme) => [
-          {
-            margin: 0,
-            marginTop: theme.spacing(1),
-            lineHeight: 1.5,
-            [theme.mq.sm]: { lineHeight: 1.5 },
-          },
-        ]}
-      >
-        If you have a privacy question or complaint, please email us at
-        info@playingarts.com
-      </Text>
-    </div>
-  );
-
-  console.log(action);
-
   return (
     <Fragment>
       <Layout
@@ -210,6 +177,8 @@ const Content: FC = () => {
             [theme.maxMQ.sm]: {
               paddingTop: theme.spacing(17.5),
               paddingBottom: theme.spacing(5),
+              paddingLeft: theme.spacing(2.5),
+                paddingRight: theme.spacing(2.5),
             },
           },
         ]}
@@ -279,6 +248,10 @@ const Content: FC = () => {
                   css={(theme) => [
                     {
                       paddingBottom: theme.spacing(3),
+                      [theme.maxMQ.sm]: {
+                        paddingLeft: theme.spacing(2.5),
+                        paddingRight: theme.spacing(2.5),
+                      }
                     },
                   ]}
                 >
@@ -308,6 +281,10 @@ const Content: FC = () => {
                       [theme.mq.sm]: {
                         marginBottom: theme.spacing(6),
                       },
+                      [theme.maxMQ.sm]: {
+                        marginLeft: theme.spacing(2.5),
+                        marginRight: theme.spacing(2.5),
+                      }
                     },
                   ]}
                 />

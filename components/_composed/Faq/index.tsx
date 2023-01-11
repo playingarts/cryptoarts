@@ -20,9 +20,11 @@ const ComposedFaq: FC<HTMLAttributes<HTMLDivElement> & { title?: string }> = ({
         columnGap: theme.spacing(5),
         [theme.maxMQ.sm]: {
           justifyContent: "center",
-          gap: theme.spacing(3),
+          gap: theme.spacing(4),
           marginTop: theme.spacing(3.5),
           marginBottom: theme.spacing(2.5),
+          paddingLeft: theme.spacing(2.5),
+          paddingRight: theme.spacing(2.5),
         },
         // opacity: 0.5,
         marginTop: theme.spacing(7.5),

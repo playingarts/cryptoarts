@@ -66,7 +66,10 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           },
         })}
       >
-        <Text css={{ margin: 0 }} component="h3">
+        <Text
+          css={{ margin: 0, paddingLeft: "15px", paddingRight: "15px" }}
+          component="h3"
+        >
           Uncut Sheets
         </Text>
         <Text
@@ -74,6 +77,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             {
               [theme.maxMQ.sm]: {
                 fontSize: 16,
+                paddingLeft: theme.spacing(1.5),
+                paddingRight: theme.spacing(1.5),
               },
             },
           ]}
@@ -82,15 +87,17 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           the sheets were cut into decks at USPCC, some were removed - destined
           for display on your wall. Size: 22x26,5 inches. Frame not included.
         </Text>
-        
+
         {width >= breakpoints.sm && (
           <Fragment>
-            <Text css={[{ marginTop: "10px", marginBottom: "20px", opacity: 0.5 }]} variant="body2">
+            <Text
+              css={[{ marginTop: "10px", marginBottom: "20px", opacity: 0.5 }]}
+              variant="body2"
+            >
               €{product.price}
             </Text>
           </Fragment>
         )}
-        
 
         {width < breakpoints.sm && (
           <div
@@ -99,8 +106,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
                 [theme.maxMQ.sm]: {
                   display: "flex",
                   justifyContent: "center",
-                  paddingRight: theme.spacing(2.5),
-                  paddingLeft: theme.spacing(2.5),
+                  paddingRight: theme.spacing(1.5),
+                  paddingLeft: theme.spacing(1.5),
                   paddingBottom: theme.spacing(2.5),
                   paddingTop: theme.spacing(2.5),
                 },
@@ -117,8 +124,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             alignItems: "center",
             gap: theme.spacing(2),
             [theme.maxMQ.sm]: {
-              paddingRight: theme.spacing(2.5),
-              paddingLeft: theme.spacing(2.5),
+              paddingRight: theme.spacing(1.5),
+              paddingLeft: theme.spacing(1.5),
             },
           })}
         >
@@ -166,7 +173,7 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             setter={changeProduct}
           />
         </div>
-        
+
         {/* <Text
           css={(theme) => [
             {
@@ -180,10 +187,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
         >
           Size: 22x26,5 inches. Frame not included.
         </Text> */}
-        
-        
+
         {/* <Line spacing={3} /> */}
-        
       </div>
     </Grid>
   );

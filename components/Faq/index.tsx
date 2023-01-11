@@ -27,7 +27,9 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
 
   return (
     <Fragment>
-      <Text component="h4" css={(theme) => [
+      <Text
+        component="h4"
+        css={(theme) => [
           {
             margin: "0",
             opacity: ".5",
@@ -35,9 +37,12 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
             [theme.maxMQ.sm]: {
               fontSize: "30px",
               marginBottom: "30px",
+              paddingLeft: theme.spacing(1.5),
+              paddingRight: theme.spacing(1.5),
             },
           },
-        ]}>
+        ]}
+      >
         {title || "Shipping Info"}
       </Text>
       <Line
@@ -47,6 +52,8 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
             [theme.maxMQ.sm]: {
               marginBottom: theme.spacing(1.5),
               marginTop: theme.spacing(1.5),
+              marginLeft: theme.spacing(1.5),
+              marginRight: theme.spacing(1.5),
             },
           },
         ]}
@@ -61,13 +68,26 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
                 [theme.maxMQ.sm]: {
                   marginTop: theme.spacing(0),
                   marginBottom: theme.spacing(0),
+                  marginLeft: theme.spacing(1.5),
+                  marginRight: theme.spacing(1.5),
                   border: "0",
                 },
               })}
             >
               {answer}
             </FaqItem>
-            {width < breakpoints.sm && <Line spacing={1.5} />}
+            {width < breakpoints.sm && (
+              <Line
+                spacing={1.5}
+                css={(theme) => ({
+                  // borderBottom: "1px solid #E6E6E6",
+                  [theme.maxMQ.sm]: {
+                    marginLeft: theme.spacing(1.5),
+                    marginRight: theme.spacing(1.5),
+                  },
+                })}
+              />
+            )}
           </Fragment>
         );
       })}

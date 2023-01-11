@@ -49,8 +49,8 @@ const ShopBundle: FC<Props> = ({ title, price, image, _id, ...props }) => {
             display: "flex",
             flexWrap: "wrap",
             [theme.maxMQ.sm]: {
-              paddingLeft: theme.spacing(2.5),
-              paddingRight: theme.spacing(2.5),
+              paddingLeft: theme.spacing(1.5),
+              paddingRight: theme.spacing(1.5),
             },
           },
         ]}

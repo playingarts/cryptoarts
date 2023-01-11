@@ -24,6 +24,13 @@ const BlockWithProperties: FC<Props> = ({
       {...{ title, subTitleText, action }}
       variant="h3"
       palette={palette}
+      
+      css={(theme) => [
+        [theme.maxMQ.sm], {
+          paddingLeft: theme.spacing(1.5),
+          paddingRight: theme.spacing(1.5),
+        },
+      ]}
     >
       <Grid
         css={(theme) => [
@@ -31,12 +38,11 @@ const BlockWithProperties: FC<Props> = ({
             paddingTop: theme.spacing(3),
             [theme.mq.sm]: {
               gap: theme.spacing(3),
-              // gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px) `,
             },
-            // [theme.mq.md]: {
-            //   gridTemplateColumns: `repeat(12, ${theme.spacing(7.5)}px) `,
-            // },
-            // [theme.maxMQ.sm]: [{ rowGap: theme.spacing(1.5) }],
+            [theme.maxMQ.sm]: {
+              paddingLeft: theme.spacing(1.5),
+              paddingRight: theme.spacing(1.5),
+            },
           },
         ]}
       >
