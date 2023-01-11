@@ -80,18 +80,18 @@ const ComposedGlobalLayout: FC<
               },
             })}
           >
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
-              <Esquire />
-            </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            <a rel="noreferrer" href="https://www.fastcompany.com/90575448/these-playing-cards-show-fantastical-ways-the-world-could-change-by-2120" target="_blank" css={{ gridColumn: "span 3", textAlign: "center", color: "#000", }}>
               <FastCompany />
-            </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            </a>
+            <a rel="noreferrer" href="https://www.creativebloq.com/illustration/artists-collaborate-picture-perfect-playing-cards-10134891" target="_blank" css={{ gridColumn: "span 3", textAlign: "center", color: "#000", }}>
               <CreativeBloq />
-            </div>
-            <div css={{ gridColumn: "span 3", textAlign: "center" }}>
+            </a>
+            <a rel="noreferrer" href="https://www.digitalartsonline.co.uk/features/illustration/55-global-designers-illustrators-each-designed-playing-card-in-this-unique-deck/" target="_blank" css={{ gridColumn: "span 3", textAlign: "center", color: "#000", }}>
               <DigitalArts />
-            </div>
+            </a>
+            <a rel="noreferrer" href="https://www.esquire.com/style/mens-fashion/g4233463/artistic-deck-of-cards" target="_blank" css={{ gridColumn: "span 3", textAlign: "center", color: "#000", }}>
+              <Esquire />
+            </a>
           </Grid>
           <Grid
             short={true}

@@ -59,11 +59,13 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             maxWidth: theme.spacing(123),
             width: "100%",
             textAlign: "center",
-
-            // [theme.maxMQ.sm]: {
-            //   borderRadius: theme.spacing(5),
-            // },
             height: theme.spacing(6),
+
+            [theme.maxMQ.sm]: {
+              paddingLeft: theme.spacing(2.5),
+              textAlign: "left",
+              height: "50px",
+            },
           },
         ]}
       >
@@ -78,6 +80,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
                 deckId === "crypto"
                   ? theme.colors.text_subtitle_light
                   : theme.colors.text_subtitle_dark,
+                  
+              [theme.maxMQ.sm]: {
+                lineHeight: "50px",
+              },
             },
           ]}
         >
@@ -92,11 +98,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
               },
             ]}
           >
-          We use cookies 
+            We use cookies
           </Link>{" "}
           and similar technologies
-          {width >= breakpoints.sm &&
-            " for statistics and marketing purposes."}
+          {width >= breakpoints.sm && " for statistics and marketing purposes."}
         </span>
         <div
           onClick={() => setPrivacyStatus(privacyDate)}

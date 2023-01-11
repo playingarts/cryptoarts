@@ -6,7 +6,9 @@ import Button from "../../Button";
 import Itunes from "../../Icons/Itunes";
 import Play from "../../Icons/Play";
 import Spotify from "../../Icons/Spotify";
+import Line from "../../../components/Line";
 import Link from "../../Link";
+import { theme } from "../../../pages/_app";
 import { useSize } from "../../SizeProvider";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
@@ -75,7 +77,6 @@ const Podcast: FC<Props> = ({
           <Text
             component={smallTitle ? "h3" : "h2"}
             css={(theme) => ({
-              textTransform: "capitalize",
               marginTop: 0,
               marginBottom: theme.spacing(1),
               [theme.mq.sm]: [!smallTitle && theme.typography.h3],
@@ -87,6 +88,7 @@ const Podcast: FC<Props> = ({
           <div
             css={(theme) => ({
               marginTop: theme.spacing(2),
+              marginBottom: theme.spacing(2),
               display: "flex",
               alignItems: "center",
               columnGap: theme.spacing(1.1),
@@ -126,6 +128,16 @@ const Podcast: FC<Props> = ({
               />
             )}
           </div>
+          <Line
+                spacing={0}
+                css={{
+                  color: "#fff",
+                  [theme.mq.sm]: {
+                    gridColumn: "1 / -1",
+                    width: "100%",
+                  },
+                }}
+              />
         </div>
         {width >= breakpoints.sm && (
           <div

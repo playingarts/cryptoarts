@@ -57,7 +57,6 @@ const BlockWithProperties: FC<Props> = ({
                   variant="h7"
                   css={(theme) => [
                     {
-                      //   color: theme.colors.text_subtitle_light,
                       gridColumn: "1 / 3",
                       [theme.maxMQ.sm]: {
                         gridColumn: "1 / -1",
@@ -85,11 +84,10 @@ const BlockWithProperties: FC<Props> = ({
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap",
                       gridColumn: "3 / -1",
-                      //   color: theme.colors.page_bg_light,
                       color:
                         palette === "dark"
                           ? theme.colors.page_bg_light
-                          : theme.colors.text_subtitle_dark,
+                          : theme.colors.page_bg_dark,
                       [theme.maxMQ.sm]: {
                         fontSize: 16,
                         gridColumn: "1 / -1",

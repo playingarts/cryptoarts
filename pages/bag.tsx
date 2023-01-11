@@ -18,6 +18,7 @@ import StatBlock from "../components/StatBlock";
 import Text from "../components/Text";
 import ComposedFaq from "../components/_composed/Faq";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
+import { theme } from "../pages/_app";
 import { useBag } from "../hooks/bag";
 import { useProducts } from "../hooks/product";
 import { withApollo } from "../source/apollo";
@@ -79,56 +80,75 @@ const Content: FC<{
         })}
       >
         <Grid short={true}>
-          <div css={{ gridColumn: "1 / -1" }}>
-            {!products.length ? (
-              <Fragment>
-                <Text component="h2" css={{ margin: 0 }}>
-                  Bag Is Empty
-                </Text>
-                <Line
-                  spacing={2}
-                  css={(theme) => [
-                    {
-                      [theme.maxMQ.sm]: {
-                        marginBottom: theme.spacing(0.5),
-                        marginTop: theme.spacing(1),
-                      },
+          {!products.length ? (
+            <Fragment>
+              <Text
+                component="h2"
+                css={{
+                  margin: 0,
+                  gridColumn: "1 / 6",
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                Bag Is Empty
+              </Text>
+              <Line
+                spacing={2}
+                css={{
+                  gridColumn: "1 / -1",
+                  width: "100%",
+                  [theme.mq.sm]: {
+                  },
+                }}
+              />
+              <Button
+                component={Link}
+                href="/shop"
+                css={(theme) => ({
+                  background: theme.colors.text_title_dark,
+                  color: theme.colors.white,
+                  width: "fit-content",
+                  gridColumn: "1 / -1",
+                  marginTop: theme.spacing(1.5),
+                  marginBottom: theme.spacing(10),
+                  [theme.mq.sm]: {
+                    transition: theme.transitions.fast("opacity"),
+                    "&:hover": {
+                      opacity: 0.8,
                     },
-                  ]}
-                />
-                <Button
-                  component={Link}
-                  href="/shop"
-                  css={(theme) => ({
-                    background: theme.colors.text_title_dark,
-                    color: theme.colors.white,
-                    width: "fit-content",
-                    marginTop: theme.spacing(3),
-                    marginBottom: theme.spacing(6),
-                    [theme.mq.sm]: {
-                      transition: theme.transitions.fast("opacity"),
-                      marginBottom: theme.spacing(10),
-                      "&:hover": {
-                        opacity: 0.8,
-                      },
-                    },
-                    [theme.maxMQ.sm]: {
-                      marginTop: theme.spacing(2.6),
-                    },
-                  })}
-                >
-                  Go shopping
-                </Button>
-              </Fragment>
-            ) : (
-              <Fragment>
-                <Text component="h2" css={{ margin: 0 }}>
-                  Bag
-                </Text>
-                <Line spacing={2} />
-              </Fragment>
-            )}
-          </div>
+                  },
+                  [theme.maxMQ.sm]: {
+                    marginTop: theme.spacing(1),
+                    marginBottom: theme.spacing(5),
+                  },
+                })}
+              >
+                Go shopping
+              </Button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Text
+                component="h2"
+                css={{
+                  margin: 0,
+                  gridColumn: "1 / 6",
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                Bag
+              </Text>
+              <Line
+                spacing={2}
+                css={{
+                  gridColumn: "1 / -1",
+                  width: "100%",
+                }}
+              />
+            </Fragment>
+          )}
         </Grid>
       </Layout>
 

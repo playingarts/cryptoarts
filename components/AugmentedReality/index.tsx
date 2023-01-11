@@ -85,8 +85,7 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
               ]}
             >
               <Text variant="body2">
-                Playing Arts is a collective art project for creative people who
-                are into Art, Playing Cards, NFTs and sometimes magic.
+                This deck is powered by AR! Install and open the app, point on the physical card and see how it animates right in your hands!
               </Text>
               {width >= breakpoints.sm && (
                 <Line palette={palette} spacing={1} />

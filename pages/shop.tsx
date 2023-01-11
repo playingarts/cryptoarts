@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { FC, Fragment } from "react";
+import Link from "../components/Link";
+import Arrowed from "../components/Arrowed";
 import AddToBagButton from "../components/AddToBagButton";
 import BagButton from "../components/BagButton";
 import CardFan from "../components/Card/Fan";
@@ -16,6 +18,7 @@ import ShopBundle from "../components/Shop/Bundle";
 import ShopItem from "../components/Shop/Item";
 import ShopSheets from "../components/Shop/Sheets";
 import ShopSoldOut from "../components/Shop/SoldOut";
+import { theme } from "../pages/_app";
 import { useSize } from "../components/SizeProvider";
 import Text from "../components/Text";
 import ComposedFaq from "../components/_composed/Faq";
@@ -85,18 +88,52 @@ const Content: FC = () => {
             [theme.maxMQ.sm]: { rowGap: theme.spacing(1) },
           })}
         >
-          <Text component="h2" css={{ margin: 0, gridColumn: "1 / -1" }}>
+          <Text
+            component="h2"
+            css={{
+              margin: 0,
+              gridColumn: "1 / 6",
+              display: "flex",
+              flexWrap: "wrap",
+            }}
+          >
             Shop
+          </Text>
+          <Text
+            component={Link}
+            variant="label"
+            css={{
+              opacity: 0.5,
+              gridColumn: "6 / -1",
+              textAlign: "right",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "right",
+
+              [theme.maxMQ.sm]: {
+                gridColumn: "1 / -1",
+                textAlign: "left",
+                justifyContent: "left",
+              },
+            }}
+            href={{
+              query: {
+                scrollIntoView: "[data-id='faq']",
+                scrollIntoViewBehavior: "smooth",
+              },
+            }}
+            shallow={true}
+            scroll={false}
+          >
+            <Arrowed>We ship worldwide!</Arrowed>
           </Text>
           <Line
             spacing={0}
             css={{
+              [theme.mq.sm]: {
               gridColumn: "1 / -1",
-              // [theme.maxMQ.sm]: {
-              //   marginTop: theme.spacing(2.5),
-              //   marginBottom: theme.spacing(2.5),
-              // },
               width: "100%",
+            },
             }}
           />
           {/* <Text variant="body2" css={{ margin: 0, gridColumn: "1/-1" }}>

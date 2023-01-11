@@ -1,5 +1,4 @@
 import { NextPage } from "next";
-import BlockTitle from "../components/BlockTitle";
 import Button from "../components/Button";
 import Grid from "../components/Grid";
 import Discord from "../components/Icons/Discord";
@@ -17,6 +16,7 @@ import ComposedMainHero from "../components/_composed/ComposedMainHero";
 import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Podcast from "../components/_composed/Podcast";
+import { theme } from "../pages/_app";
 import { withApollo } from "../source/apollo";
 import { socialLinks } from "../source/consts";
 import { breakpoints } from "../source/enums";
@@ -267,7 +267,29 @@ const Home: NextPage = () => {
             },
           ]}
         >
-          <BlockTitle variant="h3" title="Browse Collection" />
+          {/* <BlockTitle variant="h3" title="Browse Collection" /> */}
+          <Grid short={true}>
+          <Text
+                component="h3"
+                css={{
+                  margin: 0,
+                  gridColumn: "1 / 6",
+                  display: "flex",
+                  flexWrap: "wrap",
+                }}
+              >
+                Browse Collection
+              </Text>
+              <Line
+                spacing={3}
+                css={{
+                  [theme.mq.sm]: {
+                    gridColumn: "1 / -1",
+                    width: "100%",
+                  },
+                }}
+              />
+              </Grid>
           <BrowseCollection
             css={(theme) => ({
               marginTop: theme.spacing(2),
