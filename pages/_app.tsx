@@ -527,7 +527,28 @@ const App = ({ Component, pageProps }: AppProps) => {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
         <title>Playing Arts Project</title>
-        <meta name="description" content="Collective Art Project for creative people who are into illustrations, playing cards, NFTs and sometimes magic."></meta>
+        <meta
+          name="description"
+          content="Collective Art Project for creative people who are into illustrations, playing cards, NFTs and sometimes magic."
+        />
+
+        {/* todo: insert correct variables */}
+        {/* <meta property="og:title" content="#" />
+        <meta property="og:description" content="#" />
+        <meta property="og:image" content="#" />
+        <meta property="og:url" content="#" />
+        <meta name="twitter:card" content="summary_large_image" /> */}
+
+        {/* og:image urls
+        https://s3.amazonaws.com/img.playingarts.com/www/social/og_home.png
+        https://s3.amazonaws.com/img.playingarts.com/www/social/og_deck-zero.png
+        https://s3.amazonaws.com/img.playingarts.com/www/social/og_deck-one.png
+        https://s3.amazonaws.com/img.playingarts.com/www/social/og_deck-two.png
+        https://s3.amazonaws.com/img.playingarts.com/www/social/og_deck-three.png
+        https://s3.amazonaws.com/img.playingarts.com/www/social/og_deck-special.png
+        https://s3.amazonaws.com/img.playingarts.com/www/social/og_deck-future.png
+        https://s3.amazonaws.com/img.playingarts.com/www/social/og_deck-crypto.png
+        */}
       </Head>
 
       <MetaMaskProvider>

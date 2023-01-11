@@ -597,7 +597,7 @@ const Page: NextPage = () => {
       {deck && !artistId && (
         <Head>
           <title>{deck.title} - Playing Arts Project</title>
-          <meta name="description" content={deck.description} />
+          <meta name="description" content={deck.info} />
         </Head>
       )}
       <Modal />
