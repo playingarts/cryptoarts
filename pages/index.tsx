@@ -152,9 +152,12 @@ const Home: NextPage = () => {
             component="h2"
             css={{
               margin: 0,
-              paddingLeft: theme.spacing(1.5),
-              paddingRight: theme.spacing(1.5),
               gridColumn: "1 / -1",
+
+              [theme.maxMQ.sm]: {
+                paddingLeft: theme.spacing(1.5),
+                paddingRight: theme.spacing(1.5),
+              }
             }}
           >
             About

@@ -67,7 +67,13 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
         })}
       >
         <Text
-          css={{ margin: 0, paddingLeft: "15px", paddingRight: "15px" }}
+          css={(theme) => ({
+            margin: 0,
+            [theme.maxMQ.sm]: {
+              paddingLeft: theme.spacing(2.5),
+              paddingRight: theme.spacing(2.5),
+            },
+          })}
           component="h3"
         >
           Uncut Sheets
