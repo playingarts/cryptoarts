@@ -70,8 +70,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           css={(theme) => ({
             margin: 0,
             [theme.maxMQ.sm]: {
-              paddingLeft: theme.spacing(2.5),
-              paddingRight: theme.spacing(2.5),
+              paddingLeft: theme.spacing(1.5),
+              paddingRight: theme.spacing(1.5),
             },
           })}
           component="h3"

@@ -24,7 +24,6 @@ import Link from "../components/Link";
 import Modal from "../components/Modal";
 import NFTHolder from "../components/NFTHolder";
 import { useSize } from "../components/SizeProvider";
-import ArtContest from "../components/_composed/ArtContest";
 import ComposedCardContent from "../components/_composed/CardContent";
 import ComposedCardList from "../components/_composed/ComposedCardList";
 import ComposedEntries from "../components/_composed/ComposedEntries";
@@ -349,10 +348,11 @@ const Content: FC<{
                     },
                 {
                   display: "grid",
-                  paddingBottom: theme.spacing(2.5),
+                  // paddingBottom: theme.spacing(2.5),
                 },
                 !contest && {
-                  gap: theme.spacing(1),
+                  // gap: theme.spacing(1),
+                  marginBottom: theme.spacing(3),
                 },
               ],
             },
@@ -411,7 +411,7 @@ const Content: FC<{
             </Layout>
           )}
 
-          {contest && <ArtContest deck={deck} />}
+          {/* {contest && <ArtContest deck={deck} />} */}
 
           {losersExist && (
             <ComposedEntries

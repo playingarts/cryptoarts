@@ -36,7 +36,10 @@ const ComposedCardBlock: ForwardRefRenderFunction<HTMLElement, Props> = (
         paddingTop: theme.spacing(14),
       },
       contest && {
-        minHeight: "100vh",
+        // minHeight: "100vh",
+        [theme.maxMQ.sm]: {
+          marginBottom: theme.spacing(2),
+        },
       },
     ]}
     ref={ref}

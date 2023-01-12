@@ -158,22 +158,33 @@ const Modal: FC = () => {
               zIndex: 20,
               backgroundColor: theme.colors.page_bg_light,
               paddingBottom: theme.spacing(6),
+              paddingLeft: theme.spacing(1.5),
+              paddingRight: theme.spacing(1.5),
               borderRadius: theme.spacing(1.5),
               position: "relative",
+
+              [theme.maxMQ.sm]: {
+                paddingLeft: theme.spacing(2.5),
+                paddingRight: theme.spacing(2.5),
+              },
             })}
             notTruncatable={true}
           >
             <CardNav
               css={(theme) => ({
+                backgroundColor: theme.colors.page_bg_light,
                 color: colord(theme.colors.text_title_light)
                   .alpha(1)
                   .toRgbString(),
+
+                [theme.maxMQ.sm]: {
+                  color: theme.colors.text_subtitle_dark,
+                },
               })}
               options={{
                 scroll: false,
               }}
               prevLinkOptions={{
-                
                 onClick: () =>
                   typeof prevValue === "string" &&
                   typeof prevSuit === "string" &&
@@ -252,10 +263,11 @@ const Modal: FC = () => {
                     color: colord(theme.colors.text_subtitle_dark)
                       .alpha(0.5)
                       .toRgbString(),
-                    right: theme.spacing(0),
+                    right: theme.spacing(1),
                     top: theme.spacing(1),
                     [theme.maxMQ.sm]: {
                       top: theme.spacing(-1),
+                      right: theme.spacing(0),
                     },
                   })}
                 />

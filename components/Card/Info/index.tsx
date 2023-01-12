@@ -1,6 +1,5 @@
 import { FC, Fragment, HTMLAttributes, useEffect } from "react";
 import { useLoadCard } from "../../../hooks/card";
-import Arrowed from "../../Arrowed";
 import Button from "../../Button";
 import Bag from "../../Icons/Bag";
 import Eth from "../../Icons/Eth";
@@ -79,9 +78,9 @@ const CardInfo: FC<Props> = ({
       {contest ? (
         <div css={(theme) => ({ color: theme.colors.text_subtitle_light })}>
           <Text variant="body2">
-            This card was submitted for the Special Edition contest.
+            This card was submitted for the contest.
           </Text>
-          <Arrowed>Read More</Arrowed>
+          {/* <Arrowed>Read More</Arrowed> */}
         </div>
       ) : (
         !cardOfTheDay && (

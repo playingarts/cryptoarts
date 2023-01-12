@@ -62,10 +62,12 @@ const ComposedEntries: ForwardRefRenderFunction<
     >
       <BlockTitle
         variant="h3"
-        title="All Entries"
-        subTitleText={`${
+        title={`All ${
           allCards.filter((card) => card.value !== "backside").length
-        } entries submitted for the contest`}
+        } Entries`}
+        // subTitleText={`${
+        //   allCards.filter((card) => card.value !== "backside").length
+        // } entries submitted for the contest`}
         css={(theme) => ({
           [theme.maxMQ.sm]: {
             paddingLeft: theme.spacing(1.5),
@@ -79,8 +81,8 @@ const ComposedEntries: ForwardRefRenderFunction<
             margin: "auto",
             paddingTop: theme.spacing(4),
             [theme.maxMQ.sm]: {
-              paddingBottom: theme.spacing(2.5),
-              paddingTop: theme.spacing(2),
+              paddingBottom: theme.spacing(5),
+              paddingTop: theme.spacing(2.5),
               paddingLeft: theme.spacing(2.5),
               paddingRight: theme.spacing(2.5),
             },
