@@ -1,5 +1,11 @@
 import throttle from "just-throttle";
-import { FC, Fragment, HTMLAttributes, useLayoutEffect, useState } from "react";
+import React, {
+  FC,
+  Fragment,
+  HTMLAttributes,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { useDeck } from "../../hooks/deck";
 import { breakpoints } from "../../source/enums";
 import Button from "../Button";
@@ -13,6 +19,10 @@ import Nav from "../Nav";
 import { useSize } from "../SizeProvider";
 import Text from "../Text";
 import ModalMenu from "../_composed/ModalMenu";
+
+if (typeof document === "undefined") {
+  React.useLayoutEffect = React.useEffect;
+}
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   palette?: "light" | "dark";
