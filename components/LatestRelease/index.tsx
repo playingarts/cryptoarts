@@ -148,10 +148,10 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
       <Ether
         css={(theme) => ({
           color: theme.colors.white,
-          height: theme.spacing(40.3),
-          width: theme.spacing(23.8),
+          height: theme.spacing(33.9),
+          width: theme.spacing(20),
           right: theme.spacing(2.5),
-          top: -theme.spacing(12),
+          top: -theme.spacing(10),
           [theme.maxMQ.md]: {
             right: -theme.spacing(5.8),
           },

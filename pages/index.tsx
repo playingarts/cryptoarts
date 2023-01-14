@@ -409,7 +409,7 @@ const Home: NextPage = () => {
                     marginTop: 10,
                   }}
                 >
-                  Join the conversation
+                  Join our community
                 </Text>
               )}
               {socialLinks.discord && (
@@ -483,7 +483,7 @@ const Home: NextPage = () => {
                     marginTop: 10,
                   }}
                 >
-                  Follow our latest news
+                  Latest breaking news
                 </Text>
               )}
               {socialLinks.twitter && (

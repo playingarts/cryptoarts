@@ -2,6 +2,7 @@ import { FC, HTMLAttributes } from "react";
 import { isValidElement } from "../../source/utils";
 import Arrowed from "../Arrowed";
 import Link, { Props as LinkProps } from "../Link";
+import { theme } from "../../pages/_app";
 import Text from "../Text";
 
 export interface Props extends HTMLAttributes<HTMLDivElement> {
@@ -71,6 +72,10 @@ const StatBlock: FC<Props> = ({
             css={{
               opacity: 0.5,
               display: "inline-block",
+              transition: theme.transitions.fast("opacity"),
+              "&:hover": {
+                opacity: 1,
+              },
             }}
           >
             <Arrowed>{action.children}</Arrowed>

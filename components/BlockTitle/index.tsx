@@ -60,6 +60,7 @@ const BlockTitle: FC<Props> = ({
                 gridColumn: buttonProps ? "1/7" : "1/ -1",
                 [theme.maxMQ.sm]: {
                   gridColumn: "1/ span 5",
+                  paddingRight: 40,
                 },
               },
             ]}
@@ -207,12 +208,13 @@ const BlockTitle: FC<Props> = ({
         >
           <div ref={ref} css={{ position: "relative" }}>
             {children ||
-              (width < breakpoints.sm && (
+              (truncate !== undefined && width < breakpoints.sm && (
                 <Text
                   css={(theme) => [
                     {
                       margin: 0,
                       paddingTop: theme.spacing(2),
+                      paddingRight: theme.spacing(3),
                     },
                     action || buttonProps
                       ? {
@@ -227,7 +229,7 @@ const BlockTitle: FC<Props> = ({
                   ]}
                   variant="body2"
                 >
-                  {/* {subTitleText} */}
+                  {subTitleText}
                 </Text>
               ))}
           </div>

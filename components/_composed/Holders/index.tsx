@@ -66,7 +66,7 @@ const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
             marginTop: theme.spacing(2),
           })}
         >
-          Full suit
+          Full Suit
         </Text>
         <Charts
           type="column"

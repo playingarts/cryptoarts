@@ -49,6 +49,9 @@ const ColumnChart: FC<Props> = ({
             height: theme.spacing(16),
             alignItems: "flex-end",
             display: "flex",
+            [theme.maxMQ.sm]: {
+              height: theme.spacing(11.5),
+            },
           })}
         >
           <div
@@ -63,7 +66,9 @@ const ColumnChart: FC<Props> = ({
               rowGap: theme.spacing(2),
               width: theme.spacing(8.8),
               [theme.maxMQ.sm]: {
-                width: theme.spacing(5),
+                width: theme.spacing(4.8),
+                paddingTop: theme.spacing(1),
+                borderRadius: theme.spacing(.8),
               },
             })}
             style={{

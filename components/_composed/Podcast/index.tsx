@@ -90,7 +90,7 @@ const Podcast: FC<Props> = ({
               marginTop: theme.spacing(2),
               display: "flex",
               alignItems: "center",
-              columnGap: theme.spacing(1.1),
+              columnGap: theme.spacing(1),
 
               [theme.maxMQ.sm]: {
                 marginTop: theme.spacing(1.5),
@@ -110,10 +110,24 @@ const Podcast: FC<Props> = ({
             )}
             {apple && (
               <Button
-                variant="bordered"
+                // variant="bordered"
                 size="small"
                 Icon={Itunes}
-                css={{ opacity: 0.5 }}
+                css={{
+                  opacity: 1,
+                  transition: theme.transitions.fast("background"),
+                  background: "rgba(255,255,255,.1)",
+                  borderRadius: 50,
+                  width: 50,
+                  height: 50,
+                  "&:hover": {
+                    background: "rgba(255,255,255,.2)",
+                  },
+                  [theme.maxMQ.sm]: {
+                    width: 42,
+                    height: 42,
+                  }
+                }}
                 component={Link}
                 href={apple}
                 target="_blank"
@@ -121,10 +135,24 @@ const Podcast: FC<Props> = ({
             )}
             {spotify && (
               <Button
-                variant="bordered"
+                // variant="bordered"
                 size="small"
                 Icon={Spotify}
-                css={{ opacity: 0.5 }}
+                css={{
+                  opacity: 1,
+                  transition: theme.transitions.fast("background"),
+                  background: "rgba(255,255,255,.1)",
+                  borderRadius: 50,
+                  width: 50,
+                  height: 50,
+                  "&:hover": {
+                    background: "rgba(255,255,255,.2)",
+                  },
+                  [theme.maxMQ.sm]: {
+                    width: 42,
+                    height: 42,
+                  }
+                }}
                 component={Link}
                 href={spotify}
                 target="_blank"
@@ -132,17 +160,17 @@ const Podcast: FC<Props> = ({
             )}
           </div>
           {!withoutAction && (
-          <Line
-            spacing={0}
-            css={{
-              marginTop: theme.spacing(2.5),
-              color: "#fff",
-              [theme.mq.sm]: {
-                gridColumn: "1 / -1",
-                width: "100%",
-              },
-            }}
-          />
+            <Line
+              spacing={0}
+              css={{
+                marginTop: theme.spacing(2.5),
+                color: "#fff",
+                [theme.mq.sm]: {
+                  gridColumn: "1 / -1",
+                  width: "100%",
+                },
+              }}
+            />
           )}
         </div>
         {width >= breakpoints.sm && (

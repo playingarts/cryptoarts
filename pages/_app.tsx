@@ -500,7 +500,7 @@ export const theme: Theme = {
     label: {
       fontSize: 16,
       lineHeight: 19 / 16,
-      fontWeight: 500,
+      // fontWeight: 500,
       [mq.sm]: {
         fontSize: 18,
         lineHeight: 21 / 18,

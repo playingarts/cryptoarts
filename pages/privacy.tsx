@@ -179,8 +179,8 @@ const Content: FC = () => {
             [theme.maxMQ.sm]: {
               paddingTop: theme.spacing(17.5),
               paddingBottom: theme.spacing(5),
-              paddingLeft: theme.spacing(2.5),
-              paddingRight: theme.spacing(2.5),
+              paddingLeft: theme.spacing(3),
+              paddingRight: theme.spacing(3),
               borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(3)}px`,
             },
           },
@@ -238,7 +238,7 @@ const Content: FC = () => {
             position: "relative",
             [theme.maxMQ.sm]: {
               paddingTop: theme.spacing(5),
-              paddingBottom: theme.spacing(5),
+              paddingBottom: theme.spacing(10),
             },
           },
         ]}
@@ -254,18 +254,20 @@ const Content: FC = () => {
                       [theme.maxMQ.sm]: {
                         paddingLeft: theme.spacing(2.5),
                         paddingRight: theme.spacing(2.5),
+                        paddingTop: theme.spacing(1),
+                        paddingBottom: theme.spacing(.5),
                       },
                     },
                   ]}
                 >
                   <BlockTitle
-                    variant="h3"
+                    variant="h4"
                     title={
                       <span
                         css={(theme) => [
                           {
                             [theme.maxMQ.sm]: {
-                              lineHeight: 1.1,
+                              lineHeight: 1.5,
                             },
                           },
                         ]}
@@ -300,6 +302,7 @@ const Content: FC = () => {
                   color: theme.colors.text_subtitle_dark,
                   margin: 0,
                   [theme.maxMQ.sm]: {
+                    paddingTop: theme.spacing(2),
                     paddingLeft: theme.spacing(2.5),
                   },
                 },

@@ -236,7 +236,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
                 {
                   [theme.maxMQ.sm]: {
                     gridColumn: "1 / -1",
-                    marginBottom: theme.spacing(2.5),
+                    marginBottom: theme.spacing(3),
                   },
                 },
               ]}

@@ -344,7 +344,7 @@ const Content: FC<{
                         ]}
                       >
                         Subtotal
-                        {width >= breakpoints.sm ? " (incl. taxes)" : ""}
+                        {/* {width >= breakpoints.sm ? " (incl. taxes)" : ""} */}
                       </Text>
                       <div
                         css={(theme) => [

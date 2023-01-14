@@ -441,6 +441,7 @@ const Content: FC = () => {
           css={(theme) => ({
             [theme.maxMQ.sm]: {
               marginTop: theme.spacing(7.5),
+              marginBottom: theme.spacing(3),
             },
             [theme.maxMQ.md]: {
               marginTop: theme.spacing(7.5),
@@ -479,21 +480,6 @@ const Content: FC = () => {
             <Grid shop={true} short={true} css={{ gridColumn: "1 / -1" }}>
               {bundles.map((product) => (
                 <Fragment key={product._id}>
-                  <ShopBundle
-                    css={(theme) => ({
-                      gridColumn: "span 4",
-                      height: theme.spacing(50),
-                      [theme.maxMQ.sm]: {
-                        gridColumn: "1 / -1",
-                        height: theme.spacing(37.8),
-                      },
-                      [theme.mq.md]: {
-                        gridColumn: "span 5",
-                        height: theme.spacing(55),
-                      },
-                    })}
-                    {...product}
-                  />
                   {width < breakpoints.sm && (
                     <Line
                       spacing={2.5}
@@ -511,6 +497,22 @@ const Content: FC = () => {
                       ]}
                     />
                   )}
+                  <ShopBundle
+                    css={(theme) => ({
+                      gridColumn: "span 4",
+                      height: theme.spacing(50),
+                      [theme.maxMQ.sm]: {
+                        gridColumn: "1 / -1",
+                        height: theme.spacing(37.8),
+                      },
+                      [theme.mq.md]: {
+                        gridColumn: "span 5",
+                        height: theme.spacing(55),
+                      },
+                    })}
+                    {...product}
+                  />
+                  
                 </Fragment>
               ))}
             </Grid>

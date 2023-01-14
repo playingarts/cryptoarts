@@ -93,10 +93,11 @@ const Charts: FC<Props> = ({
             component="div"
             css={(theme) => ({
               position: "absolute",
-              background: theme.colors.text_title_light,
+              background: theme.colors.white,
               borderRadius: theme.spacing(0.5),
               paddingLeft: theme.spacing(1),
               paddingRight: theme.spacing(1),
+              paddingTop: theme.spacing(.3),
               marginTop: theme.spacing(1),
               marginLeft: theme.spacing(1),
               transition: theme.transitions.fast("opacity"),
