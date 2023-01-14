@@ -148,10 +148,12 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
       // }
       css={(theme) => [
         {
-          marginRight: theme.spacing(2.5),
-          marginLeft: theme.spacing(2.5),
+          marginRight: theme.spacing(3),
+          marginLeft: theme.spacing(3),
+
           [theme.maxMQ.sm]: [theme.typography.h3],
           gridColumn: "1/-1",
+          paddingTop: theme.spacing(1),
         },
       ]}
     >

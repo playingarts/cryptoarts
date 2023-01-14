@@ -351,7 +351,8 @@ const Content: FC<{
                 },
                 !contest && {
                   gap: theme.spacing(1),
-                  paddingBottom: theme.spacing(3),
+                  paddingTop: theme.spacing(3),
+                  paddingBottom: theme.spacing(5),
                 },
               ],
             },
@@ -386,7 +387,7 @@ const Content: FC<{
                   paddingRight: theme.spacing(0),
                   paddingLeft: theme.spacing(0),
                   [theme.maxMQ.sm]: {
-                    marginTop: theme.spacing(2),
+                    marginTop: theme.spacing(1),
                   },
                   [theme.mq.sm]: {
                     color:

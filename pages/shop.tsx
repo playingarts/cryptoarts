@@ -1,6 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { FC, Fragment } from "react";
+import BlockTitle from "../components/BlockTitle";
 import Link from "../components/Link";
 import Arrowed from "../components/Arrowed";
 import AddToBagButton from "../components/AddToBagButton";
@@ -77,8 +78,8 @@ const Content: FC = () => {
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(12.5),
             paddingBottom: theme.spacing(0),
-            paddingLeft: theme.spacing(2.5),
-            paddingRight: theme.spacing(2.5),
+            paddingLeft: theme.spacing(3),
+            paddingRight: theme.spacing(3),
           },
           paddingBottom: theme.spacing(5),
         })}
@@ -97,6 +98,10 @@ const Content: FC = () => {
               gridColumn: "1 / 6",
               display: "flex",
               flexWrap: "wrap",
+
+              [theme.maxMQ.sm]: {
+                gridColumn: "1 / 3",
+              },
             }}
           >
             Shop
@@ -109,13 +114,13 @@ const Content: FC = () => {
               gridColumn: "6 / -1",
               textAlign: "right",
               display: "flex",
+              flexWrap: "wrap",
               alignItems: "center",
               justifyContent: "right",
 
               [theme.maxMQ.sm]: {
-                gridColumn: "1 / -1",
-                textAlign: "left",
-                justifyContent: "left",
+                gridColumn: "3 / 7",
+                margin: 0,
               },
             }}
             href={{
@@ -148,7 +153,7 @@ const Content: FC = () => {
       <Layout
         notTruncatable={true}
         css={(theme) => ({
-          paddingBottom: theme.spacing(15),
+          paddingBottom: theme.spacing(12),
           [theme.maxMQ.sm]: {
             paddingBottom: theme.spacing(2.5),
           },
@@ -188,11 +193,52 @@ const Content: FC = () => {
             />
           </Grid>
         )}
-
+        <BlockTitle
+          alwaysSubtitle={true}
+          {...(width <= breakpoints.sm && { noLine: true })}
+          title="Decks of Cards"
+          subTitleText={
+            <span
+              css={(theme) => [
+                {
+                  [theme.maxMQ.sm]: {
+                    display: "block",
+                    marginBottom: theme.spacing(1.5),
+                  },
+                  marginBottom: theme.spacing(25),
+                },
+              ]}
+            >
+              Printed in the USA on legendary Bicycle® paper, the highest
+              quality coated playing card stock.
+            </span>
+          }
+          variant="h3"
+          css={(theme) => ({
+            [theme.mq.md]: {
+              marginTop: theme.spacing(12),
+              marginBottom: theme.spacing(2),
+            },
+            [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(7.5),
+            },
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+          })}
+        />
         <Grid>
           <Grid
             shop={true}
-            css={(theme) => ({ gap: theme.spacing(3), gridColumn: "1 / -1" })}
+            css={(theme) => [
+              {
+                gap: theme.spacing(3),
+                gridColumn: "1 / -1",
+
+                [theme.maxMQ.sm]: {
+                  gap: theme.spacing(1),
+                },
+              },
+            ]}
           >
             {decks.map(({ title, ...product }, index) =>
               product.status === "instock" ? (
@@ -397,22 +443,22 @@ const Content: FC = () => {
               marginTop: theme.spacing(7.5),
             },
             [theme.maxMQ.md]: {
-              marginTop: theme.spacing(5),
+              marginTop: theme.spacing(7.5),
             },
             marginTop: theme.spacing(9),
-            // tuta
           })}
         >
-          {/* <BlockTitle
+          <BlockTitle
             alwaysSubtitle={true}
             title="Bundles"
+            {...(width <= breakpoints.sm && { noLine: true })}
             subTitleText={
               <span
                 css={(theme) => [
                   {
                     [theme.maxMQ.sm]: {
                       display: "block",
-                      marginBottom: theme.spacing(1.5),
+                      // marginBottom: theme.spacing(1.5),
                     },
                   },
                 ]}
@@ -422,11 +468,15 @@ const Content: FC = () => {
             }
             variant="h3"
             css={(theme) => ({
-              marginBottom: theme.spacing(3),
+              [theme.mq.md]: {
+                marginTop: theme.spacing(12),
+              },
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
             })}
-          /> */}
+          />
           <Grid>
-            <Grid shop={true} css={{ gridColumn: "1 / -1" }}>
+            <Grid shop={true} short={true} css={{ gridColumn: "1 / -1" }}>
               {bundles.map((product) => (
                 <Fragment key={product._id}>
                   <ShopBundle
@@ -438,8 +488,8 @@ const Content: FC = () => {
                         height: theme.spacing(37.8),
                       },
                       [theme.mq.md]: {
-                        gridColumn: "span 6",
-                        height: theme.spacing(60),
+                        gridColumn: "span 5",
+                        height: theme.spacing(55),
                       },
                     })}
                     {...product}
@@ -454,8 +504,8 @@ const Content: FC = () => {
 
                           [theme.maxMQ.sm]: {
                             width: "auto",
-                            marginLeft: theme.spacing(1.5),
-                            marginRight: theme.spacing(1.5),
+                            marginLeft: theme.spacing(2),
+                            marginRight: theme.spacing(2),
                           },
                         },
                       ]}
@@ -471,11 +521,11 @@ const Content: FC = () => {
       <Layout
         css={(theme) => ({
           background: `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
-          paddingTop: theme.spacing(11),
-          paddingBottom: theme.spacing(11),
+          paddingTop: theme.spacing(10),
+          paddingBottom: theme.spacing(10),
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(5),
-            paddingBottom: theme.spacing(5),
+            paddingTop: theme.spacing(7),
+            paddingBottom: theme.spacing(7),
           },
         })}
       >
@@ -485,14 +535,14 @@ const Content: FC = () => {
         data-id="faq"
         css={(theme) => ({
           background: theme.colors.page_bg_light_gray,
-          paddingTop: theme.spacing(10),
+          paddingTop: theme.spacing(12),
           paddingBottom: theme.spacing(10),
           [theme.mq.sm]: {
             zIndex: 1,
             borderRadius: "0px 0px 50px 50px",
           },
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(10),
+            paddingTop: theme.spacing(9),
             paddingBottom: theme.spacing(5),
           },
         })}

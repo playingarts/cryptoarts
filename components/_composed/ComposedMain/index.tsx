@@ -38,10 +38,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               background: theme.colors.page_bg_dark,
             }
           : {
-              background: theme.colors.white,
-              [theme.mq.sm]: {
-                background: theme.colors.page_bg_light_gray,
-              },
+              background: theme.colors.page_bg_light_gray,
             },
       ]}
     >
@@ -62,7 +59,6 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             height: `calc(100vh - ${theme.spacing(6)}px)`,
             maxHeight: theme.spacing(75),
             paddingTop: theme.spacing(25),
-            
           },
           [theme.maxMQ.md]: {
             paddingTop: theme.spacing(22),
@@ -71,8 +67,8 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(3)}px`,
             paddingTop: theme.spacing(18),
             paddingBottom: theme.spacing(3),
-            paddingLeft: theme.spacing(2.5),
-            paddingRight: theme.spacing(2.5),
+            paddingLeft: theme.spacing(3),
+            paddingRight: theme.spacing(3),
           },
           overflow: "hidden",
         })}
@@ -91,7 +87,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               {
                 gridColumn: "1 / 7",
                 display: "flex",
-                
+
                 flexDirection: "column",
                 [theme.maxMQ.sm]: {
                   // marginTop: -theme.spacing(21.5),
@@ -102,7 +98,15 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             ]}
           >
             <Grid
-              auto={true} css={(theme) => [{ flexGrow: 1, marginBottom: theme.spacing(2), gap: 0, gridTemplateRows:"auto 1fr" }]}
+              auto={true}
+              css={(theme) => [
+                {
+                  flexGrow: 1,
+                  marginBottom: theme.spacing(2),
+                  gap: 0,
+                  gridTemplateRows: "auto 1fr",
+                },
+              ]}
             >
               <Text
                 component="h1"
@@ -128,7 +132,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                         marginBottom: theme.spacing(1),
 
                         [theme.maxMQ.xsm]: {
-                          gap: theme.spacing(.5),
+                          gap: theme.spacing(0.5),
                         },
                       },
                     ]}
@@ -175,7 +179,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                     [theme.maxMQ.sm]: {
                       fontSize: 18,
                     },
-                    
+
                     margin: 0,
                     [theme.mq.sm]: {
                       marginTop: theme.spacing(1),

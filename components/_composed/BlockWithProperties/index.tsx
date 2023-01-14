@@ -27,8 +27,9 @@ const BlockWithProperties: FC<Props> = ({
       
       css={(theme) => [
         [theme.maxMQ.sm], {
-          paddingLeft: theme.spacing(1.5),
-          paddingRight: theme.spacing(1.5),
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
+          paddingTop: theme.spacing(1),
         },
       ]}
     >
@@ -40,8 +41,8 @@ const BlockWithProperties: FC<Props> = ({
               gap: theme.spacing(3),
             },
             [theme.maxMQ.sm]: {
-              paddingLeft: theme.spacing(1.5),
-              paddingRight: theme.spacing(1.5),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
             },
           },
         ]}

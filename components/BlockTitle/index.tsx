@@ -75,6 +75,10 @@ const BlockTitle: FC<Props> = ({
                   {
                     margin: 0,
                     marginTop: theme.spacing(2),
+
+                    [theme.maxMQ.sm]: {
+                      marginTop: theme.spacing(1),
+                    },
                   },
                   action || buttonProps
                     ? {
@@ -126,14 +130,14 @@ const BlockTitle: FC<Props> = ({
                             color: truncate
                               ? theme.colors.black
                               : colord(theme.colors.black)
-                                  .alpha(0.25)
+                                  .alpha(1)
                                   .toRgbString(),
                           }
                         : {
                             color: truncate
                               ? theme.colors.white
                               : colord(theme.colors.white)
-                                  .alpha(0.25)
+                                  .alpha(1)
                                   .toRgbString(),
                           },
                     ],
@@ -142,7 +146,7 @@ const BlockTitle: FC<Props> = ({
                     float: "right",
                     position: "absolute",
                     right: 0,
-                    bottom: 0,
+                    bottom: -3,
                   }}
                   Icon={ThickChevron}
                 />
@@ -223,7 +227,7 @@ const BlockTitle: FC<Props> = ({
                   ]}
                   variant="body2"
                 >
-                  {subTitleText}
+                  {/* {subTitleText} */}
                 </Text>
               ))}
           </div>

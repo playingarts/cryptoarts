@@ -113,7 +113,7 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 position: "relative",
                 [theme.maxMQ.sm]: {
                   padding: `0 ${theme.spacing(1)}px`,
-                  top: theme.spacing(28),
+                  top: theme.spacing(26.2),
                 },
               },
             ]}
@@ -200,7 +200,7 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                         borderRadius: "100%",
                         width: theme.spacing(5),
                         height: theme.spacing(5),
-                        top: -theme.spacing(18),
+                        top: -theme.spacing(16),
                         [theme.mq.sm]: {
                           top: -theme.spacing(23.5),
                           background: theme.colors.dark_gray,

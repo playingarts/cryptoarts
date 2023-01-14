@@ -27,7 +27,7 @@ const ComposedCardBlock: ForwardRefRenderFunction<HTMLElement, Props> = (
           }
         : {
             [theme.maxMQ.sm]: {
-              paddingBottom: theme.spacing(2.5),
+              paddingBottom: theme.spacing(3),
               paddingTop: theme.spacing(10.5),
             },
           },

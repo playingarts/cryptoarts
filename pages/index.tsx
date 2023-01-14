@@ -142,6 +142,8 @@ const Home: NextPage = () => {
           [theme.maxMQ.sm]: {
             paddingBottom: theme.spacing(6),
             paddingTop: theme.spacing(6),
+            paddingLeft: theme.spacing(3),
+            paddingRight: theme.spacing(3),
             position: "relative",
           },
         })}
@@ -153,11 +155,6 @@ const Home: NextPage = () => {
             css={{
               margin: 0,
               gridColumn: "1 / -1",
-
-              [theme.maxMQ.sm]: {
-                paddingLeft: theme.spacing(1.5),
-                paddingRight: theme.spacing(1.5),
-              }
             }}
           >
             About
@@ -175,8 +172,6 @@ const Home: NextPage = () => {
                 [theme.maxMQ.sm]: {
                   margin: 0,
                   gridColumn: "span 5",
-                  paddingLeft: theme.spacing(1.5),
-                  paddingRight: theme.spacing(1.5),
                 },
                 [theme.maxMQ.xsm]: {
                   margin: 0,
@@ -259,12 +254,12 @@ const Home: NextPage = () => {
       <Layout
         css={(theme) => ({
           paddingTop: theme.spacing(10),
-          paddingBottom: theme.spacing(10),
+          paddingBottom: theme.spacing(5),
           background: theme.colors.text_title_light,
           [theme.maxMQ.sm]: {
             background: theme.colors.white,
             paddingTop: theme.spacing(5),
-            paddingBottom: theme.spacing(5),
+            paddingBottom: theme.spacing(3),
           },
         })}
         notTruncatable={true}
@@ -290,8 +285,8 @@ const Home: NextPage = () => {
                 display: "flex",
                 flexWrap: "wrap",
                 [theme.maxMQ.sm]: {
-                  paddingLeft: theme.spacing(1.5),
-                  paddingRight: theme.spacing(1.5),
+                  paddingLeft: theme.spacing(2),
+                  paddingRight: theme.spacing(2),
                 },
               }}
             >
@@ -315,6 +310,20 @@ const Home: NextPage = () => {
         </div>
       </Layout>
 
+      <Layout
+        css={(theme) => ({
+          [theme.mq.sm]: {
+            paddingBottom: theme.spacing(6),
+          },
+          background: theme.colors.white,
+        })}
+      >
+        <Grid>
+          {/* Game promo */}
+          <GamePromo />
+        </Grid>
+      </Layout>
+
       <ComposedCardOfTheDay
         css={(theme) => ({
           background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`,
@@ -334,17 +343,13 @@ const Home: NextPage = () => {
             alignItems: "flex-start",
             gap: theme.spacing(3),
             [theme.maxMQ.md]: {
-              gap: theme.spacing(2),
+              gap: theme.spacing(1),
               [theme.mq.sm]: {
                 gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
               },
             },
           })}
         >
-          {/* Start Game promo */}
-          <GamePromo />
-          {/* End Game promo */}
-
           <Podcast title="PODCAST" />
           <StatBlock
             css={(theme) => ({
@@ -389,7 +394,12 @@ const Home: NextPage = () => {
             >
               <Text
                 component={width >= breakpoints.sm ? "h4" : "h3"}
-                css={{ margin: 0 }}
+                css={(theme) => ({
+                  margin: 0,
+                  [theme.maxMQ.sm]: {
+                    paddingTop: 7,
+                  },
+                })}
               >
                 Discord
               </Text>
@@ -458,7 +468,12 @@ const Home: NextPage = () => {
             >
               <Text
                 component={width >= breakpoints.sm ? "h4" : "h3"}
-                css={{ margin: 0 }}
+                css={(theme) => ({
+                  margin: 0,
+                  [theme.maxMQ.sm]: {
+                    paddingTop: 7,
+                  },
+                })}
               >
                 Twitter
               </Text>

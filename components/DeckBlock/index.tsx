@@ -103,11 +103,13 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
             gap: theme.spacing(2),
             gridColumn: "1/-1",
             paddingBottom: theme.spacing(3),
+
             [theme.mq.sm]: {
               flexDirection: "column",
               height: theme.spacing(67.2),
               gap: theme.spacing(3),
               paddingBottom: "0",
+              
             },
             [theme.mq.md]: {
               height: theme.spacing(90.8),

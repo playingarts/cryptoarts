@@ -33,8 +33,9 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
             opacity: ".4",
             marginBottom: theme.spacing(3),
             [theme.maxMQ.sm]: {
-              paddingLeft: theme.spacing(1.5),
-              paddingRight: theme.spacing(1.5),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              marginBottom: theme.spacing(1.5),
             },
           },
         ]}
@@ -46,8 +47,8 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
         css={(theme) => [
           {
             [theme.maxMQ.sm]: {
-              marginLeft: theme.spacing(1.5),
-              marginRight: theme.spacing(1.5),
+              marginLeft: theme.spacing(2),
+              marginRight: theme.spacing(2),
             },
           },
         ]}
@@ -61,8 +62,8 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
                 borderBottom: "1px solid #dddddd",
 
                 [theme.maxMQ.sm]: {
-                  marginLeft: theme.spacing(1.5),
-                  marginRight: theme.spacing(1.5),
+                  marginLeft: theme.spacing(2),
+                  marginRight: theme.spacing(2),
                 },
               })}
             >

@@ -279,7 +279,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
                 left: theme.spacing(15),
               },
               [theme.maxMQ.xsm]: {
-                left: theme.spacing(7),
+                left: theme.spacing(8.5),
               },
             },
           ]}

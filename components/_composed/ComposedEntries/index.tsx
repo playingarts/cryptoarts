@@ -70,8 +70,9 @@ const ComposedEntries: ForwardRefRenderFunction<
         // } entries submitted for the contest`}
         css={(theme) => ({
           [theme.maxMQ.sm]: {
-            paddingLeft: theme.spacing(1.5),
-            paddingRight: theme.spacing(1.5),
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+            paddingTop: theme.spacing(1),
           },
         })}
       >
@@ -83,8 +84,8 @@ const ComposedEntries: ForwardRefRenderFunction<
             [theme.maxMQ.sm]: {
               paddingBottom: theme.spacing(5),
               paddingTop: theme.spacing(2.5),
-              paddingLeft: theme.spacing(2.5),
-              paddingRight: theme.spacing(2.5),
+              paddingLeft: theme.spacing(3),
+              paddingRight: theme.spacing(3),
             },
           })}
           cards={allCards.filter((card) => card.value !== "backside")}

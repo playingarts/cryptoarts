@@ -16,11 +16,16 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
   const { width } = useSize();
   return (
     <BlockTitle
-      css={{
-        gridColumn: "1/-1",
-        paddingLeft: theme.spacing(1.5),
-        paddingRight: theme.spacing(1.5),
-      }}
+      css={(theme) => [
+        {
+          gridColumn: "1/-1",
+        }[theme.maxMQ.sm],
+        {
+          paddingLeft: theme.spacing(1.5),
+          paddingRight: theme.spacing(1.5),
+          paddingTop: theme.spacing(1),
+        },
+      ]}
       title="Roadmap"
       palette={width >= breakpoints.sm ? "dark" : palette}
       variant="h3"

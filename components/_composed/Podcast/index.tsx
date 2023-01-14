@@ -53,7 +53,7 @@ const Podcast: FC<Props> = ({
       {...(socialLinks.podcastYoutube &&
         !withoutAction && {
           action: {
-            children: "All episodes",
+            children: "All episodes on YouTube",
             href: socialLinks.podcastYoutube,
             target: "_blank",
           },
@@ -91,6 +91,10 @@ const Podcast: FC<Props> = ({
               display: "flex",
               alignItems: "center",
               columnGap: theme.spacing(1.1),
+
+              [theme.maxMQ.sm]: {
+                marginTop: theme.spacing(1.5),
+              },
             })}
           >
             {youtube && (
@@ -131,7 +135,7 @@ const Podcast: FC<Props> = ({
           <Line
             spacing={0}
             css={{
-              marginTop: theme.spacing(3),
+              marginTop: theme.spacing(2.5),
               color: "#fff",
               [theme.mq.sm]: {
                 gridColumn: "1 / -1",

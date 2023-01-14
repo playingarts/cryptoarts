@@ -76,8 +76,8 @@ const Content: FC<{
           paddingTop: theme.spacing(18),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(12.5),
-            paddingLeft: theme.spacing(2.5),
-            paddingRight: theme.spacing(2.5),
+            paddingLeft: theme.spacing(3),
+            paddingRight: theme.spacing(3),
           },
         })}
       >
@@ -96,11 +96,14 @@ const Content: FC<{
                 Bag Is Empty
               </Text>
               <Line
-                spacing={2}
+                spacing={1}
                 css={{
                   gridColumn: "1 / -1",
                   width: "100%",
-                  [theme.mq.sm]: {},
+                  [theme.mq.sm]: {
+                    marginTop: theme.spacing(2),
+                    marginBottom: theme.spacing(2),
+                  },
                 }}
               />
               <Button
@@ -121,7 +124,7 @@ const Content: FC<{
                   },
                   [theme.maxMQ.sm]: {
                     marginTop: theme.spacing(1),
-                    marginBottom: theme.spacing(5),
+                    marginBottom: theme.spacing(7),
                   },
                 })}
               >
@@ -142,10 +145,15 @@ const Content: FC<{
                 Bag
               </Text>
               <Line
-                spacing={2}
+                spacing={1}
                 css={{
                   gridColumn: "1 / -1",
                   width: "100%",
+
+                  [theme.mq.sm]: {
+                    marginTop: theme.spacing(2),
+                    marginBottom: theme.spacing(2),
+                  },
                 }}
               />
             </Fragment>
@@ -164,8 +172,8 @@ const Content: FC<{
               [theme.maxMQ.sm]: {
                 paddingTop: theme.spacing(0),
                 paddingBottom: theme.spacing(5.5),
-                paddingLeft: theme.spacing(2.5),
-                paddingRight: theme.spacing(2.5),
+                paddingLeft: theme.spacing(3),
+                paddingRight: theme.spacing(3),
               },
               paddingBottom: theme.spacing(15),
             })}
@@ -552,7 +560,7 @@ const Checkout: NextPage = () => {
                 marginTop: theme.spacing(5),
                 marginBottom: theme.spacing(5),
               },
-              marginTop: theme.spacing(10),
+              marginTop: theme.spacing(12),
               marginBottom: theme.spacing(10),
               gridColumn: "1 / -1",
             })}

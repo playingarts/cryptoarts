@@ -54,8 +54,8 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
             lineRef.current && {
               width: "100%",
               background: theme.colors.dark_gray,
-              paddingLeft: theme.spacing(1.5),
-paddingRight: theme.spacing(1.5),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
               [theme.mq.sm]: {
                 top: -lineRef.current.offsetTop,
                 position: "absolute",

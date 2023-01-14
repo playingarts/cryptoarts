@@ -28,9 +28,9 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
       alt={product.title}
       css={(theme) => ({
         borderRadius: theme.spacing(1),
-        [theme.maxMQ.sm]: {
-          maxHeight: theme.spacing(34),
-        },
+        // [theme.maxMQ.sm]: {
+        //   maxHeight: theme.spacing(34),
+        // },
         maxHeight: "100%",
         maxWidth: "100%",
       })}
@@ -70,8 +70,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           css={(theme) => ({
             margin: 0,
             [theme.maxMQ.sm]: {
-              paddingLeft: theme.spacing(1.5),
-              paddingRight: theme.spacing(1.5),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
             },
           })}
           component="h3"
@@ -83,8 +83,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             {
               [theme.maxMQ.sm]: {
                 fontSize: 16,
-                paddingLeft: theme.spacing(1.5),
-                paddingRight: theme.spacing(1.5),
+                paddingLeft: theme.spacing(2),
+                paddingRight: theme.spacing(2),
               },
             },
           ]}
@@ -112,8 +112,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
                 [theme.maxMQ.sm]: {
                   display: "flex",
                   justifyContent: "center",
-                  paddingRight: theme.spacing(1.5),
-                  paddingLeft: theme.spacing(1.5),
+                  paddingRight: theme.spacing(2),
+                  paddingLeft: theme.spacing(2),
                   paddingBottom: theme.spacing(2.5),
                   paddingTop: theme.spacing(2.5),
                 },
@@ -130,8 +130,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
             alignItems: "center",
             gap: theme.spacing(2),
             [theme.maxMQ.sm]: {
-              paddingRight: theme.spacing(1.5),
-              paddingLeft: theme.spacing(1.5),
+              paddingRight: theme.spacing(2),
+              paddingLeft: theme.spacing(2),
             },
           })}
         >

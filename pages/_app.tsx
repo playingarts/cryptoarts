@@ -379,7 +379,7 @@ export const theme: Theme = {
   },
   typography: {
     h1: {
-      fontSize: 60,
+      fontSize: 55,
       fontWeight: 400,
       letterSpacing: "-0.05em",
       lineHeight: 1.1,

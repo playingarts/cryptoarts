@@ -59,7 +59,7 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
           position: "relative",
           [theme.maxMQ.sm]: [
             {
-              paddingTop: theme.spacing(3),
+              paddingTop: theme.spacing(2),
             },
             truncate === false && {
               borderRadius: theme.spacing(3),

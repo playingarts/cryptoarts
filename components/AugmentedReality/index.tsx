@@ -26,9 +26,9 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
 
             [theme.maxMQ.sm]: [
               {
-                paddingLeft: theme.spacing(1.5),
-                paddingRight: theme.spacing(1.5),
-                paddingTop: 0,
+                paddingLeft: theme.spacing(2),
+                paddingRight: theme.spacing(2),
+                paddingTop: theme.spacing(1),
                 paddingBottom: 0,
                 background: "none",
               },
