@@ -269,13 +269,13 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
               ...commonCss,
               transform: "translateY(50%) rotate(-10.62deg)",
               top: theme.spacing(20.3),
-              left: theme.spacing(7),
+              left: theme.spacing(4),
               zIndex: 1,
               [theme.maxMQ.md]: {
                 left: theme.spacing(0),
               },
               [theme.maxMQ.sm]: {
-                top: theme.spacing(37),
+                top: theme.spacing(34),
                 left: theme.spacing(15),
               },
               [theme.maxMQ.xsm]: {

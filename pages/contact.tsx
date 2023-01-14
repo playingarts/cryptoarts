@@ -22,11 +22,14 @@ const Page: NextPage = () => {
               paddingTop: theme.spacing(25),
               paddingBottom: theme.spacing(10),
               background: theme.colors.page_bg_light,
+              borderRadius: `0 0 ${theme.spacing(5)}px ${theme.spacing(5)}px`,
+
               [theme.maxMQ.sm]: {
                 paddingTop: theme.spacing(17.5),
                 paddingBottom: theme.spacing(5),
                 paddingLeft: theme.spacing(2.5),
                 paddingRight: theme.spacing(2.5),
+                borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(3)}px`,
               },
             },
           ]}

@@ -92,7 +92,7 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
                 the physical card and see how it animates right in your hands!
               </Text>
               {width >= breakpoints.sm && (
-                <Line palette={palette} spacing={1} />
+                <Line palette={palette} spacing={4} />
               )}
               <StoreButtons palette="dark" ButtonProps={{ color: "black" }} />
             </div>

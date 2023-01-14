@@ -29,8 +29,6 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
 
             [theme.maxMQ.sm]: {
               fontSize: "15px",
-              paddingTop: theme.spacing(0),
-              paddingBottom: theme.spacing(0),
             },
 
             "&:hover" :{
@@ -47,9 +45,12 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
           css={(theme) => ({
             marginBottom: theme.spacing(2),
             color: theme.colors.text_title_dark,
+            paddingLeft: "20px",
+            paddingRight: "20px",
+            lineHeight: 27 / 18,
             [theme.maxMQ.sm]: {
               fontSize: "15px",
-              lineHeight: 27 / 18,
+              
             },
           })}
         >

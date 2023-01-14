@@ -477,7 +477,7 @@ export const theme: Theme = {
       },
     },
     body3: {
-      fontSize: 20,
+      fontSize: 18,
       lineHeight: 30 / 20,
       [mq.sm]: {
         fontSize: 22,

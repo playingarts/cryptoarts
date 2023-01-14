@@ -62,7 +62,7 @@ const CardBlock: FC<Props> = ({
       {...props}
       short={true}
       css={(theme) => ({
-        gap: theme.spacing(3),
+        rowGap: theme.spacing(2),
         color: theme.colors.text_subtitle_light,
         [theme.mq.sm]: {
           [theme.maxMQ.md]: {
@@ -132,7 +132,7 @@ const CardBlock: FC<Props> = ({
           },
           [theme.mq.md]: [
             cardOfTheDay && {
-              paddingTop: theme.spacing(20),
+              paddingTop: theme.spacing(10),
             },
 
             {
@@ -148,7 +148,7 @@ const CardBlock: FC<Props> = ({
                 position: "absolute",
                 left: 0,
                 right: 0,
-                top: theme.spacing(6),
+                top: theme.spacing(0),
               },
             ]}
           >

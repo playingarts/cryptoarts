@@ -165,7 +165,7 @@ const Content: FC<{
                 paddingTop: theme.spacing(0),
                 paddingBottom: theme.spacing(5.5),
                 paddingLeft: theme.spacing(2.5),
-            paddingRight: theme.spacing(2.5),
+                paddingRight: theme.spacing(2.5),
               },
               paddingBottom: theme.spacing(15),
             })}
@@ -219,14 +219,14 @@ const Content: FC<{
                         borderRadius: theme.spacing(1),
                         color: theme.colors.text_title_light,
                         margin: 0,
-                        marginBottom: theme.spacing(5),
+                        marginBottom: theme.spacing(4.5),
                         [theme.maxMQ.sm]: {
                           gridColumn: "1 / -1",
                           fontSize: 13,
                           padding: 0,
                           textAlign: "center",
                           lineHeight: `${theme.spacing(4.5)}px`,
-                          marginBottom: theme.spacing(3),
+                          marginBottom: theme.spacing(1.5),
                         },
                       })}
                     >
@@ -247,14 +247,14 @@ const Content: FC<{
                       color: theme.colors.text_title_light,
                       fontWeight: 500,
                       margin: 0,
-                      marginBottom: theme.spacing(5),
+                      marginBottom: theme.spacing(4.5),
                       [theme.maxMQ.sm]: {
                         gridColumn: "1 / -1",
                         fontSize: 13,
                         padding: 0,
                         textAlign: "center",
                         lineHeight: `${theme.spacing(4.5)}px`,
-                        marginBottom: theme.spacing(3),
+                        marginBottom: theme.spacing(1.5),
                       },
                     })}
                   >
@@ -268,10 +268,11 @@ const Content: FC<{
                   withoutPic={true}
                   css={(theme) => [
                     {
-                      gridColumn: "3 / 7",
+                      gridColumn: "2 / 7",
                       opacity: 0.5,
                       [theme.maxMQ.sm]: {
-                        marginTop: theme.spacing(2),
+                        marginTop: theme.spacing(3),
+                        marginBottom: theme.spacing(2),
                         gridColumn: "1 / -1",
                       },
                     },
@@ -282,45 +283,28 @@ const Content: FC<{
                         css={(theme) => [
                           {
                             // opacity: 0.5,
+                            marginBottom: theme.spacing(0),
                             [theme.maxMQ.sm]: {
                               fontSize: 16,
                             },
                           },
                         ]}
                       >
-                        Your order will be dispatched in 2 to 5 days. Shipping
-                        costs calculated at checkout.
+                        Your order will be dispatched in 2 to 5 business days. Enjoy free delivery for orders over €{freeShippingAt}.
                         {/* {freeShippingAt > 0 &&
                           freeShippingAt !== Infinity &&
                           ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
                       </Text>
-                      {/* <Link
-                        shallow={true}
-                        href={{
-                          query: {
-                            scrollIntoView: "[data-id='block-faq']",
-                            scrollIntoViewBehavior: "smooth",
-                          },
-                        }}
-                      >
-                        <Text
-                          variant="label"
-                          component="button"
-                          css={{ opacity: 0.5 }}
-                        >
-                          <Arrowed>Shipping FAQ</Arrowed>
-                        </Text>
-                      </Link> */}
                     </Fragment>
                   }
                 />
                 <Line
-                  spacing={4}
+                  spacing={3.5}
                   css={(theme) => ({
                     [theme.mq.sm]: {
-                      marginLeft: theme.spacing(21),
+                      marginLeft: theme.spacing(10.5),
                     },
-                    gridColumn: "span 7",
+                    gridColumn: "span 8",
                     [theme.maxMQ.sm]: {
                       marginTop: theme.spacing(2.5),
                       marginBottom: theme.spacing(2.5),
@@ -338,21 +322,21 @@ const Content: FC<{
                           justifyContent: "space-between",
                           gridColumn: "1 / -1",
                           [theme.mq.sm]: {
-                            gridColumn: "3 / -1",
+                            gridColumn: "2 / -1",
                           },
                         },
                       ]}
                     >
                       <Text
-                        component="h4"
+                        variant={width < breakpoints.sm ? "h3" : "h4"}
                         css={[
                           {
                             margin: 0,
                           },
                         ]}
                       >
-                        Subtotal (incl. taxes)
-                        {/* {width >= breakpoints.sm ? " (incl. taxes)" : ""} */}
+                        Subtotal
+                        {width >= breakpoints.sm ? " (incl. taxes)" : ""}
                       </Text>
                       <div
                         css={(theme) => [
@@ -566,7 +550,7 @@ const Checkout: NextPage = () => {
             css={(theme) => ({
               [theme.maxMQ.sm]: {
                 marginTop: theme.spacing(5),
-                marginBottom: theme.spacing(2),
+                marginBottom: theme.spacing(5),
               },
               marginTop: theme.spacing(10),
               marginBottom: theme.spacing(10),

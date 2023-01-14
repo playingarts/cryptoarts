@@ -85,7 +85,7 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
               opacity: 0.5,
               marginTop: theme.spacing(1),
               [theme.mq.sm]: {
-                marginBottom: theme.spacing(15),
+                marginBottom: theme.spacing(10),
               },
               // [theme.maxMQ.sm]: {
               //   display: "none",

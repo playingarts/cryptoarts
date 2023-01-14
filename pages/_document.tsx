@@ -15,8 +15,7 @@ export const Links = () => (
         h6: theme.typography.h6,
         h7: theme.typography.h7,
         body: {
-          // background: theme.colors.page_bg_light,
-          background: theme.colors.white,
+          background: theme.colors.page_bg_light_gray,
           fontFamily: "Work Sans, sans-serif",
           "@keyframes gradient": {
             "0%": {

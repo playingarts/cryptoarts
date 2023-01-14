@@ -144,7 +144,7 @@ export let products: MongoProduct[] = [
       "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-01.png",
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-01.png",
-    info: "Editions One + Two + Three",
+    info: "One + Two + Three",
   },
   {
     _id: generateMongoId("32395075846192"),

@@ -7,11 +7,11 @@ import Text from "../Text";
 export interface Props extends HTMLAttributes<HTMLDivElement> {
   title?: string;
   action?: Pick<LinkProps, "children" | "href" | "target"> | JSX.Element;
-  lessTitleMarginMobile?: boolean;
+  // lessTitleMarginMobile?: boolean;
 }
 
 const StatBlock: FC<Props> = ({
-  lessTitleMarginMobile,
+  // lessTitleMarginMobile,
   action,
   title,
   children,
@@ -41,9 +41,8 @@ const StatBlock: FC<Props> = ({
           marginBottom: theme.spacing(2),
           position: "relative",
           zIndex: 1,
-          [theme.maxMQ.sm]: [
-            lessTitleMarginMobile && { marginBottom: theme.spacing(1) },
-          ],
+          // [theme.maxMQ.sm]: [ lessTitleMarginMobile && { marginBottom: theme.spacing(1) }, ],
+          [theme.maxMQ.sm]: { marginBottom: theme.spacing(1.5) },
         })}
       >
         {title}

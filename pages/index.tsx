@@ -147,7 +147,7 @@ const Home: NextPage = () => {
         })}
         data-id="block-about"
       >
-        <Grid short={true}>
+        <Grid short={false}>
           <Text
             component="h2"
             css={{
@@ -166,7 +166,7 @@ const Home: NextPage = () => {
             css={(theme) => [
               {
                 margin: 0,
-                gridColumn: "span 7",
+                gridColumn: "span 8",
 
                 [theme.maxMQ.md]: {
                   margin: 0,

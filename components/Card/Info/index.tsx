@@ -1,5 +1,7 @@
 import { FC, Fragment, HTMLAttributes, useEffect } from "react";
 import { useLoadCard } from "../../../hooks/card";
+import { useSize } from "../../SizeProvider";
+import { breakpoints } from "../../../source/enums";
 import Button from "../../Button";
 import Bag from "../../Icons/Bag";
 import Eth from "../../Icons/Eth";
@@ -26,6 +28,7 @@ const CardInfo: FC<Props> = ({
   ...props
 }) => {
   const { card, loadCard, loading } = useLoadCard();
+  const { width } = useSize();
 
   useEffect(() => {
     if (!deck.openseaCollection) {
@@ -45,6 +48,7 @@ const CardInfo: FC<Props> = ({
             margin: 0,
             [theme.maxMQ.sm]: {
               textAlign: "center",
+              marginTop: 10,
             },
           },
         ]}
@@ -54,32 +58,40 @@ const CardInfo: FC<Props> = ({
       <Text
         component="div"
         variant="h6"
-        css={(theme) => ({
-          color: theme.colors.text_subtitle_light,
-          [theme.maxMQ.sm]: {
-            textAlign: "center",
-          },
-        })}
-      >
-        {artist.country}
-      </Text>
-      <Line
-        palette="dark"
-        spacing={3}
         css={(theme) => [
+          cardOfTheDay && width > breakpoints.md &&  {
+            marginBottom: theme.spacing(1),
+          },
+
           {
             [theme.maxMQ.sm]: {
-              marginTop: theme.spacing(1.5),
-              marginBottom: theme.spacing(1.5),
+              textAlign: "center",
             },
           },
         ]}
-      />
+      >
+        {artist.country}
+      </Text>
+
+      {!cardOfTheDay && width >= breakpoints.xsm && (
+        <Line
+          palette="dark"
+          spacing={3}
+          css={(theme) => [
+            {
+              [theme.maxMQ.sm]: {
+                marginTop: theme.spacing(1.5),
+                marginBottom: theme.spacing(1.5),
+              },
+              marginTop: theme.spacing(2),
+            },
+          ]}
+        />
+      )}
+
       {contest ? (
         <div css={(theme) => ({ color: theme.colors.text_subtitle_light })}>
-          <Text variant="body2">
-            This card was submitted for the contest.
-          </Text>
+          <Text variant="body2">This card was submitted for the contest.</Text>
           {/* <Arrowed>Read More</Arrowed> */}
         </div>
       ) : (
@@ -90,7 +102,7 @@ const CardInfo: FC<Props> = ({
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginTop: theme.spacing(2.5),
+              marginTop: theme.spacing(2),
               [theme.mq.sm]: {
                 height: theme.spacing(5),
               },
@@ -140,15 +152,16 @@ const CardInfo: FC<Props> = ({
                         backgroundSize: "400% 100%",
                         animation: "gradient 5s ease infinite",
                         color: theme.colors.dark_gray,
-                        
+
                         [theme.maxMQ.sm]: [
-                          card &&
-                            !card.price ? {
-                              width: "100%",
-                              justifyContent: "center",
-                            }:{
-                              marginRight: theme.spacing(2),
-                            },
+                          card && !card.price
+                            ? {
+                                width: "100%",
+                                justifyContent: "center",
+                              }
+                            : {
+                                marginRight: theme.spacing(2),
+                              },
                         ],
                       })}
                     >

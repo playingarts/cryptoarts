@@ -10,7 +10,7 @@ const GamePromo: FC = () => {
 
   return ownedAssets ? (
     <StatBlock
-      lessTitleMarginMobile={true}
+      // lessTitleMarginMobile={true}
       css={(theme) => ({
         background: theme.colors.page_bg_dark,
         color: theme.colors.text_title_light,

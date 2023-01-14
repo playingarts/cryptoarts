@@ -394,7 +394,7 @@ const ModalMenu: FC<
                 {
                   color: "rgba(255, 255, 255, 0.25)",
                   lineHeight: "25px",
-                  fontSize: "16px",
+                  fontSize: "15px",
                 },
               ]}
             >

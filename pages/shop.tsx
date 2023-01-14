@@ -122,6 +122,7 @@ const Content: FC = () => {
               query: {
                 scrollIntoView: "[data-id='faq']",
                 scrollIntoViewBehavior: "smooth",
+                scrollIntoViewPosition: "start",
               },
             }}
             shallow={true}
@@ -166,7 +167,7 @@ const Content: FC = () => {
               })}
               css={(theme) => ({
                 gridColumn: "span 9",
-                // minHeight: theme.spacing(45),
+                minHeight: theme.spacing(41.5),
                 [theme.maxMQ.md]: {
                   gridColumn: "span 6",
                 },
@@ -174,7 +175,7 @@ const Content: FC = () => {
             />
 
             <NFTHolder
-              metamaskText="connect"
+              metamaskText="Connect MetaMask"
               css={(theme) => [
                 {
                   gridColumn: "span 3",
@@ -491,7 +492,7 @@ const Content: FC = () => {
             borderRadius: "0px 0px 50px 50px",
           },
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(5),
+            paddingTop: theme.spacing(10),
             paddingBottom: theme.spacing(5),
           },
         })}

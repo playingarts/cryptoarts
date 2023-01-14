@@ -20,12 +20,12 @@ const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
 interface Props extends HTMLAttributes<HTMLElement> {
   gradient?: boolean;
-  noDesc?: boolean;
+  // noDesc?: boolean;
   metamaskText?: string;
 }
 const NFTHolder: FC<Props> = ({
-  metamaskText = "connect metamask",
-  noDesc,
+  metamaskText = "Connect MetaMask",
+  // noDesc,
   gradient,
   ...props
 }) => {
@@ -102,7 +102,7 @@ const NFTHolder: FC<Props> = ({
         {...props}
       >
         <Text
-          component="h4"
+          component="h5"
           css={(theme) => [
             {
               margin: 0,
@@ -135,7 +135,7 @@ const NFTHolder: FC<Props> = ({
     return (
       <StatBlock
         css={(theme) => ({
-          backgroundColor: theme.colors.dark_gray,
+          backgroundColor: theme.colors.dark_gray,  
           color: theme.colors.text_title_light,
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(4),
@@ -146,26 +146,20 @@ const NFTHolder: FC<Props> = ({
             <MetamaskButton
               textColor="white"
               backgroundColor="orange"
-              notConnected="Connect"
+              notConnected="Connect MetaMask"
               unavailable="Install"
               noIcon={width < breakpoints.sm}
               css={(theme) => [
                 {
+                  background: theme.colors.page_bg_light,
+                  color: theme.colors.text_title_dark,
+
                   [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
-                  background: theme.colors.page_bg_dark,
                   [theme.mq.sm]: [gradient && {}],
                 },
               ]}
             >
-              <span
-                css={(theme) => [
-                  gradient && {
-                    color: "transparent",
-                    background: theme.colors.eth,
-                    backgroundClip: "text",
-                  },
-                ]}
-              >
+              <span>
                 {metamaskText}
               </span>
             </MetamaskButton>
@@ -174,7 +168,7 @@ const NFTHolder: FC<Props> = ({
         {...props}
       >
         <Text
-          component="h4"
+          component="h5"
           css={(theme) => [
             {
               margin: 0,
@@ -188,7 +182,7 @@ const NFTHolder: FC<Props> = ({
           NFT holder?
         </Text>
 
-        {!noDesc && (
+        {/* {!noDesc && (  */}
           <Text
             variant="body2"
             css={(theme) => [
@@ -196,14 +190,14 @@ const NFTHolder: FC<Props> = ({
                 [theme.maxMQ.sm]: {
                   textAlign: "center",
                   margin: 0,
-                  marginTop: theme.spacing(2),
+                  marginTop: theme.spacing(1),
                 },
               },
             ]}
           >
-            Connect your MetaMask wallet and see if you’re eligible for a bonus!
+            Connect your MetaMask wallet and see if you’re eligible to a free deck!
           </Text>
-        )}
+        {/* )} */}
 
         {width >= breakpoints.sm && (
           <Text
@@ -255,7 +249,7 @@ const NFTHolder: FC<Props> = ({
           {...props}
         >
           <Text
-            component="h4"
+            component="h5"
             css={(theme) => [
               {
                 margin: 0,
@@ -334,7 +328,7 @@ const NFTHolder: FC<Props> = ({
         {...props}
       >
         <Text
-          component="h4"
+          component="h5"
           css={(theme) => [
             {
               margin: 0,
@@ -407,7 +401,7 @@ const NFTHolder: FC<Props> = ({
               },
             },
           ]}
-          component="h4"
+          component="h5"
         >
           GM Fren!
         </Text>
@@ -477,7 +471,7 @@ const NFTHolder: FC<Props> = ({
       {...props}
     >
       <Text
-        component="h4"
+        component="h5"
         css={(theme) => [
           {
             margin: 0,

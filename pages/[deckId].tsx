@@ -22,7 +22,6 @@ import Bag from "../components/Icons/Bag";
 import Layout from "../components/Layout";
 import Link from "../components/Link";
 import Modal from "../components/Modal";
-import NFTHolder from "../components/NFTHolder";
 import { useSize } from "../components/SizeProvider";
 import ComposedCardContent from "../components/_composed/CardContent";
 import ComposedCardList from "../components/_composed/ComposedCardList";
@@ -351,14 +350,14 @@ const Content: FC<{
                   // paddingBottom: theme.spacing(2.5),
                 },
                 !contest && {
-                  // gap: theme.spacing(1),
-                  marginBottom: theme.spacing(3),
+                  gap: theme.spacing(1),
+                  paddingBottom: theme.spacing(3),
                 },
               ],
             },
           ]}
         >
-          {deck.openseaCollection && width < breakpoints.sm && (
+          {/* {deck.openseaCollection && width < breakpoints.sm && (
             <Layout>
               <NFTHolder
                 gradient={true}
@@ -372,7 +371,7 @@ const Content: FC<{
                 ]}
               />
             </Layout>
-          )}
+          )} */}
           {!contest && (
             <Layout
               scrollIntoView={section === Sections.cards}
@@ -485,7 +484,7 @@ const Content: FC<{
                       paddingBottom:
                         deck.slug === "crypto"
                           ? theme.spacing(3)
-                          : theme.spacing(8),
+                          : theme.spacing(10),
                       background: theme.colors.page_bg_light_gray,
                     },
                   },
@@ -516,7 +515,6 @@ const Content: FC<{
                       [theme.mq.sm]: {
                         paddingBottom: theme.spacing(6),
                         paddingTop: theme.spacing(0),
-                        // paddingTop: theme.spacing(6),
                         background: theme.colors.page_bg_light_gray,
                       },
                     },

@@ -147,7 +147,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
           },
         ]}
       >
-        {/* {width < breakpoints.sm && (
+        {width < breakpoints.sm && (
             <Button
               Icon={Bag}
               component={Link}
@@ -166,13 +166,17 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
             >
               Opensea
             </Button>
-          )} */}
+          )}
         <Grid
           css={(theme) => [
             {
               gridColumn: "1/-1",
               // paddingTop: theme.spacing(3),
               gap: theme.spacing(3),
+              [theme.maxMQ.sm]: {
+                marginTop: theme.spacing(1.5),
+                gap: theme.spacing(2),
+              },
               [theme.mq.sm]: {
                 gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px) `,
               },
@@ -227,7 +231,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
           {width < breakpoints.sm && (
             <NFTHolder
               gradient={true}
-              noDesc={true}
+              // noDesc={true}
               css={(theme) => [
                 {
                   [theme.maxMQ.sm]: {

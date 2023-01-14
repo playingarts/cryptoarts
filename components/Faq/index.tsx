@@ -1,8 +1,6 @@
 import { FC, Fragment } from "react";
-import { breakpoints } from "../../source/enums";
 import FaqItem from "../FaqItem";
 import Line from "../Line";
-import { useSize } from "../SizeProvider";
 import Text from "../Text";
 
 const faq = {
@@ -21,37 +19,33 @@ const faq = {
     "The parcels are usually being returned because of the wrong address or because they were not picked up by the customer. Please contact us if this happened with you.",
   "What is your return policy?":
     "We want you to be 100% satisfied with your Playing Arts purchase. Items in new condition can be returned or exchanged within 30 days of delivery. Please note that original shipping charges are non-refundable. If we made a mistake or the item arrived defective, please contact us and we’ll make things right.",
+    "What forms of payment do you accept?":"We accept the following payment methods: Credit card (Visa, MasterCard, American Express) PayPal, Apple Pay."
 };
 const Faq: FC<{ title?: string }> = ({ title }) => {
-  const { width } = useSize();
 
   return (
     <Fragment>
       <Text
-        component="h4"
+        component="h5"
         css={(theme) => [
           {
             margin: "0",
-            opacity: ".5",
-
+            opacity: ".4",
+            marginBottom: theme.spacing(3),
             [theme.maxMQ.sm]: {
-              fontSize: "30px",
-              marginBottom: "30px",
               paddingLeft: theme.spacing(1.5),
               paddingRight: theme.spacing(1.5),
             },
           },
         ]}
       >
-        {title || "Shipping Info"}
+        {title || "Shipping FAQ"}
       </Text>
       <Line
-        spacing={2}
+        spacing={0}
         css={(theme) => [
           {
             [theme.maxMQ.sm]: {
-              marginBottom: theme.spacing(1.5),
-              marginTop: theme.spacing(1.5),
               marginLeft: theme.spacing(1.5),
               marginRight: theme.spacing(1.5),
             },
@@ -64,30 +58,16 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
             <FaqItem
               question={question}
               css={(theme) => ({
-                borderBottom: "1px solid #E6E6E6",
+                borderBottom: "1px solid #dddddd",
+
                 [theme.maxMQ.sm]: {
-                  marginTop: theme.spacing(0),
-                  marginBottom: theme.spacing(0),
                   marginLeft: theme.spacing(1.5),
                   marginRight: theme.spacing(1.5),
-                  border: "0",
                 },
               })}
             >
               {answer}
             </FaqItem>
-            {width < breakpoints.sm && (
-              <Line
-                spacing={1.5}
-                css={(theme) => ({
-                  // borderBottom: "1px solid #E6E6E6",
-                  [theme.maxMQ.sm]: {
-                    marginLeft: theme.spacing(1.5),
-                    marginRight: theme.spacing(1.5),
-                  },
-                })}
-              />
-            )}
           </Fragment>
         );
       })}

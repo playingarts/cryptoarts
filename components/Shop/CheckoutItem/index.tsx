@@ -180,7 +180,7 @@ const ShopCheckoutItem: FC<Props> = ({
                 marginRight: 20,
                 [theme.maxMQ.sm]: {
                   // maxHeight: "calc(var(--buttonHeight)*2.5)",
-                  width: theme.spacing(10),
+                  // width: theme.spacing(10),
                   marginRight: 0,
                 },
               },

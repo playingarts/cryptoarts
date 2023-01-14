@@ -80,7 +80,7 @@ const Podcast: FC<Props> = ({
               marginTop: 0,
               marginBottom: theme.spacing(1),
               [theme.mq.sm]: [!smallTitle && theme.typography.h3],
-              // [theme.maxMQ.sm]: theme.typography.h3,
+              [theme.maxMQ.sm]: theme.typography.h2,
             })}
           >
             {podcastName}
@@ -88,7 +88,6 @@ const Podcast: FC<Props> = ({
           <div
             css={(theme) => ({
               marginTop: theme.spacing(2),
-              marginBottom: theme.spacing(2),
               display: "flex",
               alignItems: "center",
               columnGap: theme.spacing(1.1),
@@ -128,16 +127,19 @@ const Podcast: FC<Props> = ({
               />
             )}
           </div>
+          {!withoutAction && (
           <Line
-                spacing={0}
-                css={{
-                  color: "#fff",
-                  [theme.mq.sm]: {
-                    gridColumn: "1 / -1",
-                    width: "100%",
-                  },
-                }}
-              />
+            spacing={0}
+            css={{
+              marginTop: theme.spacing(3),
+              color: "#fff",
+              [theme.mq.sm]: {
+                gridColumn: "1 / -1",
+                width: "100%",
+              },
+            }}
+          />
+          )}
         </div>
         {width >= breakpoints.sm && (
           <div

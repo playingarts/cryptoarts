@@ -21,7 +21,8 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
           {
             margin: 0,
             opacity: 0.5,
-            marginTop: theme.spacing(1),
+
+            [theme.maxMQ.sm]: { fontSize: "20px" },
           },
         ]}
       >
@@ -42,8 +43,8 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
         css={[
           {
             color: "rgba(0, 0, 0, 0.5)",
-            lineHeight: "25px",
-            fontSize: "16px",
+            fontSize: "15px",
+            marginBottom: 20,
           },
         ]}
       >

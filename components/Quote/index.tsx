@@ -61,7 +61,13 @@ const Quote: FC<Props> = ({
                 onlyMore={true}
                 lines={truncate}
                 variant="body3"
-                css={(theme) => [{ margin: 0, marginBottom: theme.spacing(2) }]}
+                css={(theme) => [
+                  {
+                    margin: 0,
+                    marginTop: theme.spacing(3),
+                    [theme.maxMQ.sm]: { marginTop: theme.spacing(3), },
+                  },
+                ]}
               >
                 {children}
               </Truncate>
@@ -101,7 +107,8 @@ const Quote: FC<Props> = ({
                   }),
             })}
           >
-            {vertical && children && (
+            {/* {vertical && children && ( */}
+            {!withoutUserPic && (
               <Line
                 spacing={4}
                 palette={palette}
@@ -109,12 +116,13 @@ const Quote: FC<Props> = ({
                   {
                     [theme.maxMQ.sm]: {
                       marginBottom: theme.spacing(3),
-                      marginTop: theme.spacing(3),
+                      marginTop: theme.spacing(2.5),
                     },
                   },
                 ]}
               />
-            )}
+              )}
+            {/* )} */}
             <div css={{ display: "flex", alignItems: "top" }}>
               {fullArtist && !withoutUserPic && (
                 <div
@@ -148,6 +156,7 @@ const Quote: FC<Props> = ({
                     lines={2}
                     css={{
                       marginTop: 0,
+                      marginBottom: 0,
                     }}
                   >
                     {artist.info}
@@ -157,7 +166,7 @@ const Quote: FC<Props> = ({
                   css={(theme) => ({
                     display: "flex",
                     flexWrap: "wrap",
-                    gap: theme.spacing(2),
+                    gap: theme.spacing(1.5),
                     marginTop: theme.spacing(3),
                   })}
                 >

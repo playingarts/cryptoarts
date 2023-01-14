@@ -58,7 +58,16 @@ const Truncate: FC<Props> = ({ children, lines, onlyMore, ...props }) => {
             },
           ]}
         >
-          <Text component="button" variant="label" onClick={toggle}>
+          <Text
+            component="button"
+            variant="label"
+            onClick={toggle}
+            css={(theme) => [
+              {
+                marginTop: theme.spacing(2)
+              },
+            ]}
+          >
             <Arrowed>{truncated ? "Read more" : "Read less"}</Arrowed>
           </Text>
         </span>
