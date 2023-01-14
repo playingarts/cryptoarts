@@ -595,7 +595,7 @@ const Page: NextPage = () => {
     <Fragment>
       {deck && !artistId && (
         <Head>
-          <title>{deck.title} - Playing Arts Project</title>
+          <title>{deck.title} - Playing Arts</title>
           <meta name="description" content={deck.info} />
         </Head>
       )}

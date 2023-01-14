@@ -561,7 +561,7 @@ const Shop: NextPage = () => {
   return (
     <Fragment>
       <Head>
-        <title>Shop - Playing Arts Project</title>
+        <title>Shop - Playing Arts</title>
       </Head>
       <ComposedGlobalLayout customShopButton={<BagButton />} noNav={true}>
         <Content />

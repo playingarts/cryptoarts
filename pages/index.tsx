@@ -360,7 +360,14 @@ const Home: NextPage = () => {
               gridColumn: "-1/ 1",
               [theme.mq.sm]: {
                 gridColumn: "span 3",
+                gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
               },
+              // [theme.maxMQ.md]: {
+              //   gridColumn: "span 4",
+              // },
+              // [theme.maxMQ.sm]: {
+              //   gridColumn: "span 6",
+              // },
             })}
           >
             <Discord
@@ -434,6 +441,12 @@ const Home: NextPage = () => {
               gridColumn: "-1/ 1",
               [theme.mq.sm]: {
                 gridColumn: "span 3",
+              },
+              [theme.maxMQ.md]: {
+                gridColumn: "span 4",
+              },
+              [theme.maxMQ.sm]: {
+                gridColumn: "span 6",
               },
             })}
           >

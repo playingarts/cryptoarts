@@ -526,7 +526,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
-        <title>Playing Arts Project</title>
+        <title>Playing Arts - Collective Art Project</title>
         <meta
           name="description"
           content="Collective Art Project for creative people who are into illustrations, playing cards, NFTs and sometimes magic."

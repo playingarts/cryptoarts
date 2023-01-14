@@ -68,7 +68,7 @@ const Content: FC<{
   return (
     <Fragment>
       <Head>
-        <title>Bag - Playing Arts Project</title>
+        <title>Bag - Playing Arts</title>
       </Head>
       <Layout
         css={(theme) => ({
