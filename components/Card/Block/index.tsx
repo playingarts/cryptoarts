@@ -1,15 +1,17 @@
 import { FC } from "react";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { breakpoints } from "../../../source/enums";
+import Arrowed from "../../Arrowed";
 import Card from "../../Card";
 import Grid, { Props as GridProps } from "../../Grid";
-import Line from "../../Line";
 import Link from "../../Link";
 import Quote from "../../Quote";
+import Line from "../../Line";
 import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
 import Podcast from "../../_composed/Podcast";
 import CardInfo from "../Info";
+import { theme } from "../../../pages/_app";
 
 interface Props extends GridProps {
   card: GQL.Card;
@@ -36,7 +38,8 @@ const CardBlock: FC<Props> = ({
       key={card._id}
       card={card}
       animated={true}
-      size="big"
+      // size={"big"}
+      {...(!cardOfTheDay && { size: "big" })}
       interactive={true}
       noInfo={true}
       owned={
@@ -71,17 +74,27 @@ const CardBlock: FC<Props> = ({
         },
         [theme.maxMQ.sm]: {
           columnGap: 0,
-          paddingLeft: theme.spacing(2),
-          paddingRight: theme.spacing(2),
+          paddingLeft: theme.spacing(1.5),
+          paddingRight: theme.spacing(1.5),
         },
       })}
     >
       {cardOfTheDay && width < breakpoints.md && (
-        <div css={[{ gridColumn: "1/-1" }]}>
+        <div
+          css={(theme) => [
+            {
+              gridColumn: "span 8",
+              marginBottom: 30,
+              color: theme.colors.text_subtitle_dark,
+              [theme.maxMQ.md]: {
+                marginBottom: 10,
+              },
+            },
+          ]}
+        >
           <Text component="div" variant="h6">
             Card of the day
           </Text>
-          <Line palette="dark" spacing={1} />
         </div>
       )}
       <div
@@ -89,12 +102,16 @@ const CardBlock: FC<Props> = ({
           {
             gridColumn: "1 / -1",
             [theme.maxMQ.md]: {
+              marginTop: theme.spacing(3),
               [theme.mq.sm]: {
                 gridColumn: "2 / span 5",
               },
             },
             [theme.mq.md]: {
               gridColumn: "span 4",
+            },
+            [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(0),
             },
           },
           stick !== undefined && {
@@ -117,7 +134,6 @@ const CardBlock: FC<Props> = ({
       <div
         css={(theme) => ({
           alignSelf: "center",
-
           position: "relative",
           [theme.maxMQ.sm]: {
             // marginTop: theme.spacing(2),
@@ -126,15 +142,14 @@ const CardBlock: FC<Props> = ({
           gridColumn: "-1 / 1",
           [theme.mq.sm]: {
             [theme.maxMQ.md]: {
-              marginTop: theme.spacing(5),
+              marginTop: theme.spacing(3),
             },
             gridColumn: "span 7",
           },
           [theme.mq.md]: [
-            cardOfTheDay && {
-              paddingTop: theme.spacing(10),
-            },
-
+            // !cardOfTheDay && {
+            //   paddingTop: theme.spacing(10),
+            // },
             {
               gridColumn: "span 5 / -1",
             },
@@ -145,17 +160,15 @@ const CardBlock: FC<Props> = ({
           <div
             css={(theme) => [
               {
-                position: "absolute",
-                left: 0,
-                right: 0,
-                top: theme.spacing(0),
+                color: theme.colors.text_subtitle_dark,
+                marginBottom: theme.spacing(2),
               },
             ]}
           >
             <Text component="div" variant="h6">
               Card of the day
             </Text>
-            <Line palette="dark" spacing={1} />
+            {/* <Line palette="light" spacing={1} /> */}
           </div>
         )}
         <CardInfo
@@ -165,25 +178,53 @@ const CardBlock: FC<Props> = ({
           deck={deck}
           cardId={card._id}
         />
-        {cardOfTheDay && (
+        {/* {cardOfTheDay && (
           <Quote
-            palette="dark"
+            palette="light"
             key={card._id}
-            fullArtist={true}
+            fullArtist={false}
             artist={card.artist}
             withoutName={true}
             vertical={true}
             truncate={7}
             css={(theme) => [
-              !cardOfTheDay && {
-                [theme.maxMQ.sm]: {
-                  marginBottom: theme.spacing(3),
+              cardOfTheDay && {
+                [theme.mq.md]: {
+                  marginTop: theme.spacing(-1),
+                  color: theme.colors.black,
                 },
               },
             ]}
           >
             {card.info}
           </Quote>
+        )} */}
+        {cardOfTheDay && (
+          <div>
+            <Line
+              palette="light"
+              css={(theme) => ({
+                marginTop: theme.spacing(2),
+                marginBottom: theme.spacing(2.5),
+              })}
+            />
+            <Text
+            component={Link}
+            href={`/${card.deck.slug}`}
+            variant="label"
+            css={{
+              opacity: 0.5,
+              display: "inline-block",
+              color: theme.colors.black,
+              transition: theme.transitions.fast("opacity"),
+              "&:hover": {
+                opacity: 1,
+              },
+            }}
+          >
+            <Arrowed>For {card.deck.title}</Arrowed>
+          </Text>
+          </div>
         )}
       </div>
       {!contest && !cardOfTheDay && (

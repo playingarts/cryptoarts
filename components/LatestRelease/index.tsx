@@ -33,9 +33,12 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
         position: "relative",
         overflow: "hidden",
         [theme.maxMQ.sm]: {
-          backgroundPositionX: theme.spacing(-18),
-          backgroundSize: "175%",
+          backgroundSize: "100% cover",
           paddingBottom: theme.spacing(27.7),
+        },
+        [theme.maxMQ.xsm]: {
+          backgroundPositionX: "center",
+          backgroundSize: "175% cover",
         },
       })}
       // {...(status === "connected" && {
@@ -152,8 +155,11 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
           width: theme.spacing(20),
           right: theme.spacing(2.5),
           top: -theme.spacing(10),
-          [theme.maxMQ.md]: {
-            right: -theme.spacing(5.8),
+          [theme.mq.md]: {
+            right: -theme.spacing(0),
+          },
+          [theme.maxMQ.xsm]: {
+            right: -theme.spacing(5),
           },
           position: "absolute",
         })}

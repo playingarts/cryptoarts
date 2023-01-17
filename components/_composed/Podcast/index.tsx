@@ -48,12 +48,16 @@ const Podcast: FC<Props> = ({
         color: theme.colors.text_title_light,
         gridColumn: "span 6",
         position: "relative",
+
+        [theme.maxMQ.md]: {
+          gridColumn: "span 9",
+        },
       })}
       title={title + "・EP" + episode.toString().padStart(2, "0")}
       {...(socialLinks.podcastYoutube &&
         !withoutAction && {
           action: {
-            children: "All episodes on YouTube",
+            children: "Follow on YouTube",
             href: socialLinks.podcastYoutube,
             target: "_blank",
           },
@@ -80,7 +84,7 @@ const Podcast: FC<Props> = ({
               marginTop: 0,
               marginBottom: theme.spacing(1),
               [theme.mq.sm]: [!smallTitle && theme.typography.h3],
-              [theme.maxMQ.sm]: theme.typography.h2,
+              [theme.maxMQ.sm]: theme.typography.h3,
             })}
           >
             {podcastName}

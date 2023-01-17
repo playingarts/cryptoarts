@@ -278,6 +278,9 @@ const Content: FC<{
                     {
                       gridColumn: "2 / 7",
                       opacity: 0.5,
+                      [theme.maxMQ.md]: {
+                        gridColumn: "1 / -1",
+                      },
                       [theme.maxMQ.sm]: {
                         marginTop: theme.spacing(3),
                         marginBottom: theme.spacing(2),
@@ -309,7 +312,11 @@ const Content: FC<{
                 <Line
                   spacing={3.5}
                   css={(theme) => ({
-                    [theme.mq.sm]: {
+                    [theme.maxMQ.md]: {
+                      gridColumn: "1 / -1",
+                      marginLeft: 0,
+                    },
+                    [theme.mq.md]: {
                       marginLeft: theme.spacing(10.5),
                     },
                     gridColumn: "span 8",
@@ -344,7 +351,6 @@ const Content: FC<{
                         ]}
                       >
                         Subtotal
-                        {/* {width >= breakpoints.sm ? " (incl. taxes)" : ""} */}
                       </Text>
                       <div
                         css={(theme) => [
@@ -393,7 +399,7 @@ const Content: FC<{
                 <div
                   css={(theme) => ({
                     position: "sticky",
-                    gridColumn: "3 / span 7",
+                    gridColumn: "1 / -1",
                     [theme.mq.md]: {
                       gridColumn: "span 3",
                     },

@@ -65,7 +65,7 @@ const Quote: FC<Props> = ({
                   {
                     margin: 0,
                     marginTop: theme.spacing(3),
-                    [theme.maxMQ.sm]: { marginTop: theme.spacing(3), },
+                    [theme.maxMQ.sm]: { marginTop: theme.spacing(3) },
                   },
                 ]}
               >
@@ -103,6 +103,7 @@ const Quote: FC<Props> = ({
                     marginLeft: theme.spacing(13.5),
                     // width: theme.spacing(22.5),
                     minWidth: theme.spacing(18),
+
                     flexShrink: 0,
                   }),
             })}
@@ -121,7 +122,7 @@ const Quote: FC<Props> = ({
                   },
                 ]}
               />
-              )}
+            )}
             {/* )} */}
             <div css={{ display: "flex", alignItems: "top" }}>
               {fullArtist && !withoutUserPic && (
@@ -154,21 +155,25 @@ const Quote: FC<Props> = ({
                     onlyMore={true}
                     variant="body2"
                     lines={2}
-                    css={{
-                      marginTop: 0,
-                      marginBottom: 0,
-                    }}
+                    css={[
+                      {
+                        marginTop: 0,
+                        marginBottom: 0,
+                      },
+                    ]}
                   >
                     {artist.info}
                   </Truncate>
                 )}
                 <div
-                  css={(theme) => ({
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: theme.spacing(1.5),
-                    marginTop: theme.spacing(3),
-                  })}
+                  css={(theme) => [
+                    {
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: theme.spacing(1.5),
+                      marginTop: theme.spacing(3),
+                    },
+                  ]}
                 >
                   {Object.entries(artist.social).map(([key, value]) => {
                     const Icon = socialIcons[key];

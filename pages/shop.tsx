@@ -174,7 +174,7 @@ const Content: FC = () => {
                 gridColumn: "span 9",
                 minHeight: theme.spacing(41.5),
                 [theme.maxMQ.md]: {
-                  gridColumn: "span 6",
+                  gridColumn: "span 9",
                 },
               })}
             />
@@ -184,9 +184,12 @@ const Content: FC = () => {
               css={(theme) => [
                 {
                   gridColumn: "span 3",
-                  [theme.maxMQ.sm]: {
-                    gridColumn: "1 / -1",
+                  [theme.maxMQ.md]: {
+                    gridColumn: "span 9",
                     marginTop: theme.spacing(2.5),
+                  },
+                  [theme.maxMQ.sm]: {
+                    marginTop: theme.spacing(1),
                   },
                 },
               ]}
@@ -195,12 +198,15 @@ const Content: FC = () => {
         )}
         <BlockTitle
           alwaysSubtitle={true}
-          {...(width <= breakpoints.sm && { noLine: true })}
+          {...(width <= breakpoints.xsm && { noLine: true })}
           title="Decks of Cards"
           subTitleText={
             <span
               css={(theme) => [
                 {
+                  // [theme.mq.md]: {
+                  //   marginTop: theme.spacing(15),
+                  // },
                   [theme.maxMQ.sm]: {
                     display: "block",
                     marginBottom: theme.spacing(1.5),
@@ -215,17 +221,20 @@ const Content: FC = () => {
           }
           variant="h3"
           css={(theme) => ({
+            marginBottom: theme.spacing(1),
+
             [theme.mq.md]: {
               marginTop: theme.spacing(12),
-              marginBottom: theme.spacing(2),
+            },
+            [theme.maxMQ.md]: {
+              marginTop: theme.spacing(10),
             },
             [theme.maxMQ.sm]: {
-              marginTop: theme.spacing(7.5),
+              marginBottom: theme.spacing(2),
             },
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(2),
           })}
         />
+
         <Grid>
           <Grid
             shop={true}
@@ -260,6 +269,7 @@ const Content: FC = () => {
                           }}
                         />
                       )}
+
                       <Grid
                         short={true}
                         css={{
@@ -268,9 +278,14 @@ const Content: FC = () => {
                       >
                         <Quote
                           css={(theme) => ({
-                            marginTop: theme.spacing(9),
-                            marginBottom: theme.spacing(9),
+                            marginTop: theme.spacing(8),
+                            marginBottom: theme.spacing(8),
                             gridColumn: "1 / -1",
+
+                            [theme.maxMQ.md]: {
+                              marginTop: theme.spacing(5),
+                              marginBottom: theme.spacing(5),
+                            },
                           })}
                           withoutUserPic={true}
                           fullArtist={true}
@@ -357,7 +372,7 @@ const Content: FC = () => {
                 </Fragment>
               ) : (
                 <Fragment>
-                  {width >= breakpoints.sm && width < breakpoints.md && (
+                  {/* {width < breakpoints.md && (
                     <Line
                       spacing={1}
                       css={{
@@ -365,7 +380,7 @@ const Content: FC = () => {
                         width: "100%",
                       }}
                     />
-                  )}
+                  )} */}
                   <Grid
                     {...(product.deck && { "data-id": product.deck.slug })}
                     short={true}
@@ -384,14 +399,18 @@ const Content: FC = () => {
                       title={title}
                       css={(theme) => [
                         {
-                          gridColumn: "span 4",
+                          gridColumn: "span 5",
                           alignSelf: "center",
                           [theme.mq.sm]: {
                             [theme.maxMQ.md]: {
-                              paddingLeft: theme.spacing(4),
+                              paddingLeft: theme.spacing(8),
                             },
                           },
                           [theme.maxMQ.sm]: {
+                            paddingLeft: theme.spacing(4),
+                            marginBottom: theme.spacing(4),
+                          },
+                          [theme.maxMQ.xsm]: {
                             gridColumn: "1/ -1",
                             paddingLeft: theme.spacing(2.5),
                             paddingRight: theme.spacing(2.5),
@@ -433,7 +452,7 @@ const Content: FC = () => {
 
         {width >= breakpoints.sm && width < breakpoints.md && (
           <Grid>
-            <Line spacing={4} css={{ gridColumn: "1 / -1", width: "100%" }} />
+            <Line spacing={2} css={{ gridColumn: "1 / -1", width: "100%" }} />
           </Grid>
         )}
 
@@ -512,7 +531,6 @@ const Content: FC = () => {
                     })}
                     {...product}
                   />
-                  
                 </Fragment>
               ))}
             </Grid>

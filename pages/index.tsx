@@ -268,7 +268,9 @@ const Home: NextPage = () => {
           css={[
             {
               overflow: "hidden",
-
+              [theme.maxMQ.sm]: {
+                marginTop: theme.spacing(3),
+              },
               // margin: "0 auto",
               // maxWidth: theme.spacing(34),
               // width: "100%",
@@ -310,30 +312,45 @@ const Home: NextPage = () => {
         </div>
       </Layout>
 
+      <Line
+        spacing={0}
+        css={{
+          color: "#666",
+        }}
+      />
+
+      <GamePromo />
+
       <Layout
         css={(theme) => ({
-          [theme.mq.sm]: {
-            paddingBottom: theme.spacing(6),
-          },
           background: theme.colors.white,
         })}
       >
         <Grid>
-          {/* Game promo */}
-          <GamePromo />
+          <ComposedCardOfTheDay
+            css={(theme) => ({
+              gridColumn: "span 12",
+              background: theme.colors.page_bg_light_gray,
+              color: theme.colors.text_title_dark,
+              marginTop: theme.spacing(5),
+              borderRadius: theme.spacing(3),
+
+              [theme.maxMQ.md]: {
+                gridColumn: "span 9",
+              },
+
+              [theme.maxMQ.sm]: {
+                borderRadius: theme.spacing(2),
+                marginTop: theme.spacing(3),
+              },
+            })}
+          />
         </Grid>
       </Layout>
 
-      <ComposedCardOfTheDay
-        css={(theme) => ({
-          background: `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`,
-          color: theme.colors.page_bg_light,
-        })}
-      />
-
       <Layout
         css={(theme) => ({
-          paddingTop: theme.spacing(6),
+          paddingTop: theme.spacing(3),
           paddingBottom: theme.spacing(6),
           background: theme.colors.white,
         })}
@@ -342,11 +359,15 @@ const Home: NextPage = () => {
           css={(theme) => ({
             alignItems: "flex-start",
             gap: theme.spacing(3),
-            [theme.maxMQ.md]: {
+
+            // [theme.maxMQ.md]: {
+            //   [theme.mq.sm]: {
+            //     gridTemplateColumns: `repeat(8, ${theme.spacing(7.5)}px)`,
+            //   },
+            // },
+            [theme.maxMQ.sm]: {
               gap: theme.spacing(1),
-              [theme.mq.sm]: {
-                gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
-              },
+              paddingTop: theme.spacing(4),
             },
           })}
         >
@@ -357,17 +378,19 @@ const Home: NextPage = () => {
               color: theme.colors.text_title_light,
               position: "relative",
               overflow: "hidden",
-              gridColumn: "-1/ 1",
-              [theme.mq.sm]: {
+              gridColumn: "span 3",
+
+              [theme.mq.md]: {
                 gridColumn: "span 3",
-                gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
               },
-              // [theme.maxMQ.md]: {
-              //   gridColumn: "span 4",
-              // },
-              // [theme.maxMQ.sm]: {
-              //   gridColumn: "span 6",
-              // },
+
+              [theme.maxMQ.md]: {
+                gridColumn: "span 4",
+              },
+
+              [theme.maxMQ.sm]: {
+                gridColumn: "span 8",
+              },
             })}
           >
             <Discord
@@ -438,15 +461,18 @@ const Home: NextPage = () => {
               color: theme.colors.text_title_light,
               position: "relative",
               overflow: "hidden",
-              gridColumn: "-1/ 1",
-              [theme.mq.sm]: {
+              gridColumn: "span 3",
+
+              [theme.mq.md]: {
                 gridColumn: "span 3",
               },
+
               [theme.maxMQ.md]: {
                 gridColumn: "span 4",
               },
+
               [theme.maxMQ.sm]: {
-                gridColumn: "span 6",
+                gridColumn: "span 8",
               },
             })}
           >

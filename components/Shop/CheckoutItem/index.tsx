@@ -51,9 +51,6 @@ const ShopCheckoutItem: FC<Props> = ({
           display: "flex",
           width: "100%",
           alignItems: "center",
-          [theme.mq.sm]: {
-            // height: theme.spacing(15),
-          },
           [theme.maxMQ.sm]: {
             flexWrap: "wrap",
             display: "inline-flex",
@@ -105,7 +102,7 @@ const ShopCheckoutItem: FC<Props> = ({
           {...(titleVariant
             ? { component: titleVariant }
             : {
-                component: width>=breakpoints.sm?"h4": "h3",
+                component: width >= breakpoints.sm ? "h4" : "h3",
               })}
         >
           {title}
@@ -199,15 +196,16 @@ const ShopCheckoutItem: FC<Props> = ({
           })}
         >
           {price && (
-            <Text variant={priceVariant} 
-            css={(theme) => ({
-              marginTop: 10,
-              marginBottom: 0,
-              fontSize: 30,
-              [theme.maxMQ.sm]: {
-                fontSize: 25
-              },
-            })}
+            <Text
+              variant={priceVariant}
+              css={(theme) => ({
+                marginTop: 10,
+                marginBottom: 0,
+                fontSize: 30,
+                [theme.maxMQ.sm]: {
+                  fontSize: 25,
+                },
+              })}
             >
               {price.toLocaleString(undefined, {
                 style: "currency",
@@ -219,10 +217,10 @@ const ShopCheckoutItem: FC<Props> = ({
             <Text
               component="button"
               css={(theme) => ({
-                  transition: theme.transitions.slow("opacity"),
-                  opacity: 0.5,
-                  "&:hover": {
-                    opacity: 1,
+                transition: theme.transitions.slow("opacity"),
+                opacity: 0.5,
+                "&:hover": {
+                  opacity: 1,
                 },
               })}
               onClick={remove}
