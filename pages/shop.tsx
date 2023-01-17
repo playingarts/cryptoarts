@@ -81,7 +81,7 @@ const Content: FC = () => {
             paddingLeft: theme.spacing(3),
             paddingRight: theme.spacing(3),
           },
-          paddingBottom: theme.spacing(5),
+          paddingBottom: theme.spacing(4),
         })}
       >
         <Grid
@@ -153,8 +153,10 @@ const Content: FC = () => {
       <Layout
         notTruncatable={true}
         css={(theme) => ({
+          
           paddingBottom: theme.spacing(12),
           [theme.maxMQ.sm]: {
+            paddingTop: theme.spacing(1),
             paddingBottom: theme.spacing(2.5),
           },
           background: theme.colors.page_bg_light,
@@ -546,8 +548,8 @@ const Content: FC = () => {
           paddingTop: theme.spacing(10),
           paddingBottom: theme.spacing(10),
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(7),
-            paddingBottom: theme.spacing(7),
+            paddingTop: theme.spacing(6),
+            paddingBottom: theme.spacing(6),
           },
         })}
       >

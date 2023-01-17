@@ -46,8 +46,8 @@ const Home: NextPage = () => {
               position: "relative",
               width: "max-content",
               transform: "rotate(-15deg)",
-              top: theme.spacing(-30),
-              left: "15%",
+              top: theme.spacing(-31),
+              left: "0",
               [theme.maxMQ.sm]: {
                 "--width": `${theme.spacing(14)}px !important`,
                 "--height": `${theme.spacing(19.6)}px !important`,
@@ -180,10 +180,15 @@ const Home: NextPage = () => {
               },
             ]}
           >
-            <Text variant="body3">
+            <Text
+              variant="body3"
+              css={{
+                marginTop: 15,
+              }}
+            >
               Playing Arts is a global art initiative that brings together
-              renowned artists from around the world to showcase their unique
-              perspectives and artistic styles through the medium of playing
+              renowned artists from around the world to showcase their artistic
+              styles and unique perspectives through the medium of playing
               cards. The result is a diverse and captivating collection of
               artwork that celebrates the endless possibilities that can be
               explored through the simple form of a playing card.
@@ -258,7 +263,7 @@ const Home: NextPage = () => {
           background: theme.colors.text_title_light,
           [theme.maxMQ.sm]: {
             background: theme.colors.white,
-            paddingTop: theme.spacing(5),
+            paddingTop: theme.spacing(6),
             paddingBottom: theme.spacing(5),
           },
         })}
@@ -268,12 +273,6 @@ const Home: NextPage = () => {
           css={[
             {
               overflow: "hidden",
-              [theme.maxMQ.sm]: {
-                marginTop: theme.spacing(3),
-              },
-              // margin: "0 auto",
-              // maxWidth: theme.spacing(34),
-              // width: "100%",
             },
           ]}
         >
@@ -306,33 +305,34 @@ const Home: NextPage = () => {
           </Grid>
           <BrowseCollection
             css={(theme) => ({
-              marginTop: theme.spacing(2),
+              marginTop: theme.spacing(1),
             })}
           />
         </div>
       </Layout>
 
       <Grid
-      css={(theme) => ({
-        background: theme.colors.white,
-      })}>
-      <Line
-        spacing={0}
-        css={{
-          color: "#666",
-          gridColumn: "span 12",
-          marginLeft: theme.spacing(1.5),
-            marginRight: theme.spacing(1.5),
-          [theme.maxMQ.sm]: {
-            gridColumn: "span 6",
+        css={(theme) => ({
+          background: theme.colors.white,
+        })}
+      >
+        <Line
+          spacing={0}
+          css={{
+            color: "#666",
+            gridColumn: "span 12",
             marginLeft: theme.spacing(1.5),
             marginRight: theme.spacing(1.5),
-          },
-          [theme.maxMQ.md]: {
-            gridColumn: "span 9",
-          },
-        }}
-      />
+            [theme.maxMQ.sm]: {
+              gridColumn: "span 6",
+              marginLeft: theme.spacing(1.5),
+              marginRight: theme.spacing(1.5),
+            },
+            [theme.maxMQ.md]: {
+              gridColumn: "span 9",
+            },
+          }}
+        />
       </Grid>
 
       <GamePromo />
@@ -349,7 +349,7 @@ const Home: NextPage = () => {
               background: theme.colors.page_bg_light_gray,
               color: theme.colors.text_title_dark,
               marginTop: theme.spacing(5),
-              borderRadius: theme.spacing(3),
+              borderRadius: theme.spacing(2),
 
               [theme.maxMQ.md]: {
                 gridColumn: "span 9",

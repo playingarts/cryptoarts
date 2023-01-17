@@ -203,7 +203,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         </Link>
       )}
 
-      {refs.roadmapRef && !artistId && !ownedAssets && (
+      {deckId === "crypto" && refs.roadmapRef && !artistId && !ownedAssets && (
         <Link
           href={{
             pathname,

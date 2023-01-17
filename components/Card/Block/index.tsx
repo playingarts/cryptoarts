@@ -39,7 +39,9 @@ const CardBlock: FC<Props> = ({
       card={card}
       animated={true}
       // size={"big"}
-      {...(!cardOfTheDay && { size: "big" })}
+      {...(
+        !cardOfTheDay && { size: "big" }
+      )}
       interactive={true}
       noInfo={true}
       owned={

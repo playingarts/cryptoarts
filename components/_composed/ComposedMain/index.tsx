@@ -39,6 +39,9 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
             }
           : {
               background: theme.colors.page_bg_light_gray,
+              [theme.maxMQ.sm]: {
+                background: theme.colors.white,
+              },
             },
       ]}
     >

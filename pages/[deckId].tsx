@@ -414,19 +414,22 @@ const Content: FC<{
               <ComposedCardList deck={deck} ownedCards={ownedCards} />
             </Layout>
           )}
-          <Layout
-            scrollIntoView={section === Sections.game}
-            ref={gameRef}
-            data-id="game-promo"
-            css={(theme) => [
-              {
-                paddingRight: theme.spacing(0),
-                paddingLeft: theme.spacing(0),
-              },
-            ]}
-          >
-            <GamePromo />
-          </Layout>
+
+          {width >= breakpoints.sm && (
+            <Layout
+              scrollIntoView={section === Sections.game}
+              ref={gameRef}
+              data-id="game-promo"
+              css={(theme) => [
+                {
+                  paddingRight: theme.spacing(0),
+                  paddingLeft: theme.spacing(0),
+                },
+              ]}
+            >
+              <GamePromo />
+            </Layout>
+          )}
 
           {/* {contest && <ArtContest deck={deck} />} */}
 

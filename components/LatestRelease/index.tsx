@@ -34,11 +34,12 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
         overflow: "hidden",
         [theme.maxMQ.sm]: {
           backgroundSize: "100% cover",
-          paddingBottom: theme.spacing(27.7),
+          // paddingBottom: theme.spacing(27.7),
         },
         [theme.maxMQ.xsm]: {
           backgroundPositionX: "center",
-          backgroundSize: "175% cover",
+          backgroundPositionY: "bottom",
+          backgroundSize: "150%",
         },
       })}
       // {...(status === "connected" && {

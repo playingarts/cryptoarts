@@ -51,27 +51,45 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
                   gap: theme.spacing(1),
                 },
               ]}
-              items={decks.map(({ slug, product }) =>
+              items={decks.map(({ slug, title, product }) =>
                 !product ? null : (
-                  <Link
-                    href={`/${slug}`}
-                    key={slug + slug}
-                    css={(theme) => [
-                      {
-                        width: width,
-                        backgroundColor: theme.colors.brightGray,
-                        backgroundSize: `${theme.spacing(40.8)}px 100%`,
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        borderRadius: theme.spacing(2),
-                        flexGrow: 1,
-                        flexShrink: 0,
-                        display: "inline-block",
-                        height: theme.spacing(34),
-                      },
-                    ]}
-                    style={{ backgroundImage: `url(${product.image})` }}
-                  />
+                  <div>
+                    <Link
+                      href={`/${slug}`}
+                      key={slug + slug}
+                      css={(theme) => [
+                        {
+                          width: width,
+                          backgroundColor: theme.colors.brightGray,
+                          backgroundSize: `${theme.spacing(40.8)}px 100%`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          borderRadius: theme.spacing(2),
+                          flexGrow: 1,
+                          flexShrink: 0,
+                          display: "inline-block",
+                          height: theme.spacing(34),
+                        },
+                      ]}
+                      style={{ backgroundImage: `url(${product.image})` }}
+                    />
+                    <Button
+                      href={`/${slug}`}
+                      component={Link}
+                      css={(theme) => [
+                        {
+                          width: "100%",
+                          marginTop: theme.spacing(1),
+                          marginBottom: theme.spacing(1),
+                          color: theme.colors.white,
+                          backgroundColor: theme.colors.black,
+                          justifyContent: "center",
+                        },
+                      ]}
+                    >
+                      VIEW {title}
+                    </Button>
+                  </div>
                 )
               )}
             />
@@ -137,7 +155,7 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
             )}
           </Grid>
         ))}
-      {isCarousel && width < breakpoints.sm && (
+      {isCarousel && width > 100000 && (
         <Button
           onClick={() => setIsCarousel(false)}
           css={(theme) => [
@@ -150,7 +168,7 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
             },
           ]}
         >
-          VIEW ALL EDITIONS
+          ALL EDITIONS
         </Button>
       )}
     </Grid>
