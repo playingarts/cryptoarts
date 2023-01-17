@@ -7,8 +7,8 @@ import {
   HTMLAttributes,
   RefObject,
 } from "react";
-import { Sections } from "../../source/enums";
 import { useOwnedAssets } from "../../hooks/opensea";
+import { Sections } from "../../source/enums";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Link from "../Link";
@@ -203,7 +203,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         </Link>
       )}
 
-      {deckId === "crypto" && refs.roadmapRef && !artistId && !ownedAssets && (
+      {refs.roadmapRef && refs.roadmapRef.current && !artistId && !ownedAssets && (
         <Link
           href={{
             pathname,
