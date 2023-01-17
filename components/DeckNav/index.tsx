@@ -8,6 +8,7 @@ import {
   RefObject,
 } from "react";
 import { Sections } from "../../source/enums";
+import { useOwnedAssets } from "../../hooks/opensea";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
 import Link from "../Link";
@@ -20,6 +21,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     contestRef?: RefObject<HTMLElement>;
     deckRef?: RefObject<HTMLElement>;
     roadmapRef?: RefObject<HTMLElement>;
+    gameRef?: RefObject<HTMLElement>;
   };
   deck?: GQL.Deck;
   linkCss?: ((_: Theme) => CSSInterpolation) | CSSObject;
@@ -45,6 +47,8 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
       block: "start",
     });
   };
+
+  const ownedAssets = useOwnedAssets("crypto");
 
   return (
     <nav
@@ -133,11 +137,12 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           })}
           onClick={bringIntoViewHandler(refs.cardsRef)}
         >
-          {((deckId === "special" ||
+          {/* {((deckId === "special" ||
             deckId === "future_i" ||
             deckId === "future_ii") &&
             "Winners") ||
-            "Cards"}
+            "Cards"} */}
+          Cards
         </Link>
       )}
       {refs.contestRef && (
@@ -156,10 +161,29 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           })}
           onClick={bringIntoViewHandler(refs.contestRef)}
         >
-          all entries
+          All Entries
         </Link>
       )}
-      {refs.nftRef && (
+      {deckId === "crypto" && refs.gameRef && ownedAssets && (
+        <Link
+          href={{
+            pathname,
+            query: { ...query, section: Sections.game },
+          }}
+          shallow={true}
+          scroll={false}
+          css={(theme) => ({
+            ...linkCss,
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+            fontWeight: 600,
+          })}
+          onClick={bringIntoViewHandler(refs.gameRef)}
+        >
+          Game
+        </Link>
+      )}
+      {refs.nftRef && !artistId && (
         <Link
           href={{
             pathname,
@@ -175,14 +199,15 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           })}
           onClick={bringIntoViewHandler(refs.nftRef)}
         >
-          nft
+          NFT
         </Link>
       )}
-      {deckId === "crypto" && !artistId && refs.roadmapRef && (
+
+      {refs.roadmapRef && !artistId && !ownedAssets && (
         <Link
           href={{
             pathname,
-            query: { ...query, section: Sections.roadmap },
+            query: { ...query, section: Sections.nft },
           }}
           shallow={true}
           scroll={false}
@@ -194,9 +219,10 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           })}
           onClick={bringIntoViewHandler(refs.roadmapRef)}
         >
-          ROADMAP
+          Roadmap
         </Link>
       )}
+
       {refs.deckRef && (
         <Link
           href={{

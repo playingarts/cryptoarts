@@ -402,15 +402,15 @@ const Header: FC<Props> = ({
                   palette !== "dark"
                     ? showAltNav
                       ? "white"
-                      : "dark_gray"
+                      : "black"
                     : "white"
                 }
                 textColor={
                   palette !== "dark"
                     ? showAltNav
-                      ? "dark_gray"
+                      ? "black"
                       : "white"
-                    : "dark_gray"
+                    : "black"
                 }
                 css={(theme) => ({
                   marginRight: theme.spacing(2),

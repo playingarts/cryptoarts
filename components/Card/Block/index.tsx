@@ -64,20 +64,25 @@ const CardBlock: FC<Props> = ({
     <Grid
       {...props}
       short={true}
-      css={(theme) => ({
-        rowGap: theme.spacing(2),
-        color: theme.colors.text_subtitle_light,
-        [theme.mq.sm]: {
-          [theme.maxMQ.md]: {
-            gridTemplateColumns: `repeat(7, ${theme.spacing(7.5)}px)`,
+      css={(theme) => [
+        !cardOfTheDay && {
+          [theme.mq.sm]: {
+            [theme.maxMQ.md]: {
+              gridTemplateColumns: `repeat(7, ${theme.spacing(7.5)}px)`,
+            },
           },
         },
-        [theme.maxMQ.sm]: {
-          columnGap: 0,
-          paddingLeft: theme.spacing(1.5),
-          paddingRight: theme.spacing(1.5),
+        {
+          rowGap: theme.spacing(2),
+          color: theme.colors.text_subtitle_light,
+
+          [theme.maxMQ.sm]: {
+            columnGap: 0,
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+          },
         },
-      })}
+      ]}
     >
       {cardOfTheDay && width < breakpoints.md && (
         <div
@@ -87,7 +92,13 @@ const CardBlock: FC<Props> = ({
               marginBottom: 30,
               color: theme.colors.text_subtitle_dark,
               [theme.maxMQ.md]: {
+                paddingLeft: theme.spacing(4),
+                paddingRight: theme.spacing(4),
+              },
+              [theme.maxMQ.sm]: {
                 marginBottom: 10,
+                paddingLeft: theme.spacing(0),
+                paddingRight: theme.spacing(0),
               },
             },
           ]}
@@ -99,14 +110,14 @@ const CardBlock: FC<Props> = ({
       )}
       <div
         css={(theme) => [
-          {
-            gridColumn: "1 / -1",
+          !cardOfTheDay && {
             [theme.maxMQ.md]: {
               marginTop: theme.spacing(3),
-              [theme.mq.sm]: {
-                gridColumn: "2 / span 5",
-              },
             },
+          },
+          {
+            gridColumn: "1 / -1",
+
             [theme.mq.md]: {
               gridColumn: "span 4",
             },
@@ -144,7 +155,7 @@ const CardBlock: FC<Props> = ({
             [theme.maxMQ.md]: {
               marginTop: theme.spacing(3),
             },
-            gridColumn: "span 7",
+            // gridColumn: "span 7",
           },
           [theme.mq.md]: [
             // !cardOfTheDay && {
@@ -178,29 +189,23 @@ const CardBlock: FC<Props> = ({
           deck={deck}
           cardId={card._id}
         />
-        {/* {cardOfTheDay && (
-          <Quote
-            palette="light"
-            key={card._id}
-            fullArtist={false}
-            artist={card.artist}
-            withoutName={true}
-            vertical={true}
-            truncate={7}
+        {cardOfTheDay && (
+          <div
             css={(theme) => [
-              cardOfTheDay && {
-                [theme.mq.md]: {
-                  marginTop: theme.spacing(-1),
-                  color: theme.colors.black,
+              {
+                [theme.maxMQ.md]: {
+                  paddingLeft: theme.spacing(4),
+                  paddingRight: theme.spacing(4),
+                  marginTop: theme.spacing(4),
+                },
+                [theme.maxMQ.sm]: {
+                  marginTop: 0,
+                  paddingLeft: theme.spacing(0),
+                  paddingRight: theme.spacing(0),
                 },
               },
             ]}
           >
-            {card.info}
-          </Quote>
-        )} */}
-        {cardOfTheDay && (
-          <div>
             <Line
               palette="light"
               css={(theme) => ({
@@ -209,21 +214,21 @@ const CardBlock: FC<Props> = ({
               })}
             />
             <Text
-            component={Link}
-            href={`/${card.deck.slug}`}
-            variant="label"
-            css={{
-              opacity: 0.5,
-              display: "inline-block",
-              color: theme.colors.black,
-              transition: theme.transitions.fast("opacity"),
-              "&:hover": {
-                opacity: 1,
-              },
-            }}
-          >
-            <Arrowed>For {card.deck.title}</Arrowed>
-          </Text>
+              component={Link}
+              href={`/${card.deck.slug}`}
+              variant="label"
+              css={{
+                opacity: 0.5,
+                display: "inline-block",
+                color: theme.colors.black,
+                transition: theme.transitions.fast("opacity"),
+                "&:hover": {
+                  opacity: 1,
+                },
+              }}
+            >
+              <Arrowed>For {card.deck.title}</Arrowed>
+            </Text>
           </div>
         )}
       </div>

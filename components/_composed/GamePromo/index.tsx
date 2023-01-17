@@ -18,25 +18,28 @@ const GamePromo: FC = () => {
         gridColumn: "1 / -1",
         position: "relative",
         backgroundImage:
-          "url(https://s3.amazonaws.com/img.playingarts.com/crypto/game/cards_bg.jpg)",
-        backgroundSize: "2200px",
+          "url(https://s3.amazonaws.com/img.playingarts.com/www/static/game_background.jpg?3)",
+        backgroundColor: theme.colors.dark_gray,
+        backgroundSize: "2000px",
         backgroundRepeat: "no-repeat",
         backgroundAttachment: "fixed",
         backgroundPositionX: "center",
-        backgroundPositionY: "top",
-        borderRadius: "0",
+        backgroundPositionY: "center",
 
         [theme.maxMQ.md]: {
+          backgroundSize: "1900px",
+          backgroundPositionX: "-380px",
           [theme.mq.sm]: {
-            paddingRight: theme.spacing(19.5),
             paddingTop: theme.spacing(10),
             paddingBottom: theme.spacing(10),
+            paddingRight: theme.spacing(19.5),
             // transform: "scaleX(-1)",
           },
         },
         [theme.maxMQ.sm]: {
           paddingTop: theme.spacing(5),
           paddingBottom: theme.spacing(5),
+          backgroundAttachment: "inherit",
         },
         [theme.mq.md]: {
           paddingTop: theme.spacing(15),
@@ -45,9 +48,11 @@ const GamePromo: FC = () => {
           paddingRight: theme.spacing(10.5),
         },
         [theme.maxMQ.xsm]: {
-          backgroundSize: "1200px",
-          backgroundPositionX: "-300px",
-          backgroundPositionY: "center",
+          backgroundSize: "900px",
+          backgroundPositionX: "-370px",
+          backgroundPositionY: "-140px",
+          paddingTop: theme.spacing(17),
+          paddingBottom: theme.spacing(0),
         },
       })}
     >
@@ -60,20 +65,17 @@ const GamePromo: FC = () => {
               padding: "30px 0",
               gridColumn: "2 / 8",
             },
-            
             [theme.mq.md]: {
               padding: "0",
               gridColumn: "1 / -1",
             },
-            
             [theme.maxMQ.sm]: {
               gridColumn: "1 / 4",
-              padding: "50px 25px",
+              padding: "50px 20px",
             },
             [theme.maxMQ.xsm]: {
               gridColumn: "1 / 7",
             },
-
           })}
         >
           <Text component="h2" css={{ margin: 0 }}>
@@ -116,7 +118,13 @@ const GamePromo: FC = () => {
             Go head to head with opponents in turn-based playing card battle!
           </Text>
           <Button
-            css={(theme) => [{ marginTop: theme.spacing(3) }]}
+            css={(theme) => ({
+              background: theme.colors.eth,
+              color: theme.colors.page_bg_dark,
+              animation: "gradient 5s ease infinite",
+              backgroundSize: "400% 100%",
+              marginTop: theme.spacing(3),
+            })}
             href="https://play2.playingarts.com/"
             component={Link}
           >

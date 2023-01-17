@@ -4,6 +4,7 @@ export enum Sections {
   gallery = "gallery",
   nft = "nft",
   roadmap = "roadmap",
+  game = "game",
   contest = "contest",
 }
 

@@ -22,6 +22,7 @@ import Bag from "../components/Icons/Bag";
 import Layout from "../components/Layout";
 import Link from "../components/Link";
 import Modal from "../components/Modal";
+import GamePromo from "../components/_composed/GamePromo";
 import { useSize } from "../components/SizeProvider";
 import ComposedCardContent from "../components/_composed/CardContent";
 import ComposedCardList from "../components/_composed/ComposedCardList";
@@ -46,6 +47,7 @@ const Content: FC<{
   deckRef: RefObject<HTMLElement>;
   cardsRef: RefObject<HTMLElement>;
   contestRef: RefObject<HTMLElement>;
+  gameRef: RefObject<HTMLElement>;
   deckNavRef: RefObject<HTMLElement>;
   nftRef: RefObject<HTMLElement>;
   roadmapRef: RefObject<HTMLElement>;
@@ -59,6 +61,7 @@ const Content: FC<{
     nftRef,
     roadmapRef,
     contestRef,
+    gameRef,
   }) => {
     const {
       query: { artistId, deckId, section },
@@ -280,6 +283,7 @@ const Content: FC<{
                     (deck && deck.openseaCollection && !artistId && nftRef) ||
                     undefined,
                   cardsRef,
+                  gameRef,
                   contestRef: (losersExist && contestRef) || undefined,
                   deckRef,
                 }}
@@ -410,6 +414,19 @@ const Content: FC<{
               <ComposedCardList deck={deck} ownedCards={ownedCards} />
             </Layout>
           )}
+          <Layout
+            scrollIntoView={section === Sections.game}
+            ref={gameRef}
+            data-id="game-promo"
+            css={(theme) => [
+              {
+                paddingRight: theme.spacing(0),
+                paddingLeft: theme.spacing(0),
+              },
+            ]}
+          >
+            <GamePromo />
+          </Layout>
 
           {/* {contest && <ArtContest deck={deck} />} */}
 
@@ -549,6 +566,7 @@ const Page: NextPage = () => {
   const deckRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLElement>(null);
   const contestRef = useRef<HTMLElement>(null);
+  const gameRef = useRef<HTMLElement>(null);
   const deckNavRef = useRef<HTMLElement>(null);
   const nftRef = useRef<HTMLElement>(null);
   const roadmapRef = useRef<HTMLElement>(null);
@@ -610,6 +628,7 @@ const Page: NextPage = () => {
               contestRef: (losersExist && contestRef) || undefined,
               nftRef: (deck && deck.openseaCollection && nftRef) || undefined,
               cardsRef,
+              gameRef,
               deckRef,
               aboutRef,
             }}
@@ -631,6 +650,7 @@ const Page: NextPage = () => {
           deckRef={deckRef}
           cardsRef={cardsRef}
           contestRef={contestRef}
+          gameRef={gameRef}
           deckNavRef={deckNavRef}
           nftRef={nftRef}
           roadmapRef={roadmapRef}

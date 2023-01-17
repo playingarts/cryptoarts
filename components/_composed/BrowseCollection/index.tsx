@@ -82,7 +82,8 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
             css={(theme) => ({
               gap: theme.spacing(3),
               [theme.maxMQ.sm]: {
-                gap: theme.spacing(2),
+                gap: theme.spacing(1),
+                marginTop: 0,
               },
               gridColumn: "1 / -1",
             })}
@@ -143,8 +144,8 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
             {
               marginTop: theme.spacing(2.5),
               gridColumn: "1/-1",
-              color: theme.colors.text_subtitle_dark,
-              background: theme.colors.brightGray,
+              color: theme.colors.white,
+              background: theme.colors.black,
               justifyContent: "center",
             },
           ]}

@@ -162,7 +162,7 @@ const Content: FC = () => {
         })}
       >
         {latestRelease && (
-          <Grid css={(theme) => ({ marginBottom: theme.spacing(3) })}>
+          <Grid>
             <LatestRelease
               // productId={latestRelease._id}
               // data-id="Latest"
@@ -199,6 +199,7 @@ const Content: FC = () => {
         <BlockTitle
           alwaysSubtitle={true}
           {...(width <= breakpoints.xsm && { noLine: true })}
+          variant="h3"
           title="Decks of Cards"
           subTitleText={
             <span
@@ -219,7 +220,6 @@ const Content: FC = () => {
               quality coated playing card stock.
             </span>
           }
-          variant="h3"
           css={(theme) => ({
             marginBottom: theme.spacing(1),
 
@@ -230,7 +230,10 @@ const Content: FC = () => {
               marginTop: theme.spacing(10),
             },
             [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(6),
               marginBottom: theme.spacing(2),
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
             },
           })}
         />
@@ -458,14 +461,16 @@ const Content: FC = () => {
 
         <div
           css={(theme) => ({
-            [theme.maxMQ.sm]: {
-              marginTop: theme.spacing(7.5),
-              marginBottom: theme.spacing(3),
+            [theme.mq.md]: {
+              marginTop: theme.spacing(12),
             },
             [theme.maxMQ.md]: {
-              marginTop: theme.spacing(7.5),
+              marginTop: theme.spacing(6),
             },
-            marginTop: theme.spacing(9),
+            [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(6),
+              marginBottom: theme.spacing(3),
+            },
           })}
         >
           <BlockTitle
@@ -488,9 +493,6 @@ const Content: FC = () => {
             }
             variant="h3"
             css={(theme) => ({
-              [theme.mq.md]: {
-                marginTop: theme.spacing(12),
-              },
               paddingLeft: theme.spacing(2),
               paddingRight: theme.spacing(2),
             })}

@@ -51,7 +51,7 @@ const ComposedEntries: ForwardRefRenderFunction<
           [theme.mq.sm]: {
             background: theme.colors.page_bg_gray,
             paddingTop: theme.spacing(15),
-            paddingBottom: theme.spacing(8.5),
+            paddingBottom: theme.spacing(10),
           },
         },
       ]}
@@ -80,7 +80,7 @@ const ComposedEntries: ForwardRefRenderFunction<
           css={(theme) => ({
             maxWidth: theme.spacing(105),
             margin: "auto",
-            paddingTop: theme.spacing(4),
+            paddingTop: theme.spacing(1),
             [theme.maxMQ.sm]: {
               paddingBottom: theme.spacing(5),
               paddingTop: theme.spacing(2.5),

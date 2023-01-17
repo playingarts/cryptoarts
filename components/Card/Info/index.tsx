@@ -41,7 +41,7 @@ const CardInfo: FC<Props> = ({
   return (
     <div {...props}>
       <Text
-        variant={width < breakpoints.sm ? "h3" : "h2"}
+        variant={width < breakpoints.md ? "h3" : "h2"}
         css={(theme) => [
           {
             color: theme.colors.white,
@@ -62,25 +62,25 @@ const CardInfo: FC<Props> = ({
       >
         {artist.name}
       </Text>
-      <Text
-        component="div"
-        variant="h6"
-        css={(theme) => [
-          cardOfTheDay && {
-            color: theme.colors.text_subtitle_dark,
-          },
-
-          {
-            [theme.maxMQ.md]: {
-              textAlign: "center",
+      {!cardOfTheDay && (
+        <Text
+          component="div"
+          variant="h6"
+          css={(theme) => [
+            cardOfTheDay && {
+              color: theme.colors.text_subtitle_dark,
             },
-          },
-        ]}
-      >
-        {artist.country}
-      </Text>
-
-      {!cardOfTheDay && width >= breakpoints.md && (
+            {
+              [theme.maxMQ.md]: {
+                textAlign: "center",
+              },
+            },
+          ]}
+        >
+          {artist.country}
+        </Text>
+      )}
+      {!cardOfTheDay && (
         <Line
           palette="dark"
           spacing={3}

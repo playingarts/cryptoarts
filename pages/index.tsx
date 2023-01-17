@@ -259,7 +259,7 @@ const Home: NextPage = () => {
           [theme.maxMQ.sm]: {
             background: theme.colors.white,
             paddingTop: theme.spacing(5),
-            paddingBottom: theme.spacing(3),
+            paddingBottom: theme.spacing(5),
           },
         })}
         notTruncatable={true}
@@ -312,12 +312,28 @@ const Home: NextPage = () => {
         </div>
       </Layout>
 
+      <Grid
+      css={(theme) => ({
+        background: theme.colors.white,
+      })}>
       <Line
         spacing={0}
         css={{
           color: "#666",
+          gridColumn: "span 12",
+          marginLeft: theme.spacing(1.5),
+            marginRight: theme.spacing(1.5),
+          [theme.maxMQ.sm]: {
+            gridColumn: "span 6",
+            marginLeft: theme.spacing(1.5),
+            marginRight: theme.spacing(1.5),
+          },
+          [theme.maxMQ.md]: {
+            gridColumn: "span 9",
+          },
         }}
       />
+      </Grid>
 
       <GamePromo />
 
@@ -341,7 +357,8 @@ const Home: NextPage = () => {
 
               [theme.maxMQ.sm]: {
                 borderRadius: theme.spacing(2),
-                marginTop: theme.spacing(3),
+                marginTop: theme.spacing(2.5),
+                marginBottom: theme.spacing(2.5),
               },
             })}
           />
@@ -359,15 +376,8 @@ const Home: NextPage = () => {
           css={(theme) => ({
             alignItems: "flex-start",
             gap: theme.spacing(3),
-
-            // [theme.maxMQ.md]: {
-            //   [theme.mq.sm]: {
-            //     gridTemplateColumns: `repeat(8, ${theme.spacing(7.5)}px)`,
-            //   },
-            // },
             [theme.maxMQ.sm]: {
               gap: theme.spacing(1),
-              paddingTop: theme.spacing(4),
             },
           })}
         >
