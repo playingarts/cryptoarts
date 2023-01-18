@@ -78,7 +78,7 @@ const Card: FC<Props> = ({
               size === "big" ? theme.spacing(37) : theme.spacing(27.2)
             }px`,
             "--height": `${
-              size === "big" ? theme.spacing(52) : theme.spacing(37.2)
+              size === "big" ? theme.spacing(52) : theme.spacing(38.2)
             }px`,
           },
         },
