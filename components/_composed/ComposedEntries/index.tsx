@@ -50,7 +50,7 @@ const ComposedEntries: ForwardRefRenderFunction<
         {
           [theme.mq.sm]: {
             background: theme.colors.page_bg_gray,
-            paddingTop: theme.spacing(15),
+            paddingTop: theme.spacing(12),
             paddingBottom: theme.spacing(10),
           },
         },

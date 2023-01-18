@@ -53,9 +53,9 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
           justifyContent: "center",
           [theme.maxMQ.sm]: [
             {
-              marginTop: 10,
-              marginBottom: 25,
               gridColumn: "1 / -1",
+              marginTop: theme.spacing(1),
+              marginBottom: theme.spacing(2.5),
               marginLeft: theme.spacing(2),
               marginRight: theme.spacing(2),
               width: "auto",

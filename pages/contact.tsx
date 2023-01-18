@@ -163,8 +163,8 @@ const Page: NextPage = () => {
                   marginTop: theme.spacing(5),
                   marginBottom: theme.spacing(2),
                 },
-                marginTop: theme.spacing(10),
-                marginBottom: theme.spacing(10),
+                marginTop: theme.spacing(12),
+                marginBottom: theme.spacing(12),
                 gridColumn: "1 / -1",
               })}
             />

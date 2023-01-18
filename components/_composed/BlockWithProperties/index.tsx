@@ -31,6 +31,9 @@ const BlockWithProperties: FC<Props> = ({
           paddingRight: theme.spacing(2),
           paddingTop: theme.spacing(1),
         },
+        [theme.maxMQ.md], {
+          paddingTop: theme.spacing(1),
+        },
       ]}
     >
       <Grid

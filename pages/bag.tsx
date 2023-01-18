@@ -175,7 +175,7 @@ const Content: FC<{
                 paddingLeft: theme.spacing(3),
                 paddingRight: theme.spacing(3),
               },
-              paddingBottom: theme.spacing(15),
+              paddingBottom: theme.spacing(12),
             })}
           >
             <Grid>
@@ -301,7 +301,8 @@ const Content: FC<{
                           },
                         ]}
                       >
-                        Your order will be dispatched in 2 to 5 business days. Enjoy free delivery for orders over €{freeShippingAt}.
+                        Your order will be dispatched in 2 to 5 business days.
+                        Enjoy free delivery for orders over €{freeShippingAt}.
                         {/* {freeShippingAt > 0 &&
                           freeShippingAt !== Infinity &&
                           ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
@@ -567,7 +568,7 @@ const Checkout: NextPage = () => {
                 marginBottom: theme.spacing(5),
               },
               marginTop: theme.spacing(12),
-              marginBottom: theme.spacing(10),
+              marginBottom: theme.spacing(12),
               gridColumn: "1 / -1",
             })}
           />

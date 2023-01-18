@@ -3,7 +3,6 @@ import Head from "next/head";
 import { FC, Fragment } from "react";
 import BlockTitle from "../components/BlockTitle";
 import Link from "../components/Link";
-import Arrowed from "../components/Arrowed";
 import AddToBagButton from "../components/AddToBagButton";
 import BagButton from "../components/BagButton";
 import CardFan from "../components/Card/Fan";
@@ -117,6 +116,12 @@ const Content: FC = () => {
               flexWrap: "wrap",
               alignItems: "center",
               justifyContent: "right",
+              transition: theme.transitions.fast("opacity"),
+              [theme.mq.sm]: {
+                "&:hover": {
+                  opacity: 1,
+                },
+              },
 
               [theme.maxMQ.sm]: {
                 gridColumn: "3 / 7",
@@ -133,7 +138,7 @@ const Content: FC = () => {
             shallow={true}
             scroll={false}
           >
-            <Arrowed>We ship worldwide!</Arrowed>
+            We ship worldwide!
           </Text>
           <Line
             spacing={0}
@@ -153,7 +158,6 @@ const Content: FC = () => {
       <Layout
         notTruncatable={true}
         css={(theme) => ({
-          
           paddingBottom: theme.spacing(12),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(1),
@@ -198,6 +202,9 @@ const Content: FC = () => {
             />
           </Grid>
         )}
+
+        {/* Cards Block */}
+
         <BlockTitle
           alwaysSubtitle={true}
           {...(width <= breakpoints.xsm && { noLine: true })}
@@ -461,6 +468,8 @@ const Content: FC = () => {
           </Grid>
         )}
 
+        {/* Bundles Block */}
+
         <div
           css={(theme) => ({
             [theme.mq.md]: {
@@ -542,6 +551,8 @@ const Content: FC = () => {
         </div>
       </Layout>
 
+      {/* Uncut Sheets Block */}
+
       <Layout
         css={(theme) => ({
           background: `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
@@ -555,12 +566,15 @@ const Content: FC = () => {
       >
         <ShopSheets products={sheets} />
       </Layout>
+
+      {/* Shipping FAQ Block */}
+
       <Layout
         data-id="faq"
         css={(theme) => ({
           background: theme.colors.page_bg_light_gray,
           paddingTop: theme.spacing(12),
-          paddingBottom: theme.spacing(10),
+          paddingBottom: theme.spacing(11),
           [theme.mq.sm]: {
             zIndex: 1,
             borderRadius: "0px 0px 50px 50px",

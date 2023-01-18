@@ -124,14 +124,16 @@ const Home: NextPage = () => {
         </Button>
       </ComposedMain>
 
+      {/* About Block */}
+
       <Layout
         css={(theme) => ({
           background: theme.colors.page_bg_light_gray,
-          paddingTop: theme.spacing(14),
+          paddingTop: theme.spacing(12),
           paddingBottom: theme.spacing(12),
           [theme.maxMQ.sm]: {
-            paddingBottom: theme.spacing(6),
             paddingTop: theme.spacing(6),
+            paddingBottom: theme.spacing(6),
             paddingLeft: theme.spacing(3),
             paddingRight: theme.spacing(3),
             position: "relative",
@@ -250,9 +252,11 @@ const Home: NextPage = () => {
         </Grid>
       </Layout>
 
+      {/* Browse Collection Block */}
+
       <Layout
         css={(theme) => ({
-          paddingTop: theme.spacing(10),
+          paddingTop: theme.spacing(12),
           paddingBottom: theme.spacing(5),
           background: theme.colors.text_title_light,
           [theme.maxMQ.sm]: {
@@ -273,7 +277,6 @@ const Home: NextPage = () => {
             },
           ]}
         >
-          {/* <BlockTitle variant="h3" title="Browse Collection" /> */}
           <Grid short={true}>
             <Text
               component="h3"
@@ -332,7 +335,11 @@ const Home: NextPage = () => {
         />
       </Grid>
 
+       {/* Game promo Block */}
+
       <GamePromo />
+
+      {/* Card of the day Block */}
 
       <Layout
         css={(theme) => ({
@@ -362,10 +369,12 @@ const Home: NextPage = () => {
         </Grid>
       </Layout>
 
+      {/* Podcast & socials Block */}
+
       <Layout
         css={(theme) => ({
           paddingTop: theme.spacing(3),
-          paddingBottom: theme.spacing(6),
+          paddingBottom: theme.spacing(3),
           background: theme.colors.white,
         })}
       >

@@ -54,8 +54,24 @@ const Quote: FC<Props> = ({
           ...(vertical ? { flexDirection: "column" } : {}),
         }}
       >
+
+        {/* Card quote Block */}
+
         {children && (
-          <div>
+          <div
+          css={(theme) => ({ 
+            marginBottom: theme.spacing(3),
+
+              [theme.maxMQ.md]: {
+                marginTop: theme.spacing(3),
+                marginBottom: theme.spacing(3),
+              },
+              [theme.maxMQ.sm]: {
+                marginTop: theme.spacing(0),
+                marginBottom: theme.spacing(0),
+              },
+            })}
+          >
             {truncate ? (
               <Truncate
                 onlyMore={true}
@@ -64,7 +80,6 @@ const Quote: FC<Props> = ({
                 css={(theme) => [
                   {
                     margin: 0,
-                    // marginTop: theme.spacing(3),
                     color: theme.colors.white,
                     [theme.maxMQ.sm]: { marginTop: theme.spacing(3) },
                   },
@@ -94,6 +109,9 @@ const Quote: FC<Props> = ({
             )}
           </div>
         )}
+
+        {/* Artist info Block */}
+
         {artist && (
           <div
             key={artist.info}
@@ -102,7 +120,6 @@ const Quote: FC<Props> = ({
                 ? {}
                 : {
                     marginLeft: theme.spacing(13.5),
-                    // width: theme.spacing(22.5),
                     minWidth: theme.spacing(18),
 
                     flexShrink: 0,
@@ -110,12 +127,13 @@ const Quote: FC<Props> = ({
             })}
           >
             {/* {vertical && children && ( */}
-            {!withoutUserPic && (
+            {!withoutUserPic && children && (
               <Line
-                spacing={4}
+                spacing={0}
                 palette={palette}
                 css={(theme) => [
                   {
+                    marginBottom: theme.spacing(3),
                     [theme.maxMQ.sm]: {
                       marginBottom: theme.spacing(3),
                       marginTop: theme.spacing(2.5),
@@ -125,6 +143,7 @@ const Quote: FC<Props> = ({
               />
             )}
             {/* )} */}
+
             <div css={{ display: "flex", alignItems: "top" }}>
               {fullArtist && !withoutUserPic && (
                 <div

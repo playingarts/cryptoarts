@@ -434,7 +434,7 @@ const ModalMenu: FC<
               css={(theme) => ({
                 opacity: 0.5,
                 margin: 0,
-                marginBottom: theme.spacing(1),
+                marginBottom: theme.spacing(2),
                 position: "relative",
               })}
             >

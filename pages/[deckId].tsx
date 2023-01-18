@@ -378,7 +378,7 @@ const Content: FC<{
             </Layout>
           )} */}
 
-          {/* Cards */}
+          {/* Cards block */}
 
           {!contest && (
             <Layout
@@ -407,7 +407,7 @@ const Content: FC<{
                       deck.slug === "crypto"
                         ? `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`
                         : `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
-                    paddingTop: theme.spacing(15),
+                    paddingTop: theme.spacing(12),
                     paddingBottom: theme.spacing(10),
                   },
                 },
@@ -417,6 +417,8 @@ const Content: FC<{
               <ComposedCardList deck={deck} ownedCards={ownedCards} />
             </Layout>
           )}
+
+          { /* Game promo block */ }
 
           {width >= breakpoints.sm && (
             <Layout
@@ -434,6 +436,8 @@ const Content: FC<{
             </Layout>
           )}
 
+          {/* Contest block */ }
+
           {/* {contest && <ArtContest deck={deck} />} */}
 
           {losersExist && (
@@ -447,12 +451,15 @@ const Content: FC<{
 
           {!contest && (
             <Fragment>
+
+              {/* NFT collection block */ }
+
               {deck.openseaCollection && !artistId && (
                 <Layout
                   css={(theme) => ({
                     [theme.mq.sm]: {
                       background: theme.colors.page_bg_dark,
-                      paddingTop: theme.spacing(15),
+                      paddingTop: theme.spacing(12),
                       paddingBottom: theme.spacing(0),
                     },
                   })}
@@ -476,13 +483,16 @@ const Content: FC<{
                   />
                 </Layout>
               )}
+
+              { /* Roadmap block */ }
+
               {deck.slug === "crypto" && !artistId && (
                 <Layout
                   css={(theme) => ({
                     [theme.mq.sm]: {
                       background: theme.colors.page_bg_dark,
                       color: theme.colors.text_title_light,
-                      paddingTop: theme.spacing(15),
+                      paddingTop: theme.spacing(12),
                       paddingBottom: theme.spacing(15),
                       borderRadius: "0 0 50px 50px",
                     },
@@ -500,11 +510,14 @@ const Content: FC<{
                   />
                 </Layout>
               )}
+
+              { /* Physical deck block */ }
+
               <Layout
                 css={(theme) => [
                   {
                     [theme.mq.sm]: {
-                      paddingTop: theme.spacing(15),
+                      paddingTop: theme.spacing(12),
                       paddingBottom:
                         deck.slug === "crypto"
                           ? theme.spacing(3)
@@ -532,6 +545,7 @@ const Content: FC<{
                   deck={deck}
                 />
               </Layout>
+              
               {deck.slug === "crypto" && (
                 <Layout
                   css={(theme) => [
