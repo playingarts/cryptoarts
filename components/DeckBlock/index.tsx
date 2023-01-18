@@ -56,6 +56,9 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
               marginTop: 10,
               marginBottom: 25,
               gridColumn: "1 / -1",
+              marginLeft: theme.spacing(2),
+              marginRight: theme.spacing(2),
+              width: "auto",
             },
           ],
           [theme.mq.sm]: {
@@ -72,7 +75,6 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
       ]}
     >
       {/* todo: make dynamic text */}
-
       {/* {deck.openseaCollection
         ? "Claim"
         : deck.product.status === "soldout"
@@ -100,7 +102,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
           {
             display: "flex",
             flexWrap: "wrap",
-            gap: theme.spacing(2),
+            gap: theme.spacing(1),
             gridColumn: "1/-1",
             paddingBottom: theme.spacing(3),
 
@@ -109,7 +111,6 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
               height: theme.spacing(67.2),
               gap: theme.spacing(3),
               paddingBottom: "0",
-              
             },
             [theme.mq.md]: {
               height: theme.spacing(90.8),

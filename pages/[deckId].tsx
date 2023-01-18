@@ -377,6 +377,9 @@ const Content: FC<{
               />
             </Layout>
           )} */}
+
+          {/* Cards */}
+
           {!contest && (
             <Layout
               scrollIntoView={section === Sections.cards}

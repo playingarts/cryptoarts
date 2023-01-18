@@ -21,8 +21,8 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
           gridColumn: "1/-1",
         }[theme.maxMQ.sm],
         {
-          paddingLeft: theme.spacing(1.5),
-          paddingRight: theme.spacing(1.5),
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
           paddingTop: theme.spacing(1),
         },
       ]}

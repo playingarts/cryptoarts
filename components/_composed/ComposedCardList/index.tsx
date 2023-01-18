@@ -270,7 +270,10 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
               [theme.maxMQ.sm]: [
                 {
                   [theme.maxMQ.sm]: {
-                    paddingBottom: theme.spacing(6.6),
+                    paddingBottom: theme.spacing(8),
+                  },
+                  [theme.maxMQ.xsm]: {
+                    paddingBottom: theme.spacing(4),
                   },
                 },
               ],

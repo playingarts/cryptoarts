@@ -90,13 +90,9 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         <div
           css={(theme) => [
             {
-              // width: "100%",
               position: "sticky",
-              // top: 425,
               height: "55%",
               top: 0,
-              // top: theme.spacing(36.5),
-              // bottom: "-100vh",
               zIndex: 5,
               [theme.maxMQ.sm]: [stopOnMobile && { position: "relative" }],
             },
@@ -107,7 +103,7 @@ const CardNav: ForwardRefRenderFunction<HTMLDivElement, Props> = (
               {
                 maxWidth: theme.spacing(142),
                 margin: "0 auto",
-                top: theme.spacing(37.2),
+                top: theme.spacing(37.5),
                 padding: `0 ${theme.spacing(5)}px`,
                 boxSizing: "content-box",
                 position: "relative",

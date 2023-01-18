@@ -76,6 +76,10 @@ const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
             color: theme.colors.dark_gray,
             marginTop: theme.spacing(1.5),
             marginBottom: theme.spacing(1.5),
+
+            [theme.maxMQ.sm]: {
+              marginTop: theme.spacing(6),
+            },
           })}
           dataPoints={[
             {

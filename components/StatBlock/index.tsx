@@ -43,7 +43,7 @@ const StatBlock: FC<Props> = ({
           position: "relative",
           zIndex: 1,
           // [theme.maxMQ.sm]: [ lessTitleMarginMobile && { marginBottom: theme.spacing(1) }, ],
-          [theme.maxMQ.sm]: { marginBottom: theme.spacing(1.5) },
+          [theme.maxMQ.sm]: { marginBottom: theme.spacing(1) },
         })}
       >
         {title}

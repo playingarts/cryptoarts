@@ -213,7 +213,14 @@ const ModalMenu: FC<
         </div>
 
         {windowWidth >= breakpoints.sm && (
-          <Line vertical={true} palette="dark" />
+          <Line
+            vertical={true}
+            palette="dark"
+            css={(theme) => ({
+              marginTop: theme.spacing(0),
+              marginBottom: theme.spacing(0),
+            })}
+          />
         )}
         <div
           css={(theme) => [
@@ -313,14 +320,24 @@ const ModalMenu: FC<
           >
             {(windowWidth < breakpoints.xsm ||
               windowWidth >= breakpoints.sm) && (
-              <Line palette="dark" css={{ width: "100%" }} spacing={4} />
+              <Line
+                palette="dark"
+                css={{
+                  width: "100%",
+                  [theme.mq.sm]: {
+                    marginTop: theme.spacing(3.5),
+                    marginBottom: theme.spacing(3.5),
+                  },
+                }}
+                spacing={3}
+              />
             )}
 
             <div
               css={(theme) => ({
                 display: "flex",
                 flexWrap: "wrap",
-                marginBottom: 40,
+                marginBottom: theme.spacing(3),
                 color: colord(theme.colors.white).alpha(0.2).toRgbString(),
                 [theme.maxMQ.sm]: {
                   gap: theme.spacing(1.6),
@@ -401,8 +418,28 @@ const ModalMenu: FC<
               We will never share your details with others. Unsubscribe at
               anytime!
             </Text>
-            <Line palette="dark" css={{ width: "100%" }} spacing={3.5} />
-
+            <Line
+              palette="dark"
+              css={{
+                width: "100%",
+                [theme.mq.sm]: {
+                  marginTop: theme.spacing(3),
+                  // marginBottom: theme.spacing(3.5),
+                },
+              }}
+              spacing={2.5}
+            />
+            <Text
+              component="h6"
+              css={(theme) => ({
+                opacity: 0.5,
+                margin: 0,
+                marginBottom: theme.spacing(1),
+                position: "relative",
+              })}
+            >
+              Augmented Reality app
+            </Text>
             <StoreButtons
               css={{
                 color: colord(theme.colors.white).alpha(0.2).toRgbString(),
@@ -411,12 +448,6 @@ const ModalMenu: FC<
                 variant: "bordered",
               }}
             />
-            {/* <Line
-                // ref={lineRef}
-                spacing={3}
-                palette="dark"
-                css={{ width: "100%" }}
-              /> */}
           </div>
         </div>
       </Grid>

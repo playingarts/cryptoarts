@@ -84,7 +84,7 @@ const Podcast: FC<Props> = ({
               marginTop: 0,
               marginBottom: theme.spacing(1),
               [theme.mq.sm]: [!smallTitle && theme.typography.h3],
-              [theme.maxMQ.sm]: theme.typography.h3,
+              [theme.maxMQ.sm]: theme.typography.h2,
             })}
           >
             {podcastName}

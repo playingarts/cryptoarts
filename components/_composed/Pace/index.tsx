@@ -160,6 +160,9 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
                 [theme.maxMQ.sm]: {
                   marginTop: theme.spacing(1),
                   marginBottom: theme.spacing(1),
+                  marginLeft: theme.spacing(2),
+                  marginRight: theme.spacing(2),
+                  width: "auto"
                 },
               })}
               href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
@@ -236,7 +239,7 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
                 {
                   [theme.maxMQ.sm]: {
                     gridColumn: "1 / -1",
-                    marginBottom: theme.spacing(3),
+                    marginBottom: theme.spacing(1),
                   },
                 },
               ]}

@@ -24,6 +24,8 @@ import { breakpoints } from "../source/enums";
 const Home: NextPage = () => {
   const { width } = useSize();
 
+  const { width: windowWidth } = useSize();
+
   return (
     <ComposedGlobalLayout extended={true} scrollArrow="block-about">
       <div
@@ -121,18 +123,6 @@ const Home: NextPage = () => {
           Learn more
         </Button>
       </ComposedMain>
-      {/* <Grid>
-          <div css={{ gridColumn: "span 6" }}>
-            <Text component="h1" css={{ margin: 0 }}>
-              Collective Art Project
-            </Text>
-            <Text variant="body3" css={{ margin: 0 }}>
-              For creative people who are into illustrations, playing cards,
-              NFTs and sometimes magic.
-            </Text>
-          </div>
-        </Grid> */}
-      {/* </Layout> */}
 
       <Layout
         css={(theme) => ({
@@ -199,7 +189,7 @@ const Home: NextPage = () => {
                   marginTop: theme.spacing(5),
                   display: "flex",
                   flexWrap: "wrap",
-                  gap: theme.spacing(3),
+                  gap: theme.spacing(4.5),
                   [theme.mq.sm]: {
                     gap: theme.spacing(3),
                   },
@@ -224,13 +214,17 @@ const Home: NextPage = () => {
                     },
                   ]}
                 >
-                  <Line
-                    vertical={true}
-                    spacing={0}
-                    css={(theme) => [
-                      { margin: 0, marginRight: theme.spacing(2) },
-                    ]}
-                  />
+                  {windowWidth >= breakpoints.xsm && (
+                    <Line
+                      vertical={true}
+                      spacing={0}
+                      css={(theme) => ({
+                        marginLeft: 0,
+                        marginRight: theme.spacing(2),
+                      })}
+                    />
+                  )}
+
                   <div>
                     <Text
                       component="h3"
@@ -265,6 +259,9 @@ const Home: NextPage = () => {
             background: theme.colors.white,
             paddingTop: theme.spacing(6),
             paddingBottom: theme.spacing(5),
+          },
+          [theme.maxMQ.xsm]: {
+            paddingBottom: theme.spacing(1),
           },
         })}
         notTruncatable={true}
@@ -399,7 +396,7 @@ const Home: NextPage = () => {
               },
 
               [theme.maxMQ.sm]: {
-                gridColumn: "span 8",
+                gridColumn: "span 9",
               },
             })}
           >
@@ -482,7 +479,7 @@ const Home: NextPage = () => {
               },
 
               [theme.maxMQ.sm]: {
-                gridColumn: "span 8",
+                gridColumn: "span 9",
               },
             })}
           >

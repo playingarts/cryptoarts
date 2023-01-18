@@ -386,6 +386,7 @@ const NFTHolder: FC<Props> = ({
           color: theme.colors.text_title_light,
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(4),
+            paddingBottom: theme.spacing(4),
           },
         })}
         {...props}
@@ -396,7 +397,6 @@ const NFTHolder: FC<Props> = ({
               margin: 0,
               [theme.maxMQ.sm]: {
                 textAlign: "center",
-
                 textTransform: "uppercase",
               },
             },
@@ -414,7 +414,7 @@ const NFTHolder: FC<Props> = ({
             },
           ]}
         >
-          You hold {currentDeal.decks} PACE NFT card! Use following code on
+          You hold {currentDeal.decks} PACE NFT card(s)! Use following code on
           checkout to get 50% on all items in your bag: “
           <b>{currentDeal.code}</b>”.
         </Text>
@@ -422,9 +422,12 @@ const NFTHolder: FC<Props> = ({
         <Text
           component={Link}
           variant="label"
-          css={{
-            opacity: 0.5,
-          }}
+          css={(theme) => [
+            {
+              opacity: 0.5,
+              [theme.maxMQ.sm]: { display: "block", textAlign: "center", },
+            },
+          ]}
           href={{
             query: {
               scrollIntoView: "[data-id='block-faq']",

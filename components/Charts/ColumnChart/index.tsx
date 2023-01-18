@@ -66,7 +66,7 @@ const ColumnChart: FC<Props> = ({
               rowGap: theme.spacing(2),
               width: theme.spacing(8.8),
               [theme.maxMQ.sm]: {
-                width: theme.spacing(4.8),
+                width: theme.spacing(5.3),
                 paddingTop: theme.spacing(1),
                 borderRadius: theme.spacing(.8),
               },

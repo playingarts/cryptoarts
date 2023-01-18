@@ -254,7 +254,7 @@ const CardBlock: FC<Props> = ({
             css={(theme) => [
               !cardOfTheDay && {
                 [theme.maxMQ.sm]: {
-                  marginBottom: theme.spacing(3),
+                  marginBottom: theme.spacing(2),
                 },
               },
             ]}

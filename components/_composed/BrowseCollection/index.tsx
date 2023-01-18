@@ -6,6 +6,7 @@ import Button from "../../Button";
 import Carousel from "../../Carousel";
 import Grid from "../../Grid";
 import Link from "../../Link";
+import Down from "../../Icons/Down";
 
 const visibleItems = 1;
 
@@ -102,6 +103,7 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
               [theme.maxMQ.sm]: {
                 gap: theme.spacing(1),
                 marginTop: 0,
+                marginBottom: theme.spacing(1.5),
               },
               gridColumn: "1 / -1",
             })}
@@ -155,21 +157,21 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
             )}
           </Grid>
         ))}
-      {isCarousel && width > 100000 && (
+      {isCarousel && width < breakpoints.xsm && (
         <Button
           onClick={() => setIsCarousel(false)}
+          Icon={Down}
           css={(theme) => [
             {
-              marginTop: theme.spacing(2.5),
+              width: "100%",
+              marginTop: theme.spacing(1),
               gridColumn: "1/-1",
-              color: theme.colors.white,
-              background: theme.colors.black,
+              color: "#ccc",
+              background: theme.colors.white,
               justifyContent: "center",
             },
           ]}
-        >
-          ALL EDITIONS
-        </Button>
+        ></Button>
       )}
     </Grid>
   );

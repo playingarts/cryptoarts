@@ -11,7 +11,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     status?: string;
     title: string;
     paragraph: string | JSX.Element;
-    action?: { text: string; href: string, blank?:boolean };
+    action?: { text: string; href: string; blank?: boolean };
     accent?: string;
   }[];
   palette: "light" | "dark";
@@ -65,7 +65,7 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
                   {
                     borderLeft: `${
                       item.accent || theme.colors.lavender
-                    } solid ${theme.spacing(0.4)}px`,
+                    } solid ${theme.spacing(0.2)}px`,
                     paddingLeft: theme.spacing(3),
                     paddingBottom: theme.spacing(2),
                     marginLeft: theme.spacing(1.8),
@@ -74,6 +74,9 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
                 "&:before": {
                   [theme.maxMQ.sm]: {
                     transform: "translateX(calc(-50% - 2px))",
+                    width: theme.spacing(1.8),
+                    height: theme.spacing(1.8),
+                    left: 1,
                   },
                   content: '""',
                   position: "absolute",
@@ -141,7 +144,6 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
           <Text
             component="h5"
             css={(theme) => ({
-
               [theme.maxMQ.sm]: [
                 // theme.typography.body3,
                 palette === "dark" && {
@@ -181,7 +183,7 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
           {item.action && (
             <Link
               href={item.action.href}
-              {...item.action.blank && {target:"_blank"}}
+              {...(item.action.blank && { target: "_blank" })}
               css={(theme) => ({
                 marginTop: theme.spacing(1),
                 alignItems: "center",

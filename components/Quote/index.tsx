@@ -64,7 +64,8 @@ const Quote: FC<Props> = ({
                 css={(theme) => [
                   {
                     margin: 0,
-                    marginTop: theme.spacing(3),
+                    // marginTop: theme.spacing(3),
+                    color: theme.colors.white,
                     [theme.maxMQ.sm]: { marginTop: theme.spacing(3) },
                   },
                 ]}

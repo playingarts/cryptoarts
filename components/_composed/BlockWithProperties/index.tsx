@@ -41,8 +41,8 @@ const BlockWithProperties: FC<Props> = ({
               gap: theme.spacing(3),
             },
             [theme.maxMQ.sm]: {
-              paddingLeft: theme.spacing(2),
-              paddingRight: theme.spacing(2),
+              // paddingLeft: theme.spacing(2),
+              // paddingRight: theme.spacing(2),
             },
           },
         ]}
@@ -54,6 +54,10 @@ const BlockWithProperties: FC<Props> = ({
               gridColumn: "1/-1",
               rowGap: 0,
               color: theme.colors.white,
+              [theme.maxMQ.sm]: {
+                paddingLeft: theme.spacing(2),
+                paddingRight: theme.spacing(2),
+              },
             },
           ]}
         >

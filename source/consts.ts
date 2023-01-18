@@ -13,7 +13,7 @@ export const socialLinks = (() => {
     playStore:
       "https://play.google.com/store/apps/details?id=com.digitalabstracts.playingarts",
     podcastYoutube:
-      "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+      "https://www.youtube.com/@PlayingArtsProject",
     podcastSpotify:
       "https://open.spotify.com/show/6KGDyycLB3F5Tfdu6T7OCN?si=ef57f71704eb4fb9",
     podcastAppleMusic:

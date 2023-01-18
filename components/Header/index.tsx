@@ -146,13 +146,7 @@ const Header: FC<Props> = ({
                   MsOverflowStyle: "none",
                   scrollbarWidth: "none",
                   maxHeight: theme.spacing(65),
-                  // marginTop: theme.spacing(0.5),
-                  // marginLeft: theme.spacing(0.5),
-                  // marginRight: theme.spacing(0.5),
-                  // marginBottom: theme.spacing(0.5),
-                  // paddingBottom: theme.spacing(3),
                   paddingTop: theme.spacing(6),
-                  // borderRadius: theme.spacing(1),
                   borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(
                     3
                   )}px`,
@@ -252,7 +246,7 @@ const Header: FC<Props> = ({
                 {
                   flexGrow: 1,
                   position: "relative",
-                  marginTop: "0.5em",
+                  marginTop: "0.3em",
                 },
               ]}
             >
@@ -275,7 +269,7 @@ const Header: FC<Props> = ({
                       },
                       [theme.mq.sm]: {
                         "&:hover": {
-                          opacity: 0.8,
+                          opacity: 0.5,
                         },
                       },
                     },
@@ -294,7 +288,7 @@ const Header: FC<Props> = ({
                     css={(theme) => ({
                       position: "absolute",
                       transform: "translateY(0)",
-                      transition: theme.transitions.normal("all"),
+                      transition: theme.transitions.fast("all"),
                       fontWeight: 400,
                       [theme.maxMQ.md]: {
                         transform: `translateY(${
@@ -308,7 +302,7 @@ const Header: FC<Props> = ({
                       },
                       [theme.mq.sm]: {
                         "&:hover": {
-                          opacity: 0.8,
+                          color: theme.colors.white,
                         },
                       },
                     })}
@@ -357,7 +351,7 @@ const Header: FC<Props> = ({
                   {
                     [theme.mq.sm]: {
                       "&:hover": {
-                        opacity: 0.8,
+                        opacity: 0.5,
                       },
                       transition: theme.transitions.fast("opacity"),
                     },

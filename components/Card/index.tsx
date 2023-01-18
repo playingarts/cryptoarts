@@ -75,10 +75,10 @@ const Card: FC<Props> = ({
           },
           [theme.mq.sm]: {
             "--width": `${
-              size === "big" ? theme.spacing(37) : theme.spacing(28.5)
+              size === "big" ? theme.spacing(37) : theme.spacing(27.2)
             }px`,
             "--height": `${
-              size === "big" ? theme.spacing(52) : theme.spacing(40)
+              size === "big" ? theme.spacing(52) : theme.spacing(37.2)
             }px`,
           },
         },
@@ -119,14 +119,14 @@ const Card: FC<Props> = ({
               content: '""',
               position: "absolute",
               boxSizing: "content-box",
-              top: -theme.spacing(0.5),
-              left: -theme.spacing(0.5),
-              padding: theme.spacing(0.5),
+              top: -theme.spacing(0.3),
+              left: -theme.spacing(0.3),
+              padding: theme.spacing(0.3),
               width: "100%",
               height: "100%",
-              borderRadius: theme.spacing(2),
+              borderRadius: theme.spacing(1.8),
               [theme.maxMQ.sm]: {
-                borderRadius: theme.spacing(1.5),
+                borderRadius: theme.spacing(1.3),
               },
 
               background: theme.colors.eth,
