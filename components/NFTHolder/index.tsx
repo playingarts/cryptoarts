@@ -430,7 +430,7 @@ const NFTHolder: FC<Props> = ({
           ]}
           href={{
             query: {
-              scrollIntoView: "[data-id='block-faq']",
+              scrollIntoView: "[data-id='faq']",
               scrollIntoViewBehavior: "smooth",
             },
           }}
@@ -515,7 +515,7 @@ const NFTHolder: FC<Props> = ({
           ]}
           href={{
             query: {
-              scrollIntoView: "[data-id='block-faq']",
+              scrollIntoView: "[data-id='faq']",
               scrollIntoViewBehavior: "smooth",
             },
           }}

@@ -3,6 +3,7 @@ import { useOwnedAssets } from "../../../hooks/opensea";
 import Grid from "../../../components/Grid";
 import Button from "../../Button";
 import Link from "../../Link";
+import Line from "../../Line";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
 import Layout from "../../../components/Layout";
@@ -63,14 +64,14 @@ const GamePromo: FC = () => {
           css={(theme) => ({
             [theme.maxMQ.md]: {
               padding: "30px 0",
-              gridColumn: "2 / 8",
+              gridColumn: "2 / 7",
             },
             [theme.mq.md]: {
               padding: "0",
-              gridColumn: "1 / -1",
+              gridColumn: "1 / 6",
             },
             [theme.maxMQ.sm]: {
-              gridColumn: "1 / 4",
+              gridColumn: "1 / 5",
               padding: "50px 20px",
             },
             [theme.maxMQ.xsm]: {
@@ -111,19 +112,29 @@ const GamePromo: FC = () => {
                 margin: 0,
                 color: theme.colors.text_subtitle_light,
                 marginTop: theme.spacing(1),
-                maxWidth: theme.spacing(49.5),
               },
             ]}
           >
             Go head to head with opponents in turn-based playing card battle!
           </Text>
+          <Line
+            palette="dark"
+            spacing={0}
+            css={(theme) => ({
+              marginTop: theme.spacing(3),
+              marginBottom: theme.spacing(3),
+              [theme.maxMQ.sm]: {
+                marginTop: theme.spacing(2),
+                marginBottom: theme.spacing(2),
+              },
+            })}
+          />
           <Button
             css={(theme) => ({
               background: theme.colors.eth,
               color: theme.colors.page_bg_dark,
               animation: "gradient 5s ease infinite",
               backgroundSize: "400% 100%",
-              marginTop: theme.spacing(3),
             })}
             href="https://play2.playingarts.com/"
             component={Link}
