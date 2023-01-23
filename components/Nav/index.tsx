@@ -28,8 +28,9 @@ const Nav: FC<
       css={(theme) => [
         {
           background: colord(theme.colors.text_title_dark)
-            .alpha(0.95)
+            .alpha(0.9)
             .toRgbString(),
+          backdropFilter: "blur(20px)",
           borderRadius: theme.spacing(1),
           borderTopRightRadius: 0,
           borderTopLeftRadius: 0,
@@ -47,6 +48,10 @@ const Nav: FC<
         },
         vertical && {
           alignItems: "center",
+          backdropFilter: "none",
+          background: colord(theme.colors.red)
+          .alpha(0)
+          .toRgbString(),
         },
       ]}
     >

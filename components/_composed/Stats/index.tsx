@@ -56,7 +56,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({
       <Stat
         palette="dark"
         label="VOLUME TRADED"
-        value={parseFloat(total_volume.toFixed(2)).toLocaleString()}
+        value={parseFloat(total_volume.toFixed(0)).toLocaleString()}
         eth={true}
         css={[{ flexGrow: 1 }]}
       />

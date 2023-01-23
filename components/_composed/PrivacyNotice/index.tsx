@@ -38,11 +38,14 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
           display: "flex",
           justifyContent: "center",
           zIndex: 99999,
+          backdropFilter: "blur(20px)",
           background:
             deckId === "crypto"
-              ? theme.colors.page_bg_dark
+              ? colord(theme.colors.black)
+                  .alpha(0.75)
+                  .toRgbString()
               : colord(theme.colors.page_bg_light_gray)
-                  .alpha(0.9)
+                  .alpha(0.75)
                   .toRgbString(),
         },
       ]}

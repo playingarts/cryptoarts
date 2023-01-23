@@ -7,6 +7,7 @@ import React, {
   useState,
 } from "react";
 import { useDeck } from "../../hooks/deck";
+import { colord } from "colord";
 import { breakpoints } from "../../source/enums";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
@@ -137,7 +138,10 @@ const Header: FC<Props> = ({
             onItemClick={() => setModalState(false)}
             css={(theme) => [
               {
-                background: theme.colors.page_bg_dark,
+                backdropFilter: "blur(20px)",
+                background: colord(theme.colors.black)
+                .alpha(0.85)
+                .toRgbString(),
                 borderRadius: `0 0 ${theme.spacing(5)}px ${theme.spacing(5)}px`,
                 [theme.maxMQ.sm]: {
                   "&::-webkit-scrollbar": {

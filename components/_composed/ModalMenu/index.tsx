@@ -111,7 +111,11 @@ const ModalMenu: FC<
                   vertical={true}
                   setHover={setCurrentIndex}
                   setModal={onItemClick}
-                  // css={{ alignItems: "flex-start" }}
+                  css={
+                    {
+                      // alignItems: "flex-start",
+                    }
+                  }
                 />
                 <div
                   css={(theme) => [
