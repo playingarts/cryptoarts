@@ -42,7 +42,7 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
           left: 0,
           right: 0,
           height: theme.spacing(6),
-          zIndex: 99999,
+          zIndex: 99997,
           pointerEvents: "none",
         },
       ]}
@@ -52,7 +52,7 @@ const ScrollArrow: FC<HTMLAttributes<HTMLElement> & { scrollTo: string }> = ({
           {
             height: "100%",
             position: "relative",
-            maxWidth: theme.spacing(123),
+            maxWidth: theme.spacing(126),
             width: "100%",
             margin: "0 auto",
           },

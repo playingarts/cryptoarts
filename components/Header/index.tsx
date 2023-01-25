@@ -126,6 +126,7 @@ const Header: FC<Props> = ({
               bottom: 0,
               position: "fixed",
               background: theme.colors.text_subtitle_dark,
+              backdropFilter: "blur(5px)",
               zIndex: 99998,
             },
           ]}
@@ -138,11 +139,12 @@ const Header: FC<Props> = ({
             onItemClick={() => setModalState(false)}
             css={(theme) => [
               {
-                backdropFilter: "blur(20px)",
                 background: colord(theme.colors.black)
-                .alpha(0.85)
+                .alpha(0.9)
                 .toRgbString(),
                 borderRadius: `0 0 ${theme.spacing(5)}px ${theme.spacing(5)}px`,
+                minHeight: `calc(100vh - ${theme.spacing(6)}px)`,
+
                 [theme.maxMQ.sm]: {
                   "&::-webkit-scrollbar": {
                     display: "none",

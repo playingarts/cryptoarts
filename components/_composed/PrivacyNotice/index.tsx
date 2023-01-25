@@ -21,7 +21,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
   const { width } = useSize();
 
   const {
-    query: { deckId },
+    query: { artistId, deckId },
   } = useRouter();
 
   return privacyStatus === privacyDate ? null : (
@@ -37,10 +37,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
           left: 0,
           display: "flex",
           justifyContent: "center",
-          zIndex: 99999,
+          zIndex: 99997,
           backdropFilter: "blur(20px)",
           background:
-            deckId === "crypto"
+            deckId === "crypto" || artistId
               ? colord(theme.colors.black)
                   .alpha(0.75)
                   .toRgbString()
@@ -80,7 +80,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
               lineHeight: `${theme.spacing(6)}px`,
               fontSize: 14,
               color:
-                deckId === "crypto"
+                deckId === "crypto" || artistId
                   ? theme.colors.text_subtitle_light
                   : theme.colors.text_subtitle_dark,
                   
@@ -95,7 +95,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             css={(theme) => [
               {
                 color:
-                  deckId === "crypto"
+                  deckId === "crypto" || artistId
                     ? theme.colors.text_title_light
                     : theme.colors.text_title_dark,
               },
@@ -135,7 +135,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
                 left: "50%",
 
                 color:
-                  deckId === "crypto"
+                  deckId === "crypto" || artistId
                     ? theme.colors.text_subtitle_light
                     : theme.colors.text_subtitle_dark,
               },

@@ -46,6 +46,32 @@ const ShopItem: FC<Props> = ({
         backgroundColor: theme.colors.page_bg_light_gray,
       })}
     >
+      {(short === "Zero" || short === "Future" || short === "Future II") && (
+        <span
+          css={(theme) => [
+            {
+              position: "absolute",
+              top: 20,
+              right: 20,
+              color: theme.colors.text_subtitle_dark,
+              borderRadius: 30,
+              backgroundColor: theme.colors.white,
+              padding: `${theme.spacing(0.8)}px ${theme.spacing(1.5)}px`,
+              textTransform: "capitalize",
+              fontWeight: 500,
+              fontSize: 14,
+              zIndex:9,
+              [theme.maxMQ.sm]: {
+                fontSize: 12,
+                top: 10,
+                right: 10,
+              },
+            },
+          ]}
+        >
+          Low stock
+        </span>
+      )}
       <div
         css={(theme) => [
           backgroundCss,
@@ -66,6 +92,7 @@ const ShopItem: FC<Props> = ({
         ]}
         style={{ backgroundImage: `url(${image})` }}
       />
+
       {width >= breakpoints.sm && (
         <div
           css={(theme) => [

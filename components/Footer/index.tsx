@@ -313,7 +313,8 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                     textAlign: "center",
                     fontSize: 14,
                     [theme.maxMQ.sm]: {
-                      fontSize: 12,
+                      textAlign: "left",
+                      fontSize: 11,
                     },
                   },
                 ]}

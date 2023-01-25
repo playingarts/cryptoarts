@@ -82,7 +82,7 @@ const ModalMenu: FC<
       css={(theme) => [
         {
           overflowX: "hidden",
-          paddingTop: theme.spacing(15.7),
+          paddingTop: theme.spacing(15),
           paddingBottom: theme.spacing(4),
           [theme.mq.sm]: {
             paddingBottom: theme.spacing(9.1),
@@ -329,8 +329,8 @@ const ModalMenu: FC<
                 css={{
                   width: "100%",
                   [theme.mq.sm]: {
-                    marginTop: theme.spacing(3.5),
-                    marginBottom: theme.spacing(3.5),
+                    marginTop: theme.spacing(3),
+                    marginBottom: theme.spacing(3),
                   },
                 }}
                 spacing={3}
