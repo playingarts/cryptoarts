@@ -195,7 +195,7 @@ const NFTHolder: FC<Props> = ({
               },
             ]}
           >
-            Connect your MetaMask wallet and see if you’re eligible to a free deck!
+            Connect your MetaMask wallet and see if you’re eligible for a deck!
           </Text>
         {/* )} */}
 
@@ -208,6 +208,7 @@ const NFTHolder: FC<Props> = ({
               query: {
                 scrollIntoView: "[data-id='faq']",
                 scrollIntoViewBehavior: "smooth",
+                scrollIntoViewPosition: "start",
               },
             }}
             shallow={true}

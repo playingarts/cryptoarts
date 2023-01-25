@@ -19,10 +19,10 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
         variant="body2"
         css={(theme) => [
           {
-            margin: 0,
+            marginTop: 10,
             opacity: 0.5,
 
-            [theme.maxMQ.sm]: { fontSize: "20px" },
+            [theme.maxMQ.sm]: { fontSize: "18px" },
           },
         ]}
       >

@@ -89,7 +89,7 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
               opacity: 0.5,
               marginTop: theme.spacing(1),
               [theme.mq.sm]: {
-                marginBottom: theme.spacing(10),
+                marginBottom: theme.spacing(13.5),
               },
               // [theme.maxMQ.sm]: {
               //   display: "none",
@@ -157,7 +157,7 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
           right: theme.spacing(2.5),
           top: -theme.spacing(10),
           [theme.mq.md]: {
-            right: -theme.spacing(0),
+            right: -theme.spacing(-4),
           },
           [theme.maxMQ.xsm]: {
             right: -theme.spacing(5),

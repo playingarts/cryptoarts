@@ -28,8 +28,8 @@ const ShopItem: FC<Props> = ({
     left: 0,
     width: "100%",
     height: "100%",
-    background: "50% 50% no-repeat",
-    backgroundSize: "cover",
+    background: "50% 0 no-repeat",
+    backgroundSize: "90%",
   });
 
   const { width } = useSize();
@@ -60,7 +60,7 @@ const ShopItem: FC<Props> = ({
               textTransform: "capitalize",
               fontWeight: 500,
               fontSize: 14,
-              zIndex:9,
+              zIndex: 9,
               [theme.maxMQ.sm]: {
                 fontSize: 12,
                 top: 10,
@@ -78,19 +78,17 @@ const ShopItem: FC<Props> = ({
           {
             transition: theme.transitions.fast("opacity"),
             [theme.maxMQ.sm]: {
-              height: theme.spacing(34),
-              // minWidth: theme.spacing(40.8),
               aspectRatio: "1 / 1",
-              // backgroundSize: "130%",
               backgroundSize: "contain",
               maxHeight: theme.spacing(34),
-              // margin: "0 auto",
-              backgroundPosition: "center",
-              // backgroundPositionY: "-50px",
+              // backgroundPosition: "center",
             },
           },
         ]}
-        style={{ backgroundImage: `url(${image})` }}
+        style={{
+          backgroundImage: `url(${image2})`,
+          backgroundColor: "#f5f5f5",
+        }}
       />
 
       {width >= breakpoints.sm && (
@@ -99,53 +97,43 @@ const ShopItem: FC<Props> = ({
             backgroundCss,
             {
               transition: theme.transitions.fast("opacity"),
+              backgroundColor: theme.colors.white,
             },
           ]}
-          style={{ backgroundImage: `url(${image2})`, opacity: +hovered }}
+          style={{ backgroundImage: `url(${image})`, opacity: +hovered }}
         />
       )}
 
-      {(width >= breakpoints.md || width < breakpoints.sm) && (
-        <div
-          css={(theme) => ({
-            position: "relative",
-            [theme.mq.sm]: {
-              justifyContent: "space-between",
-              opacity: +hovered,
-              alignItems: "flex-end",
-            },
-            [theme.maxMQ.sm]: {
-              gap: theme.spacing(1.5),
-              flexDirection: "column",
-              justifyContent: "end",
-              flexWrap: "wrap",
-            },
-            display: "flex",
-            height: "100%",
-            transition: theme.transitions.fast("opacity"),
-          })}
-        >
-          <div>
-            <Text component="h3" css={{ margin: 0 }}>
-              {short}
-            </Text>
-            {width >= breakpoints.sm && (
-              <Text
-                variant="body4"
-                css={[
-                  {
-                    opacity: 0.5,
-                    margin: 0,
-                  },
-                ]}
-              >
-                {price.toLocaleString(undefined, {
-                  style: "currency",
-                  currency: "EUR",
-                })}
-              </Text>
-            )}
-          </div>
+      {/* {(width >= breakpoints.md || width < breakpoints.sm) && ( */}
+      <div
+        css={(theme) => ({
+          position: "relative",
+          [theme.mq.sm]: {
+            justifyContent: "space-between",
+            // opacity: +hovered,
+            alignItems: "flex-end",
+          },
+          [theme.maxMQ.sm]: {
+            gap: theme.spacing(1.5),
+            flexDirection: "column",
+            justifyContent: "end",
+            flexWrap: "wrap",
+          },
+          display: "flex",
+          height: "100%",
+          transition: theme.transitions.fast("opacity"),
+        })}
+      >
+        <div>
+          <Text
+            variant={width >= breakpoints.sm ? "h4" : "h3"}
+            css={(theme) => ({
+              marginTop: 0,
+              marginBottom: theme.spacing(1.5),
+            })}
+          >
+            {short}
+          </Text>
           <div css={{ alignItems: "center", display: "flex" }}>
             <AddToBagButton
               productId={_id}
@@ -159,29 +147,30 @@ const ShopItem: FC<Props> = ({
                 },
               ]}
             >
-              {width >= breakpoints.sm ? "Add to bag" : "Add"}
+              {width >= breakpoints.md ? "Add to bag" : "Add"}
             </AddToBagButton>
-            {width < breakpoints.sm && (
-              <Text
-                variant="body4"
-                css={(theme) => [
-                  {
-                    opacity: 0.5,
-                    margin: 0,
-                    marginLeft: theme.spacing(1.5),
-                    display: "inline",
-                  },
-                ]}
-              >
-                {price.toLocaleString(undefined, {
-                  style: "currency",
-                  currency: "EUR",
-                })}
-              </Text>
-            )}
+            {/* {width < breakpoints.sm && ( */}
+            <Text
+              variant="body4"
+              css={(theme) => [
+                {
+                  opacity: 0.5,
+                  margin: 0,
+                  marginLeft: theme.spacing(1.5),
+                  display: "inline",
+                },
+              ]}
+            >
+              {price.toLocaleString(undefined, {
+                style: "currency",
+                currency: "EUR",
+              })}
+            </Text>
+            {/* )} */}
           </div>
         </div>
-      )}
+      </div>
+      {/* )} */}
     </StatBlock>
   );
 };

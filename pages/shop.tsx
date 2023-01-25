@@ -3,11 +3,9 @@ import Head from "next/head";
 import { FC, Fragment } from "react";
 import BlockTitle from "../components/BlockTitle";
 import Link from "../components/Link";
-import AddToBagButton from "../components/AddToBagButton";
 import BagButton from "../components/BagButton";
 import CardFan from "../components/Card/Fan";
 import Grid from "../components/Grid";
-import Bag from "../components/Icons/Bag";
 import LatestRelease from "../components/LatestRelease";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
@@ -178,7 +176,7 @@ const Content: FC = () => {
               })}
               css={(theme) => ({
                 gridColumn: "span 9",
-                minHeight: theme.spacing(41.5),
+                minHeight: theme.spacing(45),
                 [theme.maxMQ.md]: {
                   gridColumn: "span 9",
                 },
@@ -272,7 +270,7 @@ const Content: FC = () => {
                         },
                       ]}
                     >
-                      {width < breakpoints.md && (
+                      {/* {width < breakpoints.md && (
                         <Line
                           spacing={1}
                           css={{
@@ -280,7 +278,7 @@ const Content: FC = () => {
                             width: "100%",
                           }}
                         />
-                      )}
+                      )} */}
 
                       <Grid
                         short={true}
@@ -336,19 +334,19 @@ const Content: FC = () => {
                       {...product}
                       css={(theme) => ({
                         [theme.maxMQ.sm]: {
-                          height: theme.spacing(45),
+                          height: theme.spacing(39),
                         },
                         [theme.mq.sm]: {
                           [theme.maxMQ.md]: {
-                            aspectRatio: "0.99",
+                            aspectRatio: "1",
                           },
                         },
                         [theme.mq.md]: {
-                          aspectRatio: "1.2",
+                          aspectRatio: "1.15",
                         },
                       })}
                     />
-                    {width >= breakpoints.sm && width < breakpoints.md && (
+                    {/* {width >= breakpoints.sm && width < breakpoints.md && (
                       <div
                         css={(theme) => ({
                           marginBottom: theme.spacing(5),
@@ -379,7 +377,7 @@ const Content: FC = () => {
                           })}
                         />
                       </div>
-                    )}
+                    )} */}
                   </div>
                 </Fragment>
               ) : (
@@ -462,11 +460,11 @@ const Content: FC = () => {
           </Grid>
         </Grid>
 
-        {width >= breakpoints.sm && width < breakpoints.md && (
+        {/* {width >= breakpoints.sm && width < breakpoints.md && (
           <Grid>
             <Line spacing={2} css={{ gridColumn: "1 / -1", width: "100%" }} />
           </Grid>
-        )}
+        )} */}
 
         {/* Bundles Block */}
 
@@ -476,7 +474,7 @@ const Content: FC = () => {
               marginTop: theme.spacing(12),
             },
             [theme.maxMQ.md]: {
-              marginTop: theme.spacing(6),
+              marginTop: theme.spacing(10),
             },
             [theme.maxMQ.sm]: {
               marginTop: theme.spacing(6),

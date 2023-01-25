@@ -17,7 +17,7 @@ export let products: MongoProduct[] = [
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero-02.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero-02.png",
     info: "Deck of Cards",
   },
   {
@@ -31,7 +31,7 @@ export let products: MongoProduct[] = [
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one-02.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one-02.png",
     info: "Deck of Cards",
   },
   {
@@ -45,7 +45,7 @@ export let products: MongoProduct[] = [
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-two.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-two-02.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-two-02.png",
     info: "Deck of Cards",
   },
   {
@@ -59,7 +59,7 @@ export let products: MongoProduct[] = [
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-three.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-three-02.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-three-02.png",
     info: "Deck of Cards",
   },
   {
@@ -73,7 +73,7 @@ export let products: MongoProduct[] = [
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special-02.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special-02.png",
     info: "Deck of Cards",
   },
   {
@@ -87,7 +87,7 @@ export let products: MongoProduct[] = [
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i-02.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i-02.png",
     info: "Deck of Cards",
   },
   {
@@ -101,7 +101,7 @@ export let products: MongoProduct[] = [
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii.png",
     image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii-02.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii-02.png",
     info: "Deck of Cards",
   },
   {
