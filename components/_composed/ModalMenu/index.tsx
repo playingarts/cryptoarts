@@ -84,9 +84,6 @@ const ModalMenu: FC<
           overflowX: "hidden",
           paddingTop: theme.spacing(15),
           paddingBottom: theme.spacing(4),
-          [theme.mq.sm]: {
-            paddingBottom: theme.spacing(9.1),
-          },
         },
       ]}
     >
