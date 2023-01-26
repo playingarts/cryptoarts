@@ -291,7 +291,7 @@ const Card: FC<Props> = ({
             },
           })}
         >
-          {card.artist.name}
+          {card.artist.name === "" ? <br /> : card.artist.name}
         </Text>
       )}
       {sorted && (
@@ -308,6 +308,8 @@ const Card: FC<Props> = ({
         >
           {card.price ? (
             `Ξ${card.price}`
+          ) : card.artist.name === "" ? (
+            <br />
           ) : (
             <span css={{ opacity: 0.5, fontSize: 15 }}>Not On Sale</span>
           )}

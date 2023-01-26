@@ -7,6 +7,7 @@ export const DeckDataFragment = gql`
     title
     slug
     labels
+    cardBackground
     openseaCollection {
       name
       address

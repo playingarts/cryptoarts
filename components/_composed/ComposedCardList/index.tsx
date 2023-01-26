@@ -2,6 +2,7 @@ import { useMetaMask } from "metamask-react";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { useCards } from "../../../hooks/card";
+import { mockEmptyCard } from "../../../mocks/card";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { breakpoints } from "../../../source/enums";
 import BlockTitle from "../../BlockTitle";
@@ -54,7 +55,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
 
   const [edition, setEdition] = useState(0);
 
-  const { cards: queryCards, loading } = useCards({
+  const { cards: queryCards } = useCards({
     variables: {
       deck: deck._id,
       ...(deck.editions && { edition: deck.editions[edition].name }),
@@ -117,7 +118,8 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
 
   const { width } = useSize();
 
-  return loading || !cards ? null : (
+  return (
+    // loading || !cards ? null : (
     <BlockTitle
       variant="h3"
       palette={
@@ -125,7 +127,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         deck.slug === "crypto" ? "dark" : "light"
       }
       action={
-        width >= breakpoints.sm && deck.openseaCollection ? (
+        cards && width >= breakpoints.sm && deck.openseaCollection ? (
           <SortSelectButton
             cards={cards}
             deck={deck}
@@ -224,7 +226,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           },
         ]}
       >
-        {width < breakpoints.sm && (
+        {width < breakpoints.sm && cards && (
           <SortSelectButton
             cards={cards}
             deck={deck}
@@ -244,18 +246,27 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         <CardList
           // status={status}
           cards={
-            currentSelected === "ascending"
-              ? [
-                  ...[...cards]
-                    .sort((a, b) => (a.price as number) - (b.price as number))
-                    .filter(({ price }) => price !== null),
-                  ...[...cards].filter(({ price }) => price === null),
-                ]
-              : currentSelected === "descending"
-              ? [...cards].sort(
-                  (a, b) => (b.price as number) - (a.price as number)
-                )
-              : cards
+            cards
+              ? currentSelected === "ascending"
+                ? [
+                    ...[...cards]
+                      .sort((a, b) => (a.price as number) - (b.price as number))
+                      .filter(({ price }) => price !== null),
+                    ...[...cards].filter(({ price }) => price === null),
+                  ]
+                : currentSelected === "descending"
+                ? [...cards].sort(
+                    (a, b) => (b.price as number) - (a.price as number)
+                  )
+                : cards
+              : Array.from({ length: 56 }).map((_, index) => ({
+                  ...mockEmptyCard,
+                  _id: index + "listCard",
+                  noInfo: true,
+                  background: deck.cardBackground,
+                  href: deck.slug,
+                  owned: false,
+                }))
           }
           // {...(deck.openseaCollection && {
           //   metamaskProps: {
@@ -263,7 +274,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           //     ownedCards: [...ownedCards],
           //   },
           // })}
-          sorted={!!deck.openseaCollection}
+          sorted={cards && !!deck.openseaCollection}
           palette={deck.slug === "crypto" ? "dark" : "light"}
           css={(theme) => [
             {

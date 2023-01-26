@@ -35,9 +35,9 @@ const CardList: FC<Props> = ({
       rowGap: theme.spacing(6),
       flexWrap: "wrap",
       justifyContent: "center",
-      
+
       [theme.maxMQ.sm]: {
-        gap: theme.spacing (2.5),
+        gap: theme.spacing(2.5),
         rowGap: theme.spacing(3),
       },
     })}
