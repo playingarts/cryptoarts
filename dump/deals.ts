@@ -17,13 +17,13 @@ let deals: Omit<MongoDeal, "_id">[] = [
   },
 ];
 
-if (process.env.NODE_ENV === "production") {
+// if (process.env.NODE_ENV === "production") {
   try {
     deals = require("./deals-real.json");
   } catch (exception) {
     console.error("Failed to get real deals.");
   }
-}
+// }
 
 const dump = async () => {
   await connect();
