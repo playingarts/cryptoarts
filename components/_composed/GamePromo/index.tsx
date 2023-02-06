@@ -1,17 +1,17 @@
 import { FC, memo } from "react";
-import { useOwnedAssets } from "../../../hooks/opensea";
 import Grid from "../../../components/Grid";
+import Layout from "../../../components/Layout";
+import { useOwnedAssets } from "../../../hooks/opensea";
 import Button from "../../Button";
-import Link from "../../Link";
 import Line from "../../Line";
+import Link from "../../Link";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
-import Layout from "../../../components/Layout";
 
 const GamePromo: FC = () => {
   const ownedAssets = useOwnedAssets("crypto");
 
-  return ownedAssets ? (
+  return ownedAssets && ownedAssets.length !== 0 ? (
     <Layout
       css={(theme) => ({
         background: theme.colors.page_bg_dark,
