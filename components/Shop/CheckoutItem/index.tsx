@@ -36,7 +36,7 @@ const ShopCheckoutItem: FC<Props> = ({
 }) => {
   const options = Array.from(
     {
-      length: !quantity || quantity < 4 ? 4 : quantity,
+      length: !quantity || quantity < 4 ? 4 : quantity + 1,
     },
     (_, i) => i
   ).filter((i) => !!i);
