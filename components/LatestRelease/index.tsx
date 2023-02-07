@@ -1,19 +1,20 @@
 import { useMetaMask } from "metamask-react";
 import { FC } from "react";
 import { breakpoints } from "../../source/enums";
+import AddToBagButton from "../AddToBagButton";
+import Bag from "../Icons/Bag";
 import Ether from "../Icons/Ether";
 import MetamaskButton from "../MetamaskButton";
 import { useSize } from "../SizeProvider";
 import StatBlock, { Props as StatBlockProps } from "../StatBlock";
 import Text from "../Text";
 
-// interface Props extends Omit<StatBlockProps, "title" | "action"> {
-//   productId: string;
-// }
+interface Props extends Omit<StatBlockProps, "title" | "action"> {
+  productId: string;
+  price: number;
+}
 
-const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
-  ...props
-}) => {
+const LatestRelease: FC<Props> = ({ productId, price, ...props }) => {
   const { status } = useMetaMask();
 
   const { width } = useSize();
@@ -42,15 +43,59 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
           backgroundSize: "150%",
         },
       })}
-      // {...(status === "connected" && {
-      //   action: (
-      //     <AddToBagButton
-      //       Icon={Bag}
-      //       productId={productId}
-      //       css={(theme) => [{ [theme.maxMQ.sm]: { display: "none" } }]}
-      //     />
-      //   ),
-      // })}
+      {...(status === "connected" && {
+        action: (
+          <div
+            css={(theme) => [
+              {
+                display: "flex",
+                [theme.mq.sm]: {
+                  alignItems: "center",
+                },
+                [theme.maxMQ.sm]: {
+                  flexDirection: "column",
+                },
+              },
+            ]}
+          >
+            <AddToBagButton
+              Icon={Bag}
+              productId={productId}
+              css={(theme) => [
+                {
+                  [theme.maxMQ.sm]: {
+                    // width: "100%",
+                    justifyContent: "center",
+                  },
+                },
+              ]}
+            >
+              {width < breakpoints.sm && "Add"}
+            </AddToBagButton>
+            <Text
+              variant="body4"
+              css={(theme) => [
+                {
+                  opacity: 0.5,
+                  margin: 0,
+                  display: "inline",
+                  [theme.mq.sm]: {
+                    marginLeft: theme.spacing(1.5),
+                  },
+                  [theme.maxMQ.sm]: {
+                    marginTop: theme.spacing(1.5),
+                  },
+                },
+              ]}
+            >
+              {price.toLocaleString(undefined, {
+                style: "currency",
+                currency: "EUR",
+              })}
+            </Text>
+          </div>
+        ),
+      })}
       title="LATEST RELEASE"
     >
       <div
@@ -112,7 +157,7 @@ const LatestRelease: FC<Omit<StatBlockProps, "title" | "action">> = ({
                   color: theme.colors.page_bg_dark,
                   animation: "gradient 5s ease infinite",
                   backgroundSize: "400% 100%",
-                }, 
+                },
                 {
                   [theme.maxMQ.sm]: { width: "100%", justifyContent: "center" },
                 },

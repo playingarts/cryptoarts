@@ -1,14 +1,14 @@
 import { NextPage } from "next";
 import Head from "next/head";
 import { FC, Fragment } from "react";
-import BlockTitle from "../components/BlockTitle";
-import Link from "../components/Link";
 import BagButton from "../components/BagButton";
+import BlockTitle from "../components/BlockTitle";
 import CardFan from "../components/Card/Fan";
 import Grid from "../components/Grid";
 import LatestRelease from "../components/LatestRelease";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
+import Link from "../components/Link";
 import NFTHolder from "../components/NFTHolder";
 import Quote from "../components/Quote";
 import ScrollIntoView from "../components/ScrollIntoView";
@@ -16,12 +16,12 @@ import ShopBundle from "../components/Shop/Bundle";
 import ShopItem from "../components/Shop/Item";
 import ShopSheets from "../components/Shop/Sheets";
 import ShopSoldOut from "../components/Shop/SoldOut";
-import { theme } from "../pages/_app";
 import { useSize } from "../components/SizeProvider";
 import Text from "../components/Text";
 import ComposedFaq from "../components/_composed/Faq";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import { useProducts } from "../hooks/product";
+import { theme } from "../pages/_app";
 import { withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
 
@@ -168,7 +168,8 @@ const Content: FC = () => {
         {latestRelease && (
           <Grid>
             <LatestRelease
-              // productId={latestRelease._id}
+              productId={latestRelease._id}
+              price={latestRelease.price}
               // data-id="Latest"
               // data-id={latestRelease.deck}
               {...(latestRelease.deck && {

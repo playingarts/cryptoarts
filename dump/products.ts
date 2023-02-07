@@ -109,7 +109,7 @@ export let products: MongoProduct[] = [
     title: "Crypto Edition",
     deck: "crypto",
     short: "Crypto",
-    price: 99.95,
+    price: 14.95,
     status: "soon",
     type: "deck",
     image:
