@@ -7,9 +7,6 @@ export const DealQuery = gql`
       code
       hash
       decks
-      deck {
-        slug
-      }
     }
   }
 `;
