@@ -1,5 +1,6 @@
 import { useMetaMask } from "metamask-react";
 import { FC } from "react";
+import { useOwnedAssets } from "../../hooks/opensea";
 import { breakpoints } from "../../source/enums";
 import AddToBagButton from "../AddToBagButton";
 import Bag from "../Icons/Bag";
@@ -18,6 +19,8 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => {
   const { status } = useMetaMask();
 
   const { width } = useSize();
+
+  const ownedAssets = useOwnedAssets("crypto");
 
   return (
     <StatBlock
@@ -43,59 +46,61 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => {
           backgroundSize: "150%",
         },
       })}
-      {...(status === "connected" && {
-        action: (
-          <div
-            css={(theme) => [
-              {
-                display: "flex",
-                [theme.mq.sm]: {
-                  alignItems: "center",
-                },
-                [theme.maxMQ.sm]: {
-                  flexDirection: "column",
-                },
-              },
-            ]}
-          >
-            <AddToBagButton
-              Icon={Bag}
-              productId={productId}
+      {...(status === "connected" &&
+        ownedAssets &&
+        ownedAssets.length !== 0 && {
+          action: (
+            <div
               css={(theme) => [
                 {
-                  [theme.maxMQ.sm]: {
-                    // width: "100%",
-                    justifyContent: "center",
-                  },
-                },
-              ]}
-            >
-              {width < breakpoints.sm && "Add"}
-            </AddToBagButton>
-            <Text
-              variant="body4"
-              css={(theme) => [
-                {
-                  opacity: 0.5,
-                  margin: 0,
-                  display: "inline",
+                  display: "flex",
                   [theme.mq.sm]: {
-                    marginLeft: theme.spacing(1.5),
+                    alignItems: "center",
                   },
                   [theme.maxMQ.sm]: {
-                    marginTop: theme.spacing(1.5),
+                    flexDirection: "column",
                   },
                 },
               ]}
             >
-              {price.toLocaleString(undefined, {
-                style: "currency",
-                currency: "EUR",
-              })}
-            </Text>
-          </div>
-        ),
-      })}
+              <AddToBagButton
+                Icon={Bag}
+                productId={productId}
+                css={(theme) => [
+                  {
+                    [theme.maxMQ.sm]: {
+                      // width: "100%",
+                      justifyContent: "center",
+                    },
+                  },
+                ]}
+              >
+                {width < breakpoints.sm && "Add"}
+              </AddToBagButton>
+              <Text
+                variant="body4"
+                css={(theme) => [
+                  {
+                    opacity: 0.5,
+                    margin: 0,
+                    display: "inline",
+                    [theme.mq.sm]: {
+                      marginLeft: theme.spacing(1.5),
+                    },
+                    [theme.maxMQ.sm]: {
+                      marginTop: theme.spacing(1.5),
+                    },
+                  },
+                ]}
+              >
+                {price.toLocaleString(undefined, {
+                  style: "currency",
+                  currency: "EUR",
+                })}
+              </Text>
+            </div>
+          ),
+        })}
       title="LATEST RELEASE"
     >
       <div

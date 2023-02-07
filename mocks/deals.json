@@ -5,5 +5,19 @@
     "hash": "0xe081de92957d89124eD0C2c7F53B5e4120DA1dD4",
     "decks": 3,
     "claimed": false
+  },
+  {
+    "_id": "2",
+    "code": "HELLOWORLD",
+    "hash": "0xeE441DB569670589Dc5Bf22fDDE5Fb05DD2035a5",
+    "decks": 79,
+    "deck": "crypto"
+  },
+  {
+    "_id": "3",
+    "code": "VLADCODE",
+    "hash": "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
+    "decks": 999,
+    "deck": "crypto"
   }
 ]
