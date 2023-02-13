@@ -40,3 +40,4 @@ tsconfig.tsbuildinfo
 /stories
 
 /dump/deals-real.json
+/dump/deals-real-old.json

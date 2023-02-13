@@ -214,7 +214,7 @@ const NFTHolder: FC<Props> = ({
             shallow={true}
             scroll={false}
           >
-            <Arrowed>How It Works</Arrowed>
+            {/* <Arrowed>How It Works</Arrowed> */}
           </Text>
         )}
       </StatBlock>
@@ -372,7 +372,7 @@ const NFTHolder: FC<Props> = ({
             shallow={true}
             scroll={false}
           >
-            <Arrowed>How It Works</Arrowed>
+            {/* <Arrowed>How It Works</Arrowed> */}
           </Text>
         )}
       </StatBlock>
@@ -415,9 +415,7 @@ const NFTHolder: FC<Props> = ({
             },
           ]}
         >
-          You hold {currentDeal.decks} PACE NFT card(s)! Use following code on
-          checkout to get 50% on all items in your bag: “
-          <b>{currentDeal.code}</b>”.
+          You hold {currentDeal.decks} PACE NFT card(s)! As a holder you have an access to buy Crypto Edition deck from our shop. Enjoy!
         </Text>
 
         <Text
@@ -438,7 +436,7 @@ const NFTHolder: FC<Props> = ({
           shallow={true}
           scroll={false}
         >
-          <Arrowed>How It Works</Arrowed>
+          {/* <Arrowed>How It Works</Arrowed> */}
         </Text>
       </StatBlock>
     );
