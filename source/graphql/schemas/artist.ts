@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { Schema, model, models, Model } from "mongoose";
+import { model, Model, models, Schema } from "mongoose";
 
 const schema = new Schema<GQL.Artist, Model<GQL.Artist>, GQL.Artist>({
   name: String,
@@ -71,7 +71,7 @@ export const typeDefs = gql`
     _id: ID
     name: String
     info: String
-    slug: String
+    slug: String!
     userpic: String
     website: String
     shop: String

@@ -49,24 +49,24 @@ export const useLoadLosers = (
   return { ...methods, loadLosers, losers };
 };
 
-export const useLosersValues = (
-  options: QueryHookOptions<Pick<GQL.Query, "losersValues">> = {}
-) => {
-  const {
-    data: { losersValues } = { cards: undefined },
-    ...methods
-  } = useQuery(LosersValuesQuery, options);
+// export const useLosersValues = (
+//   options: QueryHookOptions<Pick<GQL.Query, "losersValues">> = {}
+// ) => {
+//   const {
+//     data: { losersValues } = { cards: undefined },
+//     ...methods
+//   } = useQuery(LosersValuesQuery, options);
 
-  return { ...methods, losers: losersValues };
-};
+//   return { ...methods, losers: losersValues };
+// };
 
-export const useLoadLosersValues = (
-  options: QueryHookOptions<Pick<GQL.Query, "losersValues">> = {}
-) => {
-  const [
-    loadLosersValues,
-    { data: { losersValues } = { losersValues: undefined }, ...methods },
-  ] = useLazyQuery(LosersValuesQuery, options);
+// export const useLoadLosersValues = (
+//   options: QueryHookOptions<Pick<GQL.Query, "losersValues">> = {}
+// ) => {
+//   const [
+//     loadLosersValues,
+//     { data: { losersValues } = { losersValues: undefined }, ...methods },
+//   ] = useLazyQuery(LosersValuesQuery, options);
 
-  return { ...methods, loadLosersValues, losers: losersValues };
-};
+//   return { ...methods, loadLosersValues, losers: losersValues };
+// };

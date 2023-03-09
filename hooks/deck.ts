@@ -3,11 +3,16 @@ import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
 export const DeckDataFragment = gql`
   fragment DeckDataFragment on Deck {
     _id
+    slug
     info
     title
-    slug
-    labels
     cardBackground
+    short
+    image
+    description
+    backgroundImage
+    properties
+    labels
     openseaCollection {
       name
       address
@@ -17,11 +22,6 @@ export const DeckDataFragment = gql`
       name
       url
     }
-    short
-    image
-    properties
-    description
-    backgroundImage
     product {
       image
       status

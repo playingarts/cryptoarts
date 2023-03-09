@@ -1,6 +1,7 @@
 import { forwardRef, ForwardRefRenderFunction, useEffect } from "react";
 import { useLoadCards } from "../../../hooks/card";
-import { useLosersValues } from "../../../hooks/loser";
+import { useLosers } from "../../../hooks/loser";
+// import { useLosersValues } from "../../../hooks/loser";
 import AllEntriesBlock from "../../AllEntriesBlock";
 import BlockTitle from "../../BlockTitle";
 import Layout, { Props as LayoutProps } from "../../Layout";
@@ -26,7 +27,7 @@ const ComposedEntries: ForwardRefRenderFunction<
     });
   }, [deck]);
 
-  const { losers, loading } = useLosersValues({
+  const { losers, loading } = useLosers({
     variables: { deck: deck._id },
   });
 

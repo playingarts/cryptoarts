@@ -1,17 +1,17 @@
 import { FC } from "react";
 import { OwnedCard } from "../../../pages/[deckId]";
+import { theme } from "../../../pages/_app";
 import { breakpoints } from "../../../source/enums";
 import Arrowed from "../../Arrowed";
 import Card from "../../Card";
 import Grid, { Props as GridProps } from "../../Grid";
+import Line from "../../Line";
 import Link from "../../Link";
 import Quote from "../../Quote";
-import Line from "../../Line";
 import { useSize } from "../../SizeProvider";
 import Text from "../../Text";
 import Podcast from "../../_composed/Podcast";
 import CardInfo from "../Info";
-import { theme } from "../../../pages/_app";
 
 interface Props extends GridProps {
   card: GQL.Card;
@@ -39,9 +39,7 @@ const CardBlock: FC<Props> = ({
       card={card}
       animated={true}
       // size={"big"}
-      {...(
-        !cardOfTheDay && { size: "big" }
-      )}
+      {...(!cardOfTheDay && { size: "big" })}
       interactive={true}
       noInfo={true}
       owned={
@@ -189,7 +187,6 @@ const CardBlock: FC<Props> = ({
           contest={contest}
           artist={card.artist}
           deck={deck}
-          cardId={card._id}
         />
         {cardOfTheDay && (
           <div

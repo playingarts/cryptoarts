@@ -169,7 +169,7 @@ interface LoserArtist {
   _id?: Maybe<Scalars['ID']>;
   name?: Maybe<Scalars['String']>;
   info?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
+  slug: Scalars['String'];
   userpic?: Maybe<Scalars['String']>;
   website?: Maybe<Scalars['String']>;
   shop?: Maybe<Scalars['String']>;
@@ -424,7 +424,7 @@ interface Loser {
   _id?: Maybe<Scalars['ID']>;
   img?: Maybe<Scalars['String']>;
   video?: Maybe<Scalars['String']>;
-  artist?: Maybe<LoserArtist>;
+  artist: LoserArtist;
   info?: Maybe<Scalars['String']>;
   deck?: Maybe<Deck>;
   suit?: Maybe<Scalars['String']>;
@@ -642,7 +642,7 @@ export type LoserArtistResolvers<ContextType = { req: Request, res: Response }, 
   _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  slug?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   userpic?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   website?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   shop?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -897,7 +897,7 @@ export type LoserResolvers<ContextType = { req: Request, res: Response }, Parent
   _id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   img?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   video?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  artist?: Resolver<Maybe<ResolversTypes['LoserArtist']>, ParentType, ContextType>;
+  artist?: Resolver<ResolversTypes['LoserArtist'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
   suit?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

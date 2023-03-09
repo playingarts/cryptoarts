@@ -1,8 +1,10 @@
+import { NormalizedCacheObject } from "@apollo/client";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
-import { NextPage } from "next";
+import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import {
   FC,
   Fragment,
@@ -22,21 +24,24 @@ import Bag from "../components/Icons/Bag";
 import Layout from "../components/Layout";
 import Link from "../components/Link";
 import Modal from "../components/Modal";
-import GamePromo from "../components/_composed/GamePromo";
 import { useSize } from "../components/SizeProvider";
 import ComposedCardContent from "../components/_composed/CardContent";
 import ComposedCardList from "../components/_composed/ComposedCardList";
 import ComposedEntries from "../components/_composed/ComposedEntries";
 import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
+import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedPace from "../components/_composed/Pace";
-import { useDeck } from "../hooks/deck";
-import { useLoadLosersValues } from "../hooks/loser";
+import { CardsQuery, HeroCardsQuery } from "../hooks/card";
+import { DecksQuery, useDeck } from "../hooks/deck";
+import { LosersQuery, useLoadLosers } from "../hooks/loser";
 import { useOwnedAssets } from "../hooks/opensea";
 import frag from "../Shaders/Xemantic/index.glsl";
-import { withApollo } from "../source/apollo";
+import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
+import { getDecks } from "../source/graphql/schemas/deck";
+import { connect } from "../source/mongoose";
 import { theme } from "./_app";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
@@ -64,10 +69,12 @@ const Content: FC<{
     gameRef,
   }) => {
     const {
-      query: { artistId, deckId, section },
+      query: { artistId, section, deckId },
       pathname,
     } = useRouter();
+
     const { account } = useMetaMask();
+
     const { deck, loading } = useDeck({
       variables: { slug: deckId },
     });
@@ -418,7 +425,7 @@ const Content: FC<{
             </Layout>
           )}
 
-          { /* Game promo block */ }
+          {/* Game promo block */}
 
           {width >= breakpoints.sm && (
             <Layout
@@ -436,7 +443,7 @@ const Content: FC<{
             </Layout>
           )}
 
-          {/* Contest block */ }
+          {/* Contest block */}
 
           {/* {contest && <ArtContest deck={deck} />} */}
 
@@ -451,8 +458,7 @@ const Content: FC<{
 
           {!contest && (
             <Fragment>
-
-              {/* NFT collection block */ }
+              {/* NFT collection block */}
 
               {deck.openseaCollection && !artistId && (
                 <Layout
@@ -484,7 +490,7 @@ const Content: FC<{
                 </Layout>
               )}
 
-              { /* Roadmap block */ }
+              {/* Roadmap block */}
 
               {deck.slug === "crypto" && !artistId && (
                 <Layout
@@ -511,7 +517,7 @@ const Content: FC<{
                 </Layout>
               )}
 
-              { /* Physical deck block */ }
+              {/* Physical deck block */}
 
               <Layout
                 css={(theme) => [
@@ -545,7 +551,7 @@ const Content: FC<{
                   deck={deck}
                 />
               </Layout>
-              
+
               {deck.slug === "crypto" && (
                 <Layout
                   css={(theme) => [
@@ -582,6 +588,20 @@ const Page: NextPage = () => {
   const {
     query: { artistId, deckId },
   } = useRouter();
+
+  // const abstractQuery = pathname.split("/").filter((item) => item !== "");
+  // const query = asPath.split("/").filter((item) => item !== "");
+  // console.log({ query, abstractQuery });
+
+  // const deckId = query[0];
+  // const artistId = query[1] === "contest" ? query[2] : query[1];
+  // console.log({ deckId });
+
+  // const client = useApolloClient();
+
+  // console.log("data", client.cache);
+
+  // return null;
   const aboutRef = useRef<HTMLDivElement>(null);
   const deckRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLElement>(null);
@@ -593,13 +613,14 @@ const Page: NextPage = () => {
 
   const [altNavVisible, showAltNav] = useState(false);
   const [isCardPage, setIsCardPage] = useState(0);
+
   const { deck } = useDeck({ variables: { slug: deckId } });
 
-  const { losers, loadLosersValues } = useLoadLosersValues();
+  const { losers, loadLosers } = useLoadLosers();
 
   useEffect(() => {
     if (deck) {
-      loadLosersValues({
+      loadLosers({
         variables: { deck: deck._id },
       });
     }
@@ -680,4 +701,61 @@ const Page: NextPage = () => {
   );
 };
 
-export default withApollo(Page);
+interface Params extends ParsedUrlQuery {
+  deckId: string;
+}
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  connect();
+  const decks = await getDecks();
+
+  return {
+    paths: decks.map(({ slug }) => ({
+      params: { deckId: slug },
+    })),
+    // fallback: "blocking",
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<
+  { cache: NormalizedCacheObject },
+  { deckId: string }
+> = async (context) => {
+  const { deckId } = context.params!;
+
+  const client = initApolloClient(undefined, {
+    schema: (await require("../source/graphql/schema")).schema,
+  });
+
+  const {
+    data: { decks },
+  } = (await client.query({ query: DecksQuery })) as {
+    data: { decks: GQL.Deck[] };
+  };
+
+  const deck = decks.find((deck) => deck.slug === deckId);
+
+  if (deck) {
+    await client.query({
+      query: CardsQuery,
+      variables: { deck: deck._id },
+    });
+
+    await client.query({
+      query: LosersQuery,
+      variables: { deck: deck._id },
+    });
+
+    await client.query({
+      query: HeroCardsQuery,
+      variables: { deck: deck._id, slug: deck.slug },
+    });
+  }
+
+  return {
+    props: { cache: client.cache.extract() },
+  };
+};
+
+export default withApollo(Page, { ssr: false });
