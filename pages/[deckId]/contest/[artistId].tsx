@@ -1,3 +1,91 @@
+import { NormalizedCacheObject } from "@apollo/client";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { ParsedUrlQuery } from "querystring";
+import { CardsQuery } from "../../../hooks/card";
+import { DecksQuery } from "../../../hooks/deck";
+import { LosersQuery } from "../../../hooks/loser";
+import { podcastsQuery } from "../../../hooks/podcast";
+import { initApolloClient } from "../../../source/apollo";
+import { getCards } from "../../../source/graphql/schemas/card";
+import { getDecks } from "../../../source/graphql/schemas/deck";
+import { getLosers } from "../../../source/graphql/schemas/loser";
+import { connect } from "../../../source/mongoose";
 import Page from "../../[deckId]";
+
+interface Params extends ParsedUrlQuery {
+  deckId: string;
+  artistId: string;
+}
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  connect();
+  require("../../../source/graphql/schemas/artist");
+  const decks = await getDecks();
+
+  const paths: { params: { deckId: string; artistId: string } }[] = [];
+
+  for (const deck of decks) {
+    const { _id, slug } = deck;
+
+    const cards: GQL.Card[] = await getCards({ deck: _id });
+
+    const losers: GQL.Loser[] = await getLosers({ deck: _id });
+
+    [...cards, ...losers].map((card) =>
+      paths.push({
+        params: { deckId: slug, artistId: card.artist.slug },
+      })
+    );
+  }
+
+  return {
+    paths,
+    // fallback: "blocking",
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<
+  { cache: NormalizedCacheObject },
+  { deckId: string; artistId: string }
+> = async (context) => {
+  const { deckId } = context.params!;
+  const { artistId } = context.params!;
+
+  const client = initApolloClient(undefined, {
+    schema: (await require("../../../source/graphql/schema")).schema,
+  });
+
+  const {
+    data: { decks },
+  } = (await client.query({ query: DecksQuery })) as {
+    data: { decks: GQL.Deck[] };
+  };
+
+  const {
+    data: { cards },
+  } = (await client.query({
+    query: CardsQuery,
+    variables: { deck: decks.find((deck) => deck.slug === deckId)?._id },
+  })) as { data: { cards: GQL.Card[] } };
+
+  await client.query({
+    query: LosersQuery,
+    variables: { deck: decks.find((deck) => deck.slug === deckId)?._id },
+  });
+
+  await client.query({
+    query: podcastsQuery,
+    variables: {
+      limit: 1,
+      shuffle: true,
+      name: cards.find((card) => card.artist.slug === artistId)!.artist.name,
+    },
+  });
+
+  return {
+    props: { cache: client.cache.extract() },
+  };
+};
 
 export default Page;

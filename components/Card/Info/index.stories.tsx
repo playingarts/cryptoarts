@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import CardInfo from ".";
 import { CardQuery } from "../../../hooks/card";
 import { mockDeck } from "../../../mocks/deck";
@@ -37,7 +37,6 @@ WithPrice.args = {
     ...mockDeck,
     slug: "crypto",
   },
-  cardId: "cardId",
 };
 WithPrice.parameters = {
   apolloClient: {

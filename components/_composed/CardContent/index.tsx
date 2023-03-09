@@ -6,8 +6,8 @@ import {
   Fragment,
   useEffect,
 } from "react";
-import { useLoadCards } from "../../../hooks/card";
-import { useLoadLosers } from "../../../hooks/loser";
+import { useCards, useLoadCards } from "../../../hooks/card";
+import { useLoadLosers, useLosers } from "../../../hooks/loser";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { Sections } from "../../../source/enums";
 import CardNav, { Props as CardNavProps } from "../../Card/Nav";
@@ -30,21 +30,30 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     query: { cardValue, cardSuit },
   } = useRouter();
 
-  const { loadCards, cards: winners, loading } = useLoadCards();
-  const { loadLosers, losers, loading: loadingLosers } = useLoadLosers();
+  const { loadCards, cards: winners, loading } = (typeof window === undefined
+    ? (useCards as typeof useLoadCards)
+    : useLoadCards)();
+  const { loadLosers, losers, loading: loadingLosers } = (typeof window ===
+    undefined
+    ? (useLosers as typeof useLoadLosers)
+    : useLoadLosers)();
 
   useEffect(() => {
-    loadCards({
-      variables: {
-        deck: deck._id,
-      },
-    });
+    if (loadCards) {
+      loadCards({
+        variables: {
+          deck: deck._id,
+        },
+      });
+    }
 
-    loadLosers({
-      variables: {
-        deck: deck._id,
-      },
-    });
+    if (loadLosers) {
+      loadLosers({
+        variables: {
+          deck: deck._id,
+        },
+      });
+    }
   }, [deck, loadCards, loadLosers]);
 
   if (loading || !winners || loadingLosers) {
@@ -81,14 +90,15 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         <Head>
           <title>
             {(
-              card.artist.name + " - " +
+              card.artist.name +
+              " - " +
               (card.value === "joker"
                 ? card.suit + " " + card.value
                 : card.value +
-                  (card.value !== "backside" ? " of " + card.suit : ""))
-                  + " for "
-              + deck.title
-              + " - Playing Arts"
+                  (card.value !== "backside" ? " of " + card.suit : "")) +
+              " for " +
+              deck.title +
+              " - Playing Arts"
             ).replace(/\b\w/g, (l) => l.toUpperCase())}
           </title>
           {card.info ? <meta name="description" content={card.info} /> : null}

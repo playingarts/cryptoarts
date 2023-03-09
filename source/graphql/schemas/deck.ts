@@ -20,7 +20,7 @@ const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
 
 export const Deck = (models.Deck as Model<GQL.Deck>) || model("Deck", schema);
 
-const getDecks = async () => Deck.find();
+export const getDecks = async () => Deck.find();
 
 export const getDeck = async (
   options: Pick<GQL.Deck, "slug"> | Pick<GQL.Deck, "_id">

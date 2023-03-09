@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { Loser } from "./card";
 
-const getLosers = async ({ deck }: GQL.QueryLosersArgs) => {
+export const getLosers = async ({ deck }: GQL.QueryLosersArgs) => {
   const cards = await ((Loser.find({ deck }).populate([
     "artist",
     "deck",
@@ -15,7 +15,7 @@ const getLosersValues = async ({ deck }: GQL.QueryLosersValuesArgs) => {
   const cards = await Loser.find({ deck }).populate(["deck"]);
 
   //   return cards.map((card) => ({ value: card.value, suit: card.suit }));
-  return cards as GQL.Loser[];
+  return (cards as unknown) as GQL.Loser[];
 };
 
 export const resolvers: GQL.Resolvers = {
@@ -35,7 +35,7 @@ export const typeDefs = gql`
     _id: ID
     img: String
     video: String
-    artist: LoserArtist
+    artist: LoserArtist!
     info: String
     deck: Deck
     suit: String

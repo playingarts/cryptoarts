@@ -32,7 +32,7 @@ const Link: ForwardRefRenderFunction<
     as,
     replace,
     scroll,
-    shallow,
+    shallow = true,
     passHref = props.passHref ? props.passHref : Component === "a",
     prefetch,
     locale,
@@ -55,7 +55,7 @@ const Link: ForwardRefRenderFunction<
           <Component
             {...other}
             ref={ref as any}
-            css={{ color: "inherit", }}
+            css={{ color: "inherit" }}
             style={{ ...style, textDecoration: "none" }}
             className={cx(
               className,

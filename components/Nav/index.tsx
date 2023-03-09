@@ -12,9 +12,7 @@ const Nav: FC<
     vertical?: boolean;
   }
 > = ({ setHover, setModal, vertical, ...props }) => {
-  const { decks = [], loading } = useDecks({
-    variables: { withProduct: false },
-  });
+  const { decks = [], loading } = useDecks();
 
   const { width } = useSize();
 
@@ -49,9 +47,7 @@ const Nav: FC<
         vertical && {
           alignItems: "center",
           backdropFilter: "none",
-          background: colord(theme.colors.red)
-          .alpha(0)
-          .toRgbString(),
+          background: colord(theme.colors.red).alpha(0).toRgbString(),
         },
       ]}
     >
