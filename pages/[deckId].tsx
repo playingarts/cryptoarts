@@ -156,25 +156,6 @@ const Content: FC<{
         )}
 
         {!artistId && (
-          // <Layout
-          //   css={(theme) => ({
-          //     borderRadius: `0 0 ${theme.spacing(5)}px ${theme.spacing(5)}px`,
-          //     color: theme.colors.light_gray,
-          //     paddingTop: theme.spacing(26),
-          //     paddingBottom: theme.spacing(6),
-          //     [theme.mq.sm]: {
-          //       height: "100vh",
-          //       maxHeight: theme.spacing(74),
-          //     },
-          //     [theme.maxMQ.sm]: {
-          //       borderRadius: `0 0 ${theme.spacing(3)}px ${theme.spacing(3)}px`,
-          //       paddingTop: theme.spacing(19),
-          //       paddingBottom: theme.spacing(4),
-          //     },
-          //     overflow: "hidden",
-          //   })}
-          //   ref={aboutRef}
-          // >
           <ComposedMain
             title={deck.short}
             subtitle={deck.info}
@@ -297,51 +278,6 @@ const Content: FC<{
               />
             )}
           </ComposedMain>
-          // {/* <Grid
-          //   css={(theme) => ({
-          //     zIndex: 1,
-          //     position: "relative",
-          //     color:
-          //       theme.colors.decks[
-          //         deck.slug as keyof typeof theme.colors.decks
-          //       ].textColor,
-          //     height: "100%",
-          //   })}
-          // >
-          //   <div
-          //     css={{
-          //       gridColumn: "1 / 7",
-          //       display: "flex",
-          //       flexDirection: "column",
-          //       [theme.maxMQ.sm]: {
-          //         // marginTop: -theme.spacing(21.5),
-          //         paddingTop: theme.spacing(18),
-          //         // order: -1,
-          //       },
-          //     }}
-          //   ></div>
-          //   <Hero
-          //     slug={deck.slug}
-          //     deck={deck._id}
-          //     css={(theme) => [
-          //       {
-          //         width: "100%",
-          //         [theme.mq.sm]: {
-          //           gridColumn: "span 3 / -1",
-          //           marginLeft: theme.spacing(3.5),
-          //         },
-          //         [theme.mq.md]: {
-          //           gridColumn: "span 5 / -1",
-          //         },
-          //         [theme.maxMQ.sm]: {
-          //           marginTop: -theme.spacing(5.5),
-          //           order: -1,
-          //         },
-          //       },
-          //     ]}
-          //   />
-          // </Grid> */}
-          // </Layout>
         )}
 
         <div
@@ -706,7 +642,8 @@ interface Params extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  connect();
+  await connect();
+
   const decks = await getDecks();
 
   return {
@@ -723,16 +660,32 @@ export const getStaticProps: GetStaticProps<
   { deckId: string }
 > = async (context) => {
   const { deckId } = context.params!;
-
   const client = initApolloClient(undefined, {
     schema: (await require("../source/graphql/schema")).schema,
   });
 
-  const {
-    data: { decks },
-  } = (await client.query({ query: DecksQuery })) as {
-    data: { decks: GQL.Deck[] };
+  const fetchDecks: (numb?: number) => Promise<GQL.Deck[]> = async (
+    numb = 1
+  ) => {
+    try {
+      return ((await client.query({ query: DecksQuery })) as {
+        data: { decks: GQL.Deck[] };
+      }).data.decks;
+    } catch (error) {
+      if (numb >= 6) {
+        throw new Error("Can't fetch decks");
+      }
+      await connect();
+
+      return await fetchDecks(numb + 1);
+    }
   };
+
+  const decks = await fetchDecks();
+
+  if (!decks) {
+    throw new Error("No decks were fetched");
+  }
 
   const deck = decks.find((deck) => deck.slug === deckId);
 
@@ -741,12 +694,10 @@ export const getStaticProps: GetStaticProps<
       query: CardsQuery,
       variables: { deck: deck._id },
     });
-
     await client.query({
       query: LosersQuery,
       variables: { deck: deck._id },
     });
-
     await client.query({
       query: HeroCardsQuery,
       variables: { deck: deck._id, slug: deck.slug },

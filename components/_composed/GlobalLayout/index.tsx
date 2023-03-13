@@ -45,6 +45,7 @@ const ComposedGlobalLayout: FC<
   scrollArrow,
 }) => {
   const { width } = useSize();
+  // console.log({ width });
 
   return (
     <Fragment>
@@ -80,16 +81,36 @@ const ComposedGlobalLayout: FC<
               },
             })}
           >
-            <a rel="noreferrer" href="https://www.fastcompany.com/90575448/these-playing-cards-show-fantastical-ways-the-world-could-change-by-2120" target="_blank" css={{ gridColumn: "span 3", textAlign: "center", color: "#000", }}>
+            <a
+              rel="noreferrer"
+              href="https://www.fastcompany.com/90575448/these-playing-cards-show-fantastical-ways-the-world-could-change-by-2120"
+              target="_blank"
+              css={{ gridColumn: "span 3", textAlign: "center", color: "#000" }}
+            >
               <FastCompany />
             </a>
-            <a rel="noreferrer" href="https://www.creativebloq.com/illustration/artists-collaborate-picture-perfect-playing-cards-10134891" target="_blank" css={{ gridColumn: "span 3", textAlign: "center", color: "#000", }}>
+            <a
+              rel="noreferrer"
+              href="https://www.creativebloq.com/illustration/artists-collaborate-picture-perfect-playing-cards-10134891"
+              target="_blank"
+              css={{ gridColumn: "span 3", textAlign: "center", color: "#000" }}
+            >
               <CreativeBloq />
             </a>
-            <a rel="noreferrer" href="https://www.digitalartsonline.co.uk/features/illustration/55-global-designers-illustrators-each-designed-playing-card-in-this-unique-deck/" target="_blank" css={{ gridColumn: "span 3", textAlign: "center", color: "#000", }}>
+            <a
+              rel="noreferrer"
+              href="https://www.digitalartsonline.co.uk/features/illustration/55-global-designers-illustrators-each-designed-playing-card-in-this-unique-deck/"
+              target="_blank"
+              css={{ gridColumn: "span 3", textAlign: "center", color: "#000" }}
+            >
               <DigitalArts />
             </a>
-            <a rel="noreferrer" href="https://www.esquire.com/style/mens-fashion/g4233463/artistic-deck-of-cards" target="_blank" css={{ gridColumn: "span 3", textAlign: "center", color: "#000", }}>
+            <a
+              rel="noreferrer"
+              href="https://www.esquire.com/style/mens-fashion/g4233463/artistic-deck-of-cards"
+              target="_blank"
+              css={{ gridColumn: "span 3", textAlign: "center", color: "#000" }}
+            >
               <Esquire />
             </a>
           </Grid>
