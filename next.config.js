@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   reactStrictMode: true,
   webpack(config) {
     config.module.rules.push({
@@ -16,12 +16,4 @@ const config = {
   images: {
     domains: ["s3.amazonaws.com"],
   },
-};
-
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
-});
-
-module.exports = (_phase, defaultConfig) => {
-  return withBundleAnalyzer({ ...defaultConfig, ...config });
 };
