@@ -2,6 +2,7 @@ import { NormalizedCacheObject } from "@apollo/client";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import {
@@ -39,6 +40,7 @@ import { useOwnedAssets } from "../hooks/opensea";
 import frag from "../Shaders/Xemantic/index.glsl";
 import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
+import { getDecks } from "../source/graphql/schemas/deck";
 import { connectToDB } from "../source/mongoose";
 import { theme } from "./_app";
 
@@ -635,8 +637,23 @@ const Page: NextPage = () => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  return { paths: [], fallback: "blocking" };
+interface Params extends NextParsedUrlQuery {
+  deckId: string;
+}
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  // await connect();
+  await connectToDB();
+
+  const decks = await getDecks();
+
+  return {
+    paths: decks.map(({ slug }) => ({
+      params: { deckId: slug },
+    })),
+    // fallback: "blocking",
+    fallback: false,
+  };
 };
 
 export const getStaticProps: GetStaticProps<
@@ -668,28 +685,26 @@ export const getStaticProps: GetStaticProps<
 
   const decks = await fetchDecks();
 
-  if (!decks) {
+  const deck = decks.find((deck) => deck.slug === deckId);
+
+  if (!deck) {
     return {
       notFound: true,
     };
   }
 
-  const deck = decks.find((deck) => deck.slug === deckId);
-
-  if (deck) {
-    await client.query({
-      query: CardsQuery,
-      variables: { deck: deck._id },
-    });
-    await client.query({
-      query: LosersQuery,
-      variables: { deck: deck._id },
-    });
-    await client.query({
-      query: HeroCardsQuery,
-      variables: { deck: deck._id, slug: deck.slug },
-    });
-  }
+  await client.query({
+    query: CardsQuery,
+    variables: { deck: deck._id },
+  });
+  await client.query({
+    query: LosersQuery,
+    variables: { deck: deck._id },
+  });
+  await client.query({
+    query: HeroCardsQuery,
+    variables: { deck: deck._id, slug: deck.slug },
+  });
 
   return {
     props: { cache: client.cache.extract() },

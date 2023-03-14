@@ -1,14 +1,45 @@
 import { NormalizedCacheObject } from "@apollo/client";
-import { GetStaticProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
+import { NextParsedUrlQuery } from "next/dist/server/request-meta";
 import { CardsQuery } from "../../hooks/card";
 import { DecksQuery } from "../../hooks/deck";
 import { LosersQuery } from "../../hooks/loser";
 import { podcastsQuery } from "../../hooks/podcast";
 import { initApolloClient } from "../../source/apollo";
+import { getCards } from "../../source/graphql/schemas/card";
+import { getDecks } from "../../source/graphql/schemas/deck";
 import { connectToDB } from "../../source/mongoose";
-import Page, { getStaticPaths as getstatic } from "../[deckId]";
+import Page from "../[deckId]";
 
-export const getStaticPaths = getstatic;
+interface Params extends NextParsedUrlQuery {
+  deckId: string;
+  artistId: string;
+}
+
+export const getStaticPaths: GetStaticPaths<Params> = async () => {
+  await connectToDB();
+  require("../../source/graphql/schemas/artist");
+  const decks = await getDecks();
+
+  const paths: { params: { deckId: string; artistId: string } }[] = [];
+
+  for (const deck of decks) {
+    const { _id, slug } = deck;
+
+    const cards: GQL.Card[] = await getCards({ deck: _id });
+
+    cards.map((card) =>
+      paths.push({
+        params: { deckId: slug, artistId: card.artist.slug },
+      })
+    );
+  }
+
+  return {
+    paths: paths,
+    fallback: "blocking",
+  };
+};
 
 export const getStaticProps: GetStaticProps<
   { cache: NormalizedCacheObject },
@@ -46,6 +77,7 @@ export const getStaticProps: GetStaticProps<
     return {
       notFound: true,
     };
+    // throw new Error("No deck");
   }
 
   const {
