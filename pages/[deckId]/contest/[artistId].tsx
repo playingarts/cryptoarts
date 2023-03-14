@@ -18,30 +18,31 @@ interface Params extends ParsedUrlQuery {
 }
 
 export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  connect();
+  await connect();
   require("../../../source/graphql/schemas/artist");
   const decks = await getDecks();
 
   const paths: { params: { deckId: string; artistId: string } }[] = [];
 
   for (const deck of decks) {
-    const { _id, slug } = deck;
+    const { _id, slug, labels } = deck;
 
-    const cards: GQL.Card[] = await getCards({ deck: _id });
+    if (labels && labels.includes("contest")) {
+      const cards: GQL.Card[] = await getCards({ deck: _id });
 
-    const losers: GQL.Loser[] = await getLosers({ deck: _id });
+      const losers: GQL.Loser[] = await getLosers({ deck: _id });
 
-    [...cards, ...losers].map((card) =>
-      paths.push({
-        params: { deckId: slug, artistId: card.artist.slug },
-      })
-    );
+      [...cards, ...losers].map((card) =>
+        paths.push({
+          params: { deckId: slug, artistId: card.artist.slug },
+        })
+      );
+    }
   }
 
   return {
     paths,
-    // fallback: "blocking",
-    fallback: false,
+    fallback: "blocking",
   };
 };
 
@@ -56,30 +57,64 @@ export const getStaticProps: GetStaticProps<
     schema: (await require("../../../source/graphql/schema")).schema,
   });
 
-  const {
-    data: { decks },
-  } = (await client.query({ query: DecksQuery })) as {
-    data: { decks: GQL.Deck[] };
+  const fetchDecks: (numb?: number) => Promise<GQL.Deck[]> = async (
+    numb = 0
+  ) => {
+    try {
+      return ((await client.query({ query: DecksQuery })) as {
+        data: { decks: GQL.Deck[] };
+      }).data.decks;
+    } catch (error) {
+      if (numb >= 5) {
+        throw new Error("Can't fetch decks");
+      }
+      await connect();
+
+      return await fetchDecks(numb + 1);
+    }
   };
+
+  const decks = await fetchDecks();
+
+  const deck = decks.find((deck) => deck.slug === deckId);
+
+  if (!deck) {
+    throw new Error("No deck");
+  }
 
   const {
     data: { cards },
   } = (await client.query({
     query: CardsQuery,
-    variables: { deck: decks.find((deck) => deck.slug === deckId)?._id },
+    variables: { deck: deck._id },
   })) as { data: { cards: GQL.Card[] } };
+
+  const {
+    data: { losers },
+  } = (await client.query({
+    query: LosersQuery,
+    variables: { deck: deck._id },
+  })) as { data: { losers: GQL.Loser[] } };
 
   await client.query({
     query: LosersQuery,
-    variables: { deck: decks.find((deck) => deck.slug === deckId)?._id },
+    variables: { deck: deck._id },
   });
+
+  const card = [...cards, ...losers].find(
+    (card) => card.artist.slug === artistId
+  );
+
+  if (!card) {
+    throw new Error("No Card");
+  }
 
   await client.query({
     query: podcastsQuery,
     variables: {
       limit: 1,
       shuffle: true,
-      name: cards.find((card) => card.artist.slug === artistId)!.artist.name,
+      name: card.artist.name,
     },
   });
 

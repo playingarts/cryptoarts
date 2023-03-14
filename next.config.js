@@ -8,7 +8,7 @@ module.exports = {
 
     config.module.rules.push({
       test: /\.(glsl|vs|fs)$/,
-      type: 'asset/source'
+      type: "asset/source",
     });
 
     return config;

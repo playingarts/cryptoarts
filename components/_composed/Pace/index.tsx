@@ -148,28 +148,28 @@ const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
         ]}
       >
         {width < breakpoints.sm && (
-            <Button
-              Icon={Bag}
-              component={Link}
-              target="_blank"
-              css={(theme) => ({
-                background: theme.colors.eth,
-                width: "100%",
-                gridColumn: "1/-1",
-                justifyContent: "center",
-                [theme.maxMQ.sm]: {
-                  marginTop: theme.spacing(1),
-                  marginBottom: theme.spacing(1),
-                  marginLeft: theme.spacing(2),
-                  marginRight: theme.spacing(2),
-                  width: "auto"
-                },
-              })}
-              href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
-            >
-              Opensea
-            </Button>
-          )}
+          <Button
+            Icon={Bag}
+            component={Link}
+            target="_blank"
+            css={(theme) => ({
+              background: theme.colors.eth,
+              width: "100%",
+              gridColumn: "1/-1",
+              justifyContent: "center",
+              [theme.maxMQ.sm]: {
+                marginTop: theme.spacing(1),
+                marginBottom: theme.spacing(1),
+                marginLeft: theme.spacing(2),
+                marginRight: theme.spacing(2),
+                width: "auto",
+              },
+            })}
+            href={`https://opensea.io/collection/${deck.openseaCollection.name}`}
+          >
+            Opensea
+          </Button>
+        )}
         <Grid
           css={(theme) => [
             {
