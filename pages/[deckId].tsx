@@ -1,10 +1,8 @@
-import { NormalizedCacheObject } from "@apollo/client";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { ParsedUrlQuery } from "querystring";
 import {
   FC,
   Fragment,
@@ -33,15 +31,12 @@ import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
 import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedPace from "../components/_composed/Pace";
-import { CardsQuery, HeroCardsQuery } from "../hooks/card";
-import { DecksQuery, useDeck } from "../hooks/deck";
-import { LosersQuery, useLoadLosers } from "../hooks/loser";
+import { useDeck } from "../hooks/deck";
+import { useLoadLosers } from "../hooks/loser";
 import { useOwnedAssets } from "../hooks/opensea";
 import frag from "../Shaders/Xemantic/index.glsl";
-import { initApolloClient, withApollo } from "../source/apollo";
+import { withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
-import { getDecks } from "../source/graphql/schemas/deck";
-import { connect } from "../source/mongoose";
 import { theme } from "./_app";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
@@ -637,76 +632,77 @@ const Page: NextPage = () => {
   );
 };
 
-interface Params extends ParsedUrlQuery {
-  deckId: string;
-}
+// interface Params extends ParsedUrlQuery {
+//   deckId: string;
+// }
 
-export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  await connect();
+// export const getStaticPaths: GetStaticPaths<Params> = async () => {
+//   await connect();
 
-  const decks = await getDecks();
+//   const decks = await getDecks();
 
-  return {
-    paths: decks.map(({ slug }) => ({
-      params: { deckId: slug },
-    })),
-    // fallback: "blocking",
-    fallback: false,
-  };
-};
+//   return {
+//     paths: decks.map(({ slug }) => ({
+//       params: { deckId: slug },
+//     })),
+//     // fallback: "blocking",
+//     fallback: false,
+//   };
+// };
 
-export const getStaticProps: GetStaticProps<
-  { cache: NormalizedCacheObject },
-  { deckId: string }
-> = async (context) => {
-  const { deckId } = context.params!;
-  const client = initApolloClient(undefined, {
-    schema: (await require("../source/graphql/schema")).schema,
-  });
+// export const getStaticProps: GetStaticProps<
+//   { cache: NormalizedCacheObject },
+//   { deckId: string }
+// > = async (context) => {
+//   const { deckId } = context.params!;
+//   const client = initApolloClient(undefined, {
+//     schema: (await require("../source/graphql/schema")).schema,
+//   });
 
-  const fetchDecks: (numb?: number) => Promise<GQL.Deck[]> = async (
-    numb = 1
-  ) => {
-    try {
-      return ((await client.query({ query: DecksQuery })) as {
-        data: { decks: GQL.Deck[] };
-      }).data.decks;
-    } catch (error) {
-      if (numb >= 6) {
-        throw new Error("Can't fetch decks");
-      }
-      await connect();
+//   const fetchDecks: (numb?: number) => Promise<GQL.Deck[]> = async (
+//     numb = 1
+//   ) => {
+//     try {
+//       return ((await client.query({ query: DecksQuery })) as {
+//         data: { decks: GQL.Deck[] };
+//       }).data.decks;
+//     } catch (error) {
+//       if (numb >= 6) {
+//         throw new Error("Can't fetch decks");
+//       }
+//       await connect();
 
-      return await fetchDecks(numb + 1);
-    }
-  };
+//       return await fetchDecks(numb + 1);
+//     }
+//   };
 
-  const decks = await fetchDecks();
+//   const decks = await fetchDecks();
 
-  if (!decks) {
-    throw new Error("No decks were fetched");
-  }
+//   if (!decks) {
+//     throw new Error("No decks were fetched");
+//   }
 
-  const deck = decks.find((deck) => deck.slug === deckId);
+//   const deck = decks.find((deck) => deck.slug === deckId);
 
-  if (deck) {
-    await client.query({
-      query: CardsQuery,
-      variables: { deck: deck._id },
-    });
-    await client.query({
-      query: LosersQuery,
-      variables: { deck: deck._id },
-    });
-    await client.query({
-      query: HeroCardsQuery,
-      variables: { deck: deck._id, slug: deck.slug },
-    });
-  }
+//   if (deck) {
+//     await client.query({
+//       query: CardsQuery,
+//       variables: { deck: deck._id },
+//     });
+//     await client.query({
+//       query: LosersQuery,
+//       variables: { deck: deck._id },
+//     });
+//     await client.query({
+//       query: HeroCardsQuery,
+//       variables: { deck: deck._id, slug: deck.slug },
+//     });
+//   }
 
-  return {
-    props: { cache: client.cache.extract() },
-  };
-};
+//   return {
+//     props: { cache: client.cache.extract() },
+//   };
+// };
 
-export default withApollo(Page, { ssr: false });
+// export default withApollo(Page, { ssr: false });
+export default withApollo(Page);

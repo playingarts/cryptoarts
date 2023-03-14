@@ -1,107 +1,96 @@
-import { NormalizedCacheObject } from "@apollo/client";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { ParsedUrlQuery } from "querystring";
-import { CardsQuery } from "../../hooks/card";
-import { DecksQuery } from "../../hooks/deck";
-import { LosersQuery } from "../../hooks/loser";
-import { podcastsQuery } from "../../hooks/podcast";
-import { initApolloClient } from "../../source/apollo";
-import { getCards } from "../../source/graphql/schemas/card";
-import { getDecks } from "../../source/graphql/schemas/deck";
-import { connect } from "../../source/mongoose";
 import Page from "../[deckId]";
 
-interface Params extends ParsedUrlQuery {
-  deckId: string;
-  artistId: string;
-}
+// interface Params extends ParsedUrlQuery {
+//   deckId: string;
+//   artistId: string;
+// }
 
-export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  await connect();
-  require("../../source/graphql/schemas/artist");
-  const decks = await getDecks();
+// export const getStaticPaths: GetStaticPaths<Params> = async () => {
+//   await connect();
+//   require("../../source/graphql/schemas/artist");
+//   const decks = await getDecks();
 
-  const paths: { params: { deckId: string; artistId: string } }[] = [];
+//   const paths: { params: { deckId: string; artistId: string } }[] = [];
 
-  for (const deck of decks) {
-    const { _id, slug } = deck;
+//   for (const deck of decks) {
+//     const { _id, slug } = deck;
 
-    const cards: GQL.Card[] = await getCards({ deck: _id });
+//     const cards: GQL.Card[] = await getCards({ deck: _id });
 
-    cards.map((card) =>
-      paths.push({
-        params: { deckId: slug, artistId: card.artist.slug },
-      })
-    );
-  }
+//     cards.map((card) =>
+//       paths.push({
+//         params: { deckId: slug, artistId: card.artist.slug },
+//       })
+//     );
+//   }
 
-  return {
-    paths,
-    fallback: "blocking",
-    // fallback: false,
-  };
-};
+//   return {
+//     paths,
+//     fallback: "blocking",
+//     // fallback: false,
+//   };
+// };
 
-export const getStaticProps: GetStaticProps<
-  { cache: NormalizedCacheObject },
-  { deckId: string; artistId: string }
-> = async (context) => {
-  const { deckId } = context.params!;
-  const { artistId } = context.params!;
+// export const getStaticProps: GetStaticProps<
+//   { cache: NormalizedCacheObject },
+//   { deckId: string; artistId: string }
+// > = async (context) => {
+//   const { deckId } = context.params!;
+//   const { artistId } = context.params!;
 
-  const client = initApolloClient(undefined, {
-    schema: (await require("../../source/graphql/schema")).schema,
-  });
+//   const client = initApolloClient(undefined, {
+//     schema: (await require("../../source/graphql/schema")).schema,
+//   });
 
-  const fetchDecks: (numb?: number) => Promise<GQL.Deck[]> = async (
-    numb = 0
-  ) => {
-    try {
-      return ((await client.query({ query: DecksQuery })) as {
-        data: { decks: GQL.Deck[] };
-      }).data.decks;
-    } catch (error) {
-      if (numb >= 5) {
-        throw new Error("Can't fetch decks");
-      }
-      await connect();
+//   const fetchDecks: (numb?: number) => Promise<GQL.Deck[]> = async (
+//     numb = 0
+//   ) => {
+//     try {
+//       return ((await client.query({ query: DecksQuery })) as {
+//         data: { decks: GQL.Deck[] };
+//       }).data.decks;
+//     } catch (error) {
+//       if (numb >= 5) {
+//         throw new Error("Can't fetch decks");
+//       }
+//       await connect();
 
-      return await fetchDecks(numb + 1);
-    }
-  };
+//       return await fetchDecks(numb + 1);
+//     }
+//   };
 
-  const decks = await fetchDecks();
+//   const decks = await fetchDecks();
 
-  const deck = decks.find((deck) => deck.slug === deckId);
+//   const deck = decks.find((deck) => deck.slug === deckId);
 
-  if (!deck) {
-    throw new Error("No deck");
-  }
+//   if (!deck) {
+//     throw new Error("No deck");
+//   }
 
-  const {
-    data: { cards },
-  } = (await client.query({
-    query: CardsQuery,
-    variables: { deck: deck._id },
-  })) as { data: { cards: GQL.Card[] } };
+//   const {
+//     data: { cards },
+//   } = (await client.query({
+//     query: CardsQuery,
+//     variables: { deck: deck._id },
+//   })) as { data: { cards: GQL.Card[] } };
 
-  await client.query({
-    query: LosersQuery,
-    variables: { deck: deck._id },
-  });
+//   await client.query({
+//     query: LosersQuery,
+//     variables: { deck: deck._id },
+//   });
 
-  await client.query({
-    query: podcastsQuery,
-    variables: {
-      limit: 1,
-      shuffle: true,
-      name: cards.find((card) => card.artist.slug === artistId)!.artist.name,
-    },
-  });
+//   await client.query({
+//     query: podcastsQuery,
+//     variables: {
+//       limit: 1,
+//       shuffle: true,
+//       name: cards.find((card) => card.artist.slug === artistId)!.artist.name,
+//     },
+//   });
 
-  return {
-    props: { cache: client.cache.extract() },
-  };
-};
+//   return {
+//     props: { cache: client.cache.extract() },
+//   };
+// };
 
 export default Page;
