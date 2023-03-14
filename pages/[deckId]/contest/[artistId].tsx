@@ -1,50 +1,14 @@
 import { NormalizedCacheObject } from "@apollo/client";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { NextParsedUrlQuery } from "next/dist/server/request-meta";
+import { GetStaticProps } from "next";
 import { CardsQuery } from "../../../hooks/card";
 import { DecksQuery } from "../../../hooks/deck";
 import { LosersQuery } from "../../../hooks/loser";
 import { podcastsQuery } from "../../../hooks/podcast";
 import { initApolloClient } from "../../../source/apollo";
-import { getCards } from "../../../source/graphql/schemas/card";
-import { getDecks } from "../../../source/graphql/schemas/deck";
-import { getLosers } from "../../../source/graphql/schemas/loser";
 import { connectToDB } from "../../../source/mongoose";
-import Page from "../../[deckId]";
+import Page, { getStaticPaths as getstatic } from "../../[deckId]";
 
-interface Params extends NextParsedUrlQuery {
-  deckId: string;
-  artistId: string;
-}
-
-export const getStaticPaths: GetStaticPaths<Params> = async () => {
-  await connectToDB();
-  require("../../../source/graphql/schemas/artist");
-  const decks = await getDecks();
-
-  const paths: { params: { deckId: string; artistId: string } }[] = [];
-
-  for (const deck of decks) {
-    const { _id, slug, labels } = deck;
-
-    if (labels && labels.includes("contest")) {
-      const cards: GQL.Card[] = await getCards({ deck: _id });
-
-      const losers: GQL.Loser[] = await getLosers({ deck: _id });
-
-      [...cards, ...losers].map((card) =>
-        paths.push({
-          params: { deckId: slug, artistId: card.artist.slug },
-        })
-      );
-    }
-  }
-
-  return {
-    paths,
-    fallback: "blocking",
-  };
-};
+export const getStaticPaths = getstatic;
 
 export const getStaticProps: GetStaticProps<
   { cache: NormalizedCacheObject },
@@ -79,7 +43,9 @@ export const getStaticProps: GetStaticProps<
   const deck = decks.find((deck) => deck.slug === deckId);
 
   if (!deck) {
-    throw new Error("No deck");
+    return {
+      notFound: true,
+    };
   }
 
   const {
@@ -101,7 +67,9 @@ export const getStaticProps: GetStaticProps<
   );
 
   if (!card) {
-    throw new Error("No Card");
+    return {
+      notFound: true,
+    };
   }
 
   await client.query({
