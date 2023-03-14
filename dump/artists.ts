@@ -1377,31 +1377,6 @@ export const artists = [
     },
   },
   {
-    slug: "sebastian-onufszak",
-    name: "Sebastian Onufszak",
-    country: "Germany",
-    info:
-      "Sebastian Onufszak is an award-winning illustrator, designer and art director based in Augsburg, Germany. After successfully finishing his studies in communication design, the member of the Art Directors Club worked as Creative Director and Art Director for several design and animation studios from 2001 up until 2009. Since 2009, he starting out as a self-employed creative in the fields of print and interactive and motion media. He further lectured on motion graphics and animation at the University of Applied Sciences in Augsburg. His expressive and unique style landed him jobs with popular brands such as Adidas, Mercedes, Samsung and Karl Lagerfeld, to name but a few. Onufszak’s commercial and personal works were featured in numerous design publications and exhibitions worldwide.",
-    userpic:
-      "https://s3.amazonaws.com/img.playingarts.com/future/upic/sebastian-onufszak.jpg",
-    website: "https://www.onufszak.com/",
-    shop: "",
-    social: {
-      instagram: "https://www.instagram.com/onufszak/",
-      facebook: "",
-      twitter: "",
-      behance: "",
-      dribbble: "",
-      foundation: "",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
     slug: "adnan-ali",
     name: "Adnan Ali",
     country: "Pakistan",
@@ -24018,7 +23993,7 @@ export const artists = [
       instagram: "https://www.instagram.com/design.is.dead/",
       facebook: "https://www.facebook.com/designisdead",
       twitter: "https://twitter.com/designisdead",
-      behance: "https://www.behance.net/onufszak",
+      behance: "",
       dribbble: "",
       foundation: "",
       superrare: "",
@@ -24034,9 +24009,9 @@ export const artists = [
     name: "Sebastian Onufszak",
     country: "Poland",
     info:
-      "Born in Breslau (Poland) in 1978, Sebastian Onufszak is a German-Polish illustrator, designer and director. Since 2009 he has been working for an international range of high-end clients in the fields of print, interactive and motion media as a self-employed designer. His commercial and personal works were featured in numerous design publications and exhibitions worldwide. Onufszak also lectures on motion graphics and animation at the University of Applied Sciences in Augsburg. Additionally, he is reknowned for his experimental live visuals at festivals and events in Paris, Barcelona, Brussels or New York.",
+      "Sebastian Onufszak is an award-winning illustrator, designer and art director based in Augsburg, Germany. After successfully finishing his studies in communication design, the member of the Art Directors Club worked as Creative Director and Art Director for several design and animation studios from 2001 up until 2009. Since 2009, he starting out as a self-employed creative in the fields of print and interactive and motion media. He further lectured on motion graphics and animation at the University of Applied Sciences in Augsburg. His expressive and unique style landed him jobs with popular brands such as Adidas, Mercedes, Samsung and Karl Lagerfeld, to name but a few. Onufszak’s commercial and personal works were featured in numerous design publications and exhibitions worldwide.",
     userpic:
-      "https://s3.amazonaws.com/img.playingarts.com/files/userpics/zero/7c.jpg",
+      "https://s3.amazonaws.com/img.playingarts.com/future/upic/sebastian-onufszak.jpg",
     website: "http://www.onufszak.com/",
     shop: "",
     social: {
@@ -25713,7 +25688,7 @@ export const artists = [
     social: {
       instagram: "https://www.instagram.com/bramvanhaeren",
       facebook: "",
-      twitter: "https://twitter.com/BramVanhaeren",
+      twitter: "",
       behance: "https://www.behance.net/BramVanhaeren",
       dribbble: "",
       foundation: "https://foundation.app/@bramvanhaeren",
@@ -25863,7 +25838,7 @@ export const artists = [
     social: {
       instagram: "https://instagram.com/render_fruit",
       facebook: "",
-      twitter: "https://twitter.com/ClaraLuzian",
+      twitter: "https://twitter.com/renderfruit",
       behance: "",
       dribbble: "",
       foundation: "https://foundation.app/@renderfruit",
@@ -26062,7 +26037,7 @@ export const artists = [
     social: {
       instagram: "",
       facebook: "",
-      twitter: "",
+      twitter: "https://twitter.com/Trippyogi",
       behance: "",
       dribbble: "",
       foundation: "https://foundation.app/@trippyogi",
@@ -26087,7 +26062,7 @@ export const artists = [
     social: {
       instagram: "https://instagram.com/marterium",
       facebook: "",
-      twitter: "https://twitter.com/Marterium_",
+      twitter: "https://twitter.com/Marteriumx",
       behance: "https://www.behance.net/marterium",
       dribbble: "",
       foundation: "https://foundation.app/@marterium_",
@@ -26116,31 +26091,6 @@ export const artists = [
       behance: "https://www.behance.net/omaraqil",
       dribbble: "https://dribbble.com/omaraqildesign",
       foundation: "https://foundation.app/@omaraqil",
-      superrare: "",
-      makersplace: "",
-      knownorigin: "",
-      rarible: "",
-      niftygateway: "",
-      showtime: "",
-    },
-  },
-  {
-    slug: "sebastian-onufszak",
-    name: "Sebastian Onufszak",
-    country: "Germany",
-    info:
-      "Designer and artist since the dot-com bubble — exploring the boundaries between digital and analog art.",
-    userpic:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/upics/sebastian-onufszak.jpg",
-    website: "https://onufszak.com/",
-    shop: "",
-    social: {
-      instagram: "https://instagram.com/onufszak",
-      facebook: "",
-      twitter: "https://twitter.com/onufszak",
-      behance: "",
-      dribbble: "",
-      foundation: "https://foundation.app/@onufszak",
       superrare: "",
       makersplace: "",
       knownorigin: "",
