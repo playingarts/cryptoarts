@@ -112,9 +112,10 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
 };
 
 export const initApolloClient = (initialState?: object, config?: object) => {
-  if (typeof window === "undefined" && !cachedApolloClient) {
-    cachedApolloClient = createApolloClient(initialState, config);
-  } else if (!cachedApolloClient) {
+  if (typeof window === "undefined") {
+    return createApolloClient(initialState, config);
+  }
+  if (!cachedApolloClient) {
     cachedApolloClient = createApolloClient(initialState);
   }
 
