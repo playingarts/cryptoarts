@@ -261,7 +261,7 @@ export const getAssetsRaw: {
     ) {
       queue.push({ contract, name });
     }
-    if (this.state !== "loading") {
+    if (this.state !== "loading" && process.env.ALLOW_ASSETS_FETCH === "true") {
       this.state = "loading";
       console.log(queue);
 
