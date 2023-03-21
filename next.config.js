@@ -1,6 +1,17 @@
-module.exports = {
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
+
+module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   webpack(config) {
+    // config.optimization = {
+    //   ...config.optimization,
+    //   usedExports: true,
+    //   sideEffects: true,
+    //   innerGraph: true,
+    // };
+
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
@@ -16,4 +27,4 @@ module.exports = {
   images: {
     domains: ["s3.amazonaws.com"],
   },
-};
+});

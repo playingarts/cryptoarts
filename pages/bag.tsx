@@ -18,7 +18,6 @@ import StatBlock from "../components/StatBlock";
 import Text from "../components/Text";
 import ComposedFaq from "../components/_composed/Faq";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
-import { theme } from "../pages/_app";
 import { useBag } from "../hooks/bag";
 import { useProducts } from "../hooks/product";
 import { withApollo } from "../source/apollo";
@@ -97,14 +96,16 @@ const Content: FC<{
               </Text>
               <Line
                 spacing={1}
-                css={{
-                  gridColumn: "1 / -1",
-                  width: "100%",
-                  [theme.mq.sm]: {
-                    marginTop: theme.spacing(2),
-                    marginBottom: theme.spacing(2),
+                css={(theme) => [
+                  {
+                    gridColumn: "1 / -1",
+                    width: "100%",
+                    [theme.mq.sm]: {
+                      marginTop: theme.spacing(2),
+                      marginBottom: theme.spacing(2),
+                    },
                   },
-                }}
+                ]}
               />
               <Button
                 component={Link}
@@ -146,15 +147,17 @@ const Content: FC<{
               </Text>
               <Line
                 spacing={1}
-                css={{
-                  gridColumn: "1 / -1",
-                  width: "100%",
+                css={(theme) => [
+                  {
+                    gridColumn: "1 / -1",
+                    width: "100%",
 
-                  [theme.mq.sm]: {
-                    marginTop: theme.spacing(2),
-                    marginBottom: theme.spacing(2),
+                    [theme.mq.sm]: {
+                      marginTop: theme.spacing(2),
+                      marginBottom: theme.spacing(2),
+                    },
                   },
-                }}
+                ]}
               />
             </Fragment>
           )}

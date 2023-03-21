@@ -1,5 +1,4 @@
 import { FC, HTMLAttributes } from "react";
-import { theme } from "../../pages/_app";
 
 const Menu: FC<HTMLAttributes<SVGElement> & { animateOnHover?: boolean }> = ({
   animateOnHover,
@@ -13,7 +12,7 @@ const Menu: FC<HTMLAttributes<SVGElement> & { animateOnHover?: boolean }> = ({
     fill="currentColor"
     {...props}
     {...(animateOnHover && {
-      css: {
+      css: (theme) => ({
         [theme.mq.sm]: {
           "&:hover": {
             "#menuBar": {
@@ -25,7 +24,7 @@ const Menu: FC<HTMLAttributes<SVGElement> & { animateOnHover?: boolean }> = ({
             transition: theme.transitions.fast("d"),
           },
         },
-      },
+      }),
     })}
   >
     <path d="M11 34.5C11 33.6716 11.6716 33 12.5 33H37.5C38.3284 33 39 33.6716 39 34.5C39 35.3284 38.3284 36 37.5 36H12.5C11.6716 36 11 35.3284 11 34.5Z" />

@@ -73,6 +73,7 @@
     "@graphql-codegen/core": "^1.17.10",
     "@graphql-codegen/typescript": "^1.22.3",
     "@graphql-codegen/typescript-resolvers": "^1.19.4",
+    "@next/bundle-analyzer": "^13.2.4",
     "@storybook/addon-actions": "^6.3.12",
     "@storybook/addon-essentials": "^6.3.12",
     "@storybook/addon-links": "^6.3.12",

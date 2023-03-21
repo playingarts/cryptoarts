@@ -1,3 +1,4 @@
+import { colord } from "colord";
 import throttle from "just-throttle";
 import React, {
   FC,
@@ -7,7 +8,6 @@ import React, {
   useState,
 } from "react";
 import { useDeck } from "../../hooks/deck";
-import { colord } from "colord";
 import { breakpoints } from "../../source/enums";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
@@ -436,7 +436,7 @@ const Header: FC<Props> = ({
                       : undefined
                   }
                   css={(theme) => ({
-                    transition: theme.transitions.fast("all"),
+                    transition: theme.transitions.fast(["color", "background"]),
                     [theme.maxMQ.sm]: [
                       palette === "dark" && {
                         color: theme.colors.text_title_dark,

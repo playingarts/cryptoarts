@@ -1,5 +1,5 @@
+import { Theme } from "@emotion/react";
 import { forwardRef, ForwardRefRenderFunction } from "react";
-import { theme } from "../../pages/_app";
 import { breakpoints } from "../../source/enums";
 import Button from "../Button";
 import Bag from "../Icons/Bag";
@@ -12,29 +12,30 @@ export interface Props {
   palette: "light" | "dark";
 }
 
+const common = (theme: Theme, palette: Props["palette"]) => ({
+  borderRadius: "20px",
+  [theme.maxMQ.sm]: {
+    borderRadius: "10px",
+    flexBasis: "100%",
+    flexGrow: "1",
+    aspectRatio: "1",
+  },
+  [theme.mq.sm]: {
+    width: theme.spanColumns(3),
+  },
+  [theme.mq.md]: {
+    width: theme.spanColumns(4),
+  },
+  backgroundRepeat: "no-repeat",
+  backgroundColor:
+    palette === "dark" ? theme.colors.dark_gray : theme.colors.page_bg_light,
+  backgroundPosition: "center",
+});
+
 const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
   deck,
   palette,
 }) => {
-  const common = () => ({
-    borderRadius: "20px",
-    [theme.maxMQ.sm]: {
-      borderRadius: "10px",
-      flexBasis: "100%",
-      flexGrow: "1",
-      aspectRatio: "1",
-    },
-    [theme.mq.sm]: {
-      width: theme.spanColumns(3),
-    },
-    [theme.mq.md]: {
-      width: theme.spanColumns(4),
-    },
-    backgroundRepeat: "no-repeat",
-    backgroundColor:
-      palette === "dark" ? theme.colors.dark_gray : theme.colors.page_bg_light,
-    backgroundPosition: "center",
-  });
   const buyButton = (
     <Button
       color="black"
@@ -121,9 +122,9 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         ]}
       >
         <img
-          css={[
+          css={(theme) => [
             {
-              ...common(),
+              ...common(theme, palette),
               objectFit: "cover",
               aspectRatio: "1",
             },
@@ -135,10 +136,10 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         <img
           loading="lazy"
           width={0}
-          css={[
+          css={(theme) => [
             {
               aspectRatio: "390 / 488",
-              ...common(),
+              ...common(theme, palette),
               objectFit: "cover",
             },
           ]}
@@ -147,10 +148,10 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         <img
           loading="lazy"
           width={0}
-          css={[
+          css={(theme) => [
             {
               aspectRatio: "390 / 488",
-              ...common(),
+              ...common(theme, palette),
               objectFit: "cover",
             },
           ]}
@@ -160,10 +161,10 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
           loading="lazy"
           width={0}
           src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-03.jpg`}
-          css={[
+          css={(theme) => [
             {
               aspectRatio: "1",
-              ...common(),
+              ...common(theme, palette),
               objectFit: "cover",
             },
           ]}
@@ -172,10 +173,10 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
           loading="lazy"
           width={0}
           src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-04.jpg`}
-          css={[
+          css={(theme) => [
             {
               aspectRatio: "390 / 438",
-              ...common(),
+              ...common(theme, palette),
               objectFit: "cover",
             },
           ]}
@@ -185,11 +186,11 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
           width={0}
           src={`https://s3.amazonaws.com/img.playingarts.com/www/decks/gallery/${deck.slug}-05.jpg`}
           alt=""
-          css={[
+          css={(theme) => [
             {
               aspectRatio: "390 / 440",
               objectFit: "cover",
-              ...common(),
+              ...common(theme, palette),
             },
           ]}
         />

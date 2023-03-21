@@ -16,15 +16,12 @@ import ComposedMainHero from "../components/_composed/ComposedMainHero";
 import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Podcast from "../components/_composed/Podcast";
-import { theme } from "../pages/_app";
 import { withApollo } from "../source/apollo";
 import { socialLinks } from "../source/consts";
 import { breakpoints } from "../source/enums";
 
 const Home: NextPage = () => {
   const { width } = useSize();
-
-  const { width: windowWidth } = useSize();
 
   return (
     <ComposedGlobalLayout extended={true} scrollArrow="block-about">
@@ -216,7 +213,7 @@ const Home: NextPage = () => {
                     },
                   ]}
                 >
-                  {windowWidth >= breakpoints.xsm && (
+                  {width >= breakpoints.xsm && (
                     <Line
                       vertical={true}
                       spacing={0}
@@ -280,27 +277,31 @@ const Home: NextPage = () => {
           <Grid short={true}>
             <Text
               component="h3"
-              css={{
-                margin: 0,
-                gridColumn: "1 / 6",
-                display: "flex",
-                flexWrap: "wrap",
-                [theme.maxMQ.sm]: {
-                  paddingLeft: theme.spacing(2),
-                  paddingRight: theme.spacing(2),
+              css={(theme) => [
+                {
+                  margin: 0,
+                  gridColumn: "1 / 6",
+                  display: "flex",
+                  flexWrap: "wrap",
+                  [theme.maxMQ.sm]: {
+                    paddingLeft: theme.spacing(2),
+                    paddingRight: theme.spacing(2),
+                  },
                 },
-              }}
+              ]}
             >
               Browse Collection
             </Text>
             <Line
               spacing={3}
-              css={{
-                [theme.mq.sm]: {
-                  gridColumn: "1 / -1",
-                  width: "100%",
+              css={(theme) => [
+                {
+                  [theme.mq.sm]: {
+                    gridColumn: "1 / -1",
+                    width: "100%",
+                  },
                 },
-              }}
+              ]}
             />
           </Grid>
           <BrowseCollection
@@ -318,24 +319,26 @@ const Home: NextPage = () => {
       >
         <Line
           spacing={0}
-          css={{
-            color: "#666",
-            gridColumn: "span 12",
-            marginLeft: theme.spacing(1.5),
-            marginRight: theme.spacing(1.5),
-            [theme.maxMQ.sm]: {
-              gridColumn: "span 6",
+          css={(theme) => [
+            {
+              color: "#666",
+              gridColumn: "span 12",
               marginLeft: theme.spacing(1.5),
               marginRight: theme.spacing(1.5),
+              [theme.maxMQ.sm]: {
+                gridColumn: "span 6",
+                marginLeft: theme.spacing(1.5),
+                marginRight: theme.spacing(1.5),
+              },
+              [theme.maxMQ.md]: {
+                gridColumn: "span 9",
+              },
             },
-            [theme.maxMQ.md]: {
-              gridColumn: "span 9",
-            },
-          }}
+          ]}
         />
       </Grid>
 
-       {/* Game promo Block */}
+      {/* Game promo Block */}
 
       <GamePromo />
 

@@ -1,5 +1,4 @@
 import { FC, Fragment } from "react";
-import { theme } from "../../../pages/_app";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
 import Charts from "../../Charts";
@@ -48,7 +47,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => {
               {
                 name: "off sale",
                 value: total_supply - onSale,
-                color: theme.colors.charcoal_gray,
+                color: "charcoal_gray",
               },
             ]}
           />

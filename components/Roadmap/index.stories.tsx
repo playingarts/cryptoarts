@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Component from ".";
-import { theme } from "../../pages/_app";
 import { socialLinks } from "../../source/consts";
 import Link from "../Link";
 
@@ -76,7 +75,7 @@ Primary.args = {
       },
     },
     {
-      accent: theme.colors.eggshell_blue,
+      accent: "eggshell_blue",
       status: "next up",
       title: "playing arts game",
       paragraph:
@@ -87,7 +86,7 @@ Primary.args = {
       },
     },
     {
-      accent: theme.colors.cadillac_pink,
+      accent: "cadillac_pink",
       status: "in development",
       title: "Roadmap 2.0",
       paragraph: "We’re working on a new roadmap.",

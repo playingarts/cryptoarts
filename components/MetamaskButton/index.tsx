@@ -5,7 +5,6 @@ import { useMetaMask } from "metamask-react";
 import { MetaMaskState } from "metamask-react/lib/metamask-context";
 import { FC } from "react";
 import { useSignature } from "../../contexts/SignatureContext";
-import { theme } from "../../pages/_app";
 import { PartialRecord } from "../../source/utils";
 import Button, { Props as ButtonProps } from "../Button";
 import Metamask from "../Icons/Metamask";
@@ -17,9 +16,9 @@ interface Props
   noLabel?: boolean;
   noIcon?: boolean;
   backgroundColor:
-    | keyof typeof theme.colors
+    | keyof Theme["colors"]
     | CSSPropertiesWithMultiValues["backgroundColor"];
-  textColor: keyof typeof theme.colors | CSSPropertiesWithMultiValues["color"];
+  textColor: keyof Theme["colors"] | CSSPropertiesWithMultiValues["color"];
 }
 
 const MetamaskButton: FC<Props> = ({

@@ -4,7 +4,6 @@ import { FC, Fragment, HTMLAttributes, useLayoutEffect, useState } from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { useDecks } from "../../../hooks/deck";
 import { useOwnedAssets } from "../../../hooks/opensea";
-import { theme } from "../../../pages/_app";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
 import Button from "../../Button";
@@ -323,13 +322,15 @@ const ModalMenu: FC<
               windowWidth >= breakpoints.sm) && (
               <Line
                 palette="dark"
-                css={{
-                  width: "100%",
-                  [theme.mq.sm]: {
-                    marginTop: theme.spacing(3),
-                    marginBottom: theme.spacing(3),
+                css={(theme) => [
+                  {
+                    width: "100%",
+                    [theme.mq.sm]: {
+                      marginTop: theme.spacing(3),
+                      marginBottom: theme.spacing(3),
+                    },
                   },
-                }}
+                ]}
                 spacing={3}
               />
             )}
@@ -421,13 +422,15 @@ const ModalMenu: FC<
             </Text>
             <Line
               palette="dark"
-              css={{
-                width: "100%",
-                [theme.mq.sm]: {
-                  marginTop: theme.spacing(3),
-                  // marginBottom: theme.spacing(3.5),
+              css={(theme) => [
+                {
+                  width: "100%",
+                  [theme.mq.sm]: {
+                    marginTop: theme.spacing(3),
+                    // marginBottom: theme.spacing(3.5),
+                  },
                 },
-              }}
+              ]}
               spacing={2.5}
             />
             <Text
@@ -442,9 +445,11 @@ const ModalMenu: FC<
               Augmented Reality app
             </Text>
             <StoreButtons
-              css={{
-                color: colord(theme.colors.white).alpha(0.2).toRgbString(),
-              }}
+              css={(theme) => [
+                {
+                  color: colord(theme.colors.white).alpha(0.2).toRgbString(),
+                },
+              ]}
               ButtonProps={{
                 variant: "bordered",
               }}

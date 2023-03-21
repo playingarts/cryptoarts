@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { useHolders } from "../../../hooks/opensea";
-import { theme } from "../../../pages/_app";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
 import Charts from "../../Charts";
@@ -85,31 +84,31 @@ const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
             {
               name: "spades",
               value: holders.spades.length,
-              color: theme.colors.spades,
+              color: "spades",
               icon: <Spades />,
             },
             {
               name: "hearts",
               value: holders.hearts.length,
-              color: theme.colors.hearts,
+              color: "hearts",
               icon: <Hearts />,
             },
             {
               name: "clubs",
               value: holders.clubs.length,
-              color: theme.colors.clubs,
+              color: "clubs",
               icon: <Clubs />,
             },
             {
               name: "diamonds",
               value: holders.diamonds.length,
-              color: theme.colors.diamonds,
+              color: "diamonds",
               icon: <Diamonds />,
             },
             {
               name: "jokers",
               value: holders.jokers.length,
-              color: theme.colors.joker,
+              color: "joker",
               icon: <Joker />,
             },
           ]}

@@ -1,5 +1,4 @@
 import { FC, HTMLAttributes } from "react";
-import { theme } from "../../../pages/_app";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
 import BlockTitle from "../../BlockTitle";
@@ -111,7 +110,7 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
               },
             },
             {
-              accent: theme.colors.eggshell_blue,
+              accent: "eggshell_blue",
               status: "next up",
               title: "playing arts game",
               paragraph:
@@ -123,7 +122,7 @@ const ComposedRoadmap: FC<Props> = ({ palette, ...props }) => {
               },
             },
             {
-              accent: theme.colors.cadillac_pink,
+              accent: "cadillac_pink",
               status: "in development",
               title: "Roadmap 2.0",
               paragraph: "We’re working on a new roadmap.",

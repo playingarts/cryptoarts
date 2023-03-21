@@ -1,6 +1,5 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import PieChart from ".";
-import { theme } from "../../../pages/_app";
 
 export default {
   title: "Charts/PieChart",
@@ -16,8 +15,8 @@ const Template: ComponentStory<typeof PieChart> = (args) => (
 export const Primary = Template.bind({});
 Primary.args = {
   dataPoints: [
-    { name: "diamonds", value: 7, color: theme.colors.diamonds },
-    { name: "clubs", value: 15, color: theme.colors.clubs },
-    { name: "2, 3, 4, ... Ace", value: 20, color: theme.colors.spades },
+    { name: "diamonds", value: 7, color: "diamonds" },
+    { name: "clubs", value: 15, color: "clubs" },
+    { name: "2, 3, 4, ... Ace", value: 20, color: "spades" },
   ],
 };

@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { OwnedCard } from "../../../pages/[deckId]";
-import { theme } from "../../../pages/_app";
 import { breakpoints } from "../../../source/enums";
 import Arrowed from "../../Arrowed";
 import Card from "../../Card";
@@ -216,15 +215,17 @@ const CardBlock: FC<Props> = ({
               component={Link}
               href={`/${card.deck.slug}`}
               variant="label"
-              css={{
-                opacity: 0.5,
-                display: "inline-block",
-                color: theme.colors.black,
-                transition: theme.transitions.fast("opacity"),
-                "&:hover": {
-                  opacity: 1,
+              css={(theme) => [
+                {
+                  opacity: 0.5,
+                  display: "inline-block",
+                  color: theme.colors.black,
+                  transition: theme.transitions.fast("opacity"),
+                  "&:hover": {
+                    opacity: 1,
+                  },
                 },
-              }}
+              ]}
             >
               <Arrowed>For {card.deck.title}</Arrowed>
             </Text>

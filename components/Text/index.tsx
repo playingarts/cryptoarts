@@ -1,10 +1,10 @@
+import { Theme } from "@emotion/react";
 import {
   FC,
   forwardRef,
   ForwardRefRenderFunction,
   HTMLAttributes,
 } from "react";
-import { theme } from "../../pages/_app";
 import { Props as ButtonProps } from "../Button";
 import { Props as LinkProps } from "../Link";
 
@@ -26,7 +26,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     | "li"
     | FC<LinkProps>
     | FC<ButtonProps>;
-  variant?: keyof typeof theme.typography | "h7";
+  variant?: keyof Theme["typography"] | "h7";
   href?: LinkProps["href"];
   target?: LinkProps["target"];
   shallow?: LinkProps["shallow"];

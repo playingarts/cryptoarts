@@ -1,6 +1,6 @@
+import { Theme } from "@emotion/react";
 import { CSSObject } from "@emotion/serialize";
 import { FC, Fragment, HTMLAttributes, useEffect, useState } from "react";
-import { theme } from "../../../pages/_app";
 import { breakpoints } from "../../../source/enums";
 import Card from "../../Card";
 import SizeProvider, { useSize } from "../../SizeProvider";
@@ -149,12 +149,12 @@ const emptyCard = {
   opensea: "",
 };
 
-const commonCss: CSSObject = {
+const commonCss: (theme: Theme) => CSSObject = (theme) => ({
   display: "inline-block",
   position: "relative",
   marginRight: theme.spacing(1),
   marginBottom: theme.spacing(1),
-};
+});
 
 const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const { width } = useSize();
@@ -172,9 +172,9 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           card={((loaded ? cards[0] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
               transform: "translateY(50%)",
             },
           ]}
@@ -185,9 +185,9 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           card={((loaded ? cards[1] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
             },
           ]}
         />
@@ -197,9 +197,9 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           card={((loaded ? cards[2] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
               transform: "translateY(50%)",
             },
           ]}
@@ -211,9 +211,9 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           card={((loaded ? cards[3] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
               transform: "translateY(50%)",
             },
           ]}
@@ -224,9 +224,9 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           card={((loaded ? cards[4] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
             },
           ]}
         />
@@ -236,9 +236,9 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           card={((loaded ? cards[5] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
               transform: "translateY(50%)",
             },
           ]}
@@ -249,14 +249,14 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           card={((loaded ? cards[6] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
             },
           ]}
         />
         <br />
-        
+
         {/* 7 of spades card */}
         <Card
           interactive={true}
@@ -264,9 +264,9 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           card={((loaded ? cards[7] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
               transform: "translateY(50%) rotate(-10.62deg)",
               top: theme.spacing(20.3),
               left: theme.spacing(4),
@@ -295,23 +295,23 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           filter={true}
           css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
               [theme.mq.sm]: {
                 top: theme.spacing(0),
               },
             },
           ]}
         />
-        
+
         <Card
           interactive={true}
           noInfo={true}
           card={((loaded ? cards[9] : emptyCard) as unknown) as GQL.Card}
           customSize={true}
           filter={true}
-          css={[
+          css={(theme) => [
             {
-              ...commonCss,
+              ...commonCss(theme),
               transform: "translateY(50%)",
             },
           ]}
@@ -329,7 +329,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
               filter={true}
               css={(theme) => [
                 {
-                  ...commonCss,
+                  ...commonCss(theme),
                   transform: "translateX(100%) rotate(30deg)",
                   marginLeft: -theme.spacing(5),
                   top: theme.spacing(43),

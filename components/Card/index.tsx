@@ -20,6 +20,8 @@ interface Props extends HTMLAttributes<HTMLElement> {
   // noShadowOnHover?:boolean;
 }
 
+const slowTransitionOpacity = theme.transitions.slow("opacity");
+
 const Card: FC<Props> = ({
   card,
   animated,
@@ -212,7 +214,7 @@ const Card: FC<Props> = ({
             <div
               style={{
                 opacity: loaded ? 1 : 0,
-                transition: theme.transitions.slow("opacity"),
+                transition: slowTransitionOpacity,
               }}
             >
               <img

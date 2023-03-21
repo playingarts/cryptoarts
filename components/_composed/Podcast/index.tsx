@@ -1,4 +1,5 @@
 import { FC, HTMLAttributes } from "react";
+import Line from "../../../components/Line";
 import { usePodcasts } from "../../../hooks/podcast";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
@@ -6,9 +7,7 @@ import Button from "../../Button";
 import Itunes from "../../Icons/Itunes";
 import Play from "../../Icons/Play";
 import Spotify from "../../Icons/Spotify";
-import Line from "../../../components/Line";
 import Link from "../../Link";
-import { theme } from "../../../pages/_app";
 import { useSize } from "../../SizeProvider";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
@@ -117,21 +116,23 @@ const Podcast: FC<Props> = ({
                 // variant="bordered"
                 size="small"
                 Icon={Itunes}
-                css={{
-                  opacity: 1,
-                  transition: theme.transitions.fast("background"),
-                  background: "rgba(255,255,255,.1)",
-                  borderRadius: 50,
-                  width: 50,
-                  height: 50,
-                  "&:hover": {
-                    background: "rgba(255,255,255,.2)",
+                css={(theme) => [
+                  {
+                    opacity: 1,
+                    transition: theme.transitions.fast("background"),
+                    background: "rgba(255,255,255,.1)",
+                    borderRadius: 50,
+                    width: 50,
+                    height: 50,
+                    "&:hover": {
+                      background: "rgba(255,255,255,.2)",
+                    },
+                    [theme.maxMQ.sm]: {
+                      width: 42,
+                      height: 42,
+                    },
                   },
-                  [theme.maxMQ.sm]: {
-                    width: 42,
-                    height: 42,
-                  }
-                }}
+                ]}
                 component={Link}
                 href={apple}
                 target="_blank"
@@ -142,21 +143,23 @@ const Podcast: FC<Props> = ({
                 // variant="bordered"
                 size="small"
                 Icon={Spotify}
-                css={{
-                  opacity: 1,
-                  transition: theme.transitions.fast("background"),
-                  background: "rgba(255,255,255,.1)",
-                  borderRadius: 50,
-                  width: 50,
-                  height: 50,
-                  "&:hover": {
-                    background: "rgba(255,255,255,.2)",
+                css={(theme) => [
+                  {
+                    opacity: 1,
+                    transition: theme.transitions.fast("background"),
+                    background: "rgba(255,255,255,.1)",
+                    borderRadius: 50,
+                    width: 50,
+                    height: 50,
+                    "&:hover": {
+                      background: "rgba(255,255,255,.2)",
+                    },
+                    [theme.maxMQ.sm]: {
+                      width: 42,
+                      height: 42,
+                    },
                   },
-                  [theme.maxMQ.sm]: {
-                    width: 42,
-                    height: 42,
-                  }
-                }}
+                ]}
                 component={Link}
                 href={spotify}
                 target="_blank"
@@ -166,14 +169,16 @@ const Podcast: FC<Props> = ({
           {!withoutAction && (
             <Line
               spacing={0}
-              css={{
-                marginTop: theme.spacing(2.5),
-                color: "#fff",
-                [theme.mq.sm]: {
-                  gridColumn: "1 / -1",
-                  width: "100%",
+              css={(theme) => [
+                {
+                  marginTop: theme.spacing(2.5),
+                  color: "#fff",
+                  [theme.mq.sm]: {
+                    gridColumn: "1 / -1",
+                    width: "100%",
+                  },
                 },
-              }}
+              ]}
             />
           )}
         </div>

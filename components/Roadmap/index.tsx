@@ -1,3 +1,4 @@
+import { Theme } from "@emotion/react";
 import { FC, HTMLAttributes } from "react";
 import { breakpoints } from "../../source/enums";
 import Arrowed from "../Arrowed";
@@ -12,7 +13,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
     title: string;
     paragraph: string | JSX.Element;
     action?: { text: string; href: string; blank?: boolean };
-    accent?: string;
+    accent?: keyof Theme["colors"];
   }[];
   palette: "light" | "dark";
 }
@@ -50,7 +51,9 @@ const Roadmap: FC<Props> = ({ items, palette, ...props }) => {
                 position: "relative",
                 display: "grid",
                 borderImageSource: `linear-gradient(180deg, ${
-                  item.accent || theme.colors.lavender
+                  item.accent
+                    ? theme.colors[item.accent]
+                    : theme.colors.lavender
                 } 0%, ${
                   items[index + 1]
                     ? items[index + 1].accent || theme.colors.lavender

@@ -1,3 +1,4 @@
+import { Theme } from "@emotion/react";
 import {
   ElementType,
   FC,
@@ -27,7 +28,7 @@ export interface ChartProps {
   dataPoints: {
     name: string | number;
     value: number;
-    color?: string;
+    color?: keyof Omit<Theme["colors"], "decks">;
     icon?: JSX.Element;
   }[];
   events?: {
@@ -97,7 +98,7 @@ const Charts: FC<Props> = ({
               borderRadius: theme.spacing(0.5),
               paddingLeft: theme.spacing(1),
               paddingRight: theme.spacing(1),
-              paddingTop: theme.spacing(.3),
+              paddingTop: theme.spacing(0.3),
               marginTop: theme.spacing(1),
               marginLeft: theme.spacing(1),
               transition: theme.transitions.fast("opacity"),

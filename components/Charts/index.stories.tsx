@@ -1,8 +1,7 @@
-import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { format } from "date-fns";
 import { Fragment } from "react";
 import Charts from ".";
-import { theme } from "../../pages/_app";
 import Clubs from "../Icons/Clubs";
 import Diamonds from "../Icons/Diamonds";
 import Hearts from "../Icons/Hearts";
@@ -23,9 +22,9 @@ export const Primary = Template.bind({});
 Primary.args = {
   type: "pie",
   dataPoints: [
-    { name: "diamonds", value: 7, color: theme.colors.diamonds },
-    { name: "clubs", value: 15, color: theme.colors.clubs },
-    { name: "2, 3, 4, ... Ace", value: 20, color: theme.colors.spades },
+    { name: "diamonds", value: 7, color: "diamonds" },
+    { name: "clubs", value: 15, color: "clubs" },
+    { name: "2, 3, 4, ... Ace", value: 20, color: "spades" },
   ],
 };
 
@@ -35,8 +34,8 @@ Column.args = {
   dataPoints: [
     { name: "spades", value: 42, color: "red", icon: <Spades /> },
     { name: "hearts", value: 41, color: "green", icon: <Hearts /> },
-    { name: "clubs", value: 43, color: "blue", icon: <Clubs /> },
-    { name: "diamonds", value: 46, color: "purple", icon: <Diamonds /> },
+    { name: "clubs", value: 43, color: "red", icon: <Clubs /> },
+    { name: "diamonds", value: 46, color: "red", icon: <Diamonds /> },
   ],
 };
 
@@ -61,9 +60,9 @@ export const WithTooltip = Template.bind({});
 WithTooltip.args = {
   type: "pie",
   dataPoints: [
-    { name: "diamonds", value: 7, color: theme.colors.diamonds },
-    { name: "clubs", value: 15, color: theme.colors.clubs },
-    { name: "2, 3, 4, ... Ace", value: 20, color: theme.colors.spades },
+    { name: "diamonds", value: 7, color: "diamonds" },
+    { name: "clubs", value: 15, color: "clubs" },
+    { name: "2, 3, 4, ... Ace", value: 20, color: "spades" },
   ],
   withTooltip: true,
 };
@@ -72,9 +71,9 @@ export const WithFormattedTooltip = Template.bind({});
 WithFormattedTooltip.args = {
   type: "pie",
   dataPoints: [
-    { name: "diamonds", value: 7, color: theme.colors.diamonds },
-    { name: "clubs", value: 15, color: theme.colors.clubs },
-    { name: "2, 3, 4, ... Ace", value: 20, color: theme.colors.spades },
+    { name: "diamonds", value: 7, color: "diamonds" },
+    { name: "clubs", value: 15, color: "clubs" },
+    { name: "2, 3, 4, ... Ace", value: 20, color: "spades" },
   ],
   withTooltip: true,
   TooltipFormatter({ name, value }) {
@@ -91,13 +90,13 @@ ColumnWithTooltip.args = {
   type: "column",
   withTooltip: true,
   dataPoints: [
-    { name: "spades", value: 42, color: theme.colors.spades, icon: <Spades /> },
-    { name: "hearts", value: 41, color: theme.colors.hearts, icon: <Hearts /> },
-    { name: "clubs", value: 43, color: theme.colors.clubs, icon: <Clubs /> },
+    { name: "spades", value: 42, color: "spades", icon: <Spades /> },
+    { name: "hearts", value: 41, color: "hearts", icon: <Hearts /> },
+    { name: "clubs", value: 43, color: "clubs", icon: <Clubs /> },
     {
       name: "diamonds",
       value: 46,
-      color: theme.colors.diamonds,
+      color: "diamonds",
       icon: <Diamonds />,
     },
   ],

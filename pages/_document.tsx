@@ -40,12 +40,6 @@ export const Links = () => (
           background: "none",
           border: 0,
         },
-        // width: theme.spacing(size === "small" ? 3.8 : 4.2),
-        // height: theme.spacing(size === "small" ? 3.8 : 4.2),
-        // [theme.mq.sm]: {
-        //   width: theme.spacing(size === "small" ? 3.8 : 5),
-        //   height: theme.spacing(size === "small" ? 3.8 : 5),
-        // },
         ":root": {
           "--buttonSmallWidth": `${theme.spacing(3.8)}px`,
           "--buttonSmallHeight": `${theme.spacing(3.8)}px`,
@@ -94,54 +88,3 @@ const Document = () => (
 );
 
 export default Document;
-
-// class MyDocument extends Document {
-//   static async getInitialProps(ctx): Promise<DocumentInitialProps> {
-//     console.clear();
-
-//     const startTime = Date.now();
-
-//     /**
-//      * Initialize and get a reference to ApolloClient, which is saved in a "global" variable.
-//      * The same client instance is returned to any other call to `getApolloClient`, so _app.js gets the same authenticated client to give to ApolloProvider.
-//      */
-//     const apolloClient = initApolloClient();
-
-//     /**
-//      * Render the page through Apollo's `getDataFromTree` so the cache is populated.
-//      * Unfortunately this renders the page twice per request... There may be a way around doing this, but I haven't quite ironed that out yet.
-//      */
-//     await getDataFromTree(<ctx.AppTree {...ctx.appProps} />);
-
-//     /**
-//      * Render the page as normal, but now that ApolloClient is initialized and the cache is full, each query will actually work.
-//      */
-//     const initialProps = await Document.getInitialProps(ctx);
-
-//     /**
-//      * Extract the cache to pass along to the client so the queries are "hydrated" and don't need to actually request the data again!
-//      */
-//     const apolloState = apolloClient.extract();
-
-//     console.info(`Render Time: ${Date.now() - startTime} milliseconds.`);
-
-//     return { ...initialProps, apolloState };
-//   }
-
-//   render() {
-//     return (
-//       <Html lang="en">
-//         <Head>
-//           <Links />
-//         </Head>
-
-//         <body>
-//           <Main />
-//           <NextScript />
-//         </body>
-//       </Html>
-//     );
-//   }
-// }
-
-// export default MyDocument;

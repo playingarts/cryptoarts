@@ -1,7 +1,6 @@
 import { colord } from "colord";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
 import { useOwnedAssets } from "../../hooks/opensea";
-import { theme } from "../../pages/_app";
 import { socialLinks } from "../../source/consts";
 import { breakpoints } from "../../source/enums";
 import Button from "../Button";
@@ -37,7 +36,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
 
   return (
     <div
-      css={[
+      css={(theme) => [
         ref.current && {
           position: "relative",
           [theme.mq.sm]: {
@@ -49,7 +48,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
       {...props}
     >
       <div
-        css={[
+        css={(theme) => [
           ref.current &&
             lineRef.current && {
               width: "100%",
@@ -101,16 +100,18 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
         >
           <Grid>
             <div
-              css={{
-                display: "flex",
-                gap: theme.spacing(2),
-                [theme.mq.sm]: {
-                  alignItems: "center",
-                  gap: theme.spacing(4),
+              css={(theme) => [
+                {
+                  display: "flex",
+                  gap: theme.spacing(2),
+                  [theme.mq.sm]: {
+                    alignItems: "center",
+                    gap: theme.spacing(4),
+                  },
+                  flexDirection: "column",
+                  gridColumn: "1/-1",
                 },
-                flexDirection: "column",
-                gridColumn: "1/-1",
-              }}
+              ]}
             >
               <div
                 css={(theme) => [
@@ -276,9 +277,9 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                 ))}
               </div>
               <StoreButtons
-                css={{
+                css={(theme) => ({
                   color: colord(theme.colors.white).alpha(0.2).toRgbString(),
-                }}
+                })}
                 ButtonProps={{
                   variant: "bordered",
                 }}
@@ -325,7 +326,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                 their respective owners. Patent Pending. We use cookies and
                 similar technologies for statistics and marketing purposes.{" "}
                 <Link
-                  css={[
+                  css={(theme) => [
                     {
                       color: "rgba(255, 255, 255, 0.25)",
                       transition: theme.transitions.slow("all"),

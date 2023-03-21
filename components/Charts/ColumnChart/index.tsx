@@ -68,12 +68,12 @@ const ColumnChart: FC<Props> = ({
               [theme.maxMQ.sm]: {
                 width: theme.spacing(5.3),
                 paddingTop: theme.spacing(1),
-                borderRadius: theme.spacing(.8),
+                borderRadius: theme.spacing(0.8),
               },
+              background: color ? theme.colors[color] : "red",
             })}
             style={{
               minHeight: minHeight,
-              background: color,
               ...(ref.current && {
                 height: `${getHeightPercent(160, value) * 160}px`,
               }),

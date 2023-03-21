@@ -2,7 +2,6 @@ import { Interpolation, Theme } from "@emotion/react";
 import { colord } from "colord";
 import { FC, Fragment } from "react";
 import { useResizeDetector } from "react-resize-detector";
-import { theme } from "../../pages/_app";
 import { breakpoints } from "../../source/enums";
 import Button, { Props as ButtonProps } from "../Button";
 import Grid, { Props as GridProps } from "../Grid";
@@ -120,7 +119,7 @@ const BlockTitle: FC<Props> = ({
               {width < breakpoints.sm && truncate !== undefined && (
                 <Button
                   iconProps={{
-                    css: [
+                    css: (theme) => [
                       {
                         transform: truncate
                           ? "rotate(90deg)"

@@ -2,6 +2,8 @@ import { FC, HTMLAttributes, useRef } from "react";
 import { useSwipeable } from "react-swipeable";
 import { theme } from "../../pages/_app";
 
+const fastLeft = theme.transitions.fast("left");
+
 export interface Props extends HTMLAttributes<HTMLElement> {
   index: number;
   items: (JSX.Element | null)[];
@@ -17,7 +19,7 @@ const Carousel: FC<Props> = ({
   items,
   onIndexChange,
   noDots,
-  columnGap = theme.spacing(3),
+  columnGap = 30,
   ...props
 }) => {
   // const width = theme.spacing(39);
@@ -36,7 +38,7 @@ const Carousel: FC<Props> = ({
         return;
       }
 
-      ref.current.style.transition = theme.transitions.fast("left");
+      ref.current.style.transition = fastLeft;
       ref.current.style.left = `${-(index * (width + columnGap))}px`;
 
       if (width / 10 < absX) {

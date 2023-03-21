@@ -5,6 +5,11 @@ import { theme } from "../../../pages/_app";
 
 interface Props extends HTMLAttributes<HTMLDivElement>, ChartProps {}
 
+const lavender = theme.colors.lavender_blue;
+const light_cyan = theme.colors.light_cyan;
+
+const colors = theme.colors;
+
 const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
   // const [{ width, height }, setSize] = useState<{
   //   width: number;
@@ -34,7 +39,7 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
         `A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY}`,
         "L 0 0",
       ].join(" "),
-      fill: dataPoint.color,
+      fill: colors[dataPoint.color || "dark_gray"],
     };
   });
 
@@ -73,8 +78,8 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
             <Fragment key={d}>
               <defs>
                 <radialGradient id={`linearGradient${index}`}>
-                  <stop offset="0%" stopColor={theme.colors.lavender_blue} />
-                  <stop offset="100%" stopColor={theme.colors.light_cyan} />
+                  <stop offset="0%" stopColor={lavender} />
+                  <stop offset="100%" stopColor={light_cyan} />
                 </radialGradient>
                 <clipPath id={`pieChartClip${index}`}>
                   <path

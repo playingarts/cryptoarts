@@ -6,7 +6,6 @@ import {
   SetStateAction,
   useState,
 } from "react";
-import { theme } from "../../pages/_app";
 import Button, { Props as ButtonProps } from "../Button";
 import ThickChevron from "../Icons/ThickChevron";
 
@@ -112,8 +111,8 @@ const SelectButton: FC<Props> = memo(
           ]}
         >
           <ThickChevron
-            width={theme.spacing(1.7)}
-            height={theme.spacing(1.7)}
+            width={17}
+            height={17}
             css={(theme) => [
               {
                 zIndex: 3,

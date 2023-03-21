@@ -24,7 +24,6 @@ import { useProducts } from "../hooks/product";
 import { theme } from "../pages/_app";
 import { withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
-
 const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
@@ -592,17 +591,31 @@ const Content: FC = () => {
   );
 };
 
-const Shop: NextPage = () => {
-  return (
-    <Fragment>
-      <Head>
-        <title>Shop - Playing Arts</title>
-      </Head>
-      <ComposedGlobalLayout customShopButton={<BagButton />} noNav={true}>
-        <Content />
-      </ComposedGlobalLayout>
-    </Fragment>
-  );
-};
+const Shop: NextPage = () => (
+  <Fragment>
+    <Head>
+      <title>Shop - Playing Arts</title>
+    </Head>
+    <ComposedGlobalLayout customShopButton={<BagButton />} noNav={true}>
+      <Content />
+    </ComposedGlobalLayout>
+  </Fragment>
+);
+
+// export const getStaticProps = async () => {
+//   const client = initApolloClient(undefined, {
+//     schema: (await require("../source/graphql/schema")).schema,
+//   });
+
+//   await client.query({
+//     query: ProductsQuery,
+//   });
+
+//   return {
+//     props: {
+//       cache: client.cache.extract(),
+//     },
+//   };
+// };
 
 export default withApollo(Shop);
