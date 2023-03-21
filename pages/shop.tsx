@@ -20,10 +20,11 @@ import { useSize } from "../components/SizeProvider";
 import Text from "../components/Text";
 import ComposedFaq from "../components/_composed/Faq";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
-import { useProducts } from "../hooks/product";
+import { ProductsQuery, useProducts } from "../hooks/product";
 import { theme } from "../pages/_app";
-import { withApollo } from "../source/apollo";
+import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
+import { connectToDB } from "../source/mongoose";
 const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
@@ -602,20 +603,32 @@ const Shop: NextPage = () => (
   </Fragment>
 );
 
-// export const getStaticProps = async () => {
-//   const client = initApolloClient(undefined, {
-//     schema: (await require("../source/graphql/schema")).schema,
-//   });
+export const getStaticProps = async () => {
+  const client = initApolloClient(undefined, {
+    schema: (await require("../source/graphql/schema")).schema,
+  });
 
-//   await client.query({
-//     query: ProductsQuery,
-//   });
+  const fetchProducts: (numb?: number) => Promise<any> = async (numb = 1) => {
+    try {
+      await client.query({ query: ProductsQuery });
+    } catch (error) {
+      if (numb >= 6) {
+        throw new Error("Can't fetch decks");
+      }
+      // await connect();
+      await connectToDB();
 
-//   return {
-//     props: {
-//       cache: client.cache.extract(),
-//     },
-//   };
-// };
+      return await fetchProducts(numb + 1);
+    }
+  };
 
-export default withApollo(Shop);
+  await fetchProducts();
+
+  return {
+    props: {
+      cache: client.cache.extract(),
+    },
+  };
+};
+
+export default withApollo(Shop, { ssr: false });
