@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { Schema, model, models, Model, Types } from "mongoose";
+import { model, Model, models, Schema, Types } from "mongoose";
 import fetch from "../../fetch";
 
 export type MongoProduct = Omit<GQL.Product, "deck"> & {

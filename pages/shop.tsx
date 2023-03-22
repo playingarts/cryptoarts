@@ -610,10 +610,10 @@ export const getStaticProps = async () => {
 
   const fetchProducts: (numb?: number) => Promise<any> = async (numb = 1) => {
     try {
-      await client.query({ query: ProductsQuery });
+      return await client.query({ query: ProductsQuery });
     } catch (error) {
       if (numb >= 6) {
-        throw new Error("Can't fetch decks");
+        throw new Error("Can't fetch products");
       }
       // await connect();
       await connectToDB();
