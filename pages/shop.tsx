@@ -24,7 +24,6 @@ import { ProductsQuery, useProducts } from "../hooks/product";
 import { theme } from "../pages/_app";
 import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
-import { connectToDB } from "../source/mongoose";
 const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
@@ -607,29 +606,12 @@ export const getStaticProps = async () => {
   const client = initApolloClient(undefined, {
     schema: (await require("../source/graphql/schema")).schema,
   });
-  const {
-    data: { amount },
-  } = await (
-    await fetch("https://api.coinbase.com/v2/prices/USDC-EUR/sell")
-  ).json();
 
-  console.log({ amount });
-
-  const fetchProducts: (numb?: number) => Promise<any> = async (numb = 1) => {
-    try {
-      return await client.query({ query: ProductsQuery });
-    } catch (error) {
-      if (numb >= 6) {
-        throw new Error("Can't fetch products");
-      }
-      // await connect();
-      await connectToDB();
-
-      return await fetchProducts(numb + 1);
-    }
-  };
-
-  await fetchProducts();
+  try {
+    await client.query({ query: ProductsQuery });
+  } catch {
+    return { props: {}, revalidate: 1 };
+  }
 
   return {
     props: {

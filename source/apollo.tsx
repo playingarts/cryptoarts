@@ -150,6 +150,7 @@ export const createApolloClient = (initialState = {}, config?: object) => {
         },
       },
       Artist: {
+        keyFields: ["slug"],
         fields: {
           podcast: nullable(),
           social: nullable(),

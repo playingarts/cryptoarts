@@ -1,17 +1,35 @@
 import { NormalizedCacheObject } from "@apollo/client";
 import { GetStaticProps } from "next";
+import { getDeckSlugsWithoutDB } from "../../dump/_decks";
 import { CardsQuery } from "../../hooks/card";
 import { DecksQuery } from "../../hooks/deck";
 import { LosersQuery } from "../../hooks/loser";
 import { podcastsQuery } from "../../hooks/podcast";
 import { initApolloClient } from "../../source/apollo";
-import { connectToDB } from "../../source/mongoose";
-import Page, { getStaticPaths as getstatic } from "../[deckId]";
+import Page from "../[deckId]";
 
-export const getStaticPaths = getstatic;
+export const getStaticPaths = async () => {
+  const decks = await getDeckSlugsWithoutDB();
+
+  return {
+    paths: (
+      await Promise.all(
+        decks.map(async (deckId) => {
+          const cards: GQL.Card[] = (await require(`../../dump/deck-${deckId}`))
+            .cards;
+
+          return cards.map(({ artist }) => ({
+            params: { deckId, artistId: artist },
+          }));
+        })
+      )
+    ).flat(),
+    fallback: "blocking",
+  };
+};
 
 export const getStaticProps: GetStaticProps<
-  { cache: NormalizedCacheObject },
+  { cache?: NormalizedCacheObject },
   { deckId: string; artistId: string }
 > = async (context) => {
   const { deckId } = context.params!;
@@ -21,24 +39,15 @@ export const getStaticProps: GetStaticProps<
     schema: (await require("../../source/graphql/schema")).schema,
   });
 
-  const fetchDecks: (numb?: number) => Promise<GQL.Deck[]> = async (
-    numb = 0
-  ) => {
-    try {
-      return ((await client.query({ query: DecksQuery })) as {
-        data: { decks: GQL.Deck[] };
-      }).data.decks;
-    } catch (error) {
-      if (numb >= 5) {
-        throw new Error("Can't fetch decks");
-      }
-      await connectToDB();
+  const decks: GQL.Deck[] = [];
 
-      return await fetchDecks(numb + 1);
-    }
-  };
-
-  const decks = await fetchDecks();
+  try {
+    ((await client.query({ query: DecksQuery })) as {
+      data: { decks: GQL.Deck[] };
+    }).data.decks.map((deck) => decks.push(deck));
+  } catch {
+    return { props: {}, revalidate: 1 };
+  }
 
   const deck = decks.find((deck) => deck.slug === deckId);
 

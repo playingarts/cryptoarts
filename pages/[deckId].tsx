@@ -32,6 +32,7 @@ import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
 import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedPace from "../components/_composed/Pace";
+import { getDeckSlugsWithoutDB } from "../dump/_decks";
 import { CardsQuery, HeroCardsQuery } from "../hooks/card";
 import { DecksQuery, useDeck } from "../hooks/deck";
 import { LosersQuery, useLoadLosers } from "../hooks/loser";
@@ -39,7 +40,6 @@ import { useOwnedAssets } from "../hooks/opensea";
 import frag from "../Shaders/Xemantic/index.glsl";
 import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
-import { connectToDB } from "../source/mongoose";
 import { theme } from "./_app";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
@@ -636,11 +636,16 @@ const Page: NextPage = () => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  return { paths: [], fallback: "blocking" };
+  const decks = await getDeckSlugsWithoutDB();
+
+  return {
+    paths: decks.map((deckId) => ({ params: { deckId } })),
+    fallback: "blocking",
+  };
 };
 
 export const getStaticProps: GetStaticProps<
-  { cache: NormalizedCacheObject },
+  { cache?: NormalizedCacheObject },
   { deckId: string }
 > = async (context) => {
   const { deckId } = context.params!;
@@ -648,25 +653,15 @@ export const getStaticProps: GetStaticProps<
     schema: (await require("../source/graphql/schema")).schema,
   });
 
-  const fetchDecks: (numb?: number) => Promise<GQL.Deck[]> = async (
-    numb = 1
-  ) => {
-    try {
-      return ((await client.query({ query: DecksQuery })) as {
-        data: { decks: GQL.Deck[] };
-      }).data.decks;
-    } catch (error) {
-      if (numb >= 6) {
-        throw new Error("Can't fetch decks");
-      }
-      // await connect();
-      await connectToDB();
+  const decks: GQL.Deck[] = [];
 
-      return await fetchDecks(numb + 1);
-    }
-  };
-
-  const decks = await fetchDecks();
+  try {
+    ((await client.query({ query: DecksQuery })) as {
+      data: { decks: GQL.Deck[] };
+    }).data.decks.map((deck) => decks.push(deck));
+  } catch {
+    return { props: {}, revalidate: 1 };
+  }
 
   const deck = decks.find((deck) => deck.slug === deckId);
 
