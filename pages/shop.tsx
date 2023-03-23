@@ -607,6 +607,13 @@ export const getStaticProps = async () => {
   const client = initApolloClient(undefined, {
     schema: (await require("../source/graphql/schema")).schema,
   });
+  const {
+    data: { amount },
+  } = await (
+    await fetch("https://api.coinbase.com/v2/prices/USDC-EUR/sell")
+  ).json();
+
+  console.log({ amount });
 
   const fetchProducts: (numb?: number) => Promise<any> = async (numb = 1) => {
     try {
