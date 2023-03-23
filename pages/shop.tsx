@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { NextPage } from "next";
 import Head from "next/head";
 import { FC, Fragment } from "react";
@@ -603,15 +604,15 @@ const Shop: NextPage = () => (
 );
 
 export const getStaticProps = async () => {
+  if (mongoose.connection.readyState !== 1) {
+    return { props: {}, revalidate: 1 };
+  }
+
   const client = initApolloClient(undefined, {
     schema: (await require("../source/graphql/schema")).schema,
   });
 
-  try {
-    await client.query({ query: ProductsQuery });
-  } catch {
-    return { props: {}, revalidate: 1 };
-  }
+  await client.query({ query: ProductsQuery });
 
   return {
     props: {

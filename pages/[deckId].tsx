@@ -1,6 +1,7 @@
 import { NormalizedCacheObject } from "@apollo/client";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
+import mongoose from "mongoose";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -648,20 +649,19 @@ export const getStaticProps: GetStaticProps<
   { cache?: NormalizedCacheObject },
   { deckId: string }
 > = async (context) => {
+  if (mongoose.connection.readyState !== 1) {
+    return { props: {}, revalidate: 1 };
+  }
+
   const { deckId } = context.params!;
+
   const client = initApolloClient(undefined, {
     schema: (await require("../source/graphql/schema")).schema,
   });
 
-  const decks: GQL.Deck[] = [];
-
-  try {
-    ((await client.query({ query: DecksQuery })) as {
-      data: { decks: GQL.Deck[] };
-    }).data.decks.map((deck) => decks.push(deck));
-  } catch {
-    return { props: {}, revalidate: 1 };
-  }
+  const decks = ((await client.query({ query: DecksQuery })) as {
+    data: { decks: GQL.Deck[] };
+  }).data.decks;
 
   const deck = decks.find((deck) => deck.slug === deckId);
 
