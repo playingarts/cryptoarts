@@ -114,10 +114,7 @@ export const getAssetsRaw: {
         { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
       )
         .then((res) => res.json())
-        .then(async (res) => {
-          console.log(res);
-          const { next, owners, detail } = res;
-
+        .then(async ({ next, owners, detail }) => {
           if (detail) {
             throw new Error(detail);
           }
