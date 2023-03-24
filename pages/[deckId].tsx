@@ -519,6 +519,8 @@ const Content: FC<{
   }
 );
 
+Content.displayName = "Content";
+
 const Page: NextPage = () => {
   const {
     query: { artistId, deckId },

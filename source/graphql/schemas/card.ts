@@ -48,9 +48,9 @@ export const getCards = async ({
     deck = _id;
   }
 
-  let cards = await (((losers ? Loser : Card)
+  let cards = await ((losers ? Loser : Card)
     .find(deck ? (edition && { deck, edition }) || { deck } : {})
-    .populate(["artist", "deck"]) as unknown) as Promise<GQL.Card[]>);
+    .populate(["artist", "deck"]) as unknown as Promise<GQL.Card[]>);
 
   if (shuffle) {
     cards = cards.sort(() => Math.random() - Math.random());
@@ -64,21 +64,21 @@ export const getCards = async ({
 };
 
 export const getCard = ({ id }: GQL.QueryCardArgs) =>
-  (Card.findById(id).populate([
+  Card.findById(id).populate([
     "artist",
     "deck",
-  ]) as unknown) as Promise<GQL.Card>;
+  ]) as unknown as Promise<GQL.Card>;
 
 export const getCardByTraits = ({
   suit,
   value,
   deck,
 }: Pick<MongoCard, "value" | "suit" | "deck">) =>
-  (Card.findOne({
+  Card.findOne({
     suit,
     value,
     deck,
-  }) as unknown) as Promise<GQL.Card>;
+  }) as unknown as Promise<GQL.Card>;
 
 const setCards = {
   zero: [
@@ -171,7 +171,7 @@ export const resolvers: GQL.Resolvers = {
     background: async ({ background, deck }) =>
       background ||
       deck.cardBackground ||
-      (await getDeck({ _id: (deck as unknown) as string }).then(
+      (await getDeck({ _id: deck as unknown as string }).then(
         (deck) => deck && deck.cardBackground
       )),
     price: async (card: GQL.Card) => {
@@ -206,10 +206,12 @@ export const resolvers: GQL.Resolvers = {
         .map((item) => item.seaport_sell_orders)
         .flat();
 
-      return (orders as {
-        base_price?: string;
-        current_price?: string;
-      }[]).reduce<number | undefined>((minPrice, order) => {
+      return (
+        orders as {
+          base_price?: string;
+          current_price?: string;
+        }[]
+      ).reduce<number | undefined>((minPrice, order) => {
         const base_price = order.base_price || order.current_price;
 
         if (!base_price) {

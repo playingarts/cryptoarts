@@ -382,7 +382,7 @@ const Content: FC = () => {
                   </div>
                 </Fragment>
               ) : (
-                <Fragment>
+                <Fragment key={product._id}>
                   {/* {width < breakpoints.md && (
                     <Line
                       spacing={1}

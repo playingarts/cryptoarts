@@ -54,7 +54,7 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
               ]}
               items={decks.map(({ slug, title, product }) =>
                 !product ? null : (
-                  <div>
+                  <div key={slug+"BrowseCollection"}>
                     <Link
                       href={`/${slug}`}
                       key={slug + slug}

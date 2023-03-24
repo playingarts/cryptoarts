@@ -1,73 +1,18 @@
 import { ApolloError, gql } from "@apollo/client";
 import { recoverPersonalSignature } from "@metamask/eth-sig-util";
-import * as E from "fp-ts/Either";
-import { pipe } from "fp-ts/lib/function";
 import GraphQLJSON from "graphql-type-json";
-import * as T from "io-ts";
 import intersect from "just-intersect";
 import memoizee from "memoizee";
 import { model, Model, models, Schema } from "mongoose";
-import { Network, OpenSeaPort } from "opensea-js";
-import Web3 from "web3";
 import { CardSuits } from "../../enums";
 import { getCardByTraits } from "./card";
 import { getContract, getContracts } from "./contract";
+import * as E from "fp-ts/Either";
+import { pipe } from "fp-ts/lib/function";
+import * as T from "io-ts";
 
-const AssetType = T.interface({
-  token_id: T.string,
-  asset_contract: T.type({
-    address: T.string,
-  }),
-  name: T.string,
-  seaport_sell_orders: T.union([
-    T.null,
-    T.array(
-      T.type({
-        order_hash: T.string,
-        current_price: T.string,
-      })
-    ),
-  ]),
-  traits: T.array(
-    T.type({
-      trait_type: T.string,
-      value: T.string,
-    })
-  ),
-});
-
-const OwnerType = T.interface({
-  owner: T.type({
-    address: T.string,
-  }),
-});
-
-const OwnersType = T.array(OwnerType);
-const AssetsType = T.array(AssetType);
-
-const decodeWith = <
-  ApplicationType = any,
-  EncodeTo = ApplicationType,
-  DecodeFrom = unknown
->(
-  codec: T.Type<ApplicationType, EncodeTo, DecodeFrom>
-) => (input: DecodeFrom): ApplicationType =>
-  pipe(
-    codec.decode(input),
-    E.getOrElseW((errors) => {
-      throw new Error("Error 666: " + errors[0]);
-    })
-  );
-
-const {
-  OPENSEA_KEY: apiKey = "",
-  NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
-} = process.env;
-const provider = new Web3.providers.HttpProvider("https://mainnet.infura.io");
-const seaport = new OpenSeaPort(provider, {
-  networkName: Network.Main,
-  apiKey,
-});
+const { NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage, OPENSEA_KEY = "" } =
+  process.env;
 
 export interface Asset {
   token_id: string;
@@ -104,6 +49,49 @@ const schema = new Schema<GQL.Asset, Model<GQL.Asset>, GQL.Asset>({
 export const Asset =
   (models.Asset as Model<GQL.Asset>) || model("Asset", schema);
 
+const AssetType = T.interface({
+  token_id: T.string,
+  asset_contract: T.type({
+    address: T.string,
+  }),
+  name: T.string,
+  seaport_sell_orders: T.union([
+    T.null,
+    T.array(
+      T.type({
+        order_hash: T.string,
+        current_price: T.string,
+      })
+    ),
+  ]),
+  traits: T.array(
+    T.type({
+      trait_type: T.string,
+      value: T.string,
+    })
+  ),
+});
+
+const OwnerType = T.interface({
+  owner: T.type({
+    address: T.string,
+  }),
+});
+const OwnersType = T.array(OwnerType);
+const AssetsType = T.array(AssetType);
+
+const decodeWith =
+  <ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
+    codec: T.Type<ApplicationType, EncodeTo, DecodeFrom>
+  ) =>
+  (input: DecodeFrom): ApplicationType =>
+    pipe(
+      codec.decode(input),
+      E.getOrElseW((errors) => {
+        throw new Error("Error 666: " + errors[0]);
+      })
+    );
+
 const queue: { name: string; contract: string }[] = [];
 
 export const getAssetsRaw: {
@@ -117,17 +105,28 @@ export const getAssetsRaw: {
       cursor?: string,
       allOwners: Asset["top_ownerships"] = []
     ): Promise<Asset["top_ownerships"]> =>
-      seaport.api
-        .get<{ next: string; owners: Asset["top_ownerships"] }>(
-          `/api/v1/asset/${queue[0].contract}/${index}/owners`,
-          { limit: 50, ...(cursor && { cursor }) }
-        )
-        .then(({ next, owners }) => {
+      fetch(
+        `https://api.opensea.io/api/v1/asset/${contract}/${index}/owners?` +
+          new URLSearchParams({
+            limit: "50",
+            ...(cursor && { cursor }),
+          }),
+        { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
+      )
+        .then((res) => res.json())
+        .then(async (res) => {
+          console.log(res);
+          const { next, owners, detail } = res;
+
+          if (detail) {
+            throw new Error(detail);
+          }
+
           decodeWith(OwnersType)(owners);
 
           allOwners = [...allOwners, ...owners];
           if (next) {
-            return getOwners(index, next, allOwners);
+            return await getOwners(index, next, allOwners);
           }
 
           return owners;
@@ -148,20 +147,24 @@ export const getAssetsRaw: {
           );
         });
 
-    const getInitAssets = (cursor?: string): Promise<any> =>
-      seaport.api
-        .get<{
-          assets: Asset[];
-          next: string | null;
-        }>("/api/v1/assets", {
-          collection_slug: queue[0].name,
-          asset_contract_address: queue[0].contract,
-          limit: 200,
-          include_orders: true,
-          ...(cursor && { cursor }),
-        })
-        .then(async ({ assets, next }) => {
-          console.log("Fetched Assets");
+    const getInitAssets = (cursor?: string, index = 0): Promise<any> =>
+      fetch(
+        "https://api.opensea.io/api/v1/assets?" +
+          new URLSearchParams({
+            collection_slug: queue[0].name,
+            asset_contract_address: queue[0].contract,
+            limit: "200",
+            include_orders: "true",
+            ...(cursor && { cursor }),
+          }),
+        { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
+      )
+        .then((res) => res.json())
+        .then(async ({ assets, next, detail }) => {
+          if (detail) {
+            throw new Error(detail);
+          }
+          console.log("Fetched Assets: " + index);
 
           decodeWith(AssetsType)(assets);
 
@@ -191,16 +194,6 @@ export const getAssetsRaw: {
           await Asset.insertMany(newAssets);
 
           if (!next) {
-            // cachedAssets[queue[0].contract] = newAssets;
-
-            this.state = "loaded";
-
-            // await Asset.deleteMany({
-            //   asset_contract: { address: queue[0].contract },
-            // });
-
-            // await Asset.insertMany(allAssets);
-
             console.log("Updated assets for contract: " + queue[0].contract);
 
             queue.shift();
@@ -209,7 +202,7 @@ export const getAssetsRaw: {
             return;
           }
 
-          return getInitAssets(next);
+          return getInitAssets(next, (index += 200));
         })
 
         .catch((error) => {
@@ -225,32 +218,16 @@ export const getAssetsRaw: {
           // }
           return new Promise<any>((resolve) =>
             setTimeout(
-              () => resolve(getInitAssets(cursor)),
+              () => resolve(getInitAssets(cursor, index)),
               // error.message.includes("Error 429") ? 1000 : 500
               1000
             )
           );
         });
 
-    // if (!cachedAssets[contract]) {
-    //   cachedAssets[contract] = [];
-    //   queue.push({ contract, name });
-    //   if (this.state !== "loading") {
-    //     this.state = "loading";
-    //     getInitAssets();
-    //   }
-    //   return Asset.find({
-    //     "asset_contract.address": contract,
-    //     ...(hash && {
-    //       top_ownerships: { $elemMatch: { owner: { address: hash } } },
-    //     }),
-    //   })
-    //     .lean()
-    //     .then((assets) => {
-    //       cachedAssets[contract] = assets;
-    //       return assets;
-    //     });
-    // }
+    if (queue.length === 0 && this.state !== "loaded") {
+      this.state = "loaded";
+    }
 
     if (
       queue.findIndex(
@@ -265,7 +242,7 @@ export const getAssetsRaw: {
       this.state = "loading";
       console.log(queue);
 
-      process.env.NODE_ENV !== "development" && getInitAssets();
+      getInitAssets();
       // return Promise.resolve(cachedAssets[contract]);
     }
     if (hash) {
@@ -278,6 +255,7 @@ export const getAssetsRaw: {
         )
       );
     }
+
     return getCachedAssets(contract);
   },
 };
@@ -286,6 +264,8 @@ const cachedAssets: Record<string, Asset[]> = {};
 
 const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
   async (contract) => {
+    console.log({ queue });
+
     if (!cachedAssets[contract]) {
       const assets = await Asset.find({
         "asset_contract.address": contract,
@@ -396,9 +376,13 @@ const getHolders = async (deck: string) => {
 
   const assets = await getAssets(contract.address, contract.name);
 
-  const holders = ((assets.filter(
-    (asset) => !!asset.top_ownerships
-  ) as unknown) as (Omit<Asset, "owner"> & Asset["top_ownerships"])[]).reduce<
+  const holders = (
+    assets.filter((asset) => !!asset.top_ownerships) as unknown as (Omit<
+      Asset,
+      "owner"
+    > &
+      Asset["top_ownerships"])[]
+  ).reduce<
     Record<string, { suit: CardSuitsType; value: string; tokens: string[] }[]>
   >((data, { top_ownerships, traits, token_id }) => {
     top_ownerships.map(({ owner: { address } }) => {
@@ -609,11 +593,13 @@ export const resolvers: GQL.Resolvers = {
         return [];
       }
 
-      const assets = ((await Promise.all(
-        contracts.map(
-          async (contract) => await getAssets(contract.address, contract.name)
-        )
-      )) as Asset[][]).flat();
+      const assets = (
+        (await Promise.all(
+          contracts.map(
+            async (contract) => await getAssets(contract.address, contract.name)
+          )
+        )) as Asset[][]
+      ).flat();
 
       return assets.filter(
         (asset) =>
