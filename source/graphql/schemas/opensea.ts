@@ -195,6 +195,8 @@ export const getAssetsRaw: {
 
             queue.shift();
 
+            this.state = "loaded";
+
             // return allAssets;
             return;
           }
