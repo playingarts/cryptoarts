@@ -1829,9 +1829,9 @@ export const artists = [
   {
     slug: "renato-quirino",
     name: "Renato Quirino",
-    country: "Brasil",
+    country: "Brazil",
     info:
-      "Hello, my name is Renato, I'm from Brasil. I am a graphic designer and my work takes shape through illustrations, animations and any other necessary form. I am also a comic book author.",
+      "Hello, my name is Renato, I'm from Brazil. I am a graphic designer and my work takes shape through illustrations, animations and any other necessary form. I am also a comic book author.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/future/upic/renato-quirino.jpg",
     website: "http://renatoquirino.com/",
@@ -5475,7 +5475,7 @@ export const artists = [
   {
     slug: "miopia",
     name: "Miopia",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "With strong roots in the independent music scene, the couple, Gustavo Magalhães and Carol Maia, started Miopia with the intention of collaborating with independent events / bands in the region. Heavily influenced by underground art and tattoo culture from an early age that directly influences the work of the pair, the studio has an organic and original style derived from the manual processes that the couple prioritizes in their work. Without rest and without stopping the couple have been collaborating with people from Brazil and the world since 2015.",
     userpic:
@@ -19314,7 +19314,7 @@ export const artists = [
   {
     slug: "zansky",
     name: "Zansky",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "Zansky is an illustrator based in Sao Paulo – Brazil. His acidic, absurdly colourful style can be seen in magazines, books and objects around the globe. He loves to work with different techniques, especially within the drawing and printing processes like silkscreen. Besides he paints murals and site specifics in the collective BASE-V and is editor and printer in project Edições de Zaster (Editions de Zaster), a self publishing project of zines and posters in screen printing and rubber stamps.",
     userpic:
@@ -19439,7 +19439,7 @@ export const artists = [
   {
     slug: "rubens-scarelli",
     name: "Rubens Scarelli",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "Rubens Scarelli, also known as Rusc, is an illustrator and graphic designer based in Sao Paulo, Brazil. His creations can be seen on T-shirts, magazines, packaging and various other products. Specializing in creating characters, comics and fashion design, is globally represented by the agency of illustrators Illozoo.",
     userpic:
@@ -19613,7 +19613,7 @@ export const artists = [
   {
     slug: "marcelo-schultz",
     name: "Marcelo Schultz",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "Graphic Artist and Illustrator based in Curitiba, Brazil. Working since 2003 as professional Designer and Creative director, now I am focused on Lettering and Illustration. I create works that are well known by the realistic textures, a lot of depth and good attention to small details.",
     userpic:
@@ -20215,7 +20215,7 @@ export const artists = [
     name: "Antonio Rodrigues Jr",
     country: "Brazil",
     info:
-      "Antonio Rodrigues Jr. is a graphic artist based in Brasilia, Brazil, with a BA in Visual Arts. Working with various styles and techniques, his portfolio includes projects in the fields of branding, graphic design, illustration, photo-manipulation typography and craft. His work has been featured in books, magazines (both printed and online), as well as in some collective exhibitions in France, United States and United Kingdom. arjr@ymail.com",
+      "Antonio Rodrigues Jr. is a graphic artist based in Brazilia, Brazil, with a BA in Visual Arts. Working with various styles and techniques, his portfolio includes projects in the fields of branding, graphic design, illustration, photo-manipulation typography and craft. His work has been featured in books, magazines (both printed and online), as well as in some collective exhibitions in France, United States and United Kingdom. arjr@ymail.com",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/files/userpics/three/3s.jpg",
     website: "http://antoniorodriguesjr.com/",
@@ -22561,7 +22561,7 @@ export const artists = [
   {
     slug: "fernando-chamarelli",
     name: "Fernando Chamarelli",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "Born and raised in Brazil, artist Fernando Chamarelli has a degree in graphic design and illustration. His early artistic interests started with drawing cartoons, caricatures and realistic portraids. Later,his interests expanded to street art and tattoo.",
     userpic:
@@ -22910,7 +22910,7 @@ export const artists = [
   {
     slug: "fernando-volken-togni",
     name: "Fernando Volken Togni",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "I am a Brazilian illustrator based in London. I love illustrating daily life with a passion for details. My illustrations are mainly geometrical with bold use of colours and shapes filled by itrincate elements. My compositions have been utilised by clients including Google, IBM, Nokia, Trip Advisor and Qatar Airways, Wired Magazine. I have a few products licensed by Heys from Canada with my name and iPhone bamboo cases by Grove.",
     userpic:
@@ -23109,7 +23109,7 @@ export const artists = [
   {
     slug: "pirecco",
     name: "Pirecco",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "Pirecco (Ricardo Trombini Pires) Porto Alegre, Brazil 1984. I am a graphic designer, illustrator and fine artist based in Porto Alegre / Brazil who loves to draw and paint. As a designer, art director, and illustrator I have worked for many years in advertising agencies, design studios, as well as different companies in the fashion arena.",
     userpic:
@@ -23234,7 +23234,7 @@ export const artists = [
   {
     slug: "bicicleta-sem-freio",
     name: "Bicicleta Sem Freio",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "Art, design and rock ’n’ roll. It might sound as a cliché but this is the simplest, most honest and coherent way of trying to explain this power trio of illustrators that answers to the name “Bicicleta sem Freio” (Bicycle Without Brakes in English). Most of the early work was posters for rock concerts and cultural events. In a way this experience would directly influence the birth of the band Black Drawing Chalks (of the three just Renato isn’t in the band).",
     userpic:
@@ -24507,7 +24507,7 @@ export const artists = [
   {
     slug: "lucas-de-alcantara",
     name: "Lucas de Alcântara",
-    country: "Brasil",
+    country: "Brazil",
     info: "Fashion Designer and Illustrator.",
     userpic:
       "https://s3.amazonaws.com/img.playingarts.com/files/userpics/zero/qc.jpg",
@@ -26374,7 +26374,7 @@ export const artists = [
   {
     slug: "vini-naso",
     name: "Vini Naso",
-    country: "Brasil",
+    country: "Brazil",
     info:
       "I am a digital artist exploring how notions of beauty and visual identity are expanding in the digital age. I have been featured on Vogue Italia as a leading artist reinventing views around beauty, technology and identity. I am also the 2020 Beautiful Bizarre Art Prize, winner for Digital Art.",
     userpic:
