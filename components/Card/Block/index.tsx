@@ -14,7 +14,7 @@ import CardInfo from "../Info";
 
 interface Props extends GridProps {
   card: GQL.Card;
-  deck: GQL.Deck;
+  deck?: GQL.Deck;
   cardOfTheDay?: boolean;
   stick?: number;
   ownedCards?: OwnedCard[];
@@ -186,6 +186,7 @@ const CardBlock: FC<Props> = ({
           contest={contest}
           artist={card.artist}
           deck={deck}
+          card={card}
         />
         {cardOfTheDay && (
           <div

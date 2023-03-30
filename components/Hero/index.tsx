@@ -4,8 +4,8 @@ import Card from "../Card";
 import Link from "../Link";
 
 type Props = HTMLAttributes<HTMLElement> & {
-  slug: string;
-  deck: string;
+  slug?: string;
+  deck?: string;
 };
 
 const Hero: FC<Props> = ({ slug, deck, ...props }) => {
@@ -36,6 +36,9 @@ const Hero: FC<Props> = ({ slug, deck, ...props }) => {
   } = useLoadHeroCards();
 
   useEffect(() => {
+    if (!deck || !slug) {
+      return;
+    }
     loadHeroCards({ variables: { deck, slug } });
   }, [slug, deck, loadHeroCards]);
 

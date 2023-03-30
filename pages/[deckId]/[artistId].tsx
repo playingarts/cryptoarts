@@ -44,9 +44,11 @@ export const getStaticProps: GetStaticProps<
     schema: (await require("../../source/graphql/schema")).schema,
   });
 
-  const decks = ((await client.query({ query: DecksQuery })) as {
-    data: { decks: GQL.Deck[] };
-  }).data.decks;
+  const decks = (
+    (await client.query({ query: DecksQuery })) as {
+      data: { decks: GQL.Deck[] };
+    }
+  ).data.decks;
 
   const deck = decks.find((deck) => deck.slug === deckId);
 

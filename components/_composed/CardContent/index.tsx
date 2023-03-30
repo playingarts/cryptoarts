@@ -8,13 +8,14 @@ import {
 } from "react";
 import { useCards, useLoadCards } from "../../../hooks/card";
 import { useLoadLosers, useLosers } from "../../../hooks/loser";
+import { mockEmptyCard } from "../../../mocks/card";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { Sections } from "../../../source/enums";
 import CardNav, { Props as CardNavProps } from "../../Card/Nav";
 import ComposedCardBlock from "../CardBlock";
 
 interface Props extends CardNavProps {
-  deck: GQL.Deck;
+  deck?: GQL.Deck;
   artistId: string;
 
   contest: boolean;
@@ -27,25 +28,40 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   ref
 ) => {
   const {
-    query: { cardValue, cardSuit },
+    query: { cardValue, cardSuit, deckId },
   } = useRouter();
 
-  const { loadCards, cards: winners, loading } = (typeof window === undefined
-    ? (useCards as typeof useLoadCards)
-    : useLoadCards)();
-  const { loadLosers, losers, loading: loadingLosers } = (typeof window ===
-    undefined
-    ? (useLosers as typeof useLoadLosers)
-    : useLoadLosers)();
+  const {
+    loadCards,
+    cards: winners = Array.from({ length: 56 }).map((_, index) => ({
+      ...mockEmptyCard,
+      _id: index + "listCard",
+      noInfo: true,
+      background: deck ? deck.cardBackground : undefined,
+      href: "/" + deckId || "",
+      owned: false,
+    })),
+  } = (
+    typeof window === undefined
+      ? (useCards as typeof useLoadCards)
+      : useLoadCards
+  )();
+  const { loadLosers, losers } = (
+    typeof window === undefined
+      ? (useLosers as typeof useLoadLosers)
+      : useLoadLosers
+  )();
 
   useEffect(() => {
-    if (loadCards) {
-      loadCards({
-        variables: {
-          deck: deck._id,
-        },
-      });
+    if (!deck) {
+      return;
     }
+
+    loadCards({
+      variables: {
+        deck: deck._id,
+      },
+    });
 
     if (loadLosers) {
       loadLosers({
@@ -56,37 +72,38 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     }
   }, [deck, loadCards, loadLosers]);
 
-  if (loading || !winners || loadingLosers) {
-    return null;
-  }
+  // if (loading || !winners || loadingLosers) {
+  //   return null;
+  // }
 
-  const allCards = [...winners, ...(losers ? losers : [])] as GQL.Card[];
+  const allCards = [...winners, ...(losers || [])] as GQL.Card[];
 
   const card = artistId
     ? allCards.find(({ artist }) => artist.slug === artistId)
     : undefined;
 
-  if (!card) {
-    return null;
-  }
+  // if (!card) {
+  //   return null;
+  // }
 
-  const cards = contest
+  const cards = !card
+    ? [mockEmptyCard]
+    : contest
     ? allCards.filter(
         ({ suit, value }) => value === card.value && suit === card.suit
       )
-    : card.edition && deck.editions
+    : card.edition && deck && deck.editions
     ? winners.filter(({ edition }) => edition === card.edition)
     : winners;
 
-  const currentCardIndex = card
-    ? cards.findIndex(({ _id }) => _id === card._id)
-    : -2;
-  const prevCard = card && cards[currentCardIndex - 1];
-  const nextCard = card && cards[currentCardIndex + 1];
+  const currentCardIndex =
+    card && cards.findIndex(({ _id }) => _id === card._id);
+  const prevCard = currentCardIndex && cards[currentCardIndex - 1];
+  const nextCard = currentCardIndex && cards[currentCardIndex + 1];
 
   return (
     <Fragment>
-      {card && (
+      {card && deck && (
         <Head>
           <title>
             {(
@@ -110,30 +127,38 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         ref={ref}
         disableKeys={!!cardValue && !!cardSuit}
         prevLink={
-          prevCard && {
-            pathname: `/${deck.slug}${contest ? "/contest" : ""}/${
-              prevCard.artist.slug
-            }`,
-          }
+          prevCard && typeof deckId === "string"
+            ? {
+                pathname: `/${deckId}${contest ? "/contest" : ""}/${
+                  prevCard.artist.slug
+                }`,
+              }
+            : undefined
         }
         nextLink={
-          nextCard && {
-            pathname: `/${deck.slug}${contest ? "/contest" : ""}/${
-              nextCard.artist.slug
-            }`,
-          }
-        }
-        closeLink={{
-          pathname: `/${deck.slug}`,
-          query: contest
+          nextCard && typeof deckId === "string"
             ? {
-                section: Sections.contest,
-                scrollIntoView: "[data-id='block-contest']",
+                pathname: `/${deckId}${contest ? "/contest" : ""}/${
+                  nextCard.artist.slug
+                }`,
               }
-            : {
-                scrollIntoView: `[href*="/${deck.slug}/${card.artist.slug}"]`,
-              },
-        }}
+            : undefined
+        }
+        closeLink={
+          typeof deckId === "string" && card
+            ? {
+                pathname: `/${deckId}`,
+                query: contest
+                  ? {
+                      section: Sections.contest,
+                      scrollIntoView: "[data-id='block-contest']",
+                    }
+                  : {
+                      scrollIntoView: `[href*="/${deckId}/${card.artist.slug}"]`,
+                    },
+              }
+            : undefined
+        }
       >
         <ComposedCardBlock
           css={(theme) => [
@@ -143,7 +168,7 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           ]}
           ownedCards={ownedCards}
           contest={contest}
-          card={card}
+          card={card || cards[0]}
           deck={deck}
           ref={ref}
         />

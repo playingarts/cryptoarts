@@ -5,7 +5,7 @@ import Layout, { Props as LayoutProps } from "../../Layout";
 
 export interface Props extends LayoutProps {
   card: GQL.Card;
-  deck: GQL.Deck;
+  deck?: GQL.Deck;
   cardOfTheDay?: boolean;
   ownedCards?: OwnedCard[];
   contest?: boolean;

@@ -10,8 +10,8 @@ import Text from "../../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   labels?: string[];
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   outerChildren?: ReactNode;
   layoutChildren?: ReactNode;
   slug?: string;
@@ -123,7 +123,7 @@ const ComposedMain: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                   },
                 ]}
               >
-                {title}
+                {title || <br />}
                 {labels && (
                   <div
                     css={(theme) => [

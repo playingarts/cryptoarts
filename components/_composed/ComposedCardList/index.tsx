@@ -1,7 +1,7 @@
 import { useMetaMask } from "metamask-react";
 import { useRouter } from "next/router";
-import { FC, useState } from "react";
-import { useCards } from "../../../hooks/card";
+import { FC, useEffect, useState } from "react";
+import { useLoadCards } from "../../../hooks/card";
 import { mockEmptyCard } from "../../../mocks/card";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { breakpoints } from "../../../source/enums";
@@ -15,7 +15,7 @@ import SelectButton, { Props as SelectButtonProps } from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
 
 interface Props extends Omit<ListProps, "status" | "deckId" | "cards"> {
-  deck: GQL.Deck;
+  deck?: GQL.Deck;
   ownedCards: OwnedCard[];
 }
 
@@ -50,24 +50,33 @@ const SortSelectButton: FC<
 const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
   const { status } = useMetaMask();
   const {
-    query: { artistId },
+    query: { artistId, deckId },
   } = useRouter();
 
   const [edition, setEdition] = useState(0);
 
-  const { cards: queryCards } = useCards({
-    variables: {
-      deck: deck._id,
-      ...(deck.editions && { edition: deck.editions[edition].name }),
-    },
-  });
+  const { cards: queryCards, loadCards } = useLoadCards();
+
+  useEffect(() => {
+    if (!deck) {
+      return;
+    }
+
+    loadCards({
+      variables: {
+        deck: deck._id,
+        ...(deck.editions && { edition: deck.editions[edition].name }),
+      },
+    });
+  }, [loadCards, deck]);
 
   const cards =
     queryCards &&
     queryCards.map((card) => ({
       ...card,
-      href: `/${deck.slug}/${card.artist.slug}`,
+      href: `/${deckId}/${card.artist.slug}`,
       owned:
+        deck &&
         deck.openseaCollection &&
         status === "connected" &&
         ownedCards.findIndex(
@@ -124,10 +133,10 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
       variant="h3"
       palette={
         // status === "connected" && deck.openseaCollection ? "dark" : "light"
-        deck.slug === "crypto" ? "dark" : "light"
+        deckId === "crypto" ? "dark" : "light"
       }
       action={
-        cards && width >= breakpoints.sm && deck.openseaCollection ? (
+        cards && width >= breakpoints.sm && deck && deck.openseaCollection ? (
           <SortSelectButton
             cards={cards}
             deck={deck}
@@ -136,9 +145,9 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         ) : undefined
       }
       title={
-        artistId
+        artistId && deck
           ? deck.title
-          : ((deck.slug === "special" || deck.slug === "future") && "Cards") ||
+          : ((deckId === "special" || deckId === "future") && "Cards") ||
             "Cards"
       }
       // subTitleText={
@@ -159,7 +168,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         },
       ]}
     >
-      {deck.editions && (
+      {deck && deck.editions && (
         <div
           css={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
         >
@@ -226,7 +235,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           },
         ]}
       >
-        {width < breakpoints.sm && cards && (
+        {width < breakpoints.sm && cards && deck && (
           <SortSelectButton
             cards={cards}
             deck={deck}
@@ -263,8 +272,8 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
                   ...mockEmptyCard,
                   _id: index + "listCard",
                   noInfo: true,
-                  background: deck.cardBackground,
-                  href: deck.slug,
+                  background: deck ? deck.cardBackground : undefined,
+                  href: deck ? "/" + deck.slug : "",
                   owned: false,
                 }))
           }
@@ -274,8 +283,8 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           //     ownedCards: [...ownedCards],
           //   },
           // })}
-          sorted={cards && !!deck.openseaCollection}
-          palette={deck.slug === "crypto" ? "dark" : "light"}
+          sorted={cards && deck && !!deck.openseaCollection}
+          palette={deckId === "crypto" ? "dark" : "light"}
           css={(theme) => [
             {
               [theme.maxMQ.sm]: [

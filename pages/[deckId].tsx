@@ -115,7 +115,7 @@ const Content: FC<{
 
     const { width } = useSize();
 
-    if (loading || !deck) {
+    if (!loading && !deck) {
       return null;
     }
 
@@ -124,7 +124,7 @@ const Content: FC<{
         {typeof artistId === "string" && (
           <div
             css={(theme) => [
-              deck.slug === "crypto"
+              deck && deck.slug === "crypto"
                 ? {
                     background: theme.colors.page_bg_dark,
                   }
@@ -156,27 +156,30 @@ const Content: FC<{
 
         {!artistId && (
           <ComposedMain
-            title={deck.short}
-            subtitle={deck.info}
-            labels={deck.labels}
+            title={deck && deck.short}
+            subtitle={deck && deck.info}
+            labels={deck && deck.labels}
             ref={aboutRef}
-            slug={deck.slug}
+            slug={typeof deckId === "string" ? deckId : deck && deck.slug}
             css={(theme) => [
-              {
-                background:
-                  theme.colors.decks[
-                    deck.slug as keyof typeof theme.colors.decks
-                  ].background,
-                color:
-                  theme.colors.decks[
-                    deck.slug as keyof typeof theme.colors.decks
-                  ].textColor,
-              },
+              typeof deckId === "string" &&
+                theme.colors.decks[
+                  deckId as keyof typeof theme.colors.decks
+                ] && {
+                  background:
+                    theme.colors.decks[
+                      deckId as keyof typeof theme.colors.decks
+                    ].background,
+                  color:
+                    theme.colors.decks[
+                      deckId as keyof typeof theme.colors.decks
+                    ].textColor,
+                },
             ]}
             outerChildren={
               <Hero
-                slug={deck.slug}
-                deck={deck._id}
+                slug={deck && deck.slug}
+                deck={deck && deck._id}
                 css={(theme) => [
                   {
                     width: "100%",
@@ -203,6 +206,7 @@ const Content: FC<{
               />
             }
             layoutChildren={
+              deck &&
               deck.slug === "special" && (
                 <ShadertoyReact
                   fs={frag}
@@ -241,7 +245,7 @@ const Content: FC<{
                   : "Buy now"}
               </Button>
             )}
-            {width >= breakpoints.sm && (
+            {deck && width >= breakpoints.sm && (
               <DeckNav
                 deck={deck}
                 linkCss={{
@@ -284,7 +288,7 @@ const Content: FC<{
             {
               [theme.maxMQ.sm]: [
                 // deck.openseaCollection && status === "connected"
-                deck.slug === "crypto"
+                deck && deck.slug === "crypto"
                   ? {
                       background: theme.colors.page_bg_dark,
                     }
@@ -328,7 +332,7 @@ const Content: FC<{
               ref={cardsRef}
               palette={
                 // status === "connected" && deck.openseaCollection
-                deck.slug === "crypto" ? "dark" : "light"
+                deck && deck.slug === "crypto" ? "dark" : "light"
               }
               data-id="block-cards"
               css={(theme) => [
@@ -341,12 +345,12 @@ const Content: FC<{
                   [theme.mq.sm]: {
                     color:
                       // status === "connected" && deck.openseaCollection
-                      deck.slug === "crypto"
+                      deckId === "crypto"
                         ? theme.colors.text_title_light
                         : theme.colors.text_title_dark,
                     background:
                       // status === "connected" && deck.openseaCollection
-                      deck.slug === "crypto"
+                      deckId === "crypto"
                         ? `linear-gradient(180deg, ${theme.colors.page_bg_dark} 0%, #111111 100%)`
                         : `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
                     paddingTop: theme.spacing(12),
@@ -387,11 +391,13 @@ const Content: FC<{
               contest={contest}
               scrollIntoView={section === Sections.contest}
               ref={contestRef}
-              deck={deck}
+              deck={deck as GQL.Deck}
             />
           )}
 
-          {!contest && (
+          {/* NFT collection block */}
+
+          {deck && !contest && (
             <Fragment>
               {/* NFT collection block */}
 
@@ -427,7 +433,7 @@ const Content: FC<{
 
               {/* Roadmap block */}
 
-              {deck.slug === "crypto" && !artistId && (
+              {deckId === "crypto" && !artistId && (
                 <Layout
                   css={(theme) => ({
                     [theme.mq.sm]: {
@@ -442,12 +448,12 @@ const Content: FC<{
                   scrollIntoView={section === Sections.roadmap}
                   palette={
                     // status === "connected" && deck.openseaCollection
-                    deck.slug === "crypto" ? "dark" : "light"
+                    deckId === "crypto" ? "dark" : "light"
                   }
                 >
                   <ComposedRoadmap
                     // palette={status === "connected" ? "dark" : "light"}
-                    palette={deck.slug === "crypto" ? "dark" : "light"}
+                    palette={deckId === "crypto" ? "dark" : "light"}
                   />
                 </Layout>
               )}
@@ -460,7 +466,7 @@ const Content: FC<{
                     [theme.mq.sm]: {
                       paddingTop: theme.spacing(12),
                       paddingBottom:
-                        deck.slug === "crypto"
+                        deckId === "crypto"
                           ? theme.spacing(3)
                           : theme.spacing(10),
                       background: theme.colors.page_bg_light_gray,
@@ -471,7 +477,7 @@ const Content: FC<{
                 scrollIntoView={section === Sections.deck}
                 palette={
                   // status === "connected" && deck.openseaCollection
-                  deck.slug === "crypto" ? "dark" : "light"
+                  deckId === "crypto" ? "dark" : "light"
                 }
               >
                 <DeckBlock
@@ -479,7 +485,7 @@ const Content: FC<{
                     width < breakpoints.sm &&
                     // status === "connected" &&
                     // deck.openseaCollection
-                    deck.slug === "crypto"
+                    deckId === "crypto"
                       ? "dark"
                       : "light"
                   }
@@ -661,9 +667,11 @@ export const getStaticProps: GetStaticProps<
     schema: (await require("../source/graphql/schema")).schema,
   });
 
-  const decks = ((await client.query({ query: DecksQuery })) as {
-    data: { decks: GQL.Deck[] };
-  }).data.decks;
+  const decks = (
+    (await client.query({ query: DecksQuery })) as {
+      data: { decks: GQL.Deck[] };
+    }
+  ).data.decks;
 
   const deck = decks.find((deck) => deck.slug === deckId);
 
