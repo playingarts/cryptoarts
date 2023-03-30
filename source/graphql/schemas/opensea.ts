@@ -206,7 +206,7 @@ export const getAssetsRaw: {
 
         .catch((error) => {
           if (error.message.includes("Request was throttled")) {
-            // console.error("Request was throttled while fetching assets");
+            console.error("Request was throttled while fetching assets");
           } else {
             console.error("Failed to get OpenSea Assets:", error);
             return;
