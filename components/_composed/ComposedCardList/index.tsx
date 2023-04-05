@@ -254,6 +254,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         )}
         <CardList
           // status={status}
+          quotesBetweenRows={true}
           cards={
             cards
               ? currentSelected === "ascending"

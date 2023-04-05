@@ -30,6 +30,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   withoutUserPic?: boolean;
   truncate?: number;
   palette?: "dark" | "light";
+  cardList?: boolean;
 }
 
 const Quote: FC<Props> = ({
@@ -43,24 +44,26 @@ const Quote: FC<Props> = ({
   truncate,
   palette,
   withoutUserPic,
+  cardList,
   ...props
 }) => {
   return (
     <div {...props}>
-      {withLine && <Line css={{ marginTop: 0 }} spacing={6} />}
+      {withLine && (
+        <Line palette={palette} css={{ marginTop: 0 }} spacing={6} />
+      )}
       <div
         style={{
           display: "flex",
           ...(vertical ? { flexDirection: "column" } : {}),
         }}
       >
-
         {/* Card quote Block */}
 
         {children && (
           <div
-          css={(theme) => ({ 
-            marginBottom: theme.spacing(3),
+            css={(theme) => ({
+              marginBottom: theme.spacing(3),
 
               [theme.maxMQ.md]: {
                 marginTop: theme.spacing(3),
@@ -80,7 +83,11 @@ const Quote: FC<Props> = ({
                 css={(theme) => [
                   {
                     margin: 0,
-                    color: theme.colors.white,
+                    color: cardList
+                      ? "inherit"
+                      : palette === "light"
+                      ? theme.colors.black
+                      : theme.colors.white,
                     [theme.maxMQ.sm]: { marginTop: theme.spacing(3) },
                   },
                 ]}
@@ -127,7 +134,7 @@ const Quote: FC<Props> = ({
             })}
           >
             {/* {vertical && children && ( */}
-            {!withoutUserPic && children && (
+            {!withoutUserPic && children && !cardList && (
               <Line
                 spacing={0}
                 palette={palette}
@@ -142,10 +149,22 @@ const Quote: FC<Props> = ({
                 ]}
               />
             )}
-            {/* )} */}
 
-            <div css={{ display: "flex", alignItems: "top" }}>
-              {fullArtist && !withoutUserPic && (
+            <div
+              css={(theme) => [
+                { display: "flex", alignItems: "top" },
+                cardList && {
+                  marginTop: theme.spacing(1.5),
+                  [theme.mq.sm]: {
+                    flexDirection: "column",
+                  },
+                  [theme.mq.md]: {
+                    width: theme.spacing(20),
+                  },
+                },
+              ]}
+            >
+              {((fullArtist && !withoutUserPic) || cardList) && (
                 <div
                   css={(theme) => ({
                     width: theme.spacing(7.5),
@@ -162,10 +181,17 @@ const Quote: FC<Props> = ({
                 {!withoutName && (
                   <Text
                     variant="h5"
-                    css={(theme) => ({
-                      marginTop: theme.spacing(1.2),
-                      marginBottom: theme.spacing(1.2),
-                    })}
+                    css={(theme) => [
+                      {
+                        marginTop: theme.spacing(1.2),
+                        marginBottom: theme.spacing(1.2),
+                      },
+                      cardList && {
+                        [theme.mq.sm]: {
+                          fontSize: 20,
+                        },
+                      },
+                    ]}
                   >
                     {artist.name}
                   </Text>
@@ -185,47 +211,49 @@ const Quote: FC<Props> = ({
                     {artist.info}
                   </Truncate>
                 )}
-                <div
-                  css={(theme) => [
-                    {
-                      display: "flex",
-                      flexWrap: "wrap",
-                      gap: theme.spacing(1.5),
-                      marginTop: theme.spacing(3),
-                    },
-                  ]}
-                >
-                  {Object.entries(artist.social).map(([key, value]) => {
-                    const Icon = socialIcons[key];
+                {!cardList && (
+                  <div
+                    css={(theme) => [
+                      {
+                        display: "flex",
+                        flexWrap: "wrap",
+                        gap: theme.spacing(1.5),
+                        marginTop: theme.spacing(3),
+                      },
+                    ]}
+                  >
+                    {Object.entries(artist.social).map(([key, value]) => {
+                      const Icon = socialIcons[key];
 
-                    if (!Icon || !value) {
-                      return null;
-                    }
+                      if (!Icon || !value) {
+                        return null;
+                      }
 
-                    return (
-                      <Link
-                        key={key}
-                        href={value}
-                        target="_blank"
-                        css={(theme) => [
-                          {
-                            alignSelf: "center",
-                            opacity: 0.2,
-                            color: theme.colors.white,
-                            [theme.mq.sm]: {
-                              transition: theme.transitions.slow("opacity"),
-                              "&:hover": {
-                                opacity: 1,
+                      return (
+                        <Link
+                          key={key}
+                          href={value}
+                          target="_blank"
+                          css={(theme) => [
+                            {
+                              alignSelf: "center",
+                              opacity: 0.2,
+                              color: theme.colors.white,
+                              [theme.mq.sm]: {
+                                transition: theme.transitions.slow("opacity"),
+                                "&:hover": {
+                                  opacity: 1,
+                                },
                               },
                             },
-                          },
-                        ]}
-                      >
-                        <Icon />
-                      </Link>
-                    );
-                  })}
-                </div>
+                          ]}
+                        >
+                          <Icon />
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>

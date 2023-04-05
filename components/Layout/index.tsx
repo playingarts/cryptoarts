@@ -73,7 +73,6 @@ const Layout: ForwardRefRenderFunction<HTMLElement, Props> = (
                 palette === "dark"
                   ? theme.colors.text_title_light
                   : theme.colors.text_title_dark,
-              
 
               // [theme.mq.sm]: {
               //   background:
