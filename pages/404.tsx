@@ -7,7 +7,7 @@ import Text from "../components/Text";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import { withApollo } from "../source/apollo";
 
-const card = ({
+const card = {
   _id: "card01",
   video: "",
   img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/215.jpg",
@@ -16,7 +16,7 @@ const card = ({
   info: "",
   deck: "",
   artist: "",
-} as unknown) as GQL.Card;
+} as unknown as GQL.Card;
 const ErrorPage: NextPage = () => {
   return (
     <ComposedGlobalLayout noNav={true}>

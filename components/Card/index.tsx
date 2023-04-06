@@ -48,6 +48,12 @@ const Card: FC<Props> = ({
   animated = !card.img || (animated && !!card.video);
 
   useEffect(() => {
+    const img = new Image();
+    img.src = card.img;
+    setLoaded(img.complete);
+  }, []);
+
+  useEffect(() => {
     if (animated || !video.current) {
       return;
     }
@@ -179,12 +185,8 @@ const Card: FC<Props> = ({
               return;
             }
 
-            const {
-              left,
-              width,
-              top,
-              height,
-            } = wrapper.current.getBoundingClientRect();
+            const { left, width, top, height } =
+              wrapper.current.getBoundingClientRect();
 
             setSkew({
               x: (clientX - left) / width - 0.5,
