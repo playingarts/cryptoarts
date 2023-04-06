@@ -1,4 +1,4 @@
-import { Location } from "graphql";
+import { NormalizedCacheObject } from "@apollo/client";
 import mongoose from "mongoose";
 import { GetStaticProps } from "next";
 import { getDeckSlugsWithoutDB } from "../../dump/_decks";
@@ -6,7 +6,7 @@ import { CardsQuery } from "../../hooks/card";
 import { DecksQuery } from "../../hooks/deck";
 import { LosersQuery } from "../../hooks/loser";
 import { podcastsQuery } from "../../hooks/podcast";
-import { Cache, initApolloClient } from "../../source/apollo";
+import { initApolloClient } from "../../source/apollo";
 import Page from "../[deckId]";
 
 export const getStaticPaths = async () => {
@@ -30,7 +30,7 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<
-  { cache?: Cache },
+  { cache?: NormalizedCacheObject },
   { deckId: string; artistId: string }
 > = async (context) => {
   if (mongoose.connection.readyState !== 1) {
@@ -82,44 +82,18 @@ export const getStaticProps: GetStaticProps<
     };
   }
 
-  const podcasts = (
-    await client.query({
-      query: podcastsQuery,
-      variables: {
-        limit: 1,
-        shuffle: true,
-        name: card.artist.name,
-      },
-    })
-  ).data.podcasts;
+  await client.query({
+    query: podcastsQuery,
+    variables: {
+      limit: 1,
+      shuffle: true,
+      name: card.artist.name,
+    },
+  });
 
   return {
     props: {
-      cache: [
-        {
-          query: (DecksQuery.loc as Location).source.body,
-          data: { decks },
-        },
-        {
-          query: (CardsQuery.loc as Location).source.body,
-          variables: { deck: deck._id },
-          data: { cards },
-        },
-        {
-          query: (LosersQuery.loc as Location).source.body,
-          variables: { deck: deck._id },
-          data: { losers },
-        },
-        {
-          query: (podcastsQuery.loc as Location).source.body,
-          variables: {
-            limit: 1,
-            shuffle: true,
-            name: card.artist.name,
-          },
-          data: { podcasts },
-        },
-      ],
+      cache: client.cache.extract(),
       ...(deck.slug === "crypto" && { revalidate: 60 }),
     },
   };

@@ -20,30 +20,29 @@ interface Context {
 
 let cachedApolloClient: Context["apolloClient"] | undefined;
 
-export type Cache = {
-  query: string;
-  variables?: Record<string, string | undefined | number | boolean>;
-  data: any;
-}[];
-
 export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
   const WithApollo: NextComponentType<
     NextPageContext & Context,
     any,
-    Context & { cache?: Cache }
+    Context & { cache?: NormalizedCacheObject }
   > = ({ apolloClient, apolloState, cache, ...pageProps }) => {
     const client = apolloClient || initApolloClient(apolloState);
 
     if (cache) {
-      for (const query of cache) {
-        client.writeQuery({
-          ...query,
-          query: gql`
-            ${query.query}
-          `,
-        });
-      }
+      client.restore(cache);
     }
+    // if (cache) {
+    //   console.log({ cache });
+
+    //   for (const query of cache) {
+    //     client.cache.writeQuery({
+    //       ...query,
+    //       query: gql`
+    //         ${query.query}
+    //       `,
+    //     });
+    //   }
+    // }
 
     // pageProps.decks &&
     //   pageProps.decks.map((deck) => {

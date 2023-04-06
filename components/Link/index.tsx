@@ -32,7 +32,7 @@ const Link: ForwardRefRenderFunction<
     as,
     replace,
     scroll,
-    shallow = true,
+    shallow,
     passHref = props.passHref ? props.passHref : Component === "a",
     prefetch,
     locale,

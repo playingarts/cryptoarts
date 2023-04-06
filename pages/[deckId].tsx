@@ -1,5 +1,4 @@
-import { gql, useApolloClient } from "@apollo/client";
-import { Location } from "graphql";
+import { NormalizedCacheObject } from "@apollo/client";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
 import mongoose from "mongoose";
@@ -40,7 +39,7 @@ import { DecksQuery, useDeck } from "../hooks/deck";
 import { LosersQuery, useLoadLosers } from "../hooks/loser";
 import { useOwnedAssets } from "../hooks/opensea";
 import frag from "../Shaders/Xemantic/index.glsl";
-import { Cache, initApolloClient, withApollo } from "../source/apollo";
+import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
 import { theme } from "./_app";
 
@@ -528,25 +527,10 @@ const Content: FC<{
 
 Content.displayName = "Content";
 
-const Page: NextPage<{ cache?: Cache }> = ({ cache }) => {
+const Page: NextPage = () => {
   const {
     query: { artistId, deckId },
   } = useRouter();
-
-  const client = useApolloClient();
-
-  useEffect(() => {
-    if (cache) {
-      for (const query of cache) {
-        client.cache.writeQuery({
-          ...query,
-          query: gql`
-            ${query.query}
-          `,
-        });
-      }
-    }
-  }, [cache]);
 
   // const abstractQuery = pathname.split("/").filter((item) => item !== "");
   // const query = asPath.split("/").filter((item) => item !== "");
@@ -671,7 +655,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<
   {
-    cache?: Cache;
+    cache?: NormalizedCacheObject;
   },
   { deckId: string }
 > = async (context) => {
@@ -699,50 +683,24 @@ export const getStaticProps: GetStaticProps<
     };
   }
 
-  const cards = (
-    await client.query({
-      query: CardsQuery,
-      variables: { deck: deck._id },
-    })
-  ).data.cards;
+  await client.query({
+    query: CardsQuery,
+    variables: { deck: deck._id },
+  });
 
-  const losers = (
-    await client.query({
-      query: LosersQuery,
-      variables: { deck: deck._id },
-    })
-  ).data.losers;
+  await client.query({
+    query: LosersQuery,
+    variables: { deck: deck._id },
+  });
 
-  const heroCards = (
-    await client.query({
-      query: HeroCardsQuery,
-      variables: { deck: deck._id, slug: deck.slug },
-    })
-  ).data.heroCards;
+  await client.query({
+    query: HeroCardsQuery,
+    variables: { deck: deck._id, slug: deck.slug },
+  });
 
   return {
     props: {
-      cache: [
-        {
-          query: (DecksQuery.loc as Location).source.body,
-          data: { decks },
-        },
-        {
-          query: (CardsQuery.loc as Location).source.body,
-          variables: { deck: deck._id },
-          data: { cards },
-        },
-        {
-          query: (LosersQuery.loc as Location).source.body,
-          variables: { deck: deck._id },
-          data: { losers },
-        },
-        {
-          query: (HeroCardsQuery.loc as Location).source.body,
-          variables: { deck: deck._id, slug: deck.slug },
-          data: { heroCards },
-        },
-      ],
+      cache: client.cache.extract(),
       ...(deck.slug === "crypto" && { revalidate: 60 }),
     },
   };
