@@ -18,6 +18,14 @@ const SizeProvider: FC = ({ children }) => {
   const [width, setWidth] = useState(0);
 
   (typeof window === undefined ? useEffect : useLayoutEffect)(() => {
+    setWidth(
+      Number(
+        Object.keys(breakpoints)
+          .filter((value) => isNaN(Number(value)) === false)
+          .reverse()
+          .find((item: any) => item < window.innerWidth + 1)
+      )
+    );
     const listener = () => {
       setWidth(
         Number(
