@@ -76,6 +76,7 @@ const Nav: FC<
         <div>
           {decks.map(({ slug, short, openseaCollection }, index) => (
             <Link
+              scroll={true}
               key={slug}
               href={`/${slug}`}
               {...(setHover && { onMouseEnter: () => setHover(index) })}

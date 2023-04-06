@@ -44,6 +44,7 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
         });
       }
     }
+
     // pageProps.decks &&
     //   pageProps.decks.map((deck) => {
     //     client.writeFragment({
@@ -61,7 +62,7 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
 
     return (
       <ApolloProvider client={client}>
-        <PageComponent {...pageProps} />
+        <PageComponent {...{ ...pageProps, cache }} />
       </ApolloProvider>
     );
   };

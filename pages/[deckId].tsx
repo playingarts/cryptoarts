@@ -1,3 +1,4 @@
+import { gql, useApolloClient } from "@apollo/client";
 import { Location } from "graphql";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
@@ -527,12 +528,25 @@ const Content: FC<{
 
 Content.displayName = "Content";
 
-const Page: NextPage = (props) => {
-  console.log(props);
-
+const Page: NextPage<{ cache?: Cache }> = ({ cache }) => {
   const {
     query: { artistId, deckId },
   } = useRouter();
+
+  const client = useApolloClient();
+
+  useEffect(() => {
+    if (cache) {
+      for (const query of cache) {
+        client.cache.writeQuery({
+          ...query,
+          query: gql`
+            ${query.query}
+          `,
+        });
+      }
+    }
+  }, [cache]);
 
   // const abstractQuery = pathname.split("/").filter((item) => item !== "");
   // const query = asPath.split("/").filter((item) => item !== "");
