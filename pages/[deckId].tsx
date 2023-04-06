@@ -1,4 +1,4 @@
-import { NormalizedCacheObject } from "@apollo/client";
+import { Location } from "graphql";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
 import mongoose from "mongoose";
@@ -39,7 +39,7 @@ import { DecksQuery, useDeck } from "../hooks/deck";
 import { LosersQuery, useLoadLosers } from "../hooks/loser";
 import { useOwnedAssets } from "../hooks/opensea";
 import frag from "../Shaders/Xemantic/index.glsl";
-import { initApolloClient, withApollo } from "../source/apollo";
+import { Cache, initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
 import { theme } from "./_app";
 
@@ -527,7 +527,9 @@ const Content: FC<{
 
 Content.displayName = "Content";
 
-const Page: NextPage = () => {
+const Page: NextPage = (props) => {
+  console.log(props);
+
   const {
     query: { artistId, deckId },
   } = useRouter();
@@ -654,7 +656,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<
-  { cache?: NormalizedCacheObject },
+  {
+    cache?: Cache;
+  },
   { deckId: string }
 > = async (context) => {
   if (mongoose.connection.readyState !== 1) {
@@ -681,21 +685,52 @@ export const getStaticProps: GetStaticProps<
     };
   }
 
-  await client.query({
-    query: CardsQuery,
-    variables: { deck: deck._id },
-  });
-  await client.query({
-    query: LosersQuery,
-    variables: { deck: deck._id },
-  });
-  await client.query({
-    query: HeroCardsQuery,
-    variables: { deck: deck._id, slug: deck.slug },
-  });
+  const cards = (
+    await client.query({
+      query: CardsQuery,
+      variables: { deck: deck._id },
+    })
+  ).data.cards;
+
+  const losers = (
+    await client.query({
+      query: LosersQuery,
+      variables: { deck: deck._id },
+    })
+  ).data.losers;
+
+  const heroCards = (
+    await client.query({
+      query: HeroCardsQuery,
+      variables: { deck: deck._id, slug: deck.slug },
+    })
+  ).data.heroCards;
 
   return {
-    props: { cache: client.cache.extract() },
+    props: {
+      cache: [
+        {
+          query: (DecksQuery.loc as Location).source.body,
+          data: { decks },
+        },
+        {
+          query: (CardsQuery.loc as Location).source.body,
+          variables: { deck: deck._id },
+          data: { cards },
+        },
+        {
+          query: (LosersQuery.loc as Location).source.body,
+          variables: { deck: deck._id },
+          data: { losers },
+        },
+        {
+          query: (HeroCardsQuery.loc as Location).source.body,
+          variables: { deck: deck._id, slug: deck.slug },
+          data: { heroCards },
+        },
+      ],
+      ...(deck.slug === "crypto" && { revalidate: 60 }),
+    },
   };
 };
 

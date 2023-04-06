@@ -44,7 +44,7 @@
     "graphql-type-json": "^0.3.2",
     "graphql-type-long": "^0.1.1",
     "io-ts": "^2.2.20",
-    "is-mobile": "^3.1.1",
+    "is-mobile": "^4.0.0",
     "just-intersect": "^4.1.0",
     "just-throttle": "^4.0.1",
     "memoizee": "^0.4.15",

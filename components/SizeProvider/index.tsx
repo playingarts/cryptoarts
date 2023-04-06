@@ -1,4 +1,11 @@
-import { createContext, FC, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  FC,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { breakpoints } from "../../source/enums";
 
 export const SizeContext = createContext({} as { width: number });
@@ -10,7 +17,7 @@ export const useSize = () => {
 const SizeProvider: FC = ({ children }) => {
   const [width, setWidth] = useState(0);
 
-  useEffect(() => {
+  (typeof window === undefined ? useEffect : useLayoutEffect)(() => {
     const listener = () => {
       setWidth(
         Number(
