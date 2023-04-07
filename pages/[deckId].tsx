@@ -326,7 +326,7 @@ const Content: FC<{
 
           {/* Cards block */}
 
-          {!contest && (
+          {!contest && deck && (
             <Layout
               scrollIntoView={section === Sections.cards}
               ref={cardsRef}

@@ -1,7 +1,7 @@
 import { useMetaMask } from "metamask-react";
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
-import { useLoadCards } from "../../../hooks/card";
+import { FC, useState } from "react";
+import { useCards } from "../../../hooks/card";
 import { mockEmptyCard } from "../../../mocks/card";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { breakpoints } from "../../../source/enums";
@@ -15,7 +15,7 @@ import SelectButton, { Props as SelectButtonProps } from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
 
 interface Props extends Omit<ListProps, "status" | "deckId" | "cards"> {
-  deck?: GQL.Deck;
+  deck: GQL.Deck;
   ownedCards: OwnedCard[];
 }
 
@@ -55,20 +55,12 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
 
   const [edition, setEdition] = useState(0);
 
-  const { cards: queryCards, loadCards } = useLoadCards();
-
-  useEffect(() => {
-    if (!deck) {
-      return;
-    }
-
-    loadCards({
-      variables: {
-        deck: deck._id,
-        ...(deck.editions && { edition: deck.editions[edition].name }),
-      },
-    });
-  }, [loadCards, deck]);
+  const { cards: queryCards } = useCards({
+    variables: {
+      deck: deck._id,
+      ...(deck.editions && { edition: deck.editions[edition].name }),
+    },
+  });
 
   const cards =
     queryCards &&
