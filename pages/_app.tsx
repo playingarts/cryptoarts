@@ -573,7 +573,7 @@ const App = ({
 };
 
 App.getInitialProps = async (context: any) => {
-  return { isMobile: isMobile({ ua: context.ctx.req }) };
+  return { isMobile: isMobile({ ua: context.ctx.req, tablet: true }) };
 };
 
 export default App;

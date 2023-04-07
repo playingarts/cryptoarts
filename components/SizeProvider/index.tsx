@@ -15,7 +15,7 @@ export const useSize = () => {
 };
 
 const SizeProvider: FC<{ isMobile?: boolean }> = ({ isMobile, children }) => {
-  const [width, setWidth] = useState(isMobile ? 0 : 1000);
+  const [width, setWidth] = useState(isMobile ? 0 : 1440);
 
   (typeof window === "undefined" ? useEffect : useLayoutEffect)(() => {
     const listener = () => {
