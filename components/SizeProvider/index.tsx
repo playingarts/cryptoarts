@@ -14,18 +14,10 @@ export const useSize = () => {
   return useContext(SizeContext);
 };
 
-const SizeProvider: FC = ({ children }) => {
-  const [width, setWidth] = useState(0);
+const SizeProvider: FC<{ isMobile?: boolean }> = ({ isMobile, children }) => {
+  const [width, setWidth] = useState(isMobile ? 0 : 1000);
 
-  (typeof window === undefined ? useEffect : useLayoutEffect)(() => {
-    setWidth(
-      Number(
-        Object.keys(breakpoints)
-          .filter((value) => isNaN(Number(value)) === false)
-          .reverse()
-          .find((item: any) => item < window.innerWidth + 1)
-      )
-    );
+  (typeof window === "undefined" ? useEffect : useLayoutEffect)(() => {
     const listener = () => {
       setWidth(
         Number(

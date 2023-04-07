@@ -3,6 +3,7 @@ import {
   CSSInterpolation,
   CSSPropertiesWithMultiValues,
 } from "@emotion/serialize";
+import isMobile from "is-mobile";
 import { MetaMaskProvider } from "metamask-react";
 import "modern-normalize/modern-normalize.css";
 import { AppProps } from "next/app";
@@ -512,7 +513,11 @@ export const theme: Theme = {
   spacing: (size) => size * 10,
 };
 
-const App = ({ Component, pageProps }: AppProps) => {
+const App = ({
+  Component,
+  pageProps,
+  isMobile,
+}: AppProps & { isMobile: boolean }) => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       smoothscroll.polyfill();
@@ -555,7 +560,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         <SignatureProvider>
           <ThemeProvider theme={theme}>
             <ViewedProvider>
-              <SizeProvider>
+              <SizeProvider isMobile={isMobile === true}>
                 <GoogleAnalytics trackPageViews />
                 <Component {...pageProps} />
               </SizeProvider>
@@ -565,6 +570,10 @@ const App = ({ Component, pageProps }: AppProps) => {
       </MetaMaskProvider>
     </Fragment>
   );
+};
+
+App.getInitialProps = async (context: any) => {
+  return { isMobile: isMobile({ ua: context.ctx.req }) };
 };
 
 export default App;
