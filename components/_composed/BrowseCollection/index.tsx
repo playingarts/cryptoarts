@@ -7,6 +7,7 @@ import Carousel from "../../Carousel";
 import Grid from "../../Grid";
 import Link from "../../Link";
 import Down from "../../Icons/Down";
+import { useSize } from "../../SizeProvider";
 
 const visibleItems = 1;
 
@@ -31,11 +32,13 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
     );
   };
 
+  const { width: windowWidth } = useSize();
+
   return (
     <Grid ref={ref}>
       {!loading &&
         decks &&
-        (isCarousel && window.innerWidth < breakpoints.sm ? (
+        (isCarousel && windowWidth < breakpoints.sm ? (
           <div
             css={[
               {
@@ -54,7 +57,7 @@ const BrowseCollection: FC<HTMLAttributes<HTMLElement>> = (props) => {
               ]}
               items={decks.map(({ slug, title, product }) =>
                 !product ? null : (
-                  <div key={slug+"BrowseCollection"}>
+                  <div key={slug + "BrowseCollection"}>
                     <Link
                       href={`/${slug}`}
                       key={slug + slug}

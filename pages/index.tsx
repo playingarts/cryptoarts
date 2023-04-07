@@ -16,9 +16,12 @@ import ComposedMainHero from "../components/_composed/ComposedMainHero";
 import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import Podcast from "../components/_composed/Podcast";
-import { withApollo } from "../source/apollo";
+import { initApolloClient, withApollo } from "../source/apollo";
 import { socialLinks } from "../source/consts";
 import { breakpoints } from "../source/enums";
+import mongoose from "mongoose";
+import { DecksQuery } from "../hooks/deck";
+import { DailyCardQuery } from "../hooks/card";
 
 const Home: NextPage = () => {
   const { width } = useSize();
@@ -563,4 +566,24 @@ const Home: NextPage = () => {
   );
 };
 
-export default withApollo(Home);
+export const getStaticProps = async () => {
+  if (mongoose.connection.readyState !== 1) {
+    return { props: {}, revalidate: 1 };
+  }
+
+  const client = initApolloClient(undefined, {
+    schema: (await require("../source/graphql/schema")).schema,
+  });
+
+  await client.query({ query: DecksQuery });
+
+  await client.query({ query: DailyCardQuery });
+
+  return {
+    props: {
+      cache: client.cache.extract(),
+    },
+  };
+};
+
+export default withApollo(Home, { ssr: false });
