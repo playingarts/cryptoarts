@@ -7,6 +7,7 @@
   "repository": "git@github.com:playingarts/cryptoarts.git",
   "author": "Gleb Ryshkov",
   "private": true,
+  "proxy": "localhost:3000",
   "scripts": {
     "dev": "NODE_OPTIONS=--max_old_space_size=4096 ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' .",
     "dump": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./dump",

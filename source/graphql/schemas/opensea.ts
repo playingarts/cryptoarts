@@ -5,7 +5,7 @@ import intersect from "just-intersect";
 import memoizee from "memoizee";
 import { model, Model, models, Schema } from "mongoose";
 import { CardSuits } from "../../enums";
-import { getCardByTraits } from "./card";
+import { getCardByTraits, getCards } from "./card";
 import { getContract, getContracts } from "./contract";
 import * as E from "fp-ts/Either";
 import { pipe } from "fp-ts/lib/function";
@@ -130,7 +130,7 @@ export const getAssetsRaw: {
         })
         .catch((error) => {
           if (error.message.includes("Request was throttled")) {
-            // console.error(`Request was throttled while fetching owner`);
+            console.error(`Request was throttled while fetching owner`);
           } else {
             console.error("Failed to get OpenSea Asset:", error);
             return [];
@@ -139,7 +139,8 @@ export const getAssetsRaw: {
           return new Promise<Asset["top_ownerships"]>((resolve) =>
             setTimeout(
               () => resolve(getOwners(index, cursor, allOwners)),
-              error.message.includes("Error 429") ? 1000 : 500
+              // error.message.includes("Error 429") ? 1000 : 500
+              1000
             )
           );
         });
@@ -161,9 +162,10 @@ export const getAssetsRaw: {
           if (detail) {
             throw new Error(detail);
           }
-          console.log("Fetched Assets: " + index);
 
           decodeWith(AssetsType)(assets);
+
+          console.log("Fetched Assets: " + (index + assets.length));
 
           const newAssets: Asset[] = [];
 
@@ -190,6 +192,52 @@ export const getAssetsRaw: {
 
           await Asset.insertMany(newAssets);
 
+          const contract = await getContract({ address: queue[0].contract });
+
+          const cards = await getCards({ deck: contract.deck._id });
+
+          const pages = [];
+          pages.push("/" + contract.deck.slug);
+
+          (assets as GQL.Asset[]).map(({ traits }) => {
+            const suit = (
+              traits.find(
+                ({ trait_type }) =>
+                  trait_type === "Suit" || trait_type === "Color"
+              ) as { value: string }
+            ).value.toLowerCase();
+
+            const value = (
+              traits.find(({ trait_type }) => trait_type === "Value") as {
+                value: string;
+              }
+            ).value.toLowerCase();
+
+            const card = cards.find(
+              (card) => card.value === value && card.suit === suit
+            );
+
+            if (!card) {
+              throw new Error(
+                "Cannot revalidate: " + suit + " " + value + " " + cards.length
+              );
+            }
+
+            pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
+          });
+
+          // If on dev, will cause an infinite loop and eventual memory overflow because next js
+          await fetch(
+            (process.env.NODE_ENV === "development"
+              ? "http://localhost:3000"
+              : process.env.URL) +
+              "/api/revalidate?" +
+              new URLSearchParams({
+                pages: JSON.stringify(pages),
+                secret: process.env.REVALIDATE_SECRET || "",
+              })
+          );
+
           if (!next) {
             console.log("Updated assets for contract: " + queue[0].contract);
 
@@ -201,7 +249,7 @@ export const getAssetsRaw: {
             return;
           }
 
-          return getInitAssets(next, (index += 200));
+          return getInitAssets(next, (index += assets.length));
         })
 
         .catch((error) => {
