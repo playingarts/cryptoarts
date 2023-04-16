@@ -161,7 +161,7 @@ export const getAssetsRaw: {
               () =>
                 resolve(getOwners(index, cursor, restartCount + 1, allOwners)),
               // error.message.includes("Error 429") ? 1000 : 500
-              1000
+              2000
             )
           );
         });
@@ -312,7 +312,7 @@ export const getAssetsRaw: {
             setTimeout(
               () => resolve(getInitAssets(cursor, index, restartCount + 1)),
               // error.message.includes("Error 429") ? 1000 : 500
-              1000
+              2000
             )
           );
         });
