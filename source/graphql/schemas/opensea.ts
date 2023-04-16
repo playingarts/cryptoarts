@@ -94,6 +94,7 @@ const decodeWith =
 
 const queue: { name: string; contract: string }[] = [];
 
+// This is so sad
 export const getAssetsRaw: {
   state: "loaded" | "loading";
   get: (contract: string, name: string, hash?: string) => Promise<Asset[]>;
@@ -103,6 +104,7 @@ export const getAssetsRaw: {
     const getOwners = (
       index: string,
       cursor?: string,
+      restartCount = 0,
       allOwners: Asset["top_ownerships"] = []
     ): Promise<Asset["top_ownerships"]> =>
       fetch(
@@ -123,13 +125,24 @@ export const getAssetsRaw: {
 
           allOwners = [...allOwners, ...owners];
           if (next) {
-            return await getOwners(index, next, allOwners);
+            return await getOwners(index, next, 0, allOwners);
           }
 
           return owners;
         })
         .catch((error) => {
           if (error.message.includes("Request was throttled")) {
+            if (restartCount >= 50) {
+              console.log(
+                "Too much throttling, aborting while fetching owners"
+              );
+
+              queue.shift();
+
+              this.state = "loaded";
+
+              return;
+            }
             console.error(`Request was throttled while fetching owner`);
           } else {
             console.error("Failed to get OpenSea Asset:", error);
@@ -138,14 +151,19 @@ export const getAssetsRaw: {
 
           return new Promise<Asset["top_ownerships"]>((resolve) =>
             setTimeout(
-              () => resolve(getOwners(index, cursor, allOwners)),
+              () =>
+                resolve(getOwners(index, cursor, restartCount + 1, allOwners)),
               // error.message.includes("Error 429") ? 1000 : 500
               1000
             )
           );
         });
 
-    const getInitAssets = (cursor?: string, index = 0): Promise<any> =>
+    const getInitAssets = (
+      cursor?: string,
+      index = 0,
+      restartCount = 0
+    ): Promise<any> =>
       fetch(
         "https://api.opensea.io/api/v1/assets?" +
           new URLSearchParams({
@@ -171,6 +189,9 @@ export const getAssetsRaw: {
 
           for (const asset of assets) {
             const owners = await getOwners(asset.token_id);
+            if (!owners) {
+              return;
+            }
 
             newAssets.push({
               ...asset,
@@ -254,6 +275,18 @@ export const getAssetsRaw: {
 
         .catch((error) => {
           if (error.message.includes("Request was throttled")) {
+            if (restartCount >= 15) {
+              console.log(
+                "Too much throttling, aborting at: " + index + " assets"
+              );
+
+              queue.shift();
+
+              this.state = "loaded";
+
+              return;
+            }
+
             console.error("Request was throttled while fetching assets");
           } else {
             console.error("Failed to get OpenSea Assets:", error);
@@ -265,7 +298,7 @@ export const getAssetsRaw: {
           // }
           return new Promise<any>((resolve) =>
             setTimeout(
-              () => resolve(getInitAssets(cursor, index)),
+              () => resolve(getInitAssets(cursor, index, restartCount + 1)),
               // error.message.includes("Error 429") ? 1000 : 500
               1000
             )

@@ -36,17 +36,3 @@ export const connect = async () => {
   mongoose.set("useFindAndModify", false);
   mongoose.set("returnOriginal", false);
 };
-
-export const connectToDB = async () => {
-  try {
-    await connect();
-  } catch {
-    setTimeout(async () => {
-      console.log({
-        "Mongoose connection state": mongoose.connection.readyState,
-      });
-    }, 10000);
-
-    await connectToDB();
-  }
-};
