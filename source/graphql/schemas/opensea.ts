@@ -88,7 +88,9 @@ const decodeWith =
     pipe(
       codec.decode(input),
       E.getOrElseW((errors) => {
-        throw new Error("Error 666: " + errors[0]);
+        console.log(errors[0]);
+
+        throw new Error("Error 666");
       })
     );
 
@@ -143,9 +145,14 @@ export const getAssetsRaw: {
 
               return;
             }
-            console.error(`Request was throttled while fetching owner`);
+            // console.error(`Request was throttled while fetching owner`);
           } else {
-            console.error("Failed to get OpenSea Asset:", error);
+            console.error("Failed to get OpenSea Owner:", error);
+
+            queue.shift();
+
+            this.state = "loaded";
+
             return [];
           }
 
@@ -290,6 +297,11 @@ export const getAssetsRaw: {
             console.error("Request was throttled while fetching assets");
           } else {
             console.error("Failed to get OpenSea Assets:", error);
+
+            queue.shift();
+
+            this.state = "loaded";
+
             return;
           }
 
