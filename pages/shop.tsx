@@ -136,7 +136,7 @@ const Content: FC = () => {
             shallow={true}
             scroll={false}
           >
-            We ship worldwide!
+          Free worldwide shipping!
           </Text>
           <Line
             spacing={0}

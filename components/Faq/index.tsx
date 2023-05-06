@@ -6,7 +6,7 @@ import Text from "../Text";
 const faq = {
   "Do you ship to my country?": "YES! We ship worldwide. Tracking provided.",
   "How much does it cost to ship a package?":
-    "Shipping costs depend on the qty of decks and destination and will be calculated at checkout.",
+    "Shipping is free for all orders.",
   "How long does shipping take?":
     "Please allow 2—5 business days for orders to be processed after your purchase is complete. The estimated shipping time is 5—10 business days for Europe and USA, and up to 20 business days for the rest of the world.",
   "How do I know if my order has been successfully shipped?":

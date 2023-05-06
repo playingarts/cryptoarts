@@ -1,3 +1,4 @@
+// import { right } from "fp-ts/lib/EitherT";
 import { NextPage } from "next";
 import Head from "next/head";
 import { FC, Fragment, useEffect, useState } from "react";
@@ -57,9 +58,9 @@ const Content: FC<{
       .reduce((a, b) => a + b, 0)
       .toFixed(2)
   );
-  const freeShippingAt = !process.env.NEXT_PUBLIC_FREE_SHIPPING_AT
-    ? Infinity
-    : parseFloat(process.env.NEXT_PUBLIC_FREE_SHIPPING_AT);
+  // const freeShippingAt = !process.env.NEXT_PUBLIC_FREE_SHIPPING_AT
+  //   ? Infinity
+  //   : parseFloat(process.env.NEXT_PUBLIC_FREE_SHIPPING_AT);
   const shippingPrice = 0; // totalPrice < freeShippingAt ? 5.95 : 0;
 
   totalPrice = parseFloat((totalPrice + shippingPrice).toFixed(2));
@@ -217,7 +218,7 @@ const Content: FC<{
 
                   <Line spacing={width < breakpoints.sm ? 2 : 4} />
                 </div>
-                {totalPrice - shippingPrice < freeShippingAt &&
+                {/* {totalPrice - shippingPrice < freeShippingAt &&
                   totalPrice - shippingPrice + 15 >= freeShippingAt && (
                     <Text
                       variant="body"
@@ -243,7 +244,7 @@ const Content: FC<{
                     >
                       Add one more deck and get free shipping!
                     </Text>
-                  )}
+                  )} */}
                 {products.find(({ deck }) => deck && deck.slug === "crypto") &&
                 Object.keys(bag).length > 1 ? (
                   <Text
@@ -273,13 +274,13 @@ const Content: FC<{
                   </Text>
                 ) : null}
                 <ShopCheckoutItem
-                  title="SHIPPING AND HANDLING"
+                  title="FREE SHIPPING AND HANDLING"
                   // price={shippingPrice}
                   titleVariant={width >= breakpoints.sm ? "h5" : "h4"}
                   withoutPic={true}
                   css={(theme) => [
                     {
-                      gridColumn: "2 / 7",
+                      gridColumn: "2 / 8",
                       opacity: 0.5,
                       [theme.maxMQ.md]: {
                         gridColumn: "1 / -1",
@@ -305,14 +306,33 @@ const Content: FC<{
                         ]}
                       >
                         Your order will be dispatched in 2 to 5 business days.
-                        Enjoy free delivery for orders over €{freeShippingAt}.
+                        {/* Enjoy free delivery for orders over €{freeShippingAt}. */}
                         {/* {freeShippingAt > 0 &&
                           freeShippingAt !== Infinity &&
                           ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
                       </Text>
+                      
                     </Fragment>
                   }
                 />
+                {width > breakpoints.sm && (
+                <div
+                  css={(theme) => [
+                    {
+                      [theme.mq.sm]: {
+                        // minWidth: theme.spacing(18),
+                      },
+                    },
+                  ]}
+                >
+                  <Text
+                    variant={width < breakpoints.sm ? "h5" : "h5"}
+                    css={[{ margin: 0, opacity: 0.5 }]}
+                  >
+                    €0.00
+                  </Text>
+                </div>
+                )}
                 <Line
                   spacing={3.5}
                   css={(theme) => ({
@@ -354,7 +374,7 @@ const Content: FC<{
                           },
                         ]}
                       >
-                        Subtotal
+                        Total (incl. taxes)
                       </Text>
                       <div
                         css={(theme) => [
@@ -425,7 +445,7 @@ const Content: FC<{
                         }}
                       >
                         <Text component="h4" css={{ margin: 0 }}>
-                          Subtotal (incl. taxes)
+                          Total (incl. taxes)
                         </Text>
                         <div
                           css={(theme) => ({
@@ -459,7 +479,7 @@ const Content: FC<{
                     ) : (
                       <div>
                         <Text component="h6" css={{ opacity: 0.5, margin: 0 }}>
-                          SUBTOTAL
+                          Your TOTAL
                         </Text>
                         <Text
                           variant="h4"
