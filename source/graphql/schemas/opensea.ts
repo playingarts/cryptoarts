@@ -99,10 +99,10 @@ const queue: { name: string; contract: string }[] = [];
 // This is so sad
 export const getAssetsRaw: {
   state: "loaded" | "loading";
-  get: (contract: string, name: string, hash?: string) => Promise<Asset[]>;
+  get: (contract: string) => void;
 } = {
   state: "loaded",
-  get(contract, name, hash) {
+  get(contract) {
     const getOwners = (
       index: string,
       cursor?: string,
@@ -141,7 +141,7 @@ export const getAssetsRaw: {
 
               queue.shift();
 
-              this.state = "loaded";
+              getAssetsRaw.state = "loaded";
 
               return;
             }
@@ -151,7 +151,7 @@ export const getAssetsRaw: {
 
             queue.shift();
 
-            this.state = "loaded";
+            getAssetsRaw.state = "loaded";
 
             return [];
           }
@@ -161,7 +161,7 @@ export const getAssetsRaw: {
               () =>
                 resolve(getOwners(index, cursor, restartCount + 1, allOwners)),
               // error.message.includes("Error 429") ? 1000 : 500
-              2000
+              3000
             )
           );
         });
@@ -271,7 +271,7 @@ export const getAssetsRaw: {
 
             queue.shift();
 
-            this.state = "loaded";
+            getAssetsRaw.state = "loaded";
 
             // return allAssets;
             return;
@@ -289,7 +289,7 @@ export const getAssetsRaw: {
 
               queue.shift();
 
-              this.state = "loaded";
+              getAssetsRaw.state = "loaded";
 
               return;
             }
@@ -300,7 +300,7 @@ export const getAssetsRaw: {
 
             queue.shift();
 
-            this.state = "loaded";
+            getAssetsRaw.state = "loaded";
 
             return;
           }
@@ -312,43 +312,12 @@ export const getAssetsRaw: {
             setTimeout(
               () => resolve(getInitAssets(cursor, index, restartCount + 1)),
               // error.message.includes("Error 429") ? 1000 : 500
-              2000
+              3000
             )
           );
         });
 
-    if (queue.length === 0 && this.state !== "loaded") {
-      this.state = "loaded";
-    }
-
-    if (
-      queue.findIndex(
-        (item) =>
-          item.contract.toLowerCase() === contract.toLowerCase() &&
-          item.name === name
-      ) === -1
-    ) {
-      queue.push({ contract, name });
-    }
-    if (this.state !== "loading" && process.env.ALLOW_ASSETS_FETCH === "true") {
-      this.state = "loading";
-      console.log(queue);
-
-      getInitAssets();
-      // return Promise.resolve(cachedAssets[contract]);
-    }
-    if (hash) {
-      return getCachedAssets(contract).then((assets) =>
-        assets.filter(
-          (asset) =>
-            asset.top_ownerships.findIndex(
-              ({ owner }) => owner.address === hash
-            ) !== -1
-        )
-      );
-    }
-
-    return getCachedAssets(contract);
+    getInitAssets();
   },
 };
 
@@ -380,7 +349,11 @@ const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
   }
 );
 
-export const getAssets: typeof getAssetsRaw.get =
+export const getAssets: (
+  contract: string,
+  name: string,
+  hash?: string
+) => Promise<Asset[]> =
   process.env.NODE_ENV === "development"
     ? async (_address, contract) => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -388,7 +361,47 @@ export const getAssets: typeof getAssetsRaw.get =
         // return [];
       }
     : //
-      (contract, name, hash) => getAssetsRaw.get(contract, name, hash);
+      (contract, name, hash) => {
+        // console.log(instances, instance);
+
+        if (queue.length === 0 && getAssetsRaw.state !== "loaded") {
+          getAssetsRaw.state = "loaded";
+        }
+
+        if (
+          queue.findIndex(
+            (item) =>
+              item.contract.toLowerCase() === contract.toLowerCase() &&
+              item.name === name
+          ) === -1
+        ) {
+          queue.push({ contract, name });
+        }
+
+        if (
+          getAssetsRaw.state !== "loading" &&
+          process.env.ALLOW_ASSETS_FETCH === "true"
+        ) {
+          getAssetsRaw.state = "loading";
+          console.log(queue);
+
+          getAssetsRaw.get(contract);
+          // return Promise.resolve(cachedAssets[contract]);
+        }
+
+        if (hash) {
+          return getCachedAssets(contract).then((assets) =>
+            assets.filter(
+              (asset) =>
+                asset.top_ownerships.findIndex(
+                  ({ owner }) => owner.address === hash
+                ) !== -1
+            )
+          );
+        }
+
+        return getCachedAssets(contract);
+      };
 
 // export const getAssetsRaw = (
 //   contract: string,
@@ -634,6 +647,7 @@ const getOnSale = async (
     0
   );
 };
+
 export const signatureValid = (address: string, signature: string) =>
   address.toLowerCase() ===
   recoverPersonalSignature({
@@ -705,10 +719,6 @@ export const resolvers: GQL.Resolvers = {
   },
 };
 
-// sell_orders: [SellOrder]!
-//   type SellOrder {
-//     base_price: String!
-//   }
 export const typeDefs = gql`
   scalar JSON
 
