@@ -227,31 +227,48 @@ export const getAssetsRaw: {
           const pages = [];
           pages.push("/" + contract.deck.slug);
 
-          (assets as GQL.Asset[]).map(({ traits }) => {
-            const suit = (
-              traits.find(
-                ({ trait_type }) =>
-                  trait_type === "Suit" || trait_type === "Color"
-              ) as { value: string }
-            ).value.toLowerCase();
+          (assets as GQL.Asset[]).map(({ traits, token_id }) => {
+            if (traits.length !== 0) {
+              const suit = (
+                traits.find(
+                  ({ trait_type }) =>
+                    trait_type === "Suit" || trait_type === "Color"
+                ) as { value: string }
+              ).value.toLowerCase();
 
-            const value = (
-              traits.find(({ trait_type }) => trait_type === "Value") as {
-                value: string;
-              }
-            ).value.toLowerCase();
+              const value = (
+                traits.find(({ trait_type }) => trait_type === "Value") as {
+                  value: string;
+                }
+              ).value.toLowerCase();
 
-            const card = cards.find(
-              (card) => card.value === value && card.suit === suit
-            );
-
-            if (!card) {
-              throw new Error(
-                "Cannot revalidate: " + suit + " " + value + " " + cards.length
+              const card = cards.find(
+                (card) => card.value === value && card.suit === suit
               );
-            }
 
-            pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
+              if (!card) {
+                throw new Error(
+                  "Cannot revalidate: " +
+                    suit +
+                    " " +
+                    value +
+                    " " +
+                    cards.length
+                );
+              }
+
+              pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
+            } else {
+              const card = cards.find(
+                (card) => card.erc1155 && card.erc1155.token_id === token_id
+              );
+
+              if (!card) {
+                throw new Error("Cannot revalidate: token_id " + token_id);
+              }
+
+              pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
+            }
           });
 
           // If on dev, will cause an infinite loop and eventual memory overflow because next js
@@ -325,8 +342,6 @@ const cachedAssets: Record<string, Asset[]> = {};
 
 const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
   async (contract) => {
-    console.log({ queue });
-
     if (!cachedAssets[contract]) {
       const assets = await Asset.find({
         "asset_contract.address": contract,
