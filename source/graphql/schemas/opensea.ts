@@ -155,12 +155,15 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
         } else {
           console.error("Failed to get OpenSea Owner:", error);
 
-          await Content.deleteMany({
-            "data.name": contractObject.data.name,
-            "data.contract": contractObject.data.contract,
-          });
+          if (restartCount >= 10) {
+            console.log("Restarted more than 10 times, dropping queue");
 
-          return [];
+            await Content.deleteMany({
+              key: "queue",
+            });
+
+            return;
+          }
         }
 
         return new Promise<Asset["top_ownerships"]>((resolve) =>
@@ -281,7 +284,7 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           }
         });
 
-        await fetch(
+        fetch(
           (process.env.NODE_ENV === "development"
             ? "http://localhost:3000"
             : process.env.URL) +
@@ -322,12 +325,15 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
         } else {
           console.error("Failed to get OpenSea Assets:", error);
 
-          await Content.deleteMany({
-            "data.name": contractObject.data.name,
-            "data.contract": contractObject.data.contract,
-          });
+          if (restartCount >= 10) {
+            console.log("Restarted more than 10 times, dropping queue");
 
-          return;
+            await Content.deleteMany({
+              key: "queue",
+            });
+
+            return;
+          }
         }
 
         // if (error.message.includes("Error 666")) {
