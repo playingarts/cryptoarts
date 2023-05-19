@@ -1,6 +1,7 @@
 import express from "express";
 import next from "next";
 import redirector from "redirect-https";
+import { Content } from "./graphql/schemas/content";
 import { expressLogger } from "./logger";
 import { connect } from "./mongoose";
 import routes from "./routes";
@@ -13,6 +14,9 @@ const handler = routes.getRequestHandler(app);
 app
   .prepare()
   .then(connect)
+  .then(async () => {
+    await Content.deleteMany({ key: "queue" });
+  })
   .then(() => {
     const server = express();
 

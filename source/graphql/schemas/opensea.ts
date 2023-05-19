@@ -10,6 +10,8 @@ import { getContract, getContracts } from "./contract";
 import * as E from "fp-ts/Either";
 import { pipe } from "fp-ts/lib/function";
 import * as T from "io-ts";
+import { Content } from "./content";
+import * as crypto from "crypto";
 
 const { NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage, OPENSEA_KEY = "" } =
   process.env;
@@ -94,248 +96,253 @@ const decodeWith =
       })
     );
 
-const queue: { name: string; contract: string }[] = [];
+// const queue: { name: string; contract: string }[] = [];
+type queueObject = {
+  key: "queue";
+  data: { contract: string; name: string; hash: string | null };
+};
 
-// This is so sad
-export const getAssetsRaw: {
-  state: "loaded" | "loading";
-  get: (contract: string) => void;
-} = {
-  state: "loaded",
-  get(contract) {
-    const getOwners = (
-      index: string,
-      cursor?: string,
-      restartCount = 0,
-      allOwners: Asset["top_ownerships"] = []
-    ): Promise<Asset["top_ownerships"]> =>
-      fetch(
-        `https://api.opensea.io/api/v1/asset/${contract}/${index}/owners?` +
-          new URLSearchParams({
-            limit: "50",
-            ...(cursor && { cursor }),
-          }),
-        { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
-      )
-        .then((res) => res.json())
-        .then(async ({ next, owners, detail }) => {
-          if (detail) {
-            throw new Error(detail);
-          }
+// This is better than how it used to be
+export const getAssetsRaw: (hash: string) => void = async (hash) => {
+  const contractObject = (await Content.findOne({
+    "data.hash": { $ne: null },
+  })) as unknown as queueObject;
 
-          decodeWith(OwnersType)(owners);
+  if (contractObject.data.hash !== hash) {
+    return;
+  }
 
-          allOwners = [...allOwners, ...owners];
-          if (next) {
-            return await getOwners(index, next, 0, allOwners);
-          }
+  const getOwners = (
+    index: string,
+    cursor?: string,
+    restartCount = 0,
+    allOwners: Asset["top_ownerships"] = []
+  ): Promise<Asset["top_ownerships"]> =>
+    fetch(
+      `https://api.opensea.io/api/v1/asset/${contractObject.data.contract}/${index}/owners?` +
+        new URLSearchParams({
+          limit: "50",
+          ...(cursor && { cursor }),
+        }),
+      { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
+    )
+      .then((res) => res.json())
+      .then(async ({ next, owners, detail }) => {
+        if (detail) {
+          throw new Error(detail);
+        }
 
-          return owners;
-        })
-        .catch((error) => {
-          if (error.message.includes("Request was throttled")) {
-            if (restartCount >= 50) {
-              console.log(
-                "Too much throttling, aborting while fetching owners"
-              );
+        decodeWith(OwnersType)(owners);
 
-              queue.shift();
+        allOwners = [...allOwners, ...owners];
+        if (next) {
+          return await getOwners(index, next, 0, allOwners);
+        }
 
-              getAssetsRaw.state = "loaded";
-
-              return;
-            }
-            // console.error(`Request was throttled while fetching owner`);
-          } else {
-            console.error("Failed to get OpenSea Owner:", error);
-
-            queue.shift();
-
-            getAssetsRaw.state = "loaded";
-
-            return [];
-          }
-
-          return new Promise<Asset["top_ownerships"]>((resolve) =>
-            setTimeout(
-              () =>
-                resolve(getOwners(index, cursor, restartCount + 1, allOwners)),
-              // error.message.includes("Error 429") ? 1000 : 500
-              3000
-            )
-          );
-        });
-
-    const getInitAssets = (
-      cursor?: string,
-      index = 0,
-      restartCount = 0
-    ): Promise<any> =>
-      fetch(
-        "https://api.opensea.io/api/v1/assets?" +
-          new URLSearchParams({
-            collection_slug: queue[0].name,
-            asset_contract_address: queue[0].contract,
-            limit: "200",
-            include_orders: "true",
-            ...(cursor && { cursor }),
-          }),
-        { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
-      )
-        .then((res) => res.json())
-        .then(async ({ assets, next, detail }) => {
-          if (detail) {
-            throw new Error(detail);
-          }
-
-          decodeWith(AssetsType)(assets);
-
-          console.log("Fetched Assets: " + (index + assets.length));
-
-          const newAssets: Asset[] = [];
-
-          for (const asset of assets) {
-            const owners = await getOwners(asset.token_id);
-            if (!owners) {
-              return;
-            }
-
-            newAssets.push({
-              ...asset,
-              asset_contract: {
-                address: asset.asset_contract.address.toLowerCase(),
-              },
-              top_ownerships: owners.map((owner) => ({
-                owner: { address: owner.owner.address.toLowerCase() },
-              })),
-            });
-          }
-
-          await Asset.deleteMany({
-            $or: newAssets.map(({ token_id, asset_contract }) => ({
-              token_id,
-              asset_contract,
-            })),
-          });
-
-          await Asset.insertMany(newAssets);
-
-          const contract = await getContract({ address: queue[0].contract });
-
-          const cards = await getCards({ deck: contract.deck._id });
-
-          const pages = [];
-          pages.push("/" + contract.deck.slug);
-
-          (assets as GQL.Asset[]).map(({ traits, token_id }) => {
-            if (traits.length !== 0) {
-              const suit = (
-                traits.find(
-                  ({ trait_type }) =>
-                    trait_type === "Suit" || trait_type === "Color"
-                ) as { value: string }
-              ).value.toLowerCase();
-
-              const value = (
-                traits.find(({ trait_type }) => trait_type === "Value") as {
-                  value: string;
-                }
-              ).value.toLowerCase();
-
-              const card = cards.find(
-                (card) => card.value === value && card.suit === suit
-              );
-
-              if (!card) {
-                throw new Error(
-                  "Cannot revalidate: " +
-                    suit +
-                    " " +
-                    value +
-                    " " +
-                    cards.length
-                );
-              }
-
-              pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
-            } else {
-              const card = cards.find(
-                (card) => card.erc1155 && card.erc1155.token_id === token_id
-              );
-
-              if (!card) {
-                throw new Error("Cannot revalidate: token_id " + token_id);
-              }
-
-              pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
-            }
-          });
-
-          // If on dev, will cause an infinite loop and eventual memory overflow because next js
-          await fetch(
-            (process.env.NODE_ENV === "development"
-              ? "http://localhost:3000"
-              : process.env.URL) +
-              "/api/revalidate?" +
-              new URLSearchParams({
-                pages: JSON.stringify(pages),
-                secret: process.env.REVALIDATE_SECRET || "",
-              })
-          );
-
-          if (!next) {
-            console.log("Updated assets for contract: " + queue[0].contract);
-
-            queue.shift();
-
-            getAssetsRaw.state = "loaded";
-
-            // return allAssets;
-            return;
-          }
-
-          return getInitAssets(next, (index += assets.length));
-        })
-
-        .catch((error) => {
-          if (error.message.includes("Request was throttled")) {
-            if (restartCount >= 15) {
-              console.log(
-                "Too much throttling, aborting at: " + index + " assets"
-              );
-
-              queue.shift();
-
-              getAssetsRaw.state = "loaded";
-
-              return;
-            }
-
-            console.error("Request was throttled while fetching assets");
-          } else {
-            console.error("Failed to get OpenSea Assets:", error);
-
-            queue.shift();
-
-            getAssetsRaw.state = "loaded";
-
-            return;
-          }
-
-          // if (error.message.includes("Error 666")) {
+        return owners;
+      })
+      .catch(async (error) => {
+        if (error.message.includes("Request was throttled")) {
+          // if (restartCount >= 50) {
+          //   console.log(
+          //     "Too much throttling, aborting while fetching owners"
+          //   );
+          //   queue.shift();
+          //   getAssetsRaw.state = "loaded";
           //   return;
           // }
-          return new Promise<any>((resolve) =>
-            setTimeout(
-              () => resolve(getInitAssets(cursor, index, restartCount + 1)),
-              // error.message.includes("Error 429") ? 1000 : 500
-              3000
-            )
-          );
+          // console.error(`Request was throttled while fetching owner`);
+        } else {
+          console.error("Failed to get OpenSea Owner:", error);
+
+          await Content.deleteMany({
+            "data.name": contractObject.data.name,
+            "data.contract": contractObject.data.contract,
+          });
+
+          return [];
+        }
+
+        return new Promise<Asset["top_ownerships"]>((resolve) =>
+          setTimeout(
+            () =>
+              resolve(getOwners(index, cursor, restartCount + 1, allOwners)),
+            // error.message.includes("Error 429") ? 1000 : 500
+            3000
+          )
+        );
+      });
+
+  const getInitAssets = (
+    cursor?: string,
+    index = 0,
+    restartCount = 0
+  ): Promise<any> =>
+    fetch(
+      "https://api.opensea.io/api/v1/assets?" +
+        new URLSearchParams({
+          collection_slug: contractObject.data.name,
+          asset_contract_address: contractObject.data.contract,
+          limit: "200",
+          include_orders: "true",
+          ...(cursor && { cursor }),
+        }),
+      { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
+    )
+      .then((res) => res.json())
+      .then(async ({ assets, next, detail }) => {
+        if (detail) {
+          throw new Error(detail);
+        }
+
+        decodeWith(AssetsType)(assets);
+
+        console.log("Fetched Assets: " + (index + assets.length));
+
+        const newAssets: Asset[] = [];
+
+        if (index === 0) {
+          await Content.deleteMany({
+            "data.hash": { $nin: [contractObject.data.hash, null] },
+          });
+        }
+
+        for (const asset of assets) {
+          const owners = await getOwners(asset.token_id);
+          if (!owners) {
+            return;
+          }
+
+          newAssets.push({
+            ...asset,
+            asset_contract: {
+              address: asset.asset_contract.address.toLowerCase(),
+            },
+            top_ownerships: owners.map((owner) => ({
+              owner: { address: owner.owner.address.toLowerCase() },
+            })),
+          });
+        }
+
+        await Asset.deleteMany({
+          $or: newAssets.map(({ token_id, asset_contract }) => ({
+            token_id,
+            asset_contract,
+          })),
         });
 
-    getInitAssets();
-  },
+        await Asset.insertMany(newAssets);
+
+        const contract = await getContract({
+          address: contractObject.data.contract,
+        });
+
+        const cards = await getCards({ deck: contract.deck._id });
+
+        const pages = [];
+        pages.push("/" + contract.deck.slug);
+
+        (assets as GQL.Asset[]).map(({ traits, token_id }) => {
+          if (traits.length !== 0) {
+            const suit = (
+              traits.find(
+                ({ trait_type }) =>
+                  trait_type === "Suit" || trait_type === "Color"
+              ) as { value: string }
+            ).value.toLowerCase();
+
+            const value = (
+              traits.find(({ trait_type }) => trait_type === "Value") as {
+                value: string;
+              }
+            ).value.toLowerCase();
+
+            const card = cards.find(
+              (card) => card.value === value && card.suit === suit
+            );
+
+            if (!card) {
+              throw new Error(
+                "Cannot revalidate: " + suit + " " + value + " " + cards.length
+              );
+            }
+
+            pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
+          } else {
+            const card = cards.find(
+              (card) => card.erc1155 && card.erc1155.token_id === token_id
+            );
+
+            if (!card) {
+              throw new Error("Cannot revalidate: token_id " + token_id);
+            }
+
+            pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
+          }
+        });
+
+        await fetch(
+          (process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : process.env.URL) +
+            "/api/revalidate?" +
+            new URLSearchParams({
+              pages: JSON.stringify(pages),
+              secret: process.env.REVALIDATE_SECRET || "",
+            })
+        );
+
+        if (!next) {
+          console.log(
+            "Updated assets for contract: " + contractObject.data.contract
+          );
+
+          await Content.deleteMany({
+            "data.name": contractObject.data.name,
+            "data.contract": contractObject.data.contract,
+          });
+
+          return;
+        }
+
+        return getInitAssets(next, (index += assets.length));
+      })
+
+      .catch(async (error) => {
+        if (error.message.includes("Request was throttled")) {
+          // if (restartCount >= 15) {
+          //   console.log(
+          //     "Too much throttling, aborting at: " + index + " assets"
+          //   );
+          //   queue.shift();
+          //   getAssetsRaw.state = "loaded";
+          //   return;
+          // }
+          // console.error("Request was throttled while fetching assets");
+        } else {
+          console.error("Failed to get OpenSea Assets:", error);
+
+          await Content.deleteMany({
+            "data.name": contractObject.data.name,
+            "data.contract": contractObject.data.contract,
+          });
+
+          return;
+        }
+
+        // if (error.message.includes("Error 666")) {
+        //   return;
+        // }
+        return new Promise<any>((resolve) =>
+          setTimeout(
+            () => resolve(getInitAssets(cursor, index, restartCount + 1)),
+            // error.message.includes("Error 429") ? 1000 : 500
+            3000
+          )
+        );
+      });
+
+  getInitAssets();
 };
 
 const cachedAssets: Record<string, Asset[]> = {};
@@ -364,11 +371,9 @@ const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
   }
 );
 
-export const getAssets: (
-  contract: string,
-  name: string,
-  hash?: string
-) => Promise<Asset[]> =
+export const getAssets = memoizee<
+  (contract: string, name: string, hash?: string) => Promise<Asset[]>
+>(
   process.env.NODE_ENV === "development"
     ? async (_address, contract) => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -376,32 +381,61 @@ export const getAssets: (
         // return [];
       }
     : //
-      (contract, name, hash) => {
+      async (contract, name, hash) => {
         // console.log(instances, instance);
+        const queueEntries = await Content.find({ key: "queue" });
 
-        if (queue.length === 0 && getAssetsRaw.state !== "loaded") {
-          getAssetsRaw.state = "loaded";
-        }
+        if (!queueEntries.find((entry) => entry.data.hash !== null)) {
+          const newHash = crypto.randomUUID();
+          if (queueEntries[0]) {
+            await Content.insertMany({
+              key: "queue",
+              data: {
+                contract: queueEntries[0].data.contract,
+                name: queueEntries[0].data.name,
+                hash: newHash,
+              },
+            });
+          } else {
+            // await Content.deleteMany({
+            //   key: "queue",
+            //   "data.contract": contract,
+            //   "data.name": name,
+            // });
 
-        if (
-          queue.findIndex(
-            (item) =>
-              item.contract.toLowerCase() === contract.toLowerCase() &&
-              item.name === name
-          ) === -1
-        ) {
-          queue.push({ contract, name });
-        }
+            await Content.insertMany({
+              key: "queue",
+              data: { contract, name, hash: newHash },
+            });
+            // console.log(newHash);
+          }
+          getAssetsRaw(newHash);
+        } else {
+          const sameContract = queueEntries.find(
+            ({ data }) => data.contract === contract && data.name === name
+          );
 
-        if (
-          getAssetsRaw.state !== "loading" &&
-          process.env.ALLOW_ASSETS_FETCH === "true"
-        ) {
-          getAssetsRaw.state = "loading";
-          console.log(queue);
+          if (!sameContract) {
+            await Content.insertMany({
+              key: "queue",
+              data: { contract, name, hash: null },
+            });
+          }
+          // } else if (sameContract.data.hash === null) {
+          //   getAssetsRaw.hash = crypto.randomUUID();
 
-          getAssetsRaw.get(contract);
-          // return Promise.resolve(cachedAssets[contract]);
+          //   await Content.deleteMany({
+          //     key: "queue",
+          //     data: { contract, name },
+          //   });
+
+          //   await Content.insertMany({
+          //     key: "queue",
+          //     data: { contract, name, hash: getAssetsRaw.hash },
+          //   });
+
+          //   getAssetsRaw.get();
+          // }
         }
 
         if (hash) {
@@ -416,8 +450,11 @@ export const getAssets: (
         }
 
         return getCachedAssets(contract);
-      };
-
+      },
+  {
+    maxAge: 1000 * 1,
+  }
+);
 // export const getAssetsRaw = (
 //   contract: string,
 //   contractSlug?: string,
