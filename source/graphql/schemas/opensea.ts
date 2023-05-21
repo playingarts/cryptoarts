@@ -242,8 +242,7 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
 
         const cards = await getCards({ deck: contract.deck._id });
 
-        const pages = [];
-        pages.push("/" + contract.deck.slug);
+        const pages: string[] = [];
 
         (assets as GQL.Asset[]).map(({ traits, token_id }) => {
           if (traits.length !== 0) {
@@ -283,6 +282,17 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
             pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
           }
         });
+
+        fetch(
+          (process.env.NODE_ENV === "development"
+            ? "http://localhost:3000"
+            : process.env.URL) +
+            "/api/revalidate?" +
+            new URLSearchParams({
+              pages: JSON.stringify(["/" + contract.deck.slug]),
+              secret: process.env.REVALIDATE_SECRET || "",
+            })
+        );
 
         fetch(
           (process.env.NODE_ENV === "development"
@@ -389,59 +399,61 @@ export const getAssets = memoizee<
     : //
       async (contract, name, hash) => {
         // console.log(instances, instance);
-        const queueEntries = await Content.find({ key: "queue" });
+        if (process.env.ALLOW_ASSETS_FETCH === "true") {
+          const queueEntries = await Content.find({ key: "queue" });
 
-        if (!queueEntries.find((entry) => entry.data.hash !== null)) {
-          const newHash = crypto.randomUUID();
-          if (queueEntries[0]) {
-            await Content.insertMany({
-              key: "queue",
-              data: {
-                contract: queueEntries[0].data.contract,
-                name: queueEntries[0].data.name,
-                hash: newHash,
-              },
-            });
+          if (!queueEntries.find((entry) => entry.data.hash !== null)) {
+            const newHash = crypto.randomUUID();
+            if (queueEntries[0]) {
+              await Content.insertMany({
+                key: "queue",
+                data: {
+                  contract: queueEntries[0].data.contract,
+                  name: queueEntries[0].data.name,
+                  hash: newHash,
+                },
+              });
+            } else {
+              // await Content.deleteMany({
+              //   key: "queue",
+              //   "data.contract": contract,
+              //   "data.name": name,
+              // });
+
+              await Content.insertMany({
+                key: "queue",
+                data: { contract, name, hash: newHash },
+              });
+              // console.log(newHash);
+            }
+            getAssetsRaw(newHash);
           } else {
-            // await Content.deleteMany({
-            //   key: "queue",
-            //   "data.contract": contract,
-            //   "data.name": name,
-            // });
+            const sameContract = queueEntries.find(
+              ({ data }) => data.contract === contract && data.name === name
+            );
 
-            await Content.insertMany({
-              key: "queue",
-              data: { contract, name, hash: newHash },
-            });
-            // console.log(newHash);
+            if (!sameContract) {
+              await Content.insertMany({
+                key: "queue",
+                data: { contract, name, hash: null },
+              });
+            }
+            // } else if (sameContract.data.hash === null) {
+            //   getAssetsRaw.hash = crypto.randomUUID();
+
+            //   await Content.deleteMany({
+            //     key: "queue",
+            //     data: { contract, name },
+            //   });
+
+            //   await Content.insertMany({
+            //     key: "queue",
+            //     data: { contract, name, hash: getAssetsRaw.hash },
+            //   });
+
+            //   getAssetsRaw.get();
+            // }
           }
-          getAssetsRaw(newHash);
-        } else {
-          const sameContract = queueEntries.find(
-            ({ data }) => data.contract === contract && data.name === name
-          );
-
-          if (!sameContract) {
-            await Content.insertMany({
-              key: "queue",
-              data: { contract, name, hash: null },
-            });
-          }
-          // } else if (sameContract.data.hash === null) {
-          //   getAssetsRaw.hash = crypto.randomUUID();
-
-          //   await Content.deleteMany({
-          //     key: "queue",
-          //     data: { contract, name },
-          //   });
-
-          //   await Content.insertMany({
-          //     key: "queue",
-          //     data: { contract, name, hash: getAssetsRaw.hash },
-          //   });
-
-          //   getAssetsRaw.get();
-          // }
         }
 
         if (hash) {
