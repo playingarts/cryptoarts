@@ -34,7 +34,25 @@ export const createDeck = async (
         artist = _id;
       }
 
-      return { ...card, artist, deck: newDeck._id };
+      let animator = card.animator || null;
+
+      if (animator) {
+        const { _id } = (await Artist.findOne({
+          slug: animator as unknown as string,
+        })) || {
+          _id: undefined,
+        };
+
+        if (!_id) {
+          throw new Error(
+            `Cannot reference animator: ${card.animator} in deck: ${deck.slug}.`
+          );
+        }
+
+        animator = _id;
+      }
+
+      return { ...card, artist, animator, deck: newDeck._id };
     })
   );
 

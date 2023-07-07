@@ -224,6 +224,7 @@ interface Card {
   erc1155?: Maybe<Erc1155>;
   reversible?: Maybe<Scalars['Boolean']>;
   edition?: Maybe<Scalars['String']>;
+  animator?: Maybe<Artist>;
 }
 
 interface Erc1155 {
@@ -702,6 +703,7 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   erc1155?: Resolver<Maybe<ResolversTypes['ERC1155']>, ParentType, ContextType>;
   reversible?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
   edition?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  animator?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

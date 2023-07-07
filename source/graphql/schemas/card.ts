@@ -26,6 +26,7 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
     default: null,
   },
   artist: { type: Types.ObjectId, ref: "Artist" },
+  animator: { type: Types.ObjectId, ref: "Artist" },
   deck: { type: Types.ObjectId, ref: "Deck" },
   reversible: Boolean,
 });
@@ -50,7 +51,9 @@ export const getCards = async ({
 
   let cards = await ((losers ? Loser : Card)
     .find(deck ? (edition && { deck, edition }) || { deck } : {})
-    .populate(["artist", "deck"]) as unknown as Promise<GQL.Card[]>);
+    .populate(["artist", "deck", "animator"]) as unknown as Promise<
+    GQL.Card[]
+  >);
 
   if (shuffle) {
     cards = cards.sort(() => Math.random() - Math.random());
@@ -67,6 +70,7 @@ export const getCard = ({ id }: GQL.QueryCardArgs) =>
   Card.findById(id).populate([
     "artist",
     "deck",
+    "animator",
   ]) as unknown as Promise<GQL.Card>;
 
 export const getCardByTraits = ({
@@ -262,6 +266,7 @@ export const typeDefs = gql`
     erc1155: ERC1155
     reversible: Boolean
     edition: String
+    animator: Artist
   }
 
   type ERC1155 {

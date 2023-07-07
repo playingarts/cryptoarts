@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { breakpoints } from "../../../source/enums";
 import Arrowed from "../../Arrowed";
@@ -242,6 +242,20 @@ const CardBlock: FC<Props> = ({
             },
           })}
         >
+          {card.animator && (
+            <Text
+              component="h6"
+              css={(theme) => [
+                {
+                  margin: 0,
+                  marginBottom: theme.spacing(2.5),
+                  marginTop: theme.spacing(2.5),
+                },
+              ]}
+            >
+              artwork
+            </Text>
+          )}
           <Quote
             palette="dark"
             key={card._id}
@@ -260,6 +274,45 @@ const CardBlock: FC<Props> = ({
           >
             {card.info}
           </Quote>
+
+          {card.animator && (
+            <Fragment>
+              <Line
+                size={1}
+                palette="dark"
+                css={(theme) => [{ marginTop: theme.spacing(3.5) }]}
+              />
+
+              <Text
+                component="h6"
+                css={(theme) => [
+                  {
+                    margin: 0,
+                    marginBottom: theme.spacing(2.5),
+                    marginTop: theme.spacing(2.5),
+                  },
+                ]}
+              >
+                animator
+              </Text>
+              <Quote
+                palette="dark"
+                key={card._id}
+                fullArtist={true}
+                artist={card.animator}
+                withoutName={true}
+                vertical={true}
+                truncate={7}
+                css={(theme) => [
+                  !cardOfTheDay && {
+                    [theme.maxMQ.sm]: {
+                      marginBottom: theme.spacing(2),
+                    },
+                  },
+                ]}
+              />
+            </Fragment>
+          )}
           {!cardOfTheDay && (
             <Podcast
               css={(theme) => ({ marginTop: theme.spacing(5) })}

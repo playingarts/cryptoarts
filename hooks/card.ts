@@ -16,6 +16,36 @@ export const CardsQuery = gql`
         token_id
       }
       price
+      animator {
+        name
+        userpic
+        info
+        country
+        website
+        slug
+        podcast {
+          image
+          youtube
+          spotify
+          apple
+          episode
+        }
+        social {
+          website
+          instagram
+          facebook
+          twitter
+          behance
+          dribbble
+          foundation
+          superrare
+          makersplace
+          knownorigin
+          rarible
+          niftygateway
+          showtime
+        }
+      }
       artist {
         name
         userpic
