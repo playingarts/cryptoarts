@@ -83,6 +83,11 @@ const Document = () => (
   <Html lang="en">
     <Head>
       <Links />
+      <link
+        rel="icon"
+        href="https://s3.amazonaws.com/img.playingarts.com/www/static/favicon.png"
+        sizes="any"
+      />
     </Head>
 
     <body>
