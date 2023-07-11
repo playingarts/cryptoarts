@@ -1,7 +1,6 @@
 import { FC, memo } from "react";
 import Grid from "../../../components/Grid";
 import Layout from "../../../components/Layout";
-import { useOwnedAssets } from "../../../hooks/opensea";
 import Button from "../../Button";
 import Line from "../../Line";
 import Link from "../../Link";
@@ -9,9 +8,10 @@ import StatBlock from "../../StatBlock";
 import Text from "../../Text";
 
 const GamePromo: FC = () => {
-  const ownedAssets = useOwnedAssets("crypto");
+  // const ownedAssets = useOwnedAssets("crypto");
 
-  return ownedAssets && ownedAssets.length !== 0 ? (
+  // return ownedAssets && ownedAssets.length !== 0 ? (
+  return (
     <Layout
       css={(theme) => ({
         background: theme.colors.page_bg_dark,
@@ -144,7 +144,7 @@ const GamePromo: FC = () => {
         </StatBlock>
       </Grid>
     </Layout>
-  ) : null;
+  );
 };
 
 export default memo(GamePromo);
