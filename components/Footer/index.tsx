@@ -1,6 +1,5 @@
 import { colord } from "colord";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
-import { useOwnedAssets } from "../../hooks/opensea";
 import { socialLinks } from "../../source/consts";
 import { breakpoints } from "../../source/enums";
 import Button from "../Button";
@@ -21,7 +20,6 @@ import Text from "../Text";
 
 const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const lineRef = useRef<HTMLHRElement>(null);
-  const ownedAssets = useOwnedAssets("crypto");
 
   const ref = useRef<HTMLElement>(null);
   //todo rethink sticky logic
@@ -136,7 +134,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                     text: "Shipping",
                   },
 
-                  ownedAssets && {
+                  {
                     href: "https://play2.playingarts.com/",
                     text: "Game",
                   },

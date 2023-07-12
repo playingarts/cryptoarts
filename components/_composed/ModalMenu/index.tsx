@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { FC, Fragment, HTMLAttributes, useLayoutEffect, useState } from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { useDecks } from "../../../hooks/deck";
-import { useOwnedAssets } from "../../../hooks/opensea";
 import { socialLinks } from "../../../source/consts";
 import { breakpoints } from "../../../source/enums";
 import Button from "../../Button";
@@ -72,8 +71,6 @@ const ModalMenu: FC<
   };
 
   const { width: windowWidth } = useSize();
-
-  const ownedAssets = useOwnedAssets("crypto");
 
   return (
     <Layout
@@ -255,22 +252,20 @@ const ModalMenu: FC<
             {[
               { href: "/", text: "Home" },
 
-              ownedAssets && {
+              {
                 href: "https://play2.playingarts.com/",
                 text: "Game",
               },
 
               {
-                href:
-                  "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+                href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
                 target: "_blank",
                 text: "Podcast",
               },
               { href: "/shop", text: "Shop" },
               { href: "/contact", text: "Contact" },
               {
-                href:
-                  "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start",
+                href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start",
                 text: "Shipping",
               },
               // { href: "/", text: "Gallery" },
