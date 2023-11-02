@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { breakpoints } from "../../../source/enums";
 import Arrowed from "../../Arrowed";
 import Button from "../../Button";
@@ -13,6 +13,7 @@ import BlockWithProperties from "../BlockWithProperties";
 import ComposedHolders from "../Holders";
 import ComposedStats from "../Stats";
 import ComposedSupply from "../Supply";
+import { useOpensea } from "../../../hooks/opensea";
 
 interface Props extends LayoutProps {
   deck: GQL.Deck & {
@@ -27,15 +28,15 @@ interface Props extends LayoutProps {
 const ComposedPace: FC<Props> = ({ palette, deck, ...props }) => {
   const { width } = useSize();
 
-  const [opensea, setOpensea] = useState<GQL.Opensea>();
+  const { opensea } = useOpensea({ variables: { deck: deck._id } });
 
-  useEffect(() => {
-    fetch(
-      `https://api.opensea.io/api/v1/collection/${deck.openseaCollection.name}`
-    )
-      .then((res) => res.json())
-      .then((data) => setOpensea(data.collection));
-  }, [deck]);
+  // useEffect(() => {
+  //   fetch(
+  //     `https://api.opensea.io/api/v1/collection/${deck.openseaCollection.name}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => setOpensea(data.collection));
+  // }, [deck]);
 
   return (
     <div {...props}>

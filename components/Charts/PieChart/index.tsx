@@ -61,9 +61,12 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
         style={{
           width: size,
           height: size,
+          // background: conic-gradient(from 12.11deg at 50% 50%, #404040 0deg, #000000 360deg);
           background: `conic-gradient(from ${
             -(dataPoints[dataPoints.length - 1].value / total) * 360 - 1
-          }deg at 50% 50%, ${lastSliceColor} 0deg, black ${
+          }deg at 50% 50%, ${
+            lastSliceColor ? theme.colors[lastSliceColor] : "black"
+          } 0deg, black ${
             (dataPoints[dataPoints.length - 1].value / total) * 360 + 40
           }deg)`,
         }}

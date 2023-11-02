@@ -13,8 +13,11 @@ import * as T from "io-ts";
 import { Content } from "./content";
 import * as crypto from "crypto";
 
-const { NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage, OPENSEA_KEY = "" } =
-  process.env;
+const {
+  NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
+  OPENSEA_ASSETS_KEY = "",
+  OPENSEA_KEY = "",
+} = process.env;
 
 export interface Asset {
   token_id: string;
@@ -124,7 +127,12 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           limit: "50",
           ...(cursor && { cursor }),
         }),
-      { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
+      {
+        headers: {
+          accept: "application/json",
+          "X-API-KEY": OPENSEA_ASSETS_KEY,
+        },
+      }
     )
       .then((res) => res.json())
       .then(async ({ next, owners, detail }) => {
@@ -190,7 +198,12 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           include_orders: "true",
           ...(cursor && { cursor }),
         }),
-      { headers: { accept: "application/json", "X-API-KEY": OPENSEA_KEY } }
+      {
+        headers: {
+          accept: "application/json",
+          "X-API-KEY": OPENSEA_ASSETS_KEY,
+        },
+      }
     )
       .then((res) => res.json())
       .then(async ({ assets, next, detail }) => {
@@ -748,7 +761,10 @@ export const resolvers: GQL.Resolvers = {
       const contract = await getContract({ deck });
 
       const response = await (
-        await fetch(`https://api.opensea.io/api/v1/collection/${contract.name}`)
+        await fetch(
+          `https://api.opensea.io/api/v1/collection/${contract.name}`,
+          { headers: { "X-API-KEY": OPENSEA_KEY } }
+        )
       ).json();
 
       return {
