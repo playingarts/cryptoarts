@@ -9,7 +9,6 @@ import Grid from "../components/Grid";
 import LatestRelease from "../components/LatestRelease";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
-import Link from "../components/Link";
 import NFTHolder from "../components/NFTHolder";
 import Quote from "../components/Quote";
 import ScrollIntoView from "../components/ScrollIntoView";
@@ -103,7 +102,7 @@ const Content: FC = () => {
           >
             Shop
           </Text>
-          <Text
+          {/* <Text
             component={Link}
             variant="label"
             css={{
@@ -137,7 +136,7 @@ const Content: FC = () => {
             scroll={false}
           >
           Free worldwide shipping!
-          </Text>
+          </Text> */}
           <Line
             spacing={0}
             css={{

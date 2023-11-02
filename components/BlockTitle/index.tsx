@@ -54,6 +54,10 @@ const BlockTitle: FC<Props> = ({
             variant={variant}
             css={(theme) => [
               {
+                color:
+                  palette === "light"
+                    ? theme.colors.text_title_dark
+                    : theme.colors.text_title_light,
                 [theme.maxMQ.sm]: [theme.typography.h3],
                 margin: 0,
                 gridColumn: buttonProps ? "1/7" : "1/ -1",

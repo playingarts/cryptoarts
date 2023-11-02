@@ -8,6 +8,8 @@ import {
 } from "react";
 import Button, { Props as ButtonProps } from "../Button";
 import ThickChevron from "../Icons/ThickChevron";
+import { ClassNames, Theme } from "@emotion/react";
+import { CSSInterpolation, CSSObject } from "@emotion/serialize";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   states: {
@@ -20,6 +22,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   value?: string | number;
   noText?: boolean;
   keepOrder?: boolean;
+  listCSS?: ((_: Theme) => CSSInterpolation) | CSSObject;
 }
 
 const SelectButton: FC<Props> = memo(
@@ -30,6 +33,7 @@ const SelectButton: FC<Props> = memo(
     palette = "light",
     states,
     setter,
+    listCSS,
     ...props
   }) => {
     const [listState, setListState] = useState(false);
@@ -74,96 +78,103 @@ const SelectButton: FC<Props> = memo(
           },
         ]}
       >
-        <ul
-          onMouseEnter={() => setListState(true)}
-          onMouseLeave={() => setListState(false)}
-          css={(theme) => [
-            {
-              zIndex: 10,
-              padding: 0,
-              margin: 0,
-              width: "100%",
-              overflow: "hidden",
-              display: "inline-grid",
-              position: "relative",
-              "&::-webkit-scrollbar": {
-                display: "none",
-              },
-              MsOverflowStyle: "none",
-              scrollbarWidth: "none",
-              boxSizing: "content-box",
-              [theme.maxMQ.sm]: [
-                noText && {
-                  transform: `translateX(-${theme.spacing(1.5)}px)`,
-                  paddingRight: theme.spacing(0.7),
-                },
-              ],
-              borderRadius: theme.spacing(1),
-            },
-            (palette === "light" && {
-              color: theme.colors.black,
-              background: theme.colors.white,
-            }) ||
-              (palette === "dark" && {
-                color: theme.colors.text_title_light,
-                background: theme.colors.dark_gray,
-              }),
-          ]}
-        >
-          <ThickChevron
-            width={17}
-            height={17}
-            css={(theme) => [
-              {
-                zIndex: 3,
-                right: theme.spacing(1.5),
-                // top: 0,
-                transform: !listState ? `rotate(90deg)` : `rotate(-90deg)`,
-                position: "absolute",
-                top: theme.spacing(1.2),
-                [theme.mq.sm]: {
-                  top: theme.spacing(1.7),
-                },
-                pointerEvents: "none",
-                color: "inherit",
-              },
-            ]}
-          />
-          {buttonState.map(
-            (btn, index) =>
-              (!listState ? index === 0 : true) && (
-                <li
-                  key={btn.children}
-                  css={(theme) => [
-                    {
-                      display: "block",
-                      height: "fit-content",
-                      paddingRight: theme.spacing(2.2),
+        <ClassNames>
+          {({ cx, css, theme }) => (
+            <ul
+              onMouseEnter={() => setListState(true)}
+              onMouseLeave={() => setListState(false)}
+              className={cx(
+                css(typeof listCSS === "function" ? listCSS(theme) : listCSS)
+              )}
+              css={(theme) => [
+                {
+                  zIndex: 10,
+                  padding: 0,
+                  margin: 0,
+                  width: "100%",
+                  overflow: "hidden",
+                  display: "inline-grid",
+                  position: "relative",
+                  "&::-webkit-scrollbar": {
+                    display: "none",
+                  },
+                  MsOverflowStyle: "none",
+                  scrollbarWidth: "none",
+                  boxSizing: "content-box",
+                  [theme.maxMQ.sm]: [
+                    noText && {
+                      transform: `translateX(-${theme.spacing(1.5)}px)`,
+                      paddingRight: theme.spacing(0.7),
                     },
-                  ]}
-                >
-                  <Button
-                    iconProps={btn.IconProps}
-                    Icon={btn.Icon}
-                    shape="square"
-                    css={[
-                      {
-                        color: "inherit",
-                        background: "inherit",
-                        whiteSpace: "nowrap",
-                      },
-                      !noText && {
-                        width: "100%",
-                      },
-                    ]}
-                    onClick={() => onClick(btn)}
-                  >
-                    {btn.children}
-                  </Button>
-                </li>
-              )
+                  ],
+                  borderRadius: theme.spacing(1),
+                },
+                (palette === "light" && {
+                  color: theme.colors.black,
+                  background: theme.colors.white,
+                }) ||
+                  (palette === "dark" && {
+                    color: theme.colors.text_title_light,
+                    background: theme.colors.dark_gray,
+                  }),
+              ]}
+            >
+              <ThickChevron
+                width={17}
+                height={17}
+                css={(theme) => [
+                  {
+                    zIndex: 3,
+                    right: theme.spacing(1.5),
+                    // top: 0,
+                    transform: !listState ? `rotate(90deg)` : `rotate(-90deg)`,
+                    position: "absolute",
+                    top: theme.spacing(1.2),
+                    [theme.mq.sm]: {
+                      top: theme.spacing(1.7),
+                    },
+                    pointerEvents: "none",
+                    color: "inherit",
+                  },
+                ]}
+              />
+              {buttonState.map(
+                (btn, index) =>
+                  (!listState ? index === 0 : true) && (
+                    <li
+                      key={btn.children}
+                      css={(theme) => [
+                        {
+                          display: "block",
+                          height: "fit-content",
+                          paddingRight: theme.spacing(2.2),
+                        },
+                      ]}
+                    >
+                      <Button
+                        iconProps={btn.IconProps}
+                        Icon={btn.Icon}
+                        shape="square"
+                        css={[
+                          {
+                            color: "inherit",
+                            background: "inherit",
+                            whiteSpace: "nowrap",
+                          },
+                          !noText && {
+                            width: "100%",
+                          },
+                        ]}
+                        onClick={() => onClick(btn)}
+                      >
+                        {btn.children}
+                      </Button>
+                    </li>
+                  )
+              )}
+            </ul>
           )}
-        </ul>
+        </ClassNames>
       </div>
     );
   }

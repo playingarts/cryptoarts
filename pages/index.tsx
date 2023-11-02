@@ -101,6 +101,7 @@ const Home: NextPage = () => {
       >
         <Button
           component={Link}
+          shallow={true}
           href={{
             query: {
               scrollIntoView: "[data-id='block-about']",

@@ -35,16 +35,18 @@ const Content: FC<{
     },
   });
 
-  const changeQuantity = (_id: string): CheckoutItemProps["changeQuantity"] => (
-    selected: SelectButtonProps["states"][0]["children"]
-  ) =>
-    updateQuantity(
-      _id,
-      typeof selected === "string" ? parseInt(selected, 10) : selected
-    );
+  const changeQuantity =
+    (_id: string): CheckoutItemProps["changeQuantity"] =>
+    (selected: SelectButtonProps["states"][0]["children"]) =>
+      updateQuantity(
+        _id,
+        typeof selected === "string" ? parseInt(selected, 10) : selected
+      );
 
-  const remove = (_id: string): CheckoutItemProps["remove"] => () =>
-    removeItem(_id);
+  const remove =
+    (_id: string): CheckoutItemProps["remove"] =>
+    () =>
+      removeItem(_id);
 
   const { width } = useSize();
 
@@ -61,7 +63,7 @@ const Content: FC<{
   // const freeShippingAt = !process.env.NEXT_PUBLIC_FREE_SHIPPING_AT
   //   ? Infinity
   //   : parseFloat(process.env.NEXT_PUBLIC_FREE_SHIPPING_AT);
-  const shippingPrice = 0; // totalPrice < freeShippingAt ? 5.95 : 0;
+  const shippingPrice = 4.95; // totalPrice < freeShippingAt ? 5.95 : 0;
 
   totalPrice = parseFloat((totalPrice + shippingPrice).toFixed(2));
 
@@ -274,7 +276,7 @@ const Content: FC<{
                   </Text>
                 ) : null}
                 <ShopCheckoutItem
-                  title="FREE SHIPPING AND HANDLING"
+                  title="SHIPPING AND HANDLING"
                   // price={shippingPrice}
                   titleVariant={width >= breakpoints.sm ? "h5" : "h4"}
                   withoutPic={true}
@@ -311,27 +313,26 @@ const Content: FC<{
                           freeShippingAt !== Infinity &&
                           ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
                       </Text>
-                      
                     </Fragment>
                   }
                 />
                 {width > breakpoints.sm && (
-                <div
-                  css={(theme) => [
-                    {
-                      [theme.mq.sm]: {
-                        // minWidth: theme.spacing(18),
+                  <div
+                    css={(theme) => [
+                      {
+                        [theme.mq.sm]: {
+                          // minWidth: theme.spacing(18),
+                        },
                       },
-                    },
-                  ]}
-                >
-                  <Text
-                    variant={width < breakpoints.sm ? "h5" : "h5"}
-                    css={[{ margin: 0, opacity: 0.5 }]}
+                    ]}
                   >
-                    €0.00
-                  </Text>
-                </div>
+                    <Text
+                      variant={width < breakpoints.sm ? "h5" : "h5"}
+                      css={[{ margin: 0, opacity: 0.5 }]}
+                    >
+                      €4.95
+                    </Text>
+                  </div>
                 )}
                 <Line
                   spacing={3.5}

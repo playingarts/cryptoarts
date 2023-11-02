@@ -511,8 +511,11 @@ const Content: FC<{
                 >
                   <AugmentedReality
                     palette={
-                      // status === "connected" && deck.openseaCollection
-                      deck.slug === "crypto" ? "dark" : "light"
+                      width >= breakpoints.sm
+                        ? "light"
+                        : deck.slug === "crypto"
+                        ? "dark"
+                        : "light"
                     }
                   />
                 </Layout>

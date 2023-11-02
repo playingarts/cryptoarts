@@ -19,10 +19,13 @@ const faq = {
     "The parcels are usually being returned because of the wrong address or because they were not picked up by the customer. Please contact us if this happened with you.",
   "What is your return policy?":
     "We want you to be 100% satisfied with your Playing Arts purchase. Items in new condition can be returned or exchanged within 30 days of delivery. Please note that original shipping charges are non-refundable. If we made a mistake or the item arrived defective, please contact us and we’ll make things right.",
-    "What forms of payment do you accept?":"We accept the following payment methods: Credit card (Visa, MasterCard, American Express) PayPal, Apple Pay."
+  "What forms of payment do you accept?":
+    "We accept the following payment methods: Credit card (Visa, MasterCard, American Express) PayPal, Apple Pay.",
 };
-const Faq: FC<{ title?: string }> = ({ title }) => {
-
+const Faq: FC<{ title?: string; palette?: "dark" | "light" }> = ({
+  title,
+  palette = "light",
+}) => {
   return (
     <Fragment>
       <Text
@@ -30,7 +33,11 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
         css={(theme) => [
           {
             margin: "0",
-            opacity: ".4",
+            // opacity: ".4",
+            color:
+              palette === "light"
+                ? theme.colors.text_subtitle_dark
+                : theme.colors.text_subtitle_light,
             marginBottom: theme.spacing(3),
             [theme.maxMQ.sm]: {
               paddingLeft: theme.spacing(2),
@@ -44,6 +51,7 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
       </Text>
       <Line
         spacing={0}
+        palette={palette}
         css={(theme) => [
           {
             [theme.maxMQ.sm]: {
@@ -57,9 +65,12 @@ const Faq: FC<{ title?: string }> = ({ title }) => {
         return (
           <Fragment key={question}>
             <FaqItem
+              palette={palette}
               question={question}
               css={(theme) => ({
-                borderBottom: "1px solid #dddddd",
+                borderBottom:
+                  "1px solid " +
+                  (palette === "light" ? "#dddddd" : "#FFFFFF19"),
 
                 [theme.maxMQ.sm]: {
                   marginLeft: theme.spacing(2),

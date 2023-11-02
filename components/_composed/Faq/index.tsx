@@ -5,16 +5,19 @@ import Mastercard from "../../Icons/Mastercard";
 import PayPal from "../../Icons/PayPal";
 import Visa from "../../Icons/Visa";
 
-const ComposedFaq: FC<HTMLAttributes<HTMLDivElement> & { title?: string }> = ({
-  title,
-  ...props
-}) => (
+const ComposedFaq: FC<
+  HTMLAttributes<HTMLDivElement> & {
+    title?: string;
+    palette?: "light" | "dark";
+  }
+> = ({ title, palette = "light", ...props }) => (
   <div {...props}>
-    <Faq title={title} />
+    <Faq title={title} palette={palette} />
     <div
       css={(theme) => ({
         display: "flex",
         alignItems: "center",
+        justifyContent: "center",
         flexWrap: "wrap",
         columnGap: theme.spacing(5),
 
@@ -24,7 +27,10 @@ const ComposedFaq: FC<HTMLAttributes<HTMLDivElement> & { title?: string }> = ({
           marginBottom: theme.spacing(2.5),
         },
         marginTop: theme.spacing(3.5),
-        color: theme.colors.svggray,
+        color:
+          palette === "light"
+            ? theme.colors.svggray
+            : theme.colors.text_subtitle_light,
       })}
     >
       <Visa

@@ -1,7 +1,7 @@
 import { Theme } from "@emotion/react";
 import { forwardRef, ForwardRefRenderFunction } from "react";
 import { breakpoints } from "../../source/enums";
-import Button from "../Button";
+import Button, { Props as ButtonProps } from "../Button";
 import Bag from "../Icons/Bag";
 import Link from "../Link";
 import { useSize } from "../SizeProvider";
@@ -10,6 +10,11 @@ import BlockWithProperties from "../_composed/BlockWithProperties";
 export interface Props {
   deck: GQL.Deck;
   palette: "light" | "dark";
+  title?: string;
+  lightButton?: boolean;
+  buttonText?: string;
+  buttonHref?: ButtonProps["href"];
+  noButtonIcon?: boolean;
 }
 
 const common = (theme: Theme, palette: Props["palette"]) => ({
@@ -35,19 +40,27 @@ const common = (theme: Theme, palette: Props["palette"]) => ({
 const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
   deck,
   palette,
+  lightButton,
+  title = "Physical Deck",
+  buttonText,
+  buttonHref,
+  noButtonIcon,
 }) => {
   const buyButton = (
     <Button
       color="black"
       component={Link}
-      href={{
-        pathname: "/shop",
-        query: {
-          scrollIntoView: `[data-id='${deck.slug}']`,
-          scrollIntoViewBehavior: "smooth",
-        },
-      }}
-      Icon={Bag}
+      shallow={true}
+      href={
+        buttonHref || {
+          pathname: "/shop",
+          query: {
+            scrollIntoView: `[data-id='${deck.slug}']`,
+            scrollIntoViewBehavior: "smooth",
+          },
+        }
+      }
+      {...(!noButtonIcon && { Icon: Bag })}
       css={(theme) => [
         {
           width: "100%",
@@ -69,10 +82,11 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
             gridColumn: "span 2/ 9",
           },
         },
-        palette === "dark" && {
-          background: theme.colors.page_bg_light,
-          color: theme.colors.page_bg_dark,
-        },
+        !lightButton &&
+          palette === "dark" && {
+            background: theme.colors.page_bg_light,
+            color: theme.colors.page_bg_dark,
+          },
       ]}
     >
       {/* todo: make dynamic text */}
@@ -81,7 +95,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
         : deck.product.status === "soldout"
         ? "Sold out"
         : "Buy now"} */}
-      Buy now
+      {buttonText || "Buy now"}
     </Button>
   );
 
@@ -89,7 +103,7 @@ const DeckBlock: ForwardRefRenderFunction<HTMLElement, Props> = ({
 
   return (
     <BlockWithProperties
-      title="Physical Deck"
+      title={title}
       properties={Object.keys(deck.properties).map((key) => ({
         key,
         value: deck.properties[key],

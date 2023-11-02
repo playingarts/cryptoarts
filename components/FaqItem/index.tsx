@@ -4,9 +4,15 @@ import Text from "../Text";
 interface Props extends HTMLAttributes<HTMLDivElement> {
   question: string;
   children: string;
+  palette?: "light" | "dark";
 }
 
-const FaqItem: FC<Props> = ({ question, children, ...props }) => {
+const FaqItem: FC<Props> = ({
+  question,
+  children,
+  palette = "light",
+  ...props
+}) => {
   const [opened, open] = useState(false);
 
   const toggle = () => open(!opened);
@@ -22,7 +28,10 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
             textAlign: "left",
             cursor: "pointer",
             display: "block",
-            color: theme.colors.text_subtitle_dark,
+            color:
+              palette === "light"
+                ? theme.colors.text_subtitle_dark
+                : theme.colors.text_subtitle_light,
             paddingTop: theme.spacing(1.5),
             paddingBottom: theme.spacing(1.5),
             transition: theme.transitions.slow("color"),
@@ -31,9 +40,12 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
               fontSize: "15px",
             },
 
-            "&:hover" :{
-              color: theme.colors.text_title_dark,
-            }
+            "&:hover": {
+              color:
+                palette === "light"
+                  ? theme.colors.text_title_dark
+                  : theme.colors.text_title_light,
+            },
           },
         ]}
         role="button"
@@ -44,13 +56,15 @@ const FaqItem: FC<Props> = ({ question, children, ...props }) => {
         <Text
           css={(theme) => ({
             marginBottom: theme.spacing(2),
-            color: theme.colors.text_title_dark,
+            color:
+              palette === "light"
+                ? theme.colors.text_title_dark
+                : theme.colors.text_title_light,
             paddingLeft: "20px",
             paddingRight: "20px",
             lineHeight: 27 / 18,
             [theme.maxMQ.sm]: {
               fontSize: "15px",
-              
             },
           })}
         >

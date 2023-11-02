@@ -50,7 +50,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
           ref.current &&
             lineRef.current && {
               width: "100%",
-              background: theme.colors.dark_gray,
+              background: theme.colors.page_bg_dark,
               paddingLeft: theme.spacing(2),
               paddingRight: theme.spacing(2),
               [theme.mq.sm]: {
@@ -129,8 +129,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                   { href: "/shop", text: "Shop" },
 
                   {
-                    href:
-                      "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start",
+                    href: "/shop?scrollIntoView=%5Bdata-id%3D%27faq%27%5D&scrollIntoViewBehavior=smooth&scrollIntoViewPosition=start",
                     text: "Shipping",
                   },
 
@@ -140,14 +139,12 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                   },
 
                   {
-                    href:
-                      "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+                    href: "https://www.youtube.com/playlist?list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
                     target: "_blank",
                     text: "Podcast",
                   },
                   {
-                    href:
-                      "https://landing.mailerlite.com/webforms/landing/n4m6r2",
+                    href: "https://landing.mailerlite.com/webforms/landing/n4m6r2",
                     target: "_blank",
                     text: "News",
                   },

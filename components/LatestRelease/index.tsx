@@ -26,13 +26,15 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => {
     <StatBlock
       {...props}
       css={(theme) => ({
-        background: `#000 url(https://s3.amazonaws.com/img.playingarts.com/www/shop/crypto_bg.png) bottom right no-repeat`,
+        background: `#000 url(https://s3.amazonaws.com/img.playingarts.com/www/shop/crypto_v2_bg.jpg) bottom right no-repeat`,
         [theme.mq.sm]: {
           [theme.maxMQ.md]: {
-            backgroundPositionX: theme.spacing(17),
+            // backgroundPositionX: theme.spacing(17),
+            // backgroundPositionY: theme.spacing(17),
           },
         },
-        backgroundSize: `${theme.spacing(74)}px ${theme.spacing(33)}px`,
+        // backgroundSize: `${theme.spacing(74)}px ${theme.spacing(33)}px`,
+        backgroundSize: "cover",
         color: theme.colors.text_title_light,
         position: "relative",
         overflow: "hidden",
@@ -41,9 +43,10 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => {
           // paddingBottom: theme.spacing(27.7),
         },
         [theme.maxMQ.xsm]: {
-          backgroundPositionX: "center",
-          backgroundPositionY: "bottom",
-          backgroundSize: "150%",
+          // backgroundPositionX: theme.spacing(-50),
+          // backgroundPositionX: "center",
+          // backgroundPositionY: "bottom",
+          // backgroundSize: "150%",
         },
       })}
       {...(status === "connected" &&

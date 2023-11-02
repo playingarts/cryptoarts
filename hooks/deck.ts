@@ -23,6 +23,7 @@ export const DeckDataFragment = gql`
       url
     }
     product {
+      _id
       image
       status
     }
@@ -63,10 +64,8 @@ export const useDecks = (
 export const useLoadDeck = (
   options: QueryHookOptions<Pick<GQL.Query, "deck">> = {}
 ) => {
-  const [
-    loadDeck,
-    { data: { deck } = { deck: undefined }, ...methods },
-  ] = useLazyQuery(DeckQuery, options);
+  const [loadDeck, { data: { deck } = { deck: undefined }, ...methods }] =
+    useLazyQuery(DeckQuery, options);
 
   return { ...methods, loadDeck, deck };
 };

@@ -12,7 +12,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   palette: "dark" | "light";
 }
 
-const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
+const AugmentedReality: FC<Props> = ({ palette = "light", ...props }) => {
   const { width } = useSize();
   return (
     <Grid>
@@ -24,6 +24,8 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
               "url(https://s3.amazonaws.com/img.playingarts.com/www/static/ar_app.png) bottom right no-repeat",
             gridColumn: "1 / -1",
 
+            backgroundColor:
+              palette === "light" ? theme.colors.white : theme.colors.dark_gray,
             [theme.maxMQ.sm]: [
               {
                 paddingLeft: theme.spacing(2),
@@ -34,7 +36,6 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
               },
             ],
             [theme.mq.sm]: {
-              backgroundColor: theme.colors.white,
               padding: theme.spacing(10.5),
               [theme.maxMQ.md]: {
                 padding: theme.spacing(7.5),
@@ -48,7 +49,7 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
         ]}
       >
         <BlockTitle
-          palette={width >= breakpoints.sm ? "light" : palette}
+          palette={palette}
           title="Augmented Reality"
           variant={"h3"}
           css={(theme) => [
@@ -81,6 +82,11 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
               css={(theme) => [
                 {
                   gridColumn: "2 / span 5",
+                  color:
+                    palette === "light"
+                      ? theme.colors.text_subtitle_dark
+                      : theme.colors.text_subtitle_light,
+
                   [theme.maxMQ.sm]: {
                     gridColumn: "1/-1",
                   },
@@ -91,10 +97,11 @@ const AugmentedReality: FC<Props> = ({ palette, ...props }) => {
                 This deck is powered by AR! Install and open the app, point on
                 the physical card and see how it animates right in your hands!
               </Text>
-              {width >= breakpoints.sm && (
-                <Line palette="light" spacing={3} />
-              )}
-              <StoreButtons palette="dark" ButtonProps={{ color: "black" }} />
+              {width >= breakpoints.sm && <Line palette="light" spacing={3} />}
+              <StoreButtons
+                palette={palette === "light" ? "dark" : "light"}
+                ButtonProps={{ color: "black" }}
+              />
             </div>
           </Grid>
         </BlockTitle>
