@@ -1,13 +1,10 @@
 import { NextPage } from "next";
 import Button from "../components/Button";
 import Grid from "../components/Grid";
-import Discord from "../components/Icons/Discord";
-import Twitter from "../components/Icons/Twitter";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
 import Link from "../components/Link";
 import { useSize } from "../components/SizeProvider";
-import StatBlock from "../components/StatBlock";
 import Text from "../components/Text";
 import BrowseCollection from "../components/_composed/BrowseCollection";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
@@ -15,13 +12,12 @@ import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedMainHero from "../components/_composed/ComposedMainHero";
 import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
-import Podcast from "../components/_composed/Podcast";
 import { initApolloClient, withApollo } from "../source/apollo";
-import { socialLinks } from "../source/consts";
 import { breakpoints } from "../source/enums";
 import mongoose from "mongoose";
 import { DecksQuery } from "../hooks/deck";
 import { DailyCardQuery } from "../hooks/card";
+import PodcastAndSocials from "../components/_composed/PodcastAndSocials";
 
 const Home: NextPage = () => {
   const { width } = useSize();
@@ -377,192 +373,15 @@ const Home: NextPage = () => {
       </Layout>
 
       {/* Podcast & socials Block */}
-
-      <Layout
-        css={(theme) => ({
-          paddingTop: theme.spacing(3),
-          paddingBottom: theme.spacing(3),
-          background: theme.colors.white,
-        })}
-      >
-        <Grid
-          css={(theme) => ({
-            alignItems: "flex-start",
-            gap: theme.spacing(3),
-            [theme.maxMQ.sm]: {
-              gap: theme.spacing(1),
-            },
-          })}
-        >
-          <Podcast title="PODCAST" />
-          <StatBlock
-            css={(theme) => ({
-              background: "#5865F2",
-              color: theme.colors.text_title_light,
-              position: "relative",
-              overflow: "hidden",
-              gridColumn: "span 3",
-
-              [theme.mq.md]: {
-                gridColumn: "span 3",
-              },
-
-              [theme.maxMQ.md]: {
-                gridColumn: "span 4",
-              },
-
-              [theme.maxMQ.sm]: {
-                gridColumn: "span 9",
-              },
-            })}
-          >
-            <Discord
-              css={{
-                "& stop:first-child": {
-                  stopColor: "currentColor",
-                  stopOpacity: 0.5,
-                },
-                "& stop:last-child": {
-                  stopColor: "#5865F2",
-                },
-                position: "absolute",
-                right: "0",
-                top: "50%",
-                transform: "translate(50%, -50%)",
-                height: "80%",
-                width: "100%",
-                fill: "url(#gradient)",
-                opacity: 0.5,
-              }}
-            />
-            <div
-              css={(theme) => ({
-                position: "relative",
-                [theme.maxMQ.sm]: {
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                },
-              })}
-            >
-              <Text
-                component={width >= breakpoints.sm ? "h4" : "h3"}
-                css={(theme) => ({
-                  margin: 0,
-                  [theme.maxMQ.sm]: {
-                    paddingTop: 7,
-                  },
-                })}
-              >
-                Discord
-              </Text>
-              {width >= breakpoints.sm && (
-                <Text
-                  css={{
-                    marginTop: 10,
-                  }}
-                >
-                  Join our community
-                </Text>
-              )}
-              {socialLinks.discord && (
-                <Button
-                  Icon={Discord}
-                  css={{ marginTop: 0, color: "#5865F2" }}
-                  component={Link}
-                  href={socialLinks.discord}
-                  target="_blank"
-                >
-                  Join
-                </Button>
-              )}
-            </div>
-          </StatBlock>
-          <StatBlock
-            css={(theme) => ({
-              background: "#489BE9",
-              color: theme.colors.text_title_light,
-              position: "relative",
-              overflow: "hidden",
-              gridColumn: "span 3",
-
-              [theme.mq.md]: {
-                gridColumn: "span 3",
-              },
-
-              [theme.maxMQ.md]: {
-                gridColumn: "span 4",
-              },
-
-              [theme.maxMQ.sm]: {
-                gridColumn: "span 9",
-              },
-            })}
-          >
-            <Twitter
-              css={{
-                "& stop:first-child": {
-                  stopColor: "currentColor",
-                  stopOpacity: 0.5,
-                },
-                "& stop:last-child": {
-                  stopColor: "#489BE9",
-                },
-                position: "absolute",
-                right: "0",
-                top: "50%",
-                transform: "translate(50%, -50%)",
-                height: "80%",
-                width: "100%",
-                fill: "url(#gradient)",
-                opacity: 0.5,
-              }}
-            />
-            <div
-              css={(theme) => ({
-                position: "relative",
-                [theme.maxMQ.sm]: {
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                },
-              })}
-            >
-              <Text
-                component={width >= breakpoints.sm ? "h4" : "h3"}
-                css={(theme) => ({
-                  margin: 0,
-                  [theme.maxMQ.sm]: {
-                    paddingTop: 7,
-                  },
-                })}
-              >
-                Twitter
-              </Text>
-              {width >= breakpoints.sm && (
-                <Text
-                  css={{
-                    marginTop: 10,
-                  }}
-                >
-                  Latest breaking news
-                </Text>
-              )}
-              {socialLinks.twitter && (
-                <Button
-                  Icon={Twitter}
-                  css={{ color: "#489BE9" }}
-                  component={Link}
-                  href={socialLinks.twitter}
-                  target="_blank"
-                >
-                  Follow
-                </Button>
-              )}
-            </div>
-          </StatBlock>
-        </Grid>
-      </Layout>
+      <PodcastAndSocials
+        css={(theme) => [
+          {
+            background: theme.colors.white,
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(3),
+          },
+        ]}
+      />
     </ComposedGlobalLayout>
   );
 };

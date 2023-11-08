@@ -14,6 +14,7 @@ import AugmentedReality from "../../components/AugmentedReality";
 import DeckBlock from "../../components/DeckBlock";
 import Grid from "../../components/Grid";
 import ComposedFaq from "../../components/_composed/Faq";
+import PodcastAndSocials from "../../components/_composed/PodcastAndSocials";
 
 const saleStartDate = new Date(
   new Date(process.env.NEXT_PUBLIC_COUNTDOWN || "").toLocaleString("en", {
@@ -239,14 +240,14 @@ const Crypto: NextPage = () => {
               }}
             />
           </Layout>
-
           <Layout
             css={(theme) => [
               {
                 [theme.mq.sm]: {
-                  paddingBottom: theme.spacing(6),
+                  // paddingBottom: theme.spacing(6),
                   paddingTop: theme.spacing(0),
                   background: theme.colors.page_bg_dark,
+                  paddingBottom: theme.spacing(3),
                 },
               },
             ]}
@@ -254,6 +255,17 @@ const Crypto: NextPage = () => {
           >
             <AugmentedReality palette={"dark"} />
           </Layout>
+          <PodcastAndSocials
+            css={(theme) => [
+              {
+                [theme.mq.sm]: {
+                  paddingBottom: theme.spacing(6),
+                  background: theme.colors.page_bg_dark,
+                },
+              },
+            ]}
+            palette="dark"
+          />
         </div>
         <Layout
           data-id="faq"

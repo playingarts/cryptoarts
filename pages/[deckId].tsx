@@ -42,6 +42,7 @@ import frag from "../Shaders/Xemantic/index.glsl";
 import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
 import { theme } from "./_app";
+import PodcastAndSocials from "../components/_composed/PodcastAndSocials";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
 
@@ -494,31 +495,41 @@ const Content: FC<{
               </Layout>
 
               {deck.slug === "crypto" && (
-                <Layout
-                  css={(theme) => [
-                    {
-                      [theme.mq.sm]: {
-                        paddingBottom: theme.spacing(6),
-                        paddingTop: theme.spacing(0),
-                        background: theme.colors.page_bg_light_gray,
+                <Fragment>
+                  <Layout
+                    css={(theme) => [
+                      {
+                        [theme.mq.sm]: {
+                          paddingBottom: theme.spacing(3),
+                          paddingTop: theme.spacing(0),
+                          background: theme.colors.page_bg_light_gray,
+                        },
                       },
-                    },
-                  ]}
-                  palette={
-                    // status === "connected" && deck.openseaCollection
-                    deck.slug === "crypto" ? "dark" : "light"
-                  }
-                >
-                  <AugmentedReality
-                    palette={
-                      width >= breakpoints.sm
-                        ? "light"
-                        : deck.slug === "crypto"
-                        ? "dark"
-                        : "light"
-                    }
+                    ]}
+                    palette={deck.slug === "crypto" ? "dark" : "light"}
+                  >
+                    <AugmentedReality
+                      palette={
+                        width >= breakpoints.sm
+                          ? "light"
+                          : deck.slug === "crypto"
+                          ? "dark"
+                          : "light"
+                      }
+                    />
+                  </Layout>
+                  <PodcastAndSocials
+                    palette={deck.slug === "crypto" ? "dark" : "light"}
+                    css={(theme) => [
+                      {
+                        [theme.mq.sm]: {
+                          paddingBottom: theme.spacing(6),
+                          background: theme.colors.page_bg_light_gray,
+                        },
+                      },
+                    ]}
                   />
-                </Layout>
+                </Fragment>
               )}
             </Fragment>
           )}
