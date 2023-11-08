@@ -15,10 +15,15 @@ import DeckBlock from "../../components/DeckBlock";
 import Grid from "../../components/Grid";
 import ComposedFaq from "../../components/_composed/Faq";
 
-const finalDate = new Date(
+const saleStartDate = new Date(
   new Date(process.env.NEXT_PUBLIC_COUNTDOWN || "").toLocaleString("en", {
     timeZone: "Europe/Madrid",
   })
+);
+
+const saleEndDate = new Date(
+  saleStartDate.getTime() +
+    1000 * 60 * 60 * Number(process.env.NEXT_PUBLIC_SALEHOURS || 48)
 );
 
 const getCurrentDate = () =>
@@ -31,7 +36,10 @@ const getCurrentDate = () =>
 const calculateTimeLeft = () => {
   const currentDate = getCurrentDate();
 
-  const difference = +finalDate - +currentDate;
+  const difference =
+    +(currentDate <= saleStartDate ? saleStartDate : saleEndDate) -
+    +currentDate;
+
   const timeLeft = {
     hours: Math.floor(difference / (1000 * 60 * 60)),
     minutes: Math.floor((difference / 1000 / 60) % 60),
@@ -57,7 +65,7 @@ const Crypto: NextPage = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setTimeLeft(calculateTimeLeft());
-    }, 1000);
+    }, 200);
 
     return () => clearTimeout(timer);
   });
@@ -105,48 +113,52 @@ const Crypto: NextPage = () => {
                     },
                   ]}
                 >
-                  {getCurrentDate() <= finalDate && (
-                    <Fragment>
-                      <SelectButton
-                        keepOrder={true}
-                        value={quantity}
-                        setter={setQuantity}
-                        states={options.map((option) => ({ children: option }))}
-                        listCSS={{
-                          color: theme.colors.text_title_dark,
-                          background:
-                            theme.colors.decks.crypto.nav.button.background,
-                        }}
-                        css={(theme) => [
-                          {
-                            display: "inline-block",
-                            // maxHeight: "100%",
-                            // maxHeight: "calc(var(--buttonHeight)*6)",
-                            // overflowY: "scroll",
-                            overflow: "visible",
-                            width: theme.spacing(8),
-                            marginRight: 20,
-                            [theme.maxMQ.sm]: {
-                              // maxHeight: "calc(var(--buttonHeight)*2.5)",
-                              // width: theme.spacing(10),
-                              marginRight: 0,
-                            },
-                          },
-                        ]}
-                      />
-                      <AddToBagButton
-                        productId={deck.product._id}
-                        amount={quantity}
-                        css={(theme) => [
-                          {
+                  {process.env.NEXT_PUBLIC_SALEENDED !== "true" &&
+                    getCurrentDate() >= saleStartDate &&
+                    getCurrentDate() <= saleEndDate && (
+                      <Fragment>
+                        <SelectButton
+                          keepOrder={true}
+                          value={quantity}
+                          setter={setQuantity}
+                          states={options.map((option) => ({
+                            children: option,
+                          }))}
+                          listCSS={{
                             color: theme.colors.text_title_dark,
                             background:
                               theme.colors.decks.crypto.nav.button.background,
-                          },
-                        ]}
-                      ></AddToBagButton>
-                    </Fragment>
-                  )}
+                          }}
+                          css={(theme) => [
+                            {
+                              display: "inline-block",
+                              // maxHeight: "100%",
+                              // maxHeight: "calc(var(--buttonHeight)*6)",
+                              // overflowY: "scroll",
+                              overflow: "visible",
+                              width: theme.spacing(8),
+                              marginRight: 20,
+                              [theme.maxMQ.sm]: {
+                                // maxHeight: "calc(var(--buttonHeight)*2.5)",
+                                // width: theme.spacing(10),
+                                marginRight: 0,
+                              },
+                            },
+                          ]}
+                        />
+                        <AddToBagButton
+                          productId={deck.product._id}
+                          amount={quantity}
+                          css={(theme) => [
+                            {
+                              color: theme.colors.text_title_dark,
+                              background:
+                                theme.colors.decks.crypto.nav.button.background,
+                            },
+                          ]}
+                        ></AddToBagButton>
+                      </Fragment>
+                    )}
                   <Button
                     css={(theme) => [
                       {
@@ -159,13 +171,18 @@ const Crypto: NextPage = () => {
                           cursor: "initial",
                         },
                       },
-                      getCurrentDate() > finalDate && {
+                      (process.env.NEXT_PUBLIC_SALEENDED === "true" ||
+                        getCurrentDate() > saleEndDate ||
+                        getCurrentDate() < saleStartDate) && {
                         paddingLeft: 0,
                       },
                     ]}
                   >
-                    {getCurrentDate() <= finalDate
-                      ? `sale ends in ${
+                    {getCurrentDate() <= saleEndDate &&
+                    process.env.NEXT_PUBLIC_SALEENDED !== "true"
+                      ? `the sale ${
+                          getCurrentDate() <= saleStartDate ? "starts" : "ends"
+                        } in ${
                           (timeLeft.hours < 10 ? "0" : "") + timeLeft.hours
                         }:${
                           (timeLeft.minutes < 10 ? "0" : "") + timeLeft.minutes
