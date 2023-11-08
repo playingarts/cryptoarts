@@ -92,12 +92,13 @@ const Crypto: NextPage = () => {
               background: theme.colors.decks["crypto"].background,
               color: theme.colors.decks["crypto"].textColor,
               overflow: "initial",
-              [theme.mq.sm]: {
-                backgroundImage:
-                  "url(https://s3.amazonaws.com/img.playingarts.com/www/shop/product_crypto_bg.jpg)",
-                backgroundSize: "cover",
-              },
+              // [theme.mq.sm]: {
+              backgroundImage:
+                "url(https://s3.amazonaws.com/img.playingarts.com/www/shop/product_crypto_bg.jpg)",
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
             },
+            // },
           ]}
         >
           <Fragment>

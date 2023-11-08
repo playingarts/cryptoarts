@@ -6,7 +6,7 @@ import Text from "../Text";
 const faq = {
   "Do you ship to my country?": "YES! We ship worldwide. Tracking provided.",
   "How much does it cost to ship a package?":
-    "Shipping is free for all orders.",
+    "Shipping cost is fixed at €4.95 per order.",
   "How long does shipping take?":
     "Please allow 2—5 business days for orders to be processed after your purchase is complete. The estimated shipping time is 5—10 business days for Europe and USA, and up to 20 business days for the rest of the world.",
   "How do I know if my order has been successfully shipped?":
