@@ -23,8 +23,12 @@ const saleStartDate = new Date(
 );
 
 const saleEndDate = new Date(
-  saleStartDate.getTime() +
-    1000 * 60 * 60 * Number(process.env.NEXT_PUBLIC_SALEHOURS || 48)
+  new Date(
+    saleStartDate.getTime() +
+      1000 * 60 * 60 * Number(process.env.NEXT_PUBLIC_SALEHOURS || 48)
+  ).toLocaleString("en", {
+    timeZone: "Europe/Madrid",
+  })
 );
 
 const getCurrentDate = () =>
