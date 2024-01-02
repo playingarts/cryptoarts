@@ -315,7 +315,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                   },
                 ]}
               >
-                © 2012—2023 Digital Abstracts SL. Any artwork displayed on this
+                © 2012—2024 Digital Abstracts SL. Any artwork displayed on this
                 website may not be reproduced or used in any manner whatsoever
                 without the express written permission of Digital Abstracts or
                 their respective owners. Patent Pending. We use cookies and

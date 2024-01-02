@@ -23,7 +23,7 @@
     "build-storybook": "build-storybook"
   },
   "engines": {
-    "node": "^16"
+    "node": "^21"
   },
   "dependencies": {
     "@apollo/client": "^3.3.20",
