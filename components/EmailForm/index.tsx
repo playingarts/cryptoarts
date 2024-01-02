@@ -14,7 +14,7 @@ type FormInput = {
 const statusMessage = {
   fail: "Check email format",
   loading: "Loading",
-  success: "Email submitted successfully",
+  success: "Thank you! Please check your email to confirm subscription.",
 };
 
 interface Props {
