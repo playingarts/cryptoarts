@@ -178,6 +178,7 @@ const CardList: FC<Props> = ({
                   artist={quoteCards[index].artist}
                   vertical={width <= breakpoints.sm}
                   palette={palette}
+                  artistOnTopMobile={true}
                   css={(theme) => [
                     {
                       // width: "100%",
@@ -188,6 +189,7 @@ const CardList: FC<Props> = ({
                         palette === "dark"
                           ? theme.colors.text_subtitle_light
                           : theme.colors.text_subtitle_dark,
+                      marginBottom: theme.spacing(3),
                     },
                   ]}
                   truncate={5}

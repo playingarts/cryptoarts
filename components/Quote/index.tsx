@@ -10,6 +10,8 @@ import Line from "../Line";
 import Link from "../Link";
 import Text from "../Text";
 import Truncate from "../Truncate";
+import { useSize } from "../SizeProvider";
+import { breakpoints } from "../../source/enums";
 
 const socialIcons: Record<string, FC> = {
   website: Website,
@@ -31,6 +33,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   truncate?: number;
   palette?: "dark" | "light";
   cardList?: boolean;
+  artistOnTopMobile?: boolean;
 }
 
 const Quote: FC<Props> = ({
@@ -45,8 +48,164 @@ const Quote: FC<Props> = ({
   palette,
   withoutUserPic,
   cardList,
+  artistOnTopMobile,
   ...props
 }) => {
+  const { width } = useSize();
+
+  const ArtistBlock = artist && (
+    <div
+      key={artist.info}
+      css={(theme) => ({
+        ...(vertical
+          ? {}
+          : {
+              marginLeft: theme.spacing(13.5),
+              minWidth: theme.spacing(18),
+
+              flexShrink: 0,
+            }),
+      })}
+    >
+      {!withoutUserPic && children && !cardList && (
+        <Line
+          spacing={0}
+          palette={palette}
+          css={(theme) => [
+            {
+              marginBottom: theme.spacing(3),
+              [theme.maxMQ.sm]: {
+                marginBottom: theme.spacing(3),
+                marginTop: theme.spacing(2.5),
+              },
+            },
+          ]}
+        />
+      )}
+
+      <div
+        css={(theme) => [
+          { display: "flex", alignItems: "top" },
+          cardList && {
+            marginTop: theme.spacing(1.5),
+            [theme.mq.sm]: {
+              flexDirection: "column",
+            },
+            [theme.mq.md]: {
+              width: theme.spacing(20),
+            },
+          },
+        ]}
+      >
+        {((fullArtist && !withoutUserPic) || cardList) && (
+          <div
+            css={(theme) => ({
+              width: theme.spacing(7.5),
+              height: theme.spacing(7.5),
+              backgroundImage: `url(${artist.userpic})`,
+              backgroundSize: "cover",
+              borderRadius: "50%",
+              marginRight: theme.spacing(3),
+              flexShrink: 0,
+            })}
+          />
+        )}
+        <div
+          css={(theme) => [
+            artistOnTopMobile && {
+              [theme.maxMQ.sm]: {
+                display: "flex",
+                alignItems: "center",
+              },
+            },
+          ]}
+        >
+          {!withoutName && (
+            <Text
+              variant="h5"
+              css={(theme) => [
+                {
+                  marginTop: theme.spacing(1.2),
+                  marginBottom: theme.spacing(1.2),
+                },
+                cardList && {
+                  [theme.mq.sm]: {
+                    fontSize: 20,
+                  },
+                },
+                artistOnTopMobile && {
+                  [theme.maxMQ.sm]: {
+                    fontSize: 20,
+                  },
+                },
+              ]}
+            >
+              {artist.name}
+            </Text>
+          )}
+          {fullArtist && (
+            <Truncate
+              onlyMore={true}
+              variant="body2"
+              lines={2}
+              css={[
+                {
+                  marginTop: 0,
+                  marginBottom: 0,
+                },
+              ]}
+            >
+              {artist.info}
+            </Truncate>
+          )}
+          {!cardList && (
+            <div
+              css={(theme) => [
+                {
+                  display: "flex",
+                  flexWrap: "wrap",
+                  gap: theme.spacing(1.5),
+                  marginTop: theme.spacing(3),
+                },
+              ]}
+            >
+              {Object.entries(artist.social).map(([key, value]) => {
+                const Icon = socialIcons[key];
+
+                if (!Icon || !value) {
+                  return null;
+                }
+
+                return (
+                  <Link
+                    key={key}
+                    href={value}
+                    target="_blank"
+                    css={(theme) => [
+                      {
+                        alignSelf: "center",
+                        opacity: 0.2,
+                        color: theme.colors.white,
+                        [theme.mq.sm]: {
+                          transition: theme.transitions.slow("opacity"),
+                          "&:hover": {
+                            opacity: 1,
+                          },
+                        },
+                      },
+                    ]}
+                  >
+                    <Icon />
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div {...props}>
       {withLine && (
@@ -59,6 +218,8 @@ const Quote: FC<Props> = ({
         }}
       >
         {/* Card quote Block */}
+
+        {artistOnTopMobile && width < breakpoints.sm && ArtistBlock}
 
         {children && (
           <div
@@ -118,146 +279,9 @@ const Quote: FC<Props> = ({
         )}
 
         {/* Artist info Block */}
-
-        {artist && (
-          <div
-            key={artist.info}
-            css={(theme) => ({
-              ...(vertical
-                ? {}
-                : {
-                    marginLeft: theme.spacing(13.5),
-                    minWidth: theme.spacing(18),
-
-                    flexShrink: 0,
-                  }),
-            })}
-          >
-            {/* {vertical && children && ( */}
-            {!withoutUserPic && children && !cardList && (
-              <Line
-                spacing={0}
-                palette={palette}
-                css={(theme) => [
-                  {
-                    marginBottom: theme.spacing(3),
-                    [theme.maxMQ.sm]: {
-                      marginBottom: theme.spacing(3),
-                      marginTop: theme.spacing(2.5),
-                    },
-                  },
-                ]}
-              />
-            )}
-
-            <div
-              css={(theme) => [
-                { display: "flex", alignItems: "top" },
-                cardList && {
-                  marginTop: theme.spacing(1.5),
-                  [theme.mq.sm]: {
-                    flexDirection: "column",
-                  },
-                  [theme.mq.md]: {
-                    width: theme.spacing(20),
-                  },
-                },
-              ]}
-            >
-              {((fullArtist && !withoutUserPic) || cardList) && (
-                <div
-                  css={(theme) => ({
-                    width: theme.spacing(7.5),
-                    height: theme.spacing(7.5),
-                    backgroundImage: `url(${artist.userpic})`,
-                    backgroundSize: "cover",
-                    borderRadius: "50%",
-                    marginRight: theme.spacing(3),
-                    flexShrink: 0,
-                  })}
-                />
-              )}
-              <div>
-                {!withoutName && (
-                  <Text
-                    variant="h5"
-                    css={(theme) => [
-                      {
-                        marginTop: theme.spacing(1.2),
-                        marginBottom: theme.spacing(1.2),
-                      },
-                      cardList && {
-                        [theme.mq.sm]: {
-                          fontSize: 20,
-                        },
-                      },
-                    ]}
-                  >
-                    {artist.name}
-                  </Text>
-                )}
-                {fullArtist && (
-                  <Truncate
-                    onlyMore={true}
-                    variant="body2"
-                    lines={2}
-                    css={[
-                      {
-                        marginTop: 0,
-                        marginBottom: 0,
-                      },
-                    ]}
-                  >
-                    {artist.info}
-                  </Truncate>
-                )}
-                {!cardList && (
-                  <div
-                    css={(theme) => [
-                      {
-                        display: "flex",
-                        flexWrap: "wrap",
-                        gap: theme.spacing(1.5),
-                        marginTop: theme.spacing(3),
-                      },
-                    ]}
-                  >
-                    {Object.entries(artist.social).map(([key, value]) => {
-                      const Icon = socialIcons[key];
-
-                      if (!Icon || !value) {
-                        return null;
-                      }
-
-                      return (
-                        <Link
-                          key={key}
-                          href={value}
-                          target="_blank"
-                          css={(theme) => [
-                            {
-                              alignSelf: "center",
-                              opacity: 0.2,
-                              color: theme.colors.white,
-                              [theme.mq.sm]: {
-                                transition: theme.transitions.slow("opacity"),
-                                "&:hover": {
-                                  opacity: 1,
-                                },
-                              },
-                            },
-                          ]}
-                        >
-                          <Icon />
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
+        {(!artistOnTopMobile ||
+          (artistOnTopMobile && width >= breakpoints.sm)) &&
+          ArtistBlock}
       </div>
     </div>
   );
