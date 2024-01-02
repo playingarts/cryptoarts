@@ -8,7 +8,7 @@
 # testing
 /coverage
 /dump/test
-*test*
+# *test*
 # next.js
 /.next/
 /out/

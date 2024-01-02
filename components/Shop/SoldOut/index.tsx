@@ -1,14 +1,12 @@
 import { FC, HTMLAttributes } from "react";
 import Line from "../../Line";
-import Link from "../../Link";
-import Button from "../../Button";
 import Text from "../../Text";
+import EmailForm from "../../EmailForm";
 
 interface Props
   extends Omit<HTMLAttributes<HTMLDivElement>, "title">,
     Pick<GQL.Product, "title"> {}
-    
-const newsletterLink = process.env.NEXT_PUBLIC_NEWSLETTER;
+
 const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
   return (
     <div {...props}>
@@ -37,7 +35,7 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
           },
         ]}
       />
-      
+
       <Text
         // variant="body2"
         css={[
@@ -48,19 +46,21 @@ const ShopSoldOut: FC<Props> = ({ title, ...props }) => {
           },
         ]}
       >
-        Subscribe to project news and we will let you know when this deck is back in stock.
+        Subscribe to project news and we will let you know when this deck is
+        back in stock.
       </Text>
-      <Button
+      <EmailForm palette="light" />
+      {/* <Button
         color="black"
         component={Link}
         href={newsletterLink}
         target="_blank"
       >
         Notify me
-      </Button>
+      </Button> */}
       {/* <Line
         spacing={width < breakpoints.sm ? 1 : 3}
-        css={(theme) => [
+        css{(theme) => [
           {
             [theme.maxMQ.sm]: {
               marginTop: theme.spacing(2),

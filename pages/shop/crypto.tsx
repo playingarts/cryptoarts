@@ -30,6 +30,7 @@ const saleEndDate = new Date(
     timeZone: "Europe/Madrid",
   })
 );
+// November 10, 2023 12:00:00
 
 const getCurrentDate = () =>
   new Date(

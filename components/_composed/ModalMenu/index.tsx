@@ -22,8 +22,8 @@ import Nav from "../../Nav";
 import { useSize } from "../../SizeProvider";
 import StoreButtons from "../../StoreButtons";
 import Text from "../../Text";
+import EmailForm from "../../EmailForm";
 
-const newsletterLink = process.env.NEXT_PUBLIC_NEWSLETTER;
 const ModalMenu: FC<
   HTMLAttributes<HTMLElement> & {
     onItemClick?: () => void;
@@ -394,7 +394,8 @@ const ModalMenu: FC<
                 />
               ))}
             </div>
-
+            <EmailForm />
+            {/* 
             <Button
               color="black"
               component={Link}
@@ -402,19 +403,8 @@ const ModalMenu: FC<
               target="_blank"
             >
               Subscribe to project news
-            </Button>
-            <Text
-              css={[
-                {
-                  color: "rgba(255, 255, 255, 0.25)",
-                  lineHeight: "25px",
-                  fontSize: "15px",
-                },
-              ]}
-            >
-              We will never share your details with others. Unsubscribe at
-              anytime!
-            </Text>
+            </Button> */}
+
             <Line
               palette="dark"
               css={(theme) => [
