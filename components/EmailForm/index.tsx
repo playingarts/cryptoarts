@@ -32,20 +32,13 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     setStatus("loading");
-    console.log(data);
-    const res = await fetch(
-      (process.env.NODE_ENV === "development"
-        ? "http://localhost:3000"
-        : process.env.URL) + "/api/v1/newsletter",
-      {
-        method: "POST",
-        headers: {
-          "X-MailerLite-ApiKey": process.env.MAILERLITE_API_KEY || "empty",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data, email }),
-      }
-    );
+    const res = await fetch("/api/v1/newsletter", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...data, email }),
+    });
 
     if (res.status !== 200) {
       return setStatus("fail");
