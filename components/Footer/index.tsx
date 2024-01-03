@@ -104,7 +104,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
               <ModalMenu
                 css={(theme) => [
                   {
-                    paddingTop: theme.spacing(1.5),
+                    // paddingTop: theme.spacing(1.5),
                     paddingBottom: theme.spacing(1),
                   },
                 ]}
