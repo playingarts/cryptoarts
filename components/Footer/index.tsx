@@ -1,22 +1,12 @@
-import { colord } from "colord";
 import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
-import { socialLinks } from "../../source/consts";
 import { breakpoints } from "../../source/enums";
-import Button from "../Button";
 import Grid from "../Grid";
-import Behance from "../Icons/Behance";
-import Discord from "../Icons/Discord";
-import Facebook from "../Icons/Facebook";
-import Instagram from "../Icons/Instagram";
-import Pinterest from "../Icons/Pinterest";
-import Twitter from "../Icons/Twitter";
-import Youtube from "../Icons/Youtube";
 import Layout from "../Layout";
 import Line from "../Line";
 import Link from "../Link";
 import { useSize } from "../SizeProvider";
-import StoreButtons from "../StoreButtons";
 import Text from "../Text";
+import ModalMenu from "../_composed/ModalMenu";
 
 const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
   const lineRef = useRef<HTMLHRElement>(null);
@@ -76,7 +66,7 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
               width: "100%",
 
               paddingTop: theme.spacing(6),
-              paddingBottom: theme.spacing(6),
+              paddingBottom: theme.spacing(3),
               [theme.mq.sm]: [
                 lineRef.current &&
                   ref.current && {
@@ -111,7 +101,15 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                 },
               ]}
             >
-              <div
+              <ModalMenu
+                css={(theme) => [
+                  {
+                    paddingTop: theme.spacing(1.5),
+                    paddingBottom: theme.spacing(1),
+                  },
+                ]}
+              />
+              {/* <div
                 css={(theme) => [
                   {
                     [theme.maxMQ.sm]: {
@@ -278,10 +276,10 @@ const Footer: FC<HTMLAttributes<HTMLDivElement>> = (props) => {
                 ButtonProps={{
                   variant: "bordered",
                 }}
-              />
+              /> */}
               <Line
                 ref={lineRef}
-                spacing={1}
+                spacing={0}
                 palette="dark"
                 css={{ width: "100%" }}
               />
