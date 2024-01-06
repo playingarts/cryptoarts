@@ -96,6 +96,23 @@ export const CardQuery = gql`
   }
 `;
 
+export const RandomCardsQueryWithoutDeck = gql`
+  query RandomCardsWithoutDeck($limit: Int) {
+    cards(limit: $limit, shuffle: true) {
+      _id
+      img
+      video
+      background
+      deck {
+        slug
+      }
+      artist {
+        slug
+      }
+    }
+  }
+`;
+
 export const RandomCardsQuery = gql`
   query RandomCards($deck: ID, $limit: Int) {
     cards(deck: $deck, limit: $limit, shuffle: true) {
@@ -263,6 +280,30 @@ export const useLoadRandomCardsWithInfo = (
   ] = useLazyQuery(RandomCardsWithInfoQuery, options);
 
   return { loadRandomCardsWithInfo, ...methods, cards };
+};
+export const useLoadRandomCardsWithoutDeck = (
+  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+) => {
+  const [
+    loadRandomCardsWithoutDeck,
+    { data: { cards } = { cards: undefined }, ...methods },
+  ] = useLazyQuery(RandomCardsQueryWithoutDeck, options);
+
+  return { loadRandomCardsWithoutDeck, ...methods, cards };
+};
+
+export const useRandomCardsWithoutDeck = (
+  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+) => {
+  const { data: { cards } = { randomCards: undefined }, ...methods } = useQuery(
+    RandomCardsQueryWithoutDeck,
+    options
+  );
+
+  return {
+    ...methods,
+    cards,
+  };
 };
 
 export const useDailyCard = (

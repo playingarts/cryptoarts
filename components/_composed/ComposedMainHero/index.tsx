@@ -1,141 +1,29 @@
-import { Theme } from "@emotion/react";
-import { CSSObject } from "@emotion/serialize";
-import { FC, Fragment, HTMLAttributes, useEffect, useState } from "react";
+import {
+  FC,
+  Fragment,
+  HTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { breakpoints } from "../../../source/enums";
 import Card from "../../Card";
 import SizeProvider, { useSize } from "../../SizeProvider";
+import { useRandomCardsWithoutDeck } from "../../../hooks/card";
+import { useResizeDetector } from "react-resize-detector";
+import Link from "../../Link";
 
-const cards = [
-  {
-    _id: "card",
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/8-of-spades-gary-fernandez.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/4-of-hearts-steve-simpson.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/4-of-spades-inkration-studio.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/3-of-dimonds-burnt-toast-creative.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/232.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/104.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/10-of-spades-bratislav-milenkovic.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/7-of-spades-muxxi.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-antonio-uve.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/two-small-hd/8-of-diamonds-mathis-rekowski.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-  {
-    _id: "card",
-    video: "",
-    img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/000.jpg",
-    value: "",
-    suit: "",
-    info: "",
-    deck: "",
-    artist: "",
-    opensea: "",
-  },
-];
+// const backside = {
+//   _id: "card",
+//   video: "",
+//   img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/000.jpg",
+//   value: "",
+//   suit: "",
+//   info: "",
+//   deck: "",
+//   artist: "",
+//   opensea: "",
+// };
 
 const emptyCard = {
   _id: "",
@@ -149,125 +37,163 @@ const emptyCard = {
   opensea: "",
 };
 
-const commonCss: (theme: Theme) => CSSObject = (theme) => ({
-  display: "inline-block",
-  position: "relative",
-  marginRight: theme.spacing(1),
-  marginBottom: theme.spacing(1),
-});
+const animationSpeed = 500;
+
+const HeroCard: FC<
+  HTMLAttributes<HTMLElement> & {
+    initTransform?: string;
+    getCard: () => GQL.Card;
+  }
+> = ({ initTransform = "", getCard, ...props }) => {
+  const { width, height, ref } = useResizeDetector();
+
+  const [animation, setAnimation] =
+    useState<"rotateY90 ease-in" | "rotateY180 ease-out" | "">();
+
+  const [card, setCard] = useState<GQL.Card>(emptyCard as unknown as GQL.Card);
+
+  const [nextCard, setNextCard] = useState<GQL.Card>(
+    emptyCard as unknown as GQL.Card
+  );
+
+  const { cards } = useRandomCardsWithoutDeck({ fetchPolicy: "no-cache" });
+
+  const loaded = useRef(false);
+
+  useEffect(() => {
+    setCard(getCard());
+    setNextCard(getCard());
+  }, [cards]);
+
+  const [scram, setScram] = useState(false);
+
+  useEffect(() => {
+    setNextCard(getCard());
+    const scramTimeout = setTimeout(() => {
+      setScram(!scram);
+    }, Math.random() * 15000 + 1000);
+
+    if (!loaded.current) {
+      loaded.current = true;
+      return;
+    }
+
+    setAnimation("rotateY90 ease-in");
+    const timer = setTimeout(() => {
+      setAnimation("rotateY180 ease-out");
+      setCard(nextCard);
+    }, animationSpeed);
+    return () => {
+      clearTimeout(scramTimeout);
+      clearTimeout(timer);
+    };
+  }, [scram]);
+
+  return (
+    <div
+      {...props}
+      css={(theme) => [
+        {
+          transform: initTransform,
+          position: "relative",
+          display: "inline-block",
+          width: width,
+          height: height,
+          marginRight: theme.spacing(1),
+          marginBottom: theme.spacing(0.5),
+          "--perspWidth": "calc(var(--width)*5)",
+          "@keyframes rotateY180": {
+            "0%": {
+              transform: "perspective(var(--perspWidth)) rotateY(-90deg) ",
+            },
+            "100%": {
+              transform: "perspective(var(--perspWidth)) rotateY(0deg) ",
+            },
+          },
+          "@keyframes rotateY90": {
+            "0%": {
+              transform: "perspective(var(--perspWidth)) rotateY(0deg) ",
+            },
+            "100%": {
+              transform: "perspective(var(--perspWidth)) rotateY(90deg) ",
+            },
+          },
+        },
+      ]}
+    >
+      <div css={{ position: "absolute", top: 0, left: 0 }} ref={ref}>
+        <Link
+          href={card.deck ? `/${card.deck.slug}/${card.artist.slug}` : "/"}
+          scroll={true}
+          shallow={true}
+        >
+          <Card
+            card={card}
+            {...props}
+            interactive={true}
+            noInfo={true}
+            customSize={true}
+            filter={true}
+            animated={true}
+            style={{ animation: `${animation} ${animationSpeed}ms forwards` }}
+          />
+        </Link>
+      </div>
+    </div>
+  );
+};
 
 const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const { width } = useSize();
-  const [loaded, setLoaded] = useState(false);
+
+  const { cards } = useRandomCardsWithoutDeck({
+    fetchPolicy: "no-cache",
+  });
+
+  const [stack, setStack] = useState<string[]>([]);
 
   useEffect(() => {
-    setLoaded(true);
-  }, []);
+    setStack([]);
+  }, [cards]);
+
+  const getCard = () => {
+    if (!cards || cards.length === 0) {
+      return emptyCard as unknown as GQL.Card;
+    }
+
+    const rand = Math.floor(Math.random() * (cards.length - stack.length));
+
+    const card = cards.filter(
+      ({ _id }) => stack.findIndex((id) => id == _id) === -1
+    )[rand];
+    if (stack.length > 50) {
+      setStack([card._id]);
+    } else {
+      setStack([...stack, card._id]);
+    }
+    return card;
+  };
+
   return (
     <SizeProvider>
       <div {...props}>
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[0] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
-          css={(theme) => [
-            {
-              ...commonCss(theme),
-              transform: "translateY(50%)",
-            },
-          ]}
-        />
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[1] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
-          css={(theme) => [
-            {
-              ...commonCss(theme),
-            },
-          ]}
-        />
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[2] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
-          css={(theme) => [
-            {
-              ...commonCss(theme),
-              transform: "translateY(50%)",
-            },
-          ]}
-        />
+        <HeroCard getCard={getCard} initTransform="translateY(50%)" />
+        <HeroCard getCard={getCard} />
+        <HeroCard getCard={getCard} initTransform="translateY(50%)" />
         <br />
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[3] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
-          css={(theme) => [
-            {
-              ...commonCss(theme),
-              transform: "translateY(50%)",
-            },
-          ]}
-        />
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[4] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
-          css={(theme) => [
-            {
-              ...commonCss(theme),
-            },
-          ]}
-        />
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[5] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
-          css={(theme) => [
-            {
-              ...commonCss(theme),
-              transform: "translateY(50%)",
-            },
-          ]}
-        />
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[6] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
-          css={(theme) => [
-            {
-              ...commonCss(theme),
-            },
-          ]}
-        />
+        <HeroCard getCard={getCard} initTransform="translateY(50%)" />
+        <HeroCard getCard={getCard} />
+        <HeroCard getCard={getCard} initTransform="translateY(50%)" />
+        <HeroCard getCard={getCard} />
         <br />
 
         {/* 7 of spades card */}
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[7] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
+        <HeroCard
+          getCard={getCard}
+          initTransform="translateY(50%) rotate(-10.62deg)"
+          // initTransform="translateY(110%) translateX(20%) rotate(-10.62deg)"
           css={(theme) => [
             {
-              ...commonCss(theme),
-              transform: "translateY(50%) rotate(-10.62deg)",
               top: theme.spacing(20.3),
               left: theme.spacing(4),
               zIndex: 1,
@@ -287,15 +213,10 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         />
 
         {/* 5 of spades card */}
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[8] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
+        <HeroCard
+          getCard={getCard}
           css={(theme) => [
             {
-              ...commonCss(theme),
               [theme.mq.sm]: {
                 top: theme.spacing(0),
               },
@@ -303,36 +224,23 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           ]}
         />
 
-        <Card
-          interactive={true}
-          noInfo={true}
-          card={((loaded ? cards[9] : emptyCard) as unknown) as GQL.Card}
-          customSize={true}
-          filter={true}
-          css={(theme) => [
-            {
-              ...commonCss(theme),
-              transform: "translateY(50%)",
-            },
-          ]}
-        />
+        <HeroCard getCard={getCard} initTransform="translateY(50%)" />
         {width >= breakpoints.sm && (
           <Fragment>
             <br />
 
             {/* backside card */}
-            <Card
-              interactive={true}
-              noInfo={true}
-              card={((loaded ? cards[10] : emptyCard) as unknown) as GQL.Card}
-              customSize={true}
-              filter={true}
+            <HeroCard
+              getCard={getCard}
+              initTransform="translateX(100%) rotate(30deg)"
               css={(theme) => [
                 {
-                  ...commonCss(theme),
-                  transform: "translateX(100%) rotate(30deg)",
-                  marginLeft: -theme.spacing(5),
-                  top: theme.spacing(43),
+                  display: "inline-block",
+                  position: "relative",
+                  marginRight: theme.spacing(1),
+                  marginBottom: theme.spacing(1),
+                  marginLeft: theme.spacing(2),
+                  top: theme.spacing(23),
                 },
               ]}
             />

@@ -44,6 +44,7 @@ const Card: FC<Props> = ({
   const [{ x, y }, setSkew] = useState({ x: 0, y: 0 });
   const [loaded, setLoaded] = useState(false);
   const hideLoader = () => setLoaded(true);
+  const showLoader = () => setLoaded(false);
 
   animated = !card.img || (animated && !!card.video);
 
@@ -65,6 +66,10 @@ const Card: FC<Props> = ({
       video.current.play();
     }
   }, [hovered, animated]);
+
+  useEffect(() => {
+    showLoader();
+  }, [card]);
 
   const { width } = useSize();
 
@@ -216,7 +221,8 @@ const Card: FC<Props> = ({
             <div
               style={{
                 opacity: loaded ? 1 : 0,
-                transition: slowTransitionOpacity,
+
+                transition: loaded ? slowTransitionOpacity : "none",
               }}
             >
               <img
@@ -262,9 +268,13 @@ const Card: FC<Props> = ({
                   },
                   width: "var(--width)",
                   height: "var(--height)",
+
+                  opacity: loaded ? 1 : 0,
+
+                  transition: loaded ? slowTransitionOpacity : "none",
                 },
               ]}
-              onLoadedData={hideLoader}
+              onCanPlay={hideLoader}
               {...(animated ? { autoPlay: true } : { preload: "none" })}
             >
               <source src={card.video} type="video/mp4" />
@@ -278,6 +288,7 @@ const Card: FC<Props> = ({
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
+                // zIndex: 1,
               })}
             />
           )}

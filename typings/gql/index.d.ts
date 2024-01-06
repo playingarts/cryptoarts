@@ -23,6 +23,7 @@ interface Query {
   artist?: Maybe<Artist>;
   artists: Array<Maybe<Artist>>;
   cards: Array<Card>;
+  randomCards: Array<Card>;
   card?: Maybe<Card>;
   heroCards: Array<Card>;
   products: Array<Product>;
@@ -62,6 +63,12 @@ interface QueryCardsArgs {
   limit?: Maybe<Scalars['Int']>;
   losers?: Maybe<Scalars['Boolean']>;
   edition?: Maybe<Scalars['String']>;
+}
+
+
+interface QueryRandomCardsArgs {
+  shuffle?: Maybe<Scalars['Boolean']>;
+  limit?: Maybe<Scalars['Int']>;
 }
 
 
@@ -598,6 +605,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
   artists?: Resolver<Array<Maybe<ResolversTypes['Artist']>>, ParentType, ContextType, RequireFields<QueryArtistsArgs, never>>;
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsArgs, never>>;
+  randomCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryRandomCardsArgs, never>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
   heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryHeroCardsArgs, never>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;

@@ -399,6 +399,11 @@ export const getStaticProps = async () => {
 
   await client.query({ query: DailyCardQuery });
 
+  // await client.query({
+  //   query: RandomCardsQueryWithoutDeck,
+  //   variables: { limit: 50 },
+  // });
+
   return {
     props: {
       cache: client.cache.extract(),

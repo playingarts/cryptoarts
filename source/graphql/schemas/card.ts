@@ -235,6 +235,7 @@ export const resolvers: GQL.Resolvers = {
   Query: {
     cards: async (_, args) => await getCards(args),
     card: (_, args) => getCard(args),
+    randomCards: (_, args) => getCards(args),
     heroCards: (_, args) => getHeroCards(args),
   },
 };
@@ -248,6 +249,7 @@ export const typeDefs = gql`
       losers: Boolean
       edition: String
     ): [Card!]!
+    randomCards(shuffle: Boolean, limit: Int): [Card!]!
     card(id: ID!): Card
     heroCards(deck: ID, slug: String): [Card!]!
   }
