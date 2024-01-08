@@ -3,7 +3,7 @@ import {
   Fragment,
   HTMLAttributes,
   useEffect,
-  useRef,
+  useLayoutEffect,
   useState,
 } from "react";
 import { breakpoints } from "../../../source/enums";
@@ -12,18 +12,6 @@ import SizeProvider, { useSize } from "../../SizeProvider";
 import { useRandomCardsWithoutDeck } from "../../../hooks/card";
 import { useResizeDetector } from "react-resize-detector";
 import Link from "../../Link";
-
-// const backside = {
-//   _id: "card",
-//   video: "",
-//   img: "https://s3.amazonaws.com/img.playingarts.com/contest/retina/000.jpg",
-//   value: "",
-//   suit: "",
-//   info: "",
-//   deck: "",
-//   artist: "",
-//   opensea: "",
-// };
 
 const emptyCard = {
   _id: "",
@@ -56,38 +44,50 @@ const HeroCard: FC<
     emptyCard as unknown as GQL.Card
   );
 
-  const { cards } = useRandomCardsWithoutDeck({ fetchPolicy: "no-cache" });
-
-  const loaded = useRef(false);
-
-  useEffect(() => {
-    setCard(getCard());
-    setNextCard(getCard());
-  }, [cards]);
+  const [nextCardLoaded, setNextCardLoaded] = useState(false);
 
   const [scram, setScram] = useState(false);
 
   useEffect(() => {
-    setNextCard(getCard());
+    const img = new Image();
+    img.src = nextCard.img;
+
+    img.onload = () => {
+      setNextCardLoaded(true);
+    };
+  }, [nextCard]);
+
+  useEffect(() => {
+    setCard(getCard());
+  }, []);
+
+  useEffect(() => {
+    setScram(false);
+
     const scramTimeout = setTimeout(() => {
-      setScram(!scram);
+      setScram(true);
     }, Math.random() * 15000 + 1000);
 
-    if (!loaded.current) {
-      loaded.current = true;
-      return;
-    }
-
-    setAnimation("rotateY90 ease-in");
-    const timer = setTimeout(() => {
-      setAnimation("rotateY180 ease-out");
-      setCard(nextCard);
-    }, animationSpeed);
-    return () => {
-      clearTimeout(scramTimeout);
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(scramTimeout);
   }, [scram]);
+
+  useLayoutEffect(() => {
+    if (scram && nextCard) {
+      setAnimation("rotateY90 ease-in");
+    }
+  }, [scram, nextCardLoaded]);
+
+  useEffect(() => {
+    setNextCard(getCard());
+    setNextCardLoaded(false);
+  }, [card]);
+
+  const animationEnd = () => {
+    if (animation === "rotateY90 ease-in") {
+      setCard(nextCard);
+      setAnimation("rotateY180 ease-out");
+    }
+  };
 
   return (
     <div
@@ -101,32 +101,11 @@ const HeroCard: FC<
           height: height,
           marginRight: theme.spacing(1),
           marginBottom: theme.spacing(0.5),
-          "--perspWidth": "calc(var(--width)*5)",
-          "@keyframes rotateY180": {
-            "0%": {
-              transform: "perspective(var(--perspWidth)) rotateY(-90deg) ",
-            },
-            "100%": {
-              transform: "perspective(var(--perspWidth)) rotateY(0deg) ",
-            },
-          },
-          "@keyframes rotateY90": {
-            "0%": {
-              transform: "perspective(var(--perspWidth)) rotateY(0deg) ",
-            },
-            "100%": {
-              transform: "perspective(var(--perspWidth)) rotateY(90deg) ",
-            },
-          },
         },
       ]}
     >
       <div css={{ position: "absolute", top: 0, left: 0 }} ref={ref}>
-        <Link
-          href={card.deck ? `/${card.deck.slug}/${card.artist.slug}` : "/"}
-          scroll={true}
-          shallow={true}
-        >
+        <Link href={card.deck ? `/${card.deck.slug}/${card.artist.slug}` : "/"}>
           <Card
             card={card}
             {...props}
@@ -135,7 +114,9 @@ const HeroCard: FC<
             customSize={true}
             filter={true}
             animated={true}
+            noTransition={true}
             style={{ animation: `${animation} ${animationSpeed}ms forwards` }}
+            onAnimationEnd={animationEnd}
           />
         </Link>
       </div>
@@ -146,9 +127,7 @@ const HeroCard: FC<
 const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const { width } = useSize();
 
-  const { cards } = useRandomCardsWithoutDeck({
-    fetchPolicy: "no-cache",
-  });
+  const { cards } = useRandomCardsWithoutDeck();
 
   const [stack, setStack] = useState<string[]>([]);
 
@@ -176,7 +155,28 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
 
   return (
     <SizeProvider>
-      <div {...props}>
+      <div
+        {...props}
+        css={{
+          "--perspWidth": "calc(var(--width)*5)",
+          "@keyframes rotateY180": {
+            "0%": {
+              transform: "perspective(var(--perspWidth)) rotateY(-90deg) ",
+            },
+            "100%": {
+              transform: "perspective(var(--perspWidth)) rotateY(0deg) ",
+            },
+          },
+          "@keyframes rotateY90": {
+            "0%": {
+              transform: "perspective(var(--perspWidth)) rotateY(0deg) ",
+            },
+            "100%": {
+              transform: "perspective(var(--perspWidth)) rotateY(90deg) ",
+            },
+          },
+        }}
+      >
         <HeroCard getCard={getCard} initTransform="translateY(50%)" />
         <HeroCard getCard={getCard} />
         <HeroCard getCard={getCard} initTransform="translateY(50%)" />
@@ -187,7 +187,6 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         <HeroCard getCard={getCard} />
         <br />
 
-        {/* 7 of spades card */}
         <HeroCard
           getCard={getCard}
           initTransform="translateY(50%) rotate(-10.62deg)"
@@ -212,7 +211,6 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
           ]}
         />
 
-        {/* 5 of spades card */}
         <HeroCard
           getCard={getCard}
           css={(theme) => [

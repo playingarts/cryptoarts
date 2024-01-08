@@ -58,6 +58,7 @@ interface QueryArtistsArgs {
 
 
 interface QueryCardsArgs {
+  withoutDeck?: Maybe<Array<Scalars['ID']>>;
   deck?: Maybe<Scalars['ID']>;
   shuffle?: Maybe<Scalars['Boolean']>;
   limit?: Maybe<Scalars['Int']>;

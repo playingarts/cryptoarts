@@ -98,7 +98,7 @@ export const CardQuery = gql`
 
 export const RandomCardsQueryWithoutDeck = gql`
   query RandomCardsWithoutDeck($limit: Int) {
-    cards(limit: $limit, shuffle: true) {
+    cards(limit: $limit, shuffle: true, withoutDeck: ["crypto"]) {
       _id
       img
       video

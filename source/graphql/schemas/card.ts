@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { model, Model, models, Schema, Types } from "mongoose";
 import Web3 from "web3";
 import { getContracts } from "./contract";
-import { getDeck } from "./deck";
+import { getDeck, getDecks } from "./deck";
 import { Asset, getAssets } from "./opensea";
 
 export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
@@ -42,6 +42,7 @@ export const getCards = async ({
   limit,
   losers,
   edition,
+  withoutDeck,
 }: GQL.QueryCardsArgs) => {
   if (deck && !Types.ObjectId.isValid(deck)) {
     const { _id } = (await getDeck({ slug: deck })) || {};
@@ -49,8 +50,27 @@ export const getCards = async ({
     deck = _id;
   }
 
+  if (withoutDeck) {
+    const decks = await getDecks();
+
+    withoutDeck = decks
+      .filter(
+        (deck) =>
+          (withoutDeck as unknown as string[]).findIndex(
+            (item) => item !== deck.slug
+          ) === -1
+      )
+      .map((deck) => deck._id);
+  }
+
   let cards = await ((losers ? Loser : Card)
-    .find(deck ? (edition && { deck, edition }) || { deck } : {})
+    .find(
+      deck
+        ? (edition && { deck, edition }) || { deck }
+        : withoutDeck
+        ? { deck: { $nin: withoutDeck } }
+        : {}
+    )
     .populate(["artist", "deck", "animator"]) as unknown as Promise<
     GQL.Card[]
   >);
@@ -243,6 +263,7 @@ export const resolvers: GQL.Resolvers = {
 export const typeDefs = gql`
   type Query {
     cards(
+      withoutDeck: [ID!]
       deck: ID
       shuffle: Boolean
       limit: Int

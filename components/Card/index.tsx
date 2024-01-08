@@ -1,7 +1,6 @@
-import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
+import { FC, HTMLAttributes, useLayoutEffect, useRef, useState } from "react";
 import { theme } from "../../pages/_app";
 import { breakpoints } from "../../source/enums";
-// import Image from "next/image";
 import Loader from "../Loader";
 import { useSize } from "../SizeProvider";
 import Text from "../Text";
@@ -17,6 +16,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   sorted?: boolean;
   filter?: boolean;
   customSize?: boolean;
+  noTransition?: boolean;
   // noShadowOnHover?:boolean;
 }
 
@@ -33,6 +33,7 @@ const Card: FC<Props> = ({
   sorted,
   filter,
   customSize,
+  noTransition,
   // noShadowOnHover,
   ...props
 }) => {
@@ -44,17 +45,16 @@ const Card: FC<Props> = ({
   const [{ x, y }, setSkew] = useState({ x: 0, y: 0 });
   const [loaded, setLoaded] = useState(false);
   const hideLoader = () => setLoaded(true);
-  const showLoader = () => setLoaded(false);
 
   animated = !card.img || (animated && !!card.video);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const img = new Image();
     img.src = card.img;
     setLoaded(img.complete);
-  }, []);
+  }, [card]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (animated || !video.current) {
       return;
     }
@@ -67,9 +67,9 @@ const Card: FC<Props> = ({
     }
   }, [hovered, animated]);
 
-  useEffect(() => {
-    showLoader();
-  }, [card]);
+  // useEffect(() => {
+  //   showLoader();
+  // }, [card]);
 
   const { width } = useSize();
 
@@ -222,7 +222,9 @@ const Card: FC<Props> = ({
               style={{
                 opacity: loaded ? 1 : 0,
 
-                transition: loaded ? slowTransitionOpacity : "none",
+                ...(!noTransition && {
+                  transition: loaded ? slowTransitionOpacity : "none",
+                }),
               }}
             >
               <img
@@ -274,6 +276,11 @@ const Card: FC<Props> = ({
                   transition: loaded ? slowTransitionOpacity : "none",
                 },
               ]}
+              style={{
+                opacity: loaded ? 1 : 0,
+
+                transition: loaded ? slowTransitionOpacity : "none",
+              }}
               onCanPlay={hideLoader}
               {...(animated ? { autoPlay: true } : { preload: "none" })}
             >

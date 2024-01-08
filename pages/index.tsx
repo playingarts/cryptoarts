@@ -16,7 +16,7 @@ import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
 import mongoose from "mongoose";
 import { DecksQuery } from "../hooks/deck";
-import { DailyCardQuery } from "../hooks/card";
+import { DailyCardQuery, RandomCardsQueryWithoutDeck } from "../hooks/card";
 import PodcastAndSocials from "../components/_composed/PodcastAndSocials";
 
 const Home: NextPage = () => {
@@ -399,10 +399,9 @@ export const getStaticProps = async () => {
 
   await client.query({ query: DailyCardQuery });
 
-  // await client.query({
-  //   query: RandomCardsQueryWithoutDeck,
-  //   variables: { limit: 50 },
-  // });
+  await client.query({
+    query: RandomCardsQueryWithoutDeck,
+  });
 
   return {
     props: {
