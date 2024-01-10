@@ -21,6 +21,7 @@ import { connect } from "../source/mongoose";
 import { InMemoryCache } from "@apollo/client";
 import { getCards } from "../source/graphql/schemas/card";
 import { getDecks } from "../source/graphql/schemas/deck";
+require("../source/graphql/schemas/artist");
 
 const Home: NextPage = () => {
   const { width } = useSize();
