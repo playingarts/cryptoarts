@@ -1,5 +1,4 @@
 import { NormalizedCacheObject } from "@apollo/client";
-import mongoose from "mongoose";
 import { GetStaticProps } from "next";
 import { getDeckSlugsWithoutDB } from "../../../dump/_decks";
 import { CardsQuery } from "../../../hooks/card";
@@ -37,10 +36,6 @@ export const getStaticProps: GetStaticProps<
   { cache?: NormalizedCacheObject },
   { deckId: string; artistId: string }
 > = async (context) => {
-  if (mongoose.connection.readyState !== 1) {
-    return { props: {}, revalidate: 1 };
-  }
-
   const { deckId } = context.params!;
   const { artistId } = context.params!;
 

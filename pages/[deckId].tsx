@@ -1,7 +1,6 @@
 import { NormalizedCacheObject } from "@apollo/client";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
-import mongoose from "mongoose";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -673,10 +672,6 @@ export const getStaticProps: GetStaticProps<
   },
   { deckId: string }
 > = async (context) => {
-  if (mongoose.connection.readyState !== 1) {
-    return { props: {}, revalidate: 1 };
-  }
-
   const { deckId } = context.params!;
 
   const client = initApolloClient(undefined, {
