@@ -7,6 +7,7 @@ import { LosersQuery } from "../../../hooks/loser";
 import { podcastsQuery } from "../../../hooks/podcast";
 import { initApolloClient } from "../../../source/apollo";
 import Page from "../../[deckId]";
+import { connect } from "../../../source/mongoose";
 
 export const getStaticPaths = async () => {
   const decks = await getDeckSlugsWithoutDB();
@@ -36,6 +37,8 @@ export const getStaticProps: GetStaticProps<
   { cache?: NormalizedCacheObject },
   { deckId: string; artistId: string }
 > = async (context) => {
+  await connect();
+
   const { deckId } = context.params!;
   const { artistId } = context.params!;
 

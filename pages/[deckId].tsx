@@ -42,6 +42,7 @@ import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints, Sections } from "../source/enums";
 import { theme } from "./_app";
 import PodcastAndSocials from "../components/_composed/PodcastAndSocials";
+import { connect } from "../source/mongoose";
 
 export type OwnedCard = { value: string; suit: string; token_id: string };
 
@@ -672,6 +673,8 @@ export const getStaticProps: GetStaticProps<
   },
   { deckId: string }
 > = async (context) => {
+  await connect();
+
   const { deckId } = context.params!;
 
   const client = initApolloClient(undefined, {

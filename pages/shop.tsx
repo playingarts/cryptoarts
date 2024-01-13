@@ -23,6 +23,7 @@ import { ProductsQuery, useProducts } from "../hooks/product";
 import { theme } from "../pages/_app";
 import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
+import { connect } from "../source/mongoose";
 const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
@@ -602,6 +603,8 @@ const Shop: NextPage = () => (
 );
 
 export const getStaticProps = async () => {
+  await connect();
+
   const client = initApolloClient(undefined, {
     schema: (await require("../source/graphql/schema")).schema,
   });

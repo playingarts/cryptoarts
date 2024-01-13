@@ -5,6 +5,7 @@ const {
   MONGOURL = "mongodb://127.0.0.1",
   MONGODB,
   MONGOCERT = "",
+  DOBUILD = "",
 } = process.env;
 const isDevelopment = process.env.NODE_ENV === "development";
 const tlsCAFile = __dirname + "/mongo-ca.pem";
@@ -20,7 +21,7 @@ export const connect = async () => {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       dbName: MONGODB,
-      ...(isDevelopment
+      ...(isDevelopment || DOBUILD === "true"
         ? {
             tlsAllowInvalidCertificates: true,
           }
