@@ -3,7 +3,6 @@ import {
   CSSInterpolation,
   CSSPropertiesWithMultiValues,
 } from "@emotion/serialize";
-import isMobile from "is-mobile";
 import { MetaMaskProvider } from "metamask-react";
 import "modern-normalize/modern-normalize.css";
 import { AppProps } from "next/app";
@@ -572,8 +571,8 @@ const App = ({
   );
 };
 
-App.getInitialProps = async (context: any) => {
-  return { isMobile: isMobile({ ua: context.ctx.req, tablet: true }) };
-};
+// App.getInitialProps = async (context: any) => {
+//   return { isMobile: isMobile({ ua: context.ctx.req, tablet: true }) };
+// };
 
 export default App;

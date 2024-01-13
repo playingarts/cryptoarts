@@ -15,6 +15,8 @@
 
 # production
 /build
+*.crt
+.do
 
 # misc
 .DS_Store

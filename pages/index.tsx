@@ -12,16 +12,12 @@ import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedMainHero from "../components/_composed/ComposedMainHero";
 import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
-import { withApollo } from "../source/apollo";
+import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
 import { DecksQuery } from "../hooks/deck";
 import { RandomCardsQueryWithoutDeck } from "../hooks/card";
 import PodcastAndSocials from "../components/_composed/PodcastAndSocials";
 import { connect } from "../source/mongoose";
-import { InMemoryCache } from "@apollo/client";
-import { getCards } from "../source/graphql/schemas/card";
-import { getDecks } from "../source/graphql/schemas/deck";
-require("../source/graphql/schemas/artist");
 
 const Home: NextPage = () => {
   const { width } = useSize();
@@ -393,21 +389,21 @@ const Home: NextPage = () => {
 export const getStaticProps = async () => {
   await connect();
 
-  const cache = new InMemoryCache();
-
-  cache.writeQuery({
-    query: DecksQuery,
-    data: await getDecks(),
+  const client = initApolloClient(undefined, {
+    schema: (await require("../source/graphql/schema")).schema,
   });
 
-  cache.writeQuery({
+  await client.query({
+    query: DecksQuery,
+  });
+
+  await client.query({
     query: RandomCardsQueryWithoutDeck,
-    data: await getCards({ shuffle: true, withoutDeck: ["crypto"] }),
   });
 
   return {
     props: {
-      cache: cache.extract(),
+      cache: client.cache.extract(),
     },
   };
 };
