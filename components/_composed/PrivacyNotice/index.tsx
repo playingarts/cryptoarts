@@ -41,9 +41,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
           backdropFilter: "blur(20px)",
           background:
             deckId === "crypto" || artistId
-              ? colord(theme.colors.black)
-                  .alpha(0.75)
-                  .toRgbString()
+              ? colord(theme.colors.black).alpha(0.75).toRgbString()
               : colord(theme.colors.page_bg_light_gray)
                   .alpha(0.75)
                   .toRgbString(),
@@ -83,7 +81,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
                 deckId === "crypto" || artistId
                   ? theme.colors.text_subtitle_light
                   : theme.colors.text_subtitle_dark,
-                  
+
               [theme.maxMQ.sm]: {
                 lineHeight: "50px",
               },
