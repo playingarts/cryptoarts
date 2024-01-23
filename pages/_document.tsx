@@ -58,6 +58,9 @@ export const Links = () => (
             backgroundAttachment: "fixed",
           },
         },
+        html: {
+          lineHeight: 0,
+        },
       }}
     />
     <meta name="theme-color" content="#fff" />

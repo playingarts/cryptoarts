@@ -100,7 +100,7 @@ const HeroCard: FC<
           width: width,
           height: height,
           marginRight: theme.spacing(1),
-          marginBottom: theme.spacing(0.5),
+          marginBottom: theme.spacing(1),
         },
       ]}
     >

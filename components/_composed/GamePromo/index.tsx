@@ -6,145 +6,418 @@ import Line from "../../Line";
 import Link from "../../Link";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
+import { mockEmptyCard } from "../../../mocks/card";
+import Card from "../../Card";
 
-const GamePromo: FC = () => {
-  // const ownedAssets = useOwnedAssets("crypto");
+const GamePromo: FC = () => (
+  <Layout
+    css={(theme) => ({
+      background: theme.colors.page_bg_dark,
+      color: theme.colors.text_title_light,
+      gridColumn: "1 / -1",
+      position: "relative",
+      // backgroundImage:
+      //   "url(https://s3.amazonaws.com/img.playingarts.com/www/static/game_background.jpg?3)",
+      backgroundColor: theme.colors.dark_gray,
+      backgroundSize: "2000px",
+      backgroundRepeat: "no-repeat",
+      backgroundAttachment: "fixed",
+      backgroundPositionX: "center",
+      overflow: "clip",
+      backgroundPositionY: "center",
 
-  // return ownedAssets && ownedAssets.length !== 0 ? (
-  return (
-    <Layout
-      css={(theme) => ({
-        background: theme.colors.page_bg_dark,
-        color: theme.colors.text_title_light,
-        gridColumn: "1 / -1",
-        position: "relative",
-        backgroundImage:
-          "url(https://s3.amazonaws.com/img.playingarts.com/www/static/game_background.jpg?3)",
-        backgroundColor: theme.colors.dark_gray,
-        backgroundSize: "2000px",
-        backgroundRepeat: "no-repeat",
-        backgroundAttachment: "fixed",
-        backgroundPositionX: "center",
-        backgroundPositionY: "center",
-
-        [theme.maxMQ.md]: {
-          backgroundSize: "1900px",
-          backgroundPositionX: "-380px",
-          [theme.mq.sm]: {
-            paddingTop: theme.spacing(10),
-            paddingBottom: theme.spacing(10),
-            paddingRight: theme.spacing(19.5),
-            // transform: "scaleX(-1)",
+      [theme.maxMQ.md]: {
+        backgroundSize: "1900px",
+        backgroundPositionX: "-380px",
+        [theme.mq.sm]: {
+          paddingTop: theme.spacing(10),
+          paddingBottom: theme.spacing(10),
+          paddingRight: theme.spacing(19.5),
+          // transform: "scaleX(-1)",
+        },
+      },
+      [theme.maxMQ.sm]: {
+        paddingTop: theme.spacing(5),
+        paddingBottom: theme.spacing(5),
+        backgroundAttachment: "inherit",
+      },
+      [theme.mq.md]: {
+        paddingTop: theme.spacing(15),
+        paddingBottom: theme.spacing(15),
+        paddingLeft: theme.spacing(10.5),
+        paddingRight: theme.spacing(10.5),
+      },
+      [theme.maxMQ.xsm]: {
+        backgroundSize: "900px",
+        backgroundPositionX: "-370px",
+        backgroundPositionY: "-140px",
+        paddingTop: theme.spacing(17),
+        paddingBottom: theme.spacing(0),
+      },
+    })}
+  >
+    <Grid short={true}>
+      <StatBlock
+        // lessTitleMarginMobile={true}
+        title="GAME"
+        css={(theme) => ({
+          [theme.maxMQ.md]: {
+            padding: "30px 0",
+            gridColumn: "2 / 7",
           },
-        },
-        [theme.maxMQ.sm]: {
-          paddingTop: theme.spacing(5),
-          paddingBottom: theme.spacing(5),
-          backgroundAttachment: "inherit",
-        },
-        [theme.mq.md]: {
-          paddingTop: theme.spacing(15),
-          paddingBottom: theme.spacing(15),
-          paddingLeft: theme.spacing(10.5),
-          paddingRight: theme.spacing(10.5),
-        },
-        [theme.maxMQ.xsm]: {
-          backgroundSize: "900px",
-          backgroundPositionX: "-370px",
-          backgroundPositionY: "-140px",
-          paddingTop: theme.spacing(17),
-          paddingBottom: theme.spacing(0),
-        },
-      })}
-    >
-      <Grid short={true}>
-        <StatBlock
-          // lessTitleMarginMobile={true}
-          title="GAME"
+          [theme.mq.md]: {
+            padding: "0",
+            gridColumn: "1 / 6",
+          },
+          [theme.maxMQ.sm]: {
+            gridColumn: "1 / 5",
+            padding: "50px 20px",
+          },
+          [theme.maxMQ.xsm]: {
+            gridColumn: "1 / 7",
+          },
+        })}
+      >
+        <Text component="h2" css={{ margin: 0 }}>
+          Card Battle{" "}
+          <span
+            css={(theme) => [
+              {
+                border: "1px solid",
+                borderColor: theme.colors.text_subtitle_light,
+                color: theme.colors.text_subtitle_light,
+                borderRadius: 30,
+                padding: `${theme.spacing(0.2)}px ${theme.spacing(1)}px`,
+                verticalAlign: "middle",
+                letterSpacing: 0,
+                textTransform: "capitalize",
+                fontWeight: 500,
+                fontSize: 14,
+                fontFamily: "Work Sans, sans-serif",
+                [theme.maxMQ.sm]: {
+                  fontSize: 12,
+                  lineHeight: 1.5,
+                },
+              },
+            ]}
+          >
+            Beta
+          </span>
+        </Text>
+        <Text
+          variant="body2"
+          css={(theme) => [
+            {
+              margin: 0,
+              color: theme.colors.text_subtitle_light,
+              marginTop: theme.spacing(1),
+            },
+          ]}
+        >
+          Go head to head with opponents in turn-based playing card battle!
+        </Text>
+        <Line
+          palette="dark"
+          spacing={0}
           css={(theme) => ({
-            [theme.maxMQ.md]: {
-              padding: "30px 0",
-              gridColumn: "2 / 7",
-            },
-            [theme.mq.md]: {
-              padding: "0",
-              gridColumn: "1 / 6",
-            },
+            marginTop: theme.spacing(3),
+            marginBottom: theme.spacing(3),
             [theme.maxMQ.sm]: {
-              gridColumn: "1 / 5",
-              padding: "50px 20px",
-            },
-            [theme.maxMQ.xsm]: {
-              gridColumn: "1 / 7",
+              marginTop: theme.spacing(2),
+              marginBottom: theme.spacing(2),
             },
           })}
+        />
+        <Button
+          css={(theme) => ({
+            background: theme.colors.eth,
+            color: theme.colors.page_bg_dark,
+            animation: "gradient 5s ease infinite",
+            backgroundSize: "400% 100%",
+          })}
+          href="https://play2.playingarts.com/"
+          component={Link}
         >
-          <Text component="h2" css={{ margin: 0 }}>
-            Card Battle{" "}
-            <span
+          Play now
+        </Button>
+      </StatBlock>
+      <div
+        css={(theme) => [
+          {
+            position: "absolute",
+            // left: 610,
+            height: "300vh",
+            // transform: "translateY(-50%)",
+            [theme.maxMQ.xsm]: {
+              top: -60,
+              left: 78,
+            },
+            [theme.mq.xsm]: {
+              // width: 2000,
+              left: "60%",
+              top: "-100vh",
+              [theme.maxMQ.sm]: {
+                left: "65%",
+              },
+            },
+            [theme.mq.md]: {
+              left: "51%",
+            },
+            zIndex: -1,
+            // width: "calc(100% - 610px)",
+            right: 0,
+            // left: 0,
+            // opacity: 0.6,
+          },
+        ]}
+      >
+        <div
+          css={(theme) => [
+            {
+              [theme.mq.xsm]: {
+                position: "sticky",
+                top: 0,
+              },
+            },
+          ]}
+        >
+          <div
+            css={(theme) => ({
+              // right: 35,
+              // top: "50%",
+              transformOrigin: "top left",
+              transform: "skew(19deg, -11.5deg)",
+              gap: 10,
+              position: "relative",
+              display: "grid",
+              // justifyContent: "end",
+              // opacity: 0.7,
+              // top: 202,
+              // left: 202,
+              // left: 0,
+              [theme.mq.xsm]: {
+                top: 202,
+                left: -7,
+                // left: "67%",
+                // top: theme.spacing(-33),
+                "--width": `${theme.spacing(23)}px !important`,
+                "--height": `${theme.spacing(29.6)}px !important`,
+              },
+              [theme.maxMQ.xsm]: {
+                gap: 5,
+                "--width": `${theme.spacing(10.5)}px !important`,
+                "--height": `${theme.spacing(13)}px !important`,
+              },
+              gridTemplateColumns: "auto auto auto",
+              width: "fit-content",
+            })}
+          >
+            <div
               css={(theme) => [
                 {
-                  border: "1px solid",
-                  borderColor: theme.colors.text_subtitle_light,
-                  color: theme.colors.text_subtitle_light,
-                  borderRadius: 30,
-                  padding: `${theme.spacing(0.2)}px ${theme.spacing(1)}px`,
-                  verticalAlign: "middle",
-                  letterSpacing: 0,
-                  textTransform: "capitalize",
-                  fontWeight: 500,
-                  fontSize: 14,
-                  fontFamily: "Work Sans, sans-serif",
-                  [theme.maxMQ.sm]: {
-                    fontSize: 12,
-                    lineHeight: 1.5,
+                  borderWidth: 4,
+
+                  borderRadius: theme.spacing(1.8),
+                  [theme.maxMQ.xsm]: {
+                    borderWidth: 2,
+                    borderRadius: theme.spacing(1),
+                  },
+                  borderStyle: "solid",
+                  borderColor: theme.colors.green,
+                },
+              ]}
+            >
+              <Card
+                noInfo={true}
+                customSize={true}
+                card={{
+                  ...mockEmptyCard,
+                  img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/9-c-y6x3v47U.jpg",
+                }}
+              />
+            </div>
+
+            <div
+              css={(theme) => [
+                {
+                  borderWidth: 4,
+
+                  borderRadius: theme.spacing(1.8),
+                  [theme.maxMQ.xsm]: {
+                    borderWidth: 2,
+                    borderRadius: theme.spacing(1),
+                  },
+                  borderStyle: "solid",
+                  borderColor: theme.colors.cadillac_pink,
+                },
+              ]}
+            >
+              <Card
+                noInfo={true}
+                customSize={true}
+                card={{
+                  ...mockEmptyCard,
+                  img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/j-s-3NE4b2t4.jpg",
+                }}
+              />
+            </div>
+            <div
+              css={(theme) => [
+                {
+                  borderRadius: theme.spacing(1.8),
+                  [theme.maxMQ.xsm]: {
+                    borderRadius: theme.spacing(1),
+                  },
+
+                  borderStyle: "dashed",
+                  borderColor: "grey",
+                  borderWidth: 2,
+                },
+              ]}
+            >
+              <Card
+                noInfo={true}
+                customSize={true}
+                card={{
+                  ...mockEmptyCard,
+                  background: "transparent",
+                }}
+              />
+            </div>
+            <div
+              css={(theme) => [
+                {
+                  borderWidth: 4,
+
+                  borderRadius: theme.spacing(1.8),
+                  [theme.maxMQ.xsm]: {
+                    borderWidth: 2,
+                    borderRadius: theme.spacing(1),
+                  },
+                  borderStyle: "solid",
+                  borderColor: theme.colors.cadillac_pink,
+                },
+              ]}
+            >
+              <Card
+                noInfo={true}
+                customSize={true}
+                card={{
+                  ...mockEmptyCard,
+                  img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/8-d-6Z3H92Kv.jpg",
+                }}
+              />
+            </div>
+            <div
+              css={(theme) => [
+                {
+                  borderRadius: theme.spacing(1.8),
+                  [theme.maxMQ.xsm]: {
+                    borderRadius: theme.spacing(1),
+                  },
+
+                  borderStyle: "dashed",
+                  borderColor: "grey",
+                  borderWidth: 2,
+                },
+              ]}
+            >
+              <Card
+                noInfo={true}
+                customSize={true}
+                card={{
+                  ...mockEmptyCard,
+                  background: "transparent",
+                }}
+              />
+            </div>
+            <div
+              css={(theme) => [
+                {
+                  borderWidth: 4,
+
+                  borderRadius: theme.spacing(1.8),
+                  [theme.maxMQ.xsm]: {
+                    borderWidth: 2,
+                    borderRadius: theme.spacing(1),
+                  },
+                  borderStyle: "solid",
+                  borderColor: theme.colors.green,
+                },
+              ]}
+            >
+              <Card
+                noInfo={true}
+                customSize={true}
+                card={{
+                  ...mockEmptyCard,
+                  img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/5-d-2Yb48c3D.jpg",
+                }}
+              />
+            </div>
+            <div
+              css={(theme) => [
+                {
+                  position: "absolute",
+                  [theme.mq.xsm]: {
+                    left: 160,
+                    top: 173,
+                    // left: "67%",
+                    // top: theme.spacing(-33),
+                    "--width": `${theme.spacing(24.5)}px !important`,
+                    "--height": `${theme.spacing(32)}px !important`,
+                  },
+                  [theme.maxMQ.xsm]: {
+                    left: 75,
+                    top: 70,
+                    "--width": `${theme.spacing(11.5)}px !important`,
+                    "--height": `${theme.spacing(15)}px !important`,
                   },
                 },
               ]}
             >
-              Beta
-            </span>
-          </Text>
-          <Text
-            variant="body2"
-            css={(theme) => [
-              {
-                margin: 0,
-                color: theme.colors.text_subtitle_light,
-                marginTop: theme.spacing(1),
-              },
-            ]}
-          >
-            Go head to head with opponents in turn-based playing card battle!
-          </Text>
-          <Line
-            palette="dark"
-            spacing={0}
-            css={(theme) => ({
-              marginTop: theme.spacing(3),
-              marginBottom: theme.spacing(3),
-              [theme.maxMQ.sm]: {
-                marginTop: theme.spacing(2),
-                marginBottom: theme.spacing(2),
-              },
-            })}
-          />
-          <Button
-            css={(theme) => ({
-              background: theme.colors.eth,
-              color: theme.colors.page_bg_dark,
-              animation: "gradient 5s ease infinite",
-              backgroundSize: "400% 100%",
-            })}
-            href="https://play2.playingarts.com/"
-            component={Link}
-          >
-            Play now
-          </Button>
-        </StatBlock>
-      </Grid>
-    </Layout>
-  );
-};
+              <div
+                css={(theme) => [
+                  {
+                    borderWidth: 4,
+
+                    borderRadius: theme.spacing(1.8),
+                    [theme.maxMQ.xsm]: {
+                      borderWidth: 2,
+                      borderRadius: theme.spacing(1),
+                    },
+                    borderStyle: "solid",
+                    borderColor: theme.colors.orange,
+                  },
+                ]}
+              >
+                <Card
+                  css={[
+                    {
+                      video: {
+                        objectFit: "fill",
+                      },
+                    },
+                  ]}
+                  noInfo={true}
+                  customSize={true}
+                  animated={true}
+                  card={{
+                    ...mockEmptyCard,
+                    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-d-Mk33LV47.jpg",
+
+                    video:
+                      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-d-Mk33LV47.mp4",
+                    background: "black",
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Grid>
+  </Layout>
+);
 
 export default memo(GamePromo);

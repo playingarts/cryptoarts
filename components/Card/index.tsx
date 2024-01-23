@@ -17,7 +17,7 @@ interface Props extends HTMLAttributes<HTMLElement> {
   filter?: boolean;
   customSize?: boolean;
   noTransition?: boolean;
-  // noShadowOnHover?:boolean;
+  withBorder?: keyof typeof theme.colors;
 }
 
 const slowTransitionOpacity = theme.transitions.slow("opacity");
@@ -34,7 +34,7 @@ const Card: FC<Props> = ({
   filter,
   customSize,
   noTransition,
-  // noShadowOnHover,
+  withBorder,
   ...props
 }) => {
   const [hovered, setHover] = useState(false);
@@ -126,27 +126,40 @@ const Card: FC<Props> = ({
             : {
                 boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.25)",
               },
-          owned && {
-            ":before": {
-              pointerEvents: "none",
-              content: '""',
-              position: "absolute",
-              boxSizing: "content-box",
-              top: -theme.spacing(0.3),
-              left: -theme.spacing(0.3),
-              padding: theme.spacing(0.3),
-              width: "100%",
-              height: "100%",
-              borderRadius: theme.spacing(1.8),
-              [theme.maxMQ.sm]: {
-                borderRadius: theme.spacing(1.3),
-              },
+          (owned || withBorder) && [
+            {
+              ":before": {
+                pointerEvents: "none",
+                content: '""',
+                position: "absolute",
+                boxSizing: "content-box",
+                // top: -theme.spacing(0.3),
+                // left: -theme.spacing(0.3),
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                padding: theme.spacing(0.3),
+                width: "100%",
+                height: "100%",
+                borderRadius: theme.spacing(1.8),
+                [theme.maxMQ.sm]: {
+                  borderRadius: theme.spacing(1.3),
+                },
 
-              background: theme.colors.eth,
-              backgroundSize: "400% 100%",
+                background: withBorder || theme.colors.eth,
+                backgroundSize: "400% 100%",
+              },
+              // ],
+            },
+            owned && {
               animation: "gradient 5s ease infinite",
             },
-          },
+            // emptyGameCard && {
+            //   borderStyle: "dashed",
+            //   borderColor: "gray",
+            //   borderWidth: 2,
+            // },
+          ],
           {
             [theme.mq.sm]: [
               hovered &&
