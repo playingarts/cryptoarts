@@ -260,6 +260,7 @@ const GamePromo: FC = () => (
                   }}
                 />
               </div>
+
               <div
                 css={(theme) => [
                   {
@@ -280,6 +281,35 @@ const GamePromo: FC = () => (
                   card={{
                     ...mockEmptyCard,
                     background: "transparent",
+                  }}
+                />
+              </div>
+              <div
+                css={(theme) => [
+                  {
+                    position: "absolute",
+                    transform: "rotate(4deg)",
+                    zIndex: -1,
+                    left: 0,
+                    bottom: 0,
+                    borderWidth: 4,
+
+                    borderRadius: theme.spacing(1.8),
+                    [theme.maxMQ.xsm]: {
+                      borderWidth: 2,
+                      borderRadius: theme.spacing(1),
+                    },
+                    borderStyle: "solid",
+                    borderColor: theme.colors.darkTurqoise,
+                  },
+                ]}
+              >
+                <Card
+                  noInfo={true}
+                  customSize={true}
+                  card={{
+                    ...mockEmptyCard,
+                    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/8-d-6Z3H92Kv.jpg",
                   }}
                 />
               </div>
@@ -341,7 +371,7 @@ const GamePromo: FC = () => (
                       borderRadius: theme.spacing(1),
                     },
                     borderStyle: "solid",
-                    borderColor: theme.colors.green,
+                    borderColor: theme.colors.darkTurqoise,
                   },
                 ]}
               >
@@ -389,8 +419,8 @@ const GamePromo: FC = () => (
                   // transform: "scale(0.5)",
                   transform: "skew(19deg, -11.5deg)",
                   [theme.mq.xsm]: {
-                    left: 280,
-                    top: 233,
+                    left: 270,
+                    top: 133,
                     // left: "67%",
                     // top: theme.spacing(-33),
                     "--width": `${theme.spacing(24.5)}px !important`,
@@ -398,7 +428,7 @@ const GamePromo: FC = () => (
                   },
                   [theme.maxMQ.xsm]: {
                     left: 125,
-                    top: 70,
+                    top: 60,
                     "--width": `${theme.spacing(11.5)}px !important`,
                     "--height": `${theme.spacing(15)}px !important`,
                   },
@@ -411,14 +441,14 @@ const GamePromo: FC = () => (
                     borderWidth: 4,
 
                     borderRadius: theme.spacing(1.8),
-                    filter: "drop-shadow(-10px 10px 20px black)",
+                    filter: "drop-shadow(-30px 40px 0px #00000044)",
                     [theme.maxMQ.xsm]: {
-                      filter: "drop-shadow(-5px 5px 10px black)",
+                      filter: "drop-shadow(-20px 20px 0px #00000044)",
                       borderWidth: 2,
                       borderRadius: theme.spacing(1),
                     },
                     borderStyle: "solid",
-                    borderColor: theme.colors.orange,
+                    borderColor: theme.colors.orangeRed,
                   },
                 ]}
               >
