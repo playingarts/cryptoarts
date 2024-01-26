@@ -197,7 +197,7 @@ const GamePromo: FC = () => (
                 position: "relative",
                 display: "grid",
                 [theme.mq.xsm]: {
-                  top: 102,
+                  top: 0,
                   left: -7,
                   "--width": `${theme.spacing(23)}px !important`,
                   "--height": `${theme.spacing(29.6)}px !important`,
@@ -214,6 +214,7 @@ const GamePromo: FC = () => (
               <div
                 css={(theme) => [
                   {
+                    position: "relative",
                     borderWidth: 4,
 
                     borderRadius: theme.spacing(1.8),
@@ -233,6 +234,29 @@ const GamePromo: FC = () => (
                     ...mockEmptyCard,
                     img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/9-c-y6x3v47U.jpg",
                   }}
+                />
+                <img
+                  src="https://i.seadn.io/gae/Jp1VMHkSAJr4xg7tUYYFdPy5gNXDMEZjMEZBIYFhKuWlbNZrR3wmud5UQPVdtTxK1nxdsVryH7hCwHmNEpOhih7sk-H3UhfRTSkE5w?auto=format&dpr=1&w=1000"
+                  css={(theme) => [
+                    {
+                      transform: "skew(-19deg, 11.5deg) translateX(55%)",
+                      backgroundSize: "contain",
+                      position: "absolute",
+                      top: 170,
+                      left: -70,
+                      width: 64,
+                      height: 64,
+                      borderRadius: "50%",
+                      border: "4px solid " + theme.colors.green,
+                      background: theme.colors.green,
+                      [theme.maxMQ.xsm]: {
+                        top: 75,
+                        left: -35,
+                        width: 32,
+                        height: 32,
+                      },
+                    },
+                  ]}
                 />
               </div>
 
@@ -325,6 +349,7 @@ const GamePromo: FC = () => (
                     },
                     borderStyle: "solid",
                     borderColor: theme.colors.cadillac_pink,
+                    position: "relative",
                   },
                 ]}
               >
@@ -335,6 +360,29 @@ const GamePromo: FC = () => (
                     ...mockEmptyCard,
                     img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/8-d-6Z3H92Kv.jpg",
                   }}
+                />
+                <img
+                  src="https://i.seadn.io/gcs/files/7698f508dcb916208e253c7d677dfa9e.png?auto=format&dpr=1&w=1000"
+                  css={(theme) => [
+                    {
+                      transform: "skew(-19deg, 11.5deg) translateX(55%)",
+                      backgroundSize: "contain",
+                      position: "absolute",
+                      top: 170,
+                      left: -70,
+                      width: 64,
+                      height: 64,
+                      borderRadius: "50%",
+                      border: "4px solid " + theme.colors.cadillac_pink,
+                      background: theme.colors.cadillac_pink,
+                      [theme.maxMQ.xsm]: {
+                        top: 75,
+                        left: -35,
+                        width: 32,
+                        height: 32,
+                      },
+                    },
+                  ]}
                 />
               </div>
               <div
@@ -419,8 +467,8 @@ const GamePromo: FC = () => (
                   // transform: "scale(0.5)",
                   transform: "skew(19deg, -11.5deg)",
                   [theme.mq.xsm]: {
-                    left: 270,
-                    top: 133,
+                    left: 250,
+                    // top: 83,
                     // left: "67%",
                     // top: theme.spacing(-33),
                     "--width": `${theme.spacing(24.5)}px !important`,
@@ -449,6 +497,7 @@ const GamePromo: FC = () => (
                     },
                     borderStyle: "solid",
                     borderColor: theme.colors.orangeRed,
+                    position: "relative",
                   },
                 ]}
               >
@@ -471,6 +520,30 @@ const GamePromo: FC = () => (
                       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-d-Mk33LV47.mp4",
                     background: "black",
                   }}
+                />
+
+                <img
+                  src="https://i.seadn.io/gcs/files/736151734c6d7edff4086a76676de927.png?auto=format&dpr=1&w=1000"
+                  css={(theme) => [
+                    {
+                      transform: "skew(-19deg, 11.5deg) translateX(55%)",
+                      backgroundSize: "contain",
+                      position: "absolute",
+                      top: 170,
+                      right: 0,
+                      width: 64,
+                      height: 64,
+                      borderRadius: "50%",
+                      border: "4px solid " + theme.colors.orangeRed,
+                      background: theme.colors.orangeRed,
+                      [theme.maxMQ.xsm]: {
+                        top: 75,
+                        right: 0,
+                        width: 32,
+                        height: 32,
+                      },
+                    },
+                  ]}
                 />
               </div>
             </div>
