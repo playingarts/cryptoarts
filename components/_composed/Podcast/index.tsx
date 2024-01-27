@@ -2,13 +2,11 @@ import { FC, HTMLAttributes } from "react";
 import Line from "../../../components/Line";
 import { usePodcasts } from "../../../hooks/podcast";
 import { socialLinks } from "../../../source/consts";
-import { breakpoints } from "../../../source/enums";
 import Button from "../../Button";
 import Itunes from "../../Icons/Itunes";
 import Play from "../../Icons/Play";
 import Spotify from "../../Icons/Spotify";
 import Link from "../../Link";
-import { useSize } from "../../SizeProvider";
 import StatBlock from "../../StatBlock";
 import Text from "../../Text";
 
@@ -30,8 +28,6 @@ const Podcast: FC<Props> = ({
   });
 
   const podcast = podcasts && podcasts[0];
-
-  const { width } = useSize();
 
   if (!podcast) {
     return null;
@@ -70,10 +66,13 @@ const Podcast: FC<Props> = ({
       >
         <div
           css={(theme) => ({
-            flexGrow: 1,
             display: "inline",
             [theme.mq.sm]: {
+              flexGrow: 1,
               paddingRight: theme.spacing(17),
+            },
+            [theme.maxMQ.sm]: {
+              width: "calc(100% - 140px)",
             },
           })}
         >
@@ -83,7 +82,7 @@ const Podcast: FC<Props> = ({
               marginTop: 0,
               marginBottom: theme.spacing(1),
               [theme.mq.sm]: [!smallTitle && theme.typography.h3],
-              [theme.maxMQ.sm]: theme.typography.h2,
+              [theme.maxMQ.sm]: theme.typography.h3,
             })}
           >
             {podcastName}
@@ -97,6 +96,8 @@ const Podcast: FC<Props> = ({
 
               [theme.maxMQ.sm]: {
                 marginTop: theme.spacing(1.5),
+                flexWrap: "wrap",
+                gap: theme.spacing(1),
               },
             })}
           >
@@ -111,60 +112,62 @@ const Podcast: FC<Props> = ({
                 Watch
               </Button>
             )}
-            {apple && (
-              <Button
-                // variant="bordered"
-                size="small"
-                Icon={Itunes}
-                css={(theme) => [
-                  {
-                    opacity: 1,
-                    transition: theme.transitions.fast("background"),
-                    background: "rgba(255,255,255,.1)",
-                    borderRadius: 50,
-                    width: 50,
-                    height: 50,
-                    "&:hover": {
-                      background: "rgba(255,255,255,.2)",
+            <div css={{ display: "flex", gap: "inherit" }}>
+              {apple && (
+                <Button
+                  // variant="bordered"
+                  size="small"
+                  Icon={Itunes}
+                  css={(theme) => [
+                    {
+                      opacity: 1,
+                      transition: theme.transitions.fast("background"),
+                      background: "rgba(255,255,255,.1)",
+                      borderRadius: 50,
+                      width: 50,
+                      height: 50,
+                      "&:hover": {
+                        background: "rgba(255,255,255,.2)",
+                      },
+                      [theme.maxMQ.sm]: {
+                        width: 42,
+                        height: 42,
+                      },
                     },
-                    [theme.maxMQ.sm]: {
-                      width: 42,
-                      height: 42,
+                  ]}
+                  component={Link}
+                  href={apple}
+                  target="_blank"
+                />
+              )}
+              {spotify && (
+                <Button
+                  // variant="bordered"
+                  size="small"
+                  Icon={Spotify}
+                  css={(theme) => [
+                    {
+                      opacity: 1,
+                      transition: theme.transitions.fast("background"),
+                      background: "rgba(255,255,255,.1)",
+                      borderRadius: 50,
+                      width: 50,
+                      height: 50,
+                      "&:hover": {
+                        background: "rgba(255,255,255,.2)",
+                      },
+                      [theme.maxMQ.sm]: {
+                        width: 42,
+                        height: 42,
+                      },
                     },
-                  },
-                ]}
-                component={Link}
-                href={apple}
-                target="_blank"
-              />
-            )}
-            {spotify && (
-              <Button
-                // variant="bordered"
-                size="small"
-                Icon={Spotify}
-                css={(theme) => [
-                  {
-                    opacity: 1,
-                    transition: theme.transitions.fast("background"),
-                    background: "rgba(255,255,255,.1)",
-                    borderRadius: 50,
-                    width: 50,
-                    height: 50,
-                    "&:hover": {
-                      background: "rgba(255,255,255,.2)",
-                    },
-                    [theme.maxMQ.sm]: {
-                      width: 42,
-                      height: 42,
-                    },
-                  },
-                ]}
-                component={Link}
-                href={spotify}
-                target="_blank"
-              />
-            )}
+                  ]}
+                  component={Link}
+                  href={spotify}
+                  target="_blank"
+                />
+              )}
+            </div>
           </div>
           {!withoutAction && (
             <Line
@@ -182,23 +185,26 @@ const Podcast: FC<Props> = ({
             />
           )}
         </div>
-        {width >= breakpoints.sm && (
-          <div
-            css={(theme) => ({
-              width: theme.spacing(16),
-              height: theme.spacing(16),
-              background: "#000",
-              borderRadius: "50%",
-              flexShrink: 0,
-              backgroundImage: `url(${image})`,
-              backgroundSize: "cover",
-              position: "absolute",
-              right: theme.spacing(4),
-              top: "50%",
-              transform: "translateY(-50%)",
-            })}
-          />
-        )}
+        <div
+          css={(theme) => ({
+            width: theme.spacing(16),
+            height: theme.spacing(16),
+            background: "#000",
+            borderRadius: "50%",
+            flexShrink: 0,
+            backgroundImage: `url(${image})`,
+            backgroundSize: "cover",
+            position: "absolute",
+            right: theme.spacing(4),
+            top: "50%",
+            transform: "translateY(-50%)",
+            [theme.maxMQ.sm]: {
+              width: theme.spacing(12),
+              height: theme.spacing(12),
+              right: theme.spacing(2),
+            },
+          })}
+        />
       </div>
     </StatBlock>
   );
