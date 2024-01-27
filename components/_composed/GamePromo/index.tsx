@@ -254,6 +254,7 @@ const GamePromo: FC = () => (
                         left: -35,
                         width: 32,
                         height: 32,
+                        borderWidth: 2,
                       },
                     },
                   ]}
@@ -380,6 +381,7 @@ const GamePromo: FC = () => (
                         left: -35,
                         width: 32,
                         height: 32,
+                        borderWidth: 2,
                       },
                     },
                   ]}
@@ -484,44 +486,48 @@ const GamePromo: FC = () => (
               ]}
             >
               <div
-                css={(theme) => [
-                  {
-                    borderWidth: 4,
-
-                    borderRadius: theme.spacing(1.8),
-                    filter: "drop-shadow(-30px 40px 0px #00000044)",
-                    [theme.maxMQ.xsm]: {
-                      filter: "drop-shadow(-20px 20px 0px #00000044)",
-                      borderWidth: 2,
-                      borderRadius: theme.spacing(1),
-                    },
-                    borderStyle: "solid",
-                    borderColor: theme.colors.orangeRed,
-                    position: "relative",
-                  },
-                ]}
+                css={{
+                  position: "relative",
+                }}
               >
-                <Card
-                  css={[
+                <div
+                  css={(theme) => [
                     {
-                      video: {
-                        objectFit: "fill",
+                      borderWidth: 4,
+
+                      borderRadius: theme.spacing(1.8),
+                      filter: "drop-shadow(-30px 40px 0px #00000044)",
+                      [theme.maxMQ.xsm]: {
+                        filter: "drop-shadow(-20px 20px 0px #00000044)",
+                        borderWidth: 2,
+                        borderRadius: theme.spacing(1),
                       },
+                      borderStyle: "solid",
+                      borderColor: theme.colors.orangeRed,
                     },
                   ]}
-                  noInfo={true}
-                  customSize={true}
-                  animated={true}
-                  card={{
-                    ...mockEmptyCard,
-                    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-d-Mk33LV47.jpg",
+                >
+                  <Card
+                    css={[
+                      {
+                        video: {
+                          objectFit: "fill",
+                        },
+                      },
+                    ]}
+                    noInfo={true}
+                    customSize={true}
+                    animated={true}
+                    card={{
+                      ...mockEmptyCard,
+                      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-d-Mk33LV47.jpg",
 
-                    video:
-                      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-d-Mk33LV47.mp4",
-                    background: "black",
-                  }}
-                />
-
+                      video:
+                        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/a-d-Mk33LV47.mp4",
+                      background: "black",
+                    }}
+                  />
+                </div>
                 <img
                   src="https://i.seadn.io/gcs/files/736151734c6d7edff4086a76676de927.png?auto=format&dpr=1&w=1000"
                   css={(theme) => [
@@ -541,6 +547,7 @@ const GamePromo: FC = () => (
                         right: 0,
                         width: 32,
                         height: 32,
+                        borderWidth: 2,
                       },
                     },
                   ]}
