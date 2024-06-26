@@ -12,6 +12,7 @@ import { pipe } from "fp-ts/lib/function";
 import * as T from "io-ts";
 import { Content } from "./content";
 import * as crypto from "crypto";
+import { Listing, getListings } from "./listing";
 
 const {
   NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
@@ -19,71 +20,75 @@ const {
   OPENSEA_KEY = "",
 } = process.env;
 
-export interface Asset {
-  token_id: string;
-  asset_contract: {
-    address: string;
-  };
-  top_ownerships: {
-    owner: {
-      address: string;
-    };
-  }[];
-  name: string;
-  seaport_sell_orders?: {
-    order_hash: string;
-    current_price: string;
-  }[];
-  traits: {
-    trait_type: string;
-    value: string;
-  }[];
-}
+// export interface Nft {
+//   identifier: string;
+//   contract: string;
+//   token_standard: string;
+//   name: string;
+//   description: string;
+//   traits: [
+//     {
+//       trait_type: string;
+//       value: string;
+//     }
+//   ];
+//   owners: Array<{
+//     address: string;
+//     quantity: string;
+//   }>;
+// }
 
-const schema = new Schema<GQL.Asset, Model<GQL.Asset>, GQL.Asset>({
-  token_id: String,
+const schema = new Schema<GQL.Nft, Model<GQL.Nft>, GQL.Nft>({
+  identifier: String,
+  contract: String,
+  token_standard: String,
   name: String,
-  top_ownerships: [{ owner: { address: String } }],
-  seaport_sell_orders: [{ order_hash: String, current_price: String }],
-  traits: [{ trait_type: String, value: String }],
-  asset_contract: {
-    address: String,
-  },
+  description: String,
+  traits: [
+    {
+      trait_type: String,
+      value: String,
+    },
+  ],
+  owners: [
+    {
+      address: String,
+      quantity: String,
+    },
+  ],
 });
 
-export const Asset =
-  (models.Asset as Model<GQL.Asset>) || model("Asset", schema);
+export const Nft = (models.Nft as Model<GQL.Nft>) || model("Nft", schema);
 
-const AssetType = T.interface({
-  token_id: T.string,
-  asset_contract: T.type({
-    address: T.string,
-  }),
+const NftType = T.interface({
+  identifier: T.string,
+  contract: T.string,
+  token_standard: T.string,
   name: T.string,
-  seaport_sell_orders: T.union([
-    T.null,
-    T.array(
-      T.type({
-        order_hash: T.string,
-        current_price: T.string,
-      })
-    ),
-  ]),
-  traits: T.array(
+  description: T.string,
+  // traits: T.array(
+  //   T.type({
+  //     trait_type: T.string,
+  //     value: T.string,
+  //   })
+  // ),
+  owners: T.array(
     T.type({
-      trait_type: T.string,
-      value: T.string,
+      address: T.string,
+      quantity: T.number,
     })
   ),
 });
 
-const OwnerType = T.interface({
-  owner: T.type({
-    address: T.string,
-  }),
-});
-const OwnersType = T.array(OwnerType);
-const AssetsType = T.array(AssetType);
+const NftsType = T.array(
+  T.interface({
+    identifier: T.string,
+    contract: T.string,
+    token_standard: T.string,
+    name: T.string,
+    description: T.string,
+  })
+);
 
 const decodeWith =
   <ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
@@ -115,18 +120,58 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
     return;
   }
 
-  const getOwners = (
-    index: string,
-    cursor?: string,
-    restartCount = 0,
-    allOwners: Asset["top_ownerships"] = []
-  ): Promise<Asset["top_ownerships"]> =>
+  let listingsnext = "";
+
+  const listingsArray: GQL.Listing[] = [];
+
+  do {
+    const ires = await fetch(
+      `https://api.opensea.io/api/v2/listings/collection/${
+        contractObject.data.name
+      }/best?limit=100${listingsnext === "" ? "" : "&next=" + listingsnext}`,
+      {
+        headers: {
+          accept: "application/json",
+          "X-API-KEY": OPENSEA_ASSETS_KEY,
+        },
+      }
+    );
+
+    const res = await ires.json();
+    const { listings, next } = res as {
+      next?: string;
+      listings: GQL.Listing[];
+    };
+
+    listingsArray.push(
+      ...listings.map((listing) => ({
+        ...listing,
+        protocol_data: {
+          parameters: {
+            offer: listing.protocol_data.parameters.offer.map((offer) => ({
+              ...offer,
+              token: offer.token.toLowerCase(),
+              identifierOrCriteria: offer.identifierOrCriteria.toLowerCase(),
+            })),
+          },
+        },
+      }))
+    );
+
+    listingsnext = next || "";
+  } while (listingsnext !== "");
+
+  await Listing.deleteMany({
+    "protocol_data.parameters.offer.token": contractObject.data.contract,
+  });
+
+  await Listing.insertMany(listingsArray);
+
+  console.log("done with listings");
+
+  const getNft = (id: string, restartCount = 0): Promise<GQL.Nft> =>
     fetch(
-      `https://api.opensea.io/api/v1/asset/${contractObject.data.contract}/${index}/owners?` +
-        new URLSearchParams({
-          limit: "50",
-          ...(cursor && { cursor }),
-        }),
+      `https://api.opensea.io/api/v2/chain/ethereum/contract/${contractObject.data.contract}/nfts/${id}`,
       {
         headers: {
           accept: "application/json",
@@ -135,19 +180,10 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
       }
     )
       .then((res) => res.json())
-      .then(async ({ next, owners, detail }) => {
-        if (detail) {
-          throw new Error(detail);
-        }
+      .then(async ({ nft }) => {
+        decodeWith(NftType)(nft);
 
-        decodeWith(OwnersType)(owners);
-
-        allOwners = [...allOwners, ...owners];
-        if (next) {
-          return await getOwners(index, next, 0, allOwners);
-        }
-
-        return owners;
+        return nft;
       })
       .catch(async (error) => {
         if (error.message.includes("Request was throttled")) {
@@ -161,7 +197,7 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           // }
           // console.error(`Request was throttled while fetching owner`);
         } else {
-          console.error("Failed to get OpenSea Owner:", error);
+          // console.error("Failed to get OpenSea Owner:", error);
 
           if (restartCount >= 10) {
             console.log("Restarted more than 10 times, dropping queue");
@@ -174,30 +210,24 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           }
         }
 
-        return new Promise<Asset["top_ownerships"]>((resolve) =>
+        return new Promise<GQL.Nft>((resolve) =>
           setTimeout(
-            () =>
-              resolve(getOwners(index, cursor, restartCount + 1, allOwners)),
+            () => resolve(getNft(id, restartCount + 1)),
             // error.message.includes("Error 429") ? 1000 : 500
             3000
           )
         );
       });
 
-  const getInitAssets = (
-    cursor?: string,
+  const getInitNfts = (
+    next?: string,
     index = 0,
     restartCount = 0
   ): Promise<any> =>
     fetch(
-      "https://api.opensea.io/api/v1/assets?" +
-        new URLSearchParams({
-          collection_slug: contractObject.data.name,
-          asset_contract_address: contractObject.data.contract,
-          limit: "200",
-          include_orders: "true",
-          ...(cursor && { cursor }),
-        }),
+      `https://api.opensea.io/api/v2/collection/${
+        contractObject.data.name
+      }/nfts?limit=200${!next ? "" : "&next=" + next}`,
       {
         headers: {
           accept: "application/json",
@@ -206,16 +236,16 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
       }
     )
       .then((res) => res.json())
-      .then(async ({ assets, next, detail }) => {
+      .then(async ({ nfts, next, detail }) => {
         if (detail) {
           throw new Error(detail);
         }
 
-        decodeWith(AssetsType)(assets);
+        decodeWith(NftsType)(nfts);
 
-        console.log("Fetched Assets: " + (index + assets.length));
+        console.log("Fetched Assets: " + (index + nfts.length));
 
-        const newAssets: Asset[] = [];
+        const newNfts: GQL.Nft[] = [];
 
         if (index === 0) {
           await Content.deleteMany({
@@ -223,31 +253,22 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           });
         }
 
-        for (const asset of assets) {
-          const owners = await getOwners(asset.token_id);
-          if (!owners) {
-            return;
-          }
+        for (const nft of nfts) {
+          const fullnft = await getNft(nft.identifier);
 
-          newAssets.push({
-            ...asset,
-            asset_contract: {
-              address: asset.asset_contract.address.toLowerCase(),
-            },
-            top_ownerships: owners.map((owner) => ({
-              owner: { address: owner.owner.address.toLowerCase() },
-            })),
+          newNfts.push({
+            ...fullnft,
           });
         }
 
-        await Asset.deleteMany({
-          $or: newAssets.map(({ token_id, asset_contract }) => ({
-            token_id,
-            asset_contract,
+        await Nft.deleteMany({
+          $or: newNfts.map(({ identifier, contract }) => ({
+            identifier,
+            contract,
           })),
         });
 
-        await Asset.insertMany(newAssets);
+        await Nft.insertMany(newNfts);
 
         const contract = await getContract({
           address: contractObject.data.contract,
@@ -257,8 +278,8 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
 
         const pages: string[] = [];
 
-        (assets as GQL.Asset[]).map(({ traits, token_id }) => {
-          if (traits.length !== 0) {
+        (newNfts as GQL.Nft[]).map(({ traits, identifier }) => {
+          if (traits) {
             const suit = (
               traits.find(
                 ({ trait_type }) =>
@@ -285,17 +306,18 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
             pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
           } else {
             const card = cards.find(
-              (card) => card.erc1155 && card.erc1155.token_id === token_id
+              (card) => card.erc1155 && card.erc1155.token_id === identifier
             );
 
             if (!card) {
-              throw new Error("Cannot revalidate: token_id " + token_id);
+              throw new Error("Cannot revalidate: token_id " + identifier);
             }
 
             pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
           }
         });
 
+        // if (process.env.NODE_ENV !== "development") {
         fetch(
           (process.env.NODE_ENV === "development"
             ? "http://localhost:3000"
@@ -317,6 +339,7 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
               secret: process.env.REVALIDATE_SECRET || "",
             })
         );
+        // }
 
         if (!next) {
           console.log(
@@ -331,7 +354,7 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           return;
         }
 
-        return getInitAssets(next, (index += assets.length));
+        return getInitNfts(next, (index += nfts.length));
       })
 
       .catch(async (error) => {
@@ -364,28 +387,27 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
         // }
         return new Promise<any>((resolve) =>
           setTimeout(
-            () => resolve(getInitAssets(cursor, index, restartCount + 1)),
+            () => resolve(getInitNfts(next, index, restartCount + 1)),
             // error.message.includes("Error 429") ? 1000 : 500
             3000
           )
         );
       });
 
-  getInitAssets();
+  getInitNfts();
 };
 
-const cachedAssets: Record<string, Asset[]> = {};
+const cachedAssets: Record<string, GQL.Nft[]> = {};
 
-const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
+const getCachedAssets = memoizee<(contract: string) => Promise<GQL.Nft[]>>(
   async (contract) => {
     if (!cachedAssets[contract]) {
-      const assets = await Asset.find({
-        "asset_contract.address": contract,
-      }).lean();
+      const assets = await Nft.find({ contract }).lean();
       cachedAssets[contract] = assets;
       return assets;
     }
-    Asset.find({
+
+    Nft.find({
       "asset_contract.address": contract,
     })
       .lean()
@@ -401,17 +423,16 @@ const getCachedAssets = memoizee<(contract: string) => Promise<Asset[]>>(
 );
 
 export const getAssets = memoizee<
-  (contract: string, name: string, hash?: string) => Promise<Asset[]>
+  (contract: string, name: string, hash?: string) => Promise<GQL.Nft[]>
 >(
   process.env.NODE_ENV === "development"
     ? async (_address, contract) => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
-        return require(`../../../mocks/${contract}.json`) as Asset[];
+        return require(`../../../mocks/${contract}.json`) as GQL.Nft[];
         // return [];
       }
     : //
       async (contract, name, hash) => {
-        // console.log(instances, instance);
         if (process.env.ALLOW_ASSETS_FETCH === "true") {
           const queueEntries = await Content.find({ key: "queue" });
 
@@ -427,17 +448,10 @@ export const getAssets = memoizee<
                 },
               });
             } else {
-              // await Content.deleteMany({
-              //   key: "queue",
-              //   "data.contract": contract,
-              //   "data.name": name,
-              // });
-
               await Content.insertMany({
                 key: "queue",
                 data: { contract, name, hash: newHash },
               });
-              // console.log(newHash);
             }
             getAssetsRaw(newHash);
           } else {
@@ -451,21 +465,6 @@ export const getAssets = memoizee<
                 data: { contract, name, hash: null },
               });
             }
-            // } else if (sameContract.data.hash === null) {
-            //   getAssetsRaw.hash = crypto.randomUUID();
-
-            //   await Content.deleteMany({
-            //     key: "queue",
-            //     data: { contract, name },
-            //   });
-
-            //   await Content.insertMany({
-            //     key: "queue",
-            //     data: { contract, name, hash: getAssetsRaw.hash },
-            //   });
-
-            //   getAssetsRaw.get();
-            // }
           }
         }
 
@@ -473,9 +472,7 @@ export const getAssets = memoizee<
           return getCachedAssets(contract).then((assets) =>
             assets.filter(
               (asset) =>
-                asset.top_ownerships.findIndex(
-                  ({ owner }) => owner.address === hash
-                ) !== -1
+                asset.owners.findIndex(({ address }) => address === hash) !== -1
             )
           );
         }
@@ -486,67 +483,7 @@ export const getAssets = memoizee<
     maxAge: 1000 * 1,
   }
 );
-// export const getAssetsRaw = (
-//   contract: string,
-//   contractSlug?: string,
-//   allAssets: Asset[] = [],
-//   cursor = ""
-// ): Promise<Asset[]> =>
-//   seaport.api
-//     .get<{
-//       assets: Asset[];
-//       next: string | null;
-//     }>("/api/v1/assets", {
-//       asset_contract_address: contract,
-//       ...(contractSlug && { collection_slug: contractSlug }),
-//       limit: 200,
-//       include_orders: true,
-//       cursor,
-//     })
-//     .then(({ assets, next }) => {
-//       allAssets = [...allAssets, ...assets];
 
-//       if (!next) {
-//         cachedAssets[contract] = allAssets;
-
-//         return allAssets;
-//       }
-
-//       return getAssetsRaw(contract, contractSlug, allAssets, next);
-//     })
-//     .catch((error) => {
-//       console.error("Failed to get OpenSea Assets:", error);
-
-//       return new Promise<Asset[]>((resolve) =>
-//         setTimeout(
-//           () =>
-//             resolve(getAssetsRaw(contract, contractSlug, allAssets, cursor)),
-//           error.message.includes("Error 429") ? 1000 : 500
-//         )
-//       );
-//     });
-
-// export const getAssets = memoizee<typeof getAssetsRaw>(
-//   process.env.NODE_ENV === "development"
-//     ? async (_contract, contractSlug) =>
-//         // eslint-disable-next-line @typescript-eslint/no-var-requires
-//         require(`../../../mocks/${contractSlug}.json`) as Asset[]
-//     : (contract, contractSlug) => {
-//         if (cachedAssets[contract]) {
-//           getAssetsRaw(contract, contractSlug);
-
-//           return Promise.resolve(cachedAssets[contract]);
-//         }
-
-//         return getAssetsRaw(contract, contractSlug);
-//       },
-//   {
-//     length: 1,
-//     primitive: true,
-//     maxAge: 1000 * 60 * 60,
-//     preFetch: true,
-//   }
-// );
 type CardSuitsType =
   | CardSuits.s
   | CardSuits.c
@@ -565,15 +502,15 @@ const getHolders = async (deck: string) => {
   const assets = await getAssets(contract.address, contract.name);
 
   const holders = (
-    assets.filter((asset) => !!asset.top_ownerships) as unknown as (Omit<
-      Asset,
+    assets.filter((asset) => !!asset.owners) as unknown as (Omit<
+      GQL.Nft,
       "owner"
     > &
-      Asset["top_ownerships"])[]
+      GQL.Nft["owners"])[]
   ).reduce<
     Record<string, { suit: CardSuitsType; value: string; tokens: string[] }[]>
-  >((data, { top_ownerships, traits, token_id }) => {
-    top_ownerships.map(({ owner: { address } }) => {
+  >((data, { owners, traits = [], identifier }) => {
+    owners.map(({ address }) => {
       if (!data[address]) {
         data[address] = [];
       }
@@ -581,6 +518,7 @@ const getHolders = async (deck: string) => {
       const suitTrait = traits.find(
         ({ trait_type }) => trait_type === "Suit" || trait_type === "Color"
       );
+
       const valueTrait = traits.find(
         ({ trait_type }) => trait_type === "Value"
       );
@@ -599,10 +537,10 @@ const getHolders = async (deck: string) => {
         data[address].push({
           suit: suitTrait.value.toLowerCase() as CardSuitsType,
           value: valueTrait.value.toLowerCase(),
-          tokens: [token_id],
+          tokens: [identifier],
         });
       } else {
-        exists.tokens.push(token_id);
+        exists.tokens.push(identifier);
       }
     });
 
@@ -668,68 +606,70 @@ const getHolders = async (deck: string) => {
   };
 };
 
-export const setOnSale = (asset: Asset) => ({
-  ...asset,
-  on_sale: !!asset.seaport_sell_orders,
-});
+export const setCard =
+  (contractId: string) => async (asset: GQL.Nft & { on_sale: boolean }) => {
+    const contract = await getContract({
+      address: contractId.toLowerCase(),
+    });
 
-export const setCard = (contractId: string) => async (asset: Asset) => {
-  const contract = await getContract({
-    address: contractId.toLowerCase(),
-  });
+    if (!contract) {
+      return asset;
+    }
 
-  if (!contract) {
-    return asset;
-  }
+    if (!asset.traits) {
+      return asset;
+    }
 
-  const valueTrait = asset.traits.find((trait) => trait.trait_type === "Value");
-  const suitTrait = asset.traits.find(
-    (trait) => trait.trait_type === "Suit" || trait.trait_type === "Color"
-  );
+    const valueTrait = asset.traits.find(
+      (trait) => trait.trait_type === "Value"
+    );
+    const suitTrait = asset.traits.find(
+      (trait) => trait.trait_type === "Suit" || trait.trait_type === "Color"
+    );
 
-  if (!suitTrait || !valueTrait) {
-    return asset;
-  }
+    if (!suitTrait || !valueTrait) {
+      return asset;
+    }
 
-  const card = await getCardByTraits({
-    deck: contract.deck._id.toString(),
-    suit: suitTrait.value.toLowerCase(),
-    value: valueTrait.value.toLowerCase(),
-  }).catch(() => null);
+    const card = await getCardByTraits({
+      deck: contract.deck._id.toString(),
+      suit: suitTrait.value.toLowerCase(),
+      value: valueTrait.value.toLowerCase(),
+    }).catch(() => null);
 
-  return { ...asset, card };
-};
-
-const getOnSale = async (
-  primary_asset_contracts: GQL.PrimaryAssetContract[],
-  slug: string
-) => {
-  if (!primary_asset_contracts[0] || !primary_asset_contracts[0].address) {
-    return;
-  }
-
-  const onSale = async (assets: Asset[]) => {
-    return assets
-      .filter(
-        ({ token_id, seaport_sell_orders }) => token_id && seaport_sell_orders
-      )
-      .map((item) => item.seaport_sell_orders)
-      .flat().length;
+    return { ...asset, card };
   };
 
-  return primary_asset_contracts.reduce<Promise<number> | number>(
-    async (prev, { address }) => {
-      if (!address) {
-        return prev;
-      }
+// const getOnSale = async (
+//   primary_asset_contracts: GQL.PrimaryAssetContract[],
+//   slug: string
+// ) => {
+//   if (!primary_asset_contracts[0] || !primary_asset_contracts[0].address) {
+//     return;
+//   }
 
-      const assets = await getAssets(address, slug);
+//   const onSale = async (assets: Nft[]) => {
+//     return assets
+//       .filter(
+//         ({ identifier, seaport_sell_orders }) => token_id && seaport_sell_orders
+//       )
+//       .map((item) => item.seaport_sell_orders)
+//       .flat().length;
+//   };
 
-      return (await prev) + (await onSale(assets));
-    },
-    0
-  );
-};
+//   return primary_asset_contracts.reduce<Promise<number> | number>(
+//     async (prev, { address }) => {
+//       if (!address) {
+//         return prev;
+//       }
+
+//       const assets = await getAssets(address, slug);
+
+//       return (await prev) + (await onSale(assets));
+//     },
+//     0
+//   );
+// };
 
 export const signatureValid = (address: string, signature: string) =>
   address.toLowerCase() ===
@@ -741,20 +681,12 @@ export const signatureValid = (address: string, signature: string) =>
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
   Opensea: {
-    id: ({ slug }) => slug,
-    editors: ({ editors = [] }) => editors,
-    payment_tokens: ({ payment_tokens = [] }) => payment_tokens,
-    primary_asset_contracts: ({ primary_asset_contracts = [] }) =>
-      primary_asset_contracts,
-    traits: ({ traits = {} }) => traits,
-    stats: async ({ stats = {}, primary_asset_contracts, slug }) => {
-      const onSale = await getOnSale(primary_asset_contracts, slug);
-
-      return {
-        ...stats,
-        onSale,
-      };
-    },
+    id: ({ id }) => id,
+    volume: ({ volume }) => volume,
+    num_owners: ({ num_owners }) => num_owners,
+    floor_price: ({ floor_price }) => floor_price,
+    total_supply: ({ total_supply }) => total_supply,
+    on_sale: ({ on_sale }) => on_sale,
   },
   Query: {
     opensea: async (_, { deck }) => {
@@ -762,15 +694,33 @@ export const resolvers: GQL.Resolvers = {
 
       const response = await (
         await fetch(
-          `https://api.opensea.io/api/v1/collection/${contract.name}`,
+          `https://api.opensea.io/api/v2/collections/${contract.name}/stats`,
           { headers: { "X-API-KEY": OPENSEA_KEY } }
         )
       ).json();
 
-      return {
-        ...response.collection,
+      const collection = await (
+        await fetch(
+          `https://api.opensea.io/api/v2/collections/${contract.name}`,
+          {
+            headers: { "X-API-KEY": OPENSEA_KEY },
+          }
+        )
+      ).json();
+
+      const listings = await getListings({});
+
+      const res = {
+        ...response.total,
+        // volume: response.total.volume,
+        // num_owners: response.total.num_owners,
+        // floor_price: response.total.floor_price,
+        total_supply: collection.total_supply,
+        on_sale: listings.length,
         id: contract.name,
       };
+
+      return res;
     },
     ownedAssets: async (_, { deck, address, signature }) => {
       if (!signatureValid(address, signature)) {
@@ -790,14 +740,14 @@ export const resolvers: GQL.Resolvers = {
           contracts.map(
             async (contract) => await getAssets(contract.address, contract.name)
           )
-        )) as Asset[][]
+        )) as GQL.Nft[][]
       ).flat();
 
       return assets.filter(
         (asset) =>
-          asset.top_ownerships &&
-          asset.top_ownerships.findIndex(
-            ({ owner }) => owner.address.toLowerCase() === address.toLowerCase()
+          asset.owners &&
+          asset.owners.findIndex(
+            (owner) => owner.address.toLowerCase() === address.toLowerCase()
           ) !== -1
       );
     },
@@ -809,31 +759,23 @@ export const typeDefs = gql`
   scalar JSON
 
   type Query {
-    ownedAssets(deck: ID!, address: String!, signature: String!): [Asset]!
+    ownedAssets(deck: ID!, address: String!, signature: String!): [Nft]!
     opensea(deck: ID!): Opensea!
     holders(deck: ID!): Holders
   }
 
-  type Asset {
-    token_id: String!
+  type Nft {
+    identifier: String!
+    contract: String!
+    token_standard: String!
     name: String!
-    top_ownerships: [TopOwnerships!]!
-    seaport_sell_orders: [SeaportSellOrders!]
-    traits: [Trait!]!
-    asset_contract: OpenseaContract!
-  }
-
-  type SeaportSellOrders {
-    order_hash: String!
-    current_price: String!
+    description: String!
+    traits: [Trait!]
+    owners: [Owner!]!
   }
 
   type OpenseaContract {
     address: String!
-  }
-
-  type TopOwnerships {
-    owner: Owner!
   }
 
   type Trait {
@@ -843,99 +785,16 @@ export const typeDefs = gql`
 
   type Owner {
     address: String!
+    quantity: String!
   }
 
   type Opensea {
     id: ID!
-    editors: [String!]!
-    payment_tokens: [PaymentToken!]!
-    primary_asset_contracts: [PrimaryAssetContract!]!
-    traits: JSON!
-    stats: Stats!
-    banner_image_url: String
-    created_date: String
-    default_to_fiat: Boolean
-    description: String
-    dev_buyer_fee_basis_points: String
-    dev_seller_fee_basis_points: String
-    discord_url: String
-    external_url: String
-    featured: Boolean
-    featured_image_url: String
-    hidden: Boolean
-    safelist_request_status: String
-    image_url: String
-    is_subject_to_whitelist: Boolean
-    large_image_url: String
-    name: String
-    only_proxied_transfers: Boolean
-    opensea_buyer_fee_basis_points: String
-    opensea_seller_fee_basis_points: String
-    payout_address: String
-    require_email: Boolean
-    slug: ID!
-    twitter_username: String
-    instagram_username: String
-  }
-
-  type PaymentToken {
-    id: Int
-    symbol: String
-    address: String
-    image_url: String
-    name: String
-    decimals: Int
-    eth_price: Float
-    usd_price: Float
-  }
-
-  type PrimaryAssetContract {
-    address: String
-    asset_contract_type: String
-    created_date: String
-    name: String
-    nft_version: String
-    owner: Int
-    schema_name: String
-    symbol: String
-    total_supply: String
-    description: String
-    external_link: String
-    image_url: String
-    default_to_fiat: Boolean
-    dev_buyer_fee_basis_points: Int
-    dev_seller_fee_basis_points: Int
-    only_proxied_transfers: Boolean
-    opensea_buyer_fee_basis_points: Int
-    opensea_seller_fee_basis_points: Int
-    buyer_fee_basis_points: Int
-    seller_fee_basis_points: Int
-    payout_address: String
-  }
-
-  type Stats {
-    one_day_volume: Float
-    one_day_change: Float
-    one_day_sales: Float
-    one_day_average_price: Float
-    seven_day_volume: Float
-    seven_day_change: Float
-    seven_day_sales: Float
-    seven_day_average_price: Float
-    thirty_day_volume: Float
-    thirty_day_change: Float
-    thirty_day_sales: Float
-    thirty_day_average_price: Float
-    total_volume: Float
-    total_sales: Float
-    total_supply: Float
-    count: Float
-    num_owners: Int
-    average_price: Float
-    num_reports: Int
-    market_cap: Float
-    floor_price: Float
-    onSale: Int
+    volume: Float!
+    floor_price: Float!
+    num_owners: String!
+    total_supply: String!
+    on_sale: String!
   }
 
   type Holders {

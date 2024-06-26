@@ -98,8 +98,10 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
 
   const currentCardIndex =
     card && cards.findIndex(({ _id }) => _id === card._id);
-  const prevCard = currentCardIndex && cards[currentCardIndex - 1];
-  const nextCard = currentCardIndex && cards[currentCardIndex + 1];
+  const prevCard =
+    currentCardIndex !== undefined && cards[currentCardIndex - 1];
+  const nextCard =
+    currentCardIndex !== undefined && cards[currentCardIndex + 1];
 
   return (
     <Fragment>

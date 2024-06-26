@@ -75,7 +75,7 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
           (owned) =>
             (owned.suit.toLowerCase() === card.suit &&
               owned.value === card.value) ||
-            (card.erc1155 && card.erc1155.token_id === owned.token_id)
+            (card.erc1155 && card.erc1155.token_id === owned.identifier)
         ) !== -1,
     }));
 

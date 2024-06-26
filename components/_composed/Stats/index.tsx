@@ -7,9 +7,9 @@ interface Props extends StatBlockProps {
   opensea?: GQL.Opensea;
 }
 
-const Content: FC<GQL.Opensea["stats"]> = ({
+const Content: FC<GQL.Opensea> = ({
   num_owners,
-  total_volume,
+  total_supply,
   floor_price,
 }) => (
   <div
@@ -42,7 +42,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({
       <Stat
         palette="dark"
         label="FLOOR PRICE"
-        value={parseFloat(floor_price.toFixed(2)).toLocaleString()}
+        value={parseFloat(floor_price.toFixed(3)).toLocaleString()}
         eth={true}
         css={(theme) => [
           {
@@ -52,11 +52,11 @@ const Content: FC<GQL.Opensea["stats"]> = ({
         ]}
       />
     )}
-    {total_volume && (
+    {total_supply && (
       <Stat
         palette="dark"
         label="VOLUME TRADED"
-        value={parseFloat(total_volume.toFixed(0)).toLocaleString()}
+        value={parseFloat(Number(total_supply).toFixed(0)).toLocaleString()}
         eth={true}
         css={[{ flexGrow: 1 }]}
       />
@@ -75,7 +75,7 @@ const ComposedStats: FC<Props> = ({ opensea, ...props }) => {
         target: "_blank",
       }}
     >
-      {opensea && <Content {...opensea.stats} />}
+      {opensea && <Content {...opensea} />}
     </StatBlock>
   );
 };

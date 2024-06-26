@@ -1,200 +1,328 @@
-[
-  {
-    "asset_contract": {
-      "address": "0x495f947276749ce646f68ac8c248420045cb7b5e"
-    },
-    "_id": "639a1a68868f1a1864672311",
-    "name": "Crypto Edition Crystal Backside",
-    "seaport_sell_orders": null,
-    "traits": [],
-    "token_id": "60343876818614931036759583401419826937339570281218946026720664961069625638921",
-    "top_ownerships": [
-      {
-        "owner": { "address": "0x937af09bd43bd2601b21d68f5a5b7fdad45795cc" },
-        "_id": "639a1a68868f1a1864672312"
-      },
-      {
-        "owner": { "address": "0x50664ede715e131f584d3e7eaabd7818bb20a068" },
-        "_id": "639a1a68868f1a1864672313"
-      },
-      {
-        "owner": { "address": "0x6e9fe041e0ba8c2af35215d900d188d53d7a9b41" },
-        "_id": "639a1a68868f1a1864672314"
-      },
-      {
-        "owner": { "address": "0x88750a035f521812bffedbf9014357282cf2d2e7" },
-        "_id": "639a1a68868f1a1864672315"
-      },
-      {
-        "owner": { "address": "0x030adc393d007b2202fe93285d419018a6544745" },
-        "_id": "639a1a68868f1a1864672316"
-      },
-      {
-        "owner": { "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded" },
-        "_id": "639a1a68868f1a1864672317"
-      },
-      {
-        "owner": { "address": "0x2bf960f432c71505881a289558846b136c6b8853" },
-        "_id": "639a1a68868f1a1864672318"
-      },
-      {
-        "owner": { "address": "0x9f8ba5fa5f32a625bb9bdf198058f72a5dfd2839" },
-        "_id": "639a1a68868f1a1864672319"
-      },
-      {
-        "owner": { "address": "0x85696c8684f13e4ac9399eec92604c03d708f7f2" },
-        "_id": "639a1a68868f1a186467231a"
-      }
-    ],
-    "__v": 0
+[{
+  "_id": {
+    "$oid": "667af6a97280ec4e5f4d6a7c"
   },
-  {
-    "asset_contract": {
-      "address": "0x495f947276749ce646f68ac8c248420045cb7b5e"
+  "identifier": "60343876818614931036759583401419826937339570281218946026720664961069625638921",
+  "contract": "0x495f947276749ce646f68ac8c248420045cb7b5e",
+  "token_standard": "erc1155",
+  "name": "Crypto Edition Crystal Backside",
+  "description": "**Crypto Edition Crystal Backside by Stu Ballinger**\n\nhttps://playingarts.com/en/crypto/crystal\n\nEdition of 9",
+  "traits": null,
+  "owners": [
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a7d"
+      },
+      "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded",
+      "quantity": "1"
     },
-    "_id": "639a1a68868f1a186467231b",
-    "name": "Crypto Edition Backside",
-    "seaport_sell_orders": null,
-    "traits": [],
-    "token_id": "60343876818614931036759583401419826937339570281218946026720664959970114011172",
-    "top_ownerships": [
-      {
-        "owner": { "address": "0x937af09bd43bd2601b21d68f5a5b7fdad45795cc" },
-        "_id": "639a1a68868f1a186467231c"
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a7e"
       },
-      {
-        "owner": { "address": "0x683ee084d5330fc8cd47008342f26a1e269bb6ba" },
-        "_id": "639a1a68868f1a186467231d"
+      "address": "0x50664ede715e131f584d3e7eaabd7818bb20a068",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a7f"
       },
-      {
-        "owner": { "address": "0xca33f1a1834ad59072cb7e2f6bfef3ba17a75828" },
-        "_id": "639a1a68868f1a186467231e"
+      "address": "0x6e9fe041e0ba8c2af35215d900d188d53d7a9b41",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a80"
       },
-      {
-        "owner": { "address": "0x4cca9821c246acd39a42f34e6ae4e520a8224565" },
-        "_id": "639a1a68868f1a186467231f"
+      "address": "0x88750a035f521812bffedbf9014357282cf2d2e7",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a81"
       },
-      {
-        "owner": { "address": "0x3dc5be3cbfad5bbe981a2cb0c4a65e2dc056c741" },
-        "_id": "639a1a68868f1a1864672320"
+      "address": "0x2bf960f432c71505881a289558846b136c6b8853",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a82"
       },
-      {
-        "owner": { "address": "0x11d06cadce8ac9c90353691cfeb2f12f886d7bda" },
-        "_id": "639a1a68868f1a1864672321"
+      "address": "0x9f8ba5fa5f32a625bb9bdf198058f72a5dfd2839",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a83"
       },
-      {
-        "owner": { "address": "0x3f6aaa7811d017eeb8b4bcca622671bded2c5851" },
-        "_id": "639a1a68868f1a1864672322"
+      "address": "0x85696c8684f13e4ac9399eec92604c03d708f7f2",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a84"
       },
-      {
-        "owner": { "address": "0x39f52180e71dbbae7e1b03cbb557f2ac3e7ac8df" },
-        "_id": "639a1a68868f1a1864672323"
+      "address": "0x030adc393d007b2202fe93285d419018a6544745",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a85"
       },
-      {
-        "owner": { "address": "0xc1439e2a7eb64de0223287a0389dc865f4d909e1" },
-        "_id": "639a1a68868f1a1864672324"
+      "address": "0x937af09bd43bd2601b21d68f5a5b7fdad45795cc",
+      "quantity": "1"
+    }
+  ],
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "667af6a97280ec4e5f4d6a86"
+  },
+  "identifier": "60343876818614931036759583401419826937339570281218946026720664959970114011172",
+  "contract": "0x495f947276749ce646f68ac8c248420045cb7b5e",
+  "token_standard": "erc1155",
+  "name": "Crypto Edition Backside",
+  "description": "**Crypto Edition Backside by Stu Ballinger**\n\n“An experiment in kaleidoscopic refractions, produced by forming a lens out of an array of prisms.”\n\n[https://playingarts.com/en/crypto/stu-ballinger](https://playingarts.com/en/crypto/stu-ballinger)\n\nEdition of 36",
+  "traits": null,
+  "owners": [
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a87"
       },
-      {
-        "owner": { "address": "0x0cc8dc80c7ab8f2cbaebc376824031b29bff0263" },
-        "_id": "639a1a68868f1a1864672325"
+      "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded",
+      "quantity": "3"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a88"
       },
-      {
-        "owner": { "address": "0xc07f2785adfdd4ffe9288a1ab77ed5e147ade0bf" },
-        "_id": "639a1a68868f1a1864672326"
+      "address": "0xb413a48088cfb0074f75349c790062920434e321",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a89"
       },
-      {
-        "owner": { "address": "0xa7d79d08c788860136fce0c3d6e82939b1d03a06" },
-        "_id": "639a1a68868f1a1864672327"
+      "address": "0x4b9ad0277fc290e48783315db1ce78ed513dd5d9",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a8a"
       },
-      {
-        "owner": { "address": "0x88750a035f521812bffedbf9014357282cf2d2e7" },
-        "_id": "639a1a68868f1a1864672328"
+      "address": "0x50664ede715e131f584d3e7eaabd7818bb20a068",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a8b"
       },
-      {
-        "owner": { "address": "0x6e9fe041e0ba8c2af35215d900d188d53d7a9b41" },
-        "_id": "639a1a68868f1a1864672329"
+      "address": "0x09be9ab0eb61327d26904bae69efdc6633d5eec8",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a8c"
       },
-      {
-        "owner": { "address": "0x030adc393d007b2202fe93285d419018a6544745" },
-        "_id": "639a1a68868f1a186467232a"
+      "address": "0xd9d23db5632262033ad9f73ac8fbba8d76d00188",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a8d"
       },
-      {
-        "owner": { "address": "0x9f8ba5fa5f32a625bb9bdf198058f72a5dfd2839" },
-        "_id": "639a1a68868f1a186467232b"
+      "address": "0xc07f2785adfdd4ffe9288a1ab77ed5e147ade0bf",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a8e"
       },
-      {
-        "owner": { "address": "0x819884634b84b3f9b71abde27ad1c599d8327176" },
-        "_id": "639a1a68868f1a186467232c"
+      "address": "0x6e9fe041e0ba8c2af35215d900d188d53d7a9b41",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a8f"
       },
-      {
-        "owner": { "address": "0x88e092adf7039676e6e16fb825004002f35763b2" },
-        "_id": "639a1a68868f1a186467232d"
+      "address": "0xf7b18e107eb36797f4ce36de756630b9c30969ad",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a90"
       },
-      {
-        "owner": { "address": "0xf7b18e107eb36797f4ce36de756630b9c30969ad" },
-        "_id": "639a1a68868f1a186467232e"
+      "address": "0xd7e630afcf128feb8b9071a8412914478c00c22a",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a91"
       },
-      {
-        "owner": { "address": "0x6bf97f2534be2242ddb3a29bfb24d498212dcded" },
-        "_id": "639a1a68868f1a186467232f"
+      "address": "0x819884634b84b3f9b71abde27ad1c599d8327176",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a92"
       },
-      {
-        "owner": { "address": "0xd9d23db5632262033ad9f73ac8fbba8d76d00188" },
-        "_id": "639a1a68868f1a1864672330"
+      "address": "0xf4580a1f39dbdd9b03103741604a3a92f5b9a5c8",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a93"
       },
-      {
-        "owner": { "address": "0xb32b4350c25141e779d392c1dbe857b62b60b4c9" },
-        "_id": "639a1a68868f1a1864672331"
+      "address": "0xbd1293983cbdc189f986bafda8cbf9f37fb30e2c",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a94"
       },
-      {
-        "owner": { "address": "0xcb8475a4f2347c98af453d2ea36d86e756650ee4" },
-        "_id": "639a1a68868f1a1864672332"
+      "address": "0x1005d96fd7a2135d380e6f5363f9b7bb5e8ce73d",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a95"
       },
-      {
-        "owner": { "address": "0x335de6459748718bf6e04888ec1f35696ad03967" },
-        "_id": "639a1a68868f1a1864672333"
+      "address": "0x39f52180e71dbbae7e1b03cbb557f2ac3e7ac8df",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a96"
       },
-      {
-        "owner": { "address": "0x4b9ad0277fc290e48783315db1ce78ed513dd5d9" },
-        "_id": "639a1a68868f1a1864672334"
+      "address": "0xc1439e2a7eb64de0223287a0389dc865f4d909e1",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a97"
       },
-      {
-        "owner": { "address": "0xb413a48088cfb0074f75349c790062920434e321" },
-        "_id": "639a1a68868f1a1864672335"
+      "address": "0x3dc5be3cbfad5bbe981a2cb0c4a65e2dc056c741",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a98"
       },
-      {
-        "owner": { "address": "0x50664ede715e131f584d3e7eaabd7818bb20a068" },
-        "_id": "639a1a68868f1a1864672336"
+      "address": "0xa7d79d08c788860136fce0c3d6e82939b1d03a06",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a99"
       },
-      {
-        "owner": { "address": "0xc6c60fdc5b2379aabc853d45ebeb12af7fc63841" },
-        "_id": "639a1a68868f1a1864672337"
+      "address": "0x4cca9821c246acd39a42f34e6ae4e520a8224565",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a9a"
       },
-      {
-        "owner": { "address": "0x09be9ab0eb61327d26904bae69efdc6633d5eec8" },
-        "_id": "639a1a68868f1a1864672338"
+      "address": "0x88e092adf7039676e6e16fb825004002f35763b2",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a9b"
       },
-      {
-        "owner": { "address": "0x1005d96fd7a2135d380e6f5363f9b7bb5e8ce73d" },
-        "_id": "639a1a68868f1a1864672339"
+      "address": "0x88750a035f521812bffedbf9014357282cf2d2e7",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a9c"
       },
-      {
-        "owner": { "address": "0xf4580a1f39dbdd9b03103741604a3a92f5b9a5c8" },
-        "_id": "639a1a68868f1a186467233a"
+      "address": "0xc6c60fdc5b2379aabc853d45ebeb12af7fc63841",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a9d"
       },
-      {
-        "owner": { "address": "0xbd1293983cbdc189f986bafda8cbf9f37fb30e2c" },
-        "_id": "639a1a68868f1a186467233b"
+      "address": "0x2bf960f432c71505881a289558846b136c6b8853",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a9e"
       },
-      {
-        "owner": { "address": "0x2bf960f432c71505881a289558846b136c6b8853" },
-        "_id": "639a1a68868f1a186467233c"
+      "address": "0xb32b4350c25141e779d392c1dbe857b62b60b4c9",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6a9f"
       },
-      {
-        "owner": { "address": "0xd7e630afcf128feb8b9071a8412914478c00c22a" },
-        "_id": "639a1a68868f1a186467233d"
-      }
-    ],
-    "__v": 0
-  }
-]
+      "address": "0x683ee084d5330fc8cd47008342f26a1e269bb6ba",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa0"
+      },
+      "address": "0x9f8ba5fa5f32a625bb9bdf198058f72a5dfd2839",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa1"
+      },
+      "address": "0x335de6459748718bf6e04888ec1f35696ad03967",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa2"
+      },
+      "address": "0x3f6aaa7811d017eeb8b4bcca622671bded2c5851",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa3"
+      },
+      "address": "0x11d06cadce8ac9c90353691cfeb2f12f886d7bda",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa4"
+      },
+      "address": "0x030adc393d007b2202fe93285d419018a6544745",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa5"
+      },
+      "address": "0x0cc8dc80c7ab8f2cbaebc376824031b29bff0263",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa6"
+      },
+      "address": "0xca33f1a1834ad59072cb7e2f6bfef3ba17a75828",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa7"
+      },
+      "address": "0xcb8475a4f2347c98af453d2ea36d86e756650ee4",
+      "quantity": "1"
+    },
+    {
+      "_id": {
+        "$oid": "667af6a97280ec4e5f4d6aa8"
+      },
+      "address": "0x937af09bd43bd2601b21d68f5a5b7fdad45795cc",
+      "quantity": "1"
+    }
+  ],
+  "__v": 0
+}]

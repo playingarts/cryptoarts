@@ -55,11 +55,9 @@ export const resolvers: GQL.Resolvers = {
           const assets = await getAssets(contract.address, contract.name);
 
           const assetsOwned = assets.filter(
-            ({ top_ownerships }) =>
-              top_ownerships &&
-              top_ownerships.findIndex(
-                ({ owner }) => owner.address === hash
-              ) !== -1
+            ({ owners }) =>
+              owners &&
+              owners.findIndex(({ address }) => address === hash) !== -1
           ).length;
 
           if (assetsOwned > 0) {

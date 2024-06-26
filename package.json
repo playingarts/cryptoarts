@@ -22,7 +22,8 @@
     "storybook": "STORYBOOK=true start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test": "jest --watch",
-    "testManual": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./__tests__/index"
+    "testManual": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./__tests__/index",
+    "testOpensea": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./__tests__/test"
   },
   "engines": {
     "node": "^21"

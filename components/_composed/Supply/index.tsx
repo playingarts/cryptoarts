@@ -12,14 +12,14 @@ interface Props extends StatBlockProps {
   opensea?: GQL.Opensea;
 }
 
-const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => {
+const Content: FC<GQL.Opensea> = ({ on_sale, total_supply }) => {
   const { width } = useSize();
   return (
     <Fragment>
       {total_supply && (
         <Stat value={total_supply.toLocaleString()} label="Total nft supply" />
       )}
-      {total_supply && onSale && (
+      {total_supply && on_sale && (
         <div
           css={(theme) => [
             {
@@ -43,10 +43,10 @@ const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => {
               },
             })}
             dataPoints={[
-              { name: "onSale", value: onSale },
+              { name: "onSale", value: Number(on_sale) },
               {
                 name: "off sale",
-                value: total_supply - onSale,
+                value: Number(total_supply) - Number(on_sale),
                 color: "charcoal_gray",
               },
             ]}
@@ -75,7 +75,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => {
                   },
                 ]}
               >
-                {onSale} on sale
+                {on_sale} on sale
               </Text>
               <Text
                 variant="h6"
@@ -88,7 +88,7 @@ const Content: FC<GQL.Opensea["stats"]> = ({ onSale, total_supply }) => {
                   },
                 ]}
               >
-                {total_supply - onSale} off sale
+                {Number(total_supply) - Number(on_sale)} off sale
               </Text>
             </div>
           )}
@@ -105,7 +105,7 @@ const ComposedSupply: FC<Props> = ({ opensea, ...props }) => {
       title="supply"
       action={{
         href: socialLinks.onSale,
-        children: `On Sale ${opensea ? opensea.stats.onSale : ""}`,
+        children: `On Sale ${opensea ? opensea.on_sale : ""}`,
         target: "_blank",
       }}
     >
@@ -116,7 +116,7 @@ const ComposedSupply: FC<Props> = ({ opensea, ...props }) => {
           height: "100%",
         }}
       >
-        {opensea && <Content {...opensea.stats} />}
+        {opensea && <Content {...opensea} />}
         <div>
           <Line palette="dark" spacing={0} />
         </div>

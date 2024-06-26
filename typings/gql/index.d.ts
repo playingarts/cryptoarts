@@ -28,7 +28,7 @@ interface Query {
   heroCards: Array<Card>;
   products: Array<Product>;
   convertEurToUsd?: Maybe<Scalars['Float']>;
-  ownedAssets: Array<Maybe<Asset>>;
+  ownedAssets: Array<Maybe<Nft>>;
   opensea: Opensea;
   holders?: Maybe<Holders>;
   deal?: Maybe<Deal>;
@@ -37,6 +37,7 @@ interface Query {
   contract?: Maybe<Contract>;
   losersValues: Array<Loser>;
   losers: Array<Loser>;
+  listings: Array<Maybe<Listing>>;
 }
 
 
@@ -139,6 +140,12 @@ interface QueryLosersValuesArgs {
 
 interface QueryLosersArgs {
   deck: Scalars['ID'];
+}
+
+
+interface QueryListingsArgs {
+  address?: Maybe<Scalars['String']>;
+  tokenIds?: Maybe<Array<Scalars['String']>>;
 }
 
 interface Deck {
@@ -255,30 +262,20 @@ interface Product {
   short: Scalars['String'];
 }
 
-interface Asset {
-  __typename?: 'Asset';
-  token_id: Scalars['String'];
+interface Nft {
+  __typename?: 'Nft';
+  identifier: Scalars['String'];
+  contract: Scalars['String'];
+  token_standard: Scalars['String'];
   name: Scalars['String'];
-  top_ownerships: Array<TopOwnerships>;
-  seaport_sell_orders?: Maybe<Array<SeaportSellOrders>>;
-  traits: Array<Trait>;
-  asset_contract: OpenseaContract;
-}
-
-interface SeaportSellOrders {
-  __typename?: 'SeaportSellOrders';
-  order_hash: Scalars['String'];
-  current_price: Scalars['String'];
+  description: Scalars['String'];
+  traits?: Maybe<Array<Trait>>;
+  owners: Array<Owner>;
 }
 
 interface OpenseaContract {
   __typename?: 'OpenseaContract';
   address: Scalars['String'];
-}
-
-interface TopOwnerships {
-  __typename?: 'TopOwnerships';
-  owner: Owner;
 }
 
 interface Trait {
@@ -290,103 +287,17 @@ interface Trait {
 interface Owner {
   __typename?: 'Owner';
   address: Scalars['String'];
+  quantity: Scalars['String'];
 }
 
 interface Opensea {
   __typename?: 'Opensea';
   id: Scalars['ID'];
-  editors: Array<Scalars['String']>;
-  payment_tokens: Array<PaymentToken>;
-  primary_asset_contracts: Array<PrimaryAssetContract>;
-  traits: Scalars['JSON'];
-  stats: Stats;
-  banner_image_url?: Maybe<Scalars['String']>;
-  created_date?: Maybe<Scalars['String']>;
-  default_to_fiat?: Maybe<Scalars['Boolean']>;
-  description?: Maybe<Scalars['String']>;
-  dev_buyer_fee_basis_points?: Maybe<Scalars['String']>;
-  dev_seller_fee_basis_points?: Maybe<Scalars['String']>;
-  discord_url?: Maybe<Scalars['String']>;
-  external_url?: Maybe<Scalars['String']>;
-  featured?: Maybe<Scalars['Boolean']>;
-  featured_image_url?: Maybe<Scalars['String']>;
-  hidden?: Maybe<Scalars['Boolean']>;
-  safelist_request_status?: Maybe<Scalars['String']>;
-  image_url?: Maybe<Scalars['String']>;
-  is_subject_to_whitelist?: Maybe<Scalars['Boolean']>;
-  large_image_url?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  only_proxied_transfers?: Maybe<Scalars['Boolean']>;
-  opensea_buyer_fee_basis_points?: Maybe<Scalars['String']>;
-  opensea_seller_fee_basis_points?: Maybe<Scalars['String']>;
-  payout_address?: Maybe<Scalars['String']>;
-  require_email?: Maybe<Scalars['Boolean']>;
-  slug: Scalars['ID'];
-  twitter_username?: Maybe<Scalars['String']>;
-  instagram_username?: Maybe<Scalars['String']>;
-}
-
-interface PaymentToken {
-  __typename?: 'PaymentToken';
-  id?: Maybe<Scalars['Int']>;
-  symbol?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
-  image_url?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  decimals?: Maybe<Scalars['Int']>;
-  eth_price?: Maybe<Scalars['Float']>;
-  usd_price?: Maybe<Scalars['Float']>;
-}
-
-interface PrimaryAssetContract {
-  __typename?: 'PrimaryAssetContract';
-  address?: Maybe<Scalars['String']>;
-  asset_contract_type?: Maybe<Scalars['String']>;
-  created_date?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  nft_version?: Maybe<Scalars['String']>;
-  owner?: Maybe<Scalars['Int']>;
-  schema_name?: Maybe<Scalars['String']>;
-  symbol?: Maybe<Scalars['String']>;
-  total_supply?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  external_link?: Maybe<Scalars['String']>;
-  image_url?: Maybe<Scalars['String']>;
-  default_to_fiat?: Maybe<Scalars['Boolean']>;
-  dev_buyer_fee_basis_points?: Maybe<Scalars['Int']>;
-  dev_seller_fee_basis_points?: Maybe<Scalars['Int']>;
-  only_proxied_transfers?: Maybe<Scalars['Boolean']>;
-  opensea_buyer_fee_basis_points?: Maybe<Scalars['Int']>;
-  opensea_seller_fee_basis_points?: Maybe<Scalars['Int']>;
-  buyer_fee_basis_points?: Maybe<Scalars['Int']>;
-  seller_fee_basis_points?: Maybe<Scalars['Int']>;
-  payout_address?: Maybe<Scalars['String']>;
-}
-
-interface Stats {
-  __typename?: 'Stats';
-  one_day_volume?: Maybe<Scalars['Float']>;
-  one_day_change?: Maybe<Scalars['Float']>;
-  one_day_sales?: Maybe<Scalars['Float']>;
-  one_day_average_price?: Maybe<Scalars['Float']>;
-  seven_day_volume?: Maybe<Scalars['Float']>;
-  seven_day_change?: Maybe<Scalars['Float']>;
-  seven_day_sales?: Maybe<Scalars['Float']>;
-  seven_day_average_price?: Maybe<Scalars['Float']>;
-  thirty_day_volume?: Maybe<Scalars['Float']>;
-  thirty_day_change?: Maybe<Scalars['Float']>;
-  thirty_day_sales?: Maybe<Scalars['Float']>;
-  thirty_day_average_price?: Maybe<Scalars['Float']>;
-  total_volume?: Maybe<Scalars['Float']>;
-  total_sales?: Maybe<Scalars['Float']>;
-  total_supply?: Maybe<Scalars['Float']>;
-  count?: Maybe<Scalars['Float']>;
-  num_owners?: Maybe<Scalars['Int']>;
-  average_price?: Maybe<Scalars['Float']>;
-  num_reports?: Maybe<Scalars['Int']>;
-  market_cap?: Maybe<Scalars['Float']>;
-  floor_price?: Maybe<Scalars['Float']>;
-  onSale?: Maybe<Scalars['Int']>;
+  volume: Scalars['Float'];
+  floor_price: Scalars['Float'];
+  num_owners: Scalars['String'];
+  total_supply: Scalars['String'];
+  on_sale: Scalars['String'];
 }
 
 interface Holders {
@@ -442,6 +353,38 @@ interface Loser {
   price?: Maybe<Scalars['Float']>;
   erc1155?: Maybe<Erc1155>;
   reversible?: Maybe<Scalars['Boolean']>;
+}
+
+interface Listing {
+  __typename?: 'Listing';
+  price: Price;
+  protocol_data: ProtocolData;
+}
+
+interface ProtocolData {
+  __typename?: 'ProtocolData';
+  parameters: Parameters;
+}
+
+interface Parameters {
+  __typename?: 'Parameters';
+  offer: Array<Offer>;
+}
+
+interface Offer {
+  __typename?: 'Offer';
+  token: Scalars['String'];
+  identifierOrCriteria: Scalars['String'];
+}
+
+interface Price {
+  __typename?: 'Price';
+  current: Current;
+}
+
+interface Current {
+  __typename?: 'Current';
+  value: Scalars['String'];
 }
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
@@ -544,21 +487,22 @@ export type ResolversTypes = {
   Card: ResolverTypeWrapper<Card>;
   ERC1155: ResolverTypeWrapper<Erc1155>;
   Product: ResolverTypeWrapper<Product>;
-  Asset: ResolverTypeWrapper<Asset>;
-  SeaportSellOrders: ResolverTypeWrapper<SeaportSellOrders>;
+  Nft: ResolverTypeWrapper<Nft>;
   OpenseaContract: ResolverTypeWrapper<OpenseaContract>;
-  TopOwnerships: ResolverTypeWrapper<TopOwnerships>;
   Trait: ResolverTypeWrapper<Trait>;
   Owner: ResolverTypeWrapper<Owner>;
   Opensea: ResolverTypeWrapper<Opensea>;
-  PaymentToken: ResolverTypeWrapper<PaymentToken>;
-  PrimaryAssetContract: ResolverTypeWrapper<PrimaryAssetContract>;
-  Stats: ResolverTypeWrapper<Stats>;
   Holders: ResolverTypeWrapper<Holders>;
   Deal: ResolverTypeWrapper<Deal>;
   Podcast: ResolverTypeWrapper<Podcast>;
   Contract: ResolverTypeWrapper<Contract>;
   Loser: ResolverTypeWrapper<Loser>;
+  Listing: ResolverTypeWrapper<Listing>;
+  ProtocolData: ResolverTypeWrapper<ProtocolData>;
+  Parameters: ResolverTypeWrapper<Parameters>;
+  Offer: ResolverTypeWrapper<Offer>;
+  Price: ResolverTypeWrapper<Price>;
+  Current: ResolverTypeWrapper<Current>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -579,21 +523,22 @@ export type ResolversParentTypes = {
   Card: Card;
   ERC1155: Erc1155;
   Product: Product;
-  Asset: Asset;
-  SeaportSellOrders: SeaportSellOrders;
+  Nft: Nft;
   OpenseaContract: OpenseaContract;
-  TopOwnerships: TopOwnerships;
   Trait: Trait;
   Owner: Owner;
   Opensea: Opensea;
-  PaymentToken: PaymentToken;
-  PrimaryAssetContract: PrimaryAssetContract;
-  Stats: Stats;
   Holders: Holders;
   Deal: Deal;
   Podcast: Podcast;
   Contract: Contract;
   Loser: Loser;
+  Listing: Listing;
+  ProtocolData: ProtocolData;
+  Parameters: Parameters;
+  Offer: Offer;
+  Price: Price;
+  Current: Current;
 };
 
 export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
@@ -611,7 +556,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryHeroCardsArgs, never>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
-  ownedAssets?: Resolver<Array<Maybe<ResolversTypes['Asset']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;
+  ownedAssets?: Resolver<Array<Maybe<ResolversTypes['Nft']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;
   opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'deck'>>;
   holders?: Resolver<Maybe<ResolversTypes['Holders']>, ParentType, ContextType, RequireFields<QueryHoldersArgs, 'deck'>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deckId' | 'signature'>>;
@@ -620,6 +565,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   contract?: Resolver<Maybe<ResolversTypes['Contract']>, ParentType, ContextType, RequireFields<QueryContractArgs, never>>;
   losersValues?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersValuesArgs, 'deck'>>;
   losers?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersArgs, 'deck'>>;
+  listings?: Resolver<Array<Maybe<ResolversTypes['Listing']>>, ParentType, ContextType, RequireFields<QueryListingsArgs, never>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -736,29 +682,19 @@ export type ProductResolvers<ContextType = { req: Request, res: Response }, Pare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
-export type AssetResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Asset'] = ResolversParentTypes['Asset']> = {
-  token_id?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+export type NftResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Nft'] = ResolversParentTypes['Nft']> = {
+  identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  contract?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  token_standard?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  top_ownerships?: Resolver<Array<ResolversTypes['TopOwnerships']>, ParentType, ContextType>;
-  seaport_sell_orders?: Resolver<Maybe<Array<ResolversTypes['SeaportSellOrders']>>, ParentType, ContextType>;
-  traits?: Resolver<Array<ResolversTypes['Trait']>, ParentType, ContextType>;
-  asset_contract?: Resolver<ResolversTypes['OpenseaContract'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type SeaportSellOrdersResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['SeaportSellOrders'] = ResolversParentTypes['SeaportSellOrders']> = {
-  order_hash?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  current_price?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  description?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  traits?: Resolver<Maybe<Array<ResolversTypes['Trait']>>, ParentType, ContextType>;
+  owners?: Resolver<Array<ResolversTypes['Owner']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type OpenseaContractResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['OpenseaContract'] = ResolversParentTypes['OpenseaContract']> = {
   address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type TopOwnershipsResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['TopOwnerships'] = ResolversParentTypes['TopOwnerships']> = {
-  owner?: Resolver<ResolversTypes['Owner'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -770,103 +706,17 @@ export type TraitResolvers<ContextType = { req: Request, res: Response }, Parent
 
 export type OwnerResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Owner'] = ResolversParentTypes['Owner']> = {
   address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  quantity?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type OpenseaResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Opensea'] = ResolversParentTypes['Opensea']> = {
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  editors?: Resolver<Array<ResolversTypes['String']>, ParentType, ContextType>;
-  payment_tokens?: Resolver<Array<ResolversTypes['PaymentToken']>, ParentType, ContextType>;
-  primary_asset_contracts?: Resolver<Array<ResolversTypes['PrimaryAssetContract']>, ParentType, ContextType>;
-  traits?: Resolver<ResolversTypes['JSON'], ParentType, ContextType>;
-  stats?: Resolver<ResolversTypes['Stats'], ParentType, ContextType>;
-  banner_image_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  created_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  default_to_fiat?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  dev_buyer_fee_basis_points?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  dev_seller_fee_basis_points?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  discord_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  external_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  featured?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  featured_image_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  hidden?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  safelist_request_status?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  image_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  is_subject_to_whitelist?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  large_image_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  only_proxied_transfers?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  opensea_buyer_fee_basis_points?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  opensea_seller_fee_basis_points?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  payout_address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  require_email?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  slug?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
-  twitter_username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  instagram_username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type PaymentTokenResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['PaymentToken'] = ResolversParentTypes['PaymentToken']> = {
-  id?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  symbol?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  image_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  decimals?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  eth_price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  usd_price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type PrimaryAssetContractResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['PrimaryAssetContract'] = ResolversParentTypes['PrimaryAssetContract']> = {
-  address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  asset_contract_type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  created_date?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  nft_version?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  owner?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  schema_name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  symbol?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  total_supply?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  external_link?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  image_url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  default_to_fiat?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  dev_buyer_fee_basis_points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  dev_seller_fee_basis_points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  only_proxied_transfers?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
-  opensea_buyer_fee_basis_points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  opensea_seller_fee_basis_points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  buyer_fee_basis_points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  seller_fee_basis_points?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  payout_address?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
-};
-
-export type StatsResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Stats'] = ResolversParentTypes['Stats']> = {
-  one_day_volume?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  one_day_change?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  one_day_sales?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  one_day_average_price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  seven_day_volume?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  seven_day_change?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  seven_day_sales?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  seven_day_average_price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  thirty_day_volume?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  thirty_day_change?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  thirty_day_sales?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  thirty_day_average_price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  total_volume?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  total_sales?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  total_supply?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  count?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  num_owners?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  average_price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  num_reports?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
-  market_cap?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  floor_price?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType>;
-  onSale?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
+  volume?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  floor_price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  num_owners?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  total_supply?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  on_sale?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -925,6 +775,38 @@ export type LoserResolvers<ContextType = { req: Request, res: Response }, Parent
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type ListingResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Listing'] = ResolversParentTypes['Listing']> = {
+  price?: Resolver<ResolversTypes['Price'], ParentType, ContextType>;
+  protocol_data?: Resolver<ResolversTypes['ProtocolData'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ProtocolDataResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['ProtocolData'] = ResolversParentTypes['ProtocolData']> = {
+  parameters?: Resolver<ResolversTypes['Parameters'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ParametersResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Parameters'] = ResolversParentTypes['Parameters']> = {
+  offer?: Resolver<Array<ResolversTypes['Offer']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type OfferResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Offer'] = ResolversParentTypes['Offer']> = {
+  token?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  identifierOrCriteria?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type PriceResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Price'] = ResolversParentTypes['Price']> = {
+  current?: Resolver<ResolversTypes['Current'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type CurrentResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Current'] = ResolversParentTypes['Current']> = {
+  value?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   JSON?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
@@ -937,21 +819,22 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Card?: CardResolvers<ContextType>;
   ERC1155?: Erc1155Resolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
-  Asset?: AssetResolvers<ContextType>;
-  SeaportSellOrders?: SeaportSellOrdersResolvers<ContextType>;
+  Nft?: NftResolvers<ContextType>;
   OpenseaContract?: OpenseaContractResolvers<ContextType>;
-  TopOwnerships?: TopOwnershipsResolvers<ContextType>;
   Trait?: TraitResolvers<ContextType>;
   Owner?: OwnerResolvers<ContextType>;
   Opensea?: OpenseaResolvers<ContextType>;
-  PaymentToken?: PaymentTokenResolvers<ContextType>;
-  PrimaryAssetContract?: PrimaryAssetContractResolvers<ContextType>;
-  Stats?: StatsResolvers<ContextType>;
   Holders?: HoldersResolvers<ContextType>;
   Deal?: DealResolvers<ContextType>;
   Podcast?: PodcastResolvers<ContextType>;
   Contract?: ContractResolvers<ContextType>;
   Loser?: LoserResolvers<ContextType>;
+  Listing?: ListingResolvers<ContextType>;
+  ProtocolData?: ProtocolDataResolvers<ContextType>;
+  Parameters?: ParametersResolvers<ContextType>;
+  Offer?: OfferResolvers<ContextType>;
+  Price?: PriceResolvers<ContextType>;
+  Current?: CurrentResolvers<ContextType>;
 };
 
 

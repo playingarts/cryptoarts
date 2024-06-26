@@ -1,10 +1,7 @@
 import { NextApiHandler } from "next";
 import { getContract } from "../../../../source/graphql/schemas/contract";
-import {
-  getAssets,
-  setCard,
-  setOnSale,
-} from "../../../../source/graphql/schemas/opensea";
+import { getAssets, setCard } from "../../../../source/graphql/schemas/opensea";
+import { getListings } from "../../../../source/graphql/schemas/listing";
 
 const handler: NextApiHandler = async (req, res) => {
   const { contractId, address } = req.query;
@@ -42,11 +39,24 @@ const handler: NextApiHandler = async (req, res) => {
       )
     ).map((asset) => ({
       ...asset,
-      owner: asset.top_ownerships[0].owner,
+      owner: asset.owners[0],
     }));
 
     res.json(
-      await Promise.all(addressAssets.map(setOnSale).map(setCard(contractId)))
+      await Promise.all(
+        addressAssets.map(async (asset) => {
+          const listings = await getListings({
+            address: asset.contract,
+            tokenIds: [asset.identifier],
+          });
+
+          return setCard(contractId)({
+            ...asset,
+            on_sale: listings.length > 0,
+            traits: asset.traits ? asset.traits : [],
+          });
+        })
+      )
     );
   } catch (error) {
     res.status(500).json({

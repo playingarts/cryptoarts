@@ -8,6 +8,7 @@ import * as content from "./schemas/content";
 import * as podcast from "./schemas/podcast";
 import * as contract from "./schemas/contract";
 import * as loser from "./schemas/loser";
+import * as listing from "./schemas/listing";
 import { stitchSchemas } from "@graphql-tools/stitch";
 import { DocumentNode } from "apollo-link";
 
@@ -25,6 +26,7 @@ const entities: {
   podcast,
   contract,
   loser,
+  listing,
 ];
 
 export const schema = stitchSchemas(

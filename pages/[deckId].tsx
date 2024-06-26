@@ -44,7 +44,7 @@ import { theme } from "./_app";
 import PodcastAndSocials from "../components/_composed/PodcastAndSocials";
 import { connect } from "../source/mongoose";
 
-export type OwnedCard = { value: string; suit: string; token_id: string };
+export type OwnedCard = { value: string; suit: string; identifier: string };
 
 const Content: FC<{
   losersExist?: boolean;
@@ -95,7 +95,7 @@ const Content: FC<{
       }
 
       setOwnedCards(
-        (ownedAssets as GQL.Asset[]).flatMap(({ traits, token_id }) => {
+        (ownedAssets as GQL.Nft[]).flatMap(({ traits = [], identifier }) => {
           const value = traits.find((trait) => trait.trait_type === "Value");
           const suit = traits.find(
             (trait) =>
@@ -106,10 +106,10 @@ const Content: FC<{
             return {
               value: value.value.toLowerCase(),
               suit: suit.value.toLowerCase(),
-              token_id,
+              identifier,
             };
           }
-          return { value: "", suit: "", token_id };
+          return { value: "", suit: "", identifier };
         })
       );
     }, [ownedAssets]);

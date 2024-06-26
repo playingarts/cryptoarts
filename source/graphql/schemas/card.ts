@@ -3,7 +3,8 @@ import { model, Model, models, Schema, Types } from "mongoose";
 import Web3 from "web3";
 import { getContracts } from "./contract";
 import { getDeck, getDecks } from "./deck";
-import { Asset, getAssets } from "./opensea";
+import { getAssets } from "./opensea";
+import { getListings } from "./listing";
 
 export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
   artist?: string;
@@ -205,51 +206,73 @@ export const resolvers: GQL.Resolvers = {
 
       const contracts = await getContracts({ deck: card.deck._id });
 
+      if (contracts.length === 0) {
+        return;
+      }
+
       const assets = (await Promise.all(
         contracts.map(
           async (contract) => await getAssets(contract.address, contract.name)
         )
-      )) as Asset[][];
+      )) as GQL.Nft[][];
 
-      const orders = assets
+      if (!assets) {
+        return;
+      }
+
+      const nftIds = assets
         .flat()
         .filter(
-          ({ token_id, traits, seaport_sell_orders }) =>
-            token_id &&
-            seaport_sell_orders &&
+          ({ identifier, traits = [], owners }) =>
+            identifier &&
+            owners &&
             (card.erc1155
-              ? card.erc1155.token_id === token_id
-              : traits.filter(
+              ? card.erc1155.token_id === identifier
+              : traits &&
+                traits.filter(
                   ({ trait_type, value }) =>
                     ((trait_type === "Suit" || trait_type === "Color") &&
                       value.toLowerCase() === card.suit) ||
                     (trait_type === "Value" &&
                       value.toLowerCase() === card.value)
                 ).length === 2)
-        )
-        .map((item) => item.seaport_sell_orders)
-        .flat();
+        );
+      // .map((item) => item.identifier);
+      // .flat();
 
-      return (
-        orders as {
-          base_price?: string;
-          current_price?: string;
-        }[]
-      ).reduce<number | undefined>((minPrice, order) => {
-        const base_price = order.base_price || order.current_price;
+      const listings = await getListings({
+        address: nftIds[0].contract,
+        tokenIds: nftIds.map((item) => item.identifier),
+      });
 
-        if (!base_price) {
-          return minPrice;
-        }
+      const price =
+        listings.length > 0
+          ? parseFloat(
+              Web3.utils.fromWei(listings[0].price.current.value, "ether")
+            )
+          : undefined;
 
-        const price = parseFloat(Web3.utils.fromWei(base_price, "ether"));
+      return price;
+      // return (
+      //   orders as {
+      //     base_price?: string;
+      //     current_price?: string;
+      //   }[]
+      // ).reduce<number | undefined>((minPrice, order) => {
+      //   const base_price = order.base_price || order.current_price;
 
-        if (!minPrice) {
-          return price;
-        }
+      //   if (!base_price) {
+      //     return minPrice;
+      //   }
 
-        return Math.min(price, minPrice);
-      }, undefined);
+      //   const price = parseFloat(Web3.utils.fromWei(base_price, "ether"));
+
+      //   if (!minPrice) {
+      //     return price;
+      //   }
+
+      //   return Math.min(price, minPrice);
+      // }, undefined);zZZ
     },
   },
   Query: {

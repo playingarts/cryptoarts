@@ -6,13 +6,12 @@ import { useLoadDeck } from "./deck";
 export const OpenseaQuery = gql`
   query Opensea($deck: ID!) {
     opensea(deck: $deck) {
-      stats {
-        num_owners
-        total_volume
-        floor_price
-        total_supply
-        onSale
-      }
+      id
+      volume
+      floor_price
+      num_owners
+      total_supply
+      on_sale
     }
   }
 `;
@@ -38,7 +37,7 @@ export const OwnedAssetsQuery = gql`
         trait_type
         value
       }
-      token_id
+      identifier
     }
   }
 `;
