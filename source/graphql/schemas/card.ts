@@ -210,11 +210,16 @@ export const resolvers: GQL.Resolvers = {
         return;
       }
 
-      const assets = (await Promise.all(
-        contracts.map(
-          async (contract) => await getAssets(contract.address, contract.name)
-        )
-      )) as GQL.Nft[][];
+      let assets: GQL.Nft[][] | undefined = undefined;
+      try {
+        assets = (await Promise.all(
+          contracts.map(
+            async (contract) => await getAssets(contract.address, contract.name)
+          )
+        )) as GQL.Nft[][];
+      } catch (error) {
+        console.log(error);
+      }
 
       if (!assets) {
         return;
@@ -237,8 +242,6 @@ export const resolvers: GQL.Resolvers = {
                       value.toLowerCase() === card.value)
                 ).length === 2)
         );
-      // .map((item) => item.identifier);
-      // .flat();
 
       const listings = await getListings({
         address: nftIds[0].contract,
@@ -253,26 +256,6 @@ export const resolvers: GQL.Resolvers = {
           : undefined;
 
       return price;
-      // return (
-      //   orders as {
-      //     base_price?: string;
-      //     current_price?: string;
-      //   }[]
-      // ).reduce<number | undefined>((minPrice, order) => {
-      //   const base_price = order.base_price || order.current_price;
-
-      //   if (!base_price) {
-      //     return minPrice;
-      //   }
-
-      //   const price = parseFloat(Web3.utils.fromWei(base_price, "ether"));
-
-      //   if (!minPrice) {
-      //     return price;
-      //   }
-
-      //   return Math.min(price, minPrice);
-      // }, undefined);zZZ
     },
   },
   Query: {
