@@ -408,7 +408,7 @@ const getCachedAssets = memoizee<(contract: string) => Promise<GQL.Nft[]>>(
     }
 
     Nft.find({
-      "asset_contract.address": contract,
+      contract,
     })
       .lean()
       .then((assets) => (cachedAssets[contract] = assets));

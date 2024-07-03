@@ -211,15 +211,17 @@ export const resolvers: GQL.Resolvers = {
       }
 
       let assets: GQL.Nft[][] | undefined = undefined;
-      try {
-        assets = (await Promise.all(
-          contracts.map(
-            async (contract) => await getAssets(contract.address, contract.name)
-          )
-        )) as GQL.Nft[][];
-      } catch (error) {
-        console.log(error);
-      }
+
+      assets = (await Promise.all(
+        contracts.map(
+          async (contract) => await getAssets(contract.address, contract.name)
+        )
+      )) as GQL.Nft[][];
+
+      // try {
+      //       } catch (error) {
+      //   console.log(error);
+      // }
 
       if (!assets) {
         return;
@@ -243,19 +245,23 @@ export const resolvers: GQL.Resolvers = {
                 ).length === 2)
         );
 
-      const listings = await getListings({
-        address: nftIds[0].contract,
-        tokenIds: nftIds.map((item) => item.identifier),
-      });
+      if (nftIds.length > 0) {
+        const listings = await getListings({
+          address: nftIds[0].contract,
+          tokenIds: nftIds.map((item) => item.identifier),
+        });
 
-      const price =
-        listings.length > 0
-          ? parseFloat(
-              Web3.utils.fromWei(listings[0].price.current.value, "ether")
-            )
-          : undefined;
+        const price =
+          listings.length > 0
+            ? parseFloat(
+                Web3.utils.fromWei(listings[0].price.current.value, "ether")
+              )
+            : undefined;
 
-      return price;
+        return price;
+      }
+
+      return;
     },
   },
   Query: {
