@@ -245,23 +245,19 @@ export const resolvers: GQL.Resolvers = {
                 ).length === 2)
         );
 
-      if (nftIds.length > 0) {
-        const listings = await getListings({
-          address: nftIds[0].contract,
-          tokenIds: nftIds.map((item) => item.identifier),
-        });
+      const listings = await getListings({
+        addresses: contracts.map((contract) => contract.address.toLowerCase()),
+        tokenIds: nftIds.map((item) => item.identifier),
+      });
 
-        const price =
-          listings.length > 0
-            ? parseFloat(
-                Web3.utils.fromWei(listings[0].price.current.value, "ether")
-              )
-            : undefined;
+      const price =
+        listings.length > 0
+          ? parseFloat(
+              Web3.utils.fromWei(listings[0].price.current.value, "ether")
+            )
+          : undefined;
 
-        return price;
-      }
-
-      return;
+      return price;
     },
   },
   Query: {

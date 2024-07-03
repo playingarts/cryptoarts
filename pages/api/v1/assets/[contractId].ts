@@ -46,7 +46,7 @@ const handler: NextApiHandler = async (req, res) => {
       await Promise.all(
         addressAssets.map(async (asset) => {
           const listings = await getListings({
-            address: asset.contract,
+            addresses: [asset.contract],
             tokenIds: [asset.identifier],
           });
 

@@ -144,7 +144,7 @@ interface QueryLosersArgs {
 
 
 interface QueryListingsArgs {
-  address?: Maybe<Scalars['String']>;
+  addresses?: Maybe<Array<Maybe<Scalars['String']>>>;
   tokenIds?: Maybe<Array<Scalars['String']>>;
 }
 

@@ -23,12 +23,12 @@ export const Listing =
   (models.Listing as Model<GQL.Listing>) || model("Listing", schema);
 
 export const getListings = async ({
-  address,
+  addresses,
   tokenIds,
 }: GQL.QueryListingsArgs) => {
-  return address && tokenIds
+  return addresses && tokenIds
     ? await Listing.find({
-        "protocol_data.parameters.offer.token": address,
+        "protocol_data.parameters.offer.token": { $in: addresses },
         "protocol_data.parameters.offer.identifierOrCriteria": {
           $in: tokenIds,
         },
@@ -44,7 +44,7 @@ export const resolvers: GQL.Resolvers = {
 
 export const typeDefs = gql`
   type Query {
-    listings(address: String, tokenIds: [String!]): [Listing]!
+    listings(addresses: [String], tokenIds: [String!]): [Listing]!
   }
 
   type Listing {
