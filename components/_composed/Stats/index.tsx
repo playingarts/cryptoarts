@@ -7,11 +7,7 @@ interface Props extends StatBlockProps {
   opensea?: GQL.Opensea;
 }
 
-const Content: FC<GQL.Opensea> = ({
-  num_owners,
-  total_supply,
-  floor_price,
-}) => (
+const Content: FC<GQL.Opensea> = ({ num_owners, volume, floor_price }) => (
   <div
     css={(theme) => [
       {
@@ -52,11 +48,11 @@ const Content: FC<GQL.Opensea> = ({
         ]}
       />
     )}
-    {total_supply && (
+    {volume && (
       <Stat
         palette="dark"
         label="VOLUME TRADED"
-        value={parseFloat(Number(total_supply).toFixed(0)).toLocaleString()}
+        value={parseFloat(Number(volume).toFixed(0)).toLocaleString()}
         eth={true}
         css={[{ flexGrow: 1 }]}
       />

@@ -431,8 +431,7 @@ export const getAssets = memoizee<
         return require(`../../../mocks/${contract}.json`) as GQL.Nft[];
         // return [];
       }
-    : //
-      async (contract, name, hash) => {
+    : async (contract, name, hash) => {
         if (process.env.ALLOW_ASSETS_FETCH === "true") {
           const queueEntries = await Content.find({ key: "queue" });
 
