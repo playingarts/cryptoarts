@@ -24,7 +24,6 @@ interface Props extends CardNavProps {
 
 const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
   { ownedCards, artistId, deck, contest, ...props },
-
   ref
 ) => {
   const {

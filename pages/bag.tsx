@@ -286,11 +286,10 @@ const Content: FC<{
                       opacity: 0.5,
                       [theme.maxMQ.md]: {
                         gridColumn: "1 / -1",
+                        marginBottom: theme.spacing(2),
                       },
                       [theme.maxMQ.sm]: {
                         marginTop: theme.spacing(3),
-                        marginBottom: theme.spacing(2),
-                        gridColumn: "1 / -1",
                       },
                     },
                   ]}
@@ -316,24 +315,21 @@ const Content: FC<{
                     </Fragment>
                   }
                 />
-                {width > breakpoints.sm && (
-                  <div
-                    css={(theme) => [
-                      {
-                        [theme.mq.sm]: {
-                          // minWidth: theme.spacing(18),
-                        },
+                {/* {width > breakpoints.sm && ( */}
+                <div
+                  css={(theme) => [
+                    {
+                      [theme.mq.sm]: {
+                        // minWidth: theme.spacing(18),
                       },
-                    ]}
-                  >
-                    <Text
-                      variant={width < breakpoints.sm ? "h5" : "h5"}
-                      css={[{ margin: 0, opacity: 0.5 }]}
-                    >
-                      €4.95
-                    </Text>
-                  </div>
-                )}
+                    },
+                  ]}
+                >
+                  <Text variant="h5" css={[{ margin: 0, opacity: 0.5 }]}>
+                    €4.95
+                  </Text>
+                </div>
+                {/* )} */}
                 <Line
                   spacing={3.5}
                   css={(theme) => ({
@@ -369,9 +365,12 @@ const Content: FC<{
                     >
                       <Text
                         variant={width < breakpoints.sm ? "h3" : "h4"}
-                        css={[
+                        css={(theme) => [
                           {
                             margin: 0,
+                            [theme.maxMQ.sm]: {
+                              fontSize: 25,
+                            },
                           },
                         ]}
                       >
@@ -388,7 +387,14 @@ const Content: FC<{
                       >
                         <Text
                           variant={width < breakpoints.sm ? "h3" : "h4"}
-                          css={[{ margin: 0 }]}
+                          css={(theme) => [
+                            {
+                              margin: 0,
+                              [theme.maxMQ.sm]: {
+                                fontSize: 25,
+                              },
+                            },
+                          ]}
                         >
                           {totalPrice.toLocaleString(undefined, {
                             style: "currency",

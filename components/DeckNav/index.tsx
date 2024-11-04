@@ -239,7 +239,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           })}
           onClick={bringIntoViewHandler(refs.deckRef)}
         >
-          Deck
+          Physical Deck
         </Link>
       )}
     </nav>
