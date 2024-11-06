@@ -275,60 +275,78 @@ const Content: FC<{
                     Your order will arrive in two different packages.
                   </Text>
                 ) : null}
-                <ShopCheckoutItem
-                  title="SHIPPING AND HANDLING"
-                  // price={shippingPrice}
-                  titleVariant={width >= breakpoints.sm ? "h5" : "h4"}
-                  withoutPic={true}
-                  css={(theme) => [
+                <Grid
+                  auto={true}
+                  css={[
                     {
-                      gridColumn: "2 / 8",
-                      opacity: 0.5,
-                      [theme.maxMQ.md]: {
-                        gridColumn: "1 / -1",
-                        marginBottom: theme.spacing(2),
-                      },
-                      [theme.maxMQ.sm]: {
-                        marginTop: theme.spacing(3),
-                      },
-                    },
-                  ]}
-                  info={
-                    <Fragment>
-                      <Text
-                        css={(theme) => [
-                          {
-                            // opacity: 0.5,
-                            marginBottom: theme.spacing(0),
-                            [theme.maxMQ.sm]: {
-                              fontSize: 16,
-                            },
-                          },
-                        ]}
-                      >
-                        Your order will be dispatched in 2 to 5 business days.
-                        {/* Enjoy free delivery for orders over €{freeShippingAt}. */}
-                        {/* {freeShippingAt > 0 &&
-                          freeShippingAt !== Infinity &&
-                          ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
-                      </Text>
-                    </Fragment>
-                  }
-                />
-                {/* {width > breakpoints.sm && ( */}
-                <div
-                  css={(theme) => [
-                    {
-                      [theme.mq.sm]: {
-                        // minWidth: theme.spacing(18),
-                      },
+                      gridColumn: "1 / -1",
                     },
                   ]}
                 >
-                  <Text variant="h5" css={[{ margin: 0, opacity: 0.5 }]}>
-                    €4.95
-                  </Text>
-                </div>
+                  <ShopCheckoutItem
+                    title="SHIPPING AND HANDLING"
+                    // price={shippingPrice}
+                    titleVariant={width >= breakpoints.sm ? "h5" : "h4"}
+                    withoutPic={true}
+                    css={(theme) => [
+                      {
+                        gridColumn: "2 / 8",
+                        opacity: 0.5,
+                        [theme.maxMQ.md]: {
+                          gridColumn: "1 / 8",
+                          marginBottom: theme.spacing(2),
+                        },
+                        [theme.maxMQ.sm]: {
+                          gridColumn: "1 / 6",
+                          marginTop: theme.spacing(3),
+                        },
+                        [theme.maxMQ.xsm]: {
+                          gridColumn: "1 / -1",
+                        },
+                      },
+                    ]}
+                    info={
+                      <Fragment>
+                        <Text
+                          css={(theme) => [
+                            {
+                              // opacity: 0.5,
+                              marginBottom: theme.spacing(0),
+                              [theme.maxMQ.sm]: {
+                                fontSize: 16,
+                              },
+                            },
+                          ]}
+                        >
+                          Your order will be dispatched in 2 to 5 business days.
+                          {/* Enjoy free delivery for orders over €{freeShippingAt}. */}
+                          {/* {freeShippingAt > 0 &&
+                          freeShippingAt !== Infinity &&
+                          ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
+                        </Text>
+                      </Fragment>
+                    }
+                  />
+                  {/* {width > breakpoints.sm && ( */}
+                  <div>
+                    <Text
+                      variant="h5"
+                      css={(theme) => [
+                        {
+                          margin: 0,
+                          opacity: 0.5,
+                          [theme.mq.xsm]: {
+                            [theme.maxMQ.sm]: {
+                              textAlign: "end",
+                            },
+                          },
+                        },
+                      ]}
+                    >
+                      €4.95
+                    </Text>
+                  </div>
+                </Grid>
                 {/* )} */}
                 <Line
                   spacing={3.5}

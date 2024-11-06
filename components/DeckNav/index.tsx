@@ -60,6 +60,7 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
           display: "flex",
           alignItems: "center",
           textTransform: "uppercase",
+          whiteSpace: "nowrap",
         },
       ]}
     >
