@@ -8,9 +8,18 @@ import Text from "../../Text";
 
 interface Props
   extends Omit<HTMLAttributes<HTMLElement>, "title">,
-    GQL.Product {}
+    GQL.Product {
+  isEurope: boolean;
+}
 
-const ShopBundle: FC<Props> = ({ title, price, image, _id, ...props }) => {
+const ShopBundle: FC<Props> = ({
+  title,
+  price,
+  image,
+  _id,
+  isEurope,
+  ...props
+}) => {
   const { width } = useSize();
   return (
     <div
@@ -95,7 +104,7 @@ const ShopBundle: FC<Props> = ({ title, price, image, _id, ...props }) => {
             },
           ]}
         >
-          €{price.toFixed(2)}
+          €{(isEurope ? price.eur : price.usd).toFixed(2)}
         </Text>
         <AddToBagButton
           productId={_id}

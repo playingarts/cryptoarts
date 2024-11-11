@@ -248,12 +248,18 @@ interface Erc1155 {
   token_id: Scalars['String'];
 }
 
+interface Currencies {
+  __typename?: 'Currencies';
+  eur: Scalars['Float'];
+  usd: Scalars['Float'];
+}
+
 interface Product {
   __typename?: 'Product';
   _id: Scalars['ID'];
   deck?: Maybe<Deck>;
   title: Scalars['String'];
-  price: Scalars['Float'];
+  price: Currencies;
   status: Scalars['String'];
   type: Scalars['String'];
   image: Scalars['String'];
@@ -486,6 +492,7 @@ export type ResolversTypes = {
   Socials: ResolverTypeWrapper<Socials>;
   Card: ResolverTypeWrapper<Card>;
   ERC1155: ResolverTypeWrapper<Erc1155>;
+  Currencies: ResolverTypeWrapper<Currencies>;
   Product: ResolverTypeWrapper<Product>;
   Nft: ResolverTypeWrapper<Nft>;
   OpenseaContract: ResolverTypeWrapper<OpenseaContract>;
@@ -522,6 +529,7 @@ export type ResolversParentTypes = {
   Socials: Socials;
   Card: Card;
   ERC1155: Erc1155;
+  Currencies: Currencies;
   Product: Product;
   Nft: Nft;
   OpenseaContract: OpenseaContract;
@@ -668,11 +676,17 @@ export type Erc1155Resolvers<ContextType = { req: Request, res: Response }, Pare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type CurrenciesResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Currencies'] = ResolversParentTypes['Currencies']> = {
+  eur?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  usd?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type ProductResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
-  price?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
+  price?: Resolver<ResolversTypes['Currencies'], ParentType, ContextType>;
   status?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   type?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -818,6 +832,7 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Socials?: SocialsResolvers<ContextType>;
   Card?: CardResolvers<ContextType>;
   ERC1155?: Erc1155Resolvers<ContextType>;
+  Currencies?: CurrenciesResolvers<ContextType>;
   Product?: ProductResolvers<ContextType>;
   Nft?: NftResolvers<ContextType>;
   OpenseaContract?: OpenseaContractResolvers<ContextType>;

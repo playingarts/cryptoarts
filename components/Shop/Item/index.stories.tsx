@@ -16,7 +16,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   image:
     "https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg",
-  price: 14.95,
+  price: { eur: 14.95, usd: 19.95 },
   short: "Zero",
 };
 
@@ -29,6 +29,6 @@ export const StretchedDark = StretchedTemplate.bind({});
 StretchedDark.args = {
   image:
     "https://t3.ftcdn.net/jpg/03/76/74/78/240_F_376747823_L8il80K6c2CM1lnPYJhhJZQNl6ynX1yj.jpg",
-  price: 14.95,
+  price: { eur: 14.95, usd: 19.95 },
   short: "Zero",
 };

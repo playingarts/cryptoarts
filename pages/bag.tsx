@@ -1,7 +1,7 @@
 // import { right } from "fp-ts/lib/EitherT";
 import { NextPage } from "next";
 import Head from "next/head";
-import { FC, Fragment, useEffect, useState } from "react";
+import { FC, Fragment, useEffect, useLayoutEffect, useState } from "react";
 import Button, { Props as ButtonProps } from "../components/Button";
 import EurToUsd from "../components/EurToUsd";
 import Grid from "../components/Grid";
@@ -27,6 +27,14 @@ import { breakpoints } from "../source/enums";
 const Content: FC<{
   CheckoutButton: FC<ButtonProps & { noIcon?: boolean }>;
 }> = ({ CheckoutButton }) => {
+  const [isEurope, setIsEurope] = useState(false);
+
+  useLayoutEffect(() => {
+    setIsEurope(
+      Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Europe/")
+    );
+  }, []);
+
   const { bag, updateQuantity, removeItem } = useBag();
 
   const { products } = useProducts({
@@ -56,7 +64,7 @@ const Content: FC<{
 
   let totalPrice = parseFloat(
     products
-      .map(({ _id, price }) => bag[_id] * price)
+      .map(({ _id, price }) => bag[_id] * (isEurope ? price.eur : price.usd))
       .reduce((a, b) => a + b, 0)
       .toFixed(2)
   );
@@ -208,7 +216,7 @@ const Content: FC<{
                       )}
                       <ShopCheckoutItem
                         image={product.image}
-                        price={product.price}
+                        price={isEurope ? product.price.eur : product.price.usd}
                         title={product.short}
                         info={product.info}
                         remove={remove(product._id)}

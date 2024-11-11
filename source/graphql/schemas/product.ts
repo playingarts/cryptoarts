@@ -8,7 +8,10 @@ export type MongoProduct = Omit<GQL.Product, "deck"> & {
 
 const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
   title: String,
-  price: Number,
+  price: {
+    eur: Number,
+    usd: Number,
+  },
   status: String,
   type: String,
   image: String,
@@ -63,11 +66,16 @@ export const typeDefs = gql`
     convertEurToUsd(eur: Float!): Float
   }
 
+  type Currencies {
+    eur: Float!
+    usd: Float!
+  }
+
   type Product {
     _id: ID!
     deck: Deck
     title: String!
-    price: Float!
+    price: Currencies!
     status: String!
     type: String!
     image: String!

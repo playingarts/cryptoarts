@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { FC, Fragment } from "react";
+import { FC, Fragment, useLayoutEffect, useState } from "react";
 import BagButton from "../components/BagButton";
 import BlockTitle from "../components/BlockTitle";
 import CardFan from "../components/Card/Fan";
@@ -32,6 +32,14 @@ const Content: FC = () => {
   const { products } = useProducts();
 
   const { width } = useSize();
+
+  const [isEurope, setIsEurope] = useState(false);
+
+  useLayoutEffect(() => {
+    setIsEurope(
+      Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Europe/")
+    );
+  }, []);
 
   if (!products) {
     return null;
@@ -168,7 +176,7 @@ const Content: FC = () => {
           <Grid>
             <LatestRelease
               productId={latestRelease._id}
-              price={latestRelease.price}
+              price={latestRelease.price[isEurope ? "eur" : "usd"]}
               // data-id="Latest"
               // data-id={latestRelease.deck}
               {...(latestRelease.deck && {
@@ -332,6 +340,7 @@ const Content: FC = () => {
                       // data-id={product.short}
                       {...(product.deck && { "data-id": product.deck.slug })}
                       {...product}
+                      isEurope={isEurope}
                       css={(theme) => ({
                         [theme.maxMQ.sm]: {
                           height: theme.spacing(39),
@@ -528,6 +537,7 @@ const Content: FC = () => {
                     />
                   )}
                   <ShopBundle
+                    isEurope={isEurope}
                     css={(theme) => ({
                       gridColumn: "span 4",
                       height: theme.spacing(50),

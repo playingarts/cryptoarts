@@ -16,7 +16,7 @@ Primary.args = {
     {
       _id: "",
       title: "Edition Zero",
-      price: 34.95,
+      price: { eur: 34.95, usd: 39.95 },
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-zero.png",
       info: "Uncut Sheet",
@@ -28,7 +28,7 @@ Primary.args = {
     {
       _id: "",
       title: "Edition One",
-      price: 34.95,
+      price: { eur: 34.95, usd: 39.95 },
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-one.png",
       info: "Uncut Sheet",
@@ -40,7 +40,7 @@ Primary.args = {
     {
       _id: "",
       title: "Edition Two",
-      price: 34.95,
+      price: { eur: 34.95, usd: 39.95 },
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-two.png",
       info: "Uncut Sheet",
@@ -52,7 +52,7 @@ Primary.args = {
     {
       _id: "",
       title: "Edition Three",
-      price: 34.95,
+      price: { eur: 34.95, usd: 39.95 },
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-three.png",
       info: "Uncut Sheet",
@@ -64,7 +64,7 @@ Primary.args = {
     {
       _id: "",
       title: "Special Edition",
-      price: 34.95,
+      price: { eur: 34.95, usd: 39.95 },
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-special.png",
       info: "Uncut Sheet",
@@ -76,7 +76,7 @@ Primary.args = {
     {
       _id: "",
       title: "Future Edition I",
-      price: 34.95,
+      price: { eur: 34.95, usd: 39.95 },
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-future-i.png",
       info: "Uncut Sheet",
@@ -88,7 +88,7 @@ Primary.args = {
     {
       _id: "",
       title: "Future Edition II",
-      price: 34.95,
+      price: { eur: 34.95, usd: 39.95 },
       image:
         "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-future-ii.png",
       info: "Uncut Sheet",

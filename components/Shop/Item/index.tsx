@@ -9,7 +9,9 @@ import Text from "../../Text";
 
 interface Props
   extends HTMLAttributes<HTMLElement>,
-    Omit<GQL.Product, "title"> {}
+    Omit<GQL.Product, "title"> {
+  isEurope: boolean;
+}
 
 const ShopItem: FC<Props> = ({
   image,
@@ -17,6 +19,7 @@ const ShopItem: FC<Props> = ({
   price,
   short,
   _id,
+  isEurope,
   ...props
 }) => {
   const [hovered, hover] = useState(false);
@@ -161,7 +164,7 @@ const ShopItem: FC<Props> = ({
                 },
               ]}
             >
-              {price.toLocaleString(undefined, {
+              {(isEurope ? price.eur : price.usd).toLocaleString(undefined, {
                 style: "currency",
                 currency: "EUR",
               })}

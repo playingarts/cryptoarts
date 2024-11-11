@@ -5,13 +5,16 @@ import { populateDeckId } from "./_utils";
 const generateMongoId = (shopifyId: string) =>
   "0".repeat(24 - shopifyId.length) + shopifyId;
 
+const deckPrice: MongoProduct["price"] = { eur: 14.95, usd: 19.95 };
+const sheetPrice: MongoProduct["price"] = { eur: 34.95, usd: 39.95 };
+
 export let products: MongoProduct[] = [
   {
     _id: generateMongoId("22124868567121"),
     title: "Edition Zero",
     deck: "zero",
     short: "Zero",
-    price: 14.95,
+    price: deckPrice,
     status: "instock",
     type: "deck",
     image:
@@ -25,7 +28,7 @@ export let products: MongoProduct[] = [
     title: "Edition One",
     deck: "one",
     short: "One",
-    price: 14.95,
+    price: deckPrice,
     status: "instock",
     type: "deck",
     image:
@@ -39,7 +42,7 @@ export let products: MongoProduct[] = [
     title: "Edition Two",
     deck: "two",
     short: "Two",
-    price: 14.95,
+    price: deckPrice,
     status: "instock",
     type: "deck",
     image:
@@ -53,7 +56,7 @@ export let products: MongoProduct[] = [
     title: "Edition Three",
     deck: "three",
     short: "Three",
-    price: 14.95,
+    price: deckPrice,
     status: "instock",
     type: "deck",
     image:
@@ -67,7 +70,7 @@ export let products: MongoProduct[] = [
     title: "Special Edition",
     deck: "special",
     short: "Special",
-    price: 14.95,
+    price: deckPrice,
     status: "soldout",
     type: "deck",
     image:
@@ -81,7 +84,7 @@ export let products: MongoProduct[] = [
     title: "Future Edition I",
     deck: "future",
     short: "Future",
-    price: 14.95,
+    price: deckPrice,
     status: "instock",
     type: "deck",
     image:
@@ -95,7 +98,7 @@ export let products: MongoProduct[] = [
     title: "Future Edition II",
     short: "Future II",
     deck: "future",
-    price: 14.95,
+    price: deckPrice,
     status: "instock",
     type: "deck",
     image:
@@ -109,7 +112,7 @@ export let products: MongoProduct[] = [
     title: "Crypto Edition",
     deck: "crypto",
     short: "Crypto",
-    price: 14.95,
+    price: deckPrice,
     status: "soon",
     type: "deck",
     image:
@@ -123,7 +126,7 @@ export let products: MongoProduct[] = [
     title: "2x Future Bundle",
     deck: "zero",
     short: "2x Future",
-    price: 24.95,
+    price: { eur: 24.95, usd: 29.95 },
     status: "bundle",
     type: "bundle",
     image:
@@ -137,7 +140,7 @@ export let products: MongoProduct[] = [
     title: "3x Edition Bundle",
     deck: "zero",
     short: "3x Edition",
-    price: 34.95,
+    price: { eur: 34.95, usd: 39.95 },
     status: "bundle",
     type: "bundle",
     image:
@@ -151,7 +154,7 @@ export let products: MongoProduct[] = [
     title: "Edition Zero",
     deck: "zero",
     short: "Zero",
-    price: 34.95,
+    price: sheetPrice,
     status: "soldout",
     type: "sheet",
     image:
@@ -165,7 +168,7 @@ export let products: MongoProduct[] = [
     title: "Edition One",
     deck: "one",
     short: "One",
-    price: 34.95,
+    price: sheetPrice,
     status: "sheet",
     type: "sheet",
     image:
@@ -179,7 +182,7 @@ export let products: MongoProduct[] = [
     title: "Edition Two",
     deck: "two",
     short: "Two",
-    price: 34.95,
+    price: sheetPrice,
     status: "sheet",
     type: "sheet",
     image:
@@ -193,7 +196,7 @@ export let products: MongoProduct[] = [
     title: "Edition Three",
     deck: "three",
     short: "Three",
-    price: 34.95,
+    price: sheetPrice,
     status: "sheet",
     type: "sheet",
     image:
@@ -207,7 +210,7 @@ export let products: MongoProduct[] = [
     title: "Special Edition",
     deck: "special",
     short: "Special",
-    price: 34.95,
+    price: sheetPrice,
     status: "soldout",
     type: "sheet",
     image:
@@ -221,7 +224,7 @@ export let products: MongoProduct[] = [
     title: "Future Edition I",
     deck: "future",
     short: "Future",
-    price: 34.95,
+    price: sheetPrice,
     status: "soldout",
     type: "sheet",
     image:
@@ -236,7 +239,7 @@ export let products: MongoProduct[] = [
     deck: "future",
     short: "Future II",
     type: "sheet",
-    price: 34.95,
+    price: sheetPrice,
     status: "soldout",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/uncut-future-ii.png",
