@@ -174,44 +174,6 @@ const Content: FC = () => {
           overflow: "hidden",
         })}
       >
-        {latestRelease && (
-          <Grid>
-            <LatestRelease
-              isEurope={isEurope}
-              productId={latestRelease._id}
-              price={latestRelease.price[isEurope ? "eur" : "usd"]}
-              // data-id="Latest"
-              // data-id={latestRelease.deck}
-              {...(latestRelease.deck && {
-                "data-id": latestRelease.deck.slug,
-              })}
-              css={(theme) => ({
-                gridColumn: "span 9",
-                minHeight: theme.spacing(45),
-                [theme.maxMQ.md]: {
-                  gridColumn: "span 9",
-                },
-              })}
-            />
-
-            <NFTHolder
-              metamaskText="Connect MetaMask"
-              css={(theme) => [
-                {
-                  gridColumn: "span 3",
-                  [theme.maxMQ.md]: {
-                    gridColumn: "span 9",
-                    marginTop: theme.spacing(2.5),
-                  },
-                  [theme.maxMQ.sm]: {
-                    marginTop: theme.spacing(1),
-                  },
-                },
-              ]}
-            />
-          </Grid>
-        )}
-
         {/* Cards Block */}
 
         <BlockTitle
@@ -562,13 +524,61 @@ const Content: FC = () => {
         </div>
       </Layout>
 
+      {latestRelease && (
+        <Layout
+          notTruncatable={true}
+          css={[
+            {
+              background: `linear-gradient(180deg, #eaeaea 0%, #eaeaea 50%)`,
+            },
+          ]}
+        >
+          <Grid>
+            <LatestRelease
+              isEurope={isEurope}
+              productId={latestRelease._id}
+              price={latestRelease.price[isEurope ? "eur" : "usd"]}
+              // data-id="Latest"
+              // data-id={latestRelease.deck}
+              {...(latestRelease.deck && {
+                "data-id": latestRelease.deck.slug,
+              })}
+              css={(theme) => ({
+                gridColumn: "span 9",
+                minHeight: theme.spacing(45),
+                [theme.maxMQ.md]: {
+                  gridColumn: "span 9",
+                },
+              })}
+            />
+
+            <NFTHolder
+              metamaskText="Connect MetaMask"
+              css={(theme) => [
+                {
+                  gridColumn: "span 3",
+                  [theme.maxMQ.md]: {
+                    gridColumn: "span 9",
+                    marginTop: theme.spacing(2.5),
+                  },
+                  [theme.maxMQ.sm]: {
+                    marginTop: theme.spacing(1),
+                  },
+                },
+              ]}
+            />
+          </Grid>
+        </Layout>
+      )}
+
       {/* Uncut Sheets Block */}
 
       <Layout
         css={(theme) => ({
-          background: `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
-          paddingTop: theme.spacing(10),
-          paddingBottom: theme.spacing(10),
+          // background: `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
+          background: `linear-gradient(180deg, #eaeaea 50%, #eaeaea 100%)`,
+          paddingTop: theme.spacing(12),
+          paddingBottom: theme.spacing(12),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(6),
             paddingBottom: theme.spacing(6),
