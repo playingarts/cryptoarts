@@ -10,9 +10,10 @@ import Text from "../../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   products: GQL.Product[];
+  isEurope: boolean;
 }
 
-const ShopSheets: FC<Props> = ({ products, ...props }) => {
+const ShopSheets: FC<Props> = ({ products, isEurope, ...props }) => {
   const notSoldout = ({ status }: GQL.Product) => status !== "soldout";
   const [product, setProduct] = useState(
     products.find(notSoldout) || products[0]
@@ -100,7 +101,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
               css={[{ marginTop: "10px", marginBottom: "20px", opacity: 0.5 }]}
               variant="body2"
             >
-              €{product.price}
+              {isEurope ? "€" : "$"}
+              {product.price[isEurope ? "eur" : "usd"]}
             </Text>
           </Fragment>
         )}
@@ -160,7 +162,8 @@ const ShopSheets: FC<Props> = ({ products, ...props }) => {
           )}
           {width < breakpoints.sm && (
             <Text css={[{ margin: 0, opacity: 0.5 }]} variant="body4">
-              €{product.price}
+              {isEurope ? "€" : "$"}
+              {product.price[isEurope ? "eur" : "usd"]}
             </Text>
           )}
           <SelectButton

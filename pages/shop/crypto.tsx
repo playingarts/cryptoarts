@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useState } from "react";
 import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
 import { withApollo } from "../../source/apollo";
 import { useDeck } from "../../hooks/deck";
@@ -55,6 +55,16 @@ const calculateTimeLeft = () => {
 };
 
 const Crypto: NextPage = () => {
+  const [isEurope, setIsEurope] = useState(false);
+
+  useLayoutEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsEurope(
+        Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Europe/")
+      );
+    }
+  }, []);
+
   const { deck } = useDeck({ variables: { slug: "crypto" } });
 
   const [quantity, setQuantity] = useState(1);
@@ -291,6 +301,7 @@ const Crypto: NextPage = () => {
         >
           <Grid short={true}>
             <ComposedFaq
+              isEurope={isEurope}
               css={[
                 {
                   gridColumn: "1 / -1",

@@ -18,6 +18,7 @@ export interface Props extends HTMLAttributes<HTMLDivElement> {
   remove?: MouseEventHandler<HTMLElement>;
   withoutPic?: boolean;
   withoutSelect?: boolean;
+  isEurope: boolean;
 }
 
 const ShopCheckoutItem: FC<Props> = ({
@@ -32,6 +33,7 @@ const ShopCheckoutItem: FC<Props> = ({
   changeQuantity,
   remove,
   withoutPic,
+  isEurope,
   ...props
 }) => {
   const options = Array.from(
@@ -209,7 +211,7 @@ const ShopCheckoutItem: FC<Props> = ({
             >
               {price.toLocaleString(undefined, {
                 style: "currency",
-                currency: "EUR",
+                currency: isEurope ? "EUR" : "USD",
               })}
             </Text>
           )}

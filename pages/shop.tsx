@@ -36,9 +36,11 @@ const Content: FC = () => {
   const [isEurope, setIsEurope] = useState(false);
 
   useLayoutEffect(() => {
-    setIsEurope(
-      Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Europe/")
-    );
+    if (typeof window !== "undefined") {
+      setIsEurope(
+        Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Europe/")
+      );
+    }
   }, []);
 
   if (!products) {
@@ -175,6 +177,7 @@ const Content: FC = () => {
         {latestRelease && (
           <Grid>
             <LatestRelease
+              isEurope={isEurope}
               productId={latestRelease._id}
               price={latestRelease.price[isEurope ? "eur" : "usd"]}
               // data-id="Latest"
@@ -572,7 +575,7 @@ const Content: FC = () => {
           },
         })}
       >
-        <ShopSheets products={sheets} />
+        <ShopSheets products={sheets} isEurope={isEurope} />
       </Layout>
 
       {/* Shipping FAQ Block */}
@@ -594,7 +597,7 @@ const Content: FC = () => {
         })}
       >
         <Grid short={true}>
-          <ComposedFaq css={{ gridColumn: "1 / -1" }} />
+          <ComposedFaq isEurope={isEurope} css={{ gridColumn: "1 / -1" }} />
         </Grid>
       </Layout>
     </Fragment>

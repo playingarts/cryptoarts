@@ -9,10 +9,11 @@ const ComposedFaq: FC<
   HTMLAttributes<HTMLDivElement> & {
     title?: string;
     palette?: "light" | "dark";
+    isEurope: boolean;
   }
-> = ({ title, palette = "light", ...props }) => (
+> = ({ title, palette = "light", isEurope, ...props }) => (
   <div {...props}>
-    <Faq title={title} palette={palette} />
+    <Faq title={title} palette={palette} isEurope={isEurope} />
     <div
       css={(theme) => ({
         display: "flex",

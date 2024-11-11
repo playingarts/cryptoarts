@@ -9,7 +9,10 @@ export const ProductsQuery = gql`
       info
       status
       type
-      price
+      price {
+        eur
+        usd
+      }
       image
       image2
       deck {

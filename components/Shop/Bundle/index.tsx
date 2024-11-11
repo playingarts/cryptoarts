@@ -104,7 +104,8 @@ const ShopBundle: FC<Props> = ({
             },
           ]}
         >
-          €{(isEurope ? price.eur : price.usd).toFixed(2)}
+          {isEurope ? "€" : "$"}
+          {(isEurope ? price.eur : price.usd).toFixed(2)}
         </Text>
         <AddToBagButton
           productId={_id}

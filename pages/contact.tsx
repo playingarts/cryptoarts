@@ -1,6 +1,6 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { Fragment } from "react";
+import { Fragment, useLayoutEffect, useState } from "react";
 import Grid from "../components/Grid";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
@@ -10,6 +10,15 @@ import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import { withApollo } from "../source/apollo";
 
 const Page: NextPage = () => {
+  const [isEurope, setIsEurope] = useState(false);
+
+  useLayoutEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsEurope(
+        Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Europe/")
+      );
+    }
+  }, []);
   return (
     <Fragment>
       <Head>
@@ -158,6 +167,7 @@ const Page: NextPage = () => {
         >
           <Grid short={true}>
             <ComposedFaq
+              isEurope={isEurope}
               css={(theme) => ({
                 [theme.maxMQ.sm]: {
                   marginTop: theme.spacing(5),

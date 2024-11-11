@@ -164,9 +164,9 @@ const ShopItem: FC<Props> = ({
                 },
               ]}
             >
-              {(isEurope ? price.eur : price.usd).toLocaleString(undefined, {
+              {price[isEurope ? "eur" : "usd"].toLocaleString(undefined, {
                 style: "currency",
-                currency: "EUR",
+                currency: isEurope ? "EUR" : "USD",
               })}
             </Text>
             {/* )} */}

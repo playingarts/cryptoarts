@@ -24,17 +24,11 @@ import { useProducts } from "../hooks/product";
 import { withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
 
-const Content: FC<{
-  CheckoutButton: FC<ButtonProps & { noIcon?: boolean }>;
-}> = ({ CheckoutButton }) => {
-  const [isEurope, setIsEurope] = useState(false);
-
-  useLayoutEffect(() => {
-    setIsEurope(
-      Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Europe/")
-    );
-  }, []);
-
+const Content: FC<
+  {
+    CheckoutButton: FC<ButtonProps & { noIcon?: boolean }>;
+  } & { isEurope: boolean }
+> = ({ CheckoutButton, isEurope }) => {
   const { bag, updateQuantity, removeItem } = useBag();
 
   const { products } = useProducts({
@@ -215,6 +209,7 @@ const Content: FC<{
                         <Line spacing={width < breakpoints.sm ? 2 : 3} />
                       )}
                       <ShopCheckoutItem
+                        isEurope={isEurope}
                         image={product.image}
                         price={isEurope ? product.price.eur : product.price.usd}
                         title={product.short}
@@ -292,6 +287,7 @@ const Content: FC<{
                   ]}
                 >
                   <ShopCheckoutItem
+                    isEurope={isEurope}
                     title="SHIPPING AND HANDLING"
                     // price={shippingPrice}
                     titleVariant={width >= breakpoints.sm ? "h5" : "h4"}
@@ -351,7 +347,7 @@ const Content: FC<{
                         },
                       ]}
                     >
-                      €4.95
+                      {isEurope ? "€" : "$"}4.95
                     </Text>
                   </div>
                 </Grid>
@@ -424,7 +420,7 @@ const Content: FC<{
                         >
                           {totalPrice.toLocaleString(undefined, {
                             style: "currency",
-                            currency: "EUR",
+                            currency: isEurope ? "EUR" : "USD",
                           })}
                         </Text>
                         <EurToUsd css={{ opacity: 0.5 }} eur={totalPrice} />
@@ -489,7 +485,7 @@ const Content: FC<{
                           <Text component="h4" css={{ margin: 0 }}>
                             {totalPrice.toLocaleString(undefined, {
                               style: "currency",
-                              currency: "EUR",
+                              currency: isEurope ? "EUR" : "USD",
                             })}
                           </Text>
                           <Text
@@ -523,7 +519,7 @@ const Content: FC<{
                         >
                           {totalPrice.toLocaleString(undefined, {
                             style: "currency",
-                            currency: "EUR",
+                            currency: isEurope ? "EUR" : "USD",
                           })}
                         </Text>
                       </div>
@@ -557,6 +553,14 @@ const Content: FC<{
 };
 
 const Checkout: NextPage = () => {
+  const [isEurope, setIsEurope] = useState(false);
+
+  useLayoutEffect(() => {
+    setIsEurope(
+      Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Europe/")
+    );
+  }, []);
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -606,7 +610,7 @@ const Checkout: NextPage = () => {
 
   return (
     <ComposedGlobalLayout customShopButton={<CheckoutButton />} noNav={true}>
-      <Content CheckoutButton={CheckoutButton} />
+      <Content CheckoutButton={CheckoutButton} isEurope={isEurope} />
       <Layout
         css={(theme) => ({
           background: theme.colors.page_bg_light_gray,
@@ -618,6 +622,7 @@ const Checkout: NextPage = () => {
       >
         <Grid short={true}>
           <ComposedFaq
+            isEurope={isEurope}
             css={(theme) => ({
               [theme.maxMQ.sm]: {
                 marginTop: theme.spacing(5),

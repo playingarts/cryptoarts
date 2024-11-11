@@ -13,9 +13,10 @@ import Text from "../Text";
 interface Props extends Omit<StatBlockProps, "title" | "action"> {
   productId: string;
   price: number;
+  isEurope: boolean;
 }
 
-const LatestRelease: FC<Props> = ({ productId, price, ...props }) => {
+const LatestRelease: FC<Props> = ({ productId, price, isEurope, ...props }) => {
   const { status } = useMetaMask();
 
   const { width } = useSize();
@@ -98,7 +99,7 @@ const LatestRelease: FC<Props> = ({ productId, price, ...props }) => {
               >
                 {price.toLocaleString(undefined, {
                   style: "currency",
-                  currency: "EUR",
+                  currency: isEurope ? "EUR" : "USD",
                 })}
               </Text>
             </div>
