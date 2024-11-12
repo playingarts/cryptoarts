@@ -5,10 +5,8 @@ import BagButton from "../components/BagButton";
 import BlockTitle from "../components/BlockTitle";
 import CardFan from "../components/Card/Fan";
 import Grid from "../components/Grid";
-import LatestRelease from "../components/LatestRelease";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
-import NFTHolder from "../components/NFTHolder";
 import Quote from "../components/Quote";
 import ScrollIntoView from "../components/ScrollIntoView";
 import ShopBundle from "../components/Shop/Bundle";
@@ -51,9 +49,10 @@ const Content: FC = () => {
     sheet: sheets,
     deck: decks,
     bundle: bundles,
-    latestRelease,
+    // latestRelease,
   } = products.reduce<
-    Record<ProductListsTypes, GQL.Product[]> & { latestRelease?: GQL.Product }
+    Record<ProductListsTypes, GQL.Product[]>
+    // & { latestRelease?: GQL.Product }
   >(
     (lists, product) => ({
       ...lists,
@@ -176,7 +175,7 @@ const Content: FC = () => {
       >
         {/* Cards Block */}
 
-        <BlockTitle
+        {/* <BlockTitle
           alwaysSubtitle={true}
           {...(width <= breakpoints.xsm && { noLine: true })}
           variant="h3"
@@ -217,7 +216,7 @@ const Content: FC = () => {
             },
           })}
         />
-
+ */}
         <Grid>
           <Grid
             shop={true}
@@ -524,7 +523,7 @@ const Content: FC = () => {
         </div>
       </Layout>
 
-      {latestRelease && (
+      {/* {latestRelease && (
         <Layout
           notTruncatable={true}
           css={[
@@ -569,16 +568,16 @@ const Content: FC = () => {
             />
           </Grid>
         </Layout>
-      )}
+      )} */}
 
       {/* Uncut Sheets Block */}
 
       <Layout
         css={(theme) => ({
-          // background: `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
-          background: `linear-gradient(180deg, #eaeaea 50%, #eaeaea 100%)`,
-          paddingTop: theme.spacing(12),
-          paddingBottom: theme.spacing(12),
+          background: `linear-gradient(180deg, ${theme.colors.page_bg_light_gray} 0%, #eaeaea 100%)`,
+          // background: `linear-gradient(180deg, #eaeaea 50%, #eaeaea 100%)`,
+          paddingTop: theme.spacing(10),
+          paddingBottom: theme.spacing(10),
           [theme.maxMQ.sm]: {
             paddingTop: theme.spacing(6),
             paddingBottom: theme.spacing(6),
