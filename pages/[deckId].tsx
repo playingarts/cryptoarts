@@ -29,7 +29,6 @@ import ComposedCardList from "../components/_composed/ComposedCardList";
 import ComposedEntries from "../components/_composed/ComposedEntries";
 import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
-import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedPace from "../components/_composed/Pace";
 import { getDeckSlugsWithoutDB } from "../dump/_decks";
@@ -367,7 +366,7 @@ const Content: FC<{
 
           {/* Game promo block */}
 
-          {width >= breakpoints.sm && (
+          {/* {width >= breakpoints.sm && (
             <Layout
               scrollIntoView={section === Sections.game}
               ref={gameRef}
@@ -381,7 +380,7 @@ const Content: FC<{
             >
               <GamePromo />
             </Layout>
-          )}
+          )} */}
 
           {/* Contest block */}
 

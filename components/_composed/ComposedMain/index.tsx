@@ -11,7 +11,7 @@ import Text from "../../Text";
 interface Props extends HTMLAttributes<HTMLElement> {
   labels?: string[];
   title?: string;
-  subtitle?: string;
+  subtitle?: string | JSX.Element;
   outerChildren?: ReactNode;
   layoutChildren?: ReactNode;
   slug?: string;

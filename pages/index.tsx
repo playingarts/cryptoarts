@@ -10,14 +10,14 @@ import BrowseCollection from "../components/_composed/BrowseCollection";
 import ComposedCardOfTheDay from "../components/_composed/CardOfTheDay";
 import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedMainHero from "../components/_composed/ComposedMainHero";
-import GamePromo from "../components/_composed/GamePromo";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
+import PodcastAndSocials from "../components/_composed/PodcastAndSocials";
+import { RandomCardsQueryWithoutDeck } from "../hooks/card";
+import { DecksQuery } from "../hooks/deck";
 import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
-import { DecksQuery } from "../hooks/deck";
-import { RandomCardsQueryWithoutDeck } from "../hooks/card";
-import PodcastAndSocials from "../components/_composed/PodcastAndSocials";
 import { connect } from "../source/mongoose";
+import BlockTitle from "../components/BlockTitle";
 
 const Home: NextPage = () => {
   const { width } = useSize();
@@ -87,7 +87,12 @@ const Home: NextPage = () => {
       > */}
       <ComposedMain
         title="Collective Art Project"
-        subtitle="For creative people who are into illustrations, playing cards, NFTs and sometimes magic."
+        subtitle={
+          <>
+            For those who are into Art,
+            <br /> Playing Cards, and sometimes Magic.
+          </>
+        }
         css={(theme) => [
           {
             color: theme.colors.dark_gray,
@@ -175,12 +180,9 @@ const Home: NextPage = () => {
                 marginTop: 15,
               }}
             >
-              Playing Arts is a global art initiative that brings together
-              renowned artists from around the world to showcase their artistic
-              styles and unique perspectives through the medium of playing
-              cards. The result is a diverse and captivating collection of
-              artwork that celebrates the endless possibilities that can be
-              explored through the simple form of a playing card.
+              Playing Arts brings together artists from around the world,
+              transforming playing cards into a diverse gallery of creative
+              expression.
             </Text>
             <div
               css={(theme) => [
@@ -275,7 +277,12 @@ const Home: NextPage = () => {
           ]}
         >
           <Grid short={true}>
-            <Text
+            <BlockTitle
+              title="Discover the collection"
+              subTitleText="Every deck features 55 playing cards—55 unique artworks, each created by a different artist."
+              css={[{ gridColumn: "1/-1" }]}
+            />
+            {/* <Text
               component="h3"
               css={(theme) => [
                 {
@@ -290,7 +297,7 @@ const Home: NextPage = () => {
                 },
               ]}
             >
-              Browse Collection
+              Discover the collection
             </Text>
             <Line
               spacing={3}
@@ -302,7 +309,7 @@ const Home: NextPage = () => {
                   },
                 },
               ]}
-            />
+            /> */}
           </Grid>
           <BrowseCollection
             css={(theme) => ({
@@ -338,9 +345,9 @@ const Home: NextPage = () => {
         />
       </Grid>
 
-      {/* Game promo Block */}
+      {/* Game promo Block
 
-      <GamePromo />
+      <GamePromo /> */}
 
       {/* Card of the day Block */}
 

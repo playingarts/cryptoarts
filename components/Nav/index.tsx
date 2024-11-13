@@ -69,7 +69,7 @@ const Nav: FC<
           ]}
           onClick={() => setModal(true)}
         >
-          browse collection
+          Discover the collection
         </button>
       )}
       {width >= breakpoints.sm && (
