@@ -1,7 +1,7 @@
 // import { right } from "fp-ts/lib/EitherT";
 import { NextPage } from "next";
 import Head from "next/head";
-import { FC, Fragment, useEffect, useLayoutEffect, useState } from "react";
+import { FC, Fragment, useLayoutEffect, useState } from "react";
 import Button, { Props as ButtonProps } from "../components/Button";
 import EurToUsd from "../components/EurToUsd";
 import Grid from "../components/Grid";
@@ -70,7 +70,7 @@ const Content: FC<
   totalPrice = parseFloat((totalPrice + shippingPrice).toFixed(2));
 
   return (
-    <Fragment>
+    <>
       <Head>
         <title>Bag - Playing Arts</title>
       </Head>
@@ -170,60 +170,59 @@ const Content: FC<
       </Layout>
 
       {products.length > 0 && (
-        <Fragment>
-          <Layout
-            css={(theme) => ({
-              background: theme.colors.page_bg_light,
-              [theme.mq.sm]: {
-                paddingTop: theme.spacing(3),
-              },
-              [theme.maxMQ.sm]: {
-                paddingTop: theme.spacing(0),
-                paddingBottom: theme.spacing(5.5),
-                paddingLeft: theme.spacing(3),
-                paddingRight: theme.spacing(3),
-              },
-              paddingBottom: theme.spacing(12),
-            })}
-          >
-            <Grid>
-              <div
-                css={(theme) => [
-                  {
-                    [theme.maxMQ.sm]: {
-                      gridColumn: "1/-1",
-                    },
-                    [theme.mq.sm]: {
-                      gridColumn: "span 9",
-                      gridTemplateColumns: "repeat(9, 1fr)",
-                    },
-                    gap: "inherit",
-                    display: "grid",
+        <Layout
+          css={(theme) => ({
+            background: theme.colors.page_bg_light,
+            [theme.mq.sm]: {
+              paddingTop: theme.spacing(3),
+            },
+            [theme.maxMQ.sm]: {
+              paddingTop: theme.spacing(0),
+              paddingBottom: theme.spacing(5.5),
+              paddingLeft: theme.spacing(3),
+              paddingRight: theme.spacing(3),
+            },
+            paddingBottom: theme.spacing(12),
+          })}
+        >
+          <Grid>
+            <div
+              css={(theme) => [
+                {
+                  [theme.maxMQ.sm]: {
+                    gridColumn: "1/-1",
                   },
-                ]}
-              >
-                <div css={{ gridColumn: "1/-1" }}>
-                  {products.map((product, index) => (
-                    <Fragment key={product._id}>
-                      {index !== 0 && (
-                        <Line spacing={width < breakpoints.sm ? 2 : 3} />
-                      )}
-                      <ShopCheckoutItem
-                        isEurope={isEurope}
-                        image={product.image}
-                        price={isEurope ? product.price.eur : product.price.usd}
-                        title={product.short}
-                        info={product.info}
-                        remove={remove(product._id)}
-                        quantity={bag[product._id]}
-                        changeQuantity={changeQuantity(product._id)}
-                      />
-                    </Fragment>
-                  ))}
+                  [theme.mq.sm]: {
+                    gridColumn: "span 9",
+                    gridTemplateColumns: "repeat(9, 1fr)",
+                  },
+                  gap: "inherit",
+                  display: "grid",
+                },
+              ]}
+            >
+              <div css={{ gridColumn: "1/-1" }}>
+                {products.map((product, index) => (
+                  <Fragment key={product._id}>
+                    {index !== 0 && (
+                      <Line spacing={width < breakpoints.sm ? 2 : 3} />
+                    )}
+                    <ShopCheckoutItem
+                      isEurope={isEurope}
+                      image={product.image}
+                      price={isEurope ? product.price.eur : product.price.usd}
+                      title={product.short}
+                      info={product.info}
+                      remove={remove(product._id)}
+                      quantity={bag[product._id]}
+                      changeQuantity={changeQuantity(product._id)}
+                    />
+                  </Fragment>
+                ))}
 
-                  <Line spacing={width < breakpoints.sm ? 2 : 4} />
-                </div>
-                {/* {totalPrice - shippingPrice < freeShippingAt &&
+                <Line spacing={width < breakpoints.sm ? 2 : 4} />
+              </div>
+              {/* {totalPrice - shippingPrice < freeShippingAt &&
                   totalPrice - shippingPrice + 15 >= freeShippingAt && (
                     <Text
                       variant="body"
@@ -250,137 +249,159 @@ const Content: FC<
                       Add one more deck and get free shipping!
                     </Text>
                   )} */}
-                {products.find(({ deck }) => deck && deck.slug === "crypto") &&
-                Object.keys(bag).length > 1 ? (
-                  <Text
-                    variant="body"
-                    css={(theme) => ({
-                      gridColumn: "1 / span 9",
-                      paddingLeft: theme.spacing(2.5),
-                      lineHeight: `${theme.spacing(5)}px`,
-                      alignContent: "center",
-                      background: theme.colors.gradient_three,
-                      borderRadius: theme.spacing(1),
-                      color: theme.colors.text_title_light,
-                      fontWeight: 500,
-                      margin: 0,
-                      marginBottom: theme.spacing(4.5),
-                      [theme.maxMQ.sm]: {
-                        gridColumn: "1 / -1",
-                        fontSize: 13,
-                        padding: 0,
-                        textAlign: "center",
-                        lineHeight: `${theme.spacing(4.5)}px`,
-                        marginBottom: theme.spacing(1.5),
-                      },
-                    })}
-                  >
-                    Your order will arrive in two different packages.
-                  </Text>
-                ) : null}
-                <Grid
-                  auto={true}
-                  css={[
-                    {
+              {products.find(({ deck }) => deck && deck.slug === "crypto") &&
+              Object.keys(bag).length > 1 ? (
+                <Text
+                  variant="body"
+                  css={(theme) => ({
+                    gridColumn: "1 / span 9",
+                    paddingLeft: theme.spacing(2.5),
+                    lineHeight: `${theme.spacing(5)}px`,
+                    alignContent: "center",
+                    background: theme.colors.gradient_three,
+                    borderRadius: theme.spacing(1),
+                    color: theme.colors.text_title_light,
+                    fontWeight: 500,
+                    margin: 0,
+                    marginBottom: theme.spacing(4.5),
+                    [theme.maxMQ.sm]: {
                       gridColumn: "1 / -1",
+                      fontSize: 13,
+                      padding: 0,
+                      textAlign: "center",
+                      lineHeight: `${theme.spacing(4.5)}px`,
+                      marginBottom: theme.spacing(1.5),
+                    },
+                  })}
+                >
+                  Your order will arrive in two different packages.
+                </Text>
+              ) : null}
+              <Grid
+                auto={true}
+                css={[
+                  {
+                    gridColumn: "1 / -1",
+                  },
+                ]}
+              >
+                <ShopCheckoutItem
+                  isEurope={isEurope}
+                  title="SHIPPING AND HANDLING"
+                  // price={shippingPrice}
+                  titleVariant={width >= breakpoints.sm ? "h5" : "h4"}
+                  withoutPic={true}
+                  css={(theme) => [
+                    {
+                      gridColumn: "2 / 8",
+                      opacity: 0.5,
+                      [theme.maxMQ.md]: {
+                        gridColumn: "1 / 8",
+                        marginBottom: theme.spacing(2),
+                      },
+                      [theme.maxMQ.sm]: {
+                        gridColumn: "1 / 6",
+                        marginTop: theme.spacing(3),
+                      },
+                      [theme.maxMQ.xsm]: {
+                        gridColumn: "1 / -1",
+                      },
                     },
                   ]}
-                >
-                  <ShopCheckoutItem
-                    isEurope={isEurope}
-                    title="SHIPPING AND HANDLING"
-                    // price={shippingPrice}
-                    titleVariant={width >= breakpoints.sm ? "h5" : "h4"}
-                    withoutPic={true}
+                  info={
+                    <Fragment>
+                      <Text
+                        css={(theme) => [
+                          {
+                            // opacity: 0.5,
+                            marginBottom: theme.spacing(0),
+                            [theme.maxMQ.sm]: {
+                              fontSize: 16,
+                            },
+                          },
+                        ]}
+                      >
+                        Your order will be dispatched in 2 to 5 business days.
+                        {/* Enjoy free delivery for orders over €{freeShippingAt}. */}
+                        {/* {freeShippingAt > 0 &&
+                          freeShippingAt !== Infinity &&
+                          ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
+                      </Text>
+                    </Fragment>
+                  }
+                />
+                {/* {width > breakpoints.sm && ( */}
+                <div>
+                  <Text
+                    variant="h5"
                     css={(theme) => [
                       {
-                        gridColumn: "2 / 8",
+                        margin: 0,
                         opacity: 0.5,
-                        [theme.maxMQ.md]: {
-                          gridColumn: "1 / 8",
-                          marginBottom: theme.spacing(2),
-                        },
-                        [theme.maxMQ.sm]: {
-                          gridColumn: "1 / 6",
-                          marginTop: theme.spacing(3),
-                        },
-                        [theme.maxMQ.xsm]: {
-                          gridColumn: "1 / -1",
+                        [theme.mq.xsm]: {
+                          [theme.maxMQ.sm]: {
+                            textAlign: "end",
+                          },
                         },
                       },
                     ]}
-                    info={
-                      <Fragment>
-                        <Text
-                          css={(theme) => [
-                            {
-                              // opacity: 0.5,
-                              marginBottom: theme.spacing(0),
-                              [theme.maxMQ.sm]: {
-                                fontSize: 16,
-                              },
-                            },
-                          ]}
-                        >
-                          Your order will be dispatched in 2 to 5 business days.
-                          {/* Enjoy free delivery for orders over €{freeShippingAt}. */}
-                          {/* {freeShippingAt > 0 &&
-                          freeShippingAt !== Infinity &&
-                          ` Free delivery for orders over €${freeShippingAt}. Enjoy!`} */}
-                        </Text>
-                      </Fragment>
-                    }
-                  />
-                  {/* {width > breakpoints.sm && ( */}
-                  <div>
+                  >
+                    {isEurope ? "€" : "$"}4.95
+                  </Text>
+                </div>
+              </Grid>
+              {/* )} */}
+              <Line
+                spacing={3.5}
+                css={(theme) => ({
+                  [theme.maxMQ.md]: {
+                    gridColumn: "1 / -1",
+                    marginLeft: 0,
+                  },
+                  [theme.mq.md]: {
+                    marginLeft: theme.spacing(10.5),
+                  },
+                  gridColumn: "span 8",
+                  [theme.maxMQ.sm]: {
+                    marginTop: theme.spacing(2.5),
+                    marginBottom: theme.spacing(2.5),
+                    gridColumn: "1/-1",
+                  },
+                  width: "100%",
+                })}
+              />
+              {(width < breakpoints.sm || width >= breakpoints.md) && (
+                <Fragment>
+                  <div
+                    css={(theme) => [
+                      {
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gridColumn: "1 / -1",
+                        [theme.mq.sm]: {
+                          gridColumn: "2 / -1",
+                        },
+                      },
+                    ]}
+                  >
                     <Text
-                      variant="h5"
+                      variant={width < breakpoints.sm ? "h3" : "h4"}
                       css={(theme) => [
                         {
                           margin: 0,
-                          opacity: 0.5,
-                          [theme.mq.xsm]: {
-                            [theme.maxMQ.sm]: {
-                              textAlign: "end",
-                            },
+                          [theme.maxMQ.sm]: {
+                            fontSize: 25,
                           },
                         },
                       ]}
                     >
-                      {isEurope ? "€" : "$"}4.95
+                      Total (incl. taxes)
                     </Text>
-                  </div>
-                </Grid>
-                {/* )} */}
-                <Line
-                  spacing={3.5}
-                  css={(theme) => ({
-                    [theme.maxMQ.md]: {
-                      gridColumn: "1 / -1",
-                      marginLeft: 0,
-                    },
-                    [theme.mq.md]: {
-                      marginLeft: theme.spacing(10.5),
-                    },
-                    gridColumn: "span 8",
-                    [theme.maxMQ.sm]: {
-                      marginTop: theme.spacing(2.5),
-                      marginBottom: theme.spacing(2.5),
-                      gridColumn: "1/-1",
-                    },
-                    width: "100%",
-                  })}
-                />
-                {(width < breakpoints.sm || width >= breakpoints.md) && (
-                  <Fragment>
                     <div
                       css={(theme) => [
                         {
-                          display: "flex",
-                          justifyContent: "space-between",
-                          gridColumn: "1 / -1",
                           [theme.mq.sm]: {
-                            gridColumn: "2 / -1",
+                            minWidth: theme.spacing(18),
                           },
                         },
                       ]}
@@ -396,159 +417,135 @@ const Content: FC<
                           },
                         ]}
                       >
+                        {totalPrice.toLocaleString(undefined, {
+                          style: "currency",
+                          currency: isEurope ? "EUR" : "USD",
+                        })}
+                      </Text>
+                      <EurToUsd css={{ opacity: 0.5 }} eur={totalPrice} />
+                    </div>
+                  </div>
+                  {width < breakpoints.sm && (
+                    <Fragment>
+                      <CheckoutButton
+                        color="black"
+                        css={(theme) => [
+                          { width: "100%", marginTop: theme.spacing(2.3) },
+                        ]}
+                        centeredText={true}
+                        noIcon={true}
+                      />
+                      <Button
+                        css={{ margin: "25px auto 0", opacity: 0.5 }}
+                        component={Link}
+                        href="/shop"
+                      >
+                        Continue shopping
+                      </Button>
+                    </Fragment>
+                  )}
+                </Fragment>
+              )}
+            </div>
+            {width >= breakpoints.sm && (
+              <div
+                css={(theme) => ({
+                  position: "sticky",
+                  gridColumn: "1 / -1",
+                  [theme.mq.md]: {
+                    gridColumn: "span 3",
+                  },
+                  height: "fit-content",
+                  top: theme.spacing(13),
+                  textAlign: "center",
+                })}
+              >
+                <StatBlock
+                  css={(theme) => ({
+                    background: theme.colors.page_bg_light_gray,
+                  })}
+                >
+                  {width < breakpoints.md ? (
+                    <div
+                      css={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Text component="h4" css={{ margin: 0 }}>
                         Total (incl. taxes)
                       </Text>
                       <div
-                        css={(theme) => [
-                          {
-                            [theme.mq.sm]: {
-                              minWidth: theme.spacing(18),
-                            },
-                          },
-                        ]}
-                      >
-                        <Text
-                          variant={width < breakpoints.sm ? "h3" : "h4"}
-                          css={(theme) => [
-                            {
-                              margin: 0,
-                              [theme.maxMQ.sm]: {
-                                fontSize: 25,
-                              },
-                            },
-                          ]}
-                        >
-                          {totalPrice.toLocaleString(undefined, {
-                            style: "currency",
-                            currency: isEurope ? "EUR" : "USD",
-                          })}
-                        </Text>
-                        <EurToUsd css={{ opacity: 0.5 }} eur={totalPrice} />
-                      </div>
-                    </div>
-                    {width < breakpoints.sm && (
-                      <Fragment>
-                        <CheckoutButton
-                          color="black"
-                          css={(theme) => [
-                            { width: "100%", marginTop: theme.spacing(2.3) },
-                          ]}
-                          centeredText={true}
-                          noIcon={true}
-                        />
-                        <Button
-                          css={{ margin: "25px auto 0", opacity: 0.5 }}
-                          component={Link}
-                          href="/shop"
-                        >
-                          Continue shopping
-                        </Button>
-                      </Fragment>
-                    )}
-                  </Fragment>
-                )}
-              </div>
-              {width >= breakpoints.sm && (
-                <div
-                  css={(theme) => ({
-                    position: "sticky",
-                    gridColumn: "1 / -1",
-                    [theme.mq.md]: {
-                      gridColumn: "span 3",
-                    },
-                    height: "fit-content",
-                    top: theme.spacing(13),
-                    textAlign: "center",
-                  })}
-                >
-                  <StatBlock
-                    css={(theme) => ({
-                      background: theme.colors.page_bg_light_gray,
-                    })}
-                  >
-                    {width < breakpoints.md ? (
-                      <div
-                        css={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
+                        css={(theme) => ({
+                          minWidth: theme.spacing(18),
+                          textAlign: "initial",
+                        })}
                       >
                         <Text component="h4" css={{ margin: 0 }}>
-                          Total (incl. taxes)
-                        </Text>
-                        <div
-                          css={(theme) => ({
-                            minWidth: theme.spacing(18),
-                            textAlign: "initial",
-                          })}
-                        >
-                          <Text component="h4" css={{ margin: 0 }}>
-                            {totalPrice.toLocaleString(undefined, {
-                              style: "currency",
-                              currency: isEurope ? "EUR" : "USD",
-                            })}
-                          </Text>
-                          <Text
-                            component="p"
-                            css={(theme) => ({
-                              margin: 0,
-                              marginTop: theme.spacing(0.5),
-                              marginBottom: theme.spacing(2),
-                              color: theme.colors.text_subtitle_dark,
-                            })}
-                          >
-                            ~
-                            {totalPrice.toLocaleString(undefined, {
-                              style: "currency",
-                              currency: "USD",
-                            })}
-                          </Text>
-                        </div>
-                      </div>
-                    ) : (
-                      <div>
-                        <Text component="h6" css={{ opacity: 0.5, margin: 0 }}>
-                          Your TOTAL
-                        </Text>
-                        <Text
-                          variant="h4"
-                          css={(theme) => ({
-                            marginTop: theme.spacing(2),
-                            marginBottom: theme.spacing(2),
-                          })}
-                        >
                           {totalPrice.toLocaleString(undefined, {
                             style: "currency",
                             currency: isEurope ? "EUR" : "USD",
                           })}
                         </Text>
+                        <Text
+                          component="p"
+                          css={(theme) => ({
+                            margin: 0,
+                            marginTop: theme.spacing(0.5),
+                            marginBottom: theme.spacing(2),
+                            color: theme.colors.text_subtitle_dark,
+                          })}
+                        >
+                          ~
+                          {totalPrice.toLocaleString(undefined, {
+                            style: "currency",
+                            currency: "USD",
+                          })}
+                        </Text>
                       </div>
-                    )}
-                    <CheckoutButton
-                      color="black"
-                      css={{ width: "100%" }}
-                      centeredText={true}
-                    />
-                    <Line spacing={2} />
-                    <Text css={{ margin: 0, opacity: 0.5 }}>
-                      <Lock css={{ verticalAlign: "baseline" }} /> Secure
-                      payment
-                    </Text>
-                  </StatBlock>
-                  <Button
-                    css={{ marginTop: "25px", opacity: 0.5 }}
-                    component={Link}
-                    href="/shop"
-                  >
-                    go shopping
-                  </Button>
-                </div>
-              )}
-            </Grid>
-          </Layout>
-        </Fragment>
+                    </div>
+                  ) : (
+                    <div>
+                      <Text component="h6" css={{ opacity: 0.5, margin: 0 }}>
+                        Your TOTAL
+                      </Text>
+                      <Text
+                        variant="h4"
+                        css={(theme) => ({
+                          marginTop: theme.spacing(2),
+                          marginBottom: theme.spacing(2),
+                        })}
+                      >
+                        {totalPrice.toLocaleString(undefined, {
+                          style: "currency",
+                          currency: isEurope ? "EUR" : "USD",
+                        })}
+                      </Text>
+                    </div>
+                  )}
+                  <CheckoutButton
+                    color="black"
+                    css={{ width: "100%" }}
+                    centeredText={true}
+                  />
+                  <Line spacing={2} />
+                  <Text css={{ margin: 0, opacity: 0.5 }}>
+                    <Lock css={{ verticalAlign: "baseline" }} /> Secure payment
+                  </Text>
+                </StatBlock>
+                <Button
+                  css={{ marginTop: "25px", opacity: 0.5 }}
+                  component={Link}
+                  href="/shop"
+                >
+                  go shopping
+                </Button>
+              </div>
+            )}
+          </Grid>
+        </Layout>
       )}
-    </Fragment>
+    </>
   );
 };
 
@@ -561,25 +558,13 @@ const Checkout: NextPage = () => {
     );
   }, []);
 
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    let timeout: NodeJS.Timeout;
-
-    if (loading) {
-      timeout = setTimeout(() => setLoading(false), 3000);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [loading]);
+  const [disabledButton, setDisabledButton] = useState(false);
 
   const CheckoutButton: FC<ButtonProps & { noIcon?: boolean }> = ({
     noIcon,
     ...props
   }) => {
     const { bag } = useBag();
-    const startLoading = () => setLoading(true);
-
     const { width } = useSize();
 
     return (
@@ -592,8 +577,8 @@ const Checkout: NextPage = () => {
         href={`https://store.playingarts.com/cart/${Object.entries(bag)
           .map(([id, quantity]) => `${parseInt(id, 10)}:${quantity}`)
           .join(",")}`}
-        onClick={startLoading}
-        loading={loading}
+        onClick={() => setDisabledButton(true)}
+        loading={disabledButton}
         css={(theme) => [
           !noIcon && {
             [theme.maxMQ.sm]: {
@@ -610,10 +595,13 @@ const Checkout: NextPage = () => {
 
   return (
     <ComposedGlobalLayout customShopButton={<CheckoutButton />} noNav={true}>
-      <Content CheckoutButton={CheckoutButton} isEurope={isEurope} />
+      <div>
+        <Content CheckoutButton={CheckoutButton} isEurope={isEurope} />
+      </div>
       <Layout
         css={(theme) => ({
           background: theme.colors.page_bg_light_gray,
+          color: "red",
           [theme.mq.sm]: {
             zIndex: 1,
             borderRadius: "0px 0px 50px 50px",
