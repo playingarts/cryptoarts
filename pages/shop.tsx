@@ -155,9 +155,22 @@ const Content: FC = () => {
               },
             }}
           />
-          {/* <Text variant="body2" css={{ margin: 0, gridColumn: "1/-1" }}>
-            The best way to buy the products you love.
-          </Text> */}
+          <Text
+            variant="body2"
+            css={(theme) => [
+              {
+                margin: 0,
+                gridColumn: "1/-1",
+                [theme.maxMQ.sm]: {
+                  marginBottom: theme.spacing(2),
+                },
+              },
+            ]}
+          >
+            {/* The best way to buy the products you love. */}
+            Carefully crafted and beautifully printed in the USA on legendary
+            Bicycle® paper—the highest quality coated playing card stock.
+          </Text>
         </Grid>
       </Layout>
 
