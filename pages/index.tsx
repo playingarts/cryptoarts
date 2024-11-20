@@ -181,8 +181,8 @@ const Home: NextPage = () => {
               }}
             >
               Playing Arts brings together artists from around the world,
-              transforming playing cards into a diverse gallery of creative
-              expression.
+              transforming traditional playing cards into a diverse gallery of
+              creative expression.
             </Text>
             <div
               css={(theme) => [
