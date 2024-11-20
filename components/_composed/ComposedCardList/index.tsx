@@ -13,6 +13,7 @@ import defaultSort from "../../Icons/defaultSort";
 import Sort from "../../Icons/Sort";
 import SelectButton, { Props as SelectButtonProps } from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
+import Text from "../../Text";
 
 interface Props extends Omit<ListProps, "status" | "deckId" | "cards"> {
   deck: GQL.Deck;
@@ -139,8 +140,21 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
       title={
         artistId && deck
           ? deck.title
-          : ((deckId === "special" || deckId === "future") && "Cards") ||
-            "Cards"
+          : (
+              <Text
+                variant="body3"
+                css={{
+                  marginTop: 15,
+                  fontWeight: "normal",
+                  fontFamily: "Work Sans, sans-serif",
+                  letterSpacing: "normal",
+                }}
+              >
+                {deck.intro}
+              </Text>
+            ) || "Cards"
+        // : ((deckId === "special" || deckId === "future") && "Cards") ||
+        //   "Cards"
       }
       // subTitleText={
       //   deck.slug === "crypto"

@@ -1,5 +1,6 @@
 export const mockDeck: GQL.Deck = {
   __typename: "Deck",
+  intro: "intro",
   _id: "_id",
   title: "title",
   short: "short",

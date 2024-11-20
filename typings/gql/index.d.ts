@@ -154,6 +154,7 @@ interface Deck {
   title: Scalars['String'];
   short: Scalars['String'];
   info: Scalars['String'];
+  intro: Scalars['String'];
   slug: Scalars['ID'];
   openseaCollection?: Maybe<OpenseaCollection>;
   cardBackground?: Maybe<Scalars['String']>;
@@ -581,6 +582,7 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  intro?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   slug?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   openseaCollection?: Resolver<Maybe<ResolversTypes['OpenseaCollection']>, ParentType, ContextType>;
   cardBackground?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;

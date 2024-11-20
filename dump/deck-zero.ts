@@ -7,7 +7,9 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Edition Zero",
   short: "Zero",
   slug,
-  info: "Released in 2012 and originally called Creative Cards, this deck marked the beginning of artistic deck series. Reissued in 2019 powered by Augmented Reality feature.",
+  info: "The deck that started it all. A groundbreaking collection of 55 unique artworks, paving the way for Playing Arts.",
+  intro:
+    "First launched in 2012, Edition Zero was where Playing Arts began. Featuring 55 stunning artworks from global artists, this deck set the stage for creativity and innovation in card design. Reissued in 2019 with Augmented Reality animations, it continues to inspire and push boundaries.",
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_zero.png",
   labels: ["ar"],
   backgroundImage:

@@ -5,6 +5,7 @@ export const DeckDataFragment = gql`
     _id
     slug
     info
+    intro
     title
     cardBackground
     short

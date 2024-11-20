@@ -7,8 +7,9 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Special Edition",
   short: "Special",
   slug,
-  info:
-    "537 artists from 67 countries participated in design contest, showing their vision of the custom playing cards. Each contestant was asked to create an artwork for one particular card in their distinct style.",
+  info: "Where creativity meets community. A deck shaped by a global open call and the votes of our backers.",
+  intro:
+    "Special Edition stands as a tribute to global collaboration and artistic excellence. Through an international design contest, over 550 entries competed for a place in this deck, with Kickstarter backers voting on the final 55 artworks. The result? A one-of-a-kind collection that remains one of our most beloved decks to date.",
   image:
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_special.png",
   backgroundImage:

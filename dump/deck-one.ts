@@ -7,7 +7,9 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Edition One",
   short: "One",
   slug,
-  info: "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
+  info: "The next chapter of Playing Arts. 55 remarkable artworks by world-class artists, transforming a deck of cards into a creative masterpiece.",
+  intro:
+    "Released in 2013, Edition One brought together 55 visionary artists from around the world to create a stunning blend of art and play. Funded in less than an hour on Kickstarter, it quickly became a favorite among collectors and enthusiasts.",
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_one.png",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_one_bg.jpg",

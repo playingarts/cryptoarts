@@ -7,7 +7,9 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   title: "Crypto Edition",
   short: "Crypto",
   slug,
-  info: "A deck of playing cards featuring the works of 55 leading artists has been brought to life as unique digital art collectibles living on the Ethereum blockchain.",
+  info: "The first-ever deck blending fine art and NFTs. Crypto Edition brings together the best artists from the Web3 world to create a truly unique collection.",
+  intro:
+    "Crypto Edition merges the worlds of physical and digital art. Originally released as a sold-out NFT collection, this deck features AR-animated cards designed by top Web3 artists, packaged in a sleek matte black box with foil accents. A bold step into the future of playing cards.",
   cardBackground: "#181818",
   image:
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_crypto.png",
