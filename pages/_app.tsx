@@ -38,6 +38,7 @@ const maxMQ = (Object.keys(breakpoints) as Array<keyof typeof breakpoints>)
 export const colorLiterals = {
   //new
   dark_gray_hover: "#3C3C3C",
+  favourite: "#E3E4F4",
   //old
   orangeRed: "#FF6633",
   darkTurqoise: "#07D0E0",
@@ -184,8 +185,7 @@ export const colorLiterals = {
 } as const;
 
 export const typographyLiterals = {
-  //new
-  //styleName: Title;
+  //new new
   newParagraph: {
     fontFamily: "'Alliance No.2'",
     fontSize: 25,
@@ -195,6 +195,17 @@ export const typographyLiterals = {
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
   },
+  newh2: {
+    fontFamily: "'Alliance No.2'",
+    fontSize: 55,
+    fontWeight: 400,
+    lineHeight: "66px",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+  },
+
+  // new
   title: {
     fontSize: 27,
     fontWeight: 400,

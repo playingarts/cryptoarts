@@ -13,6 +13,7 @@ import DigitalArts from "../../../components/Icons/DigitalArts";
 import Esquire from "../../../components/Icons/Esquire";
 import Quote from "../../../components/Quote";
 import Header from "../../Header";
+import Hero from "./Hero";
 
 type Props = {};
 
@@ -20,33 +21,10 @@ const Home = (props: Props) => {
   return (
     <>
       <Header />
+      <Hero />
       <Grid css={[{ background: "#E9E7E2", width: "100%" }]}>
         <div css={{ gridColumn: "1/-1" }}>
-          <Grid>
-            {/* Hero */}
-            <div css={[{ gridColumn: "1/ span 6" }]}>
-              <Text css={(theme) => [theme.typography.h, { margin: 0 }]}>
-                Collective Art Project
-              </Text>
-              <span>
-                <Button>Learn the story</Button>
-                <Button>Shop the decks</Button>
-              </span>
-              <Text
-                css={(theme) => [theme.typography.paragraphBig, { margin: 0 }]}
-              >
-                “Where art and play come together in every playing card.”
-              </Text>
-              <Button>Dive in to learn more</Button>
-            </div>
-            <div css={[{ gridColumn: "7/-1" }]}>
-              <HeroCard
-                noInfo={true}
-                card={{ ...mockCard, background: "none" }}
-                css={{ width: 340, height: 478 }}
-              />
-            </div>
-          </Grid>
+          {/* Hero */}
           {/* Story */}
           <div css={{ position: "relative" }}>
             <Grid css={{ background: "#F1F1F1" }}>

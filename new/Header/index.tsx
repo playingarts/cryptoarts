@@ -39,22 +39,26 @@ const Header: FC<Props> = ({ ...props }) => {
       {...props}
       css={(theme) => [
         {
+          zIndex: 9999,
           margin: "0 auto",
           maxWidth: 1420,
           width: "100%",
           paddingLeft: 17,
           paddingRight: 25,
-          marginTop: 15,
+          // header height initially
+          marginTop: -70,
           transition: theme.transitions.fast("top"),
-          top: "calc(-100%)",
+          top: "calc(-200%)",
           position: "sticky",
+          transform: "translateY(100%) translateY(15px)",
         },
       ]}
       style={
         showSiteNav === "top"
           ? {}
           : {
-              top: 15,
+              // header height later on
+              top: -60,
             }
       }
     >

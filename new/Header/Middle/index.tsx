@@ -1,6 +1,6 @@
 import Link from "../../Link";
 import Logo from "../../../components/Icons/Logo";
-import ButtonTemplate from "../../Buttons/ButtonTemplate";
+import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
 import ArrowNav from "./ArrowNav";
 
 const Middle = ({

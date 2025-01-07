@@ -1,5 +1,5 @@
 import Menu from "../../Icons/Menu";
-import ButtonTemplate from "../../Buttons/ButtonTemplate";
+import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
 import { FC, HTMLAttributes } from "react";
 import ScandiBlock from "../../ScandiBlock";
 import { useRouter } from "next/router";

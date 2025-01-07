@@ -1,7 +1,5 @@
-import React, { FC, HTMLAttributes } from "react";
-import Text from "../Text";
-
-type Props = {};
+import { FC, HTMLAttributes } from "react";
+import Text from "../../Text";
 
 const ButtonTemplate: FC<HTMLAttributes<HTMLElement>> = ({
   children,
@@ -24,7 +22,7 @@ const ButtonTemplate: FC<HTMLAttributes<HTMLElement>> = ({
           paddingLeft: 10,
           paddingRight: 10,
           boxSizing: "border-box",
-          display: "flex",
+          display: "inline-flex",
           gap: 10,
           alignItems: "center",
           "&:hover": {
