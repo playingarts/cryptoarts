@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Component from ".";
 
 export default {
-  title: "Shop/AddToBag",
+  title: "old/Shop/AddToBag",
   component: Component,
 } as ComponentMeta<typeof Component>;
 

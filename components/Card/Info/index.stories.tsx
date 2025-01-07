@@ -4,7 +4,7 @@ import { CardQuery } from "../../../hooks/card";
 import { mockDeck } from "../../../mocks/deck";
 
 export default {
-  title: "Card/Info",
+  title: "old/Card/Info",
   component: CardInfo,
 } as ComponentMeta<typeof CardInfo>;
 

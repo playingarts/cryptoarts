@@ -1,5 +1,5 @@
 import { Theme } from "@emotion/react";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, JSX } from "react";
 import { breakpoints } from "../../source/enums";
 import Arrowed from "../Arrowed";
 import Line from "../Line";

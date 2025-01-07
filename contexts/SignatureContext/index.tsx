@@ -2,6 +2,7 @@ import { useMetaMask } from "metamask-react";
 import {
   createContext,
   FC,
+  HTMLAttributes,
   useCallback,
   useContext,
   useEffect,
@@ -28,7 +29,9 @@ export const useSignature = () => {
   return useContext(SignatureContext);
 };
 
-export const SignatureProvider: FC = ({ children }) => {
+export const SignatureProvider: FC<HTMLAttributes<HTMLElement>> = ({
+  children,
+}) => {
   const { ethereum, account } = useMetaMask();
 
   const [storedSigs, setSignatures] = useState(

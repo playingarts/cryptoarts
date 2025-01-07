@@ -212,10 +212,9 @@ export const HeroCardsQuery = gql`
 export const useCards = (
   options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
 ) => {
-  const { data: { cards } = { cards: undefined }, ...methods } = useQuery(
-    CardsQuery,
-    options
-  );
+  const { data: { cards } = { cards: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "cards">
+  >(CardsQuery, options);
 
   return {
     ...methods,
@@ -227,7 +226,7 @@ export const useLoadCards = (
   options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
 ) => {
   const [loadCards, { data: { cards } = { cards: undefined }, ...methods }] =
-    useLazyQuery(CardsQuery, options);
+    useLazyQuery<Pick<GQL.Query, "cards">>(CardsQuery, options);
 
   return {
     loadCards,
@@ -242,7 +241,7 @@ export const useLoadHeroCards = (
   const [
     loadHeroCards,
     { data: { heroCards } = { heroCards: undefined }, ...methods },
-  ] = useLazyQuery(HeroCardsQuery, options);
+  ] = useLazyQuery<Pick<GQL.Query, "heroCards">>(HeroCardsQuery, options);
 
   return {
     loadHeroCards,
@@ -255,7 +254,7 @@ export const useLoadCard = (
   options: QueryHookOptions<Pick<GQL.Query, "card">> = {}
 ) => {
   const [loadCard, { data: { card } = { card: undefined }, ...methods }] =
-    useLazyQuery(CardQuery, options);
+    useLazyQuery<Pick<GQL.Query, "card">>(CardQuery, options);
 
   return { ...methods, loadCard, card };
 };
@@ -266,7 +265,7 @@ export const useLoadRandomCards = (
   const [
     loadRandomCards,
     { data: { cards } = { cards: undefined }, ...methods },
-  ] = useLazyQuery(RandomCardsQuery, options);
+  ] = useLazyQuery<Pick<GQL.Query, "cards">>(RandomCardsQuery, options);
 
   return { loadRandomCards, ...methods, cards };
 };
@@ -277,7 +276,7 @@ export const useLoadRandomCardsWithInfo = (
   const [
     loadRandomCardsWithInfo,
     { data: { cards } = { cards: undefined }, ...methods },
-  ] = useLazyQuery(RandomCardsWithInfoQuery, options);
+  ] = useLazyQuery<Pick<GQL.Query, "cards">>(RandomCardsWithInfoQuery, options);
 
   return { loadRandomCardsWithInfo, ...methods, cards };
 };
@@ -287,7 +286,10 @@ export const useLoadRandomCardsWithoutDeck = (
   const [
     loadRandomCardsWithoutDeck,
     { data: { cards } = { cards: undefined }, ...methods },
-  ] = useLazyQuery(RandomCardsQueryWithoutDeck, options);
+  ] = useLazyQuery<Pick<GQL.Query, "cards">>(
+    RandomCardsQueryWithoutDeck,
+    options
+  );
 
   return { loadRandomCardsWithoutDeck, ...methods, cards };
 };
@@ -295,10 +297,9 @@ export const useLoadRandomCardsWithoutDeck = (
 export const useRandomCardsWithoutDeck = (
   options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
 ) => {
-  const { data: { cards } = { randomCards: undefined }, ...methods } = useQuery(
-    RandomCardsQueryWithoutDeck,
-    options
-  );
+  const { data: { cards } = { randomCards: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "cards">
+  >(RandomCardsQueryWithoutDeck, options);
 
   return {
     ...methods,
@@ -310,7 +311,7 @@ export const useDailyCard = (
   options: QueryHookOptions<Pick<GQL.Query, "dailyCard">> = {}
 ) => {
   const { data: { dailyCard } = { dailyCard: undefined }, ...methods } =
-    useQuery(DailyCardQuery, options);
+    useQuery<Pick<GQL.Query, "dailyCard">>(DailyCardQuery, options);
 
   return { ...methods, dailyCard };
 };

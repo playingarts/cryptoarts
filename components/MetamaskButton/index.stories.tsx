@@ -3,7 +3,7 @@ import MetamaskButton from ".";
 import { MetaMaskProvider } from "metamask-react";
 
 export default {
-  title: "MetamaskButton",
+  title: "old/MetamaskButton",
   component: MetamaskButton,
 } as ComponentMeta<typeof MetamaskButton>;
 

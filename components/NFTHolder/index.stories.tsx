@@ -6,7 +6,7 @@ import { DealQuery } from "../../hooks/deal";
 import { ProductsQuery } from "../../hooks/product";
 
 export default {
-  title: "NFTHolder",
+  title: "old/NFTHolder",
   component: NFTHolder,
 } as ComponentMeta<typeof NFTHolder>;
 

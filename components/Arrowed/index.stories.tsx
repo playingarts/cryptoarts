@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Arrowed from ".";
 
 export default {
-  title: "Arrowed",
+  title: "old/Arrowed",
   component: Arrowed,
 } as ComponentMeta<typeof Arrowed>;
 

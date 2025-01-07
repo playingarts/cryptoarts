@@ -2,7 +2,7 @@ import {
   forwardRef,
   ForwardRefRenderFunction,
   HTMLAttributes,
-  ReactNode,
+  JSX,
 } from "react";
 import Grid from "../../Grid";
 import Layout from "../../Layout";
@@ -12,8 +12,8 @@ interface Props extends HTMLAttributes<HTMLElement> {
   labels?: string[];
   title?: string;
   subtitle?: string | JSX.Element;
-  outerChildren?: ReactNode;
-  layoutChildren?: ReactNode;
+  outerChildren?: JSX.Element;
+  layoutChildren?: JSX.Element;
   slug?: string;
 }
 

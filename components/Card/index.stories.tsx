@@ -3,7 +3,7 @@ import { mockDeck } from "../../mocks/deck";
 import Card from "./";
 
 export default {
-  title: "Card/Card",
+  title: "old/Card/Card",
   component: Card,
 } as ComponentMeta<typeof Card>;
 
@@ -15,8 +15,7 @@ Primary.args = {
     value: "",
     suit: "",
     _id: "_id",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     deck: mockDeck,
     artist: {
       _id: "_id",
@@ -34,8 +33,7 @@ WithVideo.args = {
     value: "",
     suit: "",
     _id: "_id",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: mockDeck,
@@ -56,8 +54,7 @@ Animated.args = {
     value: "",
     suit: "",
     _id: "_id",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: mockDeck,
@@ -78,8 +75,7 @@ Static.args = {
     value: "",
     suit: "",
     _id: "_id",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: mockDeck,
@@ -100,8 +96,7 @@ Big.args = {
     value: "",
     suit: "",
     _id: "_id",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: mockDeck,
@@ -123,8 +118,7 @@ BigInteractive.args = {
     value: "",
     suit: "",
     _id: "_id",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: mockDeck,
@@ -145,8 +139,7 @@ NoInfo.args = {
     _id: "_id",
     value: "",
     suit: "",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: mockDeck,
@@ -166,8 +159,7 @@ CustomBackground.args = {
     value: "",
     suit: "",
     _id: "_id",
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
     deck: mockDeck,

@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useRef } from "react";
+import { FC, HTMLAttributes, JSX, useRef } from "react";
 import { useSwipeable } from "react-swipeable";
 import { theme } from "../../pages/_app";
 

@@ -3,7 +3,7 @@ import { mockDeck } from "../../mocks/deck";
 import DeckBlock from "./";
 
 export default {
-  title: "DeckBlock",
+  title: "old/DeckBlock",
   component: DeckBlock,
 } as ComponentMeta<typeof DeckBlock>;
 

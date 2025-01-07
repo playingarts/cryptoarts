@@ -17,6 +17,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
     Icon?: ButtonProps["Icon"];
     IconProps?: ButtonProps["iconProps"];
   }[];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setter?: Dispatch<SetStateAction<any>> | ((_: any) => void);
   palette?: "dark" | "light";
   value?: string | number;
@@ -46,7 +47,7 @@ const SelectButton: FC<Props> = memo(
         : states
     );
 
-    const onClick = ({ children, Icon, ...props }: typeof states[number]) => {
+    const onClick = ({ children, Icon, ...props }: (typeof states)[number]) => {
       if (!listState) {
         setListState(true);
         return;
@@ -58,7 +59,9 @@ const SelectButton: FC<Props> = memo(
           (state) => state.children !== children
         ),
       ]);
-      setter && setter(children);
+      if (setter) {
+        setter(children);
+      }
       setListState(false);
     };
 

@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import ShopBundle from ".";
 
 export default {
-  title: "Shop/Bundle",
+  title: "old/Shop/Bundle",
   component: ShopBundle,
 } as ComponentMeta<typeof ShopBundle>;
 

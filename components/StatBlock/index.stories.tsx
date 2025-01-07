@@ -4,7 +4,7 @@ import Button from "../Button";
 import Stat from "../Stat";
 
 export default {
-  title: "StatBlock",
+  title: "old/StatBlock",
   component: StatBlock,
 } as ComponentMeta<typeof StatBlock>;
 

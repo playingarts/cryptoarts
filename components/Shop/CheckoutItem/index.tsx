@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, MouseEventHandler } from "react";
+import { FC, HTMLAttributes, MouseEventHandler, JSX } from "react";
 import { breakpoints } from "../../../source/enums";
 import Cross from "../../Icons/Cross";
 import SelectButton, { Props as SelectButtonProps } from "../../SelectButton";

@@ -3,7 +3,7 @@ import EurToUsd from ".";
 import { ConvertEurToUsdQuery } from "../../hooks/product";
 
 export default {
-  title: "Shop/EurToUsd",
+  title: "old/Shop/EurToUsd",
   component: EurToUsd,
 } as ComponentMeta<typeof EurToUsd>;
 

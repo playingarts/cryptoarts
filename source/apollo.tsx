@@ -61,7 +61,11 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
 
     return (
       <ApolloProvider client={client}>
-        <PageComponent {...{ ...pageProps, cache }} />
+        <PageComponent
+          {...{
+            ...pageProps,
+          }}
+        />
       </ApolloProvider>
     );
   };

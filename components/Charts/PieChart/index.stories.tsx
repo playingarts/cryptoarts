@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import PieChart from ".";
 
 export default {
-  title: "Charts/PieChart",
+  title: "old/Charts/PieChart",
   component: PieChart,
 } as ComponentMeta<typeof PieChart>;
 

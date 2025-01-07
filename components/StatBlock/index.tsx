@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, JSX } from "react";
 import { isValidElement } from "../../source/utils";
 import Arrowed from "../Arrowed";
 import Link, { Props as LinkProps } from "../Link";

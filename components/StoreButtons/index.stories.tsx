@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import StoreButtons from "./";
 
 export default {
-  title: "StoreButtons",
+  title: "old/StoreButtons",
   component: StoreButtons,
 } as ComponentMeta<typeof StoreButtons>;
 

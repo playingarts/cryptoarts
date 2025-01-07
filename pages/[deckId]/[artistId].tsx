@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 import { NormalizedCacheObject } from "@apollo/client";
 import { GetStaticProps } from "next";
 import { getDeckSlugsWithoutDB } from "../../dump/_decks";

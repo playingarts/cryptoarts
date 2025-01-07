@@ -15,13 +15,13 @@ import Link from "../Link";
 
 interface Props extends HTMLAttributes<HTMLElement> {
   refs: {
-    aboutRef?: RefObject<HTMLElement>;
-    cardsRef?: RefObject<HTMLElement>;
-    nftRef?: RefObject<HTMLElement>;
-    contestRef?: RefObject<HTMLElement>;
-    deckRef?: RefObject<HTMLElement>;
-    roadmapRef?: RefObject<HTMLElement>;
-    gameRef?: RefObject<HTMLElement>;
+    aboutRef?: RefObject<HTMLElement | null>;
+    cardsRef?: RefObject<HTMLElement | null>;
+    nftRef?: RefObject<HTMLElement | null>;
+    contestRef?: RefObject<HTMLElement | null>;
+    deckRef?: RefObject<HTMLElement | null>;
+    roadmapRef?: RefObject<HTMLElement | null>;
+    gameRef?: RefObject<HTMLElement | null>;
   };
   deck?: GQL.Deck;
   linkCss?: ((_: Theme) => CSSInterpolation) | CSSObject;
@@ -37,16 +37,17 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
     pathname,
   } = useRouter();
 
-  const bringIntoViewHandler = (blockRef: RefObject<HTMLElement>) => () => {
-    if (!blockRef.current) {
-      return;
-    }
+  const bringIntoViewHandler =
+    (blockRef: RefObject<HTMLElement | null>) => () => {
+      if (!blockRef.current) {
+        return;
+      }
 
-    blockRef.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-  };
+      blockRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    };
 
   const ownedAssets = useOwnedAssets("crypto");
 
@@ -204,25 +205,28 @@ const DeckNav: ForwardRefRenderFunction<HTMLElement, Props> = (
         </Link>
       )}
 
-      {refs.roadmapRef && refs.roadmapRef.current && !artistId && !ownedAssets && (
-        <Link
-          href={{
-            pathname,
-            query: { ...query, section: Sections.nft },
-          }}
-          shallow={true}
-          scroll={false}
-          css={(theme) => ({
-            ...linkCss,
-            paddingLeft: theme.spacing(2),
-            paddingRight: theme.spacing(2),
-            fontWeight: 600,
-          })}
-          onClick={bringIntoViewHandler(refs.roadmapRef)}
-        >
-          Roadmap
-        </Link>
-      )}
+      {refs.roadmapRef &&
+        refs.roadmapRef.current &&
+        !artistId &&
+        !ownedAssets && (
+          <Link
+            href={{
+              pathname,
+              query: { ...query, section: Sections.nft },
+            }}
+            shallow={true}
+            scroll={false}
+            css={(theme) => ({
+              ...linkCss,
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              fontWeight: 600,
+            })}
+            onClick={bringIntoViewHandler(refs.roadmapRef)}
+          >
+            Roadmap
+          </Link>
+        )}
 
       {refs.deckRef && (
         <Link

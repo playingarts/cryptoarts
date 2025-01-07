@@ -1,6 +1,6 @@
 import { ClassNames, CSSObject, Theme } from "@emotion/react";
 import { CSSInterpolation } from "@emotion/serialize";
-import NextLink, { LinkProps as NextLinkProps } from "next/link";
+import { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
 
@@ -42,34 +42,36 @@ const Link: ForwardRefRenderFunction<
   return (
     <ClassNames>
       {({ cx, css, theme }) => (
-        <NextLink
-          href={href}
-          as={as}
-          replace={replace}
-          scroll={scroll}
-          shallow={shallow}
-          passHref={passHref}
-          prefetch={prefetch}
-          locale={locale}
+        <Component
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          ref={ref as any}
+          css={{ color: "inherit" }}
+          style={{ ...style, textDecoration: "none" }}
+          className={cx(
+            className,
+            activeCss &&
+              typeof href === "string" &&
+              new RegExp(`^${href}($|/|\\?)`, "i").test(router.asPath) &&
+              css(
+                typeof activeCss === "function" ? activeCss(theme) : activeCss
+              )
+          )}
+          {...(Component === "a" &&
+            ({
+              href,
+              as,
+              replace,
+              shallow,
+              passHref,
+              prefetch,
+              locale,
+              scroll,
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            } as any))}
+          {...other}
         >
-          <Component
-            {...other}
-            ref={ref as any}
-            css={{ color: "inherit" }}
-            style={{ ...style, textDecoration: "none" }}
-            className={cx(
-              className,
-              activeCss &&
-                typeof href === "string" &&
-                new RegExp(`^${href}($|/|\\?)`, "i").test(router.asPath) &&
-                css(
-                  typeof activeCss === "function" ? activeCss(theme) : activeCss
-                )
-            )}
-          >
-            {children}
-          </Component>
-        </NextLink>
+          {children}
+        </Component>
       )}
     </ClassNames>
   );

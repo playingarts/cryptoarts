@@ -43,3 +43,4 @@ tsconfig.tsbuildinfo
 
 /dump/deals-real.json
 /dump/deals-real-old.json
+*storybook.log

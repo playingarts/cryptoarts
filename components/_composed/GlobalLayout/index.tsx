@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, HTMLAttributes } from "react";
 import Footer from "../../../components/Footer";
 import { Props as HeaderProps } from "../../../components/Header";
 import Layout from "../../../components/Layout";
@@ -19,19 +19,20 @@ import PrivacyNotice from "../PrivacyNotice";
 // });
 
 const ComposedGlobalLayout: FC<
-  Pick<
-    HeaderProps,
-    | "altNav"
-    | "showAltNav"
-    | "customShopButton"
-    | "noNav"
-    | "deckId"
-    | "palette"
-    | "isCardPage"
-  > & {
-    extended?: boolean;
-    scrollArrow?: string;
-  }
+  HTMLAttributes<HTMLElement> &
+    Pick<
+      HeaderProps,
+      | "altNav"
+      | "showAltNav"
+      | "customShopButton"
+      | "noNav"
+      | "deckId"
+      | "palette"
+      | "isCardPage"
+    > & {
+      extended?: boolean;
+      scrollArrow?: string;
+    }
 > = ({
   extended,
   noNav,

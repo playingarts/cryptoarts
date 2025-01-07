@@ -8,7 +8,7 @@ import Hearts from "../Icons/Hearts";
 import Spades from "../Icons/Spades";
 
 export default {
-  title: "Charts/Charts",
+  title: "old/Charts/Charts",
   component: Charts,
 } as ComponentMeta<typeof Charts>;
 

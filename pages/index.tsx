@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { NextPage } from "next";
 import Button from "../components/Button";
 import Grid from "../components/Grid";

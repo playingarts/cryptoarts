@@ -58,7 +58,7 @@ const handler: NextApiHandler = async (req, res) => {
         })
       )
     );
-  } catch (error) {
+  } catch {
     res.status(500).json({
       message: "Something went wrong. Try again later.",
       code: 500,

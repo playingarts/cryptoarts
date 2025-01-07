@@ -1,20 +1,22 @@
 declare namespace GQL {
 
 type Maybe<T> = T | undefined;
+type InputMaybe<T> = T | undefined;
 type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 /** All built-in and custom scalars, mapped to their actual values */
 interface Scalars {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
+  ID: { input: string; output: string; }
+  String: { input: string; output: string; }
+  Boolean: { input: boolean; output: boolean; }
+  Int: { input: number; output: number; }
+  Float: { input: number; output: number; }
   /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { [key: string]: any };
+  JSON: { input: { [key: string]: any }; output: { [key: string]: any }; }
 }
-
 
 interface Query {
   __typename?: 'Query';
@@ -27,7 +29,7 @@ interface Query {
   card?: Maybe<Card>;
   heroCards: Array<Card>;
   products: Array<Product>;
-  convertEurToUsd?: Maybe<Scalars['Float']>;
+  convertEurToUsd?: Maybe<Scalars['Float']['output']>;
   ownedAssets: Array<Maybe<Nft>>;
   opensea: Opensea;
   holders?: Maybe<Holders>;
@@ -42,324 +44,324 @@ interface Query {
 
 
 interface QueryDeckArgs {
-  slug: Scalars['String'];
+  slug: Scalars['String']['input'];
 }
 
 
 interface QueryArtistArgs {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }
 
 
 interface QueryArtistsArgs {
-  hasPodcast?: Maybe<Scalars['Boolean']>;
-  shuffle?: Maybe<Scalars['Boolean']>;
-  limit?: Maybe<Scalars['Int']>;
+  hasPodcast?: InputMaybe<Scalars['Boolean']['input']>;
+  shuffle?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 }
 
 
 interface QueryCardsArgs {
-  withoutDeck?: Maybe<Array<Scalars['ID']>>;
-  deck?: Maybe<Scalars['ID']>;
-  shuffle?: Maybe<Scalars['Boolean']>;
-  limit?: Maybe<Scalars['Int']>;
-  losers?: Maybe<Scalars['Boolean']>;
-  edition?: Maybe<Scalars['String']>;
+  withoutDeck?: InputMaybe<Array<Scalars['ID']['input']>>;
+  deck?: InputMaybe<Scalars['ID']['input']>;
+  shuffle?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  losers?: InputMaybe<Scalars['Boolean']['input']>;
+  edition?: InputMaybe<Scalars['String']['input']>;
 }
 
 
 interface QueryRandomCardsArgs {
-  shuffle?: Maybe<Scalars['Boolean']>;
-  limit?: Maybe<Scalars['Int']>;
+  shuffle?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 }
 
 
 interface QueryCardArgs {
-  id: Scalars['ID'];
+  id: Scalars['ID']['input'];
 }
 
 
 interface QueryHeroCardsArgs {
-  deck?: Maybe<Scalars['ID']>;
-  slug?: Maybe<Scalars['String']>;
+  deck?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }
 
 
 interface QueryProductsArgs {
-  ids?: Maybe<Array<Scalars['ID']>>;
+  ids?: InputMaybe<Array<Scalars['ID']['input']>>;
 }
 
 
 interface QueryConvertEurToUsdArgs {
-  eur: Scalars['Float'];
+  eur: Scalars['Float']['input'];
 }
 
 
 interface QueryOwnedAssetsArgs {
-  deck: Scalars['ID'];
-  address: Scalars['String'];
-  signature: Scalars['String'];
+  deck: Scalars['ID']['input'];
+  address: Scalars['String']['input'];
+  signature: Scalars['String']['input'];
 }
 
 
 interface QueryOpenseaArgs {
-  deck: Scalars['ID'];
+  deck: Scalars['ID']['input'];
 }
 
 
 interface QueryHoldersArgs {
-  deck: Scalars['ID'];
+  deck: Scalars['ID']['input'];
 }
 
 
 interface QueryDealArgs {
-  hash: Scalars['String'];
-  deckId: Scalars['String'];
-  signature: Scalars['String'];
+  hash: Scalars['String']['input'];
+  deckId: Scalars['String']['input'];
+  signature: Scalars['String']['input'];
 }
 
 
 interface QueryPodcastsArgs {
-  name?: Maybe<Scalars['String']>;
-  shuffle?: Maybe<Scalars['Boolean']>;
-  limit?: Maybe<Scalars['Int']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  shuffle?: InputMaybe<Scalars['Boolean']['input']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
 }
 
 
 interface QueryContractArgs {
-  name?: Maybe<Scalars['String']>;
-  address?: Maybe<Scalars['String']>;
-  deck?: Maybe<Scalars['ID']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  address?: InputMaybe<Scalars['String']['input']>;
+  deck?: InputMaybe<Scalars['ID']['input']>;
 }
 
 
 interface QueryLosersValuesArgs {
-  deck: Scalars['ID'];
+  deck: Scalars['ID']['input'];
 }
 
 
 interface QueryLosersArgs {
-  deck: Scalars['ID'];
+  deck: Scalars['ID']['input'];
 }
 
 
 interface QueryListingsArgs {
-  addresses?: Maybe<Array<Maybe<Scalars['String']>>>;
-  tokenIds?: Maybe<Array<Scalars['String']>>;
+  addresses?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  tokenIds?: InputMaybe<Array<Scalars['String']['input']>>;
 }
 
 interface Deck {
   __typename?: 'Deck';
-  _id: Scalars['String'];
-  title: Scalars['String'];
-  short: Scalars['String'];
-  info: Scalars['String'];
-  intro: Scalars['String'];
-  slug: Scalars['ID'];
+  _id: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+  short: Scalars['String']['output'];
+  info: Scalars['String']['output'];
+  intro: Scalars['String']['output'];
+  slug: Scalars['ID']['output'];
   openseaCollection?: Maybe<OpenseaCollection>;
-  cardBackground?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['String']>;
-  properties: Scalars['JSON'];
-  description?: Maybe<Scalars['String']>;
-  backgroundImage?: Maybe<Scalars['String']>;
+  cardBackground?: Maybe<Scalars['String']['output']>;
+  image?: Maybe<Scalars['String']['output']>;
+  properties: Scalars['JSON']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  backgroundImage?: Maybe<Scalars['String']['output']>;
   product?: Maybe<Product>;
   editions?: Maybe<Array<Edition>>;
-  labels?: Maybe<Array<Scalars['String']>>;
+  labels?: Maybe<Array<Scalars['String']['output']>>;
 }
 
 interface Edition {
   __typename?: 'Edition';
-  name: Scalars['String'];
-  url: Scalars['String'];
-  img?: Maybe<Scalars['String']>;
+  name: Scalars['String']['output'];
+  url: Scalars['String']['output'];
+  img?: Maybe<Scalars['String']['output']>;
 }
 
 interface OpenseaCollection {
   __typename?: 'OpenseaCollection';
-  name: Scalars['String'];
-  address: Scalars['String'];
+  name: Scalars['String']['output'];
+  address: Scalars['String']['output'];
 }
 
 interface LoserArtist {
   __typename?: 'LoserArtist';
-  _id?: Maybe<Scalars['ID']>;
-  name?: Maybe<Scalars['String']>;
-  info?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  userpic?: Maybe<Scalars['String']>;
-  website?: Maybe<Scalars['String']>;
-  shop?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['ID']['output']>;
+  name?: Maybe<Scalars['String']['output']>;
+  info?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['String']['output'];
+  userpic?: Maybe<Scalars['String']['output']>;
+  website?: Maybe<Scalars['String']['output']>;
+  shop?: Maybe<Scalars['String']['output']>;
   podcast?: Maybe<Podcast>;
   social?: Maybe<Socials>;
-  country?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']['output']>;
 }
 
 interface Artist {
   __typename?: 'Artist';
-  _id: Scalars['ID'];
-  name: Scalars['String'];
-  info?: Maybe<Scalars['String']>;
-  slug: Scalars['String'];
-  userpic: Scalars['String'];
-  website?: Maybe<Scalars['String']>;
-  shop?: Maybe<Scalars['String']>;
+  _id: Scalars['ID']['output'];
+  name: Scalars['String']['output'];
+  info?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['String']['output'];
+  userpic: Scalars['String']['output'];
+  website?: Maybe<Scalars['String']['output']>;
+  shop?: Maybe<Scalars['String']['output']>;
   podcast?: Maybe<Podcast>;
   social: Socials;
-  country?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']['output']>;
 }
 
 interface Socials {
   __typename?: 'Socials';
-  instagram?: Maybe<Scalars['String']>;
-  facebook?: Maybe<Scalars['String']>;
-  twitter?: Maybe<Scalars['String']>;
-  behance?: Maybe<Scalars['String']>;
-  dribbble?: Maybe<Scalars['String']>;
-  foundation?: Maybe<Scalars['String']>;
-  superrare?: Maybe<Scalars['String']>;
-  makersplace?: Maybe<Scalars['String']>;
-  knownorigin?: Maybe<Scalars['String']>;
-  rarible?: Maybe<Scalars['String']>;
-  niftygateway?: Maybe<Scalars['String']>;
-  showtime?: Maybe<Scalars['String']>;
-  website?: Maybe<Scalars['String']>;
+  instagram?: Maybe<Scalars['String']['output']>;
+  facebook?: Maybe<Scalars['String']['output']>;
+  twitter?: Maybe<Scalars['String']['output']>;
+  behance?: Maybe<Scalars['String']['output']>;
+  dribbble?: Maybe<Scalars['String']['output']>;
+  foundation?: Maybe<Scalars['String']['output']>;
+  superrare?: Maybe<Scalars['String']['output']>;
+  makersplace?: Maybe<Scalars['String']['output']>;
+  knownorigin?: Maybe<Scalars['String']['output']>;
+  rarible?: Maybe<Scalars['String']['output']>;
+  niftygateway?: Maybe<Scalars['String']['output']>;
+  showtime?: Maybe<Scalars['String']['output']>;
+  website?: Maybe<Scalars['String']['output']>;
 }
 
 interface Card {
   __typename?: 'Card';
-  _id: Scalars['ID'];
-  img: Scalars['String'];
-  video?: Maybe<Scalars['String']>;
+  _id: Scalars['ID']['output'];
+  img: Scalars['String']['output'];
+  video?: Maybe<Scalars['String']['output']>;
   artist: Artist;
-  info?: Maybe<Scalars['String']>;
+  info?: Maybe<Scalars['String']['output']>;
   deck: Deck;
-  suit: Scalars['String'];
-  value: Scalars['String'];
-  background?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
+  suit: Scalars['String']['output'];
+  value: Scalars['String']['output'];
+  background?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
   erc1155?: Maybe<Erc1155>;
-  reversible?: Maybe<Scalars['Boolean']>;
-  edition?: Maybe<Scalars['String']>;
+  reversible?: Maybe<Scalars['Boolean']['output']>;
+  edition?: Maybe<Scalars['String']['output']>;
   animator?: Maybe<Artist>;
 }
 
 interface Erc1155 {
   __typename?: 'ERC1155';
-  contractAddress: Scalars['String'];
-  token_id: Scalars['String'];
+  contractAddress: Scalars['String']['output'];
+  token_id: Scalars['String']['output'];
 }
 
 interface Currencies {
   __typename?: 'Currencies';
-  eur: Scalars['Float'];
-  usd: Scalars['Float'];
+  eur: Scalars['Float']['output'];
+  usd: Scalars['Float']['output'];
 }
 
 interface Product {
   __typename?: 'Product';
-  _id: Scalars['ID'];
+  _id: Scalars['ID']['output'];
   deck?: Maybe<Deck>;
-  title: Scalars['String'];
+  title: Scalars['String']['output'];
   price: Currencies;
-  status: Scalars['String'];
-  type: Scalars['String'];
-  image: Scalars['String'];
-  image2: Scalars['String'];
-  info?: Maybe<Scalars['String']>;
-  short: Scalars['String'];
+  status: Scalars['String']['output'];
+  type: Scalars['String']['output'];
+  image: Scalars['String']['output'];
+  image2: Scalars['String']['output'];
+  info?: Maybe<Scalars['String']['output']>;
+  short: Scalars['String']['output'];
 }
 
 interface Nft {
   __typename?: 'Nft';
-  identifier: Scalars['String'];
-  contract: Scalars['String'];
-  token_standard: Scalars['String'];
-  name: Scalars['String'];
-  description: Scalars['String'];
+  identifier: Scalars['String']['output'];
+  contract: Scalars['String']['output'];
+  token_standard: Scalars['String']['output'];
+  name: Scalars['String']['output'];
+  description: Scalars['String']['output'];
   traits?: Maybe<Array<Trait>>;
   owners: Array<Owner>;
 }
 
 interface OpenseaContract {
   __typename?: 'OpenseaContract';
-  address: Scalars['String'];
+  address: Scalars['String']['output'];
 }
 
 interface Trait {
   __typename?: 'Trait';
-  trait_type: Scalars['String'];
-  value: Scalars['String'];
+  trait_type: Scalars['String']['output'];
+  value: Scalars['String']['output'];
 }
 
 interface Owner {
   __typename?: 'Owner';
-  address: Scalars['String'];
-  quantity: Scalars['String'];
+  address: Scalars['String']['output'];
+  quantity: Scalars['String']['output'];
 }
 
 interface Opensea {
   __typename?: 'Opensea';
-  id: Scalars['ID'];
-  volume: Scalars['Float'];
-  floor_price: Scalars['Float'];
-  num_owners: Scalars['String'];
-  total_supply: Scalars['String'];
-  on_sale: Scalars['String'];
+  id: Scalars['ID']['output'];
+  volume: Scalars['Float']['output'];
+  floor_price: Scalars['Float']['output'];
+  num_owners: Scalars['String']['output'];
+  total_supply: Scalars['String']['output'];
+  on_sale: Scalars['String']['output'];
 }
 
 interface Holders {
   __typename?: 'Holders';
-  fullDecks: Array<Scalars['String']>;
-  fullDecksWithJokers: Array<Scalars['String']>;
-  spades: Array<Scalars['String']>;
-  diamonds: Array<Scalars['String']>;
-  hearts: Array<Scalars['String']>;
-  clubs: Array<Scalars['String']>;
-  jokers: Array<Scalars['String']>;
+  fullDecks: Array<Scalars['String']['output']>;
+  fullDecksWithJokers: Array<Scalars['String']['output']>;
+  spades: Array<Scalars['String']['output']>;
+  diamonds: Array<Scalars['String']['output']>;
+  hearts: Array<Scalars['String']['output']>;
+  clubs: Array<Scalars['String']['output']>;
+  jokers: Array<Scalars['String']['output']>;
 }
 
 interface Deal {
   __typename?: 'Deal';
-  _id: Scalars['ID'];
-  code: Scalars['String'];
-  hash?: Maybe<Scalars['String']>;
-  decks?: Maybe<Scalars['Int']>;
+  _id: Scalars['ID']['output'];
+  code: Scalars['String']['output'];
+  hash?: Maybe<Scalars['String']['output']>;
+  decks?: Maybe<Scalars['Int']['output']>;
   deck?: Maybe<Deck>;
-  claimed?: Maybe<Scalars['Boolean']>;
+  claimed?: Maybe<Scalars['Boolean']['output']>;
 }
 
 interface Podcast {
   __typename?: 'Podcast';
-  image?: Maybe<Scalars['String']>;
-  youtube?: Maybe<Scalars['String']>;
-  apple?: Maybe<Scalars['String']>;
-  spotify?: Maybe<Scalars['String']>;
-  episode: Scalars['Int'];
-  name?: Maybe<Scalars['String']>;
-  podcastName?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']['output']>;
+  youtube?: Maybe<Scalars['String']['output']>;
+  apple?: Maybe<Scalars['String']['output']>;
+  spotify?: Maybe<Scalars['String']['output']>;
+  episode: Scalars['Int']['output'];
+  name?: Maybe<Scalars['String']['output']>;
+  podcastName?: Maybe<Scalars['String']['output']>;
 }
 
 interface Contract {
   __typename?: 'Contract';
-  name: Scalars['String'];
-  address: Scalars['String'];
+  name: Scalars['String']['output'];
+  address: Scalars['String']['output'];
   deck: Deck;
 }
 
 interface Loser {
   __typename?: 'Loser';
-  _id?: Maybe<Scalars['ID']>;
-  img?: Maybe<Scalars['String']>;
-  video?: Maybe<Scalars['String']>;
+  _id?: Maybe<Scalars['ID']['output']>;
+  img?: Maybe<Scalars['String']['output']>;
+  video?: Maybe<Scalars['String']['output']>;
   artist: LoserArtist;
-  info?: Maybe<Scalars['String']>;
+  info?: Maybe<Scalars['String']['output']>;
   deck?: Maybe<Deck>;
-  suit?: Maybe<Scalars['String']>;
-  value?: Maybe<Scalars['String']>;
-  background?: Maybe<Scalars['String']>;
-  price?: Maybe<Scalars['Float']>;
+  suit?: Maybe<Scalars['String']['output']>;
+  value?: Maybe<Scalars['String']['output']>;
+  background?: Maybe<Scalars['String']['output']>;
+  price?: Maybe<Scalars['Float']['output']>;
   erc1155?: Maybe<Erc1155>;
-  reversible?: Maybe<Scalars['Boolean']>;
+  reversible?: Maybe<Scalars['Boolean']['output']>;
 }
 
 interface Listing {
@@ -380,8 +382,8 @@ interface Parameters {
 
 interface Offer {
   __typename?: 'Offer';
-  token: Scalars['String'];
-  identifierOrCriteria: Scalars['String'];
+  token: Scalars['String']['output'];
+  identifierOrCriteria: Scalars['String']['output'];
 }
 
 interface Price {
@@ -391,10 +393,10 @@ interface Price {
 
 interface Current {
   __typename?: 'Current';
-  value: Scalars['String'];
+  value: Scalars['String']['output'];
 }
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-export type RequireFields<T, K extends keyof T> = { [X in Exclude<keyof T, K>]?: T[X] } & { [P in K]-?: NonNullable<T[P]> };
+export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 
 
 export type ResolverTypeWrapper<T> = Promise<T> | T;
@@ -403,21 +405,7 @@ export type ResolverTypeWrapper<T> = Promise<T> | T;
 export type ResolverWithResolve<TResult, TParent, TContext, TArgs> = {
   resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
 };
-
-export type LegacyStitchingResolver<TResult, TParent, TContext, TArgs> = {
-  fragment: string;
-  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
-};
-
-export type NewStitchingResolver<TResult, TParent, TContext, TArgs> = {
-  selectionSet: string;
-  resolve: ResolverFn<TResult, TParent, TContext, TArgs>;
-};
-export type StitchingResolver<TResult, TParent, TContext, TArgs> = LegacyStitchingResolver<TResult, TParent, TContext, TArgs> | NewStitchingResolver<TResult, TParent, TContext, TArgs>;
-export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> =
-  | ResolverFn<TResult, TParent, TContext, TArgs>
-  | ResolverWithResolve<TResult, TParent, TContext, TArgs>
-  | StitchingResolver<TResult, TParent, TContext, TArgs>;
+export type Resolver<TResult, TParent = {}, TContext = {}, TArgs = {}> = ResolverFn<TResult, TParent, TContext, TArgs> | ResolverWithResolve<TResult, TParent, TContext, TArgs>;
 
 export type ResolverFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -431,7 +419,7 @@ export type SubscriptionSubscribeFn<TResult, TParent, TContext, TArgs> = (
   args: TArgs,
   context: TContext,
   info: GraphQLResolveInfo
-) => AsyncIterator<TResult> | Promise<AsyncIterator<TResult>>;
+) => AsyncIterable<TResult> | Promise<AsyncIterable<TResult>>;
 
 export type SubscriptionResolveFn<TResult, TParent, TContext, TArgs> = (
   parent: TParent,
@@ -476,15 +464,17 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
   info: GraphQLResolveInfo
 ) => TResult | Promise<TResult>;
 
+
+
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
-  JSON: ResolverTypeWrapper<Scalars['JSON']>;
+  JSON: ResolverTypeWrapper<Scalars['JSON']['output']>;
   Query: ResolverTypeWrapper<{}>;
-  String: ResolverTypeWrapper<Scalars['String']>;
-  ID: ResolverTypeWrapper<Scalars['ID']>;
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
-  Int: ResolverTypeWrapper<Scalars['Int']>;
-  Float: ResolverTypeWrapper<Scalars['Float']>;
+  String: ResolverTypeWrapper<Scalars['String']['output']>;
+  ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
+  Float: ResolverTypeWrapper<Scalars['Float']['output']>;
   Deck: ResolverTypeWrapper<Deck>;
   Edition: ResolverTypeWrapper<Edition>;
   OpenseaCollection: ResolverTypeWrapper<OpenseaCollection>;
@@ -515,13 +505,13 @@ export type ResolversTypes = {
 
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
-  JSON: Scalars['JSON'];
+  JSON: Scalars['JSON']['output'];
   Query: {};
-  String: Scalars['String'];
-  ID: Scalars['ID'];
-  Boolean: Scalars['Boolean'];
-  Int: Scalars['Int'];
-  Float: Scalars['Float'];
+  String: Scalars['String']['output'];
+  ID: Scalars['ID']['output'];
+  Boolean: Scalars['Boolean']['output'];
+  Int: Scalars['Int']['output'];
+  Float: Scalars['Float']['output'];
   Deck: Deck;
   Edition: Edition;
   OpenseaCollection: OpenseaCollection;
@@ -558,23 +548,23 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   decks?: Resolver<Array<ResolversTypes['Deck']>, ParentType, ContextType>;
   deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType, RequireFields<QueryDeckArgs, 'slug'>>;
   artist?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType, RequireFields<QueryArtistArgs, 'id'>>;
-  artists?: Resolver<Array<Maybe<ResolversTypes['Artist']>>, ParentType, ContextType, RequireFields<QueryArtistsArgs, never>>;
-  cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsArgs, never>>;
-  randomCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryRandomCardsArgs, never>>;
+  artists?: Resolver<Array<Maybe<ResolversTypes['Artist']>>, ParentType, ContextType, Partial<QueryArtistsArgs>>;
+  cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryCardsArgs>>;
+  randomCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryRandomCardsArgs>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
-  heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryHeroCardsArgs, never>>;
-  products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsArgs, never>>;
+  heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryHeroCardsArgs>>;
+  products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryProductsArgs>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
   ownedAssets?: Resolver<Array<Maybe<ResolversTypes['Nft']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;
   opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'deck'>>;
   holders?: Resolver<Maybe<ResolversTypes['Holders']>, ParentType, ContextType, RequireFields<QueryHoldersArgs, 'deck'>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deckId' | 'signature'>>;
   dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
-  podcasts?: Resolver<Array<Maybe<ResolversTypes['Podcast']>>, ParentType, ContextType, RequireFields<QueryPodcastsArgs, never>>;
-  contract?: Resolver<Maybe<ResolversTypes['Contract']>, ParentType, ContextType, RequireFields<QueryContractArgs, never>>;
+  podcasts?: Resolver<Array<Maybe<ResolversTypes['Podcast']>>, ParentType, ContextType, Partial<QueryPodcastsArgs>>;
+  contract?: Resolver<Maybe<ResolversTypes['Contract']>, ParentType, ContextType, Partial<QueryContractArgs>>;
   losersValues?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersValuesArgs, 'deck'>>;
   losers?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersArgs, 'deck'>>;
-  listings?: Resolver<Array<Maybe<ResolversTypes['Listing']>>, ParentType, ContextType, RequireFields<QueryListingsArgs, never>>;
+  listings?: Resolver<Array<Maybe<ResolversTypes['Listing']>>, ParentType, ContextType, Partial<QueryListingsArgs>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -854,11 +844,5 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Current?: CurrentResolvers<ContextType>;
 };
 
-
-/**
- * @deprecated
- * Use "Resolvers" root object instead. If you wish to get "IResolvers", add "typesPrefix: I" to your config.
- */
-export type IResolvers<ContextType = { req: Request, res: Response }> = Resolvers<ContextType>;
 
 }

@@ -9,7 +9,7 @@ import BlockTitle from "../../BlockTitle";
 import Button from "../../Button";
 import CardList, { Props as ListProps } from "../../Card/List";
 import Grid from "../../Grid";
-import defaultSort from "../../Icons/defaultSort";
+import DefaultSort from "../../Icons/DefaultSort";
 import Sort from "../../Icons/Sort";
 import SelectButton, { Props as SelectButtonProps } from "../../SelectButton";
 import { useSize } from "../../SizeProvider";
@@ -31,7 +31,7 @@ const SortSelectButton: FC<
         states={[
           {
             children: "default",
-            Icon: defaultSort,
+            Icon: DefaultSort,
           },
           {
             Icon: Sort,
@@ -138,21 +138,22 @@ const ComposedCardList: FC<Props> = ({ deck, ownedCards, ...props }) => {
         ) : undefined
       }
       title={
-        artistId && deck
-          ? deck.title
-          : (
-              <Text
-                variant="body3"
-                css={{
-                  marginTop: 15,
-                  fontWeight: "normal",
-                  fontFamily: "Work Sans, sans-serif",
-                  letterSpacing: "normal",
-                }}
-              >
-                {deck.intro}
-              </Text>
-            ) || "Cards"
+        artistId && deck ? (
+          deck.title
+        ) : (
+          <Text
+            variant="body3"
+            css={{
+              marginTop: 15,
+              fontWeight: "normal",
+              fontFamily: "Work Sans, sans-serif",
+              letterSpacing: "normal",
+            }}
+          >
+            {deck.intro}
+          </Text>
+        )
+        // || "Cards"
         // : ((deckId === "special" || deckId === "future") && "Cards") ||
         //   "Cards"
       }

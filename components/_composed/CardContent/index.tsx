@@ -6,8 +6,8 @@ import {
   Fragment,
   useEffect,
 } from "react";
-import { useCards, useLoadCards } from "../../../hooks/card";
-import { useLoadLosers, useLosers } from "../../../hooks/loser";
+import { useLoadCards } from "../../../hooks/card";
+import { useLoadLosers } from "../../../hooks/loser";
 import { mockEmptyCard } from "../../../mocks/card";
 import { OwnedCard } from "../../../pages/[deckId]";
 import { Sections } from "../../../source/enums";
@@ -40,16 +40,14 @@ const ComposedCardContent: ForwardRefRenderFunction<HTMLDivElement, Props> = (
       href: "/" + deckId || "",
       owned: false,
     })),
-  } = (
-    typeof window === undefined
-      ? (useCards as typeof useLoadCards)
-      : useLoadCards
-  )();
-  const { loadLosers, losers } = (
-    typeof window === undefined
-      ? (useLosers as typeof useLoadLosers)
-      : useLoadLosers
-  )();
+  } = useLoadCards();
+  // typeof window === undefined
+  //   ? (useCards as typeof useLoadCards)
+  //   : useLoadCards
+  const { loadLosers, losers } = useLoadLosers();
+  // typeof window === undefined
+  //   ? (useLosers as typeof useLoadLosers)
+  //   : useLoadLosers
 
   useEffect(() => {
     if (!deck) {

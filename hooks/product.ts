@@ -36,10 +36,9 @@ export const ConvertEurToUsdQuery = gql`
 export const useProducts = (
   options: QueryHookOptions<Pick<GQL.Query, "products">> = {}
 ) => {
-  const { data: { products } = { products: undefined }, ...methods } = useQuery(
-    ProductsQuery,
-    options
-  );
+  const { data: { products } = { products: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "products">
+  >(ProductsQuery, options);
 
   return { ...methods, products };
 };
@@ -50,7 +49,10 @@ export const useConvertEurToUsd = (
   const {
     data: { convertEurToUsd: usd } = { convertEurToUsd: undefined },
     ...methods
-  } = useQuery(ConvertEurToUsdQuery, options);
+  } = useQuery<Pick<GQL.Query, "convertEurToUsd">>(
+    ConvertEurToUsdQuery,
+    options
+  );
 
   return {
     ...methods,

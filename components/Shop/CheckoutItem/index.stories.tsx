@@ -3,7 +3,7 @@ import { Fragment } from "react";
 import ShopCheckoutItem from ".";
 
 export default {
-  title: "Shop/CheckoutItem",
+  title: "old/Shop/CheckoutItem",
   component: ShopCheckoutItem,
 } as ComponentMeta<typeof ShopCheckoutItem>;
 

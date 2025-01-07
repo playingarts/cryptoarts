@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Carousel from "./";
 
 export default {
-  title: "Carousel",
+  title: "old/Carousel",
   component: Carousel,
 } as ComponentMeta<typeof Carousel>;
 

@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import Component from ".";
-import defaultSort from "../Icons/defaultSort";
+import defaultSort from "../Icons/DefaultSort";
 import Sort from "../Icons/Sort";
 
 export default {
-  title: "Buttons/SelectButton",
+  title: "old/Buttons/SelectButton",
   component: Component,
 } as ComponentMeta<typeof Component>;
 

@@ -6,7 +6,7 @@ import Hearts from "../../Icons/Hearts";
 import Spades from "../../Icons/Spades";
 
 export default {
-  title: "Charts/ColumnChart",
+  title: "old/Charts/ColumnChart",
   component: ColumnChart,
 } as ComponentMeta<typeof ColumnChart>;
 

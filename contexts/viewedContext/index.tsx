@@ -1,4 +1,11 @@
-import { createContext, FC, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  FC,
+  HTMLAttributes,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import store from "store";
 
 type view = {
@@ -19,7 +26,9 @@ export const useViewed = () => {
   return useContext(ViewedContext);
 };
 
-export const ViewedProvider: FC = ({ children }) => {
+export const ViewedProvider: FC<HTMLAttributes<HTMLElement>> = ({
+  children,
+}) => {
   const [viewed, setViewed] = useState(
     (store.get("viewed") as Props["viewed"]) || []
   );

@@ -1,4 +1,4 @@
-import { Global } from "@emotion/react";
+import { Global, css } from "@emotion/react";
 import { Head, Html, Main, NextScript } from "next/document";
 import { Fragment } from "react";
 import { theme } from "./_app";
@@ -17,6 +17,13 @@ export const Links = () => (
         body: {
           background: theme.colors.page_bg_light_gray,
           fontFamily: "Work Sans, sans-serif",
+          // fontFamily: "'Alliance No.2'",
+          // "@font-face": {
+          //   fontFamily: "'Alliance No.2'",
+          //   src: "url('fonts/AllianceRegular.woff2')",
+          //   fontWeight: "normal",
+          //   fontStyle: "normal",
+          // },
           "@keyframes gradient": {
             "0%": {
               backgroundPosition: "0% 50%",
@@ -30,7 +37,7 @@ export const Links = () => (
           },
         },
         svg: {
-          verticalAlign: "top",
+          verticalAlign: "middle",
         },
         button: {
           cursor: "pointer",
@@ -43,9 +50,12 @@ export const Links = () => (
         ":root": {
           "--buttonSmallWidth": `${theme.spacing(3.8)}px`,
           "--buttonSmallHeight": `${theme.spacing(3.8)}px`,
+
+          "--newButtonHeight": `${theme.spacing(4.2)}px`,
+          "--newButtonWidth": `${theme.spacing(4.2)}px`,
           [theme.maxMQ.sm]: {
-            "--buttonHeight": `${theme.spacing(4.2)}px`,
-            "--buttonWidth": `${theme.spacing(4.2)}px`,
+            "--buttonHeight": `${theme.spacing(4.3)}px`,
+            "--buttonWidth": `${theme.spacing(4.3)}px`,
           },
           [theme.mq.sm]: {
             "--buttonHeight": `${theme.spacing(5)}px`,
@@ -63,13 +73,35 @@ export const Links = () => (
         },
       }}
     />
+    <Global
+      styles={css`
+        html {
+          @font-face {
+            src: url("AllianceBold.otf");
+            font-family: "Alliance No.2";
+            font-weight: 600;
+            font-style: normal;
+          }
+
+          @font-face {
+            src: url("AllianceMedium.otf");
+            font-family: "Alliance No.2";
+            font-weight: 500;
+            font-style: normal;
+          }
+
+          @font-face {
+            src: url("AllianceRegular.woff2");
+            font-family: "Alliance No.2";
+            font-weight: 400;
+            font-style: normal;
+          }
+        }
+      `}
+    />
     <meta name="theme-color" content="#fff" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link
-      rel="preconnect"
-      href="https://fonts.gstatic.com"
-      crossOrigin="true"
-    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
       rel="preload"
       as="style"

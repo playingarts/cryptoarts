@@ -5,6 +5,7 @@ import {
   Fragment,
   HTMLAttributes,
   MouseEventHandler,
+  JSX,
   useState,
 } from "react";
 import { breakpoints } from "../../source/enums";
@@ -71,10 +72,14 @@ const Charts: FC<Props> = ({
     return <Component {...props} />;
   }
 
-  const showTooltip: TooltipHandler = (dataPoint) => ({ clientX, clientY }) =>
-    setTooltip({ x: clientX, y: clientY, data: dataPoint });
-  const moveTooltip: TooltipHandler = () => ({ clientX, clientY }) =>
-    setTooltip({ x: clientX, y: clientY, data });
+  const showTooltip: TooltipHandler =
+    (dataPoint) =>
+    ({ clientX, clientY }) =>
+      setTooltip({ x: clientX, y: clientY, data: dataPoint });
+  const moveTooltip: TooltipHandler =
+    () =>
+    ({ clientX, clientY }) =>
+      setTooltip({ x: clientX, y: clientY, data });
   const hideTooltip: TooltipHandler = () => () => setTooltip({ x: 0, y: 0 });
 
   return (

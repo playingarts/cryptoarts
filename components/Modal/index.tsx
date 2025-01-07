@@ -124,7 +124,7 @@ const Modal: FC = () => {
         bottom: 0,
         zIndex: 999999,
       })}
-      ref={(ref) => ref && ref.focus()}
+      ref={(ref) => (ref !== null && ref.focus()) || undefined}
       onClick={() =>
         push(
           {

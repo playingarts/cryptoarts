@@ -4,7 +4,7 @@ import { HoldersQuery } from "../../../hooks/opensea";
 import { mockDeck } from "../../../mocks/deck";
 
 export default {
-  title: "Composed/Holders",
+  title: "old/Composed/Holders",
   component: Holders,
 } as ComponentMeta<typeof Holders>;
 

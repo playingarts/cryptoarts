@@ -33,6 +33,7 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   scroll?: LinkProps["scroll"];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Text: ForwardRefRenderFunction<any, Props> = (
   {
     component: Component = "p",
@@ -56,6 +57,7 @@ const Text: ForwardRefRenderFunction<any, Props> = (
     <Component
       ref={ref}
       href={href as URL}
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       color={color as any}
       {...props}
       style={

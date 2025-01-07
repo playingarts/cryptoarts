@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import CardNav from ".";
 
 export default {
-  title: "Card/Nav",
+  title: "old/Card/Nav",
   component: CardNav,
 } as ComponentMeta<typeof CardNav>;
 

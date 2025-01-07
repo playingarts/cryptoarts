@@ -1,6 +1,6 @@
 import { Interpolation, Theme } from "@emotion/react";
 import { colord } from "colord";
-import { FC, Fragment } from "react";
+import { FC, Fragment, JSX } from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { breakpoints } from "../../source/enums";
 import Button, { Props as ButtonProps } from "../Button";

@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Faq from ".";
 
 export default {
-  title: "FAQ",
+  title: "old/FAQ",
   component: Faq,
 } as ComponentMeta<typeof Faq>;
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { NextPage } from "next";
 import Head from "next/head";
 import { FC, Fragment, useLayoutEffect, useState } from "react";

@@ -6,8 +6,9 @@ import { getDeck, getDecks } from "./deck";
 import { getAssets } from "./opensea";
 import { getListings } from "./listing";
 
-export type MongoCard = Omit<GQL.Card, "artist" | "deck"> & {
+export type MongoCard = Omit<GQL.Card, "artist" | "deck" | "animator"> & {
   artist?: string;
+  animator?: string;
   deck?: string;
 };
 

@@ -15,7 +15,7 @@ const handler: NextApiHandler = async (req, res) => {
       await res.revalidate(page);
     }
     return res.json({ revalidated: true });
-  } catch (err) {
+  } catch {
     // If there was an error, Next.js will continue
     // to show the last successfully generated page
     return res.status(500).send("Error revalidating");

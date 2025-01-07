@@ -18,8 +18,6 @@ export const connect = async () => {
   await mongoose.connect(
     process.env.MONGOLOCAL === "true" ? "mongodb://127.0.0.1:27017" : MONGOURL,
     {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
       dbName: MONGODB,
       ...(isDevelopment || DOBUILD === "true"
         ? {
@@ -34,6 +32,5 @@ export const connect = async () => {
     }
   );
 
-  mongoose.set("useFindAndModify", false);
   mongoose.set("returnOriginal", false);
 };

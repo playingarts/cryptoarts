@@ -4,7 +4,7 @@ import { DecksQuery } from "../../../hooks/deck";
 import { mockDeck } from "../../../mocks/deck";
 
 export default {
-  title: "Composed/BrowseCollection",
+  title: "old/Composed/BrowseCollection",
   component: BrowseCollection,
 } as ComponentMeta<typeof BrowseCollection>;
 

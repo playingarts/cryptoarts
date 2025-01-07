@@ -3,7 +3,7 @@ import Card from ".";
 import { mockDeck } from "../../../mocks/deck";
 
 export default {
-  title: "Card/List",
+  title: "old/Card/List",
   component: Card,
 } as ComponentMeta<typeof Card>;
 
@@ -13,8 +13,7 @@ const artist: GQL.Artist = {
   name: "Leonardoworx",
   userpic:
     "https://s3.amazonaws.com/img.playingarts.com/crypto/upics/leonardoworx.jpg",
-  info:
-    "Leonardo Betti, better known as Leonardoworx, is a…tions in international art galleries and museums.",
+  info: "Leonardo Betti, better known as Leonardoworx, is a…tions in international art galleries and museums.",
   website: "website",
   country: "country",
   social: {
@@ -45,8 +44,7 @@ Primary.args = {
       value: "",
       suit: "",
       _id: "_id",
-      img:
-        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       info: "",
       video: "",
       background: "background",
@@ -58,8 +56,7 @@ Primary.args = {
       value: "",
       suit: "",
       _id: "_id2",
-      img:
-        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
       background: "background",
@@ -72,8 +69,7 @@ Primary.args = {
       value: "",
       suit: "",
       _id: "_id",
-      img:
-        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video: "",
       background: "background",
       info: "",
@@ -86,8 +82,7 @@ Primary.args = {
       value: "",
       suit: "",
       _id: "_id2",
-      img:
-        "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+      img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
       video:
         "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.mp4",
       background: "background",

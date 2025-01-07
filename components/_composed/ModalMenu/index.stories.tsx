@@ -5,7 +5,7 @@ import { DecksQuery } from "../../../hooks/deck";
 import SizeProvider from "../../SizeProvider";
 
 export default {
-  title: "Modals/ModalMenu",
+  title: "old/Modals/ModalMenu",
   component: Component,
 } as ComponentMeta<typeof Component>;
 
@@ -34,8 +34,7 @@ Primary.parameters = {
             decks: [
               {
                 _id: "62c47dc62f15503d16da50c9",
-                info:
-                  "Originally called Creative Cards, this deck have been completely sold out for about five years now. We are bringing it back in a new and improved version!",
+                info: "Originally called Creative Cards, this deck have been completely sold out for about five years now. We are bringing it back in a new and improved version!",
                 title: "Edition Zero",
                 slug: "zero",
                 openseaCollection: null,
@@ -61,8 +60,7 @@ Primary.parameters = {
               },
               {
                 _id: "62c47dc92f15503d16da513d",
-                info:
-                  "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
+                info: "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
                 title: "Edition One",
                 slug: "one",
                 openseaCollection: null,
@@ -88,8 +86,7 @@ Primary.parameters = {
               },
               {
                 _id: "62c47dcb2f15503d16da51b1",
-                info:
-                  "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
+                info: "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
                 title: "Edition Two",
                 slug: "two",
                 openseaCollection: null,
@@ -115,8 +112,7 @@ Primary.parameters = {
               },
               {
                 _id: "62c47dcc2f15503d16da5225",
-                info:
-                  "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
+                info: "From the two of clubs to the ace of spades, each card in this deck has been individually designed by one of the 55 selected international artists in their distinct style and technique.",
                 title: "Edition Three",
                 slug: "three",
                 openseaCollection: null,
@@ -142,8 +138,7 @@ Primary.parameters = {
               },
               {
                 _id: "62c47dce2f15503d16da529b",
-                info:
-                  "537 artists from 67 countries participated in design contest, showing their vision of the custom playing cards. Each contestant was asked to create an artwork for one particular card in their distinct style.",
+                info: "537 artists from 67 countries participated in design contest, showing their vision of the custom playing cards. Each contestant was asked to create an artwork for one particular card in their distinct style.",
                 title: "Special Edition",
                 slug: "special",
                 openseaCollection: null,
@@ -169,8 +164,7 @@ Primary.parameters = {
               },
               {
                 _id: "62c47dd02f15503d16da530f",
-                info:
-                  "299 international artists, designers and studios were using playing card as a canvas to illustrate their vision of what the world will look like 100 years from now. Selected artworks formed two Future Edition decks.",
+                info: "299 international artists, designers and studios were using playing card as a canvas to illustrate their vision of what the world will look like 100 years from now. Selected artworks formed two Future Edition decks.",
                 title: "Future Edition",
                 slug: "future",
                 openseaCollection: null,
@@ -209,8 +203,7 @@ Primary.parameters = {
               },
               {
                 _id: "62c47dd32f15503d16da53f7",
-                info:
-                  "A deck of playing cards featuring works of 55 leading artists. Unique digital art collectibles living on the Ethereum blockchain.",
+                info: "A deck of playing cards featuring works of 55 leading artists. Unique digital art collectibles living on the Ethereum blockchain.",
                 title: "Crypto Edition",
                 slug: "crypto",
                 openseaCollection: {

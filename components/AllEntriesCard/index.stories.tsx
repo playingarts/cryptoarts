@@ -8,7 +8,7 @@ import Hearts from "../Icons/Hearts";
 import { CardSuits } from "../../source/enums";
 
 export default {
-  title: "AllEntriesCard",
+  title: "old/AllEntriesCard",
   component: AllEntriesCard,
 } as ComponentMeta<typeof AllEntriesCard>;
 

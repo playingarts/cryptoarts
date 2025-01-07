@@ -1,6 +1,7 @@
 import {
   createContext,
   FC,
+  HTMLAttributes,
   useContext,
   useEffect,
   useLayoutEffect,
@@ -14,7 +15,9 @@ export const useSize = () => {
   return useContext(SizeContext);
 };
 
-const SizeProvider: FC<{ isMobile?: boolean }> = ({ isMobile, children }) => {
+const SizeProvider: FC<
+  HTMLAttributes<HTMLElement> & { isMobile?: boolean }
+> = ({ isMobile, children }) => {
   const [width, setWidth] = useState(isMobile ? 0 : 1440);
 
   (typeof window === "undefined" ? useEffect : useLayoutEffect)(() => {
@@ -24,6 +27,7 @@ const SizeProvider: FC<{ isMobile?: boolean }> = ({ isMobile, children }) => {
           Object.keys(breakpoints)
             .filter((value) => isNaN(Number(value)) === false)
             .reverse()
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             .find((item: any) => item < window.innerWidth + 1)
         )
       );

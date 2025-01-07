@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { NormalizedCacheObject } from "@apollo/client";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
@@ -47,14 +48,14 @@ export type OwnedCard = { value: string; suit: string; identifier: string };
 
 const Content: FC<{
   losersExist?: boolean;
-  aboutRef: RefObject<HTMLDivElement>;
-  deckRef: RefObject<HTMLElement>;
-  cardsRef: RefObject<HTMLElement>;
-  contestRef: RefObject<HTMLElement>;
-  gameRef: RefObject<HTMLElement>;
-  deckNavRef: RefObject<HTMLElement>;
-  nftRef: RefObject<HTMLElement>;
-  roadmapRef: RefObject<HTMLElement>;
+  aboutRef: RefObject<HTMLDivElement | null>;
+  deckRef: RefObject<HTMLElement | null>;
+  cardsRef: RefObject<HTMLElement | null>;
+  contestRef: RefObject<HTMLElement | null>;
+  gameRef: RefObject<HTMLElement | null>;
+  deckNavRef: RefObject<HTMLElement | null>;
+  nftRef: RefObject<HTMLElement | null>;
+  roadmapRef: RefObject<HTMLElement | null>;
 }> = memo(
   ({
     losersExist,
@@ -206,13 +207,13 @@ const Content: FC<{
               />
             }
             layoutChildren={
-              deck &&
-              deck.slug === "special" && (
+              (deck && deck.slug === "special" && (
                 <ShadertoyReact
                   fs={frag}
                   style={{ position: "absolute", top: 0, left: 0 }}
                 />
-              )
+              )) ||
+              undefined
             }
           >
             {width < breakpoints.sm && deck && deck.product && (

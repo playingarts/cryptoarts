@@ -3,7 +3,7 @@ import Nav from ".";
 import { DecksQuery } from "../../hooks/deck";
 
 export default {
-  title: "Header/Nav",
+  title: "old/Header/Nav",
   component: Nav,
 } as ComponentMeta<typeof Nav>;
 

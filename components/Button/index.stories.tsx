@@ -5,7 +5,7 @@ import Link from "../Link";
 import Component from "./";
 
 export default {
-  title: "Button - Link",
+  title: "old/Button - Link",
   component: Component,
 } as ComponentMeta<typeof Component>;
 

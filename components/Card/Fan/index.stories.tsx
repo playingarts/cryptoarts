@@ -4,7 +4,7 @@ import { CardsQuery } from "../../../hooks/card";
 import { mockDeck } from "../../../mocks/deck";
 
 export default {
-  title: "Card/Fan",
+  title: "old/Card/Fan",
   component: CardFan,
 } as ComponentMeta<typeof CardFan>;
 
@@ -23,8 +23,7 @@ const cards: GQL.Card[] = [
     suit: "",
     _id: "1",
     artist,
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.jpg",
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
@@ -35,8 +34,7 @@ const cards: GQL.Card[] = [
     suit: "",
     _id: "2",
     artist,
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-clubs-tang-yau-hoong.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-clubs-tang-yau-hoong.jpg",
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
@@ -47,8 +45,7 @@ const cards: GQL.Card[] = [
     suit: "",
     _id: "3",
     artist,
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-diamonds-yemayema.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-diamonds-yemayema.jpg",
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
@@ -59,8 +56,7 @@ const cards: GQL.Card[] = [
     suit: "",
     _id: "4",
     artist,
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-hearts-peter-tarka.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-hearts-peter-tarka.jpg",
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
@@ -71,8 +67,7 @@ const cards: GQL.Card[] = [
     suit: "",
     _id: "5",
     artist,
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-spades-mattias-adolfsson.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/2-of-spades-mattias-adolfsson.jpg",
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",
@@ -83,8 +78,7 @@ const cards: GQL.Card[] = [
     suit: "",
     _id: "6",
     artist,
-    img:
-      "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-clubs-fernando-chamarelli.jpg",
+    img: "https://s3.amazonaws.com/img.playingarts.com/one-small-hd/3-of-clubs-fernando-chamarelli.jpg",
     info: "info",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/2-s-7Tw67g2w.mp4",

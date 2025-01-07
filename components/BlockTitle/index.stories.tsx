@@ -3,7 +3,7 @@ import BlockTitle from "./";
 import Plus from "../Icons/Plus";
 
 export default {
-  title: "CardBlock/BlockTitle",
+  title: "old/CardBlock/BlockTitle",
   component: BlockTitle,
 } as ComponentMeta<typeof BlockTitle>;
 

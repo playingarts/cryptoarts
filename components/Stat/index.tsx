@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, JSX } from "react";
 import Eth from "../Icons/Eth";
 import Line from "../Line";
 import Text from "../Text";

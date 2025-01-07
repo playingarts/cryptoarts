@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import LatestRelease from ".";
 
 export default {
-  title: "LatestRelease",
+  title: "old/LatestRelease",
   component: LatestRelease,
 } as ComponentMeta<typeof LatestRelease>;
 

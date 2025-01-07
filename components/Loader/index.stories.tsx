@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import Loader from ".";
 
 export default {
-  title: "Loader",
+  title: "old/Loader",
   component: Loader,
 } as ComponentMeta<typeof Loader>;
 

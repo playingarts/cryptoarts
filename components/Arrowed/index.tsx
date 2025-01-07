@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { FC, Fragment, HTMLAttributes } from "react";
 import Arrow from "../Icons/Arrow";
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
   rotation?: number;
 }
 
-const Arrowed: FC<Props> = ({
+const Arrowed: FC<HTMLAttributes<HTMLElement> & Props> = ({
   position = "append",
   rotation = 180,
   children,

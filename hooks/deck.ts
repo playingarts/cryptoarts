@@ -54,10 +54,9 @@ export const DeckQuery = gql`
 export const useDecks = (
   options: QueryHookOptions<Pick<GQL.Query, "decks">> = {}
 ) => {
-  const { data: { decks } = { decks: undefined }, ...methods } = useQuery(
-    DecksQuery,
-    options
-  );
+  const { data: { decks } = { decks: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "decks">
+  >(DecksQuery, options);
 
   return { ...methods, decks };
 };
@@ -71,13 +70,10 @@ export const useLoadDeck = (
   return { ...methods, loadDeck, deck };
 };
 
-export const useDeck = (
-  options: QueryHookOptions<Pick<GQL.Query, "deck">> = {}
-) => {
-  const { data: { deck } = { deck: undefined }, ...methods } = useQuery(
-    DeckQuery,
-    options
-  );
+export const useDeck = (options = {}) => {
+  const { data: { deck } = { deck: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "deck">
+  >(DeckQuery, options);
 
   return { ...methods, deck };
 };

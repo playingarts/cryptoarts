@@ -14,10 +14,8 @@ export const DealQuery = gql`
 export const useLoadDeal = (
   options: QueryHookOptions<Pick<GQL.Query, "deal">> = {}
 ) => {
-  const [
-    loadDeal,
-    { data: { deal } = { deal: undefined }, ...methods },
-  ] = useLazyQuery(DealQuery, options);
+  const [loadDeal, { data: { deal } = { deal: undefined }, ...methods }] =
+    useLazyQuery<Pick<GQL.Query, "deal">>(DealQuery, options);
 
   return { ...methods, loadDeal, deal };
 };

@@ -4,7 +4,7 @@ import { socialLinks } from "../../source/consts";
 import Link from "../Link";
 
 export default {
-  title: "Roadmap",
+  title: "old/Roadmap",
   component: Component,
 } as ComponentMeta<typeof Component>;
 

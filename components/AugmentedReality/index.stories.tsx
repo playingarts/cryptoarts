@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import AugmentedReality from "./";
 
 export default {
-  title: "AugmentedReality",
+  title: "old/AugmentedReality",
   component: AugmentedReality,
 } as ComponentMeta<typeof AugmentedReality>;
 

@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import LineChart from ".";
 
 export default {
-  title: "Charts/LineChart",
+  title: "old/Charts/LineChart",
   component: LineChart,
 } as ComponentMeta<typeof LineChart>;
 

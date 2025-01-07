@@ -3,7 +3,7 @@ import AllEntriesBlock from ".";
 import { mockDeck } from "../../mocks/deck";
 
 export default {
-  title: "AllEntriesBlock",
+  title: "old/AllEntriesBlock",
   component: AllEntriesBlock,
 } as ComponentMeta<typeof AllEntriesBlock>;
 
