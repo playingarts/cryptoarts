@@ -1,12 +1,11 @@
-import { FC } from "react";
-import Grid from "../../../../components/Grid";
-import { mockCard } from "../../../../mocks/card";
-import { theme } from "../../../../pages/_app";
-import ExploreButton from "../../../Buttons/ExploreButton";
-import ShopArrowButton from "../../../Buttons/ShopArrowButton";
-import Fastcompany from "../../../Icons/Fastcompany";
-import Text from "../../../Text";
-import HeroCard from "../HeroCard";
+import Grid from "../../components/Grid";
+import { mockCard } from "../../mocks/card";
+import { theme } from "../../pages/_app";
+import ExploreButton from "../Buttons/ExploreButton";
+import ShopArrowButton from "../Buttons/ShopArrowButton";
+import Fastcompany from "../Icons/Fastcompany";
+import Text from "../Text";
+import HeroCard from "./HeroCard";
 
 type Props = {};
 

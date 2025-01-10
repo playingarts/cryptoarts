@@ -3,7 +3,7 @@ import Button from "../../../components/Button";
 import Grid from "../../../components/Grid";
 
 import Text from "../../../components/Text";
-import HeroCard from "./HeroCard";
+import HeroCard from "../../Hero/HeroCard";
 import placeholder from "../../../mocks/deckCollectionPreview.png";
 import AugmentedReality from "../../../components/AugmentedReality";
 import Layout from "../../../components/Layout";
@@ -13,7 +13,8 @@ import DigitalArts from "../../../components/Icons/DigitalArts";
 import Esquire from "../../../components/Icons/Esquire";
 import Quote from "../../../components/Quote";
 import Header from "../../Header";
-import Hero from "./Hero";
+import Hero from "../../Hero";
+import Story from "../../Story";
 
 type Props = {};
 
@@ -22,59 +23,11 @@ const Home = (props: Props) => {
     <>
       <Header />
       <Hero />
+      <Story />
       <Grid css={[{ background: "#E9E7E2", width: "100%" }]}>
         <div css={{ gridColumn: "1/-1" }}>
           {/* Hero */}
           {/* Story */}
-          <div css={{ position: "relative" }}>
-            <Grid css={{ background: "#F1F1F1" }}>
-              <div css={[{ gridColumn: "7/-1" }]}>
-                <Button>Where art meets play</Button>
-                <Text
-                  css={(theme) => [
-                    theme.typography.paragraphBig,
-                    { margin: 0 },
-                  ]}
-                >
-                  Playing Arts brings together artists from around the world,
-                  transforming traditional playing cards into a diverse gallery
-                  of creative expression.
-                </Text>
-                <span css={{ div: { display: "inline-block" } }}>
-                  <div>
-                    <Text css={(theme) => [theme.typography.newH2]}>12</Text>
-                    <Text css={(theme) => [theme.typography.newH4]}>Years</Text>
-                  </div>
-                  <div>
-                    <Text css={(theme) => [theme.typography.newH2]}>08</Text>
-                    <Text css={(theme) => [theme.typography.newH4]}>
-                      Editions
-                    </Text>
-                  </div>
-                  <div>
-                    <Text css={(theme) => [theme.typography.newH2]}>1100+</Text>
-                    <Text css={(theme) => [theme.typography.newH4]}>
-                      Artists
-                    </Text>
-                  </div>
-                </span>
-              </div>
-            </Grid>
-            <Grid css={{ background: "#EAEAEA" }}>
-              <div css={[{ gridColumn: "7/-1" }]}>
-                <Button>Explore the collection of eight decks</Button>
-                <Text
-                  css={(theme) => [
-                    theme.typography.paragraphBig,
-                    { margin: 0 },
-                  ]}
-                >
-                  Each deck is a curated showcase of 55 unique artworks, created
-                  by 55 international artists.
-                </Text>
-              </div>
-            </Grid>
-          </div>
           {/* Collection */}
           <div>
             <Button>Explore the collection of eight decks</Button>

@@ -39,6 +39,8 @@ export const colorLiterals = {
   //new
   dark_gray_hover: "#3C3C3C",
   favourite: "#E3E4F4",
+  soft_gray: "#F1F1F1",
+  pale_gray: "#EAEAEA",
   //old
   orangeRed: "#FF6633",
   darkTurqoise: "#07D0E0",
@@ -55,7 +57,6 @@ export const colorLiterals = {
   page_bg_dark: "#0A0A0A",
   dark_gray: "#333333",
   light_gray: "#DFDFDF",
-  pale_gray: "#EAEAEA",
   page_bg_light: "#EAEAEA",
   text_title_dark: "#0A0A0A",
   text_subtitle_dark: "rgba(10, 10, 10, 0.5)",
@@ -204,48 +205,11 @@ export const typographyLiterals = {
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
   },
-
-  // new
-  title: {
-    fontSize: 27,
-    fontWeight: 400,
-    lineHeight: "40.5px",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-  },
-  h: {
-    //styleName: H;
-    fontSize: 100,
-    fontWeight: 400,
-    lineHeight: "100px",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-  },
   paragraphBig: {
     //styleName: Paragraph big;
-    fontSize: 33,
+    fontSize: 35,
     fontWeight: 400,
-    lineHeight: "49.5px",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-  },
-  newH2: {
-    //styleName: H2;
-    fontSize: 50,
-    fontWeight: 400,
-    lineHeight: "60px",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-  },
-  newH4: {
-    //styleName: H4;
-    fontSize: 18,
-    fontWeight: 400,
-    lineHeight: "27px",
+    lineHeight: "52.5px",
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
