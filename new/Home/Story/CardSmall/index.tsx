@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import { mockCard as card } from "../../../mocks/card";
+import { mockCard as card } from "../../../../mocks/card";
 
 const CardSmall: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <div

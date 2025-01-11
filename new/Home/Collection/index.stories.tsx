@@ -1,12 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react/*";
 import Component from ".";
 import { HttpResponse, graphql } from "msw";
-import { mockDeck } from "../../../mocks/deck";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
-import { MetaMaskProvider } from "metamask-react";
-import SizeProvider from "../../../components/SizeProvider";
-import { mockDecks } from "../../../mocks/DecksQuery";
 import { productsQuery } from "../../../mocks/productsQuery";
+import { mockDecks } from "../../../mocks/DecksQuery";
 
 type Story = StoryObj<typeof Component>;
 
@@ -26,16 +23,11 @@ const mockedClient = new ApolloClient({
 });
 
 const meta = {
-  title: "New/Home/Home",
-  tags: ["autodocs"],
   component: Component,
+  title: "New/Home/Collection/Collection",
   decorators: (Story) => (
     <ApolloProvider client={mockedClient}>
-      <MetaMaskProvider>
-        <SizeProvider>
-          <Story />
-        </SizeProvider>
-      </MetaMaskProvider>
+      <Story />
     </ApolloProvider>
   ),
 } as Meta<typeof Component>;

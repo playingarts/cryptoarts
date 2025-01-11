@@ -1,0 +1,82 @@
+import { FC, HTMLAttributes } from "react";
+import { useProducts } from "../../../hooks/product";
+import Grid from "../../../components/Grid";
+import Text from "../../Text";
+import Dot from "../../Icons/Dot";
+import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
+import Link from "../../Link";
+
+const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+  const { products } = useProducts();
+
+  return (
+    <Grid
+      css={(theme) => [
+        {
+          background: theme.colors.pale_gray,
+        },
+      ]}
+    >
+      <div
+        css={(theme) => [
+          {
+            gridColumn: "1/-1",
+            width: "100%",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 3,
+            " > *": {
+              flex: "1 0 30%",
+              height: 450,
+              background: theme.colors.soft_gray,
+              borderRadius: 16,
+            },
+          },
+        ]}
+      >
+        {(() => {
+          const arr = [];
+          const deckProducts =
+            products && products.filter((product) => product.type === "deck");
+          for (let i = 0; i < 8; i++) {
+            const product = deckProducts && deckProducts[i];
+            arr.push(
+              <div>
+                {product && typeof product.deck === "object" && (
+                  <Link href={product.deck.slug}>
+                    <img
+                      src={product.image}
+                      alt="deck image"
+                      css={[
+                        {
+                          objectFit: "contain",
+                          height: "100%",
+                          width: "100%",
+                        },
+                      ]}
+                    />
+                  </Link>
+                )}
+              </div>
+            );
+          }
+          arr.push(
+            <div css={[{ padding: 30 }]}>
+              <Text typography="paragraphBig">
+                Eight editions.
+                <br />
+                Endless inspiration.
+              </Text>
+              <Text typography="linkNewTypography">
+                Discover the journey <Dot />
+              </Text>
+            </div>
+          );
+          return arr;
+        })()}
+      </div>
+    </Grid>
+  );
+};
+
+export default Collection;

@@ -214,6 +214,15 @@ export const typographyLiterals = {
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
   },
+  linkNewTypography: {
+    fontFamily: "'Alliance No.2'",
+    fontSize: 20,
+    fontWeight: 400,
+    lineHeight: "40px",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+  },
 
   //old
   h1: {

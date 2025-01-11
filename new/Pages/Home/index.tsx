@@ -3,7 +3,7 @@ import Button from "../../../components/Button";
 import Grid from "../../../components/Grid";
 
 import Text from "../../../components/Text";
-import HeroCard from "../../Hero/HeroCard";
+import HeroCard from "../../Home/Hero/HeroCard";
 import placeholder from "../../../mocks/deckCollectionPreview.png";
 import AugmentedReality from "../../../components/AugmentedReality";
 import Layout from "../../../components/Layout";
@@ -13,8 +13,9 @@ import DigitalArts from "../../../components/Icons/DigitalArts";
 import Esquire from "../../../components/Icons/Esquire";
 import Quote from "../../../components/Quote";
 import Header from "../../Header";
-import Hero from "../../Hero";
-import Story from "../../Story";
+import Hero from "../../Home/Hero";
+import Story from "../../Home/Story";
+import Collection from "../../Home/Collection";
 
 type Props = {};
 
@@ -24,41 +25,12 @@ const Home = (props: Props) => {
       <Header />
       <Hero />
       <Story />
+      <Collection />
       <Grid css={[{ background: "#E9E7E2", width: "100%" }]}>
         <div css={{ gridColumn: "1/-1" }}>
           {/* Hero */}
           {/* Story */}
           {/* Collection */}
-          <div>
-            <Button>Explore the collection of eight decks</Button>
-            <div css={[{ display: "flex", flexWrap: "wrap", gap: 3 }]}>
-              {(() => {
-                const arr = [];
-                for (let i = 0; i < 8; i++) {
-                  arr.push(
-                    <div
-                      css={[
-                        {
-                          flex: "1 0 30%",
-                          height: 450,
-                          background: "gray",
-                          borderRadius: 16,
-                        },
-                      ]}
-                    >
-                      <img
-                        src={placeholder.src}
-                        alt="asd"
-                        css={[{ width: "100%" }]}
-                      />
-                    </div>
-                  );
-                }
-                arr.push(<div css={[{ flex: "1 0 33%", height: 450 }]}></div>);
-                return arr;
-              })()}
-            </div>
-          </div>
           {/* Gallery */}
           <div>
             <Button>Every card, a masterpiece you can hold</Button>

@@ -1,8 +1,8 @@
 import { FC, HTMLAttributes } from "react";
-import Grid from "../../components/Grid";
-import ButtonTemplate from "../Buttons/Templates/ButtonTemplate";
-import IconArrow from "../Icons/IconArrow";
-import Text from "../Text";
+import Grid from "../../../components/Grid";
+import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
+import IconArrow from "../../Icons/IconArrow";
+import Text from "../../Text";
 import CardSmall from "./CardSmall";
 
 const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
