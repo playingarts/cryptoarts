@@ -31,6 +31,8 @@ const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   animator: { type: Types.ObjectId, ref: "Artist" },
   deck: { type: Types.ObjectId, ref: "Deck" },
   reversible: Boolean,
+  // new
+  cardBackground: { type: String, default: null },
 });
 
 export const Card = (models.Card as Model<MongoCard>) || model("Card", schema);
@@ -299,6 +301,7 @@ export const typeDefs = gql`
     reversible: Boolean
     edition: String
     animator: Artist
+    cardBackground: String
   }
 
   type ERC1155 {

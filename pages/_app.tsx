@@ -37,6 +37,7 @@ const maxMQ = (Object.keys(breakpoints) as Array<keyof typeof breakpoints>)
 
 export const colorLiterals = {
   //new
+  accent: "#6A5ACD",
   dark_gray_hover: "#3C3C3C",
   favourite: "#E3E4F4",
   soft_gray: "#F1F1F1",
@@ -219,6 +220,15 @@ export const typographyLiterals = {
     fontSize: 20,
     fontWeight: 400,
     lineHeight: "40px",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+  },
+  paragraphSmall: {
+    //styleName: Paragraph big;
+    fontSize: 18,
+    fontWeight: 400,
+    lineHeight: "160%",
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",

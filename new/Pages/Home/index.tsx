@@ -4,7 +4,7 @@ import Grid from "../../../components/Grid";
 
 import Text from "../../../components/Text";
 import HeroCard from "../../Home/Hero/HeroCard";
-import placeholder from "../../../mocks/deckCollectionPreview.png";
+import placeholder from "../../../mocks/images/deckCollectionPreview.png";
 import AugmentedReality from "../../../components/AugmentedReality";
 import Layout from "../../../components/Layout";
 import FastCompany from "../../../components/Icons/FastCompany";
@@ -16,6 +16,7 @@ import Header from "../../Header";
 import Hero from "../../Home/Hero";
 import Story from "../../Home/Story";
 import Collection from "../../Home/Collection";
+import Gallery from "../../Home/Gallery";
 
 type Props = {};
 
@@ -26,109 +27,14 @@ const Home = (props: Props) => {
       <Hero />
       <Story />
       <Collection />
+      <Gallery />
       <Grid css={[{ background: "#E9E7E2", width: "100%" }]}>
         <div css={{ gridColumn: "1/-1" }}>
           {/* Hero */}
           {/* Story */}
           {/* Collection */}
           {/* Gallery */}
-          <div>
-            <Button>Every card, a masterpiece you can hold</Button>
-            <Text
-              css={(theme) => [theme.typography.paragraphBig, { width: 740 }]}
-            >
-              Feel the art in every card — carefully crafted on legendary
-              Bicycle® paper for unparalleled artistry and tactile quality.
-            </Text>
-            <Grid css={[{ img: { background: " white", borderRadius: 16 } }]}>
-              <div css={[{ gridColumn: "span 6" }]}>
-                <Button>The Details</Button>
-              </div>
 
-              <div css={[{ gridColumn: "span 6" }]}>
-                <div
-                  css={[{ display: "flex", justifyContent: "space-between" }]}
-                >
-                  <Button>Card of the day</Button>
-                  <Button>Follow @playingarts</Button>
-                </div>
-              </div>
-              <img
-                css={[
-                  {
-                    gridColumn: "span 3",
-                    aspectRatio: "1/1",
-                    width: "100%",
-                    objectFit: "cover",
-                  },
-                ]}
-                src={placeholder.src}
-                alt=""
-              />
-              <img
-                css={[
-                  {
-                    gridColumn: "span 3",
-                    aspectRatio: "1/1",
-                    width: "100%",
-                    objectFit: "cover",
-                  },
-                ]}
-                src={placeholder.src}
-                alt=""
-              />
-              <img
-                css={[
-                  {
-                    gridColumn: "span 6",
-                    gridRow: "span 2",
-                    aspectRatio: "1/1",
-                    width: "100%",
-                    objectFit: "cover",
-                  },
-                ]}
-                src={placeholder.src}
-                alt=""
-              />
-              <img
-                css={[
-                  {
-                    gridColumn: "span 3",
-                    aspectRatio: "1/1",
-                    width: "100%",
-                    objectFit: "cover",
-                  },
-                ]}
-                src={placeholder.src}
-                alt=""
-              />
-              <img
-                css={[
-                  {
-                    gridColumn: "span 3",
-                    aspectRatio: "1/1",
-                    width: "100%",
-                    objectFit: "cover",
-                  },
-                ]}
-                src={placeholder.src}
-                alt=""
-              />
-              <img
-                css={[
-                  {
-                    gridColumn: "span 3",
-                    aspectRatio: "1/1",
-                    width: "100%",
-                    objectFit: "cover",
-                  },
-                ]}
-                src={placeholder.src}
-                alt=""
-              />
-              <div css={[{ gridColumn: "7/-1", fontSize: 100 }]}>Quote</div>
-            </Grid>
-          </div>
           {/* augmented reality */}
           <AugmentedReality palette="light" css={[{ gridColumn: "1/-1" }]} />
           {/* Reviews */}

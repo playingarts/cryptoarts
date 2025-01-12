@@ -4,6 +4,7 @@ import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
 import IconArrow from "../../Icons/IconArrow";
 import Text from "../../Text";
 import CardSmall from "./CardSmall";
+import ArrowedButton from "../../Buttons/ArrowedButton";
 
 const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <>
@@ -20,17 +21,7 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         ]}
       >
         <div css={[{ gridColumn: "7/-1" }]}>
-          <ButtonTemplate
-            css={(theme) => [
-              {
-                padding: "0 0",
-                color: theme.colors.dark_gray,
-              },
-            ]}
-          >
-            <IconArrow css={[{ marginRight: 10 }]} />
-            Where art meets play
-          </ButtonTemplate>
+          <ArrowedButton>Where art meets play</ArrowedButton>
           <Text typography="paragraphBig" css={[{ paddingTop: 120 }]}>
             Playing Arts brings together artists from around the world,
             transforming traditional playing cards into a diverse gallery of
