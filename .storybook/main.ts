@@ -35,5 +35,21 @@ const config: StorybookConfig = {
   docs: {
     autodocs: true,
   },
+
+  webpackFinal: async (config) => {
+    return {
+      ...config,
+      module: {
+        ...config.module,
+        rules: [
+          ...config.module.rules,
+          {
+            test: /\.(glsl|vs|fs)$/,
+            type: "asset/source",
+          },
+        ],
+      },
+    };
+  },
 };
 export default config;
