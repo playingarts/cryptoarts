@@ -25,7 +25,6 @@ export const connect = async () => {
           }
         : {
             authSource: "admin",
-            sslValidate: true,
             ssl: true,
             tlsCAFile,
           }),
