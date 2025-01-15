@@ -3,6 +3,7 @@ import { gql, QueryHookOptions, useQuery } from "@apollo/client";
 export const podcastsQuery = gql`
   query Podcasts($name: String, $shuffle: Boolean, $limit: Int) {
     podcasts(name: $name, shuffle: $shuffle, limit: $limit) {
+      name
       image
       episode
       youtube
