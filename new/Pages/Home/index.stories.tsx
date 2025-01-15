@@ -1,12 +1,9 @@
-import { Meta, StoryObj } from "@storybook/react/*";
-import Component from ".";
-import { HttpResponse, graphql } from "msw";
-import { mockDeck } from "../../../mocks/deck";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { Meta, StoryObj } from "@storybook/react/*";
 import { MetaMaskProvider } from "metamask-react";
+import Component from ".";
 import SizeProvider from "../../../components/SizeProvider";
-import { mockDecks } from "../../../mocks/DecksQuery";
-import { productsQuery } from "../../../mocks/productsQuery";
+import { handlers } from "./HomeStoryHandlers";
 
 type Story = StoryObj<typeof Component>;
 
@@ -45,18 +42,7 @@ export default meta;
 export const Default: Story = {
   parameters: {
     msw: {
-      handlers: [
-        graphql.query("Products", () =>
-          HttpResponse.json({
-            data: {
-              products: productsQuery.map((product) => ({
-                ...product,
-                deck: mockDecks.find((deck) => deck.slug === product.deck),
-              })),
-            },
-          })
-        ),
-      ],
+      handlers: handlers,
     },
   },
 };

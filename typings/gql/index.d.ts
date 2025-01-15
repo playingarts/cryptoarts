@@ -40,6 +40,7 @@ interface Query {
   losersValues: Array<Loser>;
   losers: Array<Loser>;
   listings: Array<Maybe<Listing>>;
+  ratings: Array<Rating>;
 }
 
 
@@ -148,6 +149,15 @@ interface QueryLosersArgs {
 interface QueryListingsArgs {
   addresses?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   tokenIds?: InputMaybe<Array<Scalars['String']['input']>>;
+}
+
+
+interface QueryRatingsArgs {
+  title?: InputMaybe<String>;
+}
+
+interface String {
+  _fake?: InputMaybe<Scalars['String']['input']>;
 }
 
 interface Deck {
@@ -396,6 +406,14 @@ interface Current {
   __typename?: 'Current';
   value: Scalars['String']['output'];
 }
+
+interface Rating {
+  __typename?: 'Rating';
+  _id: Scalars['ID']['output'];
+  who: Scalars['String']['output'];
+  review: Scalars['String']['output'];
+  title: Scalars['String']['output'];
+}
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 
@@ -476,6 +494,7 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   Float: ResolverTypeWrapper<Scalars['Float']['output']>;
+  string: String;
   Deck: ResolverTypeWrapper<Deck>;
   Edition: ResolverTypeWrapper<Edition>;
   OpenseaCollection: ResolverTypeWrapper<OpenseaCollection>;
@@ -502,6 +521,7 @@ export type ResolversTypes = {
   Offer: ResolverTypeWrapper<Offer>;
   Price: ResolverTypeWrapper<Price>;
   Current: ResolverTypeWrapper<Current>;
+  Rating: ResolverTypeWrapper<Rating>;
 };
 
 /** Mapping between all available schema types and the resolvers parents */
@@ -513,6 +533,7 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   Int: Scalars['Int']['output'];
   Float: Scalars['Float']['output'];
+  string: String;
   Deck: Deck;
   Edition: Edition;
   OpenseaCollection: OpenseaCollection;
@@ -539,6 +560,7 @@ export type ResolversParentTypes = {
   Offer: Offer;
   Price: Price;
   Current: Current;
+  Rating: Rating;
 };
 
 export interface JsonScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['JSON'], any> {
@@ -566,6 +588,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   losersValues?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersValuesArgs, 'deck'>>;
   losers?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersArgs, 'deck'>>;
   listings?: Resolver<Array<Maybe<ResolversTypes['Listing']>>, ParentType, ContextType, Partial<QueryListingsArgs>>;
+  ratings?: Resolver<Array<ResolversTypes['Rating']>, ParentType, ContextType, Partial<QueryRatingsArgs>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -815,6 +838,14 @@ export type CurrentResolvers<ContextType = { req: Request, res: Response }, Pare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type RatingResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Rating'] = ResolversParentTypes['Rating']> = {
+  _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  who?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  review?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   JSON?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
@@ -844,6 +875,7 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   Offer?: OfferResolvers<ContextType>;
   Price?: PriceResolvers<ContextType>;
   Current?: CurrentResolvers<ContextType>;
+  Rating?: RatingResolvers<ContextType>;
 };
 
 

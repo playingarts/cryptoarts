@@ -151,7 +151,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 {dailyCard && dailyCard.artist.country}
               </Text>
               <Text typography="newParagraph">
-                “{dailyCard && dailyCard.info}“
+                {dailyCard && dailyCard.info}
               </Text>
 
               <Text typography="linkNewTypography" css={[{ marginTop: 30 }]}>

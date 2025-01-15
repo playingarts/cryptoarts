@@ -1,22 +1,11 @@
-import { mockCard } from "../../../mocks/card";
-import Button from "../../../components/Button";
-import Grid from "../../../components/Grid";
-
-import Text from "../../../components/Text";
-import HeroCard from "../../Home/Hero/HeroCard";
-import placeholder from "../../../mocks/images/deckCollectionPreview.png";
-import AugmentedReality from "../../../components/AugmentedReality";
-import Layout from "../../../components/Layout";
-import FastCompany from "../../../components/Icons/FastCompany";
-import CreativeBloq from "../../../components/Icons/CreativeBloq";
-import DigitalArts from "../../../components/Icons/DigitalArts";
-import Esquire from "../../../components/Icons/Esquire";
-import Quote from "../../../components/Quote";
+import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
-import Hero from "../../Home/Hero";
-import Story from "../../Home/Story";
+import AugmentedReality from "../../Home/AugmentedReality";
 import Collection from "../../Home/Collection";
 import Gallery from "../../Home/Gallery";
+import Hero from "../../Home/Hero";
+import Story from "../../Home/Story";
+import Testimonials from "../../Home/Testimonials";
 
 type Props = {};
 
@@ -28,121 +17,10 @@ const Home = (props: Props) => {
       <Story />
       <Collection />
       <Gallery />
-      <Grid css={[{ background: "#E9E7E2", width: "100%" }]}>
-        <div css={{ gridColumn: "1/-1" }}>
-          {/* Hero */}
-          {/* Story */}
-          {/* Collection */}
-          {/* Gallery */}
-
-          {/* augmented reality */}
-          <AugmentedReality palette="light" css={[{ gridColumn: "1/-1" }]} />
-          {/* Reviews */}
-          <Button>1,000+ Five-of-Stars reviews</Button>
-          <Text css={(theme) => [theme.typography.paragraphBig]}>
-            Discover why artists, collectors, players and art connoisseurs can’t
-            get enough.
-          </Text>
-          <div css={{ display: "flex", justifyContent: "space-between" }}>
-            <span>
-              <Button>Shop the decks</Button>
-              <Button>Read all stories</Button>
-            </span>
-
-            <span>
-              <Button>left</Button>
-              <Button>Right</Button>
-            </span>
-          </div>
-          <div>
-            <Text css={[{ fontSize: 120 }]}>Reviews</Text>
-          </div>
-          <Layout
-            css={(theme) => ({
-              background: theme.colors.white,
-              paddingTop: theme.spacing(12),
-              paddingBottom: theme.spacing(12),
-              borderRadius: "0px 0px 50px 50px",
-              zIndex: 1,
-            })}
-          >
-            <Grid
-              css={(theme) => ({
-                gap: theme.spacing(3),
-                [theme.maxMQ.md]: {
-                  [theme.maxMQ.md]: {
-                    gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
-                  },
-                },
-              })}
-            >
-              <a
-                rel="noreferrer"
-                href="https://www.fastcompany.com/90575448/these-playing-cards-show-fantastical-ways-the-world-could-change-by-2120"
-                target="_blank"
-                css={{
-                  gridColumn: "span 3",
-                  textAlign: "center",
-                  color: "#000",
-                }}
-              >
-                <FastCompany />
-              </a>
-              <a
-                rel="noreferrer"
-                href="https://www.creativebloq.com/illustration/artists-collaborate-picture-perfect-playing-cards-10134891"
-                target="_blank"
-                css={{
-                  gridColumn: "span 3",
-                  textAlign: "center",
-                  color: "#000",
-                }}
-              >
-                <CreativeBloq />
-              </a>
-              <a
-                rel="noreferrer"
-                href="https://www.digitalartsonline.co.uk/features/illustration/55-global-designers-illustrators-each-designed-playing-card-in-this-unique-deck/"
-                target="_blank"
-                css={{
-                  gridColumn: "span 3",
-                  textAlign: "center",
-                  color: "#000",
-                }}
-              >
-                <DigitalArts />
-              </a>
-              <a
-                rel="noreferrer"
-                href="https://www.esquire.com/style/mens-fashion/g4233463/artistic-deck-of-cards"
-                target="_blank"
-                css={{
-                  gridColumn: "span 3",
-                  textAlign: "center",
-                  color: "#000",
-                }}
-              >
-                <Esquire />
-              </a>
-            </Grid>
-            <Grid
-              short={true}
-              css={(theme) => ({
-                marginTop: theme.spacing(10),
-              })}
-            >
-              <Quote css={{ gridColumn: "1 / -1" }}>
-                “This really is a unique deck. The concept is playful, and
-                elegant at the same time. The colors are vibrant. A wonderful
-                price of art.”
-              </Quote>
-            </Grid>
-          </Layout>
-        </div>
-      </Grid>
-      <div>FOOTER</div>
+      <AugmentedReality />
+      <Testimonials />
     </>
   );
 };
 
-export default Home;
+export default withApollo(Home);

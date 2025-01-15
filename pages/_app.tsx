@@ -42,6 +42,7 @@ export const colorLiterals = {
   favourite: "#E3E4F4",
   soft_gray: "#F1F1F1",
   pale_gray: "#EAEAEA",
+  third_black: "#0000004C",
   //old
   orangeRed: "#FF6633",
   darkTurqoise: "#07D0E0",

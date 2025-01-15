@@ -14,6 +14,7 @@ import deckZero from "./deck-zero";
 import losers from "./losers";
 import podcasts from "./podcasts";
 import products from "./products";
+import ratings from "./ratings";
 
 (async () => {
   await connect();
@@ -32,6 +33,7 @@ import products from "./products";
   await contracts();
   await losers();
   await deals();
+  await ratings();
 
   process.exit();
 })();
