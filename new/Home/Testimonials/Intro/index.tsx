@@ -6,51 +6,18 @@ import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Templates/ButtonTemplate";
 import Dot from "../../../Icons/Dot";
 import Arrow from "../../../Icons/Arrow";
+import NewIntro from "../../../Intro";
 
 const Intro: FC<
   HTMLAttributes<HTMLElement> & {
     carouselRef: RefObject<HTMLDivElement | null>;
   }
 > = ({ carouselRef, ...props }) => (
-  <Grid css={[{ padding: "60px 0", overflow: "hidden" }]}>
-    <ScandiBlock
-      css={[{ gridColumn: "span 6", paddingTop: 15, alignItems: "start" }]}
-    >
-      <ArrowedButton>1,000+ Five-of-Stars reviews</ArrowedButton>
-    </ScandiBlock>
-    <ScandiBlock
-      css={[
-        {
-          gridColumn: "span 6",
-          paddingTop: 15,
-          height: 370,
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "start",
-        },
-      ]}
-    >
-      <div>
-        <Text typography="paragraphBig">
-          Discover why collectors, players and art connoisseurs can’t get
-          enough.
-        </Text>
-        <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
-          <ButtonTemplate
-            css={(theme) => [
-              {
-                color: theme.colors.dark_gray,
-                border: `currentColor solid 1px`,
-              },
-            ]}
-          >
-            Leave a review
-          </ButtonTemplate>
-          <Text typography="linkNewTypography">
-            Read all stories <Dot />
-          </Text>
-        </div>
-      </div>
+  <NewIntro
+    arrowedText="1,000+ Five-of-Stars reviews"
+    paragraphText="Discover why collectors, players and art connoisseurs can’t get enough."
+    linkNewText="Read all stories"
+    bottom={
       <div
         css={[
           {
@@ -112,8 +79,20 @@ const Intro: FC<
           <Arrow />
         </div>
       </div>
-    </ScandiBlock>
-  </Grid>
+    }
+    beforeLinkNew={
+      <ButtonTemplate
+        css={(theme) => [
+          {
+            color: theme.colors.dark_gray,
+            border: `currentColor solid 1px`,
+          },
+        ]}
+      >
+        Leave a review
+      </ButtonTemplate>
+    }
+  />
 );
 
 export default Intro;

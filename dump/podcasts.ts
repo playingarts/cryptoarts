@@ -9,6 +9,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
     episode: 18,
     youtube:
       "https://www.youtube.com/watch?v=ZuqptFNmFz0&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Prateek Vatash",
@@ -17,6 +19,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
     episode: 17,
     youtube:
       "https://www.youtube.com/watch?v=ux60RkIdA08&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Vini Naso",
@@ -29,6 +33,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep16-vini-naso/id1605752620?i=1000576644956",
     spotify:
       "https://open.spotify.com/episode/2WhPf3dneX7rMkAwKweTsB?si=1e1738f9941f441b",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Josh Pierce",
@@ -41,6 +47,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/545habL2Q9sL6kDZUnmHPt?si=da9a0aeb102a4830",
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep15-josh-pierce/id1605752620?i=1000571569683",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "RWR2",
@@ -53,6 +61,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/7i1sv8HX2Ij02nRXkeQXvO?si=d022fd2eb2fe41e9",
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep14-rodrigo-rezende/id1605752620?i=1000570806968",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Nicole Ruggiero",
@@ -65,6 +75,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/54T7C8Grzr8jPLcHHxVRZY?si=1a7e8d8af36b47f1",
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep12-nicole-ruggiero/id1605752620?i=1000570019324",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Velvet Spectrum",
@@ -77,6 +89,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/2Mx5U0BQktSmV9gexSTB9p?si=7e3aa150a73a4942",
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep11-velvet-spectrum/id1605752620?i=1000569260593",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "David Ariew",
@@ -89,6 +103,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/6KRtEOSnjXGRuueBRSzdxq?si=dde97c10830445aa",
     youtube:
       "https://www.youtube.com/watch?v=_TC2miIL2vI&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Baugasm",
@@ -101,6 +117,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/7iijcBAMkSZ3XSesCEWkbE?si=2a57ee98c9f04a06",
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep09-baugasm/id1605752620?i=1000556682141",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Kaloian Toshev — MZK",
@@ -113,6 +131,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/1krbXhxYqKK3EHduIZKOyx?si=d5c55fbafb254ab8",
     youtube:
       "https://www.youtube.com/watch?v=8xrmGV9Fkzo&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Ryan Hawthorne",
@@ -125,6 +145,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/5FMENQ9AYvZ6fn8PD86MMI?si=79971a86135c46c7",
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep07-ryan-hawthorne/id1605752620?i=1000554349513",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "fesq",
@@ -137,6 +159,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/4dogCjoLARmqlhP2cKKnbQ?si=a77f6037dc934c95",
     youtube:
       "https://www.youtube.com/watch?v=_KX3GgN_VVo&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Tim Riopelle",
@@ -149,6 +173,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/6XbLR58oVVUtHPmM0R1kL9?si=a340e94094a2410b",
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep05-tim-riopelle/id1605752620?i=1000552513476",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Eloh",
@@ -161,6 +187,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/3zPMavC64BBAd7pTmvBfEX?si=0177b9e7180049e5",
     youtube:
       "https://www.youtube.com/watch?v=QJv37GYGvU0&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Bram Vanhaeren",
@@ -173,6 +201,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/6r7njhAAPTg65YWt1bFeiv?si=42652f2d10c4407e",
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep03-bram-vanhaeren/id1605752620?i=1000551292466",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "GHØST GIRL",
@@ -185,6 +215,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
       "https://open.spotify.com/episode/3oySt5tuvc61Vdg99IK3JT?si=9787e9f64dc74774",
     youtube:
       "https://www.youtube.com/watch?v=WgKD6aTazsA&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
   {
     name: "Jason Naylor",
@@ -197,6 +229,8 @@ export const podcasts: Omit<GQL.Podcast, "_id">[] = [
     apple:
       "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep01-jason-naylor/id1605752620?i=1000548214960",
     episode: 1,
+    desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
+    time: "1h 35m",
   },
 ];
 const dump = async () => {

@@ -4,6 +4,7 @@ import AugmentedReality from "../../Home/AugmentedReality";
 import Collection from "../../Home/Collection";
 import Gallery from "../../Home/Gallery";
 import Hero from "../../Home/Hero";
+import Podcast from "../../Home/Podcast";
 import Story from "../../Home/Story";
 import Testimonials from "../../Home/Testimonials";
 
@@ -19,6 +20,7 @@ const Home = (props: Props) => {
       <Gallery />
       <AugmentedReality />
       <Testimonials />
+      <Podcast />
     </>
   );
 };

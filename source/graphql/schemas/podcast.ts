@@ -9,6 +9,8 @@ const schema = new Schema<GQL.Podcast, Model<GQL.Podcast>, GQL.Podcast>({
   episode: Number,
   name: String,
   podcastName: String,
+  desc: String,
+  time: String,
 });
 
 export const Podcast =
@@ -47,5 +49,7 @@ export const typeDefs = gql`
     episode: Int!
     name: String
     podcastName: String
+    desc: String!
+    time: String!
   }
 `;

@@ -25,6 +25,7 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={[
           {
             height: 490,
+            paddingTop: 60,
             paddingBottom: 60,
             position: "relative",
             overflow: "scroll",

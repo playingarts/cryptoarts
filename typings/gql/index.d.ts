@@ -350,6 +350,8 @@ interface Podcast {
   episode: Scalars['Int']['output'];
   name?: Maybe<Scalars['String']['output']>;
   podcastName?: Maybe<Scalars['String']['output']>;
+  desc: Scalars['String']['output'];
+  time: Scalars['String']['output'];
 }
 
 interface Contract {
@@ -780,6 +782,8 @@ export type PodcastResolvers<ContextType = { req: Request, res: Response }, Pare
   episode?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
   name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   podcastName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  desc?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  time?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

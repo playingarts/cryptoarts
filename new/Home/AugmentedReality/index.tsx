@@ -47,7 +47,6 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         </Text>
         <div css={[{ display: "inline-block", marginTop: 30 }]}>
           <ButtonTemplate
-            {...props}
             css={(theme) => [
               {
                 color: "white",
@@ -64,7 +63,6 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           </ButtonTemplate>
 
           <ButtonTemplate
-            {...props}
             css={(theme) => [
               {
                 color: "white",

@@ -9,6 +9,8 @@ export const podcastsQuery = gql`
       spotify
       apple
       podcastName
+      desc
+      time
     }
   }
 `;
@@ -16,10 +18,9 @@ export const podcastsQuery = gql`
 export const usePodcasts = (
   options: QueryHookOptions<Pick<GQL.Query, "podcasts">> = {}
 ) => {
-  const { data: { podcasts } = { artists: undefined }, ...methods } = useQuery(
-    podcastsQuery,
-    options
-  );
+  const { data: { podcasts } = { artists: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "podcasts">
+  >(podcastsQuery, options);
 
   return { ...methods, podcasts };
 };
