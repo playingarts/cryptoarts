@@ -10,7 +10,7 @@ import HeroCard from "./HeroCard";
 type Props = {};
 
 const Hero = (props: Props) => {
-  const card = { ...mockCard, cardColor: theme.colors.favourite };
+  const card = { ...mockCard, cardColor: "#D4E5DA" };
   return (
     <Grid
       css={{

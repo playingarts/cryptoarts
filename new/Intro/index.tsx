@@ -12,6 +12,7 @@ const Intro: FC<
     beforeLinkNew?: JSX.Element;
     linkNewText: String;
     bottom?: JSX.Element;
+    noHeight?: boolean;
   }
 > = ({
   arrowedText,
@@ -19,6 +20,7 @@ const Intro: FC<
   linkNewText,
   bottom,
   beforeLinkNew,
+  noHeight,
   ...props
 }) => (
   <Grid css={[{ paddingTop: 60, overflow: "hidden" }]}>
@@ -32,10 +34,12 @@ const Intro: FC<
         {
           gridColumn: "span 6",
           paddingTop: 15,
-          height: 370,
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "start",
+        },
+        !noHeight && {
+          height: 370,
         },
       ]}
     >
