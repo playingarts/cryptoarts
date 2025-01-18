@@ -19,6 +19,7 @@ const Item: FC<
       <Text
         style={opened ? {} : { display: "none" }}
         typography="paragraphSmall"
+        css={[{ marginTop: 23 }]}
       >
         {answer}
       </Text>

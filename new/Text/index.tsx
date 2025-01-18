@@ -7,7 +7,13 @@ const Text: FC<
   }
 > = ({ children, typography = "newParagraph", ...props }) => {
   return (
-    <div css={(theme) => [theme.typography[typography]]} {...props}>
+    <div
+      css={(theme) => [
+        theme.typography[typography],
+        { color: theme.colors.dark_gray },
+      ]}
+      {...props}
+    >
       {children}
     </div>
   );

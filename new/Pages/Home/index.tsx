@@ -1,5 +1,5 @@
 import { withApollo } from "../../../source/apollo";
-import FAQ from "../../FAQ";
+import FAQ from "../../NewFAQ";
 import Header from "../../Header";
 import AugmentedReality from "../../Home/AugmentedReality";
 import Collection from "../../Home/Collection";
@@ -8,6 +8,7 @@ import Hero from "../../Home/Hero";
 import Podcast from "../../Home/Podcast";
 import Story from "../../Home/Story";
 import Testimonials from "../../Home/Testimonials";
+import Footer from "../../Footer";
 
 type Props = {};
 
@@ -23,6 +24,7 @@ const Home = (props: Props) => {
       <Testimonials />
       <Podcast />
       <FAQ />
+      <Footer />
     </>
   );
 };

@@ -18,7 +18,7 @@ const Instagram: FC<HTMLAttributes<SVGElement>> = (props) => (
         {/* outer */}
         <path
           d="M18.7391 1H7.26087C3.80309 1 1 3.80309 1 7.26087V18.7391C1 22.1969 3.80309 25 7.26087 25H18.7391C22.1969 25 25 22.1969 25 18.7391V7.26087C25 3.80309 22.1969 1 18.7391 1Z"
-          stroke="#333333"
+          stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -26,7 +26,7 @@ const Instagram: FC<HTMLAttributes<SVGElement>> = (props) => (
         {/* inner circle */}
         <path
           d="M12.9996 18.2175C15.8811 18.2175 18.217 15.8816 18.217 13.0001C18.217 10.1186 15.8811 7.78271 12.9996 7.78271C10.1181 7.78271 7.78223 10.1186 7.78223 13.0001C7.78223 15.8816 10.1181 18.2175 12.9996 18.2175Z"
-          stroke="#333333"
+          stroke="currentColor"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -36,7 +36,7 @@ const Instagram: FC<HTMLAttributes<SVGElement>> = (props) => (
         {/* dot */}
         <path
           d="M19.7829 7.52166C20.5032 7.52166 21.0872 6.93768 21.0872 6.21731C21.0872 5.49694 20.5032 4.91296 19.7829 4.91296C19.0625 4.91296 18.4785 5.49694 18.4785 6.21731C18.4785 6.93768 19.0625 7.52166 19.7829 7.52166Z"
-          fill="#333333"
+          fill="currentColor"
           // fill="white"
         />
       </g>

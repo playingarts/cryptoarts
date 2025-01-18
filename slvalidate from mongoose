@@ -1,0 +1,304 @@
+[33md4040dc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m)[m HEAD@{0}: pull origin HEAD -r: Fast-forward
+[33me702d7f[m[33m ([m[1;31mupstream/master[m[33m)[m HEAD@{1}: checkout: moving from feat/FAQ to master
+[33m9f7ac59[m[33m ([m[1;31morigin/feat/FAQ[m[33m, [m[1;32mfeat/FAQ[m[33m)[m HEAD@{2}: commit (amend): fix: remove sslvalidate from mongoose
+[33me702d7f[m[33m ([m[1;31mupstream/master[m[33m)[m HEAD@{3}: checkout: moving from master to feat/FAQ
+[33me702d7f[m[33m ([m[1;31mupstream/master[m[33m)[m HEAD@{4}: pull origin HEAD -r: Fast-forward
+[33m1202d2b[m HEAD@{5}: checkout: moving from fix/Mongo to master
+[33m0da7a8e[m[33m ([m[1;31morigin/fix/Mongo[m[33m, [m[1;32mfix/Mongo[m[33m)[m HEAD@{6}: commit: fix: remove sslvalidate from mongoose
+[33m1202d2b[m HEAD@{7}: checkout: moving from master to fix/Mongo
+[33m1202d2b[m HEAD@{8}: pull origin HEAD -r: Fast-forward
+[33m565687c[m HEAD@{9}: checkout: moving from feat/Podcast to master
+[33m41f2b72[m[33m ([m[1;31morigin/feat/Podcast[m[33m, [m[1;32mfeat/Podcast[m[33m)[m HEAD@{10}: commit: fix: fixed podcasts block by adding name field to query
+[33m5a074a8[m HEAD@{11}: commit: feat: added podcast
+[33m565687c[m HEAD@{12}: checkout: moving from master to feat/Podcast
+[33m565687c[m HEAD@{13}: pull origin HEAD -r: Fast-forward
+[33m38fb166[m HEAD@{14}: checkout: moving from feat/Testimonials to master
+[33m6f1e7be[m[33m ([m[1;31morigin/feat/Testimonials[m[33m, [m[1;32mfeat/Testimonials[m[33m)[m HEAD@{15}: commit: feat: added Testimonials & /new page
+[33m38fb166[m HEAD@{16}: checkout: moving from master to feat/Testimonials
+[33m38fb166[m HEAD@{17}: pull origin HEAD -r: Fast-forward
+[33m15ddee0[m HEAD@{18}: checkout: moving from feat/AugmentedReality to master
+[33m5d57809[m[33m ([m[1;31morigin/feat/AugmentedReality[m[33m, [m[1;32mfeat/AugmentedReality[m[33m)[m HEAD@{19}: commit: feat: added AugmentedReality
+[33m15ddee0[m HEAD@{20}: checkout: moving from feat/AugmentedReality to feat/AugmentedReality
+[33m15ddee0[m HEAD@{21}: checkout: moving from master to feat/AugmentedReality
+[33m15ddee0[m HEAD@{22}: pull origin HEAD -r: Fast-forward
+[33m24dff4a[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{23}: checkout: moving from feat/Gallery to master
+[33ma554b77[m[33m ([m[1;31morigin/feat/Gallery[m[33m)[m HEAD@{24}: commit: feat: added Gallery
+[33m24dff4a[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{25}: checkout: moving from master to feat/Gallery
+[33m24dff4a[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{26}: pull origin HEAD -r: Fast-forward
+[33mb87171d[m HEAD@{27}: checkout: moving from feat/Collection to master
+[33m774a7f8[m HEAD@{28}: commit: feat: added Collection
+[33mb87171d[m HEAD@{29}: checkout: moving from master to feat/Collection
+[33mb87171d[m HEAD@{30}: pull origin HEAD -r: Fast-forward
+[33m4b7749d[m HEAD@{31}: checkout: moving from feat/Story to master
+[33m09f708f[m HEAD@{32}: commit: feat: added Story block
+[33m4b7749d[m HEAD@{33}: checkout: moving from master to feat/Story
+[33m4b7749d[m HEAD@{34}: pull origin HEAD -r: Fast-forward
+[33m0b15772[m HEAD@{35}: checkout: moving from feat/NewHero to master
+[33m4ebba4a[m HEAD@{36}: reset: moving to HEAD
+[33m4ebba4a[m HEAD@{37}: commit: feat: added new Hero component
+[33m0b15772[m HEAD@{38}: checkout: moving from master to feat/NewHero
+[33m0b15772[m HEAD@{39}: pull origin HEAD -r: Fast-forward
+[33m21652c0[m[33m ([m[1;31mupstream/prod[m[33m, [m[1;32mprod[m[33m)[m HEAD@{40}: checkout: moving from feat/Version2 to master
+[33m5d1642f[m HEAD@{41}: commit (amend): feat: updated packages, created folder new/ for new website development, updated storybook
+[33m2a1e800[m HEAD@{42}: commit: feat: updated packages, created folder new/ for new website development, updated storybook
+[33m21652c0[m[33m ([m[1;31mupstream/prod[m[33m, [m[1;32mprod[m[33m)[m HEAD@{43}: checkout: moving from master to feat/Version2
+[33m21652c0[m[33m ([m[1;31mupstream/prod[m[33m, [m[1;32mprod[m[33m)[m HEAD@{44}: checkout: moving from prod to master
+[33m21652c0[m[33m ([m[1;31mupstream/prod[m[33m, [m[1;32mprod[m[33m)[m HEAD@{45}: pull origin master -r: Fast-forward
+[33me10c1ae[m HEAD@{46}: checkout: moving from master to prod
+[33m21652c0[m[33m ([m[1;31mupstream/prod[m[33m, [m[1;32mprod[m[33m)[m HEAD@{47}: pull origin HEAD -r: Fast-forward
+[33m6e42de9[m HEAD@{48}: checkout: moving from fix/Index to master
+[33me9d6d3a[m HEAD@{49}: commit: fix: change index about text
+[33m6e42de9[m HEAD@{50}: checkout: moving from master to fix/Index
+[33m6e42de9[m HEAD@{51}: pull origin HEAD -r: Fast-forward
+[33me10c1ae[m HEAD@{52}: checkout: moving from fix/ComposedCardList to master
+[33m7b3b6a5[m HEAD@{53}: commit: fix: add intro to dump & change deckid page Cards to deck.intro
+[33me10c1ae[m HEAD@{54}: checkout: moving from prod to fix/ComposedCardList
+[33me10c1ae[m HEAD@{55}: pull origin master -r: Fast-forward
+[33m276690c[m HEAD@{56}: checkout: moving from master to prod
+[33me10c1ae[m HEAD@{57}: pull origin HEAD -r: Fast-forward
+[33mfa3fcfb[m HEAD@{58}: checkout: moving from fix/Shop to master
+[33mdfe557b[m HEAD@{59}: commit: fix: add subtitle to shop
+[33mfa3fcfb[m HEAD@{60}: checkout: moving from master to fix/Shop
+[33mfa3fcfb[m HEAD@{61}: pull origin HEAD -r: Fast-forward
+[33mb746c16[m HEAD@{62}: checkout: moving from fix/Index to master
+[33me069ca2[m HEAD@{63}: commit: fix: remove Game Promo & change index text
+[33mb746c16[m HEAD@{64}: checkout: moving from master to fix/Index
+[33mb746c16[m HEAD@{65}: pull origin HEAD -r: Fast-forward
+[33mf98cdc0[m HEAD@{66}: checkout: moving from fix/Cart to master
+[33m3dedecf[m HEAD@{67}: commit: fix: fix cart FAQ css on refresh
+[33mf98cdc0[m HEAD@{68}: checkout: moving from master to fix/Cart
+[33mf98cdc0[m HEAD@{69}: pull origin HEAD -r: Fast-forward
+[33m79fc9e1[m HEAD@{70}: checkout: moving from fix/Shop to master
+[33mbc76d57[m HEAD@{71}: commit: fix: remove shop decks BlockTitle, remove LatestRelease
+[33m79fc9e1[m HEAD@{72}: checkout: moving from master to fix/Shop
+[33m79fc9e1[m HEAD@{73}: pull origin HEAD -r: Fast-forward
+[33m6350e62[m HEAD@{74}: checkout: moving from fix/LatestRelease to master
+[33mbb881d4[m HEAD@{75}: commit: fix: shop move latestrelease next to uncut sheets
+[33m6350e62[m HEAD@{76}: checkout: moving from master to fix/LatestRelease
+[33m6350e62[m HEAD@{77}: pull origin HEAD -r: Fast-forward
+[33mc409459[m HEAD@{78}: checkout: moving from fix/EURUSD to master
+[33m4f33805[m HEAD@{79}: commit: fix: fix eur and usd
+[33mc409459[m HEAD@{80}: checkout: moving from master to fix/EURUSD
+[33mc409459[m HEAD@{81}: pull origin HEAD -r: Fast-forward
+[33m8b42b79[m HEAD@{82}: checkout: moving from feat/NewPrices to master
+[33mb70fea1[m HEAD@{83}: commit: feat: prices are in euros for europe and usd for the rest
+[33m8b42b79[m HEAD@{84}: checkout: moving from master to feat/NewPrices
+[33m8b42b79[m HEAD@{85}: pull origin HEAD -r: Fast-forward
+[33mc37ac93[m HEAD@{86}: checkout: moving from fix/DeckNavBagShipping to master
+[33mfa22368[m HEAD@{87}: commit: fix: fixed DeckNav overflow and shipping price position in bag
+[33mc37ac93[m HEAD@{88}: checkout: moving from master to fix/DeckNavBagShipping
+[33mc37ac93[m HEAD@{89}: pull origin HEAD: Fast-forward
+[33m276690c[m HEAD@{90}: checkout: moving from fix/SomePages to master
+[33ma5aae39[m HEAD@{91}: commit: fixed: deck -> physical deck, sshow shipping price mobile, total price smaller font, images one-small -> one-big
+[33m276690c[m HEAD@{92}: checkout: moving from prod to fix/SomePages
+[33m276690c[m HEAD@{93}: pull origin master: Fast-forward
+[33mcfc3b0b[m HEAD@{94}: checkout: moving from master to prod
+[33m276690c[m HEAD@{95}: pull origin HEAD -r: Fast-forward
+[33mcfc3b0b[m HEAD@{96}: checkout: moving from fix/Stats to master
+[33m9640603[m HEAD@{97}: commit: fix: fixed supply in Stats
+[33mcfc3b0b[m HEAD@{98}: checkout: moving from master to fix/Stats
+[33mcfc3b0b[m HEAD@{99}: reset: moving to HEAD
+[33mcfc3b0b[m HEAD@{100}: checkout: moving from fix/Stats to master
+[33mcfc3b0b[m HEAD@{101}: reset: moving to cfc3b0be337d624f0fa30a53ec7edd1a3820d908
+[33mca0bf18[m HEAD@{102}: commit: fix: fixed supply in Stats
+[33mcfc3b0b[m HEAD@{103}: checkout: moving from master to fix/Stats
+[33mcfc3b0b[m HEAD@{104}: checkout: moving from fix/Stats to master
+[33mcfc3b0b[m HEAD@{105}: reset: moving to cfc3b0be337d624f0fa30a53ec7edd1a3820d908
+[33md916a37[m HEAD@{106}: commit: fix: fixed supply in Stats
+[33mcfc3b0b[m HEAD@{107}: checkout: moving from prod to fix/Stats
+[33mcfc3b0b[m HEAD@{108}: pull origin master: Fast-forward
+[33m1ed6d81[m HEAD@{109}: checkout: moving from master to prod
+[33mcfc3b0b[m HEAD@{110}: pull origin HEAD -r: Fast-forward
+[33mb840ffe[m HEAD@{111}: checkout: moving from fix/Price to master
+[33mdf5d967[m HEAD@{112}: commit: fix: fix listing search in card
+[33mb840ffe[m HEAD@{113}: checkout: moving from master to fix/Price
+[33mb840ffe[m HEAD@{114}: pull origin HEAD -r: Fast-forward
+[33m81aff71[m HEAD@{115}: checkout: moving from fix/Build to master
+[33m5b8fd3b[m HEAD@{116}: commit: fix: try to fix crypto page build
+[33m81aff71[m HEAD@{117}: checkout: moving from master to fix/Build
+[33m81aff71[m HEAD@{118}: pull origin HEAD -r: Fast-forward
+[33m0e386e8[m HEAD@{119}: checkout: moving from fix/Build to master
+[33mc56347e[m HEAD@{120}: commit: fix: fixed Build
+[33m0e386e8[m HEAD@{121}: checkout: moving from master to fix/Build
+[33m0e386e8[m HEAD@{122}: pull origin HEAD -r: Fast-forward
+[33m1ed6d81[m HEAD@{123}: checkout: moving from fix/Mocks to master
+[33mf2ef981[m HEAD@{124}: commit: fix: make mocks smaller
+[33m1ed6d81[m HEAD@{125}: checkout: moving from master to fix/Mocks
+[33m1ed6d81[m HEAD@{126}: reset: moving to 1ed6d81fced7154a527bc5ee789e8837ce17e308
+[33m4862f5f[m HEAD@{127}: commit: fix: make mocks smaller
+[33m1ed6d81[m HEAD@{128}: checkout: moving from prod to master
+[33m1ed6d81[m HEAD@{129}: checkout: moving from master to prod
+[33m1ed6d81[m HEAD@{130}: checkout: moving from prod to master
+[33m1ed6d81[m HEAD@{131}: pull origin master: Fast-forward
+[33m4f29f21[m HEAD@{132}: checkout: moving from master to prod
+[33m1ed6d81[m HEAD@{133}: pull origin HEAD -r: Fast-forward
+[33m4f29f21[m HEAD@{134}: checkout: moving from fix/Opensea to master
+[33m6929691[m HEAD@{135}: commit: fix: fixed Opensea
+[33m4f29f21[m HEAD@{136}: checkout: moving from master to fix/Opensea
+[33m4f29f21[m HEAD@{137}: checkout: moving from prod to master
+[33m4f29f21[m HEAD@{138}: reset: moving to 4f29f21d05f8d2047fc5b0e1bba155c06f398435
+[33m0a63bcb[m HEAD@{139}: checkout: moving from master to prod
+[33m4f29f21[m HEAD@{140}: checkout: moving from prod to master
+[33m0a63bcb[m HEAD@{141}: commit: fix: fixed Opensea
+[33m4f29f21[m HEAD@{142}: pull origin master -r: Fast-forward
+[33m4132e14[m HEAD@{143}: checkout: moving from master to prod
+[33m4f29f21[m HEAD@{144}: checkout: moving from master to master
+[33m4f29f21[m HEAD@{145}: pull origin HEAD -r: Fast-forward
+[33m288b02b[m HEAD@{146}: checkout: moving from fix/Podcast to master
+[33m35d599c[m HEAD@{147}: commit: fix: fixed mobile Podcast text and image
+[33m288b02b[m HEAD@{148}: checkout: moving from master to fix/Podcast
+[33m288b02b[m HEAD@{149}: pull origin HEAD -r: Fast-forward
+[33m71ab723[m HEAD@{150}: checkout: moving from fix/GamePromo to master
+[33m1e4a4dd[m HEAD@{151}: pull origin master -r (finish): returning to refs/heads/fix/GamePromo
+[33m1e4a4dd[m HEAD@{152}: pull origin master -r (pick): fix: fix GamePromo orange icon clipping on mobile
+[33m71ab723[m HEAD@{153}: pull origin master -r (start): checkout 71ab723b010df707de6e5ad93143b37708b04c9f
+[33m6331a09[m HEAD@{154}: checkout: moving from master to fix/GamePromo
+[33m71ab723[m HEAD@{155}: checkout: moving from fix/GamePromo to master
+[33m6331a09[m HEAD@{156}: commit: fix: fix GamePromo orange icon clipping on mobile
+[33mef9066a[m HEAD@{157}: checkout: moving from master to fix/GamePromo
+[33m71ab723[m HEAD@{158}: pull origin HEAD -r: Fast-forward
+[33me38b29d[m HEAD@{159}: checkout: moving from fix/GamePromo to master
+[33mef9066a[m HEAD@{160}: pull origin master -r (finish): returning to refs/heads/fix/GamePromo
+[33mef9066a[m HEAD@{161}: pull origin master -r (pick): fix: added icons to GamePromo
+[33me38b29d[m HEAD@{162}: pull origin master -r (start): checkout e38b29d7128a4a084a8ad8da9461a06dc13f9531
+[33m4af2b26[m HEAD@{163}: commit: fix: added icons to GamePromo
+[33m39b689c[m HEAD@{164}: checkout: moving from master to fix/GamePromo
+[33me38b29d[m HEAD@{165}: pull origin HEAD -r: Fast-forward
+[33m1afdbb0[m HEAD@{166}: checkout: moving from fix/GamePromo to master
+[33m39b689c[m HEAD@{167}: pull origin master -r (finish): returning to refs/heads/fix/GamePromo
+[33m39b689c[m HEAD@{168}: pull origin master -r (pick): fix: fix GamePromo
+[33m1afdbb0[m HEAD@{169}: pull origin master -r (start): checkout 1afdbb0cb739425ced2787008c6f5e01e7206b01
+[33m7b36035[m HEAD@{170}: commit: fix: fix GamePromo
+[33m641fe58[m HEAD@{171}: checkout: moving from master to fix/GamePromo
+[33m1afdbb0[m HEAD@{172}: pull origin HEAD -r: Fast-forward
+[33mb520878[m HEAD@{173}: checkout: moving from fix/GamePromo to master
+[33m641fe58[m HEAD@{174}: commit: fix: added parallax to cards
+[33mb520878[m HEAD@{175}: checkout: moving from master to fix/GamePromo
+[33mb520878[m HEAD@{176}: pull origin HEAD -r: Fast-forward
+[33m7031984[m HEAD@{177}: checkout: moving from feat/GamePromo to master
+[33m12d0c50[m HEAD@{178}: commit: feat: replace GamePromo background image with real cards
+[33m7031984[m HEAD@{179}: checkout: moving from master to feat/GamePromo
+[33m7031984[m HEAD@{180}: pull origin HEAD -r: Fast-forward
+[33m4132e14[m HEAD@{181}: checkout: moving from fix/PrivacyNotice to master
+[33m38a1d04[m HEAD@{182}: commit: fix: fixed PrivacyNotice background
+[33m4132e14[m HEAD@{183}: checkout: moving from master to fix/PrivacyNotice
+[33m4132e14[m HEAD@{184}: checkout: moving from prod to master
+[33m4132e14[m HEAD@{185}: pull origin master: Fast-forward
+[33m678f9fc[m HEAD@{186}: checkout: moving from master to prod
+[33m4132e14[m HEAD@{187}: pull origin HEAD -r: Fast-forward
+[33m3c8c220[m HEAD@{188}: checkout: moving from fix/Mongoose to master
+[33m6367711[m HEAD@{189}: commit: fix: add await connection to mongoose
+[33m3c8c220[m HEAD@{190}: checkout: moving from master to fix/Mongoose
+[33m3c8c220[m HEAD@{191}: pull origin HEAD -r: Fast-forward
+[33m2fa0ecb[m HEAD@{192}: checkout: moving from fix/RemoveInitialRevalidate to master
+[33m47cf0dd[m HEAD@{193}: commit: fix: remove initial revalidate from getstaticprops
+[33m2fa0ecb[m HEAD@{194}: checkout: moving from master to fix/RemoveInitialRevalidate
+[33m2fa0ecb[m HEAD@{195}: pull origin HEAD -r: Fast-forward
+[33m4b18484[m HEAD@{196}: checkout: moving from fix/IndexCache to master
+[33m38db74f[m HEAD@{197}: commit (amend): fix: fix index cache
+[33m6943c70[m HEAD@{198}: commit: fix: fix index cache
+[33m4b18484[m HEAD@{199}: checkout: moving from master to fix/IndexCache
+[33m4b18484[m HEAD@{200}: pull origin HEAD -r: Fast-forward
+[33mba8a3cc[m HEAD@{201}: checkout: moving from fix/Index to master
+[33m6f3b934[m HEAD@{202}: commit: fix: require Artist model
+[33mba8a3cc[m HEAD@{203}: checkout: moving from master to fix/Index
+[33mba8a3cc[m HEAD@{204}: pull origin HEAD -r: Fast-forward
+[33m7426f58[m HEAD@{205}: checkout: moving from fix/HomeCache to master
+[33m5df1afe[m HEAD@{206}: commit: fix: try to fix caching during build
+[33m7426f58[m HEAD@{207}: checkout: moving from master to fix/HomeCache
+[33m7426f58[m HEAD@{208}: reset: moving to 7426f58ebcf841ac07f93322c8a9401ea8e88ca1
+[33m78f81f5[m HEAD@{209}: commit: fix: try to fix caching during build
+[33m7426f58[m HEAD@{210}: pull origin HEAD -r: Fast-forward
+[33med24eb4[m HEAD@{211}: checkout: moving from fix/HomePage to master
+[33m361f2a0[m HEAD@{212}: commit: fix: fixed home page rotating cards
+[33med24eb4[m HEAD@{213}: checkout: moving from master to fix/HomePage
+[33med24eb4[m HEAD@{214}: checkout: moving from master to master
+[33med24eb4[m HEAD@{215}: pull origin HEAD -r: Fast-forward
+[33m678f9fc[m HEAD@{216}: checkout: moving from feat/FlippinCards to master
+[33m6d896b1[m HEAD@{217}: commit: feat: added flipping cards to index/main
+[33m678f9fc[m HEAD@{218}: checkout: moving from master to feat/FlippinCards
+[33m678f9fc[m HEAD@{219}: checkout: moving from prod to master
+[33m678f9fc[m HEAD@{220}: pull origin HEAD: Fast-forward
+[33m09ac3ab[m HEAD@{221}: checkout: moving from master to prod
+[33m678f9fc[m HEAD@{222}: pull origin HEAD -r: Fast-forward
+[33m09ac3ab[m HEAD@{223}: checkout: moving from fix/Footer to master
+[33m62e7f43[m HEAD@{224}: commit: fix: fix Footer top padding
+[33m09ac3ab[m HEAD@{225}: checkout: moving from master to fix/Footer
+[33m09ac3ab[m HEAD@{226}: checkout: moving from prod to master
+[33m09ac3ab[m HEAD@{227}: pull origin master: Fast-forward
+[33mccf742c[m HEAD@{228}: checkout: moving from master to prod
+[33m09ac3ab[m HEAD@{229}: pull origin HEAD -r: Fast-forward
+[33mccf742c[m HEAD@{230}: checkout: moving from update/Footer to master
+[33m317ba4d[m HEAD@{231}: commit: update: update Footer
+[33mccf742c[m HEAD@{232}: checkout: moving from master to update/Footer
+[33mccf742c[m HEAD@{233}: checkout: moving from prod to master
+[33mccf742c[m HEAD@{234}: pull origin master: Fast-forward
+[33ma7498d3[m HEAD@{235}: checkout: moving from master to prod
+[33mccf742c[m HEAD@{236}: checkout: moving from master to master
+[33mccf742c[m HEAD@{237}: pull origin HEAD -r: Fast-forward
+[33m43d09e7[m HEAD@{238}: checkout: moving from fix/StatusMessage to master
+[33m11ba480[m HEAD@{239}: commit: fix: fixed Status Message
+[33m43d09e7[m HEAD@{240}: checkout: moving from master to fix/StatusMessage
+[33m43d09e7[m HEAD@{241}: pull origin HEAD -r: Fast-forward
+[33m1fac3e3[m HEAD@{242}: checkout: moving from fix/EmailForm to master
+[33mb4f382c[m HEAD@{243}: commit: fix: fixed fetch in EmailForm, removed unnecessary log and header
+[33m1fac3e3[m HEAD@{244}: checkout: moving from master to fix/EmailForm
+[33m1fac3e3[m HEAD@{245}: pull origin HEAD -r: Fast-forward
+[33m47dad3c[m HEAD@{246}: checkout: moving from feat/EmailForm to master
+[33m58174c0[m HEAD@{247}: reset: moving to HEAD
+[33m58174c0[m HEAD@{248}: checkout: moving from fix/copyright to feat/EmailForm
+[33mf054743[m HEAD@{249}: commit: fix: fixed copyright date
+[33m47dad3c[m HEAD@{250}: checkout: moving from master to fix/copyright
+[33m47dad3c[m HEAD@{251}: checkout: moving from fix/Quote to master
+[33m489cf0e[m HEAD@{252}: commit: fix: fix Quotes on mobile
+[33m47dad3c[m HEAD@{253}: checkout: moving from master to fix/Quote
+[33m47dad3c[m HEAD@{254}: checkout: moving from feat/EmailForm to master
+[33m58174c0[m HEAD@{255}: commit: feat: added EmailForm & jest
+[33m47dad3c[m HEAD@{256}: checkout: moving from master to feat/EmailForm
+[33m47dad3c[m HEAD@{257}: pull origin HEAD -r: Fast-forward
+[33ma7498d3[m HEAD@{258}: checkout: moving from fix/Time to master
+[33m8bbd29b[m HEAD@{259}: commit: fix: fixed time
+[33ma7498d3[m HEAD@{260}: checkout: moving from master to fix/Time
+[33ma7498d3[m HEAD@{261}: checkout: moving from prod to master
+[33ma7498d3[m HEAD@{262}: pull origin master -r: Fast-forward
+[33ma4b93fa[m HEAD@{263}: checkout: moving from master to prod
+[33ma7498d3[m HEAD@{264}: pull origin HEAD -r: Fast-forward
+[33m12092de[m HEAD@{265}: checkout: moving from feat/PodcastAndSocials to master
+[33m05d3355[m HEAD@{266}: commit (amend): feat: create PodcastAndSocials component & add it to /crypto and /shop/crypto
+[33m63561e6[m HEAD@{267}: checkout: moving from fix/MinorFixes to feat/PodcastAndSocials
+[33mc03cd9b[m HEAD@{268}: commit: fix: added shop/crypto background to mobile and fixed shipping faq
+[33m12092de[m HEAD@{269}: checkout: moving from master to fix/MinorFixes
+[33m12092de[m HEAD@{270}: checkout: moving from feat/PodcastAndSocials to master
+[33m63561e6[m HEAD@{271}: commit: feat: create PodcastAndSocials component & add it to /crypto and /shop/crypto
+[33m12092de[m HEAD@{272}: checkout: moving from master to feat/PodcastAndSocials
+[33m12092de[m HEAD@{273}: pull origin HEAD -r: Fast-forward
+[33ma4b93fa[m HEAD@{274}: checkout: moving from feat/TimerToTimer to master
+[33mfb2c970[m HEAD@{275}: commit (amend): feat: added countdown to countdown timer
+[33m59dcb01[m HEAD@{276}: commit (amend): feat: added countdown to countdown timer
+[33m6a112e1[m HEAD@{277}: commit (amend): feat: added countdown to countdown timer
+[33m7ff250d[m HEAD@{278}: commit: feat: added countdown to countdown timer
+[33ma4b93fa[m HEAD@{279}: checkout: moving from master to feat/TimerToTimer
+[33ma4b93fa[m HEAD@{280}: checkout: moving from prod to master
+[33ma4b93fa[m HEAD@{281}: pull origin master -r: Fast-forward
+[33m3649a92[m HEAD@{282}: checkout: moving from master to prod
+[33ma4b93fa[m HEAD@{283}: pull origin HEAD -r: Fast-forward
+[33m3649a92[m HEAD@{284}: checkout: moving from feat/ShopCrypto to master
+[33mf286331[m HEAD@{285}: commit (amend): feat: added shop/crypto
+[33m9ebbb59[m HEAD@{286}: checkout: moving from fix/CryptoStats to feat/ShopCrypto
+[33m050d8c5[m HEAD@{287}: commit: fix: fixed stats block
+[33m3649a92[m HEAD@{288}: checkout: moving from master to fix/CryptoStats
+[33m3649a92[m HEAD@{289}: checkout: moving from feat/ShopCrypto to master
+[33m9ebbb59[m HEAD@{290}: commit (amend): feat: added shop/crypto
+[33mdacc77a[m HEAD@{291}: checkout: moving from master to feat/ShopCrypto
+[33m3649a92[m HEAD@{292}: checkout: moving from feat/ShopCrypto to master
+[33mdacc77a[m HEAD@{293}: commit (amend): feat: added shop/crypto
+[33m2819f33[m HEAD@{294}: checkout: moving from master to feat/ShopCrypto
+[33m3649a92[m HEAD@{295}: checkout: moving from feat/ShopCrypto to master
+[33m2819f33[m HEAD@{296}: commit (amend): feat: added shop/crypto
+[33m0dc37f6[m HEAD@{297}: commit (amend): feat: added shop/crypto
+[33m85285d3[m HEAD@{298}: commit (amend): feat: added shop/crypto
+[33m2036121[m HEAD@{299}: commit (amend): feat: added shop/crypto
+[33md6b2e97[m HEAD@{300}: commit (amend): feat: added shop/crypto
+[33m2d82baa[m HEAD@{301}: commit: feat: added shop/crypto
+[33m3649a92[m HEAD@{302}: checkout: moving from master to feat/ShopCrypto
+[33m3649a92[m HEAD@{303}: clone: from bitbucket.org:ryshkov/crypto-arts.git

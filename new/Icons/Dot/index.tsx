@@ -11,7 +11,7 @@ const Dot: FC<HTMLAttributes<SVGElement>> = ({ ...props }) => (
   >
     <path
       d="M6.15685 2.99994L11.3029 8.15679L6.14605 13.3028"
-      stroke="#333333"
+      stroke="currentColor"
       stroke-width="1.5"
       stroke-linecap="round"
       stroke-linejoin="round"
