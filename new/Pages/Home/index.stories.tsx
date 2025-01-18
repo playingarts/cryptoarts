@@ -31,6 +31,7 @@ const meta = {
       <MetaMaskProvider>
         <SizeProvider>
           <Story />
+          <div id="menuportal"></div>
         </SizeProvider>
       </MetaMaskProvider>
     </ApolloProvider>

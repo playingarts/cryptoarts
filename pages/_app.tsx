@@ -37,6 +37,7 @@ const maxMQ = (Object.keys(breakpoints) as Array<keyof typeof breakpoints>)
 
 export const colorLiterals = {
   //new
+  violet: "#E3E4F4",
   black30: "#0000004D",
   black50: "#00000080",
   accent: "#6A5ACD",

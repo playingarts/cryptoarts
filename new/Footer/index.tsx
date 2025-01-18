@@ -19,7 +19,7 @@ import ApplePay from "../Icons/ApplePay";
 import GooglePay from "../Icons/GooglePay";
 import ArrowButton from "../Buttons/Templates/ArrowButton";
 
-const links: { [x: string]: String[] } = {
+export const links: { [x: string]: String[] } = {
   "The project": ["Home", "Our story", "AR app", "Gallery", "Press"],
   "Shop & help": ["Shop", "Shipping", "Reviews", "Stockists", "Contact"],
   Community: ["Participate", "Contributors", "Kickstarter", "Podcast", "FAQ"],

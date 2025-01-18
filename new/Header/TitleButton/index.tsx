@@ -7,7 +7,9 @@ import { useDeck } from "../../../hooks/deck";
 import { colord } from "colord";
 import Text from "../../Text";
 
-const TitleButton: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+const TitleButton: FC<
+  HTMLAttributes<HTMLElement> & { setShow: (x: boolean) => void }
+> = ({ setShow, ...props }) => {
   const {
     query: { deckId },
   } = useRouter();
@@ -26,6 +28,7 @@ const TitleButton: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             },
           },
         ]}
+        onClick={() => setShow(true)}
       >
         <Menu />
         <Text

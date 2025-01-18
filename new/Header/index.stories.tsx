@@ -5,6 +5,8 @@ import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { HttpResponse, graphql } from "msw";
 import SizeProvider from "../../components/SizeProvider";
 import { mockDeck } from "../../mocks/deck";
+import { productsQuery } from "../../mocks/productsQuery";
+import { mockDecks } from "../../mocks/DecksQuery";
 
 const mockedClient = new ApolloClient({
   uri: "api/v1/graphql",
@@ -30,6 +32,16 @@ const meta = {
   parameters: {
     msw: {
       handlers: [
+        graphql.query("Products", () =>
+          HttpResponse.json({
+            data: {
+              products: productsQuery.map((product) => ({
+                ...product,
+                deck: mockDecks.find((deck) => deck.slug === product.deck),
+              })),
+            },
+          })
+        ),
         graphql.query("DeckQuery", () => {
           return HttpResponse.json({
             data: { deck: undefined },
@@ -45,6 +57,7 @@ const meta = {
         <SizeProvider>
           <Story />
           <div css={[{ height: 2000 }]}></div>
+          <div id="menuportal"></div>
         </SizeProvider>
       </MetaMaskProvider>
     </ApolloProvider>

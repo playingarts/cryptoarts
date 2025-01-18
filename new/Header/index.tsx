@@ -5,6 +5,8 @@ import ScandiBlock from "../ScandiBlock";
 import CTA from "./CTA";
 import Middle from "./Middle";
 import TitleButton from "./TitleButton";
+import MenuPortal from "../MenuPortal";
+import MainMenu from "./MainMenu";
 
 export interface Props extends HTMLAttributes<HTMLElement> {}
 
@@ -12,6 +14,8 @@ const Header: FC<Props> = ({ ...props }) => {
   const [showSiteNav, setShowSiteNav] = useState<"top" | "afterTop">("top");
 
   const [altNav, setAltNav] = useState(false);
+
+  const [showMenu, setShowMenu] = useState(false);
 
   useLayoutEffect(() => {
     let lastScrollTop = 0;
@@ -97,6 +101,7 @@ const Header: FC<Props> = ({ ...props }) => {
         }
       >
         <TitleButton
+          setShow={setShowMenu}
           css={(theme) => [
             { transition: theme.transitions.fast("border-color") },
           ]}
@@ -122,6 +127,9 @@ const Header: FC<Props> = ({ ...props }) => {
           <CTA />
         </ScandiBlock>
       </Grid>
+      <MenuPortal show={showMenu}>
+        <MainMenu setShow={setShowMenu} />
+      </MenuPortal>
     </header>
   );
 };
