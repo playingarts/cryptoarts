@@ -1,36 +1,29 @@
-// import type { Preview } from "@storybook/react";
-
-// const preview: Preview = {
-//   parameters: {
-//     controls: {
-//       matchers: {
-//         color: /(background|color)$/i,
-//         date: /Date$/i,
-//       },
-//     },
-//   },
-// };
-
-// export default preview;
 import { Preview } from "@storybook/react";
-
 import { MockedProvider } from "@apollo/client/testing";
 import { ThemeProvider } from "@emotion/react";
-// import { RouterContext } from "next/dist/shared/lib/router-context";
-import * as NextImage from "next/image";
 import { theme } from "../pages/_app";
 import { Links } from "../pages/_document";
 import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 import React from "react";
 import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { initialize, mswLoader } from "msw-storybook-addon";
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
+import { handlers } from "./StoryGraphqlHandlers";
 
-// const OriginalNextImage = NextImage.default;
-
-// Object.defineProperty(NextImage, "default", {
-//   configurable: true,
-//   value: (props) => <OriginalNextImage {...props} unoptimized />,
-// });
+const mockedClient = new ApolloClient({
+  uri: "api/v1/graphql",
+  cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    },
+    query: {
+      fetchPolicy: "no-cache",
+      errorPolicy: "all",
+    },
+  },
+});
 
 initialize({});
 
@@ -38,6 +31,10 @@ const preview: Preview = {
   // actions: { argTypesRegex: "^on[A-Z].*" },
   loaders: [mswLoader],
   parameters: {
+    msw: {
+      handlers,
+    },
+
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -63,8 +60,11 @@ export default preview;
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
-      <Links />
-      <Story />
+      <ApolloProvider client={mockedClient}>
+        <Links />
+        <Story />
+        <div id="menuportal"></div>
+      </ApolloProvider>
     </ThemeProvider>
   ),
 ];

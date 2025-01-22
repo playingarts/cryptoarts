@@ -5,7 +5,7 @@ import ScandiBlock from "../ScandiBlock";
 import CTA from "./CTA";
 import Middle from "./Middle";
 import TitleButton from "./TitleButton";
-import MenuPortal from "../MenuPortal";
+import MenuPortal from "./MainMenu/MenuPortal";
 import MainMenu from "./MainMenu";
 
 export interface Props extends HTMLAttributes<HTMLElement> {}

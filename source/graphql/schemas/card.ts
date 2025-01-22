@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 import { model, Model, models, Schema, Types } from "mongoose";
 import Web3 from "web3";
 import { getContracts } from "./contract";
-import { getDeck, getDecks } from "./deck";
+import { Deck, getDeck, getDecks } from "./deck";
 import { getAssets } from "./opensea";
 import { getListings } from "./listing";
 
@@ -181,13 +181,18 @@ const setCards = {
   ],
 };
 
-const getHeroCards = async ({ deck, slug }: GQL.QueryHeroCardsArgs) => {
+const getHeroCards = async ({
+  deck: tobedeleted,
+  slug,
+}: GQL.QueryHeroCardsArgs) => {
+  const deck = (await Deck.findOne({ slug })) as unknown as GQL.Deck;
+
   const cards = Promise.all(
     setCards[slug as keyof typeof setCards].map(
       async (card) =>
         (await (Card.findOne({
           ...card,
-          deck,
+          deck: deck._id,
         }).populate(["artist", "deck"]) as unknown)) as Promise<GQL.Card>
     )
   );

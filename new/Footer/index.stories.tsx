@@ -5,12 +5,7 @@ type Story = StoryObj<typeof Component>;
 
 const meta = {
   component: Component,
-  title: "New/Footer",
-  decorators: (Story) => (
-    <div css={[{ marginTop: 50 }]}>
-      <Story />
-    </div>
-  ),
+  title: "New/Footer/Footer",
 } as Meta<typeof Component>;
 
 export default meta;

@@ -250,6 +250,18 @@ export const useLoadHeroCards = (
   };
 };
 
+export const useHeroCards = (
+  options: QueryHookOptions<Pick<GQL.Query, "heroCards">> = {}
+) => {
+  const { data: { heroCards } = { heroCards: undefined }, ...methods } =
+    useQuery<Pick<GQL.Query, "heroCards">>(HeroCardsQuery, options);
+
+  return {
+    ...methods,
+    heroCards,
+  };
+};
+
 export const useLoadCard = (
   options: QueryHookOptions<Pick<GQL.Query, "card">> = {}
 ) => {

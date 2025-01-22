@@ -1,9 +1,9 @@
 import { FC, HTMLAttributes } from "react";
-import Intro from "../Intro";
-import ButtonTemplate from "../Buttons/Templates/ButtonTemplate";
-import Grid from "../../components/Grid";
+import Intro from "../../Intro";
+import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
+import Grid from "../../../components/Grid";
 import Item from "./Item";
-import { mockCard as card, mockCard } from "../../mocks/card";
+import { mockCard } from "../../../mocks/card";
 
 const faq = {
   "Are these physical decks?":

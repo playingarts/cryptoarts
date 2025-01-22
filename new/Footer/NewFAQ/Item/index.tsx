@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, useState } from "react";
-import Dot from "../../Icons/Dot";
-import Text from "../../Text";
+import Dot from "../../../Icons/Dot";
+import Text from "../../../Text";
 
 const Item: FC<
   HTMLAttributes<HTMLElement> & { question: string; answer: string }

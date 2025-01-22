@@ -5,7 +5,7 @@ type Story = StoryObj<typeof Component>;
 
 const meta = {
   component: Component,
-  title: "New/Home/Collection/Collection",
+  title: "New/Footer/NewFAQ/FAQ",
 } as Meta<typeof Component>;
 
 export default meta;

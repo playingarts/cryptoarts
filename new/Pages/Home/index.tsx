@@ -1,5 +1,4 @@
 import { withApollo } from "../../../source/apollo";
-import FAQ from "../../NewFAQ";
 import Header from "../../Header";
 import AugmentedReality from "../../Home/AugmentedReality";
 import Collection from "../../Home/Collection";
@@ -23,7 +22,6 @@ const Home = (props: Props) => {
       <AugmentedReality />
       <Testimonials />
       <Podcast />
-      <FAQ />
       <Footer />
     </>
   );
