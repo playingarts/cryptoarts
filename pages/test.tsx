@@ -3,6 +3,7 @@ import { withApollo } from "../source/apollo";
 
 const test: FC<HTMLAttributes<HTMLElement>> = () => {
   //   const cards = useCards({ variables: { deck: "zero" } });
+  //   const products = useProducts();
 
   return <div></div>;
 };

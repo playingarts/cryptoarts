@@ -2,7 +2,6 @@ import { FC, HTMLAttributes } from "react";
 import Grid from "../../../../components/Grid";
 import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Templates/ButtonTemplate";
-import ArrowButton from "../../../Buttons/Templates/ArrowButton";
 import NewLink from "../../../Link/NewLink";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (

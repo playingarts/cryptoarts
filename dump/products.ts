@@ -254,7 +254,7 @@ const dump = async () => {
 
   await Product.deleteMany();
 
-  products = await populateDeckId<typeof products[0]>(products);
+  products = await populateDeckId<(typeof products)[0]>(products);
 
   await Product.insertMany(products);
 };

@@ -64,10 +64,7 @@ export const Templates: { [x: string]: StoryObj } = {
           graphql.query("Products", () =>
             HttpResponse.json({
               data: {
-                products: productsQuery.map((product) => ({
-                  ...product,
-                  deck: mockDecks.find((deck) => deck.slug === product.deck),
-                })),
+                products: productsQuery,
               },
             })
           ),
