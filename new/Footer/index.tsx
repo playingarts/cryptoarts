@@ -19,6 +19,7 @@ import ApplePay from "../Icons/ApplePay";
 import GooglePay from "../Icons/GooglePay";
 import ArrowButton from "../Buttons/Templates/ArrowButton";
 import NewFAQ from "./NewFAQ";
+import Testimonials from "../Pages/Home/Testimonials";
 
 export const links: { [x: string]: String[] } = {
   "The project": ["Home", "Our story", "AR app", "Gallery", "Press"],
@@ -26,8 +27,10 @@ export const links: { [x: string]: String[] } = {
   Community: ["Participate", "Contributors", "Kickstarter", "Podcast", "FAQ"],
 };
 
-const Footer: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
+const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
   <>
+    <Testimonials />
+    {children}
     <NewFAQ />
     <Grid
       css={(theme) => [

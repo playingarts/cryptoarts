@@ -1,9 +1,11 @@
 import { FC, HTMLAttributes } from "react";
 import Header from "../../Header";
-import Hero from "../../DeckPage/Hero";
-import CardList from "../../DeckPage/CardList";
-import TheProduct from "../../DeckPage/TheProduct";
-import Gallery from "../../DeckPage/Gallery";
+import Hero from "./Hero";
+import CardList from "./CardList";
+import TheProduct from "./TheProduct";
+import Gallery from "./Gallery";
+import Footer from "../../Footer";
+import { withApollo } from "../../../source/apollo";
 
 const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <>
@@ -12,7 +14,8 @@ const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     <CardList />
     <TheProduct />
     <Gallery />
+    <Footer />
   </>
 );
 
-export default Deck;
+export default withApollo(Deck);
