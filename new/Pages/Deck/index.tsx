@@ -3,6 +3,7 @@ import Header from "../../Header";
 import Hero from "../../DeckPage/Hero";
 import CardList from "../../DeckPage/CardList";
 import TheProduct from "../../DeckPage/TheProduct";
+import Gallery from "../../DeckPage/Gallery";
 
 const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <>
@@ -10,6 +11,7 @@ const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     <Hero />
     <CardList />
     <TheProduct />
+    <Gallery />
   </>
 );
 
