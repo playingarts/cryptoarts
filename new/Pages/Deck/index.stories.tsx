@@ -1,6 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react/*";
 import Component from ".";
 import { handlers } from "../../../.storybook/StoryGraphqlHandlers";
+import { HttpResponse, graphql } from "msw";
+import { mockDecks } from "../../../mocks/DecksQuery";
+import { Templates } from "../../../.storybook/DeckTemplates";
 
 type Story = StoryObj<typeof Component>;
 
@@ -11,16 +14,4 @@ const meta = {
 
 export default meta;
 
-export const Default: Story = {
-  parameters: {
-    nextjs: {
-      router: {
-        pathname: "/[deckId]]",
-        asPath: "/zero",
-        query: {
-          deckId: "zero",
-        },
-      },
-    },
-  },
-};
+export const Default: Story = Templates.zero;

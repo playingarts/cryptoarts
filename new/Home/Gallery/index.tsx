@@ -139,7 +139,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <div css={[{ gridColumn: "span 6/-1", marginTop: 30 }]}>
           <div css={[{ display: "flex", gap: 30 }]}>
             <img
-              src={dailyCard?.artist.userpic}
+              src={dailyCard && dailyCard.artist.userpic}
               alt=""
               css={{ width: 80, height: 80 }}
             />
@@ -150,15 +150,15 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               <Text typography="paragraphSmall">
                 {dailyCard && dailyCard.artist.country}
               </Text>
-              <Text typography="newParagraph">
-                {dailyCard && dailyCard.info}
-              </Text>
-
-              <Text typography="linkNewTypography" css={[{ marginTop: 30 }]}>
-                Discover the artwork <Dot />
-              </Text>
             </div>
           </div>
+          <Text typography="newParagraph" css={[{ marginTop: 60 }]}>
+            {dailyCard && dailyCard.info}
+          </Text>
+
+          <Text typography="linkNewTypography" css={[{ marginTop: 30 }]}>
+            Discover the artwork <Dot />
+          </Text>
         </div>
       </Grid>
     </Grid>

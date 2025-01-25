@@ -1,6 +1,7 @@
 import { StoryObj } from "@storybook/react/*";
 import { HttpResponse, graphql } from "msw";
 import { mockDecks } from "../mocks/DecksQuery";
+import zeroCards from "../mocks/zeroCards";
 
 export const Templates: { [x: string]: StoryObj } = {
   zero: {
@@ -16,6 +17,11 @@ export const Templates: { [x: string]: StoryObj } = {
       },
       msw: {
         handlers: [
+          graphql.query("Cards", () => {
+            return HttpResponse.json({
+              data: zeroCards,
+            });
+          }),
           graphql.query("Deck", () =>
             HttpResponse.json({
               data: {

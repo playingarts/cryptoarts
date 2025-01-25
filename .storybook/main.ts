@@ -7,7 +7,7 @@ const config: StorybookConfig = {
     //   from: "../fonts",
     //   to: "fonts",
     // },
-    "../fonts",
+    // "../fonts",
   ],
 
   stories: [

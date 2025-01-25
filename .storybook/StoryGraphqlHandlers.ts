@@ -3,6 +3,7 @@ import { productsQuery } from "../mocks/productsQuery";
 import { mockDecks } from "../mocks/DecksQuery";
 import backgroundImage from "../mocks/images/backgroundImage.png";
 import jd from "../mocks/images/jordanDebney.png";
+import zeroCards from "../mocks/zeroCards";
 
 export const handlers: GraphQLHandler[] = [
   graphql.query("Decks", () => {
@@ -12,13 +13,13 @@ export const handlers: GraphQLHandler[] = [
       },
     });
   }),
-  graphql.query("Deck", () => {
-    return HttpResponse.json({
-      data: {
-        deck: { ...mockDecks.find((item) => item.slug === "zero") },
-      },
-    });
-  }),
+  // graphql.query("Deck", () => {
+  //   return HttpResponse.json({
+  //     data: {
+  //       deck: { ...mockDecks.find((item) => item.slug === "zero") },
+  //     },
+  //   });
+  // }),
   graphql.query("HeroCards", () =>
     HttpResponse.json({
       data: {

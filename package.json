@@ -24,7 +24,8 @@
     "test": "jest --watch",
     "testManual": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./__tests__/index",
     "testOpensea": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./__tests__/test",
-    "buildIconsStories": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./components/Icons/a.iconsscript.ts"
+    "buildIconsStories": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./components/Icons/a.iconsscript.ts",
+    "gitDeleteBranches": "git branch | grep -vE \"master|prod\" | xargs git branch -D"
   },
   "engines": {
     "node": "^23.4"
