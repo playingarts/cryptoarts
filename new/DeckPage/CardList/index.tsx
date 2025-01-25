@@ -24,7 +24,6 @@ const List = () => {
   useEffect(() => {
     setRange(width >= breakpoints.md ? 12 : width >= breakpoints.sm ? 8 : 4);
   }, [width]);
-  console.log(deckId, cards);
 
   return (
     cards && (

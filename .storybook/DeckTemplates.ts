@@ -2,6 +2,7 @@ import { StoryObj } from "@storybook/react/*";
 import { HttpResponse, graphql } from "msw";
 import { mockDecks } from "../mocks/DecksQuery";
 import zeroCards from "../mocks/zeroCards";
+import { productsQuery } from "../mocks/productsQuery";
 
 export const Templates: { [x: string]: StoryObj } = {
   zero: {
@@ -56,6 +57,17 @@ export const Templates: { [x: string]: StoryObj } = {
                       "https://s3.amazonaws.com/img.playingarts.com/zero-video/5-diamonds_01.mp4",
                   },
                 ],
+              },
+            })
+          ),
+
+          graphql.query("Products", () =>
+            HttpResponse.json({
+              data: {
+                products: productsQuery.map((product) => ({
+                  ...product,
+                  deck: mockDecks.find((deck) => deck.slug === product.deck),
+                })),
               },
             })
           ),
