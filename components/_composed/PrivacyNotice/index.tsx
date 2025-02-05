@@ -1,4 +1,3 @@
-import { colord } from "colord";
 import { useRouter } from "next/router";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import store from "store";
@@ -6,6 +5,8 @@ import { breakpoints } from "../../../source/enums";
 import Cross from "../../Icons/Cross";
 import Link from "../../Link";
 import { useSize } from "../../SizeProvider";
+import Button from "../../Button";
+import Bag from "../../Icons/Bag";
 
 const privacyDate = process.env.NEXT_PUBLIC_PRIVACY_DATE || "test";
 
@@ -26,7 +27,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
 
   return privacyStatus === privacyDate ? null : (
     <div
-      css={(theme) => [
+      css={[
         {
           position: "fixed",
           // bottom: theme.spacing(4),
@@ -39,12 +40,12 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
           justifyContent: "center",
           zIndex: 99997,
           backdropFilter: "blur(20px)",
-          background:
-            deckId === "crypto" || artistId
-              ? colord(theme.colors.black).alpha(0.75).toRgbString()
-              : colord(theme.colors.page_bg_light_gray)
-                  .alpha(0.75)
-                  .toRgbString(),
+          background: "#CFF8D8",
+          // deckId === "crypto" || artistId
+          //   ? colord(theme.colors.black).alpha(0.75).toRgbString()
+          //   : colord(theme.colors.page_bg_light_gray)
+          //       .alpha(0.75)
+          //       .toRgbString(),
         },
       ]}
     >
@@ -60,12 +61,12 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             maxWidth: theme.spacing(123),
             width: "100%",
             textAlign: "center",
-            height: theme.spacing(6),
+            // height: theme.spacing(6),
 
             [theme.maxMQ.sm]: {
               paddingLeft: theme.spacing(2.5),
-              textAlign: "left",
-              height: "50px",
+              // textAlign: "left",
+              // height: "50px",
             },
           },
         ]}
@@ -77,10 +78,11 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
               display: "inline-block",
               lineHeight: `${theme.spacing(6)}px`,
               fontSize: 14,
-              color:
-                deckId === "crypto" || artistId
-                  ? theme.colors.text_subtitle_light
-                  : theme.colors.text_subtitle_dark,
+              color: "black",
+              // deckId === "crypto" || artistId
+              //   ? theme.colors.text_subtitle_light
+              //   : theme.colors.text_subtitle_dark,
+              textAlign: "center",
 
               [theme.maxMQ.sm]: {
                 lineHeight: "50px",
@@ -88,7 +90,30 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             },
           ]}
         >
-          <Link
+          48-Hour Deal: We’re Doubling Your Order!{" "}
+          {width <= breakpoints.xsm && <br />}
+          <Button
+            component={Link}
+            href="/shop"
+            Icon={Bag}
+            color="black"
+            css={(theme) => ({
+              transition: theme.transitions.fast(["color", "background"]),
+              [theme.mq.sm]: [
+                {
+                  verticalAlign: "middle",
+                },
+                // {
+                //   color: theme.colors.text_title_dark,
+                //   background: theme.colors.page_bg_light,
+                // },
+              ],
+            })}
+          >
+            SHOP NOW
+            {/* {width >= breakpoints.sm && "Shop"} */}
+          </Button>
+          {/* <Link
             href="/privacy"
             css={(theme) => [
               {
@@ -100,9 +125,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             ]}
           >
             We use cookies
-          </Link>{" "}
+          </Link> */}
+          {/* {" "}
           and similar technologies
-          {width >= breakpoints.sm && " for statistics and marketing purposes."}
+          {width >= breakpoints.sm && " for statistics and marketing purposes."} */}
         </span>
         <div
           onClick={() => setPrivacyStatus(privacyDate)}

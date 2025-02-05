@@ -3,14 +3,12 @@ import { NextPage } from "next";
 import Head from "next/head";
 import { FC, Fragment, useLayoutEffect, useState } from "react";
 import BagButton from "../components/BagButton";
-import BlockTitle from "../components/BlockTitle";
 import CardFan from "../components/Card/Fan";
 import Grid from "../components/Grid";
 import Layout from "../components/Layout";
 import Line from "../components/Line";
 import Quote from "../components/Quote";
 import ScrollIntoView from "../components/ScrollIntoView";
-import ShopBundle from "../components/Shop/Bundle";
 import ShopItem from "../components/Shop/Item";
 import ShopSheets from "../components/Shop/Sheets";
 import ShopSoldOut from "../components/Shop/SoldOut";
@@ -49,7 +47,7 @@ const Content: FC = () => {
   const {
     sheet: sheets,
     deck: decks,
-    bundle: bundles,
+    // bundle: _bundles,
     // latestRelease,
   } = products.reduce<
     Record<ProductListsTypes, GQL.Product[]>
@@ -169,8 +167,11 @@ const Content: FC = () => {
             ]}
           >
             {/* The best way to buy the products you love. */}
-            Carefully crafted and beautifully printed in the USA on legendary
-            Bicycle® paper—the highest quality coated playing card stock.
+            {/* Carefully crafted and beautifully printed in the USA on legendary
+            Bicycle® paper—the highest quality coated playing card stock. */}
+            48-Hour Deal! Ends February 7 <br /> WE’LL DOUBLE Your Order – No
+            Extra Cost! No codes. No extra steps.
+            <br /> Just place your order, and we’ll do the rest.
           </Text>
         </Grid>
       </Layout>
@@ -455,7 +456,7 @@ const Content: FC = () => {
 
         {/* Bundles Block */}
 
-        <div
+        {/* <div
           css={(theme) => ({
             [theme.mq.md]: {
               marginTop: theme.spacing(12),
@@ -534,7 +535,7 @@ const Content: FC = () => {
               ))}
             </Grid>
           </Grid>
-        </div>
+        </div> */}
       </Layout>
 
       {/* {latestRelease && (

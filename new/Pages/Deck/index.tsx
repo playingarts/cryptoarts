@@ -7,15 +7,16 @@ import Gallery from "./Gallery";
 import Footer from "../../Footer";
 import { withApollo } from "../../../source/apollo";
 
-const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
-  <>
-    <Header />
-    <Hero />
-    <CardList />
-    <TheProduct />
-    <Gallery />
-    <Footer />
-  </>
-);
+const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) =>
+  process.env.SHOW_NEW !== "true" ? null : (
+    <>
+      <Header />
+      <Hero />
+      <CardList />
+      <TheProduct />
+      <Gallery />
+      <Footer />
+    </>
+  );
 
 export default withApollo(Deck);

@@ -11,7 +11,7 @@ import Footer from "../../Footer";
 type Props = {};
 
 const Home = (props: Props) => {
-  return (
+  return process.env.SHOW_NEW !== "true" ? null : (
     <>
       <Header />
       <Hero />
