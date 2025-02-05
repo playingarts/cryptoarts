@@ -23,9 +23,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
 
   const {
     query: { artistId, deckId },
+    pathname,
   } = useRouter();
 
-  return privacyStatus === privacyDate ? null : (
+  return privacyStatus === privacyDate || pathname === "/shop" ? null : (
     <div
       css={[
         {
@@ -90,7 +91,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
             },
           ]}
         >
-          48-Hour Deal: We’re Doubling Your Order!{" "}
+          48-Hour Deal: We’re Doubling Your Order!
           {width <= breakpoints.xsm && <br />}
           <Button
             component={Link}
@@ -102,6 +103,7 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
               [theme.mq.sm]: [
                 {
                   verticalAlign: "middle",
+                  marginLeft: 20,
                 },
                 // {
                 //   color: theme.colors.text_title_dark,
