@@ -11,13 +11,7 @@ import Bag from "../../Icons/Bag";
 const privacyDate = process.env.NEXT_PUBLIC_PRIVACY_DATE || "test";
 
 const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
-  const [privacyStatus, setPrivacyStatus] = useState(
-    store.get("privacy", "") as string
-  );
-
-  useEffect(() => {
-    store.set("privacy", privacyStatus);
-  }, [privacyStatus]);
+  const [privacyStatus, setPrivacyStatus] = useState(privacyDate);
 
   const { width } = useSize();
 
@@ -25,6 +19,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
     query: { artistId, deckId },
     pathname,
   } = useRouter();
+
+  useEffect(() => {
+    setPrivacyStatus(store.get("privacy", "") as string);
+  }, []);
 
   return privacyStatus === privacyDate || pathname === "/shop" ? null : (
     <div
@@ -133,7 +131,10 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
           {width >= breakpoints.sm && " for statistics and marketing purposes."} */}
         </span>
         <div
-          onClick={() => setPrivacyStatus(privacyDate)}
+          onClick={() => {
+            setPrivacyStatus(privacyDate);
+            store.set("privacy", privacyDate);
+          }}
           css={[
             {
               "&:hover": {
