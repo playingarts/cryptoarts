@@ -169,9 +169,10 @@ const Content: FC = () => {
             {/* The best way to buy the products you love. */}
             {/* Carefully crafted and beautifully printed in the USA on legendary
             Bicycle® paper—the highest quality coated playing card stock. */}
-            48-Hour Deal! Ends February 7 <br /> WE’LL DOUBLE Your Order – No
+            48-Hour Deal! Ends February 8 <br /> WE’LL DOUBLE Your Order – No
             Extra Cost! No codes. No extra steps.
-            <br /> Just place your order, and we’ll do the rest.
+            <br /> Just place your order, and you’ll receive 2X of what you’ve
+            ordered.
           </Text>
         </Grid>
       </Layout>
