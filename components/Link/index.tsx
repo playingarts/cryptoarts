@@ -1,23 +1,23 @@
 import { ClassNames, CSSObject, Theme } from "@emotion/react";
 import { CSSInterpolation } from "@emotion/serialize";
-import { LinkProps as NextLinkProps } from "next/link";
+import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import { forwardRef, ForwardRefRenderFunction, HTMLAttributes } from "react";
 
 export interface Props
   extends Omit<NextLinkProps, "onClick" | "onMouseEnter" | "onTouchStart">,
     HTMLAttributes<HTMLAnchorElement | HTMLButtonElement> {
-  component?: "a" | "button";
+  component?: "button";
   activeCss?: ((_: Theme) => CSSInterpolation) | CSSObject;
   target?: HTMLAnchorElement["target"];
 }
 
 const Link: ForwardRefRenderFunction<
-  HTMLAnchorElement | HTMLButtonElement,
+  NextLinkProps | HTMLButtonElement,
   Props
 > = (
   {
-    component: Component = "a",
+    component: Component = NextLink,
     children,
     style,
     activeCss,
@@ -33,7 +33,7 @@ const Link: ForwardRefRenderFunction<
     replace,
     scroll,
     shallow,
-    passHref = props.passHref ? props.passHref : Component === "a",
+    passHref = props.passHref ? props.passHref : Component === NextLink,
     prefetch,
     locale,
     ...other
@@ -43,6 +43,15 @@ const Link: ForwardRefRenderFunction<
     <ClassNames>
       {({ cx, css, theme }) => (
         <Component
+          {...other}
+          href={href}
+          as={as}
+          replace={replace}
+          scroll={scroll}
+          shallow={shallow}
+          passHref={passHref}
+          prefetch={prefetch}
+          locale={locale}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           ref={ref as any}
           css={{ color: "inherit" }}
@@ -56,19 +65,6 @@ const Link: ForwardRefRenderFunction<
                 typeof activeCss === "function" ? activeCss(theme) : activeCss
               )
           )}
-          {...(Component === "a" &&
-            ({
-              href,
-              as,
-              replace,
-              shallow,
-              passHref,
-              prefetch,
-              locale,
-              scroll,
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as any))}
-          {...other}
         >
           {children}
         </Component>
