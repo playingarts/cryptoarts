@@ -21,6 +21,8 @@ import { theme } from "../pages/_app";
 import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
 import { connect } from "../source/mongoose";
+import BlockTitle from "../components/BlockTitle";
+import ShopBundle from "../components/Shop/Bundle";
 const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
@@ -47,7 +49,7 @@ const Content: FC = () => {
   const {
     sheet: sheets,
     deck: decks,
-    // bundle: _bundles,
+    bundle: bundles,
     // latestRelease,
   } = products.reduce<
     Record<ProductListsTypes, GQL.Product[]>
@@ -167,12 +169,12 @@ const Content: FC = () => {
             ]}
           >
             {/* The best way to buy the products you love. */}
-            {/* Carefully crafted and beautifully printed in the USA on legendary
-            Bicycle® paper—the highest quality coated playing card stock. */}
-            48-Hour Deal! Ends February 8 <br /> WE’LL DOUBLE Your Order – No
+            Carefully crafted and beautifully printed in the USA on legendary
+            Bicycle® paper—the highest quality coated playing card stock.
+            {/* 48-Hour Deal! Ends February 8 <br /> WE’LL DOUBLE Your Order – No
             Extra Cost! No codes. No extra steps.
             <br /> Just place your order, and you’ll receive 2X of what you’ve
-            ordered.
+            ordered. */}
           </Text>
         </Grid>
       </Layout>
@@ -457,7 +459,7 @@ const Content: FC = () => {
 
         {/* Bundles Block */}
 
-        {/* <div
+        <div
           css={(theme) => ({
             [theme.mq.md]: {
               marginTop: theme.spacing(12),
@@ -536,7 +538,7 @@ const Content: FC = () => {
               ))}
             </Grid>
           </Grid>
-        </div> */}
+        </div>
       </Layout>
 
       {/* {latestRelease && (
