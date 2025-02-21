@@ -11,17 +11,20 @@ const HeroCard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             position: "absolute",
             top: 0,
             left: 0,
+            boxShadow: "0px 5px 20px 0px rgba(0, 0, 0, 0.10)",
           },
           width: 360,
           height: 506,
-          "img:nth-child(2)": { transform: "rotate(7.58deg)" },
-          "img:nth-child(1)": { transform: "rotate(-15deg)" },
+          "img:nth-child(2)": { transform: "rotate(5deg)" },
+          "img:nth-child(1)": { transform: "rotate(-12deg)" },
         },
       ]}
     >
       <img
         loading="lazy"
-        src={card.img}
+        src={
+          "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/8-of-clubs-zutto.jpg"
+        }
         alt={card.info}
         css={(theme) => [
           {
@@ -38,7 +41,10 @@ const HeroCard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       />
       <img
         loading="lazy"
-        src={card.img}
+        src={
+          // "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-antonio-uve.jpg"
+          "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/8-of-clubs-zutto.jpg"
+        }
         alt={card.info}
         css={(theme) => [
           {
@@ -55,7 +61,9 @@ const HeroCard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       />
       <img
         loading="lazy"
-        src={card.img}
+        src={
+          "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/7-of-spades-muxxi.jpg"
+        }
         alt={card.info}
         css={(theme) => [
           {

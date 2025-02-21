@@ -11,6 +11,7 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         top: 0,
         left: 0,
         width: "100%",
+        pointerEvents: "none",
       },
     ]}
   >
@@ -18,7 +19,7 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
       css={[
         {
           position: "absolute",
-          left: -220,
+          left: -210,
           height: "100%",
           gridColumn: "1/-1",
         },
@@ -37,9 +38,10 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
               margin: "7px 5px",
 
               width: 240,
-              height: 350,
+              height: 336,
+              boxShadow: "0px 5px 20px 0px rgba(0, 0, 0, 0.10)",
             },
-            marginTop: 28.41,
+            marginTop: 63,
             marginBottom: 70,
             top: 350,
             //   top: 100,
@@ -54,7 +56,9 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
       >
         <img
           loading="lazy"
-          src={card.img}
+          src={
+            "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/3-of-dimonds-burnt-toast-creative.jpg"
+          }
           alt={card.info}
           css={(theme) => [
             {
@@ -69,7 +73,9 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         />
         <img
           loading="lazy"
-          src={card.img}
+          src={
+            "https://s3.amazonaws.com/img.playingarts.com/contest/retina/232.jpg"
+          }
           alt={card.info}
           css={(theme) => [
             {
@@ -84,7 +90,9 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         />
         <img
           loading="lazy"
-          src={card.img}
+          src={
+            "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/8-of-clubs-zutto.jpg"
+          }
           alt={card.info}
           css={(theme) => [
             {
@@ -99,7 +107,9 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         />
         <img
           loading="lazy"
-          src={card.img}
+          src={
+            "https://s3.amazonaws.com/img.playingarts.com/contest/retina/104.jpg"
+          }
           alt={card.info}
           css={(theme) => [
             {

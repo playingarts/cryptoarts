@@ -10,4 +10,11 @@ const meta = {
 
 export default meta;
 
-export const Default: Story = {};
+export const Default: Story = {
+  parameters: {
+    design: {
+      type: "figspec",
+      url: "https://www.figma.com/design/MDJjecRss6ILUdH6eCcvwQ/Playing-Arts-website-2025-(Copy)?node-id=3400-25763&t=VZTjZEeVPXCWxLko-4",
+    },
+  },
+};

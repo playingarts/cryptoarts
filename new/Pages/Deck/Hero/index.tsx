@@ -2,8 +2,8 @@ import { FC, HTMLAttributes, useState } from "react";
 import Grid from "../../../../components/Grid";
 import Text from "../../../Text";
 import { useDeck } from "../../../../hooks/deck";
-import ArrowButton from "../../../Buttons/Templates/ArrowButton";
-import ButtonTemplate from "../../../Buttons/Templates/ButtonTemplate";
+import ArrowButton from "../../../Buttons/ArrowButton";
+import ButtonTemplate from "../../../Buttons/Button";
 import Plus from "../../../Icons/Plus";
 import HeroCards from "./HeroCards";
 
@@ -28,7 +28,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {deck && deck.info}
         </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 15 }]}>
-          <ArrowButton variant="accent">Shop the collection</ArrowButton>
+          <ArrowButton color="accent">Shop the collection</ArrowButton>
           <ButtonTemplate
             css={(theme) => [
               {

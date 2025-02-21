@@ -12,20 +12,24 @@ const meta = {
   // args: {
   //   ...ActionsData,
   // },
+  parameters: {
+    design: {
+      type: "figspec",
+      url: "https://www.figma.com/design/MDJjecRss6ILUdH6eCcvwQ/Playing-Arts-website-2025-(Copy)?node-id=3014-37610&t=VZTjZEeVPXCWxLko-4",
+    },
+  },
+
+  args: {
+    children: "Button-b",
+  },
 } as Meta<typeof Component>;
 
 export default meta;
 
-export const Default: Story = {
-  args: {
-    variant: "default",
-    children: "Button",
-  },
-};
+export const Default: Story = {};
 
 export const Border: Story = {
   args: {
-    variant: "border",
-    children: "Button",
+    bordered: true,
   },
 };

@@ -1,6 +1,6 @@
 import Link from "../../Link";
 import Logo from "../../../components/Icons/Logo";
-import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
+import Button from "../../Buttons/Button";
 import ArrowNav from "./ArrowNav";
 
 const Middle = ({
@@ -114,23 +114,14 @@ const Middle = ({
         >
           {["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"].map(
             (name, i) => (
-              <ButtonTemplate
+              <Button
                 key={name + i}
-                css={(theme) => [
-                  {
-                    height: "100%",
-                    fontSize: 20,
-                    fontWeight: 400,
-                    textAlign: "left",
-                    textUnderlinePosition: "from-font",
-                    textDecorationSkipInk: "none",
-                    padding: "0 12px",
-                    color: theme.colors.dark_gray,
-                  },
-                ]}
+                noColor={true}
+                size="small"
+                css={(theme) => [{ display: "flex", alignItems: "center" }]}
               >
                 {name}
-              </ButtonTemplate>
+              </Button>
             )
           )}
         </div>

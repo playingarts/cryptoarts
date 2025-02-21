@@ -52,18 +52,22 @@ const Header: FC<Props> = ({ ...props }) => {
 
           // header height initially
           marginTop: -70,
-          transition: theme.transitions.fast("top"),
-          top: "calc(-200%)",
+          transition: theme.transitions.fast("all"),
+          // top: "calc(-200%)",
           position: "sticky",
           transform: "translateY(100%) translateY(15px)",
         },
       ]}
       style={
         showSiteNav === "top"
-          ? {}
+          ? {
+              // top: 0,
+              top: -155,
+            }
           : {
               // header height later on
               top: -75,
+              marginTop: -60,
             }
       }
     >
@@ -77,14 +81,16 @@ const Header: FC<Props> = ({ ...props }) => {
             zIndex: 1,
             overflow: "hidden",
             color: theme.colors.dark_gray,
+            background: "#FFFFFF00",
+            transition: theme.transitions.fast([
+              "background",
+              "line-height",
+              "grid-template-rows",
+            ]),
           },
 
           {
-            transition: theme.transitions.fast([
-              "background",
-              "height",
-              "lineHeight",
-            ]),
+            // transition: theme.transitions.fast(["all"]),
           },
         ]}
         style={
@@ -94,7 +100,6 @@ const Header: FC<Props> = ({ ...props }) => {
                 lineHeight: "70px",
               }
             : {
-                top: 15,
                 background: colord("#FFFFFF").alpha(0.9).toRgbString(),
                 backdropFilter: "blur(10px)",
               }

@@ -3,7 +3,7 @@ import Grid from "../../../../components/Grid";
 import { useDailyCard } from "../../../../hooks/card";
 import placeholder from "../../../../mocks/images/deckCollectionPreview.png";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
-import ArrowButton from "../../../Buttons/Templates/ArrowButton";
+import ArrowButton from "../../../Buttons/ArrowButton";
 import Dot from "../../../Icons/Dot";
 import KickStarter from "../../../Icons/KickStarter";
 import ScandiBlock from "../../../ScandiBlock";
@@ -42,7 +42,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           Carefully crafted on legendary Bicycle® paper for unparalleled
           artistry and tactile quality.
         </Text>
-        <ArrowButton variant="accent" css={[{ marginTop: 30 }]}>
+        <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
           Shop the collection
         </ArrowButton>
       </ScandiBlock>

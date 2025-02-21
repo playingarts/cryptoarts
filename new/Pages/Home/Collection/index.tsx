@@ -3,8 +3,8 @@ import { useProducts } from "../../../../hooks/product";
 import Grid from "../../../../components/Grid";
 import Text from "../../../Text";
 import Dot from "../../../Icons/Dot";
-import ButtonTemplate from "../../../Buttons/Templates/ButtonTemplate";
 import Link from "../../../Link";
+import CollectionItem from "./CollectionItem";
 
 const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
@@ -40,25 +40,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             products && products.filter((product) => product.type === "deck");
           for (let i = 0; i < 8; i++) {
             const product = deckProducts && deckProducts[i];
-            arr.push(
-              <div>
-                {product && typeof product.deck === "object" && (
-                  <Link href={product.deck.slug}>
-                    <img
-                      src={product.image}
-                      alt="deck image"
-                      css={[
-                        {
-                          objectFit: "contain",
-                          height: "100%",
-                          width: "100%",
-                        },
-                      ]}
-                    />
-                  </Link>
-                )}
-              </div>
-            );
+            arr.push(<CollectionItem product={product} />);
           }
           arr.push(
             <div css={[{ padding: 30 }]}>

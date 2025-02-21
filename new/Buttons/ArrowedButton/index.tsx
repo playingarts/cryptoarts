@@ -1,23 +1,15 @@
 import { FC, HTMLAttributes } from "react";
-import ButtonTemplate from "../Templates/ButtonTemplate";
 import IconArrow from "../../Icons/IconArrow";
+import Button, { Props } from "../Button";
 
-const ArrowedButton: FC<HTMLAttributes<HTMLElement>> = ({
+const ArrowedButton: FC<HTMLAttributes<HTMLElement> & Props> = ({
   children,
   ...props
 }) => (
-  <ButtonTemplate
-    css={(theme) => [
-      {
-        padding: "0 0",
-        color: theme.colors.dark_gray,
-      },
-    ]}
-    {...props}
-  >
+  <Button base={true} noColor={true} {...props}>
     <IconArrow css={[{ marginRight: 10 }]} />
     {children}
-  </ButtonTemplate>
+  </Button>
 );
 
 export default ArrowedButton;

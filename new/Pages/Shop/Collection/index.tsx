@@ -4,7 +4,7 @@ import Grid from "../../../../components/Grid";
 import Text from "../../../Text";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Link from "../../../Link";
-import ButtonTemplate from "../../../Buttons/Templates/ButtonTemplate";
+import ButtonTemplate from "../../../Buttons/Button";
 import Plus from "../../../Icons/Plus";
 import Rating from "../../../Icons/Rating";
 import NewLink from "../../../Link/NewLink";

@@ -1,0 +1,23 @@
+import { FC, HTMLAttributes } from "react";
+
+const Label: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
+  <div
+    css={[
+      {
+        fontSize: 14,
+        fontWeight: 400,
+        lineHeight: "18px",
+        textAlign: "left",
+        textUnderlinePosition: "from-font",
+        textDecorationSkipInk: "none",
+        padding: "6px 10px 4px",
+        background: "white",
+        borderRadius: "100%",
+      },
+    ]}
+  >
+    {children}
+  </div>
+);
+
+export default Label;

@@ -3,7 +3,7 @@ import Instagram from "../../Icons/Instagram";
 import Twitter from "../../Icons/Twitter";
 import Youtube from "../../Icons/Youtube";
 import { socialLinks } from "../../../source/consts";
-import ShopArrowButton from "../../Buttons/ShopArrowButton";
+import ArrowButton from "../../Buttons/ArrowButton";
 
 const CTA = () => (
   <>
@@ -18,7 +18,7 @@ const CTA = () => (
         <Youtube />
       </Link>
     </div>
-    <ShopArrowButton />
+    <ArrowButton>Shop</ArrowButton>
   </>
 );
 

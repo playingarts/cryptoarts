@@ -83,6 +83,9 @@ export const colorLiterals = {
   black: "#000000",
   brightGray: "#EFEFEF",
   svggray: "#C4C4C4",
+} as const;
+
+export const customcolors = {
   decks: {
     zero: {
       header: "#CBDA75",
@@ -203,6 +206,24 @@ export const typographyLiterals = {
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
   },
+  newh4: {
+    fontFamily: "'Alliance No.2'",
+    fontSize: 25,
+    fontWeight: 400,
+    lineHeight: "45px",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+  },
+  newh3: {
+    fontFamily: "'Alliance No.2'",
+    fontSize: 35,
+    fontWeight: 400,
+    lineHeight: "53px",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+  },
   newh2: {
     fontFamily: "'Alliance No.2'",
     fontSize: 55,
@@ -216,7 +237,7 @@ export const typographyLiterals = {
     //styleName: Paragraph big;
     fontSize: 35,
     fontWeight: 400,
-    lineHeight: "52.5px",
+    lineHeight: "53px",
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
@@ -410,8 +431,8 @@ export const theme: Theme = {
   transitions: {
     fast: (attrs: string | Array<string>) =>
       typeof attrs === "object"
-        ? attrs.map((attr) => `${attr} 0.25s ease`).join(", ")
-        : `${attrs} 0.25s ease`,
+        ? attrs.map((attr) => `${attr} 0.25s ease-in-out`).join(", ")
+        : `${attrs} 0.25s ease-in-out`,
     normal: (attrs: string | Array<string>) =>
       typeof attrs === "string"
         ? `${attrs} 0.4s ease`
@@ -421,7 +442,7 @@ export const theme: Theme = {
         ? `${attrs} 0.55s ease`
         : attrs.map((attr) => `${attr} 0.55s ease`).join(", "),
   },
-  colors: colorLiterals,
+  colors: { ...colorLiterals, ...customcolors },
   typography: typographyLiterals,
 
   mq,
@@ -443,7 +464,7 @@ declare module "@emotion/react" {
       normal: (property: transitionProperty) => string;
       slow: (property: transitionProperty) => string;
     };
-    colors: typeof colorLiterals;
+    colors: typeof colorLiterals & typeof customcolors;
     mq: breakpointsObjectType;
     maxMQ: breakpointsObjectType;
     typography: typeof typographyLiterals;

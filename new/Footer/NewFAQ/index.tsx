@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import Intro from "../../Intro";
-import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
+import ButtonTemplate from "../../Buttons/Button";
 import Grid from "../../../components/Grid";
 import Item from "./Item";
 import { mockCard } from "../../../mocks/card";

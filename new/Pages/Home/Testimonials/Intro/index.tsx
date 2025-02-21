@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes, RefObject } from "react";
-import ButtonTemplate from "../../../../Buttons/Templates/ButtonTemplate";
+import ButtonTemplate from "../../../../Buttons/Button";
 import Arrow from "../../../../Icons/Arrow";
 import NewIntro from "../../../../Intro";
 

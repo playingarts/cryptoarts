@@ -1,27 +1,22 @@
 import { FC, HTMLAttributes } from "react";
-import ButtonTemplate from "../Templates/ButtonTemplate";
 import Explore from "../../Icons/Explore";
+import Button, { Props } from "../Button";
 
-const ExploreButton: FC<HTMLAttributes<HTMLElement>> = ({
+const ExploreButton: FC<HTMLAttributes<HTMLElement> & Props> = ({
   children,
   ...props
 }) => {
   return (
-    <ButtonTemplate
+    <Button
       {...props}
-      css={(theme) => [
+      css={[
         {
-          color: "white",
-          background: theme.colors.dark_gray,
-          paddingRight: 15,
-          "&:hover": {
-            background: theme.colors.dark_gray_hover,
-          },
+          paddingLeft: 10,
         },
       ]}
     >
-      <Explore /> {children}
-    </ButtonTemplate>
+      <Explore css={[{ marginRight: 10 }]} /> {children}
+    </Button>
   );
 };
 

@@ -5,7 +5,7 @@ import frag from "../../../../Shaders/Xemantic/index.glsl";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
-import ButtonTemplate from "../../../Buttons/Templates/ButtonTemplate";
+import ButtonTemplate from "../../../Buttons/Button";
 import Apple from "../../../Icons/Apple";
 import Android from "../../../Icons/Android";
 

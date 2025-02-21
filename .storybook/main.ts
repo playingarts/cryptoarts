@@ -18,9 +18,8 @@ const config: StorybookConfig = {
   addons: [
     "@storybook/addon-onboarding",
     "@storybook/addon-essentials",
-    "@chromatic-com/storybook",
     "@storybook/addon-interactions",
-
+    "@storybook/addon-designs",
     "@storybook/addon-links",
     "msw-storybook-addon",
     // "storybook-addon-next-router",

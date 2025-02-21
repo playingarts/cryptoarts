@@ -1,5 +1,5 @@
 import Menu from "../../Icons/Menu";
-import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
+import Button from "../../Buttons/Button";
 import { FC, HTMLAttributes } from "react";
 import ScandiBlock from "../../ScandiBlock";
 import { useRouter } from "next/router";
@@ -18,10 +18,13 @@ const TitleButton: FC<
 
   return (
     <ScandiBlock css={{ gridColumn: "span 3", height: "100%" }} {...props}>
-      <ButtonTemplate
+      <Button
+        base={true}
         css={(theme) => [
           {
-            color: theme.colors.dark_gray,
+            paddingLeft: 10,
+            paddingRight: 15,
+            color: theme.colors.dark_gray + " !important",
             transition: theme.transitions.fast("background"),
             "&:hover": {
               background: colord(theme.colors.white).alpha(0.5).toRgbString(),
@@ -30,18 +33,10 @@ const TitleButton: FC<
         ]}
         onClick={() => setShow(true)}
       >
-        <Menu />
-        <Text
-          css={(theme) => [
-            {
-              transition: theme.transitions.slow("color"),
-              color: theme.colors.dark_gray,
-            },
-          ]}
-        >
-          {deck ? deck.title : "Playing Arts"}
-        </Text>
-      </ButtonTemplate>
+        <Menu css={{ marginRight: 10 }} />
+
+        {deck ? deck.title : "Playing Arts"}
+      </Button>
     </ScandiBlock>
   );
 };

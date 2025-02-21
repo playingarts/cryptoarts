@@ -5,7 +5,7 @@ import Grid from "../../../../components/Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
-import ArrowButton from "../../../Buttons/Templates/ArrowButton";
+import ArrowButton from "../../../Buttons/ArrowButton";
 
 const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
@@ -63,7 +63,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             Carefully crafted on legendary Bicycle® paper for unparalleled
             artistry and tactile quality.
           </Text>
-          <ArrowButton variant="accent" css={[{ marginTop: 30 }]}>
+          <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
             Shop the collection
           </ArrowButton>
         </div>

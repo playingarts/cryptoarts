@@ -8,7 +8,7 @@ import EmailForm from "../EmailForm";
 import Instagram from "../Icons/Instagram";
 import Twitter from "../Icons/Twitter";
 import Youtube from "../Icons/Youtube";
-import ButtonTemplate from "../Buttons/Templates/ButtonTemplate";
+import ButtonTemplate from "../Buttons/Button";
 import Apple from "../Icons/Apple";
 import Android from "../Icons/Android";
 import Visa from "../../components/Icons/Visa";
@@ -17,7 +17,7 @@ import Amex from "../../components/Icons/Amex";
 import PayPal from "../../components/Icons/PayPal";
 import ApplePay from "../Icons/ApplePay";
 import GooglePay from "../Icons/GooglePay";
-import ArrowButton from "../Buttons/Templates/ArrowButton";
+import ArrowButton from "../Buttons/ArrowButton";
 import NewFAQ from "./NewFAQ";
 import Testimonials from "../Pages/Home/Testimonials";
 
@@ -164,7 +164,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
         ]}
       >
         <div>
-          <ArrowButton variant="accent" css={[{ marginTop: 30 }]}>
+          <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
             Start your collection
           </ArrowButton>
         </div>

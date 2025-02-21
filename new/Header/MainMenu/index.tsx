@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 import ScandiBlock from "../../ScandiBlock";
-import ButtonTemplate from "../../Buttons/Templates/ButtonTemplate";
+import ButtonTemplate from "../../Buttons/Button";
 import { colord } from "colord";
 import Delete from "../../Icons/Delete";
 import Text from "../../Text";
