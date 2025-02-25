@@ -106,6 +106,7 @@ const Header: FC<Props> = ({ ...props }) => {
         }
       >
         <TitleButton
+          inset={showSiteNav !== "afterTop"}
           setShow={setShowMenu}
           css={(theme) => [
             { transition: theme.transitions.fast("border-color") },
@@ -125,6 +126,7 @@ const Header: FC<Props> = ({ ...props }) => {
               transition: theme.transitions.fast("border-color"),
             },
           ]}
+          inset={showSiteNav !== "afterTop" && true}
           style={
             (showSiteNav === "afterTop" && { borderColor: "transparent" }) || {}
           }

@@ -12,9 +12,9 @@ const IconArrow: FC<HTMLAttributes<SVGElement>> = ({ ...props }) => (
     <path
       d="M17 5.7V16.5M17 16.5H6.2M17 16.5L5 4.5"
       stroke="#333333"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

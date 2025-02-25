@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, Fragment, HTMLAttributes } from "react";
 import Intro from "../../../Intro";
 import ButtonTemplate from "../../../Buttons/Button";
 import Grid from "../../../../components/Grid";
@@ -7,6 +7,7 @@ import Text from "../../../Text";
 import Play from "../../../Icons/Play";
 import Link from "../../../Link";
 import Dot from "../../../Icons/Dot";
+import ArrowButton from "../../../Buttons/ArrowButton";
 
 const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { podcasts } = usePodcasts({
@@ -15,7 +16,6 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   //   const podcast = podcasts && podcasts[0];
   const latestPodcast = podcasts && podcasts[0];
-  console.log(podcasts);
 
   return (
     <div
@@ -26,14 +26,12 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         paragraphText="Conversations with artists exploring inspiration, stories, and creativity."
         linkNewText="Watch all episodes"
         bottom={
-          <ButtonTemplate
-            css={(theme) => [{ padding: 0, color: theme.colors.dark_gray }]}
-          >
+          <ButtonTemplate base={true} noColor={true} css={{ marginTop: 120 }}>
             Recent episodes
           </ButtonTemplate>
         }
       />
-      <Grid css={[!podcasts && { "> *": { height: 397 } }]}>
+      <Grid css={[!podcasts && { "> *": { height: 397 } }, { marginTop: 30 }]}>
         <div
           css={(theme) => [
             {
@@ -70,17 +68,17 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 <ButtonTemplate
                   css={(theme) => [
                     {
-                      color: "white",
-                      background: theme.colors.dark_gray,
-                      paddingRight: 15,
                       marginTop: 30,
-                      "&:hover": {
-                        background: theme.colors.dark_gray_hover,
-                      },
+                      paddingLeft: 10,
                     },
                   ]}
                 >
-                  <Play /> Watch
+                  <Play
+                    css={{
+                      marginRight: 10,
+                    }}
+                  />
+                  Watch episode
                 </ButtonTemplate>
               </Link>
             </>
@@ -100,16 +98,18 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {podcasts &&
             podcasts.map((podcast) =>
               podcast ? (
-                <>
+                <Fragment key={podcast.desc + podcast.podcastName}>
                   <Text typography="paragraphSmall">EP{podcast.episode}</Text>
-                  <Text
-                    typography="linkNewTypography"
-                    css={[{ gridColumn: "span 3" }]}
+                  <ArrowButton
+                    css={[{ gridColumn: "span 3", textAlign: "start" }]}
+                    noColor={true}
+                    base={true}
+                    size="small"
                   >
-                    {podcast.name} <Dot />
-                  </Text>
+                    {podcast.name}
+                  </ArrowButton>
                   <Text typography="paragraphSmall">{podcast.time}</Text>
-                </>
+                </Fragment>
               ) : undefined
             )}
         </Grid>

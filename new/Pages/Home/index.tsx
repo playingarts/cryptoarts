@@ -11,7 +11,7 @@ import Footer from "../../Footer";
 type Props = {};
 
 const Home = (props: Props) => {
-  return process.env.SHOW_NEW !== "true" ? null : (
+  return (
     <>
       <Header />
       <Hero />
@@ -25,5 +25,12 @@ const Home = (props: Props) => {
     </>
   );
 };
+
+export function getStaticProps() {
+  return {
+    // returns the default 404 page with a status code of 404 in production
+    notFound: process.env.SHOW_NEW !== "true",
+  };
+}
 
 export default withApollo(Home);

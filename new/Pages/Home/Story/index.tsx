@@ -31,11 +31,12 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
             ["1100+", "Artists"],
           ].map((data) => (
             <div
+              key={JSON.stringify(data)}
               css={(theme) => [
                 {
                   gridColumn: "span 2",
                   paddingTop: 15,
-                  boxShadow: "0px -1px 1px rgba(0, 0, 0, 1)",
+                  boxShadow: "0px -1px 0px rgba(0, 0, 0, 1)",
                 },
               ]}
             >

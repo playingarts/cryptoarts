@@ -1,15 +1,23 @@
 import { gql } from "@apollo/client";
 import GraphQLJSON from "graphql-type-json";
-import { model, Model, models, Schema } from "mongoose";
+import { model, Model, models, Schema, Types } from "mongoose";
 import { getProduct } from "./product";
 
-const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
+export type MongoDeck = Omit<GQL.Deck, "previewCards"> & {
+  previewCards?: string[];
+};
+
+const schema = new Schema<MongoDeck, Model<MongoDeck>, MongoDeck>({
   title: String,
   short: String,
   slug: String,
   info: String,
   image: String,
   intro: String,
+  previewCards: {
+    type: [{ type: Types.ObjectId, ref: "Card" }],
+    default: null,
+  },
   backgroundImage: { type: String, default: null },
   description: { type: String, default: null },
   openseaCollection: { type: Object, default: null },
@@ -19,13 +27,17 @@ const schema = new Schema<GQL.Deck, Model<GQL.Deck>, GQL.Deck>({
   labels: { type: Object, default: null },
 });
 
-export const Deck = (models.Deck as Model<GQL.Deck>) || model("Deck", schema);
+export const Deck = (models.Deck as Model<MongoDeck>) || model("Deck", schema);
 
-export const getDecks = async () => Deck.find();
+export const getDecks = async () =>
+  Deck.find().populate("previewCards") as unknown as Promise<GQL.Deck[]>;
 
-export const getDeck = async (
+export const getDeck = (
   options: Pick<GQL.Deck, "slug"> | Pick<GQL.Deck, "_id">
-) => (await Deck.findOne(options)) || undefined;
+) =>
+  Deck.findOne(options).populate(
+    "previewCards"
+  ) as unknown as Promise<GQL.Deck>;
 
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
@@ -63,6 +75,7 @@ export const typeDefs = gql`
     product: Product
     editions: [Edition!]
     labels: [String!]
+    previewCards: [Card!]
   }
 
   type Edition {

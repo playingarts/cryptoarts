@@ -122,7 +122,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
       >
         <input
           type="email"
-          placeholder="Your email"
+          placeholder="Your e-mail"
           css={(theme) => ({
             ...(theme.typography.newParagraph as CSSObject),
             padding: 0,
@@ -166,7 +166,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
           ]}
         >
           <Text css={(theme) => [{ color: theme.colors.black50 }]}>
-            Go <Arrow css={[{ marginLeft: 10 }]} />
+            Deal <Arrow css={[{ marginLeft: 10 }]} />
           </Text>
         </button>
       </form>

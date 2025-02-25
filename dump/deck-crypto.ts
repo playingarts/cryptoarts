@@ -1,9 +1,10 @@
+import { MongoDeck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
 import { createDeck } from "./_utils";
 
 export const slug = "crypto";
 
-export const deck: Omit<GQL.Deck, "_id"> = {
+export const deck: Omit<MongoDeck, "_id"> = {
   title: "Crypto Edition",
   short: "Crypto",
   slug,
@@ -19,7 +20,12 @@ export const deck: Omit<GQL.Deck, "_id"> = {
     address: "0xc22616e971a670e72f35570337e562c3e515fbfe",
     name: "cryptoedition",
   },
-  labels: ["nft", "ar"],
+  labels: ["NFT", "AR-Enhancedar"],
+  previewCards: [
+    "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/3-h-4J4x76NB.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/7-d-3H4G33ZA.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/crypto/cards/j-s-3NE4b2t4.jpg",
+  ],
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     material: "Bicycle® paper with Air-cushion finish",

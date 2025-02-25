@@ -12,9 +12,9 @@ const Arrow: FC<HTMLAttributes<SVGElement>> = (props) => (
     <path
       d="M11.8485 3.36325L19.4853 11M19.4853 11L11.8485 18.6368M19.4853 11H2.51471"
       stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 );

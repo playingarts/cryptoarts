@@ -12,7 +12,7 @@ const Hero = (props: Props) => {
   return (
     <Grid
       css={{
-        height: 750,
+        height: 709,
         background: card.cardColor,
         alignContent: "end",
         paddingBottom: 60,

@@ -41,6 +41,8 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props> = ({
           "&:hover": [
             {
               cursor: "pointer",
+            },
+            !base && {
               opacity: 0.9,
             },
             noColor === false && {

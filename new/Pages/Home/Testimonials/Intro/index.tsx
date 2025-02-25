@@ -18,6 +18,7 @@ const Intro: FC<
           {
             display: "flex",
             gap: 5,
+            marginTop: 120,
             "> *": {
               display: "flex",
               justifyContent: "center",
@@ -76,14 +77,7 @@ const Intro: FC<
       </div>
     }
     beforeLinkNew={
-      <ButtonTemplate
-        css={(theme) => [
-          {
-            color: theme.colors.dark_gray,
-            border: `currentColor solid 1px`,
-          },
-        ]}
-      >
+      <ButtonTemplate bordered={true} size="small">
         Leave a review
       </ButtonTemplate>
     }

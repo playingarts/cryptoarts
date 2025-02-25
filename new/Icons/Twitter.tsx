@@ -9,7 +9,7 @@ const Twitter: FC<HTMLAttributes<SVGElement>> = (props) => (
     xmlns="http://www.w3.org/2000/svg"
     {...props}
   >
-    <g clip-path="url(#clip0_98_1188)">
+    <g clipPath="url(#clip0_98_1188)">
       <mask
         id="mask0_98_1188"
         css={{ maskType: "luminance" }}

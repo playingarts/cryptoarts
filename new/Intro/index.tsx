@@ -4,6 +4,7 @@ import ArrowedButton from "../Buttons/ArrowedButton";
 import Dot from "../Icons/Dot";
 import ScandiBlock from "../ScandiBlock";
 import Text from "../Text";
+import ArrowButton from "../Buttons/ArrowButton";
 
 const Intro: FC<
   HTMLAttributes<HTMLElement> & {
@@ -12,7 +13,6 @@ const Intro: FC<
     beforeLinkNew?: JSX.Element;
     linkNewText: String;
     bottom?: JSX.Element;
-    noHeight?: boolean;
   }
 > = ({
   arrowedText,
@@ -20,7 +20,6 @@ const Intro: FC<
   linkNewText,
   bottom,
   beforeLinkNew,
-  noHeight,
   ...props
 }) => (
   <Grid css={[{ paddingTop: 60, overflow: "hidden" }]}>
@@ -38,18 +37,15 @@ const Intro: FC<
           justifyContent: "space-between",
           alignItems: "start",
         },
-        !noHeight && {
-          height: 370,
-        },
       ]}
     >
       <div>
         <Text typography="paragraphBig">{paragraphText}</Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
           {beforeLinkNew}
-          <Text typography="linkNewTypography">
-            {linkNewText} <Dot />
-          </Text>
+          <ArrowButton size="small" base={true} noColor={true}>
+            {linkNewText}
+          </ArrowButton>
         </div>
       </div>
       {bottom}

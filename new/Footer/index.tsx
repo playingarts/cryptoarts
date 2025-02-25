@@ -20,6 +20,7 @@ import GooglePay from "../Icons/GooglePay";
 import ArrowButton from "../Buttons/ArrowButton";
 import NewFAQ from "./NewFAQ";
 import Testimonials from "../Pages/Home/Testimonials";
+import Link from "../Link";
 
 export const links: { [x: string]: String[] } = {
   "The project": ["Home", "Our story", "AR app", "Gallery", "Press"],
@@ -42,9 +43,9 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
       ]}
     >
       <ScandiBlock
+        opacity={0.3}
         css={(theme) => [
           {
-            borderColor: theme.colors.black30,
             gridColumn: "span 6",
             paddingTop: 15,
             alignItems: "start",
@@ -86,29 +87,50 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
 
       {Object.keys(links).map((key) => (
         <ScandiBlock
+          key={key + "Footer"}
+          opacity={0.3}
           css={(theme) => [
             {
-              borderColor: theme.colors.black30,
               gridColumn: "span 2",
               paddingTop: 15,
               flexDirection: "column",
               justifyContent: "space-between",
               alignItems: "start",
-              "> *": {
-                color: theme.colors.black50,
-              },
             },
           ]}
         >
-          <Text>{key}</Text>
-          <div css={[{ marginTop: 60 }]}>
+          <Text
+            typography="newh4"
+            css={(theme) => [
+              {
+                color: theme.colors.black50,
+              },
+            ]}
+          >
+            {key}
+          </Text>
+          <div css={[{ marginTop: 60, display: "grid", gap: 10 }]}>
             {links[key].map((item) => (
-              <NewLink
+              <Link
+                key={item + "Link"}
                 href={item.split(" ").join("").toLowerCase()}
                 css={[{ display: "block" }]}
               >
-                {item}
-              </NewLink>
+                <ArrowButton
+                  noColor={true}
+                  base={true}
+                  size="small"
+                  css={(theme) => [
+                    {
+                      display: "block",
+                      textAlign: "start",
+                      color: theme.colors.black50,
+                    },
+                  ]}
+                >
+                  {item}
+                </ArrowButton>
+              </Link>
             ))}
           </div>
         </ScandiBlock>
@@ -116,7 +138,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
       <div css={[{ gridColumn: "span 6", marginTop: 60 }]}>
         <Text
           typography="paragraphSmall"
-          css={(theme) => [{ color: theme.colors.black30 }]}
+          css={(theme) => [{ color: theme.colors.black50 }]}
         >
           Download Playing Arts AR™ app
         </Text>
@@ -124,32 +146,32 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
           <ButtonTemplate
             css={(theme) => [
               {
-                color: "white",
-                background: theme.colors.dark_gray,
-                paddingRight: 15,
+                paddingLeft: 10,
                 marginRight: 15,
-                "&:hover": {
-                  background: theme.colors.dark_gray_hover,
-                },
               },
             ]}
           >
-            <Apple /> iPhone
+            <Apple
+              css={{
+                marginRight: 10,
+              }}
+            />
+            iPhone
           </ButtonTemplate>
 
           <ButtonTemplate
             css={(theme) => [
               {
-                color: "white",
-                background: theme.colors.dark_gray,
-                paddingRight: 15,
-                "&:hover": {
-                  background: theme.colors.dark_gray_hover,
-                },
+                paddingLeft: 10,
               },
             ]}
           >
-            <Android /> Android
+            <Android
+              css={{
+                marginRight: 10,
+              }}
+            />
+            Android
           </ButtonTemplate>
         </div>
       </div>
@@ -171,11 +193,11 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
       </div>
       <div css={[{ gridColumn: "span 6", marginTop: 30 }]}>
         <ScandiBlock
+          opacity={0.3}
           css={(theme) => [
             {
               paddingTop: 30,
               color: theme.colors.black30,
-              borderColor: theme.colors.black30,
               display: "flex",
               gap: 30,
             },
@@ -191,11 +213,11 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
       </div>
       <div css={[{ gridColumn: "span 6", marginTop: 30 }]}>
         <ScandiBlock
+          opacity={0.3}
           css={(theme) => [
             {
               paddingTop: 30,
               color: theme.colors.black30,
-              borderColor: theme.colors.black30,
               display: "flex",
               gap: 30,
             },
@@ -207,6 +229,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
               {
                 a: { textDecoration: "underline", color: theme.colors.black50 },
                 color: theme.colors.black50,
+                maxWidth: 520,
               },
             ]}
           >

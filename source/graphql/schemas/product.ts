@@ -34,9 +34,12 @@ const getProducts = (ids?: string[]) =>
 export const resolvers: GQL.Resolvers = {
   Query: {
     products: (_, { ids }) => {
-      return getProducts(ids).populate(["deck"]) as unknown as Promise<
-        GQL.Product[]
-      >;
+      return getProducts(ids).populate([
+        {
+          path: "deck",
+          populate: { path: "previewCards", populate: { path: "artist" } },
+        },
+      ]) as unknown as Promise<GQL.Product[]>;
     },
     convertEurToUsd: async (_, { eur }) => {
       try {

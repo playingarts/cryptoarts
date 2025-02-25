@@ -33,7 +33,7 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               display: "none",
             },
             msOverflowStyle: "none",
-            "scrollbar-width": "none",
+            scrollbarWidth: "none",
           },
         ]}
       >

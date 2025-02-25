@@ -1,10 +1,10 @@
 import { Artist } from "../source/graphql/schemas/artist";
-import { Card, MongoCard } from "../source/graphql/schemas/card";
-import { Deck } from "../source/graphql/schemas/deck";
+import { Card, MongoCard, getCardByImg } from "../source/graphql/schemas/card";
+import { Deck, MongoDeck } from "../source/graphql/schemas/deck";
 
 export const createDeck = async (
   slug: string,
-  deck: Omit<GQL.Deck, "_id">,
+  deck: Omit<MongoDeck, "_id">,
   cards: Omit<MongoCard, "_id">[]
 ) => {
   const currentDeck = await Deck.findOne({ slug });
@@ -14,7 +14,7 @@ export const createDeck = async (
     await Card.deleteMany({ deck: currentDeck._id });
   }
 
-  const newDeck = await Deck.create(deck);
+  const newDeck = await Deck.create((({ previewCards, ...o }) => o)(deck));
 
   const newCards = await Promise.all(
     cards.map(async (card) => {
@@ -57,6 +57,31 @@ export const createDeck = async (
   );
 
   await Card.insertMany(newCards);
+  let previewCards = deck.previewCards;
+
+  if (previewCards) {
+    const ids = (
+      await Promise.all(
+        previewCards.map(
+          async (img) => (await getCardByImg({ img })) || { _id: undefined }
+        )
+      )
+    ).map((card) => card._id);
+
+    ids.map((_id) => {
+      if (!_id) {
+        throw new Error(
+          `Cannot reference Card: ${JSON.stringify(
+            previewCards
+          )} in: ${JSON.stringify(newDeck)}.`
+        );
+      }
+    });
+
+    previewCards = ids;
+  }
+
+  await Deck.updateOne({ _id: newDeck._id }, { previewCards });
 };
 
 export const populateDeckId = async <T>(

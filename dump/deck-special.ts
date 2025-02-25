@@ -1,9 +1,10 @@
+import { MongoDeck } from "../source/graphql/schemas/deck";
 import { connect } from "../source/mongoose";
 import { createDeck } from "./_utils";
 
 export const slug = "special";
 
-export const deck: Omit<GQL.Deck, "_id"> = {
+export const deck: Omit<MongoDeck, "_id"> = {
   title: "Special Edition",
   short: "Special",
   slug,
@@ -14,7 +15,13 @@ export const deck: Omit<GQL.Deck, "_id"> = {
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_special.png",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_special_bg.jpg",
-  labels: ["contest"],
+  labels: ["Contest", "Limited Edition"],
+
+  previewCards: [
+    "https://s3.amazonaws.com/img.playingarts.com/contest/retina/388.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/contest/retina/792.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/contest/retina/104.jpg",
+  ],
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     material: "Bicycle® paper with Air-cushion finish",

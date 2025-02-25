@@ -1,9 +1,10 @@
 import { connect } from "../source/mongoose";
 import { createDeck } from "./_utils";
+import { MongoDeck } from "../source/graphql/schemas/deck";
 
 export const slug = "one";
 
-export const deck: Omit<GQL.Deck, "_id"> = {
+export const deck: Omit<MongoDeck, "_id"> = {
   title: "Edition One",
   short: "One",
   slug,
@@ -13,6 +14,11 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_one.png",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_one_bg.jpg",
+  previewCards: [
+    "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/6-of-clubs-tobias-van-schneider.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/king-of-diamonds-saturno-the-creatter.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/jack-of-diamonds-newfren.jpg",
+  ],
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     material: "Bicycle® paper with Air-cushion finish",

@@ -97,6 +97,13 @@ export const getCard = ({ id }: GQL.QueryCardArgs) =>
     "animator",
   ]) as unknown as Promise<GQL.Card>;
 
+export const getCardByImg = ({ img }: GQL.QueryCardByImgArgs) =>
+  Card.findOne({ img }).populate([
+    "artist",
+    "deck",
+    "animator",
+  ]) as unknown as Promise<GQL.Card>;
+
 export const getCardByTraits = ({
   suit,
   value,
@@ -271,6 +278,7 @@ export const resolvers: GQL.Resolvers = {
   Query: {
     cards: async (_, args) => await getCards(args),
     card: (_, args) => getCard(args),
+    cardByImg: (_, args) => getCardByImg(args),
     randomCards: (_, args) => getCards(args),
     heroCards: (_, args) => getHeroCards(args),
   },
@@ -288,6 +296,7 @@ export const typeDefs = gql`
     ): [Card!]!
     randomCards(shuffle: Boolean, limit: Int): [Card!]!
     card(id: ID!): Card
+    cardByImg(img: ID!): Card
     heroCards(deck: ID, slug: String): [Card!]!
   }
 

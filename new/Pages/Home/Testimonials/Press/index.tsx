@@ -10,6 +10,7 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     css={(theme) => ({
       gap: theme.spacing(3),
       marginTop: 50,
+      lineHeight: "80px",
       "> *": {
         color: theme.colors.third_black,
       },

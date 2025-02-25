@@ -273,7 +273,7 @@ export const typographyLiterals = {
     //styleName: Paragraph big;
     fontSize: 12,
     fontWeight: 400,
-    lineHeight: "160%",
+    lineHeight: 1.4333,
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
@@ -431,8 +431,8 @@ export const theme: Theme = {
   transitions: {
     fast: (attrs: string | Array<string>) =>
       typeof attrs === "object"
-        ? attrs.map((attr) => `${attr} 0.25s ease-in-out`).join(", ")
-        : `${attrs} 0.25s ease-in-out`,
+        ? attrs.map((attr) => `${attr} 0.15s ease-in-out`).join(", ")
+        : `${attrs} 0.15s ease-in-out`,
     normal: (attrs: string | Array<string>) =>
       typeof attrs === "string"
         ? `${attrs} 0.4s ease`

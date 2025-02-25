@@ -1,13 +1,16 @@
 import { FC, HTMLAttributes } from "react";
 import Grid from "../../../../components/Grid";
 import { useDailyCard } from "../../../../hooks/card";
-import placeholder from "../../../../mocks/images/deckCollectionPreview.png";
+import image1 from "../../../../mocks/images/homeGallery/1.png";
+import image2 from "../../../../mocks/images/homeGallery/2.png";
+import image3 from "../../../../mocks/images/homeGallery/3.png";
+import image4 from "../../../../mocks/images/homeGallery/4.png";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import ArrowButton from "../../../Buttons/ArrowButton";
-import Dot from "../../../Icons/Dot";
 import KickStarter from "../../../Icons/KickStarter";
 import ScandiBlock from "../../../ScandiBlock";
 import Text from "../../../Text";
+import background from "../../../../mocks/images/backgroundImage.png";
 
 const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { dailyCard } = useDailyCard();
@@ -33,7 +36,6 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {
             gridColumn: "span 6",
             display: "block",
-            height: 370,
             paddingTop: 15,
           },
         ]}
@@ -45,17 +47,20 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
           Shop the collection
         </ArrowButton>
+        <Text css={[{ paddingBottom: 15, marginTop: 150 }]} typography="newh4">
+          Card of the day
+        </Text>
       </ScandiBlock>
 
       <Grid
         css={[
           {
             gridColumn: "1/-1",
+            gap: 30,
             img: { background: " white", borderRadius: 16 },
           },
         ]}
       >
-        <Text css={[{ gridColumn: "span 6 / -1" }]}>Card of the day</Text>
         <img
           css={[
             {
@@ -65,7 +70,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={placeholder.src}
+          src={image1.src}
           alt=""
         />
         <img
@@ -77,7 +82,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={placeholder.src}
+          src={image2.src}
           alt=""
         />
         <img
@@ -90,7 +95,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={(dailyCard && dailyCard.cardBackground) || ""}
+          src={background.src}
           alt=""
         />
         <img
@@ -102,7 +107,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={placeholder.src}
+          src={image3.src}
           alt=""
         />
         <img
@@ -114,13 +119,14 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={placeholder.src}
+          src={image4.src}
           alt=""
         />
 
         <div
-          css={[
+          css={(theme) => [
             {
+              background: theme.colors.soft_gray,
               gridColumn: "span 3",
               aspectRatio: "1/1",
               width: "100%",
@@ -128,13 +134,15 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               padding: 30,
               display: "grid",
               alignItems: "end",
+              borderRadius: 15,
             },
           ]}
         >
           <KickStarter />
-          <Text typography="linkNewTypography" css={[{ marginTop: 30 }]}>
-            5x Kickstarter funded <Dot />
-          </Text>
+
+          <ArrowButton size="small" base={true} noColor={true}>
+            5x Kickstarter funded
+          </ArrowButton>
         </div>
         <div css={[{ gridColumn: "span 6/-1", marginTop: 30 }]}>
           <div css={[{ display: "flex", gap: 30 }]}>
@@ -156,9 +164,14 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {dailyCard && dailyCard.info}
           </Text>
 
-          <Text typography="linkNewTypography" css={[{ marginTop: 30 }]}>
-            Discover the artwork <Dot />
-          </Text>
+          <ArrowButton
+            size="small"
+            noColor={true}
+            base={true}
+            css={[{ marginTop: 30 }]}
+          >
+            Discover the artwork
+          </ArrowButton>
         </div>
       </Grid>
     </Grid>

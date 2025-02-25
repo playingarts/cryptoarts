@@ -1,14 +1,13 @@
 import Menu from "../../Icons/Menu";
 import Button from "../../Buttons/Button";
 import { FC, HTMLAttributes } from "react";
-import ScandiBlock from "../../ScandiBlock";
+import ScandiBlock, { Props } from "../../ScandiBlock";
 import { useRouter } from "next/router";
 import { useDeck } from "../../../hooks/deck";
 import { colord } from "colord";
-import Text from "../../Text";
 
 const TitleButton: FC<
-  HTMLAttributes<HTMLElement> & { setShow: (x: boolean) => void }
+  HTMLAttributes<HTMLElement> & { setShow: (x: boolean) => void } & Props
 > = ({ setShow, ...props }) => {
   const {
     query: { deckId },
@@ -17,7 +16,11 @@ const TitleButton: FC<
   const { deck } = useDeck({ variables: { slug: deckId } });
 
   return (
-    <ScandiBlock css={{ gridColumn: "span 3", height: "100%" }} {...props}>
+    <ScandiBlock
+      css={{ gridColumn: "span 3", height: "100%" }}
+      inset={true}
+      {...props}
+    >
       <Button
         base={true}
         css={(theme) => [

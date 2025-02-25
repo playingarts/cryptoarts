@@ -27,6 +27,7 @@ interface Query {
   cards: Array<Card>;
   randomCards: Array<Card>;
   card?: Maybe<Card>;
+  cardByImg?: Maybe<Card>;
   heroCards: Array<Card>;
   products: Array<Product>;
   convertEurToUsd?: Maybe<Scalars['Float']['output']>;
@@ -79,6 +80,11 @@ interface QueryRandomCardsArgs {
 
 interface QueryCardArgs {
   id: Scalars['ID']['input'];
+}
+
+
+interface QueryCardByImgArgs {
+  img: Scalars['ID']['input'];
 }
 
 
@@ -177,6 +183,7 @@ interface Deck {
   product?: Maybe<Product>;
   editions?: Maybe<Array<Edition>>;
   labels?: Maybe<Array<Scalars['String']['output']>>;
+  previewCards?: Maybe<Array<Card>>;
 }
 
 interface Edition {
@@ -577,6 +584,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryCardsArgs>>;
   randomCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryRandomCardsArgs>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
+  cardByImg?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardByImgArgs, 'img'>>;
   heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryHeroCardsArgs>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryProductsArgs>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
@@ -609,6 +617,7 @@ export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentT
   product?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType>;
   editions?: Resolver<Maybe<Array<ResolversTypes['Edition']>>, ParentType, ContextType>;
   labels?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  previewCards?: Resolver<Maybe<Array<ResolversTypes['Card']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

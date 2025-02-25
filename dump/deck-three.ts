@@ -1,9 +1,10 @@
 import { connect } from "../source/mongoose";
 import { createDeck } from "./_utils";
+import { MongoDeck } from "../source/graphql/schemas/deck";
 
 export const slug = "three";
 
-export const deck: Omit<GQL.Deck, "_id"> = {
+export const deck: Omit<MongoDeck, "_id"> = {
   title: "Edition Three",
   short: "Three",
   slug,
@@ -14,6 +15,12 @@ export const deck: Omit<GQL.Deck, "_id"> = {
     "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_three.png",
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_three_bg.jpg",
+
+  previewCards: [
+    "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/3-of-clubs-david-mcleod.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/jack-of-dimonds-alvaro-tapia-hidalgo.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/ace-of-spades-gmunk.jpg",
+  ],
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     material: "Bicycle® paper with Air-cushion finish",

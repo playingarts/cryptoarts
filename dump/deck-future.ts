@@ -1,9 +1,10 @@
 import { connect } from "../source/mongoose";
 import { createDeck } from "./_utils";
+import { MongoDeck } from "../source/graphql/schemas/deck";
 
 export const slug = "future";
 
-export const deck: Omit<GQL.Deck, "_id"> = {
+export const deck: Omit<MongoDeck, "_id"> = {
   title: "Future Edition",
   short: "Future",
   editions: [
@@ -13,7 +14,17 @@ export const deck: Omit<GQL.Deck, "_id"> = {
       url: slug + "2",
     },
   ],
-  labels: ["contest"],
+  previewCards: [
+    "https://s3.amazonaws.com/img.playingarts.com/future/cards/iain-macarthur.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/future/cards/noonmoon.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/future/cards/daniel-shubin.jpg",
+  ],
+  // previewCards: [
+  //   "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-kaloian-toshev.jpg",
+  //   "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-natalia-koniuszy.jpg",
+  //   "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-pau-del-toro.jpg",
+  // ],
+  labels: ["Contest", "Limited Edition"],
   slug,
   info: "Stories of the future, told through art. Two visionary decks exploring life 100 years from now, created by 299 global artists.",
   intro:

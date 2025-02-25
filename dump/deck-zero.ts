@@ -1,9 +1,10 @@
 import { connect } from "../source/mongoose";
 import { createDeck } from "./_utils";
+import { MongoDeck } from "../source/graphql/schemas/deck";
 
 export const slug = "zero";
 
-export const deck: Omit<GQL.Deck, "_id"> = {
+export const deck: Omit<MongoDeck, "_id"> = {
   title: "Edition Zero",
   short: "Zero",
   slug,
@@ -11,9 +12,14 @@ export const deck: Omit<GQL.Deck, "_id"> = {
   intro:
     "First launched in 2012, Edition Zero was where Playing Arts began. Featuring 55 stunning artworks from global artists, this deck set the stage for creativity and innovation in card design. Reissued in 2019 with Augmented Reality animations, it continues to inspire and push boundaries.",
   image: "https://s3.amazonaws.com/img.playingarts.com/www/decks/deck_zero.png",
-  labels: ["ar"],
+  labels: ["AR-Enchanced", "Limited Edition"],
   backgroundImage:
     "https://s3.amazonaws.com/img.playingarts.com/www/static/deck_zero_bg.jpg",
+  previewCards: [
+    "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-hearts-sara-blake.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-spades-design-is-dead.jpg",
+    "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-spades-simplevector.jpg",
+  ],
   properties: {
     size: "Poker, 88.9 × 63.5mm",
     material: "Bicycle® paper with Air-cushion finish",

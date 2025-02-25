@@ -47,6 +47,7 @@ const MainMenu: FC<
   HTMLAttributes<HTMLElement> & { setShow: Dispatch<SetStateAction<boolean>> }
 > = ({ setShow, ...props }) => {
   const { products } = useProducts();
+  console.log({ products });
 
   const [hover, setHover] = useState<string>("");
 
@@ -81,7 +82,7 @@ const MainMenu: FC<
             display: "none",
           },
           msOverflowStyle: "none",
-          "scrollbar-width": "none",
+          scrollbarWidth: "none",
         },
       ]}
       onClick={() => {

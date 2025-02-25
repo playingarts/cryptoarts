@@ -12,7 +12,8 @@ const Label: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
         textDecorationSkipInk: "none",
         padding: "6px 10px 4px",
         background: "white",
-        borderRadius: "100%",
+        borderRadius: 50,
+        textTransform: "capitalize",
       },
     ]}
   >

@@ -18,6 +18,15 @@ export const ProductsQuery = gql`
       deck {
         _id
         slug
+        labels
+        previewCards {
+          _id
+          img
+          artist {
+            _id
+            slug
+          }
+        }
         openseaCollection {
           name
           address

@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useState } from "react";
 import Grid from "../../../../components/Grid";
 import ShadertoyReact from "shadertoy-react";
 import frag from "../../../../Shaders/Xemantic/index.glsl";
@@ -8,6 +8,32 @@ import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Button";
 import Apple from "../../../Icons/Apple";
 import Android from "../../../Icons/Android";
+import AR from "../../../../mocks/images/AR.png";
+import Zoom from "../../../Zoom";
+
+const Presentation = () => {
+  const [hover, setHover] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      css={(theme) => [
+        {
+          gridColumn: "span 6",
+          background: theme.colors.accent,
+          borderRadius: 20,
+          position: "relative",
+        },
+      ]}
+    >
+      <img src={AR.src} alt="" css={[{ height: "100%", width: "100%" }]} />
+      <Zoom
+        css={[{ position: "absolute", right: 15, bottom: 15 }]}
+        style={{ opacity: hover ? 1 : 0 }}
+      />
+    </div>
+  );
+};
 
 const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <Grid css={[{ position: "relative", padding: "60px 75px" }]}>
@@ -26,69 +52,58 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
       css={(theme) => [
         {
           gridColumn: "span 6",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "start",
+          display: "block",
           paddingTop: 15,
         },
       ]}
     >
-      <ArrowedButton>Augmented Reality</ArrowedButton>
-      <Text>
+      <ArrowedButton css={[{ textAlign: "start" }]}>
+        Augmented Reality
+      </ArrowedButton>
+      <Text css={[{ paddingRight: 30, paddingTop: 100 }]}>
         Experience cards like never before! <br /> Use the Playing Arts AR™ app
-        to watch selected cards come alive with breathtaking animations—right in
-        your hands.
+        to watch selected cards come alive with breathtaking animations— right
+        in your hands.
       </Text>
-      <div>
-        <Text typography="paragraphSmall">
+      <div css={{ paddingTop: 90 }}>
+        <Text typography="paragraphSmall" css={{ marginBottom: 30 }}>
           Download free
           <br />
           Playing Arts AR™ mobile app
         </Text>
-        <div css={[{ display: "inline-block", marginTop: 30 }]}>
-          <ButtonTemplate
-            css={(theme) => [
-              {
-                color: "white",
-                background: theme.colors.dark_gray,
-                paddingRight: 15,
-                marginRight: 15,
-                "&:hover": {
-                  background: theme.colors.dark_gray_hover,
-                },
-              },
-            ]}
-          >
-            <Apple /> iPhone
-          </ButtonTemplate>
+        <ButtonTemplate
+          css={(theme) => [
+            {
+              paddingLeft: 10,
+              marginRight: 15,
+            },
+          ]}
+        >
+          <Apple
+            css={{
+              marginRight: 10,
+            }}
+          />
+          iPhone
+        </ButtonTemplate>
 
-          <ButtonTemplate
-            css={(theme) => [
-              {
-                color: "white",
-                background: theme.colors.dark_gray,
-                paddingRight: 15,
-                "&:hover": {
-                  background: theme.colors.dark_gray_hover,
-                },
-              },
-            ]}
-          >
-            <Android /> Android
-          </ButtonTemplate>
-        </div>
+        <ButtonTemplate
+          css={(theme) => [
+            {
+              paddingLeft: 10,
+            },
+          ]}
+        >
+          <Android
+            css={{
+              marginRight: 10,
+            }}
+          />
+          Android
+        </ButtonTemplate>
       </div>
     </ScandiBlock>
-    <div
-      css={(theme) => [
-        {
-          gridColumn: "span 6",
-          background: theme.colors.accent,
-          height: 535,
-          borderRadius: 20,
-        },
-      ]}
-    ></div>
+    <Presentation />
   </Grid>
 );
 

@@ -3,7 +3,6 @@ import { useProducts } from "../../../../hooks/product";
 import Grid from "../../../../components/Grid";
 import Text from "../../../Text";
 import Dot from "../../../Icons/Dot";
-import Link from "../../../Link";
 import CollectionItem from "./CollectionItem";
 
 const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
@@ -40,10 +39,12 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             products && products.filter((product) => product.type === "deck");
           for (let i = 0; i < 8; i++) {
             const product = deckProducts && deckProducts[i];
-            arr.push(<CollectionItem product={product} />);
+            arr.push(
+              <CollectionItem product={product} key={"CollectionItem" + i} />
+            );
           }
           arr.push(
-            <div css={[{ padding: 30 }]}>
+            <div css={[{ padding: 30 }]} key={"Endless inspiration"}>
               <Text typography="paragraphBig">
                 Eight editions.
                 <br />

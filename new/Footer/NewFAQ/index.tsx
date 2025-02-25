@@ -13,23 +13,11 @@ const faq = {
 const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <div css={(theme) => [{ background: theme.colors.soft_gray }]}>
     <Intro
-      noHeight={true}
       arrowedText="FAQ"
       paragraphText="All your questions, dealt."
       linkNewText="Read full FAQ"
       beforeLinkNew={
-        <ButtonTemplate
-          css={(theme) => [
-            {
-              color: theme.colors.dark_gray,
-              border: `currentColor solid 1px`,
-              "&:hover": {
-                color: "white",
-                background: theme.colors.dark_gray,
-              },
-            },
-          ]}
-        >
+        <ButtonTemplate bordered={true} size="small">
           Leave a review
         </ButtonTemplate>
       }
@@ -62,12 +50,12 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           ]}
         >
           <img
-            src={mockCard.img}
+            src="https://s3.amazonaws.com/img.playingarts.com/contest/retina/000.jpg"
             alt=""
             css={[{ rotate: "-8deg", transformOrigin: "bottom left" }]}
           />
           <img
-            src={mockCard.img}
+            src="https://s3.amazonaws.com/img.playingarts.com/future/cards/card-mitt-roshin.jpg"
             alt=""
             css={[{ rotate: "8deg", transformOrigin: "left" }]}
           />
@@ -79,13 +67,17 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
             gridColumn: "span 6",
             display: "grid",
             height: 525,
-            marginTop: 120,
+            marginTop: 15,
+            paddingTop: 120,
+            paddingBottom: 120,
+            paddingRight: 30,
           },
         ]}
       >
         <div>
           {Object.keys(faq).map((item) => (
             <Item
+              key={item}
               question={item}
               answer={faq[item as unknown as keyof typeof faq]}
             />

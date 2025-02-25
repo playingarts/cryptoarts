@@ -57,44 +57,50 @@ export const handlers: GraphQLHandler[] = [
         podcasts: [
           {
             name: "Jonathan Monaghan",
-            podcastName: "Jonathan Monaghan",
             image:
               "https://s3.amazonaws.com/img.playingarts.com/www/podcast/ep18.jpg",
             episode: 18,
             youtube:
               "https://www.youtube.com/watch?v=ZuqptFNmFz0&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+            spotify: null,
+            apple: null,
+            podcastName: "Jonathan Monaghan",
             desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
             time: "1h 35m",
+            __typename: "Podcast",
           },
           {
             name: "Prateek Vatash",
-            podcastName: "Prateek Vatash",
             image:
               "https://s3.amazonaws.com/img.playingarts.com/www/podcast/ep17.jpg",
             episode: 17,
             youtube:
               "https://www.youtube.com/watch?v=ux60RkIdA08&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
+            spotify: null,
+            apple: null,
+            podcastName: "Prateek Vatash",
             desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
             time: "1h 35m",
+            __typename: "Podcast",
           },
           {
             name: "Vini Naso",
-            podcastName: "Vini Naso",
             image:
               "https://s3.amazonaws.com/img.playingarts.com/www/podcast/ep16.jpg",
             episode: 16,
             youtube:
               "https://www.youtube.com/watch?v=PsKAHq-L0zw&list=PLhr51fAv2oZrgD0MreHVp8m9fdb7ETF4L",
-            apple:
-              "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep16-vini-naso/id1605752620?i=1000576644956",
             spotify:
               "https://open.spotify.com/episode/2WhPf3dneX7rMkAwKweTsB?si=1e1738f9941f441b",
+            apple:
+              "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep16-vini-naso/id1605752620?i=1000576644956",
+            podcastName: "Vini Naso",
             desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
             time: "1h 35m",
+            __typename: "Podcast",
           },
           {
             name: "Josh Pierce",
-            podcastName: "Josh Pierce",
             image:
               "https://s3.amazonaws.com/img.playingarts.com/www/podcast/ep15.jpg",
             episode: 15,
@@ -104,12 +110,13 @@ export const handlers: GraphQLHandler[] = [
               "https://open.spotify.com/episode/545habL2Q9sL6kDZUnmHPt?si=da9a0aeb102a4830",
             apple:
               "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep15-josh-pierce/id1605752620?i=1000571569683",
+            podcastName: "Josh Pierce",
             desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
             time: "1h 35m",
+            __typename: "Podcast",
           },
           {
             name: "RWR2",
-            podcastName: "Rodrigo Rezende",
             image:
               "https://s3.amazonaws.com/img.playingarts.com/www/podcast/ep14.jpg",
             episode: 14,
@@ -119,12 +126,13 @@ export const handlers: GraphQLHandler[] = [
               "https://open.spotify.com/episode/7i1sv8HX2Ij02nRXkeQXvO?si=d022fd2eb2fe41e9",
             apple:
               "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep14-rodrigo-rezende/id1605752620?i=1000570806968",
+            podcastName: "Rodrigo Rezende",
             desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
             time: "1h 35m",
+            __typename: "Podcast",
           },
           {
             name: "Nicole Ruggiero",
-            podcastName: "Nicole Ruggiero",
             image:
               "https://s3.amazonaws.com/img.playingarts.com/www/podcast/ep12.jpg",
             episode: 12,
@@ -134,12 +142,13 @@ export const handlers: GraphQLHandler[] = [
               "https://open.spotify.com/episode/54T7C8Grzr8jPLcHHxVRZY?si=1a7e8d8af36b47f1",
             apple:
               "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep12-nicole-ruggiero/id1605752620?i=1000570019324",
+            podcastName: "Nicole Ruggiero",
             desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
             time: "1h 35m",
+            __typename: "Podcast",
           },
           {
             name: "Velvet Spectrum",
-            podcastName: "Luke Choice",
             image:
               "https://s3.amazonaws.com/img.playingarts.com/www/podcast/ep11.jpg",
             episode: 11,
@@ -149,8 +158,10 @@ export const handlers: GraphQLHandler[] = [
               "https://open.spotify.com/episode/2Mx5U0BQktSmV9gexSTB9p?si=7e3aa150a73a4942",
             apple:
               "https://podcasts.apple.com/es/podcast/playing-arts-podcast-ep11-velvet-spectrum/id1605752620?i=1000569260593",
+            podcastName: "Luke Choice",
             desc: "In this episode Jonathan discusses his journey from neuroscience to motion design.",
             time: "1h 35m",
+            __typename: "Podcast",
           },
         ],
       },
@@ -209,187 +220,34 @@ export const handlers: GraphQLHandler[] = [
       data: {
         ratings: [
           {
-            review: "Gorgeous.",
-            who: "Matthew V. from Florida, USA",
+            _id: "67bd9c6b71c4efd57840dc54",
             title: "Edition One",
+            who: "Matthew V. from Florida, USA",
+            review: "Gorgeous.",
+            __typename: "Rating",
           },
           {
+            _id: "67bd9c6b71c4efd57840dc55",
+            title: "Special Edition",
+            who: "Matthew V. from Florida, USA",
             review:
               "Thank you for the smooth handling of getting the playing cards I ordered to me; not only are they little gems by their own right, they are also a perfect way to discover new talented artists, who I may otherwise never come across.",
-            who: "Matthew V. from Florida, USA",
-            title: "Special Edition",
+            __typename: "Rating",
           },
           {
+            _id: "67bd9c6b71c4efd57840dc56",
+            title: "Edition Two",
+            who: "Matthew V. from Florida, USA",
             review:
               "I’ve never seen anything like this! Its like a gallery in a deck. Just stuning.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
+            __typename: "Rating",
           },
           {
+            _id: "67bd9c6b71c4efd57840dc57",
+            title: "Edition Two",
+            who: "Matthew V. from Florida, USA",
             review: "Amazing concept.”",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-
-          {
-            review: "Gorgeous.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition One",
-          },
-          {
-            review:
-              "Thank you for the smooth handling of getting the playing cards I ordered to me; not only are they little gems by their own right, they are also a perfect way to discover new talented artists, who I may otherwise never come across.",
-            who: "Matthew V. from Florida, USA",
-            title: "Special Edition",
-          },
-          {
-            review:
-              "I’ve never seen anything like this! Its like a gallery in a deck. Just stuning.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-          {
-            review: "Amazing concept.”",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-
-          {
-            review: "Gorgeous.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition One",
-          },
-          {
-            review:
-              "Thank you for the smooth handling of getting the playing cards I ordered to me; not only are they little gems by their own right, they are also a perfect way to discover new talented artists, who I may otherwise never come across.",
-            who: "Matthew V. from Florida, USA",
-            title: "Special Edition",
-          },
-          {
-            review:
-              "I’ve never seen anything like this! Its like a gallery in a deck. Just stuning.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-          {
-            review: "Amazing concept.”",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-
-          {
-            review: "Gorgeous.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition One",
-          },
-          {
-            review:
-              "Thank you for the smooth handling of getting the playing cards I ordered to me; not only are they little gems by their own right, they are also a perfect way to discover new talented artists, who I may otherwise never come across.",
-            who: "Matthew V. from Florida, USA",
-            title: "Special Edition",
-          },
-          {
-            review:
-              "I’ve never seen anything like this! Its like a gallery in a deck. Just stuning.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-          {
-            review: "Amazing concept.”",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-
-          {
-            review: "Gorgeous.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition One",
-          },
-          {
-            review:
-              "Thank you for the smooth handling of getting the playing cards I ordered to me; not only are they little gems by their own right, they are also a perfect way to discover new talented artists, who I may otherwise never come across.",
-            who: "Matthew V. from Florida, USA",
-            title: "Special Edition",
-          },
-          {
-            review:
-              "I’ve never seen anything like this! Its like a gallery in a deck. Just stuning.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-          {
-            review: "Amazing concept.”",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-
-          {
-            review: "Gorgeous.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition One",
-          },
-          {
-            review:
-              "Thank you for the smooth handling of getting the playing cards I ordered to me; not only are they little gems by their own right, they are also a perfect way to discover new talented artists, who I may otherwise never come across.",
-            who: "Matthew V. from Florida, USA",
-            title: "Special Edition",
-          },
-          {
-            review:
-              "I’ve never seen anything like this! Its like a gallery in a deck. Just stuning.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-          {
-            review: "Amazing concept.”",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-
-          {
-            review: "Gorgeous.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition One",
-          },
-          {
-            review:
-              "Thank you for the smooth handling of getting the playing cards I ordered to me; not only are they little gems by their own right, they are also a perfect way to discover new talented artists, who I may otherwise never come across.",
-            who: "Matthew V. from Florida, USA",
-            title: "Special Edition",
-          },
-          {
-            review:
-              "I’ve never seen anything like this! Its like a gallery in a deck. Just stuning.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-          {
-            review: "Amazing concept.”",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-
-          {
-            review: "Gorgeous.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition One",
-          },
-          {
-            review:
-              "Thank you for the smooth handling of getting the playing cards I ordered to me; not only are they little gems by their own right, they are also a perfect way to discover new talented artists, who I may otherwise never come across.",
-            who: "Matthew V. from Florida, USA",
-            title: "Special Edition",
-          },
-          {
-            review:
-              "I’ve never seen anything like this! Its like a gallery in a deck. Just stuning.",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
-          },
-          {
-            review: "Amazing concept.”",
-            who: "Matthew V. from Florida, USA",
-            title: "Edition Two",
+            __typename: "Rating",
           },
         ],
       },
