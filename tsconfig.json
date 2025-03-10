@@ -26,5 +26,9 @@
     "**/*.tsx",
     ".storybook/StoryGraphqlHandlers.ts"
   ],
-  "exclude": ["node_modules", "components/**/*.stories.*"]
+  "exclude": ["node_modules", "components/**/*.stories.*"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
 }

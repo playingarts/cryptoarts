@@ -48,7 +48,9 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         bottom: 0,
       }}
     />
+
     <ScandiBlock
+      palette="light"
       css={(theme) => [
         {
           gridColumn: "span 6",
@@ -57,16 +59,29 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         },
       ]}
     >
-      <ArrowedButton css={[{ textAlign: "start" }]}>
+      <ArrowedButton
+        css={(theme) => [{ textAlign: "start", color: theme.colors.dark_gray }]}
+      >
         Augmented Reality
       </ArrowedButton>
-      <Text css={[{ paddingRight: 30, paddingTop: 100 }]}>
+      <Text
+        css={(theme) => [
+          {
+            paddingRight: 30,
+            paddingTop: 100,
+            color: theme.colors.dark_gray,
+          },
+        ]}
+      >
         Experience cards like never before! <br /> Use the Playing Arts AR™ app
         to watch selected cards come alive with breathtaking animations— right
         in your hands.
       </Text>
       <div css={{ paddingTop: 90 }}>
-        <Text typography="paragraphSmall" css={{ marginBottom: 30 }}>
+        <Text
+          typography="paragraphSmall"
+          css={(theme) => [{ marginBottom: 30, color: theme.colors.dark_gray }]}
+        >
           Download free
           <br />
           Playing Arts AR™ mobile app

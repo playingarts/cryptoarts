@@ -1,11 +1,11 @@
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import Label from "../../../../Label";
-import Text from "../../../../Text";
 import ArrowButton from "../../../../Buttons/ArrowButton";
 import Card from "../../../../Card";
 import { mockCard } from "../../../../../mocks/card";
 import Button from "../../../../Buttons/Button";
 import Arrow from "../../../../Icons/Arrow";
+import NavButton from "../../../../Buttons/NavButton";
 
 const CollectionItem: FC<
   HTMLAttributes<HTMLElement> & { product?: GQL.Product }
@@ -79,50 +79,26 @@ const CollectionItem: FC<
               ]}
               style={{ opacity: hover ? 1 : 0 }}
             >
-              <Button
-                base={true}
-                noColor={true}
-                css={(theme) => [
+              <NavButton
+                css={[
                   {
                     rotate: "180deg",
-                    width: 45,
-                    borderRadius: "100%",
-                    "&:hover": {
-                      background: theme.colors.dark_gray,
-                      color: theme.colors.white,
-                    },
                   },
                 ]}
                 onClick={() =>
                   setIndex(index === 0 ? previewCards.length - 1 : index - 1)
                 }
-              >
-                <Arrow />
-              </Button>
+              />
               <Card
                 noArtist={true}
                 size="nano"
                 card={{ ...mockCard, img: previewCards[index].img }}
               />
-              <Button
-                base={true}
-                noColor={true}
-                css={(theme) => [
-                  {
-                    width: 45,
-                    borderRadius: "100%",
-                    "&:hover": {
-                      background: theme.colors.dark_gray,
-                      color: theme.colors.white,
-                    },
-                  },
-                ]}
+              <NavButton
                 onClick={() =>
                   setIndex(index === previewCards.length - 1 ? 0 : index + 1)
                 }
-              >
-                <Arrow />
-              </Button>
+              />
             </div>
           )}
 

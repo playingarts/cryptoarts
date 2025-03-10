@@ -1,12 +1,12 @@
 import { FC, Fragment, HTMLAttributes } from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { ChartProps } from "..";
-import { theme } from "../../../pages/_app";
+import { colorLiterals, theme } from "../../../pages/_app";
 
 interface Props extends HTMLAttributes<HTMLDivElement>, ChartProps {}
 
-const lavender = theme.colors.lavender_blue;
-const light_cyan = theme.colors.light_cyan;
+// const lavender = theme.colors.lavender_blue;
+// const light_cyan = theme.colors.light_cyan;
 
 const colors = theme.colors;
 
@@ -48,7 +48,7 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
       {...props}
       ref={ref}
       css={{
-        height: "100%",
+        // height: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -77,42 +77,45 @@ const PieChart: FC<Props> = ({ dataPoints, events, ...props }) => {
           height={size}
           css={{ transform: "rotate(-90deg)" }}
         >
-          {slices.map(({ d }, index) => (
-            <Fragment key={d}>
-              <defs>
-                <radialGradient id={`linearGradient${index}`}>
-                  <stop offset="0%" stopColor={lavender} />
-                  <stop offset="100%" stopColor={light_cyan} />
-                </radialGradient>
-                <clipPath id={`pieChartClip${index}`}>
-                  <path
-                    d={d}
-                    {...(slices.length - 1 !== index && {
-                      mask: `url(#pieChartMask${index})`,
-                    })}
-                  />
-                </clipPath>
-              </defs>
-              <rect
-                width="100%"
-                height="100%"
-                x="-1"
-                y="-1"
-                css={{ position: "absolute" }}
-                fill={
-                  slices.length - 1 !== index
-                    ? `url(#linearGradient${index})`
-                    : "transparent"
-                }
-                clipPath={`url(#pieChartClip${index})`}
-                {...(events && {
-                  onMouseEnter: events.onShowTooltip(dataPoints[index]),
-                  onMouseLeave: events.onHideTooltip(dataPoints[index]),
-                  onMouseMove: events.onMoveTooltip(dataPoints[index]),
-                })}
-              />
-            </Fragment>
-          ))}
+          {slices.map(({ d }, index) => {
+            return (
+              <Fragment key={d}>
+                <defs>
+                  {/* <radialGradient id={`linearGradient${index}`}>
+                    <stop offset="0%" stopColor={lavender} />
+                    <stop offset="100%" stopColor={light_cyan} />
+                  </radialGradient> */}
+                  <clipPath id={`pieChartClip${index}`}>
+                    <path
+                      d={d}
+                      {...(slices.length - 1 !== index && {
+                        mask: `url(#pieChartMask${index})`,
+                      })}
+                    />
+                  </clipPath>
+                </defs>
+                <rect
+                  width="100%"
+                  height="100%"
+                  x="-1"
+                  y="-1"
+                  css={{ position: "absolute" }}
+                  fill={
+                    slices.length - 1 !== index
+                      ? colorLiterals.mint
+                      : // ? `url(#linearGradient${index})`
+                        "transparent"
+                  }
+                  clipPath={`url(#pieChartClip${index})`}
+                  {...(events && {
+                    onMouseEnter: events.onShowTooltip(dataPoints[index]),
+                    onMouseLeave: events.onHideTooltip(dataPoints[index]),
+                    onMouseMove: events.onMoveTooltip(dataPoints[index]),
+                  })}
+                />
+              </Fragment>
+            );
+          })}
         </svg>
       </div>
     </div>

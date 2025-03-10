@@ -10,7 +10,8 @@ const sheetPrice: MongoProduct["price"] = { eur: 34.95, usd: 39.95 };
 
 export let products: MongoProduct[] = [
   {
-    _id: generateMongoId("22124868567121"),
+    // _id: generateMongoId("22124868567121"),
+    _id: generateMongoId("51478895722836"),
     title: "Edition Zero",
     deck: "zero",
     short: "Zero",
@@ -24,7 +25,8 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
-    _id: generateMongoId("12381601988689"),
+    // _id: generateMongoId("12381601988689"),
+    _id: generateMongoId("51478897819988"),
     title: "Edition One",
     deck: "one",
     short: "One",
@@ -38,7 +40,8 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
-    _id: generateMongoId("12381603004497"),
+    // _id: generateMongoId("12381603004497"),
+    _id: generateMongoId("51478897688916"),
     title: "Edition Two",
     deck: "two",
     short: "Two",
@@ -52,7 +55,8 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
-    _id: generateMongoId("24231765639"),
+    // _id: generateMongoId("24231765639"),
+    _id: generateMongoId("51478905487700"),
     title: "Edition Three",
     deck: "three",
     short: "Three",
@@ -66,6 +70,7 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
+    // _id: generateMongoId("24231824903"),
     _id: generateMongoId("24231824903"),
     title: "Special Edition",
     deck: "special",
@@ -80,7 +85,8 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
-    _id: generateMongoId("42012346384571"),
+    // _id: generateMongoId("42012346384571"),
+    _id: generateMongoId("51478894641492"),
     title: "Future Edition I",
     deck: "future",
     short: "Future",
@@ -94,7 +100,8 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
-    _id: generateMongoId("42012347072699"),
+    // _id: generateMongoId("42012347072699"),
+    _id: generateMongoId("51478894575956"),
     title: "Future Edition II",
     short: "Future II",
     deck: "future",
@@ -108,7 +115,8 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
-    _id: generateMongoId("42583867687099"),
+    // _id: generateMongoId("42583867687099"),
+    _id: generateMongoId("51478894117204"),
     title: "Crypto Edition",
     deck: "crypto",
     short: "Crypto",
@@ -122,7 +130,8 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
-    _id: generateMongoId("42012378595515"),
+    // _id: generateMongoId("42012378595515"),
+    _id: generateMongoId("51478894248276"),
     title: "2x Future Bundle",
     deck: "zero",
     short: "2x Future",
@@ -136,7 +145,8 @@ export let products: MongoProduct[] = [
     info: "Future Editions I + II",
   },
   {
-    _id: generateMongoId("21312509018193"),
+    // _id: generateMongoId("21312509018193"),
+    _id: generateMongoId("51478897066324"),
     title: "3x Edition Bundle",
     deck: "zero",
     short: "3x Edition",
@@ -150,6 +160,7 @@ export let products: MongoProduct[] = [
     info: "One + Two + Three",
   },
   {
+    // _id: generateMongoId("32395075846192"),
     _id: generateMongoId("32395075846192"),
     title: "Edition Zero",
     deck: "zero",
@@ -164,7 +175,8 @@ export let products: MongoProduct[] = [
     info: "Uncut Sheet",
   },
   {
-    _id: generateMongoId("24234305607"),
+    // _id: generateMongoId("24234305607"),
+    _id: generateMongoId("51478903816532"),
     title: "Edition One",
     deck: "one",
     short: "One",
@@ -178,7 +190,8 @@ export let products: MongoProduct[] = [
     info: "Uncut Sheet",
   },
   {
-    _id: generateMongoId("24234334087"),
+    // _id: generateMongoId("24234334087"),
+    _id: generateMongoId("51478902276436"),
     title: "Edition Two",
     deck: "two",
     short: "Two",
@@ -192,7 +205,8 @@ export let products: MongoProduct[] = [
     info: "Uncut Sheet",
   },
   {
-    _id: generateMongoId("24235977607"),
+    // _id: generateMongoId("24235977607"),
+    _id: generateMongoId("51478901915988"),
     title: "Edition Three",
     deck: "three",
     short: "Three",
@@ -206,6 +220,7 @@ export let products: MongoProduct[] = [
     info: "Uncut Sheet",
   },
   {
+    // _id: generateMongoId("24236650759"),
     _id: generateMongoId("24236650759"),
     title: "Special Edition",
     deck: "special",
@@ -220,6 +235,7 @@ export let products: MongoProduct[] = [
     info: "Uncut Sheet",
   },
   {
+    // _id: generateMongoId("39371993874480"),
     _id: generateMongoId("39371993874480"),
     title: "Future Edition I",
     deck: "future",
@@ -235,6 +251,7 @@ export let products: MongoProduct[] = [
   },
   {
     title: "Future Edition II",
+    // _id: generateMongoId("39371995807792"),
     _id: generateMongoId("39371995807792"),
     deck: "future",
     short: "Future II",

@@ -10,6 +10,7 @@ import { initialize, mswLoader } from "msw-storybook-addon";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { handlers } from "./StoryGraphqlHandlers";
 import SizeProvider from "../components/SizeProvider";
+import { DeckPaletteProvider } from "../new/Pages/Deck/DeckPaletteContext";
 
 const mockedClient = new ApolloClient({
   uri: "api/v1/graphql",
@@ -62,18 +63,20 @@ export const decorators = [
   (Story) => (
     <SizeProvider>
       <ThemeProvider theme={theme}>
-        <ApolloProvider client={mockedClient}>
-          <Links />
-          <Global
-            styles={{
-              body: {
-                fontFamily: "'Alliance No.2'",
-              },
-            }}
-          />
-          <Story />
-          <div id="menuportal"></div>
-        </ApolloProvider>
+        <DeckPaletteProvider>
+          <ApolloProvider client={mockedClient}>
+            <Links />
+            <Global
+              styles={{
+                body: {
+                  fontFamily: "'Alliance No.2'",
+                },
+              }}
+            />
+            <Story />
+            <div id="menuportal"></div>
+          </ApolloProvider>
+        </DeckPaletteProvider>
       </ThemeProvider>
     </SizeProvider>
   ),

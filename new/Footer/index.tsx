@@ -21,6 +21,8 @@ import ArrowButton from "../Buttons/ArrowButton";
 import NewFAQ from "./NewFAQ";
 import Testimonials from "../Pages/Home/Testimonials";
 import Link from "../Link";
+import { useRouter } from "next/router";
+import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 
 export const links: { [x: string]: String[] } = {
   "The project": ["Home", "Our story", "AR app", "Gallery", "Press"],
@@ -28,15 +30,22 @@ export const links: { [x: string]: String[] } = {
   Community: ["Participate", "Contributors", "Kickstarter", "Podcast", "FAQ"],
 };
 
-const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
-  <>
-    <Testimonials />
-    {children}
-    <NewFAQ />
+const FooterTestimonials = () => {
+  const {
+    query: { deckId },
+  } = useRouter();
+  return deckId !== "crypto" ? <Testimonials /> : null;
+};
+
+const ActualFooter = () => {
+  const { palette } = usePalette();
+
+  return (
     <Grid
       css={(theme) => [
         {
-          background: theme.colors.pale_gray,
+          background:
+            theme.colors[palette === "dark" ? "spaceBlack" : "pale_gray"],
           paddingTop: 60,
           paddingBottom: 60,
         },
@@ -53,7 +62,11 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
           },
         ]}
       >
-        <ArrowedButton css={(theme) => [{ color: theme.colors.black50 }]}>
+        <ArrowedButton
+          css={(theme) => [
+            { color: theme.colors[palette === "dark" ? "white50" : "black50"] },
+          ]}
+        >
           Be the first to explore project updates
         </ArrowedButton>
         <Grid auto={true}>
@@ -61,7 +74,13 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
             <EmailForm />
             <Text
               typography="paragraphNano"
-              css={(theme) => [{ color: theme.colors.black50, marginTop: 30 }]}
+              css={(theme) => [
+                {
+                  color:
+                    theme.colors[palette === "dark" ? "white50" : "black50"],
+                  marginTop: 30,
+                },
+              ]}
             >
               Join our newsletter to stay updated on exclusive deals and gain
               automatic entry into our monthly giveaways.
@@ -70,7 +89,8 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
               css={(theme) => [
                 {
                   marginTop: 30,
-                  color: theme.colors.black30,
+                  color:
+                    theme.colors[palette === "dark" ? "white50" : "black30"],
                   "svg:not(:first-child)": {
                     marginLeft: 30,
                   },
@@ -103,7 +123,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
             typography="newh4"
             css={(theme) => [
               {
-                color: theme.colors.black50,
+                color: theme.colors[palette === "dark" ? "white50" : "black50"],
               },
             ]}
           >
@@ -124,7 +144,10 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
                     {
                       display: "block",
                       textAlign: "start",
-                      color: theme.colors.black50,
+                      color:
+                        theme.colors[
+                          palette === "dark" ? "white50" : "black50"
+                        ],
                     },
                   ]}
                 >
@@ -138,7 +161,9 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
       <div css={[{ gridColumn: "span 6", marginTop: 60 }]}>
         <Text
           typography="paragraphSmall"
-          css={(theme) => [{ color: theme.colors.black50 }]}
+          css={(theme) => [
+            { color: theme.colors[palette === "dark" ? "white50" : "black50"] },
+          ]}
         >
           Download Playing Arts AR™ app
         </Text>
@@ -150,6 +175,8 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
                 marginRight: 15,
               },
             ]}
+            color={palette === "dark" ? "white50" : undefined}
+            palette={palette}
           >
             <Apple
               css={{
@@ -160,11 +187,13 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
           </ButtonTemplate>
 
           <ButtonTemplate
+            color={palette === "dark" ? "white50" : undefined}
             css={(theme) => [
               {
                 paddingLeft: 10,
               },
             ]}
+            palette={palette}
           >
             <Android
               css={{
@@ -197,7 +226,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
           css={(theme) => [
             {
               paddingTop: 30,
-              color: theme.colors.black30,
+              color: theme.colors[palette === "dark" ? "white50" : "black30"],
               display: "flex",
               gap: 30,
             },
@@ -227,8 +256,12 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
             typography="paragraphMicro"
             css={(theme) => [
               {
-                a: { textDecoration: "underline", color: theme.colors.black50 },
-                color: theme.colors.black50,
+                a: {
+                  textDecoration: "underline",
+                  color:
+                    theme.colors[palette === "dark" ? "white50" : "black50"],
+                },
+                color: theme.colors[palette === "dark" ? "white50" : "black50"],
                 maxWidth: 520,
               },
             ]}
@@ -249,6 +282,15 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
         </ScandiBlock>
       </div>
     </Grid>
+  );
+};
+
+const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
+  <>
+    <FooterTestimonials />
+    {children}
+    <NewFAQ />
+    <ActualFooter />
   </>
 );
 

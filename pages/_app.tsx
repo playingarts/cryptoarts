@@ -12,6 +12,7 @@ import { ViewedProvider } from "../contexts/viewedContext";
 import { Theme } from "@emotion/react";
 import { breakpoints } from "../source/enums";
 import { CSSPropertiesWithMultiValues } from "@emotion/serialize";
+import { DeckPaletteProvider } from "../new/Pages/Deck/DeckPaletteContext";
 
 type breakpointsObjectType = { [index in keyof typeof breakpoints]: string };
 
@@ -37,6 +38,14 @@ const maxMQ = (Object.keys(breakpoints) as Array<keyof typeof breakpoints>)
 
 export const colorLiterals = {
   //new
+  mint: "#CFF8D8",
+  darkBlack: "#212121",
+  black: "#333333",
+  white75: "#FFFFFFBF",
+  white50: "#FFFFFF80",
+  white30: "#FFFFFF4D",
+  spaceBlack: "#292929",
+  cryptoCardBg: "#181818",
   violet: "#E3E4F4",
   black30: "#0000004D",
   black50: "#00000080",
@@ -71,16 +80,15 @@ export const colorLiterals = {
   text_subtitle_light: "rgba(234, 234, 234, 0.5)",
   gradient: "linear-gradient(90deg, #58CDFF 0%, #C77BFF 100%)",
   gradient_three: "linear-gradient(90deg, #7142D6 0%, #2FBACE 100%)",
-  diamonds: "#CDB0FF",
-  clubs: "#98F3FF",
-  hearts: "#7BD4FF",
-  spades: "#82A7F8",
+  diamonds: "#E2F4AE",
+  clubs: "#CFEEE8",
+  hearts: "#FFB8CB",
+  spades: "#CDD0F5",
   eth: "linear-gradient(90.19deg, #8482F8 14%, #A6FBF6 86.07%)",
   orange: "#F89D35",
   green: "#05CE78",
   red: "#C4161C",
   lavender: "#8582F9",
-  black: "#000000",
   brightGray: "#EFEFEF",
   svggray: "#C4C4C4",
 } as const;
@@ -235,6 +243,7 @@ export const typographyLiterals = {
   },
   paragraphBig: {
     //styleName: Paragraph big;
+    fontFamily: "'Alliance No.2'",
     fontSize: 35,
     fontWeight: 400,
     lineHeight: "53px",
@@ -253,6 +262,7 @@ export const typographyLiterals = {
   },
   paragraphSmall: {
     //styleName: Paragraph big;
+    fontFamily: "'Alliance No.2'",
     fontSize: 18,
     fontWeight: 400,
     lineHeight: "160%",
@@ -262,6 +272,7 @@ export const typographyLiterals = {
   },
   paragraphNano: {
     //styleName: Paragraph big;
+    fontFamily: "'Alliance No.2'",
     fontSize: 15,
     fontWeight: 400,
     lineHeight: "150%",
@@ -271,6 +282,7 @@ export const typographyLiterals = {
   },
   paragraphMicro: {
     //styleName: Paragraph big;
+    fontFamily: "'Alliance No.2'",
     fontSize: 12,
     fontWeight: 400,
     lineHeight: 1.4333,
@@ -280,6 +292,7 @@ export const typographyLiterals = {
   },
   newh0: {
     //styleName: Paragraph big;
+    fontFamily: "'Alliance No.2'",
     fontSize: 85,
     fontWeight: 400,
     lineHeight: "100%",
@@ -517,14 +530,16 @@ const App = ({
 
       <MetaMaskProvider>
         <SignatureProvider>
-          <ThemeProvider theme={theme}>
-            <ViewedProvider>
-              <SizeProvider isMobile={isMobile === true}>
-                <GoogleAnalytics trackPageViews />
-                <Component {...pageProps} />
-              </SizeProvider>
-            </ViewedProvider>
-          </ThemeProvider>
+          <DeckPaletteProvider>
+            <ThemeProvider theme={theme}>
+              <ViewedProvider>
+                <SizeProvider isMobile={isMobile === true}>
+                  <GoogleAnalytics trackPageViews />
+                  <Component {...pageProps} />
+                </SizeProvider>
+              </ViewedProvider>
+            </ThemeProvider>
+          </DeckPaletteProvider>
         </SignatureProvider>
       </MetaMaskProvider>
     </Fragment>

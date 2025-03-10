@@ -5,6 +5,9 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   staticPageGenerationTimeout: 300,
+  experimental: {
+    ppr: "incremental",
+  },
   webpack(config) {
     // config.optimization = {
     //   ...config.optimization,
@@ -22,6 +25,14 @@ module.exports = withBundleAnalyzer({
       test: /\.(glsl|vs|fs)$/,
       type: "asset/source",
     });
+    // config.resolve = {
+    //   ...config.resolve,
+    //   fallback: {
+    //     fs: false,
+    //     path: false,
+    //     os: false,
+    //   },
+    // };
 
     return config;
   },

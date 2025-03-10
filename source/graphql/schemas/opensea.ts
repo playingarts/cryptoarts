@@ -13,6 +13,7 @@ import * as T from "io-ts";
 import { Content } from "./content";
 import * as crypto from "crypto";
 import { Listing, getListings } from "./listing";
+import { getDeck } from "./deck";
 
 const {
   NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
@@ -493,6 +494,7 @@ type CardSuitsType =
 
 const getHolders = async (deck: string) => {
   const contract = await getContract({ deck });
+  console.log({ contract });
 
   if (!contract) {
     return;
@@ -688,8 +690,15 @@ export const resolvers: GQL.Resolvers = {
     on_sale: ({ on_sale }) => on_sale,
   },
   Query: {
-    opensea: async (_, { deck }) => {
-      const contract = await getContract({ deck });
+    opensea: async (_, { deck, slug }) => {
+      if (!deck && !slug) {
+        return;
+      }
+      const contract = deck
+        ? await getContract({ deck })
+        : await getContract({
+            deck: (await getDeck({ slug: slug as string }))._id,
+          });
 
       const response = await (
         await fetch(
@@ -750,7 +759,12 @@ export const resolvers: GQL.Resolvers = {
           ) !== -1
       );
     },
-    holders: (_, { deck }) => getHolders(deck),
+    holders: async (_, { deck, slug }) =>
+      slug
+        ? await getHolders((await getDeck({ slug: slug as string }))._id)
+        : deck
+        ? await getHolders(deck)
+        : undefined,
   },
 };
 
@@ -759,8 +773,8 @@ export const typeDefs = gql`
 
   type Query {
     ownedAssets(deck: ID!, address: String!, signature: String!): [Nft]!
-    opensea(deck: ID!): Opensea!
-    holders(deck: ID!): Holders
+    opensea(deck: ID, slug: String): Opensea!
+    holders(deck: ID, slug: String): Holders
   }
 
   type Nft {

@@ -574,7 +574,7 @@ const Checkout: NextPage = () => {
           Icon: ThickChevron,
         })}
         component={Link}
-        href={`https://store.playingarts.com/cart/${Object.entries(bag)
+        href={`https://secure.playingarts.com/cart/${Object.entries(bag)
           .map(([id, quantity]) => `${parseInt(id, 10)}:${quantity}`)
           .join(",")}`}
         onClick={() => setDisabledButton(true)}

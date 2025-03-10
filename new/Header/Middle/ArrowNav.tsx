@@ -1,8 +1,10 @@
 import { useRouter } from "next/router";
-import Arrow from "../../Icons/Arrow";
 import { useDecks } from "../../../hooks/deck";
 import { useEffect, useState } from "react";
 import Text from "../../Text";
+import Link from "../../Link";
+import NavButton from "../../Buttons/NavButton";
+import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 
 export default () => {
   const {
@@ -14,10 +16,10 @@ export default () => {
 
   const { decks } = useDecks();
 
+  const { palette } = usePalette();
+
   useEffect(() => {
     if (deckId && decks) {
-      console.log({ decks });
-
       setCounter(decks.findIndex((deck) => deck.slug === deckId));
       setMax(decks.length);
     }
@@ -45,12 +47,35 @@ export default () => {
         {
           display: "flex",
           alignItems: "center",
+          paddingRight: 66,
+          justifyContent: "end",
         },
       ]}
     >
-      <Arrow css={[{ transform: "rotate(180deg)", marginRight: 28 }]} />
-      <Arrow />
-      <span css={[{ marginLeft: 41 }]}>
+      <Link
+        css={[{ marginRight: 5 }]}
+        href={
+          counter > 0 ? decks[counter - 1].slug : decks[decks.length - 1].slug
+        }
+        shallow={true}
+      >
+        <NavButton css={[{ transform: "rotate(180deg)" }]} />
+      </Link>
+      <Link
+        css={[{ marginRight: 5 }]}
+        href={
+          counter < decks.length - 1 ? decks[counter + 1].slug : decks[0].slug
+        }
+        shallow={true}
+      >
+        <NavButton />
+      </Link>
+      <span
+        css={(theme) => [
+          { marginLeft: 30 },
+          palette === "dark" && { color: theme.colors.white75 },
+        ]}
+      >
         {decks ? "Deck " : ""}
         {(counter + 1).toString().padStart(2, "0") + " "}/
         {" " + max.toString().padStart(2, "0")}

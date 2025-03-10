@@ -7,6 +7,7 @@ import Middle from "./Middle";
 import TitleButton from "./TitleButton";
 import MenuPortal from "./MainMenu/MenuPortal";
 import MainMenu from "./MainMenu";
+import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 
 export interface Props extends HTMLAttributes<HTMLElement> {}
 
@@ -16,6 +17,8 @@ const Header: FC<Props> = ({ ...props }) => {
   const [altNav, setAltNav] = useState(false);
 
   const [showMenu, setShowMenu] = useState(false);
+
+  const { palette } = usePalette();
 
   useLayoutEffect(() => {
     let lastScrollTop = 0;
@@ -76,7 +79,7 @@ const Header: FC<Props> = ({ ...props }) => {
           {
             gridTemplateRows: 60,
             lineHeight: "60px",
-            borderRadius: theme.spacing(1),
+            // borderRadius: theme.spacing(1),
             alignItems: "center",
             zIndex: 1,
             overflow: "hidden",
@@ -100,7 +103,11 @@ const Header: FC<Props> = ({ ...props }) => {
                 lineHeight: "70px",
               }
             : {
-                background: colord("#FFFFFF").alpha(0.9).toRgbString(),
+                // background: colord("#FFFFFF").alpha(0.9).toRgbString(),
+                background:
+                  palette === "dark"
+                    ? "#292929"
+                    : colord("#FFFFFF").alpha(0.9).toRgbString(),
                 backdropFilter: "blur(10px)",
               }
         }
@@ -118,6 +125,7 @@ const Header: FC<Props> = ({ ...props }) => {
         <Middle {...{ showSiteNav, altNav }} />
 
         <ScandiBlock
+          palette={palette}
           css={(theme) => [
             {
               gridColumn: "span 3",

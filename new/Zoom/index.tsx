@@ -17,6 +17,7 @@ const Zoom: FC<HTMLAttributes<HTMLElement> & Props> = ({ ...props }) => {
           background: "white",
           textAlign: "center",
           display: "inline-block",
+          color: theme.colors.black,
         },
       ]}
       {...props}

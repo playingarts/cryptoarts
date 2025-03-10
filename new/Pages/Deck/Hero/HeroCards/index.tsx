@@ -8,7 +8,7 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {
         _id: "card01",
         video: "",
-        img: "",
+        img: null,
         value: "",
         suit: "",
         info: "",
@@ -18,7 +18,7 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {
         _id: "card02",
         video: "",
-        img: "",
+        img: null,
         value: "",
         suit: "",
         info: "",

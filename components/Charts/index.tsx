@@ -60,10 +60,10 @@ const Charts: FC<Props> = ({
   ...props
 }) => {
   const Component = charts[type];
-  const [{ x, y, data }, setTooltip] = useState<{
+  const [data, setData] = useState<ChartProps["dataPoints"][number]>();
+  const [{ x, y }, setTooltip] = useState<{
     x: number;
     y: number;
-    data?: ChartProps["dataPoints"][0];
   }>({ x: 0, y: 0 });
 
   const { width } = useSize();
@@ -74,13 +74,18 @@ const Charts: FC<Props> = ({
 
   const showTooltip: TooltipHandler =
     (dataPoint) =>
-    ({ clientX, clientY }) =>
-      setTooltip({ x: clientX, y: clientY, data: dataPoint });
+    ({ clientX, clientY }) => {
+      setTooltip({ x: clientX, y: clientY });
+      setData(dataPoint);
+    };
   const moveTooltip: TooltipHandler =
     () =>
     ({ clientX, clientY }) =>
-      setTooltip({ x: clientX, y: clientY, data });
-  const hideTooltip: TooltipHandler = () => () => setTooltip({ x: 0, y: 0 });
+      setTooltip({ x: clientX, y: clientY });
+  const hideTooltip: TooltipHandler = () => () => {
+    setTooltip({ x: -100, y: -100 });
+    setData(undefined);
+  };
 
   return (
     <Fragment>

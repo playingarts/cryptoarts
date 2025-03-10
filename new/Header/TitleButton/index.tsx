@@ -5,6 +5,7 @@ import ScandiBlock, { Props } from "../../ScandiBlock";
 import { useRouter } from "next/router";
 import { useDeck } from "../../../hooks/deck";
 import { colord } from "colord";
+import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 
 const TitleButton: FC<
   HTMLAttributes<HTMLElement> & { setShow: (x: boolean) => void } & Props
@@ -13,12 +14,15 @@ const TitleButton: FC<
     query: { deckId },
   } = useRouter();
 
+  const { palette } = usePalette();
+
   const { deck } = useDeck({ variables: { slug: deckId } });
 
   return (
     <ScandiBlock
       css={{ gridColumn: "span 3", height: "100%" }}
       inset={true}
+      palette={palette}
       {...props}
     >
       <Button
@@ -27,10 +31,15 @@ const TitleButton: FC<
           {
             paddingLeft: 10,
             paddingRight: 15,
-            color: theme.colors.dark_gray + " !important",
+            color:
+              theme.colors[palette === "dark" ? "white75" : "dark_gray"] +
+              " !important",
             transition: theme.transitions.fast("background"),
             "&:hover": {
-              background: colord(theme.colors.white).alpha(0.5).toRgbString(),
+              background:
+                palette === "dark"
+                  ? theme.colors.black
+                  : colord(theme.colors.white).alpha(0.5).toRgbString(),
             },
           },
         ]}

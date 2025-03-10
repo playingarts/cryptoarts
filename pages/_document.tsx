@@ -77,24 +77,27 @@ export const Links = () => (
       styles={css`
         html {
           @font-face {
-            src: url("AllianceBold.otf");
+            src: url("/AllianceBold.otf");
             font-family: "Alliance No.2";
             font-weight: 600;
             font-style: normal;
+            display: "swap";
           }
 
           @font-face {
-            src: url("AllianceMedium.otf");
+            src: url("/AllianceMedium.otf");
             font-family: "Alliance No.2";
             font-weight: 500;
             font-style: normal;
+            display: "swap";
           }
 
           @font-face {
-            src: url("AllianceRegular.woff2");
+            src: url("/AllianceRegular.woff2");
             font-family: "Alliance No.2";
             font-weight: 400;
             font-style: normal;
+            display: "swap";
           }
         }
       `}

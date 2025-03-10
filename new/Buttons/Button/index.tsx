@@ -8,6 +8,7 @@ export interface Props {
   size?: "small" | "big";
   base?: boolean;
   noColor?: boolean;
+  palette?: "dark" | string;
 }
 
 const Button: FC<HTMLAttributes<HTMLElement> & Props> = ({
@@ -17,6 +18,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props> = ({
   size = "big",
   base = false,
   noColor = false,
+  palette,
   ...props
 }) => {
   return (
@@ -28,7 +30,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props> = ({
           borderRadius: size === "big" ? 7 : 5,
           boxSizing: "border-box",
           fontWeight: 400,
-          textAlign: "center",
+          // textAlign: "center",
           textUnderlinePosition: "from-font",
           textDecorationSkipInk: "none",
 
@@ -46,7 +48,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props> = ({
               opacity: 0.9,
             },
             noColor === false && {
-              color: "white",
+              color: palette === "dark" ? "black" : "white",
             },
           ],
         },
@@ -80,12 +82,17 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props> = ({
                   ? {
                       color: theme.colors[color],
                       boxShadow: `0px 0px 0px 1.5px ${theme.colors[color]} inset`,
-                      "&:hover": {
-                        backgroundColor: theme.colors[color],
-                      },
+                      "&:hover": [
+                        palette === "dark" && {
+                          color: theme.colors.black,
+                        },
+                        {
+                          backgroundColor: theme.colors[color],
+                        },
+                      ],
                     }
                   : {
-                      color: "white",
+                      color: palette === "dark" ? "black" : "white",
                       backgroundColor: theme.colors[color],
                     },
               ]

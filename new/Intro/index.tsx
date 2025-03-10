@@ -11,7 +11,7 @@ const Intro: FC<
     arrowedText: String;
     paragraphText: String;
     beforeLinkNew?: JSX.Element;
-    linkNewText: String;
+    linkNewText?: String;
     bottom?: JSX.Element;
   }
 > = ({
@@ -22,7 +22,10 @@ const Intro: FC<
   beforeLinkNew,
   ...props
 }) => (
-  <Grid css={[{ paddingTop: 60, overflow: "hidden" }]}>
+  <Grid
+    css={[{ paddingTop: 60, overflow: "hidden", gridColumn: "1/-1" }]}
+    {...props}
+  >
     <ScandiBlock
       css={[{ gridColumn: "span 6", paddingTop: 15, alignItems: "start" }]}
     >
@@ -43,9 +46,11 @@ const Intro: FC<
         <Text typography="paragraphBig">{paragraphText}</Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
           {beforeLinkNew}
-          <ArrowButton size="small" base={true} noColor={true}>
-            {linkNewText}
-          </ArrowButton>
+          {linkNewText && (
+            <ArrowButton size="small" base={true} noColor={true}>
+              {linkNewText}
+            </ArrowButton>
+          )}
         </div>
       </div>
       {bottom}

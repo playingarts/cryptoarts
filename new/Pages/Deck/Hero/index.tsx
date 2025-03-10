@@ -6,9 +6,17 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 import ButtonTemplate from "../../../Buttons/Button";
 import Plus from "../../../Icons/Plus";
 import HeroCards from "./HeroCards";
+import { useRouter } from "next/router";
+import { usePalette } from "../DeckPaletteContext";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  const { deck, loading } = useDeck();
+  const {
+    query: { deckId },
+  } = useRouter();
+
+  const { palette } = usePalette();
+
+  const { deck, loading } = useDeck({ variables: { slug: deckId } });
 
   return (
     <Grid
@@ -16,35 +24,41 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {
           paddingTop: 235,
           paddingBottom: 60,
-          background: theme.colors.soft_gray,
+          background:
+            theme.colors[palette === "dark" ? "spaceBlack" : "soft_gray"],
         },
       ]}
     >
       <div css={[{ gridColumn: "span 6" }]}>
-        <Text typography="newh0" {...{ loading }}>
+        <Text
+          typography="newh0"
+          css={[palette === "dark" && { color: "white" }]}
+          {...{ loading }}
+        >
           {deck && deck.title}
         </Text>
-        <Text {...{ loading }} css={[{ marginTop: 30 }]}>
+        <Text
+          {...{ loading }}
+          css={[
+            { marginTop: 30 },
+            palette === "dark" && { color: "white", opacity: 0.75 },
+          ]}
+        >
           {deck && deck.info}
         </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 15 }]}>
-          <ArrowButton color="accent">Shop the collection</ArrowButton>
+          <ArrowButton color="accent">Shop this deck</ArrowButton>
           <ButtonTemplate
+            palette={palette}
+            bordered={true}
+            color={palette === "dark" ? "white" : "accent"}
             css={(theme) => [
               {
-                // color: "white",
-                color: theme.colors.accent,
-                border: `${theme.colors.accent} solid 1px`,
-                paddingRight: 15,
-                marginRight: 15,
-                "&:hover": {
-                  color: "white",
-                  background: theme.colors.accent,
-                },
+                paddingLeft: 10,
               },
             ]}
           >
-            <Plus /> Story
+            <Plus css={[{ marginRight: 0 }]} /> Story
           </ButtonTemplate>
         </div>
       </div>

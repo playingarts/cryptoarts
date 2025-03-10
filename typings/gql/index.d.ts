@@ -112,12 +112,14 @@ interface QueryOwnedAssetsArgs {
 
 
 interface QueryOpenseaArgs {
-  deck: Scalars['ID']['input'];
+  deck?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }
 
 
 interface QueryHoldersArgs {
-  deck: Scalars['ID']['input'];
+  deck?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
 }
 
 
@@ -589,8 +591,8 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryProductsArgs>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
   ownedAssets?: Resolver<Array<Maybe<ResolversTypes['Nft']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;
-  opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, RequireFields<QueryOpenseaArgs, 'deck'>>;
-  holders?: Resolver<Maybe<ResolversTypes['Holders']>, ParentType, ContextType, RequireFields<QueryHoldersArgs, 'deck'>>;
+  opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, Partial<QueryOpenseaArgs>>;
+  holders?: Resolver<Maybe<ResolversTypes['Holders']>, ParentType, ContextType, Partial<QueryHoldersArgs>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deckId' | 'signature'>>;
   dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
   podcasts?: Resolver<Array<Maybe<ResolversTypes['Podcast']>>, ParentType, ContextType, Partial<QueryPodcastsArgs>>;

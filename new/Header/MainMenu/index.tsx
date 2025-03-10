@@ -16,6 +16,8 @@ import NewLink from "../../Link/NewLink";
 import { useProducts } from "../../../hooks/product";
 import EmailForm from "../../EmailForm";
 import { links } from "../../Footer";
+import ArrowButton from "../../Buttons/ArrowButton";
+import Link from "../../Link";
 
 const LocalGrid: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
   <div
@@ -47,7 +49,6 @@ const MainMenu: FC<
   HTMLAttributes<HTMLElement> & { setShow: Dispatch<SetStateAction<boolean>> }
 > = ({ setShow, ...props }) => {
   const { products } = useProducts();
-  console.log({ products });
 
   const [hover, setHover] = useState<string>("");
 
@@ -101,19 +102,21 @@ const MainMenu: FC<
             <ButtonTemplate
               css={(theme) => [
                 {
-                  color: theme.colors.dark_gray,
-                  transition: theme.transitions.fast("background"),
+                  // color: theme.colors.dark_gray,
+                  // transition: theme.transitions.fast("background"),
                   "&:hover": {
                     background: colord(theme.colors.white)
                       .alpha(0.5)
                       .toRgbString(),
                   },
+                  paddingLeft: 10,
                 },
               ]}
               onClick={() => setShow(false)}
+              noColor={true}
             >
-              <Delete />
-              <Text
+              <Delete css={[{ marginRight: 10 }]} />
+              {/* <Text
                 css={(theme) => [
                   {
                     transition: theme.transitions.slow("color"),
@@ -121,8 +124,8 @@ const MainMenu: FC<
                   },
                 ]}
               >
-                Close
-              </Text>
+              </Text> */}
+              Close
             </ButtonTemplate>
           </ScandiBlock>
 
@@ -147,6 +150,7 @@ const MainMenu: FC<
                 gridColumn: "1/-1",
                 gap: 12,
                 marginTop: 30,
+                marginBottom: 30,
               },
             ]}
           >
@@ -160,14 +164,21 @@ const MainMenu: FC<
                       return undefined;
                     }
                     return (
-                      <NewLink
-                        key={deck.slug + "mainmenu" + index}
-                        //   css={[{ display: "block" }]}
+                      <Link
                         href={deck.slug}
                         onMouseEnter={() => setHover(product.image || "")}
                       >
-                        {deck.short}
-                      </NewLink>
+                        <ArrowButton
+                          key={deck.slug + "mainmenu" + index}
+                          css={[{ textAlign: "start" }]}
+                          //   css={[{ display: "block" }]}
+                          size="small"
+                          noColor={true}
+                          base={true}
+                        >
+                          {deck.short}
+                        </ArrowButton>
+                      </Link>
                     );
                   })}
             </div>
@@ -194,6 +205,7 @@ const MainMenu: FC<
                 gridColumn: "1/-1",
                 flexDirection: "column",
                 alignItems: "start",
+                color: theme.colors.dark_gray + "!important",
                 form: {
                   width: "100%",
                   marginTop: 30,
@@ -222,6 +234,7 @@ const MainMenu: FC<
         >
           {Object.keys(links).map((key) => (
             <ScandiBlock
+              opacity={0.3}
               css={(theme) => [
                 {
                   borderColor: theme.colors.black30,
@@ -230,26 +243,44 @@ const MainMenu: FC<
                   flexDirection: "column",
                   justifyContent: "space-between",
                   alignItems: "start",
-                  "> *": {
-                    color: theme.colors.black50,
-                  },
+                  "> *": {},
                 },
               ]}
             >
-              <Text typography="paragraphSmall">{key}</Text>
-              <div css={[{ marginTop: 30 }]}>
+              <Text
+                typography="paragraphSmall"
+                css={(theme) => [
+                  {
+                    color: theme.colors.black50,
+                  },
+                ]}
+              >
+                {key}
+              </Text>
+              <div css={[{ marginTop: 30, display: "grid", gap: 5 }]}>
                 {links[key].map((item) => (
-                  <NewLink
-                    href={item.split(" ").join("").toLowerCase()}
-                    css={[{ display: "block" }]}
-                  >
-                    {item}
-                  </NewLink>
+                  <Link href={item.split(" ").join("").toLowerCase()}>
+                    <ArrowButton
+                      css={(theme) => [
+                        {
+                          textAlign: "start",
+                          display: "block",
+                          color: theme.colors.black50,
+                        },
+                      ]}
+                      base={true}
+                      noColor={true}
+                      size="small"
+                    >
+                      {item}
+                    </ArrowButton>
+                  </Link>
                 ))}
               </div>
             </ScandiBlock>
           ))}
           <ScandiBlock
+            opacity={0.3}
             css={(theme) => [
               {
                 paddingTop: 15,

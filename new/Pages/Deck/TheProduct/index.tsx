@@ -6,6 +6,7 @@ import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
 import ArrowButton from "../../../Buttons/ArrowButton";
+import { usePalette } from "../DeckPaletteContext";
 
 const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
@@ -24,13 +25,16 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     );
   }, [products, deckId]);
 
+  const { palette } = usePalette();
+
   return (
     <Grid
       css={(theme) => [
         {
-          background: theme.colors.pale_gray,
           paddingTop: 150,
           paddingBottom: 120,
+          background:
+            palette === "dark" ? "#212121" : theme.colors["pale_gray"],
         },
       ]}
     >
@@ -64,7 +68,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             artistry and tactile quality.
           </Text>
           <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
-            Shop the collection
+            Shop this deck
           </ArrowButton>
         </div>
       </ScandiBlock>

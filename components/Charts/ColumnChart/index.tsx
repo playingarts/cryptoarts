@@ -34,7 +34,7 @@ const ColumnChart: FC<Props> = ({
         display: "flex",
         flexWrap: "wrap",
         height: "100%",
-        gap: theme.spacing(2),
+        gap: theme.spacing(3),
         [theme.maxMQ.sm]: {
           gap: theme.spacing(1),
         },
@@ -46,11 +46,13 @@ const ColumnChart: FC<Props> = ({
         <div
           key={index}
           css={(theme) => ({
-            height: theme.spacing(16),
+            height: theme.spacing(20),
             alignItems: "flex-end",
             display: "flex",
+            flexGrow: 1,
+            flexBasis: 1,
             [theme.maxMQ.sm]: {
-              height: theme.spacing(11.5),
+              height: theme.spacing(15.5),
             },
           })}
         >
@@ -64,7 +66,7 @@ const ColumnChart: FC<Props> = ({
               paddingBottom: theme.spacing(1),
               borderRadius: theme.spacing(1),
               rowGap: theme.spacing(2),
-              width: theme.spacing(8.8),
+              width: "100%",
               [theme.maxMQ.sm]: {
                 width: theme.spacing(5.3),
                 paddingTop: theme.spacing(1),
@@ -75,7 +77,7 @@ const ColumnChart: FC<Props> = ({
             style={{
               minHeight: minHeight,
               ...(ref.current && {
-                height: `${getHeightPercent(160, value) * 160}px`,
+                height: `${getHeightPercent(200, value) * 200}px`,
               }),
             }}
             {...(events && {

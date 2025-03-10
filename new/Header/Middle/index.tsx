@@ -2,6 +2,7 @@ import Link from "../../Link";
 import Logo from "../../../components/Icons/Logo";
 import Button from "../../Buttons/Button";
 import ArrowNav from "./ArrowNav";
+import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 
 const Middle = ({
   showSiteNav,
@@ -10,6 +11,7 @@ const Middle = ({
   showSiteNav: "top" | "afterTop";
   altNav: boolean;
 }) => {
+  const { palette } = usePalette();
   return (
     <div
       css={(theme) => ({
@@ -24,7 +26,9 @@ const Middle = ({
         css={(theme) => [
           {
             boxSizing: "content-box",
-            borderTop: "1px solid black",
+            borderTop:
+              "1px solid " +
+              (palette === "dark" ? theme.colors.white30 : "black"),
             position: "absolute",
             width: "100%",
             top: 0,
@@ -67,13 +71,16 @@ const Middle = ({
         }
       >
         <div
-          css={[
+          css={(theme) => [
             {
               height: "50%",
               display: "flex",
               "> *": {
                 flexGrow: 1,
               },
+            },
+            palette === "dark" && {
+              color: theme.colors.white75,
             },
           ]}
         >
@@ -118,7 +125,13 @@ const Middle = ({
                 key={name + i}
                 noColor={true}
                 size="small"
-                css={(theme) => [{ display: "flex", alignItems: "center" }]}
+                css={(theme) => [
+                  {
+                    display: "flex",
+                    alignItems: "center",
+                    color: theme.colors[palette === "dark" ? "white" : "black"],
+                  },
+                ]}
               >
                 {name}
               </Button>

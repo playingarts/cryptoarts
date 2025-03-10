@@ -4,8 +4,8 @@ import { useSignature } from "../contexts/SignatureContext";
 import { useLoadDeck } from "./deck";
 
 export const OpenseaQuery = gql`
-  query Opensea($deck: ID!) {
-    opensea(deck: $deck) {
+  query Opensea($deck: ID, $slug: String) {
+    opensea(deck: $deck, slug: $slug) {
       id
       volume
       floor_price
@@ -17,8 +17,8 @@ export const OpenseaQuery = gql`
 `;
 
 export const HoldersQuery = gql`
-  query Holders($deck: ID!) {
-    holders(deck: $deck) {
+  query Holders($deck: ID, $slug: String) {
+    holders(deck: $deck, slug: $slug) {
       fullDecks
       fullDecksWithJokers
       spades
@@ -45,10 +45,9 @@ export const OwnedAssetsQuery = gql`
 export const useOpensea = (
   options: QueryHookOptions<Pick<GQL.Query, "opensea">> = {}
 ) => {
-  const { data: { opensea } = { opensea: undefined }, ...methods } = useQuery(
-    OpenseaQuery,
-    options
-  );
+  const { data: { opensea } = { opensea: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "opensea">
+  >(OpenseaQuery, options);
 
   return { ...methods, opensea };
 };

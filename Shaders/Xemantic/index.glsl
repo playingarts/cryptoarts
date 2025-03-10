@@ -1,4 +1,6 @@
       // ... other needed uniforms
+      // uniform float iTime;
+      // uniform vec2 iResolution;
 
       // -- Paste your Shadertoy code here:
 

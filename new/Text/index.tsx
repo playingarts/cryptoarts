@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import { typographyLiterals } from "../../pages/_app";
+import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 
 const Text: FC<
   HTMLAttributes<HTMLElement> & {
@@ -7,11 +8,14 @@ const Text: FC<
     loading?: boolean;
   }
 > = ({ children, typography = "newParagraph", loading = false, ...props }) => {
+  const { palette } = usePalette();
   return (
     <div
       css={(theme) => [
         theme.typography[typography],
-        { color: theme.colors.dark_gray },
+        {
+          color: theme.colors[palette === "dark" ? "white75" : "dark_gray"],
+        },
         loading && {
           "@keyframes loadingPlaceholder": {
             "0%": {

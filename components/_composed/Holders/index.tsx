@@ -16,12 +16,12 @@ import StatBlock, { Props as StatBlockProps } from "../../StatBlock";
 import Text from "../../Text";
 
 interface Props extends StatBlockProps {
-  deckId: string;
+  deckId?: string;
 }
 
-const ComposedHolders: FC<Props> = ({ deckId, ...props }) => {
+const ComposedHolders: FC<Props> = ({ ...props }) => {
   const { holders } = useHolders({
-    variables: { deck: deckId },
+    variables: { slug: "crypto" },
   });
 
   const { width } = useSize();

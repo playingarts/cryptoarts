@@ -19,6 +19,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a881fa9",
       slug: "zero",
       labels: ["AR-Enchanced", "Limited Edition"],
+      short: "Zero",
       previewCards: [
         {
           _id: "67be06271a9322011a881ff7",
@@ -76,6 +77,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a88203b",
       slug: "one",
       labels: null,
+      short: "One",
       previewCards: [
         {
           _id: "67be06271a9322011a882086",
@@ -133,6 +135,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a8820b9",
       slug: "two",
       labels: null,
+      short: "Two",
       previewCards: [
         {
           _id: "67be06271a9322011a88210c",
@@ -190,6 +193,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a882137",
       slug: "three",
       labels: null,
+      short: "Three",
       previewCards: [
         {
           _id: "67be06271a9322011a882177",
@@ -247,6 +251,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a8821b7",
       slug: "special",
       labels: ["Contest", "Limited Edition"],
+      short: "Special",
       previewCards: [
         {
           _id: "67be06271a9322011a8821f9",
@@ -304,6 +309,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a882235",
       slug: "future",
       labels: ["Contest", "Limited Edition"],
+      short: "Future",
       previewCards: [
         {
           _id: "67be06271a9322011a8822d8",
@@ -361,6 +367,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a882235",
       slug: "future",
       labels: ["Contest", "Limited Edition"],
+      short: "Future",
       previewCards: [
         {
           _id: "67be06271a9322011a8822d8",
@@ -418,6 +425,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a882325",
       slug: "crypto",
       labels: ["NFT", "AR-Enhancedar"],
+      short: "Crypto",
       previewCards: [
         {
           _id: "67be06271a9322011a882364",
@@ -479,6 +487,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a881fa9",
       slug: "zero",
       labels: ["AR-Enchanced", "Limited Edition"],
+      short: "Zero",
       previewCards: [
         {
           _id: "67be06271a9322011a881ff7",
@@ -536,6 +545,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a881fa9",
       slug: "zero",
       labels: ["AR-Enchanced", "Limited Edition"],
+      short: "Zero",
       previewCards: [
         {
           _id: "67be06271a9322011a881ff7",
@@ -593,6 +603,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a881fa9",
       slug: "zero",
       labels: ["AR-Enchanced", "Limited Edition"],
+      short: "Zero",
       previewCards: [
         {
           _id: "67be06271a9322011a881ff7",
@@ -650,6 +661,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a88203b",
       slug: "one",
       labels: null,
+      short: "One",
       previewCards: [
         {
           _id: "67be06271a9322011a882086",
@@ -707,6 +719,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a8820b9",
       slug: "two",
       labels: null,
+      short: "Two",
       previewCards: [
         {
           _id: "67be06271a9322011a88210c",
@@ -764,6 +777,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a882137",
       slug: "three",
       labels: null,
+      short: "Three",
       previewCards: [
         {
           _id: "67be06271a9322011a882177",
@@ -821,6 +835,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a8821b7",
       slug: "special",
       labels: ["Contest", "Limited Edition"],
+      short: "Special",
       previewCards: [
         {
           _id: "67be06271a9322011a8821f9",
@@ -878,6 +893,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a882235",
       slug: "future",
       labels: ["Contest", "Limited Edition"],
+      short: "Future",
       previewCards: [
         {
           _id: "67be06271a9322011a8822d8",
@@ -935,6 +951,7 @@ export const productsQuery = [
       _id: "67be06271a9322011a882235",
       slug: "future",
       labels: ["Contest", "Limited Edition"],
+      short: "Future",
       previewCards: [
         {
           _id: "67be06271a9322011a8822d8",
