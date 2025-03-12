@@ -1,22 +1,14 @@
-import { FC, Fragment, HTMLAttributes, lazy, Suspense } from "react";
-import Header from "../../Header";
-import Hero from "./Hero";
-import CardList from "./CardList";
-import TheProduct from "./TheProduct";
-import Gallery from "./Gallery";
-import Footer from "../../Footer";
-import { initApolloClient, withApollo } from "../../../source/apollo";
-import { getDeckSlugsWithoutDB } from "../../../dump/_decks";
-import { GetStaticPaths, GetStaticProps } from "next";
-import { NormalizedCacheObject } from "@apollo/client";
-import { connect } from "../../../source/mongoose";
-import { DecksQuery } from "../../../hooks/deck";
-import { CardsQuery, HeroCardsQuery } from "../../../hooks/card";
-import { LosersQuery } from "../../../hooks/loser";
-import AugmentedReality from "../Home/AugmentedReality";
-import { usePalette } from "./DeckPaletteContext";
 import { useRouter } from "next/router";
+import { FC, Fragment, HTMLAttributes } from "react";
+import { withApollo } from "../../../source/apollo";
+import Footer from "../../Footer";
+import Header from "../../Header";
+import AugmentedReality from "../Home/AugmentedReality";
+import CardList from "./CardList";
+import Gallery from "./Gallery";
+import Hero from "./Hero";
 import PACE from "./PACE";
+import TheProduct from "./TheProduct";
 
 const OnlyCrypto = () => {
   const {

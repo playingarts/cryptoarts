@@ -250,7 +250,7 @@ const Content: FC = () => {
             ]}
           >
             {decks.map(({ title, ...product }, index) =>
-              product.status === "instock" ? (
+              product.status !== "soldout" ? (
                 <Fragment key={product._id}>
                   {index === 2 && width >= breakpoints.sm && (
                     <Grid

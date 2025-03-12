@@ -74,49 +74,52 @@ const Nav: FC<
       )}
       {width >= breakpoints.sm && (
         <div>
-          {decks.map(({ slug, short, openseaCollection }, index) => (
-            <Link
-              scroll={true}
-              key={slug}
-              href={`/${slug}`}
-              {...(setHover && { onMouseEnter: () => setHover(index) })}
-              {...(setModal && { onClick: () => setModal(false) })}
-              activeCss={
-                !openseaCollection
-                  ? (theme) => ({
-                      color: theme.colors.white,
-                    })
-                  : {}
-              }
-              css={(theme) => [
-                vertical && { display: "block" },
-                {
-                  paddingLeft: theme.spacing(2.5),
-                  paddingRight: theme.spacing(2.5),
-                  textDecoration: "none",
-                  lineHeight: "60px",
-                },
-                openseaCollection
-                  ? [
-                      {
-                        color: "transparent",
-                        background: theme.colors.eth,
-                        backgroundClip: "text",
-                        backgroundSize: "400% 100%",
-                        animation: "gradient 5s ease infinite",
-                      },
-                    ]
-                  : {
-                      transition: theme.transitions.fast("color"),
-                      "&:hover": {
-                        color: theme.colors.white,
-                      },
+          {decks.map(
+            ({ slug, short, openseaCollection }, index) =>
+              slug !== "future-ii" && (
+                <Link
+                  scroll={true}
+                  key={slug}
+                  href={`/${slug}`}
+                  {...(setHover && { onMouseEnter: () => setHover(index) })}
+                  {...(setModal && { onClick: () => setModal(false) })}
+                  activeCss={
+                    !openseaCollection
+                      ? (theme) => ({
+                          color: theme.colors.white,
+                        })
+                      : {}
+                  }
+                  css={(theme) => [
+                    vertical && { display: "block" },
+                    {
+                      paddingLeft: theme.spacing(2.5),
+                      paddingRight: theme.spacing(2.5),
+                      textDecoration: "none",
+                      lineHeight: "60px",
                     },
-              ]}
-            >
-              {short}
-            </Link>
-          ))}
+                    openseaCollection
+                      ? [
+                          {
+                            color: "transparent",
+                            background: theme.colors.eth,
+                            backgroundClip: "text",
+                            backgroundSize: "400% 100%",
+                            animation: "gradient 5s ease infinite",
+                          },
+                        ]
+                      : {
+                          transition: theme.transitions.fast("color"),
+                          "&:hover": {
+                            color: theme.colors.white,
+                          },
+                        },
+                  ]}
+                >
+                  {short}
+                </Link>
+              )
+          )}
         </div>
       )}
     </nav>
