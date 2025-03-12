@@ -56,7 +56,7 @@ export const getStaticProps: GetStaticProps<
 
   const deck = decks.find((deck) => deck.slug === deckId);
 
-  if (!deck) {
+  if (!deck || deck.slug === "future-ii") {
     return {
       notFound: true,
     };
