@@ -12,6 +12,13 @@ const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
     eur: Number,
     usd: Number,
   },
+  fullPrice: {
+    type: {
+      eur: Number,
+      usd: Number,
+    },
+    default: null,
+  },
   status: String,
   type: String,
   image: String,
@@ -19,6 +26,7 @@ const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
   info: String,
   short: String,
   deck: { type: Types.ObjectId, ref: "Deck" },
+  labels: { type: Object, default: null },
 });
 
 export const Product =
@@ -77,8 +85,10 @@ export const typeDefs = gql`
   type Product {
     _id: ID!
     deck: Deck
+    labels: [String!]
     title: String!
     price: Currencies!
+    fullPrice: Currencies
     status: String!
     type: String!
     image: String!

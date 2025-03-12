@@ -3,8 +3,6 @@ import Label from "../../../../Label";
 import ArrowButton from "../../../../Buttons/ArrowButton";
 import Card from "../../../../Card";
 import { mockCard } from "../../../../../mocks/card";
-import Button from "../../../../Buttons/Button";
-import Arrow from "../../../../Icons/Arrow";
 import NavButton from "../../../../Buttons/NavButton";
 
 const CollectionItem: FC<
@@ -89,11 +87,7 @@ const CollectionItem: FC<
                   setIndex(index === 0 ? previewCards.length - 1 : index - 1)
                 }
               />
-              <Card
-                noArtist={true}
-                size="nano"
-                card={{ ...mockCard, img: previewCards[index].img }}
-              />
+              <Card noArtist={true} size="nano" card={previewCards[index]} />
               <NavButton
                 onClick={() =>
                   setIndex(index === previewCards.length - 1 ? 0 : index + 1)

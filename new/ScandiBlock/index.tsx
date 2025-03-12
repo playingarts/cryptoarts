@@ -11,18 +11,24 @@ const ScandiBlock: FC<HTMLAttributes<HTMLElement> & Props> = ({
   children,
   inset = false,
   opacity,
-  palette = undefined,
+  palette: paletteProp = undefined,
   ...props
 }) => {
   const { palette: palettecontext } = usePalette();
 
   const [color, setColor] = useState("");
 
-  useEffect(() => {
-    if (palette === undefined) {
-      palette = palettecontext;
-    }
+  const [palette, setPalette] = useState(paletteProp ?? palettecontext);
 
+  useEffect(() => {
+    if (paletteProp === undefined) {
+      setPalette(palettecontext);
+    } else {
+      setPalette(paletteProp);
+    }
+  }, [paletteProp, palettecontext]);
+
+  useEffect(() => {
     const tempopacity =
       opacity === undefined ? (palette === "dark" ? 0.3 : 1) : opacity;
     setColor(
@@ -30,7 +36,7 @@ const ScandiBlock: FC<HTMLAttributes<HTMLElement> & Props> = ({
         ? "rgba(255, 255, 255, " + tempopacity + ")"
         : "rgba(0, 0, 0, " + tempopacity + ")"
     );
-  }, [palette, opacity, palettecontext]);
+  }, [palette, opacity]);
 
   return (
     <div

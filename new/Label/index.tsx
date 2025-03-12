@@ -2,7 +2,7 @@ import { FC, HTMLAttributes } from "react";
 
 const Label: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
   <div
-    css={[
+    css={(theme) => [
       {
         fontSize: 14,
         fontWeight: 400,
@@ -14,8 +14,10 @@ const Label: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
         background: "white",
         borderRadius: 50,
         textTransform: "capitalize",
+        color: theme.colors.black,
       },
     ]}
+    {...props}
   >
     {children}
   </div>

@@ -494,7 +494,7 @@ type CardSuitsType =
 
 const getHolders = async (deck: string) => {
   const contract = await getContract({ deck });
-  console.log({ contract });
+  // console.log({ contract });
 
   if (!contract) {
     return;

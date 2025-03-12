@@ -16,7 +16,7 @@ export let products: MongoProduct[] = [
     deck: "zero",
     short: "Zero",
     price: deckPrice,
-    status: "instock",
+    status: "low",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-zero.png",
@@ -104,9 +104,9 @@ export let products: MongoProduct[] = [
     _id: generateMongoId("51478894575956"),
     title: "Future Edition II",
     short: "Future II",
-    deck: "future",
+    deck: "future-ii",
     price: deckPrice,
-    status: "instock",
+    status: "low",
     type: "deck",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-ii.png",
@@ -130,27 +130,14 @@ export let products: MongoProduct[] = [
     info: "Deck of Cards",
   },
   {
-    // _id: generateMongoId("42012378595515"),
-    _id: generateMongoId("51478894248276"),
-    title: "2x Future Bundle",
-    deck: "zero",
-    short: "2x Future",
-    price: { eur: 24.95, usd: 29.95 },
-    status: "bundle",
-    type: "bundle",
-    image:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-02.png",
-    image2:
-      "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-02.png",
-    info: "Future Editions I + II",
-  },
-  {
     // _id: generateMongoId("21312509018193"),
     _id: generateMongoId("51478897066324"),
     title: "3x Edition Bundle",
     deck: "zero",
     short: "3x Edition",
     price: { eur: 34.95, usd: 39.95 },
+    fullPrice: { eur: 54.95, usd: 59.85 },
+    labels: ["Save 33%"],
     status: "bundle",
     type: "bundle",
     image:
@@ -158,6 +145,23 @@ export let products: MongoProduct[] = [
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-01.png",
     info: "One + Two + Three",
+  },
+  {
+    // _id: generateMongoId("42012378595515"),
+    _id: generateMongoId("51478894248276"),
+    title: "2x Future Bundle",
+    deck: "zero",
+    short: "2x Future",
+    price: { eur: 24.95, usd: 29.95 },
+    fullPrice: { eur: 34.9, usd: 39.9 },
+    labels: ["Save 25%"],
+    status: "bundle",
+    type: "bundle",
+    image:
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-02.png",
+    image2:
+      "https://s3.amazonaws.com/img.playingarts.com/www/products/bundle-02.png",
+    info: "Future Editions I + II",
   },
   {
     // _id: generateMongoId("32395075846192"),
@@ -253,7 +257,7 @@ export let products: MongoProduct[] = [
     title: "Future Edition II",
     // _id: generateMongoId("39371995807792"),
     _id: generateMongoId("39371995807792"),
-    deck: "future",
+    deck: "future-ii",
     short: "Future II",
     type: "sheet",
     price: sheetPrice,

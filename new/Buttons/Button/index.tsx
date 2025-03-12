@@ -34,11 +34,11 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props> = ({
           textUnderlinePosition: "from-font",
           textDecorationSkipInk: "none",
 
-          transition: theme.transitions.fast([
-            "color",
-            "background-color",
-            "opacity",
-          ]),
+          // transition: theme.transitions.fast([
+          //   "color",
+          //   "background-color",
+          //   "opacity",
+          // ]),
 
           "&:hover": [
             {

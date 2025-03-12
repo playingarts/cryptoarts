@@ -6,6 +6,18 @@ import { socialLinks } from "../../../source/consts";
 import ArrowButton from "../../Buttons/ArrowButton";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 
+const HeaderButton = () => {
+  const { palette } = usePalette();
+  return (
+    <ArrowButton
+      color={palette === "dark" ? "white" : undefined}
+      palette={palette}
+    >
+      Shop
+    </ArrowButton>
+  );
+};
+
 const CTA = () => {
   const { palette } = usePalette();
   return (
@@ -26,9 +38,7 @@ const CTA = () => {
           <Youtube />
         </Link>
       </div>
-      <ArrowButton color={palette === "dark" ? "black" : "white"}>
-        Shop
-      </ArrowButton>
+      <HeaderButton />
     </>
   );
 };

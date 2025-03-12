@@ -10,7 +10,7 @@
   "proxy": "localhost:3000",
   "scripts": {
     "dev": "next dev",
-    "dump": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./dump",
+    "dump": "tsx --env-file=.env ./dump",
     "build": "next build && tsc -P tsconfig.json --outDir dist --noEmit false --module commonjs",
     "start": "node dist/source",
     "lint": "yarn lint:tsc && yarn lint:next",
@@ -116,6 +116,7 @@
     "storybook": "^8.4.7",
     "storybook-addon-emotion-theme": "^2.1.1",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "5.7.2",
     "undici": "^7.1.0"
   },

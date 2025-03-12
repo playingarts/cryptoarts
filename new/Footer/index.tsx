@@ -91,7 +91,7 @@ const ActualFooter = () => {
                   marginTop: 30,
                   color:
                     theme.colors[palette === "dark" ? "white50" : "black30"],
-                  "svg:not(:first-child)": {
+                  "svg:not(:first-of-type)": {
                     marginLeft: 30,
                   },
                 },

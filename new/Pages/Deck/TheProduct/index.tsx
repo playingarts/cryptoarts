@@ -63,7 +63,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       >
         <Text css={[{ marginBottom: 30 }]}>A masterpiece you can hold</Text>
         <div>
-          <Text css={[{}]} typography="paragraphBig">
+          <Text typography="paragraphBig">
             Carefully crafted on legendary Bicycle® paper for unparalleled
             artistry and tactile quality.
           </Text>

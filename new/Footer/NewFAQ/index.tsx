@@ -27,8 +27,13 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         paragraphText="All your questions, dealt."
         linkNewText="Read full FAQ"
         beforeLinkNew={
-          <ButtonTemplate bordered={true} color={"white75"} size="small">
-            Leave a review
+          <ButtonTemplate
+            bordered={true}
+            size="small"
+            palette={palette}
+            color={palette === "dark" ? "white75" : undefined}
+          >
+            Ask a question
           </ButtonTemplate>
         }
       />

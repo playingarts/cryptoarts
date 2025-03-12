@@ -3,6 +3,7 @@ import Grid from "../../../../components/Grid";
 import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Button";
 import NewLink from "../../../Link/NewLink";
+import ArrowButton from "../../../Buttons/ArrowButton";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <Grid
@@ -17,29 +18,28 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     ]}
   >
     <div css={[{ gridColumn: "span 6" }]}>
-      <Text typography="newh0">Shop</Text>
+      <Text typography="newh1">Shop</Text>
       <Text css={[{ marginTop: 30 }]}>
         Limited-edition playing cards, uncut sheets,
         <br /> and exclusive bundles created by visionary artists.
       </Text>
       <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
         <ButtonTemplate
+          bordered={true}
           css={(theme) => [
             {
               // color: "white",
-              color: theme.colors.dark_gray,
-              border: `${theme.colors.dark_gray} solid 1px`,
-              "&:hover": {
-                color: "white",
-                background: theme.colors.dark_gray,
-              },
             },
           ]}
         >
           Playing cards
         </ButtonTemplate>
-        <NewLink href="">Uncut sheets</NewLink>
-        <NewLink href="">Bundles</NewLink>
+        <ArrowButton base size="small" noColor>
+          Uncut sheets
+        </ArrowButton>
+        <ArrowButton base size="small" noColor>
+          Bundles
+        </ArrowButton>
       </div>
     </div>
 
@@ -55,7 +55,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           position: "absolute",
           gridColumn: "span 6",
           objectFit: "cover",
-          transform: "translate(-110px,150px)",
+          transform: "translate(-110px,125px)",
           opacity: 0.3,
         },
       ]}

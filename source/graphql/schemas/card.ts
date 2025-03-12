@@ -176,6 +176,16 @@ const setCards = {
       suit: "hearts",
     },
   ],
+  "future-ii": [
+    {
+      value: "queen",
+      suit: "clubs",
+    },
+    {
+      value: "ace",
+      suit: "spades",
+    },
+  ],
   crypto: [
     {
       suit: "clubs",

@@ -5,11 +5,10 @@ import {
   createContext,
   useContext,
   useEffect,
-  useLayoutEffect,
   useState,
 } from "react";
 
-interface Props {
+export interface Props {
   palette: "light" | "dark";
 }
 
@@ -28,7 +27,7 @@ export const DeckPaletteProvider: FC<HTMLAttributes<HTMLElement>> = ({
     query: { deckId },
   } = useRouter();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setPalette(deckId === "crypto" ? "dark" : "light");
   }, [deckId]);
 

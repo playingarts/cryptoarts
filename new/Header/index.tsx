@@ -1,5 +1,11 @@
 import { colord } from "colord";
-import { FC, HTMLAttributes, useLayoutEffect, useState } from "react";
+import {
+  FC,
+  HTMLAttributes,
+  ReactNode,
+  useLayoutEffect,
+  useState,
+} from "react";
 import Grid from "../../components/Grid";
 import ScandiBlock from "../ScandiBlock";
 import CTA from "./CTA";
@@ -9,9 +15,12 @@ import MenuPortal from "./MainMenu/MenuPortal";
 import MainMenu from "./MainMenu";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 
-export interface Props extends HTMLAttributes<HTMLElement> {}
+export interface Props extends HTMLAttributes<HTMLElement> {
+  customCTA?: ReactNode;
+  customMiddle?: ReactNode;
+}
 
-const Header: FC<Props> = ({ ...props }) => {
+const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
   const [showSiteNav, setShowSiteNav] = useState<"top" | "afterTop">("top");
 
   const [altNav, setAltNav] = useState(false);
@@ -122,7 +131,7 @@ const Header: FC<Props> = ({ ...props }) => {
             (showSiteNav === "afterTop" && { borderColor: "transparent" }) || {}
           }
         />
-        <Middle {...{ showSiteNav, altNav }} />
+        <Middle {...{ showSiteNav, altNav }} customMiddle={customMiddle} />
 
         <ScandiBlock
           palette={palette}
@@ -139,7 +148,7 @@ const Header: FC<Props> = ({ ...props }) => {
             (showSiteNav === "afterTop" && { borderColor: "transparent" }) || {}
           }
         >
-          <CTA />
+          {customCTA ?? <CTA />}
         </ScandiBlock>
       </Grid>
       <MenuPortal show={showMenu}>

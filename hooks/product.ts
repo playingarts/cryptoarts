@@ -9,6 +9,11 @@ export const ProductsQuery = gql`
       info
       status
       type
+      labels
+      fullPrice {
+        usd
+        eur
+      }
       price {
         eur
         usd

@@ -26,11 +26,4 @@ const Home = (props: Props) => {
   );
 };
 
-export function getStaticProps() {
-  return {
-    // returns the default 404 page with a status code of 404 in production
-    notFound: process.env.SHOW_NEW !== "true",
-  };
-}
-
-export default withApollo(Home);
+export default withApollo(Home, { ssr: false });

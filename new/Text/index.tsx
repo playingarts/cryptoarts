@@ -1,14 +1,31 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { typographyLiterals } from "../../pages/_app";
-import { usePalette } from "../Pages/Deck/DeckPaletteContext";
+import { usePalette, Props } from "../Pages/Deck/DeckPaletteContext";
 
 const Text: FC<
   HTMLAttributes<HTMLElement> & {
     typography?: keyof typeof typographyLiterals;
     loading?: boolean;
+    palette?: Props["palette"];
   }
-> = ({ children, typography = "newParagraph", loading = false, ...props }) => {
-  const { palette } = usePalette();
+> = ({
+  children,
+  palette: paletteProp = undefined,
+  typography = "newParagraph",
+  loading = false,
+  ...props
+}) => {
+  const { palette: paletteContext } = usePalette();
+  const [palette, setPalette] = useState(paletteProp ?? paletteContext);
+
+  useEffect(() => {
+    if (paletteProp === undefined) {
+      setPalette(paletteContext);
+    } else {
+      setPalette(paletteProp);
+    }
+  }, [paletteProp, paletteContext]);
+
   return (
     <div
       css={(theme) => [

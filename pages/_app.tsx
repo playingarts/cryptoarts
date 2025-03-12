@@ -300,6 +300,16 @@ export const typographyLiterals = {
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
   },
+  newh1: {
+    //styleName: Paragraph big;
+    fontFamily: "'Alliance No.2'",
+    fontSize: 70,
+    fontWeight: 400,
+    lineHeight: "120%",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+  },
 
   //old
   h1: {
