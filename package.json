@@ -63,6 +63,7 @@
     "next-routes": "^1.4.2",
     "nextjs-google-analytics": "^2.3.7",
     "react": "^19.0.0",
+    "react-countdown": "^2.3.6",
     "react-dom": "19.0.0",
     "react-hook-form": "^7.54.1",
     "react-hookstore": "^1.5.2",

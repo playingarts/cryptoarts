@@ -13,6 +13,7 @@ import { Theme } from "@emotion/react";
 import { breakpoints } from "../source/enums";
 import { CSSPropertiesWithMultiValues } from "@emotion/serialize";
 import { DeckPaletteProvider } from "../new/Pages/Deck/DeckPaletteContext";
+import { IsEuropeProvider } from "../new/Contexts/bag";
 
 type breakpointsObjectType = { [index in keyof typeof breakpoints]: string };
 
@@ -543,10 +544,12 @@ const App = ({
           <DeckPaletteProvider>
             <ThemeProvider theme={theme}>
               <ViewedProvider>
-                <SizeProvider isMobile={isMobile === true}>
-                  <GoogleAnalytics trackPageViews />
-                  <Component {...pageProps} />
-                </SizeProvider>
+                <IsEuropeProvider>
+                  <SizeProvider isMobile={isMobile === true}>
+                    <GoogleAnalytics trackPageViews />
+                    <Component {...pageProps} />
+                  </SizeProvider>
+                </IsEuropeProvider>
               </ViewedProvider>
             </ThemeProvider>
           </DeckPaletteProvider>

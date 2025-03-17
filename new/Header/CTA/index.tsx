@@ -9,12 +9,14 @@ import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 const HeaderButton = () => {
   const { palette } = usePalette();
   return (
-    <ArrowButton
-      color={palette === "dark" ? "white" : undefined}
-      palette={palette}
-    >
-      Shop
-    </ArrowButton>
+    <Link href="/new/shop">
+      <ArrowButton
+        color={palette === "dark" ? "white" : undefined}
+        palette={palette}
+      >
+        Shop
+      </ArrowButton>
+    </Link>
   );
 };
 

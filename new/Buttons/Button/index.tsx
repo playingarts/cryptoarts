@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes } from "react";
-import Text from "../../Text";
+import Text, { Props as TextProps } from "../../Text";
 import { colorLiterals } from "../../../pages/_app";
+import { Props as Paletteprops } from "../../Pages/Deck/DeckPaletteContext";
 
 export interface Props {
   color?: keyof typeof colorLiterals;
@@ -8,10 +9,10 @@ export interface Props {
   size?: "small" | "big";
   base?: boolean;
   noColor?: boolean;
-  palette?: "dark" | string;
+  palette?: Paletteprops["palette"];
 }
 
-const Button: FC<HTMLAttributes<HTMLElement> & Props> = ({
+const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
   children,
   color = "dark_gray",
   bordered = false,

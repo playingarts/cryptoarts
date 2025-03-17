@@ -17,6 +17,7 @@ const Trust: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         },
       ]}
+      {...props}
     >
       <div>
         <Spades css={(theme) => [{ color: theme.colors.black30 }]} />

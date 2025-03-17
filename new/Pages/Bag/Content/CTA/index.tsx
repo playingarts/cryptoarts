@@ -1,0 +1,198 @@
+import { FC, HTMLAttributes, useEffect, useState } from "react";
+import ArrowedButton from "../../../../Buttons/ArrowedButton";
+import { useProducts } from "../../../../../hooks/product";
+import Text from "../../../../Text";
+import { useBag } from "../../../../Contexts/bag";
+import Button from "../../../../Buttons/Button";
+import ArrowButton from "../../../../Buttons/ArrowButton";
+import Lock from "../../../../Icons/Lock";
+import Visa from "../../../../../components/Icons/Visa";
+import Mastercard from "../../../../../components/Icons/Mastercard";
+import PayPal from "../../../../../components/Icons/PayPal";
+import ApplePay from "../../../../Icons/ApplePay";
+import GooglePay from "../../../../Icons/GooglePay";
+import Link from "../../../../Link";
+
+const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+  const { bag, updateQuantity, removeItem, getPrice } = useBag();
+
+  const { products } = useProducts(
+    bag
+      ? {
+          variables: {
+            ids: Object.keys(bag),
+          },
+        }
+      : {}
+  );
+
+  const [total, setTotal] = useState(0);
+  const [totalPercentage, setTotalPercentage] = useState(0);
+
+  useEffect(() => {
+    if (!products || !bag) {
+      return;
+    }
+
+    const total = products.reduce((prev, cur) => {
+      return Number(
+        (prev + getPrice(cur.price, true) * bag[cur._id]).toFixed(2)
+      );
+    }, 0);
+
+    setTotal(total);
+    setTotalPercentage((total / 50) * 100);
+  }, [products, bag]);
+
+  return (
+    <div
+      css={[
+        {
+          backgroundColor: "white",
+          height: "fit-content",
+          borderRadius: 15,
+          padding: 30,
+          position: "sticky",
+          top: 70,
+        },
+      ]}
+      {...props}
+    >
+      <ArrowedButton>Summary</ArrowedButton>
+      <div css={[{ marginTop: 60, display: "grid", gap: 15 }]}>
+        <div css={[{ display: "flex", justifyContent: "space-between" }]}>
+          <Text typography="paragraphSmall">Subtotal</Text>
+          <Text typography="paragraphSmall">{getPrice(total)}</Text>
+        </div>
+        <div css={[{ display: "flex", justifyContent: "space-between" }]}>
+          <Text typography="paragraphSmall">Shipping</Text>
+          <Text typography="paragraphSmall">{getPrice(5)}</Text>
+        </div>
+        <div
+          css={(theme) => [
+            {
+              margin: "15px 0",
+              position: "relative",
+              background:
+                total >= 50
+                  ? theme.colors.mint
+                  : `linear-gradient(to right, ${theme.colors.mint} ${totalPercentage}%,  ${theme.colors.pale_gray} ${totalPercentage}%)`,
+              borderRadius: 7,
+            },
+          ]}
+        >
+          <Text
+            typography="paragraphNano"
+            css={[{ textAlign: "center", lineHeight: "45px" }]}
+          >
+            {total < 50
+              ? `You’re just ${getPrice(50 - total)} away from free shipping!`
+              : "You have free shipping"}
+          </Text>
+        </div>
+        <div
+          css={(theme) => [
+            {
+              display: "flex",
+              justifyContent: "space-between",
+              "> *": {
+                color: "#469F71",
+              },
+            },
+          ]}
+        >
+          <Text typography="paragraphSmall">Bundle savings</Text>
+          <Text typography="paragraphSmall">{getPrice(0)}</Text>
+        </div>
+        <div
+          css={(theme) => [
+            {
+              display: "flex",
+              justifyContent: "space-between",
+              "> *": {
+                color: "#469F71",
+              },
+            },
+          ]}
+        >
+          <Text typography="paragraphSmall">Total savings</Text>
+          <Text typography="paragraphSmall">{getPrice(0)}</Text>
+        </div>
+      </div>
+      <div
+        css={[
+          {
+            marginTop: 30,
+            display: "flex",
+            justifyContent: "space-between",
+          },
+        ]}
+      >
+        <Text typography="newh3">Total</Text>
+        <Text typography="newh3">
+          {getPrice(total + (total >= 50 ? 0 : 5))}
+        </Text>
+      </div>
+      <Link
+        href={
+          !bag
+            ? "/"
+            : `https://secure.playingarts.com/cart/${Object.entries(bag)
+                .map(([id, quantity]) => `${parseInt(id, 10)}:${quantity}`)
+                .join(",")}`
+        }
+        target="_blank"
+        rel="noopener"
+        css={[{ marginLeft: "auto" }]}
+      >
+        <ArrowButton
+          color="accent"
+          css={[{ display: "block", textAlign: "center", marginTop: 30 }]}
+        >
+          Secure check out
+        </ArrowButton>
+      </Link>
+      <Link href="/new/shop">
+        <ArrowButton
+          size="small"
+          base
+          noColor
+          css={[{ display: "block", textAlign: "center", marginTop: 30 }]}
+        >
+          Continue shopping
+        </ArrowButton>
+      </Link>
+
+      <Text
+        typography="paragraphSmall"
+        css={(theme) => [
+          { textAlign: "center", color: theme.colors.black30, marginTop: 30 },
+        ]}
+      >
+        <Lock css={[{ marginRight: 10 }]} />
+        100% secure powered by Shopify
+      </Text>
+
+      <div
+        css={(theme) => [
+          {
+            gap: 20,
+            marginTop: 30,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            color: "rgba(0,0,0,20%)",
+          },
+        ]}
+      >
+        <Visa css={[{ width: 49.82 }]} />
+        <Mastercard css={[{ width: 42.7 }]} />
+        <PayPal css={[{ width: 60.5 }]} />
+        <ApplePay css={[{ width: 53.38 }]} />
+        <GooglePay css={[{ width: 55.56 }]} />
+      </div>
+    </div>
+  );
+};
+
+export default CTA;

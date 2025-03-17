@@ -23,6 +23,7 @@ const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
   type: String,
   image: String,
   image2: String,
+  description: { type: String, default: null },
   info: String,
   short: String,
   deck: { type: Types.ObjectId, ref: "Deck" },
@@ -94,6 +95,7 @@ export const typeDefs = gql`
     image: String!
     image2: String!
     info: String
+    description: String
     short: String!
   }
 `;

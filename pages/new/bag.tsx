@@ -1,6 +1,6 @@
 import { connect } from "../../source/mongoose";
 
-export { default } from "../../new/Pages/Shop";
+export { default } from "../../new/Pages/Bag";
 
 export const getStaticProps = async () => {
   await connect();

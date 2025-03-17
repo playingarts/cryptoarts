@@ -290,6 +290,7 @@ interface Product {
   image: Scalars['String']['output'];
   image2: Scalars['String']['output'];
   info?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
   short: Scalars['String']['output'];
 }
 
@@ -726,6 +727,7 @@ export type ProductResolvers<ContextType = { req: Request, res: Response }, Pare
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image2?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };

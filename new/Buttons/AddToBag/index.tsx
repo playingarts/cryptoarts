@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 import Button, { Props } from "../Button";
 import Plus from "../../Icons/Plus";
-import { useBag } from "../../../hooks/bag";
+import { useNewBag } from "../../../hooks/newbag";
 
 const AddToBag: FC<
   HTMLAttributes<HTMLElement> &
@@ -9,10 +9,9 @@ const AddToBag: FC<
       productId: string;
     }
 > = ({ productId, ...props }) => {
-  const { bag, addItem } = useBag();
-  const onClick = () => addItem(productId);
+  const { bag, addItem } = useNewBag();
 
-  if (bag[productId] >= 0) {
+  if (bag && bag[productId] >= 0) {
     return (
       <Button color="accent" size="small" {...props}>
         View bag
@@ -29,7 +28,7 @@ const AddToBag: FC<
           paddingLeft: 7,
         },
       ]}
-      onClick={onClick}
+      onClick={() => addItem(productId)}
       {...props}
     >
       <Plus css={[{ marginRight: 7 }]} /> Add to bag

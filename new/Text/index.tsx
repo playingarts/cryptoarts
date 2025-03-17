@@ -1,14 +1,17 @@
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { typographyLiterals } from "../../pages/_app";
-import { usePalette, Props } from "../Pages/Deck/DeckPaletteContext";
+import {
+  usePalette,
+  Props as PaletteProps,
+} from "../Pages/Deck/DeckPaletteContext";
 
-const Text: FC<
-  HTMLAttributes<HTMLElement> & {
-    typography?: keyof typeof typographyLiterals;
-    loading?: boolean;
-    palette?: Props["palette"];
-  }
-> = ({
+export interface Props {
+  typography?: keyof typeof typographyLiterals;
+  loading?: boolean;
+  palette?: PaletteProps["palette"];
+}
+
+const Text: FC<HTMLAttributes<HTMLElement> & Props> = ({
   children,
   palette: paletteProp = undefined,
   typography = "newParagraph",

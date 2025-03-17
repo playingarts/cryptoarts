@@ -7,12 +7,16 @@ import Footer from "../../Footer";
 import Trust from "./Trust";
 import AugmentedReality from "../Home/AugmentedReality";
 import Bundles from "./Bundles";
-import Button from "../../Buttons/Button";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Text from "../../Text";
+import Link from "../../Link";
 
 const BagButton = () => {
-  return <ArrowButton css={[{ marginLeft: "auto" }]}>Bag</ArrowButton>;
+  return (
+    <Link href="/new/bag" css={[{ marginLeft: "auto" }]}>
+      <ArrowButton>Bag</ArrowButton>
+    </Link>
+  );
 };
 
 const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
@@ -44,4 +48,4 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   </>
 );
 
-export default withApollo(Shop);
+export default withApollo(Shop, { ssr: false });

@@ -38,6 +38,7 @@ export let products: MongoProduct[] = [
     image2:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-one-02.png",
     info: "Deck of Cards",
+    description: "A timeless classic, loved by all.",
   },
   {
     // _id: generateMongoId("12381603004497"),
@@ -93,6 +94,7 @@ export let products: MongoProduct[] = [
     price: deckPrice,
     status: "instock",
     type: "deck",
+    description: "Bold visions of tomorrow, today.",
     image:
       "https://s3.amazonaws.com/img.playingarts.com/www/products/deck-future-i.png",
     image2:

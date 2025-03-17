@@ -136,7 +136,10 @@ const Bundles: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         paragraphText="Save big and elevate your experience with these curated collections."
         css={[{ minHeight: 241, boxSizing: "content-box", marginBottom: 60 }]}
       />
-      {bundles && bundles.map((product) => <Bundle product={product} />)}
+      {bundles &&
+        bundles.map((product) => (
+          <Bundle key={"Bundle" + product._id} product={product} />
+        ))}
     </Grid>
   );
 };
