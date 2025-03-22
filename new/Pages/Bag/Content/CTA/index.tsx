@@ -12,6 +12,7 @@ import PayPal from "../../../../../components/Icons/PayPal";
 import ApplePay from "../../../../Icons/ApplePay";
 import GooglePay from "../../../../Icons/GooglePay";
 import Link from "../../../../Link";
+import ContinueShopping from "../../../../Buttons/ContinueShopping";
 
 const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { bag, updateQuantity, removeItem, getPrice } = useBag();
@@ -152,16 +153,11 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           Secure check out
         </ArrowButton>
       </Link>
-      <Link href="/new/shop">
-        <ArrowButton
-          size="small"
-          base
-          noColor
-          css={[{ display: "block", textAlign: "center", marginTop: 30 }]}
-        >
-          Continue shopping
-        </ArrowButton>
-      </Link>
+      <ContinueShopping
+        css={[{ display: "block", textAlign: "center", marginTop: 30 }]}
+      >
+        Continue shopping
+      </ContinueShopping>
 
       <Text
         typography="paragraphSmall"

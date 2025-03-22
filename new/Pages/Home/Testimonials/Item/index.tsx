@@ -1,12 +1,11 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, ReactNode } from "react";
 import Rating from "../../../../Icons/Rating";
 import Text from "../../../../Text";
 import Dot from "../../../../Icons/Dot";
 
-const Item: FC<HTMLAttributes<HTMLElement> & { rating: GQL.Rating }> = ({
-  rating,
-  ...props
-}) => {
+const Item: FC<
+  HTMLAttributes<HTMLElement> & { rating: GQL.Rating; customButton?: ReactNode }
+> = ({ rating, customButton, ...props }) => {
   const reviewLength = rating.review.split(" ").length;
 
   return (
@@ -21,6 +20,7 @@ const Item: FC<HTMLAttributes<HTMLElement> & { rating: GQL.Rating }> = ({
           width: 520,
         },
       ]}
+      {...props}
     >
       <span>
         <Rating />
@@ -45,9 +45,11 @@ const Item: FC<HTMLAttributes<HTMLElement> & { rating: GQL.Rating }> = ({
         {rating.who}
       </Text>
 
-      <Text typography="linkNewTypography" css={[{ marginTop: 15 }]}>
-        {rating.title} <Dot />
-      </Text>
+      {customButton ?? (
+        <Text typography="linkNewTypography" css={[{ marginTop: 15 }]}>
+          {rating.title} <Dot />
+        </Text>
+      )}
     </div>
   );
 };

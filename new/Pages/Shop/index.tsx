@@ -10,11 +10,22 @@ import Bundles from "./Bundles";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Text from "../../Text";
 import Link from "../../Link";
+import { useBag } from "../../Contexts/bag";
 
-const BagButton = () => {
+export const BagButton = () => {
+  const { bag } = useBag();
+
   return (
     <Link href="/new/bag" css={[{ marginLeft: "auto" }]}>
-      <ArrowButton>Bag</ArrowButton>
+      <ArrowButton>
+        Bag
+        {bag
+          ? "—" +
+            Object.values(bag).reduce((prev, cur) => {
+              return prev + cur;
+            }, 0)
+          : null}
+      </ArrowButton>
     </Link>
   );
 };

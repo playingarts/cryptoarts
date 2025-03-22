@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 
 import image2 from "../../../../../mocks/images/ShopCollection/photo-big-1.png";
 import image3 from "../../../../../mocks/images/ShopCollection/photo-big-2.png";
@@ -8,12 +8,13 @@ import NavButton from "../../../../Buttons/NavButton";
 import Text from "../../../../Text";
 import Button from "../../../../Buttons/Button";
 import AddToBag from "../../../../Buttons/AddToBag";
+import SoldOut from "../../../../Buttons/SoldOut";
+import Link from "../../../../Link";
 const images = [image1.src, image2.src, image3.src];
 
-const CollectionItem: FC<{ palette?: "dark"; product: GQL.Product }> = ({
-  palette,
-  product,
-}) => {
+const CollectionItem: FC<
+  HTMLAttributes<HTMLDivElement> & { palette?: "dark"; product: GQL.Product }
+> = ({ palette, product, ...props }) => {
   const [hover, setHover] = useState(false);
   const [imageHover, setImageHover] = useState(false);
 
@@ -50,6 +51,7 @@ const CollectionItem: FC<{ palette?: "dark"; product: GQL.Product }> = ({
       ]}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
+      {...props}
     >
       <div
         onMouseEnter={() => setImageHover(true)}
@@ -132,9 +134,13 @@ const CollectionItem: FC<{ palette?: "dark"; product: GQL.Product }> = ({
         </div>
       </div>
       <div css={[{ margin: 30 }]}>
-        <Text typography="newh4" palette={hover ? palette : undefined}>
-          {product.title}
-        </Text>
+        <Link
+          href={"/new/shop/" + product.short.toLowerCase().split(" ").join("")}
+        >
+          <Text typography="newh4" palette={hover ? palette : undefined}>
+            {product.title}
+          </Text>
+        </Link>
         <Text
           typography="paragraphSmall"
           css={[{ marginTop: 10 }]}
@@ -161,7 +167,11 @@ const CollectionItem: FC<{ palette?: "dark"; product: GQL.Product }> = ({
             )
           ) : (
             <>
-              <AddToBag productId={product._id} />
+              {product.status === "soldout" ? (
+                <SoldOut />
+              ) : (
+                <AddToBag productId={product._id} />
+              )}
               <Text typography="linkNewTypography">${product.price.usd}</Text>
             </>
           )}

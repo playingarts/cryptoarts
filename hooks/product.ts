@@ -31,6 +31,7 @@ export const ProductsQuery = gql`
           img
           artist {
             _id
+            name
             slug
           }
         }

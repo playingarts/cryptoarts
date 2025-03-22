@@ -1,7 +1,8 @@
 import { FC, HTMLAttributes } from "react";
 import Button, { Props } from "../Button";
 import Plus from "../../Icons/Plus";
-import { useNewBag } from "../../../hooks/newbag";
+import { useBag } from "../../Contexts/bag";
+import Link from "../../Link";
 
 const AddToBag: FC<
   HTMLAttributes<HTMLElement> &
@@ -9,13 +10,15 @@ const AddToBag: FC<
       productId: string;
     }
 > = ({ productId, ...props }) => {
-  const { bag, addItem } = useNewBag();
+  const { bag, addItem } = useBag();
 
   if (bag && bag[productId] >= 0) {
     return (
-      <Button color="accent" size="small" {...props}>
-        View bag
-      </Button>
+      <Link href={"/new/bag"}>
+        <Button color="accent" size="small" {...props}>
+          View bag
+        </Button>
+      </Link>
     );
   }
 

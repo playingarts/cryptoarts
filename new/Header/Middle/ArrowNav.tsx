@@ -26,21 +26,6 @@ export default () => {
   }, [deckId, decks]);
 
   return deckId && decks ? (
-    // <div
-    //   css={[
-    //     {
-    //       display:"inline",
-    //       "> *": {
-    //         display: "inline-block",
-    //         lineHeight: "45px",
-    //         width: 45,
-    //         verticalAlign: "middle",
-    //         textAlign: "center",
-    //       },
-    //     },
-    //   ]}
-    // >
-    // </div>
     <Text
       typography="paragraphSmall"
       css={[

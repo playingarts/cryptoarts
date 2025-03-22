@@ -34,8 +34,6 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             gap: 3,
             marginTop: 60,
             " > *": {
-              //   flex: "1 0 30%",
-              //   height: 450,
               background: theme.colors.soft_gray,
               borderRadius: 16,
               "&:hover": {
@@ -45,83 +43,69 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        {
-          //   const arr = [];
-          //   const deckProducts =
-          products &&
-            products.map(
-              (product, index) =>
-                product.type === "deck" && (
-                  <Fragment key={"product" + product._id}>
-                    {index === 2 && (
-                      <div
-                        css={[
-                          { display: "grid", alignContent: "space-between" },
-                        ]}
-                      >
-                        <Text css={[{ margin: 30 }]}>1,000+ reviews</Text>
-                        <div css={[{ margin: 30 }]}>
-                          <Rating />
-                          <Rating />
-                          <Rating />
-                          <Rating />
-                          <Rating />
-                          <Text css={[{ marginTop: 30 }]}>
-                            “Not only are they little gems by their own right,
-                            they are also a perfect way to discover new talented
-                            artists.”
-                          </Text>
-                          <Text
-                            typography="paragraphSmall"
-                            css={[{ marginTop: 15 }]}
+        {products &&
+          products.map(
+            (product, index) =>
+              product.type === "deck" && (
+                <Fragment key={"product" + product._id}>
+                  {index === 2 && (
+                    <div
+                      css={[{ display: "grid", alignContent: "space-between" }]}
+                    >
+                      <Text css={[{ margin: 30 }]}>1,000+ reviews</Text>
+                      <div css={[{ margin: 30 }]}>
+                        <Rating />
+                        <Rating />
+                        <Rating />
+                        <Rating />
+                        <Rating />
+                        <Text css={[{ marginTop: 30 }]}>
+                          “Not only are they little gems by their own right,
+                          they are also a perfect way to discover new talented
+                          artists.”
+                        </Text>
+                        <Text
+                          typography="paragraphSmall"
+                          css={[{ marginTop: 15 }]}
+                        >
+                          Matthew V. from Florida, USA
+                        </Text>
+                        <ArrowButton
+                          css={[{ marginTop: 15 }]}
+                          noColor
+                          size="small"
+                          base
+                        >
+                          Edition One
+                        </ArrowButton>
+                        <div>
+                          <ButtonTemplate
+                            bordered
+                            css={(theme) => [
+                              {
+                                marginTop: 30,
+                                // color: "white",
+                              },
+                            ]}
                           >
-                            Matthew V. from Florida, USA
-                          </Text>
-                          <ArrowButton
-                            css={[{ marginTop: 15 }]}
-                            noColor
-                            size="small"
-                            base
-                          >
-                            Edition One
-                          </ArrowButton>
-                          <div>
-                            <ButtonTemplate
-                              bordered
-                              css={(theme) => [
-                                {
-                                  marginTop: 30,
-                                  // color: "white",
-                                },
-                              ]}
-                            >
-                              View all reviews
-                            </ButtonTemplate>
-                          </div>
+                            View all reviews
+                          </ButtonTemplate>
                         </div>
                       </div>
-                    )}
+                    </div>
+                  )}
 
-                    <CollectionItem
-                      palette={
-                        product.deck && product.deck.slug === "crypto"
-                          ? "dark"
-                          : undefined
-                      }
-                      product={product}
-                    />
-                  </Fragment>
-                )
-            )
-          // <div css={[{ padding: 30 }]}>
-          //   <Text typography="paragraphBig">
-          //     Eight editions.
-          //     <br />
-          //     Endless inspiration.
-          //   </Text>
-          //   <Text typography="linkNewTypography">Discover the journey</Text>
-          // </div>
-        }
+                  <CollectionItem
+                    palette={
+                      product.deck && product.deck.slug === "crypto"
+                        ? "dark"
+                        : undefined
+                    }
+                    product={product}
+                  />
+                </Fragment>
+              )
+          )}
       </div>
     </Grid>
   );

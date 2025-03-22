@@ -1,10 +1,5 @@
 import { gql } from "@apollo/client";
-import { model, Model, models, Schema, Types } from "mongoose";
-import Web3 from "web3";
-import { getContracts } from "./contract";
-import { getDeck, getDecks } from "./deck";
-import { getAssets } from "./opensea";
-import { getListings } from "./listing";
+import { model, Model, models, Schema } from "mongoose";
 
 const schema = new Schema<GQL.Rating, Model<GQL.Rating>, GQL.Rating>({
   who: String,
