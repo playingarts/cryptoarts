@@ -2,8 +2,9 @@ import { gql } from "@apollo/client";
 import { model, Model, models, Schema, Types } from "mongoose";
 import fetch from "../../fetch";
 
-export type MongoProduct = Omit<GQL.Product, "deck"> & {
+export type MongoProduct = Omit<GQL.Product, "deck" | "decks"> & {
   deck?: string;
+  decks?: string[];
 };
 
 const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
@@ -20,13 +21,21 @@ const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
     default: null,
   },
   status: String,
-  type: String,
+  type: {
+    type: String,
+    enum: ["deck", "bundle", "sheet", "gaga"],
+    required: true,
+  },
   image: String,
   image2: String,
   description: { type: String, default: null },
   info: String,
   short: String,
   deck: { type: Types.ObjectId, ref: "Deck" },
+  decks: {
+    type: [{ type: Types.ObjectId, ref: "Product" }],
+    default: null,
+  },
   labels: { type: Object, default: null },
 });
 
@@ -43,12 +52,14 @@ const getProducts = (ids?: string[]) =>
 export const resolvers: GQL.Resolvers = {
   Query: {
     products: (_, { ids }) => {
-      return getProducts(ids).populate([
-        {
-          path: "deck",
-          populate: { path: "previewCards", populate: { path: "artist" } },
-        },
-      ]) as unknown as Promise<GQL.Product[]>;
+      return getProducts(ids)
+        .populate([
+          {
+            path: "deck",
+            populate: { path: "previewCards", populate: { path: "artist" } },
+          },
+        ])
+        .populate("decks") as unknown as Promise<GQL.Product[]>;
     },
     convertEurToUsd: async (_, { eur }) => {
       try {
@@ -86,6 +97,7 @@ export const typeDefs = gql`
   type Product {
     _id: ID!
     deck: Deck
+    decks: [Product!]
     labels: [String!]
     title: String!
     price: Currencies!

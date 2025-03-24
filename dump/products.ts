@@ -1,4 +1,9 @@
-import { MongoProduct, Product } from "../source/graphql/schemas/product";
+import { Deck } from "../source/graphql/schemas/deck";
+import {
+  MongoProduct,
+  Product,
+  getProduct,
+} from "../source/graphql/schemas/product";
 import { connect } from "../source/mongoose";
 import { populateDeckId } from "./_utils";
 
@@ -136,7 +141,7 @@ export let products: MongoProduct[] = [
     // _id: generateMongoId("21312509018193"),
     _id: generateMongoId("51478897066324"),
     title: "3x Edition Bundle",
-    deck: "zero",
+    decks: ["one", "two", "three"],
     short: "3x Edition",
     price: { eur: 34.95, usd: 39.95 },
     fullPrice: { eur: 54.95, usd: 59.85 },
@@ -153,7 +158,7 @@ export let products: MongoProduct[] = [
     // _id: generateMongoId("42012378595515"),
     _id: generateMongoId("51478894248276"),
     title: "2x Future Bundle",
-    deck: "zero",
+    decks: ["future", "future-ii"],
     short: "2x Future",
     price: { eur: 24.95, usd: 29.95 },
     fullPrice: { eur: 34.9, usd: 39.9 },
@@ -278,9 +283,52 @@ const dump = async () => {
 
   await Product.deleteMany();
 
-  products = await populateDeckId<(typeof products)[0]>(products);
+  const getDeckId = async (deck: string) => {
+    const { _id } = (await Deck.findOne({ slug: deck }).lean()) || {
+      _id: undefined,
+    };
 
-  await Product.insertMany(products);
+    if (!_id) {
+      throw new Error(
+        `Cannot reference deck: ${deck}.`
+        // `Cannot reference deck: ${deck} in: ${JSON.stringify(item)}.`
+      );
+    }
+
+    return _id;
+  };
+  const notBundles = await Promise.all(
+    products
+      .filter((prod) => prod.type !== "bundle")
+      .map(async (prod) => {
+        let deck = prod.deck && (await getDeckId(prod.deck));
+
+        return { ...prod, deck };
+      })
+  );
+
+  await Product.insertMany(notBundles);
+
+  const bundles = await Promise.all(
+    products
+      .filter((prod) => prod.type === "bundle")
+      .map(async (item) => {
+        let decks = item.decks;
+        decks =
+          decks &&
+          (await Promise.all(
+            decks.map(async (deck) => {
+              const deckId = await getDeckId(deck);
+
+              const product = (await getProduct({ deck: deckId }))._id;
+              return product;
+            })
+          ));
+        return { ...item, decks };
+      })
+  );
+
+  await Product.insertMany(bundles);
 };
 
 export default dump;

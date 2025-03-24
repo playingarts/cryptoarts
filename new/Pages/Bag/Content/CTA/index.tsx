@@ -29,6 +29,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   const [total, setTotal] = useState(0);
   const [totalPercentage, setTotalPercentage] = useState(0);
+  const [savings, setSavings] = useState(0);
 
   useEffect(() => {
     if (!products || !bag) {
@@ -43,6 +44,22 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
     setTotal(total);
     setTotalPercentage((total / 50) * 100);
+
+    setSavings(
+      products
+        .filter(
+          (product) =>
+            Object.keys(bag).findIndex((bg) => bg === product._id) !== -1
+        )
+        .reduce((prev, cur) => {
+          return (
+            prev +
+            (cur.fullPrice
+              ? getPrice(cur.fullPrice, true) - getPrice(cur.price, true)
+              : 0)
+          );
+        }, 0)
+    );
   }, [products, bag]);
 
   return (
@@ -103,7 +120,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ]}
         >
           <Text typography="paragraphSmall">Bundle savings</Text>
-          <Text typography="paragraphSmall">{getPrice(0)}</Text>
+          <Text typography="paragraphSmall">{getPrice(savings)}</Text>
         </div>
         <div
           css={(theme) => [
@@ -117,7 +134,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ]}
         >
           <Text typography="paragraphSmall">Total savings</Text>
-          <Text typography="paragraphSmall">{getPrice(0)}</Text>
+          <Text typography="paragraphSmall">{getPrice(savings)}</Text>
         </div>
       </div>
       <div

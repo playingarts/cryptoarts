@@ -1,14 +1,10 @@
-import { FC, FormEvent, HTMLAttributes } from "react";
+import { FC, HTMLAttributes } from "react";
 import Text from "../../../Text";
 import Grid from "../../../../components/Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import { useProducts } from "../../../../hooks/product";
-import Delete from "../../../Icons/Delete";
 import Countdown from "react-countdown";
-import Label from "../../../Label";
-import Plus from "../../../Icons/Plus";
-import Minus from "../../../Icons/Minus";
 import { useBag } from "../../../Contexts/bag";
 import Suggestions from "./Suggestions";
 import CTA from "./CTA";
@@ -60,7 +56,9 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               {/* Items */}
               {bag &&
                 products.map((product) => {
-                  return <Product product={product} />;
+                  return (
+                    <Product key={product._id + "Product"} product={product} />
+                  );
                 })}
             </ScandiBlock>
           )}

@@ -74,7 +74,6 @@ export const IsEuropeProvider: FC<HTMLAttributes<HTMLElement>> = ({
       ...bag,
       [_id]: quantity || exitingQuantity + 1,
     };
-    console.log(bag, newBag);
 
     setBag(newBag);
   };

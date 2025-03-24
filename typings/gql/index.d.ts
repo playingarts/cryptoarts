@@ -281,6 +281,7 @@ interface Product {
   __typename?: 'Product';
   _id: Scalars['ID']['output'];
   deck?: Maybe<Deck>;
+  decks?: Maybe<Array<Product>>;
   labels?: Maybe<Array<Scalars['String']['output']>>;
   title: Scalars['String']['output'];
   price: Currencies;
@@ -718,6 +719,7 @@ export type CurrenciesResolvers<ContextType = { req: Request, res: Response }, P
 export type ProductResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   deck?: Resolver<Maybe<ResolversTypes['Deck']>, ParentType, ContextType>;
+  decks?: Resolver<Maybe<Array<ResolversTypes['Product']>>, ParentType, ContextType>;
   labels?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   price?: Resolver<ResolversTypes['Currencies'], ParentType, ContextType>;

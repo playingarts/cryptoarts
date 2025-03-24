@@ -36,6 +36,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             " > *": {
               background: theme.colors.soft_gray,
               borderRadius: 16,
+              overflow: "hidden",
               "&:hover": {
                 background: theme.colors.white75,
               },

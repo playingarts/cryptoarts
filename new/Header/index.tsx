@@ -1,11 +1,5 @@
 import { colord } from "colord";
-import {
-  FC,
-  HTMLAttributes,
-  ReactNode,
-  useLayoutEffect,
-  useState,
-} from "react";
+import { FC, HTMLAttributes, ReactNode, useEffect, useState } from "react";
 import Grid from "../../components/Grid";
 import ScandiBlock from "../ScandiBlock";
 import CTA from "./CTA";
@@ -29,7 +23,7 @@ const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
 
   const { palette } = usePalette();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     let lastScrollTop = 0;
 
     const handler = () => {
