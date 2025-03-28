@@ -79,7 +79,9 @@ interface QueryRandomCardsArgs {
 
 
 interface QueryCardArgs {
-  id: Scalars['ID']['input'];
+  id?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  deckSlug?: InputMaybe<Scalars['String']['input']>;
 }
 
 
@@ -589,7 +591,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   artists?: Resolver<Array<Maybe<ResolversTypes['Artist']>>, ParentType, ContextType, Partial<QueryArtistsArgs>>;
   cards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryCardsArgs>>;
   randomCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryRandomCardsArgs>>;
-  card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardArgs, 'id'>>;
+  card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryCardArgs>>;
   cardByImg?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardByImgArgs, 'img'>>;
   heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryHeroCardsArgs>>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryProductsArgs>>;

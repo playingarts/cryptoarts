@@ -90,12 +90,16 @@ export const getCards = async ({
   return cards;
 };
 
-export const getCard = ({ id }: GQL.QueryCardArgs) =>
-  Card.findById(id).populate([
-    "artist",
-    "deck",
-    "animator",
-  ]) as unknown as Promise<GQL.Card>;
+export const getCard = async ({ id, slug, deckSlug }: GQL.QueryCardArgs) => {
+  const card = (await (id
+    ? Card.findById(id)
+    : slug
+    ? Card.find({ artist: slug, desk: deckSlug })
+    : Card.findOne()
+  ).populate(["artist", "deck", "animator"])) as unknown as Promise<GQL.Card>;
+
+  return card;
+};
 
 export const getCardByImg = ({ img }: GQL.QueryCardByImgArgs) =>
   Card.findOne({ img }).populate([
@@ -287,7 +291,7 @@ export const resolvers: GQL.Resolvers = {
   },
   Query: {
     cards: async (_, args) => await getCards(args),
-    card: (_, args) => getCard(args),
+    card: async (_, args) => await getCard(args),
     cardByImg: (_, args) => getCardByImg(args),
     randomCards: (_, args) => getCards(args),
     heroCards: (_, args) => getHeroCards(args),
@@ -305,7 +309,7 @@ export const typeDefs = gql`
       edition: String
     ): [Card!]!
     randomCards(shuffle: Boolean, limit: Int): [Card!]!
-    card(id: ID!): Card
+    card(id: ID, slug: String, deckSlug: String): Card
     cardByImg(img: ID!): Card
     heroCards(deck: ID, slug: String): [Card!]!
   }

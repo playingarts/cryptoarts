@@ -10,6 +10,7 @@ import { breakpoints } from "../../../../source/enums";
 import Dot from "../../../Icons/Dot";
 import background from "../../../../mocks/images/backgroundImage.png";
 import { usePalette } from "../DeckPaletteContext";
+import Link from "../../../Link";
 
 const List = memo(() => {
   const {
@@ -53,12 +54,14 @@ const List = memo(() => {
 
           return (
             <Fragment key={"CardListFragment" + index}>
-              <Card
-                size="preview"
-                key={card._id + index + "card"}
-                card={card}
-                css={[{ width: 300 }]}
-              />
+              <Link href={`/new/${deckId}/${card.artist.slug}`}>
+                <Card
+                  size="preview"
+                  key={card._id + index + "card"}
+                  card={card}
+                  css={[{ width: 300 }]}
+                />
+              </Link>
               {randCard && (
                 <Grid
                   css={[{ width: "100%" }]}

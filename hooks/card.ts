@@ -8,6 +8,7 @@ export const CardsQuery = gql`
       video
       info
       background
+      cardBackground
       value
       suit
       edition
@@ -81,16 +82,81 @@ export const CardsQuery = gql`
 `;
 
 export const CardQuery = gql`
-  query Card($id: ID!) {
-    card(id: $id) {
+  query Card($id: ID, $slug: String, $deckSlug: String) {
+    card(id: $id, slug: $slug, deckSlug: $deckSlug) {
       _id
-      price
+      img
+      video
+      info
+      background
+      cardBackground
       value
       suit
       edition
       erc1155 {
-        token_id
         contractAddress
+        token_id
+      }
+      price
+      animator {
+        name
+        userpic
+        info
+        country
+        website
+        slug
+        podcast {
+          image
+          youtube
+          spotify
+          apple
+          episode
+        }
+        social {
+          website
+          instagram
+          facebook
+          twitter
+          behance
+          dribbble
+          foundation
+          superrare
+          makersplace
+          knownorigin
+          rarible
+          niftygateway
+          showtime
+        }
+      }
+      artist {
+        name
+        userpic
+        info
+        country
+        website
+        slug
+        podcast {
+          image
+          youtube
+          spotify
+          apple
+          episode
+        }
+        social {
+          website
+          instagram
+          facebook
+          twitter
+          behance
+          dribbble
+          foundation
+          superrare
+          makersplace
+          knownorigin
+          rarible
+          niftygateway
+          showtime
+        }
       }
     }
   }
@@ -208,6 +274,19 @@ export const HeroCardsQuery = gql`
     }
   }
 `;
+
+export const useCard = (
+  options: QueryHookOptions<Pick<GQL.Query, "card">> = {}
+) => {
+  const { data: { card } = { card: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "card">
+  >(CardQuery, options);
+
+  return {
+    ...methods,
+    card,
+  };
+};
 
 export const useCards = (
   options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}

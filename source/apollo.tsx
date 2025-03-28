@@ -11,7 +11,7 @@ import {
 } from "@apollo/client";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 import { CardsQuery } from "../hooks/card";
-import { DeckDataFragment } from "../hooks/deck";
+import { DeckDataFragment, DeckQuery, DecksQuery } from "../hooks/deck";
 
 interface Context {
   apolloState: object;
@@ -233,16 +233,59 @@ export const createApolloClient = (initialState = {}, config?: object) => {
             },
           },
           card: {
-            read: (_, { args, toReference }) =>
-              toReference({
-                __typename: "Card",
-                _id: args && args.id,
-              }),
+            read: (refs, { args, toReference, cache }) => {
+              if (!args || !(args.id || (args.slug && args.deckSlug))) {
+                return refs;
+              }
+
+              const id: string = args.id;
+              const slug: string = args.slug;
+              const deckSlug: string = args.deckSlug;
+
+              if (id) {
+                return toReference({
+                  __typename: "Card",
+                  _id: args.id,
+                });
+              }
+
+              const cachedDeck = cache.readQuery({
+                query: DeckQuery,
+                variables: { slug: deckSlug },
+              });
+
+              if (!cachedDeck) {
+                return refs;
+              }
+
+              const cachedCards = cache.readQuery({
+                query: CardsQuery,
+                variables: {
+                  deck: (cachedDeck as { deck: GQL.Deck }).deck._id,
+                },
+              });
+
+              if (!cachedCards) {
+                return refs;
+              }
+
+              const card = (cachedCards as { cards: GQL.Card[] }).cards.find(
+                (card) => card.artist && card.artist.slug === slug
+              );
+
+              return card;
+
+              // return args && args.id
+              //   ? toReference({
+              //       __typename: "Card",
+              //       ...(args && args.id && { _id: args.id }),
+              //       slug: args && args.slug,
+              //       deck: { slug: args && args.deckSlug },
+              //     })
+              //   : refs},
+            },
           },
           cards: {
-            // merge(existing = [], incoming: any) {
-            //   return { ...existing, ...incoming };
-            // },
             read: (refs, { args, cache }) => {
               if (!args || !args.edition || !args.deck) {
                 return refs;
@@ -260,32 +303,6 @@ export const createApolloClient = (initialState = {}, config?: object) => {
                 return refs;
               }
 
-              // const references: Reference[] | undefined =
-              //   cache.readQuery({query: CardQuery, variables:{deck:args.deck}})
-              //   args.ids.map((id: string) => {
-              //     return toReference({
-              //       __typename: "Card",
-              //       _id: id,
-              //     });
-              //   });
-
-              // const fragments =
-              //   references &&
-              //   references.filter(
-              //     (reference) =>
-              //       cache.readFragment({
-              //         id: reference.__ref,
-              //         fragment: gql`
-              //           fragment MyProduct on Products {
-              //             _id
-              //           }
-              //         `,
-              //       }) !== null
-              //   );
-
-              // return fragments && references.length === fragments.length
-              //   ? references
-              //   : refs;
               return (cachedCards as { cards: GQL.Card[] }).cards.filter(
                 (card) => card.edition === edition
               );
