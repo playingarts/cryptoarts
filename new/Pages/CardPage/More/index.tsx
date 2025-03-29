@@ -9,6 +9,8 @@ import { useDeck } from "../../../../hooks/deck";
 import { useCards } from "../../../../hooks/card";
 import Card from "../../../Card";
 import Link from "../../../Link";
+import MenuPortal from "../../../Header/MainMenu/MenuPortal";
+import Pop from "../Pop";
 
 const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
@@ -28,6 +30,8 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       variables: { deck: deck._id },
     }
   );
+
+  const [card, setCard] = useState<GQL.Card>();
 
   return (
     <>
@@ -113,18 +117,20 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         >
           {cards &&
             cards.map((card) => (
-              <Link
-                href={`/new/${deckId}/${card.artist.slug}`}
+              <Card
+                onClick={() => setCard(card)}
                 key={card._id + "carousel"}
-              >
-                <Card
-                  css={[{ paddingRight: 7.5, paddingLeft: 7.5 }]}
-                  card={card}
-                  size="preview"
-                />
-              </Link>
+                css={[{ paddingRight: 7.5, paddingLeft: 7.5 }]}
+                card={card}
+                size="preview"
+              />
             ))}
         </div>
+        <MenuPortal show={!!card}>
+          {card ? (
+            <Pop cardSlug={card.artist.slug} close={() => setCard(undefined)} />
+          ) : null}
+        </MenuPortal>
       </Grid>
     </>
   );

@@ -28,7 +28,7 @@ const CustomMiddle = () => {
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
-    if (!cards || !deckId || typeof deckId !== "string") {
+    if (!cards) {
       return;
     }
     setCounter(cards.findIndex((card) => card.artist.slug === artistSlug));
@@ -60,6 +60,7 @@ const CustomMiddle = () => {
       >
         <NavButton css={[{ transform: "rotate(180deg)" }]} />
       </Link>
+
       <Link
         css={[{ marginRight: 5 }]}
         href={

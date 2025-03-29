@@ -11,13 +11,136 @@ import Dot from "../../../Icons/Dot";
 import background from "../../../../mocks/images/backgroundImage.png";
 import { usePalette } from "../DeckPaletteContext";
 import Link from "../../../Link";
+import MenuPortal from "../../../Header/MainMenu/MenuPortal";
+import Pop from "../../CardPage/Pop";
+import { useDeck } from "../../../../hooks/deck";
 
-const List = memo(() => {
+const ListItem: FC<{
+  index: number;
+  card: GQL.Card;
+  range: number;
+  cards: GQL.Card[];
+}> = ({ index, card, range, cards }) => {
+  const { palette } = usePalette();
+
+  const [show, setShow] = useState(false);
+
+  const [randCard, setRandCard] = useState<GQL.Card>();
+
+  useEffect(() => {
+    const rand =
+      index !== 0 &&
+      (index + 1) % range === 0 &&
+      Math.floor(Math.random() * range) + index - range;
+
+    if (rand) {
+      setRandCard(cards[rand]);
+    }
+  }, [range, index]);
+
+  return (
+    <Fragment key={"CardListFragment" + index}>
+      {/* <Link href={`/new/${deckId}/${card.artist.slug}`}> */}
+      <Card
+        onClick={() => setShow(true)}
+        size="preview"
+        key={card._id + index + "card"}
+        card={card}
+        css={[{ width: 300 }]}
+      />
+      {/* </Link> */}
+      <MenuPortal show={show}>
+        <Pop close={() => setShow(false)} cardSlug={card.artist.slug} />
+      </MenuPortal>
+      {randCard && (
+        <Grid css={[{ width: "100%" }]} key={card._id + "quote" + index}>
+          <img
+            src={background.src}
+            alt=""
+            css={{
+              width: 300,
+              height: 300,
+              gridColumn: "2/6",
+              borderRadius: 15,
+            }}
+          />
+          <div
+            css={(theme) => [
+              {
+                gridColumn: "span 6",
+                marginTop: 30,
+              },
+            ]}
+          >
+            <div css={[{ display: "flex", gap: 30 }]}>
+              <img
+                src={randCard.artist.userpic}
+                alt=""
+                css={{ width: 80, height: 80 }}
+              />
+              <div css={(theme) => [{ display: "inline-block" }]}>
+                <Text
+                  typography="paragraphBig"
+                  css={(theme) => [
+                    {
+                      color:
+                        theme.colors[palette === "dark" ? "white75" : "black"],
+                    },
+                  ]}
+                >
+                  {randCard.artist.name}
+                </Text>
+                <Text
+                  typography="paragraphSmall"
+                  css={(theme) => [
+                    {
+                      color:
+                        theme.colors[palette === "dark" ? "white75" : "black"],
+                    },
+                  ]}
+                >
+                  {randCard.artist.country}
+                </Text>
+              </div>
+            </div>
+            <Text
+              typography="newParagraph"
+              css={(theme) => [
+                {
+                  marginTop: 60,
+                  color: theme.colors[palette === "dark" ? "white75" : "black"],
+                },
+              ]}
+            >
+              {randCard.artist.info}
+            </Text>
+
+            <Text
+              typography="linkNewTypography"
+              css={(theme) => [
+                {
+                  marginTop: 30,
+                  color: theme.colors[palette === "dark" ? "white75" : "black"],
+                },
+              ]}
+            >
+              Discover the artwork <Dot />
+            </Text>
+          </div>
+        </Grid>
+      )}
+    </Fragment>
+  );
+};
+
+const List = () => {
   const {
     query: { deckId },
   } = useRouter();
 
-  const { cards } = useCards({ variables: { deck: deckId } });
+  const { deck } = useDeck({ variables: { slug: deckId } });
+
+  const { cards } = useCards(deck && { variables: { deck: deck._id } });
 
   const { width } = useSize();
 
@@ -26,8 +149,6 @@ const List = memo(() => {
   useEffect(() => {
     setRange(width >= breakpoints.md ? 12 : width >= breakpoints.sm ? 8 : 4);
   }, [width]);
-
-  const { palette } = usePalette();
 
   return (
     cards && (
@@ -44,121 +165,13 @@ const List = memo(() => {
           },
         ]}
       >
-        {cards.map((card, index) => {
-          const rand =
-            index !== 0 &&
-            (index + 1) % range === 0 &&
-            Math.floor(Math.random() * range) + index - range;
-
-          const randCard = rand && cards[rand];
-
-          return (
-            <Fragment key={"CardListFragment" + index}>
-              <Link href={`/new/${deckId}/${card.artist.slug}`}>
-                <Card
-                  size="preview"
-                  key={card._id + index + "card"}
-                  card={card}
-                  css={[{ width: 300 }]}
-                />
-              </Link>
-              {randCard && (
-                <Grid
-                  css={[{ width: "100%" }]}
-                  key={card._id + "quote" + index}
-                >
-                  <img
-                    src={background.src}
-                    alt=""
-                    css={{
-                      width: 300,
-                      height: 300,
-                      gridColumn: "2/6",
-                      borderRadius: 15,
-                    }}
-                  />
-                  <div
-                    css={(theme) => [
-                      {
-                        gridColumn: "span 6",
-                        marginTop: 30,
-                      },
-                    ]}
-                  >
-                    <div css={[{ display: "flex", gap: 30 }]}>
-                      <img
-                        src={randCard.artist.userpic}
-                        alt=""
-                        css={{ width: 80, height: 80 }}
-                      />
-                      <div css={(theme) => [{ display: "inline-block" }]}>
-                        <Text
-                          typography="paragraphBig"
-                          css={(theme) => [
-                            {
-                              color:
-                                theme.colors[
-                                  palette === "dark" ? "white75" : "black"
-                                ],
-                            },
-                          ]}
-                        >
-                          {randCard.artist.name}
-                        </Text>
-                        <Text
-                          typography="paragraphSmall"
-                          css={(theme) => [
-                            {
-                              color:
-                                theme.colors[
-                                  palette === "dark" ? "white75" : "black"
-                                ],
-                            },
-                          ]}
-                        >
-                          {randCard.artist.country}
-                        </Text>
-                      </div>
-                    </div>
-                    <Text
-                      typography="newParagraph"
-                      css={(theme) => [
-                        {
-                          marginTop: 60,
-                          color:
-                            theme.colors[
-                              palette === "dark" ? "white75" : "black"
-                            ],
-                        },
-                      ]}
-                    >
-                      {randCard.artist.info}
-                    </Text>
-
-                    <Text
-                      typography="linkNewTypography"
-                      css={(theme) => [
-                        {
-                          marginTop: 30,
-                          color:
-                            theme.colors[
-                              palette === "dark" ? "white75" : "black"
-                            ],
-                        },
-                      ]}
-                    >
-                      Discover the artwork <Dot />
-                    </Text>
-                  </div>
-                </Grid>
-              )}
-            </Fragment>
-          );
-        })}
+        {cards.map((card, index) => (
+          <ListItem {...{ card, index, range, cards }} />
+        ))}
       </div>
     )
   );
-});
+};
 
 const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { palette } = usePalette();

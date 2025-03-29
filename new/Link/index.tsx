@@ -43,11 +43,11 @@ const Link: ForwardRefRenderFunction<
     <ClassNames>
       {({ cx, css, theme }) => (
         <NextLink
+          shallow={true}
           href={href}
           as={as}
           replace={replace}
           scroll={scroll}
-          shallow={shallow}
           passHref={passHref}
           prefetch={prefetch}
           locale={locale}
