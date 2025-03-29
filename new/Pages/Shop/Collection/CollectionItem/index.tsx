@@ -10,6 +10,8 @@ import Button from "../../../../Buttons/Button";
 import AddToBag from "../../../../Buttons/AddToBag";
 import SoldOut from "../../../../Buttons/SoldOut";
 import Link from "../../../../Link";
+import MenuPortal from "../../../../Header/MainMenu/MenuPortal";
+import Pop from "../../../ProductPage/Pop";
 const images = [image1.src, image2.src, image3.src];
 
 const CollectionItem: FC<
@@ -17,6 +19,8 @@ const CollectionItem: FC<
 > = ({ palette, product, ...props }) => {
   const [hover, setHover] = useState(false);
   const [imageHover, setImageHover] = useState(false);
+
+  const [show, setShow] = useState(false);
 
   const [index, setIndex] = useState<number>();
 
@@ -62,7 +66,11 @@ const CollectionItem: FC<
             "&:hover": { cursor: "pointer" },
           },
         ]}
+        onClick={() => setShow(true)}
       >
+        <MenuPortal show={show}>
+          <Pop product={product} close={() => setShow(false)} />
+        </MenuPortal>
         {index === undefined && product.deck && (
           <div
             css={[
@@ -128,9 +136,17 @@ const CollectionItem: FC<
                 marginRight: 5,
               },
             ]}
-            onClick={decreaseIndex}
+            onClick={(e) => {
+              e.stopPropagation();
+              decreaseIndex();
+            }}
           />
-          <NavButton onClick={increaseIndex} />
+          <NavButton
+            onClick={(e) => {
+              e.stopPropagation();
+              increaseIndex();
+            }}
+          />
         </div>
       </div>
       <div css={[{ margin: 30 }]}>
@@ -140,14 +156,14 @@ const CollectionItem: FC<
           <Text typography="newh4" palette={hover ? palette : undefined}>
             {product.title}
           </Text>
+          <Text
+            typography="paragraphSmall"
+            css={[{ marginTop: 10 }]}
+            palette={hover ? palette : undefined}
+          >
+            The bold beginning, reimagined with AR.
+          </Text>
         </Link>
-        <Text
-          typography="paragraphSmall"
-          css={[{ marginTop: 10 }]}
-          palette={hover ? palette : undefined}
-        >
-          The bold beginning, reimagined with AR.
-        </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
           {product.deck && product.deck.slug === "crypto" ? (
             hover && palette !== undefined ? (

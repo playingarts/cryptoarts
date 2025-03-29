@@ -127,8 +127,12 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             ))}
         </div>
         <MenuPortal show={!!card}>
-          {card ? (
-            <Pop cardSlug={card.artist.slug} close={() => setCard(undefined)} />
+          {card && deck ? (
+            <Pop
+              cardSlug={card.artist.slug}
+              close={() => setCard(undefined)}
+              deckId={deck.slug}
+            />
           ) : null}
         </MenuPortal>
       </Grid>

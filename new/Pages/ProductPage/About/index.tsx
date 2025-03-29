@@ -27,6 +27,8 @@ import Point from "../../../Icons/Point";
 import { default as FaqItem } from "../../../Footer/NewFAQ/Item";
 import Card from "../../../Card";
 import NavButton from "../../../Buttons/NavButton";
+import MenuPortal from "../../../Header/MainMenu/MenuPortal";
+import Pop from "../../CardPage/Pop";
 
 const points = [
   "55 hand-picked winning designs meticulously selected from an exciting global design contest.",
@@ -36,8 +38,13 @@ const points = [
   "Sustainably produced with care, actively minimizing its environmental and ecological impact.",
 ];
 
-const CardPreview: FC<{ previewCards: GQL.Card[] }> = ({ previewCards }) => {
+export const CardPreview: FC<{ previewCards: GQL.Card[]; deckId: string }> = ({
+  previewCards,
+  deckId,
+}) => {
   const [index, setIndex] = useState(0);
+
+  const [show, setShow] = useState(false);
 
   return (
     <div css={[{ position: "relative", margin: "30px 0" }]}>
@@ -72,7 +79,15 @@ const CardPreview: FC<{ previewCards: GQL.Card[] }> = ({ previewCards }) => {
         card={previewCards[index]}
         size="preview"
         css={[{ margin: "0 auto" }]}
+        onClick={() => setShow(true)}
       />
+      <MenuPortal show={show}>
+        <Pop
+          cardSlug={previewCards[index].artist.slug}
+          deckId={deckId}
+          close={() => setShow(false)}
+        />
+      </MenuPortal>
     </div>
   );
 };
@@ -153,7 +168,10 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           )
         ) : null}
         {product && product.deck && product.deck.previewCards ? (
-          <CardPreview previewCards={product.deck.previewCards} />
+          <CardPreview
+            previewCards={product.deck.previewCards}
+            deckId={product.deck.slug}
+          />
         ) : null}
       </div>
       <div

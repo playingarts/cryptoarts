@@ -22,6 +22,9 @@ const ListItem: FC<{
   cards: GQL.Card[];
 }> = ({ index, card, range, cards }) => {
   const { palette } = usePalette();
+  const {
+    query: { deckId },
+  } = useRouter();
 
   const [show, setShow] = useState(false);
 
@@ -50,7 +53,13 @@ const ListItem: FC<{
       />
       {/* </Link> */}
       <MenuPortal show={show}>
-        <Pop close={() => setShow(false)} cardSlug={card.artist.slug} />
+        {typeof deckId === "string" ? (
+          <Pop
+            close={() => setShow(false)}
+            cardSlug={card.artist.slug}
+            deckId={deckId}
+          />
+        ) : null}
       </MenuPortal>
       {randCard && (
         <Grid css={[{ width: "100%" }]} key={card._id + "quote" + index}>

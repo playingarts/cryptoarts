@@ -3,8 +3,6 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { useDeck } from "../../../../hooks/deck";
 import Text from "../../../Text";
 import Button from "../../../Buttons/Button";
-import { colord } from "colord";
-import Delete from "../../../Icons/Delete";
 import Card from "../../../Card";
 import { useCard, useCards } from "../../../../hooks/card";
 import Star from "../../../Icons/Star";
@@ -16,20 +14,9 @@ import NavButton from "../../../Buttons/NavButton";
 const CustomMiddle: FC<{
   cardState: string | undefined;
   setCardState: (arg0: string | undefined) => void;
-}> = ({ cardState, setCardState }) => {
-  const {
-    query: { deckId },
-  } = useRouter();
-
-  const { deck } = useDeck({
-    variables: { slug: deckId },
-  });
-
-  const { cards } = useCards(
-    deck && {
-      variables: { deck: deck._id },
-    }
-  );
+  deckId: string;
+}> = ({ cardState, deckId, setCardState }) => {
+  const { cards } = useCards({ variables: { deck: deckId } });
   const [counter, setCounter] = useState(0);
 
   useEffect(() => {
@@ -83,21 +70,10 @@ const Pop: FC<
   HTMLAttributes<HTMLElement> & {
     close: () => void;
     cardSlug: string;
+    deckId: string;
   }
-> = ({ close, cardSlug, ...props }) => {
-  const {
-    query: { deckId, artistSlug },
-  } = useRouter();
-
-  const [cardState, setCardState] = useState<string>();
-
-  useEffect(() => {
-    if (cardSlug) {
-      setCardState(cardSlug);
-    } else if (typeof artistSlug === "string") {
-      setCardState(artistSlug);
-    }
-  }, [cardSlug, artistSlug]);
+> = ({ close, cardSlug, deckId, ...props }) => {
+  const [cardState, setCardState] = useState<string | undefined>(cardSlug);
 
   const { deck } = useDeck({
     variables: { slug: deckId },
@@ -141,6 +117,7 @@ const Pop: FC<
             borderRadius: 15,
             margin: "0 auto",
             marginTop: 60,
+            minHeight: 715,
           },
         ]}
         onClick={(e) => {
@@ -170,20 +147,18 @@ const Pop: FC<
           ]}
         >
           <div css={[{ display: "flex", justifyContent: "space-between" }]}>
-            <CustomMiddle cardState={cardState} setCardState={setCardState} />
+            <CustomMiddle
+              deckId={deckId}
+              cardState={cardState}
+              setCardState={setCardState}
+            />
             <Button
-              css={(theme) => [
+              css={[
                 {
-                  // color: theme.colors.dark_gray,
-                  // transition: theme.transitions.fast("background"),
-                  //   "&:hover": {
-                  //     background: colord(theme.colors.white)
-                  //       .alpha(0.5)
-                  //       .toRgbString(),
-                  //   },
                   borderRadius: "100%",
                   padding: 0,
                   width: 45,
+                  height: 45,
                   justifyContent: "center",
                   display: "flex",
                   alignItems: "center",
