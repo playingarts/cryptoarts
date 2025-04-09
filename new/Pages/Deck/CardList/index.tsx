@@ -10,7 +10,6 @@ import { breakpoints } from "../../../../source/enums";
 import Dot from "../../../Icons/Dot";
 import background from "../../../../mocks/images/backgroundImage.png";
 import { usePalette } from "../DeckPaletteContext";
-import Link from "../../../Link";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../../CardPage/Pop";
 import { useDeck } from "../../../../hooks/deck";
@@ -36,8 +35,12 @@ const ListItem: FC<{
       (index + 1) % range === 0 &&
       Math.floor(Math.random() * range) + index - range;
 
+    console.log({ index: index + 1, range, rand });
+
     if (rand) {
       setRandCard(cards[rand]);
+    } else {
+      setRandCard(undefined);
     }
   }, [range, index]);
 

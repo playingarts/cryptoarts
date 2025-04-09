@@ -18,32 +18,37 @@ import EmailForm from "../../EmailForm";
 import { links } from "../../Footer";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
+import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 
-const LocalGrid: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
-  <div
-    css={(theme) => [
-      {
-        paddingTop: 15,
-        display: "grid",
-        background: theme.colors.pale_gray,
-        columnGap: theme.spacing(3),
-        "--columnWidth": `${theme.spacing(8)}px`,
-        [theme.maxMQ.sm]: {
-          columnGap: theme.spacing(2),
-          "--columnWidth": `${theme.spacing(4)}px`,
+const LocalGrid: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => {
+  const { palette } = usePalette();
+
+  return (
+    <div
+      css={(theme) => [
+        {
+          paddingTop: 15,
+          display: "grid",
+          background: theme.colors[palette === "dark" ? "black" : "pale_gray"],
+          columnGap: theme.spacing(3),
+          "--columnWidth": `${theme.spacing(8)}px`,
+          [theme.maxMQ.sm]: {
+            columnGap: theme.spacing(2),
+            "--columnWidth": `${theme.spacing(4)}px`,
+          },
+          // justifyContent: "center",
+          paddingLeft: 75,
+          paddingRight: 75,
+          gridTemplateColumns: "repeat(6, var(--columnWidth))",
+          width: "fit-content",
         },
-        // justifyContent: "center",
-        paddingLeft: 75,
-        paddingRight: 75,
-        gridTemplateColumns: "repeat(6, var(--columnWidth))",
-        width: "fit-content",
-      },
-    ]}
-    {...props}
-  >
-    {children}
-  </div>
-);
+      ]}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
 
 const MainMenu: FC<
   HTMLAttributes<HTMLElement> & { setShow: Dispatch<SetStateAction<boolean>> }
@@ -51,6 +56,8 @@ const MainMenu: FC<
   const { products } = useProducts();
 
   const [hover, setHover] = useState<string>("");
+
+  const { palette } = usePalette();
 
   useEffect(() => {
     if (!products) {
@@ -104,12 +111,18 @@ const MainMenu: FC<
                 {
                   // color: theme.colors.dark_gray,
                   // transition: theme.transitions.fast("background"),
-                  "&:hover": {
-                    background: colord(theme.colors.white)
-                      .alpha(0.5)
-                      .toRgbString(),
-                  },
+
                   paddingLeft: 10,
+                  color:
+                    theme.colors[palette === "dark" ? "white75" : "dark_gray"] +
+                    " !important",
+                  transition: theme.transitions.fast("background"),
+                  "&:hover": {
+                    background:
+                      palette === "dark"
+                        ? theme.colors.black
+                        : colord(theme.colors.white).alpha(0.5).toRgbString(),
+                  },
                 },
               ]}
               onClick={() => setShow(false)}
@@ -165,7 +178,7 @@ const MainMenu: FC<
                     }
                     return (
                       <Link
-                        href={deck.slug}
+                        href={"/new/" + deck.slug}
                         onMouseEnter={() => setHover(product.image || "")}
                       >
                         <ArrowButton
@@ -199,6 +212,7 @@ const MainMenu: FC<
           ]}
         >
           <ScandiBlock
+            palette="light"
             css={(theme) => [
               {
                 paddingTop: 15,
@@ -213,12 +227,15 @@ const MainMenu: FC<
               },
             ]}
           >
-            <Text typography="paragraphSmall">Explore project updates</Text>
+            <Text typography="paragraphSmall" palette="light">
+              Explore project updates
+            </Text>
             <EmailForm />
           </ScandiBlock>
           <Text
             typography="paragraphNano"
             css={[{ gridColumn: "span 4", marginTop: 30 }]}
+            palette="light"
           >
             Join 10,000+ collectors for early access to exclusive drops, and
             gain automatic entry into our monthly giveaways.
@@ -235,22 +252,20 @@ const MainMenu: FC<
           {Object.keys(links).map((key) => (
             <ScandiBlock
               opacity={0.3}
-              css={(theme) => [
+              css={[
                 {
-                  borderColor: theme.colors.black30,
                   gridColumn: "span 2",
                   paddingTop: 15,
                   flexDirection: "column",
                   justifyContent: "space-between",
                   alignItems: "start",
-                  "> *": {},
                 },
               ]}
             >
               <Text
                 typography="paragraphSmall"
                 css={(theme) => [
-                  {
+                  palette !== "dark" && {
                     color: theme.colors.black50,
                   },
                 ]}
@@ -265,6 +280,8 @@ const MainMenu: FC<
                         {
                           textAlign: "start",
                           display: "block",
+                        },
+                        palette !== "dark" && {
                           color: theme.colors.black50,
                         },
                       ]}
@@ -299,9 +316,14 @@ const MainMenu: FC<
                 {
                   a: {
                     textDecoration: "underline",
+                    color: theme.colors.white75,
+                  },
+                },
+                palette !== "dark" && {
+                  color: theme.colors.black50,
+                  a: {
                     color: theme.colors.black50,
                   },
-                  color: theme.colors.black50,
                 },
               ]}
             >

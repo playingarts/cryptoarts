@@ -38,7 +38,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-spades-raul-urias.jpg",
-    cardBackground: "#F3E0E2",
+    cardBackground: "#F2E5C3",
     video: "",
   },
 
@@ -50,7 +50,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-hearts-sara-blake.jpg",
-    cardBackground: "#E8D6DE",
+    cardBackground: "#F4EAE3",
     video: "",
   },
 
@@ -76,7 +76,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/2-of-diamonds-jonathan-foerster.jpg",
-    cardBackground: "#F3D3C2",
+    cardBackground: "#D9D9D9",
     video: "",
   },
 
@@ -88,7 +88,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/3-of-spades-raphael-vicenzi.jpg",
-    cardBackground: "#E4D6C5",
+    cardBackground: "#E5DADA",
     video: "",
   },
 
@@ -101,7 +101,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/3-of-hearts-joshua-davis.jpg",
-    cardBackground: "#EFD7DC",
+    cardBackground: "#DAD8D3",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/3-hearts_01.mp4",
   },
@@ -114,7 +114,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/3-of-clubs-your-majesty.jpg",
-    cardBackground: "#D9DFCB",
+    cardBackground: "#E7E2DD",
     video: "",
   },
 
@@ -127,7 +127,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/3-of-diamonds-2advanced-studios.jpg",
-    cardBackground: "#EFD4C5",
+    cardBackground: "#E2E6E6",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/3-diamonds_01.mp4",
   },
@@ -180,7 +180,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/4-of-diamonds-kervin-w-brisseaux.jpg",
-    cardBackground: "#EED4C0",
+    cardBackground: "#E5E6EA",
     video: "",
   },
 
@@ -192,7 +192,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/5-of-spades-rubens-cantuni.jpg",
-    cardBackground: "#E0DCD4",
+    cardBackground: "#E8D7CE",
     video: "",
   },
 
@@ -205,7 +205,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/5-of-hearts-matt-jones-aka-lunartik.jpg",
-    cardBackground: "#F3DDDE",
+    cardBackground: "#DDE7EA",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/5-hearts_02.mp4",
   },
@@ -218,7 +218,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/5-of-clubs-sorin-bechira.jpg",
-    cardBackground: "#D8E2D0",
+    cardBackground: "#DAD4CD",
     video: "",
   },
 
@@ -231,7 +231,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/5-of-diamonds-evgeny-kiselev.jpg",
-    cardBackground: "#F1D2C2",
+    cardBackground: "#D8E7DC",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/5-diamonds_01.mp4",
   },
@@ -244,7 +244,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-spades-design-is-dead.jpg",
-    cardBackground: "#DDDEDC",
+    cardBackground: "#E6E8EB",
     video: "",
   },
 
@@ -256,7 +256,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-hearts-pat-perry.jpg",
-    cardBackground: "#F2DADC",
+    cardBackground: "#E8E1D6",
     video: "",
   },
 
@@ -268,7 +268,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-clubs-vitalik-sheptuhin.jpg",
-    cardBackground: "#D2E1D3",
+    cardBackground: "#E5E3DE",
     video: "",
   },
 
@@ -281,7 +281,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/6-of-diamonds-matei-apostolescu.jpg",
-    cardBackground: "#EED3BF",
+    cardBackground: "#F3ECE2",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/6-diamonds_01.mp4",
   },
@@ -294,7 +294,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/7-of-spades-brand-nu.jpg",
-    cardBackground: "#DFDBE0",
+    cardBackground: "#F3DADF",
     video: "",
   },
 
@@ -306,7 +306,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/7-of-hearts-saad-moosajee.jpg",
-    cardBackground: "#F3DEE0",
+    cardBackground: "#E4DAF0",
     video: "",
   },
 
@@ -319,7 +319,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/7-of-clubs-sebastian-onufszak.jpg",
-    cardBackground: "#D2E0D1",
+    cardBackground: "#F2EFDE",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/7-clubs_02.mp4",
   },
@@ -333,7 +333,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/7-of-diamonds-iv-orlov.jpg",
-    cardBackground: "#F1D6C2",
+    cardBackground: "#E9F1EC",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/7-diamonds_01.mp4",
   },
@@ -346,7 +346,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/8-of-spades-justin-maller.jpg",
-    cardBackground: "#E1E1D9",
+    cardBackground: "#E4E4E4",
     video: "",
   },
 
@@ -358,7 +358,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/8-of-hearts-geraldine-georges.jpg",
-    cardBackground: "#F2D7DA",
+    cardBackground: "#EFE9E2",
     video: "",
   },
 
@@ -370,7 +370,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/8-of-clubs-andreas-preis.jpg",
-    cardBackground: "#D3E3D6",
+    cardBackground: "#EAD9C2",
     video: "",
   },
 
@@ -383,7 +383,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/8-of-diamonds-valp.jpg",
-    cardBackground: "#F2D3C2",
+    cardBackground: "#DDE6E0",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/8-diamonds_01.mp4",
   },
@@ -396,7 +396,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/9-of-spades-kdlig.jpg",
-    cardBackground: "#DADFD9",
+    cardBackground: "#F3E8D7",
     video: "",
   },
 
@@ -409,7 +409,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/9-of-hearts-hello-monday.jpg",
-    cardBackground: "#F3E0E2",
+    cardBackground: "#EADBD6",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/9-hearts_01.mp4",
   },
@@ -422,7 +422,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/9-of-clubs-lucas-camargo-aka-flash.jpg",
-    cardBackground: "#D0E0D4",
+    cardBackground: "#F6EAD2",
     video: "",
   },
 
@@ -435,7 +435,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/9-of-diamonds-ari-weinkle.jpg",
-    cardBackground: "#F0D5C1",
+    cardBackground: "#E1E1E1",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/9-diamonds_01.mp4",
   },
@@ -448,7 +448,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-spades-simplevector.jpg",
-    cardBackground: "#DEDCD8",
+    cardBackground: "#E5F2EE",
     video: "",
   },
 
@@ -460,7 +460,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-hearts-adhemas-batista.jpg",
-    cardBackground: "#F4E0E2",
+    cardBackground: "#F2E6E9",
     video: "",
   },
 
@@ -472,7 +472,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-clubs-magomed-dovjenko.jpg",
-    cardBackground: "#D1E2D4",
+    cardBackground: "#ECECEC",
     video: "",
   },
 
@@ -484,7 +484,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/10-of-diamonds-fabian-ciraolo.jpg",
-    cardBackground: "#F2D6C2",
+    cardBackground: "#EFE3D8",
     video: "",
   },
 
@@ -496,7 +496,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/jack-of-spades-si-clark.jpg",
-    cardBackground: "#DBDCE0",
+    cardBackground: "#E7E2DA",
     video: "",
   },
 
@@ -509,7 +509,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/jack-of-hearts-jonathan-wong.jpg",
-    cardBackground: "#E3C8B7",
+    cardBackground: "#DCDCDC",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/j-hearts_01.mp4",
   },
@@ -522,7 +522,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/jack-of-clubs-mr-flurry.jpg",
-    cardBackground: "#D2E1D5",
+    cardBackground: "#F0ECE1",
     video: "",
   },
 
@@ -535,7 +535,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/jack-of-diamonds-nate-coonrod.jpg",
-    cardBackground: "#F1D4C2",
+    cardBackground: "#EDEDED",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/jack-diamonds_01.mp4",
   },
@@ -548,7 +548,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/queen-of-spades-michael-molloy.jpg",
-    cardBackground: "#DFE0DA",
+    cardBackground: "#EDEDED",
     video: "",
   },
 
@@ -560,7 +560,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/queen-of-hearts-jules.jpg",
-    cardBackground: "#E5D2C5",
+    cardBackground: "#DCEEEA",
     video: "",
   },
 
@@ -573,7 +573,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/queen-of-clubs-lucas-de-alcantara.jpg",
-    cardBackground: "#D4E3D5",
+    cardBackground: "#EDE6E1",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/queen-clubs_01.mp4",
   },
@@ -587,7 +587,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/queen-of-diamonds-michael-cina.jpg",
-    cardBackground: "#F1D2C3",
+    cardBackground: "#F5E4E9",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/queen-diamonds_02.mp4",
   },
@@ -600,7 +600,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/king-of-spades-mr-kone.jpg",
-    cardBackground: "#DBDFDC",
+    cardBackground: "#F3E8F4",
     video: "",
   },
 
@@ -624,7 +624,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/king-of-clubs-james-white.jpg",
-    cardBackground: "#D1E1D6",
+    cardBackground: "#F6EEF8",
     video: "",
   },
 
@@ -636,7 +636,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/king-of-diamonds-olly-howe.jpg",
-    cardBackground: "#F1D3C1",
+    cardBackground: "#F8EAFE",
     video: "",
   },
 
@@ -648,7 +648,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/ace-of-spades-fill-ryabchikov.jpg",
-    cardBackground: "#E0DFDD",
+    cardBackground: "#F3E6FD",
     video: "",
   },
 
@@ -661,7 +661,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/ace-of-hearts-zutto.jpg",
-    cardBackground: "#F3DFE2",
+    cardBackground: "#F3D1E7",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/ace-hearts_01.mp4",
   },
@@ -674,7 +674,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/ace-of-clubs-david-delin.jpg",
-    cardBackground: "#D2E2D4",
+    cardBackground: "#F4E1D2",
     video: "",
   },
 
@@ -686,7 +686,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/ace-of-diamonds-mike-harrison.jpg",
-    cardBackground: "#F2D3C2",
+    cardBackground: "#F2F0F2",
     video: "",
   },
 
@@ -699,7 +699,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/joker-shotopop.jpg",
-    cardBackground: "#E0E0E0",
+    cardBackground: "#D6E9E3",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/joker-1.mp4",
   },
@@ -713,7 +713,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/_backside-giga-kobidze.jpg",
-    cardBackground: "#DADADA",
+    cardBackground: "#D9E1E3",
     video:
       "https://s3.amazonaws.com/img.playingarts.com/zero-video/backside_03.mp4",
   },
@@ -726,7 +726,7 @@ export const cards = [
     deck: "zero",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/zero-big-hd/joker-kenny-lindstrom.jpg",
-    cardBackground: "#F0D2D5",
+    cardBackground: "#FDE9B8",
     video: "",
   },
 ];

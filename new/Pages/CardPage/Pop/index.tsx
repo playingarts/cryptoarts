@@ -10,6 +10,7 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 import Plus from "../../../Icons/Plus";
 import Link from "../../../Link";
 import NavButton from "../../../Buttons/NavButton";
+import { usePalette } from "../../Deck/DeckPaletteContext";
 
 const CustomMiddle: FC<{
   cardState: string | undefined;
@@ -83,6 +84,8 @@ const Pop: FC<
     variables: { deckSlug: deckId, slug: cardState },
   });
 
+  const { palette } = usePalette();
+
   return (
     <div
       css={(theme) => [
@@ -111,7 +114,8 @@ const Pop: FC<
             maxWidth: 1130,
             padding: 30,
             paddingBottom: 90,
-            backgroundColor: theme.colors.pale_gray,
+            backgroundColor:
+              theme.colors[palette === "dark" ? "black" : "pale_gray"],
             display: "flex",
             gap: 30,
             borderRadius: 15,
@@ -153,7 +157,8 @@ const Pop: FC<
               setCardState={setCardState}
             />
             <Button
-              css={[
+              palette={palette}
+              css={(theme) => [
                 {
                   borderRadius: "100%",
                   padding: 0,
@@ -162,6 +167,10 @@ const Pop: FC<
                   justifyContent: "center",
                   display: "flex",
                   alignItems: "center",
+                },
+                palette === "dark" && {
+                  background: theme.colors.white,
+                  // color: theme.colors.black,
                 },
               ]}
               onClick={close}
