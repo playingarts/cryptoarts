@@ -15,6 +15,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           background: theme.colors.pale_gray,
         },
       ]}
+      {...props}
     >
       <div
         css={(theme) => [

@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes, useEffect } from "react";
 import { useLoadHeroCards } from "../../../../../hooks/card";
 import { useRouter } from "next/router";
+import Card from "../../../../Card";
 
 const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const {
@@ -56,16 +57,28 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         },
       ]}
     >
-      <img
-        css={[{ left: 308.35, rotate: "15deg" }]}
-        src={heroCards[1].img}
-        alt=""
-      />
-      <img
-        css={[{ left: 61.07, rotate: "-15deg" }]}
-        src={heroCards[0].img}
-        alt=""
-      />
+      {heroCards.length === 0 ? null : (
+        <>
+          {heroCards[1] && (
+            <Card
+              animated
+              noArtist
+              size="hero"
+              card={heroCards[1]}
+              css={[{ left: 308.35, rotate: "15deg" }]}
+            />
+          )}
+          {heroCards[0] && (
+            <Card
+              animated
+              noArtist
+              size="hero"
+              card={heroCards[0]}
+              css={[{ left: 61.07, rotate: "-15deg" }]}
+            />
+          )}
+        </>
+      )}
     </div>
   );
 };

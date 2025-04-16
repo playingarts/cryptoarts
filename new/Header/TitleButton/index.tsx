@@ -6,6 +6,9 @@ import { useRouter } from "next/router";
 import { useDeck } from "../../../hooks/deck";
 import { colord } from "colord";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
+import { PageNav } from "../Middle";
+import { useSize } from "../../../components/SizeProvider";
+import { breakpoints } from "../../../source/enums";
 
 const TitleButton: FC<
   HTMLAttributes<HTMLElement> & { setShow: (x: boolean) => void } & Props
@@ -18,19 +21,32 @@ const TitleButton: FC<
 
   const { deck } = useDeck({ variables: { slug: deckId } });
 
+  const { width } = useSize();
+
   return (
     <ScandiBlock
-      css={{ gridColumn: "span 3", height: "100%" }}
+      css={(theme) => [
+        {
+          [theme.mq.sm]: {
+            gridColumn: "span 3",
+          },
+          height: "100%",
+          position: "relative",
+        },
+      ]}
       inset={true}
       palette={palette}
       {...props}
     >
       <Button
         base={true}
+        icon={width < breakpoints.sm}
         css={(theme) => [
           {
-            paddingLeft: 10,
-            paddingRight: 15,
+            [theme.mq.sm]: {
+              paddingLeft: 10,
+              paddingRight: 15,
+            },
             color:
               theme.colors[palette === "dark" ? "white75" : "dark_gray"] +
               " !important",
@@ -45,10 +61,21 @@ const TitleButton: FC<
         ]}
         onClick={() => setShow(true)}
       >
-        <Menu css={{ marginRight: 10 }} />
+        <Menu css={(theme) => [{ [theme.mq.sm]: { marginRight: 10 } }]} />
 
-        {deck ? deck.title : "Playing Arts"}
+        {width >= breakpoints.sm ? (deck ? deck.title : "Playing Arts") : null}
       </Button>
+      {/* <PageNav
+        css={[
+          {
+            position: "absolute",
+            left: 0,
+            bottom: "-54px",
+            zIndex: 1,
+            height: 45,
+          },
+        ]}
+      /> */}
     </ScandiBlock>
   );
 };

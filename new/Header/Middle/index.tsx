@@ -3,26 +3,82 @@ import Logo from "../../../components/Icons/Logo";
 import Button from "../../Buttons/Button";
 import ArrowNav from "./ArrowNav";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
-import { ReactNode } from "react";
+import { FC, HTMLAttributes, ReactNode } from "react";
+import { useSize } from "../../../components/SizeProvider";
+import { breakpoints } from "../../../source/enums";
+
+export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({
+  links,
+  ...props
+}) => {
+  const { palette } = usePalette();
+  return (
+    <div
+      {...props}
+      css={[
+        {
+          height: "50%",
+          gap: 10,
+          display: "flex",
+        },
+      ]}
+    >
+      {links &&
+        links.map((name, i) => (
+          <Link
+            href={"#" + name.toLowerCase()}
+            key={name + i}
+            css={(theme) => [
+              {
+                display: "flex",
+                alignItems: "center",
+              },
+            ]}
+          >
+            <Button
+              noColor={true}
+              size="small"
+              css={(theme) => [
+                {
+                  color: theme.colors[palette === "dark" ? "white" : "black"],
+                },
+              ]}
+            >
+              {name}
+            </Button>
+          </Link>
+        ))}
+    </div>
+  );
+};
 
 const Middle = ({
   showSiteNav,
   altNav,
   customMiddle,
+  links,
 }: {
   customMiddle: ReactNode;
   showSiteNav: "top" | "afterTop";
   altNav: boolean;
+  links: string[];
 }) => {
   const { palette } = usePalette();
+  const { width } = useSize();
+
   return (
     <div
       css={(theme) => ({
         transition: theme.transitions.normal("top"),
         flexGrow: 1,
-        gridColumn: "span 6",
         position: "relative",
         height: "100%",
+        [theme.mq.sm]: {
+          gridColumn: "span 3",
+        },
+        [theme.mq.md]: {
+          gridColumn: "span 6",
+        },
       })}
     >
       <div
@@ -37,19 +93,12 @@ const Middle = ({
             top: 0,
             left: 0,
             transition: theme.transitions.slow(["border-color"]),
-            "@keyframes ScandiLineExtend": {
-              "0%": {
-                width: 0,
-              },
-              "100%": {
-                width: "100%",
-              },
-            },
-            animation: "ScandiLineExtend 4000ms forwards linear",
+
+            // animation: "ScandiLineExtend 4000ms forwards linear",
           },
         ]}
         style={{
-          ...((showSiteNav === "afterTop" && {
+          ...(((showSiteNav === "afterTop" || width < breakpoints.sm) && {
             borderColor: "transparent",
           }) ||
             {}),
@@ -68,7 +117,8 @@ const Middle = ({
                 },
               ],
               style:
-                (showSiteNav !== "top" &&
+                (width >= breakpoints.sm &&
+                  showSiteNav !== "top" &&
                   altNav && {
                     top: "-100%",
                   }) ||
@@ -96,6 +146,10 @@ const Middle = ({
               {
                 display: "inline-block",
                 height: "100%",
+                [theme.maxMQ.sm]: {
+                  textAlign: "center",
+                },
+
                 // width: "100%",
                 [theme.mq.sm]: {
                   "&:hover": {
@@ -116,37 +170,7 @@ const Middle = ({
           </Link>
           {customMiddle ?? <ArrowNav />}
         </div>
-        {!customMiddle && (
-          <div
-            css={[
-              {
-                height: "50%",
-                gap: 10,
-                display: "flex",
-              },
-            ]}
-          >
-            {["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"].map(
-              (name, i) => (
-                <Button
-                  key={name + i}
-                  noColor={true}
-                  size="small"
-                  css={(theme) => [
-                    {
-                      display: "flex",
-                      alignItems: "center",
-                      color:
-                        theme.colors[palette === "dark" ? "white" : "black"],
-                    },
-                  ]}
-                >
-                  {name}
-                </Button>
-              )
-            )}
-          </div>
-        )}
+        {!customMiddle && width >= breakpoints.md && <PageNav links={links} />}
       </div>
     </div>
   );

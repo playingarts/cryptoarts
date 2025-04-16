@@ -37,6 +37,8 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             palette === "dark" ? "#212121" : theme.colors["pale_gray"],
         },
       ]}
+      id="product"
+      {...props}
     >
       <ScandiBlock
         css={[{ gridColumn: "span 6", display: "grid", paddingTop: 15 }]}

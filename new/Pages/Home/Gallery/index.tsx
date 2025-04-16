@@ -11,9 +11,12 @@ import KickStarter from "../../../Icons/KickStarter";
 import ScandiBlock from "../../../ScandiBlock";
 import Text from "../../../Text";
 import background from "../../../../mocks/images/backgroundImage.png";
+import { useSize } from "../../../../components/SizeProvider";
+import { breakpoints } from "../../../../source/enums";
 
 const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { dailyCard } = useDailyCard();
+  const { width } = useSize();
   return (
     <Grid
       css={(theme) => [
@@ -26,17 +29,33 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <ScandiBlock
-        css={[{ gridColumn: "span 6", alignItems: "start", paddingTop: 15 }]}
+        css={(theme) => [
+          {
+            gridColumn: "span 6",
+            alignItems: "start",
+            paddingTop: 15,
+            [theme.maxMQ.sm]: {
+              marginLeft: 20,
+              marginRight: 20,
+            },
+          },
+        ]}
       >
         <ArrowedButton>Every card, a masterpiece you can hold</ArrowedButton>
       </ScandiBlock>
 
       <ScandiBlock
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 6",
             display: "block",
             paddingTop: 15,
+            [theme.maxMQ.sm]: {
+              marginLeft: 20,
+              marginRight: 20,
+              marginTop: 30,
+              boxShadow: "none",
+            },
           },
         ]}
       >
@@ -47,17 +66,27 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
           Shop the collection
         </ArrowButton>
-        <Text css={[{ paddingBottom: 15, marginTop: 150 }]} typography="newh4">
-          Card of the day
-        </Text>
+        {width >= breakpoints.sm ? (
+          <Text
+            css={[{ paddingBottom: 15, marginTop: 150 }]}
+            typography="newh4"
+          >
+            Card of the day
+          </Text>
+        ) : null}
       </ScandiBlock>
 
       <Grid
-        css={[
+        css={(theme) => [
           {
             gridColumn: "1/-1",
             gap: 30,
             img: { background: " white", borderRadius: 16 },
+            [theme.maxMQ.sm]: {
+              marginTop: 60,
+              paddingRight: 20,
+              paddingLeft: 20,
+            },
           },
         ]}
       >
@@ -128,8 +157,13 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               background: theme.colors.soft_gray,
               gridColumn: "span 3",
+
               aspectRatio: "1/1",
               width: "100%",
+
+              [theme.maxMQ.sm]: {
+                gridColumn: "1/-1",
+              },
               objectFit: "cover",
               padding: 30,
               display: "grid",

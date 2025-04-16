@@ -17,6 +17,7 @@ const slowTransitionOpacity = theme.transitions.slow("opacity");
 
 const sizes = {
   big: { width: 360, height: 506 },
+  hero: { width: 330, height: 464 },
   small: { width: 240, height: 336 },
   nano: { width: 184, height: 260 },
   preview: { width: 270, height: 380 },
@@ -24,6 +25,7 @@ const sizes = {
 
 const sizesHover: typeof sizes = {
   big: { width: 370, height: 520 },
+  hero: { width: 340, height: 478 },
   small: { width: 250, height: 350 },
   nano: { width: 190, height: 270 },
   preview: { width: 285, height: 400 },
@@ -37,6 +39,7 @@ const Card: FC<
     noArtist?: boolean;
     interactive?: boolean;
     animated?: boolean;
+    noLink?: boolean;
   }
 > = ({
   card,
@@ -45,6 +48,7 @@ const Card: FC<
   noArtist = false,
   interactive = true,
   animated = false,
+  noLink = false,
   ...props
 }) => {
   const [hover, setHover] = useState(false);
@@ -83,6 +87,9 @@ const Card: FC<
       css={[
         {
           width: sizesHover[size].width,
+          "&:hover": {
+            cursor: "pointer",
+          },
         },
       ]}
       onMouseEnter={() => setHover(true)}

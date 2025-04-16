@@ -18,6 +18,7 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         { background: theme.colors.pale_gray, paddingBottom: 60 },
       ]}
+      {...props}
     >
       <Intro carouselRef={ref} />
       <Grid

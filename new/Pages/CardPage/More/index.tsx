@@ -38,7 +38,8 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <Grid
         css={(theme) => [
           {
-            background: theme.colors.soft_gray,
+            background:
+              theme.colors[deckId === "crypto" ? "darkBlack" : "soft_gray"],
           },
         ]}
       >
@@ -54,8 +55,10 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <div css={[{ display: "flex", gap: 5, marginTop: 120 }]}>
               <NavButton
                 css={[
-                  {
+                  deckId !== "crypto" && {
                     background: "white",
+                  },
+                  {
                     rotate: "180deg",
                   },
                 ]}
@@ -68,11 +71,13 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 }}
               />
               <NavButton
-                css={[
-                  {
-                    background: "white",
-                  },
-                ]}
+                css={
+                  deckId !== "crypto" && [
+                    {
+                      background: "white",
+                    },
+                  ]
+                }
                 onClick={() => {
                   ref.current &&
                     ref.current.scrollBy({
@@ -88,7 +93,8 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <Grid
         css={(theme) => [
           {
-            background: theme.colors.soft_gray,
+            background:
+              theme.colors[deckId === "crypto" ? "darkBlack" : "soft_gray"],
             paddingBottom: 120,
             overflow: "scroll",
             paddingTop: 60,

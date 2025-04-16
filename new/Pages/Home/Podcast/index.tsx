@@ -20,6 +20,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   return (
     <div
       css={(theme) => [{ background: theme.colors.pink, paddingBottom: 60 }]}
+      {...props}
     >
       <Intro
         arrowedText="Playing Arts podcast"

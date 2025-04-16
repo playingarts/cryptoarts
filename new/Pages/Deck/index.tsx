@@ -30,9 +30,24 @@ const DeckGallery = () => {
   return deckId !== "crypto" ? <Gallery /> : null;
 };
 
+const DeckHeader = () => {
+  const {
+    query: { deckId },
+  } = useRouter();
+
+  return (
+    <Header
+      links={[
+        ...["Cards", "Product"],
+        ...(deckId === "crypto" ? ["PACE", "AR"] : ["Gallery", "Reviews"]),
+      ]}
+    />
+  );
+};
+
 const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <>
-    <Header />
+    <DeckHeader />
     <Hero />
     <CardList />
     <TheProduct />

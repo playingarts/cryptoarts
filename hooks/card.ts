@@ -275,6 +275,16 @@ export const HeroCardsQuery = gql`
   }
 `;
 
+export const HomeCards = gql`
+  query HomeCards {
+    homeCards {
+      _id
+      img
+      cardBackground
+    }
+  }
+`;
+
 export const useCard = (
   options: QueryHookOptions<Pick<GQL.Query, "card">> = {}
 ) => {
@@ -294,6 +304,18 @@ export const useCards = (
   const { data: { cards } = { cards: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "cards">
   >(CardsQuery, options);
+
+  return {
+    ...methods,
+    cards,
+  };
+};
+
+export const useHomeCards = (
+  options: QueryHookOptions<Pick<GQL.Query, "homeCards">> = {}
+) => {
+  const { data: { homeCards: cards } = { cards: undefined }, ...methods } =
+    useQuery<Pick<GQL.Query, "homeCards">>(HomeCards, options);
 
   return {
     ...methods,

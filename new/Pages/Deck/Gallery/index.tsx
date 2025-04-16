@@ -23,6 +23,8 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         },
       ]}
+      id="gallery"
+      {...props}
     >
       <ScandiBlock
         css={[

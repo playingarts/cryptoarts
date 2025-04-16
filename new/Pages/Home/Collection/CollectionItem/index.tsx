@@ -36,6 +36,9 @@ const CollectionItem: FC<
           " > *": {
             transition: theme.transitions.fast("opacity"),
           },
+          [theme.maxMQ.sm]: {
+            flexBasis: "100%",
+          },
         },
       ]}
       onMouseEnter={() => setHover(true)}

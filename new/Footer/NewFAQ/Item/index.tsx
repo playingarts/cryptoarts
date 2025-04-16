@@ -15,6 +15,7 @@ const Item: FC<
         css={[{ "&:hover": { cursor: "pointer" } }]}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
+        typography="newh4"
       >
         <Dot
           css={(theme) => [

@@ -238,6 +238,10 @@ export const typographyLiterals = {
     fontSize: 55,
     fontWeight: 400,
     lineHeight: "66px",
+    [maxMQ.sm]: {
+      fontSize: 40,
+      lineHeight: 1.2,
+    },
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",

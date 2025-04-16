@@ -160,13 +160,27 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         />
         <img src={image2.src} alt="" />
         <img src={image3.src} alt="" />
-        {product ? (
+        <Button
+          css={(theme) => [
+            {
+              textAlign: "center",
+              background: "rgba(0,0,0,0.05)",
+              color: theme.colors.black50,
+              "&:hover": {
+                color: theme.colors.black50,
+              },
+            },
+          ]}
+        >
+          Load more photos
+        </Button>
+        {/* {product ? (
           product.status === "soldout" ? (
             <SoldOut css={[{ textAlign: "center" }]} />
           ) : (
             <AddToBag css={[{ textAlign: "center" }]} productId={product._id} />
           )
-        ) : null}
+        ) : null} */}
         {product && product.deck && product.deck.previewCards ? (
           <CardPreview
             previewCards={product.deck.previewCards}

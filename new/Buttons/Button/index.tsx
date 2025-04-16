@@ -9,6 +9,7 @@ export interface Props {
   size?: "small" | "big";
   base?: boolean;
   noColor?: boolean;
+  icon?: boolean;
   palette?: Paletteprops["palette"];
 }
 
@@ -19,6 +20,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
   size = "big",
   base = false,
   noColor = false,
+  icon = false,
   palette,
   ...props
 }) => {
@@ -98,6 +100,14 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
                     },
               ]
             : [{ color: theme.colors["dark_gray"] }]),
+        icon && {
+          width: 45,
+          height: 45,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: 0,
+        },
       ]}
       {...props}
     >

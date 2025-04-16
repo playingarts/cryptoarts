@@ -15,6 +15,9 @@ import Website from "../../../../components/Icons/Website";
 import Facebook from "../../../../components/Icons/Facebook";
 import Behance from "../../../../components/Icons/Behance";
 import Foundation from "../../../../components/Icons/Foundation";
+import { usePalette } from "../../Deck/DeckPaletteContext";
+import { theme } from "../../../../pages/_app";
+import { usePodcasts } from "../../../../hooks/podcast";
 
 const socialIcons: Record<string, FC> = {
   website: Website,
@@ -38,11 +41,19 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     variables: { slug: deckId },
   });
 
+  const { podcasts } = usePodcasts({
+    variables: { limit: 1, shuffle: true, name: card && card.artist.name },
+  });
+
+  const { palette } = usePalette();
+
   return (
     <Grid
       css={[{ paddingTop: 145, paddingBottom: 150 }]}
       style={
-        card && card.cardBackground
+        deckId === "crypto"
+          ? { backgroundColor: theme.colors.darkBlack }
+          : card && card.cardBackground
           ? { backgroundColor: card.cardBackground }
           : {}
       }
@@ -121,12 +132,15 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 </Text>
                 {card && (
                   <div
-                    css={[
+                    css={(theme) => [
                       {
                         marginTop: 30,
                         display: "flex",
                         gap: 30,
                         alignItems: "center",
+                      },
+                      palette === "dark" && {
+                        color: theme.colors.white75,
                       },
                     ]}
                   >
@@ -146,7 +160,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 )}
               </div>
             </div>
-            <Text>{card ? card.info : null} </Text>
+            <Text css={[{ marginTop: 60 }]}>{card ? card.info : null} </Text>
           </div>
         </ScandiBlock>
         {deck && (

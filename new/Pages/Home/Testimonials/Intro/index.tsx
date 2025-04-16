@@ -7,7 +7,7 @@ const Intro: FC<
   HTMLAttributes<HTMLElement> & {
     carouselRef: RefObject<HTMLDivElement | null>;
   }
-> = ({ carouselRef, ...props }) => (
+> = ({ carouselRef }) => (
   <NewIntro
     arrowedText="1,000+ Five-of-Stars reviews"
     paragraphText="Discover why collectors, players and art connoisseurs can’t get enough."

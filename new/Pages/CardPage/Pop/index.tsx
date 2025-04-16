@@ -133,6 +133,7 @@ const Pop: FC<
           <div css={[{ marginTop: 30 }]}>
             {card ? (
               <Card
+                key={"PopCard" + card._id}
                 css={[{ margin: "0 auto" }]}
                 card={card}
                 noArtist

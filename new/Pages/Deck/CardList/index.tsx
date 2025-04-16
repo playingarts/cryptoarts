@@ -35,8 +35,6 @@ const ListItem: FC<{
       (index + 1) % range === 0 &&
       Math.floor(Math.random() * range) + index - range;
 
-    console.log({ index: index + 1, range, rand });
-
     if (rand) {
       setRandCard(cards[rand]);
     } else {
@@ -198,6 +196,8 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               : theme.colors["pale_gray"],
         },
       ]}
+      id="cards"
+      {...props}
     >
       <div css={[{ gridColumn: "span 6" }]}>
         <ArrowedButton

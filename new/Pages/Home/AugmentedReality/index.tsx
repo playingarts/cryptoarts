@@ -10,6 +10,8 @@ import Apple from "../../../Icons/Apple";
 import Android from "../../../Icons/Android";
 import AR from "../../../../mocks/images/AR.png";
 import Zoom from "../../../Zoom";
+import { useSize } from "../../../../components/SizeProvider";
+import { breakpoints } from "../../../../source/enums";
 
 const Presentation = () => {
   const [hover, setHover] = useState(false);
@@ -35,8 +37,9 @@ const Presentation = () => {
   );
 };
 
-const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
-  <Grid css={[{ position: "relative", padding: "60px 75px" }]}>
+const Shader = () => {
+  const { width } = useSize();
+  return (
     <ShadertoyReact
       fs={frag}
       style={{
@@ -46,9 +49,27 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         left: 0,
         right: 0,
         bottom: 0,
+        ...(width < breakpoints.sm && { opacity: 0 }),
       }}
     />
+  );
+};
 
+const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
+  <Grid
+    css={(theme) => [
+      {
+        position: "relative",
+        padding: "30px 20px",
+        [theme.mq.sm]: {
+          padding: "60px 75px",
+        },
+      },
+    ]}
+    id="ar"
+    {...props}
+  >
+    <Shader />
     <ScandiBlock
       palette="light"
       css={(theme) => [

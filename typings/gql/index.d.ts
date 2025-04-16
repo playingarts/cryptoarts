@@ -29,6 +29,7 @@ interface Query {
   card?: Maybe<Card>;
   cardByImg?: Maybe<Card>;
   heroCards: Array<Card>;
+  homeCards: Array<Card>;
   products: Array<Product>;
   convertEurToUsd?: Maybe<Scalars['Float']['output']>;
   ownedAssets: Array<Maybe<Nft>>;
@@ -594,6 +595,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryCardArgs>>;
   cardByImg?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardByImgArgs, 'img'>>;
   heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryHeroCardsArgs>>;
+  homeCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryProductsArgs>>;
   convertEurToUsd?: Resolver<Maybe<ResolversTypes['Float']>, ParentType, ContextType, RequireFields<QueryConvertEurToUsdArgs, 'eur'>>;
   ownedAssets?: Resolver<Array<Maybe<ResolversTypes['Nft']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;

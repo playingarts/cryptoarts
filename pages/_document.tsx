@@ -70,6 +70,7 @@ export const Links = () => (
         },
         html: {
           lineHeight: 0,
+          scrollBehavior: "smooth",
         },
       }}
     />

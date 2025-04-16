@@ -56,7 +56,8 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             prev +
             (cur.fullPrice
               ? getPrice(cur.fullPrice, true) - getPrice(cur.price, true)
-              : 0)
+              : 0) *
+              bag[cur._id]
           );
         }, 0)
     );

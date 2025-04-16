@@ -1,83 +1,71 @@
-import { FC, HTMLAttributes } from "react";
-import { mockCard as card } from "../../../../../mocks/card";
+import Card from "../../../../Card";
+import { useSize } from "../../../../../components/SizeProvider";
+import { breakpoints } from "../../../../../source/enums";
+import { FC, ReactNode, useEffect, useState } from "react";
+import { useHomeCards } from "../../../../../hooks/card";
 
-const HeroCard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+const HeroCard: FC<{ setCard: (arg0: GQL.Card) => void }> = ({ setCard }) => {
+  const { width } = useSize();
+
+  const { cards } = useHomeCards();
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (!cards) {
+      return;
+    }
+
+    setCard(cards[index]);
+  }, [cards, index]);
+
   return (
     <div
       css={[
         {
           position: "relative",
           "> *": {
+            // boxShadow: "0px 5px 20px 0px rgba(0, 0, 0, 0.10)",
+          },
+          ">:nth-child(2)": { transform: "rotate(5deg)" },
+          ">:nth-child(1)": { transform: "rotate(-12deg)" },
+          ">:not(:last-child)": {
+            pointerEvents: "none",
             position: "absolute",
             top: 0,
             left: 0,
-            boxShadow: "0px 5px 20px 0px rgba(0, 0, 0, 0.10)",
           },
-          width: 360,
-          height: 506,
-          "img:nth-child(2)": { transform: "rotate(5deg)" },
-          "img:nth-child(1)": { transform: "rotate(-12deg)" },
         },
       ]}
     >
-      <img
-        loading="lazy"
-        src={
-          "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/8-of-clubs-zutto.jpg"
-        }
-        alt={card.info}
-        css={(theme) => [
-          {
-            width: "100%",
-            height: "100%",
-            [theme.mq.sm]: {
-              borderRadius: theme.spacing(1.5),
-            },
-            [theme.maxMQ.sm]: {
-              borderRadius: theme.spacing(1),
-            },
-          },
-        ]}
-      />
-      <img
-        loading="lazy"
-        src={
-          // "https://s3.amazonaws.com/img.playingarts.com/future/cards/card-antonio-uve.jpg"
-          "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/8-of-clubs-zutto.jpg"
-        }
-        alt={card.info}
-        css={(theme) => [
-          {
-            width: "100%",
-            height: "100%",
-            [theme.mq.sm]: {
-              borderRadius: theme.spacing(1.5),
-            },
-            [theme.maxMQ.sm]: {
-              borderRadius: theme.spacing(1),
-            },
-          },
-        ]}
-      />
-      <img
-        loading="lazy"
-        src={
-          "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/7-of-spades-muxxi.jpg"
-        }
-        alt={card.info}
-        css={(theme) => [
-          {
-            width: "100%",
-            height: "100%",
-            [theme.mq.sm]: {
-              borderRadius: theme.spacing(1.5),
-            },
-            [theme.maxMQ.sm]: {
-              borderRadius: theme.spacing(1),
-            },
-          },
-        ]}
-      />
+      {!cards
+        ? null
+        : cards.reduce((prev, card, i) => {
+            if (i === index) {
+              return prev;
+            }
+            const cardNode = (
+              <Card
+                key={"HeroCard" + card._id}
+                size={width >= breakpoints.sm ? "big" : "nano"}
+                noArtist
+                card={card}
+              />
+            );
+            return index === 0 || i < index
+              ? [cardNode, ...prev]
+              : [...prev, cardNode];
+          }, [] as ReactNode[])}
+      {!cards ? null : (
+        <Card
+          key={"HeroCard" + cards[index]._id}
+          size={width >= breakpoints.sm ? "big" : "nano"}
+          noArtist
+          card={cards[index]}
+          onClick={() => {
+            setIndex(index === cards.length - 1 ? 0 : index + 1);
+          }}
+        />
+      )}
     </div>
   );
 };

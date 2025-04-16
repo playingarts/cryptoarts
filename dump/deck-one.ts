@@ -37,6 +37,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/2-of-spades-mattias-adolfsson.jpg",
+    cardBackground: "#F2F2F2",
     video: "",
   },
   {
@@ -47,6 +48,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/2-of-hearts-peter-tarka.jpg",
+    cardBackground: "#F0F5F9",
     video: "",
   },
   {
@@ -57,6 +59,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/2-of-clubs-tang-yau-hoong.jpg",
+    cardBackground: "#DDEEFF",
     video: "",
   },
   {
@@ -67,6 +70,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/2-of-diamonds-yemayema.jpg",
+    cardBackground: "#D3F5D7",
     video: "",
   },
   {
@@ -77,6 +81,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/3-of-spades-teagan-white.jpg",
+    cardBackground: "#EDE1D4",
     video: "",
   },
   {
@@ -87,6 +92,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/3-of-hearts-mercedes-debellard.jpg",
+    cardBackground: "#EFCFD3",
     video: "",
   },
   {
@@ -97,6 +103,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/3-of-clubs-fernando-chamarelli.jpg",
+    cardBackground: "#CFD9F0",
     video: "",
   },
   {
@@ -107,6 +114,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/3-of-diamonds-carne-griffiths.jpg",
+    cardBackground: "#EDE3CE",
     video: "",
   },
   {
@@ -117,6 +125,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/4-of-spades-serial-cut.jpg",
+    cardBackground: "#D4D2D9",
     video: "",
   },
   {
@@ -127,6 +136,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/4-of-hearts-ruben-ireland.jpg",
+    cardBackground: "#D9D9D9",
     video: "",
   },
   {
@@ -137,6 +147,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/4-of-clubs-muti.jpg",
+    cardBackground: "#E0DDD8",
     video: "",
   },
   {
@@ -147,6 +158,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/4-of-diamonds-peter-olschinsky.jpg",
+    cardBackground: "#D5D1D0",
     video: "",
   },
   {
@@ -157,6 +169,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/5-of-spades-musketon.jpg",
+    cardBackground: "#DCD9D7",
     video: "",
   },
   {
@@ -167,6 +180,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/5-of-hearts-aitch.jpg",
+    cardBackground: "#E1DFDA",
     video: "",
   },
   {
@@ -177,6 +191,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/5-of-clubs-valerie-ann-chua.jpg",
+    cardBackground: "#DBD8D5",
     video: "",
   },
   {
@@ -187,6 +202,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/5-of-diamonds-fab-ciraolo.jpg",
+    cardBackground: "#D9D4D7",
     video: "",
   },
   {
@@ -197,6 +213,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/6-of-spades-fernando-volken-togni.jpg",
+    cardBackground: "#E0DBDF",
     video: "",
   },
   {
@@ -207,6 +224,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/6-of-hearts-javier-medellin-puyou.jpg",
+    cardBackground: "#E3DEDC",
     video: "",
   },
   {
@@ -217,6 +235,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/6-of-clubs-tobias-van-schneider.jpg",
+    cardBackground: "#DADBDD",
     video: "",
   },
   {
@@ -227,6 +246,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/6-of-diamonds-vasava.jpg",
+    cardBackground: "#E3DAD7",
     video: "",
   },
   {
@@ -237,6 +257,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/7-of-spades-muxxi.jpg",
+    cardBackground: "#DFE0DD",
     video: "",
   },
   {
@@ -247,6 +268,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/7-of-hearts-felix-laflamme.jpg",
+    cardBackground: "#DEDADF",
     video: "",
   },
   {
@@ -257,6 +279,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/7-of-clubs-krzysztof-nowak.jpg",
+    cardBackground: "#DDDBD8",
     video: "",
   },
   {
@@ -267,6 +290,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/7-of-diamonds-matt-w-moore.jpg",
+    cardBackground: "#E2D6D6",
     video: "",
   },
   {
@@ -277,6 +301,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/8-of-spades-gary-fernandez.jpg",
+    cardBackground: "#D9D8D8",
     video: "",
   },
   {
@@ -287,6 +312,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/8-of-hearts-raul-urias.jpg",
+    cardBackground: "#E3DDDA",
     video: "",
   },
   {
@@ -297,6 +323,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/8-of-clubs-el-grand-chamaco.jpg",
+    cardBackground: "#DBE1DF",
     video: "",
   },
   {
@@ -307,6 +334,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/8-of-diamonds-jthree-concepts.jpg",
+    cardBackground: "#DEDBD9",
     video: "",
   },
   {
@@ -317,6 +345,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/9-of-spades-anton-repponen.jpg",
+    cardBackground: "#DAD9DA",
     video: "",
   },
   {
@@ -327,6 +356,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/9-of-hearts-carlos-lerma.jpg",
+    cardBackground: "#DBE1E1",
     video: "",
   },
   {
@@ -337,6 +367,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/9-of-clubs-chuck-anderson.jpg",
+    cardBackground: "#DEDCE0",
     video: "",
   },
   {
@@ -347,6 +378,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/9-of-diamonds-pirecco.jpg",
+    cardBackground: "#DCD6CE",
     video: "",
   },
   {
@@ -357,6 +389,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/10-of-spades-bicicleta-sem-freio.jpg",
+    cardBackground: "#CFDBCF",
     video: "",
   },
   {
@@ -367,6 +400,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/10-of-hearts-caramelaw.jpg",
+    cardBackground: "#CFDCE0",
     video: "",
   },
   {
@@ -377,6 +411,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/10-of-clubs-hey.jpg",
+    cardBackground: "#DBDBDB",
     video: "",
   },
   {
@@ -387,6 +422,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/10-of-diamonds-lei-melendres.jpg",
+    cardBackground: "#E0D9D7",
     video: "",
   },
   {
@@ -397,6 +433,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/jack-of-spades-seb-niark1.jpg",
+    cardBackground: "#DDDDDD",
     video: "",
   },
   {
@@ -407,6 +444,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/jack-of-hearts-steve-simpson.jpg",
+    cardBackground: "#DBD7CF",
     video: "",
   },
   {
@@ -417,6 +455,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/jack-of-clubs-bakea.jpg",
+    cardBackground: "#D8D8E0",
     video: "",
   },
   {
@@ -427,6 +466,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/jack-of-diamonds-newfren.jpg",
+    cardBackground: "#E0DAD7",
     video: "",
   },
   {
@@ -437,6 +477,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/queen-of-spades-david-mack.jpg",
+    cardBackground: "#DFDCCC",
     video: "",
   },
   {
@@ -447,6 +488,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/queen-of-hearts-conrad-roset.jpg",
+    cardBackground: "#D8CCBE",
     video: "",
   },
   {
@@ -457,6 +499,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/queen-of-clubs-ise-ananphada.jpg",
+    cardBackground: "#DFDCD8",
     video: "",
   },
   {
@@ -467,6 +510,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/queen-of-diamonds-agnes-cecile.jpg",
+    cardBackground: "#DCDADF",
     video: "",
   },
   {
@@ -477,6 +521,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/king-of-spades-yulia-brodskaya.jpg",
+    cardBackground: "#D8D1C6",
     video: "",
   },
   {
@@ -487,6 +532,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/king-of-hearts-sara-blake.jpg",
+    cardBackground: "#DADAD8",
     video: "",
   },
   {
@@ -497,6 +543,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/king-of-clubs-james-white.jpg",
+    cardBackground: "#D1CDDD",
     video: "",
   },
   {
@@ -507,6 +554,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/king-of-diamonds-saturno-the-creatter.jpg",
+    cardBackground: "#E3DAD7",
     video: "",
   },
   {
@@ -517,6 +565,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/ace-of-spades-iain-macarthur.jpg",
+    cardBackground: "#DDDDDD",
     video: "",
   },
   {
@@ -527,6 +576,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/ace-of-hearts-mr-kone.jpg",
+    cardBackground: "#DCDED9",
     video: "",
   },
   {
@@ -537,6 +587,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/ace-of-clubs-andreas-preis.jpg",
+    cardBackground: "#D9D7D1",
     video: "",
   },
   {
@@ -547,6 +598,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/ace-of-diamonds-jordan-debney.jpg",
+    cardBackground: "#E2D1D9",
     video: "",
   },
   {
@@ -557,6 +609,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/joker-mike-friedrich.jpg",
+    cardBackground: "#DBE1D9",
     video: "",
   },
   {
@@ -567,6 +620,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/_backside-evgeny-kiselev.jpg",
+    cardBackground: "#DEDFE1",
     video: "",
   },
   {
@@ -577,6 +631,7 @@ export const cards = [
     deck: "one",
     opensea: "",
     img: "https://s3.amazonaws.com/img.playingarts.com/one-big-hd/joker-joshua-davis.jpg",
+    cardBackground: "#D9D9D9",
     video: "",
   },
 ];

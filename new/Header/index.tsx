@@ -3,18 +3,26 @@ import { FC, HTMLAttributes, ReactNode, useEffect, useState } from "react";
 import Grid from "../../components/Grid";
 import ScandiBlock from "../ScandiBlock";
 import CTA from "./CTA";
-import Middle from "./Middle";
+import Middle, { PageNav } from "./Middle";
 import TitleButton from "./TitleButton";
 import MenuPortal from "./MainMenu/MenuPortal";
 import MainMenu from "./MainMenu";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
+import { useSize } from "../../components/SizeProvider";
+import { breakpoints } from "../../source/enums";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   customCTA?: ReactNode;
   customMiddle?: ReactNode;
+  links?: string[];
 }
 
-const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
+const Header: FC<Props> = ({
+  customMiddle,
+  customCTA,
+  links = ["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"],
+  ...props
+}) => {
   const [showSiteNav, setShowSiteNav] = useState<"top" | "afterTop">("top");
 
   const [altNav, setAltNav] = useState(false);
@@ -22,6 +30,8 @@ const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
   const [showMenu, setShowMenu] = useState(false);
 
   const { palette } = usePalette();
+
+  const { width } = useSize();
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -57,7 +67,7 @@ const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
           // paddingRight: 25,
 
           // header height initially
-          marginTop: -70,
+          marginTop: -75,
           transition: theme.transitions.fast("all"),
           // top: "calc(-200%)",
           position: "sticky",
@@ -65,15 +75,19 @@ const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
         },
       ]}
       style={
-        showSiteNav === "top"
-          ? {
-              // top: 0,
-              top: -155,
-            }
+        width >= breakpoints.sm
+          ? showSiteNav === "top"
+            ? {
+                // top: 0,
+                top: -155,
+              }
+            : {
+                // header height later on
+                top: -75,
+                marginTop: -60,
+              }
           : {
-              // header height later on
               top: -75,
-              marginTop: -60,
             }
       }
     >
@@ -93,6 +107,10 @@ const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
               "line-height",
               "grid-template-rows",
             ]),
+            [theme.maxMQ.sm]: {
+              gridTemplateColumns: "auto 1fr auto",
+              padding: "0 10px",
+            },
           },
 
           {
@@ -100,7 +118,7 @@ const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
           },
         ]}
         style={
-          showSiteNav === "top"
+          showSiteNav === "top" && width >= breakpoints.sm
             ? {
                 gridTemplateRows: 70,
                 lineHeight: "70px",
@@ -119,19 +137,39 @@ const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
           inset={showSiteNav !== "afterTop"}
           setShow={setShowMenu}
           css={(theme) => [
-            { transition: theme.transitions.fast("border-color") },
+            {
+              transition: theme.transitions.fast(["border-color", "top"]),
+              top: 0,
+              [theme.mq.sm]: {
+                [theme.maxMQ.md]: [
+                  showSiteNav !== "top" &&
+                    altNav && {
+                      top: "-100%",
+                    },
+                ],
+              },
+            },
           ]}
           style={
-            (showSiteNav === "afterTop" && { borderColor: "transparent" }) || {}
+            ((showSiteNav === "afterTop" || width < breakpoints.sm) && {
+              boxShadow: "none",
+            }) ||
+            {}
           }
         />
-        <Middle {...{ showSiteNav, altNav }} customMiddle={customMiddle} />
+        <Middle
+          {...{ showSiteNav, altNav }}
+          customMiddle={customMiddle}
+          links={links}
+        />
 
         <ScandiBlock
           palette={palette}
           css={(theme) => [
             {
-              gridColumn: "span 3",
+              [theme.mq.sm]: {
+                gridColumn: "span 3",
+              },
               justifyContent: "space-between",
               height: "100%",
               transition: theme.transitions.fast("border-color"),
@@ -139,7 +177,10 @@ const Header: FC<Props> = ({ customMiddle, customCTA, ...props }) => {
           ]}
           inset={showSiteNav !== "afterTop" && true}
           style={
-            (showSiteNav === "afterTop" && { borderColor: "transparent" }) || {}
+            ((showSiteNav === "afterTop" || width < breakpoints.sm) && {
+              boxShadow: "none",
+            }) ||
+            {}
           }
         >
           {customCTA ?? <CTA />}

@@ -220,6 +220,17 @@ const getHeroCards = async ({
   return cards;
 };
 
+const getHomeCards = async () => {
+  const cards = (
+    await ((await Card.find({ cardBackground: { $ne: null } }).populate([
+      "artist",
+      "deck",
+    ])) as unknown as Promise<GQL.Card[]>)
+  ).sort(() => Math.random() - Math.random());
+
+  return cards.slice(0, 3);
+};
+
 export const resolvers: GQL.Resolvers = {
   Card: {
     background: async ({ background, deck }) =>
@@ -295,6 +306,7 @@ export const resolvers: GQL.Resolvers = {
     cardByImg: (_, args) => getCardByImg(args),
     randomCards: (_, args) => getCards(args),
     heroCards: (_, args) => getHeroCards(args),
+    homeCards: () => getHomeCards(),
   },
 };
 
@@ -312,6 +324,7 @@ export const typeDefs = gql`
     card(id: ID, slug: String, deckSlug: String): Card
     cardByImg(img: ID!): Card
     heroCards(deck: ID, slug: String): [Card!]!
+    homeCards: [Card!]!
   }
 
   type Card {

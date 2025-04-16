@@ -34,7 +34,7 @@ const FooterTestimonials = () => {
   const {
     query: { deckId },
   } = useRouter();
-  return deckId !== "crypto" ? <Testimonials /> : null;
+  return deckId !== "crypto" ? <Testimonials id="reviews" /> : null;
 };
 
 const ActualFooter = () => {

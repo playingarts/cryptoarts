@@ -43,7 +43,6 @@ export const useNewBag = () => {
       ...bag,
       [_id]: quantity || exitingQuantity + 1,
     };
-    console.log(bag, newBag);
 
     setBag(newBag);
   };

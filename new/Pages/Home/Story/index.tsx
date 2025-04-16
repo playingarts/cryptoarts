@@ -5,7 +5,7 @@ import CardSmall from "./CardSmall";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 
 const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
-  <div css={{ position: "relative" }}>
+  <div css={{ position: "relative", contain: "paint" }} {...props}>
     <CardSmall />
     <Grid
       css={(theme) => [
@@ -14,10 +14,25 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           paddingTop: 30,
           paddingBottom: 120,
           gridColumn: "1/-1",
+          [theme.maxMQ.sm]: {
+            paddingLeft: 20,
+            paddingRight: 20,
+          },
         },
       ]}
     >
-      <div css={[{ gridColumn: "7/-1" }]}>
+      <div
+        css={(theme) => [
+          {
+            gridColumn: "span 6/-1",
+            zIndex: 0,
+            [theme.maxMQ.sm]: {
+              zIndex: 2,
+            },
+            position: "relative",
+          },
+        ]}
+      >
         <ArrowedButton>Where art meets play</ArrowedButton>
         <Text typography="paragraphBig" css={[{ paddingTop: 120 }]}>
           Playing Arts brings together artists from around the world,
@@ -50,10 +65,29 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     </Grid>
     <Grid
       css={(theme) => [
-        { background: theme.colors.pale_gray, gridColumn: "1/-1" },
+        {
+          background: theme.colors.pale_gray,
+          gridColumn: "1/-1",
+          [theme.maxMQ.sm]: {
+            paddingLeft: 20,
+            paddingRight: 20,
+          },
+        },
       ]}
     >
-      <div css={[{ gridColumn: "7/-1", paddingTop: 30 }]}>
+      <div
+        css={(theme) => [
+          {
+            gridColumn: "span 6/-1",
+            paddingTop: 30,
+            zIndex: 0,
+            [theme.maxMQ.sm]: {
+              zIndex: 2,
+            },
+            position: "relative",
+          },
+        ]}
+      >
         <Text typography="newh4">Explore the collection</Text>
         <Text typography="paragraphBig" css={[{ padding: "120px 0" }]}>
           Eight editions where each deck is a curated showcase of 55 unique

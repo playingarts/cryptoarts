@@ -13,14 +13,16 @@ type Props = {};
 const Home = (props: Props) => {
   return (
     <>
-      <Header />
+      <Header
+        links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"]}
+      />
       <Hero />
-      <Story />
-      <Collection />
-      <Gallery />
-      <AugmentedReality />
+      <Story id="about" />
+      <Collection id="collection" />
+      <Gallery id="gallery" />
+      <AugmentedReality id="ar" />
       <Footer>
-        <Podcast />
+        <Podcast id="podcast" />
       </Footer>
     </>
   );
