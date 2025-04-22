@@ -12,7 +12,7 @@ const Item: FC<
     <div>
       <Text
         onClick={() => setOpened(!opened)}
-        css={[{ "&:hover": { cursor: "pointer" } }]}
+        css={[{ "&:hover": { cursor: "pointer" }, pointerEvents: "none" }]}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         typography="newh4"

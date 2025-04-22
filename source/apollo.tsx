@@ -261,7 +261,7 @@ export const createApolloClient = (initialState = {}, config?: object) => {
               const cachedCards = cache.readQuery({
                 query: CardsQuery,
                 variables: {
-                  deck: (cachedDeck as { deck: GQL.Deck }).deck._id,
+                  deck: (cachedDeck as { deck: GQL.Deck }).deck.slug,
                 },
               });
 

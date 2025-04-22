@@ -12,6 +12,9 @@ import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 import { breakpoints } from "../../source/enums";
 import { useSize } from "../../components/SizeProvider";
 import { theme } from "../../pages/_app";
+import Star from "../Icons/Star";
+import Label from "../Label";
+import { useFavorites } from "../Contexts/favorites";
 
 const slowTransitionOpacity = theme.transitions.slow("opacity");
 
@@ -31,6 +34,126 @@ const sizesHover: typeof sizes = {
   preview: { width: 285, height: 400 },
 };
 
+const CardFav: FC<
+  HTMLAttributes<HTMLElement> & {
+    size: keyof typeof sizes;
+    deckSlug: string;
+    id: string;
+  }
+> = ({ deckSlug, id, size, ...props }) => {
+  const [hover, setHover] = useState(false);
+
+  const { addItem, isFavorite, removeItem } = useFavorites();
+
+  const [favoriteState, setFavoriteState] = useState(false);
+
+  useEffect(() => {
+    setFavoriteState(isFavorite(deckSlug, id));
+  }, [isFavorite, deckSlug, id]);
+
+  return (
+    <>
+      <div
+        css={(theme) => [
+          {
+            transition: theme.transitions.fast("box-shadow"),
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: sizes[size].width,
+            boxShadow: favoriteState
+              ? "0px 4px 20px 0px #6A5ACD80"
+              : "0px 5px 20px 0px rgba(0, 0, 0, 0.20)",
+            borderRadius: size === "nano" ? 10 : 15,
+            aspectRatio: "0.7076923076923077",
+            zIndex: 0,
+          },
+        ]}
+      />
+      <div
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (favoriteState) {
+            removeItem(deckSlug, id);
+          } else {
+            addItem(deckSlug, id);
+          }
+        }}
+        css={(theme) => [
+          {
+            zIndex: 1,
+            position: "absolute",
+            right: 0,
+            top: 0,
+            width: 46,
+            height: 46,
+            background:
+              theme.colors[favoriteState === true ? "pale_gray" : "accent"],
+            color:
+              theme.colors[favoriteState === true ? "accent" : "soft_gray"],
+            borderRadius: "0 15px 0 100px",
+          },
+        ]}
+        {...props}
+      >
+        <Star
+          css={(theme) => [
+            {
+              marginTop: 6,
+              marginLeft: 13,
+            },
+          ]}
+        />
+        <Label
+          css={(theme) => [
+            {
+              color: theme.colors[favoriteState ? "black" : "white"],
+              background: theme.colors[favoriteState ? "mint" : "black"],
+              whiteSpace: "nowrap",
+              pointerEvents: "none",
+              top: 0,
+              right: 0,
+              transform: "translate(50%, -100%)",
+              position: "absolute",
+              textTransform: "initial",
+
+              opacity: 1,
+              "@keyframes FavFadeIn": {
+                "0%": {
+                  opacity: 0,
+                  transform: "translate(50%, -100%)",
+                },
+                "100%": {
+                  opacity: 1,
+                  transform: "translate(50%, calc(-100% - 10px))",
+                },
+              },
+              "@keyframes FavFadeOut": {
+                "100%": {
+                  opacity: 0,
+                  transform: "translate(50%, -100%)",
+                },
+                "0%": {
+                  opacity: 1,
+                  transform: "translate(50%, calc(-100% - 10px))",
+                },
+              },
+              animation: `${
+                hover ? "FavFadeIn" : "FavFadeOut"
+              } 100ms forwards linear`,
+            },
+          ]}
+        >
+          {favoriteState ? "Favorited" : "Add to Favorites"}
+        </Label>
+      </div>
+    </>
+  );
+};
+
 const Card: FC<
   HTMLAttributes<HTMLElement> & {
     card: GQL.Card;
@@ -40,6 +163,7 @@ const Card: FC<
     interactive?: boolean;
     animated?: boolean;
     noLink?: boolean;
+    noFavorite?: boolean;
   }
 > = ({
   card,
@@ -49,6 +173,7 @@ const Card: FC<
   interactive = true,
   animated = false,
   noLink = false,
+  noFavorite = false,
   ...props
 }) => {
   const [hover, setHover] = useState(false);
@@ -148,87 +273,96 @@ const Card: FC<
               transitionTimingFunction: "linear",
               transitionDuration: "50ms",
               transitionProperty: "scale",
-              borderRadius: size === "nano" ? 10 : 20,
-              overflow: "hidden",
               transition: theme.transitions.fast(["width", "height"]),
-              boxShadow: "0px 5px 20px 0px rgba(0, 0, 0, 0.10)",
-              background:
-                palette === "dark"
-                  ? "linear-gradient(45deg, #2d2d2d 0%, #181818 50%, #2d2d2d 100%)"
-                  : "linear-gradient(45deg, #d6d6d6 0%, #ffffff 50%, #d6d6d6 100%)",
 
               // background: "transparent",
             },
           ]}
           style={(hover && { width: sizesHover[size].width }) || {}}
         >
-          <img
-            src={card.img}
-            key={card.img + "card" + size}
+          <div
             css={[
               {
-                width: "100%",
+                overflow: "hidden",
+                borderRadius: size === "nano" ? 10 : 15,
+                background:
+                  palette === "dark"
+                    ? "linear-gradient(45deg, #2d2d2d 0%, #181818 50%, #2d2d2d 100%)"
+                    : "linear-gradient(45deg, #d6d6d6 0%, #ffffff 50%, #d6d6d6 100%)",
+                position: "relative",
                 height: "100%",
-                lineHeight: 1,
-              },
-              {
-                transition: loaded ? slowTransitionOpacity : "none",
+                zIndex: 1,
               },
             ]}
-            style={{
-              opacity: loaded ? 1 : 0,
-            }}
-            loading="lazy"
-            onLoad={hideLoader}
-            alt={""}
-          />
-          {card.video && (!animated ? width >= breakpoints.sm : true) && (
-            <video
-              loop
-              muted
-              playsInline
-              ref={video}
-              css={(theme) => [
+          >
+            <img
+              src={card.img}
+              key={card.img + "card" + size}
+              css={[
                 {
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  [theme.mq.sm]: {
-                    borderRadius: theme.spacing(1.5),
-                  },
-                  [theme.maxMQ.sm]: {
-                    borderRadius: theme.spacing(1),
-                  },
-                  overflow: "hidden",
-                  [theme.mq.sm]: {
-                    opacity: animated ? 1 : hover ? (loaded ? 1 : 0) : 0,
-                  },
-
                   width: "100%",
                   height: "100%",
                   lineHeight: 1,
-
-                  opacity: loaded ? 1 : 0,
-
+                },
+                {
                   transition: loaded ? slowTransitionOpacity : "none",
                 },
               ]}
               style={{
                 opacity: loaded ? 1 : 0,
-
-                transition: loaded ? slowTransitionOpacity : "none",
               }}
-              onCanPlay={hideLoader}
-              {...(animated ? { autoPlay: true } : { preload: "none" })}
-            >
-              <source src={card.video} type="video/mp4" />
-            </video>
-          )}
+              loading="lazy"
+              onLoad={hideLoader}
+              alt={""}
+            />
+            {card.video && (!animated ? width >= breakpoints.sm : true) && (
+              <video
+                loop
+                muted
+                playsInline
+                ref={video}
+                css={(theme) => [
+                  {
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    [theme.mq.sm]: {
+                      borderRadius: theme.spacing(1.5),
+                    },
+                    [theme.maxMQ.sm]: {
+                      borderRadius: theme.spacing(1),
+                    },
+                    overflow: "hidden",
+                    [theme.mq.sm]: {
+                      opacity: animated ? 1 : hover ? (loaded ? 1 : 0) : 0,
+                    },
 
+                    width: "100%",
+                    height: "100%",
+                    lineHeight: 1,
+
+                    opacity: loaded ? 1 : 0,
+
+                    transition: loaded ? slowTransitionOpacity : "none",
+                  },
+                ]}
+                style={{
+                  opacity: loaded ? 1 : 0,
+
+                  transition: loaded ? slowTransitionOpacity : "none",
+                }}
+                onCanPlay={hideLoader}
+                {...(animated ? { autoPlay: true } : { preload: "none" })}
+              >
+                <source src={card.video} type="video/mp4" />
+              </video>
+            )}
+          </div>
           {ar && (
             <div
               css={(theme) => [
                 {
+                  zIndex: 1,
                   position: "absolute",
                   left: 0,
                   bottom: 0,
@@ -245,6 +379,22 @@ const Card: FC<
             >
               <AR />
             </div>
+          )}
+          {noFavorite || !card.deck ? null : (
+            <CardFav
+              size={size}
+              deckSlug={card.deck.slug}
+              id={card._id}
+              css={(theme) => [
+                {
+                  opacity: 0,
+                  transition: theme.transitions.fast("opacity"),
+                },
+                hover && {
+                  opacity: 1,
+                },
+              ]}
+            />
           )}
         </div>
       </div>

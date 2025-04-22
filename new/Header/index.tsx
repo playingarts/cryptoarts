@@ -173,6 +173,7 @@ const Header: FC<Props> = ({
               justifyContent: "space-between",
               height: "100%",
               transition: theme.transitions.fast("border-color"),
+              padding: 0,
             },
           ]}
           inset={showSiteNav !== "afterTop" && true}

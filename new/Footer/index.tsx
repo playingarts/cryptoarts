@@ -285,11 +285,19 @@ const ActualFooter = () => {
   );
 };
 
-const Footer: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
+const Footer: FC<HTMLAttributes<HTMLElement> & { onlyFooter?: boolean }> = ({
+  children,
+  onlyFooter,
+  ...props
+}) => (
   <>
-    <FooterTestimonials />
-    {children}
-    <NewFAQ />
+    {!onlyFooter ? (
+      <>
+        <FooterTestimonials />
+        {children}
+        <NewFAQ />
+      </>
+    ) : null}
     <ActualFooter />
   </>
 );

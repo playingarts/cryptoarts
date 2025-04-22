@@ -27,6 +27,10 @@ export const DeckDataFragment = gql`
       _id
       image
       status
+      price {
+        eur
+        usd
+      }
     }
   }
 `;

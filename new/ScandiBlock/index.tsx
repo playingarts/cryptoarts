@@ -47,6 +47,7 @@ const ScandiBlock: FC<HTMLAttributes<HTMLElement> & Props> = ({
             ? `inset 0px 1px 0px ${color}`
             : `0px -1px 0px ${color}`,
           alignItems: "center",
+          paddingTop: 15,
         },
       ]}
       {...props}

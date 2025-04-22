@@ -49,7 +49,7 @@ const ListItem: FC<{
         onClick={() => setShow(true)}
         size="preview"
         key={card._id + index + "card"}
-        card={card}
+        card={{ ...card, deck: { slug: deckId } as unknown as GQL.Deck }}
         css={[{ width: 300 }]}
       />
       {/* </Link> */}
@@ -176,7 +176,7 @@ const List = () => {
         ]}
       >
         {cards.map((card, index) => (
-          <ListItem {...{ card, index, range, cards }} />
+          <ListItem key={card._id} {...{ card, index, range, cards }} />
         ))}
       </div>
     )

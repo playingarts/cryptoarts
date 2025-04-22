@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { useDeck } from "../../../hooks/deck";
 import { colord } from "colord";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
-import { PageNav } from "../Middle";
 import { useSize } from "../../../components/SizeProvider";
 import { breakpoints } from "../../../source/enums";
 
@@ -32,6 +31,7 @@ const TitleButton: FC<
           },
           height: "100%",
           position: "relative",
+          padding: 0,
         },
       ]}
       inset={true}

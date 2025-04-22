@@ -1,16 +1,51 @@
-import { useRouter } from "next/router";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { useDeck } from "../../../../hooks/deck";
-import Text from "../../../Text";
-import Button from "../../../Buttons/Button";
-import Card from "../../../Card";
 import { useCard, useCards } from "../../../../hooks/card";
-import Star from "../../../Icons/Star";
+import { useDeck } from "../../../../hooks/deck";
 import ArrowButton from "../../../Buttons/ArrowButton";
-import Plus from "../../../Icons/Plus";
-import Link from "../../../Link";
+import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
+import Card from "../../../Card";
+import { useFavorites } from "../../../Contexts/favorites";
+import Plus from "../../../Icons/Plus";
+import Star from "../../../Icons/Star";
+import Link from "../../../Link";
+import Text from "../../../Text";
 import { usePalette } from "../../Deck/DeckPaletteContext";
+
+const FavButton: FC<
+  HTMLAttributes<HTMLElement> & { deckSlug: string; id: string }
+> = ({ deckSlug, id }) => {
+  const { isFavorite, addItem } = useFavorites();
+
+  const [favState, setFavState] = useState(false);
+
+  useEffect(() => {
+    setFavState(isFavorite(deckSlug, id));
+  }, [isFavorite, deckSlug, id]);
+  console.log(favState);
+
+  const Btn = (
+    <Button
+      color={favState ? "white" : "accent"}
+      css={(theme) => [
+        { paddingRight: 8, paddingLeft: 8 },
+        favState && {
+          color: theme.colors.accent,
+          "&:hover": {
+            color: theme.colors.accent,
+          },
+        },
+      ]}
+      onClick={() => {
+        !favState && addItem(deckSlug, id);
+      }}
+    >
+      <Star />
+    </Button>
+  );
+
+  return favState ? <Link href="/new/favorites">{Btn}</Link> : Btn;
+};
 
 const CustomMiddle: FC<{
   cardState: string | undefined;
@@ -131,11 +166,14 @@ const Pop: FC<
         <div css={[{ flex: 1 }]}>
           <Text typography="newh4">{deck ? deck.title : null} </Text>
           <div css={[{ marginTop: 30 }]}>
-            {card ? (
+            {deck && card ? (
               <Card
                 key={"PopCard" + card._id}
                 css={[{ margin: "0 auto" }]}
-                card={card}
+                card={{
+                  ...card,
+                  deck: { slug: deck.slug } as unknown as GQL.Deck,
+                }}
                 noArtist
                 size="big"
               />
@@ -203,12 +241,7 @@ const Pop: FC<
                   },
                 ]}
               >
-                <Button
-                  color="accent"
-                  css={[{ paddingRight: 8, paddingLeft: 8 }]}
-                >
-                  <Star />
-                </Button>
+                {deck && <FavButton deckSlug={deck.slug} id={card._id} />}
 
                 <Link
                   href={"/new/" + deckId + "/" + card.artist.slug}
