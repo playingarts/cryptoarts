@@ -17,7 +17,6 @@ import Behance from "../../../../components/Icons/Behance";
 import Foundation from "../../../../components/Icons/Foundation";
 import { usePalette } from "../../Deck/DeckPaletteContext";
 import { theme } from "../../../../pages/_app";
-import { usePodcasts } from "../../../../hooks/podcast";
 
 const socialIcons: Record<string, FC> = {
   website: Website,
@@ -41,9 +40,9 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     variables: { slug: deckId },
   });
 
-  const { podcasts } = usePodcasts({
-    variables: { limit: 1, shuffle: true, name: card && card.artist.name },
-  });
+  // const { podcasts } = usePodcasts({
+  //   variables: { limit: 1, shuffle: true, name: card && card.artist.name },
+  // });
 
   const { palette } = usePalette();
 
