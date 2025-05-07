@@ -1,20 +1,16 @@
-import { useRouter } from "next/router";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { useDeck } from "../../../../hooks/deck";
-import Text from "../../../Text";
-import Button from "../../../Buttons/Button";
-import Card from "../../../Card";
-import { useCard, useCards, useLoadCards } from "../../../../hooks/card";
-import Star from "../../../Icons/Star";
-import ArrowButton from "../../../Buttons/ArrowButton";
-import Plus from "../../../Icons/Plus";
-import Link from "../../../Link";
-import NavButton from "../../../Buttons/NavButton";
-import { useProducts } from "../../../../hooks/product";
 import { convertToProductSlug } from "..";
-import Label from "../../../Label";
-import { useBag } from "../../../Contexts/bag";
+import { useLoadCards } from "../../../../hooks/card";
+import { useProducts } from "../../../../hooks/product";
 import AddToBag from "../../../Buttons/AddToBag";
+import ArrowButton from "../../../Buttons/ArrowButton";
+import Button from "../../../Buttons/Button";
+import NavButton from "../../../Buttons/NavButton";
+import { useBag } from "../../../Contexts/bag";
+import Plus from "../../../Icons/Plus";
+import Label from "../../../Label";
+import Link from "../../../Link";
+import Text from "../../../Text";
 import { CardPreview } from "../About";
 
 const CustomMiddle: FC<{

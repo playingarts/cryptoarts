@@ -7,6 +7,7 @@ import Text from "../../../Text";
 import Intro from "./Intro";
 import Item from "./Item";
 import Press from "./Press";
+import GalleryButton from "../../../Popups/Gallery/GalleryButton";
 
 const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { ratings } = useRatings();
@@ -59,10 +60,9 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 return <Item key={rating.review + i} {...{ rating }} />;
               })}
             <div>
-              <img
+              <GalleryButton
                 src={testimonialsImage.src}
-                alt=""
-                css={[{ width: 300, height: 300, borderRadius: 20 }]}
+                css={[{ width: 300, height: 300 }]}
               />
               <Text typography="linkNewTypography" css={{ marginTop: 15 }}>
                 @playingcardart <Dot />

@@ -29,6 +29,7 @@ import Card from "../../../Card";
 import NavButton from "../../../Buttons/NavButton";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../../CardPage/Pop";
+import GalleryButton from "../../../Popups/Gallery/GalleryButton";
 
 const points = [
   "55 hand-picked winning designs meticulously selected from an exciting global design contest.",
@@ -140,7 +141,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <img src={image1.src} alt="" />
+        <GalleryButton src={image1.src} alt="" />
         <Item
           rating={{
             who: "Matthew V. from Florida, USA",
@@ -155,11 +156,15 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             </Button>
           }
           css={(theme) => [
-            { background: theme.colors.white50, margin: "30px 0" },
+            {
+              background: theme.colors.white50,
+              margin: "30px 0",
+              width: "100%",
+            },
           ]}
         />
-        <img src={image2.src} alt="" />
-        <img src={image3.src} alt="" />
+        <GalleryButton src={image2.src} alt="" />
+        <GalleryButton src={image3.src} alt="" />
         <Button
           css={(theme) => [
             {

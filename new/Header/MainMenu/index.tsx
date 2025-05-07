@@ -180,6 +180,7 @@ const MainMenu: FC<
                       <Link
                         href={"/new/" + deck.slug}
                         onMouseEnter={() => setHover(product.image || "")}
+                        onClick={() => setShow(false)}
                       >
                         <ArrowButton
                           key={deck.slug + "mainmenu" + index}

@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { withApollo } from "../../../source/apollo";
 import Hero from "./Hero";
 import Header from "../../Header";
@@ -11,6 +11,8 @@ import ArrowButton from "../../Buttons/ArrowButton";
 import Text from "../../Text";
 import Link from "../../Link";
 import { useBag } from "../../Contexts/bag";
+import MenuPortal from "../../Header/MainMenu/MenuPortal";
+import Subscribe from "../../Popups/Subscribe";
 
 export const BagButton = () => {
   const { bag } = useBag();
@@ -27,6 +29,24 @@ export const BagButton = () => {
           : null}
       </ArrowButton>
     </Link>
+  );
+};
+
+export const Popup = () => {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setShow(true);
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <MenuPortal show={show}>
+      {show ? <Subscribe close={() => setShow(false)} /> : null}
+    </MenuPortal>
   );
 };
 
@@ -50,6 +70,7 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         </Text>
       }
     />
+    <Popup />
     <Hero />
     <Collection />
     <Trust />
