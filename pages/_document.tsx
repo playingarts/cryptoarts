@@ -83,6 +83,7 @@ export const Links = () => (
             font-weight: 600;
             font-style: normal;
             display: "swap";
+            descent-override: 15%;
           }
 
           @font-face {
@@ -91,10 +92,12 @@ export const Links = () => (
             font-weight: 500;
             font-style: normal;
             display: "swap";
+            descent-override: 15%;
           }
 
           @font-face {
             src: url("/AllianceRegular.woff2");
+            descent-override: 15%;
             font-family: "Alliance No.2";
             font-weight: 400;
             font-style: normal;

@@ -28,7 +28,9 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
     <Text
       css={(theme) => [
         {
-          display: "inline-block",
+          display: "inline-flex",
+          alignItems: "center",
+          justifyContent: "center",
           userSelect: "none",
           borderRadius: size === "big" ? 7 : 5,
           boxSizing: "border-box",
@@ -59,7 +61,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
           ? [
               {
                 fontSize: 25,
-                lineHeight: 1.8,
+                height: 45,
               },
               base === false && {
                 paddingLeft: 15,
@@ -70,7 +72,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
           ? [
               {
                 fontSize: 20,
-                lineHeight: 2,
+                height: 40,
               },
               base === false && {
                 paddingLeft: 12,

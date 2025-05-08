@@ -83,7 +83,7 @@ const Header: FC<Props> = ({
               }
             : {
                 // header height later on
-                top: -75,
+                top: -76,
                 marginTop: -60,
               }
           : {

@@ -142,7 +142,7 @@ const ActualFooter = () => {
                   size="small"
                   css={(theme) => [
                     {
-                      display: "block",
+                      // display: "block",
                       textAlign: "start",
                       color:
                         theme.colors[
