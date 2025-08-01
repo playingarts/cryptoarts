@@ -61,6 +61,7 @@ const HeroCard: FC<{ setCard: (arg0: GQL.Card) => void }> = ({ setCard }) => {
           size={width >= breakpoints.sm ? "big" : "nano"}
           noArtist
           card={cards[index]}
+          noFavorite
           onClick={() => {
             setIndex(index === cards.length - 1 ? 0 : index + 1);
           }}

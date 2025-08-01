@@ -1,10 +1,13 @@
 import { FC, HTMLAttributes } from "react";
 import Button, { Props } from "../Button";
 import Arrow from "../../Icons/Arrow";
-import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
+import { Props as PaletteProps } from "../../Pages/Deck/DeckPaletteContext";
+import { usePaletteHook } from "../../../hooks/usePaletteHook";
 
-const NavButton: FC<HTMLAttributes<HTMLElement> & Props> = ({ ...props }) => {
-  const { palette } = usePalette();
+const NavButton: FC<
+  HTMLAttributes<HTMLElement> & Props & { palette?: PaletteProps["palette"] }
+> = ({ palette: paletteProp, ...props }) => {
+  const { palette } = usePaletteHook(paletteProp);
   return (
     <Button
       base={true}

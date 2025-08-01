@@ -141,7 +141,7 @@ const Middle = ({
           ]}
         >
           <Link
-            href="/"
+            href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/"}
             css={(theme) => [
               {
                 display: "inline-block",

@@ -178,7 +178,11 @@ const MainMenu: FC<
                     }
                     return (
                       <Link
-                        href={"/new/" + deck.slug}
+                        href={
+                          (process.env.NEXT_PUBLIC_BASELINK || "") +
+                          "/" +
+                          deck.slug
+                        }
                         onMouseEnter={() => setHover(product.image || "")}
                         onClick={() => setShow(false)}
                       >

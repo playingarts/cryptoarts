@@ -14,7 +14,7 @@ const AddToBag: FC<
 
   if (bag && bag[productId] >= 0) {
     return (
-      <Link href={"/new/bag"}>
+      <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"}>
         <Button color="accent" size="small" {...props}>
           View bag
         </Button>

@@ -32,6 +32,7 @@ const Header: FC<Props> = ({
   const { palette } = usePalette();
 
   const { width } = useSize();
+  const [hover, setHover] = useState(false);
 
   useEffect(() => {
     let lastScrollTop = 0;
@@ -39,37 +40,35 @@ const Header: FC<Props> = ({
     const handler = () => {
       const scrollTop = window.scrollY;
 
-      setAltNav(scrollTop <= lastScrollTop ? false : true);
+      if (!hover) {
+        setAltNav(scrollTop <= lastScrollTop ? false : true);
 
-      lastScrollTop = scrollTop;
-      if (scrollTop >= 600) {
-        setShowSiteNav("afterTop");
-      } else {
-        setShowSiteNav("top");
+        lastScrollTop = scrollTop;
+
+        if (scrollTop >= 600) {
+          setShowSiteNav("afterTop");
+        } else {
+          setShowSiteNav("top");
+        }
       }
     };
 
     window.addEventListener("scroll", handler);
 
     return () => window.removeEventListener("scroll", handler);
-  }, [setShowSiteNav]);
+  }, [setShowSiteNav, hover]);
 
   return (
     <header
       {...props}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       css={(theme) => [
         {
           zIndex: 9999,
-          // margin: "0 auto",
-          // maxWidth: 1420,
           width: "100%",
-          // paddingLeft: 17,
-          // paddingRight: 25,
-
-          // header height initially
           marginTop: -75,
           transition: theme.transitions.fast("all"),
-          // top: "calc(-200%)",
           position: "sticky",
           transform: "translateY(100%) translateY(15px)",
         },
@@ -78,11 +77,9 @@ const Header: FC<Props> = ({
         width >= breakpoints.sm
           ? showSiteNav === "top"
             ? {
-                // top: 0,
                 top: -155,
               }
             : {
-                // header height later on
                 top: -76,
                 marginTop: -60,
               }

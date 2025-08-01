@@ -49,7 +49,8 @@ const CustomMiddle = () => {
       <Link
         css={[{ marginRight: 5 }]}
         href={
-          "/new/" +
+          (process.env.NEXT_PUBLIC_BASELINK || "") +
+          "/" +
           deckId +
           "/" +
           (counter > 0
@@ -64,7 +65,8 @@ const CustomMiddle = () => {
       <Link
         css={[{ marginRight: 5 }]}
         href={
-          "/new/" +
+          (process.env.NEXT_PUBLIC_BASELINK || "") +
+          "/" +
           deckId +
           "/" +
           (counter < cards.length - 1

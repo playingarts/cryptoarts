@@ -1,16 +1,14 @@
 import { FC, forwardRef, HTMLAttributes, useState } from "react";
 import Arrow from "../../Icons/Arrow";
 import Button, { Props } from "../Button";
-import Chevron from "../../../components/Icons/Chevron";
 import Dot from "../../Icons/Dot";
+import Link from "../../Link";
 
-const ArrowButton: FC<HTMLAttributes<HTMLElement> & Props> = ({
-  children,
-  size = "big",
-  ...props
-}) => {
+const ArrowButton: FC<
+  HTMLAttributes<HTMLElement> & Props & { href?: string }
+> = ({ children, size = "big", href, ...props }) => {
   const [hover, setHover] = useState(false);
-  return (
+  const button = (
     <Button
       {...props}
       size={size}
@@ -35,6 +33,7 @@ const ArrowButton: FC<HTMLAttributes<HTMLElement> & Props> = ({
       )}
     </Button>
   );
+  return href ? <Link href={href}>{button}</Link> : button;
 };
 
 export default forwardRef(ArrowButton);

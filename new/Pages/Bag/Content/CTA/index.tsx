@@ -30,6 +30,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [total, setTotal] = useState(0);
   const [totalPercentage, setTotalPercentage] = useState(0);
   const [savings, setSavings] = useState(0);
+  const [shippingSaving, setShippingSavings] = useState(0);
 
   useEffect(() => {
     if (!products || !bag) {
@@ -44,6 +45,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
     setTotal(total);
     setTotalPercentage((total / 50) * 100);
+    setShippingSavings(total / 50 >= 1 ? 5 : 0);
 
     setSavings(
       products
@@ -85,7 +87,9 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </div>
         <div css={[{ display: "flex", justifyContent: "space-between" }]}>
           <Text typography="paragraphSmall">Shipping</Text>
-          <Text typography="paragraphSmall">{getPrice(5)}</Text>
+          <Text typography="paragraphSmall">
+            {getPrice(shippingSaving === 0 ? 5 : 0)}
+          </Text>
         </div>
         <div
           css={(theme) => [
@@ -134,8 +138,24 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             },
           ]}
         >
+          <Text typography="paragraphSmall">Shipping savings</Text>
+          <Text typography="paragraphSmall">{getPrice(shippingSaving)}</Text>
+        </div>
+        <div
+          css={(theme) => [
+            {
+              display: "flex",
+              justifyContent: "space-between",
+              "> *": {
+                color: "#469F71",
+              },
+            },
+          ]}
+        >
           <Text typography="paragraphSmall">Total savings</Text>
-          <Text typography="paragraphSmall">{getPrice(savings)}</Text>
+          <Text typography="paragraphSmall">
+            {getPrice(savings + shippingSaving)}
+          </Text>
         </div>
       </div>
       <div
@@ -164,16 +184,11 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         rel="noopener"
         css={[{ marginLeft: "auto" }]}
       >
-        <ArrowButton
-          color="accent"
-          css={[{ display: "block", textAlign: "center", marginTop: 30 }]}
-        >
+        <ArrowButton color="accent" css={[{ display: "flex", marginTop: 30 }]}>
           Secure check out
         </ArrowButton>
       </Link>
-      <ContinueShopping
-        css={[{ display: "block", textAlign: "center", marginTop: 30 }]}
-      >
+      <ContinueShopping css={[{ display: "flex", marginTop: 30 }]}>
         Continue shopping
       </ContinueShopping>
 

@@ -18,7 +18,10 @@ export const BagButton = () => {
   const { bag } = useBag();
 
   return (
-    <Link href="/new/bag" css={[{ marginLeft: "auto" }]}>
+    <Link
+      href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"}
+      css={[{ marginLeft: "auto" }]}
+    >
       <ArrowButton>
         Bag
         {bag

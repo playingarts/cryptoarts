@@ -77,6 +77,7 @@ export const colorLiterals = {
   light_gray: "#DFDFDF",
   page_bg_light: "#EAEAEA",
   text_title_dark: "#0A0A0A",
+  white_gray: "rgba(255, 255, 255, 0.1)",
   text_subtitle_dark: "rgba(10, 10, 10, 0.5)",
   text_title_light: "rgba(255, 255, 255, 0.9)",
   text_subtitle_light: "rgba(234, 234, 234, 0.5)",

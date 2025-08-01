@@ -6,7 +6,7 @@ import Link from "../../Link";
 const ContinueShopping: FC<HTMLAttributes<HTMLElement> & Props> = ({
   ...props
 }) => (
-  <Link href="/new/shop">
+  <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"}>
     <ArrowButton size="small" base noColor {...props}>
       Continue shopping
     </ArrowButton>

@@ -6,7 +6,6 @@ import { usePodcasts } from "../../../../hooks/podcast";
 import Text from "../../../Text";
 import Play from "../../../Icons/Play";
 import Link from "../../../Link";
-import Dot from "../../../Icons/Dot";
 import ArrowButton from "../../../Buttons/ArrowButton";
 
 const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
@@ -27,7 +26,11 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         paragraphText="Conversations with artists exploring inspiration, stories, and creativity."
         linkNewText="Watch all episodes"
         bottom={
-          <ButtonTemplate base={true} noColor={true} css={{ marginTop: 120 }}>
+          <ButtonTemplate
+            base={true}
+            noColor={true}
+            css={{ marginTop: 120, "&:hover": { cursor: "default" } }}
+          >
             Recent episodes
           </ButtonTemplate>
         }
@@ -48,7 +51,15 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               <Text typography="paragraphSmall">
                 EP{latestPodcast.episode} — {latestPodcast.time}
               </Text>
-              <span css={[{ marginTop: 15, display: "flex" }]}>
+              <span
+                css={[
+                  {
+                    marginTop: 15,
+                    display: "flex",
+                    justifyContent: "space-between",
+                  },
+                ]}
+              >
                 <div css={[{ width: 380 }]}>
                   <Text typography="newh2">{latestPodcast.name}</Text>
                   <Text typography="paragraphSmall" css={[{ marginTop: 30 }]}>
@@ -85,35 +96,51 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             </>
           )}
         </div>
-        <Grid
-          auto={true}
+        <div
           css={(theme) => [
             {
               gridColumn: "span 6",
-              padding: 30,
               background: theme.colors.almost_white,
+              padding: 30,
               borderRadius: 15,
             },
           ]}
         >
-          {podcasts &&
-            podcasts.map((podcast) =>
-              podcast ? (
-                <Fragment key={podcast.desc + podcast.podcastName}>
-                  <Text typography="paragraphSmall">EP{podcast.episode}</Text>
-                  <ArrowButton
-                    css={[{ gridColumn: "span 3", textAlign: "start" }]}
-                    noColor={true}
-                    base={true}
-                    size="small"
-                  >
-                    {podcast.name}
-                  </ArrowButton>
-                  <Text typography="paragraphSmall">{podcast.time}</Text>
-                </Fragment>
-              ) : undefined
-            )}
-        </Grid>
+          <Grid
+            auto={true}
+            css={(theme) => [
+              {
+                alignItems: "center",
+                justifyContent: "start",
+                rowGap: 5,
+              },
+            ]}
+          >
+            {podcasts &&
+              podcasts.map((podcast) =>
+                podcast ? (
+                  <Fragment key={podcast.desc + podcast.podcastName}>
+                    <Text typography="paragraphSmall">EP{podcast.episode}</Text>
+                    <ArrowButton
+                      css={[
+                        {
+                          gridColumn: "span 3",
+                          // textAlign: "start",
+                          justifyContent: "start",
+                        },
+                      ]}
+                      noColor={true}
+                      base={true}
+                      size="small"
+                    >
+                      {podcast.name}
+                    </ArrowButton>
+                    <Text typography="paragraphSmall">{podcast.time}</Text>
+                  </Fragment>
+                ) : undefined
+              )}
+          </Grid>
+        </div>
       </Grid>
     </div>
   );

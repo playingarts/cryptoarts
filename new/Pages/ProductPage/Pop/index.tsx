@@ -260,7 +260,11 @@ const Pop: FC<
                 <AddToBag productId={productState._id} />
 
                 <Link
-                  href={"/new/shop/" + convertToProductSlug(productState.short)}
+                  href={
+                    (process.env.NEXT_PUBLIC_BASELINK || "") +
+                    "/shop/" +
+                    convertToProductSlug(productState.short)
+                  }
                   onClick={close}
                 >
                   <ArrowButton noColor base size="small">

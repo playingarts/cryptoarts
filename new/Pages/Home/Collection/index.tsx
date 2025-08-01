@@ -40,9 +40,17 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             products && products.filter((product) => product.type === "deck");
           for (let i = 0; i < 8; i++) {
             const product = deckProducts && deckProducts[i];
-            arr.push(
-              <CollectionItem product={product} key={"CollectionItem" + i} />
-            );
+            product &&
+              product.deck &&
+              arr.push(
+                <CollectionItem
+                  paletteOnHover={
+                    product.deck.slug === "crypto" ? "dark" : "light"
+                  }
+                  product={product}
+                  key={"CollectionItem" + i}
+                />
+              );
           }
           arr.push(
             <div css={[{ padding: 30 }]} key={"Endless inspiration"}>

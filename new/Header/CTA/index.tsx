@@ -14,7 +14,7 @@ const HeaderButton = () => {
   const { palette } = usePalette();
   const { width } = useSize();
   return (
-    <Link href="/new/shop">
+    <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"}>
       {width >= breakpoints.sm ? (
         <ArrowButton
           color={palette === "dark" ? "white" : undefined}

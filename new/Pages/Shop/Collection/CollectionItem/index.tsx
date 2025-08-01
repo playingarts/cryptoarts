@@ -151,7 +151,11 @@ const CollectionItem: FC<
       </div>
       <div css={[{ margin: 30 }]}>
         <Link
-          href={"/new/shop/" + product.short.toLowerCase().split(" ").join("")}
+          href={
+            (process.env.NEXT_PUBLIC_BASELINK || "") +
+            "/shop/" +
+            product.short.toLowerCase().split(" ").join("")
+          }
         >
           <Text typography="newh4" palette={hover ? palette : undefined}>
             {product.title}

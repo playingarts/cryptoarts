@@ -8,13 +8,14 @@ import {
 } from "react";
 import Text from "../Text";
 import AR from "../Icons/AR";
-import { usePalette } from "../Pages/Deck/DeckPaletteContext";
+import { Props as PaletteProps } from "../Pages/Deck/DeckPaletteContext";
 import { breakpoints } from "../../source/enums";
 import { useSize } from "../../components/SizeProvider";
 import { theme } from "../../pages/_app";
 import Star from "../Icons/Star";
 import Label from "../Label";
 import { useFavorites } from "../Contexts/favorites";
+import { usePaletteHook } from "../../hooks/usePaletteHook";
 
 const slowTransitionOpacity = theme.transitions.slow("opacity");
 
@@ -37,10 +38,11 @@ const sizesHover: typeof sizes = {
 const CardFav: FC<
   HTMLAttributes<HTMLElement> & {
     size: keyof typeof sizes;
-    deckSlug: string;
+    deckSlug?: string;
     id: string;
+    noFav?: boolean;
   }
-> = ({ deckSlug, id, size, ...props }) => {
+> = ({ noFav, deckSlug, id, size, ...props }) => {
   const [hover, setHover] = useState(false);
 
   const { addItem, isFavorite, removeItem } = useFavorites();
@@ -48,7 +50,7 @@ const CardFav: FC<
   const [favoriteState, setFavoriteState] = useState(false);
 
   useEffect(() => {
-    setFavoriteState(isFavorite(deckSlug, id));
+    deckSlug && setFavoriteState(isFavorite(deckSlug, id));
   }, [isFavorite, deckSlug, id]);
 
   return (
@@ -71,85 +73,89 @@ const CardFav: FC<
           },
         ]}
       />
-      <div
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-        onClick={(e) => {
-          e.stopPropagation();
-          if (favoriteState) {
-            removeItem(deckSlug, id);
-          } else {
-            addItem(deckSlug, id);
-          }
-        }}
-        css={(theme) => [
-          {
-            zIndex: 1,
-            position: "absolute",
-            right: 0,
-            top: 0,
-            width: 46,
-            height: 46,
-            background:
-              theme.colors[favoriteState === true ? "pale_gray" : "accent"],
-            color:
-              theme.colors[favoriteState === true ? "accent" : "soft_gray"],
-            borderRadius: "0 15px 0 100px",
-          },
-        ]}
-        {...props}
-      >
-        <Star
+      {noFav ? null : (
+        <div
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (deckSlug) {
+              if (favoriteState) {
+                removeItem(deckSlug, id);
+              } else {
+                addItem(deckSlug, id);
+              }
+            }
+          }}
           css={(theme) => [
             {
-              marginTop: 6,
-              marginLeft: 13,
-            },
-          ]}
-        />
-        <Label
-          css={(theme) => [
-            {
-              color: theme.colors[favoriteState ? "black" : "white"],
-              background: theme.colors[favoriteState ? "mint" : "black"],
-              whiteSpace: "nowrap",
-              pointerEvents: "none",
-              top: 0,
-              right: 0,
-              transform: "translate(50%, -100%)",
+              zIndex: 1,
               position: "absolute",
-              textTransform: "initial",
-
-              opacity: 1,
-              "@keyframes FavFadeIn": {
-                "0%": {
-                  opacity: 0,
-                  transform: "translate(50%, -100%)",
-                },
-                "100%": {
-                  opacity: 1,
-                  transform: "translate(50%, calc(-100% - 10px))",
-                },
-              },
-              "@keyframes FavFadeOut": {
-                "100%": {
-                  opacity: 0,
-                  transform: "translate(50%, -100%)",
-                },
-                "0%": {
-                  opacity: 1,
-                  transform: "translate(50%, calc(-100% - 10px))",
-                },
-              },
-              animation: `${
-                hover ? "FavFadeIn" : "FavFadeOut"
-              } 100ms forwards linear`,
+              right: 0,
+              top: 0,
+              width: 46,
+              height: 46,
+              background:
+                theme.colors[favoriteState === true ? "pale_gray" : "accent"],
+              color:
+                theme.colors[favoriteState === true ? "accent" : "soft_gray"],
+              borderRadius: "0 15px 0 100px",
             },
           ]}
+          {...props}
         >
-          {favoriteState ? "Favorited" : "Add to Favorites"}
-        </Label>
-      </div>
+          <Star
+            css={(theme) => [
+              {
+                marginTop: 6,
+                marginLeft: 13,
+              },
+            ]}
+          />
+          <Label
+            css={(theme) => [
+              {
+                color: theme.colors[favoriteState ? "black" : "white"],
+                background: theme.colors[favoriteState ? "mint" : "black"],
+                whiteSpace: "nowrap",
+                pointerEvents: "none",
+                top: 0,
+                right: 0,
+                transform: "translate(50%, -100%)",
+                position: "absolute",
+                textTransform: "initial",
+
+                opacity: 1,
+                "@keyframes FavFadeIn": {
+                  "0%": {
+                    opacity: 0,
+                    transform: "translate(50%, -100%)",
+                  },
+                  "100%": {
+                    opacity: 1,
+                    transform: "translate(50%, calc(-100% - 10px))",
+                  },
+                },
+                "@keyframes FavFadeOut": {
+                  "100%": {
+                    opacity: 0,
+                    transform: "translate(50%, -100%)",
+                  },
+                  "0%": {
+                    opacity: 1,
+                    transform: "translate(50%, calc(-100% - 10px))",
+                  },
+                },
+                animation: `${
+                  hover ? "FavFadeIn" : "FavFadeOut"
+                } 100ms forwards linear`,
+              },
+            ]}
+          >
+            {favoriteState ? "Favorited" : "Add to Favorites"}
+          </Label>
+        </div>
+      )}
     </>
   );
 };
@@ -164,6 +170,7 @@ const Card: FC<
     animated?: boolean;
     noLink?: boolean;
     noFavorite?: boolean;
+    palette?: PaletteProps["palette"];
   }
 > = ({
   card,
@@ -174,6 +181,7 @@ const Card: FC<
   animated = false,
   noLink = false,
   noFavorite = false,
+  palette: paletteProp,
   ...props
 }) => {
   const [hover, setHover] = useState(false);
@@ -186,7 +194,7 @@ const Card: FC<
   const video = useRef<HTMLVideoElement>(null);
 
   const { width } = useSize();
-  const { palette } = usePalette();
+  const { palette } = usePaletteHook(paletteProp);
 
   useLayoutEffect(() => {
     const img = new Image();
@@ -380,22 +388,21 @@ const Card: FC<
               <AR />
             </div>
           )}
-          {noFavorite || !card.deck ? null : (
-            <CardFav
-              size={size}
-              deckSlug={card.deck.slug}
-              id={card._id}
-              css={(theme) => [
-                {
-                  opacity: 0,
-                  transition: theme.transitions.fast("opacity"),
-                },
-                hover && {
-                  opacity: 1,
-                },
-              ]}
-            />
-          )}
+          <CardFav
+            size={size}
+            deckSlug={card.deck && card.deck.slug}
+            id={card._id}
+            noFav={noFavorite}
+            css={(theme) => [
+              {
+                opacity: 0,
+                transition: theme.transitions.fast("opacity"),
+              },
+              hover && {
+                opacity: 1,
+              },
+            ]}
+          />
         </div>
       </div>
       {!noArtist && (

@@ -22,7 +22,6 @@ const FavButton: FC<
   useEffect(() => {
     setFavState(isFavorite(deckSlug, id));
   }, [isFavorite, deckSlug, id]);
-  console.log(favState);
 
   const Btn = (
     <Button
@@ -44,7 +43,13 @@ const FavButton: FC<
     </Button>
   );
 
-  return favState ? <Link href="/new/favorites">{Btn}</Link> : Btn;
+  return favState ? (
+    <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/favorites"}>
+      {Btn}
+    </Link>
+  ) : (
+    Btn
+  );
 };
 
 const CustomMiddle: FC<{
@@ -62,7 +67,7 @@ const CustomMiddle: FC<{
     setCounter(cards.findIndex((card) => card.artist.slug === cardState));
   }, [cardState, cards]);
 
-  return cards ? (
+  return (
     <Text
       typography="paragraphSmall"
       css={[
@@ -76,6 +81,7 @@ const CustomMiddle: FC<{
     >
       <NavButton
         onClick={() =>
+          cards &&
           setCardState(
             counter > 0
               ? cards[counter - 1].artist.slug
@@ -87,6 +93,7 @@ const CustomMiddle: FC<{
 
       <NavButton
         onClick={() =>
+          cards &&
           setCardState(
             counter < cards.length - 1
               ? cards[counter + 1].artist.slug
@@ -96,10 +103,10 @@ const CustomMiddle: FC<{
       />
       <span css={[{ marginLeft: 30 }]}>
         Card {(counter + 1).toString().padStart(2, "0") + " "}/
-        {" " + cards.length.toString().padStart(2, "0")}
+        {" " + (cards ? cards.length.toString().padStart(2, "0") : "")}
       </span>
     </Text>
-  ) : null;
+  );
 };
 
 const Pop: FC<
@@ -244,12 +251,21 @@ const Pop: FC<
                 {deck && <FavButton deckSlug={deck.slug} id={card._id} />}
 
                 <Link
-                  href={"/new/" + deckId + "/" + card.artist.slug}
+                  href={
+                    (process.env.NEXT_PUBLIC_BASELINK || "") +
+                    "/" +
+                    deckId +
+                    "/" +
+                    card.artist.slug
+                  }
                   onClick={close}
                 >
                   <Button color="accent">Card details</Button>
                 </Link>
-                <Link href={"/new/" + deckId} onClick={close}>
+                <Link
+                  href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/" + deckId}
+                  onClick={close}
+                >
                   <ArrowButton noColor base size="small">
                     All cards
                   </ArrowButton>

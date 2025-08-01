@@ -30,9 +30,8 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={[
           {
             gridColumn: "span 6",
-            display: "grid",
             paddingTop: 15,
-            alignItems: "initial",
+            alignItems: "start",
           },
         ]}
       >

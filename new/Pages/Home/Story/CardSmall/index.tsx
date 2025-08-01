@@ -1,5 +1,4 @@
 import { FC, HTMLAttributes } from "react";
-import { mockCard as card } from "../../../../../mocks/card";
 import Grid from "../../../../../components/Grid";
 import Card from "../../../../Card";
 
@@ -13,7 +12,7 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => (
         left: 0,
         width: "100%",
         pointerEvents: "none",
-        zIndex: 1,
+        zIndex: 10,
         [theme.maxMQ.sm]: {
           opacity: 0.08,
         },
@@ -30,6 +29,7 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => (
             height: "200%",
           },
           gridColumn: "1/-1",
+          pointerEvents: "auto",
         },
       ]}
     >
@@ -51,9 +51,9 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => (
             },
             marginTop: 63,
             marginBottom: 70,
-            top: 350,
+            top: 65,
             [theme.maxMQ.sm]: {
-              top: 100,
+              top: 65,
             },
 
             transform: "rotate(-15deg)",
@@ -70,6 +70,7 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => (
           "https://s3.amazonaws.com/img.playingarts.com/contest/retina/104.jpg",
         ].map((item) => (
           <Card
+            key={item + "cardsmall"}
             card={{ img: item } as unknown as GQL.Card}
             size="small"
             noArtist

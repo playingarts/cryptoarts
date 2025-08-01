@@ -93,10 +93,16 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               { display: "flex", alignItems: "cetner", gap: 30, marginTop: 30 },
             ]}
           >
-            <Link href={"/new/shop/" + deckId}>
+            <Link
+              href={
+                (process.env.NEXT_PUBLIC_BASELINK || "") + "/shop/" + deckId
+              }
+            >
               <ArrowButton color="accent">Shop this deck</ArrowButton>
             </Link>
-            <Link href={"/new/" + deckId}>
+            <Link
+              href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/" + deckId}
+            >
               <ArrowButton size="small" noColor base>
                 Explore all cards
               </ArrowButton>
@@ -189,10 +195,16 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 },
               ]}
             >
-              <Link href={"/new/" + deckId}>
+              <Link
+                href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/" + deckId}
+              >
                 <ArrowButton color="accent">Explore all cards</ArrowButton>
               </Link>
-              <Link href={"/new/shop/" + deckId}>
+              <Link
+                href={
+                  (process.env.NEXT_PUBLIC_BASELINK || "") + "/shop/" + deckId
+                }
+              >
                 <ArrowButton size="small" noColor base>
                   Shop this deck
                 </ArrowButton>

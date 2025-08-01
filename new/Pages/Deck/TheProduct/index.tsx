@@ -41,7 +41,14 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <ScandiBlock
-        css={[{ gridColumn: "span 6", display: "grid", paddingTop: 15 }]}
+        css={[
+          {
+            gridColumn: "span 6",
+            flexDirection: "column",
+            alignItems: "start",
+            paddingTop: 15,
+          },
+        ]}
       >
         <ArrowedButton>The product</ArrowedButton>
         <img

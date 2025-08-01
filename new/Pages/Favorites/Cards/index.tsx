@@ -135,6 +135,7 @@ const DeckCards: FC<
                   .map((card) =>
                     !card ? null : (
                       <Card
+                        noFavorite={true}
                         onClick={() =>
                           setCardsState({
                             slug: card.artist.slug,

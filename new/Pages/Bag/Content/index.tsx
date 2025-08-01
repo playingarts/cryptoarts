@@ -49,8 +49,9 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               ]}
             >
               <ArrowedButton css={[{ marginBottom: 30 }]}>
-                {products.length} items are reserved for{" "}
-                <Countdown date={Date.now() + 599000} /> minutes...
+                {products.length} items are reserved for&nbsp;
+                <Countdown date={Date.now() + 599000} />
+                &nbsp;minutes...
               </ArrowedButton>
 
               {/* Items */}

@@ -6,7 +6,6 @@ import ArrowedButton from "../../../Buttons/ArrowedButton";
 
 const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <div css={{ position: "relative", contain: "paint" }} {...props}>
-    <CardSmall />
     <Grid
       css={(theme) => [
         {
@@ -95,6 +94,8 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         </Text>
       </div>
     </Grid>
+
+    <CardSmall />
   </div>
 );
 

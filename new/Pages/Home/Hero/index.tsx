@@ -4,6 +4,7 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 import ExploreButton from "../../../Buttons/ExploreButton";
 import Text from "../../../Text";
 import HeroCard from "./HeroCard";
+import Link from "../../../Link";
 
 const texts = [
   "“It’s not just playing cards, but a gallery right in your hands.”",
@@ -74,8 +75,14 @@ const Hero = () => {
           <span>{texts[index]}</span>
         </Text>
         <div css={{ display: "flex", gap: 15, marginTop: 30 }}>
-          <ExploreButton color="accent">Discover</ExploreButton>
-          <ArrowButton bordered={true} color="accent">
+          <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "#about"}>
+            <ExploreButton color="accent">Discover</ExploreButton>
+          </Link>
+          <ArrowButton
+            bordered={true}
+            color="accent"
+            href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"}
+          >
             Shop
           </ArrowButton>
         </div>
