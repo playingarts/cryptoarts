@@ -8,6 +8,15 @@ module.exports = withBundleAnalyzer({
   experimental: {
     ppr: "incremental",
   },
+  async redirects() {
+    return [
+      {
+        source: "/en/:path*",
+        destination: "/:path*",
+        permanent: true,
+      },
+    ];
+  },
   webpack(config) {
     // config.optimization = {
     //   ...config.optimization,

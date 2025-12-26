@@ -2,8 +2,10 @@ import { NextApiHandler } from "next";
 import { getContract } from "../../../../source/graphql/schemas/contract";
 import { getAssets, setCard } from "../../../../source/graphql/schemas/opensea";
 import { getListings } from "../../../../source/graphql/schemas/listing";
+import { connect } from "../../../../source/mongoose";
 
 const handler: NextApiHandler = async (req, res) => {
+  await connect();
   const { contractId, address } = req.query;
 
   if (typeof contractId !== "string") {

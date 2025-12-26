@@ -11,8 +11,8 @@
   "scripts": {
     "dev": "next dev",
     "dump": "tsx --env-file=.env ./dump",
-    "build": "next build && tsc -P tsconfig.json --outDir dist --noEmit false --module commonjs",
-    "start": "node dist/source",
+    "build": "next build",
+    "start": "next start",
     "lint": "yarn lint:tsc && yarn lint:next",
     "lint:tsc": "tsc -p tsconfig.json",
     "lint:next": "next lint",
@@ -28,7 +28,7 @@
     "gitDeleteBranches": "git branch | grep -vE \"master|prod\" | xargs git branch -D"
   },
   "engines": {
-    "node": "^23.4"
+    "node": ">=20"
   },
   "dependencies": {
     "@apollo/client": "^3.12.3",
