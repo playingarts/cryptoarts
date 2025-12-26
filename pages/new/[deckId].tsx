@@ -27,8 +27,6 @@ import { NormalizedCacheObject } from "@apollo/client";
 //   </>
 // );
 
-export const experimental_ppr = true;
-
 export const getServerSideProps: GetServerSideProps<
   {
     cache?: NormalizedCacheObject;
