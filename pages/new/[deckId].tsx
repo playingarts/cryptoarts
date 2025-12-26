@@ -9,8 +9,7 @@ export { default } from "../../new/Pages/Deck/";
 // import Gallery from "../../new/Pages/Deck/Gallery";
 // import Footer from "../../new/Footer";
 import { initApolloClient } from "../../source/apollo";
-import { getDeckSlugsWithoutDB } from "../../dump/_decks";
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { connect } from "../../source/mongoose";
 import { DecksQuery } from "../../hooks/deck";
 import { CardsQuery, HeroCardsQuery } from "../../hooks/card";
@@ -30,16 +29,7 @@ import { NormalizedCacheObject } from "@apollo/client";
 
 export const experimental_ppr = true;
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const decks = await getDeckSlugsWithoutDB();
-
-  return {
-    paths: decks.map((deckId) => ({ params: { deckId } })),
-    fallback: "blocking",
-  };
-};
-
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   {
     cache?: NormalizedCacheObject;
   },
@@ -95,7 +85,7 @@ export const getStaticProps: GetStaticProps<
   };
 };
 
-// // export function getStaticProps() {
+// // export function getServerSideProps() {
 // //   return {
 // //     // returns the default 404 page with a status code of 404 in production
 // //     notFound: process.env.SHOW_NEW !== "true",

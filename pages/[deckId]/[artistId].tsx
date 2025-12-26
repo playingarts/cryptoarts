@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 
 import { NormalizedCacheObject } from "@apollo/client";
-import { GetStaticProps } from "next";
-import { getDeckSlugsWithoutDB } from "../../dump/_decks";
+import { GetServerSideProps } from "next";
 import { CardsQuery } from "../../hooks/card";
 import { DecksQuery } from "../../hooks/deck";
 import { LosersQuery } from "../../hooks/loser";
@@ -11,27 +10,7 @@ import { initApolloClient } from "../../source/apollo";
 import Page from "../[deckId]";
 import { connect } from "../../source/mongoose";
 
-export const getStaticPaths = async () => {
-  const decks = await getDeckSlugsWithoutDB();
-
-  return {
-    paths: (
-      await Promise.all(
-        decks.map(async (deckId) => {
-          const cards: GQL.Card[] = (await require(`../../dump/deck-${deckId}`))
-            .cards;
-
-          return cards.map(({ artist }) => ({
-            params: { deckId, artistId: artist },
-          }));
-        })
-      )
-    ).flat(),
-    fallback: "blocking",
-  };
-};
-
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   { cache?: NormalizedCacheObject },
   { deckId: string; artistId: string }
 > = async (context) => {

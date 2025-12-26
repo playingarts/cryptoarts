@@ -400,7 +400,7 @@ const Home: NextPage = () => {
   );
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   await connect();
 
   const client = initApolloClient(undefined, {

@@ -2,7 +2,7 @@
 import { NormalizedCacheObject } from "@apollo/client";
 import throttle from "just-throttle";
 import { useMetaMask } from "metamask-react";
-import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import {
@@ -32,7 +32,6 @@ import ComposedMain from "../components/_composed/ComposedMain";
 import ComposedRoadmap from "../components/_composed/ComposedRoadmap";
 import ComposedGlobalLayout from "../components/_composed/GlobalLayout";
 import ComposedPace from "../components/_composed/Pace";
-import { getDeckSlugsWithoutDB } from "../dump/_decks";
 import { CardsQuery, HeroCardsQuery } from "../hooks/card";
 import { DecksQuery, useDeck } from "../hooks/deck";
 import { LosersQuery, useLoadLosers } from "../hooks/loser";
@@ -658,16 +657,7 @@ const Page: NextPage = () => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const decks = await getDeckSlugsWithoutDB();
-
-  return {
-    paths: decks.map((deckId) => ({ params: { deckId } })),
-    fallback: "blocking",
-  };
-};
-
-export const getStaticProps: GetStaticProps<
+export const getServerSideProps: GetServerSideProps<
   {
     cache?: NormalizedCacheObject;
   },

@@ -2,7 +2,7 @@ import { connect } from "../../source/mongoose";
 
 export { default } from "../../new/Pages/Favorites";
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   //   const decks = (
   //     (await client.query({ query: DecksQuery })) as {
   //       data: { decks: GQL.Deck[] };
