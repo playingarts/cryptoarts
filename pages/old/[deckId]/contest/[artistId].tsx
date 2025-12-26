@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps<
   const { artistId } = context.params!;
 
   const client = initApolloClient(undefined, {
-    schema: (await require("../../../source/graphql/schema")).schema,
+    schema: (await require("../../../../source/graphql/schema")).schema,
   });
 
   const decks = (

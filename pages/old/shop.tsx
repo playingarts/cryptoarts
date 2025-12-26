@@ -649,7 +649,7 @@ export const getServerSideProps = async () => {
   await connect();
 
   const client = initApolloClient(undefined, {
-    schema: (await require("../source/graphql/schema")).schema,
+    schema: (await require("../../source/graphql/schema")).schema,
   });
 
   await client.query({ query: ProductsQuery });
