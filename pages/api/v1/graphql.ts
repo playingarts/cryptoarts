@@ -20,5 +20,5 @@ export default async function graphqlHandler(
   res: NextApiResponse
 ) {
   await connect();
-  return handler(req, res);
+  return handler(req as unknown as Request, res as unknown as Response);
 }
