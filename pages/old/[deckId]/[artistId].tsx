@@ -7,7 +7,7 @@ import { DecksQuery } from "../../../hooks/deck";
 import { LosersQuery } from "../../../hooks/loser";
 import { podcastsQuery } from "../../../hooks/podcast";
 import { initApolloClient } from "../../../source/apollo";
-import Page from "../../[deckId]";
+import Page from "../[deckId]";
 import { connect } from "../../../source/mongoose";
 
 export const getServerSideProps: GetServerSideProps<
@@ -20,7 +20,7 @@ export const getServerSideProps: GetServerSideProps<
   const { artistId } = context.params!;
 
   const client = initApolloClient(undefined, {
-    schema: (await require("../../../source/graphql/schema")).schema,
+    schema: (await require("../../source/graphql/schema")).schema,
   });
 
   const decks = (
@@ -73,6 +73,7 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       cache: client.cache.extract(),
+      ...(deck.slug === "crypto" && { revalidate: 60 }),
     },
   };
 };

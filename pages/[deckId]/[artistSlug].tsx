@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-
-import { NormalizedCacheObject } from "@apollo/client";
 import { GetServerSideProps } from "next";
-import { CardsQuery } from "../../hooks/card";
+import { NormalizedCacheObject } from "@apollo/client";
+import { connect } from "../../source/mongoose";
+import { initApolloClient } from "../../source/apollo";
 import { DecksQuery } from "../../hooks/deck";
+import { CardsQuery } from "../../hooks/card";
 import { LosersQuery } from "../../hooks/loser";
 import { podcastsQuery } from "../../hooks/podcast";
-import { initApolloClient } from "../../source/apollo";
-import Page from "../[deckId]";
-import { connect } from "../../source/mongoose";
+
+export { default } from "../../new/Pages/CardPage";
 
 export const getServerSideProps: GetServerSideProps<
   { cache?: NormalizedCacheObject },
-  { deckId: string; artistId: string }
+  { deckId: string; artistSlug: string }
 > = async (context) => {
   await connect();
 
   const { deckId } = context.params!;
-  const { artistId } = context.params!;
+  const { artistSlug } = context.params!;
 
   const client = initApolloClient(undefined, {
     schema: (await require("../../source/graphql/schema")).schema,
@@ -31,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<
 
   const deck = decks.find((deck) => deck.slug === deckId);
 
-  if (!deck || deck.slug === "future-ii") {
+  if (!deck) {
     return {
       notFound: true,
     };
@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps<
   })) as { data: { losers: GQL.Loser[] } };
 
   const card = [...cards, ...losers].find(
-    (card) => card.artist.slug === artistId
+    (card) => card.artist.slug === artistSlug
   );
 
   if (!card) {
@@ -73,9 +73,6 @@ export const getServerSideProps: GetServerSideProps<
   return {
     props: {
       cache: client.cache.extract(),
-      ...(deck.slug === "crypto" && { revalidate: 60 }),
     },
   };
 };
-
-export default Page;
