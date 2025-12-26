@@ -132,15 +132,10 @@ const Suggestions: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             idsThatFitBundle.length > 0 &&
             idsThatFitBundle.length < decks.length
           ) {
-            // return decks.filter(
-            //   (deck) =>
-            //     idsThatFitBundle.findIndex((id) => id === deck._id) === -1
-            // );
             return true;
           }
           return false;
         })
-      // .flat()
     );
   }, [bagProducts, products]);
 
@@ -158,7 +153,6 @@ const Suggestions: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         />
       )}
       <div
-        // key={"Suggestionsplace"}
         css={(theme) => [
           {
             borderRadius: 15,
@@ -168,28 +162,6 @@ const Suggestions: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       ></div>
-      {/* {(suggestions ?? [undefined, undefined]).map((maybeprod, index) => {
-        const product =
-          maybeprod &&
-          products &&
-          products.find((prod) => prod._id === maybeprod._id);
-
-        return product ? (
-          <Bundle key={index + "Suggestion"} product={product} />
-        ) : (
-          <div
-            key={"Suggestionsplace" + index}
-            css={(theme) => [
-              {
-                borderRadius: 15,
-                backgroundColor: theme.colors.white50,
-                height: 515,
-                width: 410,
-              },
-            ]}
-          ></div>
-        );
-      })} */}
     </div>
   );
 };

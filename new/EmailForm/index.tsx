@@ -2,9 +2,7 @@ import { FC, Fragment, useState } from "react";
 
 import { CSSObject } from "@emotion/serialize";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import Button from "../Button";
 import Text from "../Text";
-// import ThickChevron from "../Icons/ThickChevron";
 import { colord } from "colord";
 import Arrow from "../Icons/Arrow";
 
@@ -70,9 +68,6 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
           },
         ]}
       >
-        {/* <span css={status && { visibility: "hidden" }}>
-          We will never share your details with others. Unsubscribe at anytime!
-        </span> */}
         {status && (
           <span
             css={{
@@ -143,14 +138,6 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
             setStatus(undefined);
           }}
         />
-        {/* <Button
-          disabled={!!status}
-          type="submit"
-          Icon={ThickChevron}
-          css={{
-            height: "100%",
-          }}
-        /> */}
         <button
           type="submit"
           disabled={!!status}

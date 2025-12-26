@@ -40,10 +40,6 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     variables: { slug: deckId },
   });
 
-  // const { podcasts } = usePodcasts({
-  //   variables: { limit: 1, shuffle: true, name: card && card.artist.name },
-  // });
-
   const { palette } = usePalette();
 
   return (

@@ -44,7 +44,6 @@ const ListItem: FC<{
 
   return (
     <Fragment key={"CardListFragment" + index}>
-      {/* <Link href={`/new/${deckId}/${card.artist.slug}`}> */}
       <Card
         onClick={() => setShow(true)}
         size="preview"
@@ -52,7 +51,6 @@ const ListItem: FC<{
         card={{ ...card, deck: { slug: deckId } as unknown as GQL.Deck }}
         css={[{ width: 300 }]}
       />
-      {/* </Link> */}
       <MenuPortal show={show}>
         {typeof deckId === "string" ? (
           <Pop
