@@ -5,9 +5,6 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   staticPageGenerationTimeout: 300,
-  experimental: {
-    ppr: "incremental",
-  },
   async redirects() {
     return [
       {
