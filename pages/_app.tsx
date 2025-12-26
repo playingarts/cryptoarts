@@ -15,6 +15,7 @@ import { CSSPropertiesWithMultiValues } from "@emotion/serialize";
 import { DeckPaletteProvider } from "../new/Pages/Deck/DeckPaletteContext";
 import { IsEuropeProvider } from "../new/Contexts/bag";
 import { FavoritesProvider } from "../new/Contexts/favorites";
+import ErrorBoundary from "../new/ErrorBoundary";
 
 type breakpointsObjectType = { [index in keyof typeof breakpoints]: string };
 
@@ -554,7 +555,9 @@ const App = ({
                   <FavoritesProvider>
                     <SizeProvider isMobile={isMobile === true}>
                       <GoogleAnalytics trackPageViews />
-                      <Component {...pageProps} />
+                      <ErrorBoundary>
+                        <Component {...pageProps} />
+                      </ErrorBoundary>
                     </SizeProvider>
                   </FavoritesProvider>
                 </IsEuropeProvider>
@@ -566,9 +569,5 @@ const App = ({
     </Fragment>
   );
 };
-
-// App.getInitialProps = async (context: any) => {
-//   return { isMobile: isMobile({ ua: context.ctx.req, tablet: true }) };
-// };
 
 export default App;
