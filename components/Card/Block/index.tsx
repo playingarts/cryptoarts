@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import { OwnedCard } from "../../../pages/old/[deckId]";
+import { OwnedCard } from "../../../pages/[deckId]";
 import { breakpoints } from "../../../source/enums";
 import Arrowed from "../../Arrowed";
 import Card from "../../Card";

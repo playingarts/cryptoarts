@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { FC, useState } from "react";
 import { useCards } from "../../../hooks/card";
 import { mockEmptyCard } from "../../../mocks/card";
-import { OwnedCard } from "../../../pages/old/[deckId]";
+import { OwnedCard } from "../../../pages/[deckId]";
 import { breakpoints } from "../../../source/enums";
 import BlockTitle from "../../BlockTitle";
 import Button from "../../Button";

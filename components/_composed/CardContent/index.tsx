@@ -9,7 +9,7 @@ import {
 import { useLoadCards } from "../../../hooks/card";
 import { useLoadLosers } from "../../../hooks/loser";
 import { mockEmptyCard } from "../../../mocks/card";
-import { OwnedCard } from "../../../pages/old/[deckId]";
+import { OwnedCard } from "../../../pages/[deckId]";
 import { Sections } from "../../../source/enums";
 import CardNav, { Props as CardNavProps } from "../../Card/Nav";
 import ComposedCardBlock from "../CardBlock";
