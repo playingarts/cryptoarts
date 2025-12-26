@@ -1,5 +1,5 @@
 import { forwardRef, ForwardRefRenderFunction } from "react";
-import { OwnedCard } from "../../../pages/[deckId]";
+import { OwnedCard } from "../../../pages/old/[deckId]";
 import CardBlock from "../../Card/Block";
 import Layout, { Props as LayoutProps } from "../../Layout";
 
