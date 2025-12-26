@@ -17,7 +17,7 @@ import Text from "../../components/Text";
 import ComposedFaq from "../../components/_composed/Faq";
 import ComposedGlobalLayout from "../../components/_composed/GlobalLayout";
 import { ProductsQuery, useProducts } from "../../hooks/product";
-import { theme } from "../pages/_app";
+import { theme } from "../_app";
 import { initApolloClient, withApollo } from "../../source/apollo";
 import { breakpoints } from "../../source/enums";
 import { connect } from "../../source/mongoose";
