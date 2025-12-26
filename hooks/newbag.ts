@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-const bagname = "bag";
+const STORAGE_KEY = "cryptoarts:bag";
 
 export const useNewBag = () => {
   const getBag = () => {
     const localbag: Record<string, number> | null = JSON.parse(
-      localStorage.getItem(bagname) || "null"
+      localStorage.getItem(STORAGE_KEY) || "null"
     );
 
     const bag = localbag === null ? {} : localbag;
@@ -13,26 +13,6 @@ export const useNewBag = () => {
   };
 
   const [bag, setBag] = useState<Record<string, number>>();
-
-  //   useEffect(() => {
-  //     const bag: Record<string, number> | null = JSON.parse(
-  //       localStorage.getItem(bagname) || "null"
-  //     );
-
-  //     // check products in bag, remove product id if does not exist
-  //     if (bag !== null && products) {
-  //       setBag(
-  //         Object.keys(bag).reduce<typeof bag>((prev, cur) => {
-  //           if (products.findIndex((product) => product._id === cur) !== -1) {
-  //             prev[cur] = bag[cur];
-  //           }
-  //           return prev;
-  //         }, {})
-  //       );
-  //     } else {
-  //       bag !== null && setBag(bag);
-  //     }
-  //   }, [products]);
 
   const addItem = (_id: string, quantity?: number) => {
     const bag = getBag();
@@ -70,7 +50,7 @@ export const useNewBag = () => {
     if (!bag) {
       setBag(getBag());
     } else {
-      localStorage.setItem(bagname, JSON.stringify(bag));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(bag));
     }
   }, [bag]);
 

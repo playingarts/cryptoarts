@@ -20,6 +20,8 @@ export const useFavorites = () => {
   return useContext(FavoritesContext);
 };
 
+const STORAGE_KEY = "cryptoarts:favorites";
+
 export const FavoritesProvider: FC<HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
@@ -27,7 +29,7 @@ export const FavoritesProvider: FC<HTMLAttributes<HTMLElement>> = ({
 
   const getFavorites: () => Record<string, string[]> = () => {
     const localFavorites: Record<string, string[]> | null = JSON.parse(
-      localStorage.getItem("favorites") || "null"
+      localStorage.getItem(STORAGE_KEY) || "null"
     );
 
     const favorites = localFavorites === null ? {} : localFavorites;
@@ -76,7 +78,7 @@ export const FavoritesProvider: FC<HTMLAttributes<HTMLElement>> = ({
     if (!favorites) {
       setFavorites(getFavorites());
     } else {
-      localStorage.setItem("favorites", JSON.stringify(favorites));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
     }
   }, [favorites]);
 

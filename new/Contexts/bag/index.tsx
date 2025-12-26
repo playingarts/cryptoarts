@@ -11,7 +11,7 @@ type PriceType<T extends boolean | undefined> = T extends true
   ? { return: number }
   : { return: string };
 
-const bagname = "bag";
+const bagname = "cryptoarts:bag";
 
 export interface Props {
   getPrice: {
