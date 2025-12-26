@@ -19,6 +19,7 @@ import { initApolloClient, withApollo } from "../source/apollo";
 import { breakpoints } from "../source/enums";
 import { connect } from "../source/mongoose";
 import BlockTitle from "../components/BlockTitle";
+import CrazyAcesBanner from "../components/CrazyAcesBanner";
 
 const Home: NextPage = () => {
   const { width } = useSize();
@@ -253,6 +254,11 @@ const Home: NextPage = () => {
       </Layout>
 
       {/* Browse Collection Block */}
+
+<Grid>
+
+      <CrazyAcesBanner/>
+</Grid>
 
       <Layout
         css={(theme) => ({

@@ -253,7 +253,8 @@ const ModalMenu: FC<
               { href: "/", text: "Home" },
 
               {
-                href: "https://play2.playingarts.com/",
+                href: "https://play.playingarts.com/",
+                target: "_blank",
                 text: "Game",
               },
 

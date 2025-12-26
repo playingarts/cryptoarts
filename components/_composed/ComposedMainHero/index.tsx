@@ -1,14 +1,14 @@
 import {
   FC,
-  Fragment,
+  // Fragment,
   HTMLAttributes,
   useEffect,
   useLayoutEffect,
   useState,
 } from "react";
-import { breakpoints } from "../../../source/enums";
+// import { breakpoints } from "../../../source/enums";
 import Card from "../../Card";
-import SizeProvider, { useSize } from "../../SizeProvider";
+import SizeProvider from "../../SizeProvider";
 import { useRandomCardsWithoutDeck } from "../../../hooks/card";
 import { useResizeDetector } from "react-resize-detector";
 import Link from "../../Link";
@@ -125,7 +125,7 @@ const HeroCard: FC<
 };
 
 const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
-  const { width } = useSize();
+  // const { width } = useSize();
 
   const { cards } = useRandomCardsWithoutDeck();
 
@@ -223,11 +223,10 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
         />
 
         <HeroCard getCard={getCard} initTransform="translateY(50%)" />
-        {width >= breakpoints.sm && (
+        {/* {width >= breakpoints.sm && (
           <Fragment>
             <br />
 
-            {/* backside card */}
             <HeroCard
               getCard={getCard}
               initTransform="translateX(100%) rotate(30deg)"
@@ -243,7 +242,7 @@ const ComposedMainHero: FC<HTMLAttributes<HTMLElement>> = (props) => {
               ]}
             />
           </Fragment>
-        )}
+        )} */}
       </div>
     </SizeProvider>
   );

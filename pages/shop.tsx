@@ -23,6 +23,8 @@ import { breakpoints } from "../source/enums";
 import { connect } from "../source/mongoose";
 import BlockTitle from "../components/BlockTitle";
 import ShopBundle from "../components/Shop/Bundle";
+import CrazyAcesBanner from "../components/CrazyAcesBanner";
+
 const latestReleaseSlug = process.env.NEXT_PUBLIC_LATEST_RELEASE;
 
 type ProductListsTypes = "sheet" | "deck" | "bundle";
@@ -53,23 +55,23 @@ const Content: FC = () => {
     // latestRelease,
   } = products.reduce<
     Record<ProductListsTypes, GQL.Product[]>
-    // & { latestRelease?: GQL.Product }
+  // & { latestRelease?: GQL.Product }
   >(
     (lists, product) => ({
       ...lists,
       ...(latestReleaseSlug &&
-      product.type === "deck" &&
-      product.deck &&
-      product.deck.slug === latestReleaseSlug
+        product.type === "deck" &&
+        product.deck &&
+        product.deck.slug === latestReleaseSlug
         ? {
-            latestRelease: product,
-          }
+          latestRelease: product,
+        }
         : {
-            [product.type]: [
-              ...lists[product.type as ProductListsTypes],
-              product,
-            ],
-          }),
+          [product.type]: [
+            ...lists[product.type as ProductListsTypes],
+            product,
+          ],
+        }),
     }),
     { sheet: [], deck: [], bundle: [] }
   );
@@ -149,13 +151,14 @@ const Content: FC = () => {
           </Text> */}
           <Line
             spacing={0}
-            css={{
+            css={theme=>[{
               [theme.mq.sm]: {
                 gridColumn: "1 / -1",
                 width: "100%",
               },
-            }}
+            }]}
           />
+          <CrazyAcesBanner/>
           <Text
             variant="body2"
             css={(theme) => [
