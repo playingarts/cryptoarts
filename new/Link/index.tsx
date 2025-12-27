@@ -12,10 +12,7 @@ export interface Props
   target?: HTMLAnchorElement["target"];
 }
 
-const Link: ForwardRefRenderFunction<
-  HTMLAnchorElement | HTMLButtonElement,
-  Props
-> = (
+const Link: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
   {
     component: Component = "a",
     children,
@@ -52,7 +49,7 @@ const Link: ForwardRefRenderFunction<
           prefetch={prefetch}
           locale={locale}
           {...other}
-          ref={ref as any}
+          ref={ref}
           css={{ color: "inherit" }}
           style={{ ...style, textDecoration: "none" }}
           className={cx(

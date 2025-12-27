@@ -39,8 +39,9 @@ export const fetchLogger = (
     });
   };
 
-  if (response.body && (response.body as any).on) {
-    (response.body as any).on("close", log);
+  const body = response.body as NodeJS.ReadableStream | null;
+  if (body && typeof body.on === "function") {
+    body.on("close", log);
   } else {
     log();
   }

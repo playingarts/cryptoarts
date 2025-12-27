@@ -51,7 +51,10 @@ export const IsEuropeProvider: FC<HTMLAttributes<HTMLElement>> = ({
     return bag;
   };
 
-  const getPrice: Props["getPrice"] = (price: any, raw: any) => {
+  const getPrice: Props["getPrice"] = (
+    price: { eur: number; usd: number } | number,
+    raw?: boolean
+  ) => {
     const actprice =
       typeof price !== "number" ? price[isEurope ? "eur" : "usd"] : price;
 

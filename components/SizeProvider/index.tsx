@@ -27,8 +27,7 @@ const SizeProvider: FC<
           Object.keys(breakpoints)
             .filter((value) => isNaN(Number(value)) === false)
             .reverse()
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            .find((item: any) => item < window.innerWidth + 1)
+            .find((item) => Number(item) < window.innerWidth + 1)
         )
       );
     };

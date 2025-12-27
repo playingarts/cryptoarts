@@ -9,7 +9,7 @@ function getWindowDimensions() {
       Object.keys(breakpoints)
         .filter((value) => isNaN(Number(value)) === false)
         .reverse()
-        .find((item: any) => item < width + 1)
+        .find((item) => Number(item) < width + 1)
     ),
   };
 }
