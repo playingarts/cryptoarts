@@ -9,6 +9,7 @@ import HeroCards from "./HeroCards";
 import { useRouter } from "next/router";
 import { usePalette } from "../DeckPaletteContext";
 import KickStarterLine from "../../../Icons/KickStarterLine";
+import Error from "../../../Error";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const {
@@ -17,11 +18,16 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   const { palette } = usePalette();
 
-  const { deck, loading } = useDeck({ variables: { slug: deckId } });
+  const { deck, loading, error, refetch } = useDeck({
+    variables: { slug: deckId },
+  });
 
   const [showStory, setShowStory] = useState(false);
-
   const ref = useRef<HTMLDivElement>(null);
+
+  if (error) {
+    return <Error error={error} retry={() => refetch()} fullPage />;
+  }
 
   return (
     <Grid
