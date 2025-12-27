@@ -1,9 +1,11 @@
 import { NextApiHandler } from "next";
 
-// export const emailRegEx2821 =
-// /^((([!#$%&'*+\-/=?^_`{|}~\w])|([!#$%&'*+\-/=?^_`{|}~\w][!#$%&'*+\-/=?^_`{|}~\.\w]{0,}[!#$%&'*+\-/=?^_`{|}~\w]))[@]\w+([-.]\w+)*\.\w+([-.]\w+)*)$/;
-// /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-// /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+const isValidEmail = (email: string): boolean => {
+  if (email.length > 254) return false;
+  return emailRegex.test(email);
+};
 
 export const subscribeEmail: (
   email: string,
@@ -55,9 +57,9 @@ const handler: NextApiHandler = async (req, res) => {
   // const ip = req.ip as string;
   // console.log(ip);
 
-  if (typeof email !== "string") {
-    res.statusMessage = "Email is incorrect";
-    return res.status(400).json({});
+  if (typeof email !== "string" || !isValidEmail(email)) {
+    res.statusMessage = "Email is invalid";
+    return res.status(400).json({ error: "Invalid email format" });
   }
 
   const emailRes = await subscribeEmail(email);
