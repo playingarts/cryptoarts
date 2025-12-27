@@ -2,16 +2,18 @@ import {
   FC,
   HTMLAttributes,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
 } from "react";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 type PriceType<T extends boolean | undefined> = T extends true
   ? { return: number }
   : { return: string };
 
-const bagname = "cryptoarts:bag";
+const STORAGE_KEY = "cryptoarts:bag";
 
 export interface Props {
   getPrice: {
@@ -39,74 +41,59 @@ export const IsEuropeProvider: FC<HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
   const [isEurope, setIsEurope] = useState<boolean>(false);
+  const [bag, setBag] = useLocalStorage<Record<string, number>>(STORAGE_KEY, {});
 
-  const [bag, setBag] = useState<Record<string, number>>();
+  const getBag = useCallback(() => bag ?? {}, [bag]);
 
-  const getBag = () => {
-    const localbag: Record<string, number> | null = JSON.parse(
-      localStorage.getItem(bagname) || "null"
-    );
+  const getPrice: Props["getPrice"] = useCallback(
+    (price: { eur: number; usd: number } | number, raw?: boolean) => {
+      const actprice =
+        typeof price !== "number" ? price[isEurope ? "eur" : "usd"] : price;
 
-    const bag = localbag === null ? {} : localbag;
-    return bag;
-  };
+      if (raw === true) {
+        return actprice;
+      }
 
-  const getPrice: Props["getPrice"] = (
-    price: { eur: number; usd: number } | number,
-    raw?: boolean
-  ) => {
-    const actprice =
-      typeof price !== "number" ? price[isEurope ? "eur" : "usd"] : price;
+      return actprice.toLocaleString(undefined, {
+        style: "currency",
+        currency: isEurope ? "EUR" : "USD",
+      });
+    },
+    [isEurope]
+  );
 
-    if (raw === true) {
-      return actprice;
-    }
+  const addItem = useCallback(
+    (_id: string, quantity?: number) => {
+      setBag((prev) => {
+        const existingQuantity = prev[_id] || 0;
+        return {
+          ...prev,
+          [_id]: quantity ?? existingQuantity + 1,
+        };
+      });
+    },
+    [setBag]
+  );
 
-    return actprice.toLocaleString(undefined, {
-      style: "currency",
-      currency: isEurope ? "EUR" : "USD",
-    });
-  };
+  const updateQuantity = useCallback(
+    (_id: string, newQuantity: number) => {
+      setBag((prev) => ({
+        ...prev,
+        [_id]: newQuantity,
+      }));
+    },
+    [setBag]
+  );
 
-  const addItem = (_id: string, quantity?: number) => {
-    const bag = getBag();
-
-    const exitingQuantity = bag[_id] || 0;
-
-    const newBag = {
-      ...bag,
-      [_id]: quantity || exitingQuantity + 1,
-    };
-
-    setBag(newBag);
-  };
-
-  const updateQuantity = (_id: string, newQuantity: number) => {
-    const bag = getBag();
-
-    const newBag = {
-      ...bag,
-      [_id]: newQuantity,
-    };
-
-    setBag(newBag);
-  };
-
-  const removeItem = (_id: string) => {
-    const bag = getBag();
-
-    const { [_id]: _, ...newBag } = bag;
-
-    setBag(newBag);
-  };
-
-  useEffect(() => {
-    if (!bag) {
-      setBag(getBag());
-    } else {
-      localStorage.setItem(bagname, JSON.stringify(bag));
-    }
-  }, [bag]);
+  const removeItem = useCallback(
+    (_id: string) => {
+      setBag((prev) => {
+        const { [_id]: _, ...rest } = prev;
+        return rest;
+      });
+    },
+    [setBag]
+  );
 
   useEffect(() => {
     setIsEurope(

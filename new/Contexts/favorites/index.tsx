@@ -2,10 +2,10 @@ import {
   FC,
   HTMLAttributes,
   createContext,
+  useCallback,
   useContext,
-  useEffect,
-  useState,
 } from "react";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 export interface Props {
   isFavorite: (deckSlug: string, _id: string) => boolean;
@@ -25,62 +25,45 @@ const STORAGE_KEY = "cryptoarts:favorites";
 export const FavoritesProvider: FC<HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
-  const [favorites, setFavorites] = useState<Props["favorites"]>();
+  const [favorites, setFavorites] = useLocalStorage<Record<string, string[]>>(
+    STORAGE_KEY,
+    {}
+  );
 
-  const getFavorites: () => Record<string, string[]> = () => {
-    const localFavorites: Record<string, string[]> | null = JSON.parse(
-      localStorage.getItem(STORAGE_KEY) || "null"
-    );
+  const addItem: Props["addItem"] = useCallback(
+    (deckSlug, _id) => {
+      setFavorites((prev) => {
+        const existing = prev[deckSlug] || [];
+        return {
+          ...prev,
+          [deckSlug]: Array.from(new Set([...existing, _id])),
+        };
+      });
+    },
+    [setFavorites]
+  );
 
-    const favorites = localFavorites === null ? {} : localFavorites;
-    return favorites;
-  };
+  const isFavorite: Props["isFavorite"] = useCallback(
+    (deckSlug, _id) => {
+      const existing = favorites ? favorites[deckSlug] || [] : [];
+      return existing.includes(_id);
+    },
+    [favorites]
+  );
 
-  const addItem: Props["addItem"] = (deckSlug, _id) => {
-    const existing = favorites ? favorites[deckSlug] || [] : [];
-
-    existing.push(_id);
-
-    const newFav = {
-      ...favorites,
-      [deckSlug]: Array.from(new Set(existing)),
-    };
-
-    setFavorites(newFav);
-  };
-
-  const isFavorite: Props["isFavorite"] = (deckSlug, _id) => {
-    const existing = favorites ? favorites[deckSlug] || [] : [];
-
-    if (existing) {
-      return existing.findIndex((item) => item === _id) !== -1;
-    }
-
-    return false;
-  };
-
-  const removeItem: Props["removeItem"] = (deckSlug, _id) => {
-    const deck = (favorites ? favorites[deckSlug] || [] : []).filter(
-      (id) => id !== _id
-    );
-    const newFav = {
-      ...favorites,
-      [deckSlug]: deck,
-    };
-    if (deck.length === 0) {
-      delete newFav[deckSlug];
-    }
-
-    setFavorites(newFav);
-  };
-
-  useEffect(() => {
-    if (!favorites) {
-      setFavorites(getFavorites());
-    } else {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(favorites));
-    }
-  }, [favorites]);
+  const removeItem: Props["removeItem"] = useCallback(
+    (deckSlug, _id) => {
+      setFavorites((prev) => {
+        const deck = (prev[deckSlug] || []).filter((id) => id !== _id);
+        const newFav = { ...prev, [deckSlug]: deck };
+        if (deck.length === 0) {
+          delete newFav[deckSlug];
+        }
+        return newFav;
+      });
+    },
+    [setFavorites]
+  );
 
   return (
     <FavoritesContext.Provider
