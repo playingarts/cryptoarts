@@ -9,12 +9,14 @@ import Gallery from "./Gallery";
 import Hero from "./Hero";
 import PACE from "./PACE";
 import TheProduct from "./TheProduct";
+import { getDeckConfig } from "../../../source/deckConfig";
 
-const OnlyCrypto = () => {
+const CryptoSections = () => {
   const {
     query: { deckId },
   } = useRouter();
-  return deckId === "crypto" ? (
+  const config = getDeckConfig(typeof deckId === "string" ? deckId : undefined);
+  return !config.showGallery ? (
     <Fragment>
       <PACE />
       <AugmentedReality />
@@ -26,20 +28,21 @@ const DeckGallery = () => {
   const {
     query: { deckId },
   } = useRouter();
-
-  return deckId !== "crypto" ? <Gallery /> : null;
+  const config = getDeckConfig(typeof deckId === "string" ? deckId : undefined);
+  return config.showGallery ? <Gallery /> : null;
 };
 
 const DeckHeader = () => {
   const {
     query: { deckId },
   } = useRouter();
+  const config = getDeckConfig(typeof deckId === "string" ? deckId : undefined);
 
   return (
     <Header
       links={[
         ...["Cards", "Product"],
-        ...(deckId === "crypto" ? ["PACE", "AR"] : ["Gallery", "Reviews"]),
+        ...config.sections,
       ]}
     />
   );
@@ -51,7 +54,7 @@ const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     <Hero />
     <CardList />
     <TheProduct />
-    <OnlyCrypto />
+    <CryptoSections />
     <DeckGallery />
     <Footer />
   </>

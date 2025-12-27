@@ -23,6 +23,7 @@ import Testimonials from "../Pages/Home/Testimonials";
 import Link from "../Link";
 import { useRouter } from "next/router";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
+import { getDeckConfig } from "../../source/deckConfig";
 
 export const links: { [x: string]: String[] } = {
   "The project": ["Home", "Our story", "AR app", "Gallery", "Press"],
@@ -34,7 +35,8 @@ const FooterTestimonials = () => {
   const {
     query: { deckId },
   } = useRouter();
-  return deckId !== "crypto" ? <Testimonials id="reviews" /> : null;
+  const config = getDeckConfig(typeof deckId === "string" ? deckId : undefined);
+  return config.showTestimonials ? <Testimonials id="reviews" /> : null;
 };
 
 const ActualFooter = () => {
