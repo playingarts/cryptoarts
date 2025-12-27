@@ -1,6 +1,8 @@
 import {
   FC,
   HTMLAttributes,
+  memo,
+  useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -42,7 +44,7 @@ const CardFav: FC<
     id: string;
     noFav?: boolean;
   }
-> = ({ noFav, deckSlug, id, size, ...props }) => {
+> = memo(({ noFav, deckSlug, id, size, ...props }) => {
   const [hover, setHover] = useState(false);
 
   const { addItem, isFavorite, removeItem } = useFavorites();
@@ -158,7 +160,7 @@ const CardFav: FC<
       )}
     </>
   );
-};
+});
 
 const Card: FC<
   HTMLAttributes<HTMLElement> & {
@@ -172,7 +174,7 @@ const Card: FC<
     noFavorite?: boolean;
     palette?: PaletteProps["palette"];
   }
-> = ({
+> = memo(({
   card,
   size = "small",
   ar = false,
@@ -188,10 +190,27 @@ const Card: FC<
   const [loaded, setLoaded] = useState(false);
   const [{ x, y }, setSkew] = useState({ x: 0, y: 0 });
 
-  const hideLoader = () => setLoaded(true);
+  const hideLoader = useCallback(() => setLoaded(true), []);
+  const handleMouseEnter = useCallback(() => setHover(true), []);
+  const handleMouseLeave = useCallback(() => setHover(false), []);
 
   const wrapper = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
+
+  const handleMouseMove = useCallback(
+    ({ clientX, clientY }: React.MouseEvent) => {
+      if (!wrapper.current) {
+        return;
+      }
+      const { left, width, top, height } =
+        wrapper.current.getBoundingClientRect();
+      setSkew({
+        x: (clientX - left) / width - 0.5,
+        y: (clientY - top) / height - 0.5,
+      });
+    },
+    []
+  );
 
   const { width } = useSize();
   const { palette } = usePaletteHook(paletteProp);
@@ -225,8 +244,8 @@ const Card: FC<
           },
         },
       ]}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       {...props}
     >
       <div
@@ -250,17 +269,7 @@ const Card: FC<
           undefined
         }
         {...(interactive && {
-          onMouseMove: ({ clientX, clientY }) => {
-            if (!wrapper.current) {
-              return;
-            }
-            const { left, width, top, height } =
-              wrapper.current.getBoundingClientRect();
-            setSkew({
-              x: (clientX - left) / width - 0.5,
-              y: (clientY - top) / height - 0.5,
-            });
-          },
+          onMouseMove: handleMouseMove,
         })}
         ref={wrapper}
       >
@@ -425,6 +434,6 @@ const Card: FC<
       )}
     </div>
   );
-};
+});
 
 export default Card;
