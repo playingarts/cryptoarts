@@ -39,7 +39,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
     const total = products.reduce((prev, cur) => {
       return Number(
-        (prev + getPrice(cur.price, true) * bag[cur._id]).toFixed(2)
+        (prev + (getPrice(cur.price, true) as number) * bag[cur._id]).toFixed(2)
       );
     }, 0);
 
@@ -57,7 +57,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           return (
             prev +
             (cur.fullPrice
-              ? getPrice(cur.fullPrice, true) - getPrice(cur.price, true)
+              ? (getPrice(cur.fullPrice, true) as number) - (getPrice(cur.price, true) as number)
               : 0) *
               bag[cur._id]
           );
