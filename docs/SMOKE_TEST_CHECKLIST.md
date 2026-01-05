@@ -22,7 +22,16 @@ Run with: `yarn test:smoke`
 | Contact page loads | `/contact` | 200 OK |
 | Privacy page loads | `/privacy` | 200 OK |
 | 404 page works | `/nonexistent` | 404 + Error UI |
-| API health | `/api/v1/graphql` | 200 OK |
+| API health | `/api/v1/graphql` | 400 (GET without query) |
+
+### Critical User Flow
+| Step | Page | Check |
+|------|------|-------|
+| 1 | Landing `/` | Contains "Playing Arts" |
+| 2 | Deck `/crypto` | Contains "Crypto" |
+| 3 | Product `/shop/cryptoedition` | Contains "Collective" |
+| 4 | Bag `/bag` | Contains "Summary" |
+| - | Total flow time | < 10 seconds |
 
 ---
 
