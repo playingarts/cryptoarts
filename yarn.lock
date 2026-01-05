@@ -2363,6 +2363,14 @@
     "@graphql-tools/utils" "^10.6.4"
     tslib "^2.4.0"
 
+"@graphql-tools/merge@^9.1.6":
+  version "9.1.6"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/merge/-/merge-9.1.6.tgz#95eb8bb5ae314bc07a62938b7a1b8c2622e1dc32"
+  integrity sha512-bTnP+4oom4nDjmkS3Ykbe+ljAp/RIiWP3R35COMmuucS24iQxGLa9Hn8VMkLIoaoPxgz6xk+dbC43jtkNsFoBw==
+  dependencies:
+    "@graphql-tools/utils" "^10.11.0"
+    tslib "^2.4.0"
+
 "@graphql-tools/optimize@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@graphql-tools/optimize/-/optimize-2.0.0.tgz#7a9779d180824511248a50c5a241eff6e7a2d906"
@@ -2389,6 +2397,15 @@
     tslib "^2.4.0"
     value-or-promise "^1.0.12"
 
+"@graphql-tools/schema@^10.0.30":
+  version "10.0.30"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/schema/-/schema-10.0.30.tgz#cdc9583e70a297d53ff0b344935bd81e3bf7d7ac"
+  integrity sha512-yPXU17uM/LR90t92yYQqn9mAJNOVZJc0nQtYeZyZeQZeQjwIGlTubvvoDL0fFVk+wZzs4YQOgds2NwSA4npodA==
+  dependencies:
+    "@graphql-tools/merge" "^9.1.6"
+    "@graphql-tools/utils" "^10.11.0"
+    tslib "^2.4.0"
+
 "@graphql-tools/stitch@9.4.10":
   version "9.4.10"
   resolved "https://registry.yarnpkg.com/@graphql-tools/stitch/-/stitch-9.4.10.tgz#dcb08d289307b38009e2680a33bf3b3cd4fa31f7"
@@ -2411,6 +2428,16 @@
     "@graphql-typed-document-node/core" "^3.1.1"
     cross-inspect "1.0.1"
     dset "^3.1.2"
+    tslib "^2.4.0"
+
+"@graphql-tools/utils@^10.11.0":
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/@graphql-tools/utils/-/utils-10.11.0.tgz#2513dca9ca25bab5a2651da2d66c37b1e2616bdf"
+  integrity sha512-iBFR9GXIs0gCD+yc3hoNswViL1O5josI33dUqiNStFI/MHLCEPduasceAcazRH77YONKNiviHBV8f7OgcT4o2Q==
+  dependencies:
+    "@graphql-typed-document-node/core" "^3.1.1"
+    "@whatwg-node/promise-helpers" "^1.0.0"
+    cross-inspect "1.0.1"
     tslib "^2.4.0"
 
 "@graphql-tools/wrap@^10.0.26":
@@ -3837,6 +3864,25 @@
     lodash "^4.17.21"
     redent "^3.0.0"
 
+"@testing-library/jest-dom@^6.9.1":
+  version "6.9.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/jest-dom/-/jest-dom-6.9.1.tgz#7613a04e146dd2976d24ddf019730d57a89d56c2"
+  integrity sha512-zIcONa+hVtVSSep9UT3jZ5rizo2BsxgyDYU7WFD5eICBE7no3881HGeb/QkGfsJs6JTkY1aQhT7rIPC7e+0nnA==
+  dependencies:
+    "@adobe/css-tools" "^4.4.0"
+    aria-query "^5.0.0"
+    css.escape "^1.5.1"
+    dom-accessibility-api "^0.6.3"
+    picocolors "^1.1.1"
+    redent "^3.0.0"
+
+"@testing-library/react@^16.3.1":
+  version "16.3.1"
+  resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-16.3.1.tgz#60a9f1f6a930399d9e41b506a8bf68dbf4831fe8"
+  integrity sha512-gr4KtAWqIOQoucWYD/f6ki+j5chXfcPc74Col/6poTyqTmn7zRmodWahWRCp8tYd+GMqBonw6hstNzqjbs6gjw==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+
 "@testing-library/user-event@14.5.2":
   version "14.5.2"
   resolved "https://registry.yarnpkg.com/@testing-library/user-event/-/user-event-14.5.2.tgz#db7257d727c891905947bd1c1a99da20e03c2ebd"
@@ -4475,6 +4521,13 @@
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@whatwg-node/disposablestack/-/disposablestack-0.0.5.tgz#cd646b1ef60a36972e018ab21f412a3539c6deec"
   integrity sha512-9lXugdknoIequO4OYvIjhygvfSEgnO8oASLqLelnDhkRjgBZhc39shC3QSlZuyDO9bgYSIVa2cHAiN+St3ty4w==
+  dependencies:
+    tslib "^2.6.3"
+
+"@whatwg-node/promise-helpers@^1.0.0":
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/@whatwg-node/promise-helpers/-/promise-helpers-1.3.2.tgz#3b54987ad6517ef6db5920c66a6f0dada606587d"
+  integrity sha512-Nst5JdK47VIl9UcGwtv2Rcgyn5lWtZ0/mhRQ4G8NN2isxpq2TO30iqHzmwoJycjWuyUfg3GFXqP/gFHXeV57IA==
   dependencies:
     tslib "^2.6.3"
 
