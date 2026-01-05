@@ -23,6 +23,8 @@ export const connect = async () => {
 
     cached!.promise = mongoose.connect(connectionUrl, {
       dbName: MONGODB,
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
       ...(isDevelopment
         ? { tlsAllowInvalidCertificates: true }
         : {}),
