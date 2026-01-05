@@ -4,3 +4,4 @@
 
 export * from "./errors";
 export * from "./appLogger";
+export * from "./OpenSeaClient";
