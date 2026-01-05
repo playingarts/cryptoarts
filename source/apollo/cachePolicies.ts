@@ -3,6 +3,17 @@
  *
  * Type policies for Apollo InMemoryCache.
  * These define how entities are identified and how queries are resolved from cache.
+ *
+ * Entity Key Fields:
+ * - Deck: identified by slug (unique deck identifier like "crypto")
+ * - Card: identified by _id (MongoDB ObjectId)
+ * - Artist: identified by slug (unique artist identifier)
+ *
+ * Query Read Policies:
+ * - products: Returns cached product references when all requested IDs exist in cache
+ * - card: Resolves card by ID directly, or by artist slug + deck slug from cached data
+ * - cards: Filters cached cards by edition when both edition and deck are provided
+ * - deck: Reads deck from cache by slug using DeckDataFragment
  */
 
 import { gql, Reference, TypePolicies } from "@apollo/client";
@@ -11,7 +22,8 @@ import { DeckDataFragment, DeckQuery } from "../../hooks/deck";
 
 /**
  * Field policy for nullable fields.
- * Returns null by default if field hasn't been fetched.
+ * Returns null by default if field hasn't been fetched, preventing
+ * Apollo from treating missing fields as cache misses.
  */
 function nullable() {
   return {
@@ -45,13 +57,10 @@ export const typePolicies: TypePolicies = {
   },
   Query: {
     fields: {
-      loser: {
-        read: (_, { args, toReference }) =>
-          toReference({
-            __typename: "Loser",
-            img: args && args.img,
-          }),
-      },
+      /**
+       * Products cache policy: Returns cached references when ALL requested
+       * product IDs exist in cache, avoiding network request on back-navigation.
+       */
       products: {
         read: (refs, { args, toReference, cache }) => {
           const references: Reference[] | undefined =
@@ -83,6 +92,12 @@ export const typePolicies: TypePolicies = {
             : refs;
         },
       },
+      /**
+       * Card cache policy: Resolves cards from cache in two ways:
+       * 1. By _id: Direct reference lookup
+       * 2. By slug + deckSlug: Finds card in cached deck's cards by artist slug
+       * This enables instant navigation without refetch when cards are already loaded.
+       */
       card: {
         read: (refs, { args, toReference, cache }) => {
           if (!args || !(args.id || (args.slug && args.deckSlug))) {
@@ -135,6 +150,10 @@ export const typePolicies: TypePolicies = {
           return card;
         },
       },
+      /**
+       * Cards cache policy: When filtering by edition, returns filtered
+       * cards from cache instead of making a new request.
+       */
       cards: {
         read: (refs, { args, cache }) => {
           if (!args || !args.edition || !args.deck) {
@@ -158,6 +177,10 @@ export const typePolicies: TypePolicies = {
           );
         },
       },
+      /**
+       * Deck cache policy: Resolves deck from cache by slug
+       * using DeckDataFragment to verify complete data.
+       */
       deck: {
         read: (refs, { args, toReference, cache }) => {
           const slug: string | undefined = args && args.slug;
