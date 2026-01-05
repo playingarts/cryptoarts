@@ -1,17 +1,21 @@
+/**
+ * Apollo Client Configuration
+ *
+ * Sets up Apollo Client for both SSR and client-side rendering.
+ * Cache policies are defined in ./apollo/cachePolicies.ts
+ */
+
 /* eslint-disable @typescript-eslint/no-var-requires */
 import {
   ApolloClient,
   ApolloLink,
   ApolloProvider,
-  gql,
   HttpLink,
   InMemoryCache,
   NormalizedCacheObject,
-  Reference,
 } from "@apollo/client";
 import { NextComponentType, NextPage, NextPageContext } from "next";
-import { CardsQuery } from "../hooks/card";
-import { DeckDataFragment, DeckQuery, DecksQuery } from "../hooks/deck";
+import { typePolicies } from "./apollo/cachePolicies";
 
 interface Context {
   apolloState: object;
@@ -20,10 +24,14 @@ interface Context {
 
 let cachedApolloClient: Context["apolloClient"] | undefined;
 
+/**
+ * Higher-order component that wraps a page with Apollo Provider.
+ * Handles SSR data fetching when enabled.
+ */
 export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
   const WithApollo: NextComponentType<
     NextPageContext & Context,
-    any,
+    unknown,
     Context & { cache?: NormalizedCacheObject }
   > = ({ apolloClient, apolloState, cache, ...pageProps }) => {
     const client = apolloClient || initApolloClient(apolloState);
@@ -31,41 +39,10 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
     if (cache) {
       client.restore(cache);
     }
-    // if (cache) {
-    //   console.log({ cache });
-
-    //   for (const query of cache) {
-    //     client.cache.writeQuery({
-    //       ...query,
-    //       query: gql`
-    //         ${query.query}
-    //       `,
-    //     });
-    //   }
-    // }
-
-    // pageProps.decks &&
-    //   pageProps.decks.map((deck) => {
-    //     client.writeFragment({
-    //       fragment: DeckDataFragment,
-    //       variables: { slug: deck.slug },
-    //       data: { ...deck, __typename: "Deck" },
-    //     });
-    //     client.writeQuery({
-    //       query: DeckQuery,
-    //       // id: deck.slug,
-    //       variables: { slug: deck.slug },
-    //       data: { deck: { ...deck, __typename: "Deck" } },
-    //     });
-    //   });
 
     return (
       <ApolloProvider client={client}>
-        <PageComponent
-          {...{
-            ...pageProps,
-          }}
-        />
+        <PageComponent {...pageProps} />
       </ApolloProvider>
     );
   };
@@ -73,7 +50,6 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
   if (process.env.NODE_ENV === "development") {
     const displayName =
       PageComponent.displayName || PageComponent.name || "Component";
-
     WithApollo.displayName = `withApollo(${displayName})`;
   }
 
@@ -103,17 +79,11 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
         if (ssr) {
           try {
             const { getDataFromTree } = await import("@apollo/react-ssr");
-
             await getDataFromTree(
-              <AppTree
-                pageProps={{
-                  ...pageProps,
-                  apolloClient,
-                }}
-              />
+              <AppTree pageProps={{ ...pageProps, apolloClient }} />
             );
-          } catch (error) {
-            // console.error("Error while running `getDataFromTree`", error);
+          } catch {
+            // SSR data fetching errors are handled gracefully
           }
         }
       }
@@ -128,6 +98,9 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
   return WithApollo;
 };
 
+/**
+ * Initialize Apollo Client, reusing cached instance on client side.
+ */
 export const initApolloClient = (initialState?: object, config?: object) => {
   if (typeof window === "undefined") {
     return createApolloClient(initialState, config);
@@ -135,217 +108,15 @@ export const initApolloClient = (initialState?: object, config?: object) => {
   if (!cachedApolloClient) {
     cachedApolloClient = createApolloClient(initialState);
   }
-
   return cachedApolloClient;
 };
 
-function nullable() {
-  // Create a generic field policy that allows any field to be null by default:
-  return {
-    read(existing = null) {
-      return existing;
-    },
-  };
-}
-
+/**
+ * Create a new Apollo Client instance with InMemoryCache.
+ */
 export const createApolloClient = (initialState = {}, config?: object) => {
   const ssrMode = typeof window === "undefined";
-  const cache = new InMemoryCache({
-    typePolicies: {
-      Deck: {
-        keyFields: ["slug"],
-        fields: {
-          openseaCollection: nullable(),
-          editions: nullable(),
-          product: nullable(),
-        },
-      },
-      Card: {
-        keyFields: ["_id"],
-        fields: {
-          erc1155: nullable(),
-        },
-      },
-      Artist: {
-        keyFields: ["slug"],
-        fields: {
-          podcast: nullable(),
-          social: nullable(),
-        },
-      },
-      Query: {
-        fields: {
-          // decks: {
-          //   merge: (existing = [], incoming = [], { cache }) => {
-          //     incoming.map((ref) => {
-          //       const fragment = cache.readFragment({
-          //         fragment: DeckDataFragment,
-          //         id: ref.__ref,
-          //       });
-
-          //       fragment &&
-          //         cache.writeQuery({
-          //           query: DeckQuery,
-          //           data: { deck: fragment },
-          //           variables: { slug: fragment.slug },
-          //         });
-          //     });
-
-          //     return [...existing, ...incoming];
-          //   },
-          // },
-          loser: {
-            read: (_, { args, toReference }) =>
-              toReference({
-                __typename: "Loser",
-                img: args && args.img,
-              }),
-          },
-          products: {
-            read: (refs, { args, toReference, cache }) => {
-              const references: Reference[] | undefined =
-                args &&
-                args.ids &&
-                args.ids.map((id: string) => {
-                  return toReference({
-                    __typename: "Product",
-                    _id: id,
-                  });
-                });
-
-              const fragments =
-                references &&
-                references.filter(
-                  (reference) =>
-                    cache.readFragment({
-                      id: reference.__ref,
-                      fragment: gql`
-                        fragment MyProduct on Products {
-                          _id
-                        }
-                      `,
-                    }) !== null
-                );
-
-              return fragments && references.length === fragments.length
-                ? references
-                : refs;
-            },
-          },
-          card: {
-            read: (refs, { args, toReference, cache }) => {
-              if (!args || !(args.id || (args.slug && args.deckSlug))) {
-                return refs;
-              }
-
-              const id: string = args.id;
-              const slug: string = args.slug;
-              const deckSlug: string = args.deckSlug;
-
-              if (id) {
-                return toReference({
-                  __typename: "Card",
-                  _id: args.id,
-                });
-              }
-
-              const cachedDeck = cache.readQuery({
-                query: DeckQuery,
-                variables: { slug: deckSlug },
-              });
-
-              if (!cachedDeck) {
-                return refs;
-              }
-
-              let cachedCards = cache.readQuery({
-                query: CardsQuery,
-                variables: {
-                  deck: (cachedDeck as { deck: GQL.Deck }).deck._id,
-                },
-              });
-
-              if (!cachedCards) {
-                cachedCards = cache.readQuery({
-                  query: CardsQuery,
-                  variables: {
-                    deck: (cachedDeck as { deck: GQL.Deck }).deck.slug,
-                  },
-                });
-                if (!cachedCards) {
-                  return refs;
-                }
-              }
-
-              const card = (cachedCards as { cards: GQL.Card[] }).cards.find(
-                (card) => card.artist && card.artist.slug === slug
-              );
-
-              return card;
-
-              // return args && args.id
-              //   ? toReference({
-              //       __typename: "Card",
-              //       ...(args && args.id && { _id: args.id }),
-              //       slug: args && args.slug,
-              //       deck: { slug: args && args.deckSlug },
-              //     })
-              //   : refs},
-            },
-          },
-          cards: {
-            read: (refs, { args, cache }) => {
-              if (!args || !args.edition || !args.deck) {
-                return refs;
-              }
-
-              const edition: string = args.edition;
-              const deck: string = args.deck;
-
-              const cachedCards = cache.readQuery({
-                query: CardsQuery,
-                variables: { deck: deck },
-              });
-
-              if (!cachedCards) {
-                return refs;
-              }
-
-              return (cachedCards as { cards: GQL.Card[] }).cards.filter(
-                (card) => card.edition === edition
-              );
-            },
-          },
-          deck: {
-            read: (refs, { args, toReference, cache }) => {
-              const slug: string | undefined = args && args.slug;
-
-              if (!slug) {
-                return refs;
-              }
-
-              const reference: Reference | undefined = toReference({
-                __typename: "Deck",
-                slug,
-              });
-
-              const fragment =
-                reference &&
-                cache.readFragment({
-                  id: reference.__ref,
-                  variables: {
-                    slug,
-                  },
-                  fragment: DeckDataFragment,
-                });
-
-              return fragment && reference ? fragment : refs;
-            },
-          },
-        },
-      },
-    },
-  }).restore(initialState);
+  const cache = new InMemoryCache({ typePolicies }).restore(initialState);
 
   return new ApolloClient({
     cache,
@@ -354,15 +125,19 @@ export const createApolloClient = (initialState = {}, config?: object) => {
   });
 };
 
+/**
+ * Create appropriate Apollo Link based on environment.
+ * - Server: SchemaLink for direct schema execution
+ * - Client: HttpLink for API requests
+ */
 const createIsomorphLink = (config = {}) => {
   if (typeof window === "undefined") {
     return new (require("apollo-link-schema").SchemaLink)(config);
-  } else {
-    return ApolloLink.from([
-      new HttpLink({
-        uri: "/api/v1/graphql",
-        credentials: "same-origin",
-      }),
-    ]);
   }
+  return ApolloLink.from([
+    new HttpLink({
+      uri: "/api/v1/graphql",
+      credentials: "same-origin",
+    }),
+  ]);
 };
