@@ -8,3 +8,4 @@
  */
 
 export { CardService, cardService } from "./CardService";
+export { OpenSeaService, openSeaService } from "./OpenSeaService";

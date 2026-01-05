@@ -1,646 +1,47 @@
+/**
+ * OpenSea GraphQL Schema
+ *
+ * Handles OpenSea-related queries for NFT collections.
+ * Business logic is delegated to OpenSeaService.
+ */
+
 import { ApolloError, gql } from "@apollo/client";
-import { recoverPersonalSignature } from "@metamask/eth-sig-util";
 import GraphQLJSON from "graphql-type-json";
-import intersect from "just-intersect";
-import memoizee from "memoizee";
-import { CardSuits } from "../../enums";
-import { getCardByTraits, getCards } from "./card";
+import { openSeaService } from "../../services";
+import { openSeaClient } from "../../lib/OpenSeaClient";
+import { getCardByTraits } from "./card";
 import { getContract, getContracts } from "./contract";
-import * as E from "fp-ts/Either";
-import { pipe } from "fp-ts/lib/function";
-import * as T from "io-ts";
-import { Content } from "./content";
-import * as crypto from "crypto";
-import { Listing, getListings } from "./listing";
+import { getListings } from "./listing";
 import { getDeck } from "./deck";
-import { logger, OpenSeaError } from "../../lib/appLogger";
 import { Nft } from "../../models";
 
 export { Nft };
 
-const {
-  NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
-  OPENSEA_ASSETS_KEY = "",
-  OPENSEA_KEY = "",
-} = process.env;
-
-const NftType = T.interface({
-  identifier: T.string,
-  contract: T.string,
-  token_standard: T.string,
-  name: T.string,
-  description: T.string,
-  // traits: T.array(
-  //   T.type({
-  //     trait_type: T.string,
-  //     value: T.string,
-  //   })
-  // ),
-  owners: T.array(
-    T.type({
-      address: T.string,
-      quantity: T.number,
-    })
-  ),
-});
-
-const NftsType = T.array(
-  T.interface({
-    identifier: T.string,
-    contract: T.string,
-    token_standard: T.string,
-    name: T.string,
-    description: T.string,
-  })
-);
-
-const decodeWith =
-  <ApplicationType = any, EncodeTo = ApplicationType, DecodeFrom = unknown>(
-    codec: T.Type<ApplicationType, EncodeTo, DecodeFrom>
-  ) =>
-  (input: DecodeFrom): ApplicationType =>
-    pipe(
-      codec.decode(input),
-      E.getOrElseW((errors) => {
-        console.log(errors[0]);
-
-        throw new Error("Error 666");
-      })
-    );
-
-// const queue: { name: string; contract: string }[] = [];
-type queueObject = {
-  key: "queue";
-  data: { contract: string; name: string; hash: string | null };
-};
-
-// This is better than how it used to be
-export const getAssetsRaw: (hash: string) => void = async (hash) => {
-  const contractObject = (await Content.findOne({
-    "data.hash": { $ne: null },
-  })) as unknown as queueObject;
-
-  if (contractObject.data.hash !== hash) {
-    return;
-  }
-
-  let listingsnext = "";
-
-  const listingsArray: GQL.Listing[] = [];
-
-  do {
-    const ires = await fetch(
-      `https://api.opensea.io/api/v2/listings/collection/${
-        contractObject.data.name
-      }/best?limit=100${listingsnext === "" ? "" : "&next=" + listingsnext}`,
-      {
-        headers: {
-          accept: "application/json",
-          "X-API-KEY": OPENSEA_ASSETS_KEY,
-        },
-      }
-    );
-
-    const res = await ires.json();
-    const { listings, next } = res as {
-      next?: string;
-      listings: GQL.Listing[];
-    };
-
-    listingsArray.push(
-      ...listings.map((listing) => ({
-        ...listing,
-        protocol_data: {
-          parameters: {
-            offer: listing.protocol_data.parameters.offer.map((offer) => ({
-              ...offer,
-              token: offer.token.toLowerCase(),
-              identifierOrCriteria: offer.identifierOrCriteria.toLowerCase(),
-            })),
-          },
-        },
-      }))
-    );
-
-    listingsnext = next || "";
-  } while (listingsnext !== "");
-
-  await Listing.deleteMany({
-    "protocol_data.parameters.offer.token": contractObject.data.contract,
-  });
-
-  await Listing.insertMany(listingsArray);
-
-  console.log("done with listings");
-
-  const getNft = (id: string, restartCount = 0): Promise<GQL.Nft> =>
-    fetch(
-      `https://api.opensea.io/api/v2/chain/ethereum/contract/${contractObject.data.contract}/nfts/${id}`,
-      {
-        headers: {
-          accept: "application/json",
-          "X-API-KEY": OPENSEA_ASSETS_KEY,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then(async ({ nft }) => {
-        decodeWith(NftType)(nft);
-
-        return nft;
-      })
-      .catch(async (error) => {
-        if (error.message.includes("Request was throttled")) {
-          // if (restartCount >= 50) {
-          //   console.log(
-          //     "Too much throttling, aborting while fetching owners"
-          //   );
-          //   queue.shift();
-          //   getAssetsRaw.state = "loaded";
-          //   return;
-          // }
-          // console.error(`Request was throttled while fetching owner`);
-        } else {
-          // console.error("Failed to get OpenSea Owner:", error);
-
-          if (restartCount >= 10) {
-            logger.warn("OpenSea NFT fetch: Restarted more than 10 times, dropping queue");
-
-            await Content.deleteMany({
-              key: "queue",
-            });
-
-            return;
-          }
-        }
-
-        return new Promise<GQL.Nft>((resolve) =>
-          setTimeout(
-            () => resolve(getNft(id, restartCount + 1)),
-            // error.message.includes("Error 429") ? 1000 : 500
-            3000
-          )
-        );
-      });
-
-  const getInitNfts = (
-    next?: string,
-    index = 0,
-    restartCount = 0
-  ): Promise<any> =>
-    fetch(
-      `https://api.opensea.io/api/v2/collection/${
-        contractObject.data.name
-      }/nfts?limit=200${!next ? "" : "&next=" + next}`,
-      {
-        headers: {
-          accept: "application/json",
-          "X-API-KEY": OPENSEA_ASSETS_KEY,
-        },
-      }
-    )
-      .then((res) => res.json())
-      .then(async ({ nfts, next, detail }) => {
-        if (detail) {
-          throw new Error(detail);
-        }
-
-        decodeWith(NftsType)(nfts);
-
-        console.log("Fetched Assets: " + (index + nfts.length));
-
-        const newNfts: GQL.Nft[] = [];
-
-        if (index === 0) {
-          await Content.deleteMany({
-            "data.hash": { $nin: [contractObject.data.hash, null] },
-          });
-        }
-
-        for (const nft of nfts) {
-          const fullnft = await getNft(nft.identifier);
-
-          newNfts.push({
-            ...fullnft,
-          });
-        }
-
-        await Nft.deleteMany({
-          $or: newNfts.map(({ identifier, contract }) => ({
-            identifier,
-            contract,
-          })),
-        });
-
-        await Nft.insertMany(newNfts);
-
-        const contract = await getContract({
-          address: contractObject.data.contract,
-        });
-
-        const cards = await getCards({ deck: contract.deck._id });
-
-        const pages: string[] = [];
-
-        (newNfts as GQL.Nft[]).map(({ traits, identifier }) => {
-          if (traits) {
-            const suit = (
-              traits.find(
-                ({ trait_type }) =>
-                  trait_type === "Suit" || trait_type === "Color"
-              ) as { value: string }
-            ).value.toLowerCase();
-
-            const value = (
-              traits.find(({ trait_type }) => trait_type === "Value") as {
-                value: string;
-              }
-            ).value.toLowerCase();
-
-            const card = cards.find(
-              (card) => card.value === value && card.suit === suit
-            );
-
-            if (!card) {
-              throw new Error(
-                "Cannot revalidate: " + suit + " " + value + " " + cards.length
-              );
-            }
-
-            pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
-          } else {
-            const card = cards.find(
-              (card) => card.erc1155 && card.erc1155.token_id === identifier
-            );
-
-            if (!card) {
-              throw new Error("Cannot revalidate: token_id " + identifier);
-            }
-
-            pages.push("/" + contract.deck.slug + "/" + card.artist.slug);
-          }
-        });
-
-        // if (process.env.NODE_ENV !== "development") {
-        fetch(
-          (process.env.NODE_ENV === "development"
-            ? "http://localhost:3000"
-            : process.env.URL) +
-            "/api/revalidate?" +
-            new URLSearchParams({
-              pages: JSON.stringify(["/" + contract.deck.slug]),
-              secret: process.env.REVALIDATE_SECRET || "",
-            })
-        );
-
-        fetch(
-          (process.env.NODE_ENV === "development"
-            ? "http://localhost:3000"
-            : process.env.URL) +
-            "/api/revalidate?" +
-            new URLSearchParams({
-              pages: JSON.stringify(pages),
-              secret: process.env.REVALIDATE_SECRET || "",
-            })
-        );
-        // }
-
-        if (!next) {
-          console.log(
-            "Updated assets for contract: " + contractObject.data.contract
-          );
-
-          await Content.deleteMany({
-            "data.name": contractObject.data.name,
-            "data.contract": contractObject.data.contract,
-          });
-
-          return;
-        }
-
-        return getInitNfts(next, (index += nfts.length));
-      })
-
-      .catch(async (error) => {
-        if (error.message.includes("Request was throttled")) {
-          // if (restartCount >= 15) {
-          //   console.log(
-          //     "Too much throttling, aborting at: " + index + " assets"
-          //   );
-          //   queue.shift();
-          //   getAssetsRaw.state = "loaded";
-          //   return;
-          // }
-          // console.error("Request was throttled while fetching assets");
-        } else {
-          logger.error("Failed to get OpenSea Assets", error, { restartCount });
-
-          if (restartCount >= 10) {
-            logger.warn("OpenSea asset fetch: Restarted more than 10 times, dropping queue");
-
-            await Content.deleteMany({
-              key: "queue",
-            });
-
-            return;
-          }
-        }
-
-        // if (error.message.includes("Error 666")) {
-        //   return;
-        // }
-        return new Promise<any>((resolve) =>
-          setTimeout(
-            () => resolve(getInitNfts(next, index, restartCount + 1)),
-            // error.message.includes("Error 429") ? 1000 : 500
-            3000
-          )
-        );
-      });
-
-  getInitNfts();
-};
-
-const cachedAssets: Record<string, GQL.Nft[]> = {};
-
-const getCachedAssets = memoizee<(contract: string) => Promise<GQL.Nft[]>>(
-  async (contract) => {
-    if (!cachedAssets[contract]) {
-      const assets = await Nft.find({ contract }).lean();
-      cachedAssets[contract] = assets;
-      return assets;
-    }
-
-    Nft.find({
-      contract,
-    })
-      .lean()
-      .then((assets) => (cachedAssets[contract] = assets));
-    return cachedAssets[contract];
-  },
-  {
-    length: 1,
-    primitive: true,
-    maxAge: 1000 * 30,
-    preFetch: true,
-  }
-);
-
-export const getAssets = memoizee<
-  (contract: string, name: string, hash?: string) => Promise<GQL.Nft[]>
->(
-  process.env.NODE_ENV === "development"
-    ? async (_address, contract) => {
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        return require(`../../../mocks/${contract}.json`) as GQL.Nft[];
-        // return [];
-      }
-    : async (contract, name, hash) => {
-        if (process.env.ALLOW_ASSETS_FETCH === "true") {
-          const queueEntries = await Content.find({ key: "queue" });
-
-          if (!queueEntries.find((entry) => entry.data.hash !== null)) {
-            const newHash = crypto.randomUUID();
-            if (queueEntries[0]) {
-              await Content.insertMany({
-                key: "queue",
-                data: {
-                  contract: queueEntries[0].data.contract,
-                  name: queueEntries[0].data.name,
-                  hash: newHash,
-                },
-              });
-            } else {
-              await Content.insertMany({
-                key: "queue",
-                data: { contract, name, hash: newHash },
-              });
-            }
-            getAssetsRaw(newHash);
-          } else {
-            const sameContract = queueEntries.find(
-              ({ data }) => data.contract === contract && data.name === name
-            );
-
-            if (!sameContract) {
-              await Content.insertMany({
-                key: "queue",
-                data: { contract, name, hash: null },
-              });
-            }
-          }
-        }
-
-        if (hash) {
-          return getCachedAssets(contract).then((assets) =>
-            assets.filter(
-              (asset) =>
-                asset.owners.findIndex(({ address }) => address === hash) !== -1
-            )
-          );
-        }
-
-        return getCachedAssets(contract);
-      },
-  {
-    maxAge: 1000 * 1,
-  }
-);
-
-type CardSuitsType =
-  | CardSuits.s
-  | CardSuits.c
-  | CardSuits.h
-  | CardSuits.d
-  | CardSuits.r
-  | CardSuits.b;
-
-const getHolders = async (deck: string) => {
-  const contract = await getContract({ deck });
-  // console.log({ contract });
-
-  if (!contract) {
-    return;
-  }
-
-  const assets = await getAssets(contract.address, contract.name);
-
-  const holders = (
-    assets.filter((asset) => !!asset.owners) as unknown as (Omit<
-      GQL.Nft,
-      "owner"
-    > &
-      GQL.Nft["owners"])[]
-  ).reduce<
-    Record<string, { suit: CardSuitsType; value: string; tokens: string[] }[]>
-  >((data, { owners, traits = [], identifier }) => {
-    owners.map(({ address }) => {
-      if (!data[address]) {
-        data[address] = [];
-      }
-
-      const suitTrait = traits.find(
-        ({ trait_type }) => trait_type === "Suit" || trait_type === "Color"
-      );
-
-      const valueTrait = traits.find(
-        ({ trait_type }) => trait_type === "Value"
-      );
-
-      if (!suitTrait || !valueTrait) {
-        return data;
-      }
-
-      const exists = data[address].find(
-        ({ suit, value }) =>
-          suit === suitTrait.value.toLowerCase() &&
-          value === valueTrait.value.toLowerCase()
-      );
-
-      if (!exists) {
-        data[address].push({
-          suit: suitTrait.value.toLowerCase() as CardSuitsType,
-          value: valueTrait.value.toLowerCase(),
-          tokens: [identifier],
-        });
-      } else {
-        exists.tokens.push(identifier);
-      }
-    });
-
-    return data;
-  }, {});
-
-  const deckHolders = Object.entries(holders).reduce<{
-    fullDecks: string[];
-    fullDecksWithJokers: string[];
-  }>(
-    (data, [owner, cards]) => {
-      if (cards.length >= 52) {
-        if (cards.length === 54) {
-          data.fullDecksWithJokers.push(owner);
-        }
-
-        return {
-          ...data,
-          fullDecks: [...data.fullDecks, owner],
-        };
-      }
-
-      return data;
-    },
-    { fullDecks: [], fullDecksWithJokers: [] }
-  );
-
-  const suitHolders = Object.entries(holders).reduce<
-    Record<CardSuitsType, string[]>
-  >(
-    (data, [owner, cards]) => {
-      const suits = cards.reduce<Record<CardSuitsType, number>>(
-        (data, { suit }) => ({
-          ...data,
-          [suit]: data[suit] + 1,
-        }),
-        { spades: 0, diamonds: 0, clubs: 0, hearts: 0, red: 0, black: 0 }
-      );
-
-      return {
-        spades: [...data.spades, ...(suits.spades === 13 ? [owner] : [])],
-        diamonds: [...data.diamonds, ...(suits.diamonds === 13 ? [owner] : [])],
-        clubs: [...data.clubs, ...(suits.clubs === 13 ? [owner] : [])],
-        hearts: [...data.hearts, ...(suits.hearts === 13 ? [owner] : [])],
-        red: [...data.red, ...(suits.red === 1 ? [owner] : [])],
-        black: [...data.hearts, ...(suits.black === 1 ? [owner] : [])],
-      };
-    },
-    {
-      spades: [],
-      diamonds: [],
-      clubs: [],
-      hearts: [],
-      red: [],
-      black: [],
-    }
-  );
-
-  return {
-    jokers: intersect(suitHolders.black, suitHolders.red),
-    ...deckHolders,
-    ...suitHolders,
-  };
-};
-
+// Re-export service methods for backward compatibility
+export const getAssets = openSeaService.getAssets;
+export const signatureValid = openSeaService.signatureValid.bind(openSeaService);
+
+// Legacy export for queue processing (used internally)
+export const getAssetsRaw = openSeaService.processAssetQueue.bind(openSeaService);
+
+/**
+ * Associate card data with an NFT asset
+ */
 export const setCard =
   (contractId: string) => async (asset: GQL.Nft & { on_sale: boolean }) => {
-    const contract = await getContract({
-      address: contractId.toLowerCase(),
-    });
-
-    if (!contract) {
-      return asset;
-    }
-
-    if (!asset.traits) {
-      return asset;
-    }
-
-    const valueTrait = asset.traits.find(
-      (trait) => trait.trait_type === "Value"
+    return openSeaService.setCardOnAsset(
+      asset,
+      async ({ address }) => getContract({ address }),
+      getCardByTraits
     );
-    const suitTrait = asset.traits.find(
-      (trait) => trait.trait_type === "Suit" || trait.trait_type === "Color"
-    );
-
-    if (!suitTrait || !valueTrait) {
-      return asset;
-    }
-
-    const card = await getCardByTraits({
-      deck: contract.deck._id.toString(),
-      suit: suitTrait.value.toLowerCase(),
-      value: valueTrait.value.toLowerCase(),
-    }).catch(() => null);
-
-    return { ...asset, card };
   };
 
-// const getOnSale = async (
-//   primary_asset_contracts: GQL.PrimaryAssetContract[],
-//   slug: string
-// ) => {
-//   if (!primary_asset_contracts[0] || !primary_asset_contracts[0].address) {
-//     return;
-//   }
-
-//   const onSale = async (assets: Nft[]) => {
-//     return assets
-//       .filter(
-//         ({ identifier, seaport_sell_orders }) => token_id && seaport_sell_orders
-//       )
-//       .map((item) => item.seaport_sell_orders)
-//       .flat().length;
-//   };
-
-//   return primary_asset_contracts.reduce<Promise<number> | number>(
-//     async (prev, { address }) => {
-//       if (!address) {
-//         return prev;
-//       }
-
-//       const assets = await getAssets(address, slug);
-
-//       return (await prev) + (await onSale(assets));
-//     },
-//     0
-//   );
-// };
-
-export const signatureValid = (address: string, signature: string) =>
-  address.toLowerCase() ===
-  recoverPersonalSignature({
-    data: signatureMessage,
-    signature,
-  }).toLowerCase();
+/**
+ * Get holder statistics for a deck
+ */
+const getHolders = async (deck: string) => {
+  return openSeaService.calculateHolders(getContract, deck);
+};
 
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
@@ -653,45 +54,34 @@ export const resolvers: GQL.Resolvers = {
     on_sale: ({ on_sale }) => on_sale,
   },
   Query: {
-    opensea: async (_, { deck, slug }) => {
+    opensea: async (_, { deck, slug }): Promise<GQL.Opensea> => {
       if (!deck && !slug) {
-        return;
+        throw new ApolloError({
+          errorMessage: "Either deck or slug must be provided",
+        });
       }
+
       const contract = deck
         ? await getContract({ deck })
         : await getContract({
             deck: (await getDeck({ slug: slug as string }))._id,
           });
 
-      const response = await (
-        await fetch(
-          `https://api.opensea.io/api/v2/collections/${contract.name}/stats`,
-          { headers: { "X-API-KEY": OPENSEA_KEY } }
-        )
-      ).json();
+      // Use OpenSeaClient for API calls
+      const [stats, collection, listings] = await Promise.all([
+        openSeaClient.getCollectionStats(contract.name),
+        openSeaClient.getCollection(contract.name),
+        getListings({}),
+      ]);
 
-      const collection = await (
-        await fetch(
-          `https://api.opensea.io/api/v2/collections/${contract.name}`,
-          {
-            headers: { "X-API-KEY": OPENSEA_KEY },
-          }
-        )
-      ).json();
-
-      const listings = await getListings({});
-
-      const res = {
-        ...response.total,
-        // volume: response.total.volume,
-        // num_owners: response.total.num_owners,
-        // floor_price: response.total.floor_price,
+      return {
+        volume: stats.total.volume,
+        floor_price: stats.total.floor_price,
+        num_owners: String(stats.total.num_owners),
         total_supply: collection.total_supply,
-        on_sale: listings.length,
+        on_sale: String(listings.length),
         id: contract.name,
       };
-
-      return res;
     },
     ownedAssets: async (_, { deck, address, signature }) => {
       if (!signatureValid(address, signature)) {
@@ -700,7 +90,7 @@ export const resolvers: GQL.Resolvers = {
         });
       }
 
-      const contracts = await getContracts({ deck: deck });
+      const contracts = await getContracts({ deck });
 
       if (!contracts) {
         return [];
