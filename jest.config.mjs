@@ -11,6 +11,7 @@ const config = {
   // Add more setup options before each test is run
   setupFilesAfterEnv: ["./jest/jest.setup.ts"],
   setupFiles: ["./jest/jest.polyfils.ts"],
+  testEnvironment: "jsdom",
   testEnvironmentOptions: {
     customExportConditions: [""],
   },

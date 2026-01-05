@@ -1,5 +1,11 @@
 import { server } from "./node";
 
+// Configure React 19 act environment
+declare global {
+  var IS_REACT_ACT_ENVIRONMENT: boolean;
+}
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+
 beforeAll(() => {
   // Enable API mocking before all the tests.
   server.listen();
