@@ -4,7 +4,7 @@ import { getCard, getCards } from "./card";
 
 export { Content, type MongoContent };
 
-const getDailyCard = async () => {
+const getDailyCard = async (): Promise<GQL.Card> => {
   const content = await Content.findOne({ key: "dailyCard" });
 
   const { date, cardId } = (content ? content.data : {}) as {
@@ -45,7 +45,9 @@ const getDailyCard = async () => {
     return newCard;
   }
 
-  return getCard({ id: cardId });
+  // cardId is guaranteed to exist at this point
+  const card = await getCard({ id: cardId });
+  return card as GQL.Card;
 };
 
 export const resolvers: GQL.Resolvers = {

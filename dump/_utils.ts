@@ -68,7 +68,7 @@ export const createDeck = async (
       )
     ).map((card) => card._id);
 
-    ids.map((_id) => {
+    ids.forEach((_id) => {
       if (!_id) {
         throw new Error(
           `Cannot reference Card: ${JSON.stringify(
@@ -78,7 +78,7 @@ export const createDeck = async (
       }
     });
 
-    previewCards = ids;
+    previewCards = ids.filter((id): id is string => id !== undefined);
   }
 
   await Deck.updateOne({ _id: newDeck._id }, { previewCards });
