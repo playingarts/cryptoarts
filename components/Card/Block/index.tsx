@@ -1,6 +1,7 @@
 import { FC, Fragment } from "react";
-import { OwnedCard } from "../../../pages/old/[deckId]";
 import { breakpoints } from "../../../source/enums";
+
+export type OwnedCard = { value: string; suit: string; identifier: string };
 import Arrowed from "../../Arrowed";
 import Card from "../../Card";
 import Grid, { Props as GridProps } from "../../Grid";
