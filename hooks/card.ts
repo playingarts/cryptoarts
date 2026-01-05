@@ -1,163 +1,29 @@
 import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
+import {
+  CardFragment,
+  CardBasicFragment,
+  CardWithSlugsFragment,
+  ArtistFragment,
+  SocialFragment,
+  ERC1155Fragment,
+} from "./fragments";
 
 export const CardsQuery = gql`
+  ${CardFragment}
+
   query Cards($deck: ID, $losers: Boolean, $edition: String) {
     cards(deck: $deck, losers: $losers, edition: $edition) {
-      _id
-      img
-      video
-      info
-      background
-      cardBackground
-      value
-      suit
-      edition
-      erc1155 {
-        contractAddress
-        token_id
-      }
-      price
-      animator {
-        name
-        userpic
-        info
-        country
-        website
-        slug
-        podcast {
-          image
-          youtube
-          spotify
-          apple
-          episode
-        }
-        social {
-          website
-          instagram
-          facebook
-          twitter
-          behance
-          dribbble
-          foundation
-          superrare
-          makersplace
-          knownorigin
-          rarible
-          niftygateway
-          showtime
-        }
-      }
-      artist {
-        name
-        userpic
-        info
-        country
-        website
-        slug
-        podcast {
-          image
-          youtube
-          spotify
-          apple
-          episode
-        }
-        social {
-          website
-          instagram
-          facebook
-          twitter
-          behance
-          dribbble
-          foundation
-          superrare
-          makersplace
-          knownorigin
-          rarible
-          niftygateway
-          showtime
-        }
-      }
+      ...CardFragment
     }
   }
 `;
 
 export const CardQuery = gql`
+  ${CardFragment}
+
   query Card($id: ID, $slug: String, $deckSlug: String) {
     card(id: $id, slug: $slug, deckSlug: $deckSlug) {
-      _id
-      img
-      video
-      info
-      background
-      cardBackground
-      value
-      suit
-      edition
-      erc1155 {
-        contractAddress
-        token_id
-      }
-      price
-      animator {
-        name
-        userpic
-        info
-        country
-        website
-        slug
-        podcast {
-          image
-          youtube
-          spotify
-          apple
-          episode
-        }
-        social {
-          website
-          instagram
-          facebook
-          twitter
-          behance
-          dribbble
-          foundation
-          superrare
-          makersplace
-          knownorigin
-          rarible
-          niftygateway
-          showtime
-        }
-      }
-      artist {
-        name
-        userpic
-        info
-        country
-        website
-        slug
-        podcast {
-          image
-          youtube
-          spotify
-          apple
-          episode
-        }
-        social {
-          website
-          instagram
-          facebook
-          twitter
-          behance
-          dribbble
-          foundation
-          superrare
-          makersplace
-          knownorigin
-          rarible
-          niftygateway
-          showtime
-        }
-      }
+      ...CardFragment
     }
   }
 `;
@@ -180,27 +46,21 @@ export const RandomCardsQueryWithoutDeck = gql`
 `;
 
 export const RandomCardsQuery = gql`
+  ${CardBasicFragment}
+
   query RandomCards($deck: ID, $limit: Int) {
     cards(deck: $deck, limit: $limit, shuffle: true) {
-      _id
-      img
-      video
+      ...CardBasicFragment
     }
   }
 `;
 
 export const RandomCardsWithInfoQuery = gql`
+  ${CardWithSlugsFragment}
+
   query RandomCards($deck: ID, $limit: Int) {
     cards(deck: $deck, limit: $limit, shuffle: true) {
-      _id
-      img
-      video
-      deck {
-        slug
-      }
-      artist {
-        slug
-      }
+      ...CardWithSlugsFragment
     }
   }
 `;
@@ -245,6 +105,8 @@ export const DailyCardQuery = gql`
 `;
 
 export const HeroCardsQuery = gql`
+  ${ERC1155Fragment}
+
   query HeroCards($deck: ID, $slug: String) {
     heroCards(deck: $deck, slug: $slug) {
       _id
@@ -256,8 +118,7 @@ export const HeroCardsQuery = gql`
       suit
       edition
       erc1155 {
-        contractAddress
-        token_id
+        ...ERC1155Fragment
       }
       price
       deck {
