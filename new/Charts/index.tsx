@@ -10,7 +10,6 @@ import {
 } from "react";
 import { breakpoints } from "../../source/enums";
 import { useSize } from "../SizeProvider";
-import Text from "../../components/Text";
 import ColumnChart, { Props as ColumnChartProps } from "./ColumnChart";
 import LineChart, { Props as LineChartProps } from "./LineChart";
 import PieChart from "./PieChart";
@@ -99,10 +98,9 @@ const Charts: FC<Props> = ({
       />
       {width >= breakpoints.sm && (
         <div css={{ position: "fixed", top: 0, left: 0 }}>
-          <Text
-            variant="h6"
-            component="div"
+          <div
             css={(theme) => ({
+              ...theme.typography.h6,
               position: "absolute",
               background: theme.colors.white,
               borderRadius: theme.spacing(0.5),
@@ -122,7 +120,7 @@ const Charts: FC<Props> = ({
             }}
           >
             {data && <TooltipFormatter {...data} />}
-          </Text>
+          </div>
         </div>
       )}
     </Fragment>

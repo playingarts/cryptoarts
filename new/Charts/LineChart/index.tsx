@@ -8,7 +8,6 @@ import {
   Fragment,
 } from "react";
 import { ChartProps } from "..";
-import Text from "../../../components/Text";
 
 export interface Props extends HTMLAttributes<HTMLDivElement>, ChartProps {
   severity?: number;
@@ -130,9 +129,9 @@ const LineChart: FC<Props> = ({
                   : { width: width / (dataPoints.length - 1) / 2 }
               }
             >
-              <Text
-                variant="h6"
-                css={[
+              <div
+                css={(theme) => [
+                  theme.typography.h6,
                   {
                     margin: 0,
                     opacity: 0.5,
@@ -148,7 +147,7 @@ const LineChart: FC<Props> = ({
                 ]}
               >
                 <LabelFormatter name={name} />
-              </Text>
+              </div>
             </li>
           );
         })}

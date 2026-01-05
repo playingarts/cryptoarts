@@ -1,5 +1,4 @@
 import { FC, HTMLAttributes } from "react";
-import ComposedStats from "../../../../components/_composed/Stats";
 import { useOpensea } from "../../../../hooks/opensea";
 import Grid from "../../../Grid";
 import Intro from "../../../Intro";
