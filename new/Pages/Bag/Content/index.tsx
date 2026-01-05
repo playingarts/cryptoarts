@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import Text from "../../../Text";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import { useProducts } from "../../../../hooks/product";

@@ -2,7 +2,7 @@ import { FC, HTMLAttributes } from "react";
 import { useOpensea } from "../../../../../hooks/opensea";
 import Text from "../../../../Text";
 import ScandiBlock from "../../../../ScandiBlock";
-import Charts from "../../../../../components/Charts";
+import Charts from "../../../../Charts";
 
 const Supply: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { opensea } = useOpensea({ variables: { slug: "crypto" } });

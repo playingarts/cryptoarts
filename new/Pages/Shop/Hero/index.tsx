@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes, useEffect } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Button";
 import ArrowButton from "../../../Buttons/ArrowButton";

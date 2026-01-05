@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes, useState } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import ShadertoyReact from "shadertoy-react";
 import frag from "../../../../Shaders/Xemantic/index.glsl";
 import ScandiBlock from "../../../ScandiBlock";
@@ -10,7 +10,7 @@ import Apple from "../../../Icons/Apple";
 import Android from "../../../Icons/Android";
 import AR from "../../../../mocks/images/AR.png";
 import Zoom from "../../../Zoom";
-import { useSize } from "../../../../components/SizeProvider";
+import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
 
 const Presentation = () => {

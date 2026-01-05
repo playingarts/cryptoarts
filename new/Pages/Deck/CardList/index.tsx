@@ -1,11 +1,11 @@
 import { FC, Fragment, HTMLAttributes, memo, useEffect, useState } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
 import { useCards } from "../../../../hooks/card";
 import { useRouter } from "next/router";
 import Card from "../../../Card";
-import { useSize } from "../../../../components/SizeProvider";
+import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
 import Dot from "../../../Icons/Dot";
 import background from "../../../../mocks/images/backgroundImage.png";

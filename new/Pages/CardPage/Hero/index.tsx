@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import { useRouter } from "next/router";
 import Card from "../../../Card";
 import { useCard } from "../../../../hooks/card";

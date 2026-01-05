@@ -5,7 +5,7 @@ import Youtube from "../../Icons/Youtube";
 import { socialLinks } from "../../../source/consts";
 import ArrowButton from "../../Buttons/ArrowButton";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
-import { useSize } from "../../../components/SizeProvider";
+import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
 import Button from "../../Buttons/Button";
 import Bag from "../../Icons/Bag";

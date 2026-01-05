@@ -1,5 +1,5 @@
 import Card from "../../../../Card";
-import { useSize } from "../../../../../components/SizeProvider";
+import { useSize } from "../../../../SizeProvider";
 import { breakpoints } from "../../../../../source/enums";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { useHomeCards } from "../../../../../hooks/card";

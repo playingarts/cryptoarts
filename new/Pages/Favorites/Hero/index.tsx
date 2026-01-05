@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 import Text from "../../../Text";
 import favImg from "../../../../mocks/images/Favorites/PlayingArts_3Clubs_Final 1.png";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import { useFavorites } from "../../../Contexts/favorites";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {

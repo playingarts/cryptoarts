@@ -4,7 +4,7 @@ import Button from "../../Buttons/Button";
 import ArrowNav from "./ArrowNav";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { FC, HTMLAttributes, ReactNode } from "react";
-import { useSize } from "../../../components/SizeProvider";
+import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
 
 export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({

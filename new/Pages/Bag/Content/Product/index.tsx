@@ -1,5 +1,5 @@
 import { FC, FormEvent, HTMLAttributes } from "react";
-import Grid from "../../../../../components/Grid";
+import Grid from "../../../../Grid";
 import Text from "../../../../Text";
 import Label from "../../../../Label";
 import Minus from "../../../../Icons/Minus";

@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import Grid from "../../../../../components/Grid";
+import Grid from "../../../../Grid";
 import Fastcompany from "../../../../Icons/Fastcompany";
 import CreativeBloq from "../../../../Icons/CreativeBloq";
 import DigitalArts from "../../../../Icons/DigitalArts";

@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes, useEffect, useState } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import Intro from "../../../Intro";
 import { useProducts } from "../../../../hooks/product";
 import Link from "../../../Link";

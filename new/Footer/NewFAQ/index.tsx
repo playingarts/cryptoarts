@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import Intro from "../../Intro";
 import ButtonTemplate from "../../Buttons/Button";
-import Grid from "../../../components/Grid";
+import Grid from "../../Grid";
 import Item from "./Item";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useRouter } from "next/router";

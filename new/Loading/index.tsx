@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import Grid from "../../components/Grid";
+import Grid from "../Grid";
 import Text from "../Text";
 
 interface Props extends HTMLAttributes<HTMLElement> {

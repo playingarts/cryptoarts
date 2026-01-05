@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import { useDailyCard } from "../../../../hooks/card";
 import image1 from "../../../../mocks/images/homeGallery/1.png";
 import image2 from "../../../../mocks/images/homeGallery/2.png";
@@ -11,7 +11,7 @@ import KickStarter from "../../../Icons/KickStarter";
 import ScandiBlock from "../../../ScandiBlock";
 import Text from "../../../Text";
 import background from "../../../../mocks/images/backgroundImage.png";
-import { useSize } from "../../../../components/SizeProvider";
+import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
 
 const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {

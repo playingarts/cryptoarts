@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes, useRef } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import { useRatings } from "../../../../hooks/ratings";
 import testimonialsImage from "../../../../mocks/images/gallery-thumbnail.png";
 import Dot from "../../../Icons/Dot";

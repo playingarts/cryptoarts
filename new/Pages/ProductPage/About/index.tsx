@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes, useEffect, useState } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 
 import image2 from "../../../../mocks/images/ShopCollection/photo-big-1.png";
 import image3 from "../../../../mocks/images/ShopCollection/photo-big-2.png";

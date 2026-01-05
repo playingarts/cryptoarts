@@ -1,7 +1,7 @@
 import { FC, Fragment, HTMLAttributes } from "react";
 import Intro from "../../../Intro";
 import ButtonTemplate from "../../../Buttons/Button";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import { usePodcasts } from "../../../../hooks/podcast";
 import Text from "../../../Text";
 import Play from "../../../Icons/Play";

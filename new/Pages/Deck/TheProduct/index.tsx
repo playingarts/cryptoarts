@@ -1,7 +1,7 @@
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { useProducts } from "../../../../hooks/product";
 import { useRouter } from "next/router";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";

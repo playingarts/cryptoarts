@@ -7,7 +7,7 @@ import {
   useEffect,
   useState,
 } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import { useDecks } from "../../../../hooks/deck";
 import ArrowedButton from "../../../Buttons/ArrowedButton";

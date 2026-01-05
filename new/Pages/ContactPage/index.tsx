@@ -1,6 +1,6 @@
 import { FC, useLayoutEffect, useState } from "react";
 import Head from "next/head";
-import Grid from "../../../components/Grid";
+import Grid from "../../Grid";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import Text from "../../Text";

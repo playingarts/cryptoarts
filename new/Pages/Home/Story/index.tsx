@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import Text from "../../../Text";
 import CardSmall from "./CardSmall";
 import ArrowedButton from "../../../Buttons/ArrowedButton";

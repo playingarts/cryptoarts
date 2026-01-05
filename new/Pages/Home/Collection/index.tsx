@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import { useProducts } from "../../../../hooks/product";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import Text from "../../../Text";
 import Dot from "../../../Icons/Dot";
 import CollectionItem from "./CollectionItem";

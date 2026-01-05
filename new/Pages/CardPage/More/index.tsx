@@ -3,7 +3,7 @@ import Intro from "../../../Intro";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
 import { useProducts } from "../../../../hooks/product";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import { useRouter } from "next/router";
 import { useDeck } from "../../../../hooks/deck";
 import { useCards } from "../../../../hooks/card";

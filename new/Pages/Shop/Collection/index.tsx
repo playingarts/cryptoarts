@@ -1,5 +1,5 @@
 import { FC, Fragment, HTMLAttributes } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import { useProducts } from "../../../../hooks/product";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import ArrowedButton from "../../../Buttons/ArrowedButton";

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { useDeck } from "../../../hooks/deck";
 import { colord } from "colord";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
-import { useSize } from "../../../components/SizeProvider";
+import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
 
 const TitleButton: FC<

@@ -6,7 +6,7 @@ import { useBag } from "../../../Contexts/bag";
 import SoldOut from "../../../Buttons/SoldOut";
 import AddToBag from "../../../Buttons/AddToBag";
 import ContinueShopping from "../../../Buttons/ContinueShopping";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const {

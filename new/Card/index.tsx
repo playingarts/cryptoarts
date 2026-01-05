@@ -12,7 +12,7 @@ import Text from "../Text";
 import AR from "../Icons/AR";
 import { Props as PaletteProps } from "../Pages/Deck/DeckPaletteContext";
 import { breakpoints } from "../../source/enums";
-import { useSize } from "../../components/SizeProvider";
+import { useSize } from "../SizeProvider";
 import { theme } from "../../pages/_app";
 import Star from "../Icons/Star";
 import Label from "../Label";

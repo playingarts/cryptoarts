@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Head from "next/head";
-import Grid from "../../../components/Grid";
+import Grid from "../../Grid";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";

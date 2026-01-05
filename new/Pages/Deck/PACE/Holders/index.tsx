@@ -6,7 +6,7 @@ import Spades from "../../../../Icons/Spades";
 import Hearts from "../../../../Icons/Hearts";
 import Clubs from "../../../../Icons/Clubs";
 import Diamonds from "../../../../Icons/Diamonds";
-import Charts from "../../../../../components/Charts";
+import Charts from "../../../../Charts";
 
 const temp: { [x: string]: number } = {
   wallets: 1483,

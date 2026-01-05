@@ -1,5 +1,5 @@
 import { FC, HTMLAttributes, JSX } from "react";
-import Grid from "../../components/Grid";
+import Grid from "../Grid";
 import ArrowedButton from "../Buttons/ArrowedButton";
 import Dot from "../Icons/Dot";
 import ScandiBlock from "../ScandiBlock";

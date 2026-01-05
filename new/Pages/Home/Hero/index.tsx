@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Grid from "../../../../components/Grid";
+import Grid from "../../../Grid";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import ExploreButton from "../../../Buttons/ExploreButton";
 import Text from "../../../Text";

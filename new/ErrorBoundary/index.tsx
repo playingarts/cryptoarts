@@ -1,5 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from "react";
-import Grid from "../../components/Grid";
+import Grid from "../Grid";
 import Text from "../Text";
 import ArrowButton from "../Buttons/ArrowButton";
 import { logger } from "../../source/lib/appLogger";

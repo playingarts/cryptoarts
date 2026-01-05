@@ -1,6 +1,6 @@
 import { colord } from "colord";
 import { FC, HTMLAttributes, ReactNode, useEffect, useState } from "react";
-import Grid from "../../components/Grid";
+import Grid from "../Grid";
 import ScandiBlock from "../ScandiBlock";
 import CTA from "./CTA";
 import Middle, { PageNav } from "./Middle";
@@ -8,7 +8,7 @@ import TitleButton from "./TitleButton";
 import MenuPortal from "./MainMenu/MenuPortal";
 import MainMenu from "./MainMenu";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
-import { useSize } from "../../components/SizeProvider";
+import { useSize } from "../SizeProvider";
 import { breakpoints } from "../../source/enums";
 
 export interface Props extends HTMLAttributes<HTMLElement> {
