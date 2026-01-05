@@ -2,22 +2,21 @@ import {
   createContext,
   FC,
   HTMLAttributes,
+  useCallback,
   useContext,
-  useEffect,
-  useState,
 } from "react";
-import store from "store";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
-type view = {
+type ViewedCard = {
   value?: string;
   suit?: string;
   deckSlug?: string;
 };
 
 interface Props {
-  viewed: view[];
-  addViewed: (props: view) => void;
-  exists: (props: view) => boolean;
+  viewed: ViewedCard[];
+  addViewed: (props: ViewedCard) => void;
+  exists: (props: ViewedCard) => boolean;
 }
 
 export const ViewedContext = createContext({} as Props);
@@ -29,27 +28,39 @@ export const useViewed = () => {
 export const ViewedProvider: FC<HTMLAttributes<HTMLElement>> = ({
   children,
 }) => {
-  const [viewed, setViewed] = useState(
-    (store.get("viewed") as Props["viewed"]) || []
+  const [storedViewed, setViewed] = useLocalStorage<ViewedCard[]>("viewed", []);
+
+  // Use empty array while loading from localStorage
+  const viewed = storedViewed ?? [];
+
+  const exists = useCallback(
+    ({ value, suit, deckSlug }: ViewedCard) =>
+      viewed.findIndex(
+        (item) =>
+          item.value === value &&
+          item.suit === suit &&
+          item.deckSlug === deckSlug
+      ) !== -1,
+    [viewed]
   );
 
-  const exists = ({ value, suit, deckSlug }: view) =>
-    viewed.findIndex(
-      (item) =>
-        item.value === value && item.suit === suit && item.deckSlug === deckSlug
-    ) !== -1;
+  const addViewed = useCallback(
+    (props: ViewedCard) => {
+      const alreadyExists = viewed.findIndex(
+        (item) =>
+          item.value === props.value &&
+          item.suit === props.suit &&
+          item.deckSlug === props.deckSlug
+      ) !== -1;
 
-  const addViewed = (props: view) => {
-    if (exists(props)) {
-      return;
-    }
+      if (alreadyExists) {
+        return;
+      }
 
-    setViewed((prev) => [...prev, props]);
-  };
-
-  useEffect(() => {
-    store.set("viewed", viewed);
-  }, [viewed]);
+      setViewed((prev) => [...prev, props]);
+    },
+    [viewed, setViewed]
+  );
 
   return (
     <ViewedContext.Provider

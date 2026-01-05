@@ -1,43 +1,31 @@
-import { createStore, useStore } from "react-hookstore";
-import store from "store";
-
-if (!store.get("bag")) {
-  store.set("bag", {} as Record<string, number>);
-}
-
-createStore("bag", store.get("bag"));
+import { useLocalStorage } from "./useLocalStorage";
 
 export const useBag = () => {
-  const [bag, setBag] = useStore<Record<string, number>>("bag");
+  const [bag, setBag] = useLocalStorage<Record<string, number>>("bag", {});
+
+  // Use empty object while loading from localStorage
+  const currentBag = bag ?? {};
 
   const addItem = (_id: string, quantity?: number) => {
-    const exitingQuantity = bag[_id] || 0;
+    const existingQuantity = currentBag[_id] || 0;
 
-    const newBag = {
-      ...bag,
-      [_id]: quantity || exitingQuantity + 1,
-    };
-
-    setBag(newBag);
-    store.set("bag", newBag);
+    setBag({
+      ...currentBag,
+      [_id]: quantity ?? existingQuantity + 1,
+    });
   };
 
   const updateQuantity = (_id: string, newQuantity: number) => {
-    const newBag = {
-      ...bag,
+    setBag({
+      ...currentBag,
       [_id]: newQuantity,
-    };
-
-    setBag(newBag);
-    store.set("bag", newBag);
+    });
   };
 
   const removeItem = (_id: string) => {
-    const { [_id]: _, ...newBag } = bag;
-
+    const { [_id]: _, ...newBag } = currentBag;
     setBag(newBag);
-    store.set("bag", newBag);
   };
 
-  return { bag, addItem, updateQuantity, removeItem };
+  return { bag: currentBag, addItem, updateQuantity, removeItem };
 };

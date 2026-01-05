@@ -6,9 +6,8 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
 } from "react";
-import store from "store";
+import { useLocalStorage } from "../../hooks/useLocalStorage";
 
 type StoredSignature = {
   account?: string;
@@ -34,24 +33,29 @@ export const SignatureProvider: FC<HTMLAttributes<HTMLElement>> = ({
 }) => {
   const { ethereum, account } = useMetaMask();
 
-  const [storedSigs, setSignatures] = useState(
-    store.get("signatures", []) as StoredSignature[]
+  const [storedSigs, setSignatures] = useLocalStorage<StoredSignature[]>(
+    "signatures",
+    []
   );
+
+  // Use empty array while loading from localStorage
+  const signatures = storedSigs ?? [];
 
   const getSig = useCallback(() => {
     try {
-      return storedSigs.find((sig) => sig.account === account);
-    } catch (e) {
+      return signatures.find((sig) => sig.account === account);
+    } catch {
       setSignatures([]);
+      return undefined;
     }
-  }, [storedSigs, account]);
+  }, [signatures, account, setSignatures]);
 
   const removeSig = useCallback(() => {
     setSignatures((prev) => [...prev.filter((sig) => sig.account !== account)]);
   }, [setSignatures, account]);
 
-  const askSig = () => {
-    const currentSig = getSig();
+  const askSig = useCallback(() => {
+    const currentSig = signatures.find((sig) => sig.account === account);
     if (
       !account ||
       (currentSig && (currentSig.signature || currentSig.signing))
@@ -85,24 +89,26 @@ export const SignatureProvider: FC<HTMLAttributes<HTMLElement>> = ({
           { account, signing: false },
         ])
       );
-  };
+  }, [account, ethereum, signatures, setSignatures]);
 
+  // Reset signing state on mount
   useEffect(() => {
-    setSignatures((prev) => prev.map((sig) => ({ ...sig, signing: false })));
-  }, []);
+    if (storedSigs !== undefined) {
+      setSignatures((prev) => prev.map((sig) => ({ ...sig, signing: false })));
+    }
+  }, [storedSigs !== undefined]);
 
+  // Request signature when account changes
   useEffect(() => {
-    askSig();
-  }, [account]);
-
-  useEffect(() => {
-    store.set("signatures", storedSigs);
-  }, [storedSigs]);
+    if (storedSigs !== undefined) {
+      askSig();
+    }
+  }, [account, storedSigs !== undefined]);
 
   return (
     <SignatureContext.Provider
       value={{
-        storedSigs,
+        storedSigs: signatures,
         getSig,
         askSig,
         removeSig,

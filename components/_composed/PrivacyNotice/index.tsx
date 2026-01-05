@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
-import store from "store";
+import { FC, HTMLAttributes } from "react";
 import { breakpoints } from "../../../source/enums";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import Cross from "../../Icons/Cross";
 import Link from "../../Link";
 import { useSize } from "../../SizeProvider";
@@ -10,17 +10,16 @@ import { colord } from "colord";
 const privacyDate = process.env.NEXT_PUBLIC_PRIVACY_DATE || "test";
 
 const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
-  const [privacyStatus, setPrivacyStatus] = useState(privacyDate);
+  const [privacyStatus, setPrivacyStatus] = useLocalStorage<string>(
+    "privacy",
+    ""
+  );
 
   const { width } = useSize();
 
   const {
     query: { artistId, deckId },
   } = useRouter();
-
-  useEffect(() => {
-    setPrivacyStatus(store.get("privacy", "") as string);
-  }, []);
 
   return privacyStatus === privacyDate ? null : (
     <div
@@ -105,7 +104,6 @@ const PrivacyNotice: FC<HTMLAttributes<HTMLElement>> = () => {
         <div
           onClick={() => {
             setPrivacyStatus(privacyDate);
-            store.set("privacy", privacyDate);
           }}
           css={[
             {
