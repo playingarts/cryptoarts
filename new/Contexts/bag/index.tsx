@@ -9,21 +9,13 @@ import {
 } from "react";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
-type PriceType<T extends boolean | undefined> = T extends true
-  ? { return: number }
-  : { return: string };
-
 const STORAGE_KEY = "cryptoarts:bag";
 
 export interface Props {
-  getPrice: {
-    <T extends boolean | undefined>(
-      ...args: [{ eur: number; usd: number } | number, T]
-    ): PriceType<T>["return"];
-    (
-      ...args: [{ eur: number; usd: number } | number, undefined?]
-    ): PriceType<undefined>["return"];
-  };
+  getPrice: (
+    price: { eur: number; usd: number } | number,
+    raw?: boolean
+  ) => string | number;
   getBag: () => Record<string, number>;
   addItem: (_id: string, quantity?: number) => void;
   updateQuantity: (_id: string, newQuantity: number) => void;
@@ -45,8 +37,8 @@ export const IsEuropeProvider: FC<HTMLAttributes<HTMLElement>> = ({
 
   const getBag = useCallback(() => bag ?? {}, [bag]);
 
-  const getPrice: Props["getPrice"] = useCallback(
-    (price: { eur: number; usd: number } | number, raw?: boolean) => {
+  const getPrice = useCallback(
+    (price: { eur: number; usd: number } | number, raw?: boolean): string | number => {
       const actprice =
         typeof price !== "number" ? price[isEurope ? "eur" : "usd"] : price;
 
