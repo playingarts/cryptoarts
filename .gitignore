@@ -45,3 +45,6 @@ tsconfig.tsbuildinfo
 /dump/deals-real-old.json
 *storybook.log
 .env*.local
+
+# Claude Code
+CLAUDE.md
