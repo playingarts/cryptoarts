@@ -14,6 +14,7 @@ import { Content } from "./content";
 import * as crypto from "crypto";
 import { Listing, getListings } from "./listing";
 import { getDeck } from "./deck";
+import { logger, OpenSeaError } from "../../lib/appLogger";
 
 const {
   NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
@@ -201,7 +202,7 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           // console.error("Failed to get OpenSea Owner:", error);
 
           if (restartCount >= 10) {
-            console.log("Restarted more than 10 times, dropping queue");
+            logger.warn("OpenSea NFT fetch: Restarted more than 10 times, dropping queue");
 
             await Content.deleteMany({
               key: "queue",
@@ -370,10 +371,10 @@ export const getAssetsRaw: (hash: string) => void = async (hash) => {
           // }
           // console.error("Request was throttled while fetching assets");
         } else {
-          console.error("Failed to get OpenSea Assets:", error);
+          logger.error("Failed to get OpenSea Assets", error, { restartCount });
 
           if (restartCount >= 10) {
-            console.log("Restarted more than 10 times, dropping queue");
+            logger.warn("OpenSea asset fetch: Restarted more than 10 times, dropping queue");
 
             await Content.deleteMany({
               key: "queue",
