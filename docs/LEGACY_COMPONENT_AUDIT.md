@@ -2,108 +2,105 @@
 
 **Date**: January 5, 2026
 **Branch**: `refactor/structural-improvements`
+**Last Updated**: After Step 5+6 cleanup
 
 ## Summary
 
-- **Total Components in `/components/`**: 45 (excluding `_composed/`)
-- **Used**: 32 (71%)
-- **Unused**: 13 (29%)
+- **Files Removed**: 40 files (7,581 lines)
+- **Remaining Legacy Components**: ~25 (some still needed by active pages)
 
 ---
 
-## UNUSED COMPONENTS (Safe to Remove)
+## REMOVED (Step 5+6)
 
-These components have no production imports - only Storybook stories:
+### Removed Pages (`/pages/old/`)
+- `[deckId].tsx`
+- `[deckId]/[artistId].tsx`
+- `[deckId]/contest/[artistId].tsx`
+- `bag.tsx`
+- `index.tsx`
+- `shop.tsx`
 
-| Component | Notes |
-|-----------|-------|
-| `AllEntriesBlock` | Only in story file |
-| `AllEntriesCard` | Only in story file |
-| `Arrowed` | Only in story file |
-| `Carousel` | Only in story file |
-| `EmailForm` | Only in story file (new version exists in `/new/`) |
-| `Faq` | Only in story file (composed version used) |
-| `FaqItem` | Only in story file |
-| `LatestRelease` | Only in story file |
-| `Loader` | Only in story file |
-| `MetamaskButton` | Only in story file |
-| `Nav` | Only in story file |
-| `NFTHolder` | Only in story file |
-| `Roadmap` | Only in story file |
-| `Select` | No imports found |
-| `Stat` | Only in story file |
-| `StoreButtons` | Only in story file |
-| `Truncate` | No imports found |
+### Removed Base Components (6)
+- `AllEntriesBlock/`
+- `AllEntriesCard/`
+- `LatestRelease/`
+- `NFTHolder/`
+- `Roadmap/`
+- `Select/`
+
+### Removed `_composed/` Components (14)
+- `ArtContest/`
+- `BrowseCollection/`
+- `CardBlock/`
+- `CardContent/`
+- `CardOfTheDay/`
+- `ComposedCardList/`
+- `ComposedEntries/`
+- `ComposedMainHero/`
+- `ComposedRoadmap/`
+- `Gallery/`
+- `GamePromo/`
+- `Holders/`
+- `Pace/`
+- `Supply/`
 
 ---
 
-## USED COMPONENTS
+## RETAINED COMPONENTS
 
-### Core Layout (Used by `/new/`)
-- `Grid` - Heavily used across entire codebase
-- `SizeProvider` - Used in `_app.tsx` and many components
-- `Icons/*` - Various icons used throughout
+### Still Used by Active Pages
+These legacy components are still imported by active pages (`privacy.tsx`, `contact.tsx`, `404.tsx`, `shop/crypto.tsx`) or `/new/`:
 
-### Used by Legacy Pages Only (`/pages/old/`)
-These will become unused after Step 6 removes `/pages/old/`:
-
-- `AddToBagButton`
-- `AugmentedReality` (old version)
-- `BagButton`
-- `BlockTitle`
-- `Card` (old version)
-- `CrazyAcesBanner`
-- `DeckBlock`
-- `DeckNav`
-- `EurToUsd`
-- `Hero` (old version)
-- `Line`
-- `Link` (old version)
-- `Modal`
-- `Quote`
-- `ScrollArrow`
-- `ScrollIntoView`
-- `SelectButton`
-- `Shop/*` (CheckoutItem, Item, Sheets, SoldOut, Bundle)
-- `StatBlock`
-- `Text` (old version)
-
-### Used by Active Pages
-- `Button` - Used in `privacy.tsx`, `contact.tsx`, `404.tsx`, and `/new/`
+**Base Components:**
+- `Arrowed` - Used by Quote, StatBlock
+- `Button` - Used by active pages and `/new/`
+- `Card` - Used by `404.tsx` and `/new/`
+- `Carousel` - Used by ModalMenu
 - `Charts` - Used by `/new/Pages/Deck/PACE/`
-- `Footer` - Used by `_composed/GlobalLayout`
-- `Header` - Used by `_composed/GlobalLayout`
-- `Layout` - Used by `privacy.tsx`, `contact.tsx`, `404.tsx`
+- `EmailForm` - Used by ModalMenu, Shop/SoldOut
+- `Faq` - Used by `_composed/Faq`
+- `FaqItem` - Used by Faq
+- `Footer` - Used by GlobalLayout
+- `Grid` - Core layout, heavily used
+- `Header` - Used by GlobalLayout
+- `Icons/*` - Various icons used throughout
+- `Layout` - Used by active pages
+- `Loader` - Used by Button, Card
+- `MetamaskButton` - Used by Header
+- `Nav` - Used by Header, ModalMenu
+- `Quote` - Used by GlobalLayout
+- `SizeProvider` - Core provider
+- `Stat` - Used by `_composed/Stats`
+- `StatBlock` - Used by Stats, Podcast, etc.
+- `StoreButtons` - Used by AugmentedReality, ModalMenu
+- `Truncate` - Used by Quote
+
+**Retained `_composed/` Components:**
+- `BlockWithProperties/` - Used by DeckBlock
+- `ComposedHeader/` - Used by GlobalLayout
+- `ComposedMain/` - Used by `shop/crypto.tsx`
+- `Faq/` - Used by `shop/crypto.tsx`, `contact.tsx`
+- `GlobalLayout/` - Used by `privacy.tsx`, `contact.tsx`, `404.tsx`, `shop/crypto.tsx`
+- `ModalMenu/` - Used by Header, Footer
+- `Podcast/` - Used by Card/Block
+- `PodcastAndSocials/` - Used by `shop/crypto.tsx`
+- `PrivacyNotice/` - Used by GlobalLayout
+- `Stats/` - Used by `/new/Pages/Deck/PACE/`
 
 ---
 
-## Recommendations
+## Next Steps (Step 7)
 
-### Step 5: Remove These Unused Components
-```
-components/AllEntriesBlock/
-components/AllEntriesCard/
-components/Arrowed/
-components/Carousel/
-components/EmailForm/
-components/Faq/
-components/FaqItem/
-components/LatestRelease/
-components/Loader/
-components/MetamaskButton/
-components/Nav/
-components/NFTHolder/
-components/Roadmap/
-components/Select/
-components/Stat/
-components/StoreButtons/
-components/Truncate/
-```
+### Potential Future Cleanup
+When active pages migrate to `/new/` components, these will become removable:
+- `AugmentedReality` (has `/new/` replacement)
+- `Button` (has `/new/Buttons/Button/` replacement)
+- `Card` (partially duplicated in `/new/`)
+- `Text` (has `/new/Text/` replacement)
+- Many `_composed/` components
 
-### Step 6: After Removing `/pages/old/`
-Re-audit to identify additional unused components.
-
-### Future Consideration
-- `Button` has a `/new/Buttons/Button/` replacement
-- `Text` has a `/new/Text/` replacement
-- Many Icons have `/new/Icons/` replacements
+### Remaining Work
+1. Consolidate shared utilities between `/components/` and `/new/`
+2. Migrate remaining active legacy pages to use `/new/` patterns
+3. Final cleanup of legacy components after migration
