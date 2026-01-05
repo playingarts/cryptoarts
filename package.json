@@ -22,6 +22,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "jest --watch",
+    "test:smoke": "jest --testPathPattern=smoke --runInBand --no-cache",
     "testManual": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./__tests__/index",
     "testOpensea": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./__tests__/test",
     "buildIconsStories": "ts-node --transpile-only -r dotenv/config -O '{\"module\":\"commonjs\"}' ./components/Icons/a.iconsscript.ts",
