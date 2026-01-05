@@ -3,7 +3,9 @@ import { NextApiHandler } from "next";
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 const isValidEmail = (email: string): boolean => {
-  if (email.length > 254) return false;
+  if (email.length > 254) {
+    return false;
+  }
   return emailRegex.test(email);
 };
 
