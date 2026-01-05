@@ -13,6 +13,7 @@ export const colorLiterals = {
   spaceBlack: "#292929",
   cryptoCardBg: "#181818",
   violet: "#E3E4F4",
+  black10: "#0000001A",
   black30: "#0000004D",
   black50: "#00000080",
   accent: "#6A5ACD",
