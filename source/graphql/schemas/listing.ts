@@ -1,26 +1,7 @@
 import { gql } from "@apollo/client";
-import { model, Model, models, Schema } from "mongoose";
+import { Listing } from "../../models";
 
-const schema = new Schema<GQL.Listing, Model<GQL.Listing>, GQL.Listing>({
-  price: {
-    current: {
-      value: String,
-    },
-  },
-  protocol_data: {
-    parameters: {
-      offer: [
-        {
-          token: String,
-          identifierOrCriteria: String,
-        },
-      ],
-    },
-  },
-});
-
-export const Listing =
-  (models.Listing as Model<GQL.Listing>) || model("Listing", schema);
+export { Listing };
 
 export const getListings = async ({
   addresses,

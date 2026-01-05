@@ -1,18 +1,7 @@
 import { gql } from "@apollo/client";
-import { model, Model, models, Schema, Types } from "mongoose";
+import { Contract, type MongoContract } from "../../models";
 
-export type MongoContract = Omit<GQL.Contract, "deck"> & {
-  deck?: string;
-};
-
-const schema = new Schema<MongoContract, Model<MongoContract>, MongoContract>({
-  name: String,
-  address: String,
-  deck: { type: Types.ObjectId, ref: "Deck" },
-});
-
-export const Contract =
-  (models.Contract as Model<MongoContract>) || model("Contract", schema);
+export { Contract, type MongoContract };
 
 export const getContract = async (
   options:

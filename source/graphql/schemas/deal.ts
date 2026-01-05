@@ -1,22 +1,10 @@
 import { ApolloError, gql } from "@apollo/client";
-import { model, Model, models, Schema, Types } from "mongoose";
+import { Deal, type MongoDeal } from "../../models";
 import { getContract } from "./contract";
 import { getDeck } from "./deck";
 import { getAssets, signatureValid } from "./opensea";
 
-export type MongoDeal = Omit<GQL.Deal, "deck"> & {
-  deck?: string;
-};
-
-const schema = new Schema<GQL.Deal, Model<GQL.Deal>, GQL.Deal>({
-  code: String,
-  hash: { type: String, default: null },
-  decks: Number,
-  deck: { type: Types.ObjectId, ref: "Deck", default: null },
-  claimed: { type: Boolean, default: false },
-});
-
-export const Deal = (models.Deal as Model<MongoDeal>) || model("Deal", schema);
+export { Deal, type MongoDeal };
 
 const { DISCOUNT_CODE: discountCode } = process.env;
 

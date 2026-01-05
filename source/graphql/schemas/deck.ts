@@ -1,33 +1,9 @@
 import { gql } from "@apollo/client";
 import GraphQLJSON from "graphql-type-json";
-import { model, Model, models, Schema, Types } from "mongoose";
+import { Deck, type MongoDeck } from "../../models";
 import { getProduct } from "./product";
 
-export type MongoDeck = Omit<GQL.Deck, "previewCards"> & {
-  previewCards?: string[];
-};
-
-const schema = new Schema<MongoDeck, Model<MongoDeck>, MongoDeck>({
-  title: String,
-  short: String,
-  slug: String,
-  info: String,
-  image: String,
-  intro: String,
-  previewCards: {
-    type: [{ type: Types.ObjectId, ref: "Card" }],
-    default: null,
-  },
-  backgroundImage: { type: String, default: null },
-  description: { type: String, default: null },
-  openseaCollection: { type: Object, default: null },
-  properties: { type: Object, default: {} },
-  editions: { type: Object, default: null },
-  cardBackground: { type: String, default: null },
-  labels: { type: Object, default: null },
-});
-
-export const Deck = (models.Deck as Model<MongoDeck>) || model("Deck", schema);
+export { Deck, type MongoDeck };
 
 export const getDecks = async () =>
   Deck.find().populate("previewCards") as unknown as Promise<GQL.Deck[]>;

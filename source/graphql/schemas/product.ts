@@ -1,46 +1,8 @@
 import { gql } from "@apollo/client";
-import { model, Model, models, Schema, Types } from "mongoose";
 import fetch from "../../fetch";
+import { Product, type MongoProduct } from "../../models";
 
-export type MongoProduct = Omit<GQL.Product, "deck" | "decks"> & {
-  deck?: string;
-  decks?: string[];
-};
-
-const schema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
-  title: String,
-  price: {
-    eur: Number,
-    usd: Number,
-  },
-  fullPrice: {
-    type: {
-      eur: Number,
-      usd: Number,
-    },
-    default: null,
-  },
-  status: String,
-  type: {
-    type: String,
-    enum: ["deck", "bundle", "sheet", "gaga"],
-    required: true,
-  },
-  image: String,
-  image2: String,
-  description: { type: String, default: null },
-  info: String,
-  short: String,
-  deck: { type: Types.ObjectId, ref: "Deck" },
-  decks: {
-    type: [{ type: Types.ObjectId, ref: "Product" }],
-    default: null,
-  },
-  labels: { type: Object, default: null },
-});
-
-export const Product =
-  (models.Product as Model<MongoProduct>) || model("Product", schema);
+export { Product, type MongoProduct };
 
 export const getProduct = async (
   options: Pick<MongoProduct, "deck"> | Pick<MongoProduct, "_id">

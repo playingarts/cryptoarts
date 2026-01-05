@@ -1,14 +1,7 @@
 import { gql } from "@apollo/client";
-import { model, Model, models, Schema } from "mongoose";
+import { Rating } from "../../models";
 
-const schema = new Schema<GQL.Rating, Model<GQL.Rating>, GQL.Rating>({
-  who: String,
-  review: String,
-  title: String,
-});
-
-export const Rating =
-  (models.Rating as Model<GQL.Rating>) || model("Rating", schema);
+export { Rating };
 
 export const getRatings = async ({ title }: GQL.QueryRatingsArgs) => {
   let ratings = await Rating.find(title ? { title } : {});

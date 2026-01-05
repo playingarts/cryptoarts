@@ -1,44 +1,13 @@
 import { gql } from "@apollo/client";
-import { model, Model, models, Schema, Types } from "mongoose";
+import { Types } from "mongoose";
 import Web3 from "web3";
+import { Card, Loser, Deck, type MongoCard } from "../../models";
 import { getContracts } from "./contract";
-import { Deck, getDeck, getDecks } from "./deck";
+import { getDeck, getDecks } from "./deck";
 import { getAssets } from "./opensea";
 import { getListings } from "./listing";
 
-export type MongoCard = Omit<GQL.Card, "artist" | "deck" | "animator"> & {
-  artist?: string;
-  animator?: string;
-  deck?: string;
-};
-
-const schema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
-  img: String,
-  video: String,
-  info: String,
-  value: String,
-  background: { type: String, default: null },
-  suit: String,
-  edition: String,
-  erc1155: {
-    type: {
-      contractAddress: String,
-      token_id: String,
-    },
-    default: null,
-  },
-  artist: { type: Types.ObjectId, ref: "Artist" },
-  animator: { type: Types.ObjectId, ref: "Artist" },
-  deck: { type: Types.ObjectId, ref: "Deck" },
-  reversible: Boolean,
-  // new
-  cardBackground: { type: String, default: null },
-});
-
-export const Card = (models.Card as Model<MongoCard>) || model("Card", schema);
-
-export const Loser =
-  (models.Loser as Model<MongoCard>) || model("Loser", schema);
+export { Card, Loser, type MongoCard };
 
 export const getCards = async ({
   deck,

@@ -3,7 +3,6 @@ import { recoverPersonalSignature } from "@metamask/eth-sig-util";
 import GraphQLJSON from "graphql-type-json";
 import intersect from "just-intersect";
 import memoizee from "memoizee";
-import { model, Model, models, Schema } from "mongoose";
 import { CardSuits } from "../../enums";
 import { getCardByTraits, getCards } from "./card";
 import { getContract, getContracts } from "./contract";
@@ -15,52 +14,15 @@ import * as crypto from "crypto";
 import { Listing, getListings } from "./listing";
 import { getDeck } from "./deck";
 import { logger, OpenSeaError } from "../../lib/appLogger";
+import { Nft } from "../../models";
+
+export { Nft };
 
 const {
   NEXT_PUBLIC_SIGNATURE_MESSAGE: signatureMessage,
   OPENSEA_ASSETS_KEY = "",
   OPENSEA_KEY = "",
 } = process.env;
-
-// export interface Nft {
-//   identifier: string;
-//   contract: string;
-//   token_standard: string;
-//   name: string;
-//   description: string;
-//   traits: [
-//     {
-//       trait_type: string;
-//       value: string;
-//     }
-//   ];
-//   owners: Array<{
-//     address: string;
-//     quantity: string;
-//   }>;
-// }
-
-const schema = new Schema<GQL.Nft, Model<GQL.Nft>, GQL.Nft>({
-  identifier: String,
-  contract: String,
-  token_standard: String,
-  name: String,
-  description: String,
-  traits: [
-    {
-      trait_type: String,
-      value: String,
-    },
-  ],
-  owners: [
-    {
-      address: String,
-      quantity: String,
-    },
-  ],
-});
-
-export const Nft = (models.Nft as Model<GQL.Nft>) || model("Nft", schema);
 
 const NftType = T.interface({
   identifier: T.string,

@@ -1,20 +1,7 @@
 import { gql } from "@apollo/client";
-import { Schema, model, models, Model } from "mongoose";
+import { Podcast } from "../../models";
 
-const schema = new Schema<GQL.Podcast, Model<GQL.Podcast>, GQL.Podcast>({
-  image: String,
-  youtube: String,
-  apple: String,
-  spotify: String,
-  episode: Number,
-  name: String,
-  podcastName: String,
-  desc: String,
-  time: String,
-});
-
-export const Podcast =
-  (models.Podcast as Model<GQL.Podcast>) || model("Podcast", schema);
+export { Podcast };
 
 const getPodcasts = async ({ name, shuffle, limit }: GQL.QueryPodcastsArgs) => {
   let podcasts = await Podcast.find(name ? { name } : {});

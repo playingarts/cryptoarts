@@ -1,19 +1,8 @@
 import { gql } from "@apollo/client";
-import { model, Model, models, Schema } from "mongoose";
+import { Content, type MongoContent } from "../../models";
 import { getCard, getCards } from "./card";
 
-export interface MongoContent {
-  key: string;
-  data: Record<string, any>;
-}
-
-const schema = new Schema<MongoContent, Model<MongoContent>, MongoContent>({
-  key: String,
-  data: { type: Object, default: {} },
-});
-
-export const Content =
-  (models.Content as Model<MongoContent>) || model("Content", schema);
+export { Content, type MongoContent };
 
 const getDailyCard = async () => {
   const content = await Content.findOne({ key: "dailyCard" });
