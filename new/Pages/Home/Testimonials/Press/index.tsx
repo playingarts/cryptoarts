@@ -1,9 +1,9 @@
 import { FC, HTMLAttributes } from "react";
 import Grid from "../../../../../components/Grid";
 import Fastcompany from "../../../../Icons/Fastcompany";
-import CreativeBloq from "../../../../../components/Icons/CreativeBloq";
-import DigitalArts from "../../../../../components/Icons/DigitalArts";
-import Esquire from "../../../../../components/Icons/Esquire";
+import CreativeBloq from "../../../../Icons/CreativeBloq";
+import DigitalArts from "../../../../Icons/DigitalArts";
+import Esquire from "../../../../Icons/Esquire";
 
 const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <Grid

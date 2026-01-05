@@ -4,7 +4,7 @@ import Grid from "../../../components/Grid";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
-import Logo from "../../../components/Icons/Logo";
+import Logo from "../../Icons/Logo";
 
 interface Props {
   code?: string;

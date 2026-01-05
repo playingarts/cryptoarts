@@ -11,10 +11,10 @@ import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Instagram from "../../../Icons/Instagram";
 import Twitter from "../../../Icons/Twitter";
-import Website from "../../../../components/Icons/Website";
-import Facebook from "../../../../components/Icons/Facebook";
-import Behance from "../../../../components/Icons/Behance";
-import Foundation from "../../../../components/Icons/Foundation";
+import Website from "../../../Icons/Website";
+import Facebook from "../../../Icons/Facebook";
+import Behance from "../../../Icons/Behance";
+import Foundation from "../../../Icons/Foundation";
 import { usePalette } from "../../Deck/DeckPaletteContext";
 import { theme } from "../../../../pages/_app";
 

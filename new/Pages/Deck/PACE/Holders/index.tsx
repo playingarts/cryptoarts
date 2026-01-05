@@ -2,10 +2,10 @@ import { FC, HTMLAttributes } from "react";
 import { useHolders, useOpensea } from "../../../../../hooks/opensea";
 import Text from "../../../../Text";
 import ScandiBlock from "../../../../ScandiBlock";
-import Spades from "../../../../../components/Icons/Spades";
-import Hearts from "../../../../../components/Icons/Hearts";
-import Clubs from "../../../../../components/Icons/Clubs";
-import Diamonds from "../../../../../components/Icons/Diamonds";
+import Spades from "../../../../Icons/Spades";
+import Hearts from "../../../../Icons/Hearts";
+import Clubs from "../../../../Icons/Clubs";
+import Diamonds from "../../../../Icons/Diamonds";
 import Charts from "../../../../../components/Charts";
 
 const temp: { [x: string]: number } = {

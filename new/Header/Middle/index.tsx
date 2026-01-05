@@ -1,5 +1,5 @@
 import Link from "../../Link";
-import Logo from "../../../components/Icons/Logo";
+import Logo from "../../Icons/Logo";
 import Button from "../../Buttons/Button";
 import ArrowNav from "./ArrowNav";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";

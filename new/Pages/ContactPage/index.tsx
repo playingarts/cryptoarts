@@ -5,10 +5,10 @@ import Header from "../../Header";
 import Footer from "../../Footer";
 import Text from "../../Text";
 import FaqItem from "../../Footer/NewFAQ/Item";
-import Visa from "../../../components/Icons/Visa";
-import Mastercard from "../../../components/Icons/Mastercard";
-import Amex from "../../../components/Icons/Amex";
-import PayPal from "../../../components/Icons/PayPal";
+import Visa from "../../Icons/Visa";
+import Mastercard from "../../Icons/Mastercard";
+import Amex from "../../Icons/Amex";
+import PayPal from "../../Icons/PayPal";
 
 const faq = {
   "Do you ship to my country?": "YES! We ship worldwide. Tracking provided.",

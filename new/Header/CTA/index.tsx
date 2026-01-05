@@ -8,7 +8,7 @@ import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../../../components/SizeProvider";
 import { breakpoints } from "../../../source/enums";
 import Button from "../../Buttons/Button";
-import Bag from "../../../components/Icons/Bag";
+import Bag from "../../Icons/Bag";
 
 const HeaderButton = () => {
   const { palette } = usePalette();
