@@ -12,14 +12,14 @@ export const handlers = [
       const data = await request.json();
       const { email } = data as unknown as { email: string };
 
-      if (email === "400") {
+      if (email === "error400@test.com") {
         return new HttpResponse(null, { status: 400 });
-      } else if (email === "500") {
+      } else if (email === "error500@test.com") {
         return new HttpResponse(null, { status: 500 });
-      } else if (email === "429") {
+      } else if (email === "error429@test.com") {
         return new HttpResponse(null, {
           status: 429,
-          headers: { "X-RateLimit-Retry-After": "4" },
+          headers: { "X-RateLimit-Retry-After": "1" },
         });
       }
       return res;
