@@ -1,32 +1,33 @@
 import { FC } from "react";
+import Head from "next/head";
 import Grid from "../../../components/Grid";
-import Header from "../../Header";
-import Footer from "../../Footer";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
+import Logo from "../../../components/Icons/Logo";
 
 interface Props {
   code?: string;
   message?: string;
 }
 
+/**
+ * Minimal error page without Header/Footer.
+ * This page is statically generated at build time, so it cannot
+ * use components that depend on Apollo (Header, Footer use Apollo hooks).
+ */
 const ErrorPage: FC<Props> = ({ code = "404", message = "Page not found" }) => {
   return (
     <>
-      <Header />
+      <Head>
+        <title>{code} - Playing Arts</title>
+      </Head>
       <Grid
         css={(theme) => ({
-          minHeight: "60vh",
+          minHeight: "100vh",
           alignItems: "center",
           justifyContent: "center",
           background: theme.colors.soft_gray,
-          paddingTop: theme.spacing(20),
-          paddingBottom: theme.spacing(20),
-          [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(15),
-            paddingBottom: theme.spacing(15),
-          },
         })}
       >
         <div
@@ -39,6 +40,9 @@ const ErrorPage: FC<Props> = ({ code = "404", message = "Page not found" }) => {
             gap: theme.spacing(3),
           })}
         >
+          <Link href="/" css={{ marginBottom: 30 }}>
+            <Logo css={(theme) => ({ color: theme.colors.dark_gray })} />
+          </Link>
           <Text
             typography="newh1"
             css={(theme) => ({
@@ -57,12 +61,11 @@ const ErrorPage: FC<Props> = ({ code = "404", message = "Page not found" }) => {
           >
             {message}
           </Text>
-          <Link href="/" css={{ textDecoration: "none" }}>
+          <Link href="/" css={{ textDecoration: "none", marginTop: 15 }}>
             <ArrowButton color="accent">Back to Home</ArrowButton>
           </Link>
         </div>
       </Grid>
-      <Footer />
     </>
   );
 };
