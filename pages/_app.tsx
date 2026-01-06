@@ -6,13 +6,13 @@ import Head from "next/head";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Fragment, useEffect } from "react";
 import smoothscroll from "smoothscroll-polyfill";
-import SizeProvider from "../new/SizeProvider";
-import { SignatureProvider } from "../contexts/SignatureContext";
-import { ViewedProvider } from "../contexts/viewedContext";
-import { DeckPaletteProvider } from "../new/Pages/Deck/DeckPaletteContext";
-import { IsEuropeProvider } from "../new/Contexts/bag";
-import { FavoritesProvider } from "../new/Contexts/favorites";
-import ErrorBoundary from "../new/ErrorBoundary";
+import SizeProvider from "@/components/SizeProvider";
+import { SignatureProvider } from "@/contexts/SignatureContext";
+import { ViewedProvider } from "@/contexts/viewedContext";
+import { DeckPaletteProvider } from "@/components/Pages/Deck/DeckPaletteContext";
+import { IsEuropeProvider } from "@/components/Contexts/bag";
+import { FavoritesProvider } from "@/components/Contexts/favorites";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Import theme from dedicated module
 import { theme } from "../styles/theme";

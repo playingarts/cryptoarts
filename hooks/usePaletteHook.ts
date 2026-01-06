@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { usePalette, Props } from "../new/Pages/Deck/DeckPaletteContext";
+import { usePalette, Props } from "@/components/Pages/Deck/DeckPaletteContext";
 
 export function usePaletteHook(paletteProp?: Props["palette"]) {
   const { palette: paletteContext } = usePalette();

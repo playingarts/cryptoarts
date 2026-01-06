@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-export { default } from "../new/Pages/Deck/";
+export { default } from "@/components/Pages/Deck/";
 
 import { initApolloClient } from "../source/apollo";
 import { GetServerSideProps } from "next";

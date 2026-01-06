@@ -1,6 +1,6 @@
 import { connect } from "../source/mongoose";
 
-export { default } from "../new/Pages/Favorites";
+export { default } from "@/components/Pages/Favorites";
 
 export const getServerSideProps = async () => {
   await connect();

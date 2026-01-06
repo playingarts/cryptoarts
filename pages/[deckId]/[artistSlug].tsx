@@ -8,7 +8,7 @@ import { CardsQuery } from "../../hooks/card";
 import { LosersQuery } from "../../hooks/loser";
 import { podcastsQuery } from "../../hooks/podcast";
 
-export { default } from "../../new/Pages/CardPage";
+export { default } from "@/components/Pages/CardPage";
 
 export const getServerSideProps: GetServerSideProps<
   { cache?: NormalizedCacheObject },

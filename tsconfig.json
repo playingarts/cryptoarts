@@ -16,8 +16,12 @@
     "jsx": "preserve",
     "typeRoots": ["./typings", "node_modules/@types"],
     "incremental": true,
+    "baseUrl": ".",
     "paths": {
-      "@emotion/core": ["./typings/emotion.d.ts"]
+      "@emotion/core": ["./typings/emotion.d.ts"],
+      "@/components/*": ["./components/*"],
+      "@/hooks/*": ["./hooks/*"],
+      "@/contexts/*": ["./contexts/*"]
     }
   },
   "include": [
