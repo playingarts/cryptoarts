@@ -1,4 +1,5 @@
 import { Component, ErrorInfo, ReactNode } from "react";
+import * as Sentry from "@sentry/nextjs";
 import Grid from "../Grid";
 import Text from "../Text";
 import ArrowButton from "../Buttons/ArrowButton";
@@ -27,6 +28,12 @@ class ErrorBoundary extends Component<Props, State> {
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     logger.error("ErrorBoundary caught an error", error, {
       componentStack: errorInfo.componentStack,
+    });
+
+    // Report to Sentry with React component stack context
+    Sentry.withScope((scope) => {
+      scope.setExtra("componentStack", errorInfo.componentStack);
+      Sentry.captureException(error);
     });
   }
 

@@ -1,3 +1,4 @@
+const { withSentryConfig } = require("@sentry/nextjs");
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
@@ -29,15 +30,15 @@ const securityHeaders = [
   },
   {
     // Content Security Policy - permissive but protective
-    // Allows: self, inline styles (Emotion), Google Analytics, fonts, images from S3
+    // Allows: self, inline styles (Emotion), Google Analytics, fonts, images from S3, Sentry
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://*.sentry.io",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' https://s3.amazonaws.com https://*.amazonaws.com https://www.google-analytics.com data: blob:",
-      "connect-src 'self' https://www.google-analytics.com https://api.mailerlite.com https://*.infura.io wss://*.infura.io",
+      "connect-src 'self' https://www.google-analytics.com https://api.mailerlite.com https://*.infura.io wss://*.infura.io https://*.sentry.io",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",
@@ -45,7 +46,8 @@ const securityHeaders = [
   },
 ];
 
-module.exports = withBundleAnalyzer({
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   staticPageGenerationTimeout: 300,
 
@@ -99,4 +101,32 @@ module.exports = withBundleAnalyzer({
       },
     ],
   },
-});
+};
+
+// Sentry configuration options
+const sentryWebpackPluginOptions = {
+  // Suppress source map upload logs in CI
+  silent: true,
+
+  // Organization and project (set via SENTRY_ORG and SENTRY_PROJECT env vars)
+  org: process.env.SENTRY_ORG,
+  project: process.env.SENTRY_PROJECT,
+
+  // Only upload source maps in production builds
+  // Source maps are still generated for debugging
+  dryRun: !process.env.SENTRY_AUTH_TOKEN,
+
+  // Hide source maps from browser devtools in production
+  hideSourceMaps: true,
+
+  // Tree-shake Sentry SDK debug logging to reduce bundle size
+  bundleSizeOptimizations: {
+    excludeDebugStatements: true,
+  },
+};
+
+// Apply withBundleAnalyzer first, then withSentryConfig
+module.exports = withSentryConfig(
+  withBundleAnalyzer(nextConfig),
+  sentryWebpackPluginOptions
+);

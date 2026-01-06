@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import * as Sentry from "@sentry/nextjs";
 
 interface LogEntry {
   timestamp: string;
@@ -64,6 +65,38 @@ export function logApiRequest(
       `[${entry.timestamp}] ${entry.method} ${entry.path} ${entry.status} ${entry.duration}ms`
     );
   }
+}
+
+/**
+ * Log an API error to console and Sentry
+ */
+export function logApiError(
+  req: NextApiRequest,
+  error: Error,
+  context?: Record<string, unknown>
+): void {
+  const entry = {
+    timestamp: new Date().toISOString(),
+    method: req.method || "UNKNOWN",
+    path: req.url || "/",
+    error: error.message,
+    ip: getClientIp(req),
+    ...context,
+  };
+
+  console.error(JSON.stringify(entry));
+
+  // Report to Sentry with request context
+  Sentry.withScope((scope) => {
+    scope.setExtra("api_path", entry.path);
+    scope.setExtra("method", entry.method);
+    if (context) {
+      Object.entries(context).forEach(([key, value]) => {
+        scope.setExtra(key, value);
+      });
+    }
+    Sentry.captureException(error);
+  });
 }
 
 /**
