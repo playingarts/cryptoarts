@@ -15,6 +15,24 @@ const config = {
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
+  // Coverage configuration
+  collectCoverageFrom: [
+    "hooks/**/*.{ts,tsx}",
+    "contexts/**/*.{ts,tsx}",
+    "lib/**/*.{ts,tsx}",
+    "source/**/*.{ts,tsx}",
+    "!**/*.d.ts",
+    "!**/node_modules/**",
+  ],
+  coverageThreshold: {
+    global: {
+      branches: 20,
+      functions: 20,
+      lines: 20,
+      statements: 20,
+    },
+  },
+  coverageReporters: ["text", "text-summary", "lcov"],
 };
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async

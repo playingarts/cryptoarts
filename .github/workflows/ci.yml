@@ -29,8 +29,8 @@ jobs:
       - name: ESLint
         run: yarn lint:next
 
-      - name: Unit tests
-        run: npx jest --ci --passWithNoTests --testPathIgnorePatterns=smoke
+      - name: Unit tests with coverage
+        run: npx jest --ci --coverage --passWithNoTests --testPathIgnorePatterns=smoke
 
       - name: Build
         run: yarn build
