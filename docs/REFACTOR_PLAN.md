@@ -103,7 +103,7 @@ Goal: Update Storybook within major version (safe upgrade path).
 
 ---
 
-### PR 5: Apollo Client Upgrade Preparation
+### PR 5: Apollo Client Upgrade Preparation ✅ COMPLETED
 
 Goal: Audit Apollo usage, document breaking changes, create upgrade plan.
 
@@ -113,6 +113,8 @@ Goal: Audit Apollo usage, document breaking changes, create upgrade plan.
 | Risk         | None                                                                                       |
 | Acceptance   | Document listing all useQuery/useMutation usages, breaking changes in 4.x, migration steps |
 | Verification | N/A                                                                                        |
+
+**Status:** Completed - Created `docs/APOLLO_4_MIGRATION.md` with full audit of 24 hooks across 8 files, breaking changes analysis, and 4-phase migration plan (~6 hours estimated effort).
 
 ---
 
