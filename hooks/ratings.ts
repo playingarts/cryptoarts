@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-import { useLazyQuery, useQuery } from "@apollo/client/react";
+import { useQuery } from "@apollo/client/react";
 
 export const RatingsQuery = gql`
   query Ratings($title: string) {

@@ -8,11 +8,7 @@ import { renderHook, RenderHookOptions, waitFor } from "@testing-library/react";
  */
 export function createApolloWrapper(mocks: MockedResponse[] = []) {
   return function ApolloWrapper({ children }: { children: ReactNode }) {
-    return (
-      <MockedProvider mocks={mocks} addTypename={false}>
-        {children}
-      </MockedProvider>
-    );
+    return <MockedProvider mocks={mocks}>{children}</MockedProvider>;
   };
 }
 

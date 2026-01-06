@@ -1,7 +1,7 @@
 import { Theme } from "@emotion/react";
 import { CSSPropertiesWithMultiValues } from "@emotion/serialize";
 import { mq, maxMQ, BreakpointsObjectType } from "./breakpoints";
-import { colorLiterals, deckColors, customcolors } from "./colors";
+import { colorLiterals, deckColors } from "./colors";
 import { typographyLiterals } from "./typography";
 
 // Re-export all theme parts for convenience

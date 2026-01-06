@@ -4,8 +4,6 @@ import {
   CardFragment,
   CardBasicFragment,
   CardWithSlugsFragment,
-  ArtistFragment,
-  SocialFragment,
   ERC1155Fragment,
 } from "./fragments";
 

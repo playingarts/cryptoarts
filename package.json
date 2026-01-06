@@ -15,7 +15,7 @@
     "start": "next start",
     "lint": "yarn lint:tsc && yarn lint:next",
     "lint:tsc": "tsc -p tsconfig.json",
-    "lint:next": "next lint",
+    "lint:next": "eslint .",
     "lint:eslint": "eslint . --ext .ts,.tsx --ignore-pattern pages --ignore-pattern components",
     "schema": "ts-node --transpile-only -e \"import './source/graphql/generate'\" -O '{\"module\":\"commonjs\"}'",
     "prepare": "husky",
