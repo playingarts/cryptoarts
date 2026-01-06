@@ -1,27 +1,45 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { Ratelimit } from "@upstash/ratelimit";
+import { Redis } from "@upstash/redis";
 
 /**
  * Edge Middleware for Rate Limiting and Security
  *
  * Runs at the edge before every request to:
- * 1. Rate limit API endpoints
+ * 1. Rate limit API endpoints (using Upstash Redis when configured)
  * 2. Add security headers
  * 3. Block suspicious requests
  *
- * For production, consider using Upstash Redis for distributed rate limiting.
- * This in-memory implementation works per-instance and may reset on cold starts.
+ * When UPSTASH_REDIS_REST_URL and UPSTASH_REDIS_REST_TOKEN are set,
+ * uses distributed Redis rate limiting. Otherwise falls back to in-memory.
  */
-
-// Simple in-memory rate limiter (per edge instance)
-// For production, use Upstash Redis or similar distributed store
-const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
 
 const RATE_LIMIT_WINDOW = 60 * 1000; // 1 minute
 const RATE_LIMIT_MAX = 100; // 100 requests per minute per IP
 
+// Check if Redis is configured
+const isRedisConfigured =
+  !!process.env.UPSTASH_REDIS_REST_URL &&
+  !!process.env.UPSTASH_REDIS_REST_TOKEN;
+
+// Create Upstash rate limiter if Redis is configured
+const redisRateLimiter = isRedisConfigured
+  ? new Ratelimit({
+      redis: new Redis({
+        url: process.env.UPSTASH_REDIS_REST_URL!,
+        token: process.env.UPSTASH_REDIS_REST_TOKEN!,
+      }),
+      limiter: Ratelimit.slidingWindow(RATE_LIMIT_MAX, "60 s"),
+      analytics: true,
+      prefix: "ratelimit:api",
+    })
+  : null;
+
+// Fallback in-memory rate limiter (per edge instance)
+const rateLimitMap = new Map<string, { count: number; timestamp: number }>();
+
 function getRateLimitKey(request: NextRequest): string {
-  // Use IP address for rate limiting
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
     request.headers.get("x-real-ip") ||
@@ -29,25 +47,40 @@ function getRateLimitKey(request: NextRequest): string {
   return ip;
 }
 
-function isRateLimited(key: string): boolean {
+function isRateLimitedInMemory(key: string): {
+  limited: boolean;
+  remaining: number;
+  reset: number;
+} {
   const now = Date.now();
   const record = rateLimitMap.get(key);
 
   if (!record || now - record.timestamp > RATE_LIMIT_WINDOW) {
-    // Reset or create new window
     rateLimitMap.set(key, { count: 1, timestamp: now });
-    return false;
+    return {
+      limited: false,
+      remaining: RATE_LIMIT_MAX - 1,
+      reset: Math.ceil((now + RATE_LIMIT_WINDOW) / 1000),
+    };
   }
 
   if (record.count >= RATE_LIMIT_MAX) {
-    return true;
+    return {
+      limited: true,
+      remaining: 0,
+      reset: Math.ceil((record.timestamp + RATE_LIMIT_WINDOW) / 1000),
+    };
   }
 
   record.count++;
-  return false;
+  return {
+    limited: false,
+    remaining: Math.max(0, RATE_LIMIT_MAX - record.count),
+    reset: Math.ceil((record.timestamp + RATE_LIMIT_WINDOW) / 1000),
+  };
 }
 
-// Clean up old entries periodically (simple garbage collection)
+// Periodic cleanup for in-memory rate limiter
 function cleanupRateLimitMap(): void {
   const now = Date.now();
   for (const [key, record] of rateLimitMap.entries()) {
@@ -57,7 +90,7 @@ function cleanupRateLimitMap(): void {
   }
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Only rate limit API routes
@@ -67,14 +100,52 @@ export function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    // Periodic cleanup (runs occasionally)
+    const key = getRateLimitKey(request);
+
+    // Use Redis rate limiter if available, otherwise fall back to in-memory
+    if (redisRateLimiter) {
+      try {
+        const { success, limit, remaining, reset } =
+          await redisRateLimiter.limit(key);
+
+        if (!success) {
+          return new NextResponse(
+            JSON.stringify({
+              error: "Too Many Requests",
+              message: "Rate limit exceeded. Please try again later.",
+            }),
+            {
+              status: 429,
+              headers: {
+                "Content-Type": "application/json",
+                "Retry-After": "60",
+                "X-RateLimit-Limit": limit.toString(),
+                "X-RateLimit-Remaining": remaining.toString(),
+                "X-RateLimit-Reset": reset.toString(),
+              },
+            }
+          );
+        }
+
+        const response = NextResponse.next();
+        response.headers.set("X-RateLimit-Limit", limit.toString());
+        response.headers.set("X-RateLimit-Remaining", remaining.toString());
+        response.headers.set("X-RateLimit-Reset", reset.toString());
+        return response;
+      } catch (error) {
+        // If Redis fails, fall through to in-memory rate limiting
+        console.error("[Middleware] Redis rate limit error:", error);
+      }
+    }
+
+    // In-memory fallback
     if (Math.random() < 0.01) {
       cleanupRateLimitMap();
     }
 
-    const key = getRateLimitKey(request);
+    const { limited, remaining, reset } = isRateLimitedInMemory(key);
 
-    if (isRateLimited(key)) {
+    if (limited) {
       return new NextResponse(
         JSON.stringify({
           error: "Too Many Requests",
@@ -85,29 +156,18 @@ export function middleware(request: NextRequest) {
           headers: {
             "Content-Type": "application/json",
             "Retry-After": "60",
+            "X-RateLimit-Limit": RATE_LIMIT_MAX.toString(),
+            "X-RateLimit-Remaining": "0",
+            "X-RateLimit-Reset": reset.toString(),
           },
         }
       );
     }
 
-    // Add rate limit headers to response
     const response = NextResponse.next();
-    const record = rateLimitMap.get(key);
-    if (record) {
-      response.headers.set(
-        "X-RateLimit-Limit",
-        RATE_LIMIT_MAX.toString()
-      );
-      response.headers.set(
-        "X-RateLimit-Remaining",
-        Math.max(0, RATE_LIMIT_MAX - record.count).toString()
-      );
-      response.headers.set(
-        "X-RateLimit-Reset",
-        Math.ceil((record.timestamp + RATE_LIMIT_WINDOW) / 1000).toString()
-      );
-    }
-
+    response.headers.set("X-RateLimit-Limit", RATE_LIMIT_MAX.toString());
+    response.headers.set("X-RateLimit-Remaining", remaining.toString());
+    response.headers.set("X-RateLimit-Reset", reset.toString());
     return response;
   }
 
