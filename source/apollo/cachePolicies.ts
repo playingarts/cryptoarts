@@ -55,6 +55,32 @@ export const typePolicies: TypePolicies = {
       social: nullable(),
     },
   },
+  Product: {
+    keyFields: ["_id"],
+    fields: {
+      price: nullable(),
+    },
+  },
+  /**
+   * Opensea data is identified by id (deck ID).
+   * This data can change frequently, so we don't apply aggressive caching.
+   */
+  Opensea: {
+    keyFields: ["id"],
+  },
+  /**
+   * Holders data doesn't have a unique ID, so we use false to prevent normalization.
+   * This means holders data is stored inline within the parent query.
+   */
+  Holders: {
+    keyFields: false,
+  },
+  /**
+   * OwnedAssets are user-specific and identified by their identifier.
+   */
+  OwnedAsset: {
+    keyFields: ["identifier"],
+  },
   Query: {
     fields: {
       /**
