@@ -9,7 +9,7 @@ import { INITIAL_VIEWPORTS } from "@storybook/addon-viewport";
 import { initialize, mswLoader } from "msw-storybook-addon";
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { handlers } from "./StoryGraphqlHandlers";
-import SizeProvider from "../components/SizeProvider";
+import SizeProvider from "../new/SizeProvider";
 import { DeckPaletteProvider } from "../new/Pages/Deck/DeckPaletteContext";
 
 const mockedClient = new ApolloClient({

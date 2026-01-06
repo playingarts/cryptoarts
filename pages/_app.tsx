@@ -6,7 +6,7 @@ import Head from "next/head";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Fragment, useEffect } from "react";
 import smoothscroll from "smoothscroll-polyfill";
-import SizeProvider from "../components/SizeProvider";
+import SizeProvider from "../new/SizeProvider";
 import { SignatureProvider } from "../contexts/SignatureContext";
 import { ViewedProvider } from "../contexts/viewedContext";
 import { DeckPaletteProvider } from "../new/Pages/Deck/DeckPaletteContext";
