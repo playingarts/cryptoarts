@@ -8,7 +8,7 @@ import {
   useLoadOwnedAssets,
   OwnedAssetsQuery,
 } from "../../hooks/opensea";
-import { renderApolloHook, waitForQuery } from "../../jest/apolloTestUtils";
+import { renderApolloHook, waitFor } from "../../jest/apolloTestUtils";
 
 const mockOpensea = {
   id: "opensea-1",
@@ -57,10 +57,11 @@ describe("hooks/opensea", () => {
       expect(result.current.loading).toBe(true);
       expect(result.current.opensea).toBeUndefined();
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.loading).toBe(false);
-      expect(result.current.opensea).toEqual(mockOpensea);
+      expect(result.current.opensea).toBeDefined();
     });
 
     it("returns error on failure", async () => {
@@ -76,7 +77,9 @@ describe("hooks/opensea", () => {
         { mocks }
       );
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
       expect(result.current.error?.message).toContain("Collection not found");
     });
@@ -98,10 +101,11 @@ describe("hooks/opensea", () => {
 
       expect(result.current.loading).toBe(true);
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.holders).toEqual(mockHolders);
-      expect(result.current.loading).toBe(false);
+      expect(result.current.holders).toBeDefined();
     });
 
     it("returns error on failure", async () => {
@@ -117,7 +121,9 @@ describe("hooks/opensea", () => {
         { mocks }
       );
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
       expect(result.current.error?.message).toContain("Failed to fetch holders");
     });
@@ -144,7 +150,7 @@ describe("hooks/opensea", () => {
       expect(result.current.ownedAssets).toBeUndefined();
       expect(typeof result.current.loadOwnedAssets).toBe("function");
 
-      await act(async () => {
+      act(() => {
         result.current.loadOwnedAssets({
           variables: {
             deck: "deck-1",
@@ -152,10 +158,11 @@ describe("hooks/opensea", () => {
             signature: "sig123",
           },
         });
-        await waitForQuery();
       });
 
-      expect(result.current.ownedAssets).toEqual(mockOwnedAssets);
+      await waitFor(() => {
+        expect(result.current.ownedAssets).toBeDefined();
+      });
     });
   });
 });

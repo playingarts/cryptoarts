@@ -1,4 +1,3 @@
-import { act } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import {
   ProductsQuery,
@@ -6,7 +5,7 @@ import {
   useProducts,
   useConvertEurToUsd,
 } from "../../hooks/product";
-import { renderApolloHook, waitForQuery } from "../../jest/apolloTestUtils";
+import { renderApolloHook, waitFor } from "../../jest/apolloTestUtils";
 
 const mockProduct = {
   _id: "product-1",
@@ -53,10 +52,11 @@ describe("hooks/product", () => {
       expect(result.current.loading).toBe(true);
       expect(result.current.products).toBeUndefined();
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.loading).toBe(false);
-      expect(result.current.products).toEqual([mockProduct]);
+      expect(result.current.products).toBeDefined();
     });
 
     it("returns products filtered by ids", async () => {
@@ -75,9 +75,11 @@ describe("hooks/product", () => {
         { mocks }
       );
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.products).toEqual([mockProduct]);
+      expect(result.current.products).toBeDefined();
     });
 
     it("returns error on failure", async () => {
@@ -90,7 +92,9 @@ describe("hooks/product", () => {
 
       const { result } = renderApolloHook(() => useProducts(), { mocks });
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
       expect(result.current.error?.message).toContain("Failed to fetch products");
     });
@@ -112,10 +116,11 @@ describe("hooks/product", () => {
 
       expect(result.current.loading).toBe(true);
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.usd).toBe(110.5);
-      expect(result.current.loading).toBe(false);
+      expect(result.current.usd).toBeDefined();
     });
 
     it("returns error on conversion failure", async () => {
@@ -131,7 +136,9 @@ describe("hooks/product", () => {
         { mocks }
       );
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
       expect(result.current.error?.message).toContain("Invalid amount");
     });

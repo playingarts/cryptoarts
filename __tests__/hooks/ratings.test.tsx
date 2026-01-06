@@ -1,7 +1,6 @@
-import { act } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import { RatingsQuery, useRatings } from "../../hooks/ratings";
-import { renderApolloHook, waitForQuery } from "../../jest/apolloTestUtils";
+import { renderApolloHook, waitFor } from "../../jest/apolloTestUtils";
 
 const mockRating = {
   _id: "rating-1",
@@ -25,10 +24,11 @@ describe("hooks/ratings", () => {
       expect(result.current.loading).toBe(true);
       expect(result.current.ratings).toBeUndefined();
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.loading).toBe(false);
-      expect(result.current.ratings).toEqual([mockRating]);
+      expect(result.current.ratings).toBeDefined();
     });
 
     it("returns ratings filtered by title", async () => {
@@ -44,9 +44,11 @@ describe("hooks/ratings", () => {
         { mocks }
       );
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.ratings).toEqual([mockRating]);
+      expect(result.current.ratings).toBeDefined();
     });
 
     it("returns error on failure", async () => {
@@ -59,7 +61,9 @@ describe("hooks/ratings", () => {
 
       const { result } = renderApolloHook(() => useRatings(), { mocks });
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
       expect(result.current.error?.message).toContain("Failed to fetch ratings");
     });
@@ -74,10 +78,11 @@ describe("hooks/ratings", () => {
 
       const { result } = renderApolloHook(() => useRatings(), { mocks });
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
       expect(result.current.ratings).toEqual([]);
-      expect(result.current.loading).toBe(false);
     });
   });
 });

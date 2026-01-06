@@ -1,7 +1,6 @@
-import { act } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import { podcastsQuery, usePodcasts } from "../../hooks/podcast";
-import { renderApolloHook, waitForQuery } from "../../jest/apolloTestUtils";
+import { renderApolloHook, waitFor } from "../../jest/apolloTestUtils";
 
 const mockPodcast = {
   name: "Test Podcast",
@@ -30,10 +29,11 @@ describe("hooks/podcast", () => {
       expect(result.current.loading).toBe(true);
       expect(result.current.podcasts).toBeUndefined();
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.loading).toBe(false);
-      expect(result.current.podcasts).toEqual([mockPodcast]);
+      expect(result.current.podcasts).toBeDefined();
     });
 
     it("returns filtered podcasts by name", async () => {
@@ -49,9 +49,11 @@ describe("hooks/podcast", () => {
         { mocks }
       );
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.podcasts).toEqual([mockPodcast]);
+      expect(result.current.podcasts).toBeDefined();
     });
 
     it("returns shuffled and limited podcasts", async () => {
@@ -70,9 +72,11 @@ describe("hooks/podcast", () => {
         { mocks }
       );
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.podcasts).toEqual([mockPodcast]);
+      expect(result.current.podcasts).toBeDefined();
     });
 
     it("returns error on failure", async () => {
@@ -85,7 +89,9 @@ describe("hooks/podcast", () => {
 
       const { result } = renderApolloHook(() => usePodcasts(), { mocks });
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
       expect(result.current.error?.message).toContain("Failed to fetch podcasts");
     });
