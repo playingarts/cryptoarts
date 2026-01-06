@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-import { GetServerSideProps } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { NormalizedCacheObject } from "@apollo/client";
 import { connect } from "../../source/mongoose";
 import { initApolloClient } from "../../source/apollo";
@@ -10,7 +10,22 @@ import { podcastsQuery } from "../../hooks/podcast";
 
 export { default } from "@/components/Pages/CardPage";
 
-export const getServerSideProps: GetServerSideProps<
+/**
+ * Artist card paths are generated on-demand with fallback: 'blocking'.
+ * Pre-generating all deck/artist combinations would be expensive.
+ */
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: "blocking",
+  };
+};
+
+/**
+ * Static generation with ISR - revalidate every 60 seconds.
+ * Artist card data changes infrequently.
+ */
+export const getStaticProps: GetStaticProps<
   { cache?: NormalizedCacheObject },
   { deckId: string; artistSlug: string }
 > = async (context) => {
@@ -34,6 +49,7 @@ export const getServerSideProps: GetServerSideProps<
   if (!deck) {
     return {
       notFound: true,
+      revalidate: 60,
     };
   }
 
@@ -58,6 +74,7 @@ export const getServerSideProps: GetServerSideProps<
   if (!card) {
     return {
       notFound: true,
+      revalidate: 60,
     };
   }
 
@@ -74,5 +91,7 @@ export const getServerSideProps: GetServerSideProps<
     props: {
       cache: client.cache.extract() as NormalizedCacheObject,
     },
+    // Revalidate every 60 seconds for fresh data with cached performance
+    revalidate: 60,
   };
 };
