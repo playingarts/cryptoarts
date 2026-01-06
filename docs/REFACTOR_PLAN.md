@@ -73,7 +73,7 @@ Goal: Audit and remove components/ files not imported anywhere.
 
 ---
 
-### PR 3: Upgrade Safe Dependencies
+### PR 3: Upgrade Safe Dependencies ✅ COMPLETED
 
 Goal: Update low-risk packages that don't require code changes.
 
@@ -83,6 +83,8 @@ Goal: Update low-risk packages that don't require code changes.
 | Risk         | Low                                           |
 | Acceptance   | No code changes required, all tests pass      |
 | Verification | yarn lint:tsc, yarn test, smoke tests         |
+
+**Status:** Completed in commit `296e6c4` - Updated 9 packages. Fixed ArrowButton to remove unused forwardRef (caught by stricter React 19 types).
 
 ---
 
