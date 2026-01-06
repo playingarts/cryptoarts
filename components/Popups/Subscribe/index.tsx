@@ -1,9 +1,15 @@
 import { FC, HTMLAttributes } from "react";
+import dynamic from "next/dynamic";
 import subscribeimg from "../../../mocks/images/POPS/Subscribe.png";
 import Button from "../../Buttons/Button";
 import Plus from "../../Icons/Plus";
 import ArrowedButton from "../../Buttons/ArrowedButton";
-import EmailForm from "../../EmailForm";
+
+// Lazy load EmailForm to reduce bundle (includes react-hook-form ~23kB)
+const EmailForm = dynamic(() => import("../../EmailForm"), {
+  ssr: false,
+  loading: () => <div css={{ height: 55 }} />,
+});
 import Text from "../../Text";
 import Instagram from "../../Icons/Instagram";
 import Twitter from "../../Icons/Twitter";

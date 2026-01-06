@@ -1,11 +1,17 @@
 import { FC, HTMLAttributes } from "react";
+import dynamic from "next/dynamic";
 import Text from "../../../Text";
 import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import { useProducts } from "../../../../hooks/product";
-import Countdown from "react-countdown";
 import { useBag } from "../../../Contexts/bag";
+
+// Lazy load Countdown to reduce bundle (~8.7kB)
+const Countdown = dynamic(() => import("react-countdown"), {
+  ssr: false,
+  loading: () => <span>10:00</span>,
+});
 import Suggestions from "./Suggestions";
 import CTA from "./CTA";
 import Product from "./Product";

@@ -6,6 +6,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import dynamic from "next/dynamic";
 import ScandiBlock from "../../ScandiBlock";
 import ButtonTemplate from "../../Buttons/Button";
 import { colord } from "colord";
@@ -14,7 +15,12 @@ import Text from "../../Text";
 import CTA from "../CTA";
 import NewLink from "../../Link/NewLink";
 import { useProducts } from "../../../hooks/product";
-import EmailForm from "../../EmailForm";
+
+// Lazy load EmailForm to reduce bundle (includes react-hook-form ~23kB)
+const EmailForm = dynamic(() => import("../../EmailForm"), {
+  ssr: false,
+  loading: () => <div css={{ height: 55 }} />,
+});
 import { links } from "../../Footer";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";

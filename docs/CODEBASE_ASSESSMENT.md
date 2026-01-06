@@ -31,7 +31,7 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 | Area | Status | Issue | Recommendation |
 |------|--------|-------|----------------|
 | **CSP** | Accepted | Uses `'unsafe-inline'` and `'unsafe-eval'` | Tradeoff: Emotion requires this; nonce-based CSP is complex |
-| **Bundle Size** | Improved | ~380kB unique JS per route (was 395kB) | Further reduction via code-splitting possible |
+| **Bundle Size** | Improved | ~280-295kB First Load JS (was 300kB) | Lazy loaded EmailForm, Countdown, shadertoy-react |
 | **Rate Limiting** | Ready | Upstash configured, showing in X-RateLimit-Backend header | Set UPSTASH env vars in production |
 | **Test Coverage** | Unknown | 20% threshold is just baseline | Increase coverage, aim for 60%+ |
 | **Memory** | Monitored | Detailed profiling in /api/health | RSS, heap %, external, buffers all tracked |
@@ -71,6 +71,12 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 - [x] Removed web3 dependency (replaced with inline fromWei utility)
 - [x] Lazy loaded shadertoy-react (WebGL) - 16kB savings per route
 - [x] Enhanced memory profiling in health endpoint
+
+### Bundle Optimization (PR 36)
+- [x] Lazy loaded EmailForm (react-hook-form ~23kB deferred to interaction)
+- [x] Lazy loaded Countdown (react-countdown ~8.7kB deferred)
+- [x] Updated Footer, MainMenu, Subscribe popup with dynamic imports
+- [x] Bundle sizes reduced ~9kB per route (290kB down from 299kB)
 
 ### Migration Prep
 - [x] App Router foundation (layout, providers, not-found)
@@ -152,17 +158,17 @@ Testing:
 
 ## Metrics
 
-### Bundle Sizes (per route, unique JS)
+### Bundle Sizes (First Load JS)
 | Route | Size | Status |
 |-------|------|--------|
-| /[deckId] | 395 kB | At limit |
-| /shop | 391 kB | At limit |
-| / | 381 kB | At limit |
-| /bag | 354 kB | OK |
-| /contact | 336 kB | OK |
-| /404 | 5 kB | Excellent |
+| /[deckId] | 295 kB | Good |
+| /shop | 292 kB | Good |
+| / | 290 kB | Good |
+| /bag | 283 kB | Good |
+| /contact | 280 kB | Good |
+| /404 | 176 kB | Excellent |
 
-**Shared chunks:** ~451 kB (framework + main)
+**Shared chunks:** ~174 kB (framework 60kB + main 86kB + _app 26kB)
 
 ### CI Pipeline
 - TypeScript check: ~3s

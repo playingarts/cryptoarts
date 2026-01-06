@@ -1,10 +1,16 @@
 import { FC, HTMLAttributes } from "react";
+import dynamic from "next/dynamic";
 import Grid from "../Grid";
 import ScandiBlock from "../ScandiBlock";
 import ArrowedButton from "../Buttons/ArrowedButton";
 import Text from "../Text";
 import NewLink from "../Link/NewLink";
-import EmailForm from "../EmailForm";
+
+// Lazy load EmailForm to reduce initial bundle (includes react-hook-form ~23kB)
+const EmailForm = dynamic(() => import("../EmailForm"), {
+  ssr: false,
+  loading: () => <div css={{ height: 55 }} />,
+});
 import Instagram from "../Icons/Instagram";
 import Twitter from "../Icons/Twitter";
 import Youtube from "../Icons/Youtube";
