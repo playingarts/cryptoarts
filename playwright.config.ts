@@ -13,7 +13,9 @@ export default defineConfig({
   reporter: process.env.CI ? "github" : "html",
 
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL || "https://dev.playingarts.com",
+    baseURL: process.env.CI
+      ? "http://localhost:3000"
+      : process.env.PLAYWRIGHT_BASE_URL || "https://dev.playingarts.com",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
@@ -34,10 +36,15 @@ export default defineConfig({
     // },
   ],
 
-  // Run local dev server before starting the tests (optional)
-  // webServer: {
-  //   command: "yarn dev",
-  //   url: "http://localhost:3000",
-  //   reuseExistingServer: !process.env.CI,
-  // },
+  // Run local server before starting the tests in CI
+  ...(process.env.CI
+    ? {
+        webServer: {
+          command: "yarn start",
+          url: "http://localhost:3000",
+          reuseExistingServer: false,
+          timeout: 120000,
+        },
+      }
+    : {}),
 });

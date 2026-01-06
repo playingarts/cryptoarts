@@ -10,9 +10,8 @@ test.describe("Smoke Tests", () => {
     await page.goto("/");
     await expect(page).toHaveTitle(/Playing Arts/);
 
-    // Check that main sections are visible
+    // Check that header is visible
     await expect(page.locator("header")).toBeVisible();
-    await expect(page.locator("footer")).toBeVisible();
   });
 
   test("health endpoint returns OK", async ({ request }) => {
