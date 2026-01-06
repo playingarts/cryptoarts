@@ -45,14 +45,22 @@ export default async function handler(
     checks: {},
   };
 
-  // Add memory usage check
+  // Add detailed memory usage check
   const memUsage = process.memoryUsage();
-  const heapUsedMB = Math.round(memUsage.heapUsed / 1024 / 1024);
-  const heapTotalMB = Math.round(memUsage.heapTotal / 1024 / 1024);
+  const toMB = (bytes: number) => Math.round(bytes / 1024 / 1024);
+
+  const heapUsedMB = toMB(memUsage.heapUsed);
+  const heapTotalMB = toMB(memUsage.heapTotal);
+  const rssMB = toMB(memUsage.rss);
+  const externalMB = toMB(memUsage.external);
+  const arrayBuffersMB = toMB(memUsage.arrayBuffers);
+
+  const heapUsagePercent = Math.round((memUsage.heapUsed / memUsage.heapTotal) * 100);
+  const isMemoryHigh = heapUsagePercent >= 90;
 
   health.checks!.memory = {
-    status: heapUsedMB < heapTotalMB * 0.9 ? "ok" : "error",
-    message: `${heapUsedMB}MB / ${heapTotalMB}MB`,
+    status: isMemoryHigh ? "error" : "ok",
+    message: `heap: ${heapUsedMB}/${heapTotalMB}MB (${heapUsagePercent}%), rss: ${rssMB}MB, external: ${externalMB}MB, buffers: ${arrayBuffersMB}MB`,
   };
 
   // Check rate limiting backend
