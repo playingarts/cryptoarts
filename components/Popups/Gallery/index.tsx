@@ -1,4 +1,5 @@
 import { FC, HTMLAttributes } from "react";
+import Image from "next/image";
 import NavButton from "../../Buttons/NavButton";
 import image from "../../../mocks/images/Wolf.png";
 import Button from "../../Buttons/Button";
@@ -48,7 +49,14 @@ const Gallery: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
           e.stopPropagation();
         }}
       >
-        <img src={image.src} alt="" css={[{ wdith: "100%", height: "100%" }]} />
+        <Image
+          src={image}
+          alt=""
+          fill
+          sizes="740px"
+          style={{ objectFit: "cover" }}
+          priority
+        />
         <Button
           css={[
             {

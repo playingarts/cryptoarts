@@ -1,13 +1,16 @@
-import { FC, ImgHTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useState } from "react";
+import Image from "next/image";
 import Gallery from "..";
 import Button from "../../../Buttons/Button";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Plus from "../../../Icons/Plus";
 
-const GalleryButton: FC<ImgHTMLAttributes<HTMLImageElement>> = ({
-  src,
-  ...props
-}) => {
+interface GalleryButtonProps extends HTMLAttributes<HTMLDivElement> {
+  src?: string;
+  alt?: string;
+}
+
+const GalleryButton: FC<GalleryButtonProps> = ({ src, alt = "", ...props }) => {
   const [show, setShow] = useState(false);
   const [hover, setHover] = useState(false);
 
@@ -27,7 +30,15 @@ const GalleryButton: FC<ImgHTMLAttributes<HTMLImageElement>> = ({
         onMouseLeave={() => setHover(false)}
         onClick={() => setShow(true)}
       >
-        <img src={src} alt="" css={[{ width: "100%", height: "100%" }]} />
+        {src && (
+          <Image
+            src={src}
+            alt={alt}
+            fill
+            sizes="(max-width: 768px) 50vw, 33vw"
+            style={{ objectFit: "cover" }}
+          />
+        )}
         <Button
           style={{ opacity: hover ? 1 : 0 }}
           css={(theme) => [

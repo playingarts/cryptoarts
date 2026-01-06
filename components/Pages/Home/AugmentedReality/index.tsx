@@ -1,4 +1,5 @@
 import { FC, HTMLAttributes, useState } from "react";
+import Image from "next/image";
 import Grid from "../../../Grid";
 import ShadertoyReact from "shadertoy-react";
 import frag from "../../../../Shaders/Xemantic/index.glsl";
@@ -28,7 +29,13 @@ const Presentation = () => {
         },
       ]}
     >
-      <img src={AR.src} alt="" css={[{ height: "100%", width: "100%" }]} />
+      <Image
+        src={AR}
+        alt="Augmented Reality preview"
+        fill
+        sizes="(max-width: 768px) 100vw, 50vw"
+        style={{ objectFit: "cover" }}
+      />
       <Zoom
         css={[{ position: "absolute", right: 15, bottom: 15 }]}
         style={{ opacity: hover ? 1 : 0 }}
