@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import mongoose from "mongoose";
 import pkg from "../../package.json";
+import { connect } from "../../source/mongoose";
 
 interface HealthResponse {
   status: "ok" | "degraded" | "down";
@@ -52,6 +54,26 @@ export default async function handler(
     status: heapUsedMB < heapTotalMB * 0.9 ? "ok" : "error",
     message: `${heapUsedMB}MB / ${heapTotalMB}MB`,
   };
+
+  // Check MongoDB connectivity
+  const dbStart = Date.now();
+  try {
+    await connect();
+    const readyState = mongoose.connection.readyState;
+    // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
+    const isConnected = readyState === 1;
+    health.checks!.database = {
+      status: isConnected ? "ok" : "error",
+      latency: Date.now() - dbStart,
+      message: isConnected ? "MongoDB connected" : `MongoDB state: ${readyState}`,
+    };
+  } catch (error) {
+    health.checks!.database = {
+      status: "error",
+      latency: Date.now() - dbStart,
+      message: error instanceof Error ? error.message : "Connection failed",
+    };
+  }
 
   // Determine overall status
   const hasErrors = Object.values(health.checks!).some(
