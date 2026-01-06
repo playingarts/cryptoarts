@@ -35,11 +35,5 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Report bundle sizes
-        run: |
-          echo "## Bundle Size Report" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "| Route | Size | First Load JS |" >> $GITHUB_STEP_SUMMARY
-          echo "|-------|------|---------------|" >> $GITHUB_STEP_SUMMARY
-          # Extract bundle info from .next/build-manifest.json or trace output
-          cat .next/trace | grep -o '"name":"[^"]*","duration":[0-9]*' | head -10 >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "Bundle trace not available" >> $GITHUB_STEP_SUMMARY
+      - name: Check bundle size budget
+        run: node scripts/check-bundle-size.js

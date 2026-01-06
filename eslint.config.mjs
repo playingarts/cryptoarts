@@ -34,6 +34,7 @@ export default [
       "**/source/**",
       "**/mocks/**",
       "**/.storybook/**",
+      "**/scripts/**",
     ],
   },
   ...compat.extends("next/core-web-vitals"),
