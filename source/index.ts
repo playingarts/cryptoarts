@@ -4,12 +4,11 @@ import redirector from "redirect-https";
 import { Content } from "./graphql/schemas/content";
 import { expressLogger } from "./logger";
 import { connect } from "./mongoose";
-import routes from "./routes";
 // import isMobile from "is-mobile";
 
 const { PORT = "3000" } = process.env;
 const app = next({ dev: process.env.NODE_ENV === "development" });
-const handler = routes.getRequestHandler(app);
+const handler = app.getRequestHandler();
 
 app
   .prepare()
@@ -38,6 +37,6 @@ app
     //   next();
     // });
 
-    server.use(handler);
+    server.all("*", (req, res) => handler(req, res));
     server.listen(PORT);
   });
