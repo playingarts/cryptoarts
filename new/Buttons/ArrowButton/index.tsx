@@ -1,4 +1,4 @@
-import { FC, forwardRef, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useState } from "react";
 import Arrow from "../../Icons/Arrow";
 import Button, { Props } from "../Button";
 import Dot from "../../Icons/Dot";
@@ -36,4 +36,4 @@ const ArrowButton: FC<
   return href ? <Link href={href}>{button}</Link> : button;
 };
 
-export default forwardRef(ArrowButton);
+export default ArrowButton;
