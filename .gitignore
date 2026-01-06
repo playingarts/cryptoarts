@@ -48,3 +48,6 @@ tsconfig.tsbuildinfo
 
 # Claude Code
 CLAUDE.md
+
+# macOS artifacts
+__MACOSX/
