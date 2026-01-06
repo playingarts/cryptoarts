@@ -1,5 +1,7 @@
 # Post-Refactor Assessment
 
+> **Note:** Do NOT merge to master until the website is finished and fully tested. Production deployment is blocked until complete.
+
 ## Current State
 
 | Area               | Status       | Notes                         |
