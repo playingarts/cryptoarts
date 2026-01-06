@@ -1,4 +1,4 @@
-import { graphqlHTTP } from "express-graphql";
+import { createHandler } from "graphql-http/lib/use/fetch";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { schema } from "../../../source/graphql/schema";
 import { connect } from "../../../source/mongoose";
@@ -10,12 +10,10 @@ export const config = {
   },
 };
 
-const handler = graphqlHTTP(() => ({
-  schema,
-  graphiql: process.env.NODE_ENV === "development",
-}));
+// Create the GraphQL handler using graphql-http
+const graphqlHandler = createHandler({ schema });
 
-export default async function graphqlHandler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -25,6 +23,40 @@ export default async function graphqlHandler(
   }
 
   await connect();
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return handler(req as any, res as any);
+
+  // Convert Next.js request/response to Web API Request/Response
+  const url = new URL(req.url || "/", `http://${req.headers.host}`);
+
+  // Read the body for POST requests
+  let body: string | undefined;
+  if (req.method === "POST") {
+    const chunks: Buffer[] = [];
+    for await (const chunk of req) {
+      chunks.push(chunk);
+    }
+    body = Buffer.concat(chunks).toString();
+  }
+
+  const request = new Request(url, {
+    method: req.method,
+    headers: req.headers as HeadersInit,
+    body: req.method !== "GET" && req.method !== "HEAD" ? body : undefined,
+  });
+
+  try {
+    const response = await graphqlHandler(request);
+
+    // Copy response headers
+    response.headers.forEach((value, key) => {
+      res.setHeader(key, value);
+    });
+
+    // Send response
+    res.status(response.status);
+    const responseBody = await response.text();
+    res.send(responseBody);
+  } catch (error) {
+    console.error("GraphQL error:", error);
+    res.status(500).json({ errors: [{ message: "Internal server error" }] });
+  }
 }
