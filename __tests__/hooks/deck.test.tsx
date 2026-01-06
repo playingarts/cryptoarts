@@ -1,7 +1,7 @@
 import { act } from "@testing-library/react";
 import { GraphQLError } from "graphql";
 import { DecksQuery, DeckQuery, useDecks, useDeck, useLoadDeck } from "../../hooks/deck";
-import { renderApolloHook, waitForQuery } from "../../jest/apolloTestUtils";
+import { renderApolloHook, waitFor } from "../../jest/apolloTestUtils";
 
 const mockDeck = {
   _id: "deck-1",
@@ -45,12 +45,12 @@ describe("hooks/deck", () => {
       expect(result.current.loading).toBe(true);
       expect(result.current.decks).toBeUndefined();
 
-      await act(waitForQuery);
+      // Wait for query to resolve
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      // After query resolves
-      expect(result.current.loading).toBe(false);
       expect(result.current.error).toBeUndefined();
-      // Verify data is returned (array with at least one item)
       expect(result.current.decks).toBeDefined();
       expect(Array.isArray(result.current.decks)).toBe(true);
       expect(result.current.decks?.length).toBeGreaterThan(0);
@@ -66,9 +66,10 @@ describe("hooks/deck", () => {
 
       const { result } = renderApolloHook(() => useDecks(), { mocks });
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.loading).toBe(false);
       expect(result.current.error).toBeDefined();
       expect(result.current.error?.message).toContain("Failed to fetch decks");
     });
@@ -90,9 +91,10 @@ describe("hooks/deck", () => {
 
       expect(result.current.loading).toBe(true);
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
-      expect(result.current.loading).toBe(false);
       expect(result.current.error).toBeUndefined();
       expect(result.current.deck).toBeDefined();
     });
@@ -110,7 +112,9 @@ describe("hooks/deck", () => {
         { mocks }
       );
 
-      await act(waitForQuery);
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
 
       expect(result.current.error?.message).toContain("Deck not found");
     });
@@ -131,14 +135,15 @@ describe("hooks/deck", () => {
       expect(result.current.deck).toBeUndefined();
       expect(typeof result.current.loadDeck).toBe("function");
 
-      // Call loadDeck and wait for resolution
-      await act(async () => {
+      // Call loadDeck
+      act(() => {
         result.current.loadDeck({ variables: { slug: "crypto" } });
-        await waitForQuery();
       });
 
-      // Deck should now be defined
-      expect(result.current.deck).toBeDefined();
+      // Wait for resolution
+      await waitFor(() => {
+        expect(result.current.deck).toBeDefined();
+      });
     });
   });
 });

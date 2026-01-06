@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { MockedResponse } from "@apollo/client/testing";
 import { MockedProvider } from "@apollo/client/testing/react";
-import { renderHook, RenderHookOptions } from "@testing-library/react";
+import { renderHook, RenderHookOptions, waitFor } from "@testing-library/react";
 
 /**
  * Creates a wrapper component for testing Apollo hooks
@@ -9,7 +9,7 @@ import { renderHook, RenderHookOptions } from "@testing-library/react";
 export function createApolloWrapper(mocks: MockedResponse[] = []) {
   return function ApolloWrapper({ children }: { children: ReactNode }) {
     return (
-      <MockedProvider mocks={mocks}>
+      <MockedProvider mocks={mocks} addTypename={false}>
         {children}
       </MockedProvider>
     );
@@ -37,9 +37,13 @@ export function renderApolloHook<TResult, TProps>(
  * Uses waitFor from testing-library to properly wait for async updates
  *
  * Apollo Client 4 has different timing for mock resolution than v3.
- * This helper waits for the event loop to process multiple ticks.
  */
 export async function waitForQuery(): Promise<void> {
-  // Apollo 4 needs multiple event loop ticks for mock resolution
-  await new Promise((resolve) => setTimeout(resolve, 100));
+  // Use waitFor to properly handle React state updates
+  await waitFor(
+    () => new Promise((resolve) => setTimeout(resolve, 0)),
+    { timeout: 1000 }
+  );
 }
+
+export { waitFor };
