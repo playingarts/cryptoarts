@@ -83,6 +83,14 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 - [x] Redis caching plan documented
 - [x] App Router migration plan documented
 
+### App Router Migration (PR 37)
+- [x] Phase 2: All 5 API routes migrated to Route Handlers
+  - `app/api/health/route.ts`
+  - `app/api/revalidate/route.ts`
+  - `app/api/v1/newsletter/route.ts`
+  - `app/api/v1/graphql/route.ts`
+  - `app/api/v1/assets/[contractId]/route.ts`
+
 ---
 
 ## Not Yet Done
@@ -91,9 +99,9 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 |------|----------|------------|-------|
 | Nonce-based CSP | P0 | High | Requires Emotion SSR changes |
 | Redis caching for GraphQL | P1 | Medium | Infrastructure ready, needs resolver integration |
-| App Router Phase 2-4 | P2 | High | Migrate static pages, then dynamic routes |
+| App Router Phase 3-4 | P2 | High | Migrate dynamic routes (Phase 2 API done) |
 | Bundle size reduction | P2 | Medium | Code-splitting, dynamic imports |
-| Test coverage 60%+ | P2 | Medium | Add tests for critical paths |
+| Test coverage 60%+ | P2 | Medium | Add tests for critical paths (currently 23%) |
 | E2E tests in CI | P3 | Low | Add Playwright to workflow |
 
 ---
@@ -138,6 +146,11 @@ Testing:
 - `app/layout.tsx` - App Router root layout
 - `app/providers.tsx` - Client-side providers
 - `app/not-found.tsx` - App Router 404
+- `app/api/health/route.ts` - Health check Route Handler
+- `app/api/revalidate/route.ts` - ISR revalidation Route Handler
+- `app/api/v1/newsletter/route.ts` - Newsletter Route Handler
+- `app/api/v1/graphql/route.ts` - GraphQL Route Handler
+- `app/api/v1/assets/[contractId]/route.ts` - Assets Route Handler
 - `e2e/smoke.spec.ts` - Playwright smoke tests
 - `playwright.config.ts` - Playwright configuration
 - `lighthouse-budget.json` - Performance budgets
@@ -148,11 +161,17 @@ Testing:
 
 ### Key Modifications
 - `next.config.js` - Security headers, Sentry config
-- `pages/api/health.ts` - MongoDB connectivity check
 - `source/apollo/cachePolicies.ts` - Extended type policies
 - `pages/[deckId].tsx` - ISR with getStaticProps
 - `jest.config.mjs` - Coverage configuration
 - `.github/workflows/ci.yml` - Coverage reporting
+
+### Deleted Files (migrated to App Router)
+- `pages/api/health.ts` → `app/api/health/route.ts`
+- `pages/api/revalidate.ts` → `app/api/revalidate/route.ts`
+- `pages/api/v1/newsletter.ts` → `app/api/v1/newsletter/route.ts`
+- `pages/api/v1/graphql.ts` → `app/api/v1/graphql/route.ts`
+- `pages/api/v1/assets/[contractId].ts` → `app/api/v1/assets/[contractId]/route.ts`
 
 ---
 

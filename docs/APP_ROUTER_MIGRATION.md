@@ -31,18 +31,26 @@ This document outlines the migration strategy from Pages Router to App Router fo
 
 ## Migration Strategy
 
-### Phase 1: Foundation (Low Risk)
-1. Create `app/` directory alongside `pages/`
-2. Move `layout.tsx` setup (root layout with providers)
-3. Migrate static pages first: `/contact`, `/privacy`
-4. Migrate `/404` to `app/not-found.tsx`
+### Phase 1: Foundation (Low Risk) ✅ COMPLETED
+1. ✅ Create `app/` directory alongside `pages/`
+2. ✅ Move `layout.tsx` setup (root layout with providers)
+3. ⏳ Migrate static pages first: `/contact`, `/privacy` (pending)
+4. ✅ Migrate `/404` to `app/not-found.tsx`
 
-### Phase 2: API Routes
-1. Create `app/api/` directory
-2. Convert API routes to Route Handlers:
-   - `pages/api/health.ts` → `app/api/health/route.ts`
-   - `pages/api/v1/graphql.ts` → `app/api/v1/graphql/route.ts`
-   - etc.
+### Phase 2: API Routes ✅ COMPLETED (January 2026)
+All 5 API routes migrated to App Router Route Handlers:
+- ✅ `pages/api/health.ts` → `app/api/health/route.ts`
+- ✅ `pages/api/revalidate.ts` → `app/api/revalidate/route.ts`
+- ✅ `pages/api/v1/newsletter.ts` → `app/api/v1/newsletter/route.ts`
+- ✅ `pages/api/v1/graphql.ts` → `app/api/v1/graphql/route.ts`
+- ✅ `pages/api/v1/assets/[contractId].ts` → `app/api/v1/assets/[contractId]/route.ts`
+
+Key changes in migration:
+- Uses `NextRequest`/`NextResponse` from `next/server`
+- Named exports (`GET`, `POST`) instead of default export
+- Dynamic route params via `Promise<{ paramName: string }>` second argument
+- Rate limiting implemented inline (in-memory) for each endpoint
+- ISR revalidation uses `revalidatePath()` from `next/cache`
 
 ### Phase 3: Dynamic Routes
 1. Migrate shop pages: `/shop`, `/shop/[pId]`

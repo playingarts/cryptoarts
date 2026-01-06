@@ -1,7 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from "next/server";
 import mongoose from "mongoose";
-import pkg from "../../package.json";
-import { connect } from "../../source/mongoose";
+import pkg from "../../../package.json";
+import { connect } from "../../../source/mongoose";
 
 interface HealthResponse {
   status: "ok" | "degraded" | "down";
@@ -26,15 +26,7 @@ interface HealthResponse {
  * - 200: Service is healthy
  * - 503: Service is degraded or down
  */
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<HealthResponse>
-) {
-  if (req.method !== "GET") {
-    res.setHeader("Allow", ["GET"]);
-    return res.status(405).end();
-  }
-
+export async function GET() {
   const startTime = Date.now();
 
   const health: HealthResponse = {
@@ -55,7 +47,9 @@ export default async function handler(
   const externalMB = toMB(memUsage.external);
   const arrayBuffersMB = toMB(memUsage.arrayBuffers);
 
-  const heapUsagePercent = Math.round((memUsage.heapUsed / memUsage.heapTotal) * 100);
+  const heapUsagePercent = Math.round(
+    (memUsage.heapUsed / memUsage.heapTotal) * 100
+  );
   const isMemoryHigh = heapUsagePercent >= 90;
 
   health.checks!.memory = {
@@ -69,7 +63,9 @@ export default async function handler(
     !!process.env.UPSTASH_REDIS_REST_TOKEN;
   health.checks!.rateLimit = {
     status: "ok",
-    message: isRedisConfigured ? "Upstash Redis (distributed)" : "In-memory (per-instance)",
+    message: isRedisConfigured
+      ? "Upstash Redis (distributed)"
+      : "In-memory (per-instance)",
   };
 
   // Check MongoDB connectivity
@@ -101,12 +97,14 @@ export default async function handler(
     health.status = "degraded";
   }
 
-  // Set response headers
-  res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-  res.setHeader("X-Response-Time", `${Date.now() - startTime}ms`);
-
   // Return appropriate status code
   const statusCode = health.status === "ok" ? 200 : 503;
 
-  return res.status(statusCode).json(health);
+  return NextResponse.json(health, {
+    status: statusCode,
+    headers: {
+      "Cache-Control": "no-store, no-cache, must-revalidate",
+      "X-Response-Time": `${Date.now() - startTime}ms`,
+    },
+  });
 }
