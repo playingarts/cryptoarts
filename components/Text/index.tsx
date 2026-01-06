@@ -1,5 +1,7 @@
+"use client";
+
 import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { typographyLiterals } from "../../pages/_app";
+import { typographyLiterals } from "../../styles/theme";
 import {
   usePalette,
   Props as PaletteProps,

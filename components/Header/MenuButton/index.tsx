@@ -1,6 +1,6 @@
 import { useState } from "react";
 import MenuIcon from "../../Icons/Menu";
-import { theme } from "../../../pages/_app";
+import { theme } from "../../../styles/theme";
 
 const MenuButton = () => {
   const [hover, setHover] = useState(false);

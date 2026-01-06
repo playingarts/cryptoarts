@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, HTMLAttributes } from "react";
 import Header from "../../Header";
 import Text from "../../Text";
@@ -58,4 +60,8 @@ const Bag: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   );
 };
 
+// Named export for App Router (without withApollo wrapper)
+export { Bag };
+
+// Default export with Apollo HOC for Pages Router backward compatibility
 export default withApollo(Bag, { ssr: false });

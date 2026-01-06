@@ -1,7 +1,7 @@
 import { FC, Fragment, HTMLAttributes } from "react";
 import { useResizeDetector } from "react-resize-detector";
 import { ChartProps } from "..";
-import { colorLiterals, theme } from "../../../pages/_app";
+import { colorLiterals, theme } from "../../../styles/theme";
 
 interface Props extends HTMLAttributes<HTMLDivElement>, ChartProps {}
 

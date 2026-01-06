@@ -1,3 +1,5 @@
+"use client";
+
 import { ClassNames, CSSObject, Theme } from "@emotion/react";
 import { CSSInterpolation } from "@emotion/serialize";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";

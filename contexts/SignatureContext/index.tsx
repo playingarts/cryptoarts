@@ -1,3 +1,5 @@
+"use client";
+
 import { useMetaMask } from "metamask-react";
 import {
   createContext,

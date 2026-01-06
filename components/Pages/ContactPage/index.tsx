@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, useLayoutEffect, useState } from "react";
 import Head from "next/head";
 import Grid from "../../Grid";

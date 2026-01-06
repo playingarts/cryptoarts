@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import Header from "../../Header";
 import Footer from "../../Footer";
@@ -92,4 +94,8 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   </>
 );
 
+// Named export for App Router (without withApollo wrapper)
+export { ProductPage };
+
+// Default export with Apollo HOC for Pages Router backward compatibility
 export default withApollo(ProductPage, { ssr: false });

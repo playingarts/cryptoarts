@@ -16,7 +16,7 @@ import Facebook from "../../../Icons/Facebook";
 import Behance from "../../../Icons/Behance";
 import Foundation from "../../../Icons/Foundation";
 import { usePalette } from "../../Deck/DeckPaletteContext";
-import { theme } from "../../../../pages/_app";
+import { theme } from "../../../../styles/theme";
 
 const socialIcons: Record<string, FC> = {
   website: Website,

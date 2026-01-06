@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { withApollo } from "../../../source/apollo";
 import Hero from "./Hero";
@@ -83,4 +85,8 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   </>
 );
 
+// Named export for App Router (without withApollo wrapper)
+export { Shop };
+
+// Default export with Apollo HOC for Pages Router backward compatibility
 export default withApollo(Shop, { ssr: false });

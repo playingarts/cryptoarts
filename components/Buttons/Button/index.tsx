@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes } from "react";
 import Text, { Props as TextProps } from "../../Text";
-import { colorLiterals } from "../../../pages/_app";
+import { colorLiterals } from "../../../styles/theme";
 import { Props as Paletteprops } from "../../Pages/Deck/DeckPaletteContext";
 
 export interface Props {

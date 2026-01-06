@@ -1,3 +1,5 @@
+"use client";
+
 import { FC, HTMLAttributes, useState } from "react";
 import Arrow from "../../Icons/Arrow";
 import Button, { Props } from "../Button";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useRouter } from "next/router";
 import { FC, Fragment, HTMLAttributes } from "react";
 import { withApollo } from "../../../source/apollo";
@@ -60,4 +62,8 @@ const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   </>
 );
 
+// Named export for App Router (without withApollo wrapper)
+export { Deck };
+
+// Default export with Apollo HOC for Pages Router backward compatibility
 export default withApollo(Deck, { ssr: false });
