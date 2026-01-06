@@ -1,4 +1,5 @@
 import { NextApiHandler } from "next";
+import { rateLimiters } from "../../../lib/rateLimit";
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -55,9 +56,12 @@ export const subscribeEmail: (
   });
 
 const handler: NextApiHandler = async (req, res) => {
+  // Apply strict rate limiting (5 requests per minute)
+  if (rateLimiters.strict(req, res)) {
+    return; // Request was rate limited
+  }
+
   const { email } = req.body;
-  // const ip = req.ip as string;
-  // console.log(ip);
 
   if (typeof email !== "string" || !isValidEmail(email)) {
     res.statusMessage = "Email is invalid";
