@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
     "target": "es2015",
-    "lib": ["dom", "dom.iterable", "esnext", "ES6"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "ES6"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -14,23 +19,43 @@
     "isolatedModules": true,
     "jsxImportSource": "@emotion/react",
     "jsx": "preserve",
-    "typeRoots": ["./typings", "node_modules/@types"],
+    "typeRoots": [
+      "./typings",
+      "node_modules/@types"
+    ],
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@emotion/core": ["./typings/emotion.d.ts"],
-      "@/components/*": ["./components/*"],
-      "@/hooks/*": ["./hooks/*"],
-      "@/contexts/*": ["./contexts/*"]
-    }
+      "@emotion/core": [
+        "./typings/emotion.d.ts"
+      ],
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/hooks/*": [
+        "./hooks/*"
+      ],
+      "@/contexts/*": [
+        "./contexts/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".storybook/StoryGraphqlHandlers.ts"
+    ".storybook/StoryGraphqlHandlers.ts",
+    "next-env.d.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "components/**/*.stories.*"],
+  "exclude": [
+    "node_modules",
+    "components/**/*.stories.*"
+  ],
   "ts-node": {
     "esm": true,
     "experimentalSpecifierResolution": "node"
