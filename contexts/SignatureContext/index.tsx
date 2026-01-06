@@ -6,6 +6,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
 } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
@@ -38,8 +39,11 @@ export const SignatureProvider: FC<HTMLAttributes<HTMLElement>> = ({
     []
   );
 
-  // Use empty array while loading from localStorage
-  const signatures = storedSigs ?? [];
+  // Memoize signatures to prevent dependency array changes on every render
+  const signatures = useMemo(() => storedSigs ?? [], [storedSigs]);
+
+  // Track if localStorage has loaded
+  const isLoaded = storedSigs !== undefined;
 
   const getSig = useCallback(() => {
     try {
@@ -93,17 +97,21 @@ export const SignatureProvider: FC<HTMLAttributes<HTMLElement>> = ({
 
   // Reset signing state on mount
   useEffect(() => {
-    if (storedSigs !== undefined) {
+    if (isLoaded) {
       setSignatures((prev) => prev.map((sig) => ({ ...sig, signing: false })));
     }
-  }, [storedSigs !== undefined]);
+    // Only run once when localStorage loads
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded]);
 
   // Request signature when account changes
   useEffect(() => {
-    if (storedSigs !== undefined) {
+    if (isLoaded) {
       askSig();
     }
-  }, [account, storedSigs !== undefined]);
+    // Only run when account changes or when loaded
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [account, isLoaded]);
 
   return (
     <SignatureContext.Provider

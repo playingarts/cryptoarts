@@ -4,6 +4,7 @@ import {
   HTMLAttributes,
   useCallback,
   useContext,
+  useMemo,
 } from "react";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
 
@@ -30,8 +31,8 @@ export const ViewedProvider: FC<HTMLAttributes<HTMLElement>> = ({
 }) => {
   const [storedViewed, setViewed] = useLocalStorage<ViewedCard[]>("viewed", []);
 
-  // Use empty array while loading from localStorage
-  const viewed = storedViewed ?? [];
+  // Memoize viewed to prevent dependency array changes on every render
+  const viewed = useMemo(() => storedViewed ?? [], [storedViewed]);
 
   const exists = useCallback(
     ({ value, suit, deckSlug }: ViewedCard) =>

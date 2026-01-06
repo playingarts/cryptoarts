@@ -86,7 +86,7 @@ export const useOwnedAssets = (slug?: string) => {
     if (slug) {
       loadDeck({ variables: { slug } });
     }
-  }, [slug]);
+  }, [slug, loadDeck]);
 
   useEffect(() => {
     if (!deck) {
