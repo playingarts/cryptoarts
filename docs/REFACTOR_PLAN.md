@@ -88,7 +88,7 @@ Goal: Update low-risk packages that don't require code changes.
 
 ---
 
-### PR 4: Storybook Upgrade (8.4 → 8.6)
+### PR 4: Storybook Upgrade (8.4 → 8.6) ✅ COMPLETED
 
 Goal: Update Storybook within major version (safe upgrade path).
 
@@ -98,6 +98,8 @@ Goal: Update Storybook within major version (safe upgrade path).
 | Risk         | Medium                                       |
 | Acceptance   | yarn storybook runs, existing stories render |
 | Verification | Manual Storybook check                       |
+
+**Status:** Completed in commit `7b3a524` - Upgraded 10 @storybook/* packages + msw-storybook-addon. Verified with smoke test.
 
 ---
 
