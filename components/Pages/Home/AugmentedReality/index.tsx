@@ -1,8 +1,7 @@
 import { FC, HTMLAttributes, useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import Grid from "../../../Grid";
-import ShadertoyReact from "shadertoy-react";
-import frag from "../../../../Shaders/Xemantic/index.glsl";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
@@ -13,6 +12,17 @@ import AR from "../../../../mocks/images/AR.png";
 import Zoom from "../../../Zoom";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
+import frag from "../../../../Shaders/Xemantic/index.glsl";
+
+// Lazy load WebGL shader component to reduce initial bundle size
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ShadertoyReact = dynamic<any>(
+  () => import("shadertoy-react").then((mod) => mod.default),
+  {
+    ssr: false,
+    loading: () => null,
+  }
+);
 
 const Presentation = () => {
   const [hover, setHover] = useState(false);
