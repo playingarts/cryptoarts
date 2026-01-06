@@ -6,8 +6,17 @@
  */
 
 import { Types } from "mongoose";
-import Web3 from "web3";
 import { Card, Loser, Deck, type MongoCard } from "../models";
+
+/**
+ * Convert wei to ether (replaces Web3.utils.fromWei)
+ * 1 ether = 10^18 wei
+ */
+function fromWei(wei: string): string {
+  const weiValue = BigInt(wei);
+  const etherValue = Number(weiValue) / 1e18;
+  return etherValue.toString();
+}
 
 // Hero cards configuration per deck
 const heroCardConfig = {
@@ -257,9 +266,7 @@ export class CardService {
       return undefined;
     }
 
-    return parseFloat(
-      Web3.utils.fromWei(listings[0].price.current.value, "ether")
-    );
+    return parseFloat(fromWei(listings[0].price.current.value));
   }
 
   /**
