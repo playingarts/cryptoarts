@@ -36,6 +36,29 @@ export const DeckDataFragment = gql`
   }
 `;
 
+/**
+ * Lightweight deck fragment for navigation (only slug needed)
+ */
+export const DeckNavFragment = gql`
+  fragment DeckNavFragment on Deck {
+    _id
+    slug
+  }
+`;
+
+/**
+ * Query for deck navigation - only fetches slugs to minimize payload
+ */
+export const DecksNavQuery = gql`
+  ${DeckNavFragment}
+
+  query DecksNav {
+    decks {
+      ...DeckNavFragment
+    }
+  }
+`;
+
 export const DecksQuery = gql`
   ${DeckDataFragment}
 
@@ -61,6 +84,20 @@ export const useDecks = (
 ) => {
   const { data, ...methods } = useQuery<Pick<GQL.Query, "decks">>(
     DecksQuery,
+    options
+  );
+
+  return { ...methods, decks: data?.decks };
+};
+
+/**
+ * Hook for deck navigation - uses lightweight query
+ */
+export const useDecksNav = (
+  options: QueryHookOptions<Pick<GQL.Query, "decks">> = {}
+) => {
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "decks">>(
+    DecksNavQuery,
     options
   );
 

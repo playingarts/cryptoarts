@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useDecks } from "../../../hooks/deck";
+import { useDecksNav } from "../../../hooks/deck";
 import { useEffect, useState } from "react";
 import Text from "../../Text";
 import Link from "../../Link";
@@ -14,7 +14,7 @@ export default () => {
   const [counter, setCounter] = useState(0);
   const [max, setMax] = useState(0);
 
-  const { decks } = useDecks();
+  const { decks } = useDecksNav();
 
   const { palette } = usePalette();
 

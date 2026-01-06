@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 export { default } from "@/components/Pages/Deck/";
 
 import { initApolloClient } from "../source/apollo";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { connect } from "../source/mongoose";
-import { DecksQuery } from "../hooks/deck";
-import { CardsQuery, HeroCardsQuery } from "../hooks/card";
+import { DecksNavQuery, DeckQuery } from "../hooks/deck";
+import { CardsForDeckQuery, HeroCardsQuery } from "../hooks/card";
 import { LosersQuery } from "../hooks/loser";
 import { NormalizedCacheObject } from "@apollo/client";
 
@@ -20,8 +19,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     schema: (await require("../source/graphql/schema")).schema,
   });
 
+  // Use lightweight nav query for paths (only need slugs)
   const decks = (
-    (await client.query({ query: DecksQuery })) as {
+    (await client.query({ query: DecksNavQuery })) as {
       data: { decks: GQL.Deck[] };
     }
   ).data.decks;
@@ -51,13 +51,11 @@ export const getStaticProps: GetStaticProps<
     schema: (await require("../source/graphql/schema")).schema,
   });
 
-  const decks = (
-    (await client.query({ query: DecksQuery })) as {
-      data: { decks: GQL.Deck[] };
-    }
-  ).data.decks;
-
-  const deck = decks.find((deck) => deck.slug === deckId);
+  // Fetch single deck by slug (not all decks)
+  const { data: { deck } = { deck: undefined } } = (await client.query({
+    query: DeckQuery,
+    variables: { slug: deckId },
+  })) as { data: { deck: GQL.Deck | undefined } };
 
   if (!deck) {
     return {
@@ -66,8 +64,11 @@ export const getStaticProps: GetStaticProps<
     };
   }
 
+  // Fetch navigation data (lightweight - only slugs)
+  await client.query({ query: DecksNavQuery });
+
   await client.query({
-    query: CardsQuery,
+    query: CardsForDeckQuery,
     variables: { deck: deck._id },
   });
 

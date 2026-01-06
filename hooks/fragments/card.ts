@@ -40,6 +40,25 @@ export const CardWithSlugsFragment = gql`
 `;
 
 /**
+ * Card for deck page listing (minimal fields for rendering)
+ * Only includes fields used by Card component and CardList
+ */
+export const CardForDeckFragment = gql`
+  fragment CardForDeckFragment on Card {
+    _id
+    img
+    video
+    artist {
+      name
+      slug
+      userpic
+      country
+      info
+    }
+  }
+`;
+
+/**
  * Full card fragment with all fields and artist details
  */
 export const CardFragment = gql`

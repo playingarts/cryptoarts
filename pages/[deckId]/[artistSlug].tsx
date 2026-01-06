@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import { GetStaticPaths, GetStaticProps } from "next";
 import { NormalizedCacheObject } from "@apollo/client";
 import { connect } from "../../source/mongoose";

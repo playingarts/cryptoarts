@@ -4,6 +4,7 @@ import {
   CardFragment,
   CardBasicFragment,
   CardWithSlugsFragment,
+  CardForDeckFragment,
   ERC1155Fragment,
 } from "./fragments";
 
@@ -13,6 +14,20 @@ export const CardsQuery = gql`
   query Cards($deck: ID, $losers: Boolean, $edition: String) {
     cards(deck: $deck, losers: $losers, edition: $edition) {
       ...CardFragment
+    }
+  }
+`;
+
+/**
+ * Optimized cards query for deck page listing.
+ * Uses lighter fragment without full social/podcast data to reduce page size.
+ */
+export const CardsForDeckQuery = gql`
+  ${CardForDeckFragment}
+
+  query CardsForDeck($deck: ID) {
+    cards(deck: $deck) {
+      ...CardForDeckFragment
     }
   }
 `;

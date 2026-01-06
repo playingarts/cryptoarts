@@ -16,6 +16,7 @@ export {
   ERC1155Fragment,
   CardBasicFragment,
   CardWithSlugsFragment,
+  CardForDeckFragment,
   CardFragment,
 } from "./card";
 

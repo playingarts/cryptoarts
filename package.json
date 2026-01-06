@@ -82,6 +82,7 @@
     "@graphql-codegen/typescript-resolvers": "^4.4.1",
     "@graphql-tools/schema": "^10.0.30",
     "@next/bundle-analyzer": "^15.1.0",
+    "@next/eslint-plugin-next": "^16.1.1",
     "@playwright/test": "^1.57.0",
     "@storybook/addon-actions": "^8.6.0",
     "@storybook/addon-designs": "^8.2.0",
