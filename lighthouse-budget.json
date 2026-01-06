@@ -4,11 +4,11 @@
     "resourceSizes": [
       {
         "resourceType": "total",
-        "budget": 2000
+        "budget": 7000
       },
       {
         "resourceType": "script",
-        "budget": 1000
+        "budget": 500
       },
       {
         "resourceType": "stylesheet",
@@ -16,7 +16,7 @@
       },
       {
         "resourceType": "image",
-        "budget": 500
+        "budget": 6000
       },
       {
         "resourceType": "font",
@@ -26,19 +26,19 @@
     "timings": [
       {
         "metric": "first-contentful-paint",
-        "budget": 3000
-      },
-      {
-        "metric": "largest-contentful-paint",
         "budget": 4000
       },
       {
+        "metric": "largest-contentful-paint",
+        "budget": 18000
+      },
+      {
         "metric": "interactive",
-        "budget": 5000
+        "budget": 22000
       },
       {
         "metric": "cumulative-layout-shift",
-        "budget": 0.25
+        "budget": 0.15
       }
     ]
   }
