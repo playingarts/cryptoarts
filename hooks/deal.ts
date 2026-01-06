@@ -1,4 +1,6 @@
-import { gql, QueryHookOptions, useLazyQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+
+import { useLazyQuery, useQuery } from "@apollo/client/react";
 
 export const DealQuery = gql`
   query Deal($hash: String!, $deckId: String!, $signature: String!) {
@@ -12,7 +14,7 @@ export const DealQuery = gql`
 `;
 
 export const useLoadDeal = (
-  options: QueryHookOptions<Pick<GQL.Query, "deal">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "deal">> = {}
 ) => {
   const [loadDeal, { data: { deal } = { deal: undefined }, ...methods }] =
     useLazyQuery<Pick<GQL.Query, "deal">>(DealQuery, options);

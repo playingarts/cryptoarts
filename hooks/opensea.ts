@@ -1,4 +1,5 @@
-import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client/react";
 import { useEffect } from "react";
 import { useSignature } from "../contexts/SignatureContext";
 import { useLoadDeck } from "./deck";
@@ -45,33 +46,33 @@ export const OwnedAssetsQuery = gql`
 export const useOpensea = (
   options: QueryHookOptions<Pick<GQL.Query, "opensea">> = {}
 ) => {
-  const { data: { opensea } = { opensea: undefined }, ...methods } = useQuery<
-    Pick<GQL.Query, "opensea">
-  >(OpenseaQuery, options);
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "opensea">>(
+    OpenseaQuery,
+    options
+  );
 
-  return { ...methods, opensea };
+  return { ...methods, opensea: data?.opensea };
 };
 
 export const useHolders = (
   options: QueryHookOptions<Pick<GQL.Query, "holders">> = {}
 ) => {
-  const { data: { holders } = { holders: undefined }, ...methods } = useQuery(
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "holders">>(
     HoldersQuery,
     options
   );
 
-  return { ...methods, holders };
+  return { ...methods, holders: data?.holders };
 };
 
 export const useLoadOwnedAssets = (
   options: QueryHookOptions<Pick<GQL.Query, "ownedAssets">> = {}
 ) => {
-  const [
-    loadOwnedAssets,
-    { data: { ownedAssets } = { ownedAssets: undefined }, ...methods },
-  ] = useLazyQuery(OwnedAssetsQuery, options);
+  const [loadOwnedAssets, { data, ...methods }] = useLazyQuery<
+    Pick<GQL.Query, "ownedAssets">
+  >(OwnedAssetsQuery, options);
 
-  return { loadOwnedAssets, ...methods, ownedAssets };
+  return { loadOwnedAssets, ...methods, ownedAssets: data?.ownedAssets };
 };
 
 export const useOwnedAssets = (slug?: string) => {

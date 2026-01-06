@@ -144,8 +144,12 @@ const createTestClient = () => {
   });
 };
 
+// Type definitions for test query results
+type CardsQueryResult = { cards: typeof mockCard[] };
+type CardQueryResult = { card: typeof mockCard | null };
+
 describe("Card GraphQL Queries Integration", () => {
-  let client: ApolloClient<unknown>;
+  let client: ApolloClient;
 
   beforeEach(() => {
     client = createTestClient();
@@ -153,35 +157,35 @@ describe("Card GraphQL Queries Integration", () => {
 
   describe("CardsQuery", () => {
     it("should fetch cards for a deck", async () => {
-      const result = await client.query({
+      const result = await client.query<CardsQueryResult>({
         query: CardsQuery,
         variables: { deck: "deck-1" },
       });
 
-      expect(result.data.cards).toHaveLength(1);
-      expect(result.data.cards[0]._id).toBe("card-1");
-      expect(result.data.cards[0].value).toBe("A");
-      expect(result.data.cards[0].suit).toBe("spades");
+      expect(result.data!.cards).toHaveLength(1);
+      expect(result.data!.cards[0]._id).toBe("card-1");
+      expect(result.data!.cards[0].value).toBe("A");
+      expect(result.data!.cards[0].suit).toBe("spades");
     });
 
     it("should include artist data with cards", async () => {
-      const result = await client.query({
+      const result = await client.query<CardsQueryResult>({
         query: CardsQuery,
         variables: { deck: "deck-1" },
       });
 
-      const card = result.data.cards[0];
+      const card = result.data!.cards[0];
       expect(card.artist?.name).toBe("Test Artist");
       expect(card.artist?.slug).toBe("test-artist");
     });
 
     it("should include ERC1155 data", async () => {
-      const result = await client.query({
+      const result = await client.query<CardsQueryResult>({
         query: CardsQuery,
         variables: { deck: "deck-1" },
       });
 
-      const card = result.data.cards[0];
+      const card = result.data!.cards[0];
       expect(card.erc1155?.contractAddress).toBe("0xabc");
       expect(card.erc1155?.token_id).toBe("1");
     });
@@ -189,43 +193,43 @@ describe("Card GraphQL Queries Integration", () => {
 
   describe("CardQuery", () => {
     it("should fetch a single card by id", async () => {
-      const result = await client.query({
+      const result = await client.query<CardQueryResult>({
         query: CardQuery,
         variables: { id: "card-1" },
       });
 
-      expect(result.data.card).not.toBeNull();
-      expect(result.data.card._id).toBe("card-1");
-      expect(result.data.card.value).toBe("A");
-      expect(result.data.card.suit).toBe("spades");
+      expect(result.data!.card).not.toBeNull();
+      expect(result.data!.card!._id).toBe("card-1");
+      expect(result.data!.card!.value).toBe("A");
+      expect(result.data!.card!.suit).toBe("spades");
     });
 
     it("should fetch a card by artist slug and deck slug", async () => {
-      const result = await client.query({
+      const result = await client.query<CardQueryResult>({
         query: CardQuery,
         variables: { slug: "test-artist", deckSlug: "crypto" },
       });
 
-      expect(result.data.card).not.toBeNull();
-      expect(result.data.card.artist?.slug).toBe("test-artist");
+      expect(result.data!.card).not.toBeNull();
+      expect(result.data!.card!.artist?.slug).toBe("test-artist");
     });
 
     it("should return null for non-existent card", async () => {
-      const result = await client.query({
+      const result = await client.query<CardQueryResult>({
         query: CardQuery,
         variables: { id: "non-existent" },
       });
 
-      expect(result.data.card).toBeNull();
+      expect(result.data!.card).toBeNull();
     });
 
     it("should include artist social links", async () => {
-      const result = await client.query({
+      const result = await client.query<CardQueryResult>({
         query: CardQuery,
         variables: { id: "card-1" },
       });
 
-      const card = result.data.card;
+      const card = result.data!.card!;
       expect(card.artist?.social?.instagram).toBe("@testartist");
     });
   });

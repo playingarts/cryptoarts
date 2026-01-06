@@ -5,7 +5,8 @@
  * Business logic is delegated to OpenSeaService.
  */
 
-import { ApolloError, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { GraphQLError } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import { openSeaService } from "../../services";
 import { openSeaClient } from "../../lib/OpenSeaClient";
@@ -56,9 +57,7 @@ export const resolvers: GQL.Resolvers = {
   Query: {
     opensea: async (_, { deck, slug }): Promise<GQL.Opensea> => {
       if (!deck && !slug) {
-        throw new ApolloError({
-          errorMessage: "Either deck or slug must be provided",
-        });
+        throw new GraphQLError("Either deck or slug must be provided");
       }
 
       const contract = deck
@@ -85,9 +84,7 @@ export const resolvers: GQL.Resolvers = {
     },
     ownedAssets: async (_, { deck, address, signature }) => {
       if (!signatureValid(address, signature)) {
-        throw new ApolloError({
-          errorMessage: "Failed to verify the account.",
-        });
+        throw new GraphQLError("Failed to verify the account.");
       }
 
       const contracts = await getContracts({ deck });

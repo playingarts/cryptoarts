@@ -1,4 +1,5 @@
-import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client/react";
 import {
   CardFragment,
   CardBasicFragment,
@@ -147,7 +148,7 @@ export const HomeCards = gql`
 `;
 
 export const useCard = (
-  options: QueryHookOptions<Pick<GQL.Query, "card">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "card">> = {}
 ) => {
   const { data: { card } = { card: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "card">
@@ -160,7 +161,7 @@ export const useCard = (
 };
 
 export const useCards = (
-  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
 ) => {
   const { data: { cards } = { cards: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "cards">
@@ -173,7 +174,7 @@ export const useCards = (
 };
 
 export const useHomeCards = (
-  options: QueryHookOptions<Pick<GQL.Query, "homeCards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "homeCards">> = {}
 ) => {
   const { data: { homeCards: cards } = { cards: undefined }, ...methods } =
     useQuery<Pick<GQL.Query, "homeCards">>(HomeCards, options);
@@ -185,7 +186,7 @@ export const useHomeCards = (
 };
 
 export const useLoadCards = (
-  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
 ) => {
   const [loadCards, { data: { cards } = { cards: undefined }, ...methods }] =
     useLazyQuery<Pick<GQL.Query, "cards">>(CardsQuery, options);
@@ -198,7 +199,7 @@ export const useLoadCards = (
 };
 
 export const useLoadHeroCards = (
-  options: QueryHookOptions<Pick<GQL.Query, "heroCards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "heroCards">> = {}
 ) => {
   const [
     loadHeroCards,
@@ -213,7 +214,7 @@ export const useLoadHeroCards = (
 };
 
 export const useHeroCards = (
-  options: QueryHookOptions<Pick<GQL.Query, "heroCards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "heroCards">> = {}
 ) => {
   const { data: { heroCards } = { heroCards: undefined }, ...methods } =
     useQuery<Pick<GQL.Query, "heroCards">>(HeroCardsQuery, options);
@@ -225,7 +226,7 @@ export const useHeroCards = (
 };
 
 export const useLoadCard = (
-  options: QueryHookOptions<Pick<GQL.Query, "card">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "card">> = {}
 ) => {
   const [loadCard, { data: { card } = { card: undefined }, ...methods }] =
     useLazyQuery<Pick<GQL.Query, "card">>(CardQuery, options);
@@ -234,7 +235,7 @@ export const useLoadCard = (
 };
 
 export const useLoadRandomCards = (
-  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
 ) => {
   const [
     loadRandomCards,
@@ -245,7 +246,7 @@ export const useLoadRandomCards = (
 };
 
 export const useLoadRandomCardsWithInfo = (
-  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
 ) => {
   const [
     loadRandomCardsWithInfo,
@@ -255,7 +256,7 @@ export const useLoadRandomCardsWithInfo = (
   return { loadRandomCardsWithInfo, ...methods, cards };
 };
 export const useLoadRandomCardsWithoutDeck = (
-  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
 ) => {
   const [
     loadRandomCardsWithoutDeck,
@@ -269,7 +270,7 @@ export const useLoadRandomCardsWithoutDeck = (
 };
 
 export const useRandomCardsWithoutDeck = (
-  options: QueryHookOptions<Pick<GQL.Query, "cards">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
 ) => {
   const { data: { cards } = { randomCards: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "cards">
@@ -282,7 +283,7 @@ export const useRandomCardsWithoutDeck = (
 };
 
 export const useDailyCard = (
-  options: QueryHookOptions<Pick<GQL.Query, "dailyCard">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "dailyCard">> = {}
 ) => {
   const { data: { dailyCard } = { dailyCard: undefined }, ...methods } =
     useQuery<Pick<GQL.Query, "dailyCard">>(DailyCardQuery, options);

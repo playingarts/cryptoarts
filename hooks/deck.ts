@@ -1,4 +1,5 @@
-import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client/react";
 
 export const DeckDataFragment = gql`
   fragment DeckDataFragment on Deck {
@@ -58,26 +59,32 @@ export const DeckQuery = gql`
 export const useDecks = (
   options: QueryHookOptions<Pick<GQL.Query, "decks">> = {}
 ) => {
-  const { data: { decks } = { decks: undefined }, ...methods } = useQuery<
-    Pick<GQL.Query, "decks">
-  >(DecksQuery, options);
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "decks">>(
+    DecksQuery,
+    options
+  );
 
-  return { ...methods, decks };
+  return { ...methods, decks: data?.decks };
 };
 
 export const useLoadDeck = (
   options: QueryHookOptions<Pick<GQL.Query, "deck">> = {}
 ) => {
-  const [loadDeck, { data: { deck } = { deck: undefined }, ...methods }] =
-    useLazyQuery(DeckQuery, options);
+  const [loadDeck, { data, ...methods }] = useLazyQuery<Pick<GQL.Query, "deck">>(
+    DeckQuery,
+    options
+  );
 
-  return { ...methods, loadDeck, deck };
+  return { ...methods, loadDeck, deck: data?.deck };
 };
 
-export const useDeck = (options = {}) => {
-  const { data: { deck } = { deck: undefined }, ...methods } = useQuery<
-    Pick<GQL.Query, "deck">
-  >(DeckQuery, options);
+export const useDeck = (
+  options: QueryHookOptions<Pick<GQL.Query, "deck">> = {}
+) => {
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "deck">>(
+    DeckQuery,
+    options
+  );
 
-  return { ...methods, deck };
+  return { ...methods, deck: data?.deck };
 };

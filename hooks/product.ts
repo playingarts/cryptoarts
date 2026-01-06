@@ -1,4 +1,6 @@
-import { gql, QueryHookOptions, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+
+import { useQuery } from "@apollo/client/react";
 
 export const ProductsQuery = gql`
   query Products($ids: [ID!]) {
@@ -54,7 +56,7 @@ export const ConvertEurToUsdQuery = gql`
 `;
 
 export const useProducts = (
-  options: QueryHookOptions<Pick<GQL.Query, "products">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "products">> = {}
 ) => {
   const { data: { products } = { products: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "products">
@@ -64,7 +66,7 @@ export const useProducts = (
 };
 
 export const useConvertEurToUsd = (
-  options: QueryHookOptions<Pick<GQL.Query, "convertEurToUsd">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "convertEurToUsd">> = {}
 ) => {
   const {
     data: { convertEurToUsd: usd } = { convertEurToUsd: undefined },

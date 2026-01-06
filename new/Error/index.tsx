@@ -1,14 +1,18 @@
-import { ApolloError } from "@apollo/client";
 import { FC, HTMLAttributes } from "react";
 import Grid from "../Grid";
 import Text from "../Text";
 import ArrowButton from "../Buttons/ArrowButton";
 
 interface Props extends HTMLAttributes<HTMLElement> {
-  error?: ApolloError | Error;
+  error?: Error;
   retry?: () => void;
   fullPage?: boolean;
 }
+
+const getErrorMessage = (error?: Error): string => {
+  if (!error) return "Failed to load data. Please try again.";
+  return error.message || "Failed to load data. Please try again.";
+};
 
 const Error: FC<Props> = ({ error, retry, fullPage = false, ...props }) => (
   <Grid
@@ -39,7 +43,7 @@ const Error: FC<Props> = ({ error, retry, fullPage = false, ...props }) => (
         typography="paragraphSmall"
         css={(theme) => ({ color: theme.colors.black50, marginBottom: 20 })}
       >
-        {error?.message || "Failed to load data. Please try again."}
+        {getErrorMessage(error)}
       </Text>
       {retry && (
         <ArrowButton color="accent" onClick={retry}>

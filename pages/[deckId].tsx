@@ -54,7 +54,7 @@ export const getServerSideProps: GetServerSideProps<
 
   return {
     props: {
-      cache: client.cache.extract(),
+      cache: client.cache.extract() as NormalizedCacheObject,
     },
   };
 };

@@ -1,4 +1,5 @@
-import { ApolloError, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { GraphQLError } from "graphql";
 import { Deal, type MongoDeal } from "../../models";
 import { getContract } from "./contract";
 import { getDeck } from "./deck";
@@ -15,9 +16,7 @@ export const resolvers: GQL.Resolvers = {
   Query: {
     deal: async (_, { hash, deckId, signature }) => {
       if (!signatureValid(hash, signature)) {
-        throw new ApolloError({
-          errorMessage: "Failed to verify the account.",
-        });
+        throw new GraphQLError("Failed to verify the account.");
       }
 
       const deal =

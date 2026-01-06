@@ -6,20 +6,14 @@
  */
 
 /* eslint-disable @typescript-eslint/no-var-requires */
-import {
-  ApolloClient,
-  ApolloLink,
-  ApolloProvider,
-  HttpLink,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from "@apollo/client";
+import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client/react";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 import { typePolicies } from "./apollo/cachePolicies";
 
 interface Context {
   apolloState: object;
-  apolloClient: ApolloClient<NormalizedCacheObject>;
+  apolloClient: ApolloClient;
 }
 
 let cachedApolloClient: Context["apolloClient"] | undefined;
@@ -78,7 +72,7 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
 
         if (ssr) {
           try {
-            const { getDataFromTree } = await import("@apollo/react-ssr");
+            const { getDataFromTree } = await import("@apollo/client/react/ssr");
             await getDataFromTree(
               <AppTree pageProps={{ ...pageProps, apolloClient }} />
             );
@@ -132,7 +126,8 @@ export const createApolloClient = (initialState = {}, config?: object) => {
  */
 const createIsomorphLink = (config = {}) => {
   if (typeof window === "undefined") {
-    return new (require("apollo-link-schema").SchemaLink)(config);
+    const { SchemaLink } = require("@apollo/client/link/schema");
+    return new SchemaLink(config);
   }
   return ApolloLink.from([
     new HttpLink({
@@ -141,3 +136,5 @@ const createIsomorphLink = (config = {}) => {
     }),
   ]);
 };
+
+

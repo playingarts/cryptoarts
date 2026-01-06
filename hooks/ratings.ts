@@ -1,4 +1,6 @@
-import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+
+import { useLazyQuery, useQuery } from "@apollo/client/react";
 
 export const RatingsQuery = gql`
   query Ratings($title: string) {
@@ -12,7 +14,7 @@ export const RatingsQuery = gql`
 `;
 
 export const useRatings = (
-  options: QueryHookOptions<Pick<GQL.Query, "ratings">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "ratings">> = {}
 ) => {
   const { data: { ratings } = { ratings: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "ratings">

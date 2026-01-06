@@ -1,4 +1,4 @@
-import { MockedProvider } from "@apollo/client/testing";
+import { MockedProvider } from "@apollo/client/testing/react";
 import { ThemeProvider } from "@emotion/react";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 import * as NextImage from "next/image";

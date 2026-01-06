@@ -11,7 +11,7 @@ import * as loser from "./schemas/loser";
 import * as listing from "./schemas/listing";
 import * as rating from "./schemas/rating";
 import { stitchSchemas } from "@graphql-tools/stitch";
-import { DocumentNode } from "apollo-link";
+import { DocumentNode } from "graphql";
 
 const entities: {
   resolvers?: GQL.Resolvers;

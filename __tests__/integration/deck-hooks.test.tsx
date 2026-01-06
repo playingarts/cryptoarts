@@ -106,8 +106,12 @@ const createTestClient = () => {
   });
 };
 
+// Type definitions for test query results
+type DecksQueryResult = { decks: typeof mockDeck[] };
+type DeckQueryResult = { deck: typeof mockDeck | null };
+
 describe("Deck GraphQL Queries Integration", () => {
-  let client: ApolloClient<unknown>;
+  let client: ApolloClient;
 
   beforeEach(() => {
     client = createTestClient();
@@ -115,48 +119,48 @@ describe("Deck GraphQL Queries Integration", () => {
 
   describe("DecksQuery", () => {
     it("should fetch all decks with DeckDataFragment fields", async () => {
-      const result = await client.query({
+      const result = await client.query<DecksQueryResult>({
         query: DecksQuery,
       });
 
-      expect(result.data.decks).toHaveLength(1);
-      expect(result.data.decks[0].slug).toBe("crypto");
-      expect(result.data.decks[0].title).toBe("Crypto");
-      expect(result.data.decks[0].openseaCollection?.name).toBe(
+      expect(result.data!.decks).toHaveLength(1);
+      expect(result.data!.decks[0].slug).toBe("crypto");
+      expect(result.data!.decks[0].title).toBe("Crypto");
+      expect(result.data!.decks[0].openseaCollection?.name).toBe(
         "Playing Arts Crypto"
       );
     });
 
     it("should include edition data", async () => {
-      const result = await client.query({
+      const result = await client.query<DecksQueryResult>({
         query: DecksQuery,
       });
 
-      const deck = result.data.decks[0];
+      const deck = result.data!.decks[0];
       expect(deck.editions).toHaveLength(1);
-      expect(deck.editions[0].name).toBe("First Edition");
+      expect(deck.editions![0].name).toBe("First Edition");
     });
   });
 
   describe("DeckQuery", () => {
     it("should fetch a single deck by slug", async () => {
-      const result = await client.query({
+      const result = await client.query<DeckQueryResult>({
         query: DeckQuery,
         variables: { slug: "crypto" },
       });
 
-      expect(result.data.deck).not.toBeNull();
-      expect(result.data.deck.slug).toBe("crypto");
-      expect(result.data.deck.title).toBe("Crypto");
+      expect(result.data!.deck).not.toBeNull();
+      expect(result.data!.deck!.slug).toBe("crypto");
+      expect(result.data!.deck!.title).toBe("Crypto");
     });
 
     it("should return null for non-existent deck", async () => {
-      const result = await client.query({
+      const result = await client.query<DeckQueryResult>({
         query: DeckQuery,
         variables: { slug: "non-existent" },
       });
 
-      expect(result.data.deck).toBeNull();
+      expect(result.data!.deck).toBeNull();
     });
   });
 });

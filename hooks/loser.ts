@@ -1,4 +1,5 @@
-import { gql, QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client/react";
 
 export const LosersQuery = gql`
   query Losers($deck: ID!) {
@@ -19,21 +20,20 @@ export const LosersQuery = gql`
 export const useLosers = (
   options: QueryHookOptions<Pick<GQL.Query, "losers">> = {}
 ) => {
-  const { data: { losers } = { cards: undefined }, ...methods } = useQuery(
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "losers">>(
     LosersQuery,
     options
   );
 
-  return { ...methods, losers: losers };
+  return { ...methods, losers: data?.losers };
 };
 
 export const useLoadLosers = (
   options: QueryHookOptions<Pick<GQL.Query, "losers">> = {}
 ) => {
-  const [
-    loadLosers,
-    { data: { losers } = { losers: undefined }, ...methods },
-  ] = useLazyQuery(LosersQuery, options);
+  const [loadLosers, { data, ...methods }] = useLazyQuery<
+    Pick<GQL.Query, "losers">
+  >(LosersQuery, options);
 
-  return { ...methods, loadLosers, losers };
+  return { ...methods, loadLosers, losers: data?.losers };
 };

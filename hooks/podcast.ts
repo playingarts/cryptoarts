@@ -1,4 +1,6 @@
-import { gql, QueryHookOptions, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+
+import { useQuery } from "@apollo/client/react";
 
 export const podcastsQuery = gql`
   query Podcasts($name: String, $shuffle: Boolean, $limit: Int) {
@@ -17,7 +19,7 @@ export const podcastsQuery = gql`
 `;
 
 export const usePodcasts = (
-  options: QueryHookOptions<Pick<GQL.Query, "podcasts">> = {}
+  options: useQuery.Options<Pick<GQL.Query, "podcasts">> = {}
 ) => {
   const { data: { podcasts } = { artists: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "podcasts">
