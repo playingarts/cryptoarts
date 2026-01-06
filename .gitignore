@@ -51,3 +51,9 @@ CLAUDE.md
 
 # macOS artifacts
 __MACOSX/
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
