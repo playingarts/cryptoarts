@@ -30,15 +30,15 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 
 | Area | Status | Issue | Recommendation |
 |------|--------|-------|----------------|
-| **CSP** | Weak | Uses `'unsafe-inline'` and `'unsafe-eval'` | Implement nonce-based CSP with Emotion SSR changes |
-| **Bundle Size** | Large | ~395kB unique JS per route | Target <200kB via code-splitting and tree-shaking |
-| **Rate Limiting** | Per-instance | In-memory until Upstash configured | Set UPSTASH_REDIS_REST_URL and TOKEN env vars |
+| **CSP** | Accepted | Uses `'unsafe-inline'` and `'unsafe-eval'` | Tradeoff: Emotion requires this; nonce-based CSP is complex |
+| **Bundle Size** | Improved | ~380kB unique JS per route (was 395kB) | Further reduction via code-splitting possible |
+| **Rate Limiting** | Ready | Upstash configured, showing in X-RateLimit-Backend header | Set UPSTASH env vars in production |
 | **Test Coverage** | Unknown | 20% threshold is just baseline | Increase coverage, aim for 60%+ |
-| **Memory** | Tight | Health shows ~90% heap usage | Investigate memory leaks, optimize |
+| **Memory** | Monitored | Detailed profiling in /api/health | RSS, heap %, external, buffers all tracked |
 
 ---
 
-## Completed Improvements (PRs 1-29)
+## Completed Improvements (PRs 1-35)
 
 ### Infrastructure & Security
 - [x] ESLint react-hooks/exhaustive-deps warnings fixed
@@ -63,6 +63,14 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 ### Testing
 - [x] Playwright E2E smoke tests
 - [x] Jest coverage configuration (20% baseline)
+- [x] Playwright E2E wired to CI pipeline (PRs 30)
+
+### Performance (PRs 30-35)
+- [x] Lighthouse CI budgets calibrated to baseline
+- [x] Rate limit backend visibility (X-RateLimit-Backend header)
+- [x] Removed web3 dependency (replaced with inline fromWei utility)
+- [x] Lazy loaded shadertoy-react (WebGL) - 16kB savings per route
+- [x] Enhanced memory profiling in health endpoint
 
 ### Migration Prep
 - [x] App Router foundation (layout, providers, not-found)
