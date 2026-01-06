@@ -7,7 +7,7 @@
 | /new/ independence | ✅ 100%       | Zero imports from components/ |
 | CI                 | ✅ Added      | Typecheck, lint, unit tests   |
 | Smoke tests        | ✅ 14 tests   | Critical user flow covered    |
-| Legacy components/ | ⚠️ 140 files | Still exists, unclear usage   |
+| Legacy components/ | ✅ 1 file     | Only SizeProvider remains     |
 | Hooks              | ⚠️ Shared    | Used by both legacy and /new/ |
 | Package versions   | ⚠️ Mixed     | Some major updates available  |
 
@@ -58,7 +58,7 @@ Goal: Ensure hooks used by /new/ have test coverage before any upgrades.
 
 ---
 
-### PR 2: Remove Unused Legacy Components
+### PR 2: Remove Unused Legacy Components ✅ COMPLETED
 
 Goal: Audit and remove components/ files not imported anywhere.
 
@@ -68,6 +68,8 @@ Goal: Audit and remove components/ files not imported anywhere.
 | Risk         | Low (removal only, verified by build)                  |
 | Acceptance   | Build passes, no runtime errors on dev.playingarts.com |
 | Verification | yarn build, smoke tests, manual spot check             |
+
+**Status:** Completed in commit `1c2d603` - Deleted 140 files (11,779 lines). Only SizeProvider remains.
 
 ---
 
