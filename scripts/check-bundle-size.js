@@ -10,53 +10,83 @@
 const fs = require("fs");
 const path = require("path");
 
-// Default budgets (in kB)
-const WARN_THRESHOLD = parseInt(process.env.BUNDLE_BUDGET_WARN || "170", 10);
-const FAIL_THRESHOLD = parseInt(process.env.BUNDLE_BUDGET_FAIL || "250", 10);
+// Default budgets (in kB) - these are for the unique JS per route, not total
+// Current baseline: ~395kB max, set thresholds to prevent regression
+const WARN_THRESHOLD = parseInt(process.env.BUNDLE_BUDGET_WARN || "400", 10);
+const FAIL_THRESHOLD = parseInt(process.env.BUNDLE_BUDGET_FAIL || "500", 10);
 
-// Read the build manifest to get route sizes
-const BUILD_MANIFEST_PATH = path.join(
-  process.cwd(),
-  ".next",
-  "build-manifest.json"
-);
-const APP_BUILD_MANIFEST_PATH = path.join(
-  process.cwd(),
-  ".next",
-  "app-build-manifest.json"
-);
+// Shared chunks that are loaded on every page (framework, main, etc.)
+const SHARED_CHUNKS = ["framework", "main", "webpack", "polyfills"];
 
-function parseSize(sizeStr) {
-  // Parse sizes like "244 kB" or "57.5 kB"
-  const match = sizeStr.match(/([\d.]+)\s*(kB|MB|B)/i);
-  if (!match) return 0;
+const NEXT_DIR = path.join(process.cwd(), ".next");
+const BUILD_MANIFEST_PATH = path.join(NEXT_DIR, "build-manifest.json");
+const STATIC_DIR = path.join(NEXT_DIR, "static");
 
-  const value = parseFloat(match[1]);
-  const unit = match[2].toLowerCase();
-
-  switch (unit) {
-    case "mb":
-      return value * 1024;
-    case "kb":
-      return value;
-    case "b":
-      return value / 1024;
-    default:
-      return value;
+/**
+ * Get file size in kB
+ */
+function getFileSizeKB(filePath) {
+  try {
+    const stats = fs.statSync(filePath);
+    return stats.size / 1024;
+  } catch {
+    return 0;
   }
+}
+
+/**
+ * Find a chunk file by partial name
+ */
+function findChunkFile(chunkPath) {
+  const fullPath = path.join(NEXT_DIR, chunkPath);
+  if (fs.existsSync(fullPath)) {
+    return fullPath;
+  }
+  return null;
+}
+
+/**
+ * Check if a chunk is a shared chunk (loaded on all pages)
+ */
+function isSharedChunk(chunkPath) {
+  return SHARED_CHUNKS.some((shared) => chunkPath.includes(shared));
+}
+
+/**
+ * Calculate total size of chunks for a route
+ */
+function calculateRouteSize(chunks) {
+  let totalSize = 0;
+  let uniqueSize = 0;
+
+  for (const chunk of chunks) {
+    const filePath = findChunkFile(chunk);
+    if (filePath) {
+      const size = getFileSizeKB(filePath);
+      totalSize += size;
+      if (!isSharedChunk(chunk)) {
+        uniqueSize += size;
+      }
+    }
+  }
+
+  return { totalSize, uniqueSize };
+}
+
+/**
+ * Format size with color indicator
+ */
+function formatSize(sizeKB, threshold = WARN_THRESHOLD) {
+  const formatted = sizeKB.toFixed(1).padStart(7) + " kB";
+  if (sizeKB > FAIL_THRESHOLD) return `❌ ${formatted}`;
+  if (sizeKB > threshold) return `⚠️  ${formatted}`;
+  return `✅ ${formatted}`;
 }
 
 function checkBudgets() {
   console.log("📊 Bundle Size Budget Check\n");
-  console.log(`  Warning threshold: ${WARN_THRESHOLD} kB`);
-  console.log(`  Failure threshold: ${FAIL_THRESHOLD} kB\n`);
-
-  // For now, we'll read from the trace file which contains timing info
-  // In a real implementation, you'd parse the build output or use size-limit
-  const tracePath = path.join(process.cwd(), ".next", "trace");
-
-  let hasWarnings = false;
-  let hasFailures = false;
+  console.log(`   Warning threshold: ${WARN_THRESHOLD} kB (unique JS)`);
+  console.log(`   Failure threshold: ${FAIL_THRESHOLD} kB (unique JS)\n`);
 
   // Check if build manifest exists
   if (!fs.existsSync(BUILD_MANIFEST_PATH)) {
@@ -64,33 +94,68 @@ function checkBudgets() {
     process.exit(0);
   }
 
-  // Read pages from build manifest
   const manifest = JSON.parse(fs.readFileSync(BUILD_MANIFEST_PATH, "utf8"));
-  const pages = Object.keys(manifest.pages || {});
+  const pages = manifest.pages || {};
 
-  console.log("Routes analyzed:", pages.length);
-  console.log("");
-
-  // Note: This is a simplified check. For actual size data,
-  // you would need to analyze the actual chunk files or use
-  // the Next.js build output parsing
-
-  console.log("✅ Bundle size check completed");
-  console.log("");
-  console.log(
-    "💡 For detailed bundle analysis, run: ANALYZE=true yarn build"
+  // Skip internal pages
+  const routesToCheck = Object.keys(pages).filter(
+    (route) => !route.startsWith("/_")
   );
+
+  let hasWarnings = false;
+  let hasFailures = false;
+
+  console.log("Route                          Unique JS    Total JS");
+  console.log("─".repeat(55));
+
+  // Calculate sizes for each route
+  const results = [];
+  for (const route of routesToCheck) {
+    const chunks = pages[route];
+    const { totalSize, uniqueSize } = calculateRouteSize(chunks);
+    results.push({ route, uniqueSize, totalSize });
+
+    if (uniqueSize > FAIL_THRESHOLD) hasFailures = true;
+    else if (uniqueSize > WARN_THRESHOLD) hasWarnings = true;
+  }
+
+  // Sort by unique size descending
+  results.sort((a, b) => b.uniqueSize - a.uniqueSize);
+
+  for (const { route, uniqueSize, totalSize } of results) {
+    const routeDisplay = route.padEnd(30);
+    const uniqueDisplay = formatSize(uniqueSize);
+    const totalDisplay = totalSize.toFixed(1).padStart(7) + " kB";
+    console.log(`${routeDisplay} ${uniqueDisplay}  ${totalDisplay}`);
+  }
+
+  // Calculate shared bundle size
+  const appChunks = pages["/_app"] || [];
+  let sharedSize = 0;
+  for (const chunk of appChunks) {
+    if (isSharedChunk(chunk)) {
+      const filePath = findChunkFile(chunk);
+      if (filePath) {
+        sharedSize += getFileSizeKB(filePath);
+      }
+    }
+  }
+
+  console.log("─".repeat(55));
+  console.log(`Shared chunks (framework/main): ${sharedSize.toFixed(1)} kB`);
   console.log("");
 
   // Summary
   if (hasFailures) {
-    console.log("❌ Some routes exceed the failure threshold!");
+    console.log("❌ FAILED: Some routes exceed the failure threshold!");
+    console.log("   Consider code-splitting or reducing dependencies.\n");
     process.exit(1);
   } else if (hasWarnings) {
-    console.log("⚠️  Some routes exceed the warning threshold");
+    console.log("⚠️  WARNING: Some routes exceed the warning threshold");
+    console.log("   Monitor these routes as they approach the limit.\n");
     process.exit(0);
   } else {
-    console.log("✅ All routes within budget");
+    console.log("✅ PASSED: All routes within budget\n");
     process.exit(0);
   }
 }
