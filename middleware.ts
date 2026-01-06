@@ -131,6 +131,7 @@ export async function middleware(request: NextRequest) {
         response.headers.set("X-RateLimit-Limit", limit.toString());
         response.headers.set("X-RateLimit-Remaining", remaining.toString());
         response.headers.set("X-RateLimit-Reset", reset.toString());
+        response.headers.set("X-RateLimit-Backend", "redis");
         return response;
       } catch (error) {
         // If Redis fails, fall through to in-memory rate limiting
@@ -168,6 +169,7 @@ export async function middleware(request: NextRequest) {
     response.headers.set("X-RateLimit-Limit", RATE_LIMIT_MAX.toString());
     response.headers.set("X-RateLimit-Remaining", remaining.toString());
     response.headers.set("X-RateLimit-Reset", reset.toString());
+    response.headers.set("X-RateLimit-Backend", "memory");
     return response;
   }
 

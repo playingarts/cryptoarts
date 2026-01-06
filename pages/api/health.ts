@@ -55,6 +55,15 @@ export default async function handler(
     message: `${heapUsedMB}MB / ${heapTotalMB}MB`,
   };
 
+  // Check rate limiting backend
+  const isRedisConfigured =
+    !!process.env.UPSTASH_REDIS_REST_URL &&
+    !!process.env.UPSTASH_REDIS_REST_TOKEN;
+  health.checks!.rateLimit = {
+    status: "ok",
+    message: isRedisConfigured ? "Upstash Redis (distributed)" : "In-memory (per-instance)",
+  };
+
   // Check MongoDB connectivity
   const dbStart = Date.now();
   try {
