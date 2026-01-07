@@ -8,6 +8,8 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 /** @type {import('jest').Config} */
 const config = {
+  // Use V8 coverage provider for compatibility with Next.js SWC
+  coverageProvider: "v8",
   // Add more setup options before each test is run
   setupFilesAfterEnv: ["./jest/jest.setup.ts"],
   setupFiles: ["./jest/jest.polyfils.ts"],
