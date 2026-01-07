@@ -138,9 +138,6 @@
     "shadertoy-react/react": "^19.0.0",
     "shadertoy-react/react-dom": "^19.0.0",
     "@figspec/react/react": "^19.0.0",
-    "qs": ">=6.14.1",
-    "semver": ">=7.5.2",
-    "json5": ">=2.2.2",
-    "brace-expansion": ">=1.1.12"
+    "qs": ">=6.14.1"
   }
 }
