@@ -1,7 +1,56 @@
-import { createLogEntry } from "../../lib/apiLogger";
+import {
+  createLogEntry,
+  generateRequestId,
+  getRequestId,
+  REQUEST_ID_HEADER,
+} from "../../lib/apiLogger";
 import { NextApiRequest, NextApiResponse } from "next";
 
 describe("lib/apiLogger", () => {
+  describe("generateRequestId", () => {
+    it("should generate a valid UUID", () => {
+      const id = generateRequestId();
+      expect(id).toMatch(
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+      );
+    });
+
+    it("should generate unique IDs", () => {
+      const id1 = generateRequestId();
+      const id2 = generateRequestId();
+      expect(id1).not.toBe(id2);
+    });
+  });
+
+  describe("getRequestId", () => {
+    it("should return existing request ID from plain object headers", () => {
+      const headers = { [REQUEST_ID_HEADER]: "test-request-id-123" };
+      expect(getRequestId(headers)).toBe("test-request-id-123");
+    });
+
+    it("should return existing request ID from Headers object", () => {
+      const headers = new Headers();
+      headers.set(REQUEST_ID_HEADER, "test-request-id-456");
+      expect(getRequestId(headers)).toBe("test-request-id-456");
+    });
+
+    it("should generate new ID when header is missing from plain object", () => {
+      const headers = {};
+      const id = getRequestId(headers);
+      expect(id).toMatch(
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+      );
+    });
+
+    it("should generate new ID when header is missing from Headers object", () => {
+      const headers = new Headers();
+      const id = getRequestId(headers);
+      expect(id).toMatch(
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+      );
+    });
+  });
+
   const mockRequest = (overrides: Partial<NextApiRequest> = {}) =>
     ({
       method: "GET",
@@ -29,12 +78,51 @@ describe("lib/apiLogger", () => {
       const entry = createLogEntry(req, res, startTime);
 
       expect(entry).toHaveProperty("timestamp");
+      expect(entry).toHaveProperty("requestId");
       expect(entry.method).toBe("GET");
       expect(entry.path).toBe("/api/test");
       expect(entry.status).toBe(200);
       expect(entry.duration).toBeGreaterThanOrEqual(100);
       expect(entry.ip).toBe("192.168.1.1");
       expect(entry.userAgent).toBe("test-agent");
+    });
+
+    it("should use provided requestId", () => {
+      const req = mockRequest();
+      const res = mockResponse();
+      const startTime = Date.now();
+
+      const entry = createLogEntry(req, res, startTime, "custom-request-id");
+
+      expect(entry.requestId).toBe("custom-request-id");
+    });
+
+    it("should use requestId from headers when not provided", () => {
+      const req = mockRequest({
+        headers: {
+          [REQUEST_ID_HEADER]: "header-request-id",
+          "x-forwarded-for": "192.168.1.1",
+          "user-agent": "test-agent",
+        },
+      });
+      const res = mockResponse();
+      const startTime = Date.now();
+
+      const entry = createLogEntry(req, res, startTime);
+
+      expect(entry.requestId).toBe("header-request-id");
+    });
+
+    it("should generate requestId when not in headers", () => {
+      const req = mockRequest();
+      const res = mockResponse();
+      const startTime = Date.now();
+
+      const entry = createLogEntry(req, res, startTime);
+
+      expect(entry.requestId).toMatch(
+        /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+      );
     });
 
     it("should handle POST method", () => {
