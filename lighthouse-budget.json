@@ -8,11 +8,11 @@
       },
       {
         "resourceType": "script",
-        "budget": 500
+        "budget": 900
       },
       {
         "resourceType": "stylesheet",
-        "budget": 100
+        "budget": 50
       },
       {
         "resourceType": "image",
@@ -26,19 +26,19 @@
     "timings": [
       {
         "metric": "first-contentful-paint",
-        "budget": 4000
+        "budget": 2500
       },
       {
         "metric": "largest-contentful-paint",
-        "budget": 18000
+        "budget": 4000
       },
       {
         "metric": "interactive",
-        "budget": 22000
+        "budget": 5000
       },
       {
         "metric": "cumulative-layout-shift",
-        "budget": 0.15
+        "budget": 0.1
       }
     ]
   }

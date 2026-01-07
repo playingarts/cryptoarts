@@ -1,14 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
-import AugmentedReality from "../Home/AugmentedReality";
-import Collection from "../Home/Collection";
-import Gallery from "../Home/Gallery";
 import Hero from "../Home/Hero";
-import Podcast from "../Home/Podcast";
 import Story from "../Home/Story";
+import Collection from "../Home/Collection";
 import Footer from "../../Footer";
+
+// Lazy-load below-fold components for better initial page load
+const Gallery = dynamic(() => import("../Home/Gallery"), {
+  ssr: true,
+});
+const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
+  ssr: true,
+});
+const Podcast = dynamic(() => import("../Home/Podcast"), {
+  ssr: true,
+});
 
 type Props = {};
 
