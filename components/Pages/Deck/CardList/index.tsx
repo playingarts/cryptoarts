@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { FC, Fragment, HTMLAttributes, memo, useEffect, useState } from "react";
 import Grid from "../../../Grid";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
@@ -11,8 +12,10 @@ import Dot from "../../../Icons/Dot";
 import background from "../../../../mocks/images/backgroundImage.png";
 import { usePalette } from "../DeckPaletteContext";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
-import Pop from "../../CardPage/Pop";
 import { useDeck } from "../../../../hooks/deck";
+
+// Lazy-load Pop modal - only shown on card click
+const Pop = dynamic(() => import("../../CardPage/Pop"), { ssr: false });
 
 const ListItem: FC<{
   index: number;
