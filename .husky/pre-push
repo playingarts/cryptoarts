@@ -1,1 +1,12 @@
-yarn lint
+#!/bin/sh
+
+# Run linting (includes TypeScript check) and tests before push
+echo "Running pre-push checks..."
+
+echo "→ Running lint (TypeScript + ESLint)..."
+yarn lint || exit 1
+
+echo "→ Running tests..."
+npx jest --ci --passWithNoTests || exit 1
+
+echo "✓ All pre-push checks passed!"
