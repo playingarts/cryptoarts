@@ -13,9 +13,7 @@ export default defineConfig({
   reporter: process.env.CI ? "github" : "html",
 
   use: {
-    baseURL: process.env.CI
-      ? "http://localhost:3000"
-      : process.env.PLAYWRIGHT_BASE_URL || "https://dev.playingarts.com",
+    baseURL: process.env.PLAYWRIGHT_BASE_URL || "https://dev.playingarts.com",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
@@ -36,15 +34,5 @@ export default defineConfig({
     // },
   ],
 
-  // Run local server before starting the tests in CI
-  ...(process.env.CI
-    ? {
-        webServer: {
-          command: "yarn start",
-          url: "http://localhost:3000",
-          reuseExistingServer: false,
-          timeout: 120000,
-        },
-      }
-    : {}),
+  // E2E tests run against deployed Vercel URL (no local server needed)
 });
