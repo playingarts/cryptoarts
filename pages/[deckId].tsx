@@ -7,6 +7,7 @@ import { DecksNavQuery, DeckQuery } from "../hooks/deck";
 import { CardsForDeckQuery, HeroCardsQuery } from "../hooks/card";
 import { LosersQuery } from "../hooks/loser";
 import { NormalizedCacheObject } from "@apollo/client";
+import { schema } from "../source/graphql/schema";
 
 /**
  * Generate static paths for all deck slugs.
@@ -15,9 +16,7 @@ import { NormalizedCacheObject } from "@apollo/client";
 export const getStaticPaths: GetStaticPaths = async () => {
   await connect();
 
-  const client = initApolloClient(undefined, {
-    schema: (await require("../source/graphql/schema")).schema,
-  });
+  const client = initApolloClient(undefined, { schema });
 
   // Use lightweight nav query for paths (only need slugs)
   const decks = (
@@ -47,9 +46,7 @@ export const getStaticProps: GetStaticProps<
 
   const { deckId } = context.params!;
 
-  const client = initApolloClient(undefined, {
-    schema: (await require("../source/graphql/schema")).schema,
-  });
+  const client = initApolloClient(undefined, { schema });
 
   // Fetch single deck by slug (not all decks)
   const { data: { deck } = { deck: undefined } } = (await client.query({

@@ -6,6 +6,7 @@ import { DecksQuery } from "../../hooks/deck";
 import { CardsQuery } from "../../hooks/card";
 import { LosersQuery } from "../../hooks/loser";
 import { podcastsQuery } from "../../hooks/podcast";
+import { schema } from "../../source/graphql/schema";
 
 export { default } from "@/components/Pages/CardPage";
 
@@ -33,9 +34,7 @@ export const getStaticProps: GetStaticProps<
   const { deckId } = context.params!;
   const { artistSlug } = context.params!;
 
-  const client = initApolloClient(undefined, {
-    schema: (await require("../../source/graphql/schema")).schema,
-  });
+  const client = initApolloClient(undefined, { schema });
 
   const decks = (
     (await client.query({ query: DecksQuery })) as {

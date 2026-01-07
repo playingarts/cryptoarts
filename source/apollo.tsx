@@ -5,7 +5,6 @@
  * Cache policies are defined in ./apollo/cachePolicies.ts
  */
 
-/* eslint-disable @typescript-eslint/no-var-requires */
 import { ApolloClient, ApolloLink, HttpLink, InMemoryCache, NormalizedCacheObject } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
 import { NextComponentType, NextPage, NextPageContext } from "next";
@@ -50,14 +49,17 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
   if (ssr || PageComponent.getInitialProps) {
     WithApollo.getInitialProps = async (ctx) => {
       const { AppTree } = ctx;
+
+      // Dynamically import schema only on server to avoid bundling server-only code
+      let apolloConfig = {};
+      if (typeof window === "undefined") {
+        const { schema } = await import("../source/graphql/schema");
+        apolloConfig = { context: ctx, schema };
+      }
+
       const apolloClient = (ctx.apolloClient = initApolloClient(
         undefined,
-        typeof window === "undefined"
-          ? {
-              context: ctx,
-              schema: require("../source/graphql/schema").schema,
-            }
-          : {}
+        apolloConfig
       ));
       let pageProps = {};
 
