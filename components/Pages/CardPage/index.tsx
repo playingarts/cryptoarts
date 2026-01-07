@@ -1,17 +1,20 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import Hero from "./Hero";
 import { withApollo } from "../../../source/apollo";
-import More from "./More";
 import { useCards } from "../../../hooks/card";
 import { useRouter } from "next/router";
 import { useDeck } from "../../../hooks/deck";
 import Text from "../../Text";
 import Link from "../../Link";
 import NavButton from "../../Buttons/NavButton";
+
+// Lazy-load below-fold components
+const More = dynamic(() => import("./More"), { ssr: true });
 
 const CustomMiddle = () => {
   const {

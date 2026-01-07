@@ -1,20 +1,27 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { withApollo } from "../../../source/apollo";
 import Hero from "./Hero";
 import Header from "../../Header";
 import Collection from "./Collection";
 import Footer from "../../Footer";
-import Trust from "./Trust";
-import AugmentedReality from "../Home/AugmentedReality";
-import Bundles from "./Bundles";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Text from "../../Text";
 import Link from "../../Link";
 import { useBag } from "../../Contexts/bag";
 import MenuPortal from "../../Header/MainMenu/MenuPortal";
-import Subscribe from "../../Popups/Subscribe";
+
+// Lazy-load below-fold components
+const Trust = dynamic(() => import("./Trust"), { ssr: true });
+const Bundles = dynamic(() => import("./Bundles"), { ssr: true });
+const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
+  ssr: true,
+});
+const Subscribe = dynamic(() => import("../../Popups/Subscribe"), {
+  ssr: false,
+});
 
 export const BagButton = () => {
   const { bag } = useBag();

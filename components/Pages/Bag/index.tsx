@@ -1,15 +1,18 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { FC, HTMLAttributes } from "react";
 import Header from "../../Header";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
 import { withApollo } from "../../../source/apollo";
 import Content from "./Content";
-import Trust from "../Shop/Trust";
 import Footer from "../../Footer";
 import Link from "../../Link";
 import { useBag } from "../../Contexts/bag";
+
+// Lazy-load below-fold components
+const Trust = dynamic(() => import("../Shop/Trust"), { ssr: true });
 
 const CheckoutButton = () => {
   const { bag } = useBag();

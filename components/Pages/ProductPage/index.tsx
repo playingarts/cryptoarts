@@ -1,20 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import { withApollo } from "../../../source/apollo";
 import Hero from "./Hero";
 import About from "./About";
-import Bundles from "../Shop/Bundles";
-import Trust from "../Shop/Trust";
-import Collection from "./Collection";
 import { BagButton } from "../Shop";
 import Text from "../../Text";
 import Link from "../../Link";
 import NavButton from "../../Buttons/NavButton";
 import { useProducts } from "../../../hooks/product";
 import { useRouter } from "next/router";
+
+// Lazy-load below-fold components
+const Collection = dynamic(() => import("./Collection"), { ssr: true });
+const Trust = dynamic(() => import("../Shop/Trust"), { ssr: true });
+const Bundles = dynamic(() => import("../Shop/Bundles"), { ssr: true });
 
 export const convertToProductSlug = (short: string) => {
   return short.toLowerCase().split(" ").join("");
