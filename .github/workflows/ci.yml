@@ -30,7 +30,7 @@ jobs:
         run: yarn lint:next
 
       - name: Unit tests with coverage
-        run: npx jest --ci --coverage --passWithNoTests --testPathIgnorePatterns=smoke
+        run: npx jest --ci --coverage --passWithNoTests --testPathIgnorePatterns="smoke|e2e"
 
       - name: Build
         run: yarn build
