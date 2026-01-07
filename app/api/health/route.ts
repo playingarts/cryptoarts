@@ -3,17 +3,20 @@ import mongoose from "mongoose";
 import pkg from "../../../package.json";
 import { connect } from "../../../source/mongoose";
 
+interface HealthCheck {
+  status: "ok" | "error";
+  latency?: number;
+  message?: string;
+  critical?: boolean; // If true, check failure returns 503
+}
+
 interface HealthResponse {
   status: "ok" | "degraded" | "down";
   version: string;
   timestamp: string;
   uptime: number;
   checks?: {
-    [key: string]: {
-      status: "ok" | "error";
-      latency?: number;
-      message?: string;
-    };
+    [key: string]: HealthCheck;
   };
 }
 
@@ -68,7 +71,7 @@ export async function GET() {
       : "In-memory (per-instance)",
   };
 
-  // Check MongoDB connectivity
+  // Check MongoDB connectivity (critical - returns 503 on failure)
   const dbStart = Date.now();
   try {
     await connect();
@@ -79,26 +82,33 @@ export async function GET() {
       status: isConnected ? "ok" : "error",
       latency: Date.now() - dbStart,
       message: isConnected ? "MongoDB connected" : `MongoDB state: ${readyState}`,
+      critical: true, // Database is required for the app to function
     };
   } catch (error) {
     health.checks!.database = {
       status: "error",
       latency: Date.now() - dbStart,
       message: error instanceof Error ? error.message : "Connection failed",
+      critical: true,
     };
   }
 
   // Determine overall status
-  const hasErrors = Object.values(health.checks!).some(
-    (check) => check.status === "error"
+  const hasCriticalErrors = Object.values(health.checks!).some(
+    (check) => check.status === "error" && check.critical
+  );
+  const hasNonCriticalErrors = Object.values(health.checks!).some(
+    (check) => check.status === "error" && !check.critical
   );
 
-  if (hasErrors) {
-    health.status = "degraded";
+  if (hasCriticalErrors) {
+    health.status = "down"; // Critical failure - service is unusable
+  } else if (hasNonCriticalErrors) {
+    health.status = "degraded"; // Non-critical failure - service works with reduced functionality
   }
 
-  // Return appropriate status code
-  const statusCode = health.status === "ok" ? 200 : 503;
+  // Return 503 if any critical check failed
+  const statusCode = hasCriticalErrors ? 503 : 200;
 
   return NextResponse.json(health, {
     status: statusCode,

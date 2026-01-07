@@ -176,24 +176,33 @@ describe("Health API Route", () => {
   });
 
   describe("Overall status determination", () => {
-    it("should return 503 when database check fails", async () => {
+    it("should return 503 and status 'down' when database check fails", async () => {
       (connect as jest.Mock).mockRejectedValueOnce(new Error("Connection failed"));
 
       const response = await GET();
 
       expect(response.status).toBe(503);
       const body = await response.json();
-      expect(body.status).toBe("degraded");
+      expect(body.status).toBe("down");
     });
 
-    it("should return degraded status when any check has error", async () => {
+    it("should return 'down' status when database is disconnected", async () => {
       (mongoose.connection as { readyState: number }).readyState = 0;
 
       const response = await GET();
       const body = await response.json();
 
-      expect(body.status).toBe("degraded");
+      expect(body.status).toBe("down");
       expect(response.status).toBe(503);
+    });
+
+    it("should mark database check as critical", async () => {
+      (mongoose.connection as { readyState: number }).readyState = 1;
+
+      const response = await GET();
+      const body = await response.json();
+
+      expect(body.checks.database.critical).toBe(true);
     });
   });
 });
