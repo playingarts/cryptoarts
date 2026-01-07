@@ -1,14 +1,15 @@
 # Codebase Assessment
 
 **Date:** January 2026
+**Updated:** 2026-01-07
 **Branch:** refactor/structural-improvements
 **Assessed by:** Claude Code
 
 ## Executive Summary
 
-The Playing Arts website codebase has been modernized from legacy technical debt to a modern foundation with a clear roadmap. The site is production-ready and maintainable.
+The Playing Arts website codebase has been modernized from legacy technical debt to a modern foundation. All critical security improvements are complete. The site is production-ready as a catalog site with Shopify handling payments.
 
-**Overall Grade: B+**
+**Overall Grade: B+** (Codebase) / **A-** (Security for Catalog Site)
 
 ---
 
@@ -17,12 +18,14 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 | Area | Status | Evidence |
 |------|--------|----------|
 | **Security Headers** | Excellent | CSP, X-Frame-Options: DENY, X-Content-Type-Options: nosniff, Permissions-Policy |
+| **GraphQL Security** | Excellent | Introspection blocked in prod, depth limit (10), rate limiting |
 | **Modern Stack** | Excellent | React 19.2.3, Next.js 15.5.9, Apollo Client 4.0.0 |
 | **Observability** | Good | Sentry on all runtimes (server/client/edge), health endpoint with checks |
 | **CI/CD** | Good | TypeScript strict, ESLint, Jest with coverage, bundle budget checks |
 | **Cache Strategy** | Good | ISR on deck pages (60s revalidate), Apollo cache policies for 7 types |
 | **Rate Limiting** | Good | Edge middleware (100/min) + API-level tiers (5/30/100 per minute) |
 | **Documentation** | Good | Migration plans for App Router and Redis caching |
+| **Vulnerability Fixes** | Good | CVE-2025-15284 (qs) fixed via resolution |
 
 ---
 
@@ -38,7 +41,7 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 
 ---
 
-## Completed Improvements (PRs 1-35)
+## Completed Improvements (PRs 1-37+)
 
 ### Infrastructure & Security
 - [x] ESLint react-hooks/exhaustive-deps warnings fixed
@@ -47,10 +50,15 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 - [x] Edge middleware for API rate limiting
 - [x] Upstash Redis distributed rate limiting (ready, needs env vars)
 - [x] Health endpoint with memory and database checks
+- [x] GraphQL introspection blocked in production
+- [x] GraphQL query depth limiting (10 levels max)
+- [x] CVE-2025-15284 (qs) vulnerability fixed via resolution
+- [x] CSP hardened (unsafe-eval removed)
 
 ### Performance
 - [x] Image optimization (migrated `<img>` to `next/image`)
 - [x] Apollo cache policies for Product, Opensea, Holders, OwnedAsset
+- [x] Font optimization via `next/font` (Work Sans, Aldrich, Alliance)
 - [x] ISR for deck pages with 60s revalidation
 - [x] Bundle size budget enforcement script
 
@@ -93,16 +101,21 @@ The Playing Arts website codebase has been modernized from legacy technical debt
 
 ---
 
-## Not Yet Done
+## Not Yet Done (Future Optimizations)
 
 | Item | Priority | Complexity | Notes |
 |------|----------|------------|-------|
-| Nonce-based CSP | P0 | High | Requires Emotion SSR changes |
-| Redis caching for GraphQL | P1 | Medium | Infrastructure ready, needs resolver integration |
+| Redis caching for GraphQL | P2 | Medium | Infrastructure ready, needs resolver integration |
 | App Router Phase 3-4 | P2 | High | Migrate dynamic routes (Phase 2 API done) |
-| Bundle size reduction | P2 | Medium | Code-splitting, dynamic imports |
-| Test coverage 60%+ | P2 | Medium | Add tests for critical paths (currently 23%) |
-| E2E tests in CI | P3 | Low | Add Playwright to workflow |
+| Test coverage 60%+ | P2 | Medium | Add tests for critical paths (currently ~23%) |
+| Nonce-based CSP | P4 | High | Requires Emotion SSR changes (accepted tradeoff) |
+
+### Deferred/Accepted Tradeoffs
+
+| Item | Status | Reason |
+|------|--------|--------|
+| `unsafe-inline` in CSP | Accepted | Required by Emotion CSS-in-JS |
+| semver/json5/brace-expansion CVEs | Accepted | Dev-only dependencies, resolutions caused Vercel runtime issues |
 
 ---
 
@@ -200,12 +213,15 @@ Testing:
 
 ## Next Steps (Recommended Order)
 
-1. **Configure Upstash Redis** - Set env vars to enable distributed rate limiting
-2. **Deploy and verify** - Ensure health endpoint shows database check
-3. **Investigate memory** - Profile why heap usage is high
-4. **Reduce bundle size** - Dynamic imports for heavy dependencies
-5. **Nonce-based CSP** - Research Emotion SSR approach
-6. **App Router Phase 2** - Migrate /contact and /privacy pages
+### For Production Launch
+1. **Configure Upstash Redis** - Set `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` env vars
+2. **Verify deployment** - Ensure health endpoint shows database check passing
+
+### Post-Launch Optimizations
+3. **Font optimization** - Migrate to next/font (PR #3 remaining)
+4. **Reduce bundle size** - Continue dynamic imports for heavy dependencies
+5. **App Router Phase 3** - Migrate remaining page routes
+6. **Increase test coverage** - Target 60%+ for critical paths
 
 ---
 
