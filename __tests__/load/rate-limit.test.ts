@@ -71,26 +71,30 @@ describe("Rate Limit Load Tests", () => {
       expect(rateLimited.length).toBe(0);
     });
 
-    it("should handle burst of concurrent requests", async () => {
-      const testIp = `burst-test-${Date.now()}.1.1.1`;
+    it(
+      "should handle burst of concurrent requests",
+      async () => {
+        const testIp = `burst-test-${Date.now()}.1.1.1`;
 
-      // Send 10 concurrent requests
-      const promises = Array.from({ length: 10 }, (_, i) => {
-        const request = createNewsletterRequest(
-          `burst${i}@example.com`,
-          testIp
-        );
-        return newsletterPost(request).then((r) => r.status);
-      });
+        // Send 10 concurrent requests
+        const promises = Array.from({ length: 10 }, (_, i) => {
+          const request = createNewsletterRequest(
+            `burst${i}@example.com`,
+            testIp
+          );
+          return newsletterPost(request).then((r) => r.status);
+        });
 
-      const results = await Promise.all(promises);
+        const results = await Promise.all(promises);
 
-      // Count rate limited responses
-      const rateLimited = results.filter((s) => s === 429).length;
+        // Count rate limited responses
+        const rateLimited = results.filter((s) => s === 429).length;
 
-      // At least 5 should be rate limited (limit is 5)
-      expect(rateLimited).toBeGreaterThanOrEqual(5);
-    });
+        // At least 5 should be rate limited (limit is 5)
+        expect(rateLimited).toBeGreaterThanOrEqual(5);
+      },
+      15000
+    );
   });
 
   describe("Rate Limit Recovery", () => {

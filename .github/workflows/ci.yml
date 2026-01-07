@@ -48,23 +48,32 @@ jobs:
     steps:
       - name: Wait for Vercel deployment
         run: |
-          echo "Waiting 120s for Vercel to deploy..."
-          sleep 120
+          echo "Waiting for Vercel deployment to complete..."
+          MAX_ATTEMPTS=30
+          SLEEP_TIME=15
 
-      - name: Check health endpoint
-        id: health
-        run: |
-          echo "Testing health endpoint..."
-          response=$(curl -s "$DEPLOYMENT_URL/api/health")
-          status=$(echo "$response" | jq -r '.status')
+          for i in $(seq 1 $MAX_ATTEMPTS); do
+            echo "Attempt $i/$MAX_ATTEMPTS - Checking deployment status..."
 
-          echo "Health status: $status"
-          echo "$response" | jq .
+            response=$(curl -s "$DEPLOYMENT_URL/api/health" || echo '{"status":"unreachable"}')
+            status=$(echo "$response" | jq -r '.status' 2>/dev/null || echo "unreachable")
 
-          if [ "$status" = "down" ]; then
-            echo "::error::Health check reports service is DOWN"
-            exit 1
-          fi
+            if [ "$status" = "ok" ]; then
+              echo "✅ Deployment is healthy!"
+              echo "$response" | jq .
+              exit 0
+            elif [ "$status" = "down" ]; then
+              echo "❌ Service is DOWN - critical failure"
+              echo "$response" | jq .
+              exit 1
+            fi
+
+            echo "   Status: $status - waiting ${SLEEP_TIME}s..."
+            sleep $SLEEP_TIME
+          done
+
+          echo "❌ Timeout waiting for deployment ($(($MAX_ATTEMPTS * $SLEEP_TIME))s)"
+          exit 1
 
       - name: Test homepage
         run: |
