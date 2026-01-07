@@ -137,14 +137,23 @@ describe("GraphQL Route Configuration", () => {
     expect(routeContent).toContain("isProduction");
   });
 
-  it("should extract IP from x-forwarded-for header", async () => {
+  it("should use shared rate limiter with IP extraction", async () => {
     const fs = await import("fs/promises");
+
+    // Route should import the shared rate limiter
     const routeContent = await fs.readFile(
       "app/api/v1/graphql/route.ts",
       "utf-8"
     );
+    expect(routeContent).toContain('rateLimiters');
+    expect(routeContent).toContain('rateLimitChecker');
 
-    expect(routeContent).toContain('x-forwarded-for');
-    expect(routeContent).toContain('x-real-ip');
+    // IP extraction logic is in the shared rate limiter
+    const rateLimiterContent = await fs.readFile(
+      "lib/rateLimitChecker.ts",
+      "utf-8"
+    );
+    expect(rateLimiterContent).toContain('x-forwarded-for');
+    expect(rateLimiterContent).toContain('x-real-ip');
   });
 });
