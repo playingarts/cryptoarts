@@ -23,8 +23,12 @@ export const connect = async () => {
 
     cached!.promise = mongoose.connect(connectionUrl, {
       dbName: MONGODB,
-      maxPoolSize: 10,
+      // Optimized for serverless (M0 has 500 connection limit)
+      maxPoolSize: 1,
+      minPoolSize: 0,
+      maxIdleTimeMS: 10000,
       serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
       // TLS options for DigitalOcean Managed MongoDB
       tls: true,
       tlsAllowInvalidCertificates: true,
