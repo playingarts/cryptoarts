@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { rateLimiters } from "../../../../lib/rateLimitChecker";
 
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -43,27 +44,8 @@ const subscribeEmail = async (
   return response;
 };
 
-// Simple in-memory rate limiter for App Router
-const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
-const RATE_LIMIT = 5;
-const WINDOW_MS = 60000;
-
-function isRateLimited(ip: string): boolean {
-  const now = Date.now();
-  const record = rateLimitMap.get(ip);
-
-  if (!record || now > record.resetTime) {
-    rateLimitMap.set(ip, { count: 1, resetTime: now + WINDOW_MS });
-    return false;
-  }
-
-  if (record.count >= RATE_LIMIT) {
-    return true;
-  }
-
-  record.count++;
-  return false;
-}
+// Use shared rate limiter (5 req/min for sensitive endpoint)
+const rateLimiter = rateLimiters.strict;
 
 /**
  * Newsletter subscription endpoint
@@ -72,17 +54,10 @@ function isRateLimited(ip: string): boolean {
  * Body: { email: string }
  */
 export async function POST(request: NextRequest) {
-  // Get IP for rate limiting
-  const ip =
-    request.headers.get("x-forwarded-for")?.split(",")[0] ||
-    request.headers.get("x-real-ip") ||
-    "unknown";
-
-  if (isRateLimited(ip)) {
-    return NextResponse.json(
-      { error: "Too Many Requests", message: "Rate limit exceeded" },
-      { status: 429 }
-    );
+  // Check rate limit
+  const rateLimitResponse = rateLimiter.check(request);
+  if (rateLimitResponse) {
+    return rateLimitResponse;
   }
 
   try {
