@@ -30,7 +30,7 @@ jobs:
         run: yarn lint:next
 
       - name: Unit tests with coverage
-        run: npx jest --ci --coverage --passWithNoTests --testPathIgnorePatterns="smoke|e2e"
+        run: npx jest --ci --coverage --passWithNoTests --testPathIgnorePatterns="smoke|e2e|load"
 
       # Note: Build and E2E tests are handled by Vercel deployment
       # The build step requires MongoDB access for SSG which is only available in Vercel
