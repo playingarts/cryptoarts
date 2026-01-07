@@ -6,6 +6,7 @@ import Text from "../../../Text";
 import { useCards } from "../../../../hooks/card";
 import { useRouter } from "next/router";
 import Card from "../../../Card";
+import LazyCard from "../../../Card/LazyCard";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
 import Dot from "../../../Icons/Dot";
@@ -16,6 +17,9 @@ import { useDeck } from "../../../../hooks/deck";
 
 // Lazy-load Pop modal - only shown on card click
 const Pop = dynamic(() => import("../../CardPage/Pop"), { ssr: false });
+
+// Number of cards to render eagerly (first row)
+const EAGER_CARDS = 4;
 
 const ListItem: FC<{
   index: number;
@@ -45,9 +49,12 @@ const ListItem: FC<{
     }
   }, [range, index]);
 
+  // Use eager Card for first row, LazyCard for rest
+  const CardComponent = index < EAGER_CARDS ? Card : LazyCard;
+
   return (
     <Fragment key={"CardListFragment" + index}>
-      <Card
+      <CardComponent
         onClick={() => setShow(true)}
         size="preview"
         key={card._id + index + "card"}
