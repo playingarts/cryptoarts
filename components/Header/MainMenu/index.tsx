@@ -6,76 +6,39 @@ import {
   useEffect,
   useState,
 } from "react";
-import dynamic from "next/dynamic";
 import ScandiBlock from "../../ScandiBlock";
 import ButtonTemplate from "../../Buttons/Button";
 import { colord } from "colord";
 import Delete from "../../Icons/Delete";
-import Text from "../../Text";
 import CTA from "../CTA";
-import NewLink from "../../Link/NewLink";
-import { useProducts } from "../../../hooks/product";
-
-// Lazy load EmailForm to reduce bundle (includes react-hook-form ~23kB)
-const EmailForm = dynamic(() => import("../../EmailForm"), {
-  ssr: false,
-  loading: () => <div css={{ height: 55 }} />,
-});
-import { links } from "../../Footer";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
+import { useProducts } from "../../../hooks/product";
+import MenuGrid from "./MenuGrid";
+import NewsletterSection from "./NewsletterSection";
+import FooterLinksSection from "./FooterLinksSection";
 
-const LocalGrid: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => {
-  const { palette } = usePalette();
-
-  return (
-    <div
-      css={(theme) => [
-        {
-          paddingTop: 15,
-          display: "grid",
-          background: theme.colors[palette === "dark" ? "black" : "pale_gray"],
-          columnGap: theme.spacing(3),
-          "--columnWidth": `${theme.spacing(8)}px`,
-          [theme.maxMQ.sm]: {
-            columnGap: theme.spacing(2),
-            "--columnWidth": `${theme.spacing(4)}px`,
-          },
-          // justifyContent: "center",
-          paddingLeft: 75,
-          paddingRight: 75,
-          gridTemplateColumns: "repeat(6, var(--columnWidth))",
-          width: "fit-content",
-        },
-      ]}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
-
+/**
+ * Full-screen navigation menu overlay
+ * Displays product links, newsletter signup, and footer navigation
+ */
 const MainMenu: FC<
   HTMLAttributes<HTMLElement> & { setShow: Dispatch<SetStateAction<boolean>> }
 > = ({ setShow, ...props }) => {
   const { products } = useProducts();
-
   const [hover, setHover] = useState<string>("");
-
   const { palette } = usePalette();
 
   useEffect(() => {
     if (!products) {
       return;
     }
-
     setHover(products[0].image || "");
   }, [products]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
-
     return () => {
       document.body.style.overflow = "";
     };
@@ -90,7 +53,6 @@ const MainMenu: FC<
           position: "fixed",
           inset: 0,
           zIndex: 9999,
-
           overflow: "scroll",
           "&::-webkit-scrollbar": {
             display: "none",
@@ -99,25 +61,18 @@ const MainMenu: FC<
           scrollbarWidth: "none",
         },
       ]}
-      onClick={() => {
-        setShow(false);
-      }}
+      onClick={() => setShow(false)}
       {...props}
     >
       <div
         css={[{ width: "fit-content" }]}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
+        onClick={(e) => e.stopPropagation()}
       >
-        <LocalGrid>
+        <MenuGrid>
           <ScandiBlock css={{ gridColumn: "span 3", height: 70 }}>
             <ButtonTemplate
               css={(theme) => [
                 {
-                  // color: theme.colors.dark_gray,
-                  // transition: theme.transitions.fast("background"),
-
                   paddingLeft: 10,
                   color:
                     theme.colors[palette === "dark" ? "white75" : "dark_gray"] +
@@ -135,15 +90,6 @@ const MainMenu: FC<
               noColor={true}
             >
               <Delete css={[{ marginRight: 10 }]} />
-              {/* <Text
-                css={(theme) => [
-                  {
-                    transition: theme.transitions.slow("color"),
-                    color: theme.colors.dark_gray,
-                  },
-                ]}
-              >
-              </Text> */}
               Close
             </ButtonTemplate>
           </ScandiBlock>
@@ -160,6 +106,7 @@ const MainMenu: FC<
           >
             <CTA />
           </ScandiBlock>
+
           <div
             css={[
               {
@@ -184,6 +131,7 @@ const MainMenu: FC<
                     }
                     return (
                       <Link
+                        key={deck.slug + "mainmenu" + index}
                         href={
                           (process.env.NEXT_PUBLIC_BASELINK || "") +
                           "/" +
@@ -193,9 +141,7 @@ const MainMenu: FC<
                         onClick={() => setShow(false)}
                       >
                         <ArrowButton
-                          key={deck.slug + "mainmenu" + index}
                           css={[{ textAlign: "start" }]}
-                          //   css={[{ display: "block" }]}
                           size="small"
                           noColor={true}
                           base={true}
@@ -212,151 +158,10 @@ const MainMenu: FC<
               alt=""
             />
           </div>
-        </LocalGrid>
-        <LocalGrid
-          css={(theme) => [
-            {
-              background: theme.colors.violet,
-              paddingTop: 60,
-              paddingBottom: 60,
-            },
-          ]}
-        >
-          <ScandiBlock
-            palette="light"
-            css={(theme) => [
-              {
-                paddingTop: 15,
-                gridColumn: "1/-1",
-                flexDirection: "column",
-                alignItems: "start",
-                color: theme.colors.dark_gray + "!important",
-                form: {
-                  width: "100%",
-                  marginTop: 30,
-                },
-              },
-            ]}
-          >
-            <Text typography="paragraphSmall" palette="light">
-              Explore project updates
-            </Text>
-            <EmailForm />
-          </ScandiBlock>
-          <Text
-            typography="paragraphNano"
-            css={[{ gridColumn: "span 4", marginTop: 30 }]}
-            palette="light"
-          >
-            Join 10,000+ collectors for early access to exclusive drops, and
-            gain automatic entry into our monthly giveaways.
-          </Text>
-        </LocalGrid>
-        <LocalGrid
-          css={[
-            {
-              paddingTop: 60,
-              paddingBottom: 60,
-            },
-          ]}
-        >
-          {Object.keys(links).map((key) => (
-            <ScandiBlock
-              opacity={0.3}
-              css={[
-                {
-                  gridColumn: "span 2",
-                  paddingTop: 15,
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  alignItems: "start",
-                },
-              ]}
-            >
-              <Text
-                typography="paragraphSmall"
-                css={(theme) => [
-                  palette !== "dark" && {
-                    color: theme.colors.black50,
-                  },
-                ]}
-              >
-                {key}
-              </Text>
-              <div css={[{ marginTop: 30, display: "grid", gap: 5 }]}>
-                {links[key].map((item) => (
-                  <Link href={item.split(" ").join("").toLowerCase()}>
-                    <ArrowButton
-                      css={(theme) => [
-                        {
-                          textAlign: "start",
-                          display: "block",
-                        },
-                        palette !== "dark" && {
-                          color: theme.colors.black50,
-                        },
-                      ]}
-                      base={true}
-                      noColor={true}
-                      size="small"
-                    >
-                      {item}
-                    </ArrowButton>
-                  </Link>
-                ))}
-              </div>
-            </ScandiBlock>
-          ))}
-          <ScandiBlock
-            opacity={0.3}
-            css={(theme) => [
-              {
-                paddingTop: 15,
-                color: theme.colors.black30,
-                borderColor: theme.colors.black30,
-                display: "flex",
-                gap: 30,
-                gridColumn: "1/-1",
-                marginTop: 60,
-              },
-            ]}
-          >
-            <Text
-              typography="paragraphMicro"
-              css={(theme) => [
-                {
-                  a: {
-                    textDecoration: "underline",
-                    color: theme.colors.white75,
-                  },
-                },
-                palette !== "dark" && {
-                  color: theme.colors.black50,
-                  a: {
-                    color: theme.colors.black50,
-                  },
-                },
-              ]}
-            >
-              © 2012—2025 Digital Abstracts SL. Any artwork displayed on this
-              website may not be reproduced or used in any manner whatsoever
-              without the express written permission of Digital Abstracts or
-              their respective owners. Patent Pending. Thanks for reading this,
-              bye!
-              <br />
-              <br />
-              <a
-                css={[{ textDecoration: "underline", marginRight: 15 }]}
-                href=""
-              >
-                Privacy Statement
-              </a>
-              <a css={[{ textDecoration: "underline" }]} href="">
-                Terms of Service
-              </a>
-            </Text>
-          </ScandiBlock>
-        </LocalGrid>
+        </MenuGrid>
+
+        <NewsletterSection />
+        <FooterLinksSection />
       </div>
     </div>
   );
