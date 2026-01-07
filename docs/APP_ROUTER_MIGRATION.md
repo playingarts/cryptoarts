@@ -16,7 +16,7 @@ This document outlines the migration strategy from Pages Router to App Router fo
 - `/privacy` - Privacy policy (`pages/privacy.tsx`)
 - `/404` - Not found page (`pages/404.tsx`)
 
-### API Routes (5 endpoints)
+### API Routes (5 endpoints) ✅ All Migrated
 - `/api/health` - Health check
 - `/api/revalidate` - ISR revalidation
 - `/api/v1/graphql` - GraphQL endpoint
@@ -29,126 +29,336 @@ This document outlines the migration strategy from Pages Router to App Router fo
 - MetaMask integration via `metamask-react`
 - Context providers: Signature, Viewed, Bag, Size
 
-## Migration Strategy
+## Migration Status
 
-### Phase 1: Foundation (Low Risk) ✅ COMPLETED
-1. ✅ Create `app/` directory alongside `pages/`
-2. ✅ Move `layout.tsx` setup (root layout with providers)
-3. ⏳ Migrate static pages first: `/contact`, `/privacy` (pending)
-4. ✅ Migrate `/404` to `app/not-found.tsx`
+| Phase | Description | Status |
+|-------|-------------|--------|
+| Phase 1 | Foundation (layout, providers, not-found) | ✅ Complete |
+| Phase 2 | API Routes | ✅ Complete |
+| Phase 3 | Page Routes | 🔄 In Progress |
+| Phase 4 | Cleanup | ⏳ Pending |
 
-### Phase 2: API Routes ✅ COMPLETED (January 2026)
-All 5 API routes migrated to App Router Route Handlers:
-- ✅ `pages/api/health.ts` → `app/api/health/route.ts`
-- ✅ `pages/api/revalidate.ts` → `app/api/revalidate/route.ts`
-- ✅ `pages/api/v1/newsletter.ts` → `app/api/v1/newsletter/route.ts`
-- ✅ `pages/api/v1/graphql.ts` → `app/api/v1/graphql/route.ts`
-- ✅ `pages/api/v1/assets/[contractId].ts` → `app/api/v1/assets/[contractId]/route.ts`
+---
 
-Key changes in migration:
-- Uses `NextRequest`/`NextResponse` from `next/server`
-- Named exports (`GET`, `POST`) instead of default export
-- Dynamic route params via `Promise<{ paramName: string }>` second argument
-- Rate limiting implemented inline (in-memory) for each endpoint
-- ISR revalidation uses `revalidatePath()` from `next/cache`
+## Phase 3: Page Routes Migration
 
-### Phase 3: Dynamic Routes
-1. Migrate shop pages: `/shop`, `/shop/[pId]`
-2. Migrate deck pages: `/[deckId]`, `/[deckId]/[artistSlug]`
-3. Migrate user-specific pages: `/bag`, `/favorites`
+### Prerequisites
 
-### Phase 4: Homepage
-1. Migrate `/` with all its components
-2. Convert `getInitialProps` to `generateMetadata` + Server Components
+Before migrating page routes, fix the ESM import issue in `[deckId].tsx`:
+
+```tsx
+// ❌ Current (breaks ESM)
+const client = initApolloClient(undefined, {
+  schema: (await require("../source/graphql/schema")).schema,
+});
+
+// ✅ Fixed (static import)
+import { schema } from "@/source/graphql/schema";
+const client = initApolloClient(undefined, { schema });
+```
+
+### 3.1 Simple Pages (Low Complexity)
+
+These pages only connect to MongoDB and render client components.
+
+#### Pattern: Pages Router → App Router
+
+**Before (Pages Router):**
+```tsx
+// pages/shop.tsx
+import { connect } from "../source/mongoose";
+export { default } from "@/components/Pages/Shop";
+
+export const getServerSideProps = async () => {
+  await connect();
+  return { props: {} };
+};
+```
+
+**After (App Router):**
+```tsx
+// app/shop/page.tsx
+import { connect } from "@/source/mongoose";
+import Shop from "@/components/Pages/Shop";
+
+export default async function ShopPage() {
+  await connect();
+  return <Shop />;
+}
+```
+
+#### Pages to Migrate
+
+| Page | Source | Target | Notes |
+|------|--------|--------|-------|
+| Home | `pages/index.tsx` | `app/page.tsx` | Entry point |
+| Shop | `pages/shop.tsx` | `app/shop/page.tsx` | Listing |
+| Product | `pages/shop/[pId].tsx` | `app/shop/[pId]/page.tsx` | Dynamic |
+| Bag | `pages/bag.tsx` | `app/bag/page.tsx` | Client-heavy |
+| Favorites | `pages/favorites.tsx` | `app/favorites/page.tsx` | Client-heavy |
+| Contact | `pages/contact.tsx` | `app/contact/page.tsx` | Uses withApollo |
+| Privacy | `pages/privacy.tsx` | `app/privacy/page.tsx` | Uses withApollo |
+
+### 3.2 ISR Pages (High Complexity)
+
+These pages use `getStaticPaths` + `getStaticProps` with ISR.
+
+#### Pattern: ISR Migration
+
+**Before (Pages Router):**
+```tsx
+// pages/[deckId].tsx
+export const getStaticPaths: GetStaticPaths = async () => {
+  const decks = await fetchDecks();
+  return {
+    paths: decks.map((d) => ({ params: { deckId: d.slug } })),
+    fallback: "blocking",
+  };
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const data = await fetchDeckData(params.deckId);
+  if (!data) return { notFound: true, revalidate: 60 };
+  return { props: { cache: data }, revalidate: 60 };
+};
+```
+
+**After (App Router):**
+```tsx
+// app/[deckId]/page.tsx
+import { notFound } from "next/navigation";
+import { connect } from "@/source/mongoose";
+import { initApolloClient } from "@/source/apollo";
+import { schema } from "@/source/graphql/schema";
+import Deck from "@/components/Pages/Deck";
+
+// ISR configuration
+export const revalidate = 60;
+export const dynamicParams = true; // fallback: 'blocking'
+
+export async function generateStaticParams() {
+  await connect();
+  const client = initApolloClient(undefined, { schema });
+  const { data } = await client.query({ query: DecksNavQuery });
+  return data.decks.map((d: GQL.Deck) => ({ deckId: d.slug }));
+}
+
+export default async function DeckPage({
+  params,
+}: {
+  params: { deckId: string };
+}) {
+  await connect();
+  const client = initApolloClient(undefined, { schema });
+
+  const { data } = await client.query({
+    query: DeckQuery,
+    variables: { slug: params.deckId },
+  });
+
+  if (!data?.deck) {
+    notFound();
+  }
+
+  // Prefetch related data
+  await Promise.all([
+    client.query({ query: CardsForDeckQuery, variables: { deck: data.deck._id } }),
+    client.query({ query: LosersQuery, variables: { deck: data.deck._id } }),
+    client.query({ query: HeroCardsQuery, variables: { deck: data.deck._id, slug: data.deck.slug } }),
+  ]);
+
+  return <Deck initialCache={client.cache.extract()} />;
+}
+```
+
+#### ISR Pages to Migrate
+
+| Page | Source | Target | Complexity |
+|------|--------|--------|------------|
+| Deck | `pages/[deckId].tsx` | `app/[deckId]/page.tsx` | High |
+| Artist Card | `pages/[deckId]/[artistSlug].tsx` | `app/[deckId]/[artistSlug]/page.tsx` | High |
+
+### 3.3 Pages Using withApollo HOC
+
+**Before (Pages Router):**
+```tsx
+// pages/contact.tsx
+import { withApollo } from "../source/apollo";
+import ContactPage from "@/components/Pages/ContactPage";
+export default withApollo(ContactPage, { ssr: false });
+```
+
+**After (App Router):**
+```tsx
+// app/contact/page.tsx
+import ContactPage from "@/components/Pages/ContactPage";
+
+// No SSR data fetching (client-side only)
+export default function Contact() {
+  return <ContactPage />;
+}
+```
+
+For client-side Apollo, the `ApolloProvider` in `app/providers.tsx` handles hydration.
+
+---
+
+## Migration Order (Recommended)
+
+### Step 1: Fix ESM Imports (Prerequisite)
+- [ ] Update `pages/[deckId].tsx` - replace dynamic `require()` with static import
+- [ ] Update `pages/[deckId]/[artistSlug].tsx` - replace dynamic `require()` with static import
+- [ ] Update `source/apollo.tsx` if needed
+
+### Step 2: Migrate Simple Client-Only Pages
+- [ ] `/contact` → `app/contact/page.tsx`
+- [ ] `/privacy` → `app/privacy/page.tsx`
+
+### Step 3: Migrate Simple SSR Pages
+- [ ] `/` → `app/page.tsx`
+- [ ] `/shop` → `app/shop/page.tsx`
+- [ ] `/shop/[pId]` → `app/shop/[pId]/page.tsx`
+- [ ] `/bag` → `app/bag/page.tsx`
+- [ ] `/favorites` → `app/favorites/page.tsx`
+
+### Step 4: Migrate ISR Pages
+- [ ] `/[deckId]` → `app/[deckId]/page.tsx`
+- [ ] `/[deckId]/[artistSlug]` → `app/[deckId]/[artistSlug]/page.tsx`
+
+### Step 5: Cleanup
+- [ ] Delete migrated files from `pages/`
+- [ ] Remove `pages/_app.tsx` (replaced by `app/layout.tsx`)
+- [ ] Remove `pages/_document.tsx` (replaced by `app/layout.tsx`)
+- [ ] Update imports and tests
+
+---
 
 ## Technical Considerations
 
-### Apollo Client Migration
-Current pattern (Pages Router):
+### Apollo Client Integration
+
+The current `withApollo` HOC pattern doesn't work with App Router Server Components.
+
+**Server-side data fetching:**
 ```tsx
-export default withApollo(Page, { ssr: true });
+// In a Server Component
+const client = initApolloClient(undefined, { schema });
+const { data } = await client.query({ query: MyQuery });
 ```
 
-New pattern (App Router):
+**Client-side hydration:**
 ```tsx
-// app/providers.tsx - Client Component
-'use client';
-export function ApolloProvider({ children }) { ... }
+// app/providers.tsx already sets up ApolloProvider
+// Client components use hooks as normal:
+const { data } = useQuery(MyQuery);
+```
 
-// app/[deckId]/page.tsx - Server Component
-export default async function Page({ params }) {
-  // Use RSC data fetching or dehydrate Apollo cache
+**Cache hydration pattern:**
+```tsx
+// Server Component
+export default async function Page() {
+  const client = initApolloClient(undefined, { schema });
+  await client.query({ query: MyQuery });
+  const cache = client.cache.extract();
+
+  return <ClientComponent initialCache={cache} />;
+}
+
+// Client Component
+'use client';
+function ClientComponent({ initialCache }) {
+  // Hydrate Apollo cache with server data
+  const client = useApolloClient();
+  useEffect(() => {
+    client.cache.restore(initialCache);
+  }, []);
+  // ...
 }
 ```
 
-### Emotion CSS-in-JS
-Emotion's `css` prop requires the React runtime. Options:
-1. Mark components using `css` prop as `'use client'`
-2. Gradually migrate to CSS Modules or Tailwind for server components
-3. Use Emotion's SSR streaming support
+### Metadata Migration
 
-### Context Providers
-Move client-side providers to a client component wrapper:
+**Before (Pages Router):**
 ```tsx
-// app/providers.tsx
-'use client';
-export function Providers({ children }) {
-  return (
-    <MetaMaskProvider>
-      <SignatureProvider>
-        <ViewedProvider>
-          <BagProvider>
-            {children}
-          </BagProvider>
-        </ViewedProvider>
-      </SignatureProvider>
-    </MetaMaskProvider>
-  );
+// In component
+<Head>
+  <title>Page Title</title>
+  <meta name="description" content="..." />
+</Head>
+```
+
+**After (App Router):**
+```tsx
+// At top of page.tsx
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Page Title",
+  description: "...",
+};
+
+// Or dynamic metadata
+export async function generateMetadata({ params }): Promise<Metadata> {
+  const data = await fetchData(params.id);
+  return { title: data.name };
 }
 ```
 
-### Data Fetching Changes
-| Pages Router | App Router |
-|--------------|------------|
-| `getServerSideProps` | Server Component async function |
-| `getStaticProps` | Server Component + `export const revalidate` |
-| `getInitialProps` | Server Component async function |
-| `useSWR` client-side | Server Component or `use()` hook |
+### Route Segment Config
 
-## Risk Assessment
+```tsx
+// Static page rebuilt every 60s
+export const revalidate = 60;
 
-### Low Risk
-- Static pages (contact, privacy)
-- API Route Handlers (direct conversion)
-- 404 page
+// Dynamic page (no caching)
+export const dynamic = 'force-dynamic';
 
-### Medium Risk
-- Shop pages (product data)
-- Deck pages (dynamic segments)
-- Apollo SSR integration
+// Fully static (build-time only)
+export const dynamic = 'force-static';
 
-### High Risk
-- Homepage (complex data requirements)
-- MetaMask/Web3 integration (client-only)
-- Bag/Favorites (localStorage + context)
+// Handle unknown dynamic paths
+export const dynamicParams = true; // fallback: 'blocking'
+export const dynamicParams = false; // fallback: false (404)
+```
 
-## Recommended Timeline
+---
 
-1. **Preparation**: Set up `app/` directory, create providers
-2. **Phase 1**: Static pages + not-found
-3. **Phase 2**: API routes
-4. **Phase 3**: Dynamic pages with simpler data needs
-5. **Phase 4**: Complex pages (homepage, bag)
-6. **Cleanup**: Remove `pages/` directory, update tests
+## Validation Checklist
+
+For each migrated page:
+
+- [ ] Page renders correctly at the route
+- [ ] Data is fetched properly (check network tab)
+- [ ] SEO metadata is present (view source)
+- [ ] No hydration warnings in console
+- [ ] Client-side navigation works
+- [ ] Apollo queries execute correctly
+- [ ] ISR revalidation works (if applicable)
+- [ ] Error boundaries catch errors
+- [ ] Loading states work as expected
+
+---
 
 ## Rollback Strategy
 
-- Keep `pages/` directory until full migration is verified
-- Use feature flags for gradual rollout if needed
-- Maintain smoke tests for both routers during migration
+During migration, both routers coexist safely:
+
+1. **Route precedence**: `app/` routes take precedence over `pages/`
+2. **Quick rollback**: Delete the `app/` route file to restore `pages/` behavior
+3. **No code changes needed**: Just file deletion
+
+Example:
+```bash
+# To rollback /shop migration
+rm app/shop/page.tsx
+# pages/shop.tsx automatically serves /shop again
+```
+
+---
 
 ## References
 
 - [Next.js App Router Migration Guide](https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration)
-- [Incremental Adoption](https://nextjs.org/docs/app/building-your-application/upgrading/app-router-migration#incremental-adoption-steps)
+- [Data Fetching in App Router](https://nextjs.org/docs/app/building-your-application/data-fetching)
+- [ISR in App Router](https://nextjs.org/docs/app/building-your-application/data-fetching/incremental-static-regeneration)
 - [Apollo Client with App Router](https://www.apollographql.com/blog/apollo-client-nextjs-app-router/)
