@@ -15,6 +15,8 @@ const config = {
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
+  // Exclude Playwright e2e tests from Jest
+  testPathIgnorePatterns: ["/node_modules/", "/e2e/"],
   // Coverage configuration
   collectCoverageFrom: [
     "hooks/**/*.{ts,tsx}",
