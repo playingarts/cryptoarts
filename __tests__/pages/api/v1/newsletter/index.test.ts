@@ -44,7 +44,7 @@ describe("Newsletter API Endpoint", () => {
     const response = await POST(request);
 
     // Will fail with actual API call but validates format check passes
-    // The status depends on MailerLite API response
-    expect([200, 400, 500]).toContain(response.status);
+    // The status depends on MailerLite API response (401 when API key missing)
+    expect([200, 400, 401, 500]).toContain(response.status);
   });
 });
