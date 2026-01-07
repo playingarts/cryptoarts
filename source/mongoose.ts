@@ -25,9 +25,9 @@ export const connect = async () => {
       dbName: MONGODB,
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 5000,
-      ...(isDevelopment
-        ? { tlsAllowInvalidCertificates: true }
-        : {}),
+      // TLS options for DigitalOcean Managed MongoDB
+      tls: true,
+      tlsAllowInvalidCertificates: true,
     }).then((mongoose) => {
       mongoose.set("returnOriginal", false);
       return mongoose;
