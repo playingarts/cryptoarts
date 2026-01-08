@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import { useState } from "react";
 import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
 import Hero from "../Home/Hero";
@@ -24,19 +25,25 @@ const Podcast = dynamic(() => import("../Home/Podcast"), {
 type Props = {};
 
 const Home = (props: Props) => {
+  const [heroReady, setHeroReady] = useState(false);
+
   return (
     <>
       <Header
         links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"]}
       />
-      <Hero />
-      <Story id="about" />
-      <Collection id="collection" />
-      <Gallery id="gallery" />
-      <AugmentedReality id="ar" />
-      <Footer>
-        <Podcast id="podcast" />
-      </Footer>
+      <Hero onReady={() => setHeroReady(true)} />
+      {heroReady && (
+        <>
+          <Story id="about" />
+          <Collection id="collection" />
+          <Gallery id="gallery" />
+          <AugmentedReality id="ar" />
+          <Footer>
+            <Podcast id="podcast" />
+          </Footer>
+        </>
+      )}
     </>
   );
 };

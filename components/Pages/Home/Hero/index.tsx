@@ -12,7 +12,11 @@ const texts = [
   "“Beautifully crafted decks of cards that showcase global artists.”",
 ];
 
-const Hero = () => {
+type HeroProps = {
+  onReady?: () => void;
+};
+
+const Hero = ({ onReady }: HeroProps) => {
   const [card, setCard] = useState<GQL.Card>({} as unknown as GQL.Card);
 
   const [index, setIndex] = useState(0);
@@ -105,7 +109,7 @@ const Hero = () => {
           },
         ]}
       >
-        <HeroCard setCard={setCard} />
+        <HeroCard setCard={setCard} onReady={onReady} />
       </div>
     </Grid>
   );
