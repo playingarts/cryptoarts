@@ -1,46 +1,36 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Grid from "../../../Grid";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import ExploreButton from "../../../Buttons/ExploreButton";
 import Text from "../../../Text";
 import HeroCard from "./HeroCard";
 import Link from "../../../Link";
+import { useHeroCarousel } from "../../../../contexts/heroCarouselContext";
 
 const texts = [
-  "“It’s not just playing cards, but a gallery right in your hands.”",
-  "“Where art and play come together in every playing card.”",
-  "“Beautifully crafted decks of cards that showcase global artists.”",
+  "\u201CIt's not just playing cards, but a gallery right in your hands.\u201D",
+  "\u201CWhere art and play come together in every playing card.\u201D",
+  "\u201CBeautifully crafted decks of cards that showcase global artists.\u201D",
 ];
 
-type HomeCard = {
-  _id: string;
-  img: string;
-  cardBackground: string;
-};
+const Hero = () => {
+  const { currentCard, quoteIndex, onReady } = useHeroCarousel();
 
-type HeroProps = {
-  onReady?: () => void;
-  initialCards?: HomeCard[];
-};
-
-const Hero = ({ onReady, initialCards }: HeroProps) => {
-  const [card, setCard] = useState<GQL.Card>({} as unknown as GQL.Card);
-
-  const [index, setIndex] = useState(0);
-
+  // Signal ready when first card is available
   useEffect(() => {
-    if (!card || Object.keys(card).length === 0) {
-      return;
+    if (currentCard) {
+      onReady();
     }
-    setIndex(index === texts.length - 1 ? 0 : index + 1);
-  }, [card]);
+  }, [currentCard, onReady]);
+
+  const background = currentCard?.cardBackground || "transparent";
 
   return (
     <Grid
       css={(theme) => [
         {
           minHeight: 709,
-          background: card.cardBackground,
+          background,
           transition: theme.transitions.fast("background"),
           alignContent: "end",
           paddingBottom: 60,
@@ -83,7 +73,7 @@ const Hero = ({ onReady, initialCards }: HeroProps) => {
             },
           ]}
         >
-          <span>{texts[index]}</span>
+          <span>{texts[quoteIndex % texts.length]}</span>
         </Text>
         <div css={{ display: "flex", gap: 15, marginTop: 30 }}>
           <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "#about"}>
@@ -116,7 +106,7 @@ const Hero = ({ onReady, initialCards }: HeroProps) => {
           },
         ]}
       >
-        <HeroCard setCard={setCard} onReady={onReady} initialCards={initialCards} />
+        <HeroCard />
       </div>
     </Grid>
   );

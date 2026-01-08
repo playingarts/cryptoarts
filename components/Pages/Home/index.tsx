@@ -7,6 +7,7 @@ import Header from "../../Header";
 import Hero from "../Home/Hero";
 import Story from "../Home/Story";
 import Footer from "../../Footer";
+import { HeroCarouselProvider } from "../../../contexts/heroCarouselContext";
 
 // Lazy-load below-fold components for better initial page load
 const Collection = dynamic(() => import("../Home/Collection"), {
@@ -36,11 +37,14 @@ const Home = ({ homeCards }: Props) => {
   const [heroReady, setHeroReady] = useState(false);
 
   return (
-    <>
+    <HeroCarouselProvider
+      initialCards={homeCards}
+      onHeroReady={() => setHeroReady(true)}
+    >
       <Header
         links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"]}
       />
-      <Hero onReady={() => setHeroReady(true)} initialCards={homeCards} />
+      <Hero />
       {heroReady && (
         <>
           <Story id="about" />
@@ -52,7 +56,7 @@ const Home = ({ homeCards }: Props) => {
           </Footer>
         </>
       )}
-    </>
+    </HeroCarouselProvider>
   );
 };
 
