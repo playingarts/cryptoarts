@@ -5,10 +5,12 @@ import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
 import Hero from "../Home/Hero";
 import Story from "../Home/Story";
-import Collection from "../Home/Collection";
 import Footer from "../../Footer";
 
 // Lazy-load below-fold components for better initial page load
+const Collection = dynamic(() => import("../Home/Collection"), {
+  ssr: true,
+});
 const Gallery = dynamic(() => import("../Home/Gallery"), {
   ssr: true,
 });

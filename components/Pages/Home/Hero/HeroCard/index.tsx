@@ -9,14 +9,42 @@ const HeroCard: FC<{ setCard: (arg0: GQL.Card) => void }> = ({ setCard }) => {
 
   const { cards } = useHomeCards();
   const [index, setIndex] = useState(0);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+
+  // Preload all hero card images before showing
+  useEffect(() => {
+    if (!cards || cards.length === 0) {
+      return;
+    }
+
+    let loadedCount = 0;
+    const totalImages = cards.length;
+
+    cards.forEach((card) => {
+      const img = new Image();
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount++;
+        if (loadedCount === totalImages) {
+          setImagesLoaded(true);
+        }
+      };
+      img.src = card.img;
+    });
+  }, [cards]);
 
   useEffect(() => {
-    if (!cards) {
+    if (!cards || !imagesLoaded) {
       return;
     }
 
     setCard(cards[index]);
-  }, [cards, index]);
+  }, [cards, index, imagesLoaded]);
 
   return (
     <div
@@ -37,7 +65,7 @@ const HeroCard: FC<{ setCard: (arg0: GQL.Card) => void }> = ({ setCard }) => {
         },
       ]}
     >
-      {!cards
+      {!cards || !imagesLoaded
         ? null
         : cards.reduce((prev, card, i) => {
             if (i === index) {
@@ -55,7 +83,7 @@ const HeroCard: FC<{ setCard: (arg0: GQL.Card) => void }> = ({ setCard }) => {
               ? [cardNode, ...prev]
               : [...prev, cardNode];
           }, [] as ReactNode[])}
-      {!cards ? null : (
+      {!cards || !imagesLoaded ? null : (
         <Card
           key={"HeroCard" + cards[index]._id}
           size={width >= breakpoints.sm ? "big" : "nano"}
