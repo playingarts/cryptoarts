@@ -55,8 +55,9 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => (
             [theme.maxMQ.sm]: {
               top: 65,
             },
-
-            transform: "rotate(-15deg)",
+            // GPU acceleration for smooth scrolling
+            willChange: "transform",
+            transform: "rotate(-15deg) translateZ(0)",
             ">:nth-child(4)": { gridColumn: 2 },
             ">:nth-child(3)": { top: 150 },
             ">:nth-child(1)": { top: 250 },
