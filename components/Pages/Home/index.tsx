@@ -22,9 +22,17 @@ const Podcast = dynamic(() => import("../Home/Podcast"), {
   ssr: true,
 });
 
-type Props = {};
+type HomeCard = {
+  _id: string;
+  img: string;
+  cardBackground: string;
+};
 
-const Home = (props: Props) => {
+type Props = {
+  homeCards?: HomeCard[];
+};
+
+const Home = ({ homeCards }: Props) => {
   const [heroReady, setHeroReady] = useState(false);
 
   return (
@@ -32,7 +40,7 @@ const Home = (props: Props) => {
       <Header
         links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"]}
       />
-      <Hero onReady={() => setHeroReady(true)} />
+      <Hero onReady={() => setHeroReady(true)} initialCards={homeCards} />
       {heroReady && (
         <>
           <Story id="about" />

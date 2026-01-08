@@ -1,18 +1,32 @@
 import Card from "../../../../Card";
 import { useSize } from "../../../../SizeProvider";
 import { breakpoints } from "../../../../../source/enums";
-import { FC, ReactNode, useEffect, useState } from "react";
+import { FC, ReactNode, useEffect, useState, useRef } from "react";
 import { useHomeCards } from "../../../../../hooks/card";
+
+type HomeCard = {
+  _id: string;
+  img: string;
+  cardBackground: string;
+};
 
 type HeroCardProps = {
   setCard: (card: GQL.Card) => void;
   onReady?: () => void;
+  initialCards?: HomeCard[];
 };
 
-const HeroCard: FC<HeroCardProps> = ({ setCard, onReady }) => {
+const HeroCard: FC<HeroCardProps> = ({ setCard, onReady, initialCards }) => {
   const { width } = useSize();
+  const readyCalledRef = useRef(false);
 
-  const { cards } = useHomeCards();
+  // Skip GraphQL query if we have initial cards from SSR
+  const { cards: fetchedCards } = useHomeCards({
+    skip: !!initialCards?.length,
+  });
+
+  // Use SSR cards if available, otherwise use fetched cards
+  const cards = (initialCards as unknown as GQL.Card[]) || fetchedCards;
   const [index, setIndex] = useState(0);
 
   // Set card and signal ready when cards data arrives
@@ -22,7 +36,12 @@ const HeroCard: FC<HeroCardProps> = ({ setCard, onReady }) => {
     }
 
     setCard(cards[index]);
-    onReady?.();
+
+    // Only call onReady once
+    if (!readyCalledRef.current) {
+      readyCalledRef.current = true;
+      onReady?.();
+    }
   }, [cards, index]);
 
   return (

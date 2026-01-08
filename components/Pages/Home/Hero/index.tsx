@@ -12,11 +12,18 @@ const texts = [
   "“Beautifully crafted decks of cards that showcase global artists.”",
 ];
 
-type HeroProps = {
-  onReady?: () => void;
+type HomeCard = {
+  _id: string;
+  img: string;
+  cardBackground: string;
 };
 
-const Hero = ({ onReady }: HeroProps) => {
+type HeroProps = {
+  onReady?: () => void;
+  initialCards?: HomeCard[];
+};
+
+const Hero = ({ onReady, initialCards }: HeroProps) => {
   const [card, setCard] = useState<GQL.Card>({} as unknown as GQL.Card);
 
   const [index, setIndex] = useState(0);
@@ -109,7 +116,7 @@ const Hero = ({ onReady }: HeroProps) => {
           },
         ]}
       >
-        <HeroCard setCard={setCard} onReady={onReady} />
+        <HeroCard setCard={setCard} onReady={onReady} initialCards={initialCards} />
       </div>
     </Grid>
   );
