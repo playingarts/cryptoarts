@@ -176,40 +176,49 @@ const ActualFooter = () => {
           Download Playing Arts AR™ app
         </Text>
         <div css={[{ marginTop: 30 }]}>
-          <ButtonTemplate
-            css={(theme) => [
-              {
-                paddingLeft: 10,
-                marginRight: 15,
-              },
-            ]}
-            color={palette === "dark" ? "white50" : undefined}
-            palette={palette}
+          <a
+            href="https://apps.apple.com/es/app/playing-arts/id1594901668?l=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            css={{ textDecoration: "none", marginRight: 15 }}
           >
-            <Apple
+            <ButtonTemplate
               css={{
-                marginRight: 10,
+                paddingLeft: 10,
               }}
-            />
-            iPhone
-          </ButtonTemplate>
+              color={palette === "dark" ? "white50" : undefined}
+              palette={palette}
+            >
+              <Apple
+                css={{
+                  marginRight: 10,
+                }}
+              />
+              iPhone
+            </ButtonTemplate>
+          </a>
 
-          <ButtonTemplate
-            color={palette === "dark" ? "white50" : undefined}
-            css={(theme) => [
-              {
-                paddingLeft: 10,
-              },
-            ]}
-            palette={palette}
+          <a
+            href="https://play.google.com/store/apps/details?id=com.digitalabstractsapps.playingarts&hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            css={{ textDecoration: "none" }}
           >
-            <Android
+            <ButtonTemplate
+              color={palette === "dark" ? "white50" : undefined}
               css={{
-                marginRight: 10,
+                paddingLeft: 10,
               }}
-            />
-            Android
-          </ButtonTemplate>
+              palette={palette}
+            >
+              <Android
+                css={{
+                  marginRight: 10,
+                }}
+              />
+              Android
+            </ButtonTemplate>
+          </a>
         </div>
       </div>
       <div
@@ -223,9 +232,11 @@ const ActualFooter = () => {
         ]}
       >
         <div>
-          <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
-            Start your collection
-          </ArrowButton>
+          <Link href="/shop">
+            <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
+              Start your collection
+            </ArrowButton>
+          </Link>
         </div>
       </div>
       <div css={[{ gridColumn: "span 6", marginTop: 30 }]}>
@@ -236,16 +247,16 @@ const ActualFooter = () => {
               paddingTop: 30,
               color: theme.colors[palette === "dark" ? "white50" : "black30"],
               display: "flex",
-              gap: 30,
+              gap: 20,
             },
           ]}
         >
-          <Visa />
-          <Mastercard />
-          <Amex />
-          <PayPal />
-          <ApplePay />
-          <GooglePay />
+          <Visa css={{ transform: "scale(0.72)" }} />
+          <Mastercard css={{ transform: "scale(0.72)" }} />
+          <Amex css={{ transform: "scale(0.72)" }} />
+          <PayPal css={{ transform: "scale(0.81)" }} />
+          <ApplePay css={{ transform: "scale(0.9)" }} />
+          <GooglePay css={{ transform: "scale(0.9)" }} />
         </ScandiBlock>
       </div>
       <div css={[{ gridColumn: "span 6", marginTop: 30 }]}>

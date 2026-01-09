@@ -14,7 +14,7 @@ describe("hooks/ratings", () => {
     it("returns ratings data on success", async () => {
       const mocks = [
         {
-          request: { query: RatingsQuery, variables: {} },
+          request: { query: RatingsQuery, variables: { shuffle: true } },
           result: { data: { ratings: [mockRating] } },
         },
       ];
@@ -40,7 +40,7 @@ describe("hooks/ratings", () => {
       ];
 
       const { result } = renderApolloHook(
-        () => useRatings({ variables: { title: "Crypto" } }),
+        () => useRatings({ variables: { title: "Crypto", shuffle: undefined } }),
         { mocks }
       );
 
@@ -54,7 +54,7 @@ describe("hooks/ratings", () => {
     it("returns error on failure", async () => {
       const mocks = [
         {
-          request: { query: RatingsQuery, variables: {} },
+          request: { query: RatingsQuery, variables: { shuffle: true } },
           result: { errors: [new GraphQLError("Failed to fetch ratings")] },
         },
       ];
@@ -71,7 +71,7 @@ describe("hooks/ratings", () => {
     it("returns empty array when no ratings exist", async () => {
       const mocks = [
         {
-          request: { query: RatingsQuery, variables: {} },
+          request: { query: RatingsQuery, variables: { shuffle: true } },
           result: { data: { ratings: [] } },
         },
       ];
