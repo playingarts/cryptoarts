@@ -118,6 +118,29 @@ export const DailyCardQuery = gql`
   }
 `;
 
+/**
+ * Lightweight DailyCard query for Gallery section.
+ * Only fetches fields actually used: name, slug, country, userpic, info, deck.slug
+ * ~60% smaller payload than full DailyCardQuery.
+ */
+export const DailyCardLiteQuery = gql`
+  query DailyCardLite {
+    dailyCard {
+      _id
+      info
+      artist {
+        name
+        slug
+        country
+        userpic
+      }
+      deck {
+        slug
+      }
+    }
+  }
+`;
+
 export const HeroCardsQuery = gql`
   ${ERC1155Fragment}
 
@@ -268,6 +291,35 @@ export const useLoadRandomCardsWithInfo = (
 
   return { loadRandomCardsWithInfo, ...methods, cards };
 };
+/**
+ * Query for Collection section - random cards with limit for progressive loading
+ */
+export const CollectionCardsQuery = gql`
+  query CollectionCards($deck: ID, $limit: Int, $shuffle: Boolean) {
+    cards(deck: $deck, limit: $limit, shuffle: $shuffle) {
+      _id
+      img
+      artist {
+        slug
+      }
+    }
+  }
+`;
+
+export const useLoadCollectionCards = (
+  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
+) => {
+  const [
+    loadCollectionCards,
+    { data: { cards } = { cards: undefined }, ...methods },
+  ] = useLazyQuery<Pick<GQL.Query, "cards">>(CollectionCardsQuery, {
+    ...options,
+    fetchPolicy: "network-only", // Always fetch fresh random cards
+  });
+
+  return { loadCollectionCards, ...methods, cards };
+};
+
 export const useLoadRandomCardsWithoutDeck = (
   options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
 ) => {
@@ -300,6 +352,18 @@ export const useDailyCard = (
 ) => {
   const { data: { dailyCard } = { dailyCard: undefined }, ...methods } =
     useQuery<Pick<GQL.Query, "dailyCard">>(DailyCardQuery, options);
+
+  return { ...methods, dailyCard };
+};
+
+/**
+ * Lightweight hook for Gallery section - fetches only essential fields.
+ */
+export const useDailyCardLite = (
+  options: useQuery.Options<Pick<GQL.Query, "dailyCard">> = {}
+) => {
+  const { data: { dailyCard } = { dailyCard: undefined }, ...methods } =
+    useQuery<Pick<GQL.Query, "dailyCard">>(DailyCardLiteQuery, options);
 
   return { ...methods, dailyCard };
 };

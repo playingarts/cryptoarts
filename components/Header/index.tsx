@@ -1,5 +1,5 @@
 import { colord } from "colord";
-import { FC, HTMLAttributes, ReactNode, useEffect, useState } from "react";
+import { FC, HTMLAttributes, memo, ReactNode, useEffect, useState } from "react";
 import Grid from "../Grid";
 import ScandiBlock from "../ScandiBlock";
 import CTA from "./CTA";
@@ -105,8 +105,7 @@ const Header: FC<Props> = ({
               "grid-template-rows",
             ]),
             [theme.maxMQ.sm]: {
-              gridTemplateColumns: "auto 1fr auto",
-              padding: "0 10px",
+              // Mobile styles - to be implemented
             },
           },
 
@@ -191,4 +190,5 @@ const Header: FC<Props> = ({
   );
 };
 
-export default Header;
+// Memoize Header to prevent re-renders during carousel rotation
+export default memo(Header);

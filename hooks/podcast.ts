@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
-
-import { useQuery } from "@apollo/client/react";
+import { useLazyQuery, useQuery } from "@apollo/client/react";
+import { useEffect, useRef, useState } from "react";
 
 export const podcastsQuery = gql`
   query Podcasts($name: String, $shuffle: Boolean, $limit: Int) {
@@ -21,9 +21,53 @@ export const podcastsQuery = gql`
 export const usePodcasts = (
   options: useQuery.Options<Pick<GQL.Query, "podcasts">> = {}
 ) => {
-  const { data: { podcasts } = { artists: undefined }, ...methods } = useQuery<
+  const { data: { podcasts } = { podcasts: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "podcasts">
-  >(podcastsQuery, options);
+  >(podcastsQuery, {
+    // Cache podcasts to avoid refetching
+    fetchPolicy: "cache-first",
+    ...options,
+  });
 
   return { ...methods, podcasts };
+};
+
+/**
+ * Lazy load podcasts when element enters viewport.
+ * Uses IntersectionObserver to defer loading until visible.
+ */
+export const useLazyPodcasts = (
+  options: useQuery.Options<Pick<GQL.Query, "podcasts">> = {}
+) => {
+  const [loadPodcasts, { data: { podcasts } = { podcasts: undefined }, ...methods }] =
+    useLazyQuery<Pick<GQL.Query, "podcasts">>(podcastsQuery, {
+      fetchPolicy: "cache-first",
+      ...options,
+    });
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  useEffect(() => {
+    if (hasLoaded || !containerRef.current) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          loadPodcasts();
+          setHasLoaded(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "200px" } // Start loading 200px before visible
+    );
+
+    observer.observe(containerRef.current);
+
+    return () => observer.disconnect();
+  }, [hasLoaded, loadPodcasts]);
+
+  return { containerRef, ...methods, podcasts };
 };

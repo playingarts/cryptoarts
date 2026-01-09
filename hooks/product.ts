@@ -60,7 +60,11 @@ export const useProducts = (
 ) => {
   const { data: { products } = { products: undefined }, ...methods } = useQuery<
     Pick<GQL.Query, "products">
-  >(ProductsQuery, options);
+  >(ProductsQuery, {
+    // Cache products to avoid refetching on navigation - data rarely changes
+    fetchPolicy: "cache-first",
+    ...options,
+  });
 
   return { ...methods, products };
 };
