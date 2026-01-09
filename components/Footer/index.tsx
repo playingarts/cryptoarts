@@ -14,6 +14,7 @@ const EmailForm = dynamic(() => import("../EmailForm"), {
 import Instagram from "../Icons/Instagram";
 import Twitter from "../Icons/Twitter";
 import Youtube from "../Icons/Youtube";
+import { socialLinks } from "../../source/consts";
 import ButtonTemplate from "../Buttons/Button";
 import Apple from "../Icons/Apple";
 import Android from "../Icons/Android";
@@ -97,17 +98,22 @@ const ActualFooter = () => {
               css={(theme) => [
                 {
                   marginTop: 30,
+                  display: "flex",
+                  gap: 30,
                   color:
                     theme.colors[palette === "dark" ? "white50" : "black30"],
-                  "svg:not(:first-of-type)": {
-                    marginLeft: 30,
-                  },
                 },
               ]}
             >
-              <Instagram />
-              <Twitter />
-              <Youtube />
+              <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+                <Instagram />
+              </Link>
+              <Link href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+                <Twitter />
+              </Link>
+              <Link href={socialLinks.youtube} target="_blank" rel="noopener noreferrer">
+                <Youtube />
+              </Link>
             </div>
           </div>
         </Grid>

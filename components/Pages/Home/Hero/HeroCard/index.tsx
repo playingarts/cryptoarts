@@ -25,24 +25,33 @@ const HeroCard: FC = () => {
 
   // Track if departing card should be in "exiting" state (for animation)
   const [isExiting, setIsExiting] = useState(false);
+  // Track if component has hydrated (client-side only)
+  const [isHydrated, setIsHydrated] = useState(false);
 
   // Store random rotations for each card by ID
   const rotationsRef = useRef<Record<string, number>>({});
 
-  // Generate rotations for cards that don't have one yet
-  visibleCards.forEach((card) => {
-    if (!(card._id in rotationsRef.current)) {
-      rotationsRef.current[card._id] = generateRandomRotation();
-    }
-  });
+  // Mark as hydrated after mount
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
-  // Clean up rotations for cards no longer in the visible set
-  const visibleIds = new Set(visibleCards.map(c => c._id));
-  Object.keys(rotationsRef.current).forEach(id => {
-    if (!visibleIds.has(id)) {
-      delete rotationsRef.current[id];
-    }
-  });
+  // Generate rotations for cards that don't have one yet (only after hydration)
+  if (isHydrated) {
+    visibleCards.forEach((card) => {
+      if (!(card._id in rotationsRef.current)) {
+        rotationsRef.current[card._id] = generateRandomRotation();
+      }
+    });
+
+    // Clean up rotations for cards no longer in the visible set
+    const visibleIds = new Set(visibleCards.map(c => c._id));
+    Object.keys(rotationsRef.current).forEach(id => {
+      if (!visibleIds.has(id)) {
+        delete rotationsRef.current[id];
+      }
+    });
+  }
 
   // Trigger exit animation when departing card appears
   useEffect(() => {

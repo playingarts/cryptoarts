@@ -84,8 +84,8 @@ export const HeroCarouselProvider = ({
   onHeroReady,
   quoteCount = 3,
 }: HeroCarouselProviderProps) => {
-  // The deck of cards (shuffled on init and when cycling through)
-  const [deck, setDeck] = useState<HomeCard[]>(() => shuffleArray(initialCards));
+  // The deck of cards - start with initial order for SSR consistency, shuffle after hydration
+  const [deck, setDeck] = useState<HomeCard[]>(initialCards);
   // Current position in the deck (0 = top of deck)
   const [deckPosition, setDeckPosition] = useState(0);
   const [quoteIndex, setQuoteIndex] = useState(0);
@@ -95,6 +95,14 @@ export const HeroCarouselProvider = ({
 
   const readyCalledRef = useRef(false);
   const progressRef = useRef(0);
+
+  // Shuffle after hydration to avoid SSR mismatch
+  useEffect(() => {
+    if (initialCards.length > 0) {
+      setDeck(shuffleArray(initialCards));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- intentionally run only once on mount
+  }, []);
 
   // Get 3 visible cards starting from current deck position
   // Wrap around to the beginning if needed

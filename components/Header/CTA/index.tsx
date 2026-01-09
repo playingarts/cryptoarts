@@ -43,13 +43,13 @@ const CTA = () => {
             palette === "dark" && { color: theme.colors.white75 },
           ]}
         >
-          <Link href={socialLinks.instagram} css={{ width: "initial" }}>
+          <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" css={{ width: "initial" }}>
             <Instagram />
           </Link>
-          <Link href={socialLinks.twitter} css={{ width: "initial" }}>
+          <Link href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" css={{ width: "initial" }}>
             <Twitter />
           </Link>
-          <Link href={socialLinks.youtube} css={{ width: "initial" }}>
+          <Link href={socialLinks.youtube} target="_blank" rel="noopener noreferrer" css={{ width: "initial" }}>
             <Youtube />
           </Link>
         </div>

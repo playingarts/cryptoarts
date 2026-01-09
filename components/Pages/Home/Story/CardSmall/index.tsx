@@ -133,15 +133,15 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
                 },
                 // Position cards: 1st in col 1, 2nd & 3rd in col 2, 4th in col 3
                 // Offset col 1 up by 1/3 card height, col 3 down by 1/3
-                ">:nth-child(1)": {
+                ">:nth-of-type(1)": {
                   gridColumn: 1,
                   gridRow: 2,
                   position: "relative",
                   top: -CARD_VERTICAL_OFFSET,
                 },
-                ">:nth-child(2)": { gridColumn: 2, gridRow: 1 },
-                ">:nth-child(3)": { gridColumn: 2, gridRow: 2 },
-                ">:nth-child(4)": {
+                ">:nth-of-type(2)": { gridColumn: 2, gridRow: 1 },
+                ">:nth-of-type(3)": { gridColumn: 2, gridRow: 2 },
+                ">:nth-of-type(4)": {
                   gridColumn: 3,
                   gridRow: 1,
                   position: "relative",

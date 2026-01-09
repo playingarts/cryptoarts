@@ -28,9 +28,10 @@ type LazySectionProps = {
   children: ReactNode;
   rootMargin?: string;
   minHeight?: number;
+  id?: string;
 };
 
-const LazySection = ({ children, rootMargin = "200px", minHeight = 400 }: LazySectionProps) => {
+const LazySection = ({ children, rootMargin = "200px", minHeight = 400, id }: LazySectionProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -54,7 +55,7 @@ const LazySection = ({ children, rootMargin = "200px", minHeight = 400 }: LazySe
   }, [rootMargin]);
 
   return (
-    <div ref={ref} style={{ minHeight: isVisible ? undefined : minHeight }}>
+    <div ref={ref} id={id} style={{ minHeight: isVisible ? undefined : minHeight }}>
       {isVisible ? children : null}
     </div>
   );
@@ -77,34 +78,35 @@ const Home = ({ homeCards }: Props) => {
         links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"]}
       />
       <Hero />
-      {heroReady && (
-        <>
-          {/* Story loads immediately after Hero - it's directly below fold */}
-          <Story id="about" />
 
-          {/* Collection loads when user scrolls near it */}
-          <LazySection minHeight={600}>
-            <Collection id="collection" />
-          </LazySection>
+      {/* Story loads immediately after Hero - it's directly below fold */}
+      <LazySection id="about" minHeight={heroReady ? undefined : 800}>
+        {heroReady && <Story />}
+      </LazySection>
 
-          {/* Gallery loads when approaching */}
-          <LazySection minHeight={800}>
-            <Gallery id="gallery" />
-          </LazySection>
+      {/* Collection loads when user scrolls near it */}
+      <LazySection id="collection" minHeight={600}>
+        {heroReady && <Collection />}
+      </LazySection>
 
-          {/* AR section */}
-          <LazySection minHeight={500}>
-            <AugmentedReality id="ar" />
-          </LazySection>
+      {/* Gallery loads when approaching */}
+      <LazySection id="gallery" minHeight={800}>
+        {heroReady && <Gallery />}
+      </LazySection>
 
-          {/* Footer with Podcast */}
-          <LazySection minHeight={600}>
-            <Footer>
-              <Podcast id="podcast" />
-            </Footer>
-          </LazySection>
-        </>
-      )}
+      {/* AR section */}
+      <LazySection id="ar" minHeight={500}>
+        {heroReady && <AugmentedReality />}
+      </LazySection>
+
+      {/* Footer with Podcast and Reviews */}
+      <LazySection id="reviews" minHeight={600}>
+        {heroReady && (
+          <Footer>
+            <Podcast id="podcast" />
+          </Footer>
+        )}
+      </LazySection>
     </HeroCarouselProvider>
   );
 };
