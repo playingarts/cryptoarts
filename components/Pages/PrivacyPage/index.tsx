@@ -175,8 +175,7 @@ const PrivacyPage: FC = () => {
           paddingTop: theme.spacing(20),
           paddingBottom: theme.spacing(10),
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(15),
-            paddingBottom: theme.spacing(5),
+            // Mobile styles - to be implemented
           },
         })}
       >
@@ -201,7 +200,7 @@ const PrivacyPage: FC = () => {
         <div
           css={(theme) => ({
             gridColumn: "span 8",
-            [theme.maxMQ.sm]: { gridColumn: "1 / -1" },
+            [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
           })}
         >
           <Text typography="newParagraph" css={{ marginBottom: 24 }}>
@@ -224,8 +223,7 @@ const PrivacyPage: FC = () => {
           paddingTop: theme.spacing(10),
           paddingBottom: theme.spacing(10),
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(5),
-            paddingBottom: theme.spacing(5),
+            // Mobile styles - to be implemented
           },
         })}
       >
@@ -235,7 +233,7 @@ const PrivacyPage: FC = () => {
               key={index}
               css={(theme) => ({
                 marginBottom: theme.spacing(6),
-                [theme.maxMQ.sm]: { marginBottom: theme.spacing(4) },
+                [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
               })}
             >
               <Text

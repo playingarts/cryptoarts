@@ -135,6 +135,7 @@ const Bundles: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         arrowedText="Bundles for every collector"
         paragraphText="Save big and elevate your experience with these curated collections."
         css={[{ minHeight: 241, boxSizing: "content-box", marginBottom: 60 }]}
+        titleAsText
       />
       {bundles &&
         bundles.map((product) => (

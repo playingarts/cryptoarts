@@ -17,6 +17,7 @@ export const getServerSideProps = async () => {
     img: card.img,
     cardBackground: card.cardBackground,
     deck: card.deck ? { slug: (card.deck as GQL.Deck).slug } : undefined,
+    artist: card.artist ? { slug: card.artist.slug } : undefined,
   }));
 
   return {

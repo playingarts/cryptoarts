@@ -26,6 +26,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={[{ minHeight: 311, marginBottom: 30, boxSizing: "content-box" }]}
         arrowedText="Crypto Edition NFT"
         paragraphText="Nerd out on the stats behind this iconic NFT collection."
+        titleAsText
         beforeLinkNew={<Button color="accent">View on Opensea</Button>}
       />
 
@@ -33,7 +34,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 3",
           [theme.maxMQ.sm]: {
-            gridColumn: "1 / -1",
+            // Mobile styles - to be implemented
           },
           background: theme.colors.dark_gray,
           color: theme.colors.text_title_light,
@@ -44,7 +45,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 3",
           [theme.maxMQ.sm]: {
-            gridColumn: "1 / -1",
+            // Mobile styles - to be implemented
           },
         })}
       />
@@ -53,7 +54,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 6",
           [theme.maxMQ.sm]: {
-            gridColumn: "1 / -1",
+            // Mobile styles - to be implemented
           },
           [theme.mq.sm]: {
             [theme.maxMQ.md]: {
@@ -66,7 +67,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 3",
           [theme.maxMQ.sm]: {
-            gridColumn: "1 / -1",
+            // Mobile styles - to be implemented
           },
         })}
       />
@@ -74,7 +75,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 9",
           [theme.maxMQ.sm]: {
-            gridColumn: "1 / -1",
+            // Mobile styles - to be implemented
           },
         })}
       />
@@ -82,7 +83,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 3",
           [theme.maxMQ.sm]: {
-            gridColumn: "1 / -1",
+            // Mobile styles - to be implemented
           },
         })}
       />

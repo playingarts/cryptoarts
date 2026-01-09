@@ -221,7 +221,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ) : (
             <div css={{ padding: 30, display: "flex", flexDirection: "column", gap: 5 }}>
               {podcasts &&
-                podcasts.map((podcast, index) =>
+                podcasts.slice(0, 7).map((podcast, index) =>
                   podcast ? (
                     <div
                       key={podcast.desc + podcast.podcastName}

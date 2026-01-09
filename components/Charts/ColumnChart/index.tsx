@@ -35,7 +35,7 @@ const ColumnChart: FC<Props> = ({
         height: "100%",
         gap: theme.spacing(3),
         [theme.maxMQ.sm]: {
-          gap: theme.spacing(1),
+          // Mobile styles - to be implemented
         },
       })}
       ref={ref}
@@ -51,7 +51,7 @@ const ColumnChart: FC<Props> = ({
             flexGrow: 1,
             flexBasis: 1,
             [theme.maxMQ.sm]: {
-              height: theme.spacing(15.5),
+              // Mobile styles - to be implemented
             },
           })}
         >
@@ -67,9 +67,7 @@ const ColumnChart: FC<Props> = ({
               rowGap: theme.spacing(2),
               width: "100%",
               [theme.maxMQ.sm]: {
-                width: theme.spacing(5.3),
-                paddingTop: theme.spacing(1),
-                borderRadius: theme.spacing(0.8),
+                // Mobile styles - to be implemented
               },
               background: color ? theme.colors[color] : "red",
             })}
@@ -90,7 +88,7 @@ const ColumnChart: FC<Props> = ({
               css={(theme) => ({
                 ...theme.typography.h4,
                 margin: 0,
-                [theme.maxMQ.sm]: [theme.typography.h3, { fontSize: 25 }],
+                [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
               })}
             >
               {value}

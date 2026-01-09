@@ -87,7 +87,7 @@ const Hero = () => {
             display: "grid",
             alignContent: "end",
             [theme.maxMQ.sm]: {
-              padding: "0 20px",
+              // Mobile styles - to be implemented
             },
           },
         ]}
@@ -120,7 +120,7 @@ const Hero = () => {
           <span>{HERO_TEXTS[displayedQuoteIndex % HERO_TEXTS.length]}</span>
         </Text>
         <div css={{ display: "flex", gap: 15, marginTop: 30 }}>
-          <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "#about"}>
+          <Link href="#about">
             <ExploreButton color="accent">Discover</ExploreButton>
           </Link>
           <ArrowButton
@@ -140,12 +140,7 @@ const Hero = () => {
             paddingBottom: 6,
 
             [theme.maxMQ.sm]: {
-              order: -1,
-              gridColumn: "1/-1",
-              padding: 0,
-              display: "grid",
-              justifyContent: "center",
-              marginTop: 30,
+              // Mobile styles - to be implemented
             },
           },
         ]}

@@ -71,6 +71,7 @@ const DailyCardSkeleton: FC = () => (
 const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { dailyCard, loading } = useDailyCardLite();
   const { width } = useSize();
+
   return (
     <Grid
       css={(theme) => [

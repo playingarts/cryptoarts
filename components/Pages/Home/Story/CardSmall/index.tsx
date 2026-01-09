@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Grid from "../../../../Grid";
 import FlippingCard from "./FlippingCard";
 import MenuPortal from "../../../../Header/MainMenu/MenuPortal";
-import { useHeroCarousel, HomeCard } from "../../../../../contexts/heroCarouselContext";
+import { useStableCards, HomeCard } from "../../../../../contexts/heroCarouselContext";
 import {
   CARD_WIDTH,
   CARD_HEIGHT,
@@ -33,21 +33,26 @@ type SelectedCard = {
 const SCROLL_THRESHOLD = 50;
 
 const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
-  const { allCards } = useHeroCarousel();
+  const { allCards } = useStableCards();
   const [selectedCard, setSelectedCard] = useState<SelectedCard>(null);
   const [shouldRender, setShouldRender] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   // Defer rendering until user scrolls past threshold
   useEffect(() => {
     // Check if already scrolled past threshold on mount
     if (window.scrollY > SCROLL_THRESHOLD) {
       setShouldRender(true);
+      // Trigger fade-in after render
+      requestAnimationFrame(() => setIsVisible(true));
       return;
     }
 
     const handleScroll = () => {
       if (window.scrollY > SCROLL_THRESHOLD) {
         setShouldRender(true);
+        // Trigger fade-in after render
+        requestAnimationFrame(() => setIsVisible(true));
         window.removeEventListener("scroll", handleScroll);
       }
     };
@@ -92,6 +97,8 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
             width: "100%",
             pointerEvents: "none",
             zIndex: 10,
+            opacity: isVisible ? 1 : 0,
+            transition: "opacity 0.5s ease-out",
             [theme.maxMQ.sm]: {
               // Mobile styles - to be implemented
             },

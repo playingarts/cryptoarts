@@ -3,21 +3,41 @@ import { Rating } from "../../models";
 
 export { Rating };
 
-export const getRatings = async ({ title }: GQL.QueryRatingsArgs) => {
-  let ratings = await Rating.find(title ? { title } : {});
+interface RatingsArgs {
+  title?: string;
+  shuffle?: boolean;
+  limit?: number;
+}
 
-  return ratings;
+export const getRatings = async ({ title, shuffle, limit }: RatingsArgs) => {
+  let query = Rating.find(title ? { title } : {});
+
+  // Use MongoDB $sample for random order (more efficient than client-side shuffle)
+  if (shuffle) {
+    const pipeline: any[] = [];
+    if (title) {
+      pipeline.push({ $match: { title } });
+    }
+    pipeline.push({ $sample: { size: limit || 100 } });
+    return await Rating.aggregate(pipeline);
+  }
+
+  if (limit) {
+    query = query.limit(limit);
+  }
+
+  return await query;
 };
 
 export const resolvers: GQL.Resolvers = {
   Query: {
-    ratings: async (_, args) => await getRatings(args),
+    ratings: async (_, args) => await getRatings(args as RatingsArgs),
   },
 };
 
 export const typeDefs = gql`
   type Query {
-    ratings(title: string): [Rating!]!
+    ratings(title: String, shuffle: Boolean, limit: Int): [Rating!]!
   }
 
   type Rating {

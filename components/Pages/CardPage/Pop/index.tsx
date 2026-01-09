@@ -132,7 +132,7 @@ const Pop: FC<
     <div
       css={(theme) => [
         {
-          background: theme.colors.black30,
+          background: theme.colors.black50,
           width: "100%",
           position: "fixed",
           inset: 0,

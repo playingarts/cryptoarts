@@ -19,8 +19,7 @@ const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         columnGap: theme.spacing(3),
         "--columnWidth": `${theme.spacing(8)}px`,
         [theme.maxMQ.sm]: {
-          columnGap: theme.spacing(2),
-          "--columnWidth": `${theme.spacing(4)}px`,
+          // Mobile styles - to be implemented
         },
         justifyContent: "center",
       },
@@ -37,7 +36,7 @@ const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                 }
               : {
                   [theme.maxMQ.sm]: {
-                    gridTemplateColumns: "repeat(9, var(--columnWidth))",
+                    // Mobile styles - to be implemented
                   },
                   [theme.maxMQ.md]: {
                     gridTemplateColumns: "repeat(9, var(--columnWidth))",
@@ -57,7 +56,7 @@ const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
           ],
       {
         [theme.maxMQ.sm]: {
-          gridTemplateColumns: "repeat(6, 1fr)",
+          // Mobile styles - to be implemented
         },
       },
     ]}

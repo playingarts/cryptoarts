@@ -5,4 +5,7 @@ export type HomeCard = {
   deck?: {
     slug: string;
   };
+  artist?: {
+    slug: string;
+  };
 };

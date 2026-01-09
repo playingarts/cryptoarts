@@ -6,7 +6,7 @@
  */
 
 import { Types } from "mongoose";
-import { Card, Loser, Deck, type MongoCard } from "../models";
+import { Artist, Card, Loser, Deck, type MongoCard } from "../models";
 
 /**
  * Convert wei to ether (replaces Web3.utils.fromWei)
@@ -63,6 +63,7 @@ interface GetCardsOptions {
   losers?: boolean | null;
   edition?: string | null;
   withoutDeck?: string[] | null;
+  withInfo?: boolean | null;
 }
 
 interface GetCardOptions {
@@ -100,6 +101,7 @@ export class CardService {
     losers,
     edition,
     withoutDeck,
+    withInfo,
   }: GetCardsOptions): Promise<GQL.Card[]> {
     let resolvedDeckId = deck;
 
@@ -121,13 +123,18 @@ export class CardService {
     }
 
     // Build query
-    const query = resolvedDeckId
+    const baseQuery = resolvedDeckId
       ? edition
         ? { deck: resolvedDeckId, edition }
         : { deck: resolvedDeckId }
       : excludedDeckIds
       ? { deck: { $nin: excludedDeckIds } }
       : {};
+
+    // Add info filter if requested (only cards with non-empty descriptions)
+    const query = withInfo
+      ? { ...baseQuery, info: { $exists: true, $nin: [null, ""] } }
+      : baseQuery;
 
     // Execute query
     const Model = losers ? Loser : Card;
@@ -151,16 +158,36 @@ export class CardService {
   }
 
   /**
-   * Get a single card by ID or slug
+   * Get a single card by ID or artist slug
    */
   async getCard({ id, slug, deckSlug }: GetCardOptions): Promise<GQL.Card | undefined> {
-    const query = id
-      ? Card.findById(id)
-      : slug
-      ? Card.find({ artist: slug, desk: deckSlug })
-      : Card.findOne();
+    if (id) {
+      const card = await Card.findById(id).populate(["artist", "deck", "animator"]);
+      return card as unknown as GQL.Card | undefined;
+    }
 
-    const card = await query.populate(["artist", "deck", "animator"]);
+    if (slug && deckSlug) {
+      // Look up artist by slug first
+      const artist = await Artist.findOne({ slug });
+      if (!artist) {
+        return undefined;
+      }
+
+      // Look up deck by slug
+      const deck = await Deck.findOne({ slug: deckSlug });
+      if (!deck) {
+        return undefined;
+      }
+
+      const card = await Card.findOne({ artist: artist._id, deck: deck._id }).populate([
+        "artist",
+        "deck",
+        "animator",
+      ]);
+      return card as unknown as GQL.Card | undefined;
+    }
+
+    const card = await Card.findOne().populate(["artist", "deck", "animator"]);
     return card as unknown as GQL.Card | undefined;
   }
 

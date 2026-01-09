@@ -1,59 +1,91 @@
-import { FC, HTMLAttributes } from "react";
-import Grid from "../../../../Grid";
+import { FC, HTMLAttributes, useMemo } from "react";
 import Fastcompany from "../../../../Icons/Fastcompany";
 import CreativeBloq from "../../../../Icons/CreativeBloq";
 import DigitalArts from "../../../../Icons/DigitalArts";
 import Esquire from "../../../../Icons/Esquire";
 
-const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
-  <Grid
-    css={(theme) => ({
-      gap: theme.spacing(3),
-      marginTop: 50,
-      lineHeight: "80px",
-      "> *": {
-        color: theme.colors.third_black,
-      },
-      [theme.maxMQ.md]: {
-        [theme.maxMQ.md]: {
-          gridTemplateColumns: `repeat(6, ${theme.spacing(7.5)}px)`,
-        },
-      },
-    })}
-  >
-    <a
-      rel="noreferrer"
-      href="https://www.fastcompany.com/90575448/these-playing-cards-show-fantastical-ways-the-world-could-change-by-2120"
-      target="_blank"
-      css={{ gridColumn: "span 3", textAlign: "center" }}
+const PRESS_LINKS = [
+  {
+    name: "Fast Company",
+    href: "https://www.fastcompany.com/90575448/these-playing-cards-show-fantastical-ways-the-world-could-change-by-2120",
+    Icon: Fastcompany,
+    scale: 1,
+  },
+  {
+    name: "Creative Bloq",
+    href: "https://www.creativebloq.com/illustration/artists-collaborate-picture-perfect-playing-cards-10134891",
+    Icon: CreativeBloq,
+    scale: 0.8,
+  },
+  {
+    name: "Digital Arts",
+    href: "https://www.digitalartsonline.co.uk/features/illustration/55-global-designers-illustrators-each-designed-playing-card-in-this-unique-deck/",
+    Icon: DigitalArts,
+    scale: 0.7,
+  },
+  {
+    name: "Esquire",
+    href: "https://www.esquire.com/style/mens-fashion/g4233463/artistic-deck-of-cards",
+    Icon: Esquire,
+    scale: 0.8,
+  },
+];
+
+// Fisher-Yates shuffle
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
+const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+  // Shuffle once on mount
+  const shuffledLinks = useMemo(() => shuffleArray(PRESS_LINKS), []);
+
+  return (
+    <div
+      css={(theme) => ({
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: theme.spacing(5),
+        marginTop: 50,
+        paddingLeft: 20,
+        paddingRight: 20,
+      })}
+      {...props}
     >
-      <Fastcompany />
-    </a>
-    <a
-      rel="noreferrer"
-      href="https://www.creativebloq.com/illustration/artists-collaborate-picture-perfect-playing-cards-10134891"
-      target="_blank"
-      css={{ gridColumn: "span 3", textAlign: "center" }}
-    >
-      <CreativeBloq />
-    </a>
-    <a
-      rel="noreferrer"
-      href="https://www.digitalartsonline.co.uk/features/illustration/55-global-designers-illustrators-each-designed-playing-card-in-this-unique-deck/"
-      target="_blank"
-      css={{ gridColumn: "span 3", textAlign: "center" }}
-    >
-      <DigitalArts />
-    </a>
-    <a
-      rel="noreferrer"
-      href="https://www.esquire.com/style/mens-fashion/g4233463/artistic-deck-of-cards"
-      target="_blank"
-      css={{ gridColumn: "span 3", textAlign: "center" }}
-    >
-      <Esquire />
-    </a>
-  </Grid>
-);
+      {shuffledLinks.map(({ name, href, Icon, scale }) => (
+      <a
+        key={name}
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Read about Playing Arts on ${name}`}
+        css={(theme) => ({
+          color: theme.colors.third_black,
+          transform: scale !== 1 ? `scale(${scale})` : undefined,
+          transition: "opacity 0.2s, transform 0.2s",
+          "&:hover": {
+            opacity: 0.7,
+            transform: `scale(${(scale || 1) * 1.05})`,
+          },
+          "&:focus-visible": {
+            outline: `2px solid ${theme.colors.dark_gray}`,
+            outlineOffset: 4,
+            borderRadius: 4,
+          },
+        })}
+      >
+        <Icon />
+      </a>
+      ))}
+    </div>
+  );
+};
 
 export default Press;

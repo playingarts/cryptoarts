@@ -1,4 +1,5 @@
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import { FC, HTMLAttributes, useCallback, useEffect, useMemo, useState } from "react";
+import dynamic from "next/dynamic";
 import Intro from "../../Intro";
 import ButtonTemplate from "../../Buttons/Button";
 import Grid from "../../Grid";
@@ -6,62 +7,133 @@ import Item from "./Item";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useRouter } from "next/router";
 import { useCards } from "../../../hooks/card";
+import { useDecks } from "../../../hooks/deck";
 import Card from "../../Card";
+import MenuPortal from "../../Header/MainMenu/MenuPortal";
+import FlippingCard from "./FlippingCard";
+import CardsSkeleton from "./CardsSkeleton";
+import {
+  FAQ_DATA,
+  CARD_WIDTH,
+  CARD_HEIGHT,
+  CARD_BORDER_RADIUS,
+  CARD_CONTAINER_HEIGHT,
+  CARD_POSITION_TOP,
+  CARD_POSITION_LEFT,
+  BACKSIDE_ROTATION,
+} from "./constants";
 
-const faq = {
-  "Are these physical decks?":
-    "Playing Arts brings together artists from around the world, transforming traditional playing cards into a diverse gallery of creative expression.",
-  "How do I use the AR feature?":
-    "Playing Arts brings together artists from around the world, transforming traditional playing cards into a diverse gallery of creative expression.",
-  "How much does it cost to ship a package?":
-    "Playing Arts brings together artists from around the world, transforming traditional playing cards into a diverse gallery of creative expression.",
-  "Can I track my order?":
-    "Playing Arts brings together artists from around the world, transforming traditional playing cards into a diverse gallery of creative expression.",
-  "How to participate as an artist?":
-    "Playing Arts brings together artists from around the world, transforming traditional playing cards into a diverse gallery of creative expression.",
-};
+// Lazy-load Pop modal - only shown on card click
+const Pop = dynamic(() => import("../../Pages/CardPage/Pop"), { ssr: false });
+
+// Type for the selected card when popup is open
+type SelectedCard = {
+  deckSlug: string;
+  artistSlug: string;
+} | null;
 
 const FooterCards = () => {
   const {
-    query: { deckId },
+    query: { deckId: deckSlug },
   } = useRouter();
 
-  const { cards } = useCards({ variables: { deck: deckId }, skip: !deckId });
+  // Get all decks to pick a random one
+  const { decks } = useDecks();
 
-  const [faqCards, setFaqCards] = useState<GQL.Card[]>();
+  // Pick a random deck on mount (or use current deck if on deck/card page)
+  // Exclude crypto edition deck
+  const selectedDeck = useMemo(() => {
+    // On deck or card pages, use the deck from the URL (deckSlug is the deck slug)
+    if (deckSlug && decks) {
+      const deckFromUrl = decks.find((d) => d.slug === deckSlug);
+      if (deckFromUrl) return deckFromUrl;
+    }
+    // On other pages, pick a random deck (excluding crypto)
+    if (!decks || decks.length === 0) return null;
+    const filteredDecks = decks.filter((deck) => deck.slug !== "crypto");
+    if (filteredDecks.length === 0) return null;
+    return filteredDecks[Math.floor(Math.random() * filteredDecks.length)];
+  }, [deckSlug, decks]);
 
-  useEffect(() => {
-    if (!cards) {
-      return;
+  const randomDeckId = selectedDeck?._id;
+
+  // Fetch cards from the selected deck
+  const { cards, loading } = useCards({
+    variables: { deck: randomDeckId },
+    skip: !randomDeckId,
+  });
+
+  // Popup state for card click
+  const [selectedCard, setSelectedCard] = useState<SelectedCard>(null);
+  const isPopupOpen = selectedCard !== null;
+
+  // Filter cards for display
+  const { backsideCard, frontCards } = useMemo(() => {
+    if (!cards || cards.length === 0) {
+      return { backsideCard: null, frontCards: [] };
     }
 
-    const arr = [];
-
+    // Find a backside card
     const backsides = cards.filter((card) => card.value === "backside");
+    const backside = backsides.length > 0
+      ? backsides[Math.floor(Math.random() * backsides.length)]
+      : null;
 
-    arr.push(backsides[Math.floor(Math.random() * (backsides.length - 1))]);
+    // Find all non-backside cards
+    const fronts = cards.filter(
+      (card) => card.value !== "backside" && card.value !== "joker"
+    );
 
-    const jokers = cards.filter((card) => card.value === "joker");
-
-    arr.push(jokers[Math.floor(Math.random() * (jokers.length - 1))]);
-
-    setFaqCards(arr);
+    return { backsideCard: backside, frontCards: fronts };
   }, [cards]);
 
-  return !faqCards ? null : (
+  const handleCardClick = useCallback((card: GQL.Card) => {
+    if (selectedDeck?.slug && card?.artist?.slug) {
+      setSelectedCard({
+        deckSlug: selectedDeck.slug,
+        artistSlug: card.artist.slug,
+      });
+    }
+  }, [selectedDeck]);
+
+  const handleClosePopup = useCallback(() => {
+    setSelectedCard(null);
+  }, []);
+
+  // Show skeleton while loading
+  if (loading || !backsideCard || frontCards.length === 0) {
+    return <CardsSkeleton />;
+  }
+
+  return (
     <>
+      {/* Backside card behind - static */}
       <Card
         noArtist
+        noFavorite
         animated
-        card={faqCards[1]}
-        css={[{ rotate: "-8deg", transformOrigin: "bottom left" }]}
+        interactive={false}
+        card={backsideCard}
+        css={[{ rotate: BACKSIDE_ROTATION, transformOrigin: "bottom left", zIndex: 1 }]}
       />
-      <Card
-        noArtist
-        animated
-        card={faqCards[0]}
-        css={[{ rotate: "8deg", transformOrigin: "left" }]}
+
+      {/* Front card - flipping */}
+      <FlippingCard
+        cards={frontCards}
+        isPaused={isPopupOpen}
+        onCardClick={handleCardClick}
       />
+
+      {/* Popup for card details */}
+      <MenuPortal show={isPopupOpen}>
+        {selectedCard && (
+          <Pop
+            close={handleClosePopup}
+            cardSlug={selectedCard.artistSlug}
+            deckId={selectedCard.deckSlug}
+          />
+        )}
+      </MenuPortal>
     </>
   );
 };
@@ -82,6 +154,7 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         arrowedText="FAQ"
         paragraphText="All your questions, dealt."
         linkNewText="Read full FAQ"
+        titleAsText
         beforeLinkNew={
           <ButtonTemplate
             bordered={true}
@@ -99,7 +172,7 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               gridColumn: "span 6",
               position: "relative",
-              height: 525,
+              height: CARD_CONTAINER_HEIGHT,
               marginTop: 15,
             },
           ]}
@@ -108,12 +181,12 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             css={[
               {
                 position: "absolute",
-                top: "60%",
-                left: "50%",
+                top: CARD_POSITION_TOP,
+                left: CARD_POSITION_LEFT,
                 "> *": {
-                  width: 250,
-                  height: 350,
-                  borderRadius: 15,
+                  width: CARD_WIDTH,
+                  height: CARD_HEIGHT,
+                  borderRadius: CARD_BORDER_RADIUS,
                   position: "absolute",
                   transform: "translate(-50%,-70%)",
                   top: 0,
@@ -139,11 +212,11 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             },
           ]}
         >
-          {Object.keys(faq).map((item) => (
+          {Object.keys(FAQ_DATA).map((item) => (
             <Item
               key={item}
               question={item}
-              answer={faq[item as unknown as keyof typeof faq]}
+              answer={FAQ_DATA[item as keyof typeof FAQ_DATA]}
             />
           ))}
         </div>

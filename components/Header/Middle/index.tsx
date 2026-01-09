@@ -174,7 +174,7 @@ const Middle = ({
                 display: "inline-block",
                 height: "100%",
                 [theme.maxMQ.sm]: {
-                  textAlign: "center",
+                  // Mobile styles - to be implemented
                 },
 
                 // width: "100%",

@@ -45,8 +45,7 @@ const ContactPage: FC = () => {
           paddingTop: theme.spacing(20),
           paddingBottom: theme.spacing(10),
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(15),
-            paddingBottom: theme.spacing(5),
+            // Mobile styles - to be implemented
           },
         })}
       >
@@ -72,7 +71,7 @@ const ContactPage: FC = () => {
         <div
           css={(theme) => ({
             gridColumn: "span 8",
-            [theme.maxMQ.sm]: { gridColumn: "1 / -1" },
+            [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
           })}
         >
           <Text typography="newParagraph">
@@ -91,7 +90,7 @@ const ContactPage: FC = () => {
         <div
           css={(theme) => ({
             gridColumn: "span 3",
-            [theme.maxMQ.sm]: { gridColumn: "1 / -1", marginTop: theme.spacing(4) },
+            [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
           })}
         >
           <Text
@@ -120,7 +119,7 @@ const ContactPage: FC = () => {
         <div
           css={(theme) => ({
             gridColumn: "span 3",
-            [theme.maxMQ.sm]: { gridColumn: "1 / -1", marginTop: theme.spacing(4) },
+            [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
           })}
         >
           <Text
@@ -152,8 +151,7 @@ const ContactPage: FC = () => {
           paddingTop: theme.spacing(12),
           paddingBottom: theme.spacing(12),
           [theme.maxMQ.sm]: {
-            paddingTop: theme.spacing(6),
-            paddingBottom: theme.spacing(6),
+            // Mobile styles - to be implemented
           },
         })}
       >
@@ -191,7 +189,7 @@ const ContactPage: FC = () => {
               marginTop: theme.spacing(6),
               color: theme.colors.black50,
               [theme.maxMQ.sm]: {
-                gap: theme.spacing(2),
+                // Mobile styles - to be implemented
               },
             })}
           >

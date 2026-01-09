@@ -53,7 +53,7 @@ const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           marginTop: theme.spacing(8.8),
 
           [theme.maxMQ.sm]: {
-            marginTop: theme.spacing(6),
+            // Mobile styles - to be implemented
           },
         })}
         dataPoints={[

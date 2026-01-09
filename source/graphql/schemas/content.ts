@@ -18,7 +18,7 @@ const getDailyCard = async (): Promise<GQL.Card> => {
     !date ||
     new Date(date).setHours(0, 0, 0, 0) !== new Date().setHours(0, 0, 0, 0)
   ) {
-    const newCard = await getCards({ limit: 1, shuffle: true }).then(
+    const newCard = await getCards({ limit: 1, shuffle: true, withInfo: true }).then(
       (cards) => cards[0]
     );
 

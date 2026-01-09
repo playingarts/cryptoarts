@@ -110,6 +110,7 @@ const HeroCard: FC = () => {
             <Card
               size={cardSize}
               noArtist
+              noFavorite
               interactive={isTopCard}
               priority={isTopCard}
               card={cardForDisplay}

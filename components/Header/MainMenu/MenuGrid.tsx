@@ -18,8 +18,7 @@ const MenuGrid: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => {
           columnGap: theme.spacing(3),
           "--columnWidth": `${theme.spacing(8)}px`,
           [theme.maxMQ.sm]: {
-            columnGap: theme.spacing(2),
-            "--columnWidth": `${theme.spacing(4)}px`,
+            // Mobile styles - to be implemented
           },
           paddingLeft: 75,
           paddingRight: 75,

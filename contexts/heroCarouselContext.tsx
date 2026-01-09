@@ -7,6 +7,7 @@ import {
   useCallback,
   useEffect,
   useRef,
+  useMemo,
   ReactNode,
 } from "react";
 import type { HomeCard } from "../types/homeCard";
@@ -18,6 +19,7 @@ const PROGRESS_UPDATE_MS = 50;
 
 type HeroCarouselState = {
   visibleCards: HomeCard[];
+  allCards: HomeCard[];
   currentCard: HomeCard | null;
   departingCard: HomeCard | null;
   quoteIndex: number;
@@ -35,10 +37,26 @@ type HeroCarouselContextValue = HeroCarouselState & HeroCarouselActions;
 
 export const HeroCarouselContext = createContext<HeroCarouselContextValue | null>(null);
 
+// Separate context for stable data (allCards) that doesn't change frequently
+// This prevents unnecessary re-renders in components that only need cards
+type StableCardsContextValue = {
+  allCards: HomeCard[];
+};
+const StableCardsContext = createContext<StableCardsContextValue | null>(null);
+
 export const useHeroCarousel = () => {
   const context = useContext(HeroCarouselContext);
   if (!context) {
     throw new Error("useHeroCarousel must be used within HeroCarouselProvider");
+  }
+  return context;
+};
+
+// Hook for components that only need allCards (won't re-render on progress updates)
+export const useStableCards = () => {
+  const context = useContext(StableCardsContext);
+  if (!context) {
+    throw new Error("useStableCards must be used within HeroCarouselProvider");
   }
   return context;
 };
@@ -159,21 +177,45 @@ export const HeroCarouselProvider = ({
     }
   }, [initialCards.length, onReady]);
 
-  const value: HeroCarouselContextValue = {
-    visibleCards,
-    currentCard,
-    departingCard,
-    quoteIndex,
-    progress,
-    isPaused,
-    setHovering,
-    onReady,
-    advance,
-  };
+  // Memoize stable cards value separately - only changes when deck reshuffles
+  const stableCardsValue: StableCardsContextValue = useMemo(
+    () => ({ allCards: deck }),
+    [deck]
+  );
+
+  // Main context value (changes frequently due to progress)
+  const value: HeroCarouselContextValue = useMemo(
+    () => ({
+      visibleCards,
+      allCards: deck,
+      currentCard,
+      departingCard,
+      quoteIndex,
+      progress,
+      isPaused,
+      setHovering,
+      onReady,
+      advance,
+    }),
+    [
+      visibleCards,
+      deck,
+      currentCard,
+      departingCard,
+      quoteIndex,
+      progress,
+      isPaused,
+      setHovering,
+      onReady,
+      advance,
+    ]
+  );
 
   return (
-    <HeroCarouselContext.Provider value={value}>
-      {children}
-    </HeroCarouselContext.Provider>
+    <StableCardsContext.Provider value={stableCardsValue}>
+      <HeroCarouselContext.Provider value={value}>
+        {children}
+      </HeroCarouselContext.Provider>
+    </StableCardsContext.Provider>
   );
 };

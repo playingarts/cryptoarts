@@ -2,9 +2,9 @@ import { FC, HTMLAttributes, useState } from "react";
 import Image from "next/image";
 import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
-import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Button";
+import IconArrow from "../../../Icons/IconArrow";
 import Apple from "../../../Icons/Apple";
 import Android from "../../../Icons/Android";
 import AR from "../../../../mocks/images/AR.png";
@@ -40,9 +40,6 @@ const Presentation = () => {
   );
 };
 
-// Shader disabled due to WebGL compilation errors
-const Shader = () => null;
-
 const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <Grid
     css={(theme) => [
@@ -57,7 +54,6 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     id="ar"
     {...props}
   >
-    <Shader />
     <ScandiBlock
       palette="light"
       css={(theme) => [
@@ -68,11 +64,19 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         },
       ]}
     >
-      <ArrowedButton
-        css={(theme) => [{ textAlign: "start", color: theme.colors.dark_gray }]}
+      <Text
+        css={(theme) => [
+          {
+            display: "flex",
+            alignItems: "center",
+            textAlign: "start",
+            color: theme.colors.dark_gray,
+          },
+        ]}
       >
+        <IconArrow css={{ marginRight: 10 }} />
         Augmented Reality
-      </ArrowedButton>
+      </Text>
       <Text
         css={(theme) => [
           {
@@ -95,36 +99,45 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           <br />
           Playing Arts AR™ mobile app
         </Text>
-        <ButtonTemplate
-          css={(theme) => [
-            {
-              paddingLeft: 10,
-              marginRight: 15,
-            },
-          ]}
+        <a
+          href="https://apps.apple.com/es/app/playing-arts/id1594901668?l=en"
+          target="_blank"
+          rel="noopener noreferrer"
+          css={{ textDecoration: "none", marginRight: 15 }}
         >
-          <Apple
+          <ButtonTemplate
             css={{
-              marginRight: 10,
+              paddingLeft: 10,
             }}
-          />
-          iPhone
-        </ButtonTemplate>
+          >
+            <Apple
+              css={{
+                marginRight: 10,
+              }}
+            />
+            iPhone
+          </ButtonTemplate>
+        </a>
 
-        <ButtonTemplate
-          css={(theme) => [
-            {
-              paddingLeft: 10,
-            },
-          ]}
+        <a
+          href="https://play.google.com/store/apps/details?id=com.digitalabstractsapps.playingarts&hl=en"
+          target="_blank"
+          rel="noopener noreferrer"
+          css={{ textDecoration: "none" }}
         >
-          <Android
+          <ButtonTemplate
             css={{
-              marginRight: 10,
+              paddingLeft: 10,
             }}
-          />
-          Android
-        </ButtonTemplate>
+          >
+            <Android
+              css={{
+                marginRight: 10,
+              }}
+            />
+            Android
+          </ButtonTemplate>
+        </a>
       </div>
     </ScandiBlock>
     <Presentation />

@@ -6,7 +6,7 @@ import Dot from "../../../../Icons/Dot";
 const Item: FC<
   HTMLAttributes<HTMLElement> & { rating: GQL.Rating; customButton?: ReactNode }
 > = ({ rating, customButton, ...props }) => {
-  const reviewLength = rating.review.split(" ").length;
+  const charCount = rating.review.length;
 
   return (
     <div
@@ -16,8 +16,11 @@ const Item: FC<
           paddingRight: 60,
           borderRadius: 20,
           background: theme.colors.soft_gray,
-          height: "fit-content",
           width: 520,
+          minWidth: 520,
+          maxWidth: 520,
+          flexShrink: 0,
+          scrollSnapAlign: "start",
         },
       ]}
       {...props}
@@ -32,9 +35,9 @@ const Item: FC<
       <Text
         css={[{ marginTop: 30 }]}
         typography={
-          reviewLength <= 2
+          charCount <= 30
             ? "newh2"
-            : reviewLength <= 15
+            : charCount <= 120
             ? "paragraphBig"
             : "paragraphSmall"
         }

@@ -48,8 +48,7 @@ export const Links = () => (
           "--newButtonHeight": `${theme.spacing(4.2)}px`,
           "--newButtonWidth": `${theme.spacing(4.2)}px`,
           [theme.maxMQ.sm]: {
-            "--buttonHeight": `${theme.spacing(4.3)}px`,
-            "--buttonWidth": `${theme.spacing(4.3)}px`,
+            // Mobile styles - to be implemented
           },
           [theme.mq.sm]: {
             "--buttonHeight": `${theme.spacing(5)}px`,
@@ -65,6 +64,9 @@ export const Links = () => (
         html: {
           lineHeight: 0,
           scrollBehavior: "smooth",
+        },
+        "[id]": {
+          scrollMarginTop: "60px",
         },
       }}
     />

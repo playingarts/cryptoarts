@@ -202,7 +202,7 @@ const Card: FC<CardProps> = memo(
                         borderRadius: theme.spacing(1.5),
                       },
                       [theme.maxMQ.sm]: {
-                        borderRadius: theme.spacing(1),
+                        // Mobile styles - to be implemented
                       },
                       overflow: "hidden",
                       [theme.mq.sm]: {

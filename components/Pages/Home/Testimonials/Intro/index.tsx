@@ -5,79 +5,85 @@ import NewIntro from "../../../../Intro";
 
 const Intro: FC<
   HTMLAttributes<HTMLElement> & {
-    carouselRef: RefObject<HTMLDivElement | null>;
+    leftArrowRef: RefObject<HTMLButtonElement | null>;
+    rightArrowRef: RefObject<HTMLButtonElement | null>;
+    onScrollLeft: () => void;
+    onScrollRight: () => void;
   }
-> = ({ carouselRef }) => (
+> = ({ leftArrowRef, rightArrowRef, onScrollLeft, onScrollRight }) => (
   <NewIntro
     arrowedText="1,000+ Five-of-Stars reviews"
-    paragraphText="Discover why collectors, players and art connoisseurs can’t get enough."
+    paragraphText="Discover why collectors, players and art connoisseurs can't get enough."
     linkNewText="Read all stories"
+    titleAsText
     bottom={
       <div
-        css={[
-          {
-            display: "flex",
-            gap: 5,
-            marginTop: 120,
-            "> *": {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: 45,
-              height: 45,
-              background: "white",
-              borderRadius: "100%",
-            },
-          },
-        ]}
+        css={{
+          display: "flex",
+          gap: 5,
+          marginTop: 120,
+        }}
       >
-        <div
-          css={(theme) => [
-            {
-              transform: "rotate(180deg)",
-              userSelect: "none",
-              "&:hover": {
-                cursor: "pointer",
-                background: theme.colors.dark_gray,
-                color: "white",
-              },
+        <button
+          ref={leftArrowRef}
+          type="button"
+          aria-label="Previous review"
+          onClick={onScrollLeft}
+          css={(theme) => ({
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 45,
+            height: 45,
+            background: "white",
+            borderRadius: "100%",
+            border: "none",
+            transform: "rotate(180deg)",
+            userSelect: "none",
+            transition: "opacity 0.2s, background 0.2s, color 0.2s",
+            opacity: 0.3,
+            cursor: "pointer",
+            "&:hover": {
+              background: theme.colors.dark_gray,
+              color: "white",
             },
-          ]}
-          onClick={() => {
-            carouselRef.current &&
-              carouselRef.current.scrollBy({
-                behavior: "smooth",
-                left: -580,
-              });
-          }}
+          })}
         >
           <Arrow />
-        </div>
-        <div
-          css={(theme) => [
-            {
-              userSelect: "none",
-              "&:hover": {
-                cursor: "pointer",
-                background: theme.colors.dark_gray,
-                color: "white",
-              },
+        </button>
+        <button
+          ref={rightArrowRef}
+          type="button"
+          aria-label="Next review"
+          onClick={onScrollRight}
+          css={(theme) => ({
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: 45,
+            height: 45,
+            background: "white",
+            borderRadius: "100%",
+            border: "none",
+            userSelect: "none",
+            transition: "opacity 0.2s, background 0.2s, color 0.2s",
+            cursor: "pointer",
+            "&:hover": {
+              background: theme.colors.dark_gray,
+              color: "white",
             },
-          ]}
-          onClick={() => {
-            carouselRef.current &&
-              carouselRef.current.scrollBy({
-                behavior: "smooth",
-                left: 580,
-              });
-          }}
+          })}
         >
           <Arrow />
-        </div>
+        </button>
       </div>
     }
     beforeLinkNew={
-      <ButtonTemplate bordered={true} size="small">
+      <ButtonTemplate
+        bordered={true}
+        size="small"
+        css={{ "&:hover": { cursor: "default" } }}
+      >
         Leave a review
       </ButtonTemplate>
     }
