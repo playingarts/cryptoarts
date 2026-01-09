@@ -1,85 +1,184 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useState, useCallback, useEffect } from "react";
+import dynamic from "next/dynamic";
 import Grid from "../../../../Grid";
-import Card from "../../../../Card";
+import FlippingCard from "./FlippingCard";
+import MenuPortal from "../../../../Header/MainMenu/MenuPortal";
+import { useHeroCarousel, HomeCard } from "../../../../../contexts/heroCarouselContext";
+import {
+  CARD_WIDTH,
+  CARD_HEIGHT,
+  CARD_VERTICAL_OFFSET,
+  CARD_GAP,
+  CARD_GRID_LEFT_OFFSET,
+  STICKY_TOP,
+  MARGIN_TOP,
+  MARGIN_BOTTOM,
+  ROTATION_DEGREES,
+  MIN_FLIP_INTERVAL,
+  MAX_FLIP_INTERVAL,
+  CARD_COUNT,
+  FALLBACK_CARDS,
+} from "../constants";
 
-const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => (
-  <Grid
-    css={(theme) => [
-      {
-        position: "absolute",
-        height: "100%",
-        top: 0,
-        left: 0,
-        width: "100%",
-        pointerEvents: "none",
-        zIndex: 10,
-        [theme.maxMQ.sm]: {
-          opacity: 0.08,
-        },
-      },
-    ]}
-  >
-    <div
-      css={(theme) => [
-        {
-          position: "absolute",
-          left: -210,
-          height: "100%",
-          [theme.maxMQ.sm]: {
-            height: "200%",
-          },
-          gridColumn: "1/-1",
-          pointerEvents: "auto",
-        },
-      ]}
-    >
-      <div
+// Lazy-load Pop modal - only shown on card click
+const Pop = dynamic(() => import("../../../CardPage/Pop"), { ssr: false });
+
+// Type for the selected card when popup is open
+type SelectedCard = {
+  deckSlug: string;
+  artistSlug: string;
+} | null;
+
+// Scroll threshold to start rendering cards (px)
+const SCROLL_THRESHOLD = 50;
+
+const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
+  const { allCards } = useHeroCarousel();
+  const [selectedCard, setSelectedCard] = useState<SelectedCard>(null);
+  const [shouldRender, setShouldRender] = useState(false);
+
+  // Defer rendering until user scrolls past threshold
+  useEffect(() => {
+    // Check if already scrolled past threshold on mount
+    if (window.scrollY > SCROLL_THRESHOLD) {
+      setShouldRender(true);
+      return;
+    }
+
+    const handleScroll = () => {
+      if (window.scrollY > SCROLL_THRESHOLD) {
+        setShouldRender(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Use cards from context or fallbacks
+  const cards = allCards.length >= CARD_COUNT ? allCards : FALLBACK_CARDS;
+
+  // Lifted popup handlers - single popup instance for all cards
+  const handleCardClick = useCallback((card: HomeCard) => {
+    if (card.deck?.slug && card.artist?.slug) {
+      setSelectedCard({
+        deckSlug: card.deck.slug,
+        artistSlug: card.artist.slug,
+      });
+    }
+  }, []);
+
+  const handleClosePopup = useCallback(() => {
+    setSelectedCard(null);
+  }, []);
+
+  const isPopupOpen = selectedCard !== null;
+
+  // Don't render cards until user scrolls past threshold
+  if (!shouldRender) {
+    return null;
+  }
+
+  return (
+    <>
+      <Grid
         css={(theme) => [
           {
-            position: "sticky",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            "> *": {
-              position: "relative",
-              top: 0,
-              left: 0,
-              marginTop: 7,
-              marginBottom: 7,
-
-              width: 240,
-              height: 336,
-            },
-            marginTop: 63,
-            marginBottom: 70,
-            top: 65,
+            position: "absolute",
+            height: "100%",
+            top: 0,
+            left: 0,
+            width: "100%",
+            pointerEvents: "none",
+            zIndex: 10,
             [theme.maxMQ.sm]: {
-              top: 65,
+              // Mobile styles - to be implemented
             },
-            // GPU acceleration for smooth scrolling
-            willChange: "transform",
-            transform: "rotate(-15deg) translateZ(0)",
-            ">:nth-child(4)": { gridColumn: 2 },
-            ">:nth-child(3)": { top: 150 },
-            ">:nth-child(1)": { top: 250 },
           },
         ]}
       >
-        {[
-          "https://s3.amazonaws.com/img.playingarts.com/three-small-hd/3-of-dimonds-burnt-toast-creative.jpg",
-          "https://s3.amazonaws.com/img.playingarts.com/contest/retina/232.jpg",
-          "https://s3.amazonaws.com/img.playingarts.com/two-big-hd/8-of-clubs-zutto.jpg",
-          "https://s3.amazonaws.com/img.playingarts.com/contest/retina/104.jpg",
-        ].map((item) => (
-          <Card
-            key={item + "cardsmall"}
-            card={{ img: item } as unknown as GQL.Card}
-            size="small"
-            noArtist
+        <div
+          css={(theme) => [
+            {
+              position: "absolute",
+              left: CARD_GRID_LEFT_OFFSET,
+              height: "100%",
+              [theme.maxMQ.sm]: {
+                // Mobile styles - to be implemented
+              },
+              gridColumn: "1/-1",
+              pointerEvents: "auto",
+            },
+          ]}
+        >
+          <div
+            css={(theme) => [
+              {
+                position: "sticky",
+                display: "grid",
+                gridTemplateColumns: `repeat(3, ${CARD_WIDTH}px)`,
+                columnGap: CARD_GAP,
+                rowGap: CARD_GAP,
+                "> *": {
+                  width: CARD_WIDTH,
+                  height: CARD_HEIGHT,
+                },
+                // Position cards: 1st in col 1, 2nd & 3rd in col 2, 4th in col 3
+                // Offset col 1 up by 1/3 card height, col 3 down by 1/3
+                ">:nth-child(1)": {
+                  gridColumn: 1,
+                  gridRow: 2,
+                  position: "relative",
+                  top: -CARD_VERTICAL_OFFSET,
+                },
+                ">:nth-child(2)": { gridColumn: 2, gridRow: 1 },
+                ">:nth-child(3)": { gridColumn: 2, gridRow: 2 },
+                ">:nth-child(4)": {
+                  gridColumn: 3,
+                  gridRow: 1,
+                  position: "relative",
+                  top: CARD_VERTICAL_OFFSET,
+                },
+                marginTop: MARGIN_TOP,
+                marginBottom: MARGIN_BOTTOM,
+                top: STICKY_TOP,
+                [theme.maxMQ.sm]: {
+                  // Mobile styles - to be implemented
+                },
+                // GPU acceleration for smooth scrolling
+                willChange: "transform",
+                transform: `rotate(${ROTATION_DEGREES}deg) translateZ(0)`,
+              },
+            ]}
+          >
+            {Array.from({ length: CARD_COUNT }, (_, index) => (
+              <FlippingCard
+                key={`flipping-card-${index}`}
+                cards={cards}
+                initialIndex={index}
+                minInterval={MIN_FLIP_INTERVAL}
+                maxInterval={MAX_FLIP_INTERVAL}
+                globalPaused={isPopupOpen}
+                onCardClick={handleCardClick}
+              />
+            ))}
+          </div>
+        </div>
+      </Grid>
+
+      {/* Single popup instance for all cards */}
+      <MenuPortal show={isPopupOpen}>
+        {selectedCard && (
+          <Pop
+            close={handleClosePopup}
+            cardSlug={selectedCard.artistSlug}
+            deckId={selectedCard.deckSlug}
           />
-        ))}
-      </div>
-    </div>
-  </Grid>
-);
+        )}
+      </MenuPortal>
+    </>
+  );
+};
 
 export default CardSmall;
