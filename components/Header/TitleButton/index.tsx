@@ -18,7 +18,7 @@ const TitleButton: FC<
 
   const { palette } = usePalette();
 
-  const { deck } = useDeck({ variables: { slug: deckId } });
+  const { deck } = useDeck({ variables: { slug: deckId }, skip: !deckId });
 
   const { width } = useSize();
 

@@ -136,7 +136,7 @@ export class OpenSeaService {
     process.env.NODE_ENV === "development"
       ? async (_address, contract) => {
           // eslint-disable-next-line @typescript-eslint/no-var-requires
-          return require(`../../../mocks/${contract}.json`) as GQL.Nft[];
+          return require(`../../mocks/${contract}.json`) as GQL.Nft[];
         }
       : async (contract, name, ownerAddress) => {
           if (process.env.ALLOW_ASSETS_FETCH === "true") {

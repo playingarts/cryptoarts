@@ -31,11 +31,11 @@ const securityHeaders = [
   {
     // Content Security Policy - protective while allowing necessary features
     // 'unsafe-inline' required for Emotion CSS-in-JS
-    // 'unsafe-eval' removed for security - may break some third-party scripts
+    // 'unsafe-eval' only in development for hot-reload, removed in production for security
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://*.sentry.io",
+      `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : ""} https://www.googletagmanager.com https://www.google-analytics.com https://*.sentry.io`,
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' https://s3.amazonaws.com https://*.amazonaws.com https://www.google-analytics.com data: blob:",

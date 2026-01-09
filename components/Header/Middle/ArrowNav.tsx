@@ -14,7 +14,7 @@ export default () => {
   const [counter, setCounter] = useState(0);
   const [max, setMax] = useState(0);
 
-  const { decks } = useDecksNav();
+  const { decks } = useDecksNav({ skip: !deckId });
 
   const { palette } = usePalette();
 

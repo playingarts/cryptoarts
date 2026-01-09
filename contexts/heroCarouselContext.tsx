@@ -8,49 +8,32 @@ import {
   useEffect,
   useRef,
   ReactNode,
-  useMemo,
 } from "react";
+import type { HomeCard } from "../types/homeCard";
 
-const ROTATION_INTERVAL = 10000; // 10 seconds
-const BUFFER_SIZE = 3; // Always keep 3 cards preloaded
+export { HomeCard };
 
-type HomeCard = {
-  _id: string;
-  img: string;
-  cardBackground: string;
-};
-
-type PreloadedCard = HomeCard & {
-  imageLoaded: boolean;
-};
+const ROTATION_INTERVAL_MS = 5000;
+const PROGRESS_UPDATE_MS = 50;
 
 type HeroCarouselState = {
-  // Current card being displayed
+  visibleCards: HomeCard[];
   currentCard: HomeCard | null;
-  // Progress from 0 to 1 for the current rotation
-  progress: number;
-  // Whether rotation is paused
-  isPaused: boolean;
-  // Quote index (cycles through 0-4)
+  departingCard: HomeCard | null;
   quoteIndex: number;
+  progress: number;
+  isPaused: boolean;
 };
 
 type HeroCarouselActions = {
-  // Advance to next card
-  advance: () => void;
-  // Pause rotation (hover, tab hidden)
-  pause: () => void;
-  // Resume rotation
-  resume: () => void;
-  // Set hover state
   setHovering: (hovering: boolean) => void;
-  // Signal that hero section is ready
   onReady: () => void;
+  advance: () => void;
 };
 
 type HeroCarouselContextValue = HeroCarouselState & HeroCarouselActions;
 
-const HeroCarouselContext = createContext<HeroCarouselContextValue | null>(null);
+export const HeroCarouselContext = createContext<HeroCarouselContextValue | null>(null);
 
 export const useHeroCarousel = () => {
   const context = useContext(HeroCarouselContext);
@@ -60,299 +43,132 @@ export const useHeroCarousel = () => {
   return context;
 };
 
-// Check if user prefers reduced motion
-const prefersReducedMotion = () => {
-  if (typeof window === "undefined") {
-    return false;
+// Fisher-Yates shuffle algorithm
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-};
-
-// Preload an image and return a promise
-const preloadImage = (src: string): Promise<void> => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.onload = () => resolve();
-    img.onerror = () => reject(new Error(`Failed to load image: ${src}`));
-    img.src = src;
-  });
+  return shuffled;
 };
 
 type HeroCarouselProviderProps = {
   children: ReactNode;
   initialCards?: HomeCard[];
   onHeroReady?: () => void;
+  quoteCount?: number;
 };
 
 export const HeroCarouselProvider = ({
   children,
   initialCards = [],
   onHeroReady,
+  quoteCount = 3,
 }: HeroCarouselProviderProps) => {
-  // Buffer of preloaded cards (sliding window)
-  const [buffer, setBuffer] = useState<PreloadedCard[]>(() =>
-    initialCards.map((card, i) => ({
-      ...card,
-      imageLoaded: i === 0, // First card is assumed loaded (SSR)
-    }))
-  );
-
-  // Current index within the buffer
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Progress for the current rotation (0 to 1)
-  const [progress, setProgress] = useState(0);
-
-  // Pause states
-  const [isHovering, setIsHovering] = useState(false);
-  const [isTabHidden, setIsTabHidden] = useState(false);
-  const [reducedMotion, setReducedMotion] = useState(false);
-
-  // Quote index (cycles through available quotes)
+  // The deck of cards (shuffled on init and when cycling through)
+  const [deck, setDeck] = useState<HomeCard[]>(() => shuffleArray(initialCards));
+  // Current position in the deck (0 = top of deck)
+  const [deckPosition, setDeckPosition] = useState(0);
   const [quoteIndex, setQuoteIndex] = useState(0);
-  const QUOTE_COUNT = 3; // Number of quotes available
+  const [progress, setProgress] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [departingCard, setDepartingCard] = useState<HomeCard | null>(null);
 
-  // Ready state
   const readyCalledRef = useRef(false);
-  const [isReady, setIsReady] = useState(false);
+  const progressRef = useRef(0);
 
-  // Refs for animation frame
-  const lastTimeRef = useRef<number | null>(null);
-  const animationFrameRef = useRef<number | null>(null);
-
-  // Fetch state for loading more cards
-  const [isFetching, setIsFetching] = useState(false);
-  const fetchedIdsRef = useRef<Set<string>>(new Set(initialCards.map((c) => c._id)));
-
-  // Computed pause state
-  const isPaused = isHovering || isTabHidden || reducedMotion;
-
-  // Current card
-  const currentCard = buffer[currentIndex] || null;
-
-  // Check if next card is ready
-  const isNextReady = useMemo(() => {
-    const nextIndex = (currentIndex + 1) % buffer.length;
-    return buffer[nextIndex]?.imageLoaded ?? false;
-  }, [buffer, currentIndex]);
-
-  // Fetch more cards from the server
-  const fetchMoreCards = useCallback(async () => {
-    if (isFetching) {
-      return;
+  // Get 3 visible cards starting from current deck position
+  // Wrap around to the beginning if needed
+  const getVisibleCards = useCallback((): HomeCard[] => {
+    if (deck.length === 0) {
+      return [];
     }
 
-    setIsFetching(true);
-    try {
-      const response = await fetch("/api/v1/home-cards?count=3");
-      if (!response.ok) {
-        throw new Error("Failed to fetch cards");
-      }
-
-      const newCards: HomeCard[] = await response.json();
-
-      // Filter out cards we already have
-      const uniqueNewCards = newCards.filter(
-        (card) => !fetchedIdsRef.current.has(card._id)
-      );
-
-      if (uniqueNewCards.length > 0) {
-        // Add to fetched IDs
-        uniqueNewCards.forEach((card) => fetchedIdsRef.current.add(card._id));
-
-        // Add to buffer as not-yet-loaded
-        setBuffer((prev) => [
-          ...prev,
-          ...uniqueNewCards.map((card) => ({ ...card, imageLoaded: false })),
-        ]);
-
-        // Start preloading images
-        uniqueNewCards.forEach((card) => {
-          preloadImage(card.img)
-            .then(() => {
-              setBuffer((prev) =>
-                prev.map((c) =>
-                  c._id === card._id ? { ...c, imageLoaded: true } : c
-                )
-              );
-            })
-            .catch(() => {
-              // On failure, still mark as "loaded" to avoid blocking
-              // (shows placeholder or broken image instead of freezing)
-              setBuffer((prev) =>
-                prev.map((c) =>
-                  c._id === card._id ? { ...c, imageLoaded: true } : c
-                )
-              );
-            });
-        });
-      }
-    } catch (error) {
-      // Graceful failure - carousel continues with existing cards
-      console.warn("Failed to fetch more cards:", error);
-    } finally {
-      setIsFetching(false);
+    const cards: HomeCard[] = [];
+    for (let i = 0; i < Math.min(3, deck.length); i++) {
+      const index = (deckPosition + i) % deck.length;
+      cards.push(deck[index]);
     }
-  }, [isFetching]);
+    return cards;
+  }, [deck, deckPosition]);
 
-  // Advance to next card
-  const advance = useCallback(() => {
-    setBuffer((prevBuffer) => {
-      const nextIndex = currentIndex + 1;
+  const visibleCards = getVisibleCards();
+  const currentCard = visibleCards[0] || null;
 
-      // If next card exists and is loaded, advance
-      if (nextIndex < prevBuffer.length && prevBuffer[nextIndex]?.imageLoaded) {
-        setCurrentIndex(nextIndex);
-        setQuoteIndex((prev) => (prev + 1) % QUOTE_COUNT);
-        setProgress(0);
+  const setHovering = useCallback((hovering: boolean) => {
+    setIsPaused(hovering);
+  }, []);
 
-        // Trim buffer: keep only current and future cards (max BUFFER_SIZE)
-        if (nextIndex > 0) {
-          return prevBuffer.slice(nextIndex);
-        }
-      }
-
-      return prevBuffer;
-    });
-
-    // Reset current index after buffer trim
-    setCurrentIndex(0);
-  }, [currentIndex]);
-
-  // Pause/resume controls
-  const pause = useCallback(() => setIsHovering(true), []);
-  const resume = useCallback(() => setIsHovering(false), []);
-  const setHovering = useCallback((hovering: boolean) => setIsHovering(hovering), []);
-
-  // Signal ready
   const onReady = useCallback(() => {
     if (!readyCalledRef.current) {
       readyCalledRef.current = true;
-      setIsReady(true);
       onHeroReady?.();
     }
   }, [onHeroReady]);
 
-  // Preload initial cards' images (except first which is SSR)
-  useEffect(() => {
-    if (initialCards.length > 1) {
-      initialCards.slice(1).forEach((card) => {
-        preloadImage(card.img)
-          .then(() => {
-            setBuffer((prev) =>
-              prev.map((c) =>
-                c._id === card._id ? { ...c, imageLoaded: true } : c
-              )
-            );
-          })
-          .catch(() => {
-            // Mark as loaded anyway to avoid blocking
-            setBuffer((prev) =>
-              prev.map((c) =>
-                c._id === card._id ? { ...c, imageLoaded: true } : c
-              )
-            );
-          });
-      });
+  // Advance to next card in the deck
+  const advance = useCallback(() => {
+    // Set current card as departing before advancing
+    if (currentCard) {
+      setDepartingCard(currentCard);
+      // Clear departing card after animation completes
+      setTimeout(() => {
+        setDepartingCard(null);
+      }, 300);
     }
 
-    // Signal ready once first card is available
-    if (initialCards.length > 0) {
-      onReady();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Intentionally run only on mount with initial values
-
-  // Check reduced motion preference
-  useEffect(() => {
-    setReducedMotion(prefersReducedMotion());
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handler = (e: { matches: boolean }) => setReducedMotion(e.matches);
-    mediaQuery.addEventListener("change", handler);
-    return () => mediaQuery.removeEventListener("change", handler);
-  }, []);
-
-  // Handle tab visibility
-  useEffect(() => {
-    const handleVisibilityChange = () => {
-      setIsTabHidden(document.hidden);
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
-    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
-  }, []);
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-        if (isNextReady) {
-          advance();
-        }
+    // Move to next position, wrapping around
+    setDeckPosition((prev) => {
+      const nextPosition = (prev + 1) % deck.length;
+      // Reshuffle when we complete a full cycle (back to position 0)
+      if (nextPosition === 0 && deck.length > 0) {
+        setDeck((currentDeck) => shuffleArray(currentDeck));
       }
-    };
+      return nextPosition;
+    });
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [advance, isNextReady]);
+    setQuoteIndex((prev) => (prev + 1) % quoteCount);
+    setProgress(0);
+    progressRef.current = 0;
+  }, [quoteCount, currentCard, deck.length]);
 
-  // Auto-rotation timer with progress
+  // Progress timer
   useEffect(() => {
-    if (isPaused || !isReady || reducedMotion) {
-      lastTimeRef.current = null;
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-        animationFrameRef.current = null;
-      }
+    if (isPaused || !currentCard) {
       return;
     }
 
-    const tick = (timestamp: number) => {
-      if (lastTimeRef.current === null) {
-        lastTimeRef.current = timestamp;
-      }
+    const interval = setInterval(() => {
+      progressRef.current += (PROGRESS_UPDATE_MS / ROTATION_INTERVAL_MS) * 100;
 
-      const elapsed = timestamp - lastTimeRef.current;
-      const newProgress = Math.min(elapsed / ROTATION_INTERVAL, 1);
-
-      setProgress(newProgress);
-
-      if (newProgress >= 1 && isNextReady) {
+      if (progressRef.current >= 100) {
         advance();
-        lastTimeRef.current = timestamp;
+      } else {
+        setProgress(progressRef.current);
       }
+    }, PROGRESS_UPDATE_MS);
 
-      animationFrameRef.current = requestAnimationFrame(tick);
-    };
+    return () => clearInterval(interval);
+  }, [isPaused, currentCard, advance]);
 
-    animationFrameRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [isPaused, isReady, reducedMotion, advance, isNextReady]);
-
-  // Fetch more cards when buffer is running low
+  // Signal ready once first card is available
   useEffect(() => {
-    const remainingCards = buffer.length - currentIndex;
-    if (remainingCards <= BUFFER_SIZE && !isFetching) {
-      fetchMoreCards();
+    if (initialCards.length > 0) {
+      onReady();
     }
-  }, [buffer.length, currentIndex, isFetching, fetchMoreCards]);
+  }, [initialCards.length, onReady]);
 
   const value: HeroCarouselContextValue = {
+    visibleCards,
     currentCard,
+    departingCard,
+    quoteIndex,
     progress,
     isPaused,
-    quoteIndex,
-    advance,
-    pause,
-    resume,
     setHovering,
     onReady,
+    advance,
   };
 
   return (

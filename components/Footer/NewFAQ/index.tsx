@@ -26,7 +26,7 @@ const FooterCards = () => {
     query: { deckId },
   } = useRouter();
 
-  const { cards } = useCards({ variables: { deck: deckId } });
+  const { cards } = useCards({ variables: { deck: deckId }, skip: !deckId });
 
   const [faqCards, setFaqCards] = useState<GQL.Card[]>();
 

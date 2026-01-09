@@ -23,7 +23,8 @@ export async function GET(request: NextRequest) {
     await connect();
 
     const { searchParams } = new URL(request.url);
-    const count = Math.min(parseInt(searchParams.get("count") || "3", 10), 10);
+    // Allow fetching all cards (up to 500) for the full deck
+    const count = Math.min(parseInt(searchParams.get("count") || "3", 10), 500);
 
     const homeCards = await cardService.getHomeCards(count);
 
@@ -32,6 +33,7 @@ export async function GET(request: NextRequest) {
       _id: card._id.toString(),
       img: card.img,
       cardBackground: card.cardBackground,
+      deck: card.deck ? { slug: (card.deck as GQL.Deck).slug } : undefined,
     }));
 
     return NextResponse.json(serializedCards, {

@@ -4,10 +4,10 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
-import Hero from "../Home/Hero";
+import Hero, { HERO_QUOTE_COUNT } from "../Home/Hero";
 import Story from "../Home/Story";
 import Footer from "../../Footer";
-import { HeroCarouselProvider } from "../../../contexts/heroCarouselContext";
+import { HeroCarouselProvider, HomeCard } from "../../../contexts/heroCarouselContext";
 
 // Lazy-load below-fold components for better initial page load
 const Collection = dynamic(() => import("../Home/Collection"), {
@@ -23,12 +23,6 @@ const Podcast = dynamic(() => import("../Home/Podcast"), {
   ssr: true,
 });
 
-type HomeCard = {
-  _id: string;
-  img: string;
-  cardBackground: string;
-};
-
 type Props = {
   homeCards?: HomeCard[];
 };
@@ -40,6 +34,7 @@ const Home = ({ homeCards }: Props) => {
     <HeroCarouselProvider
       initialCards={homeCards}
       onHeroReady={() => setHeroReady(true)}
+      quoteCount={HERO_QUOTE_COUNT}
     >
       <Header
         links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"]}

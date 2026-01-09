@@ -1,6 +1,5 @@
 import { FC, HTMLAttributes, useState } from "react";
 import Image from "next/image";
-import dynamic from "next/dynamic";
 import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
@@ -10,19 +9,6 @@ import Apple from "../../../Icons/Apple";
 import Android from "../../../Icons/Android";
 import AR from "../../../../mocks/images/AR.png";
 import Zoom from "../../../Zoom";
-import { useSize } from "../../../SizeProvider";
-import { breakpoints } from "../../../../source/enums";
-import frag from "../../../../Shaders/Xemantic/index.glsl";
-
-// Lazy load WebGL shader component to reduce initial bundle size
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ShadertoyReact = dynamic<any>(
-  () => import("shadertoy-react").then((mod) => mod.default),
-  {
-    ssr: false,
-    loading: () => null,
-  }
-);
 
 const Presentation = () => {
   const [hover, setHover] = useState(false);
@@ -54,23 +40,8 @@ const Presentation = () => {
   );
 };
 
-const Shader = () => {
-  const { width } = useSize();
-  return (
-    <ShadertoyReact
-      fs={frag}
-      style={{
-        zIndex: -1,
-        position: "absolute",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        ...(width < breakpoints.sm && { opacity: 0 }),
-      }}
-    />
-  );
-};
+// Shader disabled due to WebGL compilation errors
+const Shader = () => null;
 
 const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <Grid

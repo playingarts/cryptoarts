@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Grid from "../../../Grid";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import ExploreButton from "../../../Buttons/ExploreButton";
@@ -7,14 +7,20 @@ import HeroCard from "./HeroCard";
 import Link from "../../../Link";
 import { useHeroCarousel } from "../../../../contexts/heroCarouselContext";
 
-const texts = [
+const HERO_TEXTS = [
   "\u201CIt's not just playing cards, but a gallery right in your hands.\u201D",
   "\u201CWhere art and play come together in every playing card.\u201D",
-  "\u201CBeautifully crafted decks of cards that showcase global artists.\u201D",
-];
+  "\u201CBeautiful decks of cards that showcase global artists.\u201D",
+] as const;
+
+export const HERO_QUOTE_COUNT = HERO_TEXTS.length;
+
+type SlideState = "visible" | "sliding-out" | "sliding-in";
 
 const Hero = () => {
   const { currentCard, quoteIndex, onReady } = useHeroCarousel();
+  const [slideState, setSlideState] = useState<SlideState>("visible");
+  const [displayedQuoteIndex, setDisplayedQuoteIndex] = useState(quoteIndex);
 
   // Signal ready when first card is available
   useEffect(() => {
@@ -22,6 +28,40 @@ const Hero = () => {
       onReady();
     }
   }, [currentCard, onReady]);
+
+  // Animate text change with slide up
+  useEffect(() => {
+    if (quoteIndex !== displayedQuoteIndex) {
+      // Start sliding out (current text slides up and fades)
+      setSlideState("sliding-out");
+
+      const timer = setTimeout(() => {
+        // Change text and start sliding in (new text slides up from below)
+        setDisplayedQuoteIndex(quoteIndex);
+        setSlideState("sliding-in");
+
+        // Return to visible state
+        setTimeout(() => {
+          setSlideState("visible");
+        }, 50);
+      }, 300);
+
+      return () => clearTimeout(timer);
+    }
+  }, [quoteIndex, displayedQuoteIndex]);
+
+  // Get transform and opacity based on slide state
+  const getSlideStyles = () => {
+    switch (slideState) {
+      case "sliding-out":
+        return { transform: "translateY(-20px)", opacity: 0 };
+      case "sliding-in":
+        return { transform: "translateY(20px)", opacity: 0 };
+      case "visible":
+      default:
+        return { transform: "translateY(0)", opacity: 1 };
+    }
+  };
 
   const background = currentCard?.cardBackground || "transparent";
 
@@ -67,13 +107,17 @@ const Hero = () => {
           css={(theme) => [
             {
               marginTop: 10,
+              transition: slideState === "sliding-in"
+                ? "none"
+                : "transform 0.3s ease-out, opacity 0.3s ease-out",
               [theme.mq.sm]: {
                 marginTop: 30,
               },
             },
           ]}
+          style={getSlideStyles()}
         >
-          <span>{texts[quoteIndex % texts.length]}</span>
+          <span>{HERO_TEXTS[displayedQuoteIndex % HERO_TEXTS.length]}</span>
         </Text>
         <div css={{ display: "flex", gap: 15, marginTop: 30 }}>
           <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "#about"}>

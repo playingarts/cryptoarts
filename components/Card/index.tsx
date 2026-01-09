@@ -29,6 +29,7 @@ export interface CardProps extends HTMLAttributes<HTMLElement> {
   noLink?: boolean;
   noFavorite?: boolean;
   palette?: PaletteProps["palette"];
+  priority?: boolean;
 }
 
 /**
@@ -45,6 +46,7 @@ const Card: FC<CardProps> = memo(
     noLink = false,
     noFavorite = false,
     palette: paletteProp,
+    priority = false,
     ...props
   }) => {
     const [hover, setHover] = useState(false);
@@ -173,14 +175,15 @@ const Card: FC<CardProps> = memo(
                     height: "100%",
                     lineHeight: 1,
                   },
-                  {
+                  !priority && {
                     transition: loaded ? slowTransitionOpacity : "none",
                   },
                 ]}
                 style={{
-                  opacity: loaded ? 1 : 0,
+                  opacity: priority || loaded ? 1 : 0,
                 }}
-                loading="lazy"
+                loading={priority ? "eager" : "lazy"}
+                {...(priority && { fetchPriority: "high" })}
                 onLoad={hideLoader}
                 alt={""}
               />

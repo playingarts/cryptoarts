@@ -6,18 +6,7 @@ import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { FC, HTMLAttributes, ReactNode, useContext } from "react";
 import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
-import { createContext } from "react";
-
-// Safe hook that doesn't throw if context is missing
-const useHeroCarouselSafe = () => {
-  try {
-    // Dynamic import to avoid circular dependency
-    const { useHeroCarousel } = require("../../../contexts/heroCarouselContext");
-    return useHeroCarousel();
-  } catch {
-    return null;
-  }
-};
+import { HeroCarouselContext } from "../../../contexts/heroCarouselContext";
 
 export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({
   links,
@@ -64,6 +53,31 @@ export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({
   );
 };
 
+const ProgressBar = () => {
+  const context = useContext(HeroCarouselContext);
+  const { palette } = usePalette();
+
+  if (!context) return null;
+
+  const { progress } = context;
+
+  return (
+    <div
+      css={(theme) => ({
+        position: "absolute",
+        top: 0,
+        left: 0,
+        height: 1,
+        background: palette === "dark" ? theme.colors.white : theme.colors.black,
+        transition: "width 50ms linear",
+      })}
+      style={{
+        width: `${progress}%`,
+      }}
+    />
+  );
+};
+
 const Middle = ({
   showSiteNav,
   altNav,
@@ -77,9 +91,6 @@ const Middle = ({
 }) => {
   const { palette } = usePalette();
   const { width } = useSize();
-  const carouselState = useHeroCarouselSafe();
-  const progress = carouselState?.progress ?? 0;
-  const isPaused = carouselState?.isPaused ?? false;
 
   return (
     <div
@@ -118,28 +129,8 @@ const Middle = ({
             {}),
         }}
       />
-      {/* Progress line overlay */}
-      {carouselState && (
-        <div
-          css={(theme) => [
-            {
-              position: "absolute",
-              height: 1,
-              top: 0,
-              left: 0,
-              background: palette === "dark" ? theme.colors.white : "black",
-              transition: isPaused ? "none" : "width 100ms linear",
-            },
-          ]}
-          style={{
-            width: `${progress * 100}%`,
-            ...(((showSiteNav === "afterTop" || width < breakpoints.sm) && {
-              opacity: 0,
-            }) ||
-              {}),
-          }}
-        />
-      )}
+      {/* Progress bar overlay */}
+      <ProgressBar />
       <div
         {...(!customMiddle
           ? {
