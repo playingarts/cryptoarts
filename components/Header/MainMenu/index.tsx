@@ -31,6 +31,7 @@ const PRODUCT_LIST_GAP = 5;
 const SECTION_SPACING = 30;
 const PREVIEW_BORDER_RADIUS = 10;
 const DECK_LIST_GAP = 12;
+const CASCADE_DELAY = 50; // ms delay between each item animation
 
 /**
  * Skeleton component for deck preview loading state
@@ -201,10 +202,19 @@ const MainMenu: FC<
               },
             ]}
           >
-            <div css={[{ width: PRODUCT_LIST_WIDTH, display: "grid", gap: PRODUCT_LIST_GAP }]}>
-              {loading && <div css={{ opacity: 0.5 }}>Loading...</div>}
+            <div
+              css={{
+                width: PRODUCT_LIST_WIDTH,
+                display: "grid",
+                gap: PRODUCT_LIST_GAP,
+                "@keyframes cascadeIn": {
+                  "0%": { opacity: 0, transform: "translateX(-10px)" },
+                  "100%": { opacity: 1, transform: "translateX(0)" },
+                },
+              }}
+            >
               {error && <div css={{ opacity: 0.5 }}>Unable to load</div>}
-              {!loading && !error && deckProducts.map((product) => {
+              {deckProducts.map((product, index) => {
                 const deck = product.deck;
                 if (!deck) {
                   return null;
@@ -215,6 +225,11 @@ const MainMenu: FC<
                     href={getBaseUrl(`/${deck.slug}`)}
                     onMouseEnter={() => setHoveredProduct(product)}
                     onClick={handleClose}
+                    css={{
+                      opacity: 0,
+                      animation: `cascadeIn 0.3s ease-out forwards`,
+                      animationDelay: `${index * CASCADE_DELAY}ms`,
+                    }}
                   >
                     <ArrowButton
                       css={[{ textAlign: "start" }]}
