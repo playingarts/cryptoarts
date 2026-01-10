@@ -19,6 +19,17 @@ import { ServiceName } from "../../../source/models/UptimeCheck";
 
 export const dynamic = "force-dynamic";
 
+// Display order for services on the status page
+const SERVICE_ORDER: ServiceName[] = [
+  "website",
+  "mongodb",
+  "mailerlite",
+  "graphql",
+  "opensea",
+  "crazyaces",
+  "redis",
+];
+
 interface ServiceStatusResponse {
   service: ServiceName;
   status: "up" | "down" | "degraded";
@@ -66,13 +77,21 @@ export async function GET(request: NextRequest) {
     const overall = hasDown ? "down" : hasDegraded ? "degraded" : "up";
 
     // Build service status with uptime percentages
-    const services: ServiceStatusResponse[] = currentStatus.map((status: CheckResult) => ({
-      service: status.service,
-      status: status.status,
-      latency: status.latency,
-      message: status.message,
-      uptime: uptimePercentages.get(status.service) || { "24h": 100, "7d": 100, "30d": 100 },
-    }));
+    const services: ServiceStatusResponse[] = currentStatus
+      .map((status: CheckResult) => ({
+        service: status.service,
+        status: status.status,
+        latency: status.latency,
+        message: status.message,
+        uptime: uptimePercentages.get(status.service) || { "24h": 100, "7d": 100, "30d": 100 },
+      }))
+      // Sort by defined display order
+      .sort((a, b) => {
+        const orderA = SERVICE_ORDER.indexOf(a.service);
+        const orderB = SERVICE_ORDER.indexOf(b.service);
+        // Put unknown services at the end
+        return (orderA === -1 ? 999 : orderA) - (orderB === -1 ? 999 : orderB);
+      });
 
     const response: StatusResponse = {
       overall,
