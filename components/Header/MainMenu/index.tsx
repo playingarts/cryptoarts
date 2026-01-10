@@ -33,6 +33,28 @@ const PREVIEW_BORDER_RADIUS = 10;
 const DECK_LIST_GAP = 12;
 
 /**
+ * Skeleton component for deck preview loading state
+ */
+const DeckPreviewSkeleton: FC<{ palette: "dark" | "light" }> = ({ palette }) => (
+  <div
+    css={(theme) => ({
+      width: "100%",
+      height: "100%",
+      borderRadius: PREVIEW_BORDER_RADIUS,
+      background: palette === "dark"
+        ? "linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%)"
+        : "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+      backgroundSize: "200% 100%",
+      animation: "skeleton-pulse 1.5s ease-in-out infinite",
+      "@keyframes skeleton-pulse": {
+        "0%": { backgroundPosition: "200% 0" },
+        "100%": { backgroundPosition: "-200% 0" },
+      },
+    })}
+  />
+);
+
+/**
  * Full-screen navigation menu overlay
  * Displays product links, newsletter signup, and footer navigation
  */
@@ -207,13 +229,15 @@ const MainMenu: FC<
               })}
             </div>
             <div css={(theme) => ({ flex: 1, minWidth: 0, height: "100%", borderRadius: PREVIEW_BORDER_RADIUS, "&:hover": { background: theme.colors.soft_gray } })}>
-              {hoveredProduct && (
+              {hoveredProduct ? (
                 <CollectionItem
                   product={hoveredProduct}
                   paletteOnHover={palette === "dark" ? "dark" : "light"}
                   css={{ height: "100%" }}
                   priority
                 />
+              ) : (
+                <DeckPreviewSkeleton palette={palette} />
               )}
             </div>
           </div>

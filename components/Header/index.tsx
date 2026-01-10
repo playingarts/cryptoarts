@@ -11,6 +11,7 @@ import ErrorBoundary from "../ErrorBoundary";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../SizeProvider";
 import { breakpoints } from "../../source/enums";
+import { useProducts } from "../../hooks/product";
 
 // Lazy load MainMenu - only loads when user clicks menu button
 const MainMenu = dynamic(() => import("./MainMenu"), { ssr: false });
@@ -37,6 +38,9 @@ const Header: FC<Props> = ({
 
   const { width } = useSize();
   const [hover, setHover] = useState(false);
+
+  // Prefetch products data so it's ready when menu opens
+  useProducts();
 
   useEffect(() => {
     let lastScrollTop = 0;
