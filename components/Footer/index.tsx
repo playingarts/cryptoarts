@@ -147,7 +147,7 @@ const ActualFooter = () => {
             {links[key].map((item) => (
               <Link
                 key={item + "Link"}
-                href={item.split(" ").join("").toLowerCase()}
+                href="#"
                 css={[{ display: "block" }]}
               >
                 <ArrowButton
