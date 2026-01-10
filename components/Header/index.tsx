@@ -48,20 +48,24 @@ const Header: FC<Props> = ({
     const handler = () => {
       const scrollTop = window.scrollY;
 
+      // Always update showSiteNav based on scroll position
+      if (scrollTop >= 600) {
+        setShowSiteNav("afterTop");
+      } else {
+        setShowSiteNav("top");
+      }
+
+      // Only update altNav direction when not hovering
       if (!hover) {
         setAltNav(scrollTop <= lastScrollTop ? false : true);
-
         lastScrollTop = scrollTop;
-
-        if (scrollTop >= 600) {
-          setShowSiteNav("afterTop");
-        } else {
-          setShowSiteNav("top");
-        }
       }
     };
 
     window.addEventListener("scroll", handler);
+
+    // Check scroll position immediately when hover changes
+    handler();
 
     return () => window.removeEventListener("scroll", handler);
   }, [setShowSiteNav, hover]);
