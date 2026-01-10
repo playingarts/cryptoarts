@@ -47,8 +47,8 @@ const FooterLinksSection: FC = () => {
             {key}
           </Text>
           <div css={[{ marginTop: 30, display: "grid", gap: 5 }]}>
-            {links[key].map((item, idx) => (
-              <Link key={`${key}-${idx}`} href={item.split(" ").join("").toLowerCase()}>
+            {links[key].map((item) => (
+              <Link key={`${key}-${item.label}`} href={item.href}>
                 <ArrowButton
                   css={(theme) => [
                     {
@@ -63,7 +63,7 @@ const FooterLinksSection: FC = () => {
                   noColor={true}
                   size="small"
                 >
-                  {item}
+                  {item.label}
                 </ArrowButton>
               </Link>
             ))}

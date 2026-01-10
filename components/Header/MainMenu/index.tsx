@@ -18,6 +18,7 @@ import { useProducts } from "../../../hooks/product";
 import MenuGrid from "./MenuGrid";
 import NewsletterSection from "./NewsletterSection";
 import FooterLinksSection from "./FooterLinksSection";
+import CollectionItem from "../../Pages/Home/Collection/CollectionItem";
 
 /**
  * Full-screen navigation menu overlay
@@ -27,15 +28,17 @@ const MainMenu: FC<
   HTMLAttributes<HTMLElement> & { setShow: Dispatch<SetStateAction<boolean>> }
 > = ({ setShow, ...props }) => {
   const { products } = useProducts();
-  const [hover, setHover] = useState<string>("");
+  const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const { palette } = usePalette();
 
+  // Get deck products only
+  const deckProducts = products?.filter((product) => product.type === "deck") || [];
+
   useEffect(() => {
-    if (!products) {
-      return;
+    if (deckProducts.length > 0 && !hoveredProduct) {
+      setHoveredProduct(deckProducts[0]);
     }
-    setHover(products[0].image || "");
-  }, [products]);
+  }, [deckProducts, hoveredProduct]);
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -69,11 +72,12 @@ const MainMenu: FC<
         onClick={(e) => e.stopPropagation()}
       >
         <MenuGrid>
-          <ScandiBlock css={{ gridColumn: "span 3", height: 70 }}>
+          <ScandiBlock css={{ gridColumn: "span 3", height: 70, padding: 0 }}>
             <ButtonTemplate
               css={(theme) => [
                 {
                   paddingLeft: 10,
+                  paddingRight: 15,
                   color:
                     theme.colors[palette === "dark" ? "white75" : "dark_gray"] +
                     " !important",
@@ -100,6 +104,7 @@ const MainMenu: FC<
                 gridColumn: "span 3",
                 justifyContent: "space-between",
                 height: "100%",
+                padding: 0,
                 transition: theme.transitions.fast("border-color"),
               },
             ]}
@@ -121,42 +126,45 @@ const MainMenu: FC<
             ]}
           >
             <div css={[{ width: 190, display: "grid", gap: 5 }]}>
-              {products &&
-                products
-                  .filter((product) => product.type === "deck")
-                  .map((product, index) => {
-                    const deck = product.deck;
-                    if (!deck) {
-                      return undefined;
+              {deckProducts.map((product, index) => {
+                const deck = product.deck;
+                if (!deck) {
+                  return undefined;
+                }
+                return (
+                  <Link
+                    key={deck.slug + "mainmenu" + index}
+                    href={
+                      (process.env.NEXT_PUBLIC_BASELINK || "") +
+                      "/" +
+                      deck.slug
                     }
-                    return (
-                      <Link
-                        key={deck.slug + "mainmenu" + index}
-                        href={
-                          (process.env.NEXT_PUBLIC_BASELINK || "") +
-                          "/" +
-                          deck.slug
-                        }
-                        onMouseEnter={() => setHover(product.image || "")}
-                        onClick={() => setShow(false)}
-                      >
-                        <ArrowButton
-                          css={[{ textAlign: "start" }]}
-                          size="small"
-                          noColor={true}
-                          base={true}
-                        >
-                          {deck.short}
-                        </ArrowButton>
-                      </Link>
-                    );
-                  })}
+                    onMouseEnter={() => setHoveredProduct(product)}
+                    onClick={() => setShow(false)}
+                  >
+                    <ArrowButton
+                      css={[{ textAlign: "start" }]}
+                      size="small"
+                      noColor={true}
+                      base={true}
+                    >
+                      {deck.short}
+                    </ArrowButton>
+                  </Link>
+                );
+              })}
             </div>
-            <img
-              css={[{ flex: 1, minWidth: 0, objectFit: "contain" }]}
-              src={hover}
-              alt=""
-            />
+            <div css={(theme) => ({ flex: 1, minWidth: 0, height: "100%", borderRadius: 10, "&:hover": { background: theme.colors.soft_gray } })}>
+              {hoveredProduct && (
+                <CollectionItem
+                  key={hoveredProduct._id}
+                  product={hoveredProduct}
+                  paletteOnHover={palette === "dark" ? "dark" : "light"}
+                  css={{ height: "100%" }}
+                  priority
+                />
+              )}
+            </div>
           </div>
         </MenuGrid>
 

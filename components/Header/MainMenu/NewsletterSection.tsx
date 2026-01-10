@@ -18,21 +18,21 @@ const NewsletterSection: FC = () => {
     <MenuGrid
       css={(theme) => [
         {
-          background: theme.colors.violet,
+          background: theme.colors.accent,
           paddingTop: 60,
           paddingBottom: 60,
         },
       ]}
     >
       <ScandiBlock
-        palette="light"
+        palette="dark"
         css={(theme) => [
           {
             paddingTop: 15,
             gridColumn: "1/-1",
             flexDirection: "column",
             alignItems: "start",
-            color: theme.colors.dark_gray + "!important",
+            color: theme.colors.white + "!important",
             form: {
               width: "100%",
               marginTop: 30,
@@ -40,7 +40,7 @@ const NewsletterSection: FC = () => {
           },
         ]}
       >
-        <Text typography="paragraphSmall" palette="light">
+        <Text typography="paragraphSmall" palette="dark">
           Explore project updates
         </Text>
         <EmailForm />
@@ -48,7 +48,7 @@ const NewsletterSection: FC = () => {
       <Text
         typography="paragraphNano"
         css={[{ gridColumn: "span 4", marginTop: 30 }]}
-        palette="light"
+        palette="dark"
       >
         Join 10,000+ collectors for early access to exclusive drops, and gain
         automatic entry into our monthly giveaways.

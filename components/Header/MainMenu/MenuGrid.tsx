@@ -12,7 +12,7 @@ const MenuGrid: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => {
     <div
       css={(theme) => [
         {
-          paddingTop: 15,
+          paddingTop: 11,
           display: "grid",
           background: theme.colors[palette === "dark" ? "black" : "pale_gray"],
           columnGap: theme.spacing(3),

@@ -32,10 +32,33 @@ import { useRouter } from "next/router";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 import { getDeckConfig } from "../../source/deckConfig";
 
-export const links: { [x: string]: String[] } = {
-  "The project": ["Home", "Our story", "AR app", "Gallery", "Press"],
-  "Shop & help": ["Shop", "Shipping", "Reviews", "Stockists", "Contact"],
-  Community: ["Participate", "Contributors", "Kickstarter", "Podcast", "FAQ"],
+export type FooterLink = {
+  label: string;
+  href: string;
+};
+
+export const links: { [key: string]: FooterLink[] } = {
+  "The project": [
+    { label: "Home", href: "/" },
+    { label: "Our story", href: "/#about" },
+    { label: "AR app", href: "/#ar" },
+    { label: "Gallery", href: "/#gallery" },
+    { label: "Press", href: "/press" },
+  ],
+  "Shop & help": [
+    { label: "Shop", href: "/shop" },
+    { label: "Shipping", href: "/shipping" },
+    { label: "Reviews", href: "/#reviews" },
+    { label: "Stockists", href: "/stockists" },
+    { label: "Contact", href: "/contact" },
+  ],
+  Community: [
+    { label: "Participate", href: "/participate" },
+    { label: "Contributors", href: "/contributors" },
+    { label: "Kickstarter", href: "/kickstarter" },
+    { label: "Podcast", href: "/#podcast" },
+    { label: "FAQ", href: "/faq" },
+  ],
 };
 
 const FooterTestimonials = () => {
@@ -146,8 +169,8 @@ const ActualFooter = () => {
           <div css={[{ marginTop: 60, display: "grid", gap: 10 }]}>
             {links[key].map((item) => (
               <Link
-                key={item + "Link"}
-                href="#"
+                key={item.label + "Link"}
+                href={item.href}
                 css={[{ display: "block" }]}
               >
                 <ArrowButton
@@ -165,7 +188,7 @@ const ActualFooter = () => {
                     },
                   ]}
                 >
-                  {item}
+                  {item.label}
                 </ArrowButton>
               </Link>
             ))}

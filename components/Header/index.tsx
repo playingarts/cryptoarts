@@ -1,4 +1,5 @@
 import { colord } from "colord";
+import dynamic from "next/dynamic";
 import { FC, HTMLAttributes, memo, ReactNode, useEffect, useState } from "react";
 import Grid from "../Grid";
 import ScandiBlock from "../ScandiBlock";
@@ -6,10 +7,12 @@ import CTA from "./CTA";
 import Middle, { PageNav } from "./Middle";
 import TitleButton from "./TitleButton";
 import MenuPortal from "./MainMenu/MenuPortal";
-import MainMenu from "./MainMenu";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../SizeProvider";
 import { breakpoints } from "../../source/enums";
+
+// Lazy load MainMenu - only loads when user clicks menu button
+const MainMenu = dynamic(() => import("./MainMenu"), { ssr: false });
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   customCTA?: ReactNode;
