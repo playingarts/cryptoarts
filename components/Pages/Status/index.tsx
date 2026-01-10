@@ -37,6 +37,16 @@ const SERVICE_LABELS: Record<string, string> = {
   crazyaces: "Crazy Aces",
 };
 
+const SERVICE_URLS: Record<string, string> = {
+  website: "dev.playingarts.com",
+  mongodb: "mongodb.com",
+  graphql: "playingarts.com/api/v1/graphql",
+  opensea: "api.opensea.io",
+  mailerlite: "mailerlite.com",
+  redis: "upstash.com",
+  crazyaces: "play.playingarts.com",
+};
+
 const getStatusColor = (status: ServiceStatus): string => {
   switch (status) {
     case "up":
@@ -66,22 +76,35 @@ const getStatusText = (status: ServiceStatus): string => {
 const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
   const statusColor = getStatusColor(service.status);
   const label = SERVICE_LABELS[service.service] || service.service;
+  const url = SERVICE_URLS[service.service];
 
   return (
     <div
       css={(theme) => ({
         background: theme.colors.white,
         borderRadius: 8,
-        padding: theme.spacing(3),
+        padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
         border: `1px solid ${theme.colors.black10}`,
         display: "flex",
         flexDirection: "column",
         gap: theme.spacing(1),
+        height: 220,
       })}
     >
       <Text typography="newh4" css={{ margin: 0 }}>
         {label}
       </Text>
+      {url && (
+        <Text
+          typography="paragraphMicro"
+          css={(theme) => ({
+            color: theme.colors.black50,
+            margin: 0,
+          })}
+        >
+          {url}
+        </Text>
+      )}
       <div
         css={{
           display: "flex",
@@ -98,7 +121,7 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
           }}
         />
         <Text
-          typography="paragraphSmall"
+          typography="paragraphMicro"
           css={{ color: statusColor, margin: 0 }}
         >
           {getStatusText(service.status)}
@@ -327,7 +350,7 @@ const StatusPage: FC = () => {
               color: theme.colors.black50,
             })}
           >
-            Status is checked daily. For real-time issues or
+            Status is checked every minute. If issues or
             questions, please contact{" "}
             <a
               href="mailto:hey@playingarts.com"
