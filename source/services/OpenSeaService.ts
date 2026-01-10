@@ -504,7 +504,7 @@ export class OpenSeaService {
           clubs: [...data.clubs, ...(suits.clubs === 13 ? [owner] : [])],
           hearts: [...data.hearts, ...(suits.hearts === 13 ? [owner] : [])],
           red: [...data.red, ...(suits.red === 1 ? [owner] : [])],
-          black: [...data.hearts, ...(suits.black === 1 ? [owner] : [])],
+          black: [...data.black, ...(suits.black === 1 ? [owner] : [])],
         };
       },
       {

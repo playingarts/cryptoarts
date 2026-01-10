@@ -31,7 +31,7 @@ export const connect = async () => {
       socketTimeoutMS: 45000,
       // TLS options for DigitalOcean Managed MongoDB
       tls: true,
-      tlsAllowInvalidCertificates: true,
+      tlsAllowInvalidCertificates: isDevelopment,
     }).then((mongoose) => {
       mongoose.set("returnOriginal", false);
       return mongoose;
