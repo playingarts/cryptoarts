@@ -83,7 +83,7 @@ const EpisodeListSkeleton: FC = () => (
       padding: 30,
     }}
   >
-    {[...Array(7)].map((_, i) => (
+    {[...Array(10)].map((_, i) => (
       <Fragment key={i}>
         <div
           css={(theme) => ({
@@ -117,7 +117,7 @@ const EpisodeListSkeleton: FC = () => (
 
 const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { podcasts, loading, containerRef } = useLazyPodcasts({
-    variables: { limit: 7, shuffle: true },
+    variables: { limit: 10, shuffle: true },
   });
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -221,7 +221,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ) : (
             <div css={{ padding: 30, display: "flex", flexDirection: "column", gap: 5 }}>
               {podcasts &&
-                podcasts.slice(0, 7).map((podcast, index) =>
+                podcasts.slice(0, 10).map((podcast, index) =>
                   podcast ? (
                     <div
                       key={podcast.desc + podcast.podcastName}

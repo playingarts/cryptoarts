@@ -5,6 +5,16 @@ import backgroundImage from "../mocks/images/backgroundImage.png";
 import jd from "../mocks/images/jordanDebney.png";
 import zeroCards from "../mocks/zeroCards";
 
+// Fisher-Yates shuffle
+const shuffleArray = <T,>(array: T[]): T[] => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 export const handlers: GraphQLHandler[] = [
   graphql.query("Decks", () => {
     return HttpResponse.json({
@@ -54,7 +64,7 @@ export const handlers: GraphQLHandler[] = [
   graphql.query("Podcasts", () =>
     HttpResponse.json({
       data: {
-        podcasts: [
+        podcasts: shuffleArray([
           {
             name: "Jonathan Monaghan",
             image:
@@ -163,7 +173,7 @@ export const handlers: GraphQLHandler[] = [
             time: "1h 35m",
             __typename: "Podcast",
           },
-        ],
+        ]),
       },
     })
   ),

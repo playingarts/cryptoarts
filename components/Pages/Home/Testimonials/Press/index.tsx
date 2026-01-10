@@ -1,6 +1,5 @@
 import { FC, HTMLAttributes, useMemo } from "react";
 import Grid from "../../../../Grid";
-import ScandiBlock from "../../../../ScandiBlock";
 import Fastcompany from "../../../../Icons/Fastcompany";
 import CreativeBloq from "../../../../Icons/CreativeBloq";
 import DigitalArts from "../../../../Icons/DigitalArts";
@@ -11,21 +10,25 @@ const PRESS_LINKS = [
     name: "Fast Company",
     href: "https://www.fastcompany.com/90575448/these-playing-cards-show-fantastical-ways-the-world-could-change-by-2120",
     Icon: Fastcompany,
+    scale: 1,
   },
   {
     name: "Creative Bloq",
     href: "https://www.creativebloq.com/illustration/artists-collaborate-picture-perfect-playing-cards-10134891",
     Icon: CreativeBloq,
+    scale: 0.9,
   },
   {
     name: "Digital Arts",
     href: "https://www.digitalartsonline.co.uk/features/illustration/55-global-designers-illustrators-each-designed-playing-card-in-this-unique-deck/",
     Icon: DigitalArts,
+    scale: 0.8,
   },
   {
     name: "Esquire",
     href: "https://www.esquire.com/style/mens-fashion/g4233463/artistic-deck-of-cards",
     Icon: Esquire,
+    scale: 0.9,
   },
 ];
 
@@ -45,12 +48,12 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   return (
     <Grid css={{ marginTop: 50 }} {...props}>
-      {shuffledLinks.map(({ name, href, Icon }) => (
-        <ScandiBlock
+      {shuffledLinks.map(({ name, href, Icon, scale }) => (
+        <div
           key={name}
-          opacity={0.3}
           css={{
             gridColumn: "span 3",
+            display: "flex",
             justifyContent: "center",
             alignItems: "center",
             padding: 20,
@@ -63,13 +66,14 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             aria-label={`Read about Playing Arts on ${name}`}
             css={(theme) => ({
               color: theme.colors.third_black,
+              transform: scale !== 1 ? `scale(${scale})` : undefined,
               transition: "opacity 0.2s, transform 0.2s",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               "&:hover": {
                 opacity: 0.7,
-                transform: "scale(1.05)",
+                transform: `scale(${(scale || 1) * 1.05})`,
               },
               "&:focus-visible": {
                 outline: `2px solid ${theme.colors.dark_gray}`,
@@ -80,7 +84,7 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           >
             <Icon />
           </a>
-        </ScandiBlock>
+        </div>
       ))}
     </Grid>
   );

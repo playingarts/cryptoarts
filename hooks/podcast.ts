@@ -41,12 +41,17 @@ export const useLazyPodcasts = (
 ) => {
   const [loadPodcasts, { data: { podcasts } = { podcasts: undefined }, ...methods }] =
     useLazyQuery<Pick<GQL.Query, "podcasts">>(podcastsQuery, {
-      fetchPolicy: "cache-first",
       ...options,
+      // Always use no-cache for lazy podcasts to ensure fresh shuffle results
+      // Place AFTER ...options to prevent override
+      fetchPolicy: "no-cache",
     });
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [hasLoaded, setHasLoaded] = useState(false);
+
+  // Store variables for use in effect
+  const variables = options.variables;
 
   useEffect(() => {
     if (hasLoaded || !containerRef.current) {
@@ -56,7 +61,8 @@ export const useLazyPodcasts = (
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0]?.isIntersecting) {
-          loadPodcasts();
+          // Pass variables explicitly to ensure they're used
+          loadPodcasts({ variables });
           setHasLoaded(true);
           observer.disconnect();
         }
@@ -67,7 +73,7 @@ export const useLazyPodcasts = (
     observer.observe(containerRef.current);
 
     return () => observer.disconnect();
-  }, [hasLoaded, loadPodcasts]);
+  }, [hasLoaded, loadPodcasts, variables]);
 
   return { containerRef, ...methods, podcasts };
 };

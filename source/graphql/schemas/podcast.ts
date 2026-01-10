@@ -7,7 +7,11 @@ const getPodcasts = async ({ name, shuffle, limit }: GQL.QueryPodcastsArgs) => {
   let podcasts = await Podcast.find(name ? { name } : {});
 
   if (shuffle) {
-    podcasts.sort(() => Math.random() - Math.random())[0];
+    // Fisher-Yates shuffle for proper randomization
+    for (let i = podcasts.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [podcasts[i], podcasts[j]] = [podcasts[j], podcasts[i]];
+    }
   }
 
   if (limit) {
