@@ -1,65 +1,33 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useState, useEffect, useRef, ReactNode, ComponentType, HTMLAttributes } from "react";
+import { useState } from "react";
 import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
 import Hero, { HERO_QUOTE_COUNT } from "../Home/Hero";
 import Story from "../Home/Story";
 import Footer from "../../Footer";
 import { HeroCarouselProvider, HomeCard } from "../../../contexts/heroCarouselContext";
+import LazySection from "../../LazySection";
+import Skeleton from "../../LazySection/Skeleton";
 
 // Lazy-load below-fold components for better initial page load
 const Collection = dynamic(() => import("../Home/Collection"), {
   ssr: false,
+  loading: () => <Skeleton height={600} />,
 });
 const Gallery = dynamic(() => import("../Home/Gallery"), {
   ssr: false,
+  loading: () => <Skeleton height={800} />,
 });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
   ssr: false,
+  loading: () => <Skeleton height={500} />,
 });
 const Podcast = dynamic(() => import("../Home/Podcast"), {
   ssr: false,
+  loading: () => <Skeleton height={400} />,
 });
-
-// Wrapper that only renders children when they're about to enter viewport
-type LazySectionProps = {
-  children: ReactNode;
-  rootMargin?: string;
-  minHeight?: number;
-  id?: string;
-};
-
-const LazySection = ({ children, rootMargin = "200px", minHeight = 400, id }: LazySectionProps) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!ref.current) {
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin }
-    );
-
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [rootMargin]);
-
-  return (
-    <div ref={ref} id={id} style={{ minHeight: isVisible ? undefined : minHeight }}>
-      {isVisible ? children : null}
-    </div>
-  );
-};
 
 type Props = {
   homeCards?: HomeCard[];
