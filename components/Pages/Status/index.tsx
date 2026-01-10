@@ -34,6 +34,7 @@ const SERVICE_LABELS: Record<string, string> = {
   opensea: "OpenSea API",
   mailerlite: "Newsletter",
   redis: "Cache",
+  crazyaces: "Crazy Aces",
 };
 
 const getStatusColor = (status: ServiceStatus): string => {
@@ -225,32 +226,13 @@ const StatusPage: FC = () => {
           minHeight: "100vh",
         })}
       >
-        <div css={{ gridColumn: "1 / -1" }}>
-          <Text
-            typography="newh1"
-            css={(theme) => ({
-              color: theme.colors.dark_gray,
-              marginBottom: theme.spacing(4),
-            })}
-          >
-            System Status
-          </Text>
-          <div
-            css={(theme) => ({
-              height: 1,
-              background: theme.colors.black10,
-              marginBottom: theme.spacing(4),
-            })}
-          />
-        </div>
-
         {/* Overall Status Banner */}
         <div
           css={(theme) => ({
             gridColumn: "1 / -1",
             background: overallColor,
             borderRadius: 8,
-            padding: theme.spacing(4),
+            padding: theme.spacing(2),
             marginBottom: theme.spacing(4),
             display: "flex",
             justifyContent: "space-between",

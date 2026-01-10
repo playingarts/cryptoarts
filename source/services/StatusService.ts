@@ -240,6 +240,45 @@ async function checkMailerLite(): Promise<CheckResult> {
 }
 
 /**
+ * Check Crazy Aces game app
+ */
+async function checkCrazyAces(): Promise<CheckResult> {
+  const start = Date.now();
+  const CRAZY_ACES_URL = "https://play.playingarts.com";
+
+  try {
+    const response = await fetch(CRAZY_ACES_URL, {
+      method: "HEAD",
+      signal: AbortSignal.timeout(10000),
+    });
+    const latency = Date.now() - start;
+
+    if (!response.ok) {
+      return {
+        service: "crazyaces",
+        status: "down",
+        latency,
+        message: `HTTP ${response.status}`,
+      };
+    }
+
+    return {
+      service: "crazyaces",
+      status: latency > 3000 ? "degraded" : "up",
+      latency,
+      message: latency > 3000 ? "Slow response" : undefined,
+    };
+  } catch (error) {
+    return {
+      service: "crazyaces",
+      status: "down",
+      latency: Date.now() - start,
+      message: error instanceof Error ? error.message : "Connection failed",
+    };
+  }
+}
+
+/**
  * Check Upstash Redis
  */
 async function checkRedis(): Promise<CheckResult> {
@@ -297,6 +336,7 @@ const SERVICE_CHECKS: ServiceCheckConfig[] = [
   { name: "opensea", check: checkOpenSea },
   { name: "mailerlite", check: checkMailerLite },
   { name: "redis", check: checkRedis },
+  { name: "crazyaces", check: checkCrazyAces },
 ];
 
 /**

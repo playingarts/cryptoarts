@@ -15,7 +15,8 @@ export type ServiceName =
   | "graphql"
   | "opensea"
   | "mailerlite"
-  | "redis";
+  | "redis"
+  | "crazyaces";
 
 export interface IUptimeCheck {
   service: ServiceName;
@@ -30,7 +31,7 @@ const uptimeCheckSchema = new Schema<IUptimeCheck, Model<IUptimeCheck>, IUptimeC
     service: {
       type: String,
       required: true,
-      enum: ["website", "mongodb", "graphql", "opensea", "mailerlite", "redis"],
+      enum: ["website", "mongodb", "graphql", "opensea", "mailerlite", "redis", "crazyaces"],
       index: true,
     },
     status: {

@@ -74,6 +74,7 @@ function formatServiceName(service: ServiceName): string {
     opensea: "OpenSea API",
     mailerlite: "MailerLite",
     redis: "Upstash Redis",
+    crazyaces: "Crazy Aces",
   };
   return names[service] || service;
 }
