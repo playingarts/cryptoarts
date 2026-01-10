@@ -1,64 +1,19 @@
 /**
  * Cron Health Check API
  *
- * Scheduled endpoint that runs all health checks.
- * Called by Vercel Cron every 5 minutes.
+ * Public endpoint that runs all health checks.
+ * Can be called by Vercel Cron, cron-job.org, or manually.
  *
  * GET /api/cron/health-check
- *
- * Security:
- * - Vercel cron jobs include Authorization header
- * - Can also be triggered manually with CRON_SECRET
  */
 
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { runAllChecks } from "../../../../source/services/StatusService";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 30; // Allow up to 30 seconds for all checks
 
-/**
- * Verify the request is from Vercel cron or has valid secret
- */
-function isAuthorized(request: NextRequest): boolean {
-  const cronSecret = process.env.CRON_SECRET?.trim();
-
-  // If no secret is configured, allow access (for initial setup)
-  if (!cronSecret) {
-    console.warn("[Cron] CRON_SECRET not configured, allowing access");
-    return true;
-  }
-
-  // Check for Vercel cron authorization header
-  const authHeader = request.headers.get("Authorization");
-  if (authHeader === `Bearer ${cronSecret}`) {
-    return true;
-  }
-
-  // Check for manual trigger with secret in query
-  const secret = request.nextUrl.searchParams.get("secret")?.trim();
-  if (secret && secret === cronSecret) {
-    return true;
-  }
-
-  // In development, allow without auth
-  if (process.env.NODE_ENV === "development") {
-    return true;
-  }
-
-  console.warn("[Cron] Auth failed - secret length:", secret?.length, "expected length:", cronSecret.length);
-  return false;
-}
-
-export async function GET(request: NextRequest) {
-  // Verify authorization
-  if (!isAuthorized(request)) {
-    return NextResponse.json(
-      { error: "Unauthorized" },
-      { status: 401 }
-    );
-  }
-
+export async function GET() {
   const startTime = Date.now();
 
   try {
