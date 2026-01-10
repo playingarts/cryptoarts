@@ -1,0 +1,118 @@
+/**
+ * Status API
+ *
+ * Public endpoint that returns current status and uptime history
+ * for all monitored services.
+ *
+ * GET /api/status
+ * GET /api/status?history=24 (hours of history to include)
+ */
+
+import { NextRequest, NextResponse } from "next/server";
+import {
+  getCurrentStatus,
+  getOverallStatus,
+  getUptimeHistory,
+  getUptimePercentage,
+  CheckResult,
+} from "../../../source/services/StatusService";
+import { ServiceName } from "../../../source/models/UptimeCheck";
+
+export const dynamic = "force-dynamic";
+
+interface ServiceStatusResponse {
+  service: ServiceName;
+  status: "up" | "down" | "degraded";
+  latency: number;
+  message?: string;
+  uptime: {
+    "24h": number;
+    "7d": number;
+    "30d": number;
+  };
+}
+
+interface StatusResponse {
+  overall: "up" | "down" | "degraded";
+  timestamp: string;
+  services: ServiceStatusResponse[];
+  history?: {
+    service: ServiceName;
+    checks: {
+      timestamp: string;
+      status: "up" | "down" | "degraded";
+      latency: number;
+    }[];
+  }[];
+}
+
+export async function GET(request: NextRequest) {
+  const startTime = Date.now();
+
+  try {
+    // Get query params
+    const historyHours = parseInt(
+      request.nextUrl.searchParams.get("history") || "0"
+    );
+
+    // Get current status for all services
+    const currentStatus = await getCurrentStatus();
+    const overall = await getOverallStatus();
+
+    // Build service status with uptime percentages
+    const services: ServiceStatusResponse[] = await Promise.all(
+      currentStatus.map(async (status: CheckResult) => ({
+        service: status.service,
+        status: status.status,
+        latency: status.latency,
+        message: status.message,
+        uptime: {
+          "24h": await getUptimePercentage(status.service, 24),
+          "7d": await getUptimePercentage(status.service, 24 * 7),
+          "30d": await getUptimePercentage(status.service, 24 * 30),
+        },
+      }))
+    );
+
+    const response: StatusResponse = {
+      overall,
+      timestamp: new Date().toISOString(),
+      services,
+    };
+
+    // Include history if requested
+    if (historyHours > 0) {
+      const historyPromises = currentStatus.map(async (status: CheckResult) => {
+        const checks = await getUptimeHistory(status.service, historyHours);
+        return {
+          service: status.service,
+          checks: checks.map((check) => ({
+            timestamp: check.timestamp.toISOString(),
+            status: check.status,
+            latency: check.latency,
+          })),
+        };
+      });
+
+      response.history = await Promise.all(historyPromises);
+    }
+
+    return NextResponse.json(response, {
+      status: 200,
+      headers: {
+        "Cache-Control": "public, max-age=60, stale-while-revalidate=30",
+        "X-Response-Time": `${Date.now() - startTime}ms`,
+      },
+    });
+  } catch (error) {
+    console.error("[Status API] Error:", error);
+
+    return NextResponse.json(
+      {
+        error: "Failed to fetch status",
+        message: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
+  }
+}
