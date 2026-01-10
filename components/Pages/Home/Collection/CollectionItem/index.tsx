@@ -86,6 +86,23 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
   // Lazy load cards
   const { loadCollectionCards } = useLoadCollectionCards();
   const hasInitializedRef = useRef(false);
+  const currentDeckIdRef = useRef<string | undefined>(undefined);
+
+  // Reset state when product/deck changes
+  useEffect(() => {
+    const newDeckId = product?.deck?._id;
+    if (currentDeckIdRef.current && currentDeckIdRef.current !== newDeckId) {
+      // Deck changed - reset all card state
+      setCardIndex(0);
+      setCardBuffer([]);
+      setReadyIndices(new Set());
+      preloadedIndicesRef.current = new Set();
+      seenCardIdsRef.current = new Set();
+      hasInitializedRef.current = false;
+      setDeckImageLoaded(false);
+    }
+    currentDeckIdRef.current = newDeckId;
+  }, [product?.deck?._id]);
 
   // IntersectionObserver for lazy loading deck images
   useEffect(() => {
