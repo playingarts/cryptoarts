@@ -21,15 +21,23 @@ export const maxDuration = 30; // Allow up to 30 seconds for all checks
  * Verify the request is from Vercel cron or has valid secret
  */
 function isAuthorized(request: NextRequest): boolean {
+  const cronSecret = process.env.CRON_SECRET;
+
+  // If no secret is configured, allow access (for initial setup)
+  if (!cronSecret) {
+    console.warn("[Cron] CRON_SECRET not configured, allowing access");
+    return true;
+  }
+
   // Check for Vercel cron authorization header
   const authHeader = request.headers.get("Authorization");
-  if (authHeader === `Bearer ${process.env.CRON_SECRET}`) {
+  if (authHeader === `Bearer ${cronSecret}`) {
     return true;
   }
 
   // Check for manual trigger with secret in query
   const secret = request.nextUrl.searchParams.get("secret");
-  if (secret === process.env.CRON_SECRET) {
+  if (secret && secret === cronSecret) {
     return true;
   }
 
