@@ -67,27 +67,17 @@ async function checkWebsite(): Promise<CheckResult> {
 }
 
 /**
- * Check MongoDB connectivity
+ * Check MongoDB connectivity by pinging the database
  */
 async function checkMongoDB(): Promise<CheckResult> {
   const start = Date.now();
   try {
     const mongooseInstance = await connect();
-    const readyState = mongooseInstance.connection.readyState;
-    const latency = Date.now() - start;
 
-    // readyState: 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
-    if (readyState !== 1) {
-      return {
-        service: "mongodb",
-        status: "down",
-        latency,
-        message: `Connection state: ${readyState}`,
-      };
-    }
-
-    // Verify with a simple operation
+    // Use ping to verify actual connectivity (readyState can be stale in serverless)
     await mongooseInstance.connection.db?.admin().ping();
+
+    const latency = Date.now() - start;
 
     return {
       service: "mongodb",
