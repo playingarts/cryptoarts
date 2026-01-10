@@ -345,7 +345,7 @@ const StatusPage: FC = () => {
               color: theme.colors.black50,
             })}
           >
-            Status is checked every 5 minutes. For real-time issues or
+            Status is checked every minute. For real-time issues or
             questions, please contact{" "}
             <a
               href="mailto:hey@playingarts.com"

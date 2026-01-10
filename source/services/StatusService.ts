@@ -151,7 +151,7 @@ async function checkOpenSea(): Promise<CheckResult> {
 
   try {
     const response = await fetch(
-      "https://api.opensea.io/api/v2/collections/playing-arts/stats",
+      "https://api.opensea.io/api/v2/collections/cryptoedition/stats",
       {
         headers: { "X-API-KEY": apiKey },
         signal: AbortSignal.timeout(10000),

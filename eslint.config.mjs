@@ -28,6 +28,7 @@ export default [
       "**/mocks/**",
       "**/.storybook/**",
       "**/scripts/**",
+      "**/mcp-server/**",
     ],
   },
   {
