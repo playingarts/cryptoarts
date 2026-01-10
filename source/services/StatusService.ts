@@ -288,79 +288,6 @@ async function checkRedis(): Promise<CheckResult> {
 }
 
 /**
- * Check Home Cards API
- */
-async function checkHomeCards(): Promise<CheckResult> {
-  const start = Date.now();
-  try {
-    const response = await fetch(`${SITE_URL}/api/v1/home-cards`, {
-      signal: AbortSignal.timeout(10000),
-    });
-    const latency = Date.now() - start;
-
-    if (!response.ok) {
-      return {
-        service: "home-cards",
-        status: "down",
-        latency,
-        message: `HTTP ${response.status}`,
-      };
-    }
-
-    return {
-      service: "home-cards",
-      status: latency > 2000 ? "degraded" : "up",
-      latency,
-    };
-  } catch (error) {
-    return {
-      service: "home-cards",
-      status: "down",
-      latency: Date.now() - start,
-      message: error instanceof Error ? error.message : "Request failed",
-    };
-  }
-}
-
-/**
- * Check Revalidate API (just that endpoint is accessible)
- */
-async function checkRevalidate(): Promise<CheckResult> {
-  const start = Date.now();
-  try {
-    // GET without secret should return 401 but endpoint is reachable
-    const response = await fetch(`${SITE_URL}/api/revalidate`, {
-      method: "HEAD",
-      signal: AbortSignal.timeout(5000),
-    });
-    const latency = Date.now() - start;
-
-    // Even 401/403 means the endpoint is up
-    if (response.status >= 500) {
-      return {
-        service: "revalidate",
-        status: "down",
-        latency,
-        message: `HTTP ${response.status}`,
-      };
-    }
-
-    return {
-      service: "revalidate",
-      status: "up",
-      latency,
-    };
-  } catch (error) {
-    return {
-      service: "revalidate",
-      status: "down",
-      latency: Date.now() - start,
-      message: error instanceof Error ? error.message : "Request failed",
-    };
-  }
-}
-
-/**
  * All service checks configuration
  */
 const SERVICE_CHECKS: ServiceCheckConfig[] = [
@@ -370,8 +297,6 @@ const SERVICE_CHECKS: ServiceCheckConfig[] = [
   { name: "opensea", check: checkOpenSea },
   { name: "mailerlite", check: checkMailerLite },
   { name: "redis", check: checkRedis },
-  { name: "home-cards", check: checkHomeCards },
-  { name: "revalidate", check: checkRevalidate },
 ];
 
 /**

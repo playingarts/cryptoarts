@@ -34,8 +34,6 @@ const SERVICE_LABELS: Record<string, string> = {
   opensea: "OpenSea API",
   mailerlite: "Newsletter",
   redis: "Cache",
-  "home-cards": "Home Cards API",
-  revalidate: "Revalidate API",
 };
 
 const getStatusColor = (status: ServiceStatus): string => {
@@ -77,41 +75,33 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
         border: `1px solid ${theme.colors.black10}`,
         display: "flex",
         flexDirection: "column",
-        gap: theme.spacing(2),
+        gap: theme.spacing(1),
       })}
     >
+      <Text typography="newh4" css={{ margin: 0 }}>
+        {label}
+      </Text>
       <div
         css={{
           display: "flex",
-          justifyContent: "space-between",
           alignItems: "center",
+          gap: 8,
         }}
       >
-        <Text typography="newh4" css={{ margin: 0 }}>
-          {label}
-        </Text>
         <div
           css={{
-            display: "flex",
-            alignItems: "center",
-            gap: 8,
+            width: 10,
+            height: 10,
+            borderRadius: "50%",
+            backgroundColor: statusColor,
           }}
+        />
+        <Text
+          typography="paragraphSmall"
+          css={{ color: statusColor, margin: 0 }}
         >
-          <div
-            css={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              backgroundColor: statusColor,
-            }}
-          />
-          <Text
-            typography="paragraphSmall"
-            css={{ color: statusColor, margin: 0 }}
-          >
-            {getStatusText(service.status)}
-          </Text>
-        </div>
+          {getStatusText(service.status)}
+        </Text>
       </div>
 
       {service.message && (
@@ -120,6 +110,7 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
           css={(theme) => ({
             color: theme.colors.black50,
             margin: 0,
+            marginTop: theme.spacing(1),
           })}
         >
           {service.message}
@@ -155,10 +146,10 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
               margin: 0,
             })}
           >
-            Uptime 24h
+            24h
           </Text>
           <Text typography="paragraphSmall" css={{ margin: 0 }}>
-            {service.uptime["24h"]}%
+            {Math.round(service.uptime["24h"])}%
           </Text>
         </div>
         <div>
@@ -169,10 +160,10 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
               margin: 0,
             })}
           >
-            Uptime 30d
+            30d
           </Text>
           <Text typography="paragraphSmall" css={{ margin: 0 }}>
-            {service.uptime["30d"]}%
+            {Math.round(service.uptime["30d"])}%
           </Text>
         </div>
       </div>
