@@ -5,7 +5,6 @@
  * Stores results in MongoDB and triggers alerts on status changes.
  */
 
-import mongoose from "mongoose";
 import { connect } from "../mongoose";
 import {
   UptimeCheck,
@@ -73,10 +72,11 @@ async function checkWebsite(): Promise<CheckResult> {
 async function checkMongoDB(): Promise<CheckResult> {
   const start = Date.now();
   try {
-    await connect();
-    const readyState = mongoose.connection.readyState;
+    const mongooseInstance = await connect();
+    const readyState = mongooseInstance.connection.readyState;
     const latency = Date.now() - start;
 
+    // readyState: 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
     if (readyState !== 1) {
       return {
         service: "mongodb",
@@ -85,6 +85,9 @@ async function checkMongoDB(): Promise<CheckResult> {
         message: `Connection state: ${readyState}`,
       };
     }
+
+    // Verify with a simple operation
+    await mongooseInstance.connection.db?.admin().ping();
 
     return {
       service: "mongodb",
