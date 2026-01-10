@@ -81,9 +81,9 @@ async function checkMongoDB(): Promise<CheckResult> {
 
     return {
       service: "mongodb",
-      status: latency > 1000 ? "degraded" : "up",
+      status: latency > 3000 ? "degraded" : "up",
       latency,
-      message: latency > 1000 ? "Slow connection" : undefined,
+      message: latency > 3000 ? "Slow connection" : undefined,
     };
   } catch (error) {
     return {

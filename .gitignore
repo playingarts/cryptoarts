@@ -57,3 +57,4 @@ __MACOSX/
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+mcp-server/node_modules

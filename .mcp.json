@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "playingarts-monitor": {
+      "command": "node",
+      "args": ["/Users/vlad/cryptoarts/mcp-server/index.js"]
+    }
+  }
+}
