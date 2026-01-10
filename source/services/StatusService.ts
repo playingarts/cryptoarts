@@ -420,28 +420,32 @@ export async function runAllChecks(): Promise<CheckResult[]> {
 
 /**
  * Get current status for all services (latest check per service)
+ * Uses a single aggregation query for efficiency in serverless environments
  */
 export async function getCurrentStatus(): Promise<CheckResult[]> {
   await connect();
 
-  const results: CheckResult[] = [];
+  // Use aggregation to get latest check for each service in a single query
+  const latestChecks = await UptimeCheck.aggregate<IUptimeCheck>([
+    { $sort: { service: 1, timestamp: -1 } },
+    {
+      $group: {
+        _id: "$service",
+        service: { $first: "$service" },
+        status: { $first: "$status" },
+        latency: { $first: "$latency" },
+        message: { $first: "$message" },
+        timestamp: { $first: "$timestamp" },
+      },
+    },
+  ]);
 
-  for (const config of SERVICE_CHECKS) {
-    const lastCheck = await UptimeCheck.findOne({ service: config.name })
-      .sort({ timestamp: -1 })
-      .lean();
-
-    if (lastCheck) {
-      results.push({
-        service: lastCheck.service,
-        status: lastCheck.status,
-        latency: lastCheck.latency,
-        message: lastCheck.message,
-      });
-    }
-  }
-
-  return results;
+  return latestChecks.map((check) => ({
+    service: check.service,
+    status: check.status,
+    latency: check.latency,
+    message: check.message,
+  }));
 }
 
 /**
@@ -478,6 +482,59 @@ export async function getUptimePercentage(
 
   const upCount = history.filter((check) => check.status === "up").length;
   return Math.round((upCount / history.length) * 100 * 100) / 100;
+}
+
+/**
+ * Get uptime percentages for all services in a single aggregation query
+ * Returns { service: { "24h": number, "7d": number, "30d": number } }
+ */
+export async function getAllUptimePercentages(): Promise<
+  Map<ServiceName, { "24h": number; "7d": number; "30d": number }>
+> {
+  await connect();
+
+  const now = Date.now();
+  const since24h = new Date(now - 24 * 60 * 60 * 1000);
+  const since7d = new Date(now - 7 * 24 * 60 * 60 * 1000);
+  const since30d = new Date(now - 30 * 24 * 60 * 60 * 1000);
+
+  // Get all checks from the last 30 days in a single query
+  const checks = await UptimeCheck.find({
+    timestamp: { $gte: since30d },
+  })
+    .select("service status timestamp")
+    .lean();
+
+  const result = new Map<ServiceName, { "24h": number; "7d": number; "30d": number }>();
+
+  // Group checks by service
+  const byService = new Map<ServiceName, IUptimeCheck[]>();
+  for (const check of checks) {
+    const list = byService.get(check.service) || [];
+    list.push(check);
+    byService.set(check.service, list);
+  }
+
+  // Calculate percentages for each service
+  for (const [service, serviceChecks] of byService) {
+    const checks24h = serviceChecks.filter((c) => c.timestamp >= since24h);
+    const checks7d = serviceChecks.filter((c) => c.timestamp >= since7d);
+    const checks30d = serviceChecks;
+
+    const calcPercent = (list: IUptimeCheck[]) => {
+      if (list.length === 0) return 100;
+      const upCount = list.filter((c) => c.status === "up").length;
+      return Math.round((upCount / list.length) * 100 * 100) / 100;
+    };
+
+    result.set(service, {
+      "24h": calcPercent(checks24h),
+      "7d": calcPercent(checks7d),
+      "30d": calcPercent(checks30d),
+    });
+  }
+
+  return result;
 }
 
 /**

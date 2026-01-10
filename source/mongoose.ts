@@ -29,6 +29,8 @@ export const connect = async () => {
       maxIdleTimeMS: 10000,
       serverSelectionTimeoutMS: 5000,
       socketTimeoutMS: 45000,
+      // Increase buffer timeout for serverless cold starts
+      bufferCommands: true,
       // TLS options for DigitalOcean Managed MongoDB
       tls: true,
       tlsAllowInvalidCertificates: isDevelopment,

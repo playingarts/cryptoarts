@@ -11,9 +11,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import {
   getCurrentStatus,
-  getOverallStatus,
   getUptimeHistory,
-  getUptimePercentage,
+  getAllUptimePercentages,
   CheckResult,
 } from "../../../source/services/StatusService";
 import { ServiceName } from "../../../source/models/UptimeCheck";
@@ -55,24 +54,25 @@ export async function GET(request: NextRequest) {
       request.nextUrl.searchParams.get("history") || "0"
     );
 
-    // Get current status for all services
-    const currentStatus = await getCurrentStatus();
-    const overall = await getOverallStatus();
+    // Get current status and uptime percentages in parallel (2 queries instead of 22+)
+    const [currentStatus, uptimePercentages] = await Promise.all([
+      getCurrentStatus(),
+      getAllUptimePercentages(),
+    ]);
+
+    // Determine overall status from current status (avoid extra DB call)
+    const hasDown = currentStatus.some((s) => s.status === "down");
+    const hasDegraded = currentStatus.some((s) => s.status === "degraded");
+    const overall = hasDown ? "down" : hasDegraded ? "degraded" : "up";
 
     // Build service status with uptime percentages
-    const services: ServiceStatusResponse[] = await Promise.all(
-      currentStatus.map(async (status: CheckResult) => ({
-        service: status.service,
-        status: status.status,
-        latency: status.latency,
-        message: status.message,
-        uptime: {
-          "24h": await getUptimePercentage(status.service, 24),
-          "7d": await getUptimePercentage(status.service, 24 * 7),
-          "30d": await getUptimePercentage(status.service, 24 * 30),
-        },
-      }))
-    );
+    const services: ServiceStatusResponse[] = currentStatus.map((status: CheckResult) => ({
+      service: status.service,
+      status: status.status,
+      latency: status.latency,
+      message: status.message,
+      uptime: uptimePercentages.get(status.service) || { "24h": 100, "7d": 100, "30d": 100 },
+    }));
 
     const response: StatusResponse = {
       overall,
