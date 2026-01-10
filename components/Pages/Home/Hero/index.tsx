@@ -11,6 +11,11 @@ const HERO_TEXTS = [
   "\u201CIt's not just playing cards, but a gallery right in your hands.\u201D",
   "\u201CWhere art and play come together in every playing card.\u201D",
   "\u201CBeautiful decks of cards that showcase global artists.\u201D",
+  "\u201CHundreds of artists, eight editions. A world of creativity in your pocket.\u201D",
+  "\u201CCollectible art you can shuffle, deal, and display.\u201D",
+  "\u201CEvery card tells a story, every deck is a masterpiece.\u201D",
+  "\u201CFrom artists' studios worldwide to the palm of your hand.\u201D",
+  "\u201CLimited editions, unlimited imagination. Art worth holding onto.\u201D",
 ] as const;
 
 export const HERO_QUOTE_COUNT = HERO_TEXTS.length;
