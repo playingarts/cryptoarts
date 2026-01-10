@@ -10,7 +10,6 @@ import ScandiBlock from "../../ScandiBlock";
 import ButtonTemplate from "../../Buttons/Button";
 import { colord } from "colord";
 import Delete from "../../Icons/Delete";
-import CTA from "../CTA";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
@@ -19,6 +18,7 @@ import MenuGrid from "./MenuGrid";
 import NewsletterSection from "./NewsletterSection";
 import FooterLinksSection from "./FooterLinksSection";
 import CollectionItem from "../../Pages/Home/Collection/CollectionItem";
+import Logo from "../../Icons/Logo";
 
 /**
  * Full-screen navigation menu overlay
@@ -71,8 +71,8 @@ const MainMenu: FC<
         css={[{ width: "fit-content" }]}
         onClick={(e) => e.stopPropagation()}
       >
-        <MenuGrid>
-          <ScandiBlock css={{ gridColumn: "span 3", height: 70, padding: 0 }}>
+        <MenuGrid isHeader>
+          <ScandiBlock css={{ gridColumn: "span 3", height: "var(--menu-header-height, 68px)", lineHeight: "var(--menu-header-line-height, 68px)", padding: 0 }}>
             <ButtonTemplate
               css={(theme) => [
                 {
@@ -103,13 +103,35 @@ const MainMenu: FC<
               {
                 gridColumn: "span 3",
                 justifyContent: "space-between",
-                height: "100%",
+                height: "var(--menu-header-height, 68px)",
+                lineHeight: "var(--menu-header-line-height, 68px)",
                 padding: 0,
-                transition: theme.transitions.fast("border-color"),
               },
             ]}
           >
-            <CTA />
+            <Link
+              href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/"}
+              onClick={() => setShow(false)}
+              css={(theme) => [
+                {
+                  display: "inline-block",
+                  "&:hover": {
+                    opacity: 0.5,
+                  },
+                  transition: theme.transitions.fast("opacity"),
+                },
+              ]}
+            >
+              <Logo />
+            </Link>
+            <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"} onClick={() => setShow(false)}>
+              <ArrowButton
+                color={palette === "dark" ? "white" : undefined}
+                palette={palette}
+              >
+                Shop
+              </ArrowButton>
+            </Link>
           </ScandiBlock>
 
           <div
