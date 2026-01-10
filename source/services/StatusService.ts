@@ -52,9 +52,9 @@ async function checkWebsite(): Promise<CheckResult> {
 
     return {
       service: "website",
-      status: latency > 3000 ? "degraded" : "up",
+      status: latency > 5000 ? "degraded" : "up",
       latency,
-      message: latency > 3000 ? "Slow response" : undefined,
+      message: latency > 5000 ? "Slow response" : undefined,
     };
   } catch (error) {
     return {
@@ -120,7 +120,7 @@ async function checkGraphQL(): Promise<CheckResult> {
 
     return {
       service: "graphql",
-      status: latency > 2000 ? "degraded" : "up",
+      status: latency > 5000 ? "degraded" : "up",
       latency,
     };
   } catch (error) {
