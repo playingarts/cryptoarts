@@ -7,6 +7,7 @@ import CTA from "./CTA";
 import Middle, { PageNav } from "./Middle";
 import TitleButton from "./TitleButton";
 import MenuPortal from "./MainMenu/MenuPortal";
+import ErrorBoundary from "../ErrorBoundary";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../SizeProvider";
 import { breakpoints } from "../../source/enums";
@@ -187,7 +188,9 @@ const Header: FC<Props> = ({
         </ScandiBlock>
       </Grid>
       <MenuPortal show={showMenu}>
-        <MainMenu setShow={setShowMenu} />
+        <ErrorBoundary fallback={null}>
+          <MainMenu setShow={setShowMenu} />
+        </ErrorBoundary>
       </MenuPortal>
     </header>
   );

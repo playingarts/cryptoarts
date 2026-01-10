@@ -1,35 +1,27 @@
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import { FC, HTMLAttributes } from "react";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
+
+// Layout constants
+const GRID_COLUMNS = 12;
+const COLUMN_WIDTH_UNITS = 8; // theme.spacing units
+const GAP_UNITS = 3; // theme.spacing units
+const SCROLL_THRESHOLD = 600;
+const HEADER_HEIGHT_NORMAL = 68;
+const HEADER_HEIGHT_SCROLLED = 58;
 
 /**
  * Grid layout for MainMenu sections
  * Provides consistent column layout with palette-aware background
  */
-const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean }> = ({
+const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean; scrolledPast600?: boolean }> = ({
   children,
   isHeader,
+  scrolledPast600 = false,
   ...props
 }) => {
   const { palette } = usePalette();
-  const [scrolledPast600, setScrolledPast600] = useState(false);
 
-  useEffect(() => {
-    // Check initial scroll position
-    setScrolledPast600(window.scrollY >= 600);
-
-    const handler = () => {
-      setScrolledPast600(window.scrollY >= 600);
-    };
-
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
-
-  // Calculate padding to align content with 12-column grid
-  // 12-column grid width = 12 * 80px + 11 * 30px (gaps) = 960 + 330 = 1290px
-  // Left padding = (viewport - 1290) / 2 to align with grid start
-
-  const headerHeight = scrolledPast600 ? 58 : 68;
+  const headerHeight = scrolledPast600 ? HEADER_HEIGHT_SCROLLED : HEADER_HEIGHT_NORMAL;
 
   return (
     <div
@@ -46,8 +38,8 @@ const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean }> = ({
           gridTemplateColumns: "repeat(6, var(--columnWidth))",
           width: "fit-content",
           // Padding to align content with 12-column grid, extends to screen edges
-          paddingLeft: `max(${theme.spacing(3)}px, calc((100vw - ${12 * theme.spacing(8) + 11 * theme.spacing(3)}px) / 2))`,
-          paddingRight: theme.spacing(3),
+          paddingLeft: `max(${theme.spacing(GAP_UNITS)}px, calc((100vw - ${GRID_COLUMNS * theme.spacing(COLUMN_WIDTH_UNITS) + (GRID_COLUMNS - 1) * theme.spacing(GAP_UNITS)}px) / 2))`,
+          paddingRight: theme.spacing(GAP_UNITS),
           [theme.maxMQ.sm]: {
             // Mobile styles - to be implemented
           },

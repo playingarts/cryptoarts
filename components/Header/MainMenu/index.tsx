@@ -4,6 +4,7 @@ import {
   HTMLAttributes,
   SetStateAction,
   useEffect,
+  useRef,
   useState,
 } from "react";
 import ScandiBlock from "../../ScandiBlock";
@@ -19,6 +20,16 @@ import NewsletterSection from "./NewsletterSection";
 import FooterLinksSection from "./FooterLinksSection";
 import CollectionItem from "../../Pages/Home/Collection/CollectionItem";
 import Logo from "../../Icons/Logo";
+import { getBaseUrl } from "../../../source/utils";
+
+// Layout constants
+const SCROLL_THRESHOLD = 600;
+const PRODUCT_PREVIEW_HEIGHT = 450;
+const PRODUCT_LIST_WIDTH = 190;
+const PRODUCT_LIST_GAP = 5;
+const SECTION_SPACING = 30;
+const PREVIEW_BORDER_RADIUS = 10;
+const DECK_LIST_GAP = 12;
 
 /**
  * Full-screen navigation menu overlay
@@ -30,20 +41,27 @@ const MainMenu: FC<
   const { products } = useProducts();
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const { palette } = usePalette();
+  const hasInitialized = useRef(false);
+
+  // Capture scroll position at mount time (before body overflow is hidden)
+  const [scrolledPast600] = useState(() => window.scrollY >= SCROLL_THRESHOLD);
 
   // Get deck products only
   const deckProducts = products?.filter((product) => product.type === "deck") || [];
 
+  // Initialize hovered product only once when products load
   useEffect(() => {
-    if (deckProducts.length > 0 && !hoveredProduct) {
+    if (deckProducts.length > 0 && !hasInitialized.current) {
       setHoveredProduct(deckProducts[0]);
+      hasInitialized.current = true;
     }
-  }, [deckProducts, hoveredProduct]);
+  }, [deckProducts]);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, []);
 
@@ -71,24 +89,26 @@ const MainMenu: FC<
         css={[{ width: "fit-content" }]}
         onClick={(e) => e.stopPropagation()}
       >
-        <MenuGrid isHeader>
+        <MenuGrid isHeader scrolledPast600={scrolledPast600}>
           <ScandiBlock css={{ gridColumn: "span 3", height: "var(--menu-header-height, 68px)", lineHeight: "var(--menu-header-line-height, 68px)", padding: 0 }}>
             <ButtonTemplate
               css={(theme) => [
                 {
                   paddingLeft: 10,
                   paddingRight: 15,
-                  color:
-                    theme.colors[palette === "dark" ? "white75" : "dark_gray"] +
-                    " !important",
                   transition: theme.transitions.fast("background"),
-                  "&:hover": {
-                    background:
-                      palette === "dark"
-                        ? theme.colors.black
-                        : colord(theme.colors.white).alpha(0.5).toRgbString(),
-                  },
                 },
+                palette === "dark"
+                  ? {
+                      color: theme.colors.white75,
+                      "&:hover": { background: theme.colors.black },
+                    }
+                  : {
+                      color: theme.colors.dark_gray,
+                      "&:hover": {
+                        background: colord(theme.colors.white).alpha(0.5).toRgbString(),
+                      },
+                    },
               ]}
               onClick={() => setShow(false)}
               noColor={true}
@@ -110,7 +130,7 @@ const MainMenu: FC<
             ]}
           >
             <Link
-              href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/"}
+              href={getBaseUrl("/")}
               onClick={() => setShow(false)}
               css={(theme) => [
                 {
@@ -124,7 +144,7 @@ const MainMenu: FC<
             >
               <Logo />
             </Link>
-            <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"} onClick={() => setShow(false)}>
+            <Link href={getBaseUrl("/shop")} onClick={() => setShow(false)}>
               <ArrowButton
                 color={palette === "dark" ? "white" : undefined}
                 palette={palette}
@@ -137,30 +157,26 @@ const MainMenu: FC<
           <div
             css={[
               {
-                height: 450,
+                height: PRODUCT_PREVIEW_HEIGHT,
                 display: "flex",
                 alignItems: "center",
                 gridColumn: "1/-1",
-                gap: 12,
-                marginTop: 30,
-                marginBottom: 30,
+                gap: DECK_LIST_GAP,
+                marginTop: SECTION_SPACING,
+                marginBottom: SECTION_SPACING,
               },
             ]}
           >
-            <div css={[{ width: 190, display: "grid", gap: 5 }]}>
+            <div css={[{ width: PRODUCT_LIST_WIDTH, display: "grid", gap: PRODUCT_LIST_GAP }]}>
               {deckProducts.map((product, index) => {
                 const deck = product.deck;
                 if (!deck) {
-                  return undefined;
+                  return null;
                 }
                 return (
                   <Link
                     key={deck.slug + "mainmenu" + index}
-                    href={
-                      (process.env.NEXT_PUBLIC_BASELINK || "") +
-                      "/" +
-                      deck.slug
-                    }
+                    href={getBaseUrl(`/${deck.slug}`)}
                     onMouseEnter={() => setHoveredProduct(product)}
                     onClick={() => setShow(false)}
                   >
@@ -176,10 +192,9 @@ const MainMenu: FC<
                 );
               })}
             </div>
-            <div css={(theme) => ({ flex: 1, minWidth: 0, height: "100%", borderRadius: 10, "&:hover": { background: theme.colors.soft_gray } })}>
+            <div css={(theme) => ({ flex: 1, minWidth: 0, height: "100%", borderRadius: PREVIEW_BORDER_RADIUS, "&:hover": { background: theme.colors.soft_gray } })}>
               {hoveredProduct && (
                 <CollectionItem
-                  key={hoveredProduct._id}
                   product={hoveredProduct}
                   paletteOnHover={palette === "dark" ? "dark" : "light"}
                   css={{ height: "100%" }}

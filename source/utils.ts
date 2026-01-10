@@ -10,3 +10,12 @@ export const mapSeries = async <T>(iterable: T[], action: (x: T) => any) => {
     await action(x);
   }
 };
+
+/**
+ * Get the base URL for internal links
+ * Centralizes the NEXT_PUBLIC_BASELINK environment variable usage
+ */
+export const getBaseUrl = (path: string = ""): string => {
+  const baseLink = process.env.NEXT_PUBLIC_BASELINK || "";
+  return `${baseLink}${path}`;
+};
