@@ -97,7 +97,6 @@ const Header: FC<Props> = ({
           {
             gridTemplateRows: 60,
             lineHeight: "60px",
-            // borderRadius: theme.spacing(1),
             alignItems: "center",
             zIndex: 1,
             overflow: "hidden",
@@ -112,10 +111,6 @@ const Header: FC<Props> = ({
               // Mobile styles - to be implemented
             },
           },
-
-          {
-            // transition: theme.transitions.fast(["all"]),
-          },
         ]}
         style={
           showSiteNav === "top" && width >= breakpoints.sm
@@ -124,7 +119,6 @@ const Header: FC<Props> = ({
                 lineHeight: "70px",
               }
             : {
-                // background: colord("#FFFFFF").alpha(0.9).toRgbString(),
                 background:
                   palette === "dark"
                     ? "#292929"

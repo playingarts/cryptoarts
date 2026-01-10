@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 const MenuPortal = ({
@@ -9,10 +9,19 @@ const MenuPortal = ({
   show: boolean;
 }) => {
   const ref = useRef<Element | null>(null);
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    ref.current = document.getElementById("menuportal");
+    const element = document.getElementById("menuportal");
+    if (!element && process.env.NODE_ENV === "development") {
+      console.warn("MenuPortal: #menuportal element not found in DOM");
+    }
+    ref.current = element;
+    setMounted(true);
   }, []);
-  return show && ref.current ? createPortal(children, ref.current) : null;
+
+  if (!mounted || !show || !ref.current) return null;
+  return createPortal(children, ref.current);
 };
 
 export default MenuPortal;

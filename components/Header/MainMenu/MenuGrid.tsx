@@ -5,7 +5,6 @@ import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 const GRID_COLUMNS = 12;
 const COLUMN_WIDTH_UNITS = 8; // theme.spacing units
 const GAP_UNITS = 3; // theme.spacing units
-const SCROLL_THRESHOLD = 600;
 const HEADER_HEIGHT_NORMAL = 68;
 const HEADER_HEIGHT_SCROLLED = 58;
 

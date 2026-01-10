@@ -3,6 +3,7 @@ import {
   FC,
   HTMLAttributes,
   SetStateAction,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -38,7 +39,7 @@ const DECK_LIST_GAP = 12;
 const MainMenu: FC<
   HTMLAttributes<HTMLElement> & { setShow: Dispatch<SetStateAction<boolean>> }
 > = ({ setShow, ...props }) => {
-  const { products } = useProducts();
+  const { products, loading, error } = useProducts();
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const { palette } = usePalette();
   const hasInitialized = useRef(false);
@@ -57,6 +58,7 @@ const MainMenu: FC<
     }
   }, [deckProducts]);
 
+  // Handle body overflow
   useEffect(() => {
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -64,6 +66,16 @@ const MainMenu: FC<
       document.body.style.overflow = previousOverflow;
     };
   }, []);
+
+  // Handle Escape key to close menu
+  const handleClose = useCallback(() => setShow(false), [setShow]);
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleClose]);
 
   return (
     <div
@@ -82,7 +94,7 @@ const MainMenu: FC<
           scrollbarWidth: "none",
         },
       ]}
-      onClick={() => setShow(false)}
+      onClick={handleClose}
       {...props}
     >
       <div
@@ -110,7 +122,7 @@ const MainMenu: FC<
                       },
                     },
               ]}
-              onClick={() => setShow(false)}
+              onClick={handleClose}
               noColor={true}
             >
               <Delete css={[{ marginRight: 10 }]} />
@@ -131,7 +143,7 @@ const MainMenu: FC<
           >
             <Link
               href={getBaseUrl("/")}
-              onClick={() => setShow(false)}
+              onClick={handleClose}
               css={(theme) => [
                 {
                   display: "inline-block",
@@ -144,7 +156,7 @@ const MainMenu: FC<
             >
               <Logo />
             </Link>
-            <Link href={getBaseUrl("/shop")} onClick={() => setShow(false)}>
+            <Link href={getBaseUrl("/shop")} onClick={handleClose}>
               <ArrowButton
                 color={palette === "dark" ? "white" : undefined}
                 palette={palette}
@@ -168,17 +180,19 @@ const MainMenu: FC<
             ]}
           >
             <div css={[{ width: PRODUCT_LIST_WIDTH, display: "grid", gap: PRODUCT_LIST_GAP }]}>
-              {deckProducts.map((product, index) => {
+              {loading && <div css={{ opacity: 0.5 }}>Loading...</div>}
+              {error && <div css={{ opacity: 0.5 }}>Unable to load</div>}
+              {!loading && !error && deckProducts.map((product) => {
                 const deck = product.deck;
                 if (!deck) {
                   return null;
                 }
                 return (
                   <Link
-                    key={deck.slug + "mainmenu" + index}
+                    key={`mainmenu-${product._id}`}
                     href={getBaseUrl(`/${deck.slug}`)}
                     onMouseEnter={() => setHoveredProduct(product)}
-                    onClick={() => setShow(false)}
+                    onClick={handleClose}
                   >
                     <ArrowButton
                       css={[{ textAlign: "start" }]}

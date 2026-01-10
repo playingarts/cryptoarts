@@ -84,39 +84,41 @@ const FooterLinksSection: FC = () => {
           },
         ]}
       >
-        <Text
-          typography="paragraphMicro"
-          css={(theme) => [
-            {
-              a: {
-                textDecoration: "underline",
-                color: theme.colors.white75,
+        <small>
+          <Text
+            typography="paragraphMicro"
+            css={(theme) => [
+              {
+                a: {
+                  textDecoration: "underline",
+                  color: theme.colors.white75,
+                },
               },
-            },
-            palette !== "dark" && {
-              color: theme.colors.black50,
-              a: {
+              palette !== "dark" && {
                 color: theme.colors.black50,
+                a: {
+                  color: theme.colors.black50,
+                },
               },
-            },
-          ]}
-        >
-          © 2012—2025 Digital Abstracts SL. Any artwork displayed on this
-          website may not be reproduced or used in any manner whatsoever without
-          the express written permission of Digital Abstracts or their
-          respective owners. Patent Pending. Thanks for reading this, bye!
-          <br />
-          <br />
-          <a
-            css={[{ textDecoration: "underline", marginRight: 15 }]}
-            href=""
+            ]}
           >
-            Privacy Statement
-          </a>
-          <a css={[{ textDecoration: "underline" }]} href="">
-            Terms of Service
-          </a>
-        </Text>
+            © 2012—2025 Digital Abstracts SL. Any artwork displayed on this
+            website may not be reproduced or used in any manner whatsoever without
+            the express written permission of Digital Abstracts or their
+            respective owners. Patent Pending. Thanks for reading this, bye!
+            <br />
+            <br />
+            <a
+              css={[{ textDecoration: "underline", marginRight: 15 }]}
+              href="/privacy"
+            >
+              Privacy Statement
+            </a>
+            <a css={[{ textDecoration: "underline" }]} href="/terms">
+              Terms of Service
+            </a>
+          </Text>
+        </small>
       </ScandiBlock>
     </MenuGrid>
   );
