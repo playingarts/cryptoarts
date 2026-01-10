@@ -24,10 +24,10 @@ const SERVICE_ORDER: ServiceName[] = [
   "website",
   "mongodb",
   "mailerlite",
+  "redis",
   "graphql",
   "opensea",
   "crazyaces",
-  "redis",
 ];
 
 interface ServiceStatusResponse {
