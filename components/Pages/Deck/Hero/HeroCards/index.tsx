@@ -1,8 +1,17 @@
-import { FC, forwardRef, HTMLAttributes, useMemo, useRef, useState, useEffect } from "react";
+import { FC, forwardRef, HTMLAttributes, useMemo, useState, useEffect } from "react";
 import { useCardsForDeck } from "../../../../../hooks/card";
 import { useRouter } from "next/router";
 import Card from "../../../../Card";
 import { usePalette } from "../../DeckPaletteContext";
+
+// Card position constants to avoid magic numbers
+const CARD_POSITIONS = {
+  left: { left: 95, rotate: "-10deg", zIndex: 2 },
+  right: { left: 275, rotate: "10deg", zIndex: 1 },
+} as const;
+
+const SKELETON_TOP = -38;
+const CARD_TOP = -45;
 
 const CardSkeleton: FC<{ left: number; rotate: string; palette: "dark" | "light" }> = ({ left, rotate, palette }) => (
   <div
@@ -10,7 +19,7 @@ const CardSkeleton: FC<{ left: number; rotate: string; palette: "dark" | "light"
       width: 330,
       height: 464,
       position: "absolute",
-      top: -38,
+      top: SKELETON_TOP,
       borderRadius: 15,
       left,
       rotate,
@@ -47,22 +56,24 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
   const [randomIndices, setRandomIndices] = useState<{ [key: string]: [number, number] }>({});
 
   // Generate random indices on client-side when cards load
+  // Note: randomIndices intentionally omitted from deps to avoid infinite loop
   useEffect(() => {
     if (!cards || cards.length < 2 || !deckId) return;
 
-    // Only generate if we don't have indices for this deck yet
-    if (!randomIndices[deckId as string]) {
+    setRandomIndices(prev => {
+      // Only generate if we don't have indices for this deck yet
+      if (prev[deckId as string]) return prev;
+
       const idx1 = Math.floor(Math.random() * cards.length);
-      let idx2 = Math.floor(Math.random() * cards.length);
-      while (idx2 === idx1) {
-        idx2 = Math.floor(Math.random() * cards.length);
-      }
-      setRandomIndices(prev => ({
+      // Guaranteed different index in single operation
+      const idx2 = (idx1 + 1 + Math.floor(Math.random() * (cards.length - 1))) % cards.length;
+
+      return {
         ...prev,
         [deckId as string]: [idx1, idx2]
-      }));
-    }
-  }, [cards, deckId, randomIndices]);
+      };
+    });
+  }, [cards, deckId]);
 
   // Get hero cards from random indices
   const heroCards = useMemo(() => {
@@ -71,13 +82,6 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
     if (!indices) return []; // Show skeleton until client picks cards
     return [cards[indices[0]], cards[indices[1]]];
   }, [cards, deckId, randomIndices]);
-
-  // Track previous deck for animation
-  const prevDeckRef = useRef(deckId);
-  const isDeckChange = prevDeckRef.current !== deckId;
-  if (isDeckChange) {
-    prevDeckRef.current = deckId;
-  }
 
   const showSkeleton = heroCards.length === 0;
 
@@ -99,8 +103,8 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
     >
       {showSkeleton ? (
         <>
-          <CardSkeleton left={275} rotate="10deg" palette={palette} />
-          <CardSkeleton left={95} rotate="-10deg" palette={palette} />
+          <CardSkeleton left={CARD_POSITIONS.right.left} rotate={CARD_POSITIONS.right.rotate} palette={palette} />
+          <CardSkeleton left={CARD_POSITIONS.left.left} rotate={CARD_POSITIONS.left.rotate} palette={palette} />
         </>
       ) : (
         <>
@@ -114,12 +118,12 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
             card={heroCards[1]}
             css={{
               position: "absolute",
-              top: -45,
+              top: CARD_TOP,
               transformOrigin: "bottom center",
-              zIndex: 1,
+              zIndex: CARD_POSITIONS.right.zIndex,
               "&:hover": { zIndex: 10 },
             }}
-            style={{ rotate: "10deg", left: 275 }}
+            style={{ rotate: CARD_POSITIONS.right.rotate, left: CARD_POSITIONS.right.left }}
           />
           {/* Left card */}
           <Card
@@ -131,12 +135,12 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
             card={heroCards[0]}
             css={{
               position: "absolute",
-              top: -45,
+              top: CARD_TOP,
               transformOrigin: "bottom center",
-              zIndex: 2,
+              zIndex: CARD_POSITIONS.left.zIndex,
               "&:hover": { zIndex: 10 },
             }}
-            style={{ rotate: "-10deg", left: 95 }}
+            style={{ rotate: CARD_POSITIONS.left.rotate, left: CARD_POSITIONS.left.left }}
           />
         </>
       )}

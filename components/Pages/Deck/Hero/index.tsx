@@ -30,47 +30,55 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   const [showStory, setShowStory] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const timersRef = useRef<NodeJS.Timeout[]>([]);
 
   // Track displayed deck for transition
   const [slideState, setSlideState] = useState<SlideState>("visible");
   const [displayedDeck, setDisplayedDeck] = useState(deck);
 
+  // Slide transition timing constants
+  const SLIDE_DURATION = 150;
+  const SLIDE_IN_DELAY = 50;
+
   // Animate deck change with slide transition
   useEffect(() => {
     if (deck && deck._id !== displayedDeck?._id) {
+      // Clear any pending timers
+      timersRef.current.forEach(clearTimeout);
+      timersRef.current = [];
+
       // Start sliding out
       setSlideState("sliding-out");
 
-      const timer = setTimeout(() => {
+      const outerTimer = setTimeout(() => {
         // Change deck and start sliding in
         setDisplayedDeck(deck);
         setSlideState("sliding-in");
 
         // Return to visible state
-        setTimeout(() => {
+        const innerTimer = setTimeout(() => {
           setSlideState("visible");
-        }, 50);
-      }, 150);
+        }, SLIDE_IN_DELAY);
+        timersRef.current.push(innerTimer);
+      }, SLIDE_DURATION);
+      timersRef.current.push(outerTimer);
 
-      return () => clearTimeout(timer);
+      return () => {
+        timersRef.current.forEach(clearTimeout);
+        timersRef.current = [];
+      };
     } else if (deck && !displayedDeck) {
       // Initial load - no animation
       setDisplayedDeck(deck);
     }
   }, [deck, displayedDeck]);
 
-  // Get transform and opacity based on slide state
-  const getSlideStyles = () => {
-    switch (slideState) {
-      case "sliding-out":
-        return { transform: "translateY(-20px)", opacity: 0 };
-      case "sliding-in":
-        return { transform: "translateY(20px)", opacity: 0 };
-      case "visible":
-      default:
-        return { transform: "translateY(0)", opacity: 1 };
-    }
-  };
+  // Slide styles lookup (avoid recreating object on each render)
+  const SLIDE_STYLES = {
+    "sliding-out": { transform: "translateY(-20px)", opacity: 0 },
+    "sliding-in": { transform: "translateY(20px)", opacity: 0 },
+    "visible": { transform: "translateY(0)", opacity: 1 },
+  } as const;
 
   if (error) {
     return <Error error={error} retry={() => refetch()} fullPage />;
@@ -95,10 +103,10 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               transition: slideState === "sliding-in"
                 ? "none"
-                : "transform 0.15s ease-out, opacity 0.15s ease-out",
+                : `transform ${SLIDE_DURATION}ms ease-out, opacity ${SLIDE_DURATION}ms ease-out`,
             },
           ]}
-          style={getSlideStyles()}
+          style={SLIDE_STYLES[slideState]}
         >
           {displayedDeck?.title}
         </Text>
@@ -109,10 +117,10 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               transition: slideState === "sliding-in"
                 ? "none"
-                : "transform 0.15s ease-out, opacity 0.15s ease-out",
+                : `transform ${SLIDE_DURATION}ms ease-out, opacity ${SLIDE_DURATION}ms ease-out`,
             },
           ]}
-          style={getSlideStyles()}
+          style={SLIDE_STYLES[slideState]}
         >
           {displayedDeck?.info}
         </Text>

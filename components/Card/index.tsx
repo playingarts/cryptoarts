@@ -88,28 +88,33 @@ const Card: FC<CardProps> = memo(
     const { width } = useSize();
     const { palette } = usePaletteHook(paletteProp);
 
-    // Update loaded state when imgSrc changes
+    // Update loaded state when imgSrc changes (check if new image is cached)
     useLayoutEffect(() => {
       const img = new Image();
       img.src = imgSrc;
-      if (img.complete) {
-        setLoaded(true);
-      } else {
-        setLoaded(false);
-      }
+      setLoaded(img.complete);
     }, [imgSrc]);
 
+    // Video playback control with proper cleanup on unmount
     useLayoutEffect(() => {
-      if (animated || !video.current) {
+      const videoElement = video.current;
+      if (animated || !videoElement) {
         return;
       }
 
       if (!hover) {
-        video.current.pause();
-        video.current.currentTime = 0;
+        videoElement.pause();
+        videoElement.currentTime = 0;
       } else {
-        video.current.play();
+        videoElement.play();
       }
+
+      // Cleanup on unmount to prevent memory leaks
+      return () => {
+        videoElement.pause();
+        videoElement.src = "";
+        videoElement.load();
+      };
     }, [hover, animated]);
 
     return (
@@ -198,7 +203,7 @@ const Card: FC<CardProps> = memo(
                 loading={priority ? "eager" : "lazy"}
                 {...(priority && { fetchPriority: "high" })}
                 onLoad={hideLoader}
-                alt={""}
+                alt={`Card by ${card.artist.name}`}
               />
               {card.video && (!animated ? width >= breakpoints.sm : true) && (
                 <video
@@ -211,31 +216,22 @@ const Card: FC<CardProps> = memo(
                       position: "absolute",
                       top: 0,
                       left: 0,
-                      [theme.mq.sm]: {
-                        borderRadius: theme.spacing(1.5),
-                      },
-                      [theme.maxMQ.sm]: {
-                        // Mobile styles - to be implemented
-                      },
                       overflow: "hidden",
-                      [theme.mq.sm]: {
-                        opacity: animated ? 1 : hover ? (loaded ? 1 : 0) : 0,
-                      },
-
                       width: "100%",
                       height: "100%",
                       lineHeight: 1,
-
-                      opacity: loaded ? 1 : 0,
-
+                      borderRadius: theme.spacing(1.5),
                       transition: loaded ? slowTransitionOpacity : "none",
+                      // Desktop: show video on hover (unless animated)
+                      [theme.mq.sm]: {
+                        opacity: animated ? (loaded ? 1 : 0) : hover ? (loaded ? 1 : 0) : 0,
+                      },
+                      // Mobile: only show if animated
+                      [theme.maxMQ.sm]: {
+                        opacity: animated ? (loaded ? 1 : 0) : 0,
+                      },
                     },
                   ]}
-                  style={{
-                    opacity: loaded ? 1 : 0,
-
-                    transition: loaded ? slowTransitionOpacity : "none",
-                  }}
                   onCanPlay={hideLoader}
                   {...(animated ? { autoPlay: true } : { preload: "none" })}
                 >
