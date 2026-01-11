@@ -26,6 +26,7 @@ export const DeckDataFragment = gql`
     }
     product {
       _id
+      short
       image
       status
       price {

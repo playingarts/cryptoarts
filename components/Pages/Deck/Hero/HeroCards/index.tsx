@@ -14,6 +14,7 @@ const CardSkeleton: FC<{ left: number; rotate: string; palette: "dark" | "light"
       borderRadius: 20,
       left,
       rotate,
+      transformOrigin: "bottom center",
       background: palette === "dark"
         ? "linear-gradient(90deg, #2d2d2d 0%, #3d3d3d 50%, #2d2d2d 100%)"
         : "linear-gradient(90deg, #e8e8e8 0%, #f5f5f5 50%, #e8e8e8 100%)",
@@ -38,14 +39,15 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     skip: !deckId,
   });
 
-  // Pick 2 deterministic cards from cached cards (seeded by deckId for consistency)
+  // Pick 2 random cards from the deck on each page load
   const heroCards = useMemo(() => {
     if (!cards || cards.length < 2) return [];
-    const seed = deckId ? deckId.toString().split("").reduce((a, b) => a + b.charCodeAt(0), 0) : 0;
-    const idx1 = seed % cards.length;
-    const idx2 = (seed + Math.floor(cards.length / 2)) % cards.length;
-    return [cards[idx1], cards[idx2 === idx1 ? (idx2 + 1) % cards.length : idx2]];
-  }, [cards, deckId]);
+    const idx1 = Math.floor(Math.random() * cards.length);
+    let idx2 = Math.floor(Math.random() * cards.length);
+    if (idx2 === idx1) idx2 = (idx2 + 1) % cards.length;
+    return [cards[idx1], cards[idx2]];
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cards?.length, deckId]);
 
   // Track previous deck for animation
   const prevDeckRef = useRef(deckId);
@@ -88,6 +90,8 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             card={heroCards[1]}
             css={{
               transformOrigin: "bottom center",
+              zIndex: 1,
+              "&:hover": { zIndex: 10 },
             }}
             style={{ rotate: "10deg", left: 275 }}
           />
@@ -100,6 +104,8 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             card={heroCards[0]}
             css={{
               transformOrigin: "bottom center",
+              zIndex: 2,
+              "&:hover": { zIndex: 10 },
             }}
             style={{ rotate: "-10deg", left: 95 }}
           />

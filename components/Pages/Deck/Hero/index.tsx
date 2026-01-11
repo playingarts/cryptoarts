@@ -50,7 +50,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         setTimeout(() => {
           setSlideState("visible");
         }, 50);
-      }, 300);
+      }, 150);
 
       return () => clearTimeout(timer);
     } else if (deck && !displayedDeck) {
@@ -95,7 +95,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               transition: slideState === "sliding-in"
                 ? "none"
-                : "transform 0.3s ease-out, opacity 0.3s ease-out",
+                : "transform 0.15s ease-out, opacity 0.15s ease-out",
             },
           ]}
           style={getSlideStyles()}
@@ -109,7 +109,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               transition: slideState === "sliding-in"
                 ? "none"
-                : "transform 0.3s ease-out, opacity 0.3s ease-out",
+                : "transform 0.15s ease-out, opacity 0.15s ease-out",
             },
           ]}
           style={getSlideStyles()}
@@ -117,7 +117,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {displayedDeck?.info}
         </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 15 }]}>
-          <ArrowButton color="accent">Shop this deck</ArrowButton>
+          <ArrowButton color="accent" href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop this deck</ArrowButton>
           <ButtonTemplate
             palette={palette}
             bordered={true}
