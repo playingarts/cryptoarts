@@ -42,7 +42,14 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   // Animate deck change with slide transition
   useEffect(() => {
-    if (deck && deck._id !== displayedDeck?._id) {
+    // Initial load - no animation, just set the deck
+    if (deck && !displayedDeck) {
+      setDisplayedDeck(deck);
+      return;
+    }
+
+    // Deck change - animate the transition
+    if (deck && displayedDeck && deck._id !== displayedDeck._id) {
       // Clear any pending timers
       timersRef.current.forEach(clearTimeout);
       timersRef.current = [];
@@ -67,9 +74,6 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         timersRef.current.forEach(clearTimeout);
         timersRef.current = [];
       };
-    } else if (deck && !displayedDeck) {
-      // Initial load - no animation
-      setDisplayedDeck(deck);
     }
   }, [deck, displayedDeck]);
 
