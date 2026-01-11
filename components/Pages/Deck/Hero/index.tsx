@@ -117,7 +117,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {displayedDeck?.info}
         </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 15 }]}>
-          <ArrowButton color="accent" href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop this deck</ArrowButton>
+          <ArrowButton color="accent" href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop now</ArrowButton>
           <ButtonTemplate
             palette={palette}
             bordered={true}
@@ -132,7 +132,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <Plus
               css={(theme) => [
                 {
-                  marginRight: 0,
+                  marginRight: 5,
                   rotate: showStory ? "135deg" : "0deg",
                   transition: theme.transitions.fast("rotate"),
                 },
@@ -142,7 +142,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </ButtonTemplate>
         </div>
       </div>
-      <HeroCards />
+      <HeroCards sticky={!showStory} />
       <div
         css={(theme) => [
           {

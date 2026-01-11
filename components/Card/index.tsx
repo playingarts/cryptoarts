@@ -78,11 +78,14 @@ const Card: FC<CardProps> = memo(
     const { width } = useSize();
     const { palette } = usePaletteHook(paletteProp);
 
+    // Use smaller images for non-big sizes (replace -big-hd with -big)
+    const imgSrc = size !== "big" ? card.img.replace("-big-hd/", "-big/") : card.img;
+
     useLayoutEffect(() => {
       const img = new Image();
-      img.src = card.img;
+      img.src = imgSrc;
       setLoaded(img.complete);
-    }, [card]);
+    }, [imgSrc]);
 
     useLayoutEffect(() => {
       if (animated || !video.current) {
@@ -167,8 +170,8 @@ const Card: FC<CardProps> = memo(
               ]}
             >
               <img
-                src={card.img}
-                key={card.img + "card" + size}
+                src={imgSrc}
+                key={imgSrc + "card" + size}
                 css={[
                   {
                     width: "100%",
