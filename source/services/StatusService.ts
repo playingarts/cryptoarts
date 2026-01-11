@@ -355,6 +355,35 @@ async function getPreviousStatus(
   }
 }
 
+// Grace period for flapping services (5 minutes)
+const FLAP_GRACE_PERIOD_MS = 5 * 60 * 1000;
+
+/**
+ * Check if a service has been in a non-up state for longer than the grace period.
+ * Returns the duration in ms if down long enough, or null if within grace period.
+ */
+async function getDowntimeDuration(service: ServiceName): Promise<number | null> {
+  try {
+    // Find the most recent "up" status
+    const lastUp = await UptimeCheck.findOne({
+      service,
+      status: "up",
+    })
+      .sort({ timestamp: -1 })
+      .lean();
+
+    if (!lastUp) {
+      // Service has never been up, or no history - allow alerts
+      return FLAP_GRACE_PERIOD_MS + 1;
+    }
+
+    const downDuration = Date.now() - lastUp.timestamp.getTime();
+    return downDuration;
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Run all health checks and store results
  */
@@ -398,19 +427,54 @@ export async function runAllChecks(): Promise<CheckResult[]> {
     });
 
     // Send alert if status changed (down or recovered)
+    // Use grace period to avoid alerting on brief flaps
     if (previousStatus && previousStatus !== result.status) {
       if (result.status === "down" || result.status === "degraded") {
-        await sendStatusAlert(
-          result.service,
-          result.status,
-          result.message,
-          previousStatus
-        );
+        // Only alert if service has been down longer than grace period
+        const downDuration = await getDowntimeDuration(result.service);
+        if (downDuration && downDuration >= FLAP_GRACE_PERIOD_MS) {
+          await sendStatusAlert(
+            result.service,
+            result.status,
+            result.message,
+            previousStatus
+          );
+        } else {
+          console.log(
+            `[StatusService] ${result.service} is ${result.status} but within grace period (${Math.round((downDuration || 0) / 1000)}s), skipping alert`
+          );
+        }
       } else if (result.status === "up" && previousStatus === "down") {
-        await sendStatusAlert(result.service, "up", undefined, previousStatus);
+        // Only send recovery alert if service was down longer than grace period
+        // Check the duration it was down before recovering
+        const downDuration = await getDowntimeDuration(result.service);
+        // Since it just recovered, downDuration will be very small now
+        // We need to check if it was down long enough before to warrant a recovery alert
+        // Simple approach: check if we had previously sent a DOWN alert (via lastAlertTime in TelegramService)
+        // For now, just skip recovery alerts for brief outages by checking recent history
+        const recentDownChecks = await UptimeCheck.countDocuments({
+          service: result.service,
+          status: { $in: ["down", "degraded"] },
+          timestamp: { $gte: new Date(Date.now() - FLAP_GRACE_PERIOD_MS) },
+        });
+        const recentUpChecks = await UptimeCheck.countDocuments({
+          service: result.service,
+          status: "up",
+          timestamp: { $gte: new Date(Date.now() - FLAP_GRACE_PERIOD_MS) },
+        });
+
+        // Only send recovery if it was mostly down during the grace period
+        // (more down checks than up checks indicates sustained outage)
+        if (recentDownChecks > recentUpChecks) {
+          await sendStatusAlert(result.service, "up", undefined, previousStatus);
+        } else {
+          console.log(
+            `[StatusService] ${result.service} recovered but was flapping (${recentDownChecks} down vs ${recentUpChecks} up in last 5min), skipping alert`
+          );
+        }
       }
     } else if (!previousStatus && result.status === "down") {
-      // First check ever and service is down
+      // First check ever and service is down - still alert immediately
       await sendStatusAlert(result.service, result.status, result.message);
     }
   }
