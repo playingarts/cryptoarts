@@ -12,6 +12,7 @@ import { ViewedProvider } from "@/contexts/viewedContext";
 import { DeckPaletteProvider } from "@/components/Pages/Deck/DeckPaletteContext";
 import { IsEuropeProvider } from "@/components/Contexts/bag";
 import { FavoritesProvider } from "@/components/Contexts/favorites";
+import { MenuProvider } from "@/components/Contexts/menu";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 // Import theme from dedicated module
@@ -59,10 +60,12 @@ const App = ({
                 <IsEuropeProvider>
                   <FavoritesProvider>
                     <SizeProvider isMobile={isMobile === true}>
-                      <GoogleAnalytics trackPageViews />
-                      <ErrorBoundary>
-                        <Component {...pageProps} />
-                      </ErrorBoundary>
+                      <MenuProvider>
+                        <GoogleAnalytics trackPageViews />
+                        <ErrorBoundary>
+                          <Component {...pageProps} />
+                        </ErrorBoundary>
+                      </MenuProvider>
                     </SizeProvider>
                   </FavoritesProvider>
                 </IsEuropeProvider>

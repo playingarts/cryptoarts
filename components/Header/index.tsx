@@ -1,20 +1,14 @@
 import { colord } from "colord";
-import dynamic from "next/dynamic";
 import { FC, HTMLAttributes, memo, ReactNode, useEffect, useState } from "react";
 import Grid from "../Grid";
 import ScandiBlock from "../ScandiBlock";
 import CTA from "./CTA";
 import Middle, { PageNav } from "./Middle";
 import TitleButton from "./TitleButton";
-import MenuPortal from "./MainMenu/MenuPortal";
-import ErrorBoundary from "../ErrorBoundary";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../SizeProvider";
 import { breakpoints } from "../../source/enums";
 import { useProducts } from "../../hooks/product";
-
-// Lazy load MainMenu - only loads when user clicks menu button
-const MainMenu = dynamic(() => import("./MainMenu"), { ssr: false });
 
 export interface Props extends HTMLAttributes<HTMLElement> {
   customCTA?: ReactNode;
@@ -31,8 +25,6 @@ const Header: FC<Props> = ({
   const [showSiteNav, setShowSiteNav] = useState<"top" | "afterTop">("top");
 
   const [altNav, setAltNav] = useState(false);
-
-  const [showMenu, setShowMenu] = useState(false);
 
   const { palette } = usePalette();
 
@@ -137,7 +129,6 @@ const Header: FC<Props> = ({
       >
         <TitleButton
           inset={showSiteNav !== "afterTop"}
-          setShow={setShowMenu}
           showSiteNav={showSiteNav}
           css={(theme) => [
             {
@@ -190,11 +181,6 @@ const Header: FC<Props> = ({
           {customCTA ?? <CTA />}
         </ScandiBlock>
       </Grid>
-      <MenuPortal show={showMenu}>
-        <ErrorBoundary fallback={null}>
-          <MainMenu setShow={setShowMenu} show={showMenu} />
-        </ErrorBoundary>
-      </MenuPortal>
     </header>
   );
 };

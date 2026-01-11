@@ -8,10 +8,12 @@ import { colord } from "colord";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
+import { useMenu } from "../../Contexts/menu";
 
 const TitleButton: FC<
-  HTMLAttributes<HTMLElement> & { setShow: (x: boolean) => void; showSiteNav?: "top" | "afterTop" } & Props
-> = ({ setShow, showSiteNav = "top", ...props }) => {
+  HTMLAttributes<HTMLElement> & { showSiteNav?: "top" | "afterTop" } & Props
+> = ({ showSiteNav = "top", ...props }) => {
+  const { openMenu } = useMenu();
   const {
     query: { deckId },
   } = useRouter();
@@ -59,7 +61,7 @@ const TitleButton: FC<
             },
           },
         ]}
-        onClick={() => setShow(true)}
+        onClick={openMenu}
       >
         <Menu css={(theme) => [{ [theme.mq.sm]: { marginRight: 10 } }]} />
 
