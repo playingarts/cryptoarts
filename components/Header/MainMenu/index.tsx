@@ -17,6 +17,7 @@ import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useProducts } from "../../../hooks/product";
+import { useLoadHeroCardsLite } from "../../../hooks/card";
 import MenuGrid from "./MenuGrid";
 import NewsletterSection from "./NewsletterSection";
 import FooterLinksSection from "./FooterLinksSection";
@@ -79,6 +80,15 @@ const MainMenu: FC<
     prefetchedRef.current.add(href);
     router.prefetch(href);
   }, [router]);
+
+  // Prefetch hero cards on hover for instant load
+  const { loadHeroCardsLite } = useLoadHeroCardsLite();
+  const prefetchHeroCards = useCallback((slug: string) => {
+    const key = `heroCards:${slug}`;
+    if (prefetchedRef.current.has(key)) return;
+    prefetchedRef.current.add(key);
+    loadHeroCardsLite({ variables: { slug } });
+  }, [loadHeroCardsLite]);
 
   // Capture scroll position at mount time (before body overflow is hidden)
   const [scrolledPast600, setScrolledPast600] = useState(() =>
@@ -286,6 +296,7 @@ const MainMenu: FC<
                 const handleHover = () => {
                   setHoveredProduct(product);
                   prefetchPage(deckHref);
+                  prefetchHeroCards(deck.slug);
                 };
                 const handleClick = (e: React.MouseEvent) => {
                   if (isCurrentDeck) {

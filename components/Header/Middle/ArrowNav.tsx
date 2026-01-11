@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useDecks } from "../../../hooks/deck";
-import { CardsForDeckQuery } from "../../../hooks/card";
+import { HeroCardsLiteQuery } from "../../../hooks/card";
 import { useMemo, useCallback, useRef } from "react";
 import Text from "../../Text";
 import Link from "../../Link";
@@ -35,31 +35,22 @@ export default () => {
     };
   }, [deckId, decks]);
 
-  // Intent-based prefetching: fetch cards + preload hero images
-  const prefetchDeck = useCallback(async (targetDeckId: string) => {
+  // Intent-based prefetching: fetch hero cards for instant load
+  const prefetchDeck = useCallback(async (targetSlug: string) => {
     // Skip if already prefetched this session
-    if (prefetchedRef.current.has(targetDeckId)) return;
-    prefetchedRef.current.add(targetDeckId);
-
-    const deck = decks?.find(d => d._id === targetDeckId);
+    if (prefetchedRef.current.has(targetSlug)) return;
+    prefetchedRef.current.add(targetSlug);
 
     try {
-      const { data } = await client.query<Pick<GQL.Query, "cards">>({
-        query: CardsForDeckQuery,
-        variables: { deck: targetDeckId },
+      const { data } = await client.query<Pick<GQL.Query, "heroCards">>({
+        query: HeroCardsLiteQuery,
+        variables: { slug: targetSlug },
       });
 
-      // Preload hero card images (first 2 cards based on deterministic selection)
-      const cards = data?.cards;
-      if (cards && cards.length >= 2) {
-        // Match the seed logic from HeroCards component
-        const seed = deck?.slug ? deck.slug.split("").reduce((a: number, b: string) => a + b.charCodeAt(0), 0) : 0;
-        const idx1 = seed % cards.length;
-        const idx2 = (seed + Math.floor(cards.length / 2)) % cards.length;
-        const heroIdxs = [idx1, idx2 === idx1 ? (idx2 + 1) % cards.length : idx2];
-
-        heroIdxs.forEach(idx => {
-          const card = cards[idx];
+      // Preload hero card images
+      const heroCards = data?.heroCards;
+      if (heroCards) {
+        heroCards.forEach(card => {
           if (card?.img) {
             const img = new Image();
             img.src = card.img;
@@ -68,18 +59,18 @@ export default () => {
       }
     } catch (e) {
       // Silent fail - prefetch is best-effort
-      prefetchedRef.current.delete(targetDeckId);
+      prefetchedRef.current.delete(targetSlug);
     }
-  }, [client, decks]);
+  }, [client]);
 
   // Handlers for intent-based prefetching
   const handlePrevIntent = useCallback(() => {
-    if (prevDeckId) prefetchDeck(prevDeckId);
-  }, [prevDeckId, prefetchDeck]);
+    if (prevSlug) prefetchDeck(prevSlug);
+  }, [prevSlug, prefetchDeck]);
 
   const handleNextIntent = useCallback(() => {
-    if (nextDeckId) prefetchDeck(nextDeckId);
-  }, [nextDeckId, prefetchDeck]);
+    if (nextSlug) prefetchDeck(nextSlug);
+  }, [nextSlug, prefetchDeck]);
 
   return deckId && decks ? (
     <Text

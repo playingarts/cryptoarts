@@ -173,6 +173,24 @@ export const HeroCardsQuery = gql`
   }
 `;
 
+/**
+ * Lightweight hero cards query - only fetches fields needed for Card component
+ * Pre-cached during SSR for instant load
+ */
+export const HeroCardsLiteQuery = gql`
+  query HeroCardsLite($slug: String!) {
+    heroCards(slug: $slug) {
+      _id
+      img
+      video
+      artist {
+        name
+        slug
+      }
+    }
+  }
+`;
+
 export const HomeCards = gql`
   query HomeCards {
     homeCards {
@@ -273,6 +291,37 @@ export const useHeroCards = (
     useQuery<Pick<GQL.Query, "heroCards">>(HeroCardsQuery, options);
 
   return {
+    ...methods,
+    heroCards,
+  };
+};
+
+/**
+ * Lightweight hook for hero cards - pre-cached during SSR for instant load
+ */
+export const useHeroCardsLite = (
+  options: useQuery.Options<Pick<GQL.Query, "heroCards">> = {}
+) => {
+  const { data: { heroCards } = { heroCards: undefined }, ...methods } =
+    useQuery<Pick<GQL.Query, "heroCards">>(HeroCardsLiteQuery, options);
+
+  return {
+    ...methods,
+    heroCards,
+  };
+};
+
+/**
+ * Lazy load hero cards for prefetching on hover
+ */
+export const useLoadHeroCardsLite = (
+  options: useQuery.Options<Pick<GQL.Query, "heroCards">> = {}
+) => {
+  const [loadHeroCardsLite, { data: { heroCards } = { heroCards: undefined }, ...methods }] =
+    useLazyQuery<Pick<GQL.Query, "heroCards">>(HeroCardsLiteQuery, options);
+
+  return {
+    loadHeroCardsLite,
     ...methods,
     heroCards,
   };

@@ -1,5 +1,5 @@
-import { FC, forwardRef, HTMLAttributes, useMemo, useState, useEffect } from "react";
-import { useCardsForDeck } from "../../../../../hooks/card";
+import { FC, forwardRef, HTMLAttributes } from "react";
+import { useHeroCardsLite } from "../../../../../hooks/card";
 import { useRouter } from "next/router";
 import Card from "../../../../Card";
 import { usePalette } from "../../DeckPaletteContext";
@@ -45,45 +45,14 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
   const { query: { deckId } } = useRouter();
   const { palette } = usePalette();
 
-  // Use deck slug directly - backend resolves slug to ID
-  // SSR pre-caches with same slug key for instant load
-  const { cards } = useCardsForDeck({
-    variables: { deck: deckId as string },
+  // Use lightweight hero cards query - pre-cached during SSR for instant load
+  // Server picks 2 random cards, cached for ISR period
+  const { heroCards } = useHeroCardsLite({
+    variables: { slug: deckId as string },
     skip: !deckId,
   });
 
-  // Store random indices per deck (client-side only for true randomness on each refresh)
-  const [randomIndices, setRandomIndices] = useState<{ [key: string]: [number, number] }>({});
-
-  // Generate random indices on client-side when cards load
-  // Note: randomIndices intentionally omitted from deps to avoid infinite loop
-  useEffect(() => {
-    if (!cards || cards.length < 2 || !deckId) return;
-
-    setRandomIndices(prev => {
-      // Only generate if we don't have indices for this deck yet
-      if (prev[deckId as string]) return prev;
-
-      const idx1 = Math.floor(Math.random() * cards.length);
-      // Guaranteed different index in single operation
-      const idx2 = (idx1 + 1 + Math.floor(Math.random() * (cards.length - 1))) % cards.length;
-
-      return {
-        ...prev,
-        [deckId as string]: [idx1, idx2]
-      };
-    });
-  }, [cards, deckId]);
-
-  // Get hero cards from random indices
-  const heroCards = useMemo(() => {
-    if (!cards || cards.length < 2 || !deckId) return [];
-    const indices = randomIndices[deckId as string];
-    if (!indices) return []; // Show skeleton until client picks cards
-    return [cards[indices[0]], cards[indices[1]]];
-  }, [cards, deckId, randomIndices]);
-
-  const showSkeleton = heroCards.length === 0;
+  const showSkeleton = !heroCards || heroCards.length < 2;
 
   return (
     <div
