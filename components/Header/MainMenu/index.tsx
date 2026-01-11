@@ -61,13 +61,17 @@ const DeckPreviewSkeleton: FC<{ palette: "dark" | "light" }> = ({ palette }) => 
  * Displays product links, newsletter signup, and footer navigation
  */
 const MainMenu: FC<
-  HTMLAttributes<HTMLElement> & { setShow: Dispatch<SetStateAction<boolean>> }
-> = ({ setShow, ...props }) => {
+  HTMLAttributes<HTMLElement> & {
+    setShow: Dispatch<SetStateAction<boolean>>;
+    show?: boolean;
+  }
+> = ({ setShow, show = true, ...props }) => {
   const router = useRouter();
-  const { products, loading, error } = useProducts();
+  const { products, error } = useProducts();
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const { palette } = usePalette();
   const hasInitialized = useRef(false);
+  const hasAnimated = useRef(false);
   const prefetchedRef = useRef<Set<string>>(new Set());
 
   // Intent-based prefetching for instant navigation
@@ -78,7 +82,16 @@ const MainMenu: FC<
   }, [router]);
 
   // Capture scroll position at mount time (before body overflow is hidden)
-  const [scrolledPast600] = useState(() => window.scrollY >= SCROLL_THRESHOLD);
+  const [scrolledPast600, setScrolledPast600] = useState(() =>
+    typeof window !== "undefined" ? window.scrollY >= SCROLL_THRESHOLD : false
+  );
+
+  // Update scroll position when menu becomes visible
+  useEffect(() => {
+    if (show) {
+      setScrolledPast600(window.scrollY >= SCROLL_THRESHOLD);
+    }
+  }, [show]);
 
   // Auto-prefetch homepage when menu opens (most common destination)
   useEffect(() => {
@@ -96,24 +109,36 @@ const MainMenu: FC<
     }
   }, [deckProducts]);
 
-  // Handle body overflow
+  // Track first animation
   useEffect(() => {
+    if (show && !hasAnimated.current) {
+      hasAnimated.current = true;
+    }
+  }, [show]);
+
+  // Handle body overflow - only when visible
+  useEffect(() => {
+    if (!show) return;
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = previousOverflow;
     };
-  }, []);
+  }, [show]);
 
   // Handle Escape key to close menu
   const handleClose = useCallback(() => setShow(false), [setShow]);
   useEffect(() => {
+    if (!show) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") handleClose();
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleClose]);
+  }, [handleClose, show]);
+
+  // Skip animation on subsequent opens
+  const shouldAnimate = !hasAnimated.current;
 
   return (
     <div
@@ -254,11 +279,15 @@ const MainMenu: FC<
                     key={`mainmenu-${product._id}`}
                     onMouseEnter={handleHover}
                     onTouchStart={handleHover}
-                    css={{
-                      opacity: 0,
-                      animation: `cascadeIn 0.3s ease-out forwards`,
-                      animationDelay: `${index * CASCADE_DELAY}ms`,
-                    }}
+                    css={
+                      shouldAnimate
+                        ? {
+                            opacity: 0,
+                            animation: `cascadeIn 0.3s ease-out forwards`,
+                            animationDelay: `${index * CASCADE_DELAY}ms`,
+                          }
+                        : { opacity: 1 }
+                    }
                   >
                     <Link
                       href={deckHref}

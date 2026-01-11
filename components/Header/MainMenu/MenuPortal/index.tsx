@@ -10,6 +10,7 @@ const MenuPortal = ({
 }) => {
   const ref = useRef<Element | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [hasBeenShown, setHasBeenShown] = useState(false);
 
   useEffect(() => {
     const element = document.getElementById("menuportal");
@@ -20,8 +21,28 @@ const MenuPortal = ({
     setMounted(true);
   }, []);
 
-  if (!mounted || !show || !ref.current) return null;
-  return createPortal(children, ref.current);
+  // Track if menu has ever been shown - once shown, keep mounted
+  useEffect(() => {
+    if (show && !hasBeenShown) {
+      setHasBeenShown(true);
+    }
+  }, [show, hasBeenShown]);
+
+  if (!mounted || !ref.current) return null;
+  // Don't render until first shown, then keep mounted forever
+  if (!hasBeenShown) return null;
+
+  return createPortal(
+    <div
+      style={{
+        visibility: show ? "visible" : "hidden",
+        pointerEvents: show ? "auto" : "none",
+      }}
+    >
+      {children}
+    </div>,
+    ref.current
+  );
 };
 
 export default MenuPortal;

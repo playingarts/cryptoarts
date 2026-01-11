@@ -192,7 +192,7 @@ const Header: FC<Props> = ({
       </Grid>
       <MenuPortal show={showMenu}>
         <ErrorBoundary fallback={null}>
-          <MainMenu setShow={setShowMenu} />
+          <MainMenu setShow={setShowMenu} show={showMenu} />
         </ErrorBoundary>
       </MenuPortal>
     </header>

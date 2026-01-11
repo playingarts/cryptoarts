@@ -125,9 +125,13 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
     return () => observer.disconnect();
   }, [priority]);
 
-  // Fetch initial random cards when deck image loads (using requestIdleCallback for non-blocking)
+  // Fetch initial random cards - immediately for priority items, or when deck image loads
   useEffect(() => {
-    if (deckImageLoaded && !hasInitializedRef.current && product?.deck?._id) {
+    // For priority items, start fetching immediately (menu scenario)
+    // For non-priority items, wait for deck image to load first
+    const shouldFetch = priority ? isInViewport : deckImageLoaded;
+
+    if (shouldFetch && !hasInitializedRef.current && product?.deck?._id) {
       hasInitializedRef.current = true;
 
       const fetchInitialCards = async () => {
@@ -151,15 +155,17 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
         }
       };
 
-      // Use requestIdleCallback to fetch during browser idle time
-      if (typeof requestIdleCallback !== "undefined") {
+      // For priority items, fetch immediately; otherwise use idle callback
+      if (priority) {
+        fetchInitialCards();
+      } else if (typeof requestIdleCallback !== "undefined") {
         requestIdleCallback(() => fetchInitialCards(), { timeout: 2000 });
       } else {
         // Fallback for Safari - use setTimeout with small delay
         setTimeout(fetchInitialCards, 100);
       }
     }
-  }, [deckImageLoaded, product?.deck?._id, loadCollectionCards]);
+  }, [deckImageLoaded, isInViewport, priority, product?.deck?._id, loadCollectionCards]);
 
   // Preload first 3 card images when buffer is initialized (non-blocking)
   useEffect(() => {
