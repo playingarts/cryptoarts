@@ -66,10 +66,10 @@ export const getStaticProps: GetStaticProps<
   await client.query({ query: DecksNavQuery });
 
   // Only fetch cards for CURRENT deck during SSR
-  // Adjacent decks will be prefetched client-side after initial render
+  // Use deck slug instead of _id for cache consistency with client-side queries
   await client.query({
     query: CardsForDeckQuery,
-    variables: { deck: deck._id },
+    variables: { deck: deck.slug },
   });
 
   await client.query({

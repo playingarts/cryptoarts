@@ -1,11 +1,8 @@
-import { FC, HTMLAttributes, useMemo, useState, useEffect } from "react";
+import { FC, HTMLAttributes, useMemo, useRef } from "react";
 import { useCardsForDeck } from "../../../../../hooks/card";
-import { useDecks } from "../../../../../hooks/deck";
 import { useRouter } from "next/router";
 import Card from "../../../../Card";
 import { usePalette } from "../../DeckPaletteContext";
-
-type SlideState = "visible" | "sliding-out" | "sliding-in";
 
 const CardSkeleton: FC<{ left: number; rotate: string; palette: "dark" | "light" }> = ({ left, rotate, palette }) => (
   <div
@@ -34,90 +31,30 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { query: { deckId } } = useRouter();
   const { palette } = usePalette();
 
-  // Get deck from cached decks to get _id
-  const { decks } = useDecks({ skip: !deckId });
-  const deck = useMemo(() => decks?.find((d) => d.slug === deckId), [decks, deckId]);
-
-  // Use CardsForDeckQuery which is already in SSR cache
-  const { cards, loading } = useCardsForDeck({
-    variables: { deck: deck?._id },
-    skip: !deck?._id,
+  // Use deck slug directly - backend resolves slug to ID
+  // SSR pre-caches with same slug key for instant load
+  const { cards } = useCardsForDeck({
+    variables: { deck: deckId as string },
+    skip: !deckId,
   });
 
-  // Pick 2 random cards from cached cards (seeded by deckId for consistency)
+  // Pick 2 deterministic cards from cached cards (seeded by deckId for consistency)
   const heroCards = useMemo(() => {
     if (!cards || cards.length < 2) return [];
-    // Simple deterministic selection based on deckId to avoid flicker
     const seed = deckId ? deckId.toString().split("").reduce((a, b) => a + b.charCodeAt(0), 0) : 0;
     const idx1 = seed % cards.length;
     const idx2 = (seed + Math.floor(cards.length / 2)) % cards.length;
     return [cards[idx1], cards[idx2 === idx1 ? (idx2 + 1) % cards.length : idx2]];
   }, [cards, deckId]);
 
-  // Track current deck to detect changes
-  const [currentDeckId, setCurrentDeckId] = useState(deckId);
-  const [slideState, setSlideState] = useState<SlideState>("visible");
-  const [displayedCards, setDisplayedCards] = useState<GQL.Card[]>([]);
+  // Track previous deck for animation
+  const prevDeckRef = useRef(deckId);
+  const isDeckChange = prevDeckRef.current !== deckId;
+  if (isDeckChange) {
+    prevDeckRef.current = deckId;
+  }
 
-  // Show skeleton when loading OR when deck changed and we don't have new cards yet
-  const deckChanged = deckId !== currentDeckId;
-  const showSkeleton = loading || (deckChanged && heroCards.length === 0) || displayedCards.length === 0;
-
-  // Handle deck change and card updates
-  useEffect(() => {
-    // Deck changed - reset state
-    if (deckId !== currentDeckId) {
-      setCurrentDeckId(deckId as string);
-      setDisplayedCards([]); // Clear to show skeleton
-      setSlideState("visible");
-      return;
-    }
-
-    // New cards ready for current deck
-    if (heroCards.length > 0 && displayedCards.length === 0) {
-      // Initial load or after deck change - set cards with fan animation
-      setSlideState("sliding-in");
-      setDisplayedCards(heroCards);
-      setTimeout(() => setSlideState("visible"), 50);
-    } else if (heroCards.length > 0 && heroCards[0]?._id !== displayedCards[0]?._id) {
-      // Cards changed within same deck - animate transition
-      setSlideState("sliding-out");
-      const timer = setTimeout(() => {
-        setDisplayedCards(heroCards);
-        setSlideState("sliding-in");
-        setTimeout(() => setSlideState("visible"), 50);
-      }, 300);
-      return () => clearTimeout(timer);
-    }
-  }, [deckId, currentDeckId, heroCards, displayedCards]);
-
-  // Fan effect: cards pivot from bottom center like being dealt from a deck
-  // Cards start stacked (0deg rotation) and fan out to their final rotations
-  const getLeftCardStyles = () => {
-    switch (slideState) {
-      case "sliding-out":
-      case "sliding-in":
-        // Closed position - cards stacked, no rotation, moved to center
-        return { rotate: "0deg", left: 185 }; // Center position
-      case "visible":
-      default:
-        // Fanned out position
-        return { rotate: "-10deg", left: 95 };
-    }
-  };
-
-  const getRightCardStyles = () => {
-    switch (slideState) {
-      case "sliding-out":
-      case "sliding-in":
-        // Closed position - cards stacked, no rotation, moved to center
-        return { rotate: "0deg", left: 185 }; // Center position
-      case "visible":
-      default:
-        // Fanned out position
-        return { rotate: "10deg", left: 275 };
-    }
-  };
+  const showSkeleton = heroCards.length === 0;
 
   return (
     <div
@@ -142,44 +79,30 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </>
       ) : (
         <>
-          {/* Right card - fans out from center to right */}
-          {displayedCards[1] && (
-            <Card
-              animated
-              noArtist
-              noFavorite
-              size="hero"
-              card={displayedCards[1]}
-              css={(theme) => [
-                {
-                  transformOrigin: "bottom center",
-                  transition: slideState === "sliding-in"
-                    ? "none"
-                    : "rotate 0.4s ease-out, left 0.4s ease-out",
-                },
-              ]}
-              style={getRightCardStyles()}
-            />
-          )}
-          {/* Left card - fans out from center to left */}
-          {displayedCards[0] && (
-            <Card
-              animated
-              noArtist
-              noFavorite
-              size="hero"
-              card={displayedCards[0]}
-              css={(theme) => [
-                {
-                  transformOrigin: "bottom center",
-                  transition: slideState === "sliding-in"
-                    ? "none"
-                    : "rotate 0.4s ease-out, left 0.4s ease-out",
-                },
-              ]}
-              style={getLeftCardStyles()}
-            />
-          )}
+          {/* Right card */}
+          <Card
+            animated
+            noArtist
+            noFavorite
+            size="hero"
+            card={heroCards[1]}
+            css={{
+              transformOrigin: "bottom center",
+            }}
+            style={{ rotate: "10deg", left: 275 }}
+          />
+          {/* Left card */}
+          <Card
+            animated
+            noArtist
+            noFavorite
+            size="hero"
+            card={heroCards[0]}
+            css={{
+              transformOrigin: "bottom center",
+            }}
+            style={{ rotate: "-10deg", left: 95 }}
+          />
         </>
       )}
     </div>
