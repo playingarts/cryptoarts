@@ -4,14 +4,70 @@ import { useRouter } from "next/router";
 import Card from "../../../../Card";
 import { usePalette } from "../../DeckPaletteContext";
 
+// Glance effect wrapper - adds periodic shine animation
+const GlanceWrapper: FC<{
+  delay: number;
+  left: number;
+  rotate: string;
+  zIndex: number;
+  children: React.ReactNode;
+}> = ({ delay, left, rotate, zIndex, children }) => (
+  <div
+    css={{
+      width: 340,
+      height: 478,
+      position: "absolute",
+      top: -45,
+      overflow: "visible",
+      transformOrigin: "bottom center",
+      transition: "z-index 0s",
+      "&:hover": { zIndex: 10 },
+    }}
+    style={{ left, rotate, zIndex }}
+  >
+    {children}
+    {/* Glance effect overlay - clipped to card image bounds */}
+    <div
+      css={{
+        position: "absolute",
+        // Card image is 330x464 centered in 340x478 hover container
+        // Offset to match card image position
+        top: 7,
+        left: 5,
+        width: 330,
+        height: 464,
+        borderRadius: 15,
+        overflow: "hidden",
+        pointerEvents: "none",
+        zIndex: 5,
+        "&::after": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          background: "linear-gradient(105deg, transparent 20%, rgba(255,255,255,0.2) 35%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.2) 65%, transparent 80%)",
+          transform: "translateX(-150%)",
+          animation: `glance 2s ease-in-out ${delay}s forwards`,
+        },
+        "@keyframes glance": {
+          "0%": { transform: "translateX(-150%)" },
+          "100%": { transform: "translateX(150%)" },
+        },
+      }}
+    />
+  </div>
+);
+
 const CardSkeleton: FC<{ left: number; rotate: string; palette: "dark" | "light" }> = ({ left, rotate, palette }) => (
   <div
     css={{
-      width: 329,
-      height: 463,
+      width: 330,
+      height: 464,
       position: "absolute",
-      top: -37.59,
-      borderRadius: 20,
+      top: -38,
+      borderRadius: 15,
       left,
       rotate,
       transformOrigin: "bottom center",
@@ -64,13 +120,6 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {
           gridColumn: "span 6",
           position: "relative",
-          "> *": {
-            width: 329,
-            height: 463,
-            position: "absolute",
-            top: -37.59,
-            borderRadius: 20,
-          },
         },
       ]}
     >
@@ -82,33 +131,25 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ) : (
         <>
           {/* Right card */}
-          <Card
-            animated
-            noArtist
-            noFavorite
-            size="hero"
-            card={heroCards[1]}
-            css={{
-              transformOrigin: "bottom center",
-              zIndex: 1,
-              "&:hover": { zIndex: 10 },
-            }}
-            style={{ rotate: "10deg", left: 275 }}
-          />
+          <GlanceWrapper delay={0.4} left={275} rotate="10deg" zIndex={1}>
+            <Card
+              animated
+              noArtist
+              noFavorite
+              size="hero"
+              card={heroCards[1]}
+            />
+          </GlanceWrapper>
           {/* Left card */}
-          <Card
-            animated
-            noArtist
-            noFavorite
-            size="hero"
-            card={heroCards[0]}
-            css={{
-              transformOrigin: "bottom center",
-              zIndex: 2,
-              "&:hover": { zIndex: 10 },
-            }}
-            style={{ rotate: "-10deg", left: 95 }}
-          />
+          <GlanceWrapper delay={0} left={95} rotate="-10deg" zIndex={2}>
+            <Card
+              animated
+              noArtist
+              noFavorite
+              size="hero"
+              card={heroCards[0]}
+            />
+          </GlanceWrapper>
         </>
       )}
     </div>
