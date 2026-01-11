@@ -130,7 +130,7 @@ export const mockDecks = [
   {
     _id: "678777163f48390596ceab80",
     slug: "special",
-    info: "Where creativity meets community. A deck shaped by a global open call and the votes of our backers.",
+    info: "Where creativity meets community. A deck shaped by a global open call and the votes of our backers. Art born from collective passion.",
     intro:
       "Special Edition stands as a tribute to global collaboration and artistic excellence. Through an international design contest, over 550 entries competed for a place in this deck, with Kickstarter backers voting on the final 55 artworks. The result? A one-of-a-kind collection that remains one of our most beloved decks to date.",
     title: "Special Edition",

@@ -59,6 +59,10 @@ interface CollectionItemProps extends HTMLAttributes<HTMLElement> {
   onCardClick?: (deckSlug: string, artistSlug: string) => void;
   /** Priority loading for above-fold items */
   priority?: boolean;
+  /** Current deck slug - if matches product deck, "View" just closes instead of navigating */
+  currentDeckSlug?: string;
+  /** Called when clicking "View" on current deck (to close menu) */
+  onClose?: () => void;
 }
 
 // Minimal card type for our buffer
@@ -69,6 +73,8 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
   paletteOnHover = "light",
   onCardClick,
   priority = false,
+  currentDeckSlug,
+  onClose,
   ...props
 }) => {
   const router = useRouter();
@@ -386,7 +392,8 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
             style={{ opacity: hover ? 1 : 0 }}
           >
             <ArrowButton
-              href={`${process.env.NEXT_PUBLIC_BASELINK || ""}/${product.deck?.slug}`}
+              href={currentDeckSlug === product.deck?.slug ? undefined : `${process.env.NEXT_PUBLIC_BASELINK || ""}/${product.deck?.slug}`}
+              onClick={onClose}
               css={(theme) => [
                 hover &&
                   paletteOnHover === "dark" && {

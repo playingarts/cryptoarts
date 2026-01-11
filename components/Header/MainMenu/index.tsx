@@ -71,7 +71,6 @@ const MainMenu: FC<
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const { palette } = usePalette();
   const hasInitialized = useRef(false);
-  const hasAnimated = useRef(false);
   const prefetchedRef = useRef<Set<string>>(new Set());
 
   // Intent-based prefetching for instant navigation
@@ -124,13 +123,6 @@ const MainMenu: FC<
     }
   }, [show, currentDeckProduct]);
 
-  // Track first animation
-  useEffect(() => {
-    if (show && !hasAnimated.current) {
-      hasAnimated.current = true;
-    }
-  }, [show]);
-
   // Handle body overflow - only when visible
   useEffect(() => {
     if (!show) return;
@@ -152,8 +144,13 @@ const MainMenu: FC<
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleClose, show]);
 
-  // Skip animation on subsequent opens
-  const shouldAnimate = !hasAnimated.current;
+  // Track show state changes to restart animations
+  const [animationKey, setAnimationKey] = useState(0);
+  useEffect(() => {
+    if (show) {
+      setAnimationKey((k) => k + 1);
+    }
+  }, [show]);
 
   return (
     <div
@@ -284,29 +281,32 @@ const MainMenu: FC<
                 if (!deck) {
                   return null;
                 }
+                const isCurrentDeck = deck.slug === currentDeckSlug;
                 const deckHref = getBaseUrl(`/${deck.slug}`);
                 const handleHover = () => {
                   setHoveredProduct(product);
                   prefetchPage(deckHref);
                 };
+                const handleClick = (e: React.MouseEvent) => {
+                  if (isCurrentDeck) {
+                    e.preventDefault();
+                  }
+                  handleClose();
+                };
                 return (
                   <span
-                    key={`mainmenu-${product._id}`}
+                    key={`mainmenu-${product._id}-${animationKey}`}
                     onMouseEnter={handleHover}
                     onTouchStart={handleHover}
-                    css={
-                      shouldAnimate
-                        ? {
-                            opacity: 0,
-                            animation: `cascadeIn 0.3s ease-out forwards`,
-                            animationDelay: `${index * CASCADE_DELAY}ms`,
-                          }
-                        : { opacity: 1 }
-                    }
+                    css={{
+                      opacity: 0,
+                      animation: `cascadeIn 0.3s ease-out forwards`,
+                      animationDelay: `${index * CASCADE_DELAY}ms`,
+                    }}
                   >
                     <Link
                       href={deckHref}
-                      onClick={handleClose}
+                      onClick={handleClick}
                     >
                       <ArrowButton
                         css={[{ textAlign: "start" }]}
@@ -328,6 +328,8 @@ const MainMenu: FC<
                   paletteOnHover={palette === "dark" ? "dark" : "light"}
                   css={{ height: "100%" }}
                   priority
+                  currentDeckSlug={currentDeckSlug}
+                  onClose={handleClose}
                 />
               ) : (
                 <DeckPreviewSkeleton palette={palette} />
