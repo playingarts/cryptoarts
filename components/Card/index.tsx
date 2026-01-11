@@ -203,7 +203,7 @@ const Card: FC<CardProps> = memo(
                 loading={priority ? "eager" : "lazy"}
                 {...(priority && { fetchPriority: "high" })}
                 onLoad={hideLoader}
-                alt={`Card by ${card.artist.name}`}
+                alt={card.artist?.name ? `Card by ${card.artist.name}` : "Playing Arts card"}
               />
               {card.video && (!animated ? width >= breakpoints.sm : true) && (
                 <video
