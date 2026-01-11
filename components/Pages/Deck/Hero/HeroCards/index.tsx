@@ -147,6 +147,7 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <Card
               animated
               noArtist
+              noFavorite
               size="hero"
               card={displayedCards[1]}
               css={(theme) => [
@@ -165,6 +166,7 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <Card
               animated
               noArtist
+              noFavorite
               size="hero"
               card={displayedCards[0]}
               css={(theme) => [
