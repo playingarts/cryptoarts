@@ -1,4 +1,4 @@
-import { FC, forwardRef, HTMLAttributes, useMemo, useRef } from "react";
+import { FC, forwardRef, HTMLAttributes, useMemo, useRef, useState, useEffect } from "react";
 import { useCardsForDeck } from "../../../../../hooks/card";
 import { useRouter } from "next/router";
 import Card from "../../../../Card";
@@ -43,15 +43,34 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
     skip: !deckId,
   });
 
-  // Pick 2 random cards from the deck on each page load
+  // Store random indices per deck (client-side only for true randomness on each refresh)
+  const [randomIndices, setRandomIndices] = useState<{ [key: string]: [number, number] }>({});
+
+  // Generate random indices on client-side when cards load
+  useEffect(() => {
+    if (!cards || cards.length < 2 || !deckId) return;
+
+    // Only generate if we don't have indices for this deck yet
+    if (!randomIndices[deckId as string]) {
+      const idx1 = Math.floor(Math.random() * cards.length);
+      let idx2 = Math.floor(Math.random() * cards.length);
+      while (idx2 === idx1) {
+        idx2 = Math.floor(Math.random() * cards.length);
+      }
+      setRandomIndices(prev => ({
+        ...prev,
+        [deckId as string]: [idx1, idx2]
+      }));
+    }
+  }, [cards, deckId, randomIndices]);
+
+  // Get hero cards from random indices
   const heroCards = useMemo(() => {
-    if (!cards || cards.length < 2) return [];
-    const idx1 = Math.floor(Math.random() * cards.length);
-    let idx2 = Math.floor(Math.random() * cards.length);
-    if (idx2 === idx1) idx2 = (idx2 + 1) % cards.length;
-    return [cards[idx1], cards[idx2]];
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cards?.length, deckId]);
+    if (!cards || cards.length < 2 || !deckId) return [];
+    const indices = randomIndices[deckId as string];
+    if (!indices) return []; // Show skeleton until client picks cards
+    return [cards[indices[0]], cards[indices[1]]];
+  }, [cards, deckId, randomIndices]);
 
   // Track previous deck for animation
   const prevDeckRef = useRef(deckId);
@@ -91,6 +110,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
             noArtist
             noFavorite
             size="hero"
+            priority
             card={heroCards[1]}
             css={{
               position: "absolute",
@@ -107,6 +127,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
             noArtist
             noFavorite
             size="hero"
+            priority
             card={heroCards[0]}
             css={{
               position: "absolute",

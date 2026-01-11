@@ -49,8 +49,18 @@ const Card: FC<CardProps> = memo(
     priority = false,
     ...props
   }) => {
+    // Compute imgSrc first for use in state initialization
+    const imgSrc = size !== "big" ? card.img.replace("-big-hd/", "-big/") : card.img;
+
+    // Initialize loaded state by checking if image is already in browser cache
+    const [loaded, setLoaded] = useState(() => {
+      if (typeof window === "undefined") return false;
+      const img = new Image();
+      img.src = imgSrc;
+      return img.complete;
+    });
+
     const [hover, setHover] = useState(false);
-    const [loaded, setLoaded] = useState(false);
     const [{ x, y }, setSkew] = useState({ x: 0, y: 0 });
 
     const hideLoader = useCallback(() => setLoaded(true), []);
@@ -78,13 +88,15 @@ const Card: FC<CardProps> = memo(
     const { width } = useSize();
     const { palette } = usePaletteHook(paletteProp);
 
-    // Use smaller images for non-big sizes (replace -big-hd with -big)
-    const imgSrc = size !== "big" ? card.img.replace("-big-hd/", "-big/") : card.img;
-
+    // Update loaded state when imgSrc changes
     useLayoutEffect(() => {
       const img = new Image();
       img.src = imgSrc;
-      setLoaded(img.complete);
+      if (img.complete) {
+        setLoaded(true);
+      } else {
+        setLoaded(false);
+      }
     }, [imgSrc]);
 
     useLayoutEffect(() => {
@@ -177,13 +189,11 @@ const Card: FC<CardProps> = memo(
                     width: "100%",
                     height: "100%",
                     lineHeight: 1,
-                  },
-                  !priority && {
                     transition: loaded ? slowTransitionOpacity : "none",
                   },
                 ]}
                 style={{
-                  opacity: priority || loaded ? 1 : 0,
+                  opacity: loaded ? 1 : 0,
                 }}
                 loading={priority ? "eager" : "lazy"}
                 {...(priority && { fetchPriority: "high" })}
