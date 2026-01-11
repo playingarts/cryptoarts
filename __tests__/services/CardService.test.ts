@@ -238,8 +238,11 @@ describe("CardService", () => {
       // Mock Deck.findOne for the deck lookup
       (Deck.findOne as jest.Mock).mockResolvedValue({ _id: "deck-123" });
 
-      // Mock Card.findOne for each hero card
-      (Card.findOne as jest.Mock).mockReturnValue({
+      // Mock Card.aggregate to return sampled cards
+      (Card.aggregate as jest.Mock).mockResolvedValue(mockCards);
+
+      // Mock Card.findById for populating each card
+      (Card.findById as jest.Mock).mockReturnValue({
         populate: jest.fn().mockResolvedValueOnce(mockCards[0]).mockResolvedValueOnce(mockCards[1]),
       });
 
@@ -256,10 +259,12 @@ describe("CardService", () => {
       expect(result).toEqual([]);
     });
 
-    it("should return empty array when deck exists but no hero config", async () => {
+    it("should return empty array when deck has no cards", async () => {
       (Deck.findOne as jest.Mock).mockResolvedValue({ _id: "deck-123" });
+      // Mock Card.aggregate to return empty array
+      (Card.aggregate as jest.Mock).mockResolvedValue([]);
 
-      const result = await cardService.getHeroCards("nonexistent-config");
+      const result = await cardService.getHeroCards("empty-deck");
       expect(result).toEqual([]);
     });
   });

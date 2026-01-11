@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import { useRouter } from "next/router";
 import ScandiBlock from "../../ScandiBlock";
 import ButtonTemplate from "../../Buttons/Button";
 import { colord } from "colord";
@@ -62,13 +63,27 @@ const DeckPreviewSkeleton: FC<{ palette: "dark" | "light" }> = ({ palette }) => 
 const MainMenu: FC<
   HTMLAttributes<HTMLElement> & { setShow: Dispatch<SetStateAction<boolean>> }
 > = ({ setShow, ...props }) => {
+  const router = useRouter();
   const { products, loading, error } = useProducts();
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const { palette } = usePalette();
   const hasInitialized = useRef(false);
+  const prefetchedRef = useRef<Set<string>>(new Set());
+
+  // Intent-based prefetching for instant navigation
+  const prefetchPage = useCallback((href: string) => {
+    if (prefetchedRef.current.has(href)) return;
+    prefetchedRef.current.add(href);
+    router.prefetch(href);
+  }, [router]);
 
   // Capture scroll position at mount time (before body overflow is hidden)
   const [scrolledPast600] = useState(() => window.scrollY >= SCROLL_THRESHOLD);
+
+  // Auto-prefetch homepage when menu opens (most common destination)
+  useEffect(() => {
+    prefetchPage(getBaseUrl("/"));
+  }, [prefetchPage]);
 
   // Get deck products only
   const deckProducts = products?.filter((product) => product.type === "deck") || [];
@@ -164,29 +179,39 @@ const MainMenu: FC<
               },
             ]}
           >
-            <Link
-              href={getBaseUrl("/")}
-              onClick={handleClose}
-              css={(theme) => [
-                {
-                  display: "inline-block",
-                  "&:hover": {
-                    opacity: 0.5,
-                  },
-                  transition: theme.transitions.fast("opacity"),
-                },
-              ]}
+            <span
+              onMouseEnter={() => prefetchPage(getBaseUrl("/"))}
+              onTouchStart={() => prefetchPage(getBaseUrl("/"))}
             >
-              <Logo />
-            </Link>
-            <Link href={getBaseUrl("/shop")} onClick={handleClose}>
-              <ArrowButton
-                color={palette === "dark" ? "white" : undefined}
-                palette={palette}
+              <Link
+                href={getBaseUrl("/")}
+                onClick={handleClose}
+                css={(theme) => [
+                  {
+                    display: "inline-block",
+                    "&:hover": {
+                      opacity: 0.5,
+                    },
+                    transition: theme.transitions.fast("opacity"),
+                  },
+                ]}
               >
-                Shop
-              </ArrowButton>
-            </Link>
+                <Logo />
+              </Link>
+            </span>
+            <span
+              onMouseEnter={() => prefetchPage(getBaseUrl("/shop"))}
+              onTouchStart={() => prefetchPage(getBaseUrl("/shop"))}
+            >
+              <Link href={getBaseUrl("/shop")} onClick={handleClose}>
+                <ArrowButton
+                  color={palette === "dark" ? "white" : undefined}
+                  palette={palette}
+                >
+                  Shop
+                </ArrowButton>
+              </Link>
+            </span>
           </ScandiBlock>
 
           <div
@@ -219,27 +244,36 @@ const MainMenu: FC<
                 if (!deck) {
                   return null;
                 }
+                const deckHref = getBaseUrl(`/${deck.slug}`);
+                const handleHover = () => {
+                  setHoveredProduct(product);
+                  prefetchPage(deckHref);
+                };
                 return (
-                  <Link
+                  <span
                     key={`mainmenu-${product._id}`}
-                    href={getBaseUrl(`/${deck.slug}`)}
-                    onMouseEnter={() => setHoveredProduct(product)}
-                    onClick={handleClose}
+                    onMouseEnter={handleHover}
+                    onTouchStart={handleHover}
                     css={{
                       opacity: 0,
                       animation: `cascadeIn 0.3s ease-out forwards`,
                       animationDelay: `${index * CASCADE_DELAY}ms`,
                     }}
                   >
-                    <ArrowButton
-                      css={[{ textAlign: "start" }]}
-                      size="small"
-                      noColor={true}
-                      base={true}
+                    <Link
+                      href={deckHref}
+                      onClick={handleClose}
                     >
-                      {deck.short}
-                    </ArrowButton>
-                  </Link>
+                      <ArrowButton
+                        css={[{ textAlign: "start" }]}
+                        size="small"
+                        noColor={true}
+                        base={true}
+                      >
+                        {deck.short}
+                      </ArrowButton>
+                    </Link>
+                  </span>
                 );
               })}
             </div>

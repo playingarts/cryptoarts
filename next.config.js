@@ -39,6 +39,7 @@ const securityHeaders = [
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
       "font-src 'self' https://fonts.gstatic.com data:",
       "img-src 'self' https://s3.amazonaws.com https://*.amazonaws.com https://www.google-analytics.com data: blob:",
+      "media-src 'self' https://s3.amazonaws.com https://*.amazonaws.com blob:",
       "connect-src 'self' https://www.google-analytics.com https://api.mailerlite.com https://*.infura.io wss://*.infura.io https://*.sentry.io",
       "frame-ancestors 'none'",
       "base-uri 'self'",

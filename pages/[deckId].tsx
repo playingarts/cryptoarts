@@ -3,8 +3,8 @@ export { default } from "@/components/Pages/Deck/";
 import { initApolloClient } from "../source/apollo";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { connect } from "../source/mongoose";
-import { DecksNavQuery, DeckQuery } from "../hooks/deck";
-import { CardsForDeckQuery, HeroCardsQuery } from "../hooks/card";
+import { DecksNavQuery, DecksQuery } from "../hooks/deck";
+import { CardsForDeckQuery } from "../hooks/card";
 import { LosersQuery } from "../hooks/loser";
 import { NormalizedCacheObject } from "@apollo/client";
 import { schema } from "../source/graphql/schema";
@@ -48,11 +48,12 @@ export const getStaticProps: GetStaticProps<
 
   const client = initApolloClient(undefined, { schema });
 
-  // Fetch single deck by slug (not all decks)
-  const { data: { deck } = { deck: undefined } } = (await client.query({
-    query: DeckQuery,
-    variables: { slug: deckId },
-  })) as { data: { deck: GQL.Deck | undefined } };
+  // Fetch ALL decks with full text data (title, description, etc.) - lightweight
+  const { data: { decks } = { decks: [] } } = (await client.query({
+    query: DecksQuery,
+  })) as { data: { decks: GQL.Deck[] } };
+
+  const deck = decks.find((d) => d.slug === deckId);
 
   if (!deck) {
     return {
@@ -61,9 +62,11 @@ export const getStaticProps: GetStaticProps<
     };
   }
 
-  // Fetch navigation data (lightweight - only slugs)
+  // Fetch nav query for compatibility
   await client.query({ query: DecksNavQuery });
 
+  // Only fetch cards for CURRENT deck during SSR
+  // Adjacent decks will be prefetched client-side after initial render
   await client.query({
     query: CardsForDeckQuery,
     variables: { deck: deck._id },
@@ -72,11 +75,6 @@ export const getStaticProps: GetStaticProps<
   await client.query({
     query: LosersQuery,
     variables: { deck: deck._id },
-  });
-
-  await client.query({
-    query: HeroCardsQuery,
-    variables: { deck: deck._id, slug: deck.slug },
   });
 
   return {

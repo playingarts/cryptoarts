@@ -138,6 +138,7 @@ const Header: FC<Props> = ({
         <TitleButton
           inset={showSiteNav !== "afterTop"}
           setShow={setShowMenu}
+          showSiteNav={showSiteNav}
           css={(theme) => [
             {
               transition: theme.transitions.fast(["border-color", "top"]),

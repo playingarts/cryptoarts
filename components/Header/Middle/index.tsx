@@ -91,6 +91,8 @@ const Middle = ({
 }) => {
   const { palette } = usePalette();
   const { width } = useSize();
+  const carouselContext = useContext(HeroCarouselContext);
+  const hasCarousel = !!carouselContext;
 
   return (
     <div
@@ -107,14 +109,20 @@ const Middle = ({
         },
       })}
     >
-      {/* Background line */}
+      {/* Background line - semi-transparent when carousel is active, solid otherwise */}
       <div
         css={(theme) => [
           {
             boxSizing: "content-box",
             borderTop:
               "1px solid " +
-              (palette === "dark" ? theme.colors.white30 : "rgba(0,0,0,0.2)"),
+              (hasCarousel
+                ? palette === "dark"
+                  ? theme.colors.white30
+                  : "rgba(0,0,0,0.2)"
+                : palette === "dark"
+                  ? theme.colors.white
+                  : theme.colors.black),
             position: "absolute",
             width: "100%",
             top: 0,

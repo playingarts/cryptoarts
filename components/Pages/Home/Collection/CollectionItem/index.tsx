@@ -1,4 +1,5 @@
 import { FC, HTMLAttributes, useState, useCallback, memo, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import ArrowButton from "../../../../Buttons/ArrowButton";
 import NavButton from "../../../../Buttons/NavButton";
 import Card from "../../../../Card";
@@ -70,11 +71,13 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
   priority = false,
   ...props
 }) => {
+  const router = useRouter();
   const [hover, setHover] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
   const [deckImageLoaded, setDeckImageLoaded] = useState(false);
   const [isInViewport, setIsInViewport] = useState(priority); // Priority items start visible
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefetchedRef = useRef(false);
 
   // Card buffer - accumulates cards as user navigates
   const [cardBuffer, setCardBuffer] = useState<BufferCard[]>([]);
@@ -241,8 +244,16 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
     setDeckImageLoaded(true);
   }, []);
 
-  // Memoized event handlers
-  const handleMouseEnter = useCallback(() => setHover(true), []);
+  // Memoized event handlers with prefetching
+  const handleMouseEnter = useCallback(() => {
+    setHover(true);
+    // Prefetch deck page on hover for instant navigation
+    if (!prefetchedRef.current && product?.deck?.slug) {
+      prefetchedRef.current = true;
+      const deckPath = `${process.env.NEXT_PUBLIC_BASELINK || ""}/${product.deck.slug}`;
+      router.prefetch(deckPath);
+    }
+  }, [product?.deck?.slug, router]);
   const handleMouseLeave = useCallback(() => setHover(false), []);
 
   const handlePrevCard = useCallback(() => {

@@ -1,45 +1,123 @@
-import { FC, HTMLAttributes, useEffect } from "react";
-import { useLoadHeroCards } from "../../../../../hooks/card";
+import { FC, HTMLAttributes, useMemo, useState, useEffect } from "react";
+import { useCardsForDeck } from "../../../../../hooks/card";
+import { useDecks } from "../../../../../hooks/deck";
 import { useRouter } from "next/router";
 import Card from "../../../../Card";
+import { usePalette } from "../../DeckPaletteContext";
+
+type SlideState = "visible" | "sliding-out" | "sliding-in";
+
+const CardSkeleton: FC<{ left: number; rotate: string; palette: "dark" | "light" }> = ({ left, rotate, palette }) => (
+  <div
+    css={{
+      width: 329,
+      height: 463,
+      position: "absolute",
+      top: -37.59,
+      borderRadius: 20,
+      left,
+      rotate,
+      background: palette === "dark"
+        ? "linear-gradient(90deg, #2d2d2d 0%, #3d3d3d 50%, #2d2d2d 100%)"
+        : "linear-gradient(90deg, #e8e8e8 0%, #f5f5f5 50%, #e8e8e8 100%)",
+      backgroundSize: "200% 100%",
+      animation: "shimmer 1.5s ease-in-out infinite",
+      "@keyframes shimmer": {
+        "0%": { backgroundPosition: "200% 0%" },
+        "100%": { backgroundPosition: "-200% 0%" },
+      },
+    }}
+  />
+);
 
 const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  const {
-    heroCards = [
-      {
-        _id: "card01",
-        video: "",
-        img: null,
-        value: "",
-        suit: "",
-        info: "",
-        deck: "",
-        artist: "",
-      },
-      {
-        _id: "card02",
-        video: "",
-        img: null,
-        value: "",
-        suit: "",
-        info: "",
-        deck: "",
-        artist: "",
-      },
-    ] as unknown as GQL.Card[],
-    loadHeroCards,
-  } = useLoadHeroCards();
+  const { query: { deckId } } = useRouter();
+  const { palette } = usePalette();
 
-  const {
-    query: { deckId },
-  } = useRouter();
+  // Get deck from cached decks to get _id
+  const { decks } = useDecks({ skip: !deckId });
+  const deck = useMemo(() => decks?.find((d) => d.slug === deckId), [decks, deckId]);
 
+  // Use CardsForDeckQuery which is already in SSR cache
+  const { cards, loading } = useCardsForDeck({
+    variables: { deck: deck?._id },
+    skip: !deck?._id,
+  });
+
+  // Pick 2 random cards from cached cards (seeded by deckId for consistency)
+  const heroCards = useMemo(() => {
+    if (!cards || cards.length < 2) return [];
+    // Simple deterministic selection based on deckId to avoid flicker
+    const seed = deckId ? deckId.toString().split("").reduce((a, b) => a + b.charCodeAt(0), 0) : 0;
+    const idx1 = seed % cards.length;
+    const idx2 = (seed + Math.floor(cards.length / 2)) % cards.length;
+    return [cards[idx1], cards[idx2 === idx1 ? (idx2 + 1) % cards.length : idx2]];
+  }, [cards, deckId]);
+
+  // Track current deck to detect changes
+  const [currentDeckId, setCurrentDeckId] = useState(deckId);
+  const [slideState, setSlideState] = useState<SlideState>("visible");
+  const [displayedCards, setDisplayedCards] = useState<GQL.Card[]>([]);
+
+  // Show skeleton when loading OR when deck changed and we don't have new cards yet
+  const deckChanged = deckId !== currentDeckId;
+  const showSkeleton = loading || (deckChanged && heroCards.length === 0) || displayedCards.length === 0;
+
+  // Handle deck change and card updates
   useEffect(() => {
-    if (!deckId) {
+    // Deck changed - reset state
+    if (deckId !== currentDeckId) {
+      setCurrentDeckId(deckId as string);
+      setDisplayedCards([]); // Clear to show skeleton
+      setSlideState("visible");
       return;
     }
-    loadHeroCards({ variables: { deck: "", slug: deckId } });
-  }, [deckId, loadHeroCards]);
+
+    // New cards ready for current deck
+    if (heroCards.length > 0 && displayedCards.length === 0) {
+      // Initial load or after deck change - set cards with fan animation
+      setSlideState("sliding-in");
+      setDisplayedCards(heroCards);
+      setTimeout(() => setSlideState("visible"), 50);
+    } else if (heroCards.length > 0 && heroCards[0]?._id !== displayedCards[0]?._id) {
+      // Cards changed within same deck - animate transition
+      setSlideState("sliding-out");
+      const timer = setTimeout(() => {
+        setDisplayedCards(heroCards);
+        setSlideState("sliding-in");
+        setTimeout(() => setSlideState("visible"), 50);
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [deckId, currentDeckId, heroCards, displayedCards]);
+
+  // Fan effect: cards pivot from bottom center like being dealt from a deck
+  // Cards start stacked (0deg rotation) and fan out to their final rotations
+  const getLeftCardStyles = () => {
+    switch (slideState) {
+      case "sliding-out":
+      case "sliding-in":
+        // Closed position - cards stacked, no rotation, moved to center
+        return { rotate: "0deg", left: 185 }; // Center position
+      case "visible":
+      default:
+        // Fanned out position
+        return { rotate: "-10deg", left: 120 };
+    }
+  };
+
+  const getRightCardStyles = () => {
+    switch (slideState) {
+      case "sliding-out":
+      case "sliding-in":
+        // Closed position - cards stacked, no rotation, moved to center
+        return { rotate: "0deg", left: 185 }; // Center position
+      case "visible":
+      default:
+        // Fanned out position
+        return { rotate: "10deg", left: 250 };
+    }
+  };
 
   return (
     <div
@@ -57,24 +135,47 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         },
       ]}
     >
-      {heroCards.length === 0 ? null : (
+      {showSkeleton ? (
         <>
-          {heroCards[1] && (
+          <CardSkeleton left={250} rotate="10deg" palette={palette} />
+          <CardSkeleton left={120} rotate="-10deg" palette={palette} />
+        </>
+      ) : (
+        <>
+          {/* Right card - fans out from center to right */}
+          {displayedCards[1] && (
             <Card
               animated
               noArtist
               size="hero"
-              card={heroCards[1]}
-              css={[{ left: 308.35, rotate: "15deg" }]}
+              card={displayedCards[1]}
+              css={(theme) => [
+                {
+                  transformOrigin: "bottom center",
+                  transition: slideState === "sliding-in"
+                    ? "none"
+                    : "rotate 0.4s ease-out, left 0.4s ease-out",
+                },
+              ]}
+              style={getRightCardStyles()}
             />
           )}
-          {heroCards[0] && (
+          {/* Left card - fans out from center to left */}
+          {displayedCards[0] && (
             <Card
               animated
               noArtist
               size="hero"
-              card={heroCards[0]}
-              css={[{ left: 61.07, rotate: "-15deg" }]}
+              card={displayedCards[0]}
+              css={(theme) => [
+                {
+                  transformOrigin: "bottom center",
+                  transition: slideState === "sliding-in"
+                    ? "none"
+                    : "rotate 0.4s ease-out, left 0.4s ease-out",
+                },
+              ]}
+              style={getLeftCardStyles()}
             />
           )}
         </>

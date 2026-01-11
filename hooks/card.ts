@@ -209,6 +209,23 @@ export const useCards = (
   };
 };
 
+/**
+ * Use CardsForDeckQuery which is pre-cached during SSR.
+ * Returns cards array for the given deck from cache.
+ */
+export const useCardsForDeck = (
+  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
+) => {
+  const { data: { cards } = { cards: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "cards">
+  >(CardsForDeckQuery, options);
+
+  return {
+    ...methods,
+    cards,
+  };
+};
+
 export const useHomeCards = (
   options: useQuery.Options<Pick<GQL.Query, "homeCards">> = {}
 ) => {

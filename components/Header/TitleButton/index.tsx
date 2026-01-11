@@ -10,8 +10,8 @@ import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
 
 const TitleButton: FC<
-  HTMLAttributes<HTMLElement> & { setShow: (x: boolean) => void } & Props
-> = ({ setShow, ...props }) => {
+  HTMLAttributes<HTMLElement> & { setShow: (x: boolean) => void; showSiteNav?: "top" | "afterTop" } & Props
+> = ({ setShow, showSiteNav = "top", ...props }) => {
   const {
     query: { deckId },
   } = useRouter();
@@ -63,7 +63,31 @@ const TitleButton: FC<
       >
         <Menu css={(theme) => [{ [theme.mq.sm]: { marginRight: 10 } }]} />
 
-        {width >= breakpoints.sm ? (deck ? deck.title : "Playing Arts") : null}
+        {width >= breakpoints.sm && (
+          <span css={{ position: "relative" }}>
+            <span
+              css={(theme) => ({
+                opacity: deckId && deck && showSiteNav === "afterTop" ? 0 : 1,
+                transition: theme.transitions.fast("opacity"),
+              })}
+            >
+              Playing Arts
+            </span>
+            {deckId && deck && (
+              <span
+                css={(theme) => ({
+                  position: "absolute",
+                  left: 0,
+                  whiteSpace: "nowrap",
+                  opacity: showSiteNav === "afterTop" ? 1 : 0,
+                  transition: theme.transitions.fast("opacity"),
+                })}
+              >
+                {deck.title}
+              </span>
+            )}
+          </span>
+        )}
       </Button>
       {/* <PageNav
         css={[

@@ -4,7 +4,7 @@ import Home from "@/components/Pages/Home";
 
 export default Home;
 
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   await connect();
 
   // Fetch all home cards server-side for the full deck carousel
@@ -24,5 +24,7 @@ export const getServerSideProps = async () => {
     props: {
       homeCards: serializedCards,
     },
+    // Revalidate every 60 seconds for fresh data with cached performance
+    revalidate: 60,
   };
 };

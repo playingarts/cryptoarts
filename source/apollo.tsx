@@ -30,7 +30,9 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
     const client = apolloClient || initApolloClient(apolloState);
 
     if (cache) {
-      client.restore(cache);
+      // Merge new cache with existing instead of replacing
+      const existingCache = client.cache.extract() as NormalizedCacheObject;
+      client.cache.restore(Object.assign({}, existingCache, cache));
     }
 
     return (
@@ -96,6 +98,7 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
 
 /**
  * Initialize Apollo Client, reusing cached instance on client side.
+ * On client, merges new initialState into existing cache to preserve previously loaded data.
  */
 export const initApolloClient = (initialState?: object, config?: object) => {
   if (typeof window === "undefined") {
@@ -103,6 +106,11 @@ export const initApolloClient = (initialState?: object, config?: object) => {
   }
   if (!cachedApolloClient) {
     cachedApolloClient = createApolloClient(initialState);
+  } else if (initialState) {
+    // Merge new state into existing cache without overwriting
+    const existingCache = cachedApolloClient.cache.extract() as NormalizedCacheObject;
+    const newState = initialState as NormalizedCacheObject;
+    cachedApolloClient.cache.restore(Object.assign({}, existingCache, newState));
   }
   return cachedApolloClient;
 };
@@ -118,6 +126,15 @@ export const createApolloClient = (initialState = {}, config?: object) => {
     cache,
     link: createIsomorphLink(config),
     ssrMode,
+    defaultOptions: {
+      watchQuery: {
+        // Use cache first - only fetch from network if not in cache
+        fetchPolicy: "cache-first",
+      },
+      query: {
+        fetchPolicy: "cache-first",
+      },
+    },
   });
 };
 

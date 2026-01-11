@@ -18,43 +18,6 @@ function fromWei(wei: string): string {
   return etherValue.toString();
 }
 
-// Hero cards configuration per deck
-const heroCardConfig = {
-  zero: [
-    { suit: "spades", value: "queen" },
-    { suit: "diamonds", value: "5" },
-  ],
-  one: [
-    { suit: "clubs", value: "6" },
-    { suit: "diamonds", value: "ace" },
-  ],
-  two: [
-    { value: "5", suit: "spades" },
-    { value: "8", suit: "clubs" },
-  ],
-  three: [
-    { suit: "spades", value: "ace" },
-    { suit: "clubs", value: "3" },
-  ],
-  special: [
-    { value: "9", suit: "clubs" },
-    { value: "4", suit: "hearts" },
-  ],
-  future: [
-    { value: "queen", suit: "hearts" },
-    { value: "ace", suit: "hearts" },
-  ],
-  "future-ii": [
-    { value: "queen", suit: "clubs" },
-    { value: "ace", suit: "spades" },
-  ],
-  crypto: [
-    { suit: "clubs", value: "5" },
-    { suit: "diamonds", value: "8" },
-  ],
-} as const;
-
-export type DeckSlug = keyof typeof heroCardConfig;
 
 interface GetCardsOptions {
   deck?: string;
@@ -221,6 +184,7 @@ export class CardService {
 
   /**
    * Get hero cards for a specific deck
+   * Returns 2 random cards from the deck for the hero section
    */
   async getHeroCards(slug: string): Promise<GQL.Card[]> {
     const deck = (await Deck.findOne({ slug })) as unknown as GQL.Deck;
@@ -228,21 +192,24 @@ export class CardService {
       return [];
     }
 
-    const cardConfigs = heroCardConfig[slug as DeckSlug];
-    if (!cardConfigs) {
+    // Get 2 random cards from the deck using MongoDB's $sample
+    const cards = (await Card.aggregate([
+      { $match: { deck: deck._id } },
+      { $sample: { size: 2 } },
+    ])) as MongoCard[] | undefined;
+
+    if (!cards || cards.length === 0) {
       return [];
     }
 
-    const cards = await Promise.all(
-      cardConfigs.map(async (cardConfig) =>
-        Card.findOne({
-          ...cardConfig,
-          deck: deck._id,
-        }).populate(["artist", "deck"]) as unknown as Promise<GQL.Card>
+    // Populate artist and deck for the sampled cards
+    const populatedCards = await Promise.all(
+      cards.map(async (card) =>
+        Card.findById(card._id).populate(["artist", "deck"]) as unknown as Promise<GQL.Card>
       )
     );
 
-    return cards.filter(Boolean);
+    return populatedCards.filter(Boolean);
   }
 
   /**

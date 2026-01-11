@@ -81,7 +81,7 @@ const Link: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
     <ClassNames>
       {({ cx, css, theme }) => (
         <NextLink
-          shallow={true}
+          shallow={shallow}
           href={href}
           as={as}
           replace={replace}

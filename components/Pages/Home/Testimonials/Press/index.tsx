@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useMemo } from "react";
+import { FC, HTMLAttributes } from "react";
 import Grid from "../../../../Grid";
 import Fastcompany from "../../../../Icons/Fastcompany";
 import CreativeBloq from "../../../../Icons/CreativeBloq";
@@ -32,23 +32,10 @@ const PRESS_LINKS = [
   },
 ];
 
-// Fisher-Yates shuffle
-const shuffleArray = <T,>(array: T[]): T[] => {
-  const shuffled = [...array];
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-};
-
 const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  // Shuffle once on mount
-  const shuffledLinks = useMemo(() => shuffleArray(PRESS_LINKS), []);
-
   return (
     <Grid css={{ marginTop: 50 }} {...props}>
-      {shuffledLinks.map(({ name, href, Icon, scale }) => (
+      {PRESS_LINKS.map(({ name, href, Icon, scale }) => (
         <div
           key={name}
           css={{

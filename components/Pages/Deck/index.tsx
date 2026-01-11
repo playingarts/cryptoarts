@@ -4,19 +4,19 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { FC, Fragment, HTMLAttributes } from "react";
 import { withApollo } from "../../../source/apollo";
-import Footer from "../../Footer";
 import Header from "../../Header";
-import CardList from "./CardList";
 import Hero from "./Hero";
 import { getDeckConfig } from "../../../source/deckConfig";
 
 // Lazy-load below-fold components
+const CardList = dynamic(() => import("./CardList"), { ssr: true });
 const TheProduct = dynamic(() => import("./TheProduct"), { ssr: true });
 const PACE = dynamic(() => import("./PACE"), { ssr: true });
 const Gallery = dynamic(() => import("./Gallery"), { ssr: true });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
   ssr: true,
 });
+const Footer = dynamic(() => import("../../Footer"), { ssr: true });
 
 const CryptoSections = () => {
   const {
