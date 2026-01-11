@@ -92,7 +92,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(({ sticky = true, .
         {
           gridColumn: "span 6",
           alignSelf: "start",
-          marginBottom: 30,
+          marginBottom: 90,
           top: 100,
           willChange: "transform",
         },
