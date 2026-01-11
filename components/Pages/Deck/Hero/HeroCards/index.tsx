@@ -102,7 +102,7 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       case "visible":
       default:
         // Fanned out position
-        return { rotate: "-10deg", left: 120 };
+        return { rotate: "-10deg", left: 95 };
     }
   };
 
@@ -115,7 +115,7 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       case "visible":
       default:
         // Fanned out position
-        return { rotate: "10deg", left: 250 };
+        return { rotate: "10deg", left: 275 };
     }
   };
 
@@ -137,8 +137,8 @@ const HeroCards: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     >
       {showSkeleton ? (
         <>
-          <CardSkeleton left={250} rotate="10deg" palette={palette} />
-          <CardSkeleton left={120} rotate="-10deg" palette={palette} />
+          <CardSkeleton left={275} rotate="10deg" palette={palette} />
+          <CardSkeleton left={95} rotate="-10deg" palette={palette} />
         </>
       ) : (
         <>

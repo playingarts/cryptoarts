@@ -42,9 +42,10 @@ const App = ({
 
   // Initialize Apollo client at app level for components outside page-level withApollo
   // Page-level withApollo will override this with SSR-hydrated cache for page components
+  // Support both 'apolloState' (withApollo HOC) and 'cache' (getStaticProps) prop names
   const apolloClient = useMemo(
-    () => initApolloClient(pageProps.apolloState),
-    [pageProps.apolloState]
+    () => initApolloClient(pageProps.apolloState || pageProps.cache),
+    [pageProps.apolloState, pageProps.cache]
   );
 
   return (
