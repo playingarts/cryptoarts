@@ -101,13 +101,28 @@ const MainMenu: FC<
   // Get deck products only
   const deckProducts = products?.filter((product) => product.type === "deck") || [];
 
-  // Initialize hovered product only once when products load
+  // Get current deck slug from URL (works for /[deckId] and /[deckId]/[artistSlug] pages)
+  const currentDeckSlug = router.query.deckId as string | undefined;
+
+  // Find product matching current page's deck
+  const currentDeckProduct = currentDeckSlug
+    ? deckProducts.find((p) => p.deck?.slug === currentDeckSlug)
+    : null;
+
+  // Initialize hovered product - prefer current page's deck, fallback to first
   useEffect(() => {
     if (deckProducts.length > 0 && !hasInitialized.current) {
-      setHoveredProduct(deckProducts[0]);
+      setHoveredProduct(currentDeckProduct || deckProducts[0]);
       hasInitialized.current = true;
     }
-  }, [deckProducts]);
+  }, [deckProducts, currentDeckProduct]);
+
+  // Update hovered product when menu opens on a different deck page
+  useEffect(() => {
+    if (show && currentDeckProduct && hasInitialized.current) {
+      setHoveredProduct(currentDeckProduct);
+    }
+  }, [show, currentDeckProduct]);
 
   // Track first animation
   useEffect(() => {
