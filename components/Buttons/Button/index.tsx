@@ -71,7 +71,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
           : size === "small"
           ? [
               {
-                fontSize: 20,
+                fontSize: 18,
                 height: 40,
               },
               base === false && {

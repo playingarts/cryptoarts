@@ -1,4 +1,4 @@
-import { FC, Fragment, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useState } from "react";
 import Intro from "../../../Intro";
 import ButtonTemplate from "../../../Buttons/Button";
 import Grid from "../../../Grid";
@@ -74,30 +74,30 @@ const FeaturedPodcastSkeleton: FC = () => (
 
 // Loading skeleton for the episode list
 const EpisodeListSkeleton: FC = () => (
-  <Grid
-    auto={true}
-    css={{
-      alignItems: "center",
-      justifyContent: "start",
-      rowGap: 5,
-      padding: 30,
-    }}
-  >
-    {[...Array(10)].map((_, i) => (
-      <Fragment key={i}>
+  <div css={{ padding: 30, display: "flex", flexDirection: "column", gap: 5 }}>
+    {[...Array(8)].map((_, i) => (
+      <div
+        key={i}
+        css={{
+          display: "grid",
+          gridTemplateColumns: "70px 1fr auto",
+          alignItems: "center",
+          gap: 10,
+          height: 40,
+        }}
+      >
         <div
           css={(theme) => ({
-            width: 30,
-            height: 16,
+            width: 40,
+            height: 18,
             borderRadius: 4,
             background: theme.colors.pale_gray,
           })}
         />
         <div
           css={(theme) => ({
-            gridColumn: "span 3",
-            width: "70%",
-            height: 20,
+            width: "60%",
+            height: 18,
             borderRadius: 4,
             background: theme.colors.pale_gray,
           })}
@@ -105,19 +105,28 @@ const EpisodeListSkeleton: FC = () => (
         <div
           css={(theme) => ({
             width: 50,
-            height: 16,
+            height: 18,
             borderRadius: 4,
             background: theme.colors.pale_gray,
           })}
         />
-      </Fragment>
+      </div>
     ))}
-  </Grid>
+    <div
+      css={(theme) => ({
+        marginTop: 10,
+        width: 140,
+        height: 18,
+        borderRadius: 4,
+        background: theme.colors.pale_gray,
+      })}
+    />
+  </div>
 );
 
 const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { podcasts, loading, containerRef } = useLazyPodcasts({
-    variables: { limit: 10, shuffle: true },
+    variables: { limit: 8, shuffle: true },
   });
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -158,7 +167,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {loading ? (
             <FeaturedPodcastSkeleton />
           ) : displayedPodcast ? (
-            <div css={{ padding: 30 }}>
+            <div css={{ padding: 30, display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box" }}>
               <Text typography="paragraphSmall">
                 EP{displayedPodcast.episode} — {displayedPodcast.time}
               </Text>
@@ -187,11 +196,11 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 href={displayedPodcast.youtube || ""}
                 target="_blank"
                 rel="noopener noreferrer"
+                css={{ marginTop: "auto", paddingTop: 30 }}
               >
                 <ButtonTemplate
                   css={(theme) => [
                     {
-                      marginTop: 30,
                       paddingLeft: 10,
                     },
                   ]}
@@ -221,7 +230,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ) : (
             <div css={{ padding: 30, display: "flex", flexDirection: "column", gap: 5 }}>
               {podcasts &&
-                podcasts.slice(0, 10).map((podcast, index) =>
+                podcasts.slice(0, 8).map((podcast, index) =>
                   podcast ? (
                     <div
                       key={podcast.desc + podcast.podcastName}

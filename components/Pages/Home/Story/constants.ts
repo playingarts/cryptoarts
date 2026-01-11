@@ -47,7 +47,7 @@ export const FALLBACK_CARDS: HomeCard[] = [
 
 // Stats data for the Story section
 export const STORY_STATS = [
-  { value: "12", label: "Years" },
+  { value: "14", label: "Years" },
   { value: "08", label: "Editions" },
   { value: "1100+", label: "Artists" },
 ] as const;

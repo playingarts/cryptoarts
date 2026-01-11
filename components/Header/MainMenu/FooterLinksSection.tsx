@@ -84,7 +84,7 @@ const FooterLinksSection: FC = () => {
           },
         ]}
       >
-        <small>
+        <small css={{ maxWidth: "calc(5 * var(--columnWidth) + 4 * 24px)" }}>
           <Text
             typography="paragraphMicro"
             css={(theme) => [
@@ -102,7 +102,7 @@ const FooterLinksSection: FC = () => {
               },
             ]}
           >
-            © 2012—2025 Digital Abstracts SL. Any artwork displayed on this
+            © 2012—2026 Digital Abstracts SL. Any artwork displayed on this
             website may not be reproduced or used in any manner whatsoever without
             the express written permission of Digital Abstracts or their
             respective owners. Patent Pending. Thanks for reading this, bye!
