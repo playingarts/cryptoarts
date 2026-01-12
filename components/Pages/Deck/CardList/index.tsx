@@ -144,6 +144,10 @@ const ListItem: FC<{
                   {
                     marginTop: 60,
                     color: theme.colors[palette === "dark" ? "white75" : "black"],
+                    display: "-webkit-box",
+                    WebkitLineClamp: 5,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
                   },
                 ]}
               >
