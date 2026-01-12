@@ -22,6 +22,47 @@ interface CachedCards {
   timestamp: number;
 }
 
+/** Preload images and resolve when loaded (or timeout) */
+const preloadImagesWithCache = (cards: HeroCardProps[], imageCache: Map<string, HTMLImageElement>): Promise<void> => {
+  return new Promise((resolve) => {
+    let loadedCount = 0;
+    const totalImages = Math.min(cards.length, 2);
+
+    // Timeout after 5 seconds - don't block forever
+    const timeout = setTimeout(() => resolve(), 5000);
+
+    const onLoad = () => {
+      loadedCount++;
+      if (loadedCount >= totalImages) {
+        clearTimeout(timeout);
+        resolve();
+      }
+    };
+
+    cards.slice(0, 2).forEach((card) => {
+      // Check if already cached
+      if (imageCache.has(card.img)) {
+        onLoad();
+        return;
+      }
+
+      const img = new Image();
+      img.onload = () => {
+        imageCache.set(card.img, img); // Store reference to prevent GC
+        onLoad();
+      };
+      img.onerror = onLoad; // Count errors as "loaded" to avoid hanging
+      img.src = card.img;
+
+      // If already in browser cache
+      if (img.complete) {
+        imageCache.set(card.img, img);
+        onLoad();
+      }
+    });
+  });
+};
+
 export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
   // Store prefetched cards by deck slug (for hover prefetch)
   const prefetchedCardsRef = useRef<Map<string, HeroCardProps[]>>(new Map());
@@ -29,6 +70,8 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
   const fetchPromisesRef = useRef<Map<string, Promise<HeroCardProps[] | undefined>>>(new Map());
   // Short-lived cache to prevent rapid re-fetching during navigation
   const recentCardsRef = useRef<Map<string, CachedCards>>(new Map());
+  // Keep image references to prevent garbage collection
+  const imageCacheRef = useRef<Map<string, HTMLImageElement>>(new Map());
 
   const [queryHeroCards] = useLazyQuery<Pick<GQL.Query, "heroCards">>(HeroCardsLiteQuery, {
     fetchPolicy: "no-cache", // Always fetch fresh random cards (heroCards uses MongoDB $sample)
@@ -50,11 +93,8 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
             deckSlug: slug, // Include deck slug for validation
           })) as HeroCardProps[];
 
-          // Prefetch images
-          heroCards.forEach((card) => {
-            const img = new Image();
-            img.src = card.img;
-          });
+          // Prefetch images and wait for them to load (with caching)
+          await preloadImagesWithCache(heroCards, imageCacheRef.current);
 
           // Cache the result for short-term reuse
           recentCardsRef.current.set(slug, {

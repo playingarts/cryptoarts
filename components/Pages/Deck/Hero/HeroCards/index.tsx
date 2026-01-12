@@ -5,6 +5,36 @@ import { useHeroCardsContext } from "../../HeroCardsContext";
 import Card from "../../../../Card";
 import { HeroCardProps } from "../../../../../pages/[deckId]";
 
+/** Check if images are already in browser cache and preload if not */
+const waitForImages = (cards: HeroCardProps[]): Promise<void> => {
+  return new Promise((resolve) => {
+    let loadedCount = 0;
+    const totalImages = Math.min(cards.length, 2);
+
+    // Quick timeout - if prefetch worked, images should load very fast from cache
+    const timeout = setTimeout(() => resolve(), 500);
+
+    const onLoad = () => {
+      loadedCount++;
+      if (loadedCount >= totalImages) {
+        clearTimeout(timeout);
+        resolve();
+      }
+    };
+
+    cards.slice(0, 2).forEach((card) => {
+      const img = new Image();
+      img.onload = onLoad;
+      img.onerror = onLoad;
+      img.src = card.img;
+      // If already in browser cache, complete will be true immediately
+      if (img.complete && img.naturalWidth > 0) {
+        onLoad();
+      }
+    });
+  });
+};
+
 // Card position constants
 const CARD_POSITIONS = {
   left: { left: 95, rotate: "-10deg", zIndex: 2 },
@@ -66,12 +96,12 @@ const CardPlaceholder: FC<{
           overflow: "hidden",
           background:
             palette === "dark"
-              ? "linear-gradient(90deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)"
-              : "linear-gradient(90deg, #e0e0e0 0%, #f5f5f5 50%, #e0e0e0 100%)",
+              ? "linear-gradient(90deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%)"
+              : "linear-gradient(90deg, #d0d0d0 0%, #e8e8e8 50%, #d0d0d0 100%)",
           backgroundSize: "200% 100%",
-          animation: "shimmer 1.5s infinite linear",
+          animation: "heroCardShimmer 1.5s infinite linear",
           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-          "@keyframes shimmer": {
+          "@keyframes heroCardShimmer": {
             "0%": { backgroundPosition: "200% 0" },
             "100%": { backgroundPosition: "-200% 0" },
           },
@@ -97,6 +127,8 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
     const [fetchedCards, setFetchedCards] = useState<HeroCardProps[] | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
     const [hasFailed, setHasFailed] = useState(false);
+    // Track when images are ready to display (for smooth skeleton → card transition)
+    const [imagesReady, setImagesReady] = useState(false);
 
     // SSR cards are valid if they exist and match the current deck
     const canUseSSRCards = !!(
@@ -116,13 +148,18 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
       let cancelled = false;
       setIsLoading(true);
       setHasFailed(false);
+      setImagesReady(false);
 
       fetchCardsForDeck(deckId)
-        .then((cards) => {
+        .then(async (cards) => {
           if (cancelled) return;
 
           if (cards && cards.length >= 2) {
+            // Wait for images to load before showing cards
+            await waitForImages(cards);
+            if (cancelled) return;
             setFetchedCards(cards);
+            setImagesReady(true);
           } else {
             setHasFailed(true);
           }
@@ -148,14 +185,14 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
 
       const timer = setTimeout(() => {
         setHasFailed(false);
-        // Trigger re-fetch by clearing failed state
-        // The main effect will re-run due to isLoading being false
         setIsLoading(true);
 
         fetchCardsForDeck(deckId)
-          .then((cards) => {
+          .then(async (cards) => {
             if (cards && cards.length >= 2) {
+              await waitForImages(cards);
               setFetchedCards(cards);
+              setImagesReady(true);
               setHasFailed(false);
             } else {
               setHasFailed(true);
@@ -174,9 +211,10 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
 
     // Use SSR cards if valid, otherwise use fetched cards
     const heroCards = canUseSSRCards ? ssrHeroCards : fetchedCards;
-    const hasCards = heroCards && heroCards.length >= 2;
+    // Show cards when: SSR cards are valid OR (we have fetched cards AND images are ready)
+    const showCards = canUseSSRCards || (heroCards && heroCards.length >= 2 && imagesReady);
     // Only animate fade-in for fetched cards (not SSR - those should show immediately)
-    const shouldFadeIn = hasCards && !canUseSSRCards;
+    const shouldFadeIn = showCards && !canUseSSRCards;
 
     return (
       <div
@@ -195,7 +233,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
         ]}
         {...props}
       >
-        {hasCards ? (
+        {showCards && heroCards ? (
           <>
             {/* Right card (back) */}
             <CardWrapper position="right" fadeIn={shouldFadeIn}>

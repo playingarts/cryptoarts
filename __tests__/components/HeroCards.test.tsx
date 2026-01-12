@@ -4,6 +4,25 @@ import { ReactNode, FC } from "react";
 import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 import { NextRouter } from "next/router";
 
+// Mock Image constructor for image preloading tests
+class MockImage {
+  onload: (() => void) | null = null;
+  onerror: (() => void) | null = null;
+  src: string = "";
+  complete: boolean = true;
+  naturalWidth: number = 100;
+
+  constructor() {
+    // Simulate immediate load for cached images
+    setTimeout(() => {
+      if (this.onload) this.onload();
+    }, 0);
+  }
+}
+
+// @ts-expect-error - mock global Image
+global.Image = MockImage;
+
 // Mock the contexts and components
 jest.mock("../../components/Pages/Deck/DeckPaletteContext", () => ({
   usePalette: () => ({ palette: "light" }),
@@ -105,8 +124,8 @@ describe("HeroCardsContext", () => {
       // Prefetch
       await act(async () => {
         result.current.prefetchHeroCards("deck-a");
-        // Wait for prefetch to complete
-        await new Promise((r) => setTimeout(r, 100));
+        // Wait for prefetch to complete (includes image preloading)
+        await new Promise((r) => setTimeout(r, 200));
       });
 
       // Reset mock to verify it's not called again
