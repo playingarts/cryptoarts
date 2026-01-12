@@ -160,9 +160,20 @@ const CardRow: FC<{
   cardsPerRow: number;
   allCards: GQL.Card[];
   onVisible: () => void;
-}> = ({ cards, rowIndex, cardsPerRow, allCards, onVisible }) => {
+  /** For first 2 rows: load immediately when user starts scrolling anywhere */
+  loadEarly?: boolean;
+}> = ({ cards, rowIndex, cardsPerRow, allCards, onVisible, loadEarly }) => {
   const sentinelRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(rowIndex === 0); // First row visible immediately
+
+  // Load early when scroll starts (for first 2 rows)
+  useEffect(() => {
+    if (isVisible) return;
+    if (loadEarly && rowIndex <= 1) {
+      setIsVisible(true);
+      onVisible();
+    }
+  }, [loadEarly, rowIndex, isVisible, onVisible]);
 
   useEffect(() => {
     if (isVisible || rowIndex === 0) return;
@@ -258,6 +269,22 @@ const List = () => {
   // Track how many rows are rendered (start with first 2 rows)
   const [renderedRows, setRenderedRows] = useState(2);
 
+  // Track if first two rows should start loading (triggered by any scroll)
+  const [shouldLoadInitial, setShouldLoadInitial] = useState(false);
+
+  // Listen for any scroll to trigger loading of first two rows early
+  useEffect(() => {
+    if (shouldLoadInitial) return; // Already triggered
+
+    const handleScroll = () => {
+      setShouldLoadInitial(true);
+      window.removeEventListener("scroll", handleScroll);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [shouldLoadInitial]);
+
   // Callback when a row becomes visible - render the next row
   const handleRowVisible = useCallback(() => {
     setRenderedRows((prev) => Math.min(prev + 1, rows.length));
@@ -266,6 +293,7 @@ const List = () => {
   // Reset rendered rows when deck changes
   useEffect(() => {
     setRenderedRows(2);
+    setShouldLoadInitial(false);
   }, [deckId]);
 
   if (!cards) return null;
@@ -292,6 +320,7 @@ const List = () => {
           cardsPerRow={cardsPerRow}
           allCards={cards}
           onVisible={handleRowVisible}
+          loadEarly={shouldLoadInitial}
         />
       ))}
     </div>
