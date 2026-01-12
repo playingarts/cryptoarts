@@ -311,8 +311,9 @@ const Card: FC<CardProps> = memo(
               {
                 marginTop: 10,
                 textAlign: "center",
+                fontSize: 18,
                 color: theme.colors[palette === "dark" ? "white50" : "black50"],
-                transition: "linear 50ms color",
+                transition: "color 0.15s ease-out",
               },
               hover && {
                 color: theme.colors[palette === "dark" ? "white" : "dark_gray"],
