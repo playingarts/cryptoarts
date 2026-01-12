@@ -4,7 +4,7 @@ import { initApolloClient } from "../source/apollo";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { connect } from "../source/mongoose";
 import { DecksNavQuery, DecksQuery } from "../hooks/deck";
-import { CardsForDeckQuery, HeroCardsLiteQuery } from "../hooks/card";
+import { CardsForDeckQuery } from "../hooks/card";
 import { LosersQuery } from "../hooks/loser";
 import { NormalizedCacheObject } from "@apollo/client";
 import { schema } from "../source/graphql/schema";
@@ -70,12 +70,6 @@ export const getStaticProps: GetStaticProps<
   await client.query({
     query: CardsForDeckQuery,
     variables: { deck: deck.slug },
-  });
-
-  // Pre-cache hero cards (2 random cards) for instant load
-  await client.query({
-    query: HeroCardsLiteQuery,
-    variables: { slug: deck.slug },
   });
 
   await client.query({
