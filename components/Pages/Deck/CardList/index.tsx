@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { FC, Fragment, HTMLAttributes, useEffect, useState, useRef, useMemo } from "react";
+import { FC, Fragment, HTMLAttributes, useEffect, useState, useRef, useMemo, useCallback } from "react";
 import Grid from "../../../Grid";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
@@ -275,19 +275,20 @@ const QuotePlaceholder: FC = () => (
   </Grid>
 );
 
-/** Row of cards - loads when scrolled into view */
+/** Row of cards - loads when batch is loaded and scrolled into view */
 const CardRow: FC<{
   cards: GQL.Card[];
   rowIndex: number;
   cardsPerRow: number;
   allCards: GQL.Card[];
-}> = ({ cards, rowIndex, allCards }) => {
+  isBatchLoaded: boolean;
+  onVisible?: () => void;
+}> = ({ cards, rowIndex, allCards, isBatchLoaded, onVisible }) => {
   const sentinelRef = useRef<HTMLDivElement>(null);
-  // First 2 rows visible immediately, rest lazy load
-  const [isVisible, setIsVisible] = useState(rowIndex < 2);
+  const [isInViewport, setIsInViewport] = useState(false);
 
   useEffect(() => {
-    if (isVisible) return;
+    if (isInViewport) return;
 
     const element = sentinelRef.current;
     if (!element) return;
@@ -295,7 +296,8 @@ const CardRow: FC<{
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setIsInViewport(true);
+          onVisible?.();
           observer.disconnect();
         }
       },
@@ -307,7 +309,10 @@ const CardRow: FC<{
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [isVisible]);
+  }, [isInViewport, onVisible]);
+
+  // Row is visible when both its batch is loaded AND it's in/near viewport
+  const isVisible = isBatchLoaded && isInViewport;
 
   // Calculate if this row should show a quote (every 3rd row after the first)
   const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
@@ -365,14 +370,42 @@ const useCardRows = (cards: GQL.Card[] | undefined, cardsPerRow: number) => {
   }, [cards, cardsPerRow]);
 };
 
+// Batch size for loading rows (load 2 rows at a time)
+const BATCH_SIZE = 2;
+
 const List = () => {
   const {
     query: { deckId },
   } = useRouter();
 
   const { deck } = useDeck({ variables: { slug: deckId } });
-  const { cards } = useCards(deck && { variables: { deck: deck._id } });
   const { width } = useSize();
+
+  // Start loading cards when user scrolls 10px
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    if (shouldLoad) return;
+
+    const handleScroll = () => {
+      if (window.scrollY >= 10) {
+        setShouldLoad(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    // Check immediately in case already scrolled
+    if (window.scrollY >= 10) {
+      setShouldLoad(true);
+      return;
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [shouldLoad]);
+
+  // Only fetch cards after scroll trigger
+  const { cards } = useCards(shouldLoad && deck ? { variables: { deck: deck._id } } : undefined);
 
   // Determine cards per row based on screen width
   const cardsPerRow = width >= breakpoints.md
@@ -383,6 +416,28 @@ const List = () => {
 
   // Split cards into rows
   const rows = useCardRows(cards, cardsPerRow);
+
+  // Track which batches are loaded (batch 0 = rows 0-1, batch 1 = rows 2-3, etc.)
+  // First batch (rows 0-1) loads immediately when cards arrive
+  const [loadedBatches, setLoadedBatches] = useState<Set<number>>(new Set([0]));
+
+  // Handler for when a row becomes visible - load next batch
+  const handleRowVisible = useCallback((rowIndex: number) => {
+    const currentBatch = Math.floor(rowIndex / BATCH_SIZE);
+    const nextBatch = currentBatch + 1;
+    setLoadedBatches((prev) => {
+      if (prev.has(nextBatch)) return prev;
+      const next = new Set(prev);
+      next.add(nextBatch);
+      return next;
+    });
+  }, []);
+
+  // Check if a row's batch is loaded
+  const isBatchLoaded = useCallback(
+    (rowIndex: number) => loadedBatches.has(Math.floor(rowIndex / BATCH_SIZE)),
+    [loadedBatches]
+  );
 
   if (!cards) return null;
 
@@ -407,6 +462,8 @@ const List = () => {
           rowIndex={rowIndex}
           cardsPerRow={cardsPerRow}
           allCards={cards}
+          isBatchLoaded={isBatchLoaded(rowIndex)}
+          onVisible={() => handleRowVisible(rowIndex)}
         />
       ))}
     </div>
