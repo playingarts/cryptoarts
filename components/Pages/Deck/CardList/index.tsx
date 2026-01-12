@@ -282,12 +282,15 @@ const CardRow: FC<{
 
   // Calculate if this row should show a quote (every 3rd row after the first)
   const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
-  const quoteCardIndex = showQuoteAfterRow
-    ? Math.floor(Math.random() * cards.length) + rowIndex * cardsPerRow
-    : -1;
-  const quoteCard = showQuoteAfterRow && quoteCardIndex < allCards.length
-    ? allCards[quoteCardIndex % allCards.length]
-    : undefined;
+
+  // Stable quote card selection - memoized to prevent changing on re-renders
+  const quoteCard = useMemo(() => {
+    if (!showQuoteAfterRow || allCards.length === 0) return undefined;
+    // Use a deterministic "random" based on rowIndex to keep it stable
+    const seed = rowIndex * 7 + 3; // Simple deterministic seed
+    const quoteCardIndex = (seed % allCards.length);
+    return allCards[quoteCardIndex];
+  }, [showQuoteAfterRow, rowIndex, allCards]);
 
   if (isVisible) {
     return (
