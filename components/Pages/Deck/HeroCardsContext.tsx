@@ -16,11 +16,28 @@ const HeroCardsContext = createContext<HeroCardsContextValue | null>(null);
 
 // Cache duration in ms - cards cached for 30 seconds to prevent rapid re-fetching
 const CACHE_DURATION_MS = 30000;
+// Maximum number of images to keep in cache (prevents memory leak over long sessions)
+const MAX_IMAGE_CACHE_SIZE = 50;
 
 interface CachedCards {
   cards: HeroCardProps[];
   timestamp: number;
 }
+
+/** Simple LRU-like cleanup: removes oldest entries when cache exceeds max size */
+const limitCacheSize = <K, V>(cache: Map<K, V>, maxSize: number) => {
+  if (cache.size > maxSize) {
+    // Remove oldest entries (first ones in the map)
+    const entriesToRemove = cache.size - maxSize;
+    const iterator = cache.keys();
+    for (let i = 0; i < entriesToRemove; i++) {
+      const key = iterator.next().value;
+      if (key !== undefined) {
+        cache.delete(key);
+      }
+    }
+  }
+};
 
 /** Preload images and resolve when loaded (or timeout) */
 const preloadImagesWithCache = (cards: HeroCardProps[], imageCache: Map<string, HTMLImageElement>): Promise<void> => {
@@ -49,6 +66,7 @@ const preloadImagesWithCache = (cards: HeroCardProps[], imageCache: Map<string, 
       const img = new Image();
       img.onload = () => {
         imageCache.set(card.img, img); // Store reference to prevent GC
+        limitCacheSize(imageCache, MAX_IMAGE_CACHE_SIZE);
         onLoad();
       };
       img.onerror = onLoad; // Count errors as "loaded" to avoid hanging
@@ -57,6 +75,7 @@ const preloadImagesWithCache = (cards: HeroCardProps[], imageCache: Map<string, 
       // If already in browser cache
       if (img.complete) {
         imageCache.set(card.img, img);
+        limitCacheSize(imageCache, MAX_IMAGE_CACHE_SIZE);
         onLoad();
       }
     });

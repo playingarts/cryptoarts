@@ -38,30 +38,48 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
 
   // Track displayed deck for transition
   const [slideState, setSlideState] = useState<SlideState>("visible");
-  const [displayedDeck, setDisplayedDeck] = useState(deck);
+  const [displayedDeck, setDisplayedDeck] = useState<typeof deck>(undefined);
+  // Track the deck we're transitioning to, to avoid cleanup issues
+  const transitioningToRef = useRef<string | null>(null);
 
-  // Animate deck change with slide transition
+  // Sync displayedDeck with deck changes
   useEffect(() => {
-    if (deck && deck._id !== displayedDeck?._id) {
-      // Start sliding out
-      setSlideState("sliding-out");
+    if (!deck) return;
 
-      const timer = setTimeout(() => {
-        // Change deck and start sliding in
-        setDisplayedDeck(deck);
-        setSlideState("sliding-in");
-
-        // Return to visible state (not tracked - must complete even if effect re-runs)
-        setTimeout(() => {
-          setSlideState("visible");
-        }, 50);
-      }, 150);
-
-      return () => clearTimeout(timer);
-    } else if (deck && !displayedDeck) {
-      // Initial load - no animation
+    // Initial load - set immediately without animation
+    if (!displayedDeck) {
       setDisplayedDeck(deck);
+      setSlideState("visible");
+      return;
     }
+
+    // Same deck - no change needed
+    if (deck._id === displayedDeck._id) {
+      transitioningToRef.current = null;
+      return;
+    }
+
+    // Already transitioning to this deck - don't restart
+    if (transitioningToRef.current === deck._id) {
+      return;
+    }
+
+    // Different deck - animate transition
+    transitioningToRef.current = deck._id;
+    setSlideState("sliding-out");
+
+    const slideOutTimer = setTimeout(() => {
+      setDisplayedDeck(deck);
+      setSlideState("sliding-in");
+
+      setTimeout(() => {
+        setSlideState("visible");
+      }, 50);
+    }, 150);
+
+    return () => {
+      clearTimeout(slideOutTimer);
+    };
   }, [deck, displayedDeck]);
 
   // Get transform and opacity based on slide state

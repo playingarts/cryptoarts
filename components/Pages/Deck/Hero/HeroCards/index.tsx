@@ -42,7 +42,6 @@ const CARD_POSITIONS = {
 } as const;
 
 const CARD_TOP = -90;
-const RETRY_DELAY_MS = 5000;
 
 /** Wrapper component for positioned cards */
 const CardWrapper: FC<{
@@ -126,7 +125,6 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
     // State for cards fetched during client-side navigation
     const [fetchedCards, setFetchedCards] = useState<HeroCardProps[] | undefined>(undefined);
     const [isLoading, setIsLoading] = useState(false);
-    const [hasFailed, setHasFailed] = useState(false);
     // Track when images are ready to display (for smooth skeleton → card transition)
     const [imagesReady, setImagesReady] = useState(false);
 
@@ -147,7 +145,6 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
 
       let cancelled = false;
       setIsLoading(true);
-      setHasFailed(false);
       setImagesReady(false);
 
       fetchCardsForDeck(deckId)
@@ -160,13 +157,11 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
             if (cancelled) return;
             setFetchedCards(cards);
             setImagesReady(true);
-          } else {
-            setHasFailed(true);
           }
+          // If no cards returned, context already retried - just show skeleton
         })
         .catch(() => {
-          if (cancelled) return;
-          setHasFailed(true);
+          // Context already retried - silently fail, show skeleton
         })
         .finally(() => {
           if (!cancelled) {
@@ -179,38 +174,9 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
       };
     }, [deckId, canUseSSRCards, fetchCardsForDeck]);
 
-    // Auto-retry after delay if fetch failed
-    useEffect(() => {
-      if (!hasFailed || !deckId || canUseSSRCards) return;
-
-      const timer = setTimeout(() => {
-        setHasFailed(false);
-        setIsLoading(true);
-
-        fetchCardsForDeck(deckId)
-          .then(async (cards) => {
-            if (cards && cards.length >= 2) {
-              await waitForImages(cards);
-              setFetchedCards(cards);
-              setImagesReady(true);
-              setHasFailed(false);
-            } else {
-              setHasFailed(true);
-            }
-          })
-          .catch(() => {
-            setHasFailed(true);
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-      }, RETRY_DELAY_MS);
-
-      return () => clearTimeout(timer);
-    }, [hasFailed, deckId, canUseSSRCards, fetchCardsForDeck]);
-
-    // Use SSR cards if valid, otherwise use fetched cards
-    const heroCards = canUseSSRCards ? ssrHeroCards : fetchedCards;
+    // Use SSR cards if valid, otherwise use fetched cards (with deckSlug validation)
+    const isValidFetchedCards = fetchedCards && fetchedCards[0]?.deckSlug === deckId;
+    const heroCards = canUseSSRCards ? ssrHeroCards : (isValidFetchedCards ? fetchedCards : undefined);
     // Show cards when: SSR cards are valid OR (we have fetched cards AND images are ready)
     const showCards = canUseSSRCards || (heroCards && heroCards.length >= 2 && imagesReady);
     // Only animate fade-in for fetched cards (not SSR - those should show immediately)
