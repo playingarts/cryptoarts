@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import { FC, Fragment, HTMLAttributes, useEffect, useState, useRef, useCallback, useMemo } from "react";
+import { FC, Fragment, HTMLAttributes, useEffect, useState, useRef, useMemo } from "react";
 import Grid from "../../../Grid";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
@@ -281,24 +281,13 @@ const CardRow: FC<{
   rowIndex: number;
   cardsPerRow: number;
   allCards: GQL.Card[];
-  onVisible: () => void;
-  /** For first 2 rows: load immediately when user starts scrolling anywhere */
-  loadEarly?: boolean;
-}> = ({ cards, rowIndex, cardsPerRow, allCards, onVisible, loadEarly }) => {
+}> = ({ cards, rowIndex, allCards }) => {
   const sentinelRef = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(rowIndex === 0); // First row visible immediately
+  // First 2 rows visible immediately, rest lazy load
+  const [isVisible, setIsVisible] = useState(rowIndex < 2);
 
-  // Load early when scroll starts (for first 2 rows)
   useEffect(() => {
     if (isVisible) return;
-    if (loadEarly && rowIndex <= 1) {
-      setIsVisible(true);
-      onVisible();
-    }
-  }, [loadEarly, rowIndex, isVisible, onVisible]);
-
-  useEffect(() => {
-    if (isVisible || rowIndex === 0) return;
 
     const element = sentinelRef.current;
     if (!element) return;
@@ -307,7 +296,6 @@ const CardRow: FC<{
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          onVisible();
           observer.disconnect();
         }
       },
@@ -319,7 +307,7 @@ const CardRow: FC<{
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [isVisible, rowIndex, onVisible]);
+  }, [isVisible]);
 
   // Calculate if this row should show a quote (every 3rd row after the first)
   const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
@@ -396,36 +384,6 @@ const List = () => {
   // Split cards into rows
   const rows = useCardRows(cards, cardsPerRow);
 
-  // Track how many rows are rendered (start with first 2 rows)
-  const [renderedRows, setRenderedRows] = useState(2);
-
-  // Track if first two rows should start loading (triggered by any scroll)
-  const [shouldLoadInitial, setShouldLoadInitial] = useState(false);
-
-  // Listen for any scroll to trigger loading of first two rows early
-  useEffect(() => {
-    if (shouldLoadInitial) return; // Already triggered
-
-    const handleScroll = () => {
-      setShouldLoadInitial(true);
-      window.removeEventListener("scroll", handleScroll);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [shouldLoadInitial]);
-
-  // Callback when a row becomes visible - render the next row
-  const handleRowVisible = useCallback(() => {
-    setRenderedRows((prev) => Math.min(prev + 1, rows.length));
-  }, [rows.length]);
-
-  // Reset rendered rows when deck changes
-  useEffect(() => {
-    setRenderedRows(2);
-    setShouldLoadInitial(false);
-  }, [deckId]);
-
   if (!cards) return null;
 
   return (
@@ -442,15 +400,13 @@ const List = () => {
         },
       ]}
     >
-      {rows.slice(0, renderedRows).map((rowCards, rowIndex) => (
+      {rows.map((rowCards, rowIndex) => (
         <CardRow
           key={`row-${rowIndex}`}
           cards={rowCards}
           rowIndex={rowIndex}
           cardsPerRow={cardsPerRow}
           allCards={cards}
-          onVisible={handleRowVisible}
-          loadEarly={shouldLoadInitial}
         />
       ))}
     </div>
