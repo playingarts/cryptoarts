@@ -111,7 +111,7 @@ const ListItem: FC<{
                 <img
                   src={quoteCard.artist.userpic}
                   alt=""
-                  css={{ width: 80, height: 80 }}
+                  css={{ width: 80, height: 80, borderRadius: 15 }}
                 />
                 <div css={(theme) => [{ display: "inline-block" }]}>
                   <Text
@@ -218,7 +218,7 @@ const QuotePlaceholder: FC = () => (
     >
       {/* Artist avatar and info */}
       <div css={{ display: "flex", gap: 30 }}>
-        <div css={{ width: 80, height: 80, borderRadius: "50%", ...shimmerStyle }} />
+        <div css={{ width: 80, height: 80, borderRadius: 15, ...shimmerStyle }} />
         <div css={{ display: "inline-block" }}>
           <div css={{ width: 120, height: 20, borderRadius: 4, marginBottom: 8, ...shimmerStyle }} />
           <div css={{ width: 80, height: 16, borderRadius: 4, ...shimmerStyle }} />
