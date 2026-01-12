@@ -93,8 +93,9 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
             deckSlug: slug, // Include deck slug for validation
           })) as HeroCardProps[];
 
-          // Prefetch images and wait for them to load (with caching)
-          await preloadImagesWithCache(heroCards, imageCacheRef.current);
+          // Start image preloading in background (don't block data return)
+          // Component's waitForImages handles the actual display timing
+          preloadImagesWithCache(heroCards, imageCacheRef.current);
 
           // Cache the result for short-term reuse
           recentCardsRef.current.set(slug, {
