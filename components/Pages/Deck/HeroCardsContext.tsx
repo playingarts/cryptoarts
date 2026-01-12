@@ -3,6 +3,8 @@ import { useLazyQuery } from "@apollo/client/react";
 import { HeroCardsLiteQuery } from "../../../hooks/card";
 import { HeroCardProps } from "../../../pages/[deckId]";
 
+const MAX_RETRIES = 1; // Reduced to prevent rate limiting
+
 interface HeroCardsContextValue {
   /** Fetch hero cards for a deck. Returns cards directly. Uses prefetched data if available. */
   fetchCardsForDeck: (slug: string) => Promise<HeroCardProps[] | undefined>;
@@ -19,12 +21,12 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
   const fetchPromisesRef = useRef<Map<string, Promise<HeroCardProps[] | undefined>>>(new Map());
 
   const [queryHeroCards] = useLazyQuery<Pick<GQL.Query, "heroCards">>(HeroCardsLiteQuery, {
-    fetchPolicy: "network-only",
+    fetchPolicy: "no-cache", // Always fetch fresh random cards (heroCards uses MongoDB $sample)
   });
 
-  // Internal fetch function
+  // Internal fetch function with retry logic
   const doFetch = useCallback(
-    async (slug: string): Promise<HeroCardProps[] | undefined> => {
+    async (slug: string, retryCount = 0): Promise<HeroCardProps[] | undefined> => {
       try {
         const result = await queryHeroCards({ variables: { slug } });
         const cards = result.data?.heroCards;
@@ -46,10 +48,25 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
 
           return heroCards;
         }
-      } catch {
-        // Silently fail
+
+        // No cards or fewer than 2 - retry if we haven't exhausted retries
+        if (retryCount < MAX_RETRIES) {
+          console.warn(`[HeroCards] No cards returned for ${slug}, retrying (${retryCount + 1}/${MAX_RETRIES})`);
+          return doFetch(slug, retryCount + 1);
+        }
+
+        console.warn(`[HeroCards] Failed to fetch cards for ${slug} after ${MAX_RETRIES} retries`);
+        return undefined;
+      } catch (error) {
+        // Retry on error
+        if (retryCount < MAX_RETRIES) {
+          console.warn(`[HeroCards] Error fetching ${slug}, retrying (${retryCount + 1}/${MAX_RETRIES})`, error);
+          return doFetch(slug, retryCount + 1);
+        }
+
+        console.error(`[HeroCards] Failed to fetch cards for ${slug} after ${MAX_RETRIES} retries`, error);
+        return undefined;
       }
-      return undefined;
     },
     [queryHeroCards]
   );
