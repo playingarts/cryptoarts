@@ -104,7 +104,6 @@ const ListItem: FC<{
               css={(theme) => [
                 {
                   gridColumn: "span 6",
-                  marginTop: 30,
                 },
               ]}
             >
@@ -211,7 +210,6 @@ const QuotePlaceholder: FC = () => (
     <div
       css={{
         gridColumn: "span 6",
-        marginTop: 30,
       }}
     >
       {/* Artist avatar and info */}
