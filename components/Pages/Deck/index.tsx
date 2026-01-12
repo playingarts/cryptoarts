@@ -7,6 +7,8 @@ import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
 import Hero from "./Hero";
 import { getDeckConfig } from "../../../source/deckConfig";
+import { HeroPreload } from "./HeroPreload";
+import { HeroCardProps } from "../../../pages/[deckId]";
 
 // Lazy-load below-fold components
 const CardList = dynamic(() => import("./CardList"), { ssr: true });
@@ -55,10 +57,15 @@ const DeckHeader = () => {
   );
 };
 
-const Deck: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
+interface DeckProps extends HTMLAttributes<HTMLElement> {
+  heroCards?: HeroCardProps[];
+}
+
+const Deck: FC<DeckProps> = ({ heroCards, ...props }) => (
   <>
+    {heroCards && heroCards.length > 0 && <HeroPreload heroCards={heroCards} />}
     <DeckHeader />
-    <Hero />
+    <Hero heroCards={heroCards} />
     <CardList />
     <TheProduct />
     <CryptoSections />

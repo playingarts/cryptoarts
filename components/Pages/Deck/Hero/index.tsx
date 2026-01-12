@@ -10,10 +10,15 @@ import { useRouter } from "next/router";
 import { usePalette } from "../DeckPaletteContext";
 import KickStarterLine from "../../../Icons/KickStarterLine";
 import Error from "../../../Error";
+import { HeroCardProps } from "../../../../pages/[deckId]";
 
 type SlideState = "visible" | "sliding-out" | "sliding-in";
 
-const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+interface HeroProps extends HTMLAttributes<HTMLElement> {
+  heroCards?: HeroCardProps[];
+}
+
+const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
   const {
     query: { deckId },
   } = useRouter();
@@ -142,7 +147,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </ButtonTemplate>
         </div>
       </div>
-      <HeroCards sticky={!showStory} />
+      <HeroCards key={deckId as string} sticky={!showStory} heroCards={heroCards} />
       <div
         css={(theme) => [
           {

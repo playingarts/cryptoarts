@@ -3,6 +3,7 @@ import {
   HTMLAttributes,
   memo,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -52,9 +53,15 @@ const Card: FC<CardProps> = memo(
     // Compute imgSrc first for use in state initialization
     const imgSrc = size !== "big" ? card.img.replace("-big-hd/", "-big/") : card.img;
 
-    // Initialize loaded state by checking if image is already in browser cache
+    // Initialize loaded state:
+    // - Priority images start as loaded (for instant hero card display)
+    // - Other images check browser cache or start as not loaded
     const [loaded, setLoaded] = useState(() => {
+      // Priority images should be visible immediately (no loading state)
+      if (priority) return true;
+      // SSR: start as not loaded
       if (typeof window === "undefined") return false;
+      // Client: check if already in browser cache
       const img = new Image();
       img.src = imgSrc;
       return img.complete;
@@ -69,6 +76,31 @@ const Card: FC<CardProps> = memo(
 
     const wrapper = useRef<HTMLDivElement>(null);
     const video = useRef<HTMLVideoElement>(null);
+    const imgRef = useRef<HTMLImageElement>(null);
+
+    // Check if image is already loaded after mount (handles cached images and SSR hydration)
+    useEffect(() => {
+      // Skip for priority images (already initialized as loaded)
+      if (priority) return;
+
+      const img = imgRef.current;
+      if (!img) return;
+
+      // Check if image is already loaded (cached or fast load)
+      if (img.complete && img.naturalWidth > 0) {
+        setLoaded(true);
+        return;
+      }
+
+      // Also check after a frame in case browser is still processing cache
+      const rafId = requestAnimationFrame(() => {
+        if (img.complete && img.naturalWidth > 0) {
+          setLoaded(true);
+        }
+      });
+
+      return () => cancelAnimationFrame(rafId);
+    }, [imgSrc, priority]);
 
     const handleMouseMove = useCallback(
       ({ clientX, clientY }: React.MouseEvent) => {
@@ -87,13 +119,6 @@ const Card: FC<CardProps> = memo(
 
     const { width } = useSize();
     const { palette } = usePaletteHook(paletteProp);
-
-    // Update loaded state when imgSrc changes (check if new image is cached)
-    useLayoutEffect(() => {
-      const img = new Image();
-      img.src = imgSrc;
-      setLoaded(img.complete);
-    }, [imgSrc]);
 
     // Video playback control with proper cleanup on unmount
     useLayoutEffect(() => {
@@ -187,6 +212,7 @@ const Card: FC<CardProps> = memo(
               ]}
             >
               <img
+                ref={imgRef}
                 src={imgSrc}
                 key={imgSrc + "card" + size}
                 css={[

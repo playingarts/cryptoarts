@@ -4,10 +4,23 @@ import { initApolloClient } from "../source/apollo";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { connect } from "../source/mongoose";
 import { DecksNavQuery, DecksQuery } from "../hooks/deck";
-import { CardsForDeckQuery } from "../hooks/card";
+import { CardsForDeckQuery, HeroCardsLiteQuery } from "../hooks/card";
 import { LosersQuery } from "../hooks/loser";
 import { NormalizedCacheObject } from "@apollo/client";
 import { schema } from "../source/graphql/schema";
+
+/** Lightweight hero card type for SSR props */
+export interface HeroCardProps {
+  _id: string;
+  img: string;
+  video?: string;
+  artist: {
+    name: string;
+    slug: string;
+  };
+  /** Deck slug this card belongs to - used to validate cards during client-side navigation */
+  deckSlug?: string;
+}
 
 /**
  * Generate static paths for all deck slugs.
@@ -39,6 +52,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<
   {
     cache?: NormalizedCacheObject;
+    heroCards?: HeroCardProps[];
   },
   { deckId: string }
 > = async (context) => {
@@ -77,9 +91,25 @@ export const getStaticProps: GetStaticProps<
     variables: { deck: deck._id },
   });
 
+  // Fetch 2 random hero cards for this deck (uses MongoDB $sample)
+  const heroCardsResult = await client.query<Pick<GQL.Query, "heroCards">>({
+    query: HeroCardsLiteQuery,
+    variables: { slug: deck.slug },
+  });
+  const heroCards = (heroCardsResult.data?.heroCards || []).map(
+    (card: GQL.Card) => ({
+      _id: card._id,
+      img: card.img.replace("-big-hd/", "-big/"), // Use standard quality for faster load
+      video: card.video,
+      artist: card.artist,
+      deckSlug: deck.slug, // Include deck slug for validation during client-side navigation
+    })
+  ) as HeroCardProps[];
+
   return {
     props: {
       cache: client.cache.extract() as NormalizedCacheObject,
+      heroCards,
     },
     // Revalidate every 60 seconds for fresh data with cached performance
     revalidate: 60,

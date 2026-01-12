@@ -11,6 +11,7 @@ import SizeProvider from "@/components/SizeProvider";
 import { SignatureProvider } from "@/contexts/SignatureContext";
 import { ViewedProvider } from "@/contexts/viewedContext";
 import { DeckPaletteProvider } from "@/components/Pages/Deck/DeckPaletteContext";
+import { HeroCardsProvider } from "@/components/Pages/Deck/HeroCardsContext";
 import { IsEuropeProvider } from "@/components/Contexts/bag";
 import { FavoritesProvider } from "@/components/Contexts/favorites";
 import { MenuProvider } from "@/components/Contexts/menu";
@@ -66,7 +67,8 @@ const App = ({
         <MetaMaskProvider>
           <SignatureProvider>
             <DeckPaletteProvider>
-              <ThemeProvider theme={theme}>
+              <HeroCardsProvider>
+                <ThemeProvider theme={theme}>
                 <ViewedProvider>
                   <IsEuropeProvider>
                     <FavoritesProvider>
@@ -82,6 +84,7 @@ const App = ({
                   </IsEuropeProvider>
                 </ViewedProvider>
               </ThemeProvider>
+              </HeroCardsProvider>
             </DeckPaletteProvider>
           </SignatureProvider>
         </MetaMaskProvider>

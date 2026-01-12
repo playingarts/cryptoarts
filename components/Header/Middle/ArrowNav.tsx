@@ -1,13 +1,16 @@
 import { useRouter } from "next/router";
 import { useDecks } from "../../../hooks/deck";
-import { useMemo } from "react";
+import { useCallback, useMemo, useEffect } from "react";
 import Text from "../../Text";
 import Link from "../../Link";
 import NavButton from "../../Buttons/NavButton";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
+import { useHeroCardsContext } from "../../Pages/Deck/HeroCardsContext";
 
 export default () => {
-  const { query: { deckId } } = useRouter();
+  const router = useRouter();
+  const { query: { deckId } } = router;
+  const { prefetchHeroCards } = useHeroCardsContext();
 
   // Use full decks query - same cache as Hero component
   const { decks } = useDecks({ skip: !deckId });
@@ -29,6 +32,25 @@ export default () => {
     };
   }, [deckId, decks]);
 
+  // Proactively prefetch adjacent decks when landing on a new deck
+  useEffect(() => {
+    if (prevSlug && nextSlug) {
+      prefetchHeroCards(prevSlug);
+      prefetchHeroCards(nextSlug);
+      router.prefetch(`/${prevSlug}`);
+      router.prefetch(`/${nextSlug}`);
+    }
+  }, [prevSlug, nextSlug, prefetchHeroCards, router]);
+
+  // Prefetch hero cards and page route on hover (backup for edge cases)
+  const handlePrefetch = useCallback(
+    (slug: string) => {
+      prefetchHeroCards(slug);
+      router.prefetch(`/${slug}`);
+    },
+    [prefetchHeroCards, router]
+  );
+
   return deckId && decks ? (
     <Text
       typography="paragraphSmall"
@@ -41,12 +63,20 @@ export default () => {
         },
       ]}
     >
-      <span css={[{ marginRight: 5 }]}>
+      <span
+        css={[{ marginRight: 5 }]}
+        onMouseEnter={() => handlePrefetch(prevSlug)}
+        onTouchStart={() => handlePrefetch(prevSlug)}
+      >
         <Link href={prevSlug} shallow={true}>
           <NavButton css={[{ transform: "rotate(180deg)" }]} />
         </Link>
       </span>
-      <span css={[{ marginRight: 5 }]}>
+      <span
+        css={[{ marginRight: 5 }]}
+        onMouseEnter={() => handlePrefetch(nextSlug)}
+        onTouchStart={() => handlePrefetch(nextSlug)}
+      >
         <Link href={nextSlug} shallow={true}>
           <NavButton />
         </Link>
