@@ -5,6 +5,15 @@ import { HeroCardProps } from "../../../pages/[deckId]";
 
 const MAX_RETRIES = 1; // Reduced to prevent rate limiting
 
+/** Check if an error is an abort/navigation error (expected, not a failure) */
+const isAbortError = (error: unknown): boolean => {
+  if (error && typeof error === 'object') {
+    const e = error as { name?: string; code?: string; message?: string };
+    return e.name === 'AbortError' || e.code === 'ECONNRESET' || (e.message?.includes('aborted') ?? false);
+  }
+  return false;
+};
+
 interface HeroCardsContextValue {
   /** Fetch hero cards for a deck. Returns cards directly. Uses prefetched data if available. */
   fetchCardsForDeck: (slug: string) => Promise<HeroCardProps[] | undefined>;
@@ -14,8 +23,9 @@ interface HeroCardsContextValue {
 
 const HeroCardsContext = createContext<HeroCardsContextValue | null>(null);
 
-// Cache duration in ms - cards cached for 30 seconds to prevent rapid re-fetching
-const CACHE_DURATION_MS = 30000;
+// Cache duration in ms - short cache to prevent rapid re-fetching during quick navigation
+// 5 seconds is enough to deduplicate rapid clicks but short enough that users get fresh cards
+const CACHE_DURATION_MS = 5000;
 // Maximum number of images to keep in cache (prevents memory leak over long sessions)
 const MAX_IMAGE_CACHE_SIZE = 50;
 
@@ -134,7 +144,12 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
         console.warn(`[HeroCards] Failed to fetch cards for ${slug} after ${MAX_RETRIES} retries`);
         return undefined;
       } catch (error) {
-        // Retry on error
+        // Don't retry or log AbortErrors - they're expected during navigation
+        if (isAbortError(error)) {
+          throw error; // Re-throw so component can detect it
+        }
+
+        // Retry on other errors
         if (retryCount < MAX_RETRIES) {
           console.warn(`[HeroCards] Error fetching ${slug}, retrying (${retryCount + 1}/${MAX_RETRIES})`, error);
           return doFetch(slug, retryCount + 1);

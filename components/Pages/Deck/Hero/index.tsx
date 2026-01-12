@@ -165,7 +165,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
           </ButtonTemplate>
         </div>
       </div>
-      <HeroCards key={deckId as string} sticky={!showStory} heroCards={heroCards} />
+      <HeroCards sticky={!showStory} heroCards={heroCards} />
       <div
         css={(theme) => [
           {

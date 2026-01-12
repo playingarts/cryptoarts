@@ -68,7 +68,7 @@ export default () => {
         onMouseEnter={() => handlePrefetch(prevSlug)}
         onTouchStart={() => handlePrefetch(prevSlug)}
       >
-        <Link href={prevSlug} shallow={true}>
+        <Link href={prevSlug}>
           <NavButton css={[{ transform: "rotate(180deg)" }]} />
         </Link>
       </span>
@@ -77,7 +77,7 @@ export default () => {
         onMouseEnter={() => handlePrefetch(nextSlug)}
         onTouchStart={() => handlePrefetch(nextSlug)}
       >
-        <Link href={nextSlug} shallow={true}>
+        <Link href={nextSlug}>
           <NavButton />
         </Link>
       </span>
