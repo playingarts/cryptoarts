@@ -1,12 +1,11 @@
 import dynamic from "next/dynamic";
-import { FC, Fragment, HTMLAttributes, memo, useEffect, useState } from "react";
+import { FC, Fragment, HTMLAttributes, useEffect, useState, useRef, useCallback, useMemo } from "react";
 import Grid from "../../../Grid";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
 import { useCards } from "../../../../hooks/card";
 import { useRouter } from "next/router";
 import Card from "../../../Card";
-import LazyCard from "../../../Card/LazyCard";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
 import Dot from "../../../Icons/Dot";
@@ -18,15 +17,19 @@ import { useDeck } from "../../../../hooks/deck";
 // Lazy-load Pop modal - only shown on card click
 const Pop = dynamic(() => import("../../CardPage/Pop"), { ssr: false });
 
-// Number of cards to render eagerly (first row)
-const EAGER_CARDS = 4;
+// Cards per row at different breakpoints
+const CARDS_PER_ROW = {
+  lg: 4,  // Large screens: 4 cards per row
+  md: 3,  // Medium screens: 3 cards per row
+  sm: 2,  // Small screens: 2 cards per row
+};
 
+/** Single card item with optional artist quote block */
 const ListItem: FC<{
-  index: number;
   card: GQL.Card;
-  range: number;
-  cards: GQL.Card[];
-}> = ({ index, card, range, cards }) => {
+  showQuote?: boolean;
+  quoteCard?: GQL.Card;
+}> = ({ card, showQuote, quoteCard }) => {
   const { palette } = usePalette();
   const {
     query: { deckId },
@@ -34,30 +37,11 @@ const ListItem: FC<{
 
   const [show, setShow] = useState(false);
 
-  const [randCard, setRandCard] = useState<GQL.Card>();
-
-  useEffect(() => {
-    const rand =
-      index !== 0 &&
-      (index + 1) % range === 0 &&
-      Math.floor(Math.random() * range) + index - range;
-
-    if (rand) {
-      setRandCard(cards[rand]);
-    } else {
-      setRandCard(undefined);
-    }
-  }, [range, index]);
-
-  // Use eager Card for first row, LazyCard for rest
-  const CardComponent = index < EAGER_CARDS ? Card : LazyCard;
-
   return (
-    <Fragment key={"CardListFragment" + index}>
-      <CardComponent
+    <Fragment>
+      <Card
         onClick={() => setShow(true)}
         size="preview"
-        key={card._id + index + "card"}
         card={{ ...card, deck: { slug: deckId } as unknown as GQL.Deck }}
         css={[{ width: 300 }]}
       />
@@ -70,8 +54,8 @@ const ListItem: FC<{
           />
         ) : null}
       </MenuPortal>
-      {randCard && (
-        <Grid css={[{ width: "100%" }]} key={card._id + "quote" + index}>
+      {showQuote && quoteCard && (
+        <Grid css={[{ width: "100%" }]}>
           <img
             src={background.src}
             alt=""
@@ -92,7 +76,7 @@ const ListItem: FC<{
           >
             <div css={[{ display: "flex", gap: 30 }]}>
               <img
-                src={randCard.artist.userpic}
+                src={quoteCard.artist.userpic}
                 alt=""
                 css={{ width: 80, height: 80 }}
               />
@@ -106,7 +90,7 @@ const ListItem: FC<{
                     },
                   ]}
                 >
-                  {randCard.artist.name}
+                  {quoteCard.artist.name}
                 </Text>
                 <Text
                   typography="paragraphSmall"
@@ -117,7 +101,7 @@ const ListItem: FC<{
                     },
                   ]}
                 >
-                  {randCard.artist.country}
+                  {quoteCard.artist.country}
                 </Text>
               </div>
             </div>
@@ -130,7 +114,7 @@ const ListItem: FC<{
                 },
               ]}
             >
-              {randCard.artist.info}
+              {quoteCard.artist.info}
             </Text>
 
             <Text
@@ -151,43 +135,166 @@ const ListItem: FC<{
   );
 };
 
+/** Placeholder for cards not yet loaded */
+const CardPlaceholder: FC = () => (
+  <div
+    css={{
+      width: 300,
+      height: 450,
+      borderRadius: 15,
+      background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+      backgroundSize: "200% 100%",
+      animation: "cardShimmer 1.5s infinite linear",
+      "@keyframes cardShimmer": {
+        "0%": { backgroundPosition: "200% 0" },
+        "100%": { backgroundPosition: "-200% 0" },
+      },
+    }}
+  />
+);
+
+/** Row of cards - loads when scrolled into view */
+const CardRow: FC<{
+  cards: GQL.Card[];
+  rowIndex: number;
+  cardsPerRow: number;
+  allCards: GQL.Card[];
+  onVisible: () => void;
+}> = ({ cards, rowIndex, cardsPerRow, allCards, onVisible }) => {
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(rowIndex === 0); // First row visible immediately
+
+  useEffect(() => {
+    if (isVisible || rowIndex === 0) return;
+
+    const element = sentinelRef.current;
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          onVisible();
+          observer.disconnect();
+        }
+      },
+      {
+        rootMargin: "300px", // Load 300px before entering viewport
+        threshold: 0,
+      }
+    );
+
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [isVisible, rowIndex, onVisible]);
+
+  // Calculate if this row should show a quote (every 3rd row after the first)
+  const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
+  const quoteCardIndex = showQuoteAfterRow
+    ? Math.floor(Math.random() * cards.length) + rowIndex * cardsPerRow
+    : -1;
+  const quoteCard = showQuoteAfterRow && quoteCardIndex < allCards.length
+    ? allCards[quoteCardIndex % allCards.length]
+    : undefined;
+
+  if (isVisible) {
+    return (
+      <>
+        {cards.map((card, i) => (
+          <ListItem
+            key={card._id}
+            card={card}
+            showQuote={showQuoteAfterRow && i === cards.length - 1}
+            quoteCard={quoteCard}
+          />
+        ))}
+      </>
+    );
+  }
+
+  // Show placeholders with a sentinel element for IntersectionObserver
+  return (
+    <>
+      {cards.map((card, i) => (
+        <div key={card._id} ref={i === 0 ? sentinelRef : undefined}>
+          <CardPlaceholder />
+        </div>
+      ))}
+    </>
+  );
+};
+
+/** Split cards into rows based on cards per row */
+const useCardRows = (cards: GQL.Card[] | undefined, cardsPerRow: number) => {
+  return useMemo(() => {
+    if (!cards) return [];
+    const rows: GQL.Card[][] = [];
+    for (let i = 0; i < cards.length; i += cardsPerRow) {
+      rows.push(cards.slice(i, i + cardsPerRow));
+    }
+    return rows;
+  }, [cards, cardsPerRow]);
+};
+
 const List = () => {
   const {
     query: { deckId },
   } = useRouter();
 
   const { deck } = useDeck({ variables: { slug: deckId } });
-
   const { cards } = useCards(deck && { variables: { deck: deck._id } });
-
   const { width } = useSize();
 
-  const [range, setRange] = useState(4);
+  // Determine cards per row based on screen width
+  const cardsPerRow = width >= breakpoints.md
+    ? CARDS_PER_ROW.lg
+    : width >= breakpoints.sm
+    ? CARDS_PER_ROW.md
+    : CARDS_PER_ROW.sm;
 
+  // Split cards into rows
+  const rows = useCardRows(cards, cardsPerRow);
+
+  // Track how many rows are rendered (start with first 2 rows)
+  const [renderedRows, setRenderedRows] = useState(2);
+
+  // Callback when a row becomes visible - render the next row
+  const handleRowVisible = useCallback(() => {
+    setRenderedRows((prev) => Math.min(prev + 1, rows.length));
+  }, [rows.length]);
+
+  // Reset rendered rows when deck changes
   useEffect(() => {
-    setRange(width >= breakpoints.md ? 12 : width >= breakpoints.sm ? 8 : 4);
-  }, [width]);
+    setRenderedRows(2);
+  }, [deckId]);
+
+  if (!cards) return null;
 
   return (
-    cards && (
-      <div
-        css={[
-          {
-            display: "flex",
-            gridColumn: "1/-1",
-            columnGap: 30,
-            flexWrap: "wrap",
-            rowGap: 60,
-            marginTop: 90,
-            justifyContent: "center",
-          },
-        ]}
-      >
-        {cards.map((card, index) => (
-          <ListItem key={card._id} {...{ card, index, range, cards }} />
-        ))}
-      </div>
-    )
+    <div
+      css={[
+        {
+          display: "flex",
+          gridColumn: "1/-1",
+          columnGap: 30,
+          flexWrap: "wrap",
+          rowGap: 60,
+          marginTop: 90,
+          justifyContent: "center",
+        },
+      ]}
+    >
+      {rows.slice(0, renderedRows).map((rowCards, rowIndex) => (
+        <CardRow
+          key={`row-${rowIndex}`}
+          cards={rowCards}
+          rowIndex={rowIndex}
+          cardsPerRow={cardsPerRow}
+          allCards={cards}
+          onVisible={handleRowVisible}
+        />
+      ))}
+    </div>
   );
 };
 
