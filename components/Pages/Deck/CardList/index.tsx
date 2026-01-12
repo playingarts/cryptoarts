@@ -36,6 +36,39 @@ const ListItem: FC<{
   } = useRouter();
 
   const [show, setShow] = useState(false);
+  const [quoteImagesLoaded, setQuoteImagesLoaded] = useState(false);
+
+  // Preload quote images when quoteCard is available
+  useEffect(() => {
+    if (!showQuote || !quoteCard) return;
+
+    setQuoteImagesLoaded(false);
+    let loaded = 0;
+    const totalImages = 2; // background + userpic
+
+    const onLoad = () => {
+      loaded++;
+      if (loaded >= totalImages) {
+        setQuoteImagesLoaded(true);
+      }
+    };
+
+    // Preload background image
+    const bgImg = new Image();
+    bgImg.onload = onLoad;
+    bgImg.onerror = onLoad;
+    bgImg.src = background.src;
+
+    // Preload artist userpic
+    const userpicImg = new Image();
+    userpicImg.onload = onLoad;
+    userpicImg.onerror = onLoad;
+    userpicImg.src = quoteCard.artist.userpic;
+
+    // If already cached, mark as loaded
+    if (bgImg.complete) onLoad();
+    if (userpicImg.complete) onLoad();
+  }, [showQuote, quoteCard]);
 
   return (
     <Fragment>
@@ -55,85 +88,100 @@ const ListItem: FC<{
         ) : null}
       </MenuPortal>
       {showQuote && quoteCard && (
-        <Grid css={[{ width: "100%" }]}>
-          <img
-            src={background.src}
-            alt=""
-            css={{
-              width: 300,
-              height: 300,
-              gridColumn: "2/6",
-              borderRadius: 15,
-            }}
-          />
-          <div
-            css={(theme) => [
-              {
-                gridColumn: "span 6",
-                marginTop: 30,
-              },
-            ]}
-          >
-            <div css={[{ display: "flex", gap: 30 }]}>
-              <img
-                src={quoteCard.artist.userpic}
-                alt=""
-                css={{ width: 80, height: 80 }}
-              />
-              <div css={(theme) => [{ display: "inline-block" }]}>
-                <Text
-                  typography="paragraphBig"
-                  css={(theme) => [
-                    {
-                      color:
-                        theme.colors[palette === "dark" ? "white75" : "black"],
-                    },
-                  ]}
-                >
-                  {quoteCard.artist.name}
-                </Text>
-                <Text
-                  typography="paragraphSmall"
-                  css={(theme) => [
-                    {
-                      color:
-                        theme.colors[palette === "dark" ? "white75" : "black"],
-                    },
-                  ]}
-                >
-                  {quoteCard.artist.country}
-                </Text>
-              </div>
-            </div>
-            <Text
-              typography="newParagraph"
+        quoteImagesLoaded ? (
+          <Grid css={[{ width: "100%" }]}>
+            <img
+              src={background.src}
+              alt=""
+              css={{
+                width: 300,
+                height: 300,
+                gridColumn: "2/6",
+                borderRadius: 15,
+              }}
+            />
+            <div
               css={(theme) => [
                 {
-                  marginTop: 60,
-                  color: theme.colors[palette === "dark" ? "white75" : "black"],
-                },
-              ]}
-            >
-              {quoteCard.artist.info}
-            </Text>
-
-            <Text
-              typography="linkNewTypography"
-              css={(theme) => [
-                {
+                  gridColumn: "span 6",
                   marginTop: 30,
-                  color: theme.colors[palette === "dark" ? "white75" : "black"],
                 },
               ]}
             >
-              Discover the artwork <Dot />
-            </Text>
-          </div>
-        </Grid>
+              <div css={[{ display: "flex", gap: 30 }]}>
+                <img
+                  src={quoteCard.artist.userpic}
+                  alt=""
+                  css={{ width: 80, height: 80 }}
+                />
+                <div css={(theme) => [{ display: "inline-block" }]}>
+                  <Text
+                    typography="paragraphBig"
+                    css={(theme) => [
+                      {
+                        color:
+                          theme.colors[palette === "dark" ? "white75" : "black"],
+                      },
+                    ]}
+                  >
+                    {quoteCard.artist.name}
+                  </Text>
+                  <Text
+                    typography="paragraphSmall"
+                    css={(theme) => [
+                      {
+                        color:
+                          theme.colors[palette === "dark" ? "white75" : "black"],
+                      },
+                    ]}
+                  >
+                    {quoteCard.artist.country}
+                  </Text>
+                </div>
+              </div>
+              <Text
+                typography="newParagraph"
+                css={(theme) => [
+                  {
+                    marginTop: 60,
+                    color: theme.colors[palette === "dark" ? "white75" : "black"],
+                  },
+                ]}
+              >
+                {quoteCard.artist.info}
+              </Text>
+
+              <Text
+                typography="linkNewTypography"
+                css={(theme) => [
+                  {
+                    marginTop: 30,
+                    color: theme.colors[palette === "dark" ? "white75" : "black"],
+                  },
+                ]}
+              >
+                Discover the artwork <Dot />
+              </Text>
+            </div>
+          </Grid>
+        ) : (
+          <QuotePlaceholder />
+        )
       )}
     </Fragment>
   );
 };
+
+/** Shimmer animation style */
+const shimmerStyle = {
+  background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+  backgroundSize: "200% 100%",
+  animation: "cardShimmer 1.5s infinite linear",
+  "@keyframes cardShimmer": {
+    "0%": { backgroundPosition: "200% 0" },
+    "100%": { backgroundPosition: "-200% 0" },
+  },
+} as const;
 
 /** Placeholder for cards not yet loaded */
 const CardPlaceholder: FC = () => (
@@ -142,15 +190,48 @@ const CardPlaceholder: FC = () => (
       width: 300,
       height: 450,
       borderRadius: 15,
-      background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
-      backgroundSize: "200% 100%",
-      animation: "cardShimmer 1.5s infinite linear",
-      "@keyframes cardShimmer": {
-        "0%": { backgroundPosition: "200% 0" },
-        "100%": { backgroundPosition: "-200% 0" },
-      },
+      ...shimmerStyle,
     }}
   />
+);
+
+/** Placeholder for quote section */
+const QuotePlaceholder: FC = () => (
+  <Grid css={[{ width: "100%" }]}>
+    {/* Background image placeholder */}
+    <div
+      css={{
+        width: 300,
+        height: 300,
+        gridColumn: "2/6",
+        borderRadius: 15,
+        ...shimmerStyle,
+      }}
+    />
+    <div
+      css={{
+        gridColumn: "span 6",
+        marginTop: 30,
+      }}
+    >
+      {/* Artist avatar and info */}
+      <div css={{ display: "flex", gap: 30 }}>
+        <div css={{ width: 80, height: 80, borderRadius: "50%", ...shimmerStyle }} />
+        <div css={{ display: "inline-block" }}>
+          <div css={{ width: 120, height: 20, borderRadius: 4, marginBottom: 8, ...shimmerStyle }} />
+          <div css={{ width: 80, height: 16, borderRadius: 4, ...shimmerStyle }} />
+        </div>
+      </div>
+      {/* Quote text */}
+      <div css={{ marginTop: 60 }}>
+        <div css={{ width: "100%", height: 16, borderRadius: 4, marginBottom: 8, ...shimmerStyle }} />
+        <div css={{ width: "90%", height: 16, borderRadius: 4, marginBottom: 8, ...shimmerStyle }} />
+        <div css={{ width: "70%", height: 16, borderRadius: 4, ...shimmerStyle }} />
+      </div>
+      {/* Link placeholder */}
+      <div css={{ marginTop: 30, width: 150, height: 20, borderRadius: 4, ...shimmerStyle }} />
+    </div>
+  </Grid>
 );
 
 /** Row of cards - loads when scrolled into view */
@@ -227,9 +308,13 @@ const CardRow: FC<{
   return (
     <>
       {cards.map((card, i) => (
-        <div key={card._id} ref={i === 0 ? sentinelRef : undefined}>
-          <CardPlaceholder />
-        </div>
+        <Fragment key={card._id}>
+          <div ref={i === 0 ? sentinelRef : undefined}>
+            <CardPlaceholder />
+          </div>
+          {/* Show quote placeholder for rows that will have quotes */}
+          {showQuoteAfterRow && i === cards.length - 1 && <QuotePlaceholder />}
+        </Fragment>
       ))}
     </>
   );
