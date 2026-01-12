@@ -1,4 +1,4 @@
-import { FC, forwardRef, HTMLAttributes, useEffect, useState, useRef } from "react";
+import { FC, forwardRef, HTMLAttributes, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { usePalette } from "../../DeckPaletteContext";
 import { useHeroCardsContext } from "../../HeroCardsContext";
@@ -11,7 +11,8 @@ const CARD_POSITIONS = {
   right: { left: 275, rotate: "10deg", zIndex: 1 },
 } as const;
 
-const CARD_TOP = -100;
+const CARD_TOP = -90;
+const RETRY_DELAY_MS = 5000;
 
 /** Wrapper component for positioned cards */
 const CardWrapper: FC<{
@@ -85,9 +86,6 @@ interface HeroCardsProps extends HTMLAttributes<HTMLElement> {
   heroCards?: HeroCardProps[];
 }
 
-// Track if initial SSR cards have been consumed (persists across HeroCards remounts)
-let ssrCardsConsumed = false;
-
 const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
   ({ sticky = true, heroCards: ssrHeroCards, ...props }, ref) => {
     const { palette } = usePalette();
@@ -95,81 +93,90 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
     const deckId = router.query.deckId as string | undefined;
     const { fetchCardsForDeck } = useHeroCardsContext();
 
-    // Track which deck we've fetched cards for (client-side navigation only)
-    const fetchedForDeckRef = useRef<string | null>(null);
-
     // State for cards fetched during client-side navigation
     const [fetchedCards, setFetchedCards] = useState<HeroCardProps[] | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState(false);
+    const [hasFailed, setHasFailed] = useState(false);
 
-    // Track if fetch failed (for retry logic)
-    const [fetchFailed, setFetchFailed] = useState(false);
-
-    // SSR cards are only valid on FIRST mount (initial page load/hydration)
-    // After that, always fetch fresh random cards for variety
-    const ssrCardsMatchDeck = ssrHeroCards &&
+    // SSR cards are valid if they exist and match the current deck
+    const canUseSSRCards = !!(
+      ssrHeroCards &&
       ssrHeroCards.length >= 2 &&
-      ssrHeroCards[0].deckSlug === deckId;
-    const ssrCardsAreValid = ssrCardsMatchDeck && !ssrCardsConsumed;
+      ssrHeroCards[0].deckSlug === deckId
+    );
 
-    // Mark SSR cards as consumed after first use
-    if (ssrCardsAreValid) {
-      ssrCardsConsumed = true;
-    }
-
-    // Effect to fetch cards during client-side navigation (when SSR data is stale/unavailable)
+    // Simple effect: fetch cards on mount if SSR cards don't match
+    // Component remounts on each deck change due to key={deckId} in parent
     useEffect(() => {
-      if (!deckId) return;
-
-      // If we have valid SSR data for this deck, no need to fetch
-      if (ssrCardsAreValid) {
-        // Reset fetched cards when SSR data is available (fresh page load)
-        if (fetchedCards) setFetchedCards(undefined);
-        if (fetchFailed) setFetchFailed(false);
-        fetchedForDeckRef.current = null;
+      // If SSR cards are valid, no need to fetch
+      if (canUseSSRCards || !deckId) {
         return;
       }
 
-      // Already fetched for this deck (and didn't fail)
-      if (fetchedForDeckRef.current === deckId && !fetchFailed) return;
+      let cancelled = false;
+      setIsLoading(true);
+      setHasFailed(false);
 
-      // Fetch cards for client-side navigation
-      const targetDeckId = deckId;
-      fetchedForDeckRef.current = deckId;
-      setFetchFailed(false);
+      fetchCardsForDeck(deckId)
+        .then((cards) => {
+          if (cancelled) return;
 
-      fetchCardsForDeck(deckId).then((cards) => {
-        // Only update if still on the same deck
-        if (fetchedForDeckRef.current === targetDeckId) {
           if (cards && cards.length >= 2) {
             setFetchedCards(cards);
-            setFetchFailed(false);
           } else {
-            // Fetch returned no valid cards - mark as failed for potential retry
-            setFetchFailed(true);
-            console.warn(`[HeroCards] No valid cards received for ${targetDeckId}`);
+            setHasFailed(true);
           }
-        }
-      });
-    }, [deckId, ssrCardsAreValid, fetchCardsForDeck, fetchedCards, fetchFailed]);
+        })
+        .catch(() => {
+          if (cancelled) return;
+          setHasFailed(true);
+        })
+        .finally(() => {
+          if (!cancelled) {
+            setIsLoading(false);
+          }
+        });
+
+      return () => {
+        cancelled = true;
+      };
+    }, [deckId, canUseSSRCards, fetchCardsForDeck]);
 
     // Auto-retry after delay if fetch failed
     useEffect(() => {
-      if (!fetchFailed || !deckId) return;
+      if (!hasFailed || !deckId || canUseSSRCards) return;
 
       const timer = setTimeout(() => {
-        // Reset ref to trigger new fetch
-        fetchedForDeckRef.current = null;
-        setFetchFailed(false);
-      }, 5000); // Retry after 5 seconds to avoid rate limiting
+        setHasFailed(false);
+        // Trigger re-fetch by clearing failed state
+        // The main effect will re-run due to isLoading being false
+        setIsLoading(true);
+
+        fetchCardsForDeck(deckId)
+          .then((cards) => {
+            if (cards && cards.length >= 2) {
+              setFetchedCards(cards);
+              setHasFailed(false);
+            } else {
+              setHasFailed(true);
+            }
+          })
+          .catch(() => {
+            setHasFailed(true);
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      }, RETRY_DELAY_MS);
 
       return () => clearTimeout(timer);
-    }, [fetchFailed, deckId]);
+    }, [hasFailed, deckId, canUseSSRCards, fetchCardsForDeck]);
 
-    // Use SSR cards if valid, otherwise use fetched cards (shows placeholder if neither)
-    const heroCards = ssrCardsAreValid ? ssrHeroCards : fetchedCards;
+    // Use SSR cards if valid, otherwise use fetched cards
+    const heroCards = canUseSSRCards ? ssrHeroCards : fetchedCards;
     const hasCards = heroCards && heroCards.length >= 2;
     // Only animate fade-in for fetched cards (not SSR - those should show immediately)
-    const shouldFadeIn = hasCards && !ssrCardsAreValid;
+    const shouldFadeIn = hasCards && !canUseSSRCards;
 
     return (
       <div

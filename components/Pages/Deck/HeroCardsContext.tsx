@@ -14,11 +14,21 @@ interface HeroCardsContextValue {
 
 const HeroCardsContext = createContext<HeroCardsContextValue | null>(null);
 
+// Cache duration in ms - cards cached for 30 seconds to prevent rapid re-fetching
+const CACHE_DURATION_MS = 30000;
+
+interface CachedCards {
+  cards: HeroCardProps[];
+  timestamp: number;
+}
+
 export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  // Store prefetched cards by deck slug
+  // Store prefetched cards by deck slug (for hover prefetch)
   const prefetchedCardsRef = useRef<Map<string, HeroCardProps[]>>(new Map());
   // Track in-flight fetch promises
   const fetchPromisesRef = useRef<Map<string, Promise<HeroCardProps[] | undefined>>>(new Map());
+  // Short-lived cache to prevent rapid re-fetching during navigation
+  const recentCardsRef = useRef<Map<string, CachedCards>>(new Map());
 
   const [queryHeroCards] = useLazyQuery<Pick<GQL.Query, "heroCards">>(HeroCardsLiteQuery, {
     fetchPolicy: "no-cache", // Always fetch fresh random cards (heroCards uses MongoDB $sample)
@@ -44,6 +54,12 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
           heroCards.forEach((card) => {
             const img = new Image();
             img.src = card.img;
+          });
+
+          // Cache the result for short-term reuse
+          recentCardsRef.current.set(slug, {
+            cards: heroCards,
+            timestamp: Date.now(),
           });
 
           return heroCards;
@@ -92,14 +108,24 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
     [doFetch]
   );
 
-  // Get cards for a deck - uses prefetched if available, otherwise fetches
+  // Get cards for a deck - uses cached/prefetched if available, otherwise fetches
   const fetchCardsForDeck = useCallback(
     async (slug: string): Promise<HeroCardProps[] | undefined> => {
-      // Check prefetched data first
+      // Check recent cache first (prevents rapid re-fetching during navigation)
+      const cached = recentCardsRef.current.get(slug);
+      if (cached && Date.now() - cached.timestamp < CACHE_DURATION_MS) {
+        return cached.cards;
+      }
+
+      // Check prefetched data (from hover)
       const prefetched = prefetchedCardsRef.current.get(slug);
       if (prefetched) {
-        // Clear so next visit gets fresh cards
+        // Clear prefetch cache but add to recent cache
         prefetchedCardsRef.current.delete(slug);
+        recentCardsRef.current.set(slug, {
+          cards: prefetched,
+          timestamp: Date.now(),
+        });
         return prefetched;
       }
 
