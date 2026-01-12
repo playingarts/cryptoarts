@@ -77,6 +77,11 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
     // State for cards fetched during client-side navigation
     const [fetchedCards, setFetchedCards] = useState<HeroCardProps[] | undefined>(undefined);
 
+    // Displayed cards - keeps showing last valid cards until new ones are ready
+    const [displayedCards, setDisplayedCards] = useState<HeroCardProps[] | undefined>(
+      ssrHeroCards && ssrHeroCards.length >= 2 ? ssrHeroCards : undefined
+    );
+
     // Check if SSR cards are valid for current deck by checking the deckSlug on the cards
     const ssrCardsAreValid = ssrHeroCards &&
       ssrHeroCards.length >= 2 &&
@@ -88,6 +93,8 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
 
       // If we have valid SSR data for this deck, use it directly
       if (ssrCardsAreValid) {
+        // Update displayed cards immediately with SSR data
+        setDisplayedCards(ssrHeroCards);
         // Reset fetched cards when SSR data is available (fresh page load)
         if (fetchedCards) setFetchedCards(undefined);
         fetchedForDeckRef.current = null;
@@ -105,12 +112,13 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
         // Only update if still on the same deck
         if (cards && cards.length >= 2 && fetchedForDeckRef.current === targetDeckId) {
           setFetchedCards(cards);
+          setDisplayedCards(cards); // Update displayed cards when fetch completes
         }
       });
-    }, [deckId, ssrCardsAreValid, fetchCardsForDeck, fetchedCards]);
+    }, [deckId, ssrCardsAreValid, ssrHeroCards, fetchCardsForDeck, fetchedCards]);
 
-    // Use SSR data if valid for current deck, otherwise use fetched cards
-    const heroCards = ssrCardsAreValid ? ssrHeroCards : fetchedCards;
+    // Use displayed cards (keeps last valid cards visible during loading)
+    const heroCards = displayedCards;
     const hasCards = heroCards && heroCards.length >= 2;
 
     return (

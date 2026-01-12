@@ -16,6 +16,7 @@ import Delete from "../../Icons/Delete";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
+import { useHeroCardsContext } from "../../Pages/Deck/HeroCardsContext";
 import { useProducts } from "../../../hooks/product";
 import MenuGrid from "./MenuGrid";
 import NewsletterSection from "./NewsletterSection";
@@ -67,6 +68,7 @@ const MainMenu: FC<
   }
 > = ({ setShow, show = true, ...props }) => {
   const router = useRouter();
+  const { prefetchHeroCards } = useHeroCardsContext();
   const { products, error } = useProducts();
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const { palette } = usePalette();
@@ -286,6 +288,7 @@ const MainMenu: FC<
                 const handleHover = () => {
                   setHoveredProduct(product);
                   prefetchPage(deckHref);
+                  prefetchHeroCards(deck.slug);
                 };
                 const handleClick = (e: React.MouseEvent) => {
                   if (isCurrentDeck) {
