@@ -89,7 +89,7 @@ const ListItem: FC<{
       </MenuPortal>
       {showQuote && quoteCard && (
         quoteImagesLoaded ? (
-          <Grid css={[{ width: "100%" }]}>
+          <Grid css={[{ width: "100%", marginTop: 60, marginBottom: 60 }]}>
             <img
               src={background.src}
               alt=""
@@ -196,7 +196,7 @@ const CardPlaceholder: FC = () => (
 
 /** Placeholder for quote section */
 const QuotePlaceholder: FC = () => (
-  <Grid css={[{ width: "100%" }]}>
+  <Grid css={[{ width: "100%", marginTop: 60, marginBottom: 60 }]}>
     {/* Background image placeholder */}
     <div
       css={{
