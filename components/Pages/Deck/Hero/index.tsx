@@ -14,6 +14,61 @@ import { HeroCardProps } from "../../../../pages/[deckId]";
 
 type SlideState = "visible" | "sliding-out" | "sliding-in";
 
+// Animated counter that counts up from 0 to target value
+type AnimatedNumberProps = {
+  value: string;
+  duration?: number;
+  startAnimation: boolean;
+};
+
+const AnimatedNumber: FC<AnimatedNumberProps> = ({ value, duration = 1500, startAnimation }) => {
+  const [displayValue, setDisplayValue] = useState("0");
+  const hasAnimatedRef = useRef(false);
+
+  // Extract numeric value and suffix (e.g., "1037" -> 1037, "")
+  const numericMatch = value.match(/^(\d+)(.*)$/);
+  const targetNumber = numericMatch ? parseInt(numericMatch[1], 10) : 0;
+  const suffix = numericMatch ? numericMatch[2] : "";
+  // Preserve leading zeros
+  const padLength = numericMatch ? numericMatch[1].length : 0;
+
+  useEffect(() => {
+    if (!startAnimation || hasAnimatedRef.current) return;
+    hasAnimatedRef.current = true;
+
+    // Animate from 0 to target
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Ease out cubic for smooth deceleration
+      const easeOut = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(easeOut * targetNumber);
+
+      // Pad with leading zeros if needed
+      const paddedValue = current.toString().padStart(padLength, "0");
+      setDisplayValue(paddedValue + suffix);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, [startAnimation, targetNumber, suffix, padLength, duration]);
+
+  // Reset animation when story closes
+  useEffect(() => {
+    if (!startAnimation) {
+      hasAnimatedRef.current = false;
+      setDisplayValue("0");
+    }
+  }, [startAnimation]);
+
+  return <span>{displayValue}</span>;
+};
+
 interface HeroProps extends HTMLAttributes<HTMLElement> {
   heroCards?: HeroCardProps[];
 }
@@ -256,8 +311,20 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
           },
         ]}
       >
-        <Grid css={[{ paddingTop: 90 }]} ref={ref}>
-          <div css={[{ gridColumn: "span 6" }]}>
+        <Grid
+          css={[{ paddingTop: 90 }]}
+          ref={ref}
+        >
+          <div
+            css={[
+              {
+                gridColumn: "span 6",
+                opacity: showStory ? 1 : 0,
+                transform: showStory ? "translateY(0)" : "translateY(20px)",
+                transition: "opacity 0.4s ease-out 0.1s, transform 0.4s ease-out 0.1s",
+              },
+            ]}
+          >
             <Text>
               Released in 2013, Edition One brought together 55 visionary
               artists from around the globe to transform a deck of cards into a
@@ -265,10 +332,10 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             </Text>
             <Grid auto={true} css={[{ paddingTop: 60 }]}>
               {[
-                ["55", "Artist"],
+                ["55", "Artists"],
                 ["2013", "Launch Year"],
                 ["1037", "Backers on KS"],
-              ].map((data) => (
+              ].map((data, index) => (
                 <div
                   key={JSON.stringify(data)}
                   css={(theme) => [
@@ -279,7 +346,9 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                     },
                   ]}
                 >
-                  <Text typography="newh3">{data[0]}</Text>
+                  <Text typography="newh3">
+                    <AnimatedNumber value={data[0]} startAnimation={showStory} duration={1500} />
+                  </Text>
                   <Text typography="newh4">{data[1]}</Text>
                 </div>
               ))}
