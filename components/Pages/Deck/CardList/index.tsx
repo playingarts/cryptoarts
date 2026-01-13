@@ -5,6 +5,7 @@ import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
 import { useCardsForDeck } from "../../../../hooks/card";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import Card from "../../../Card";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
@@ -168,20 +169,26 @@ const ListItem: FC<{
                   },
                 ]}
               >
-                {quoteCard.artist.info}
+                {quoteCard.info}
               </Text>
 
-              <Text
-                typography="linkNewTypography"
-                css={(theme) => [
-                  {
-                    marginTop: 30,
-                    color: theme.colors[palette === "dark" ? "white75" : "black"],
-                  },
-                ]}
+              <Link
+                href={`/${deckId}/${quoteCard.artist.slug}`}
+                css={{ textDecoration: "none" }}
               >
-                Discover the artwork <Dot />
-              </Text>
+                <Text
+                  typography="linkNewTypography"
+                  css={(theme) => [
+                    {
+                      marginTop: 30,
+                      color: theme.colors[palette === "dark" ? "white75" : "black"],
+                      cursor: "pointer",
+                    },
+                  ]}
+                >
+                  Discover the artwork <Dot />
+                </Text>
+              </Link>
             </div>
           </Grid>
         ) : (
@@ -334,12 +341,16 @@ const CardRow: FC<{
   const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
 
   // Stable quote card selection - memoized to prevent changing on re-renders
+  // Only select cards that have an info (card description)
   const quoteCard = useMemo(() => {
     if (!showQuoteAfterRow || allCards.length === 0) return undefined;
+    // Filter cards that have info
+    const cardsWithInfo = allCards.filter(card => card.info?.trim());
+    if (cardsWithInfo.length === 0) return undefined;
     // Use a deterministic "random" based on rowIndex to keep it stable
     const seed = rowIndex * 7 + 3;
-    const quoteCardIndex = seed % allCards.length;
-    return allCards[quoteCardIndex];
+    const quoteCardIndex = seed % cardsWithInfo.length;
+    return cardsWithInfo[quoteCardIndex];
   }, [showQuoteAfterRow, rowIndex, allCards]);
 
   return (

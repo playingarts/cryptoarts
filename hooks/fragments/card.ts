@@ -50,6 +50,7 @@ export const CardForDeckFragment = gql`
     video
     value
     suit
+    info
     artist {
       name
       slug
