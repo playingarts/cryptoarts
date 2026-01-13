@@ -27,8 +27,11 @@ const CARDS_PER_ROW = {
 // How many rows ahead to preload images
 const PRELOAD_ROWS_AHEAD = 2;
 
-// Initial rows to load images for (rows 0-1)
+// Initial rows to load images for fresh fetch (rows 0-1)
 const INITIAL_MAX_ROW = 1;
+
+// Max rows to load immediately when data is cached (prevents 55 images at once)
+const CACHED_INITIAL_MAX_ROW = 5;
 
 // Number of skeleton rows to show initially
 const INITIAL_SKELETON_ROWS = 6;
@@ -432,31 +435,18 @@ const List = () => {
   // Track current deck for reset detection
   const currentDeckIdRef = useRef<string | undefined>(undefined);
 
-  // Start loading cards when user scrolls 10px
-  const [shouldLoad, setShouldLoad] = useState(false);
-
-  useEffect(() => {
-    if (shouldLoad) return;
-
-    const handleScroll = () => {
-      if (window.scrollY >= 10) {
-        setShouldLoad(true);
-        window.removeEventListener("scroll", handleScroll);
-      }
-    };
-
-    // Check immediately in case already scrolled
-    if (window.scrollY >= 10) {
-      setShouldLoad(true);
-      return;
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [shouldLoad]);
-
   // Fetch cards using lighter query (CardsForDeckQuery)
-  const { cards } = useCardsForDeck(shouldLoad && deck ? { variables: { deck: deck._id } } : undefined);
+  // Apollo cache-first policy ensures cached data is returned instantly
+  // `loading` is false when data comes from cache
+  const { cards, loading: cardsLoading } = useCardsForDeck(deck ? { variables: { deck: deck._id } } : undefined);
+
+  // Track if data came from cache (detected on first render)
+  // If cards available immediately (not loading), they came from cache
+  const dataFromCacheRef = useRef<boolean | null>(null);
+  if (dataFromCacheRef.current === null && deck) {
+    // First time we check with a valid deck - record if data was instant
+    dataFromCacheRef.current = !cardsLoading && !!cards;
+  }
 
   // Determine cards per row based on screen width
   const cardsPerRow = width >= breakpoints.md
@@ -469,16 +459,31 @@ const List = () => {
   const rows = useCardRows(cards, cardsPerRow);
 
   // Maximum row index to load images for (monotonically increasing)
-  // Initial value: first 2 rows (0 and 1)
-  const [maxRowToLoadImages, setMaxRowToLoadImages] = useState(INITIAL_MAX_ROW);
+  // - If data came from cache, load all images immediately (browser has them cached too)
+  // - If fresh fetch, start with first 2 rows and expand as user scrolls
+  const [maxRowToLoadImages, setMaxRowToLoadImages] = useState(() => {
+    // Will be updated by effect when rows are available
+    return INITIAL_MAX_ROW;
+  });
 
-  // Reset maxRowToLoadImages when deck changes
+  // Reset maxRowToLoadImages when deck changes OR set to all rows if cached
   useEffect(() => {
     if (deckId !== currentDeckIdRef.current) {
       currentDeckIdRef.current = deckId as string | undefined;
+      dataFromCacheRef.current = null; // Reset cache detection for new deck
       setMaxRowToLoadImages(INITIAL_MAX_ROW);
     }
   }, [deckId]);
+
+  // When data comes from cache, load more rows immediately (but not all 55 cards)
+  // The observer will quickly expand to remaining rows as user scrolls
+  useEffect(() => {
+    if (dataFromCacheRef.current && rows.length > 0) {
+      // Data was cached - load first 6 rows immediately
+      // This covers typical viewport without dumping all images at once
+      setMaxRowToLoadImages(Math.min(CACHED_INITIAL_MAX_ROW, rows.length - 1));
+    }
+  }, [rows.length]);
 
   // Handler for when a row is approaching viewport - increase maxRowToLoadImages
   const handleRowApproaching = useCallback((rowIndex: number) => {
