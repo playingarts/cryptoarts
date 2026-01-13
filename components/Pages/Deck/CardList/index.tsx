@@ -3,7 +3,7 @@ import { FC, Fragment, HTMLAttributes, useEffect, useState, useRef, useMemo, use
 import Grid from "../../../Grid";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
-import { useCards } from "../../../../hooks/card";
+import { useCardsForDeck } from "../../../../hooks/card";
 import { useRouter } from "next/router";
 import Card from "../../../Card";
 import { useSize } from "../../../SizeProvider";
@@ -383,6 +383,21 @@ const useCardRows = (cards: GQL.Card[] | undefined, cardsPerRow: number) => {
   }, [cards, cardsPerRow]);
 };
 
+// Number of skeleton rows to show initially (before data loads)
+const INITIAL_SKELETON_ROWS = 6;
+
+/** Skeleton grid shown while cards data is loading */
+const SkeletonGrid: FC<{ cardsPerRow: number }> = ({ cardsPerRow }) => {
+  const totalSkeletons = INITIAL_SKELETON_ROWS * cardsPerRow;
+  return (
+    <>
+      {Array.from({ length: totalSkeletons }).map((_, i) => (
+        <CardPlaceholder key={`skeleton-${i}`} />
+      ))}
+    </>
+  );
+};
+
 const List = () => {
   const {
     query: { deckId },
@@ -414,8 +429,8 @@ const List = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [shouldLoad]);
 
-  // Only fetch cards after scroll trigger
-  const { cards } = useCards(shouldLoad && deck ? { variables: { deck: deck._id } } : undefined);
+  // Fetch cards using lighter query (CardsForDeckQuery)
+  const { cards } = useCardsForDeck(shouldLoad && deck ? { variables: { deck: deck._id } } : undefined);
 
   // Determine cards per row based on screen width
   const cardsPerRow = width >= breakpoints.md
@@ -449,8 +464,6 @@ const List = () => {
     [loadedBatches]
   );
 
-  if (!cards) return null;
-
   return (
     <div
       css={[
@@ -465,17 +478,22 @@ const List = () => {
         },
       ]}
     >
-      {rows.map((rowCards, rowIndex) => (
-        <CardRow
-          key={`row-${rowIndex}`}
-          cards={rowCards}
-          rowIndex={rowIndex}
-          cardsPerRow={cardsPerRow}
-          allCards={cards}
-          isBatchLoaded={isBatchLoaded(rowIndex)}
-          onVisible={() => handleRowVisible(rowIndex)}
-        />
-      ))}
+      {/* Show skeleton grid while loading, then real cards */}
+      {!cards ? (
+        <SkeletonGrid cardsPerRow={cardsPerRow} />
+      ) : (
+        rows.map((rowCards, rowIndex) => (
+          <CardRow
+            key={`row-${rowIndex}`}
+            cards={rowCards}
+            rowIndex={rowIndex}
+            cardsPerRow={cardsPerRow}
+            allCards={cards}
+            isBatchLoaded={isBatchLoaded(rowIndex)}
+            onVisible={() => handleRowVisible(rowIndex)}
+          />
+        ))
+      )}
     </div>
   );
 };
