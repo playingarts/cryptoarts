@@ -24,6 +24,9 @@ const CARDS_PER_ROW = {
   sm: 2,  // Small screens: 2 cards per row
 };
 
+// Batch size for loading rows (load 2 rows at a time)
+const BATCH_SIZE = 2;
+
 // Card value order (2-10, jack, queen, king, ace, then special cards)
 const VALUE_ORDER: Record<string, number> = {
   "2": 0, "3": 1, "4": 2, "5": 3, "6": 4, "7": 5, "8": 6, "9": 7, "10": 8,
@@ -285,10 +288,13 @@ const CardRow: FC<{
   onVisible?: () => void;
 }> = ({ cards, rowIndex, allCards, isBatchLoaded, onVisible }) => {
   const sentinelRef = useRef<HTMLDivElement>(null);
-  const [isInViewport, setIsInViewport] = useState(false);
+  // First batch (rows 0-1) starts visible immediately - no need for IntersectionObserver
+  const isFirstBatch = rowIndex < BATCH_SIZE;
+  const [isInViewport, setIsInViewport] = useState(isFirstBatch);
 
   useEffect(() => {
-    if (isInViewport) return;
+    // First batch is always visible, skip IntersectionObserver
+    if (isFirstBatch || isInViewport) return;
 
     const element = sentinelRef.current;
     if (!element) return;
@@ -309,7 +315,14 @@ const CardRow: FC<{
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [isInViewport, onVisible]);
+  }, [isFirstBatch, isInViewport, onVisible]);
+
+  // Trigger onVisible for first batch immediately on mount
+  useEffect(() => {
+    if (isFirstBatch && isBatchLoaded) {
+      onVisible?.();
+    }
+  }, [isFirstBatch, isBatchLoaded, onVisible]);
 
   // Row is visible when both its batch is loaded AND it's in/near viewport
   const isVisible = isBatchLoaded && isInViewport;
@@ -369,9 +382,6 @@ const useCardRows = (cards: GQL.Card[] | undefined, cardsPerRow: number) => {
     return rows;
   }, [cards, cardsPerRow]);
 };
-
-// Batch size for loading rows (load 2 rows at a time)
-const BATCH_SIZE = 2;
 
 const List = () => {
   const {
