@@ -50,6 +50,8 @@ const CardWrapper: FC<{
   fadeIn?: boolean;
 }> = ({ position, children, fadeIn }) => {
   const pos = CARD_POSITIONS[position];
+  // Stagger right card slightly for a nicer reveal effect
+  const delay = position === "right" ? "0.1s" : "0s";
   return (
     <div
       css={[
@@ -62,10 +64,11 @@ const CardWrapper: FC<{
           transformOrigin: "bottom center",
         },
         fadeIn && {
-          animation: "cardFadeIn 0.4s ease-out forwards",
+          opacity: 0,
+          animation: `cardFadeIn 0.5s ease-out ${delay} forwards`,
           "@keyframes cardFadeIn": {
-            "0%": { opacity: 0, transform: "translateY(10px)" },
-            "100%": { opacity: 1, transform: "translateY(0)" },
+            "0%": { opacity: 0, transform: "translateY(20px) scale(0.95)" },
+            "100%": { opacity: 1, transform: "translateY(0) scale(1)" },
           },
         },
       ]}
