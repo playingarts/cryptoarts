@@ -238,16 +238,53 @@ const shimmerStyle = {
   },
 } as const;
 
-/** Placeholder for cards not yet loaded */
+/** Placeholder for cards not yet loaded - matches Card component "preview" size exactly */
 const CardPlaceholder: FC = () => (
   <div
     css={{
+      // Match Card component outer wrapper width (with CSS override from ListItem)
       width: 300,
-      height: 450,
-      borderRadius: 15,
-      ...shimmerStyle,
     }}
-  />
+  >
+    {/* Card image area - matches cardSizesHover.preview.height */}
+    <div
+      css={{
+        position: "relative",
+        height: 400,
+      }}
+    >
+      {/* Inner card - matches cardSizes.preview dimensions with aspectRatio */}
+      <div
+        css={{
+          width: 270,
+          height: 381, // 270 / 0.7076923 aspectRatio
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          borderRadius: 15,
+          ...shimmerStyle,
+        }}
+      />
+    </div>
+    {/* Artist name placeholder - matches Text marginTop: 10, fontSize: 18 */}
+    <div
+      css={{
+        marginTop: 10,
+        display: "flex",
+        justifyContent: "center",
+      }}
+    >
+      <div
+        css={{
+          width: 120,
+          height: 18,
+          borderRadius: 4,
+          ...shimmerStyle,
+        }}
+      />
+    </div>
+  </div>
 );
 
 /** Placeholder for quote section */
