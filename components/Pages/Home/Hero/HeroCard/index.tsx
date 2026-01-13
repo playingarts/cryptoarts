@@ -23,8 +23,8 @@ const HeroCard: FC = () => {
   const { width } = useSize();
   const { visibleCards, departingCard, setHovering, advance } = useHeroCarousel();
 
-  // Track if departing card should be in "exiting" state (for animation)
-  const [isExiting, setIsExiting] = useState(false);
+  // Track which card ID is currently exiting (null = no animation, card ID = animating)
+  const [exitingCardId, setExitingCardId] = useState<string | null>(null);
   // Track if component has hydrated (client-side only)
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -56,13 +56,16 @@ const HeroCard: FC = () => {
   // Trigger exit animation when departing card appears
   useEffect(() => {
     if (departingCard) {
-      // Start with initial state, then trigger exit animation on next frame
-      setIsExiting(false);
+      // Reset to null first to ensure fresh animation state
+      setExitingCardId(null);
+      // Start animation on next frame (allows CSS transition to see initial state)
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
-          setIsExiting(true);
+          setExitingCardId(departingCard._id);
         });
       });
+    } else {
+      setExitingCardId(null);
     }
   }, [departingCard]);
 
@@ -145,8 +148,10 @@ const HeroCard: FC = () => {
             zIndex: 10,
           }}
           style={{
-            transform: isExiting ? "rotate(15deg) translateX(50%) translateY(-20%)" : "rotate(0deg)",
-            opacity: isExiting ? 0 : 1,
+            transform: exitingCardId === departingCard._id
+              ? "rotate(15deg) translateX(50%) translateY(-20%)"
+              : "rotate(0deg)",
+            opacity: exitingCardId === departingCard._id ? 0 : 1,
           }}
         >
           <Card
