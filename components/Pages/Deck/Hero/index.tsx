@@ -111,34 +111,108 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
       ]}
     >
       <div css={[{ gridColumn: "span 6" }]}>
-        <Text
-          typography="newh0"
-          css={(theme) => [
-            palette === "dark" && { color: "white" },
-            {
-              transition: slideState === "sliding-in"
-                ? "none"
-                : "transform 0.15s ease-out, opacity 0.15s ease-out",
-            },
-          ]}
-          style={getSlideStyles()}
-        >
-          {displayedDeck?.title}
-        </Text>
-        <Text
-          css={(theme) => [
-            { marginTop: 30 },
-            palette === "dark" && { color: "white", opacity: 0.75 },
-            {
-              transition: slideState === "sliding-in"
-                ? "none"
-                : "transform 0.15s ease-out, opacity 0.15s ease-out",
-            },
-          ]}
-          style={getSlideStyles()}
-        >
-          {displayedDeck?.info}
-        </Text>
+        {displayedDeck ? (
+          <>
+            <Text
+              typography="newh0"
+              css={(theme) => [
+                palette === "dark" && { color: "white" },
+                {
+                  transition: slideState === "sliding-in"
+                    ? "none"
+                    : "transform 0.15s ease-out, opacity 0.15s ease-out",
+                },
+              ]}
+              style={getSlideStyles()}
+            >
+              {displayedDeck.title}
+            </Text>
+            <Text
+              css={(theme) => [
+                { marginTop: 30 },
+                palette === "dark" && { color: "white", opacity: 0.75 },
+                {
+                  transition: slideState === "sliding-in"
+                    ? "none"
+                    : "transform 0.15s ease-out, opacity 0.15s ease-out",
+                },
+              ]}
+              style={getSlideStyles()}
+            >
+              {displayedDeck.info}
+            </Text>
+          </>
+        ) : (
+          <>
+            {/* Title skeleton */}
+            <div
+              css={{
+                height: 72,
+                width: 280,
+                borderRadius: 8,
+                background:
+                  palette === "dark"
+                    ? "linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%)"
+                    : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                backgroundSize: "200% 100%",
+                animation: "shimmer 1.5s infinite linear",
+                "@keyframes shimmer": {
+                  "0%": { backgroundPosition: "200% 0" },
+                  "100%": { backgroundPosition: "-200% 0" },
+                },
+              }}
+            />
+            {/* Description skeleton */}
+            <div
+              css={{
+                marginTop: 30,
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+              }}
+            >
+              <div
+                css={{
+                  height: 20,
+                  width: "100%",
+                  borderRadius: 4,
+                  background:
+                    palette === "dark"
+                      ? "linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%)"
+                      : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                  backgroundSize: "200% 100%",
+                  animation: "shimmer 1.5s infinite linear",
+                }}
+              />
+              <div
+                css={{
+                  height: 20,
+                  width: "85%",
+                  borderRadius: 4,
+                  background:
+                    palette === "dark"
+                      ? "linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%)"
+                      : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                  backgroundSize: "200% 100%",
+                  animation: "shimmer 1.5s infinite linear",
+                }}
+              />
+              <div
+                css={{
+                  height: 20,
+                  width: "70%",
+                  borderRadius: 4,
+                  background:
+                    palette === "dark"
+                      ? "linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%)"
+                      : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                  backgroundSize: "200% 100%",
+                  animation: "shimmer 1.5s infinite linear",
+                }}
+              />
+            </div>
+          </>
+        )}
         <div css={[{ marginTop: 30, display: "flex", gap: 15 }]}>
           <ArrowButton color="accent" href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop now</ArrowButton>
           <ButtonTemplate

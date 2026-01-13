@@ -56,11 +56,11 @@ const CARD_TOP = -90;
 const CardWrapper: FC<{
   position: "left" | "right";
   children: React.ReactNode;
-  fadeIn?: boolean;
-}> = ({ position, children, fadeIn }) => {
+  animate?: boolean;
+}> = ({ position, children, animate }) => {
   const pos = CARD_POSITIONS[position];
-  // Stagger right card slightly for a nicer reveal effect
-  const delay = position === "right" ? "0.1s" : "0s";
+  // Stagger cards: left card first, right card after 0.15s
+  const delay = position === "left" ? "0s" : "0.15s";
   return (
     <div
       css={[
@@ -72,12 +72,18 @@ const CardWrapper: FC<{
           zIndex: pos.zIndex,
           transformOrigin: "bottom center",
         },
-        fadeIn && {
+        animate && {
           opacity: 0,
-          animation: `cardFadeIn 0.5s ease-out ${delay} forwards`,
-          "@keyframes cardFadeIn": {
-            "0%": { opacity: 0, transform: "translateY(20px) scale(0.95)" },
-            "100%": { opacity: 1, transform: "translateY(0) scale(1)" },
+          animation: `cardDropIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${delay} forwards`,
+          "@keyframes cardDropIn": {
+            "0%": {
+              opacity: 0,
+              transform: "translateY(-80px)",
+            },
+            "100%": {
+              opacity: 1,
+              transform: "translateY(0)",
+            },
           },
         },
       ]}
@@ -261,10 +267,12 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
     // Determine what to show
     const cardsMatchCurrentDeck = displayedCards && displayedCards[0]?.deckSlug === deckId;
     const showCards = cardsMatchCurrentDeck && imagesReady;
-    // Fade in only when transitioning from skeleton to cards (not on initial SSR load)
-    const shouldFadeIn = showCards && !ssrCardsValid;
     // Show retry UI when fetch failed and not currently fetching
     const showRetry = fetchFailed && !isFetching && !showCards;
+
+    // Animation key: changes whenever displayedCards changes to re-trigger animation
+    // Uses first card's _id to ensure animation plays on each new set of cards
+    const animationKey = displayedCards?.[0]?._id ?? "none";
 
     return (
       <div
@@ -285,10 +293,10 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
       >
         {showCards && displayedCards ? (
           <>
-            {/* Right card (back) - interactive for 3D tilt effect on hover */}
-            <CardWrapper position="right" fadeIn={shouldFadeIn}>
+            {/* Left card (front) - animates first */}
+            <CardWrapper key={`left-${animationKey}`} position="left" animate>
               <Card
-                card={displayedCards[1] as unknown as GQL.Card}
+                card={displayedCards[0] as unknown as GQL.Card}
                 size="hero"
                 noArtist
                 noFavorite
@@ -296,10 +304,10 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
                 priority
               />
             </CardWrapper>
-            {/* Left card (front) - interactive for 3D tilt effect on hover */}
-            <CardWrapper position="left" fadeIn={shouldFadeIn}>
+            {/* Right card (back) - animates after 0.15s delay */}
+            <CardWrapper key={`right-${animationKey}`} position="right" animate>
               <Card
-                card={displayedCards[0] as unknown as GQL.Card}
+                card={displayedCards[1] as unknown as GQL.Card}
                 size="hero"
                 noArtist
                 noFavorite
