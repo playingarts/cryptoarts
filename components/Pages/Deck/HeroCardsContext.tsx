@@ -116,7 +116,7 @@ export const HeroCardsProvider: FC<{ children: ReactNode }> = ({ children }) => 
         if (cards && cards.length >= 2) {
           const heroCards = cards.map((card) => ({
             _id: card._id,
-            img: card.img.replace("-big-hd/", "-big/"),
+            img: card.img, // Keep hi-res URL for hero cards
             video: card.video,
             artist: card.artist,
             deckSlug: slug, // Include deck slug for validation

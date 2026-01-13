@@ -99,7 +99,7 @@ export const getStaticProps: GetStaticProps<
   const heroCards = (heroCardsResult.data?.heroCards || []).map(
     (card: GQL.Card) => ({
       _id: card._id,
-      img: card.img.replace("-big-hd/", "-big/"), // Use standard quality for faster load
+      img: card.img, // Keep hi-res for hero cards
       video: card.video,
       artist: card.artist,
       deckSlug: deck.slug, // Include deck slug for validation during client-side navigation

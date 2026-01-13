@@ -54,7 +54,9 @@ const Card: FC<CardProps> = memo(
     ...props
   }) => {
     // Compute imgSrc first for use in state initialization
-    const imgSrc = size !== "big" ? card.img.replace("-big-hd/", "-big/") : card.img;
+    // Use hi-res images for "big" and "hero" sizes, lower-res for smaller sizes
+    const useHiRes = size === "big" || size === "hero";
+    const imgSrc = useHiRes ? card.img : card.img.replace("-big-hd/", "-big/");
 
     // Initialize loaded state:
     // - Priority images start as loaded (for instant hero card display)

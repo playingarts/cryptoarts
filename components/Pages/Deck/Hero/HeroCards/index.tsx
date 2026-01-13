@@ -5,6 +5,14 @@ import { useHeroCardsContext } from "../../HeroCardsContext";
 import Card from "../../../../Card";
 import { HeroCardProps } from "../../../../../pages/[deckId]";
 
+/** Convert standard img URL to hi-res version (matches Card component logic for hero size) */
+const toHiResUrl = (imgUrl: string): string => {
+  // If it's already hi-res or doesn't have the -big/ pattern, return as-is
+  if (imgUrl.includes("-big-hd/")) return imgUrl;
+  // Convert -big/ to -big-hd/
+  return imgUrl.replace("-big/", "-big-hd/");
+};
+
 /** Check if images are already in browser cache and preload if not */
 const waitForImages = (cards: HeroCardProps[]): Promise<void> => {
   return new Promise((resolve) => {
@@ -26,7 +34,8 @@ const waitForImages = (cards: HeroCardProps[]): Promise<void> => {
       const img = new Image();
       img.onload = onLoad;
       img.onerror = onLoad;
-      img.src = card.img;
+      // Use hi-res URL to match what Card component will actually render
+      img.src = toHiResUrl(card.img);
       // If already in browser cache, complete will be true immediately
       if (img.complete && img.naturalWidth > 0) {
         onLoad();
