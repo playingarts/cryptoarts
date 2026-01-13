@@ -59,11 +59,9 @@ const Card: FC<CardProps> = memo(
     const imgSrc = useHiRes ? card.img : card.img.replace("-big-hd/", "-big/");
 
     // Initialize loaded state:
-    // - Priority images start as loaded (for instant hero card display)
-    // - Other images check browser cache or start as not loaded
+    // - SSR: start as not loaded (will check on mount)
+    // - Client: check if already in browser cache
     const [loaded, setLoaded] = useState(() => {
-      // Priority images should be visible immediately (no loading state)
-      if (priority) return true;
       // SSR: start as not loaded
       if (typeof window === "undefined") return false;
       // Client: check if already in browser cache
@@ -85,9 +83,6 @@ const Card: FC<CardProps> = memo(
 
     // Check if image is already loaded after mount (handles cached images and SSR hydration)
     useEffect(() => {
-      // Skip for priority images (already initialized as loaded)
-      if (priority) return;
-
       const img = imgRef.current;
       if (!img) return;
 
@@ -105,7 +100,7 @@ const Card: FC<CardProps> = memo(
       });
 
       return () => cancelAnimationFrame(rafId);
-    }, [imgSrc, priority]);
+    }, [imgSrc]);
 
     const handleMouseMove = useCallback(
       ({ clientX, clientY }: React.MouseEvent) => {
