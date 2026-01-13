@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useRef, useState } from "react";
+import { FC, HTMLAttributes, useMemo, useRef, useState } from "react";
 import Intro from "../../../Intro";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
@@ -11,6 +11,7 @@ import Card from "../../../Card";
 import Link from "../../../Link";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../Pop";
+import { sortCards } from "../../../../source/utils/sortCards";
 
 const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
@@ -30,6 +31,11 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       variables: { deck: deck._id },
     }
   );
+
+  // Sort cards: 2-Ace, spades/hearts/clubs/diamonds per value
+  const sortedCards = useMemo(() => {
+    return cards ? sortCards(cards) : undefined;
+  }, [cards]);
 
   const [card, setCard] = useState<GQL.Card>();
 
@@ -122,8 +128,8 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             },
           ]}
         >
-          {cards &&
-            cards.map((card) => (
+          {sortedCards &&
+            sortedCards.map((card) => (
               <Card
                 onClick={() => setCard(card)}
                 key={card._id + "carousel"}

@@ -48,6 +48,8 @@ export const CardForDeckFragment = gql`
     _id
     img
     video
+    value
+    suit
     artist {
       name
       slug
