@@ -276,25 +276,25 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
       >
         {showCards && displayedCards ? (
           <>
-            {/* Right card (back) */}
+            {/* Right card (back) - interactive for 3D tilt effect on hover */}
             <CardWrapper position="right" fadeIn={shouldFadeIn}>
               <Card
                 card={displayedCards[1] as unknown as GQL.Card}
                 size="hero"
                 noArtist
                 noFavorite
-                interactive={false}
+                interactive
                 priority
               />
             </CardWrapper>
-            {/* Left card (front) */}
+            {/* Left card (front) - interactive for 3D tilt effect on hover */}
             <CardWrapper position="left" fadeIn={shouldFadeIn}>
               <Card
                 card={displayedCards[0] as unknown as GQL.Card}
                 size="hero"
                 noArtist
                 noFavorite
-                interactive={false}
+                interactive
                 priority
               />
             </CardWrapper>
