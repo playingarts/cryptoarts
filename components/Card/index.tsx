@@ -31,6 +31,8 @@ export interface CardProps extends HTMLAttributes<HTMLElement> {
   noFavorite?: boolean;
   palette?: PaletteProps["palette"];
   priority?: boolean;
+  /** When true, shows gradient placeholder without loading the image (for progressive loading) */
+  noImage?: boolean;
 }
 
 /**
@@ -48,6 +50,7 @@ const Card: FC<CardProps> = memo(
     noFavorite = false,
     palette: paletteProp,
     priority = false,
+    noImage = false,
     ...props
   }) => {
     // Compute imgSrc first for use in state initialization
@@ -211,27 +214,30 @@ const Card: FC<CardProps> = memo(
                 },
               ]}
             >
-              <img
-                ref={imgRef}
-                src={imgSrc}
-                key={imgSrc + "card" + size}
-                css={[
-                  {
-                    width: "100%",
-                    height: "100%",
-                    lineHeight: 1,
-                    transition: loaded ? slowTransitionOpacity : "none",
-                  },
-                ]}
-                style={{
-                  opacity: loaded ? 1 : 0,
-                }}
-                loading={priority ? "eager" : "lazy"}
-                {...(priority && { fetchPriority: "high" })}
-                onLoad={hideLoader}
-                alt={card.artist?.name ? `Card by ${card.artist.name}` : "Playing Arts card"}
-              />
-              {card.video && (!animated ? width >= breakpoints.sm : true) && (
+              {/* Only render img when noImage is false - prevents image loading */}
+              {!noImage && (
+                <img
+                  ref={imgRef}
+                  src={imgSrc}
+                  key={imgSrc + "card" + size}
+                  css={[
+                    {
+                      width: "100%",
+                      height: "100%",
+                      lineHeight: 1,
+                      transition: loaded ? slowTransitionOpacity : "none",
+                    },
+                  ]}
+                  style={{
+                    opacity: loaded ? 1 : 0,
+                  }}
+                  loading={priority ? "eager" : "lazy"}
+                  {...(priority && { fetchPriority: "high" })}
+                  onLoad={hideLoader}
+                  alt={card.artist?.name ? `Card by ${card.artist.name}` : "Playing Arts card"}
+                />
+              )}
+              {!noImage && card.video && (!animated ? width >= breakpoints.sm : true) && (
                 <video
                   loop
                   muted

@@ -24,8 +24,14 @@ const CARDS_PER_ROW = {
   sm: 2,  // Small screens: 2 cards per row
 };
 
-// Batch size for loading rows (load 2 rows at a time)
-const BATCH_SIZE = 2;
+// How many rows ahead to preload images
+const PRELOAD_ROWS_AHEAD = 2;
+
+// Initial rows to load images for (rows 0-1)
+const INITIAL_MAX_ROW = 1;
+
+// Number of skeleton rows to show initially
+const INITIAL_SKELETON_ROWS = 6;
 
 // Card value order (2-10, jack, queen, king, ace, then special cards)
 const VALUE_ORDER: Record<string, number> = {
@@ -69,9 +75,10 @@ const sortCards = (cards: GQL.Card[]): GQL.Card[] => {
 /** Single card item with optional artist quote block */
 const ListItem: FC<{
   card: GQL.Card;
+  shouldLoadImage: boolean;
   showQuote?: boolean;
   quoteCard?: GQL.Card;
-}> = ({ card, showQuote, quoteCard }) => {
+}> = ({ card, shouldLoadImage, showQuote, quoteCard }) => {
   const { palette } = usePalette();
   const {
     query: { deckId },
@@ -119,6 +126,9 @@ const ListItem: FC<{
         size="preview"
         card={{ ...card, deck: { slug: deckId } as unknown as GQL.Deck }}
         css={[{ width: 300 }]}
+        // Control image loading via this prop
+        // When false, Card shows gradient placeholder without loading the image
+        {...(!shouldLoadImage && { noImage: true })}
       />
       <MenuPortal show={show}>
         {typeof deckId === "string" ? (
@@ -278,55 +288,46 @@ const QuotePlaceholder: FC = () => (
   </Grid>
 );
 
-/** Row of cards - loads when batch is loaded and scrolled into view */
-const CardRow: FC<{
-  cards: GQL.Card[];
+/** Row sentinel - triggers image loading when approaching viewport */
+const RowSentinel: FC<{
   rowIndex: number;
-  cardsPerRow: number;
-  allCards: GQL.Card[];
-  isBatchLoaded: boolean;
-  onVisible?: () => void;
-}> = ({ cards, rowIndex, allCards, isBatchLoaded, onVisible }) => {
+  onApproaching: (rowIndex: number) => void;
+}> = ({ rowIndex, onApproaching }) => {
   const sentinelRef = useRef<HTMLDivElement>(null);
-  // First batch (rows 0-1) starts visible immediately - no need for IntersectionObserver
-  const isFirstBatch = rowIndex < BATCH_SIZE;
-  const [isInViewport, setIsInViewport] = useState(isFirstBatch);
 
   useEffect(() => {
-    // First batch is always visible, skip IntersectionObserver
-    if (isFirstBatch || isInViewport) return;
-
     const element = sentinelRef.current;
     if (!element) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsInViewport(true);
-          onVisible?.();
+          onApproaching(rowIndex);
           observer.disconnect();
         }
       },
       {
-        rootMargin: "300px", // Load 300px before entering viewport
+        rootMargin: "600px 0px", // Trigger 600px before entering viewport
         threshold: 0,
       }
     );
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [isFirstBatch, isInViewport, onVisible]);
+  }, [rowIndex, onApproaching]);
 
-  // Trigger onVisible for first batch immediately on mount
-  useEffect(() => {
-    if (isFirstBatch && isBatchLoaded) {
-      onVisible?.();
-    }
-  }, [isFirstBatch, isBatchLoaded, onVisible]);
+  // Invisible sentinel element
+  return <div ref={sentinelRef} css={{ position: "absolute", height: 1, width: 1 }} />;
+};
 
-  // Row is visible when both its batch is loaded AND it's in/near viewport
-  const isVisible = isBatchLoaded && isInViewport;
-
+/** Row of cards - always renders cards, controls image loading via shouldLoadImage */
+const CardRow: FC<{
+  cards: GQL.Card[];
+  rowIndex: number;
+  allCards: GQL.Card[];
+  shouldLoadImages: boolean;
+  onRowApproaching: (rowIndex: number) => void;
+}> = ({ cards, rowIndex, allCards, shouldLoadImages, onRowApproaching }) => {
   // Calculate if this row should show a quote (every 3rd row after the first)
   const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
 
@@ -334,37 +335,25 @@ const CardRow: FC<{
   const quoteCard = useMemo(() => {
     if (!showQuoteAfterRow || allCards.length === 0) return undefined;
     // Use a deterministic "random" based on rowIndex to keep it stable
-    const seed = rowIndex * 7 + 3; // Simple deterministic seed
-    const quoteCardIndex = (seed % allCards.length);
+    const seed = rowIndex * 7 + 3;
+    const quoteCardIndex = seed % allCards.length;
     return allCards[quoteCardIndex];
   }, [showQuoteAfterRow, rowIndex, allCards]);
 
-  if (isVisible) {
-    return (
-      <>
-        {cards.map((card, i) => (
-          <ListItem
-            key={card._id}
-            card={card}
-            showQuote={showQuoteAfterRow && i === cards.length - 1}
-            quoteCard={quoteCard}
-          />
-        ))}
-      </>
-    );
-  }
-
-  // Show placeholders with a sentinel element for IntersectionObserver
   return (
     <>
+      {/* Sentinel for this row - triggers preloading when approaching */}
+      {!shouldLoadImages && (
+        <RowSentinel rowIndex={rowIndex} onApproaching={onRowApproaching} />
+      )}
       {cards.map((card, i) => (
-        <Fragment key={card._id}>
-          <div ref={i === 0 ? sentinelRef : undefined}>
-            <CardPlaceholder />
-          </div>
-          {/* Show quote placeholder for rows that will have quotes */}
-          {showQuoteAfterRow && i === cards.length - 1 && <QuotePlaceholder />}
-        </Fragment>
+        <ListItem
+          key={card._id}
+          card={card}
+          shouldLoadImage={shouldLoadImages}
+          showQuote={showQuoteAfterRow && i === cards.length - 1}
+          quoteCard={quoteCard}
+        />
       ))}
     </>
   );
@@ -382,9 +371,6 @@ const useCardRows = (cards: GQL.Card[] | undefined, cardsPerRow: number) => {
     return rows;
   }, [cards, cardsPerRow]);
 };
-
-// Number of skeleton rows to show initially (before data loads)
-const INITIAL_SKELETON_ROWS = 6;
 
 /** Skeleton grid shown while cards data is loading */
 const SkeletonGrid: FC<{ cardsPerRow: number }> = ({ cardsPerRow }) => {
@@ -405,6 +391,9 @@ const List = () => {
 
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { width } = useSize();
+
+  // Track current deck for reset detection
+  const currentDeckIdRef = useRef<string | undefined>(undefined);
 
   // Start loading cards when user scrolls 10px
   const [shouldLoad, setShouldLoad] = useState(false);
@@ -442,27 +431,25 @@ const List = () => {
   // Split cards into rows
   const rows = useCardRows(cards, cardsPerRow);
 
-  // Track which batches are loaded (batch 0 = rows 0-1, batch 1 = rows 2-3, etc.)
-  // First batch (rows 0-1) loads immediately when cards arrive
-  const [loadedBatches, setLoadedBatches] = useState<Set<number>>(new Set([0]));
+  // Maximum row index to load images for (monotonically increasing)
+  // Initial value: first 2 rows (0 and 1)
+  const [maxRowToLoadImages, setMaxRowToLoadImages] = useState(INITIAL_MAX_ROW);
 
-  // Handler for when a row becomes visible - load next batch
-  const handleRowVisible = useCallback((rowIndex: number) => {
-    const currentBatch = Math.floor(rowIndex / BATCH_SIZE);
-    const nextBatch = currentBatch + 1;
-    setLoadedBatches((prev) => {
-      if (prev.has(nextBatch)) return prev;
-      const next = new Set(prev);
-      next.add(nextBatch);
-      return next;
+  // Reset maxRowToLoadImages when deck changes
+  useEffect(() => {
+    if (deckId !== currentDeckIdRef.current) {
+      currentDeckIdRef.current = deckId as string | undefined;
+      setMaxRowToLoadImages(INITIAL_MAX_ROW);
+    }
+  }, [deckId]);
+
+  // Handler for when a row is approaching viewport - increase maxRowToLoadImages
+  const handleRowApproaching = useCallback((rowIndex: number) => {
+    setMaxRowToLoadImages((prev) => {
+      const newMax = rowIndex + PRELOAD_ROWS_AHEAD;
+      return Math.max(prev, newMax);
     });
   }, []);
-
-  // Check if a row's batch is loaded
-  const isBatchLoaded = useCallback(
-    (rowIndex: number) => loadedBatches.has(Math.floor(rowIndex / BATCH_SIZE)),
-    [loadedBatches]
-  );
 
   return (
     <div
@@ -487,10 +474,9 @@ const List = () => {
             key={`row-${rowIndex}`}
             cards={rowCards}
             rowIndex={rowIndex}
-            cardsPerRow={cardsPerRow}
             allCards={cards}
-            isBatchLoaded={isBatchLoaded(rowIndex)}
-            onVisible={() => handleRowVisible(rowIndex)}
+            shouldLoadImages={rowIndex <= maxRowToLoadImages}
+            onRowApproaching={handleRowApproaching}
           />
         ))
       )}
