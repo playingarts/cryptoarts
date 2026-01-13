@@ -42,6 +42,30 @@ jest.mock("@apollo/client/react", () => ({
   useLazyQuery: () => [mockQueryFn],
 }));
 
+// Mock the deck hooks since HeroCards now uses them
+jest.mock("../../hooks/deck", () => ({
+  useDeck: () => ({
+    deck: { _id: "deck-1", slug: "deck-a", cards: [] },
+    loading: false,
+    error: undefined,
+    refetch: jest.fn(),
+  }),
+  useDecks: () => ({
+    decks: [],
+    loading: false,
+    error: undefined,
+    refetch: jest.fn(),
+  }),
+}));
+
+jest.mock("../../hooks/card", () => ({
+  useCardsForDeck: () => ({
+    cards: [],
+    loading: false,
+    error: undefined,
+  }),
+}));
+
 // Import after mocks
 import HeroCards from "../../components/Pages/Deck/Hero/HeroCards";
 import { HeroCardsProvider } from "../../components/Pages/Deck/HeroCardsContext";
