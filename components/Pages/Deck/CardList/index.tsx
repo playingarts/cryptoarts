@@ -142,6 +142,8 @@ const ListItem: FC<{
             deckId={deckId}
             edition={edition}
             initialImg={card.img}
+            initialArtistName={card.artist.name}
+            initialArtistCountry={card.artist.country}
           />
         ) : null}
       </MenuPortal>

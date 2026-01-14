@@ -67,6 +67,8 @@ const DeckCards: FC<
             slug: string;
             deckSlug: string;
             cardImg: string;
+            artistName: string;
+            artistCountry?: string;
           }
         | undefined
       >
@@ -142,6 +144,8 @@ const DeckCards: FC<
                             slug: card.artist.slug,
                             deckSlug: deck.slug,
                             cardImg: card.img,
+                            artistName: card.artist.name,
+                            artistCountry: card.artist.country,
                           })
                         }
                         key={card._id}
@@ -162,6 +166,8 @@ const DeckCards: FC<
                     slug: randomCard.artist.slug,
                     deckSlug: deck.slug,
                     cardImg: randomCard.img,
+                    artistName: randomCard.artist.name,
+                    artistCountry: randomCard.artist.country,
                   });
                 }
               }}
@@ -180,6 +186,8 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = ({}) => {
     slug: string;
     deckSlug: string;
     cardImg: string;
+    artistName: string;
+    artistCountry?: string;
   }>();
 
   return (
@@ -191,6 +199,8 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = ({}) => {
             cardSlug={cardState.slug}
             deckId={cardState.deckSlug}
             initialImg={cardState.cardImg}
+            initialArtistName={cardState.artistName}
+            initialArtistCountry={cardState.artistCountry}
             showNavigation={false}
           />
         ) : null}

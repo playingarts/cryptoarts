@@ -135,9 +135,11 @@ const Pop: FC<
     deckId: string;
     edition?: string;
     initialImg?: string;
+    initialArtistName?: string;
+    initialArtistCountry?: string;
     showNavigation?: boolean;
   }
-> = ({ close, cardSlug, deckId, edition, initialImg, showNavigation = true, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, initialImg, initialArtistName, initialArtistCountry, showNavigation = true, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
   const router = useRouter();
 
@@ -296,8 +298,8 @@ const Pop: FC<
               },
             ]}
           >
-            {/* Artist name and country - skeleton or actual content */}
-            {card ? (
+            {/* Artist name and country - use initial values or card data, skeleton only if neither available */}
+            {card || initialArtistName ? (
               <div
                 css={{
                   animation: "fadeIn 0.3s ease-out",
@@ -307,8 +309,8 @@ const Pop: FC<
                   },
                 }}
               >
-                <Text typography="newh2"> {card.artist.name} </Text>
-                <Text typography="newh4"> {card.artist.country} </Text>
+                <Text typography="newh2"> {card?.artist.name || initialArtistName} </Text>
+                <Text typography="newh4"> {card?.artist.country || initialArtistCountry} </Text>
               </div>
             ) : (
               // Skeleton loading for artist info - matches newh2 (lineHeight: 66px) and newh4 (lineHeight: 45px)
