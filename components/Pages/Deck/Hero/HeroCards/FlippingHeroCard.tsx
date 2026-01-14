@@ -98,37 +98,22 @@ interface FlippingHeroCardProps {
   initialCard: GQL.Card;
   /** Whether flipping is paused (e.g., user scrolled away) */
   isPaused?: boolean;
-  /** Disable intersection observer (for always-visible hero cards) */
-  disableIntersectionObserver?: boolean;
 }
 
 const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   cards,
   initialCard,
   isPaused = false,
-  disableIntersectionObserver = false,
 }) => {
   // All hooks must be called unconditionally (React rules of hooks)
-  // Initialize back card to a different card than front
-  const initialBackCard = cards.length > 1
-    ? cards.find((c) => c._id !== initialCard._id) || cards[1]
-    : initialCard;
-
-  // Use state for cards so component re-renders when they change (needed for video animated prop)
-  const [frontCard, setFrontCard] = useState(initialCard);
-  const [backCard, setBackCard] = useState(initialBackCard);
-  // Also keep refs for use in callbacks that need current values without re-creating
+  // Use refs for cards to avoid re-renders during animation
   const frontCardRef = useRef(initialCard);
-  const backCardRef = useRef(initialBackCard);
+  const backCardRef = useRef(initialCard);
   const rotationRef = useRef(0);
 
   // Track shown indices - reset when all have been shown
   const initialIndex = cards.findIndex((c) => c._id === initialCard._id);
-  const initialBackIndex = cards.findIndex((c) => c._id === initialBackCard._id);
-  const shownIndicesRef = useRef<Set<number>>(new Set([
-    initialIndex >= 0 ? initialIndex : 0,
-    initialBackIndex >= 0 ? initialBackIndex : 1
-  ]));
+  const shownIndicesRef = useRef<Set<number>>(new Set([initialIndex >= 0 ? initialIndex : 0]));
 
   // Only rotation triggers re-render
   const [rotation, setRotation] = useState(0);
@@ -140,8 +125,7 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   // Internal pause states
   const [isHovered, setIsHovered] = useState(false);
   const [isTabVisible, setIsTabVisible] = useState(true);
-  // Initialize isInView to true if intersection observer is disabled (for hero cards)
-  const [isInView, setIsInView] = useState(disableIntersectionObserver);
+  const [isInView, setIsInView] = useState(false);
 
   // Ref for intersection observer
   const containerRef = useRef<HTMLDivElement>(null);
@@ -165,12 +149,6 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
 
   // Listen for viewport visibility with Intersection Observer
   useEffect(() => {
-    // Skip intersection observer if disabled (e.g., for always-visible hero cards)
-    if (disableIntersectionObserver) {
-      setIsInView(true);
-      return;
-    }
-
     const element = containerRef.current;
     if (!element) return;
 
@@ -185,7 +163,7 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, [disableIntersectionObserver]);
+  }, []);
 
   // Listen for tab visibility changes
   useEffect(() => {
@@ -203,13 +181,13 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
     []
   );
 
-  const getNextIndex = useCallback((currentFrontCard: GQL.Card, currentBackCard: GQL.Card) => {
+  const getNextIndex = useCallback(() => {
     // If all cards have been shown, reset the tracking
     if (shownIndicesRef.current.size >= cards.length) {
       // Keep only the current index so we don't repeat immediately
       const currentIdx = Math.floor((rotationRef.current / 180) % 2) === 0
-        ? cards.findIndex((c) => c._id === currentFrontCard._id)
-        : cards.findIndex((c) => c._id === currentBackCard._id);
+        ? cards.findIndex((c) => c._id === frontCardRef.current._id)
+        : cards.findIndex((c) => c._id === backCardRef.current._id);
       shownIndicesRef.current = new Set([currentIdx >= 0 ? currentIdx : 0]);
     }
 
@@ -243,8 +221,8 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
     if (isFlippingRef.current) return;
     isFlippingRef.current = true;
 
-    // Get the next card index using refs for current values
-    const newIndex = getNextIndex(frontCardRef.current, backCardRef.current);
+    // Get the next card index
+    const newIndex = getNextIndex();
     const nextCard = cards[newIndex];
 
     // Safety check - should never happen since we check cards.length > 1 above
@@ -263,36 +241,28 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
       return;
     }
 
-    // Determine which face is currently hidden (will become visible after flip)
     const isShowingFront = (rotationRef.current / 180) % 2 === 0;
 
-    // Update the HIDDEN face with the new card before flipping
-    // When showing front (rotation 0, 360, etc), back is hidden
-    // When showing back (rotation 180, 540, etc), front is hidden
+    // Set the back face with the preloaded card
     if (isShowingFront) {
-      // Back face is hidden, update it
       backCardRef.current = nextCard;
-      setBackCard(nextCard);
     } else {
-      // Front face is hidden, update it
       frontCardRef.current = nextCard;
-      setFrontCard(nextCard);
     }
 
     // Set duration based on manual vs auto flip
     const duration = isManual ? FLIP_DURATION_MANUAL : FLIP_DURATION;
     setFlipDuration(duration);
 
-    // Wait for React to update the DOM with new card, then rotate
-    // Using setTimeout(0) to ensure state update is flushed
-    setTimeout(() => {
+    // Use requestAnimationFrame to ensure DOM has updated before rotating
+    requestAnimationFrame(() => {
       rotationRef.current += 180;
       setRotation(rotationRef.current);
       // Allow next flip after animation completes
       setTimeout(() => {
         isFlippingRef.current = false;
       }, duration);
-    }, 0);
+    });
   }, [getNextIndex, cards]);
 
   // Click handler for manual flip with bounce effect
@@ -352,7 +322,7 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   if (cards.length === 0) {
     return (
       <div css={{ width: CARD_DIMENSIONS.width, height: CARD_DIMENSIONS.height }}>
-        <Card card={initialCard} size="hero" noArtist noFavorite interactive={false} animated={!!initialCard.video} priority />
+        <Card card={initialCard} size="hero" noArtist noFavorite interactive={false} priority />
       </div>
     );
   }
@@ -395,12 +365,11 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
           }}
         >
           <Card
-            card={frontCard}
+            card={frontCardRef.current}
             size="hero"
             noArtist
             noFavorite
             interactive={false}
-            animated={!!frontCard.video}
             priority
           />
         </div>
@@ -418,12 +387,11 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
           }}
         >
           <Card
-            card={backCard}
+            card={backCardRef.current}
             size="hero"
             noArtist
             noFavorite
             interactive={false}
-            animated={!!backCard.video}
             priority
           />
         </div>
