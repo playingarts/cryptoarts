@@ -1,4 +1,5 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useMemo } from "react";
+import { useRouter } from "next/router";
 import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
@@ -8,8 +9,53 @@ import background2 from "../../../../mocks/images/DeckGallery/gallery-thumbnail-
 import background3 from "../../../../mocks/images/DeckGallery/gallery-thumbnail-1.png";
 import background4 from "../../../../mocks/images/DeckGallery/gallery-thumbnail.png";
 import Text from "../../../Text";
+import { useFutureChapter } from "../FutureChapterContext";
+import { useDecks } from "../../../../hooks/deck";
+import { useCardsForDeck } from "../../../../hooks/card";
 
 const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+  const { query } = useRouter();
+  const deckId = query.deckId;
+  const { activeTab, activeEdition, isFutureDeck } = useFutureChapter();
+
+  // Get deck ID for Future chapters
+  const { decks } = useDecks();
+  const targetDeckSlug = isFutureDeck
+    ? activeTab === "future-ii"
+      ? "future-ii"
+      : "future"
+    : typeof deckId === "string"
+    ? deckId
+    : undefined;
+  const deck = useMemo(
+    () => decks?.find((d) => d.slug === targetDeckSlug),
+    [decks, targetDeckSlug]
+  );
+
+  // Fetch cards for the active chapter (only for Future deck)
+  const { cards } = useCardsForDeck(
+    isFutureDeck && deck
+      ? { variables: { deck: deck._id, edition: activeEdition } }
+      : { skip: true }
+  );
+
+  // Select 5 random cards for gallery display
+  const galleryImages = useMemo(() => {
+    if (!isFutureDeck || !cards || cards.length < 5) {
+      // Use static images for non-Future decks
+      return [
+        background1.src,
+        background.src,
+        background3.src,
+        background2.src,
+        background4.src,
+      ];
+    }
+    // Shuffle and pick 5 cards for gallery
+    const shuffled = [...cards].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 5).map((card) => card.img);
+  }, [isFutureDeck, cards, activeTab]);
+
   return (
     <Grid
       css={(theme) => [
@@ -62,7 +108,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={background1.src}
+          src={galleryImages[0]}
           alt=""
         />
         <img
@@ -75,7 +121,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               gridRow: "span 2",
             },
           ]}
-          src={background.src}
+          src={galleryImages[1]}
           alt=""
         />
         <img
@@ -87,7 +133,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={background3.src}
+          src={galleryImages[2]}
           alt=""
         />
         <img
@@ -99,7 +145,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={background2.src}
+          src={galleryImages[3]}
           alt=""
         />
         <img
@@ -111,7 +157,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
             },
           ]}
-          src={background4.src}
+          src={galleryImages[4]}
           alt=""
         />
       </Grid>

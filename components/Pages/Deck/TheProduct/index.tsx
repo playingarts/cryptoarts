@@ -7,9 +7,11 @@ import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import { usePalette } from "../DeckPaletteContext";
+import { useFutureChapter } from "../FutureChapterContext";
 
 const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
+  const { activeTab, isFutureDeck } = useFutureChapter();
 
   const [product, setProduct] = useState<GQL.Product>();
   const {
@@ -20,15 +22,23 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     if (!products || !deckId || typeof deckId !== "string") {
       return;
     }
+
+    // For Future deck, select product based on active chapter tab
+    let targetDeckSlug = deckId;
+    if (isFutureDeck) {
+      // future-i tab -> "future" deck, future-ii tab -> "future-ii" deck
+      targetDeckSlug = activeTab === "future-ii" ? "future-ii" : "future";
+    }
+
     setProduct(
       products.find(
         (product) =>
           product.type === "deck" &&
           product.deck &&
-          product.deck.slug === deckId
+          product.deck.slug === targetDeckSlug
       )
     );
-  }, [products, deckId]);
+  }, [products, deckId, isFutureDeck, activeTab]);
 
   const { palette } = usePalette();
 
@@ -36,7 +46,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       css={(theme) => [
         {
-          paddingTop: 150,
+          paddingTop: 60,
           paddingBottom: 120,
           background:
             palette === "dark" ? "#212121" : theme.colors["pale_gray"],
@@ -90,7 +100,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 : undefined
             }
           >
-            Shop this deck
+            {product?.title ? `Shop ${product.title}` : "Shop this deck"}
           </ArrowButton>
         </div>
       </ScandiBlock>

@@ -16,12 +16,7 @@ import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import { useDeck } from "../../../../hooks/deck";
 import { sortCards } from "../../../../source/utils/sortCards";
 
-// Future edition tabs configuration
-// Both tabs use the "future" deck but filter by edition field
-const FUTURE_TABS = [
-  { id: "future-i", label: "Chapter I", edition: "chapter i" },
-  { id: "future-ii", label: "Chapter II", edition: "chapter ii" },
-];
+import { useFutureChapter, FUTURE_TABS, FutureTabId } from "../FutureChapterContext";
 
 // Lazy-load Pop modal - only shown on card click
 const Pop = dynamic(() => import("../../CardPage/Pop"), { ssr: false });
@@ -549,8 +544,8 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
 
 /** Tabs for Future Edition I/II selection */
 const FutureTabs: FC<{
-  activeTab: string;
-  onTabChange: (id: string) => void;
+  activeTab: FutureTabId;
+  onTabChange: (id: FutureTabId) => void;
 }> = ({ activeTab, onTabChange }) => {
   const { palette } = usePalette();
 
@@ -612,46 +607,14 @@ const FutureTabs: FC<{
 
 const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { palette } = usePalette();
-  const router = useRouter();
-  const { deckId } = router.query;
-
-  // Check if we're on a future edition page
-  const isFuturePage = deckId === "future";
-
-  // Active tab state (only used for future pages)
-  const [activeTab, setActiveTab] = useState("future-i");
-
-  // Sync tab state with URL hash on initial load and hash changes
-  useEffect(() => {
-    if (!isFuturePage) return;
-
-    const handleHashChange = () => {
-      const hash = window.location.hash;
-      if (hash === "#cards-02" || hash === "#02") {
-        setActiveTab("future-ii");
-      } else {
-        setActiveTab("future-i");
-      }
-    };
-
-    // Check initial hash
-    handleHashChange();
-
-    // Listen for hash changes
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [isFuturePage]);
-
-  // Get the edition filter value for the active tab
-  const activeEdition = isFuturePage
-    ? FUTURE_TABS.find((t) => t.id === activeTab)?.edition
-    : undefined;
+  const { activeTab, setActiveTab, activeEdition, isFutureDeck } = useFutureChapter();
 
   return (
     <Grid
       css={(theme) => [
         {
           paddingTop: 60,
+          paddingBottom: 60,
           background:
             palette === "dark"
               ? theme.colors.darkBlack
@@ -680,12 +643,12 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ]}
           typography="paragraphBig"
         >
-          {isFuturePage
+          {isFutureDeck
             ? "Two chapters, 110 unique artworks, 110 international artists."
             : "A curated showcase of 55 unique artworks, created by 55 international artists."}
         </Text>
       </div>
-      {isFuturePage && (
+      {isFutureDeck && (
         <FutureTabs activeTab={activeTab} onTabChange={setActiveTab} />
       )}
       <List edition={activeEdition} />

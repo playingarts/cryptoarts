@@ -9,6 +9,7 @@ import Hero from "./Hero";
 import { getDeckConfig } from "../../../source/deckConfig";
 import { HeroPreload } from "./HeroPreload";
 import { HeroCardProps } from "../../../pages/[deckId]";
+import { FutureChapterProvider } from "./FutureChapterContext";
 
 // Lazy-load below-fold components
 const CardList = dynamic(() => import("./CardList"), { ssr: true });
@@ -62,7 +63,7 @@ interface DeckProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Deck: FC<DeckProps> = ({ heroCards, ...props }) => (
-  <>
+  <FutureChapterProvider>
     {heroCards && heroCards.length > 0 && <HeroPreload heroCards={heroCards} />}
     <DeckHeader />
     <Hero heroCards={heroCards} />
@@ -71,7 +72,7 @@ const Deck: FC<DeckProps> = ({ heroCards, ...props }) => (
     <CryptoSections />
     <DeckGallery />
     <Footer />
-  </>
+  </FutureChapterProvider>
 );
 
 // Named export for App Router (without withApollo wrapper)

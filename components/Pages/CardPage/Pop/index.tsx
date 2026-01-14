@@ -352,7 +352,7 @@ const Pop: FC<
                 },
               ]}
             >
-              {deck && <FavButton deckSlug={deck.slug} id={card?._id || ""} />}
+              <FavButton deckSlug={deckId} id={card?._id || ""} />
 
               {card ? (
                 <Link
