@@ -27,6 +27,7 @@ const Pop = dynamic(() => import("../../../CardPage/Pop"), { ssr: false });
 type SelectedCard = {
   deckSlug: string;
   artistSlug: string;
+  cardImg: string;
 } | null;
 
 // Scroll threshold to start rendering cards (px)
@@ -66,10 +67,11 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
 
   // Lifted popup handlers - single popup instance for all cards
   const handleCardClick = useCallback((card: HomeCard) => {
-    if (card.deck?.slug && card.artist?.slug) {
+    if (card.deck?.slug && card.artist?.slug && card.img) {
       setSelectedCard({
         deckSlug: card.deck.slug,
         artistSlug: card.artist.slug,
+        cardImg: card.img,
       });
     }
   }, []);
@@ -181,6 +183,8 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
             close={handleClosePopup}
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
+            initialImg={selectedCard.cardImg}
+            showNavigation={false}
           />
         )}
       </MenuPortal>

@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes, useEffect, useMemo, useState } from "react";
-import { useCard, useCardsForDeck } from "../../../../hooks/card";
-import { useDeck } from "../../../../hooks/deck";
+import { useRouter } from "next/router";
+import { useCardPop, useCardsForDeck } from "../../../../hooks/card";
+import { useDecks } from "../../../../hooks/deck";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
@@ -65,8 +66,9 @@ const CustomMiddle: FC<{
   setCardState: (arg0: string | undefined) => void;
   deck: GQL.Deck | undefined;
   edition?: string;
-}> = ({ cardState, deck, setCardState, edition }) => {
-  const { cards: rawCards } = useCardsForDeck(deck ? { variables: { deck: deck._id, edition } } : { skip: true });
+  showNavigation?: boolean;
+}> = ({ cardState, deck, setCardState, edition, showNavigation = true }) => {
+  const { cards: rawCards } = useCardsForDeck(deck && showNavigation ? { variables: { deck: deck._id, edition } } : { skip: true });
   const [counter, setCounter] = useState(0);
 
   // Sort cards to match the order shown in CardList
@@ -78,6 +80,11 @@ const CustomMiddle: FC<{
     }
     setCounter(cards.findIndex((card) => card.artist.slug === cardState));
   }, [cardState, cards]);
+
+  // Don't show navigation controls when disabled
+  if (!showNavigation) {
+    return null;
+  }
 
   return (
     <Text
@@ -127,19 +134,26 @@ const Pop: FC<
     cardSlug: string;
     deckId: string;
     edition?: string;
+    initialImg?: string;
+    showNavigation?: boolean;
   }
-> = ({ close, cardSlug, deckId, edition, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, initialImg, showNavigation = true, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
+  const router = useRouter();
 
-  const { deck } = useDeck({
-    variables: { slug: deckId },
-  });
+  // Get deck from cached decks array instead of separate query
+  const { decks } = useDecks();
+  const deck = useMemo(() => decks?.find((d) => d.slug === deckId), [decks, deckId]);
 
-  const { card } = useCard({
+  // Use lightweight popup query (cache-first for preloaded data)
+  const { card } = useCardPop({
     variables: { deckSlug: deckId, slug: cardState },
   });
 
   const { palette } = usePalette();
+
+  // Check if we're already on this deck's page
+  const isOnDeckPage = router.query.deckId === deckId;
 
   return (
     <div
@@ -187,22 +201,44 @@ const Pop: FC<
         <div css={[{ flex: 1 }]}>
           <Text typography="newh4">
             {deck
-              ? edition === "chapter i"
+              ? (edition || card?.edition) === "chapter i" || deckId === "future"
                 ? "Future Chapter I"
-                : edition === "chapter ii"
+                : (edition || card?.edition) === "chapter ii" || deckId === "future-ii"
                 ? "Future Chapter II"
                 : deck.title
               : null}{" "}
           </Text>
-          <div css={[{ marginTop: 30 }]}>
-            {deck && card ? (
+          <div
+            css={{
+              marginTop: 30,
+              animation: "slideDown 0.4s ease-out",
+              "@keyframes slideDown": {
+                "0%": { opacity: 0, transform: "translateY(-20px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+            }}
+          >
+            {card ? (
               <Card
                 key={"PopCard" + card._id}
                 css={[{ margin: "0 auto" }]}
                 card={{
                   ...card,
-                  deck: { slug: deck.slug } as unknown as GQL.Deck,
+                  deck: { slug: deckId } as unknown as GQL.Deck,
                 }}
+                noArtist
+                size="big"
+              />
+            ) : initialImg ? (
+              // Show initial image instantly while card data loads
+              <Card
+                key="PopCard-initial"
+                css={[{ margin: "0 auto" }]}
+                card={{
+                  _id: "initial",
+                  img: initialImg,
+                  deck: { slug: deckId } as unknown as GQL.Deck,
+                } as GQL.Card}
                 noArtist
                 size="big"
               />
@@ -224,6 +260,7 @@ const Pop: FC<
               cardState={cardState}
               setCardState={setCardState}
               edition={edition}
+              showNavigation={showNavigation}
             />
             <Button
               palette={palette}
@@ -236,6 +273,7 @@ const Pop: FC<
                   justifyContent: "center",
                   display: "flex",
                   alignItems: "center",
+                  marginLeft: "auto", // Always push to right
                 },
                 palette === "dark" && {
                   background: theme.colors.white,
@@ -247,32 +285,74 @@ const Pop: FC<
               <Plus css={[{ rotate: "45deg" }]} />
             </Button>
           </div>
-          {card ? (
+          <div
+            css={[
+              {
+                marginTop: 30,
+                display: "grid",
+                alignContent: "center",
+                maxWidth: 410,
+                flex: 1,
+              },
+            ]}
+          >
+            {/* Artist name and country - skeleton or actual content */}
+            {card ? (
+              <div
+                css={{
+                  animation: "fadeIn 0.3s ease-out",
+                  "@keyframes fadeIn": {
+                    "0%": { opacity: 0, transform: "translateY(8px)" },
+                    "100%": { opacity: 1, transform: "translateY(0)" },
+                  },
+                }}
+              >
+                <Text typography="newh2"> {card.artist.name} </Text>
+                <Text typography="newh4"> {card.artist.country} </Text>
+              </div>
+            ) : (
+              // Skeleton loading for artist info - matches newh2 (lineHeight: 66px) and newh4 (lineHeight: 45px)
+              <div>
+                <div
+                  css={{
+                    height: 66,
+                    width: 280,
+                    borderRadius: 8,
+                    background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                    backgroundSize: "200% 100%",
+                    animation: "shimmer 1.5s infinite linear",
+                    "@keyframes shimmer": {
+                      "0%": { backgroundPosition: "200% 0" },
+                      "100%": { backgroundPosition: "-200% 0" },
+                    },
+                  }}
+                />
+                <div
+                  css={{
+                    height: 45,
+                    width: 150,
+                    borderRadius: 6,
+                    background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                    backgroundSize: "200% 100%",
+                    animation: "shimmer 1.5s infinite linear",
+                  }}
+                />
+              </div>
+            )}
+            {/* Buttons - always visible, same design for all cards */}
             <div
               css={[
                 {
                   marginTop: 30,
-                  display: "grid",
-                  alignContent: "center",
-                  maxWidth: 410,
-                  flex: 1,
+                  display: "flex",
+                  gap: 15,
+                  alignItems: "center",
                 },
               ]}
             >
-              <Text typography="newh2"> {card.artist.name} </Text>
-              <Text typography="newh4"> {card.artist.country} </Text>
-              <div
-                css={[
-                  {
-                    marginTop: 30,
-                    display: "flex",
-                    gap: 15,
-                    alignItems: "center",
-                  },
-                ]}
-              >
-                {deck && <FavButton deckSlug={deck.slug} id={card._id} />}
+              {deck && <FavButton deckSlug={deck.slug} id={card?._id || ""} />}
 
+              {card ? (
                 <Link
                   href={
                     (process.env.NEXT_PUBLIC_BASELINK || "") +
@@ -285,31 +365,34 @@ const Pop: FC<
                 >
                   <Button color="accent">Card details</Button>
                 </Link>
-                <Link
-                  href={
-                    (process.env.NEXT_PUBLIC_BASELINK || "") +
-                    "/" +
-                    deckId +
-                    "#cards" +
-                    (edition === "chapter ii" ? "-02" : "")
+              ) : (
+                <Button color="accent" css={{ opacity: 0.5, cursor: "default" }}>
+                  Card details
+                </Button>
+              )}
+              <Link
+                href={
+                  (process.env.NEXT_PUBLIC_BASELINK || "") +
+                  "/" +
+                  deckId
+                }
+                onClick={(e) => {
+                  e.preventDefault();
+                  close();
+                  // If already on this deck's page, just close popup
+                  // Otherwise navigate to the deck page
+                  if (!isOnDeckPage) {
+                    router.push("/" + deckId);
                   }
-                  onClick={(e) => {
-                    e.preventDefault();
-                    close();
-                    // Set hash and scroll to cards section
-                    const hash = "#cards" + (edition === "chapter ii" ? "-02" : "");
-                    window.location.hash = hash;
-                    document.getElementById("cards")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  css={{ marginLeft: 15 }}
-                >
-                  <ArrowButton noColor base size="small">
-                    All cards
-                  </ArrowButton>
-                </Link>
-              </div>
+                }}
+                css={{ marginLeft: 15 }}
+              >
+                <ArrowButton noColor base size="small">
+                  The deck
+                </ArrowButton>
+              </Link>
             </div>
-          ) : null}
+          </div>
         </div>
       </div>
     </div>

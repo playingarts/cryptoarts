@@ -5,6 +5,7 @@ import {
   CardBasicFragment,
   CardWithSlugsFragment,
   CardForDeckFragment,
+  CardPopFragment,
   ERC1155Fragment,
 } from "./fragments";
 
@@ -39,6 +40,21 @@ export const CardQuery = gql`
   query Card($id: ID, $slug: String, $deckSlug: String) {
     card(id: $id, slug: $slug, deckSlug: $deckSlug) {
       ...CardFragment
+    }
+  }
+`;
+
+/**
+ * Lightweight card query for popup display.
+ * Only fetches fields needed for popup: image, video, background, artist name/country.
+ * Uses cache-first policy to read preloaded data instantly.
+ */
+export const CardPopQuery = gql`
+  ${CardPopFragment}
+
+  query CardPop($slug: String, $deckSlug: String) {
+    card(slug: $slug, deckSlug: $deckSlug) {
+      ...CardPopFragment
     }
   }
 `;
@@ -433,4 +449,37 @@ export const useDailyCardLite = (
     useQuery<Pick<GQL.Query, "dailyCard">>(DailyCardLiteQuery, options);
 
   return { ...methods, dailyCard };
+};
+
+/**
+ * Lightweight hook for card popup - fetches only essential fields for display.
+ * Uses cache-first policy to read preloaded data instantly.
+ */
+export const useCardPop = (
+  options: useQuery.Options<Pick<GQL.Query, "card">> = {}
+) => {
+  const { data: { card } = { card: undefined }, ...methods } = useQuery<
+    Pick<GQL.Query, "card">
+  >(CardPopQuery, {
+    ...options,
+    fetchPolicy: "cache-first",
+  });
+
+  return { ...methods, card };
+};
+
+/**
+ * Lazy hook for preloading card popup data on hover.
+ * Call loadCardPop() on mouseenter/touchstart to prefetch data.
+ */
+export const usePreloadCardPop = (
+  options: useQuery.Options<Pick<GQL.Query, "card">> = {}
+) => {
+  const [loadCardPop, { data: { card } = { card: undefined }, ...methods }] =
+    useLazyQuery<Pick<GQL.Query, "card">>(CardPopQuery, {
+      ...options,
+      fetchPolicy: "cache-first",
+    });
+
+  return { loadCardPop, ...methods, card };
 };

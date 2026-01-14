@@ -56,7 +56,7 @@ const CardSkeleton: FC<{ palette: "light" | "dark" }> = ({ palette }) => (
 interface CollectionItemProps extends HTMLAttributes<HTMLElement> {
   product?: GQL.Product;
   paletteOnHover?: "light" | "dark";
-  onCardClick?: (deckSlug: string, artistSlug: string) => void;
+  onCardClick?: (deckSlug: string, artistSlug: string, cardImg: string) => void;
   /** Priority loading for above-fold items */
   priority?: boolean;
   /** Current deck slug - if matches product deck, "View" just closes instead of navigating */
@@ -278,8 +278,8 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
 
   const handleCardClick = useCallback(() => {
     const currentCard = cardBuffer[cardIndex];
-    if (product?.deck?.slug && currentCard?.artist?.slug) {
-      onCardClick?.(product.deck.slug, currentCard.artist.slug);
+    if (product?.deck?.slug && currentCard?.artist?.slug && currentCard?.img) {
+      onCardClick?.(product.deck.slug, currentCard.artist.slug, currentCard.img);
     }
   }, [cardIndex, cardBuffer, product?.deck?.slug, onCardClick]);
 

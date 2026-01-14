@@ -3,7 +3,7 @@ import { FC, Fragment, HTMLAttributes, useEffect, useState, useRef, useMemo, use
 import Grid from "../../../Grid";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
-import { useCardsForDeck } from "../../../../hooks/card";
+import { useCardsForDeck, usePreloadCardPop } from "../../../../hooks/card";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Card from "../../../Card";
@@ -61,6 +61,26 @@ const ListItem: FC<{
   const [show, setShow] = useState(false);
   const [quoteImagesLoaded, setQuoteImagesLoaded] = useState(false);
 
+  // Preload popup data on hover
+  const { loadCardPop } = usePreloadCardPop();
+  const preloadTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = useCallback(() => {
+    // Delay preload by 200ms to filter accidental hovers
+    preloadTimeoutRef.current = setTimeout(() => {
+      if (typeof deckId === "string") {
+        loadCardPop({ variables: { slug: card.artist.slug, deckSlug: deckId } });
+      }
+    }, 200);
+  }, [loadCardPop, card.artist.slug, deckId]);
+
+  const handleMouseLeave = useCallback(() => {
+    if (preloadTimeoutRef.current) {
+      clearTimeout(preloadTimeoutRef.current);
+      preloadTimeoutRef.current = null;
+    }
+  }, []);
+
   // Preload quote images when quoteCard is available
   useEffect(() => {
     if (!showQuote || !quoteCard) return;
@@ -95,15 +115,25 @@ const ListItem: FC<{
 
   return (
     <Fragment>
-      <Card
-        onClick={() => setShow(true)}
-        size="preview"
-        card={{ ...card, deck: { slug: deckId } as unknown as GQL.Deck }}
-        css={[{ width: 300 }]}
-        // Control image loading via this prop
-        // When false, Card shows gradient placeholder without loading the image
-        {...(!shouldLoadImage && { noImage: true })}
-      />
+      <div
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onTouchStart={() => {
+          if (typeof deckId === "string") {
+            loadCardPop({ variables: { slug: card.artist.slug, deckSlug: deckId } });
+          }
+        }}
+      >
+        <Card
+          onClick={() => setShow(true)}
+          size="preview"
+          card={{ ...card, deck: { slug: deckId } as unknown as GQL.Deck }}
+          css={[{ width: 300 }]}
+          // Control image loading via this prop
+          // When false, Card shows gradient placeholder without loading the image
+          {...(!shouldLoadImage && { noImage: true })}
+        />
+      </div>
       <MenuPortal show={show}>
         {typeof deckId === "string" ? (
           <Pop
@@ -111,6 +141,7 @@ const ListItem: FC<{
             cardSlug={card.artist.slug}
             deckId={deckId}
             edition={edition}
+            initialImg={card.img}
           />
         ) : null}
       </MenuPortal>

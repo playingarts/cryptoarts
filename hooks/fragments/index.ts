@@ -17,6 +17,7 @@ export {
   CardBasicFragment,
   CardWithSlugsFragment,
   CardForDeckFragment,
+  CardPopFragment,
   CardFragment,
 } from "./card";
 

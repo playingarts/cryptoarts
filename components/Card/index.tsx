@@ -28,6 +28,7 @@ export interface CardProps extends HTMLAttributes<HTMLElement> {
   interactive?: boolean;
   animated?: boolean;
   noLink?: boolean;
+  /** @deprecated Favorites on card hover is now disabled */
   noFavorite?: boolean;
   palette?: PaletteProps["palette"];
   priority?: boolean;
@@ -47,7 +48,6 @@ const Card: FC<CardProps> = memo(
     interactive = true,
     animated = false,
     noLink = false,
-    noFavorite = false,
     palette: paletteProp,
     priority = false,
     noImage = false,
@@ -290,20 +290,13 @@ const Card: FC<CardProps> = memo(
                 <AR />
               </div>
             )}
+            {/* CardFav hidden - keeping component for future use */}
             <CardFav
               size={size}
               deckSlug={card.deck && card.deck.slug}
               id={card._id}
-              noFav={noFavorite}
-              css={(theme) => [
-                {
-                  opacity: 0,
-                  transition: theme.transitions.fast("opacity"),
-                },
-                hover && {
-                  opacity: 1,
-                },
-              ]}
+              noFav={true}
+              css={{ display: "none" }}
             />
           </div>
         </div>

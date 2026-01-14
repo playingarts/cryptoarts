@@ -62,6 +62,26 @@ export const CardForDeckFragment = gql`
 `;
 
 /**
+ * Lightweight card fragment for popup display
+ * Only includes fields needed for popup: image, video, background, edition, artist name/country
+ */
+export const CardPopFragment = gql`
+  fragment CardPopFragment on Card {
+    _id
+    img
+    video
+    background
+    cardBackground
+    edition
+    artist {
+      name
+      slug
+      country
+    }
+  }
+`;
+
+/**
  * Full card fragment with all fields and artist details
  */
 export const CardFragment = gql`

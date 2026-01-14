@@ -37,6 +37,7 @@ const SkeletonItem: FC = () => (
 type SelectedCard = {
   deckSlug: string;
   artistSlug: string;
+  cardImg: string;
 } | null;
 
 const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
@@ -54,8 +55,8 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   // Lifted popup handlers
   const handleCardClick = useCallback(
-    (deckSlug: string, artistSlug: string) => {
-      setSelectedCard({ deckSlug, artistSlug });
+    (deckSlug: string, artistSlug: string, cardImg: string) => {
+      setSelectedCard({ deckSlug, artistSlug, cardImg });
     },
     []
   );
@@ -128,6 +129,8 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             close={handleClosePopup}
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
+            initialImg={selectedCard.cardImg}
+            showNavigation={false}
           />
         )}
       </MenuPortal>

@@ -66,6 +66,7 @@ const DeckCards: FC<
         | {
             slug: string;
             deckSlug: string;
+            cardImg: string;
           }
         | undefined
       >
@@ -140,6 +141,7 @@ const DeckCards: FC<
                           setCardsState({
                             slug: card.artist.slug,
                             deckSlug: deck.slug,
+                            cardImg: card.img,
                           })
                         }
                         key={card._id}
@@ -153,14 +155,16 @@ const DeckCards: FC<
                   )
               : null}
             <EmptyCard
-              onClick={() =>
-                cards &&
-                setCardsState({
-                  slug: cards[Math.floor(Math.random() * (cards.length - 1))]
-                    .artist.slug,
-                  deckSlug: deck.slug,
-                })
-              }
+              onClick={() => {
+                if (cards) {
+                  const randomCard = cards[Math.floor(Math.random() * (cards.length - 1))];
+                  setCardsState({
+                    slug: randomCard.artist.slug,
+                    deckSlug: deck.slug,
+                    cardImg: randomCard.img,
+                  });
+                }
+              }}
             />
           </div>
         </div>
@@ -175,6 +179,7 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = ({}) => {
   const [cardState, setCardState] = useState<{
     slug: string;
     deckSlug: string;
+    cardImg: string;
   }>();
 
   return (
@@ -183,12 +188,10 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = ({}) => {
         {cardState ? (
           <Pop
             close={() => setCardState(undefined)}
-            cardSlug={
-              cardState.slug
-              // cards[Math.floor(Math.random() * (cards.length - 1))].artist
-              //   .slug
-            }
+            cardSlug={cardState.slug}
             deckId={cardState.deckSlug}
+            initialImg={cardState.cardImg}
+            showNavigation={false}
           />
         ) : null}
       </MenuPortal>

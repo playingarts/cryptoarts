@@ -145,6 +145,7 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               cardSlug={card.artist.slug}
               close={() => setCard(undefined)}
               deckId={deck.slug}
+              initialImg={card.img}
             />
           ) : null}
         </MenuPortal>

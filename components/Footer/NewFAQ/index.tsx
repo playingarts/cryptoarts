@@ -30,6 +30,7 @@ const Pop = dynamic(() => import("../../Pages/CardPage/Pop"), { ssr: false });
 type SelectedCard = {
   deckSlug: string;
   artistSlug: string;
+  cardImg: string;
 } | null;
 
 const FooterCards = () => {
@@ -88,10 +89,11 @@ const FooterCards = () => {
   }, [cards]);
 
   const handleCardClick = useCallback((card: GQL.Card) => {
-    if (selectedDeck?.slug && card?.artist?.slug) {
+    if (selectedDeck?.slug && card?.artist?.slug && card?.img) {
       setSelectedCard({
         deckSlug: selectedDeck.slug,
         artistSlug: card.artist.slug,
+        cardImg: card.img,
       });
     }
   }, [selectedDeck]);
@@ -131,6 +133,8 @@ const FooterCards = () => {
             close={handleClosePopup}
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
+            initialImg={selectedCard.cardImg}
+            showNavigation={false}
           />
         )}
       </MenuPortal>
