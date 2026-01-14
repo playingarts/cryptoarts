@@ -135,8 +135,9 @@ const ListItem: FC<{
         />
       </div>
       <MenuPortal show={show}>
-        {typeof deckId === "string" ? (
+        {typeof deckId === "string" && show ? (
           <Pop
+            key={card._id}
             close={() => setShow(false)}
             cardSlug={card.artist.slug}
             deckId={deckId}
