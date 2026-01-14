@@ -10,6 +10,7 @@ const ratingSchema = new Schema<GQL.Rating, Model<GQL.Rating>, GQL.Rating>({
   who: String,
   review: String,
   title: String,
+  deckSlugs: [String],
 });
 
 export const Rating =

@@ -431,6 +431,7 @@ interface Rating {
   who: Scalars['String']['output'];
   review: Scalars['String']['output'];
   title: Scalars['String']['output'];
+  deckSlugs?: Maybe<Array<Scalars['String']['output']>>;
 }
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };

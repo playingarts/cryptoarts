@@ -21,12 +21,13 @@ export const CardsQuery = gql`
 /**
  * Optimized cards query for deck page listing.
  * Uses lighter fragment without full social/podcast data to reduce page size.
+ * Supports optional edition filter for decks with multiple editions (e.g., Future I/II).
  */
 export const CardsForDeckQuery = gql`
   ${CardForDeckFragment}
 
-  query CardsForDeck($deck: ID) {
-    cards(deck: $deck) {
+  query CardsForDeck($deck: ID, $edition: String) {
+    cards(deck: $deck, edition: $edition) {
       ...CardForDeckFragment
     }
   }

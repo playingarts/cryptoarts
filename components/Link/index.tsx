@@ -92,7 +92,7 @@ const Link: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
           {...other}
           ref={ref}
           onClick={handleClick}
-          css={{ color: "inherit" }}
+          css={{ color: "#333333" }}
           style={{ ...style, textDecoration: "none" }}
           className={cx(
             className,

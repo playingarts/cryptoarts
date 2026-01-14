@@ -41,7 +41,7 @@ const Header: FC<Props> = ({
       const scrollTop = window.scrollY;
 
       // Always update showSiteNav based on scroll position
-      if (scrollTop >= 600) {
+      if (scrollTop >= 500) {
         setShowSiteNav("afterTop");
       } else {
         setShowSiteNav("top");

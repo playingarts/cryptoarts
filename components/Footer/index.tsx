@@ -65,8 +65,9 @@ const FooterTestimonials = () => {
   const {
     query: { deckId },
   } = useRouter();
-  const config = getDeckConfig(typeof deckId === "string" ? deckId : undefined);
-  return config.showTestimonials ? <Testimonials id="reviews" /> : null;
+  const deckSlug = typeof deckId === "string" ? deckId : undefined;
+  const config = getDeckConfig(deckSlug);
+  return config.showTestimonials ? <Testimonials id="reviews" deckSlug={deckSlug} /> : null;
 };
 
 const ActualFooter = () => {

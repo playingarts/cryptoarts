@@ -16,6 +16,13 @@ import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import { useDeck } from "../../../../hooks/deck";
 import { sortCards } from "../../../../source/utils/sortCards";
 
+// Future edition tabs configuration
+// Both tabs use the "future" deck but filter by edition field
+const FUTURE_TABS = [
+  { id: "future-i", label: "Chapter I", edition: "chapter i" },
+  { id: "future-ii", label: "Chapter II", edition: "chapter ii" },
+];
+
 // Lazy-load Pop modal - only shown on card click
 const Pop = dynamic(() => import("../../CardPage/Pop"), { ssr: false });
 
@@ -44,7 +51,8 @@ const ListItem: FC<{
   shouldLoadImage: boolean;
   showQuote?: boolean;
   quoteCard?: GQL.Card;
-}> = ({ card, shouldLoadImage, showQuote, quoteCard }) => {
+  edition?: string;
+}> = ({ card, shouldLoadImage, showQuote, quoteCard, edition }) => {
   const { palette } = usePalette();
   const {
     query: { deckId },
@@ -102,6 +110,7 @@ const ListItem: FC<{
             close={() => setShow(false)}
             cardSlug={card.artist.slug}
             deckId={deckId}
+            edition={edition}
           />
         ) : null}
       </MenuPortal>
@@ -336,7 +345,8 @@ const CardRow: FC<{
   allCards: GQL.Card[];
   shouldLoadImages: boolean;
   onRowApproaching: (rowIndex: number) => void;
-}> = ({ cards, rowIndex, allCards, shouldLoadImages, onRowApproaching }) => {
+  edition?: string;
+}> = ({ cards, rowIndex, allCards, shouldLoadImages, onRowApproaching, edition }) => {
   // Calculate if this row should show a quote (every 3rd row after the first)
   const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
 
@@ -366,6 +376,7 @@ const CardRow: FC<{
           shouldLoadImage={shouldLoadImages}
           showQuote={showQuoteAfterRow && i === cards.length - 1}
           quoteCard={quoteCard}
+          edition={edition}
         />
       ))}
     </>
@@ -397,7 +408,7 @@ const SkeletonGrid: FC<{ cardsPerRow: number }> = ({ cardsPerRow }) => {
   );
 };
 
-const List = () => {
+const List: FC<{ edition?: string }> = ({ edition }) => {
   const {
     query: { deckId },
   } = useRouter();
@@ -405,13 +416,14 @@ const List = () => {
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { width } = useSize();
 
-  // Track current deck for reset detection
+  // Track current deck and edition for reset detection
   const currentDeckIdRef = useRef<string | undefined>(undefined);
+  const currentEditionRef = useRef<string | undefined>(undefined);
 
   // Fetch cards using lighter query (CardsForDeckQuery)
   // Apollo cache-first policy ensures cached data is returned instantly
   // `loading` is false when data comes from cache
-  const { cards, loading: cardsLoading } = useCardsForDeck(deck ? { variables: { deck: deck._id } } : undefined);
+  const { cards, loading: cardsLoading } = useCardsForDeck(deck ? { variables: { deck: deck._id, edition } } : undefined);
 
   // Track if data came from cache (detected on first render)
   // If cards available immediately (not loading), they came from cache
@@ -439,14 +451,15 @@ const List = () => {
     return INITIAL_MAX_ROW;
   });
 
-  // Reset maxRowToLoadImages when deck changes OR set to all rows if cached
+  // Reset maxRowToLoadImages when deck or edition changes
   useEffect(() => {
-    if (deckId !== currentDeckIdRef.current) {
+    if (deckId !== currentDeckIdRef.current || edition !== currentEditionRef.current) {
       currentDeckIdRef.current = deckId as string | undefined;
-      dataFromCacheRef.current = null; // Reset cache detection for new deck
+      currentEditionRef.current = edition;
+      dataFromCacheRef.current = null; // Reset cache detection for new deck/edition
       setMaxRowToLoadImages(INITIAL_MAX_ROW);
     }
-  }, [deckId]);
+  }, [deckId, edition]);
 
   // When data comes from cache, load more rows immediately (but not all 55 cards)
   // The observer will quickly expand to remaining rows as user scrolls
@@ -492,6 +505,7 @@ const List = () => {
             allCards={cards}
             shouldLoadImages={rowIndex <= maxRowToLoadImages}
             onRowApproaching={handleRowApproaching}
+            edition={edition}
           />
         ))
       )}
@@ -499,8 +513,106 @@ const List = () => {
   );
 };
 
+/** Tabs for Future Edition I/II selection */
+const FutureTabs: FC<{
+  activeTab: string;
+  onTabChange: (id: string) => void;
+}> = ({ activeTab, onTabChange }) => {
+  const { palette } = usePalette();
+
+  return (
+    <div
+      css={{
+        display: "flex",
+        gap: 10,
+        gridColumn: "1/-1",
+        marginTop: 60,
+      }}
+    >
+      {FUTURE_TABS.map((tab) => {
+        const isActive = activeTab === tab.id;
+        return (
+          <button
+            key={tab.id}
+            onClick={() => onTabChange(tab.id)}
+            css={(theme) => ({
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              userSelect: "none",
+              borderRadius: 5,
+              boxSizing: "border-box",
+              fontWeight: 400,
+              fontSize: 18,
+              height: 40,
+              paddingLeft: 12,
+              paddingRight: 12,
+              cursor: "pointer",
+              border: "none",
+              transition: "all 0.2s ease",
+              color: isActive
+                ? (palette === "dark" ? theme.colors.black : theme.colors.white)
+                : theme.colors[palette === "dark" ? "white75" : "dark_gray"],
+              backgroundColor: isActive
+                ? theme.colors[palette === "dark" ? "white75" : "dark_gray"]
+                : "transparent",
+              boxShadow: isActive
+                ? "none"
+                : `0px 0px 0px 1.5px ${theme.colors[palette === "dark" ? "white75" : "dark_gray"]} inset`,
+              "&:hover": {
+                opacity: 0.8,
+                backgroundColor: isActive
+                  ? theme.colors[palette === "dark" ? "white75" : "dark_gray"]
+                  : theme.colors[palette === "dark" ? "white75" : "dark_gray"],
+                color: palette === "dark" ? theme.colors.black : theme.colors.white,
+              },
+            })}
+          >
+            {tab.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
 const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { palette } = usePalette();
+  const router = useRouter();
+  const { deckId } = router.query;
+
+  // Check if we're on a future edition page
+  const isFuturePage = deckId === "future";
+
+  // Active tab state (only used for future pages)
+  const [activeTab, setActiveTab] = useState("future-i");
+
+  // Sync tab state with URL hash on initial load and hash changes
+  useEffect(() => {
+    if (!isFuturePage) return;
+
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === "#cards-02" || hash === "#02") {
+        setActiveTab("future-ii");
+      } else {
+        setActiveTab("future-i");
+      }
+    };
+
+    // Check initial hash
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [isFuturePage]);
+
+  // Get the edition filter value for the active tab
+  const activeEdition = isFuturePage
+    ? FUTURE_TABS.find((t) => t.id === activeTab)?.edition
+    : undefined;
+
   return (
     <Grid
       css={(theme) => [
@@ -534,11 +646,15 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ]}
           typography="paragraphBig"
         >
-          A curated showcase of 55 unique artworks, created by 55 international
-          artists.
+          {isFuturePage
+            ? "Two chapters, 110 unique artworks, 110 international artists."
+            : "A curated showcase of 55 unique artworks, created by 55 international artists."}
         </Text>
       </div>
-      <List />
+      {isFuturePage && (
+        <FutureTabs activeTab={activeTab} onTabChange={setActiveTab} />
+      )}
+      <List edition={activeEdition} />
     </Grid>
   );
 };

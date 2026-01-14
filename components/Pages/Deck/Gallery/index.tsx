@@ -48,8 +48,8 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Text css={[{ paddingBottom: 120 }]}>
-          Loved this deck? Continue the story with these collector’s favourites.
+        <Text typography="paragraphBig" css={[{ paddingBottom: 120 }]}>
+          Loved this deck? Continue the story with these collector's favourites.
         </Text>
       </ScandiBlock>
       <Grid css={{ gridColumn: "1/-1", gap: 30 }}>

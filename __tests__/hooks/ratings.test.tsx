@@ -7,6 +7,7 @@ const mockRating = {
   title: "Crypto Edition",
   who: "John Doe",
   review: "Amazing quality and design!",
+  deckSlugs: ["crypto"],
 };
 
 describe("hooks/ratings", () => {
@@ -49,6 +50,27 @@ describe("hooks/ratings", () => {
       });
 
       expect(result.current.ratings).toBeDefined();
+    });
+
+    it("returns ratings filtered by deckSlug", async () => {
+      const mocks = [
+        {
+          request: { query: RatingsQuery, variables: { deckSlug: "one" } },
+          result: { data: { ratings: [mockRating] } },
+        },
+      ];
+
+      const { result } = renderApolloHook(
+        () => useRatings({ variables: { deckSlug: "one", shuffle: undefined } }),
+        { mocks }
+      );
+
+      await waitFor(() => {
+        expect(result.current.loading).toBe(false);
+      });
+
+      expect(result.current.ratings).toBeDefined();
+      expect(result.current.ratings).toHaveLength(1);
     });
 
     it("returns error on failure", async () => {

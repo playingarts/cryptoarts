@@ -1,7 +1,5 @@
 import { FC, HTMLAttributes, useRef, useEffect, useCallback, useMemo, useState } from "react";
-import { StaticImageData } from "next/image";
 import { useRatings } from "../../../../hooks/ratings";
-import testimonialsImage from "../../../../mocks/images/gallery-thumbnail.png";
 import Intro from "./Intro";
 import Item from "./Item";
 import InstagramItem from "./InstagramItem";
@@ -12,6 +10,27 @@ const ITEM_WIDTH = 520;
 const ITEM_GAP = 20;
 const AUTO_SCROLL_INTERVAL = 4000; // 4 seconds between auto-scrolls
 const AUTO_SCROLL_PAUSE = 3000; // 3 seconds pause after user interaction
+
+// Instagram posts data with real URLs
+const INSTAGRAM_POSTS = [
+  { url: "https://www.instagram.com/p/BP5WlUwhw43/", username: "further_up" },
+  { url: "https://www.instagram.com/p/CyjJrvTo4k_/", username: "_cardastrophy_" },
+  { url: "https://www.instagram.com/p/CsgobM2NqxQ/", username: "_cardastrophy_" },
+  { url: "https://www.instagram.com/p/CsDwfVBoJXA/", username: "toma_designstudio" },
+  { url: "https://www.instagram.com/p/CWScMYEs6yc/", username: "nobrandonboard" },
+  { url: "https://www.instagram.com/p/CIQoqzcDWfI/", username: "mzkvisuals" },
+  { url: "https://www.instagram.com/p/CG2qqPDAP8J/", username: "martin.grohs" },
+  { url: "https://www.instagram.com/p/CEuK910pOSc/", username: "rubenireland" },
+  { url: "https://www.instagram.com/p/BlriozVlgWv/", username: "life_of_magician" },
+  { url: "https://www.instagram.com/p/BxTg508nlNC/", username: "giffari_erwa" },
+  { url: "https://www.instagram.com/p/BwXfyCcBqet/", username: "vzayycardistry" },
+  { url: "https://www.instagram.com/p/Bv4Rbw7h2vf/", username: "madaboutcards" },
+  { url: "https://www.instagram.com/p/BqC_fujgl6H/", username: "cardistry_repostoficial" },
+  { url: "https://www.instagram.com/p/BXs2L-_DpSh/", username: "playingcardart" },
+  { url: "https://www.instagram.com/p/BUvIjtwheqL/", username: "mrlemonademx" },
+  { url: "https://www.instagram.com/p/BUrk8jIAkQt/", username: "dnyivn" },
+  { url: "https://www.instagram.com/p/DD7SyiSvZ9C/", username: "chambertincards" },
+];
 
 // Loading skeleton for review items
 const ItemSkeleton: FC = () => (
@@ -76,19 +95,18 @@ const ItemSkeleton: FC = () => (
   </div>
 );
 
-// Instagram posts data - can be moved to API/database later
-const INSTAGRAM_POSTS = [
-  { image: testimonialsImage, username: "playingcardart" },
-  { image: testimonialsImage, username: "playingcardart" },
-  { image: testimonialsImage, username: "playingcardart" },
-];
-
 type CarouselItem =
   | { type: "rating"; data: GQL.Rating }
-  | { type: "instagram"; data: { image: string | StaticImageData; username: string }; index: number };
+  | { type: "instagram"; data: { url: string; username: string }; index: number };
 
-const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  const { ratings, loading } = useRatings();
+interface TestimonialsProps extends HTMLAttributes<HTMLElement> {
+  deckSlug?: string;
+}
+
+const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
+  const { ratings, loading } = useRatings({
+    variables: deckSlug ? { deckSlug } : undefined,
+  });
   const scrollRef = useRef<HTMLDivElement>(null);
   const leftArrowRef = useRef<HTMLButtonElement>(null);
   const rightArrowRef = useRef<HTMLButtonElement>(null);
@@ -96,18 +114,29 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [isPaused, setIsPaused] = useState(false);
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Build mixed array with Instagram items after every 4 reviews
+  // Build mixed array with Instagram items after every 2-4 reviews (varied pattern)
   const mixedItems = useMemo((): CarouselItem[] => {
     if (!ratings || ratings.length === 0) return [];
     const items: CarouselItem[] = [];
     let instaIndex = 0;
+    // Pattern: 3, 2, 4, 3, 2, 4... (varies between 2-4 reviews per Instagram)
+    const insertPattern = [3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2, 4, 3, 2];
+    let patternIndex = 0;
+    let reviewsSinceLastInsta = 0;
 
-    ratings.forEach((rating, i) => {
+    ratings.forEach((rating) => {
       items.push({ type: "rating", data: rating });
-      // After every 4th rating, insert an Instagram item
-      if ((i + 1) % 4 === 0 && instaIndex < INSTAGRAM_POSTS.length) {
+      reviewsSinceLastInsta++;
+
+      // Insert Instagram after the pattern-specified number of reviews
+      if (
+        reviewsSinceLastInsta >= insertPattern[patternIndex % insertPattern.length] &&
+        instaIndex < INSTAGRAM_POSTS.length
+      ) {
         items.push({ type: "instagram", data: INSTAGRAM_POSTS[instaIndex], index: instaIndex });
         instaIndex++;
+        patternIndex++;
+        reviewsSinceLastInsta = 0;
       }
     });
 
@@ -123,9 +152,13 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   // Position in the middle set on mount
   useEffect(() => {
     if (!scrollRef.current || mixedItems.length === 0) return;
-    const itemFullWidth = ITEM_WIDTH + ITEM_GAP;
-    const middleSetStart = mixedItems.length * itemFullWidth;
-    scrollRef.current.scrollLeft = middleSetStart;
+    // Use requestAnimationFrame to ensure DOM is rendered and scrollWidth is accurate
+    requestAnimationFrame(() => {
+      if (!scrollRef.current) return;
+      // Total scroll width is 3 sets, so middle set starts at 1/3
+      const singleSetWidth = scrollRef.current.scrollWidth / 3;
+      scrollRef.current.scrollLeft = singleSetWidth;
+    });
   }, [mixedItems]);
 
   // Handle infinite scroll - jump to middle when reaching edges
@@ -134,25 +167,33 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     if (!scrollRef.current || mixedItems.length === 0 || isScrollingRef.current) return;
 
     const el = scrollRef.current;
-    const itemFullWidth = ITEM_WIDTH + ITEM_GAP;
-    const singleSetWidth = mixedItems.length * itemFullWidth;
+    // Total scroll width is 3 sets, so single set width is 1/3
+    const singleSetWidth = el.scrollWidth / 3;
     const maxScroll = el.scrollWidth - el.clientWidth;
 
     // If in the first set, jump to middle set
-    if (el.scrollLeft < singleSetWidth * 0.8) {
+    if (el.scrollLeft < singleSetWidth * 0.5) {
       isScrollingRef.current = true;
+      // Temporarily disable scroll snap for instant jump
+      el.style.scrollSnapType = "none";
       el.scrollLeft += singleSetWidth;
-      setTimeout(() => {
+      // Re-enable scroll snap after the jump
+      requestAnimationFrame(() => {
+        el.style.scrollSnapType = "x mandatory";
         isScrollingRef.current = false;
-      }, 50);
+      });
     }
     // If in the third set, jump to middle set
-    else if (el.scrollLeft > maxScroll - singleSetWidth * 0.8) {
+    else if (el.scrollLeft > maxScroll - singleSetWidth * 0.5) {
       isScrollingRef.current = true;
+      // Temporarily disable scroll snap for instant jump
+      el.style.scrollSnapType = "none";
       el.scrollLeft -= singleSetWidth;
-      setTimeout(() => {
+      // Re-enable scroll snap after the jump
+      requestAnimationFrame(() => {
+        el.style.scrollSnapType = "x mandatory";
         isScrollingRef.current = false;
-      }, 50);
+      });
     }
   }, [mixedItems]);
 
@@ -164,7 +205,8 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     let scrollTimeout: ReturnType<typeof setTimeout>;
     const handleScroll = () => {
       clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(handleScrollEnd, 150);
+      // Wait longer for smooth scroll to complete before checking position
+      scrollTimeout = setTimeout(handleScrollEnd, 300);
     };
 
     // scrollend is better but not supported in Safari yet
@@ -282,11 +324,11 @@ const Testimonials: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ? [...Array(3)].map((_, i) => <ItemSkeleton key={`skeleton-${i}`} />)
           : infiniteItems.map((item, i) =>
               item.type === "rating" ? (
-                <Item key={`rating-${item.data._id}-${i}`} rating={item.data} />
+                <Item key={`rating-${item.data._id}-${i}`} rating={item.data} currentDeckSlug={deckSlug} />
               ) : (
                 <InstagramItem
                   key={`instagram-${item.index}-${i}`}
-                  image={item.data.image}
+                  url={item.data.url}
                   username={item.data.username}
                 />
               )

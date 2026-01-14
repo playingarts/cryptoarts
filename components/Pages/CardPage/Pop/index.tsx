@@ -1,5 +1,5 @@
-import { FC, HTMLAttributes, useEffect, useState } from "react";
-import { useCard, useCards } from "../../../../hooks/card";
+import { FC, HTMLAttributes, useEffect, useMemo, useState } from "react";
+import { useCard, useCardsForDeck } from "../../../../hooks/card";
 import { useDeck } from "../../../../hooks/deck";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import Button from "../../../Buttons/Button";
@@ -11,6 +11,7 @@ import Star from "../../../Icons/Star";
 import Link from "../../../Link";
 import Text from "../../../Text";
 import { usePalette } from "../../Deck/DeckPaletteContext";
+import { sortCards } from "../../../../source/utils/sortCards";
 
 const FavButton: FC<
   HTMLAttributes<HTMLElement> & { deckSlug: string; id: string }
@@ -27,7 +28,14 @@ const FavButton: FC<
     <Button
       color={favState ? "white" : "accent"}
       css={(theme) => [
-        { paddingRight: 8, paddingLeft: 8 },
+        {
+          padding: 0,
+          width: 45,
+          height: 45,
+          justifyContent: "center",
+          display: "flex",
+          alignItems: "center",
+        },
         favState && {
           color: theme.colors.accent,
           "&:hover": {
@@ -55,10 +63,14 @@ const FavButton: FC<
 const CustomMiddle: FC<{
   cardState: string | undefined;
   setCardState: (arg0: string | undefined) => void;
-  deckId: string;
-}> = ({ cardState, deckId, setCardState }) => {
-  const { cards } = useCards({ variables: { deck: deckId } });
+  deck: GQL.Deck | undefined;
+  edition?: string;
+}> = ({ cardState, deck, setCardState, edition }) => {
+  const { cards: rawCards } = useCardsForDeck(deck ? { variables: { deck: deck._id, edition } } : { skip: true });
   const [counter, setCounter] = useState(0);
+
+  // Sort cards to match the order shown in CardList
+  const cards = useMemo(() => rawCards ? sortCards(rawCards) : undefined, [rawCards]);
 
   useEffect(() => {
     if (!cards) {
@@ -114,8 +126,9 @@ const Pop: FC<
     close: () => void;
     cardSlug: string;
     deckId: string;
+    edition?: string;
   }
-> = ({ close, cardSlug, deckId, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
 
   const { deck } = useDeck({
@@ -157,13 +170,14 @@ const Pop: FC<
             padding: 30,
             paddingBottom: 90,
             backgroundColor:
-              theme.colors[palette === "dark" ? "black" : "pale_gray"],
+              card?.background || card?.cardBackground || theme.colors[palette === "dark" ? "black" : "pale_gray"],
             display: "flex",
             gap: 30,
             borderRadius: 15,
             margin: "0 auto",
             marginTop: 60,
             minHeight: 715,
+            transition: "background-color 0.3s ease",
           },
         ]}
         onClick={(e) => {
@@ -171,7 +185,15 @@ const Pop: FC<
         }}
       >
         <div css={[{ flex: 1 }]}>
-          <Text typography="newh4">{deck ? deck.title : null} </Text>
+          <Text typography="newh4">
+            {deck
+              ? edition === "chapter i"
+                ? "Future Chapter I"
+                : edition === "chapter ii"
+                ? "Future Chapter II"
+                : deck.title
+              : null}{" "}
+          </Text>
           <div css={[{ marginTop: 30 }]}>
             {deck && card ? (
               <Card
@@ -198,9 +220,10 @@ const Pop: FC<
         >
           <div css={[{ display: "flex", justifyContent: "space-between" }]}>
             <CustomMiddle
-              deckId={deckId}
+              deck={deck}
               cardState={cardState}
               setCardState={setCardState}
+              edition={edition}
             />
             <Button
               palette={palette}
@@ -243,7 +266,7 @@ const Pop: FC<
                   {
                     marginTop: 30,
                     display: "flex",
-                    gap: 30,
+                    gap: 15,
                     alignItems: "center",
                   },
                 ]}
@@ -263,8 +286,22 @@ const Pop: FC<
                   <Button color="accent">Card details</Button>
                 </Link>
                 <Link
-                  href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/" + deckId}
-                  onClick={close}
+                  href={
+                    (process.env.NEXT_PUBLIC_BASELINK || "") +
+                    "/" +
+                    deckId +
+                    "#cards" +
+                    (edition === "chapter ii" ? "-02" : "")
+                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    close();
+                    // Set hash and scroll to cards section
+                    const hash = "#cards" + (edition === "chapter ii" ? "-02" : "");
+                    window.location.hash = hash;
+                    document.getElementById("cards")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  css={{ marginLeft: 15 }}
                 >
                   <ArrowButton noColor base size="small">
                     All cards

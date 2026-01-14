@@ -17,18 +17,27 @@ export default () => {
 
   const { palette } = usePalette();
 
-  const { counter, max, prevSlug, nextSlug } = useMemo(() => {
-    if (!deckId || !decks) return { counter: 0, max: 0, prevSlug: "", nextSlug: "" };
+  const { displayNumber, max, prevSlug, nextSlug, isFuturePage } = useMemo(() => {
+    if (!deckId || !decks) return { displayNumber: 0, max: 0, prevSlug: "", nextSlug: "", isFuturePage: false };
 
-    const currentIndex = decks.findIndex((deck) => deck.slug === deckId);
-    const prevIndex = currentIndex > 0 ? currentIndex - 1 : decks.length - 1;
-    const nextIndex = currentIndex < decks.length - 1 ? currentIndex + 1 : 0;
+    // Filter out future-ii for navigation (it's combined with future in the UI)
+    const filteredDecks = decks.filter((deck) => deck.slug !== "future-ii");
+
+    const currentIndex = filteredDecks.findIndex((deck) => deck.slug === deckId);
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : filteredDecks.length - 1;
+    const nextIndex = currentIndex < filteredDecks.length - 1 ? currentIndex + 1 : 0;
+
+    // Display order: zero(1), one(2), two(3), three(4), special(5), future(6), future-ii(7), crypto(8)
+    // Since future-ii is hidden but takes slot 7, crypto should display as 8
+    const isCrypto = deckId === "crypto";
+    const displayNumber = isCrypto ? 8 : currentIndex + 1;
 
     return {
-      counter: currentIndex,
-      max: decks.length,
-      prevSlug: decks[prevIndex].slug,
-      nextSlug: decks[nextIndex].slug,
+      displayNumber,
+      max: decks.length, // Show total including future-ii
+      prevSlug: filteredDecks[prevIndex].slug,
+      nextSlug: filteredDecks[nextIndex].slug,
+      isFuturePage: deckId === "future",
     };
   }, [deckId, decks]);
 
@@ -87,8 +96,10 @@ export default () => {
           palette === "dark" && { color: theme.colors.white75 },
         ]}
       >
-        {decks ? "Deck " : ""}
-        {(counter + 1).toString().padStart(2, "0") + " "}/
+        {decks ? (isFuturePage ? "Decks " : "Deck ") : ""}
+        {isFuturePage
+          ? `${displayNumber.toString().padStart(2, "0")} + 07 `
+          : `${displayNumber.toString().padStart(2, "0")} `}/
         {" " + max.toString().padStart(2, "0")}
       </span>
     </Text>

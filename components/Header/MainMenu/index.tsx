@@ -26,7 +26,7 @@ import Logo from "../../Icons/Logo";
 import { getBaseUrl } from "../../../source/utils";
 
 // Layout constants
-const SCROLL_THRESHOLD = 600;
+const SCROLL_THRESHOLD = 500;
 const PRODUCT_PREVIEW_HEIGHT = 450;
 const PRODUCT_LIST_WIDTH = 190;
 const PRODUCT_LIST_GAP = 5;
@@ -99,8 +99,25 @@ const MainMenu: FC<
     prefetchPage(getBaseUrl("/"));
   }, [prefetchPage]);
 
-  // Get deck products only
-  const deckProducts = products?.filter((product) => product.type === "deck") || [];
+  // Deck slug sort order: Zero, One, Two, Three, Special, Future, Crypto, (new decks come after)
+  const deckSortOrder: Record<string, number> = {
+    zero: 0,
+    one: 1,
+    two: 2,
+    three: 3,
+    special: 4,
+    future: 5,
+    crypto: 6,
+  };
+
+  // Get deck products only, sorted by edition order (new decks get 99, after Crypto)
+  // Exclude future-ii as it's combined with future in the menu
+  const deckProducts = (products?.filter((product) => product.type === "deck" && product.deck?.slug !== "future-ii") || [])
+    .sort((a, b) => {
+      const orderA = deckSortOrder[a.deck?.slug || ""] ?? 99;
+      const orderB = deckSortOrder[b.deck?.slug || ""] ?? 99;
+      return orderA - orderB;
+    });
 
   // Get current deck slug from URL (works for /[deckId] and /[deckId]/[artistSlug] pages)
   const currentDeckSlug = router.query.deckId as string | undefined;

@@ -4,18 +4,20 @@ import type { QueryHookOptions } from "@apollo/client/react";
 import { useQuery } from "@apollo/client/react";
 
 export const RatingsQuery = gql`
-  query Ratings($title: String, $shuffle: Boolean, $limit: Int) {
-    ratings(title: $title, shuffle: $shuffle, limit: $limit) {
+  query Ratings($title: String, $deckSlug: String, $shuffle: Boolean, $limit: Int) {
+    ratings(title: $title, deckSlug: $deckSlug, shuffle: $shuffle, limit: $limit) {
       _id
       title
       who
       review
+      deckSlugs
     }
   }
 `;
 
 interface RatingsVariables {
   title?: string;
+  deckSlug?: string;
   shuffle?: boolean;
   limit?: number;
 }

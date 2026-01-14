@@ -21,7 +21,12 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       return;
     }
     setProduct(
-      products.find((product) => product.deck && product.deck.slug === deckId)
+      products.find(
+        (product) =>
+          product.type === "deck" &&
+          product.deck &&
+          product.deck.slug === deckId
+      )
     );
   }, [products, deckId]);
 
@@ -76,7 +81,15 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             Carefully crafted on legendary Bicycle® paper for unparalleled
             artistry and tactile quality.
           </Text>
-          <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
+          <ArrowButton
+            color="accent"
+            css={[{ marginTop: 30 }]}
+            href={
+              product?.short
+                ? `/shop/${product.short.toLowerCase().replace(/\s/g, "")}`
+                : undefined
+            }
+          >
             Shop this deck
           </ArrowButton>
         </div>
