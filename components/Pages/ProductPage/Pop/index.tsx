@@ -73,6 +73,15 @@ const Pop: FC<
 > = ({ close, product, ...props }) => {
   const { loadCards } = useLoadCards();
 
+  // Lock body scroll when popup is open
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   const [productState, setProductState] = useState<GQL.Product>();
   useEffect(() => {
     if (product) {

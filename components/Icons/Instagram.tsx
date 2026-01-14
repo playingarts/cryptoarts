@@ -7,6 +7,7 @@ const Instagram: FC<HTMLAttributes<SVGElement>> = (props) => (
     viewBox="0 0 26 26"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <g clipPath="url(#clip0_3814_24235)">
       <g clipPath="url(#clip1_3814_24235)">

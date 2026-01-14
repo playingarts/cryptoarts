@@ -88,6 +88,7 @@ export const CardPreview: FC<{ previewCards: GQL.Card[]; deckId: string }> = ({
           deckId={deckId}
           close={() => setShow(false)}
           initialImg={previewCards[index].img}
+          initialVideo={previewCards[index].video}
           showNavigation={false}
         />
       </MenuPortal>

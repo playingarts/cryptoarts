@@ -146,6 +146,7 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               close={() => setCard(undefined)}
               deckId={deck.slug}
               initialImg={card.img}
+              initialVideo={card.video}
               initialArtistName={card.artist.name}
               initialArtistCountry={card.artist.country}
             />

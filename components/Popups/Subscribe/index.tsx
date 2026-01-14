@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect } from "react";
 import dynamic from "next/dynamic";
 import subscribeimg from "../../../mocks/images/POPS/Subscribe.png";
 import Button from "../../Buttons/Button";
@@ -21,6 +21,15 @@ const Subscribe: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
   close,
   ...props
 }) => {
+  // Lock body scroll when popup is open
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   return (
     <div
       css={(theme) => [

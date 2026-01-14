@@ -75,7 +75,7 @@ const FeaturedPodcastSkeleton: FC = () => (
 // Loading skeleton for the episode list
 const EpisodeListSkeleton: FC = () => (
   <div css={{ padding: 30, display: "flex", flexDirection: "column", gap: 5 }}>
-    {[...Array(8)].map((_, i) => (
+    {[...Array(7)].map((_, i) => (
       <div
         key={i}
         css={{
@@ -125,13 +125,14 @@ const EpisodeListSkeleton: FC = () => (
 );
 
 const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+  // Backend returns Baugasm first when shuffle=true, limit to 7
   const { podcasts, loading, containerRef } = useLazyPodcasts({
-    variables: { limit: 8, shuffle: true },
+    variables: { limit: 7, shuffle: true },
   });
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  // Show selected episode (default to first/latest)
+  // Show selected episode (default to first - Baugasm)
   const displayedPodcast = podcasts && podcasts[selectedIndex];
 
   return (
@@ -230,7 +231,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ) : (
             <div css={{ padding: 30, display: "flex", flexDirection: "column", gap: 5 }}>
               {podcasts &&
-                podcasts.slice(0, 8).map((podcast, index) =>
+                podcasts.slice(0, 7).map((podcast, index) =>
                   podcast ? (
                     <div
                       key={podcast.desc + podcast.podcastName}

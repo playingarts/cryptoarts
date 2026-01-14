@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useEffect } from "react";
 import Image from "next/image";
 import NavButton from "../../Buttons/NavButton";
 import image from "../../../mocks/images/Wolf.png";
@@ -9,6 +9,15 @@ const Gallery: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
   close,
   ...props
 }) => {
+  // Lock body scroll when popup is open
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
+
   return (
     <div
       css={(theme) => [

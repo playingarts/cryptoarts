@@ -135,21 +135,32 @@ const Pop: FC<
     deckId: string;
     edition?: string;
     initialImg?: string;
+    initialVideo?: string;
     initialArtistName?: string;
     initialArtistCountry?: string;
     showNavigation?: boolean;
   }
-> = ({ close, cardSlug, deckId, edition, initialImg, initialArtistName, initialArtistCountry, showNavigation = true, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, initialImg, initialVideo, initialArtistName, initialArtistCountry, showNavigation = true, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
   const router = useRouter();
+
+  // Lock body scroll when popup is open
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, []);
 
   // Get deck from cached decks array instead of separate query
   const { decks } = useDecks();
   const deck = useMemo(() => decks?.find((d) => d.slug === deckId), [decks, deckId]);
 
-  // Use lightweight popup query (cache-first for preloaded data)
-  const { card } = useCardPop({
+  // Use lightweight popup query (cache-and-network for fresh data on navigation)
+  const { card, loading: cardLoading } = useCardPop({
     variables: { deckSlug: deckId, slug: cardState },
+    fetchPolicy: "cache-and-network",
   });
 
   const { palette } = usePalette();
@@ -186,7 +197,7 @@ const Pop: FC<
             padding: 30,
             paddingBottom: 90,
             backgroundColor:
-              card?.background || card?.cardBackground || theme.colors[palette === "dark" ? "black" : "pale_gray"],
+              card?.background || card?.cardBackground || (palette === "dark" ? "#181818" : theme.colors.pale_gray),
             display: "flex",
             gap: 30,
             borderRadius: 15,
@@ -220,9 +231,9 @@ const Pop: FC<
               },
             }}
           >
-            {card ? (
+            {card && card.artist?.slug === cardState ? (
               <Card
-                key={"PopCard" + card._id}
+                key={"PopCard" + cardState}
                 css={[{ margin: "0 auto" }]}
                 card={{
                   ...card,
@@ -230,8 +241,10 @@ const Pop: FC<
                 }}
                 noArtist
                 size="big"
+                // Autoplay video if card has one
+                animated={!!card.video}
               />
-            ) : initialImg ? (
+            ) : initialImg && cardState === cardSlug ? (
               // Show initial image instantly while card data loads
               <Card
                 key="PopCard-initial"
@@ -239,10 +252,12 @@ const Pop: FC<
                 card={{
                   _id: "initial",
                   img: initialImg,
+                  video: initialVideo,
                   deck: { slug: deckId } as unknown as GQL.Deck,
                 } as GQL.Card}
                 noArtist
                 size="big"
+                animated={!!initialVideo}
               />
             ) : null}
           </div>
@@ -299,7 +314,7 @@ const Pop: FC<
             ]}
           >
             {/* Artist name and country - use initial values or card data, skeleton only if neither available */}
-            {card || initialArtistName ? (
+            {(card && card.artist?.slug === cardState) || (initialArtistName && cardState === cardSlug) ? (
               <div
                 css={{
                   animation: "fadeIn 0.3s ease-out",
@@ -320,7 +335,9 @@ const Pop: FC<
                     height: 66,
                     width: 280,
                     borderRadius: 8,
-                    background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                    background: palette === "dark"
+                      ? "linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%)"
+                      : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
                     backgroundSize: "200% 100%",
                     animation: "shimmer 1.5s infinite linear",
                     "@keyframes shimmer": {
@@ -334,7 +351,9 @@ const Pop: FC<
                     height: 45,
                     width: 150,
                     borderRadius: 6,
-                    background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                    background: palette === "dark"
+                      ? "linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%)"
+                      : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
                     backgroundSize: "200% 100%",
                     animation: "shimmer 1.5s infinite linear",
                   }}

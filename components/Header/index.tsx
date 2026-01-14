@@ -100,12 +100,16 @@ const Header: FC<Props> = ({
             alignItems: "center",
             zIndex: 1,
             overflow: "hidden",
-            color: theme.colors.dark_gray,
+            color:
+              palette === "dark"
+                ? theme.colors.white75
+                : theme.colors.dark_gray,
             background: "#FFFFFF00",
             transition: theme.transitions.fast([
               "background",
               "line-height",
               "grid-template-rows",
+              "color",
             ]),
             [theme.maxMQ.sm]: {
               // Mobile styles - to be implemented

@@ -1,9 +1,10 @@
 import { useState } from "react";
 import MenuIcon from "../../Icons/Menu";
-import { theme } from "../../../styles/theme";
+import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 
 const MenuButton = () => {
   const [hover, setHover] = useState(false);
+  const { palette } = usePalette();
 
   return (
     <button
@@ -30,7 +31,10 @@ const MenuButton = () => {
             {
               borderRadius: "100%",
               animation: "grow 2s 1",
-              background: theme.colors.dark_gray,
+              background:
+                palette === "dark"
+                  ? theme.colors.white75
+                  : theme.colors.dark_gray,
               inset: 0,
               position: "absolute",
               transition: theme.transitions.fast(["scale"]),
@@ -52,11 +56,11 @@ const MenuButton = () => {
               transition: theme.transitions.fast(["color"]),
               position: "relative",
               verticalAlign: "middle",
+              color: palette === "dark"
+                ? (hover ? theme.colors.dark_gray : theme.colors.white75)
+                : (hover ? theme.colors.white : theme.colors.dark_gray),
             },
           ]}
-          style={{
-            color: theme.colors[!hover ? "dark_gray" : "white"],
-          }}
         />
 
         {/* <div
