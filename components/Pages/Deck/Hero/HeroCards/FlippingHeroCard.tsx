@@ -98,12 +98,15 @@ interface FlippingHeroCardProps {
   initialCard: GQL.Card;
   /** Whether flipping is paused (e.g., user scrolled away) */
   isPaused?: boolean;
+  /** Disable intersection observer (for always-visible hero cards) */
+  disableIntersectionObserver?: boolean;
 }
 
 const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   cards,
   initialCard,
   isPaused = false,
+  disableIntersectionObserver = false,
 }) => {
   // All hooks must be called unconditionally (React rules of hooks)
   // Initialize back card to a different card than front
@@ -137,7 +140,8 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   // Internal pause states
   const [isHovered, setIsHovered] = useState(false);
   const [isTabVisible, setIsTabVisible] = useState(true);
-  const [isInView, setIsInView] = useState(false);
+  // Initialize isInView to true if intersection observer is disabled (for hero cards)
+  const [isInView, setIsInView] = useState(disableIntersectionObserver);
 
   // Ref for intersection observer
   const containerRef = useRef<HTMLDivElement>(null);
@@ -161,6 +165,12 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
 
   // Listen for viewport visibility with Intersection Observer
   useEffect(() => {
+    // Skip intersection observer if disabled (e.g., for always-visible hero cards)
+    if (disableIntersectionObserver) {
+      setIsInView(true);
+      return;
+    }
+
     const element = containerRef.current;
     if (!element) return;
 
@@ -175,7 +185,7 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [disableIntersectionObserver]);
 
   // Listen for tab visibility changes
   useEffect(() => {
@@ -253,13 +263,18 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
       return;
     }
 
+    // Determine which face is currently hidden (will become visible after flip)
     const isShowingFront = (rotationRef.current / 180) % 2 === 0;
 
-    // Set the back face with the preloaded card (update both ref and state)
+    // Update the HIDDEN face with the new card before flipping
+    // When showing front (rotation 0, 360, etc), back is hidden
+    // When showing back (rotation 180, 540, etc), front is hidden
     if (isShowingFront) {
+      // Back face is hidden, update it
       backCardRef.current = nextCard;
       setBackCard(nextCard);
     } else {
+      // Front face is hidden, update it
       frontCardRef.current = nextCard;
       setFrontCard(nextCard);
     }
@@ -268,15 +283,16 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
     const duration = isManual ? FLIP_DURATION_MANUAL : FLIP_DURATION;
     setFlipDuration(duration);
 
-    // Use requestAnimationFrame to ensure DOM has updated before rotating
-    requestAnimationFrame(() => {
+    // Wait for React to update the DOM with new card, then rotate
+    // Using setTimeout(0) to ensure state update is flushed
+    setTimeout(() => {
       rotationRef.current += 180;
       setRotation(rotationRef.current);
       // Allow next flip after animation completes
       setTimeout(() => {
         isFlippingRef.current = false;
       }, duration);
-    });
+    }, 0);
   }, [getNextIndex, cards]);
 
   // Click handler for manual flip with bounce effect

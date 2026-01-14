@@ -391,6 +391,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
                 <FlippingHeroCard
                   cards={allDeckCards}
                   initialCard={displayedCards[0] as unknown as GQL.Card}
+                  disableIntersectionObserver
                 />
               ) : (
                 <Card
@@ -410,6 +411,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
                 <FlippingHeroCard
                   cards={allDeckCards}
                   initialCard={displayedCards[1] as unknown as GQL.Card}
+                  disableIntersectionObserver
                 />
               ) : (
                 <Card

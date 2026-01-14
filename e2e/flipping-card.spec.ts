@@ -4,8 +4,9 @@ test("flipping hero card shows different cards", async ({ page }) => {
   // Go to crypto deck which has flipping hero cards
   await page.goto("/crypto");
 
-  // Wait for hero cards to load (they're 340x478 hero size)
-  await page.waitForTimeout(3000);
+  // Wait for hero cards to load and observe multiple flips
+  // MIN_INTERVAL = 3000, MAX_INTERVAL = 10000, so wait ~12s for 2-3 flips
+  await page.waitForTimeout(12000);
 
   // The FlippingHeroCard component renders two Card components (front and back)
   // in divs with backface-visibility: hidden. Look for hero-sized card images.
