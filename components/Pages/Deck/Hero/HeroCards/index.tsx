@@ -399,6 +399,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
                   noArtist
                   noFavorite
                   interactive
+                  animated={!!displayedCards[0].video}
                   priority
                 />
               )}

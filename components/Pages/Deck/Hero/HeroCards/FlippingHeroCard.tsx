@@ -106,14 +106,26 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   isPaused = false,
 }) => {
   // All hooks must be called unconditionally (React rules of hooks)
-  // Use refs for cards to avoid re-renders during animation
+  // Initialize back card to a different card than front
+  const initialBackCard = cards.length > 1
+    ? cards.find((c) => c._id !== initialCard._id) || cards[1]
+    : initialCard;
+
+  // Use state for cards so component re-renders when they change (needed for video animated prop)
+  const [frontCard, setFrontCard] = useState(initialCard);
+  const [backCard, setBackCard] = useState(initialBackCard);
+  // Also keep refs for use in callbacks that need current values without re-creating
   const frontCardRef = useRef(initialCard);
-  const backCardRef = useRef(initialCard);
+  const backCardRef = useRef(initialBackCard);
   const rotationRef = useRef(0);
 
   // Track shown indices - reset when all have been shown
   const initialIndex = cards.findIndex((c) => c._id === initialCard._id);
-  const shownIndicesRef = useRef<Set<number>>(new Set([initialIndex >= 0 ? initialIndex : 0]));
+  const initialBackIndex = cards.findIndex((c) => c._id === initialBackCard._id);
+  const shownIndicesRef = useRef<Set<number>>(new Set([
+    initialIndex >= 0 ? initialIndex : 0,
+    initialBackIndex >= 0 ? initialBackIndex : 1
+  ]));
 
   // Only rotation triggers re-render
   const [rotation, setRotation] = useState(0);
@@ -181,13 +193,13 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
     []
   );
 
-  const getNextIndex = useCallback(() => {
+  const getNextIndex = useCallback((currentFrontCard: GQL.Card, currentBackCard: GQL.Card) => {
     // If all cards have been shown, reset the tracking
     if (shownIndicesRef.current.size >= cards.length) {
       // Keep only the current index so we don't repeat immediately
       const currentIdx = Math.floor((rotationRef.current / 180) % 2) === 0
-        ? cards.findIndex((c) => c._id === frontCardRef.current._id)
-        : cards.findIndex((c) => c._id === backCardRef.current._id);
+        ? cards.findIndex((c) => c._id === currentFrontCard._id)
+        : cards.findIndex((c) => c._id === currentBackCard._id);
       shownIndicesRef.current = new Set([currentIdx >= 0 ? currentIdx : 0]);
     }
 
@@ -221,8 +233,8 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
     if (isFlippingRef.current) return;
     isFlippingRef.current = true;
 
-    // Get the next card index
-    const newIndex = getNextIndex();
+    // Get the next card index using refs for current values
+    const newIndex = getNextIndex(frontCardRef.current, backCardRef.current);
     const nextCard = cards[newIndex];
 
     // Safety check - should never happen since we check cards.length > 1 above
@@ -243,11 +255,13 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
 
     const isShowingFront = (rotationRef.current / 180) % 2 === 0;
 
-    // Set the back face with the preloaded card
+    // Set the back face with the preloaded card (update both ref and state)
     if (isShowingFront) {
       backCardRef.current = nextCard;
+      setBackCard(nextCard);
     } else {
       frontCardRef.current = nextCard;
+      setFrontCard(nextCard);
     }
 
     // Set duration based on manual vs auto flip
@@ -322,7 +336,7 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   if (cards.length === 0) {
     return (
       <div css={{ width: CARD_DIMENSIONS.width, height: CARD_DIMENSIONS.height }}>
-        <Card card={initialCard} size="hero" noArtist noFavorite interactive={false} priority />
+        <Card card={initialCard} size="hero" noArtist noFavorite interactive={false} animated={!!initialCard.video} priority />
       </div>
     );
   }
@@ -365,11 +379,12 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
           }}
         >
           <Card
-            card={frontCardRef.current}
+            card={frontCard}
             size="hero"
             noArtist
             noFavorite
             interactive={false}
+            animated={!!frontCard.video}
             priority
           />
         </div>
@@ -387,11 +402,12 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
           }}
         >
           <Card
-            card={backCardRef.current}
+            card={backCard}
             size="hero"
             noArtist
             noFavorite
             interactive={false}
+            animated={!!backCard.video}
             priority
           />
         </div>
