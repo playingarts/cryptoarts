@@ -1,3 +1,5 @@
+"use client";
+
 /**
  * Not Found page for App Router
  *

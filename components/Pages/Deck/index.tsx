@@ -21,17 +21,21 @@ const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
 });
 const Footer = dynamic(() => import("../../Footer"), { ssr: true });
 
-const CryptoSections = () => {
+/** Renders PACE and AR sections for decks with AR feature */
+const DeckARSections = () => {
   const {
     query: { deckId },
   } = useRouter();
   const config = getDeckConfig(typeof deckId === "string" ? deckId : undefined);
-  return !config.showGallery ? (
+
+  if (!config.hasAR) return null;
+
+  return (
     <Fragment>
       <PACE />
       <AugmentedReality />
     </Fragment>
-  ) : null;
+  );
 };
 
 const DeckGallery = () => {
@@ -69,7 +73,7 @@ const Deck: FC<DeckProps> = ({ heroCards, ...props }) => (
     <Hero heroCards={heroCards} />
     <CardList />
     <TheProduct />
-    <CryptoSections />
+    <DeckARSections />
     <DeckGallery />
     <Footer />
   </FutureChapterProvider>

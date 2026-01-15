@@ -31,7 +31,7 @@ const NavButton: FC<
         },
         palette === "dark"
           ? { color: theme.colors.white }
-          : { color: theme.colors.black50 },
+          : { color: theme.colors.black },
       ]}
       {...props}
     >

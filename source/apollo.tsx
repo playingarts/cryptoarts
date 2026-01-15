@@ -25,7 +25,7 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
   const WithApollo: NextComponentType<
     NextPageContext & Context,
     unknown,
-    Context & { cache?: NormalizedCacheObject }
+    Context & { cache?: NormalizedCacheObject } & Record<string, unknown>
   > = ({ apolloClient, apolloState, cache, ...pageProps }) => {
     const client = apolloClient || initApolloClient(apolloState);
 
@@ -37,7 +37,7 @@ export const withApollo = (PageComponent: NextPage, { ssr = true } = {}) => {
 
     return (
       <ApolloProvider client={client}>
-        <PageComponent {...pageProps} />
+        <PageComponent {...(pageProps as Record<string, unknown>)} />
       </ApolloProvider>
     );
   };

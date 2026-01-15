@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, HTMLAttributes, useCallback, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Intro from "../../Intro";
 import ButtonTemplate from "../../Buttons/Button";
@@ -6,7 +6,7 @@ import Grid from "../../Grid";
 import Item from "./Item";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useRouter } from "next/router";
-import { useCards } from "../../../hooks/card";
+import { useCards, useCard } from "../../../hooks/card";
 import { useDecks } from "../../../hooks/deck";
 import Card from "../../Card";
 import MenuPortal from "../../Header/MainMenu/MenuPortal";
@@ -21,6 +21,7 @@ import {
   CARD_POSITION_TOP,
   CARD_POSITION_LEFT,
   BACKSIDE_ROTATION,
+  FRONT_ROTATION,
 } from "./constants";
 
 // Lazy-load Pop modal - only shown on card click
@@ -35,8 +36,17 @@ type SelectedCard = {
 
 const FooterCards = () => {
   const {
-    query: { deckId: deckSlug },
+    query: { deckId: deckSlug, artistSlug },
   } = useRouter();
+
+  // Check if we're on a card page (has artistSlug)
+  const isCardPage = typeof artistSlug === "string";
+
+  // Get the current card if on a card page
+  const { card: currentPageCard } = useCard({
+    variables: { slug: artistSlug, deckSlug },
+    skip: !isCardPage || !artistSlug || !deckSlug,
+  });
 
   // Get all decks to pick a random one
   const { decks } = useDecks();
@@ -105,6 +115,35 @@ const FooterCards = () => {
   // Show skeleton while loading
   if (loading || !backsideCard || frontCards.length === 0) {
     return <CardsSkeleton />;
+  }
+
+  // On card pages, show the current card as static (no flipping)
+  if (isCardPage && currentPageCard) {
+    return (
+      <>
+        {/* Backside card behind - static */}
+        <Card
+          noArtist
+          noFavorite
+          interactive={false}
+          card={backsideCard}
+          css={[{ rotate: BACKSIDE_ROTATION, transformOrigin: "bottom left", zIndex: 1 }]}
+        />
+
+        {/* Current page card - static, no flipping */}
+        <Card
+          noArtist
+          noFavorite
+          interactive={false}
+          card={currentPageCard}
+          css={[{
+            rotate: FRONT_ROTATION,
+            transformOrigin: "left",
+            zIndex: 2,
+          }]}
+        />
+      </>
+    );
   }
 
   return (

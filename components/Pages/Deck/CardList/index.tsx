@@ -231,26 +231,28 @@ const ListItem: FC<{
             </div>
           </Grid>
         ) : (
-          <QuotePlaceholder />
+          <QuotePlaceholder dark={deckId === "crypto"} />
         )
       )}
     </Fragment>
   );
 };
 
-/** Shimmer animation style - dark mode */
-const shimmerStyle = {
-  background: "linear-gradient(90deg, #2d2d2d 0%, #3a3a3a 50%, #2d2d2d 100%)",
+/** Shimmer animation style - supports light and dark mode */
+const getShimmerStyle = (dark: boolean) => ({
+  background: dark
+    ? "linear-gradient(90deg, #2d2d2d 0%, #3a3a3a 50%, #2d2d2d 100%)"
+    : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
   backgroundSize: "200% 100%",
   animation: "cardShimmer 1.5s infinite linear",
   "@keyframes cardShimmer": {
     "0%": { backgroundPosition: "200% 0" },
     "100%": { backgroundPosition: "-200% 0" },
   },
-} as const;
+} as const);
 
 /** Placeholder for cards not yet loaded - matches Card component "preview" size exactly */
-const CardPlaceholder: FC = () => (
+const CardPlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => (
   <div
     css={{
       // Match Card component outer wrapper width (with CSS override from ListItem)
@@ -274,7 +276,7 @@ const CardPlaceholder: FC = () => (
           left: "50%",
           transform: "translate(-50%, -50%)",
           borderRadius: 15,
-          ...shimmerStyle,
+          ...getShimmerStyle(dark),
         }}
       />
     </div>
@@ -291,7 +293,7 @@ const CardPlaceholder: FC = () => (
           width: 120,
           height: 18,
           borderRadius: 4,
-          ...shimmerStyle,
+          ...getShimmerStyle(dark),
         }}
       />
     </div>
@@ -299,42 +301,45 @@ const CardPlaceholder: FC = () => (
 );
 
 /** Placeholder for quote section */
-const QuotePlaceholder: FC = () => (
-  <Grid css={[{ width: "100%", marginTop: 60, marginBottom: 60 }]}>
-    {/* Background image placeholder */}
-    <div
-      css={{
-        width: 300,
-        height: 300,
-        gridColumn: "2/6",
-        borderRadius: 15,
-        ...shimmerStyle,
-      }}
-    />
-    <div
-      css={{
-        gridColumn: "span 6",
-      }}
-    >
-      {/* Artist avatar and info */}
-      <div css={{ display: "flex", gap: 30 }}>
-        <div css={{ width: 80, height: 80, borderRadius: 10, ...shimmerStyle }} />
-        <div css={{ display: "inline-block" }}>
-          <div css={{ width: 120, height: 20, borderRadius: 4, marginBottom: 8, ...shimmerStyle }} />
-          <div css={{ width: 80, height: 16, borderRadius: 4, ...shimmerStyle }} />
+const QuotePlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => {
+  const shimmer = getShimmerStyle(dark);
+  return (
+    <Grid css={[{ width: "100%", marginTop: 60, marginBottom: 60 }]}>
+      {/* Background image placeholder */}
+      <div
+        css={{
+          width: 300,
+          height: 300,
+          gridColumn: "2/6",
+          borderRadius: 15,
+          ...shimmer,
+        }}
+      />
+      <div
+        css={{
+          gridColumn: "span 6",
+        }}
+      >
+        {/* Artist avatar and info */}
+        <div css={{ display: "flex", gap: 30 }}>
+          <div css={{ width: 80, height: 80, borderRadius: 10, ...shimmer }} />
+          <div css={{ display: "inline-block" }}>
+            <div css={{ width: 120, height: 20, borderRadius: 4, marginBottom: 8, ...shimmer }} />
+            <div css={{ width: 80, height: 16, borderRadius: 4, ...shimmer }} />
+          </div>
         </div>
+        {/* Quote text */}
+        <div css={{ marginTop: 60 }}>
+          <div css={{ width: "100%", height: 16, borderRadius: 4, marginBottom: 8, ...shimmer }} />
+          <div css={{ width: "90%", height: 16, borderRadius: 4, marginBottom: 8, ...shimmer }} />
+          <div css={{ width: "70%", height: 16, borderRadius: 4, ...shimmer }} />
+        </div>
+        {/* Link placeholder */}
+        <div css={{ marginTop: 30, width: 150, height: 20, borderRadius: 4, ...shimmer }} />
       </div>
-      {/* Quote text */}
-      <div css={{ marginTop: 60 }}>
-        <div css={{ width: "100%", height: 16, borderRadius: 4, marginBottom: 8, ...shimmerStyle }} />
-        <div css={{ width: "90%", height: 16, borderRadius: 4, marginBottom: 8, ...shimmerStyle }} />
-        <div css={{ width: "70%", height: 16, borderRadius: 4, ...shimmerStyle }} />
-      </div>
-      {/* Link placeholder */}
-      <div css={{ marginTop: 30, width: 150, height: 20, borderRadius: 4, ...shimmerStyle }} />
-    </div>
-  </Grid>
-);
+    </Grid>
+  );
+};
 
 /** Row sentinel - triggers image loading when approaching viewport */
 const RowSentinel: FC<{
@@ -427,12 +432,12 @@ const useCardRows = (cards: GQL.Card[] | undefined, cardsPerRow: number) => {
 };
 
 /** Skeleton grid shown while cards data is loading */
-const SkeletonGrid: FC<{ cardsPerRow: number }> = ({ cardsPerRow }) => {
+const SkeletonGrid: FC<{ cardsPerRow: number; dark?: boolean }> = ({ cardsPerRow, dark = false }) => {
   const totalSkeletons = INITIAL_SKELETON_ROWS * cardsPerRow;
   return (
     <>
       {Array.from({ length: totalSkeletons }).map((_, i) => (
-        <CardPlaceholder key={`skeleton-${i}`} />
+        <CardPlaceholder key={`skeleton-${i}`} dark={dark} />
       ))}
     </>
   );
@@ -445,6 +450,9 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
 
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { width } = useSize();
+
+  // Only crypto deck uses dark skeleton
+  const isDarkSkeleton = deckId === "crypto";
 
   // Track current deck and edition for reset detection
   const currentDeckIdRef = useRef<string | undefined>(undefined);
@@ -525,7 +533,7 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
     >
       {/* Show skeleton grid while loading, then real cards */}
       {!cards ? (
-        <SkeletonGrid cardsPerRow={cardsPerRow} />
+        <SkeletonGrid cardsPerRow={cardsPerRow} dark={isDarkSkeleton} />
       ) : (
         rows.map((rowCards, rowIndex) => (
           <CardRow
