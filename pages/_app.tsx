@@ -9,6 +9,7 @@ import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Fragment, useEffect, useMemo } from "react";
 import smoothscroll from "smoothscroll-polyfill";
 import { initNavInstrumentation } from "../source/utils/navInstrumentation";
+import { initPerfNavTracer } from "../source/utils/perfNavTracer";
 import SizeProvider from "@/components/SizeProvider";
 import { SignatureProvider } from "@/contexts/SignatureContext";
 import { ViewedProvider } from "@/contexts/viewedContext";
@@ -48,6 +49,11 @@ const App = ({
   // Navigation instrumentation for debugging (enable with ?debugNav or localStorage.debugNav=true)
   useEffect(() => {
     return initNavInstrumentation(router);
+  }, [router]);
+
+  // Performance navigation tracer (enable with ?perfNav=1 or localStorage.perfNav=true)
+  useEffect(() => {
+    return initPerfNavTracer(router);
   }, [router]);
 
   // Initialize Apollo client at app level for components outside page-level withApollo

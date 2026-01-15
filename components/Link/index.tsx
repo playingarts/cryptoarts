@@ -6,6 +6,7 @@ import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import { forwardRef, ForwardRefRenderFunction, HTMLAttributes, useCallback } from "react";
 import { startNavTiming } from "../../source/utils/navInstrumentation";
+import { startPerfNavTiming } from "../../source/utils/perfNavTracer";
 
 const HEADER_OFFSET = 50;
 
@@ -50,6 +51,9 @@ const Link: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
       // Track navigation timing (only active when debugging enabled)
       if (!isHashLink && typeof href === "string") {
         startNavTiming("Link", href);
+        startPerfNavTiming("click", "Link", href, false);
+      } else if (isHashLink && typeof href === "string") {
+        startPerfNavTiming("click", "Link", href, true);
       }
 
       if (isHashLink && typeof href === "string") {

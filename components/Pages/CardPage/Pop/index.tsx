@@ -13,6 +13,7 @@ import Text from "../../../Text";
 import { usePalette } from "../../Deck/DeckPaletteContext";
 import { sortCards } from "../../../../source/utils/sortCards";
 import { setNavigationCard } from "../navigationCardStore";
+import { startPerfNavTiming } from "../../../../source/utils/perfNavTracer";
 
 const FavButton: FC<
   HTMLAttributes<HTMLElement> & { deckSlug: string; id: string }
@@ -206,9 +207,13 @@ const Pop: FC<
     }
     close();
 
+    // Track navigation timing
+    const destPath = `/${deckId}/${artistSlug}`;
+    startPerfNavTiming("click", "CardPop", destPath, false);
+
     // Use Next.js router for SPA navigation
     // The CardPage will show navCard instantly while getStaticProps runs in background
-    router.push(`/${deckId}/${artistSlug}`);
+    router.push(destPath);
   }, [card, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, edition, deckId, close, router]);
 
   return (
