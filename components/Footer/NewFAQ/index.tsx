@@ -113,7 +113,6 @@ const FooterCards = () => {
       <Card
         noArtist
         noFavorite
-        animated
         interactive={false}
         card={backsideCard}
         css={[{ rotate: BACKSIDE_ROTATION, transformOrigin: "bottom left", zIndex: 1 }]}
