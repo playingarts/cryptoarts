@@ -205,7 +205,9 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               objectFit: "cover",
               padding: 30,
               display: "grid",
-              alignItems: "end",
+              alignContent: "end",
+              justifyItems: "start",
+              gap: 30,
               borderRadius: 15,
             },
           ]}
@@ -238,7 +240,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <Text
               typography="newParagraph"
               css={{
-                marginTop: 60,
+                marginTop: 30,
                 display: "-webkit-box",
                 WebkitLineClamp: 5,
                 WebkitBoxOrient: "vertical",

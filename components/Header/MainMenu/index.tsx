@@ -387,7 +387,7 @@ const MainMenu: FC<
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
             initialImg={selectedCard.cardImg}
-            showNavigation={false}
+            showNavigation={true}
           />
         )}
       </MenuPortal>

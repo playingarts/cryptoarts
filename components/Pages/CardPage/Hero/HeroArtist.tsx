@@ -195,7 +195,7 @@ const HeroArtist: FC<HeroArtistProps> = ({ artist, dark, onVisible, loading }) =
                   if (!value || !Icon) return null;
 
                   return (
-                    <Link href={value} key={value}>
+                    <Link href={value} key={value} target="_blank" rel="noopener noreferrer">
                       <Icon />
                     </Link>
                   );

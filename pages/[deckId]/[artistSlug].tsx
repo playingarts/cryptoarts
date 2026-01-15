@@ -33,13 +33,14 @@ export interface SSRCardProps {
 }
 
 /**
- * Artist card paths are generated on-demand with fallback: 'blocking'.
- * Pre-generating all deck/artist combinations would be expensive.
+ * Artist card paths are generated on-demand with fallback: true.
+ * This enables instant navigation - page renders immediately with
+ * data from navigation store while getStaticProps runs in background.
  */
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
     paths: [],
-    fallback: "blocking",
+    fallback: true,
   };
 };
 

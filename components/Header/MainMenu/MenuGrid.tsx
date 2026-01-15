@@ -35,7 +35,7 @@ const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean; scrolledP
           width: "fit-content",
           // Padding to align content with 12-column grid, extends to screen edges
           paddingLeft: `max(${theme.spacing(GAP_UNITS)}px, calc((100vw - ${GRID_COLUMNS * theme.spacing(COLUMN_WIDTH_UNITS) + (GRID_COLUMNS - 1) * theme.spacing(GAP_UNITS)}px) / 2))`,
-          paddingRight: theme.spacing(GAP_UNITS),
+          paddingRight: 60,
           [theme.maxMQ.sm]: {
             // Mobile styles - to be implemented
           },

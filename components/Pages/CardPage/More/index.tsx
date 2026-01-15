@@ -198,7 +198,7 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             },
           ]}
           arrowedText={moreFromTitle ?? "More cards"}
-          paragraphText="Other cards you may like."
+          paragraphText="Other cards from this deck you may like."
           titleAsText
           bottom={
             <div css={[{ display: "flex", gap: 5, marginTop: 120 }]}>

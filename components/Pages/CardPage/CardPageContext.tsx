@@ -68,12 +68,21 @@ export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
     }
   }, [routerArtistSlug]);
 
+  // During fallback, extract deckId and artistSlug from pathname
+  // This enables queries to run immediately even before router.query is populated
+  const [pathDeckId, pathArtistSlug] = useMemo(() => {
+    if (typeof window === "undefined") return [undefined, undefined];
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    return pathParts.length >= 2 ? [pathParts[0], pathParts[1]] : [undefined, undefined];
+  }, [router.asPath]); // Re-compute when route changes
+
   // Current values (local state takes precedence for instant navigation)
+  // Fallback to pathname parsing during router.isFallback
   const deckId =
-    typeof routerDeckId === "string" ? routerDeckId : undefined;
+    typeof routerDeckId === "string" ? routerDeckId : pathDeckId;
   const artistSlug =
     localArtistSlug ||
-    (typeof routerArtistSlug === "string" ? routerArtistSlug : undefined);
+    (typeof routerArtistSlug === "string" ? routerArtistSlug : pathArtistSlug);
 
   // Fetch deck data
   const { deck } = useDeck({

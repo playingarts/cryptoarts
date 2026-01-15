@@ -10,6 +10,7 @@ describe("source/deckConfig", () => {
         showTestimonials: true,
         showGallery: true,
         hasAR: false,
+        showPACE: false,
         sections: ["Gallery", "Reviews"],
       });
     });
@@ -22,6 +23,7 @@ describe("source/deckConfig", () => {
         showTestimonials: true,
         showGallery: true,
         hasAR: false,
+        showPACE: false,
         sections: ["Gallery", "Reviews"],
       });
     });
@@ -34,6 +36,7 @@ describe("source/deckConfig", () => {
         showTestimonials: false,
         showGallery: false,
         hasAR: true,
+        showPACE: true,
         sections: ["PACE", "AR"],
       });
     });
@@ -45,6 +48,7 @@ describe("source/deckConfig", () => {
       expect(config.palette).toBe("dark");
       expect(config.showTestimonials).toBe(false);
       expect(config.showGallery).toBe(false);
+      expect(config.showPACE).toBe(true);
       expect(config.sections).toEqual(["PACE", "AR"]);
     });
 
@@ -59,6 +63,7 @@ describe("source/deckConfig", () => {
         "showTestimonials",
         "showGallery",
         "hasAR",
+        "showPACE",
         "sections",
       ];
 

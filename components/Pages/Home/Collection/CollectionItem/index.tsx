@@ -396,8 +396,8 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
               onClick={onClose}
               css={(theme) => [
                 hover && paletteOnHover === "dark"
-                  ? { color: theme.colors.white75 }
-                  : { color: theme.colors.black50 },
+                  ? { color: theme.colors.white }
+                  : { color: theme.colors.black },
               ]}
               noColor
               base
@@ -412,8 +412,8 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
               size="small"
               css={(theme) => [
                 hover && paletteOnHover === "dark"
-                  ? { color: theme.colors.white75 }
-                  : { color: theme.colors.black50 },
+                  ? { color: theme.colors.white }
+                  : { color: theme.colors.black },
               ]}
             >
               Shop

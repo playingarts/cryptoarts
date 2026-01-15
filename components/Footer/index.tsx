@@ -80,7 +80,7 @@ const ActualFooter = () => {
           background:
             theme.colors[palette === "dark" ? "spaceBlack" : "pale_gray"],
           paddingTop: 60,
-          paddingBottom: 60,
+          paddingBottom: 120,
         },
       ]}
     >
@@ -92,55 +92,96 @@ const ActualFooter = () => {
             paddingTop: 15,
             alignItems: "start",
             flexDirection: "column",
+            justifyContent: "space-between",
           },
         ]}
       >
-        <ArrowedButton
+        <div>
+          <Text
+            typography="newh4"
+            css={(theme) => [
+              { color: theme.colors[palette === "dark" ? "white50" : "black50"] },
+            ]}
+          >
+            Download Playing Arts AR™ app
+          </Text>
+          <div css={[{ marginTop: 30 }]}>
+            <a
+              href="https://apps.apple.com/es/app/playing-arts/id1594901668?l=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              css={{ textDecoration: "none", marginRight: 15 }}
+            >
+              <ButtonTemplate
+                css={(theme) => ({
+                  paddingLeft: 10,
+                  color: palette === "dark" ? theme.colors.spaceBlack : undefined,
+                })}
+                color={palette === "dark" ? "white50" : undefined}
+                palette={palette}
+              >
+                <Apple
+                  css={{
+                    marginRight: 10,
+                  }}
+                />
+                iPhone
+              </ButtonTemplate>
+            </a>
+
+            <a
+              href="https://play.google.com/store/apps/details?id=com.digitalabstractsapps.playingarts&hl=en"
+              target="_blank"
+              rel="noopener noreferrer"
+              css={{ textDecoration: "none" }}
+            >
+              <ButtonTemplate
+                color={palette === "dark" ? "white50" : undefined}
+                css={(theme) => ({
+                  paddingLeft: 10,
+                  color: palette === "dark" ? theme.colors.spaceBlack : undefined,
+                })}
+                palette={palette}
+              >
+                <Android
+                  css={{
+                    marginRight: 10,
+                  }}
+                />
+                Android
+              </ButtonTemplate>
+            </a>
+          </div>
+        </div>
+        <Text
+          typography="paragraphMicro"
           css={(theme) => [
-            { color: theme.colors[palette === "dark" ? "white50" : "black50"] },
+            {
+              marginTop: "auto",
+              a: {
+                textDecoration: "underline",
+                color:
+                  theme.colors[palette === "dark" ? "white" : "black"],
+              },
+              color: theme.colors[palette === "dark" ? "white" : "black"],
+              opacity: 0.25,
+              maxWidth: 520,
+            },
           ]}
         >
-          Be the first to explore project updates
-        </ArrowedButton>
-        <Grid auto={true}>
-          <div css={[{ marginTop: 60, gridColumn: "span 5" }]}>
-            <EmailForm />
-            <Text
-              typography="paragraphNano"
-              css={(theme) => [
-                {
-                  color:
-                    theme.colors[palette === "dark" ? "white50" : "black50"],
-                  marginTop: 30,
-                },
-              ]}
-            >
-              Join our newsletter to stay updated on exclusive deals and gain
-              automatic entry into our monthly giveaways.
-            </Text>
-            <div
-              css={(theme) => [
-                {
-                  marginTop: 30,
-                  display: "flex",
-                  gap: 30,
-                  color:
-                    theme.colors[palette === "dark" ? "white50" : "black30"],
-                },
-              ]}
-            >
-              <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
-                <Instagram />
-              </Link>
-              <Link href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">
-                <Twitter />
-              </Link>
-              <Link href={socialLinks.youtube} target="_blank" rel="noopener noreferrer">
-                <Youtube />
-              </Link>
-            </div>
-          </div>
-        </Grid>
+          © 2012—2026 Digital Abstracts SL. Any artwork displayed on this
+          website may not be reproduced or used in any manner whatsoever
+          without the express written permission of Digital Abstracts or their
+          respective owners. Patent Pending. Thanks for reading this, bye!
+          <br />
+          <br />
+          <a css={[{ textDecoration: "underline", marginRight: 15 }]} href="">
+            Privacy Statement
+          </a>
+          <a css={[{ textDecoration: "underline" }]} href="">
+            Terms of Service
+          </a>
+        </Text>
       </ScandiBlock>
 
       {Object.keys(links).map((key) => (
@@ -167,7 +208,7 @@ const ActualFooter = () => {
           >
             {key}
           </Text>
-          <div css={[{ marginTop: 60, display: "grid", gap: 10 }]}>
+          <div css={[{ marginTop: 30, display: "grid", gap: 5 }]}>
             {links[key].map((item) => (
               <Link
                 key={item.label + "Link"}
@@ -199,149 +240,6 @@ const ActualFooter = () => {
           </div>
         </ScandiBlock>
       ))}
-      <div css={[{ gridColumn: "span 6", marginTop: 60 }]}>
-        <Text
-          typography="paragraphSmall"
-          css={(theme) => [
-            { color: theme.colors[palette === "dark" ? "white50" : "black50"] },
-          ]}
-        >
-          Download Playing Arts AR™ app
-        </Text>
-        <div css={[{ marginTop: 30 }]}>
-          <a
-            href="https://apps.apple.com/es/app/playing-arts/id1594901668?l=en"
-            target="_blank"
-            rel="noopener noreferrer"
-            css={{ textDecoration: "none", marginRight: 15 }}
-          >
-            <ButtonTemplate
-              css={(theme) => ({
-                paddingLeft: 10,
-                color: palette === "dark" ? theme.colors.spaceBlack : undefined,
-              })}
-              color={palette === "dark" ? "white50" : undefined}
-              palette={palette}
-            >
-              <Apple
-                css={{
-                  marginRight: 10,
-                }}
-              />
-              iPhone
-            </ButtonTemplate>
-          </a>
-
-          <a
-            href="https://play.google.com/store/apps/details?id=com.digitalabstractsapps.playingarts&hl=en"
-            target="_blank"
-            rel="noopener noreferrer"
-            css={{ textDecoration: "none" }}
-          >
-            <ButtonTemplate
-              color={palette === "dark" ? "white50" : undefined}
-              css={(theme) => ({
-                paddingLeft: 10,
-                color: palette === "dark" ? theme.colors.spaceBlack : undefined,
-              })}
-              palette={palette}
-            >
-              <Android
-                css={{
-                  marginRight: 10,
-                }}
-              />
-              Android
-            </ButtonTemplate>
-          </a>
-        </div>
-      </div>
-      <div
-        css={[
-          {
-            gridColumn: "span 6",
-            marginTop: 60,
-            display: "grid",
-            alignItems: "end",
-          },
-        ]}
-      >
-        <div>
-          <Link href="/shop">
-            <ArrowButton color="accent" css={[{ marginTop: 30 }]}>
-              Start your collection
-            </ArrowButton>
-          </Link>
-        </div>
-      </div>
-      <div css={[{ gridColumn: "span 6", marginTop: 30 }]}>
-        <ScandiBlock
-          opacity={0.3}
-          css={(theme) => [
-            {
-              paddingTop: 30,
-            },
-          ]}
-        >
-          <div
-            css={(theme) => ({
-              color: theme.colors[palette === "dark" ? "white" : "black"],
-              opacity: 0.25,
-              display: "flex",
-              alignItems: "center",
-              gap: 20,
-            })}
-          >
-            <Visa css={{ transform: "scale(0.72)" }} />
-            <Mastercard css={{ transform: "scale(0.72)" }} />
-            <PayPal css={{ transform: "scale(0.81)" }} />
-            <ApplePay css={{ transform: "scale(0.9)" }} />
-            <GooglePay css={{ transform: "scale(0.9)" }} />
-          </div>
-        </ScandiBlock>
-      </div>
-      <div css={[{ gridColumn: "span 6", marginTop: 30 }]}>
-        <ScandiBlock
-          opacity={0.3}
-          css={(theme) => [
-            {
-              paddingTop: 30,
-              color: theme.colors.black30,
-              display: "flex",
-              gap: 30,
-            },
-          ]}
-        >
-          <Text
-            typography="paragraphMicro"
-            css={(theme) => [
-              {
-                a: {
-                  textDecoration: "underline",
-                  color:
-                    theme.colors[palette === "dark" ? "white" : "black"],
-                },
-                color: theme.colors[palette === "dark" ? "white" : "black"],
-                opacity: 0.25,
-                maxWidth: 520,
-              },
-            ]}
-          >
-            © 2012—2026 Digital Abstracts SL. Any artwork displayed on this
-            website may not be reproduced or used in any manner whatsoever
-            without the express written permission of Digital Abstracts or their
-            respective owners. Patent Pending. Thanks for reading this, bye!
-            <br />
-            <br />
-            <a css={[{ textDecoration: "underline", marginRight: 15 }]} href="">
-              Privacy Statement
-            </a>
-            <a css={[{ textDecoration: "underline" }]} href="">
-              Terms of Service
-            </a>
-          </Text>
-        </ScandiBlock>
-      </div>
     </Grid>
   );
 };

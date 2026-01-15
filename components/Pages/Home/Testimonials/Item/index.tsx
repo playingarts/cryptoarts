@@ -90,14 +90,17 @@ const Item: FC<
               position: "absolute",
               top: 0,
               left: 0,
+              right: 0,
               fontSize: 18,
               lineHeight: "150%",
               display: "flex",
               alignItems: "center",
-              flexWrap: "wrap",
               gap: 4,
               opacity: 0,
               transition: "opacity 0.2s ease",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
             }}
           >
             <span css={{ color: "#333" }}>Bought:</span>{" "}

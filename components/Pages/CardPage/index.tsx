@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { FC } from "react";
+import { FC, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Header from "../../Header";
 import Footer from "../../Footer";
@@ -12,6 +12,7 @@ import { withApollo } from "../../../source/apollo";
 import { SSRCardProps } from "../../../pages/[deckId]/[artistSlug]";
 import { getDeckConfig } from "../../../source/deckConfig";
 import { CardPageProvider } from "./CardPageContext";
+import { getNavigationCard } from "./navigationCardStore";
 
 // Code-split below-fold components (SSR disabled for lazy loading)
 const More = dynamic(() => import("./More"), { ssr: false });
@@ -29,6 +30,12 @@ const CardPageAR: FC<{ deckId?: string }> = ({ deckId }) => {
   return <AugmentedReality />;
 };
 
+/** Header with deck-specific links */
+const CardPageHeader: FC<{ deckId?: string }> = ({ deckId }) => {
+  const config = getDeckConfig(deckId);
+  return <Header links={["Cards", "Product", ...config.sections]} />;
+};
+
 interface CardPageProps {
   ssrCard?: SSRCardProps;
 }
@@ -41,13 +48,39 @@ interface CardPageProps {
  * 4. Footer lazy loads last
  */
 const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
-  const { query: { deckId } } = useRouter();
-  const dark = useDarkPalette(typeof deckId === "string" ? deckId : undefined);
+  const router = useRouter();
+  const { deckId } = router.query;
+
+  // Get navigation card for instant display during fallback
+  // This runs synchronously on mount, before router query is populated
+  const [navCard, setNavCard] = useState<SSRCardProps | null>(() => {
+    return getNavigationCard();
+  });
+
+  // During fallback (router.isFallback = true), query params are empty
+  // Use navigation card's deck slug until router query is ready
+  const isFallback = router.isFallback;
+  const effectiveDeckId = typeof deckId === "string" ? deckId : navCard?.deck.slug;
+  const dark = useDarkPalette(effectiveDeckId);
+
+  // Priority: ssrCard (from getStaticProps) > navCard (from navigation) > undefined
+  // During fallback, ssrCard is undefined, so we show navCard
+  const effectiveSsrCard = ssrCard || navCard || undefined;
+
+  // Show loading state only if we're in fallback AND have no navigation card
+  if (isFallback && !navCard) {
+    return (
+      <CardPageProvider>
+        <CardPageHeader deckId={effectiveDeckId} />
+        <Hero ssrCard={undefined} />
+      </CardPageProvider>
+    );
+  }
 
   return (
     <CardPageProvider>
-      <Header />
-      <Hero ssrCard={ssrCard} />
+      <CardPageHeader deckId={effectiveDeckId} />
+      <Hero ssrCard={effectiveSsrCard} />
 
       {/* P4: More from deck - lazy load on scroll */}
       <LazySection
@@ -60,7 +93,7 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
 
       {/* P5: AR section - lazy load on scroll */}
       <LazySection rootMargin="200px" minHeight={0}>
-        <CardPageAR deckId={typeof deckId === "string" ? deckId : undefined} />
+        <CardPageAR deckId={effectiveDeckId} />
       </LazySection>
 
       {/* P6: Footer - lazy load last */}

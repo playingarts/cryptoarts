@@ -1,8 +1,7 @@
-import { FC, HTMLAttributes, useEffect, useMemo, useState } from "react";
+import { FC, HTMLAttributes, useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import { useCardPop, useCardsForDeck, useCards } from "../../../../hooks/card";
 import { useDecks } from "../../../../hooks/deck";
-import ArrowButton from "../../../Buttons/ArrowButton";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
 import FlippableCard from "../../../Card/FlippableCard";
@@ -13,6 +12,7 @@ import Link from "../../../Link";
 import Text from "../../../Text";
 import { usePalette } from "../../Deck/DeckPaletteContext";
 import { sortCards } from "../../../../source/utils/sortCards";
+import { setNavigationCard } from "../navigationCardStore";
 
 const FavButton: FC<
   HTMLAttributes<HTMLElement> & { deckSlug: string; id: string }
@@ -138,9 +138,10 @@ const Pop: FC<
     initialVideo?: string;
     initialArtistName?: string;
     initialArtistCountry?: string;
+    initialBackground?: string;
     showNavigation?: boolean;
   }
-> = ({ close, cardSlug, deckId, edition, initialImg, initialVideo, initialArtistName, initialArtistCountry, showNavigation = true, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
   const router = useRouter();
 
@@ -179,8 +180,36 @@ const Pop: FC<
 
   const { palette } = usePalette();
 
-  // Check if we're already on this deck's page
-  const isOnDeckPage = router.query.deckId === deckId;
+  // Navigate to card page with instant display
+  const handleCardDetailsClick = useCallback(() => {
+    // Store card data for instant display on card page
+    const artistSlug = card?.artist.slug || cardState;
+    if (artistSlug) {
+      setNavigationCard({
+        _id: card?._id || "nav",
+        img: card?.img || initialImg || "",
+        video: card?.video || initialVideo || null,
+        info: card?.info || null,
+        background: card?.background || null,
+        cardBackground: card?.cardBackground || initialBackground || null,
+        edition: card?.edition || edition || null,
+        deck: { slug: deckId },
+        artist: {
+          name: card?.artist.name || initialArtistName || "",
+          slug: artistSlug,
+          country: card?.artist.country || initialArtistCountry || null,
+          userpic: card?.artist.userpic || null,
+          info: card?.artist.info || null,
+          social: (card?.artist.social as Record<string, string | null>) || null,
+        },
+      });
+    }
+    close();
+
+    // Use Next.js router for SPA navigation
+    // The CardPage will show navCard instantly while getStaticProps runs in background
+    router.push(`/${deckId}/${artistSlug}`);
+  }, [card, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, edition, deckId, close, router]);
 
   return (
     <div
@@ -211,7 +240,7 @@ const Pop: FC<
             padding: 30,
             paddingBottom: 90,
             backgroundColor:
-              card?.background || card?.cardBackground || (palette === "dark" ? "#181818" : theme.colors.pale_gray),
+              card?.background || card?.cardBackground || initialBackground || (palette === "dark" ? "#181818" : theme.colors.pale_gray),
             display: "flex",
             gap: 30,
             borderRadius: 15,
@@ -226,15 +255,20 @@ const Pop: FC<
         }}
       >
         <div css={[{ flex: 1 }]}>
-          <Text typography="newh4">
-            {deck
-              ? (edition || card?.edition) === "chapter i" || deckId === "future"
-                ? "Future Chapter I"
-                : (edition || card?.edition) === "chapter ii" || deckId === "future-ii"
-                ? "Future Chapter II"
-                : deck.title
-              : null}{" "}
-          </Text>
+          <Link
+            href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/" + deckId}
+            onClick={close}
+          >
+            <Text typography="newh4" css={{ "&:hover": { opacity: 0.7 }, transition: "opacity 0.2s" }}>
+              {deck
+                ? (edition || card?.edition) === "chapter i" || deckId === "future"
+                  ? "Future Chapter I"
+                  : (edition || card?.edition) === "chapter ii" || deckId === "future-ii"
+                  ? "Future Chapter II"
+                  : deck.title
+                : null}{" "}
+            </Text>
+          </Link>
           <div
             css={{
               marginTop: 30,
@@ -389,45 +423,9 @@ const Pop: FC<
             >
               <FavButton deckSlug={deckId} id={card?._id || ""} />
 
-              {card ? (
-                <Link
-                  href={
-                    (process.env.NEXT_PUBLIC_BASELINK || "") +
-                    "/" +
-                    deckId +
-                    "/" +
-                    card.artist.slug
-                  }
-                  onClick={close}
-                >
-                  <Button color="accent">Card details</Button>
-                </Link>
-              ) : (
-                <Button color="accent" css={{ opacity: 0.5, cursor: "default" }}>
-                  Card details
-                </Button>
-              )}
-              <Link
-                href={
-                  (process.env.NEXT_PUBLIC_BASELINK || "") +
-                  "/" +
-                  deckId
-                }
-                onClick={(e) => {
-                  e.preventDefault();
-                  close();
-                  // If already on this deck's page, just close popup
-                  // Otherwise navigate to the deck page
-                  if (!isOnDeckPage) {
-                    router.push("/" + deckId);
-                  }
-                }}
-                css={{ marginLeft: 15 }}
-              >
-                <ArrowButton noColor base size="small">
-                  The deck
-                </ArrowButton>
-              </Link>
+              <Button color="accent" onClick={handleCardDetailsClick}>
+                Card details
+              </Button>
             </div>
           </div>
         </div>

@@ -50,7 +50,7 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
     return sortedCards.find((c) => c.artist?.slug === artistSlug) || null;
   }, [sortedCards, artistSlug]);
 
-  // P0: Card data - priority: cached -> ssr
+  // P0: Card data - priority: cached -> ssr (ssrCard includes navCard from CardPage)
   const card = cachedCard || ssrCard;
 
   // P1: Artist data - triggered when approaching "The Artist" section
@@ -175,7 +175,7 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
           info={loadCardInfo ? card?.info : undefined}
           dark={isDark}
           onVisible={handleCardInfoVisible}
-          loading={loadCardInfo && !card?.info && !!ssrCard}
+          loading={loadCardInfo && !card}
         />
 
         {/* P3: The Deck section (lazy) */}

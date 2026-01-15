@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
-import { FC, Fragment, HTMLAttributes } from "react";
+import { FC, HTMLAttributes } from "react";
 import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
 import Hero from "./Hero";
@@ -21,21 +21,26 @@ const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
 });
 const Footer = dynamic(() => import("../../Footer"), { ssr: true });
 
-/** Renders PACE and AR sections for decks with AR feature */
-const DeckARSections = () => {
+/** Renders PACE section for decks with NFT stats */
+const DeckPACE = () => {
+  const {
+    query: { deckId },
+  } = useRouter();
+  const config = getDeckConfig(typeof deckId === "string" ? deckId : undefined);
+
+  if (!config.showPACE) return null;
+  return <PACE />;
+};
+
+/** Renders AR section for decks with AR feature */
+const DeckAR = () => {
   const {
     query: { deckId },
   } = useRouter();
   const config = getDeckConfig(typeof deckId === "string" ? deckId : undefined);
 
   if (!config.hasAR) return null;
-
-  return (
-    <Fragment>
-      <PACE />
-      <AugmentedReality />
-    </Fragment>
-  );
+  return <AugmentedReality />;
 };
 
 const DeckGallery = () => {
@@ -73,7 +78,8 @@ const Deck: FC<DeckProps> = ({ heroCards, ...props }) => (
     <Hero heroCards={heroCards} />
     <CardList />
     <TheProduct />
-    <DeckARSections />
+    <DeckPACE />
+    <DeckAR />
     <DeckGallery />
     <Footer />
   </FutureChapterProvider>

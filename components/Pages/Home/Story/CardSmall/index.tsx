@@ -28,6 +28,9 @@ type SelectedCard = {
   deckSlug: string;
   artistSlug: string;
   cardImg: string;
+  cardBackground: string;
+  artistName?: string;
+  artistCountry?: string;
 } | null;
 
 // Scroll threshold to start rendering cards (px)
@@ -72,6 +75,9 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
         deckSlug: card.deck.slug,
         artistSlug: card.artist.slug,
         cardImg: card.img,
+        cardBackground: card.cardBackground,
+        artistName: card.artist.name,
+        artistCountry: card.artist.country,
       });
     }
   }, []);
@@ -184,6 +190,9 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
             initialImg={selectedCard.cardImg}
+            initialBackground={selectedCard.cardBackground}
+            initialArtistName={selectedCard.artistName}
+            initialArtistCountry={selectedCard.artistCountry}
             showNavigation={false}
           />
         )}

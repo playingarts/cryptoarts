@@ -7,5 +7,7 @@ export type HomeCard = {
   };
   artist?: {
     slug: string;
+    name?: string;
+    country?: string;
   };
 };
