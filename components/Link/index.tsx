@@ -5,6 +5,7 @@ import { CSSInterpolation } from "@emotion/serialize";
 import NextLink, { LinkProps as NextLinkProps } from "next/link";
 import { useRouter } from "next/router";
 import { forwardRef, ForwardRefRenderFunction, HTMLAttributes, useCallback } from "react";
+import { startNavTiming } from "../../source/utils/navInstrumentation";
 
 const HEADER_OFFSET = 50;
 
@@ -46,6 +47,11 @@ const Link: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
 
   const handleClick = useCallback(
     (e: React.MouseEvent<HTMLAnchorElement>) => {
+      // Track navigation timing (only active when debugging enabled)
+      if (!isHashLink && typeof href === "string") {
+        startNavTiming("Link", href);
+      }
+
       if (isHashLink && typeof href === "string") {
         e.preventDefault();
         const targetId = href.slice(1);

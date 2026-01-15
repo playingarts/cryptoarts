@@ -1,4 +1,4 @@
-import { FC, forwardRef, HTMLAttributes, useEffect, useState, useRef, useCallback } from "react";
+import { FC, forwardRef, HTMLAttributes, useEffect, useState, useRef, useCallback, useMemo } from "react";
 import { useRouter } from "next/router";
 import { usePalette } from "../../DeckPaletteContext";
 import { useHeroCardsContext } from "../../HeroCardsContext";
@@ -177,7 +177,19 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
   ({ sticky = true, heroCards: ssrHeroCards, ...props }, ref) => {
     const { palette } = usePalette();
     const router = useRouter();
-    const deckId = router.query.deckId as string | undefined;
+    const routerDeckId = router.query.deckId as string | undefined;
+
+    // During fallback (router.isFallback = true), router.query is empty
+    // Parse deckId from pathname to enable data fetching immediately
+    const pathDeckId = useMemo(() => {
+      if (typeof window === "undefined") return undefined;
+      const pathParts = window.location.pathname.split("/").filter(Boolean);
+      return pathParts.length >= 1 ? pathParts[0] : undefined;
+    }, [router.asPath]); // Re-compute when route changes
+
+    // Use router query when available, fallback to pathname parsing
+    const deckId = routerDeckId || pathDeckId;
+
     const { fetchCardsForDeck } = useHeroCardsContext();
 
     // Fetch deck to get _id for cards query

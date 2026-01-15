@@ -24,7 +24,11 @@ export interface HeroCardProps {
 
 /**
  * Generate static paths for all deck slugs.
- * Uses fallback: 'blocking' to handle new decks at runtime.
+ * Uses fallback: true for instant navigation - page renders immediately
+ * with skeleton UI while getStaticProps runs in the background.
+ *
+ * Previously used fallback: "blocking" which caused navigation delay
+ * because it waited for getStaticProps to complete before showing the page.
  */
 export const getStaticPaths: GetStaticPaths = async () => {
   await connect();
@@ -40,7 +44,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: decks.map((deck) => ({ params: { deckId: deck.slug } })),
-    fallback: "blocking",
+    fallback: true,
   };
 };
 

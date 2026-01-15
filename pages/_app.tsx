@@ -4,9 +4,11 @@ import { MetaMaskProvider } from "metamask-react";
 import "modern-normalize/modern-normalize.css";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Fragment, useEffect, useMemo } from "react";
 import smoothscroll from "smoothscroll-polyfill";
+import { initNavInstrumentation } from "../source/utils/navInstrumentation";
 import SizeProvider from "@/components/SizeProvider";
 import { SignatureProvider } from "@/contexts/SignatureContext";
 import { ViewedProvider } from "@/contexts/viewedContext";
@@ -35,11 +37,18 @@ const App = ({
   pageProps,
   isMobile,
 }: AppProps & { isMobile: boolean }) => {
+  const router = useRouter();
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       smoothscroll.polyfill();
     }
   }, []);
+
+  // Navigation instrumentation for debugging (enable with ?debugNav or localStorage.debugNav=true)
+  useEffect(() => {
+    return initNavInstrumentation(router);
+  }, [router]);
 
   // Initialize Apollo client at app level for components outside page-level withApollo
   // Page-level withApollo will override this with SSR-hydrated cache for page components

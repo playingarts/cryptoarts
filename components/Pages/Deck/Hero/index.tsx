@@ -74,9 +74,19 @@ interface HeroProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
-  const {
-    query: { deckId },
-  } = useRouter();
+  const router = useRouter();
+  const { query: { deckId: routerDeckId } } = router;
+
+  // During fallback (router.isFallback = true), router.query is empty
+  // Parse deckId from pathname to enable data fetching immediately
+  const pathDeckId = useMemo(() => {
+    if (typeof window === "undefined") return undefined;
+    const pathParts = window.location.pathname.split("/").filter(Boolean);
+    return pathParts.length >= 1 ? pathParts[0] : undefined;
+  }, [router.asPath]); // Re-compute when route changes
+
+  // Use router query when available, fallback to pathname parsing
+  const deckId = typeof routerDeckId === "string" ? routerDeckId : pathDeckId;
 
   const { palette } = usePalette();
 
