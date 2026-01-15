@@ -1,103 +1,74 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import { FC } from "react";
+import { useRouter } from "next/router";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import Hero from "./Hero";
+import LazySection from "../../LazySection";
+import MoreSkeleton from "./More/MoreSkeleton";
 import { withApollo } from "../../../source/apollo";
-import { useCards } from "../../../hooks/card";
-import { useRouter } from "next/router";
-import { useDeck } from "../../../hooks/deck";
-import Text from "../../Text";
-import Link from "../../Link";
-import NavButton from "../../Buttons/NavButton";
+import { SSRCardProps } from "../../../pages/[deckId]/[artistSlug]";
+import { getDeckConfig } from "../../../source/deckConfig";
 
-// Lazy-load below-fold components
-const More = dynamic(() => import("./More"), { ssr: true });
+// Code-split below-fold components (SSR disabled for lazy loading)
+const More = dynamic(() => import("./More"), { ssr: false });
+const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
+  ssr: false,
+});
 
-const CustomMiddle = () => {
-  const {
-    query: { deckId, artistSlug },
-  } = useRouter();
+/** Determine if current deck uses dark palette */
+const useDarkPalette = (deckId?: string) => deckId === "crypto";
 
-  const { deck } = useDeck({
-    variables: { slug: deckId },
-  });
-
-  const { cards } = useCards(
-    deck && {
-      variables: { deck: deck._id },
-    }
-  );
-  const [counter, setCounter] = useState(0);
-
-  useEffect(() => {
-    if (!cards) {
-      return;
-    }
-    setCounter(cards.findIndex((card) => card.artist.slug === artistSlug));
-  }, [artistSlug, cards]);
-
-  return cards ? (
-    <Text
-      typography="paragraphSmall"
-      css={[
-        {
-          display: "flex",
-          alignItems: "center",
-          paddingRight: 66,
-          justifyContent: "end",
-        },
-      ]}
-    >
-      <Link
-        css={[{ marginRight: 5 }]}
-        href={
-          (process.env.NEXT_PUBLIC_BASELINK || "") +
-          "/" +
-          deckId +
-          "/" +
-          (counter > 0
-            ? cards[counter - 1].artist.slug
-            : cards[cards.length - 1].artist.slug)
-        }
-        shallow={true}
-      >
-        <NavButton css={[{ transform: "rotate(180deg)" }]} />
-      </Link>
-
-      <Link
-        css={[{ marginRight: 5 }]}
-        href={
-          (process.env.NEXT_PUBLIC_BASELINK || "") +
-          "/" +
-          deckId +
-          "/" +
-          (counter < cards.length - 1
-            ? cards[counter + 1].artist.slug
-            : cards[0].artist.slug)
-        }
-        shallow={true}
-      >
-        <NavButton />
-      </Link>
-      <span css={[{ marginLeft: 30 }]}>
-        Card {(counter + 1).toString().padStart(2, "0") + " "}/
-        {" " + cards.length.toString().padStart(2, "0")}
-      </span>
-    </Text>
-  ) : null;
+/** AR section shown only for decks with AR feature */
+const CardPageAR: FC<{ deckId?: string }> = ({ deckId }) => {
+  const config = getDeckConfig(deckId);
+  if (!config.hasAR) return null;
+  return <AugmentedReality />;
 };
 
-const CardPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
-  <>
-    <Header customMiddle={<CustomMiddle />} />
-    <Hero />
-    <More />
-    <Footer />
-  </>
-);
+interface CardPageProps {
+  ssrCard?: SSRCardProps;
+}
+
+/**
+ * Card page with progressive loading:
+ * 1. Header + Hero (P0-P3) load immediately
+ * 2. More section lazy loads on scroll
+ * 3. AR section lazy loads on scroll (if applicable)
+ * 4. Footer lazy loads last
+ */
+const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
+  const { query: { deckId } } = useRouter();
+  const dark = useDarkPalette(typeof deckId === "string" ? deckId : undefined);
+
+  return (
+    <>
+      <Header />
+      <Hero ssrCard={ssrCard} />
+
+      {/* P4: More from deck - lazy load on scroll */}
+      <LazySection
+        rootMargin="300px"
+        minHeight={600}
+        skeleton={<MoreSkeleton dark={dark} />}
+      >
+        <More />
+      </LazySection>
+
+      {/* P5: AR section - lazy load on scroll */}
+      <LazySection rootMargin="200px" minHeight={0}>
+        <CardPageAR deckId={typeof deckId === "string" ? deckId : undefined} />
+      </LazySection>
+
+      {/* P6: Footer - lazy load last */}
+      <LazySection rootMargin="100px" minHeight={400}>
+        <Footer />
+      </LazySection>
+    </>
+  );
+};
 
 // Named export for App Router (without withApollo wrapper)
 export { CardPage };

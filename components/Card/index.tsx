@@ -27,6 +27,8 @@ export interface CardProps extends HTMLAttributes<HTMLElement> {
   noArtist?: boolean;
   interactive?: boolean;
   animated?: boolean;
+  /** When true, video plays automatically on page load (for card page hero) */
+  autoPlayVideo?: boolean;
   noLink?: boolean;
   /** @deprecated Favorites on card hover is now disabled */
   noFavorite?: boolean;
@@ -47,6 +49,7 @@ const Card: FC<CardProps> = memo(
     noArtist = false,
     interactive = true,
     animated = false,
+    autoPlayVideo = false,
     noLink = false,
     palette: paletteProp,
     priority = false,
@@ -58,17 +61,8 @@ const Card: FC<CardProps> = memo(
     const useHiRes = size === "big" || size === "hero";
     const imgSrc = useHiRes ? card.img : card.img.replace("-big-hd/", "-big/");
 
-    // Initialize loaded state:
-    // - SSR: start as not loaded (will check on mount)
-    // - Client: check if already in browser cache
-    const [loaded, setLoaded] = useState(() => {
-      // SSR: start as not loaded
-      if (typeof window === "undefined") return false;
-      // Client: check if already in browser cache
-      const img = new Image();
-      img.src = imgSrc;
-      return img.complete;
-    });
+    // Track loaded state - always start false to ensure consistent SSR/client hydration
+    const [loaded, setLoaded] = useState(false);
 
     const [hover, setHover] = useState(false);
     const [{ x, y }, setSkew] = useState({ x: 0, y: 0 });
@@ -83,18 +77,24 @@ const Card: FC<CardProps> = memo(
     const video = useRef<HTMLVideoElement>(null);
     const imgRef = useRef<HTMLImageElement>(null);
 
-    // Check if image is already loaded after mount (handles cached images and SSR hydration)
+    // Ref callback to store img reference - actual load check happens in useEffect
+    const imgRefCallback = useCallback((img: HTMLImageElement | null) => {
+      imgRef.current = img;
+    }, []);
+
+    // Check if image is already loaded after mount
+    // This is critical for page refresh when images are cached
     useEffect(() => {
       const img = imgRef.current;
-      if (!img) return;
+      if (!img || loaded) return;
 
-      // Check if image is already loaded (cached or fast load)
+      // Check immediately
       if (img.complete && img.naturalWidth > 0) {
         setLoaded(true);
         return;
       }
 
-      // Also check after a frame in case browser is still processing cache
+      // Also check after a frame in case browser is still processing
       const rafId = requestAnimationFrame(() => {
         if (img.complete && img.naturalWidth > 0) {
           setLoaded(true);
@@ -102,7 +102,7 @@ const Card: FC<CardProps> = memo(
       });
 
       return () => cancelAnimationFrame(rafId);
-    }, [imgSrc]);
+    }, [loaded]);
 
     const handleMouseMove = useCallback(
       ({ clientX, clientY }: React.MouseEvent) => {
@@ -122,77 +122,50 @@ const Card: FC<CardProps> = memo(
     const { width } = useSize();
     const { palette } = usePaletteHook(paletteProp);
 
-    // Video playback control on hover (for non-animated cards in card list)
+    // Consolidated video playback control - handles hover, animated, and autoPlay modes
+    // This replaces multiple separate effects to prevent race conditions
     useLayoutEffect(() => {
       const videoElement = video.current;
-      if (animated || !videoElement) {
+      if (!videoElement || !card.video) {
         return;
       }
 
-      if (!hover) {
-        videoElement.pause();
-        videoElement.currentTime = 0;
-        setVideoReady(false);
-      } else {
-        // Wait for video to be ready to play, then play it
-        const playWhenReady = () => {
-          videoElement.play().then(() => {
-            setVideoReady(true);
-          }).catch(() => {
-            // Browser blocked autoplay - video stays hidden, image remains visible
-          });
-        };
-
-        // Use card.video prop directly - this is the source of truth
-        // Don't use videoElement.src as it may be stale from a previous card
-        const videoSrc = card.video;
-
-        if (videoSrc) {
-          // Always ensure video element has the correct src before checking readyState
-          // This prevents playing a cached video from a different card
-          if (videoElement.src !== videoSrc) {
-            videoElement.src = videoSrc;
-          }
-
-          // Check if video can already play (and has the correct source loaded)
-          if (videoElement.readyState >= 3) {
-            // HAVE_FUTURE_DATA or higher - can play now
-            playWhenReady();
-          } else {
-            // Need to wait for data to load
-            videoElement.preload = "auto";
-            videoElement.addEventListener("canplay", playWhenReady, { once: true });
-            videoElement.load();
-          }
-        }
-      }
-    }, [hover, animated, card.video]);
-
-    // For animated cards (popup), start playing immediately on mount
-    useLayoutEffect(() => {
-      const videoElement = video.current;
-      if (!animated || !videoElement || !card.video) {
-        return;
-      }
-
-      // Use card.video prop directly - this is the source of truth
       const videoSrc = card.video;
+      // Play video if: animated (popup), autoPlayVideo (card page), or hover (card list)
+      const shouldPlay = animated || autoPlayVideo || hover;
 
+      // Helper to play video when ready
       const playWhenReady = () => {
         videoElement.play().then(() => {
           setVideoReady(true);
         }).catch(() => {
-          // Browser blocked autoplay - video stays hidden
+          // Browser blocked autoplay - video stays hidden, image remains visible
         });
       };
 
-      // Always ensure video element has the correct src
-      if (videoElement.src !== videoSrc) {
+      // Reset if source changed (compare full URLs, not just filenames)
+      if (videoElement.src && videoElement.src !== videoSrc) {
+        videoElement.pause();
+        videoElement.currentTime = 0;
+        setVideoReady(false);
+        videoElement.src = videoSrc;
+      }
+
+      if (!shouldPlay) {
+        videoElement.pause();
+        videoElement.currentTime = 0;
+        setVideoReady(false);
+        return;
+      }
+
+      // Ensure correct source is set
+      if (!videoElement.src || videoElement.src !== videoSrc) {
         videoElement.src = videoSrc;
       }
 
       // Check if video can already play
       if (videoElement.readyState >= 3) {
+        // HAVE_FUTURE_DATA or higher - can play now
         playWhenReady();
       } else {
         // Need to wait for data to load
@@ -200,25 +173,12 @@ const Card: FC<CardProps> = memo(
         videoElement.addEventListener("canplay", playWhenReady, { once: true });
         videoElement.load();
       }
-    }, [animated, card.video]);
 
-    // Reset video state when card changes (e.g., during flip animation)
-    // This ensures we don't play a stale video from a previous card
-    useEffect(() => {
-      const videoElement = video.current;
-      if (!videoElement) return;
-
-      // Reset video state - pause and clear the loaded video
-      videoElement.pause();
-      videoElement.currentTime = 0;
-      setVideoReady(false);
-
-      // If the video src doesn't match the current card, reset it
-      if (card.video && videoElement.src && !videoElement.src.includes(card.video.split('/').pop() || '')) {
-        videoElement.src = "";
-        videoElement.load();
-      }
-    }, [card.video]);
+      // Cleanup: remove event listener if component updates before canplay fires
+      return () => {
+        videoElement.removeEventListener("canplay", playWhenReady);
+      };
+    }, [hover, animated, autoPlayVideo, card.video]);
 
     // Cleanup video source only on unmount to prevent memory leaks
     useEffect(() => {
@@ -234,6 +194,7 @@ const Card: FC<CardProps> = memo(
 
     return (
       <div
+        suppressHydrationWarning
         css={[
           {
             width: cardSizesHover[size].width,
@@ -304,7 +265,7 @@ const Card: FC<CardProps> = memo(
               {/* Only render img when noImage is false - prevents image loading */}
               {!noImage && (
                 <img
-                  ref={imgRef}
+                  ref={imgRefCallback}
                   src={imgSrc}
                   key={imgSrc + "card" + size}
                   css={[
@@ -312,7 +273,7 @@ const Card: FC<CardProps> = memo(
                       width: "100%",
                       height: "100%",
                       lineHeight: 1,
-                      transition: loaded ? slowTransitionOpacity : "none",
+                      transition: slowTransitionOpacity,
                     },
                   ]}
                   style={{
@@ -341,18 +302,18 @@ const Card: FC<CardProps> = memo(
                       lineHeight: 1,
                       borderRadius: theme.spacing(1.5),
                       transition: slowTransitionOpacity,
-                      // Desktop: animated (popup) shows when ready, hover shows when hovering and ready
+                      // Desktop: show video when animated, autoPlayVideo, or hovering (all require videoReady)
                       [theme.mq.sm]: {
-                        opacity: animated ? (videoReady ? 1 : 0) : (hover && videoReady ? 1 : 0),
+                        opacity: (animated || autoPlayVideo) ? (videoReady ? 1 : 0) : (hover && videoReady ? 1 : 0),
                       },
-                      // Mobile: only show if animated and ready
+                      // Mobile: show if animated or autoPlayVideo and ready
                       [theme.maxMQ.sm]: {
-                        opacity: animated && videoReady ? 1 : 0,
+                        opacity: (animated || autoPlayVideo) && videoReady ? 1 : 0,
                       },
                     },
                   ]}
                   onCanPlay={handleVideoCanPlay}
-                  {...(animated ? { autoPlay: true, preload: "auto" } : { preload: "none" })}
+                  {...((animated || autoPlayVideo) ? { autoPlay: true, preload: "auto" } : { preload: "none" })}
                 >
                   <source src={card.video} type="video/mp4" />
                 </video>

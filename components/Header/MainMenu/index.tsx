@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import ScandiBlock from "../../ScandiBlock";
 import ButtonTemplate from "../../Buttons/Button";
@@ -23,6 +24,17 @@ import FooterLinksSection from "./FooterLinksSection";
 import CollectionItem from "../../Pages/Home/Collection/CollectionItem";
 import Logo from "../../Icons/Logo";
 import { getBaseUrl } from "../../../source/utils";
+import MenuPortal from "./MenuPortal";
+
+// Lazy-load Pop modal for card preview
+const CardPop = dynamic(() => import("../../Pages/CardPage/Pop"), { ssr: false });
+
+// Type for the selected card when popup is open
+type SelectedCard = {
+  deckSlug: string;
+  artistSlug: string;
+  cardImg: string;
+} | null;
 
 // Layout constants
 const SCROLL_THRESHOLD = 500;
@@ -70,6 +82,23 @@ const MainMenu: FC<
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const hasInitialized = useRef(false);
   const prefetchedRef = useRef<Set<string>>(new Set());
+
+  // Card popup state
+  const [selectedCard, setSelectedCard] = useState<SelectedCard>(null);
+
+  // Popup handlers
+  const handleCardClick = useCallback(
+    (deckSlug: string, artistSlug: string, cardImg: string) => {
+      setSelectedCard({ deckSlug, artistSlug, cardImg });
+    },
+    []
+  );
+
+  const handleCloseCardPopup = useCallback(() => {
+    setSelectedCard(null);
+  }, []);
+
+  const isCardPopupOpen = selectedCard !== null;
 
   // Intent-based prefetching for instant navigation
   const prefetchPage = useCallback((href: string) => {
@@ -316,7 +345,7 @@ const MainMenu: FC<
                       onClick={handleClick}
                     >
                       <ArrowButton
-                        css={(theme) => [{ textAlign: "start", color: theme.colors.black50 }]}
+                        css={{ textAlign: "start", color: "black" }}
                         size="small"
                         noColor={true}
                         base={true}
@@ -332,11 +361,12 @@ const MainMenu: FC<
               {hoveredProduct ? (
                 <CollectionItem
                   product={hoveredProduct}
-                  paletteOnHover="light"
+                  paletteOnHover={hoveredProduct.deck?.slug === "crypto" ? "dark" : "light"}
                   css={{ height: "100%" }}
                   priority
                   currentDeckSlug={currentDeckSlug}
                   onClose={handleClose}
+                  onCardClick={handleCardClick}
                 />
               ) : (
                 <DeckPreviewSkeleton />
@@ -348,6 +378,19 @@ const MainMenu: FC<
         <NewsletterSection />
         <FooterLinksSection />
       </div>
+
+      {/* Card popup for preview card clicks */}
+      <MenuPortal show={isCardPopupOpen}>
+        {selectedCard && (
+          <CardPop
+            close={handleCloseCardPopup}
+            cardSlug={selectedCard.artistSlug}
+            deckId={selectedCard.deckSlug}
+            initialImg={selectedCard.cardImg}
+            showNavigation={false}
+          />
+        )}
+      </MenuPortal>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import { FC, HTMLAttributes, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/router";
-import { useCardPop, useCardsForDeck } from "../../../../hooks/card";
+import { useCardPop, useCardsForDeck, useCards } from "../../../../hooks/card";
 import { useDecks } from "../../../../hooks/deck";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
-import Card from "../../../Card";
+import FlippableCard from "../../../Card/FlippableCard";
 import { useFavorites } from "../../../Contexts/favorites";
 import Plus from "../../../Icons/Plus";
 import Star from "../../../Icons/Star";
@@ -157,6 +157,20 @@ const Pop: FC<
   const { decks } = useDecks();
   const deck = useMemo(() => decks?.find((d) => d.slug === deckId), [decks, deckId]);
 
+  // Fetch cards for the deck to find the backside card
+  const { cards } = useCards(
+    deck && {
+      variables: { deck: deck._id },
+    }
+  );
+
+  // Find the backside card for this deck
+  const backsideCard = useMemo(() => {
+    if (!cards) return null;
+    const backsides = cards.filter((c) => c.value === "backside");
+    return backsides.length > 0 ? backsides[0] : null;
+  }, [cards]);
+
   // Use lightweight popup query (cache-and-network for fresh data on navigation)
   const { card, loading: cardLoading } = useCardPop({
     variables: { deckSlug: deckId, slug: cardState },
@@ -232,13 +246,14 @@ const Pop: FC<
             }}
           >
             {card && card.artist?.slug === cardState ? (
-              <Card
+              <FlippableCard
                 key={"PopCard" + cardState}
                 css={[{ margin: "0 auto" }]}
                 card={{
                   ...card,
                   deck: { slug: deckId } as unknown as GQL.Deck,
                 }}
+                backsideCard={backsideCard}
                 noArtist
                 size="big"
                 // Autoplay video if card has one
@@ -246,7 +261,7 @@ const Pop: FC<
               />
             ) : initialImg && cardState === cardSlug ? (
               // Show initial image instantly while card data loads
-              <Card
+              <FlippableCard
                 key="PopCard-initial"
                 css={[{ margin: "0 auto" }]}
                 card={{
@@ -255,6 +270,7 @@ const Pop: FC<
                   video: initialVideo,
                   deck: { slug: deckId } as unknown as GQL.Deck,
                 } as GQL.Card}
+                backsideCard={backsideCard}
                 noArtist
                 size="big"
                 animated={!!initialVideo}
