@@ -11,7 +11,7 @@ import {
   useMemo,
 } from "react";
 import { useRouter } from "next/router";
-import { useDecks, useDeck } from "../../../hooks/deck";
+import { useDecks } from "../../../hooks/deck";
 import { useCardsForDeck, useCard } from "../../../hooks/card";
 import { sortCards } from "../../../source/utils/sortCards";
 
@@ -84,22 +84,25 @@ export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
     localArtistSlug ||
     (typeof routerArtistSlug === "string" ? routerArtistSlug : pathArtistSlug);
 
-  // Fetch deck data
-  const { deck } = useDeck({
-    variables: { slug: deckId },
-    skip: !deckId,
+  // Get deck from cached decks (instant from Apollo cache)
+  // This avoids a separate network request for deck data
+  const { decks } = useDecks();
+  const deck = useMemo(() => {
+    if (!decks || !deckId) return undefined;
+    return decks.find((d) => d.slug === deckId);
+  }, [decks, deckId]);
+
+  // Fetch all cards for deck - no edition filter for faster initial load
+  // deck._id comes from cached decks, so this query can start immediately
+  const { cards } = useCardsForDeck({
+    variables: { deck: deck?._id },
+    skip: !deck?._id,
   });
 
-  // Fetch current card for edition info (needed for Future deck)
+  // Fetch current card for detailed info (runs in parallel with cards query)
   const { card: currentCard } = useCard({
     variables: { slug: artistSlug, deckSlug: deckId },
     skip: !artistSlug || !deckId,
-  });
-
-  // Fetch all cards for deck
-  const { cards } = useCardsForDeck({
-    variables: { deck: deck?._id, edition: currentCard?.edition },
-    skip: !deck?._id,
   });
 
   // Sorted cards (matches CardList and Pop order)
