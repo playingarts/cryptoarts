@@ -1,213 +1,208 @@
-import { FC, HTMLAttributes } from "react";
+"use client";
+
+import { FC, HTMLAttributes, useMemo, useState, useCallback } from "react";
 import Grid from "../../../Grid";
 import { useRouter } from "next/router";
-import Card from "../../../Card";
-import { useCard } from "../../../../hooks/card";
-import Text from "../../../Text";
-import ArrowButton from "../../../Buttons/ArrowButton";
-import Link from "../../../Link";
+import { useCard, useCards } from "../../../../hooks/card";
 import { useDeck } from "../../../../hooks/deck";
-import ScandiBlock from "../../../ScandiBlock";
-import ArrowedButton from "../../../Buttons/ArrowedButton";
-import Instagram from "../../../Icons/Instagram";
-import Twitter from "../../../Icons/Twitter";
-import Website from "../../../Icons/Website";
-import Facebook from "../../../Icons/Facebook";
-import Behance from "../../../Icons/Behance";
-import Foundation from "../../../Icons/Foundation";
+import { useProducts } from "../../../../hooks/product";
 import { usePalette } from "../../Deck/DeckPaletteContext";
 import { theme } from "../../../../styles/theme";
+import { SSRCardProps } from "../../../../pages/[deckId]/[artistSlug]";
 
-const socialIcons: Record<string, FC> = {
-  website: Website,
-  instagram: Instagram,
-  facebook: Facebook,
-  twitter: Twitter,
-  behance: Behance,
-  foundation: Foundation,
+// Sub-components with progressive loading
+import HeroCard from "./HeroCard";
+import HeroHeader from "./HeroHeader";
+import HeroArtist from "./HeroArtist";
+import HeroCardInfo from "./HeroCardInfo";
+import HeroDeck from "./HeroDeck";
+
+/** Helper to build URLs with base link */
+const buildUrl = (path: string): string => {
+  const baseLink = process.env.NEXT_PUBLIC_BASELINK || "";
+  return `${baseLink}${path}`;
 };
 
-const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+interface HeroProps extends HTMLAttributes<HTMLElement> {
+  ssrCard?: SSRCardProps;
+}
+
+/**
+ * Card page Hero with progressive loading:
+ * P0: Card image + artist name/country (instant from ssrCard)
+ * P1: Artist bio, userpic, socials (lazy)
+ * P2: Card description/info (lazy)
+ * P3: Deck info (lazy)
+ */
+const Hero: FC<HeroProps> = ({ ssrCard }) => {
   const {
     query: { artistSlug, deckId },
   } = useRouter();
 
-  const { card } = useCard({
-    variables: { slug: artistSlug, deckSlug: deckId },
-  });
-
-  const { deck } = useDeck({
-    variables: { slug: deckId },
-  });
-
   const { palette } = usePalette();
+  const isDark = deckId === "crypto" || palette === "dark";
+
+  // Loading states for progressive sections
+  const [loadArtist, setLoadArtist] = useState(false);
+  const [loadCardInfo, setLoadCardInfo] = useState(false);
+  const [loadDeck, setLoadDeck] = useState(false);
+
+  // P0: Card data - use SSR card immediately, Apollo data when ready
+  const { card: apolloCard } = useCard({
+    variables: { slug: artistSlug, deckSlug: deckId },
+    skip: !artistSlug || !deckId,
+  });
+  const card = apolloCard || ssrCard;
+
+  // P1: Artist data - triggered when approaching "The Artist" section
+  // Artist data is already in card, just controls skeleton display
+  const artistLoading = loadArtist && !apolloCard;
+
+  // Fetch deck data - needed for backside card (fetch immediately, not lazily)
+  const { deck, loading: deckQueryLoading } = useDeck({
+    variables: { slug: deckId },
+    skip: !deckId,
+  });
+
+  // Fetch cards for the deck to find the backside card (fetch immediately)
+  const { cards } = useCards(
+    deck && {
+      variables: { deck: deck._id },
+    }
+  );
+
+  // Track if deck section should show (for skeleton display)
+  const deckLoading = loadDeck && deckQueryLoading;
+
+  // Find the backside card for this deck
+  const backsideCard = useMemo(() => {
+    if (!cards) return null;
+    const backsides = cards.filter((c) => c.value === "backside");
+    return backsides.length > 0 ? backsides[0] : null;
+  }, [cards]);
+
+  // Products for deck image (only after deck loads)
+  const { products } = useProducts();
+
+  // Card edition info
+  const cardEdition = card?.edition;
+  const editionInfo = cardEdition
+    ? deck?.editions?.find((e) => e.name === cardEdition)
+    : undefined;
+
+  // URLs
+  const editionSlug = editionInfo?.url || deckId;
+  const shopUrl = buildUrl(`/shop/${editionSlug}`);
+  const deckUrl = buildUrl(`/${editionSlug}`);
+
+  // Product deck slug mapping for Future editions
+  const productDeckSlug =
+    cardEdition === "chapter ii" ? "future-ii" : editionSlug;
+
+  // Deck image from product
+  const product = products?.find(
+    (p) => p.type === "deck" && p.deck?.slug === productDeckSlug
+  );
+  const deckImage = product?.image2 || editionInfo?.img || deck?.image;
+
+  // Format edition name
+  const editionDisplayName = cardEdition
+    ? cardEdition.replace(/\b\w/g, (c: string) => c.toUpperCase())
+    : null;
+
+  // Progressive loading triggers
+  const handleArtistVisible = useCallback(() => {
+    setLoadArtist(true);
+    // Pre-trigger card info loading
+    setTimeout(() => setLoadCardInfo(true), 100);
+  }, []);
+
+  const handleCardInfoVisible = useCallback(() => {
+    setLoadCardInfo(true);
+    // Pre-trigger deck loading
+    setTimeout(() => setLoadDeck(true), 100);
+  }, []);
+
+  const handleDeckVisible = useCallback(() => {
+    setLoadDeck(true);
+  }, []);
 
   return (
     <Grid
-      css={[{ paddingTop: 145, paddingBottom: 150 }]}
+      css={{ paddingTop: 145, paddingBottom: 150 }}
       style={
         deckId === "crypto"
           ? { backgroundColor: theme.colors.darkBlack }
-          : card && card.cardBackground
+          : card?.cardBackground
           ? { backgroundColor: card.cardBackground }
           : {}
       }
     >
-      <div css={[{ gridColumn: "span 6" }]}>
-        {card && (
-          <Card
-            noArtist
-            size="big"
-            card={card}
-            css={[
-              {
-                margin: "auto",
-                position: "sticky",
-                top: 100,
-                paddingTop: 30,
-                paddingBottom: 60,
-              },
-            ]}
-          />
-        )}
+      {/* Left column: Card */}
+      <div
+        css={{
+          gridColumn: "span 6",
+          position: "sticky",
+          top: 100,
+          alignSelf: "start",
+          paddingTop: 30,
+        }}
+      >
+        {/* Key forces animation to replay on page navigation */}
+        <HeroCard key={`card-${artistSlug}`} card={card} backsideCard={backsideCard} dark={isDark} />
       </div>
-      <div css={[{ gridColumn: "span 6" }]}>
-        <div
-          css={[
-            {
-              display: "grid",
-              alignContent: "center",
-              maxWidth: 520,
-              height: 610,
-            },
-          ]}
-        >
-          <Text typography="newh1">{card ? card.artist.name : "..."}</Text>
-          <Text typography="newh4">{card ? card.artist.country : "..."}</Text>
-          <div
-            css={[
-              { display: "flex", alignItems: "cetner", gap: 30, marginTop: 30 },
-            ]}
-          >
-            <Link
-              href={
-                (process.env.NEXT_PUBLIC_BASELINK || "") + "/shop/" + deckId
-              }
-            >
-              <ArrowButton color="accent">Shop this deck</ArrowButton>
-            </Link>
-            <Link
-              href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/" + deckId}
-            >
-              <ArrowButton size="small" noColor base>
-                Explore all cards
-              </ArrowButton>
-            </Link>
-          </div>
-        </div>
-        <ScandiBlock css={[{ paddingTop: 15, display: "block" }]}>
-          <ArrowedButton>The artist</ArrowedButton>
 
-          <div
-            css={[
-              {
-                maxWidth: 520,
-              },
-            ]}
-          >
-            <div css={[{ marginTop: 60, display: "flex", gap: 30 }]}>
-              <img
-                src={card ? card.artist.userpic : undefined}
-                alt=""
-                css={[
-                  {
-                    borderRadius: 10,
-                    aspectRatio: "1",
-                    height: 80,
-                  },
-                ]}
-              />
-              <div css={[{ flexBasis: 0, flexGrow: 1 }]}>
-                <Text typography="paragraphSmall">
-                  {card ? card.artist.info : "..."}
-                </Text>
-                {card && (
-                  <div
-                    css={(theme) => [
-                      {
-                        marginTop: 30,
-                        display: "flex",
-                        gap: 30,
-                        alignItems: "center",
-                      },
-                      palette === "dark" && {
-                        color: theme.colors.white75,
-                      },
-                    ]}
-                  >
-                    {Object.entries(card.artist.social).map(([key, value]) => {
-                      const Icon = socialIcons[key];
-                      if (!value || !Icon) {
-                        return null;
-                      }
+      {/* Right column: Info sections */}
+      <div css={{ gridColumn: "span 6" }}>
+        {/* P0: Artist name + country + CTAs (instant) */}
+        {/* Key forces animation to replay on page navigation */}
+        <HeroHeader
+          key={`header-${artistSlug}`}
+          artistName={card?.artist?.name}
+          country={card?.artist?.country ?? undefined}
+          shopUrl={shopUrl}
+          deckUrl={deckUrl}
+          dark={isDark}
+        />
 
-                      return (
-                        <Link href={value} key={value}>
-                          <Icon />
-                        </Link>
-                      );
-                    })}
-                  </div>
-                )}
-              </div>
-            </div>
-            <Text css={[{ marginTop: 60 }]}>{card ? card.info : null} </Text>
-          </div>
-        </ScandiBlock>
-        {deck && (
-          <ScandiBlock
-            css={[{ paddingTop: 15, marginTop: 60, display: "block" }]}
-          >
-            <ArrowedButton css={[{ display: "block", marginTop: 30 }]}>
-              The deck
-            </ArrowedButton>
-
-            <img
-              src={deck.product?.image}
-              alt=""
-              css={[{ height: 300, aspectRatio: "1", objectFit: "cover" }]}
-            />
-
-            <Text css={[{ marginTop: 30 }]}>
-              This card belongs to the {deck.title} deck — {deck.description}
-            </Text>
-            <div
-              css={[
-                {
-                  display: "flex",
-                  alignItems: "cetner",
-                  gap: 30,
-                  marginTop: 30,
-                },
-              ]}
-            >
-              <Link
-                href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/" + deckId}
-              >
-                <ArrowButton color="accent">Explore all cards</ArrowButton>
-              </Link>
-              <Link
-                href={
-                  (process.env.NEXT_PUBLIC_BASELINK || "") + "/shop/" + deckId
+        {/* P1: The Artist section (lazy) */}
+        <HeroArtist
+          artist={
+            apolloCard?.artist
+              ? {
+                  name: apolloCard.artist.name,
+                  userpic: apolloCard.artist.userpic,
+                  info: apolloCard.artist.info,
+                  social: apolloCard.artist.social,
                 }
-              >
-                <ArrowButton size="small" noColor base>
-                  Shop this deck
-                </ArrowButton>
-              </Link>
-            </div>
-          </ScandiBlock>
-        )}
+              : loadArtist
+              ? ssrCard?.artist
+              : undefined
+          }
+          dark={isDark}
+          onVisible={handleArtistVisible}
+          loading={artistLoading}
+        />
+
+        {/* P2: Card info/description (lazy) */}
+        <HeroCardInfo
+          info={loadCardInfo ? card?.info : undefined}
+          dark={isDark}
+          onVisible={handleCardInfoVisible}
+          loading={loadCardInfo && !card?.info && !!ssrCard}
+        />
+
+        {/* P3: The Deck section (lazy) */}
+        <HeroDeck
+          deck={deck}
+          deckImage={deckImage}
+          editionDisplayName={editionDisplayName}
+          shopUrl={shopUrl}
+          deckUrl={deckUrl}
+          dark={isDark}
+          onVisible={handleDeckVisible}
+          loading={deckLoading}
+        />
       </div>
     </Grid>
   );

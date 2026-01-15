@@ -36,6 +36,14 @@ jest.mock("../../components/Card", () => ({
   ),
 }));
 
+// Mock the FlippingHeroCard component (used exclusively now)
+jest.mock("../../components/Pages/Deck/Hero/HeroCards/FlippingHeroCard", () => ({
+  __esModule: true,
+  default: ({ initialCard }: { initialCard: { _id: string } }) => (
+    <div data-testid={`card-${initialCard._id}`}>Card {initialCard._id}</div>
+  ),
+}));
+
 // Mock Apollo useLazyQuery
 const mockQueryFn = jest.fn();
 jest.mock("@apollo/client/react", () => ({

@@ -2,7 +2,6 @@ import { FC, forwardRef, HTMLAttributes, useEffect, useState, useRef, useCallbac
 import { useRouter } from "next/router";
 import { usePalette } from "../../DeckPaletteContext";
 import { useHeroCardsContext } from "../../HeroCardsContext";
-import Card from "../../../../Card";
 import FlippingHeroCard from "./FlippingHeroCard";
 import { HeroCardProps } from "../../../../../pages/[deckId]";
 import { useCardsForDeck } from "../../../../../hooks/card";
@@ -355,6 +354,13 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
     // Show retry UI when fetch failed and not currently fetching
     const showRetry = fetchFailed && !isFetching && !showCards;
 
+    // Use allDeckCards when available, otherwise use displayedCards (cast to GQL.Card)
+    // This ensures we always render FlippingHeroCard (not switch from Card to FlippingHeroCard)
+    // which prevents the visual flash on load
+    const cardsForFlipping = allDeckCards && allDeckCards.length > 2
+      ? allDeckCards
+      : displayedCards?.map(c => c as unknown as GQL.Card) ?? [];
+
     // Animation key: changes whenever displayedCards changes to re-trigger animation
     // Uses first card's _id to ensure animation plays on each new set of cards
     const animationKey = displayedCards?.[0]?._id ?? "none";
@@ -379,48 +385,20 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
         {showCards && displayedCards ? (
           <>
             {/* Left card (front) - animates first */}
+            {/* Always use FlippingHeroCard to prevent flash when allDeckCards loads */}
             <CardWrapper key={`left-${animationKey}`} position="left" animate>
-              {/*
-               * Type cast: HeroCardProps is a subset of GQL.Card, containing only the
-               * fields needed for rendering (_id, img, video, artist). The Card component
-               * only reads these fields, making the cast safe. We use `as unknown as`
-               * because TypeScript can't verify structural compatibility at compile time
-               * when the types come from different sources (SSR props vs GraphQL schema).
-               */}
-              {allDeckCards && allDeckCards.length > 2 ? (
-                <FlippingHeroCard
-                  cards={allDeckCards}
-                  initialCard={displayedCards[0] as unknown as GQL.Card}
-                  animated
-                />
-              ) : (
-                <Card
-                  card={displayedCards[0] as unknown as GQL.Card}
-                  size="hero"
-                  noArtist
-                  noFavorite
-                  animated
-                  priority
-                />
-              )}
+              <FlippingHeroCard
+                cards={cardsForFlipping}
+                initialCard={displayedCards[0] as unknown as GQL.Card}
+                animated
+              />
             </CardWrapper>
             {/* Right card (back) - animates after 0.15s delay */}
             <CardWrapper key={`right-${animationKey}`} position="right" animate>
-              {allDeckCards && allDeckCards.length > 2 ? (
-                <FlippingHeroCard
-                  cards={allDeckCards}
-                  initialCard={displayedCards[1] as unknown as GQL.Card}
-                />
-              ) : (
-                <Card
-                  card={displayedCards[1] as unknown as GQL.Card}
-                  size="hero"
-                  noArtist
-                  noFavorite
-                  interactive
-                  priority
-                />
-              )}
+              <FlippingHeroCard
+                cards={cardsForFlipping}
+                initialCard={displayedCards[1] as unknown as GQL.Card}
+              />
             </CardWrapper>
           </>
         ) : showRetry ? (

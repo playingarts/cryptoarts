@@ -9,6 +9,7 @@ describe("source/deckConfig", () => {
         palette: "light",
         showTestimonials: true,
         showGallery: true,
+        hasAR: false,
         sections: ["Gallery", "Reviews"],
       });
     });
@@ -20,6 +21,7 @@ describe("source/deckConfig", () => {
         palette: "light",
         showTestimonials: true,
         showGallery: true,
+        hasAR: false,
         sections: ["Gallery", "Reviews"],
       });
     });
@@ -31,6 +33,7 @@ describe("source/deckConfig", () => {
         palette: "dark",
         showTestimonials: false,
         showGallery: false,
+        hasAR: true,
         sections: ["PACE", "AR"],
       });
     });
@@ -55,6 +58,7 @@ describe("source/deckConfig", () => {
         "palette",
         "showTestimonials",
         "showGallery",
+        "hasAR",
         "sections",
       ];
 
