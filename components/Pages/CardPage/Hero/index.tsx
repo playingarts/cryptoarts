@@ -2,13 +2,11 @@
 
 import { FC, HTMLAttributes, useMemo, useState, useCallback } from "react";
 import Grid from "../../../Grid";
-import { useRouter } from "next/router";
-import { useCard, useCards } from "../../../../hooks/card";
-import { useDeck } from "../../../../hooks/deck";
 import { useProducts } from "../../../../hooks/product";
 import { usePalette } from "../../Deck/DeckPaletteContext";
 import { theme } from "../../../../styles/theme";
 import { SSRCardProps } from "../../../../pages/[deckId]/[artistSlug]";
+import { useCardPageContext } from "../CardPageContext";
 
 // Sub-components with progressive loading
 import HeroCard from "./HeroCard";
@@ -35,9 +33,8 @@ interface HeroProps extends HTMLAttributes<HTMLElement> {
  * P3: Deck info (lazy)
  */
 const Hero: FC<HeroProps> = ({ ssrCard }) => {
-  const {
-    query: { artistSlug, deckId },
-  } = useRouter();
+  // Use context for instant navigation
+  const { artistSlug, deckId, sortedCards, deck } = useCardPageContext();
 
   const { palette } = usePalette();
   const isDark = deckId === "crypto" || palette === "dark";
@@ -47,39 +44,28 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
   const [loadCardInfo, setLoadCardInfo] = useState(false);
   const [loadDeck, setLoadDeck] = useState(false);
 
-  // P0: Card data - use SSR card immediately, Apollo data when ready
-  const { card: apolloCard } = useCard({
-    variables: { slug: artistSlug, deckSlug: deckId },
-    skip: !artistSlug || !deckId,
-  });
-  const card = apolloCard || ssrCard;
+  // Find current card from sorted cards (instant from context)
+  const cachedCard = useMemo(() => {
+    if (!sortedCards || sortedCards.length === 0 || !artistSlug) return null;
+    return sortedCards.find((c) => c.artist?.slug === artistSlug) || null;
+  }, [sortedCards, artistSlug]);
+
+  // P0: Card data - priority: cached -> ssr
+  const card = cachedCard || ssrCard;
 
   // P1: Artist data - triggered when approaching "The Artist" section
-  // Artist data is already in card, just controls skeleton display
-  const artistLoading = loadArtist && !apolloCard;
-
-  // Fetch deck data - needed for backside card (fetch immediately, not lazily)
-  const { deck, loading: deckQueryLoading } = useDeck({
-    variables: { slug: deckId },
-    skip: !deckId,
-  });
-
-  // Fetch cards for the deck to find the backside card (fetch immediately)
-  const { cards } = useCards(
-    deck && {
-      variables: { deck: deck._id },
-    }
-  );
+  // Artist data is already in card from cachedCard
+  const artistLoading = loadArtist && !cachedCard;
 
   // Track if deck section should show (for skeleton display)
-  const deckLoading = loadDeck && deckQueryLoading;
+  const deckLoading = loadDeck && !deck;
 
   // Find the backside card for this deck
   const backsideCard = useMemo(() => {
-    if (!cards) return null;
-    const backsides = cards.filter((c) => c.value === "backside");
+    if (!sortedCards || sortedCards.length === 0) return null;
+    const backsides = sortedCards.filter((c) => c.value === "backside");
     return backsides.length > 0 ? backsides[0] : null;
-  }, [cards]);
+  }, [sortedCards]);
 
   // Products for deck image (only after deck loads)
   const { products } = useProducts();
@@ -168,12 +154,12 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
         {/* P1: The Artist section (lazy) */}
         <HeroArtist
           artist={
-            apolloCard?.artist
+            cachedCard?.artist
               ? {
-                  name: apolloCard.artist.name,
-                  userpic: apolloCard.artist.userpic,
-                  info: apolloCard.artist.info,
-                  social: apolloCard.artist.social,
+                  name: cachedCard.artist.name || "",
+                  userpic: cachedCard.artist.userpic,
+                  info: cachedCard.artist.info,
+                  social: cachedCard.artist.social,
                 }
               : loadArtist
               ? ssrCard?.artist

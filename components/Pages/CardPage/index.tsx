@@ -11,6 +11,7 @@ import MoreSkeleton from "./More/MoreSkeleton";
 import { withApollo } from "../../../source/apollo";
 import { SSRCardProps } from "../../../pages/[deckId]/[artistSlug]";
 import { getDeckConfig } from "../../../source/deckConfig";
+import { CardPageProvider } from "./CardPageContext";
 
 // Code-split below-fold components (SSR disabled for lazy loading)
 const More = dynamic(() => import("./More"), { ssr: false });
@@ -44,7 +45,7 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
   const dark = useDarkPalette(typeof deckId === "string" ? deckId : undefined);
 
   return (
-    <>
+    <CardPageProvider>
       <Header />
       <Hero ssrCard={ssrCard} />
 
@@ -66,7 +67,7 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
       <LazySection rootMargin="100px" minHeight={400}>
         <Footer />
       </LazySection>
-    </>
+    </CardPageProvider>
   );
 };
 

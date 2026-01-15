@@ -40,8 +40,9 @@ export const CardWithSlugsFragment = gql`
 `;
 
 /**
- * Card for deck page listing (minimal fields for rendering)
- * Only includes fields used by Card component and CardList
+ * Card for deck page listing and card page navigation
+ * Includes fields used by Card component, CardList, and Hero section
+ * This data is cached when viewing the deck, enabling instant card-to-card navigation
  */
 export const CardForDeckFragment = gql`
   fragment CardForDeckFragment on Card {
@@ -51,12 +52,24 @@ export const CardForDeckFragment = gql`
     value
     suit
     info
+    background
+    cardBackground
+    edition
     artist {
       name
       slug
       userpic
       country
       info
+      social {
+        website
+        instagram
+        facebook
+        twitter
+        behance
+        dribbble
+        foundation
+      }
     }
   }
 `;
