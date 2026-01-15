@@ -2,6 +2,8 @@ export interface DeckConfig {
   palette: "dark" | "light";
   showTestimonials: boolean;
   showGallery: boolean;
+  /** Whether this deck has AR feature enabled */
+  hasAR: boolean;
   sections: string[];
 }
 
@@ -9,6 +11,7 @@ const defaultConfig: DeckConfig = {
   palette: "light",
   showTestimonials: true,
   showGallery: true,
+  hasAR: false,
   sections: ["Gallery", "Reviews"],
 };
 
@@ -17,7 +20,12 @@ const deckConfigs: Record<string, Partial<DeckConfig>> = {
     palette: "dark",
     showTestimonials: false,
     showGallery: false,
+    hasAR: true,
     sections: ["PACE", "AR"],
+  },
+  zero: {
+    hasAR: true,
+    sections: ["Gallery", "Reviews", "AR"],
   },
 };
 
