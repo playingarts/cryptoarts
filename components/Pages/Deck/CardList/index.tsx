@@ -238,9 +238,9 @@ const ListItem: FC<{
   );
 };
 
-/** Shimmer animation style */
+/** Shimmer animation style - dark mode */
 const shimmerStyle = {
-  background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+  background: "linear-gradient(90deg, #2d2d2d 0%, #3a3a3a 50%, #2d2d2d 100%)",
   backgroundSize: "200% 100%",
   animation: "cardShimmer 1.5s infinite linear",
   "@keyframes cardShimmer": {
