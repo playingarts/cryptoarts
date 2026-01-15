@@ -391,6 +391,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
                 <FlippingHeroCard
                   cards={allDeckCards}
                   initialCard={displayedCards[0] as unknown as GQL.Card}
+                  animated
                 />
               ) : (
                 <Card
@@ -398,7 +399,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
                   size="hero"
                   noArtist
                   noFavorite
-                  interactive
+                  animated
                   priority
                 />
               )}

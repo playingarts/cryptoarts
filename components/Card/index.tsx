@@ -143,21 +143,26 @@ const Card: FC<CardProps> = memo(
           });
         };
 
-        // Check if video can already play
-        if (videoElement.readyState >= 3) {
-          // HAVE_FUTURE_DATA or higher - can play now
-          playWhenReady();
-        } else {
-          // Need to wait for data to load
-          // Get src from <source> element since video element doesn't have src attribute
-          const sourceElement = videoElement.querySelector("source");
-          const videoSrc = sourceElement?.getAttribute("src") || "";
+        // Use card.video prop directly - this is the source of truth
+        // Don't use videoElement.src as it may be stale from a previous card
+        const videoSrc = card.video;
 
-          if (videoSrc) {
+        if (videoSrc) {
+          // Always ensure video element has the correct src before checking readyState
+          // This prevents playing a cached video from a different card
+          if (videoElement.src !== videoSrc) {
+            videoElement.src = videoSrc;
+          }
+
+          // Check if video can already play (and has the correct source loaded)
+          if (videoElement.readyState >= 3) {
+            // HAVE_FUTURE_DATA or higher - can play now
+            playWhenReady();
+          } else {
+            // Need to wait for data to load
             videoElement.preload = "auto";
             videoElement.addEventListener("canplay", playWhenReady, { once: true });
-            // Set src directly on video element to trigger loading
-            videoElement.src = videoSrc;
+            videoElement.load();
           }
         }
       }
@@ -170,13 +175,8 @@ const Card: FC<CardProps> = memo(
         return;
       }
 
-      // Get src from <source> element since video element doesn't have src attribute
-      const sourceElement = videoElement.querySelector("source");
-      const videoSrc = sourceElement?.getAttribute("src") || "";
-
-      if (!videoSrc) {
-        return;
-      }
+      // Use card.video prop directly - this is the source of truth
+      const videoSrc = card.video;
 
       const playWhenReady = () => {
         videoElement.play().then(() => {
@@ -186,6 +186,11 @@ const Card: FC<CardProps> = memo(
         });
       };
 
+      // Always ensure video element has the correct src
+      if (videoElement.src !== videoSrc) {
+        videoElement.src = videoSrc;
+      }
+
       // Check if video can already play
       if (videoElement.readyState >= 3) {
         playWhenReady();
@@ -193,10 +198,27 @@ const Card: FC<CardProps> = memo(
         // Need to wait for data to load
         videoElement.preload = "auto";
         videoElement.addEventListener("canplay", playWhenReady, { once: true });
-        // Set src directly on video element to trigger loading
-        videoElement.src = videoSrc;
+        videoElement.load();
       }
     }, [animated, card.video]);
+
+    // Reset video state when card changes (e.g., during flip animation)
+    // This ensures we don't play a stale video from a previous card
+    useEffect(() => {
+      const videoElement = video.current;
+      if (!videoElement) return;
+
+      // Reset video state - pause and clear the loaded video
+      videoElement.pause();
+      videoElement.currentTime = 0;
+      setVideoReady(false);
+
+      // If the video src doesn't match the current card, reset it
+      if (card.video && videoElement.src && !videoElement.src.includes(card.video.split('/').pop() || '')) {
+        videoElement.src = "";
+        videoElement.load();
+      }
+    }, [card.video]);
 
     // Cleanup video source only on unmount to prevent memory leaks
     useEffect(() => {

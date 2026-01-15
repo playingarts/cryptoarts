@@ -98,17 +98,21 @@ interface FlippingHeroCardProps {
   initialCard: GQL.Card;
   /** Whether flipping is paused (e.g., user scrolled away) */
   isPaused?: boolean;
+  /** Whether to always play video (instead of on hover only) */
+  animated?: boolean;
 }
 
 const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   cards,
   initialCard,
   isPaused = false,
+  animated = false,
 }) => {
   // All hooks must be called unconditionally (React rules of hooks)
-  // Use refs for cards to avoid re-renders during animation
-  const frontCardRef = useRef(initialCard);
-  const backCardRef = useRef(initialCard);
+  // Use state for cards so React re-renders Card components when they change
+  // This ensures video sources stay in sync with card data
+  const [frontCard, setFrontCard] = useState(initialCard);
+  const [backCard, setBackCard] = useState(initialCard);
   const rotationRef = useRef(0);
 
   // Track shown indices - reset when all have been shown
@@ -186,8 +190,8 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
     if (shownIndicesRef.current.size >= cards.length) {
       // Keep only the current index so we don't repeat immediately
       const currentIdx = Math.floor((rotationRef.current / 180) % 2) === 0
-        ? cards.findIndex((c) => c._id === frontCardRef.current._id)
-        : cards.findIndex((c) => c._id === backCardRef.current._id);
+        ? cards.findIndex((c) => c._id === frontCard._id)
+        : cards.findIndex((c) => c._id === backCard._id);
       shownIndicesRef.current = new Set([currentIdx >= 0 ? currentIdx : 0]);
     }
 
@@ -209,7 +213,7 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
     shownIndicesRef.current.add(newIndex);
 
     return newIndex;
-  }, [cards]);
+  }, [cards, frontCard._id, backCard._id]);
 
   // Track if a flip is in progress to prevent double-clicks
   const isFlippingRef = useRef(false);
@@ -243,11 +247,12 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
 
     const isShowingFront = (rotationRef.current / 180) % 2 === 0;
 
-    // Set the back face with the preloaded card
+    // Set the back face with the preloaded card using state setter
+    // This triggers React re-render so Card component gets updated props
     if (isShowingFront) {
-      backCardRef.current = nextCard;
+      setBackCard(nextCard);
     } else {
-      frontCardRef.current = nextCard;
+      setFrontCard(nextCard);
     }
 
     // Set duration based on manual vs auto flip
@@ -365,11 +370,12 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
           }}
         >
           <Card
-            card={frontCardRef.current}
+            card={frontCard}
             size="hero"
             noArtist
             noFavorite
             interactive={false}
+            animated={animated}
             priority
           />
         </div>
@@ -387,11 +393,12 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
           }}
         >
           <Card
-            card={backCardRef.current}
+            card={backCard}
             size="hero"
             noArtist
             noFavorite
             interactive={false}
+            animated={animated}
             priority
           />
         </div>
