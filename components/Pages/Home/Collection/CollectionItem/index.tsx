@@ -395,10 +395,9 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
               href={currentDeckSlug === product.deck?.slug ? undefined : `${process.env.NEXT_PUBLIC_BASELINK || ""}/${product.deck?.slug}`}
               onClick={onClose}
               css={(theme) => [
-                hover &&
-                  paletteOnHover === "dark" && {
-                    color: theme.colors.white75,
-                  },
+                hover && paletteOnHover === "dark"
+                  ? { color: theme.colors.white75 }
+                  : { color: theme.colors.black50 },
               ]}
               noColor
               base
@@ -412,10 +411,9 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
               base
               size="small"
               css={(theme) => [
-                hover &&
-                  paletteOnHover === "dark" && {
-                    color: theme.colors.white75,
-                  },
+                hover && paletteOnHover === "dark"
+                  ? { color: theme.colors.white75 }
+                  : { color: theme.colors.black50 },
               ]}
             >
               Shop

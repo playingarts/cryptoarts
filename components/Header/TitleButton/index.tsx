@@ -66,9 +66,10 @@ const TitleButton: FC<
         <Menu css={(theme) => [{ [theme.mq.sm]: { marginRight: 10 } }]} />
 
         {width >= breakpoints.sm && (
-          <span css={{ position: "relative" }}>
+          <span css={{ display: "inline-grid" }}>
             <span
               css={(theme) => ({
+                gridArea: "1 / 1",
                 opacity: deckId && deck && showSiteNav === "afterTop" ? 0 : 1,
                 transition: theme.transitions.fast("opacity"),
               })}
@@ -78,8 +79,7 @@ const TitleButton: FC<
             {deckId && deck && (
               <span
                 css={(theme) => ({
-                  position: "absolute",
-                  left: 0,
+                  gridArea: "1 / 1",
                   whiteSpace: "nowrap",
                   opacity: showSiteNav === "afterTop" ? 1 : 0,
                   transition: theme.transitions.fast("opacity"),

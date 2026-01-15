@@ -4,14 +4,12 @@ import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
 import { links } from "../../Footer";
-import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import MenuGrid from "./MenuGrid";
 
 /**
  * Footer navigation links section for MainMenu
  */
 const FooterLinksSection: FC = () => {
-  const { palette } = usePalette();
 
   return (
     <MenuGrid
@@ -25,6 +23,7 @@ const FooterLinksSection: FC = () => {
       {Object.keys(links).map((key) => (
         <ScandiBlock
           key={key}
+          palette="light"
           opacity={0.3}
           css={[
             {
@@ -39,7 +38,7 @@ const FooterLinksSection: FC = () => {
           <Text
             typography="paragraphSmall"
             css={(theme) => [
-              palette !== "dark" && {
+              {
                 color: theme.colors.black50,
               },
             ]}
@@ -54,8 +53,6 @@ const FooterLinksSection: FC = () => {
                     {
                       textAlign: "start",
                       display: "block",
-                    },
-                    palette !== "dark" && {
                       color: theme.colors.black50,
                     },
                   ]}
@@ -71,6 +68,7 @@ const FooterLinksSection: FC = () => {
         </ScandiBlock>
       ))}
       <ScandiBlock
+        palette="light"
         opacity={0.3}
         css={(theme) => [
           {
@@ -89,14 +87,9 @@ const FooterLinksSection: FC = () => {
             typography="paragraphMicro"
             css={(theme) => [
               {
-                a: {
-                  textDecoration: "underline",
-                  color: theme.colors.white75,
-                },
-              },
-              palette !== "dark" && {
                 color: theme.colors.black50,
                 a: {
+                  textDecoration: "underline",
                   color: theme.colors.black50,
                 },
               },

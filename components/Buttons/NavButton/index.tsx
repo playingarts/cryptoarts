@@ -29,9 +29,9 @@ const NavButton: FC<
                 },
           ],
         },
-        palette === "dark" && {
-          color: theme.colors.white,
-        },
+        palette === "dark"
+          ? { color: theme.colors.white }
+          : { color: theme.colors.black50 },
       ]}
       {...props}
     >

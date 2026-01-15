@@ -180,12 +180,15 @@ const ActualFooter = () => {
                   size="small"
                   css={(theme) => [
                     {
-                      // display: "block",
                       textAlign: "start",
                       color:
                         theme.colors[
                           palette === "dark" ? "white50" : "black50"
                         ],
+                      transition: theme.transitions.fast("color"),
+                      "&:hover": {
+                        color: theme.colors[palette === "dark" ? "white" : "black"],
+                      },
                     },
                   ]}
                 >
@@ -213,9 +216,10 @@ const ActualFooter = () => {
             css={{ textDecoration: "none", marginRight: 15 }}
           >
             <ButtonTemplate
-              css={{
+              css={(theme) => ({
                 paddingLeft: 10,
-              }}
+                color: palette === "dark" ? theme.colors.spaceBlack : undefined,
+              })}
               color={palette === "dark" ? "white50" : undefined}
               palette={palette}
             >
@@ -236,9 +240,10 @@ const ActualFooter = () => {
           >
             <ButtonTemplate
               color={palette === "dark" ? "white50" : undefined}
-              css={{
+              css={(theme) => ({
                 paddingLeft: 10,
-              }}
+                color: palette === "dark" ? theme.colors.spaceBlack : undefined,
+              })}
               palette={palette}
             >
               <Android
@@ -275,18 +280,24 @@ const ActualFooter = () => {
           css={(theme) => [
             {
               paddingTop: 30,
-              color: theme.colors[palette === "dark" ? "white50" : "black30"],
-              display: "flex",
-              gap: 20,
             },
           ]}
         >
-          <Visa css={{ transform: "scale(0.72)" }} />
-          <Mastercard css={{ transform: "scale(0.72)" }} />
-          <Amex css={{ transform: "scale(0.72)" }} />
-          <PayPal css={{ transform: "scale(0.81)" }} />
-          <ApplePay css={{ transform: "scale(0.9)" }} />
-          <GooglePay css={{ transform: "scale(0.9)" }} />
+          <div
+            css={(theme) => ({
+              color: theme.colors[palette === "dark" ? "white" : "black"],
+              opacity: 0.25,
+              display: "flex",
+              alignItems: "center",
+              gap: 20,
+            })}
+          >
+            <Visa css={{ transform: "scale(0.72)" }} />
+            <Mastercard css={{ transform: "scale(0.72)" }} />
+            <PayPal css={{ transform: "scale(0.81)" }} />
+            <ApplePay css={{ transform: "scale(0.9)" }} />
+            <GooglePay css={{ transform: "scale(0.9)" }} />
+          </div>
         </ScandiBlock>
       </div>
       <div css={[{ gridColumn: "span 6", marginTop: 30 }]}>
@@ -308,9 +319,10 @@ const ActualFooter = () => {
                 a: {
                   textDecoration: "underline",
                   color:
-                    theme.colors[palette === "dark" ? "white50" : "black50"],
+                    theme.colors[palette === "dark" ? "white" : "black"],
                 },
-                color: theme.colors[palette === "dark" ? "white50" : "black50"],
+                color: theme.colors[palette === "dark" ? "white" : "black"],
+                opacity: 0.25,
                 maxWidth: 520,
               },
             ]}

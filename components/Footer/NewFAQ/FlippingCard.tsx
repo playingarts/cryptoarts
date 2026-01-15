@@ -86,6 +86,7 @@ const FlippingCard: FC<FlippingCardProps> = ({
           <Card
             noArtist
             noFavorite
+            animated
             interactive={false}
             card={frontCard}
             css={{ width: "100%", height: "100%" }}
@@ -107,6 +108,7 @@ const FlippingCard: FC<FlippingCardProps> = ({
           <Card
             noArtist
             noFavorite
+            animated
             interactive={false}
             card={backCard}
             css={{ width: "100%", height: "100%" }}

@@ -1,5 +1,4 @@
 import { FC, HTMLAttributes } from "react";
-import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 
 // Layout constants
 const GRID_COLUMNS = 12;
@@ -10,7 +9,7 @@ const HEADER_HEIGHT_SCROLLED = 58;
 
 /**
  * Grid layout for MainMenu sections
- * Provides consistent column layout with palette-aware background
+ * Provides consistent column layout with light background
  */
 const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean; scrolledPast600?: boolean }> = ({
   children,
@@ -18,8 +17,6 @@ const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean; scrolledP
   scrolledPast600 = false,
   ...props
 }) => {
-  const { palette } = usePalette();
-
   const headerHeight = scrolledPast600 ? HEADER_HEIGHT_SCROLLED : HEADER_HEIGHT_NORMAL;
 
   return (
@@ -31,7 +28,7 @@ const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean; scrolledP
           "--menu-header-height": `${headerHeight}px`,
           "--menu-header-line-height": `${headerHeight}px`,
           display: "grid",
-          background: theme.colors[palette === "dark" ? "black" : "pale_gray"],
+          background: theme.colors.pale_gray,
           columnGap: theme.spacing(3),
           "--columnWidth": `${theme.spacing(8)}px`,
           gridTemplateColumns: "repeat(6, var(--columnWidth))",

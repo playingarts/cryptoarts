@@ -15,7 +15,6 @@ import { colord } from "colord";
 import Delete from "../../Icons/Delete";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
-import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useHeroCardsContext } from "../../Pages/Deck/HeroCardsContext";
 import { useProducts } from "../../../hooks/product";
 import MenuGrid from "./MenuGrid";
@@ -38,22 +37,20 @@ const CASCADE_DELAY = 50; // ms delay between each item animation
 /**
  * Skeleton component for deck preview loading state
  */
-const DeckPreviewSkeleton: FC<{ palette: "dark" | "light" }> = ({ palette }) => (
+const DeckPreviewSkeleton: FC = () => (
   <div
-    css={(theme) => ({
+    css={{
       width: "100%",
       height: "100%",
       borderRadius: PREVIEW_BORDER_RADIUS,
-      background: palette === "dark"
-        ? "linear-gradient(90deg, #2a2a2a 25%, #333 50%, #2a2a2a 75%)"
-        : "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
+      background: "linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)",
       backgroundSize: "200% 100%",
       animation: "skeleton-pulse 1.5s ease-in-out infinite",
       "@keyframes skeleton-pulse": {
         "0%": { backgroundPosition: "200% 0" },
         "100%": { backgroundPosition: "-200% 0" },
       },
-    })}
+    }}
   />
 );
 
@@ -71,7 +68,6 @@ const MainMenu: FC<
   const { prefetchHeroCards } = useHeroCardsContext();
   const { products, error } = useProducts();
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
-  const { palette } = usePalette();
   const hasInitialized = useRef(false);
   const prefetchedRef = useRef<Set<string>>(new Set());
 
@@ -196,25 +192,18 @@ const MainMenu: FC<
         onClick={(e) => e.stopPropagation()}
       >
         <MenuGrid isHeader scrolledPast600={scrolledPast600}>
-          <ScandiBlock css={{ gridColumn: "span 3", height: "var(--menu-header-height, 68px)", lineHeight: "var(--menu-header-line-height, 68px)", padding: 0 }}>
+          <ScandiBlock palette="light" css={{ gridColumn: "span 3", height: "var(--menu-header-height, 68px)", lineHeight: "var(--menu-header-line-height, 68px)", padding: 0 }}>
             <ButtonTemplate
               css={(theme) => [
                 {
                   paddingLeft: 10,
                   paddingRight: 15,
                   transition: theme.transitions.fast("background"),
+                  color: theme.colors.dark_gray,
+                  "&:hover": {
+                    background: colord(theme.colors.white).alpha(0.5).toRgbString(),
+                  },
                 },
-                palette === "dark"
-                  ? {
-                      color: theme.colors.white75,
-                      "&:hover": { background: theme.colors.black },
-                    }
-                  : {
-                      color: theme.colors.dark_gray,
-                      "&:hover": {
-                        background: colord(theme.colors.white).alpha(0.5).toRgbString(),
-                      },
-                    },
               ]}
               onClick={handleClose}
               noColor={true}
@@ -225,6 +214,7 @@ const MainMenu: FC<
           </ScandiBlock>
 
           <ScandiBlock
+            palette="light"
             css={(theme) => [
               {
                 gridColumn: "span 3",
@@ -260,10 +250,7 @@ const MainMenu: FC<
               onTouchStart={() => prefetchPage(getBaseUrl("/shop"))}
             >
               <Link href={getBaseUrl("/shop")} onClick={handleClose}>
-                <ArrowButton
-                  color={palette === "dark" ? "white" : undefined}
-                  palette={palette}
-                >
+                <ArrowButton>
                   Shop
                 </ArrowButton>
               </Link>
@@ -329,7 +316,7 @@ const MainMenu: FC<
                       onClick={handleClick}
                     >
                       <ArrowButton
-                        css={[{ textAlign: "start" }]}
+                        css={(theme) => [{ textAlign: "start", color: theme.colors.black50 }]}
                         size="small"
                         noColor={true}
                         base={true}
@@ -345,14 +332,14 @@ const MainMenu: FC<
               {hoveredProduct ? (
                 <CollectionItem
                   product={hoveredProduct}
-                  paletteOnHover={palette === "dark" ? "dark" : "light"}
+                  paletteOnHover="light"
                   css={{ height: "100%" }}
                   priority
                   currentDeckSlug={currentDeckSlug}
                   onClose={handleClose}
                 />
               ) : (
-                <DeckPreviewSkeleton palette={palette} />
+                <DeckPreviewSkeleton />
               )}
             </div>
           </div>
