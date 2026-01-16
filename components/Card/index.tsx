@@ -132,7 +132,8 @@ const Card: FC<CardProps> = memo(
 
       const videoSrc = card.video;
       // Play video if: animated (popup), autoPlayVideo (card page), or hover (card list)
-      const shouldPlay = animated || autoPlayVideo || hover;
+      // For autoPlayVideo, defer until image is loaded to not compete with LCP
+      const shouldPlay = animated || (autoPlayVideo && loaded) || hover;
 
       // Helper to play video when ready
       const playWhenReady = () => {
@@ -178,7 +179,7 @@ const Card: FC<CardProps> = memo(
       return () => {
         videoElement.removeEventListener("canplay", playWhenReady);
       };
-    }, [hover, animated, autoPlayVideo, card.video]);
+    }, [hover, animated, autoPlayVideo, card.video, loaded]);
 
     // Cleanup video source only on unmount to prevent memory leaks
     useEffect(() => {

@@ -61,6 +61,7 @@ const HeroCard: FC<HeroCardProps> = ({ card, backsideCard, dark }) => {
         card={isFullCard(card) ? card : (card as unknown as GQL.Card)}
         backsideCard={backsideCard}
         autoPlayVideo={!!card.video}
+        priority
         css={{ margin: "auto" }}
       />
     </div>

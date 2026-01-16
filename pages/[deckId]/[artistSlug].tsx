@@ -3,9 +3,7 @@ import { NormalizedCacheObject } from "@apollo/client";
 import { connect } from "../../source/mongoose";
 import { initApolloClient } from "../../source/apollo";
 import { DecksQuery } from "../../hooks/deck";
-import { CardsQuery, CardQuery } from "../../hooks/card";
-import { LosersQuery } from "../../hooks/loser";
-import { podcastsQuery } from "../../hooks/podcast";
+import { CardQuery } from "../../hooks/card";
 import { schema } from "../../source/graphql/schema";
 
 export { default } from "@/components/Pages/CardPage";
@@ -64,63 +62,30 @@ export const getStaticProps: GetStaticProps<
 
     const client = initApolloClient(undefined, { schema });
 
-    const decks = (
-      (await client.query({ query: DecksQuery })) as {
-        data: { decks: GQL.Deck[] };
-      }
-    ).data.decks;
-
-    const deck = decks.find((deck) => deck.slug === deckId);
-
-    if (!deck) {
-      return {
-        notFound: true,
-        revalidate: 60,
-      };
-    }
-
-    // Fetch cards and losers in parallel for better performance
-    const [cardsResult, losersResult] = await Promise.all([
+    // Fetch decks and individual card in parallel (the card query is what we really need)
+    const [decksResult, cardResult] = await Promise.all([
+      client.query({ query: DecksQuery }) as Promise<{ data: { decks: GQL.Deck[] } }>,
       client.query({
-        query: CardsQuery,
-        variables: { deck: deck._id },
-      }) as Promise<{ data: { cards: GQL.Card[] } }>,
-      client.query({
-        query: LosersQuery,
-        variables: { deck: deck._id },
-      }) as Promise<{ data: { losers: GQL.Loser[] } }>,
+        query: CardQuery,
+        variables: { slug: artistSlug, deckSlug: deckId },
+      }) as Promise<{ data: { card: GQL.Card | null } }>,
     ]);
 
-    const cards = cardsResult.data.cards;
-    const losers = losersResult.data.losers;
+    const decks = decksResult.data.decks;
+    const card = cardResult.data.card;
+    const deck = decks.find((deck) => deck.slug === deckId);
 
-    const card = [...cards, ...losers].find(
-      (card) => card.artist.slug === artistSlug
-    );
-
-    if (!card) {
+    if (!deck || !card) {
       return {
         notFound: true,
         revalidate: 60,
       };
     }
 
-    await client.query({
-      query: podcastsQuery,
-      variables: {
-        limit: 1,
-        shuffle: true,
-        name: card.artist.name,
-      },
-    });
-
-    // Pre-fetch individual card for Hero component's useCard hook
-    await client.query({
-      query: CardQuery,
-      variables: { slug: artistSlug, deckSlug: deckId },
-    });
-
     // Extract SSR card props for instant display (use nullish coalescing for safety)
+    // Note: We intentionally skip fetching CardsQuery, LosersQuery, podcastsQuery here
+    // to speed up getStaticProps. The client already has decks cached and will fetch
+    // card-related data via useCardsForDeck in CardPageContext.
     const ssrCard: SSRCardProps = {
       _id: card._id ?? "",
       img: card.img ?? "",

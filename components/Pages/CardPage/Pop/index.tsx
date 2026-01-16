@@ -211,7 +211,7 @@ const Pop: FC<
     const destPath = `/${deckId}/${artistSlug}`;
     startPerfNavTiming("click", "CardPop", destPath, false);
 
-    // Use Next.js router for SPA navigation
+    // Use Next.js router for navigation
     // The CardPage will show navCard instantly while getStaticProps runs in background
     router.push(destPath);
   }, [card, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, edition, deckId, close, router]);

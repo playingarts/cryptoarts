@@ -1,7 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { FC, useState, useEffect } from "react";
+import Head from "next/head";
+import { FC, useState } from "react";
 import { useRouter } from "next/router";
 import Header from "../../Header";
 import Footer from "../../Footer";
@@ -77,8 +78,21 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
     );
   }
 
+  // Preload hero card image for faster LCP
+  const heroImageUrl = effectiveSsrCard?.img;
+
   return (
     <CardPageProvider>
+      {heroImageUrl && (
+        <Head>
+          <link
+            rel="preload"
+            as="image"
+            href={heroImageUrl}
+            fetchPriority="high"
+          />
+        </Head>
+      )}
       <CardPageHeader deckId={effectiveDeckId} />
       <Hero ssrCard={effectiveSsrCard} />
 
