@@ -54,13 +54,12 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             css={(theme) => ({
               color: theme.colors.third_black,
               transform: scale !== 1 ? `scale(${scale})` : undefined,
-              transition: "opacity 0.2s, transform 0.2s",
+              transition: "color 0.2s",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
               "&:hover": {
-                opacity: 0.7,
-                transform: `scale(${(scale || 1) * 1.05})`,
+                color: theme.colors.black,
               },
               "&:focus-visible": {
                 outline: `2px solid ${theme.colors.dark_gray}`,
