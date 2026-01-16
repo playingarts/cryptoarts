@@ -130,10 +130,10 @@ const HeroArtist: FC<HeroArtistProps> = ({ artist, dark, onVisible, loading }) =
   }
 
   return (
-    <ScandiBlock id="the-artist" css={{ paddingTop: 15, display: "block" }}>
+    <ScandiBlock id="artist" css={{ paddingTop: 15, display: "block" }}>
       <ArrowedButton
         onClick={() =>
-          document.getElementById("the-artist")?.scrollIntoView({ behavior: "smooth" })
+          document.getElementById("artist")?.scrollIntoView({ behavior: "smooth" })
         }
       >
         The artist

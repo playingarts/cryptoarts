@@ -11,12 +11,15 @@ import LazySection from "../../LazySection";
 import MoreSkeleton from "./More/MoreSkeleton";
 import { withApollo } from "../../../source/apollo";
 import { SSRCardProps } from "../../../pages/[deckId]/[artistSlug]";
-import { getDeckConfig } from "../../../source/deckConfig";
 import { CardPageProvider } from "./CardPageContext";
 import { getNavigationCard } from "./navigationCardStore";
+import { getDeckConfig } from "../../../source/deckConfig";
 
 // Code-split below-fold components (SSR disabled for lazy loading)
 const More = dynamic(() => import("./More"), { ssr: false });
+const Gallery = dynamic(() => import("../Deck/Gallery"), { ssr: false });
+const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
+const FAQ = dynamic(() => import("../../Footer/NewFAQ"), { ssr: false });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
   ssr: false,
 });
@@ -31,10 +34,10 @@ const CardPageAR: FC<{ deckId?: string }> = ({ deckId }) => {
   return <AugmentedReality />;
 };
 
-/** Header with deck-specific links */
+/** Header with card page navigation links */
 const CardPageHeader: FC<{ deckId?: string }> = ({ deckId }) => {
-  const config = getDeckConfig(deckId);
-  return <Header links={["Cards", "Product", ...config.sections]} />;
+  // Card page has its own navigation: Card, Artist, Related, Gallery, Reviews, FAQ
+  return <Header links={["Card", "Artist", "Related", "Gallery", "Reviews", "FAQ"]} />;
 };
 
 interface CardPageProps {
@@ -94,23 +97,48 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
         </Head>
       )}
       <CardPageHeader deckId={effectiveDeckId} />
-      <Hero ssrCard={effectiveSsrCard} />
+      <div id="card">
+        <Hero ssrCard={effectiveSsrCard} />
+      </div>
 
-      {/* P4: More from deck - lazy load on scroll */}
-      <LazySection
-        rootMargin="300px"
-        minHeight={600}
-        skeleton={<MoreSkeleton dark={dark} />}
-      >
-        <More />
-      </LazySection>
+      {/* Related cards from deck - lazy load on scroll */}
+      <div id="related">
+        <LazySection
+          rootMargin="300px"
+          minHeight={600}
+          skeleton={<MoreSkeleton dark={dark} />}
+        >
+          <More />
+        </LazySection>
+      </div>
 
-      {/* P5: AR section - lazy load on scroll */}
+      {/* Gallery section - lazy load on scroll */}
+      <div id="gallery">
+        <LazySection rootMargin="300px" minHeight={600}>
+          <Gallery />
+        </LazySection>
+      </div>
+
+      {/* Reviews section - lazy load on scroll */}
+      <div id="reviews">
+        <LazySection rootMargin="300px" minHeight={400}>
+          <Testimonials deckSlug={effectiveDeckId} />
+        </LazySection>
+      </div>
+
+      {/* FAQ section - lazy load on scroll */}
+      <div id="faq">
+        <LazySection rootMargin="300px" minHeight={600}>
+          <FAQ />
+        </LazySection>
+      </div>
+
+      {/* AR section - lazy load on scroll (if applicable) */}
       <LazySection rootMargin="200px" minHeight={0}>
         <CardPageAR deckId={effectiveDeckId} />
       </LazySection>
 
-      {/* P6: Footer - lazy load last */}
+      {/* Footer - lazy load last */}
       <LazySection rootMargin="100px" minHeight={400}>
         <Footer />
       </LazySection>
