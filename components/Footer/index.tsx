@@ -164,7 +164,7 @@ const ActualFooter = () => {
                   theme.colors[palette === "dark" ? "white" : "black"],
               },
               color: theme.colors[palette === "dark" ? "white" : "black"],
-              opacity: 0.25,
+              opacity: 0.5,
               maxWidth: 520,
             },
           ]}

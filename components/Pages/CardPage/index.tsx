@@ -36,8 +36,8 @@ const CardPageAR: FC<{ deckId?: string }> = ({ deckId }) => {
 
 /** Header with card page navigation links */
 const CardPageHeader: FC<{ deckId?: string }> = ({ deckId }) => {
-  // Card page has its own navigation: Card, Artist, Related, Gallery, Reviews, FAQ
-  return <Header links={["Card", "Artist", "Related", "Gallery", "Reviews", "FAQ"]} />;
+  // Card page has its own navigation: Card, Artist, Gallery, Related, Reviews, FAQ
+  return <Header links={["Card", "Artist", "Gallery", "Related", "Reviews", "FAQ"]} />;
 };
 
 interface CardPageProps {
@@ -101,6 +101,13 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
         <Hero ssrCard={effectiveSsrCard} />
       </div>
 
+      {/* Gallery section - lazy load on scroll */}
+      <div id="gallery">
+        <LazySection rootMargin="300px" minHeight={600}>
+          <Gallery />
+        </LazySection>
+      </div>
+
       {/* Related cards from deck - lazy load on scroll */}
       <div id="related">
         <LazySection
@@ -109,13 +116,6 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
           skeleton={<MoreSkeleton dark={dark} />}
         >
           <More />
-        </LazySection>
-      </div>
-
-      {/* Gallery section - lazy load on scroll */}
-      <div id="gallery">
-        <LazySection rootMargin="300px" minHeight={600}>
-          <Gallery />
         </LazySection>
       </div>
 
@@ -138,9 +138,9 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
         <CardPageAR deckId={effectiveDeckId} />
       </LazySection>
 
-      {/* Footer - lazy load last */}
+      {/* Footer - lazy load last (onlyFooter to skip duplicate Reviews/FAQ) */}
       <LazySection rootMargin="100px" minHeight={400}>
-        <Footer />
+        <Footer onlyFooter />
       </LazySection>
     </CardPageProvider>
   );

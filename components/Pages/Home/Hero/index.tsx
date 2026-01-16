@@ -140,7 +140,7 @@ const Hero = () => {
         css={(theme) => [
           {
             gridColumn: "span 3",
-            paddingLeft: 80,
+            paddingLeft: 130,
             paddingBottom: 6,
 
             [theme.maxMQ.sm]: {

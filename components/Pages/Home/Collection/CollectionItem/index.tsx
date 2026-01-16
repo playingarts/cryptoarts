@@ -23,13 +23,23 @@ const CARD_SKELETON_WIDTH = 184;
 const CARD_SKELETON_HEIGHT = 260;
 const CARD_SKELETON_RADIUS = 10;
 
-// Helper to preload an image
+// Helper to preload an image with cache check
 const preloadImage = (src: string): Promise<void> =>
   new Promise((resolve) => {
     const img = new Image();
+    img.src = src;
+
+    // Check if already cached (instant resolve)
+    if (img.complete && img.naturalWidth > 0) {
+      resolve();
+      return;
+    }
+
     img.onload = () => resolve();
     img.onerror = () => resolve();
-    img.src = src;
+
+    // Timeout safety: resolve even if network fails (3s max)
+    setTimeout(() => resolve(), 3000);
   });
 
 // Card skeleton component
@@ -84,6 +94,7 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
   const [isInViewport, setIsInViewport] = useState(priority); // Priority items start visible
   const containerRef = useRef<HTMLDivElement>(null);
   const prefetchedRef = useRef(false);
+  const hoverIntentRef = useRef<NodeJS.Timeout | null>(null); // Hover intent detection
 
   // Card buffer - accumulates cards as user navigates
   const [cardBuffer, setCardBuffer] = useState<BufferCard[]>([]);
@@ -131,68 +142,69 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
     return () => observer.disconnect();
   }, [priority]);
 
-  // Fetch initial random cards - immediately for priority items, or when deck image loads
-  useEffect(() => {
-    // For priority items, start fetching immediately (menu scenario)
-    // For non-priority items, wait for deck image to load first
-    const shouldFetch = priority ? isInViewport : deckImageLoaded;
+  // Fetch cards function - shared between viewport trigger and hover trigger
+  const fetchCards = useCallback(async () => {
+    const deckId = product?.deck?._id;
+    if (!deckId || hasInitializedRef.current || isFetchingRef.current) return;
 
-    if (shouldFetch && !hasInitializedRef.current && product?.deck?._id) {
-      hasInitializedRef.current = true;
+    hasInitializedRef.current = true;
+    isFetchingRef.current = true;
 
-      const fetchInitialCards = async () => {
-        isFetchingRef.current = true;
-        try {
-          const result = await loadCollectionCards({
-            variables: {
-              deck: product.deck?._id,
-              limit: FETCH_BATCH_SIZE,
-              shuffle: true,
-            },
-          });
+    try {
+      const result = await loadCollectionCards({
+        variables: {
+          deck: deckId,
+          limit: FETCH_BATCH_SIZE,
+          shuffle: true,
+        },
+      });
 
-          if (result.data?.cards) {
-            const cards = result.data.cards as BufferCard[];
-            cards.forEach((card) => seenCardIdsRef.current.add(card._id));
-            setCardBuffer(cards);
-          }
-        } finally {
-          isFetchingRef.current = false;
-        }
-      };
-
-      // For priority items, fetch immediately; otherwise use idle callback
-      if (priority) {
-        fetchInitialCards();
-      } else if (typeof requestIdleCallback !== "undefined") {
-        requestIdleCallback(() => fetchInitialCards(), { timeout: 2000 });
-      } else {
-        // Fallback for Safari - use setTimeout with small delay
-        setTimeout(fetchInitialCards, 100);
+      if (result.data?.cards) {
+        const cards = result.data.cards as BufferCard[];
+        cards.forEach((card) => seenCardIdsRef.current.add(card._id));
+        setCardBuffer(cards);
       }
+    } catch (error) {
+      // Reset flags on error so retry is possible
+      hasInitializedRef.current = false;
+      // Silently ignore network errors (aborted requests, 500s, etc.)
+    } finally {
+      isFetchingRef.current = false;
     }
-  }, [deckImageLoaded, isInViewport, priority, product?.deck?._id, loadCollectionCards]);
+  }, [product?.deck?._id, loadCollectionCards]);
 
-  // Preload first 3 card images when buffer is initialized (non-blocking)
+  // Fetch initial random cards - start when in viewport (parallel with deck image loading)
+  useEffect(() => {
+    if (isInViewport) {
+      fetchCards();
+    }
+  }, [isInViewport, fetchCards]);
+
+  // Preload first 3 card images when buffer is initialized (CONCURRENT loading)
   useEffect(() => {
     if (cardBuffer.length === 0) return;
 
     const preloadInitial = async () => {
+      // Collect all images to preload
+      const toPreload: { index: number; src: string }[] = [];
       for (let i = 0; i < Math.min(PRELOAD_AHEAD, cardBuffer.length); i++) {
         if (!preloadedIndicesRef.current.has(i) && cardBuffer[i]?.img) {
-          await preloadImage(cardBuffer[i].img);
-          preloadedIndicesRef.current.add(i);
-          setReadyIndices((prev) => new Set(prev).add(i));
+          toPreload.push({ index: i, src: cardBuffer[i].img });
+          preloadedIndicesRef.current.add(i); // Mark as started
         }
       }
+
+      // Load all images in parallel (not sequential)
+      await Promise.all(
+        toPreload.map(async ({ index, src }) => {
+          await preloadImage(src);
+          setReadyIndices((prev) => new Set(prev).add(index));
+        })
+      );
     };
 
-    // Use requestIdleCallback for non-blocking preload
-    if (typeof requestIdleCallback !== "undefined") {
-      requestIdleCallback(() => preloadInitial(), { timeout: 3000 });
-    } else {
-      setTimeout(preloadInitial, 200);
-    }
+    // Start preloading immediately
+    preloadInitial();
   }, [cardBuffer]);
 
   // Fetch more cards when needed (rolling preload)
@@ -220,6 +232,8 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
           setCardBuffer((prev) => [...prev, ...newCards]);
         }
       }
+    } catch {
+      // Silently ignore network errors (aborted requests, 500s, etc.)
     } finally {
       isFetchingRef.current = false;
     }
@@ -256,17 +270,36 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
     setDeckImageLoaded(true);
   }, []);
 
-  // Memoized event handlers with prefetching
+  // Memoized event handlers with hover intent detection
   const handleMouseEnter = useCallback(() => {
     setHover(true);
-    // Prefetch deck page on hover for instant navigation
-    if (!prefetchedRef.current && product?.deck?.slug) {
-      prefetchedRef.current = true;
-      const deckPath = `${process.env.NEXT_PUBLIC_BASELINK || ""}/${product.deck.slug}`;
-      router.prefetch(deckPath);
+
+    // Clear any pending hover intent timer
+    if (hoverIntentRef.current) {
+      clearTimeout(hoverIntentRef.current);
     }
-  }, [product?.deck?.slug, router]);
-  const handleMouseLeave = useCallback(() => setHover(false), []);
+
+    // 50ms debounce - filters accidental hovers while still feeling instant
+    hoverIntentRef.current = setTimeout(() => {
+      // Prefetch deck page on hover for instant navigation
+      if (!prefetchedRef.current && product?.deck?.slug) {
+        prefetchedRef.current = true;
+        const deckPath = `${process.env.NEXT_PUBLIC_BASELINK || ""}/${product.deck.slug}`;
+        router.prefetch(deckPath);
+      }
+      // Start loading cards on hover if not already loaded
+      fetchCards();
+    }, 50);
+  }, [product?.deck?.slug, router, fetchCards]);
+
+  const handleMouseLeave = useCallback(() => {
+    setHover(false);
+    // Cancel pending prefetch if user leaves quickly
+    if (hoverIntentRef.current) {
+      clearTimeout(hoverIntentRef.current);
+      hoverIntentRef.current = null;
+    }
+  }, []);
 
   const handlePrevCard = useCallback(() => {
     setCardIndex((prev) => (prev > 0 ? prev - 1 : prev));

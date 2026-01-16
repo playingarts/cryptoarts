@@ -81,7 +81,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <ArrowedButton>Deck Gallery</ArrowedButton>
+        <ArrowedButton>Gallery</ArrowedButton>
       </ScandiBlock>
 
       <ScandiBlock

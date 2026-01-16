@@ -36,41 +36,41 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   return (
     <Grid css={{ marginTop: 50 }} {...props}>
       {PRESS_LINKS.map(({ name, href, Icon, scale }) => (
-        <div
+        <a
           key={name}
-          css={{
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Read about Playing Arts on ${name}`}
+          css={(theme) => ({
             gridColumn: "span 3",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             padding: 20,
-          }}
+            color: theme.colors.third_black,
+            transition: "color 0.2s",
+            "&:hover": {
+              color: theme.colors.black,
+            },
+            "&:focus-visible": {
+              outline: `2px solid ${theme.colors.dark_gray}`,
+              outlineOffset: 4,
+              borderRadius: 4,
+            },
+          })}
         >
-          <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Read about Playing Arts on ${name}`}
-            css={(theme) => ({
-              color: theme.colors.third_black,
+          <div
+            css={{
               transform: scale !== 1 ? `scale(${scale})` : undefined,
-              transition: "color 0.2s",
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              "&:hover": {
-                color: theme.colors.black,
-              },
-              "&:focus-visible": {
-                outline: `2px solid ${theme.colors.dark_gray}`,
-                outlineOffset: 4,
-                borderRadius: 4,
-              },
-            })}
+            }}
           >
             <Icon />
-          </a>
-        </div>
+          </div>
+        </a>
       ))}
     </Grid>
   );

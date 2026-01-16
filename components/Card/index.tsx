@@ -58,8 +58,10 @@ const Card: FC<CardProps> = memo(
   }) => {
     // Compute imgSrc first for use in state initialization
     // Use hi-res images for "big" and "hero" sizes, lower-res for smaller sizes
+    // Always use original URL for GIFs (no lower-res version exists)
     const useHiRes = size === "big" || size === "hero";
-    const imgSrc = useHiRes ? card.img : card.img.replace("-big-hd/", "-big/");
+    const isGif = card.img.endsWith(".gif");
+    const imgSrc = useHiRes || isGif ? card.img : card.img.replace("-big-hd/", "-big/");
 
     // Track loaded state - always start false to ensure consistent SSR/client hydration
     const [loaded, setLoaded] = useState(false);
