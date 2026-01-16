@@ -145,6 +145,7 @@ export const DailyCardLiteQuery = gql`
     dailyCard {
       _id
       info
+      mainPhoto
       artist {
         name
         slug

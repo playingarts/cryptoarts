@@ -33,6 +33,8 @@ const cardSchema = new Schema<MongoCard, Model<MongoCard>, MongoCard>({
   deck: { type: Types.ObjectId, ref: "Deck" },
   reversible: Boolean,
   cardBackground: { type: String, default: null },
+  mainPhoto: { type: String, default: null },
+  additionalPhotos: { type: [String], default: [] },
 });
 
 export const Card = (models.Card as Model<MongoCard>) || model("Card", cardSchema);

@@ -60,6 +60,11 @@ export const resolvers: GQL.Resolvers = {
     heroCards: (_, { slug }) => cardService.getHeroCards(slug || ""),
     homeCards: () => cardService.getHomeCards(),
   },
+  Mutation: {
+    updateCardPhotos: async (_, { cardId, mainPhoto, additionalPhotos }) => {
+      return cardService.updateCardPhotos(cardId, mainPhoto, additionalPhotos);
+    },
+  },
 };
 
 export const typeDefs = gql`
@@ -79,6 +84,14 @@ export const typeDefs = gql`
     homeCards: [Card!]!
   }
 
+  type Mutation {
+    updateCardPhotos(
+      cardId: ID!
+      mainPhoto: String
+      additionalPhotos: [String!]
+    ): Card
+  }
+
   type Card {
     _id: ID!
     img: String!
@@ -95,6 +108,8 @@ export const typeDefs = gql`
     edition: String
     animator: Artist
     cardBackground: String
+    mainPhoto: String
+    additionalPhotos: [String!]
   }
 
   type ERC1155 {

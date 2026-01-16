@@ -17,7 +17,7 @@ import { getDeckConfig } from "../../../source/deckConfig";
 
 // Code-split below-fold components (SSR disabled for lazy loading)
 const More = dynamic(() => import("./More"), { ssr: false });
-const Gallery = dynamic(() => import("../Deck/Gallery"), { ssr: false });
+const CardGallery = dynamic(() => import("./Gallery"), { ssr: false });
 const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
 const FAQ = dynamic(() => import("../../Footer/NewFAQ"), { ssr: false });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
@@ -104,7 +104,7 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
       {/* Gallery section - lazy load on scroll */}
       <div id="gallery">
         <LazySection rootMargin="300px" minHeight={600}>
-          <Gallery />
+          <CardGallery />
         </LazySection>
       </div>
 

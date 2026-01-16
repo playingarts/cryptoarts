@@ -1,5 +1,6 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useState } from "react";
 import Image from "next/image";
+import { keyframes } from "@emotion/react";
 import Grid from "../../../Grid";
 import { useDailyCardLite } from "../../../../hooks/card";
 import image1 from "../../../../mocks/images/homeGallery/1.png";
@@ -11,9 +12,65 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 import KickStarter from "../../../Icons/KickStarter";
 import ScandiBlock from "../../../ScandiBlock";
 import Text from "../../../Text";
-import background from "../../../../mocks/images/backgroundImage.png";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
+
+/** Fade in animation */
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+/** Main photo with fade-in animation */
+const MainPhotoSlot: FC<{ src?: string | null; alt?: string }> = ({ src, alt }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  if (src) {
+    return (
+      <div
+        css={(theme) => ({
+          width: "100%",
+          height: "100%",
+          background: theme.colors.soft_gray,
+          borderRadius: 16,
+          position: "relative",
+        })}
+      >
+        <img
+          src={src}
+          alt={alt || ""}
+          onLoad={() => setLoaded(true)}
+          css={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            borderRadius: 16,
+            opacity: loaded ? 1 : 0,
+            animation: loaded ? `${fadeIn} 0.3s ease-out` : "none",
+          }}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      css={(theme) => ({
+        width: "100%",
+        height: "100%",
+        background: theme.colors.soft_gray,
+        borderRadius: 16,
+      })}
+    />
+  );
+};
 
 // Skeleton for loading state
 const DailyCardSkeleton: FC = () => (
@@ -160,13 +217,9 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           />
         </div>
         <div css={{ gridColumn: "span 6", gridRow: "span 2", position: "relative", aspectRatio: "1/1" }}>
-          <Image
-            src={background}
-            alt="Playing Arts collection"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            style={{ objectFit: "cover", borderRadius: 16 }}
-            loading="lazy"
+          <MainPhotoSlot
+            src={dailyCard?.mainPhoto}
+            alt={dailyCard?.artist?.name ? `Card by ${dailyCard.artist.name}` : undefined}
           />
         </div>
         <div css={{ gridColumn: "span 3", position: "relative", aspectRatio: "1/1" }}>

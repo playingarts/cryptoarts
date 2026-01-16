@@ -82,7 +82,7 @@ const ListItem: FC<{
 
     setQuoteImagesLoaded(false);
     let loaded = 0;
-    const totalImages = 2; // background + userpic
+    const totalImages = 2; // background/mainPhoto + userpic
 
     const onLoad = () => {
       loaded++;
@@ -91,11 +91,11 @@ const ListItem: FC<{
       }
     };
 
-    // Preload background image
+    // Preload background image (use mainPhoto if available, fallback to static)
     const bgImg = new Image();
     bgImg.onload = onLoad;
     bgImg.onerror = onLoad;
-    bgImg.src = background.src;
+    bgImg.src = quoteCard.mainPhoto || background.src;
 
     // Preload artist userpic
     const userpicImg = new Image();
@@ -148,13 +148,14 @@ const ListItem: FC<{
         quoteImagesLoaded ? (
           <Grid css={[{ width: "100%", marginTop: 60, marginBottom: 60 }]}>
             <img
-              src={background.src}
+              src={quoteCard.mainPhoto || background.src}
               alt=""
               css={{
                 width: 300,
                 height: 300,
                 gridColumn: "2/6",
                 borderRadius: 15,
+                objectFit: "cover",
               }}
             />
             <div
@@ -386,16 +387,16 @@ const CardRow: FC<{
   const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
 
   // Stable quote card selection - memoized to prevent changing on re-renders
-  // Only select cards that have an info (card description)
+  // Only select cards that have both info (card description) AND mainPhoto
   const quoteCard = useMemo(() => {
     if (!showQuoteAfterRow || allCards.length === 0) return undefined;
-    // Filter cards that have info
-    const cardsWithInfo = allCards.filter(card => card.info?.trim());
-    if (cardsWithInfo.length === 0) return undefined;
+    // Filter cards that have both info and mainPhoto
+    const eligibleCards = allCards.filter(card => card.info?.trim() && card.mainPhoto);
+    if (eligibleCards.length === 0) return undefined;
     // Use a deterministic "random" based on rowIndex to keep it stable
     const seed = rowIndex * 7 + 3;
-    const quoteCardIndex = seed % cardsWithInfo.length;
-    return cardsWithInfo[quoteCardIndex];
+    const quoteCardIndex = seed % eligibleCards.length;
+    return eligibleCards[quoteCardIndex];
   }, [showQuoteAfterRow, rowIndex, allCards]);
 
   return (

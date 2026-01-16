@@ -45,6 +45,17 @@ interface Query {
   ratings: Array<Rating>;
 }
 
+interface Mutation {
+  __typename?: 'Mutation';
+  updateCardPhotos?: Maybe<Card>;
+}
+
+interface MutationUpdateCardPhotosArgs {
+  cardId: Scalars['ID']['input'];
+  mainPhoto?: InputMaybe<Scalars['String']['input']>;
+  additionalPhotos?: InputMaybe<Array<Scalars['String']['input']>>;
+}
+
 
 interface QueryDeckArgs {
   slug: Scalars['String']['input'];
@@ -266,6 +277,8 @@ interface Card {
   edition?: Maybe<Scalars['String']['output']>;
   animator?: Maybe<Artist>;
   cardBackground?: Maybe<Scalars['String']['output']>;
+  mainPhoto?: Maybe<Scalars['String']['output']>;
+  additionalPhotos?: Maybe<Array<Scalars['String']['output']>>;
 }
 
 interface Erc1155 {
@@ -508,6 +521,7 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   JSON: ResolverTypeWrapper<Scalars['JSON']['output']>;
   Query: ResolverTypeWrapper<{}>;
+  Mutation: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
@@ -547,6 +561,7 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   JSON: Scalars['JSON']['output'];
   Query: {};
+  Mutation: {};
   String: Scalars['String']['output'];
   ID: Scalars['ID']['output'];
   Boolean: Scalars['Boolean']['output'];
@@ -610,6 +625,10 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   losers?: Resolver<Array<ResolversTypes['Loser']>, ParentType, ContextType, RequireFields<QueryLosersArgs, 'deck'>>;
   listings?: Resolver<Array<Maybe<ResolversTypes['Listing']>>, ParentType, ContextType, Partial<QueryListingsArgs>>;
   ratings?: Resolver<Array<ResolversTypes['Rating']>, ParentType, ContextType, Partial<QueryRatingsArgs>>;
+};
+
+export type MutationResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  updateCardPhotos?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<MutationUpdateCardPhotosArgs, 'cardId'>>;
 };
 
 export type DeckResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deck'] = ResolversParentTypes['Deck']> = {
@@ -706,6 +725,8 @@ export type CardResolvers<ContextType = { req: Request, res: Response }, ParentT
   edition?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   animator?: Resolver<Maybe<ResolversTypes['Artist']>, ParentType, ContextType>;
   cardBackground?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  mainPhoto?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  additionalPhotos?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -877,6 +898,7 @@ export type RatingResolvers<ContextType = { req: Request, res: Response }, Paren
 export type Resolvers<ContextType = { req: Request, res: Response }> = {
   JSON?: GraphQLScalarType;
   Query?: QueryResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Deck?: DeckResolvers<ContextType>;
   Edition?: EditionResolvers<ContextType>;
   OpenseaCollection?: OpenseaCollectionResolvers<ContextType>;

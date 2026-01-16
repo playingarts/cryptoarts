@@ -55,6 +55,8 @@ export const CardForDeckFragment = gql`
     background
     cardBackground
     edition
+    mainPhoto
+    additionalPhotos
     artist {
       name
       slug
@@ -111,6 +113,8 @@ export const CardFragment = gql`
     value
     suit
     edition
+    mainPhoto
+    additionalPhotos
     erc1155 {
       ...ERC1155Fragment
     }

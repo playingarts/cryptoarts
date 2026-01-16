@@ -27,6 +27,7 @@ interface GetCardsOptions {
   edition?: string | null;
   withoutDeck?: string[] | null;
   withInfo?: boolean | null;
+  withMainPhoto?: boolean | null;
 }
 
 interface GetCardOptions {
@@ -65,6 +66,7 @@ export class CardService {
     edition,
     withoutDeck,
     withInfo,
+    withMainPhoto,
   }: GetCardsOptions): Promise<GQL.Card[]> {
     let resolvedDeckId = deck;
 
@@ -95,9 +97,14 @@ export class CardService {
       : {};
 
     // Add info filter if requested (only cards with non-empty descriptions)
-    const query = withInfo
+    let query: Record<string, unknown> = withInfo
       ? { ...baseQuery, info: { $exists: true, $nin: [null, ""] } }
       : baseQuery;
+
+    // Add mainPhoto filter if requested (only cards with mainPhoto)
+    if (withMainPhoto) {
+      query = { ...query, mainPhoto: { $exists: true, $nin: [null, ""] } };
+    }
 
     // Execute query
     const Model = losers ? Loser : Card;
@@ -284,6 +291,40 @@ export class CardService {
                 (trait_type === "Value" && value.toLowerCase() === card.value)
             ).length === 2)
     );
+  }
+
+  /**
+   * Update card photos (mainPhoto and additionalPhotos)
+   * @param cardId - The card's MongoDB ID
+   * @param mainPhoto - URL for the main photo (optional, pass null to clear)
+   * @param additionalPhotos - Array of URLs for additional photos (max 4)
+   */
+  async updateCardPhotos(
+    cardId: string,
+    mainPhoto?: string | null,
+    additionalPhotos?: string[] | null
+  ): Promise<GQL.Card | undefined> {
+    // Validate additionalPhotos length
+    if (additionalPhotos && additionalPhotos.length > 4) {
+      throw new Error("Maximum 4 additional photos allowed");
+    }
+
+    // Build update object (only include fields that are provided)
+    const update: Record<string, unknown> = {};
+    if (mainPhoto !== undefined) {
+      update.mainPhoto = mainPhoto;
+    }
+    if (additionalPhotos !== undefined) {
+      update.additionalPhotos = additionalPhotos;
+    }
+
+    const card = await Card.findByIdAndUpdate(
+      cardId,
+      { $set: update },
+      { new: true }
+    ).populate(["artist", "deck", "animator"]);
+
+    return card as unknown as GQL.Card | undefined;
   }
 }
 
