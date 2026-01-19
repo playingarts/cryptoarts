@@ -279,7 +279,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
           </>
         )}
         <div css={[{ marginTop: 30, display: "flex", gap: 15 }]}>
-          <ArrowButton color="accent" href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop now</ArrowButton>
+          <ArrowButton color="accent" css={{ fontSize: 20 }} href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop now</ArrowButton>
           <ButtonTemplate
             palette={palette}
             bordered={true}
@@ -287,6 +287,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             css={(theme) => [
               {
                 paddingLeft: 10,
+                fontSize: 20,
               },
             ]}
             onClick={() => setShowStory(!showStory)}

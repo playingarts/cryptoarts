@@ -93,7 +93,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </Text>
           <ArrowButton
             color="accent"
-            css={[{ marginTop: 30 }]}
+            css={[{ marginTop: 30, fontSize: 20 }]}
             href={
               product?.short
                 ? `/shop/${product.short.toLowerCase().replace(/\s/g, "")}`

@@ -11,9 +11,9 @@ import Link from "../../Link";
 import NavButton from "../../Buttons/NavButton";
 import { useProducts } from "../../../hooks/product";
 import { useRouter } from "next/router";
+import Hero from "./Hero";
 
-// Lazy-load all sections
-const Hero = dynamic(() => import("./Hero"), { ssr: true });
+// Lazy-load below-fold sections
 const About = dynamic(() => import("./About"), { ssr: true });
 const Collection = dynamic(() => import("./Collection"), { ssr: true });
 const Trust = dynamic(() => import("../Shop/Trust"), { ssr: true });
@@ -105,7 +105,7 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   return (
     <>
-      <Header customCTA={<BagButton />} customMiddle={<CustomMiddle />} links={["The product", "Related", "Bundles", "Reviews", "FAQ"]} />
+      <Header customCTA={<BagButton />} customMiddle={<CustomMiddle />} links={["Product", "Related", "Bundles", "Reviews", "FAQ"]} />
       <Hero />
       <About />
       <Collection />

@@ -58,6 +58,10 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
                       textAlign: "start",
                       display: "block",
                       color: theme.colors.black50,
+                      transition: theme.transitions.fast("color"),
+                      "&:hover": {
+                        color: theme.colors.black,
+                      },
                     },
                   ]}
                   base={true}

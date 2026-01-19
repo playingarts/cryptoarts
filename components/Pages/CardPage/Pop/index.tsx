@@ -428,7 +428,7 @@ const Pop: FC<
             >
               <FavButton deckSlug={deckId} id={card?._id || ""} />
 
-              <Button color="accent" onClick={handleCardDetailsClick}>
+              <Button color="accent" css={{ fontSize: 20 }} onClick={handleCardDetailsClick}>
                 Card details
               </Button>
             </div>

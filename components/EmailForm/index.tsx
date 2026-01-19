@@ -53,7 +53,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
           {
             display: "flex",
             background: "white",
-            borderRadius: theme.spacing(1),
+            borderRadius: 8,
             border: "2px solid",
             borderColor: colord(
               palette === "dark" ? theme.colors.white : theme.colors.black

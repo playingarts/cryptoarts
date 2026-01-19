@@ -63,7 +63,7 @@ const HeroHeader: FC<HeroHeaderProps> = ({
       <Text typography="newh4">{country ?? "..."}</Text>
       <div css={{ display: "flex", alignItems: "center", gap: 30, marginTop: 30 }}>
         <Link href={shopUrl}>
-          <ArrowButton color="accent">Shop this deck</ArrowButton>
+          <ArrowButton color="accent" css={{ fontSize: 20 }}>Shop this deck</ArrowButton>
         </Link>
         <Link href={deckUrl}>
           <ArrowButton size="small" noColor base>

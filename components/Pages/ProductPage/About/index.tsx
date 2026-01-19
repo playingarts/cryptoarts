@@ -304,7 +304,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   return (
     <Grid
-      id="the-product"
+      id="product"
       css={(theme) => [
         {
           paddingTop: 60,
@@ -393,7 +393,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Link href="#the-product">
+        <Link href="#product">
           <ArrowedButton css={[{ marginBottom: 90, justifyContent: "flex-start" }]}>
             The product
           </ArrowedButton>
