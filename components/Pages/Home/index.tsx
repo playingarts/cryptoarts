@@ -43,7 +43,7 @@ const Home = ({ homeCards }: Props) => {
       quoteCount={HERO_QUOTE_COUNT}
     >
       <Header
-        links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"]}
+        links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast", "FAQ"]}
       />
       <Hero />
 

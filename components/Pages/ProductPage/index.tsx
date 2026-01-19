@@ -5,8 +5,6 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import { withApollo } from "../../../source/apollo";
-import Hero from "./Hero";
-import About from "./About";
 import { BagButton } from "../Shop";
 import Text from "../../Text";
 import Link from "../../Link";
@@ -14,7 +12,9 @@ import NavButton from "../../Buttons/NavButton";
 import { useProducts } from "../../../hooks/product";
 import { useRouter } from "next/router";
 
-// Lazy-load below-fold components
+// Lazy-load all sections
+const Hero = dynamic(() => import("./Hero"), { ssr: true });
+const About = dynamic(() => import("./About"), { ssr: true });
 const Collection = dynamic(() => import("./Collection"), { ssr: true });
 const Trust = dynamic(() => import("../Shop/Trust"), { ssr: true });
 const Bundles = dynamic(() => import("../Shop/Bundles"), { ssr: true });
@@ -85,17 +85,36 @@ const CustomMiddle = () => {
   ) : null;
 };
 
-const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
-  <>
-    <Header customCTA={<BagButton />} customMiddle={<CustomMiddle />} />
-    <Hero />
-    <About />
-    <Collection />
-    <Trust />
-    <Bundles />
-    <Footer />
-  </>
-);
+const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+  const { products } = useProducts();
+  const { query: { pId } } = useRouter();
+
+  const [deckSlug, setDeckSlug] = useState<string | undefined>();
+
+  useEffect(() => {
+    if (!products || !pId || typeof pId !== "string") {
+      return;
+    }
+    const product = products.find(
+      (prod) => prod.short.toLowerCase().split(" ").join("") === pId
+    );
+    if (product?.deck?.slug) {
+      setDeckSlug(product.deck.slug);
+    }
+  }, [pId, products]);
+
+  return (
+    <>
+      <Header customCTA={<BagButton />} customMiddle={<CustomMiddle />} links={["The product", "Related", "Bundles", "Reviews", "FAQ"]} />
+      <Hero />
+      <About />
+      <Collection />
+      <Trust />
+      <Bundles />
+      <Footer deckSlug={deckSlug} />
+    </>
+  );
+};
 
 // Named export for App Router (without withApollo wrapper)
 export { ProductPage };

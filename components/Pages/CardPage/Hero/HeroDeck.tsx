@@ -132,12 +132,12 @@ const HeroDeck: FC<HeroDeckProps> = ({
       </Text>
 
       <div css={{ display: "flex", alignItems: "center", gap: 30, marginTop: 30 }}>
-        <Link href={deckUrl}>
-          <ArrowButton color="accent">Explore all cards</ArrowButton>
-        </Link>
         <Link href={shopUrl}>
+          <ArrowButton color="accent">Shop this deck</ArrowButton>
+        </Link>
+        <Link href={deckUrl}>
           <ArrowButton size="small" noColor base>
-            Shop this deck
+            Explore all cards
           </ArrowButton>
         </Link>
       </div>

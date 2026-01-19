@@ -47,41 +47,6 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
 
   return (
     <Fragment>
-      <Text
-        css={(theme) => [
-          {
-            color: colord(
-              palette === "dark" ? theme.colors.white : theme.colors.black
-            )
-              .alpha(0.3)
-              .toRgbString(),
-            lineHeight: "25px",
-            fontSize: 15,
-            position: "relative",
-          },
-          status && {
-            color: colord(
-              palette === "dark" ? theme.colors.white : theme.colors.black
-            )
-              .alpha(0.7)
-              .toRgbString(),
-          },
-        ]}
-      >
-        {status && (
-          <span
-            css={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              transform: "translateY(calc(-100% - 5px))",
-            }}
-          >
-            {statusMessage[status]}
-          </span>
-        )}
-      </Text>
       <form
         onSubmit={handleSubmit(onSubmit)}
         css={(theme) => [
@@ -108,7 +73,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
               .toRgbString(),
           },
           status === "fail" && {
-            borderColor: theme.colors.red,
+            borderColor: "#E57373",
           },
           status === "success" && {
             borderColor: theme.colors.green,
@@ -120,9 +85,13 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
           placeholder="Your e-mail"
           css={(theme) => ({
             ...(theme.typography.newParagraph as CSSObject),
+            fontSize: 20,
+            color: theme.colors.black,
             padding: 0,
             paddingLeft: theme.spacing(2),
             flexGrow: 1,
+            display: "flex",
+            alignItems: "center",
             "&:focus": {
               outline: "none",
             },
@@ -141,22 +110,59 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
         <button
           type="submit"
           disabled={!!status}
-          css={[
+          css={(theme) => [
             {
-              background: "none",
+              background: "#6A5ACD",
               height: "100%",
               padding: 0,
               margin: 0,
               border: "none",
+              paddingLeft: 15,
               paddingRight: 15,
+              borderRadius: 6,
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              transition: "background 0.2s, opacity 0.2s",
+            },
+            status === "loading" && {
+              opacity: 0.7,
+              cursor: "wait",
+            },
+            status === "success" && {
+              background: theme.colors.green,
             },
           ]}
         >
-          <Text css={(theme) => [{ color: theme.colors.black50 }]}>
-            Deal <Arrow css={[{ marginLeft: 10 }]} />
+          <Text css={[{ color: "white", fontSize: 20, display: "flex", alignItems: "center" }]}>
+            {status === "loading" ? "Sending..." : status === "success" ? "Done!" : "Deal"}
+            {status !== "loading" && status !== "success" && <Arrow css={[{ marginLeft: 10, color: "white" }]} />}
           </Text>
         </button>
       </form>
+      {status && (
+        <Text
+          css={(theme) => [
+            {
+              marginTop: 10,
+              fontSize: 15,
+              color: colord(
+                palette === "dark" ? theme.colors.white : theme.colors.black
+              )
+                .alpha(0.7)
+                .toRgbString(),
+            },
+            status === "fail" && {
+              color: "#E57373",
+            },
+            status === "success" && {
+              color: theme.colors.green,
+            },
+          ]}
+        >
+          {statusMessage[status]}
+        </Text>
+      )}
     </Fragment>
   );
 };

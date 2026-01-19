@@ -31,6 +31,7 @@ export function useFlippingCard<T>({
   // Internal pause states
   const [isHovered, setIsHovered] = useState(false);
   const [isInView, setIsInView] = useState(true);
+  const [isTabVisible, setIsTabVisible] = useState(true);
 
   // Refs for animation loop
   const rotationRef = useRef(0);
@@ -46,7 +47,7 @@ export function useFlippingCard<T>({
   backCardRef.current = backCard;
 
   // Combined pause state
-  const isPaused = isHovered || externalPaused || !isInView;
+  const isPaused = isHovered || externalPaused || !isInView || !isTabVisible;
   const isPausedRef = useRef(isPaused);
   isPausedRef.current = isPaused;
 
@@ -77,6 +78,18 @@ export function useFlippingCard<T>({
     observer.observe(element);
     return () => {
       observer.disconnect();
+    };
+  }, []);
+
+  // Pause when tab is not visible
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsTabVisible(!document.hidden);
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 

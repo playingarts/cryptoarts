@@ -3,6 +3,7 @@ import Grid from "../../../Grid";
 import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Button";
 import ArrowButton from "../../../Buttons/ArrowButton";
+import Link from "../../../Link";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   useEffect(() => {}, []);
@@ -21,26 +22,27 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <div css={[{ gridColumn: "span 6", position: "relative" }]}>
         <Text typography="newh1">Shop</Text>
         <Text css={[{ marginTop: 30 }]}>
-          Limited-edition playing cards, uncut sheets,
+          Limited-edition playing cards
           <br /> and exclusive bundles created by visionary artists.
         </Text>
-        <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
-          <ButtonTemplate
-            bordered={true}
-            css={(theme) => [
-              {
-                // color: "white",
-              },
-            ]}
-          >
-            Playing cards
-          </ButtonTemplate>
-          <ArrowButton base size="small" noColor>
-            Uncut sheets
-          </ArrowButton>
-          <ArrowButton base size="small" noColor>
-            Bundles
-          </ArrowButton>
+        <div css={[{ marginTop: 30, display: "flex", gap: 30, alignItems: "center" }]}>
+          <Link href="#playing-cards">
+            <ButtonTemplate
+              bordered={true}
+              css={(theme) => [
+                {
+                  fontSize: 20,
+                },
+              ]}
+            >
+              Playing Cards
+            </ButtonTemplate>
+          </Link>
+          <Link href="#bundles">
+            <ArrowButton base size="small" noColor>
+              Bundles
+            </ArrowButton>
+          </Link>
         </div>
         <img
           src="https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special-02.png"

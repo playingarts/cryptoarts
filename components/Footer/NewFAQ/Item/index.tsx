@@ -14,7 +14,7 @@ const Item: FC<
         onClick={() => setOpened(!opened)}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        css={{ cursor: "pointer", display: "flex", alignItems: "center" }}
+        css={{ cursor: "pointer", display: "flex", alignItems: "center", fontSize: 20 }}
         typography="newh4"
       >
         <Dot
@@ -38,7 +38,7 @@ const Item: FC<
           marginTop: opened ? 15 : 0,
         }}
       >
-        <Text typography="paragraphSmall" css={{ paddingBottom: 15, paddingLeft: 30 }}>
+        <Text typography="paragraphSmall" css={{ paddingBottom: 15, maxWidth: 520 }}>
           {answer}
         </Text>
       </div>

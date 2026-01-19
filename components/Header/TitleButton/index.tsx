@@ -1,9 +1,10 @@
 import Menu from "../../Icons/Menu";
 import Button from "../../Buttons/Button";
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useMemo } from "react";
 import ScandiBlock, { Props } from "../../ScandiBlock";
 import { useRouter } from "next/router";
 import { useDeck } from "../../../hooks/deck";
+import { useProducts } from "../../../hooks/product";
 import { colord } from "colord";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../../SizeProvider";
@@ -14,15 +15,31 @@ const TitleButton: FC<
   HTMLAttributes<HTMLElement> & { showSiteNav?: "top" | "afterTop" } & Props
 > = ({ showSiteNav = "top", ...props }) => {
   const { openMenu } = useMenu();
+  const router = useRouter();
   const {
-    query: { deckId },
-  } = useRouter();
+    query: { deckId, pId },
+  } = router;
 
   const { palette } = usePalette();
 
   const { deck } = useDeck({ variables: { slug: deckId }, skip: !deckId });
 
+  // Get products to find deck title for product pages
+  const { products } = useProducts();
+  const productDeckTitle = useMemo(() => {
+    if (!pId || typeof pId !== "string" || !products) return null;
+    const product = products.find(
+      (p) => p.short.toLowerCase().split(" ").join("") === pId
+    );
+    return product?.title || null;
+  }, [pId, products]);
+
   const { width } = useSize();
+
+  // Check if we're on the shop page, product page, or bag page
+  const isShopPage = router.pathname === "/shop";
+  const isProductPage = router.pathname === "/shop/[pId]";
+  const isBagPage = router.pathname === "/bag";
 
   return (
     <ScandiBlock
@@ -72,7 +89,15 @@ const TitleButton: FC<
               transition: theme.transitions.fast("opacity"),
             })}
           >
-            {deckId && deck && showSiteNav === "afterTop" ? deck.title : "Playing Arts"}
+            {showSiteNav === "afterTop" && isBagPage
+              ? "Your Bag"
+              : showSiteNav === "afterTop" && isShopPage
+              ? "Shop"
+              : showSiteNav === "afterTop" && isProductPage && productDeckTitle
+              ? productDeckTitle
+              : deckId && deck && showSiteNav === "afterTop"
+              ? deck.title
+              : "Playing Arts"}
           </span>
         )}
       </Button>

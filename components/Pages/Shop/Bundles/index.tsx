@@ -65,14 +65,14 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
         <img
           src={
             hover
-              ? product.short === "3x Edition"
+              ? product.short === "Complete Edition"
                 ? image3.src
-                : product.short === "2x Future"
+                : product.short === "Future Visionary"
                 ? future.src
                 : product.image2
-              : product.short === "3x Edition"
+              : product.short === "Complete Edition"
               ? image3Hover.src
-              : product.short === "2x Future"
+              : product.short === "Future Visionary"
               ? futureHover.src
               : product.image2
           }
@@ -91,7 +91,7 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
       <div css={[{ marginTop: 30 }]}>
         <Text typography="newh4">{product.title}</Text>
         <Text typography="paragraphSmall" css={[{ marginTop: 10 }]}>
-          The bold beginning, reimagined with AR.
+          {product.description || product.info}
         </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
           <AddToBag productId={product._id} />
@@ -127,6 +127,7 @@ const Bundles: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   return (
     <Grid
+      id="bundles"
       css={(theme) => [
         { background: theme.colors.soft_gray, paddingBottom: 90 },
       ]}

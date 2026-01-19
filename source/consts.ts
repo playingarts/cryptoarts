@@ -1,3 +1,5 @@
+export const FREE_SHIPPING_MESSAGE = "Free shipping for orders over $45!";
+
 export const socialLinks = (() => {
   const data = process.env.NEXT_PUBLIC_SOCIAL_LINKS || "{}";
   let parsedData: object | undefined;

@@ -9,7 +9,7 @@ export const getProduct = async (
 ) => ((await Product.findOne(options)) as GQL.Product) || undefined;
 
 const getProducts = (ids?: string[]) =>
-  ids ? Product.find({ _id: { $in: ids } }) : Product.find();
+  ids ? Product.find({ _id: { $in: ids }, hidden: { $ne: true } }) : Product.find({ hidden: { $ne: true } });
 
 export const resolvers: GQL.Resolvers = {
   Query: {

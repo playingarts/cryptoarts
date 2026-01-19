@@ -203,6 +203,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   css={(theme) => [
                     {
                       paddingLeft: 10,
+                      fontSize: 20,
                     },
                   ]}
                 >

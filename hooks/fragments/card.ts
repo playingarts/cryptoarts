@@ -73,6 +73,22 @@ export const CardForDeckFragment = gql`
         foundation
       }
     }
+    animator {
+      name
+      slug
+      userpic
+      country
+      info
+      social {
+        website
+        instagram
+        facebook
+        twitter
+        behance
+        dribbble
+        foundation
+      }
+    }
   }
 `;
 

@@ -83,38 +83,36 @@ const Item: FC<
         >
           {rating.who}
         </Text>
-        {!customButton && (
-          <div
-            className="deck-titles"
-            css={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              fontSize: 18,
-              lineHeight: "150%",
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              opacity: 0,
-              transition: "opacity 0.2s ease",
-              whiteSpace: "nowrap",
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-            }}
-          >
-            <span css={{ color: "#333" }}>Bought:</span>{" "}
-            {sortedSlugs.length > 0
-              ? sortedSlugs.map((slug, i) => (
-                  <span key={slug}>
-                    <Link href={`/${slug}`}>{slugToTitle[slug] || slug}</Link>
-                    {i < sortedSlugs.length - 1 && ", "}
-                  </span>
-                ))
-              : rating.title}
-            <Dot css={{ marginLeft: 4 }} />
-          </div>
-        )}
+        <div
+          className="deck-titles"
+          css={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            fontSize: 18,
+            lineHeight: "150%",
+            display: "flex",
+            alignItems: "center",
+            gap: 4,
+            opacity: 0,
+            transition: "opacity 0.2s ease",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          <span css={{ color: "#333" }}>Bought:</span>{" "}
+          {sortedSlugs.length > 0
+            ? sortedSlugs.map((slug, i) => (
+                <span key={slug}>
+                  <Link href={`/${slug}`}>{slugToTitle[slug] || slug}</Link>
+                  {i < sortedSlugs.length - 1 && ", "}
+                </span>
+              ))
+            : rating.title}
+          <Dot css={{ marginLeft: 4 }} />
+        </div>
       </div>
       {customButton}
     </div>

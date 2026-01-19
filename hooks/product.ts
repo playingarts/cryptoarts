@@ -31,6 +31,7 @@ export const ProductsQuery = gql`
         slug
         labels
         short
+        info
         previewCards {
           _id
           img

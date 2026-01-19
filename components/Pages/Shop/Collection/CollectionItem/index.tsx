@@ -51,8 +51,8 @@ const CardSkeleton: FC<{ palette: "light" | "dark" }> = ({ palette }) => (
 );
 
 const CollectionItem: FC<
-  HTMLAttributes<HTMLDivElement> & { palette?: "dark"; product: GQL.Product }
-> = ({ palette, product, ...props }) => {
+  HTMLAttributes<HTMLDivElement> & { palette?: "dark"; product: GQL.Product; useAltImage?: boolean; onViewBag?: () => void; singleImage?: boolean }
+> = ({ palette, product, useAltImage, onViewBag, singleImage, ...props }) => {
   const [hover, setHover] = useState(false);
   const [imageHover, setImageHover] = useState(false);
 
@@ -248,7 +248,10 @@ const CollectionItem: FC<
         onClick={() => setShow(true)}
       >
         <MenuPortal show={show}>
-          <Pop product={product} close={() => setShow(false)} />
+          <Pop product={product} close={() => {
+            document.body.style.overflow = "";
+            setShow(false);
+          }} show={show} onViewBag={onViewBag ? () => { setShow(false); onViewBag(); } : undefined} />
         </MenuPortal>
         {/* Card popup */}
         {showCardPop && selectedCard && product.deck && (
@@ -299,7 +302,7 @@ const CollectionItem: FC<
           </div>
         )}
 
-        {/* Card preview on hover */}
+        {/* Card preview on hover - temporarily hidden
         <div
           css={[
             {
@@ -338,52 +341,101 @@ const CollectionItem: FC<
             onClick={canGoNext ? handleNextCard : undefined}
           />
         </div>
+        */}
 
-        <img
-          src={index !== undefined ? images[index] : product.image2}
-          alt="deck image"
-          css={[
-            {
-              objectFit: "contain",
-              width: "100%",
-              aspectRatio: "1/1",
-              transition: "opacity 0.3s ease",
-            },
-          ]}
-          style={{ opacity: hover ? 0.3 : 1 }}
-        />
         <div
-          css={[
-            {
-              position: "absolute",
-              bottom: 30,
-              left: 30,
-              ">*": {
-                backgroundColor: "white",
-              },
-            },
-          ]}
-          style={{ opacity: imageHover && !hover ? 1 : 0 }}
+          css={{
+            position: "relative",
+            width: "100%",
+            aspectRatio: "1/1",
+          }}
         >
-          <NavButton
+          <img
+            src={product.image2}
+            alt="deck image"
             css={[
               {
-                rotate: "180deg",
-                marginRight: 5,
+                position: "absolute",
+                top: 0,
+                left: 0,
+                objectFit: "contain",
+                width: "100%",
+                height: "100%",
+                transition: "opacity 0.3s ease",
               },
             ]}
-            onClick={(e) => {
-              e.stopPropagation();
-              decreaseIndex();
-            }}
+            style={{ opacity: index !== undefined ? 0 : (useAltImage ? 0 : 1) }}
           />
-          <NavButton
-            onClick={(e) => {
-              e.stopPropagation();
-              increaseIndex();
-            }}
+          <img
+            src={product.image}
+            alt="deck image alt"
+            css={[
+              {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                objectFit: "contain",
+                width: "100%",
+                height: "100%",
+                transition: "opacity 0.3s ease",
+              },
+            ]}
+            style={{ opacity: index !== undefined ? 0 : (useAltImage ? 1 : 0) }}
           />
+          {!singleImage && images.map((imgSrc, i) => (
+            <img
+              key={imgSrc}
+              src={imgSrc}
+              alt={`deck image ${i}`}
+              css={[
+                {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  objectFit: "contain",
+                  width: "100%",
+                  height: "100%",
+                  transition: "opacity 0.3s ease",
+                },
+              ]}
+              style={{ opacity: index === i ? 1 : 0 }}
+            />
+          ))}
         </div>
+        {!singleImage && (
+          <div
+            css={[
+              {
+                position: "absolute",
+                bottom: 30,
+                left: 30,
+                ">*": {
+                  backgroundColor: "white",
+                },
+              },
+            ]}
+            style={{ opacity: imageHover && !hover ? 1 : 0 }}
+          >
+            <NavButton
+              css={[
+                {
+                  rotate: "180deg",
+                  marginRight: 5,
+                },
+              ]}
+              onClick={(e) => {
+                e.stopPropagation();
+                decreaseIndex();
+              }}
+            />
+            <NavButton
+              onClick={(e) => {
+                e.stopPropagation();
+                increaseIndex();
+              }}
+            />
+          </div>
+        )}
       </div>
       <div css={[{ margin: 30 }]}>
         <Link
@@ -401,7 +453,7 @@ const CollectionItem: FC<
             css={[{ marginTop: 10 }]}
             palette={hover ? palette : undefined}
           >
-            The bold beginning, reimagined with AR.
+            {product.description || product.info}
           </Text>
         </Link>
         <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>

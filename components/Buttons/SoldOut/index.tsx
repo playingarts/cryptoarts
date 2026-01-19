@@ -12,6 +12,7 @@ const SoldOut: FC<HTMLAttributes<HTMLElement> & Props> = ({ ...props }) => {
       </MenuPortal>
       <Button
         onClick={() => setShow(true)}
+        size="small"
         css={(theme) => [
           {
             color: theme.colors.black50,

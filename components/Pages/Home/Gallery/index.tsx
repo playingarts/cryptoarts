@@ -171,7 +171,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           Carefully crafted on legendary Bicycle® paper for unparalleled
           artistry and tactile quality.
         </Text>
-        <ArrowButton href="/shop" color="accent" css={[{ marginTop: 30 }]}>
+        <ArrowButton href="/shop" color="accent" css={[{ marginTop: 30, fontSize: 20 }]}>
           Shop the collection
         </ArrowButton>
         {width >= breakpoints.sm ? (

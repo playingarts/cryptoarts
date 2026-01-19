@@ -3,17 +3,18 @@
 import dynamic from "next/dynamic";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { withApollo } from "../../../source/apollo";
-import Hero from "./Hero";
 import Header from "../../Header";
-import Collection from "./Collection";
 import Footer from "../../Footer";
 import ArrowButton from "../../Buttons/ArrowButton";
-import Text from "../../Text";
 import Link from "../../Link";
+import Text from "../../Text";
 import { useBag } from "../../Contexts/bag";
 import MenuPortal from "../../Header/MainMenu/MenuPortal";
+import { FREE_SHIPPING_MESSAGE } from "../../../source/consts";
 
-// Lazy-load below-fold components
+// Lazy-load all sections
+const Hero = dynamic(() => import("./Hero"), { ssr: true });
+const Collection = dynamic(() => import("./Collection"), { ssr: true });
 const Trust = dynamic(() => import("./Trust"), { ssr: true });
 const Bundles = dynamic(() => import("./Bundles"), { ssr: true });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
@@ -25,13 +26,23 @@ const Subscribe = dynamic(() => import("../../Popups/Subscribe"), {
 
 export const BagButton = () => {
   const { bag } = useBag();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY >= 400);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <Link
       href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"}
       css={[{ marginLeft: "auto" }]}
     >
-      <ArrowButton>
+      <ArrowButton color={scrolled ? "accent" : undefined} css={{ fontSize: 20 }}>
         Bag
         {bag
           ? "—" +
@@ -66,6 +77,7 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <>
     <Header
       customCTA={<BagButton />}
+      links={["Playing cards", "Bundles", "AR", "Reviews", "FAQ"]}
       customMiddle={
         <Text
           typography="paragraphSmall"
@@ -78,11 +90,11 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
             },
           ]}
         >
-          Free shipping for orders over $50!
+          {FREE_SHIPPING_MESSAGE}
         </Text>
       }
     />
-    <Popup />
+    {/* <Popup /> */}
     <Hero />
     <Collection />
     <Trust />

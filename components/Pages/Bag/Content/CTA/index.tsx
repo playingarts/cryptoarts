@@ -31,21 +31,24 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [totalPercentage, setTotalPercentage] = useState(0);
   const [savings, setSavings] = useState(0);
   const [shippingSaving, setShippingSavings] = useState(0);
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   useEffect(() => {
     if (!products || !bag) {
       return;
     }
 
-    const total = products.reduce((prev, cur) => {
-      return Number(
-        (prev + (getPrice(cur.price, true) as number) * bag[cur._id]).toFixed(2)
-      );
-    }, 0);
+    const total = products
+      .filter((product) => bag[product._id])
+      .reduce((prev, cur) => {
+        return Number(
+          (prev + cur.price.usd * bag[cur._id]).toFixed(2)
+        );
+      }, 0);
 
     setTotal(total);
-    setTotalPercentage((total / 50) * 100);
-    setShippingSavings(total / 50 >= 1 ? 5 : 0);
+    setTotalPercentage((total / 45) * 100);
+    setShippingSavings(total / 45 >= 1 ? 5 : 0);
 
     setSavings(
       products
@@ -57,7 +60,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           return (
             prev +
             (cur.fullPrice
-              ? (getPrice(cur.fullPrice, true) as number) - (getPrice(cur.price, true) as number)
+              ? cur.fullPrice.usd - cur.price.usd
               : 0) *
               bag[cur._id]
           );
@@ -83,12 +86,12 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <div css={[{ marginTop: 60, display: "grid", gap: 15 }]}>
         <div css={[{ display: "flex", justifyContent: "space-between" }]}>
           <Text typography="paragraphSmall">Subtotal</Text>
-          <Text typography="paragraphSmall">{getPrice(total)}</Text>
+          <Text typography="paragraphSmall">${total.toFixed(2)}</Text>
         </div>
         <div css={[{ display: "flex", justifyContent: "space-between" }]}>
           <Text typography="paragraphSmall">Shipping</Text>
           <Text typography="paragraphSmall">
-            {getPrice(shippingSaving === 0 ? 5 : 0)}
+            ${(shippingSaving === 0 ? 5 : 0).toFixed(2)}
           </Text>
         </div>
         <div
@@ -97,7 +100,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               margin: "15px 0",
               position: "relative",
               background:
-                total >= 50
+                total >= 45
                   ? theme.colors.mint
                   : `linear-gradient(to right, ${theme.colors.mint} ${totalPercentage}%,  ${theme.colors.pale_gray} ${totalPercentage}%)`,
               borderRadius: 7,
@@ -108,55 +111,61 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             typography="paragraphNano"
             css={[{ textAlign: "center", lineHeight: "45px" }]}
           >
-            {total < 50
-              ? `You’re just ${getPrice(50 - total)} away from free shipping!`
+            {total < 45
+              ? `You're just $${(45 - total).toFixed(2)} away from free shipping!`
               : "You have free shipping"}
           </Text>
         </div>
-        <div
-          css={(theme) => [
-            {
-              display: "flex",
-              justifyContent: "space-between",
-              "> *": {
-                color: "#469F71",
+        {savings > 0 && (
+          <div
+            css={(theme) => [
+              {
+                display: "flex",
+                justifyContent: "space-between",
+                "> *": {
+                  color: "#469F71",
+                },
               },
-            },
-          ]}
-        >
-          <Text typography="paragraphSmall">Bundle savings</Text>
-          <Text typography="paragraphSmall">{getPrice(savings)}</Text>
-        </div>
-        <div
-          css={(theme) => [
-            {
-              display: "flex",
-              justifyContent: "space-between",
-              "> *": {
-                color: "#469F71",
+            ]}
+          >
+            <Text typography="paragraphSmall">Bundle savings</Text>
+            <Text typography="paragraphSmall">${savings.toFixed(2)}</Text>
+          </div>
+        )}
+        {shippingSaving > 0 && (
+          <div
+            css={(theme) => [
+              {
+                display: "flex",
+                justifyContent: "space-between",
+                "> *": {
+                  color: "#469F71",
+                },
               },
-            },
-          ]}
-        >
-          <Text typography="paragraphSmall">Shipping savings</Text>
-          <Text typography="paragraphSmall">{getPrice(shippingSaving)}</Text>
-        </div>
-        <div
-          css={(theme) => [
-            {
-              display: "flex",
-              justifyContent: "space-between",
-              "> *": {
-                color: "#469F71",
+            ]}
+          >
+            <Text typography="paragraphSmall">Shipping savings</Text>
+            <Text typography="paragraphSmall">${shippingSaving.toFixed(2)}</Text>
+          </div>
+        )}
+        {savings > 0 && shippingSaving > 0 && (
+          <div
+            css={(theme) => [
+              {
+                display: "flex",
+                justifyContent: "space-between",
+                "> *": {
+                  color: "#469F71",
+                },
               },
-            },
-          ]}
-        >
-          <Text typography="paragraphSmall">Total savings</Text>
-          <Text typography="paragraphSmall">
-            {getPrice(savings + shippingSaving)}
-          </Text>
-        </div>
+            ]}
+          >
+            <Text typography="paragraphSmall">Total savings</Text>
+            <Text typography="paragraphSmall">
+              ${(savings + shippingSaving).toFixed(2)}
+            </Text>
+          </div>
+        )}
       </div>
       <div
         css={[
@@ -169,7 +178,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       >
         <Text typography="newh3">Total</Text>
         <Text typography="newh3">
-          {getPrice(total + (total >= 50 ? 0 : 5))}
+          ${(total + (total >= 45 ? 0 : 5)).toFixed(2)}
         </Text>
       </div>
       <Link
@@ -180,12 +189,11 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 .map(([id, quantity]) => `${parseInt(id, 10)}:${quantity}`)
                 .join(",")}`
         }
-        target="_blank"
-        rel="noopener"
         css={[{ marginLeft: "auto" }]}
+        onClick={() => setCheckoutLoading(true)}
       >
-        <ArrowButton color="accent" css={[{ display: "flex", marginTop: 30 }]}>
-          Secure check out
+        <ArrowButton color="accent" css={[{ display: "flex", marginTop: 30, fontSize: 20 }, checkoutLoading && { opacity: 0.7, cursor: "wait" }]}>
+          {checkoutLoading ? "Loading..." : "Secure check out"}
         </ArrowButton>
       </Link>
       <ContinueShopping css={[{ display: "flex", marginTop: 30 }]}>
@@ -195,7 +203,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <Text
         typography="paragraphSmall"
         css={(theme) => [
-          { textAlign: "center", color: theme.colors.black30, marginTop: 30 },
+          { textAlign: "center", color: theme.colors.black30, marginTop: 30, fontSize: 15 },
         ]}
       >
         <Lock css={[{ marginRight: 10 }]} />

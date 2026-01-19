@@ -108,6 +108,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           <ButtonTemplate
             css={{
               paddingLeft: 10,
+              fontSize: 20,
             }}
           >
             <Apple
@@ -128,6 +129,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           <ButtonTemplate
             css={{
               paddingLeft: 10,
+              fontSize: 20,
             }}
           >
             <Android

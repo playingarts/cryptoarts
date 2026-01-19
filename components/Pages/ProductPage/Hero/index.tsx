@@ -2,7 +2,6 @@ import { useRouter } from "next/router";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { useProducts } from "../../../../hooks/product";
 import Text from "../../../Text";
-import { useBag } from "../../../Contexts/bag";
 import SoldOut from "../../../Buttons/SoldOut";
 import AddToBag from "../../../Buttons/AddToBag";
 import ContinueShopping from "../../../Buttons/ContinueShopping";
@@ -16,8 +15,6 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
 
   const [product, setProduct] = useState<GQL.Product>();
-
-  const { getPrice } = useBag();
 
   useEffect(() => {
     products &&
@@ -43,16 +40,16 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Text typography="newh1">{product.title}</Text>
+        <Text typography="newh1" css={{ textAlign: "left" }}>{product.title}</Text>
         <Text>{product.description}</Text>
-        <Text>{getPrice(product.price)}</Text>
-        <div>
+        <Text>${product.price.usd}</Text>
+        <div css={{ display: "flex", alignItems: "center", gap: 30 }}>
           {product.status === "soldout" ? (
-            <SoldOut />
+            <SoldOut size="big" css={{ fontSize: 20 }} />
           ) : (
-            <AddToBag productId={product._id} />
+            <AddToBag productId={product._id} size="big" css={{ fontSize: 20 }} />
           )}
-          <ContinueShopping css={[{ marginLeft: 30 }]} />
+          <ContinueShopping css={{ fontSize: 20 }} />
         </div>
         <img
           src={product.image2}

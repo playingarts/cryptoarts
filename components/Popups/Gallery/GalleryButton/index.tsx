@@ -23,6 +23,7 @@ const GalleryButton: FC<GalleryButtonProps> = ({ src, alt = "", ...props }) => {
             borderRadius: 15,
             overflow: "hidden",
             cursor: "pointer",
+            aspectRatio: "1",
           },
         ]}
         {...props}

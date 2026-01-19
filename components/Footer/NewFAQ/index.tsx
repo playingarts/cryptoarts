@@ -6,12 +6,13 @@ import Grid from "../../Grid";
 import Item from "./Item";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useRouter } from "next/router";
-import { useCards, useCard } from "../../../hooks/card";
+import { useCards } from "../../../hooks/card";
 import { useDecks } from "../../../hooks/deck";
 import Card from "../../Card";
 import MenuPortal from "../../Header/MainMenu/MenuPortal";
 import FlippingCard from "./FlippingCard";
 import CardsSkeleton from "./CardsSkeleton";
+import { useCardPageContextOptional } from "../../Pages/CardPage/CardPageContext";
 import {
   FAQ_DATA,
   CARD_WIDTH,
@@ -34,19 +35,28 @@ type SelectedCard = {
   cardImg: string;
 } | null;
 
-const FooterCards = () => {
+const FooterCards: FC<{ overrideDeckSlug?: string }> = ({ overrideDeckSlug }) => {
   const {
     query: { deckId: deckSlug, artistSlug },
   } = useRouter();
 
+  // Use override deck slug if provided (e.g., from product page)
+  const effectiveDeckSlug = overrideDeckSlug || deckSlug;
+
   // Check if we're on a card page (has artistSlug)
   const isCardPage = typeof artistSlug === "string";
 
-  // Get the current card if on a card page
-  const { card: currentPageCard } = useCard({
-    variables: { slug: artistSlug, deckSlug },
-    skip: !isCardPage || !artistSlug || !deckSlug,
-  });
+  // Get current card from CardPageContext (updates instantly on navigation)
+  // Use optional version since FAQ can be rendered outside CardPageProvider
+  const cardPageContext = useCardPageContextOptional();
+  const contextArtistSlug = cardPageContext?.artistSlug;
+  const sortedCards = cardPageContext?.sortedCards || [];
+
+  // Find current card from sorted cards (instant update on navigation)
+  const currentPageCard = useMemo(() => {
+    if (!isCardPage || !contextArtistSlug || !sortedCards.length) return null;
+    return sortedCards.find((c) => c.artist?.slug === contextArtistSlug) || null;
+  }, [isCardPage, contextArtistSlug, sortedCards]);
 
   // Get all decks to pick a random one
   const { decks } = useDecks();
@@ -54,9 +64,9 @@ const FooterCards = () => {
   // Pick a random deck on mount (or use current deck if on deck/card page)
   // Exclude crypto edition deck
   const selectedDeck = useMemo(() => {
-    // On deck or card pages, use the deck from the URL (deckSlug is the deck slug)
-    if (deckSlug && decks) {
-      const deckFromUrl = decks.find((d) => d.slug === deckSlug);
+    // On deck or card pages, use the deck from the URL (effectiveDeckSlug is the deck slug)
+    if (effectiveDeckSlug && decks) {
+      const deckFromUrl = decks.find((d) => d.slug === effectiveDeckSlug);
       if (deckFromUrl) return deckFromUrl;
     }
     // On other pages, pick a random deck (excluding crypto)
@@ -64,7 +74,7 @@ const FooterCards = () => {
     const filteredDecks = decks.filter((deck) => deck.slug !== "crypto");
     if (filteredDecks.length === 0) return null;
     return filteredDecks[Math.floor(Math.random() * filteredDecks.length)];
-  }, [deckSlug, decks]);
+  }, [effectiveDeckSlug, decks]);
 
   const randomDeckId = selectedDeck?._id;
 
@@ -180,11 +190,16 @@ const FooterCards = () => {
   );
 };
 
-const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+interface FAQProps extends HTMLAttributes<HTMLElement> {
+  deckSlug?: string;
+}
+
+const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
   const { palette } = usePalette();
 
   return (
     <div
+      id="faq"
       css={(theme) => [
         {
           background:
@@ -237,7 +252,7 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               },
             ]}
           >
-            <FooterCards />
+            <FooterCards overrideDeckSlug={deckSlug} />
           </div>
         </div>
         <div
@@ -245,11 +260,11 @@ const FAQ: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               gridColumn: "span 6",
               display: "grid",
-              paddingTop: 120,
-              paddingBottom: 120,
+              paddingTop: 90,
+              paddingBottom: 90,
               marginTop: 15,
               paddingRight: 30,
-              gap: 15,
+              gap: 10,
               alignContent: "center",
             },
           ]}

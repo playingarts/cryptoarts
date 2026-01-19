@@ -46,6 +46,17 @@ const App = ({
     }
   }, []);
 
+  // Reset body overflow on route change (fixes popup scroll lock persisting)
+  useEffect(() => {
+    const handleRouteChange = () => {
+      document.body.style.overflow = "";
+    };
+    router.events.on("routeChangeStart", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [router.events]);
+
   // Navigation instrumentation for debugging (enable with ?debugNav or localStorage.debugNav=true)
   useEffect(() => {
     return initNavInstrumentation(router);

@@ -48,6 +48,11 @@ export const useCardPageContext = () => {
   return context;
 };
 
+/** Optional version that returns null if not within CardPageProvider */
+export const useCardPageContextOptional = () => {
+  return useContext(CardPageContext);
+};
+
 interface CardPageProviderProps {
   children: ReactNode;
 }

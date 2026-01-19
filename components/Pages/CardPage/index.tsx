@@ -119,6 +119,11 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
         </LazySection>
       </div>
 
+      {/* AR section - lazy load on scroll (if deck has AR) */}
+      <LazySection rootMargin="300px" minHeight={0}>
+        <CardPageAR deckId={effectiveDeckId} />
+      </LazySection>
+
       {/* Reviews section - lazy load on scroll */}
       <div id="reviews">
         <LazySection rootMargin="300px" minHeight={400}>
@@ -132,11 +137,6 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
           <FAQ />
         </LazySection>
       </div>
-
-      {/* AR section - lazy load on scroll (if applicable) */}
-      <LazySection rootMargin="200px" minHeight={0}>
-        <CardPageAR deckId={effectiveDeckId} />
-      </LazySection>
 
       {/* Footer - lazy load last (onlyFooter to skip duplicate Reviews/FAQ) */}
       <LazySection rootMargin="100px" minHeight={400}>

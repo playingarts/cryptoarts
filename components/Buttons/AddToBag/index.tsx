@@ -8,13 +8,21 @@ const AddToBag: FC<
   HTMLAttributes<HTMLElement> &
     Props & {
       productId: string;
+      onViewBag?: () => void;
     }
-> = ({ productId, ...props }) => {
+> = ({ productId, onViewBag, ...props }) => {
   const { bag, addItem } = useBag();
 
   if (bag && bag[productId] >= 0) {
+    if (onViewBag) {
+      return (
+        <Button color="accent" size="small" onClick={onViewBag} {...props}>
+          View bag
+        </Button>
+      );
+    }
     return (
-      <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"}>
+      <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"} css={{ display: "flex", alignItems: "center" }}>
         <Button color="accent" size="small" {...props}>
           View bag
         </Button>
@@ -28,7 +36,7 @@ const AddToBag: FC<
       size="small"
       css={[
         {
-          paddingLeft: 7,
+          paddingLeft: 10,
         },
       ]}
       onClick={() => addItem(productId)}

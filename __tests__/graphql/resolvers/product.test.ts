@@ -96,7 +96,7 @@ describe("Product Resolver", () => {
         {} as never
       );
 
-      expect(Product.find).toHaveBeenCalledWith();
+      expect(Product.find).toHaveBeenCalledWith({ hidden: { $ne: true } });
       expect(result).toEqual(mockProducts);
     });
 
@@ -119,7 +119,7 @@ describe("Product Resolver", () => {
         {} as never
       );
 
-      expect(Product.find).toHaveBeenCalledWith({ _id: { $in: ["1", "3"] } });
+      expect(Product.find).toHaveBeenCalledWith({ _id: { $in: ["1", "3"] }, hidden: { $ne: true } });
       expect(result).toEqual(mockProducts);
     });
   });

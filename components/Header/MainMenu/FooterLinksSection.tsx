@@ -6,10 +6,14 @@ import Link from "../../Link";
 import { links } from "../../Footer";
 import MenuGrid from "./MenuGrid";
 
+interface FooterLinksSectionProps {
+  onClose?: () => void;
+}
+
 /**
  * Footer navigation links section for MainMenu
  */
-const FooterLinksSection: FC = () => {
+const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
 
   return (
     <MenuGrid
@@ -47,7 +51,7 @@ const FooterLinksSection: FC = () => {
           </Text>
           <div css={[{ marginTop: 30, display: "grid", gap: 5 }]}>
             {links[key].map((item) => (
-              <Link key={`${key}-${item.label}`} href={item.href}>
+              <Link key={`${key}-${item.label}`} href={item.href} onClick={onClose}>
                 <ArrowButton
                   css={(theme) => [
                     {
@@ -104,10 +108,11 @@ const FooterLinksSection: FC = () => {
             <a
               css={[{ textDecoration: "underline", marginRight: 15 }]}
               href="/privacy"
+              onClick={onClose}
             >
               Privacy Statement
             </a>
-            <a css={[{ textDecoration: "underline" }]} href="/terms">
+            <a css={[{ textDecoration: "underline" }]} href="/terms" onClick={onClose}>
               Terms of Service
             </a>
           </Text>

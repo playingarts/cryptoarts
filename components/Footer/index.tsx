@@ -100,7 +100,7 @@ const ActualFooter = () => {
           <Text
             typography="newh4"
             css={(theme) => [
-              { color: theme.colors[palette === "dark" ? "white50" : "black50"] },
+              { color: theme.colors[palette === "dark" ? "white50" : "black50"], fontSize: 20 },
             ]}
           >
             Download Playing Arts AR™ app
@@ -115,6 +115,7 @@ const ActualFooter = () => {
               <ButtonTemplate
                 css={(theme) => ({
                   paddingLeft: 10,
+                  fontSize: 20,
                   color: palette === "dark" ? theme.colors.spaceBlack : undefined,
                 })}
                 color={palette === "dark" ? "white50" : undefined}
@@ -139,6 +140,7 @@ const ActualFooter = () => {
                 color={palette === "dark" ? "white50" : undefined}
                 css={(theme) => ({
                   paddingLeft: 10,
+                  fontSize: 20,
                   color: palette === "dark" ? theme.colors.spaceBlack : undefined,
                 })}
                 palette={palette}
@@ -203,6 +205,7 @@ const ActualFooter = () => {
             css={(theme) => [
               {
                 color: theme.colors[palette === "dark" ? "white50" : "black50"],
+                fontSize: 20,
               },
             ]}
           >
@@ -244,9 +247,10 @@ const ActualFooter = () => {
   );
 };
 
-const Footer: FC<HTMLAttributes<HTMLElement> & { onlyFooter?: boolean }> = ({
+const Footer: FC<HTMLAttributes<HTMLElement> & { onlyFooter?: boolean; deckSlug?: string }> = ({
   children,
   onlyFooter,
+  deckSlug,
   ...props
 }) => (
   <>
@@ -254,7 +258,7 @@ const Footer: FC<HTMLAttributes<HTMLElement> & { onlyFooter?: boolean }> = ({
       <>
         <FooterTestimonials />
         {children}
-        <NewFAQ />
+        <NewFAQ deckSlug={deckSlug} />
       </>
     ) : null}
     <ActualFooter />

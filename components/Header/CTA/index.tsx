@@ -19,6 +19,7 @@ const HeaderButton = () => {
         <ArrowButton
           color={palette === "dark" ? "white" : undefined}
           palette={palette}
+          css={{ fontSize: 20 }}
         >
           Shop
         </ArrowButton>

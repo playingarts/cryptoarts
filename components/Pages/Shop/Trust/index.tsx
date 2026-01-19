@@ -27,7 +27,7 @@ const Trust: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         >
           Free shipping
           <br />
-          on orders over $50
+          for orders over $50!
         </Text>
       </div>
 

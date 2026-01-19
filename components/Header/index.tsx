@@ -14,12 +14,15 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   customCTA?: ReactNode;
   customMiddle?: ReactNode;
   links?: string[];
+  /** Content to show in initial state (before scroll), switches to nav links after scroll */
+  topContent?: ReactNode;
 }
 
 const Header: FC<Props> = ({
   customMiddle,
   customCTA,
   links = ["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"],
+  topContent,
   ...props
 }) => {
   const [showSiteNav, setShowSiteNav] = useState<"top" | "afterTop">("top");
@@ -41,7 +44,7 @@ const Header: FC<Props> = ({
       const scrollTop = window.scrollY;
 
       // Always update showSiteNav based on scroll position
-      if (scrollTop >= 500) {
+      if (scrollTop >= 400) {
         setShowSiteNav("afterTop");
       } else {
         setShowSiteNav("top");
@@ -159,6 +162,7 @@ const Header: FC<Props> = ({
           {...{ showSiteNav, altNav }}
           customMiddle={customMiddle}
           links={links}
+          topContent={topContent}
         />
 
         <ScandiBlock

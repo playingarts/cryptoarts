@@ -73,6 +73,8 @@ interface CollectionItemProps extends HTMLAttributes<HTMLElement> {
   currentDeckSlug?: string;
   /** Called when clicking "View" on current deck (to close menu) */
   onClose?: () => void;
+  /** Show card preview on hover (default: true) */
+  showCardPreview?: boolean;
 }
 
 // Minimal card type for our buffer
@@ -85,6 +87,7 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
   priority = false,
   currentDeckSlug,
   onClose,
+  showCardPreview = true,
   ...props
 }) => {
   const router = useRouter();
@@ -379,42 +382,44 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
             ))}
           </div>
 
-          <div
-            css={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              gap: CARD_PREVIEW_GAP,
-              position: "absolute",
-              top: CARD_PREVIEW_TOP,
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-            style={{ opacity: hover ? 1 : 0 }}
-          >
-            <NavButton
-              palette={currentPalette}
-              css={{ rotate: "180deg", opacity: canGoPrev ? 1 : 0.3 }}
-              onClick={canGoPrev ? handlePrevCard : undefined}
-            />
-            {currentCard && isCurrentCardReady ? (
-              <Card
-                noArtist
-                noFavorite
-                size="nano"
-                card={currentCard as GQL.Card}
-                onClick={handleCardClick}
+          {showCardPreview && (
+            <div
+              css={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: CARD_PREVIEW_GAP,
+                position: "absolute",
+                top: CARD_PREVIEW_TOP,
+                left: "50%",
+                transform: "translateX(-50%)",
+              }}
+              style={{ opacity: hover ? 1 : 0 }}
+            >
+              <NavButton
                 palette={currentPalette}
+                css={{ rotate: "180deg", opacity: canGoPrev ? 1 : 0.3 }}
+                onClick={canGoPrev ? handlePrevCard : undefined}
               />
-            ) : (
-              <CardSkeleton palette={currentPalette} />
-            )}
-            <NavButton
-              palette={currentPalette}
-              css={{ opacity: canGoNext ? 1 : 0.3 }}
-              onClick={canGoNext ? handleNextCard : undefined}
-            />
-          </div>
+              {currentCard && isCurrentCardReady ? (
+                <Card
+                  noArtist
+                  noFavorite
+                  size="nano"
+                  card={currentCard as GQL.Card}
+                  onClick={handleCardClick}
+                  palette={currentPalette}
+                />
+              ) : (
+                <CardSkeleton palette={currentPalette} />
+              )}
+              <NavButton
+                palette={currentPalette}
+                css={{ opacity: canGoNext ? 1 : 0.3 }}
+                onClick={canGoNext ? handleNextCard : undefined}
+              />
+            </div>
+          )}
 
           <div
             css={{

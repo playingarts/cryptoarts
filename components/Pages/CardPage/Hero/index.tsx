@@ -165,6 +165,16 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
               ? ssrCard?.artist
               : undefined
           }
+          animator={
+            cachedCard?.animator
+              ? {
+                  name: cachedCard.animator.name || "",
+                  userpic: cachedCard.animator.userpic,
+                  info: cachedCard.animator.info,
+                  social: cachedCard.animator.social,
+                }
+              : undefined
+          }
           dark={isDark}
           onVisible={handleArtistVisible}
           loading={artistLoading}

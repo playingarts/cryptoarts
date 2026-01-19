@@ -44,6 +44,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           <Text typography="newh3">Your bag is ready!</Text>
           {products && (
             <ScandiBlock
+              id="items"
               css={[
                 {
                   paddingTop: 15,
@@ -56,7 +57,12 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             >
               <ArrowedButton css={[{ marginBottom: 30 }]}>
                 {products.length} items are reserved for&nbsp;
-                <Countdown date={Date.now() + 599000} />
+                <Countdown
+                  date={Date.now() + 599000}
+                  renderer={({ minutes, seconds }) => (
+                    <span>{String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}</span>
+                  )}
+                />
                 &nbsp;minutes...
               </ArrowedButton>
 
@@ -70,12 +76,12 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             </ScandiBlock>
           )}
           <ScandiBlock css={[{ marginTop: 60, paddingTop: 15 }]}>
-            <Text typography="paragraphBig" css={[{ marginRight: 110 }]}>
+            <Text typography="paragraphBig" css={[{ marginRight: 110, fontSize: 25 }]}>
               You are on your way to owning an exclusive art piece!
             </Text>
           </ScandiBlock>
         </div>
-        <Suggestions css={[{ marginTop: 120 }]}></Suggestions>
+        <Suggestions id="related" css={[{ marginTop: 120, paddingTop: 60 }]}></Suggestions>
       </div>
       <CTA css={[{ gridColumn: "span 4/-1" }]}></CTA>
     </Grid>

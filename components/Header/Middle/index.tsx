@@ -25,30 +25,37 @@ export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({
       ]}
     >
       {links &&
-        links.map((name, i) => (
-          <Link
-            href={"#" + name.toLowerCase()}
-            key={name + i}
-            css={(theme) => [
-              {
-                display: "flex",
-                alignItems: "center",
-              },
-            ]}
-          >
-            <Button
-              noColor={true}
-              size="small"
+        links.map((name, i) => {
+          const isTopLink = name.toLowerCase() === "items";
+          return (
+            <Link
+              href={isTopLink ? "#" : "#" + name.toLowerCase().replace(/\s+/g, "-")}
+              key={name + i}
               css={(theme) => [
                 {
-                  color: theme.colors[palette === "dark" ? "white" : "black"],
+                  display: "flex",
+                  alignItems: "center",
                 },
               ]}
+              onClick={isTopLink ? (e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              } : undefined}
             >
-              {name}
-            </Button>
-          </Link>
-        ))}
+              <Button
+                noColor={true}
+                size="small"
+                css={(theme) => [
+                  {
+                    color: theme.colors[palette === "dark" ? "white" : "black"],
+                  },
+                ]}
+              >
+                {name}
+              </Button>
+            </Link>
+          );
+        })}
     </div>
   );
 };
@@ -83,11 +90,13 @@ const Middle = ({
   altNav,
   customMiddle,
   links,
+  topContent,
 }: {
   customMiddle: ReactNode;
   showSiteNav: "top" | "afterTop";
   altNav: boolean;
   links: string[];
+  topContent?: ReactNode;
 }) => {
   const { palette } = usePalette();
   const { width } = useSize();
@@ -140,26 +149,23 @@ const Middle = ({
       {/* Progress bar overlay */}
       <ProgressBar />
       <div
-        {...(!customMiddle
-          ? {
-              css: (theme) => [
-                {
-                  color: theme.colors.dark_gray,
-                  height: "200%",
-                  position: "relative",
-                  top: 0,
-                  transition: theme.transitions.fast("top"),
-                },
-              ],
-              style:
-                (width >= breakpoints.sm &&
-                  showSiteNav !== "top" &&
-                  altNav && {
-                    top: "-100%",
-                  }) ||
-                {},
-            }
-          : {})}
+        css={(theme) => [
+          {
+            color: theme.colors.dark_gray,
+            height: "200%",
+            position: "relative",
+            top: 0,
+            transition: theme.transitions.fast("top"),
+          },
+        ]}
+        style={
+          (width >= breakpoints.sm &&
+            showSiteNav !== "top" &&
+            altNav && {
+              top: "-100%",
+            }) ||
+          {}
+        }
       >
         <div
           css={(theme) => [
@@ -205,7 +211,14 @@ const Middle = ({
           </Link>
           {customMiddle ?? <ArrowNav />}
         </div>
-        {!customMiddle && width >= breakpoints.md && <PageNav links={links} />}
+        {width >= breakpoints.md && (
+          topContent ? (
+            // When topContent is provided, show it at top and nav links after scroll
+            showSiteNav === "top" ? topContent : <PageNav links={links} />
+          ) : (
+            <PageNav links={links} />
+          )
+        )}
       </div>
     </div>
   );

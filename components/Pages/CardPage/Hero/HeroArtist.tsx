@@ -47,6 +47,7 @@ interface ArtistData {
 
 interface HeroArtistProps {
   artist?: ArtistData;
+  animator?: ArtistData;
   dark?: boolean;
   /** Called when section enters viewport - triggers loading */
   onVisible?: () => void;
@@ -85,58 +86,28 @@ const HeroArtistSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
   </ScandiBlock>
 );
 
-/**
- * P1: The Artist section - loads after initial card display.
- * Uses Intersection Observer to trigger loading when approaching viewport.
- */
-const HeroArtist: FC<HeroArtistProps> = ({ artist, dark, onVisible, loading }) => {
+/** Reusable artist/animator block */
+interface ArtistBlockProps {
+  artist: ArtistData;
+  title: string;
+  sectionId: string;
+  dark?: boolean;
+  style?: React.CSSProperties;
+}
+
+const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, style }) => {
   const [infoExpanded, setInfoExpanded] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
   const infoTextRef = useRef<HTMLDivElement>(null);
-  const hasTriggeredRef = useRef(false);
-
-  // Check if artist info text is truncated (more than 5 lines)
-  const isInfoTruncated = useIsTruncated(infoTextRef, [artist?.info, infoExpanded]);
-
-  // Intersection Observer to trigger loading
-  useEffect(() => {
-    if (!onVisible || hasTriggeredRef.current) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasTriggeredRef.current) {
-          hasTriggeredRef.current = true;
-          onVisible();
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "100px" }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [onVisible]);
-
-  // Show skeleton while loading or no data
-  if (loading || !artist?.name) {
-    return (
-      <div ref={ref}>
-        <HeroArtistSkeleton dark={dark} />
-      </div>
-    );
-  }
+  const isInfoTruncated = useIsTruncated(infoTextRef, [artist.info, infoExpanded]);
 
   return (
-    <ScandiBlock id="artist" css={{ paddingTop: 15, display: "block" }}>
+    <ScandiBlock id={sectionId} css={{ paddingTop: 15, display: "block" }} style={style}>
       <ArrowedButton
         onClick={() =>
-          document.getElementById("artist")?.scrollIntoView({ behavior: "smooth" })
+          document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })
         }
       >
-        The artist
+        {title}
       </ArrowedButton>
 
       <div css={{ maxWidth: 520 }}>
@@ -144,7 +115,7 @@ const HeroArtist: FC<HeroArtistProps> = ({ artist, dark, onVisible, loading }) =
           {artist.userpic && (
             <img
               src={artist.userpic}
-              alt={artist.name ? `${artist.name} profile` : "Artist profile"}
+              alt={artist.name ? `${artist.name} profile` : `${title} profile`}
               loading="lazy"
               css={{
                 borderRadius: 10,
@@ -206,6 +177,67 @@ const HeroArtist: FC<HeroArtistProps> = ({ artist, dark, onVisible, loading }) =
         </div>
       </div>
     </ScandiBlock>
+  );
+};
+
+/**
+ * P1: The Artist section - loads after initial card display.
+ * Uses Intersection Observer to trigger loading when approaching viewport.
+ * Also shows "The animator" section if card has an animator.
+ */
+const HeroArtist: FC<HeroArtistProps> = ({ artist, animator, dark, onVisible, loading }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const hasTriggeredRef = useRef(false);
+
+  // Intersection Observer to trigger loading
+  useEffect(() => {
+    if (!onVisible || hasTriggeredRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasTriggeredRef.current) {
+          hasTriggeredRef.current = true;
+          onVisible();
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "100px" }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [onVisible]);
+
+  // Show skeleton while loading or no data
+  if (loading || !artist?.name) {
+    return (
+      <div ref={ref}>
+        <HeroArtistSkeleton dark={dark} />
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <ArtistBlock
+        artist={artist}
+        title="The artist"
+        sectionId="artist"
+        dark={dark}
+      />
+      {animator?.name && (
+        <ArtistBlock
+          artist={animator}
+          title={`Animator – ${animator.name}`}
+          sectionId="animator"
+          dark={dark}
+          style={{ marginTop: 60 }}
+        />
+      )}
+    </>
   );
 };
 

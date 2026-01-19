@@ -1,4 +1,4 @@
-import { FC, FormEvent, HTMLAttributes } from "react";
+import { FC, FormEvent, HTMLAttributes, useState } from "react";
 import Grid from "../../../../Grid";
 import Text from "../../../../Text";
 import Label from "../../../../Label";
@@ -6,17 +6,23 @@ import Minus from "../../../../Icons/Minus";
 import Delete from "../../../../Icons/Delete";
 import { useBag } from "../../../../Contexts/bag";
 import Plus from "../../../../Icons/Plus";
+import MenuPortal from "../../../../Header/MainMenu/MenuPortal";
+import Pop from "../../../ProductPage/Pop";
 
 const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
   product,
   ...props
 }) => {
   const { bag, updateQuantity, removeItem, getPrice } = useBag();
+  const [showPop, setShowPop] = useState(false);
 
   const quantity = bag ? bag[product._id] : 1;
 
   return (
     <Grid auto css={[{ alignItems: "center" }]}>
+      <MenuPortal show={showPop}>
+        <Pop product={product} close={() => setShowPop(false)} show={showPop} onViewBag={() => setShowPop(false)} />
+      </MenuPortal>
       <img
         css={[
           {
@@ -24,10 +30,12 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
             width: "100%",
             aspectRatio: "190/180",
             objectFit: "cover",
+            cursor: "pointer",
           },
         ]}
         src={product.image}
         alt={product.info}
+        onClick={() => setShowPop(true)}
       />
       <div
         css={[
@@ -37,29 +45,26 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
           },
         ]}
       >
-        <div css={[{ display: "flex", alignItems: "center" }]}>
-          <Text typography="newh4" css={[{ marginRight: 15 }]}>
-            {product.title}
-          </Text>
-          {product.status === "low" ? (
-            <Label
-              css={[
-                {
-                  backgroundColor: "#FFF4CC",
-                  height: "fit-content",
-                },
-              ]}
-            >
-              Low stock
-            </Label>
-          ) : product.status === "soldout" ? (
-            <Label css={[{ backgroundColor: "#FFD6D6" }]}>Sold out</Label>
-          ) : null}
-        </div>
-        <Text typography="paragraphSmall" css={[{ marginTop: 10 }]}>
-          {product.description}
+        {product.status === "low" ? (
+          <Label
+            css={[
+              {
+                backgroundColor: "#FFF4CC",
+                height: "fit-content",
+                marginBottom: 10,
+                width: "fit-content",
+              },
+            ]}
+          >
+            Low stock
+          </Label>
+        ) : product.status === "soldout" ? (
+          <Label css={[{ backgroundColor: "#FFD6D6", marginBottom: 10, width: "fit-content" }]}>Sold out</Label>
+        ) : null}
+        <Text typography="newh4" css={[{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", cursor: "pointer" }]} onClick={() => setShowPop(true)}>
+          {product.title}
         </Text>
-        <Text typography="newh4" css={[{ marginTop: 15 }]}>
+                <Text typography="newh4" css={[{ marginTop: 15 }]}>
           <Minus
             css={(theme) => [
               { marginRight: 22, userSelect: "none" },
@@ -92,7 +97,7 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
         typography="newh4"
         css={[{ gridColumn: "span 2", textAlign: "end" }]}
       >
-        {getPrice(product.price)}
+        ${product.price.usd}
         <Delete
           css={[{ marginLeft: 30, cursor: "pointer" }]}
           onClick={() => removeItem(product._id)}

@@ -4,6 +4,8 @@ import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Text from "../../../Text";
+import Card from "../../../Card";
+import { cardSizes } from "../../../Card/sizes";
 import { useCardPageContext } from "../CardPageContext";
 
 /** Placeholder for empty photo slots */
@@ -18,6 +20,127 @@ const fadeIn = keyframes`
     opacity: 1;
   }
 `;
+
+/** Flip duration */
+const FLIP_DURATION = 800;
+/** Delay before first auto-flip */
+const FLIP_DELAY = 2000;
+/** Interval between auto-flips */
+const FLIP_INTERVAL = 5000;
+
+interface FlipCardProps {
+  card: GQL.Card;
+  backsideCard?: GQL.Card | null;
+}
+
+/** Card that auto-flips and also flips on click, pauses on hover */
+const FlipCard: FC<FlipCardProps> = ({ card, backsideCard }) => {
+  const [rotation, setRotation] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isTabVisible, setIsTabVisible] = useState(true);
+  const dimensions = cardSizes.nano;
+
+  // Reset rotation when card changes
+  useEffect(() => {
+    setRotation(0);
+  }, [card._id]);
+
+  // Pause when tab is not visible
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsTabVisible(!document.hidden);
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
+
+  // Auto-flip periodically (pauses on hover or tab hidden)
+  useEffect(() => {
+    if (!backsideCard || isHovered || !isTabVisible) return;
+
+    let intervalId: NodeJS.Timeout | null = null;
+
+    const startTimeout = setTimeout(() => {
+      setRotation((prev) => prev + 360);
+
+      intervalId = setInterval(() => {
+        setRotation((prev) => prev + 360);
+      }, FLIP_INTERVAL);
+    }, FLIP_DELAY);
+
+    return () => {
+      clearTimeout(startTimeout);
+      if (intervalId) clearInterval(intervalId);
+    };
+  }, [backsideCard, card._id, isHovered, isTabVisible]);
+
+  const handleClick = () => {
+    if (!backsideCard) return;
+    setRotation((prev) => prev + 360);
+  };
+
+  return (
+    <div
+      css={{
+        perspective: "1000px",
+        width: dimensions.width,
+        height: dimensions.height,
+        cursor: backsideCard ? "pointer" : "default",
+      }}
+      onClick={handleClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div
+        css={{
+          width: "100%",
+          height: "100%",
+          position: "relative",
+          transformStyle: "preserve-3d",
+        }}
+        style={{
+          transition: `transform ${FLIP_DURATION}ms ease-in-out`,
+          transform: `rotateY(${rotation}deg)`,
+        }}
+      >
+        {/* Front face */}
+        <div
+          css={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backfaceVisibility: "hidden",
+            WebkitBackfaceVisibility: "hidden",
+          }}
+        >
+          <Card card={card} size="nano" noArtist interactive={false} />
+        </div>
+        {/* Back face */}
+        {backsideCard && (
+          <div
+            css={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              transform: "rotateY(180deg)",
+            }}
+          >
+            <Card card={backsideCard} size="nano" noArtist interactive={false} />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
 
 interface PhotoSlotProps {
   src?: string | null;
@@ -86,6 +209,13 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     return sortedCards.find((c) => c.artist?.slug === artistSlug);
   }, [artistSlug, sortedCards]);
 
+  // Find the backside card for this deck
+  const backsideCard = useMemo(() => {
+    if (!sortedCards || sortedCards.length === 0) return null;
+    const backsides = sortedCards.filter((c) => c.value === "backside");
+    return backsides.length > 0 ? backsides[0] : null;
+  }, [sortedCards]);
+
   const mainPhoto = card?.mainPhoto;
   const additionalPhotos = card?.additionalPhotos || [];
 
@@ -136,8 +266,26 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {/* Center - main photo (large, spans 2 rows) */}
         <PhotoSlot src={mainPhoto} gridColumn="span 6" gridRow="span 2" />
 
-        {/* Top right - additional photo 2 */}
-        <PhotoSlot src={additionalPhotos[1]} gridColumn="span 3" />
+        {/* Top right - card preview with flip on click */}
+        <div
+          css={{
+            aspectRatio: "1/1",
+            width: "100%",
+            borderRadius: 15,
+            gridColumn: "span 3",
+            backgroundColor: PLACEHOLDER_COLOR,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {card && (
+            <FlipCard
+              card={card as GQL.Card}
+              backsideCard={backsideCard}
+            />
+          )}
+        </div>
 
         {/* Bottom left - additional photo 3 */}
         <PhotoSlot src={additionalPhotos[2]} gridColumn="span 3" />

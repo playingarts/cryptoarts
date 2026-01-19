@@ -82,6 +82,7 @@ const MainMenu: FC<
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const hasInitialized = useRef(false);
   const prefetchedRef = useRef<Set<string>>(new Set());
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Card popup state
   const [selectedCard, setSelectedCard] = useState<SelectedCard>(null);
@@ -188,16 +189,19 @@ const MainMenu: FC<
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleClose, show]);
 
-  // Track show state changes to restart animations
+  // Track show state changes to restart animations and scroll to top
   const [animationKey, setAnimationKey] = useState(0);
   useEffect(() => {
     if (show) {
       setAnimationKey((k) => k + 1);
+      // Scroll menu to top when opened
+      scrollContainerRef.current?.scrollTo(0, 0);
     }
   }, [show]);
 
   return (
     <div
+      ref={scrollContainerRef}
       css={(theme) => [
         {
           background: theme.colors.black30,
@@ -279,7 +283,7 @@ const MainMenu: FC<
               onTouchStart={() => prefetchPage(getBaseUrl("/shop"))}
             >
               <Link href={getBaseUrl("/shop")} onClick={handleClose}>
-                <ArrowButton>
+                <ArrowButton css={{ fontSize: 20 }}>
                   Shop
                 </ArrowButton>
               </Link>
@@ -376,7 +380,7 @@ const MainMenu: FC<
         </MenuGrid>
 
         <NewsletterSection />
-        <FooterLinksSection />
+        <FooterLinksSection onClose={handleClose} />
       </div>
 
       {/* Card popup for preview card clicks */}

@@ -73,6 +73,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
               {
                 fontSize: 18,
                 height: 40,
+                minHeight: 40,
               },
               base === false && {
                 paddingLeft: 12,

@@ -1,17 +1,14 @@
 import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { convertToProductSlug } from "..";
-import { useLoadCards } from "../../../../hooks/card";
 import { useProducts } from "../../../../hooks/product";
 import AddToBag from "../../../Buttons/AddToBag";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
-import { useBag } from "../../../Contexts/bag";
 import Plus from "../../../Icons/Plus";
 import Label from "../../../Label";
 import Link from "../../../Link";
 import Text from "../../../Text";
-import { CardPreview } from "../About";
 
 const CustomMiddle: FC<{
   productState: GQL.Product;
@@ -69,30 +66,25 @@ const Pop: FC<
   HTMLAttributes<HTMLElement> & {
     close: () => void;
     product: GQL.Product;
+    show?: boolean;
+    onViewBag?: () => void;
   }
-> = ({ close, product, ...props }) => {
-  const { loadCards } = useLoadCards();
-
+> = ({ close, product, show = true, onViewBag, ...props }) => {
   // Lock body scroll when popup is open
   useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, []);
+    if (show) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [show]);
 
   const [productState, setProductState] = useState<GQL.Product>();
   useEffect(() => {
     if (product) {
       setProductState(product);
     }
-    if (product.deck) {
-      loadCards({ variables: { deck: product.deck._id } });
-    }
   }, [product]);
-
-  const { getPrice } = useBag();
 
   return (
     <div
@@ -124,7 +116,6 @@ const Pop: FC<
             width: "100%",
             maxWidth: 1130,
             padding: 30,
-            paddingBottom: 90,
             backgroundColor: theme.colors.pale_gray,
             display: "flex",
             gap: 60,
@@ -187,14 +178,6 @@ const Pop: FC<
               </>
             ) : null}
           </div>
-          {productState &&
-          productState.deck &&
-          productState.deck.previewCards ? (
-            <CardPreview
-              previewCards={productState.deck.previewCards}
-              deckId={productState.deck.slug}
-            />
-          ) : null}
         </div>
         <div
           css={[
@@ -253,9 +236,9 @@ const Pop: FC<
                 },
               ]}
             >
-              <Text typography="newh2"> {productState.title} </Text>
-              <Text typography="paragraphSmall"> {productState.info} </Text>
-              <Text typography="newh4"> {getPrice(productState.price)} </Text>
+              <Text typography="newh2" css={{ whiteSpace: "pre-line" }}>{productState.title.replace("Future Chapter", "Future\nChapter")}</Text>
+              <Text typography="paragraphSmall" css={{ marginTop: 15 }}>{productState.description || productState.info}</Text>
+              <Text typography="newh4" css={{ marginTop: 15 }}>${productState.price.usd}</Text>
               <div
                 css={[
                   {
@@ -266,7 +249,7 @@ const Pop: FC<
                   },
                 ]}
               >
-                <AddToBag productId={productState._id} />
+                <AddToBag productId={productState._id} onViewBag={onViewBag} />
 
                 <Link
                   href={
@@ -274,7 +257,11 @@ const Pop: FC<
                     "/shop/" +
                     convertToProductSlug(productState.short)
                   }
-                  onClick={close}
+                  onClick={() => {
+                    document.body.style.overflow = "";
+                    close();
+                  }}
+                  css={{ display: "flex", alignItems: "center" }}
                 >
                   <ArrowButton noColor base size="small">
                     Details
