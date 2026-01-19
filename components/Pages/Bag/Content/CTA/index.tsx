@@ -83,7 +83,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <ArrowedButton>Summary</ArrowedButton>
-      <div css={[{ marginTop: 60, display: "grid", gap: 15 }]}>
+      <div css={[{ marginTop: 30, display: "grid", gap: 15 }]}>
         <div css={[{ display: "flex", justifyContent: "space-between" }]}>
           <Text typography="paragraphSmall">Subtotal</Text>
           <Text typography="paragraphSmall">${total.toFixed(2)}</Text>
@@ -97,7 +97,6 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <div
           css={(theme) => [
             {
-              margin: "15px 0",
               position: "relative",
               background:
                 total >= 45
@@ -189,14 +188,14 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 .map(([id, quantity]) => `${parseInt(id, 10)}:${quantity}`)
                 .join(",")}`
         }
-        css={[{ marginLeft: "auto" }]}
+        css={[{ marginLeft: "auto", marginTop: 15, display: "block" }]}
         onClick={() => setCheckoutLoading(true)}
       >
-        <ArrowButton color="accent" css={[{ display: "flex", marginTop: 30, fontSize: 20 }, checkoutLoading && { opacity: 0.7, cursor: "wait" }]}>
+        <ArrowButton color="accent" css={[{ display: "flex", fontSize: 20 }, checkoutLoading && { opacity: 0.7, cursor: "wait" }]}>
           {checkoutLoading ? "Loading..." : "Secure check out"}
         </ArrowButton>
       </Link>
-      <ContinueShopping css={[{ display: "flex", marginTop: 30 }]}>
+      <ContinueShopping css={[{ display: "flex", marginTop: 15 }]}>
         Continue shopping
       </ContinueShopping>
 

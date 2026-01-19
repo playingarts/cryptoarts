@@ -11,6 +11,144 @@ import CollectionItem from "./CollectionItem";
 
 const REVIEW_ROTATION_INTERVAL = 10000; // 10 seconds
 
+// Skeleton for a single collection item
+const CollectionItemSkeleton: FC = () => (
+  <div
+    css={(theme) => ({
+      background: theme.colors.soft_gray,
+      borderRadius: 16,
+      padding: 30,
+      minHeight: 400,
+      display: "flex",
+      flexDirection: "column",
+      gap: 15,
+    })}
+  >
+    {/* Card image skeleton */}
+    <div
+      css={{
+        width: 184,
+        height: 260,
+        margin: "0 auto",
+        borderRadius: 10,
+        background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 1.5s infinite linear",
+        "@keyframes shimmer": {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
+        },
+      }}
+    />
+    {/* Title skeleton */}
+    <div
+      css={{
+        height: 25,
+        width: "60%",
+        borderRadius: 4,
+        background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 1.5s infinite linear",
+      }}
+    />
+    {/* Description skeleton */}
+    <div
+      css={{
+        height: 18,
+        width: "80%",
+        borderRadius: 4,
+        background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 1.5s infinite linear",
+      }}
+    />
+    {/* Button skeleton */}
+    <div
+      css={{
+        height: 40,
+        width: 120,
+        borderRadius: 5,
+        marginTop: "auto",
+        background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 1.5s infinite linear",
+      }}
+    />
+  </div>
+);
+
+// Skeleton grid for loading state (8 deck products + 1 reviews block)
+const CollectionSkeleton: FC = () => (
+  <>
+    <CollectionItemSkeleton />
+    <CollectionItemSkeleton />
+    {/* Reviews placeholder */}
+    <div
+      css={(theme) => ({
+        background: theme.colors.soft_gray,
+        borderRadius: 16,
+        padding: 30,
+        display: "grid",
+        alignContent: "space-between",
+      })}
+    >
+      <div
+        css={{
+          height: 25,
+          width: 120,
+          borderRadius: 4,
+          background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+          backgroundSize: "200% 100%",
+          animation: "shimmer 1.5s infinite linear",
+        }}
+      />
+      <div css={{ display: "flex", flexDirection: "column", gap: 15 }}>
+        <div css={{ display: "flex", gap: 5 }}>
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              css={{
+                width: 20,
+                height: 20,
+                borderRadius: 2,
+                background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                backgroundSize: "200% 100%",
+                animation: "shimmer 1.5s infinite linear",
+              }}
+            />
+          ))}
+        </div>
+        <div
+          css={{
+            height: 60,
+            width: "100%",
+            borderRadius: 4,
+            background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+            backgroundSize: "200% 100%",
+            animation: "shimmer 1.5s infinite linear",
+          }}
+        />
+        <div
+          css={{
+            height: 18,
+            width: "50%",
+            borderRadius: 4,
+            background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+            backgroundSize: "200% 100%",
+            animation: "shimmer 1.5s infinite linear",
+          }}
+        />
+      </div>
+    </div>
+    <CollectionItemSkeleton />
+    <CollectionItemSkeleton />
+    <CollectionItemSkeleton />
+    <CollectionItemSkeleton />
+    <CollectionItemSkeleton />
+    <CollectionItemSkeleton />
+  </>
+);
+
 // Rotating review component
 const RotatingReview: FC = () => {
   const { ratings } = useRatings({ variables: { shuffle: true, limit: 20 } });
@@ -118,7 +256,7 @@ const RotatingReview: FC = () => {
 };
 
 const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  const { products } = useProducts();
+  const { products, loading } = useProducts();
 
   return (
     <Grid
@@ -154,7 +292,9 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        {products &&
+        {!products && loading ? (
+          <CollectionSkeleton />
+        ) : products &&
           products.map(
             (product, index) =>
               product.type === "deck" && (
@@ -185,7 +325,8 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   />
                 </Fragment>
               )
-          )}
+          )
+        }
       </div>
     </Grid>
   );
