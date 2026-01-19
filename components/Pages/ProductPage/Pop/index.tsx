@@ -152,7 +152,7 @@ const Pop: FC<
               <>
                 <img
                   src={productState.image2}
-                  alt=""
+                  alt={`${productState.title} product image`}
                   css={[
                     { width: "100%", height: "100%", objectFit: "contain" },
                   ]}
@@ -221,6 +221,7 @@ const Pop: FC<
                 },
               ]}
               onClick={close}
+              aria-label="Close popup"
             >
               <Plus css={[{ rotate: "45deg" }]} />
             </Button>

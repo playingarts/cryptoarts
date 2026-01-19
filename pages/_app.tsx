@@ -1,13 +1,20 @@
 import { ApolloProvider } from "@apollo/client/react";
 import { ThemeProvider } from "@emotion/react";
-import { MetaMaskProvider } from "metamask-react";
 import "modern-normalize/modern-normalize.css";
 import { AppProps } from "next/app";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 import { Fragment, useEffect, useMemo } from "react";
 import smoothscroll from "smoothscroll-polyfill";
+
+// Dynamically import MetaMask provider - reduces initial bundle by ~200KB
+// Only loads when wallet connection is needed
+const MetaMaskProvider = dynamic(
+  () => import("metamask-react").then((mod) => mod.MetaMaskProvider),
+  { ssr: false }
+);
 import { initNavInstrumentation } from "../source/utils/navInstrumentation";
 import { initPerfNavTracer } from "../source/utils/perfNavTracer";
 import SizeProvider from "@/components/SizeProvider";

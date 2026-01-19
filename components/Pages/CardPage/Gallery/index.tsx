@@ -185,7 +185,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow }) => {
             },
           ]}
           src={src}
-          alt=""
+          alt="Card artwork detail"
           onLoad={() => setLoaded(true)}
         />
       </div>

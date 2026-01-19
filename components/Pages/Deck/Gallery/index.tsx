@@ -110,7 +110,7 @@ const RotatingPhotoSlot: FC<{
             borderRadius: 15,
           }}
           src={currentSrc}
-          alt=""
+          alt="Gallery photo"
         />
       )}
       {/* Next image (top layer, fades in) */}
@@ -128,7 +128,7 @@ const RotatingPhotoSlot: FC<{
             transition: "opacity 1s ease-in-out",
           }}
           src={nextSrc}
-          alt=""
+          alt="Gallery photo"
         />
       )}
     </div>

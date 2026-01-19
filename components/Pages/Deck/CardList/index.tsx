@@ -149,7 +149,7 @@ const ListItem: FC<{
           <Grid css={[{ width: "100%", marginTop: 60, marginBottom: 60 }]}>
             <img
               src={quoteCard.mainPhoto || background.src}
-              alt=""
+              alt={`Artwork by ${quoteCard.artist.name}`}
               css={{
                 width: 300,
                 height: 300,
@@ -168,7 +168,7 @@ const ListItem: FC<{
               <div css={[{ display: "flex", gap: 30 }]}>
                 <img
                   src={quoteCard.artist.userpic}
-                  alt=""
+                  alt={`${quoteCard.artist.name} portrait`}
                   css={{ width: 80, height: 80, borderRadius: 10 }}
                 />
                 <div css={(theme) => [{ display: "inline-block" }]}>

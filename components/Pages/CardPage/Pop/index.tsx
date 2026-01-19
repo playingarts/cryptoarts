@@ -357,6 +357,7 @@ const Pop: FC<
                 },
               ]}
               onClick={close}
+              aria-label="Close card preview"
             >
               <Plus css={[{ rotate: "45deg" }]} />
             </Button>

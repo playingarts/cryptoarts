@@ -73,7 +73,7 @@ const Subscribe: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
       >
         <img
           src={subscribeimg.src}
-          alt=""
+          alt="Playing Arts card artwork preview"
           css={[{ height: 600, aspectRatio: "500 / 600" }]}
         />
         <div
@@ -109,6 +109,7 @@ const Subscribe: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
               },
             ]}
             onClick={close}
+            aria-label="Close popup"
           >
             <Plus css={[{ rotate: "45deg" }]} />
           </Button>

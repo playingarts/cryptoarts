@@ -60,7 +60,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
       >
         <Image
           src={image}
-          alt=""
+          alt="Gallery artwork"
           fill
           sizes="740px"
           style={{ objectFit: "cover" }}
@@ -87,6 +87,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
             },
           ]}
           onClick={close}
+          aria-label="Close gallery"
         >
           <Plus css={[{ rotate: "45deg" }]} />
         </Button>

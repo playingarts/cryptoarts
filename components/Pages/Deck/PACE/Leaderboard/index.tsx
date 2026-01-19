@@ -16,7 +16,7 @@ const Holder = () => {
     <div>
       <img
         src={image.src}
-        alt=""
+        alt="NFT holder avatar"
         css={[
           {
             float: "left",

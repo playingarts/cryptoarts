@@ -68,7 +68,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <ArrowedButton>The product</ArrowedButton>
         <img
           src={product && product.image2}
-          alt=""
+          alt={product?.title ? `${product.title} deck` : "Playing Arts deck"}
           css={[
             { width: "100%", height: 400, marginTop: 30, objectFit: "contain" },
           ]}
