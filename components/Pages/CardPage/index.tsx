@@ -84,18 +84,43 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
   // Preload hero card image for faster LCP
   const heroImageUrl = effectiveSsrCard?.img;
 
+  // JSON-LD structured data for SEO
+  const structuredData = effectiveSsrCard ? {
+    "@context": "https://schema.org",
+    "@type": "VisualArtwork",
+    "name": `Playing Card by ${effectiveSsrCard.artist.name}`,
+    "creator": {
+      "@type": "Person",
+      "name": effectiveSsrCard.artist.name,
+      ...(effectiveSsrCard.artist.country && { "nationality": effectiveSsrCard.artist.country }),
+    },
+    "image": effectiveSsrCard.img,
+    ...(effectiveSsrCard.info && { "description": effectiveSsrCard.info }),
+    "artform": "Playing Card Design",
+    "isPartOf": {
+      "@type": "CreativeWorkSeries",
+      "name": "Playing Arts",
+    },
+  } : null;
+
   return (
     <CardPageProvider>
-      {heroImageUrl && (
-        <Head>
+      <Head>
+        {heroImageUrl && (
           <link
             rel="preload"
             as="image"
             href={heroImageUrl}
             fetchPriority="high"
           />
-        </Head>
-      )}
+        )}
+        {structuredData && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
+        )}
+      </Head>
       <CardPageHeader deckId={effectiveDeckId} />
       <div id="card">
         <Hero ssrCard={effectiveSsrCard} />

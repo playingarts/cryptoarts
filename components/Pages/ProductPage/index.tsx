@@ -1,7 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import Head from "next/head";
+import { FC, HTMLAttributes, useEffect, useState, useMemo } from "react";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import { withApollo } from "../../../source/apollo";
@@ -94,20 +95,53 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   const [deckSlug, setDeckSlug] = useState<string | undefined>();
 
-  useEffect(() => {
-    if (!products || !pId || typeof pId !== "string") {
-      return;
-    }
-    const product = products.find(
+  // Find current product for structured data
+  const currentProduct = useMemo(() => {
+    if (!products || !pId || typeof pId !== "string") return null;
+    return products.find(
       (prod) => prod.short.toLowerCase().split(" ").join("") === pId
-    );
-    if (product?.deck?.slug) {
-      setDeckSlug(product.deck.slug);
+    ) || null;
+  }, [products, pId]);
+
+  useEffect(() => {
+    if (currentProduct?.deck?.slug) {
+      setDeckSlug(currentProduct.deck.slug);
     }
-  }, [pId, products]);
+  }, [currentProduct]);
+
+  // JSON-LD structured data for e-commerce SEO
+  const structuredData = currentProduct ? {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": currentProduct.title,
+    "description": currentProduct.description || currentProduct.info,
+    "image": currentProduct.image2 || currentProduct.image,
+    "brand": {
+      "@type": "Brand",
+      "name": "Playing Arts",
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": currentProduct.price.usd,
+      "priceCurrency": "USD",
+      "availability": currentProduct.status === "soldout"
+        ? "https://schema.org/OutOfStock"
+        : currentProduct.status === "low"
+        ? "https://schema.org/LimitedAvailability"
+        : "https://schema.org/InStock",
+    },
+  } : null;
 
   return (
     <>
+      {structuredData && (
+        <Head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
+        </Head>
+      )}
       <Header customCTA={<BagButton />} customMiddle={<CustomMiddle />} links={["Product", "Related", "Bundles", "Reviews", "FAQ"]} />
       <Hero />
       <About />

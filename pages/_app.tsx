@@ -32,7 +32,6 @@ import { initApolloClient } from "../source/apollo";
 import { theme } from "../styles/theme";
 
 // Re-export theme parts for backward compatibility
-// TODO: Update imports in other files to use "../styles/theme" directly
 export {
   theme,
   colorLiterals,
