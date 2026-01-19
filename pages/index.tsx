@@ -1,5 +1,8 @@
 import { connect } from "../source/mongoose";
 import { cardService } from "../source/services/CardService";
+import { initApolloClient } from "../source/apollo";
+import { DecksQuery } from "../hooks/deck";
+import { RandomCardsQueryWithoutDeck } from "../hooks/card";
 import Home from "@/components/Pages/Home";
 
 export default Home;
@@ -7,11 +10,19 @@ export default Home;
 export const getStaticProps = async () => {
   await connect();
 
-  // Fetch all home cards server-side for the full deck carousel
-  // Cards will cycle through without repeating until all have been shown
-  const homeCards = await cardService.getHomeCards(500);
+  // Initialize Apollo client with schema for SSR
+  const { schema } = await import("../source/graphql/schema");
+  const apolloClient = initApolloClient(undefined, { schema });
 
-  // Serialize for Next.js (remove Mongoose internals)
+  // Pre-fetch queries in parallel like main site does
+  // This populates the Apollo cache which gets shipped to client
+  const [, , homeCards] = await Promise.all([
+    apolloClient.query({ query: DecksQuery }),
+    apolloClient.query({ query: RandomCardsQueryWithoutDeck, variables: { limit: 100 } }),
+    cardService.getHomeCards(500),
+  ]);
+
+  // Serialize homeCards for Next.js (remove Mongoose internals)
   const serializedCards = homeCards.map((card) => ({
     _id: card._id.toString(),
     img: card.img,
@@ -29,8 +40,10 @@ export const getStaticProps = async () => {
   return {
     props: {
       homeCards: serializedCards,
+      // Ship Apollo cache to client for instant hydration
+      cache: apolloClient.cache.extract(),
     },
-    // Revalidate every 60 seconds for fresh data with cached performance
-    revalidate: 60,
+    // Revalidate every hour for better edge caching (was 60s)
+    revalidate: 3600,
   };
 };
