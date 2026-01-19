@@ -110,7 +110,10 @@ export async function sendStatusAlert(
   const lastAlert = lastAlertTime[alertKey];
 
   if (lastAlert && now - lastAlert < ALERT_COOLDOWN_MS) {
-    console.log(`[TelegramService] Alert cooldown active for ${alertKey}`);
+    if (process.env.NODE_ENV === "development") {
+      // eslint-disable-next-line no-console
+      console.log(`[TelegramService] Alert cooldown active for ${alertKey}`);
+    }
     return false;
   }
 

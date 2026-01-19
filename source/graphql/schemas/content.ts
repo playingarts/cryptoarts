@@ -33,14 +33,17 @@ const getDailyCard = async (): Promise<GQL.Card> => {
       },
       { upsert: true }
     );
-    console.log(
-      "New daily card: " +
-        newCard.value +
-        " " +
-        newCard.suit +
-        " " +
-        newCard.deck.slug
-    );
+    if (process.env.NODE_ENV === "development") {
+      // eslint-disable-next-line no-console
+      console.log(
+        "New daily card: " +
+          newCard.value +
+          " " +
+          newCard.suit +
+          " " +
+          newCard.deck.slug
+      );
+    }
 
     return newCard;
   }

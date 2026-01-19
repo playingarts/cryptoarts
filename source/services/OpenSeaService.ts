@@ -56,7 +56,10 @@ const decodeWith =
     pipe(
       codec.decode(input),
       E.getOrElseW((errors) => {
-        console.log(errors[0]);
+        if (process.env.NODE_ENV === "development") {
+          // eslint-disable-next-line no-console
+          console.log(errors[0]);
+        }
         throw new Error("Validation Error");
       })
     );
@@ -224,7 +227,10 @@ export class OpenSeaService {
     });
 
     await Listing.insertMany(listings);
-    console.log("done with listings");
+    if (process.env.NODE_ENV === "development") {
+      // eslint-disable-next-line no-console
+      console.log("done with listings");
+    }
 
     // Fetch NFTs with owners
     await this.fetchAndStoreNfts(contractObject);
@@ -245,7 +251,10 @@ export class OpenSeaService {
         const response = await openSeaClient.getCollectionNfts(name, { next });
 
         decodeWith(NftsType)(response.nfts);
-        console.log("Fetched Assets: " + (index + response.nfts.length));
+        if (process.env.NODE_ENV === "development") {
+          // eslint-disable-next-line no-console
+          console.log("Fetched Assets: " + (index + response.nfts.length));
+        }
 
         const newNfts: GQL.Nft[] = [];
 
@@ -277,7 +286,10 @@ export class OpenSeaService {
         this.triggerRevalidation(contract, newNfts);
 
         if (!response.next) {
-          console.log("Updated assets for contract: " + contract);
+          if (process.env.NODE_ENV === "development") {
+            // eslint-disable-next-line no-console
+            console.log("Updated assets for contract: " + contract);
+          }
           await Content.deleteMany({
             "data.name": name,
             "data.contract": contract,

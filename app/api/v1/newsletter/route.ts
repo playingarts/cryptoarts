@@ -31,7 +31,9 @@ const subscribeEmail = async (
   }
 
   if (tries >= 4) {
-    console.log("Timed out after five tries");
+    if (process.env.NODE_ENV === "development") {
+      console.log("Timed out after five tries");
+    }
     return response;
   }
 

@@ -24,7 +24,9 @@ export async function GET(request: NextRequest) {
 
   try {
     const pages: string[] = JSON.parse(pagesParam);
-    console.log("revalidating:", pages);
+    if (process.env.NODE_ENV === "development") {
+      console.log("revalidating:", pages);
+    }
 
     // Revalidate each page
     for (const page of pages) {

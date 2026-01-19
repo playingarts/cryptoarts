@@ -440,9 +440,12 @@ export async function runAllChecks(): Promise<CheckResult[]> {
             previousStatus
           );
         } else {
-          console.log(
-            `[StatusService] ${result.service} is ${result.status} but within grace period (${Math.round((downDuration || 0) / 1000)}s), skipping alert`
-          );
+          if (process.env.NODE_ENV === "development") {
+            // eslint-disable-next-line no-console
+            console.log(
+              `[StatusService] ${result.service} is ${result.status} but within grace period (${Math.round((downDuration || 0) / 1000)}s), skipping alert`
+            );
+          }
         }
       } else if (result.status === "up" && previousStatus === "down") {
         // Only send recovery alert if service was down longer than grace period
@@ -468,9 +471,12 @@ export async function runAllChecks(): Promise<CheckResult[]> {
         if (recentDownChecks > recentUpChecks) {
           await sendStatusAlert(result.service, "up", undefined, previousStatus);
         } else {
-          console.log(
-            `[StatusService] ${result.service} recovered but was flapping (${recentDownChecks} down vs ${recentUpChecks} up in last 5min), skipping alert`
-          );
+          if (process.env.NODE_ENV === "development") {
+            // eslint-disable-next-line no-console
+            console.log(
+              `[StatusService] ${result.service} recovered but was flapping (${recentDownChecks} down vs ${recentUpChecks} up in last 5min), skipping alert`
+            );
+          }
         }
       }
     } else if (!previousStatus && result.status === "down") {
