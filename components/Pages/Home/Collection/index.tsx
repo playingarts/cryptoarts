@@ -115,7 +115,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               <br />
               Endless inspiration.
             </Text>
-            <Text typography="linkNewTypography">
+            <Text typography="linkNewTypography" css={{ paddingTop: 15 }}>
               Discover the journey <Dot />
             </Text>
           </div>

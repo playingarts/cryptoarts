@@ -14,13 +14,13 @@ interface HeroHeaderProps {
   dark?: boolean;
 }
 
-/** Skeleton for artist name and country */
+/** Skeleton for artist name and country - matches newh1 (70px/120%) and newh4 (25px/45px) */
 const HeroHeaderSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
   <div css={{ maxWidth: 520, height: 610, display: "grid", alignContent: "center" }}>
-    {/* Artist name skeleton */}
-    <Shimmer width={280} height={56} borderRadius={8} dark={dark} />
-    {/* Country skeleton */}
-    <Shimmer width={120} height={24} borderRadius={4} dark={dark} style={{ marginTop: 8 }} />
+    {/* Artist name skeleton - newh1: 70px fontSize, 120% lineHeight = 84px */}
+    <Shimmer width={280} height={84} borderRadius={8} dark={dark} />
+    {/* Country skeleton - newh4: 25px fontSize, 45px lineHeight */}
+    <Shimmer width={120} height={45} borderRadius={4} dark={dark} style={{ marginTop: 8 }} />
     {/* Buttons skeleton */}
     <div css={{ display: "flex", gap: 30, marginTop: 30 }}>
       <Shimmer width={150} height={44} borderRadius={22} dark={dark} />

@@ -392,6 +392,7 @@ const MainMenu: FC<
             deckId={selectedCard.deckSlug}
             initialImg={selectedCard.cardImg}
             showNavigation={true}
+            onNavigate={handleClose}
           />
         )}
       </MenuPortal>

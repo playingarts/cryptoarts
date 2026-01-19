@@ -24,13 +24,16 @@ export const convertToProductSlug = (short: string) => {
 };
 
 const CustomMiddle = () => {
-  const { products } = useProducts();
+  const { products: allProducts } = useProducts();
 
   const {
     query: { pId },
   } = useRouter();
 
   const [counter, setCounter] = useState(0);
+
+  // Filter out bundles from navigation
+  const products = allProducts?.filter((p) => p.type !== "bundle");
 
   useEffect(() => {
     if (!products || !pId || typeof pId !== "string") {

@@ -41,16 +41,16 @@ const Shimmer: FC<{
   />
 );
 
-/** Card skeleton for carousel */
+/** Card skeleton for carousel - matches cardSizesHover.preview (285x400) */
 const CardSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
   <div
     css={{
       width: 285,
-      height: 399,
+      height: 400,
       flexShrink: 0,
     }}
   >
-    <Shimmer width={285} height={399} borderRadius={12} dark={dark} />
+    <Shimmer width={285} height={400} borderRadius={12} dark={dark} />
   </div>
 );
 

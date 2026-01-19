@@ -40,7 +40,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Text typography="newh1" css={{ textAlign: "left" }}>{product.title}</Text>
+        <Text typography="newh1" css={{ textAlign: "left", fontSize: 65 }}>{product.title}</Text>
         <Text>{product.description}</Text>
         <Text>${product.price.usd}</Text>
         <div css={{ display: "flex", alignItems: "center", gap: 30 }}>

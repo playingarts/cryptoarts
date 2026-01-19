@@ -77,7 +77,7 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <>
     <Header
       customCTA={<BagButton />}
-      links={["Playing cards", "Bundles", "AR", "Reviews", "FAQ"]}
+      links={["Playing Cards", "Bundles", "AR", "Reviews", "FAQ"]}
       customMiddle={
         <Text
           typography="paragraphSmall"

@@ -127,13 +127,11 @@ const Hero = () => {
           <Link href="#about">
             <ExploreButton color="accent" css={{ fontSize: 20 }}>Discover</ExploreButton>
           </Link>
-          <ArrowButton
-            color="white"
-            href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"}
-            css={(theme) => ({ fontSize: 20, color: theme.colors.accent, "&:hover": { color: theme.colors.accent } })}
-          >
-            Shop
-          </ArrowButton>
+          <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"}>
+            <ArrowButton bordered color="accent" css={{ fontSize: 20 }}>
+              Shop
+            </ArrowButton>
+          </Link>
         </div>
       </div>
       <div

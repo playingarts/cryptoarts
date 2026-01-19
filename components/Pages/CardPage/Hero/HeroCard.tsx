@@ -16,19 +16,19 @@ interface HeroCardProps {
   dark?: boolean;
 }
 
-/** Card skeleton - matches FlippableCard dimensions */
+/** Card skeleton - matches FlippableCard dimensions (cardSizesHover.big) */
 const HeroCardSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
   <div
     css={{
-      width: 380,
-      height: 532,
+      width: 370,
+      height: 520,
       margin: "auto",
       position: "relative",
     }}
   >
     <Shimmer
-      width={380}
-      height={532}
+      width={370}
+      height={520}
       borderRadius={16}
       dark={dark}
     />

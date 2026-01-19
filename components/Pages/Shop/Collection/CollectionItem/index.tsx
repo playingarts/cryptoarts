@@ -29,13 +29,13 @@ const preloadImage = (src: string): Promise<void> =>
     img.src = src;
   });
 
-// Card skeleton component
+// Card skeleton component - matches cardSizes.nano (184x260)
 const CardSkeleton: FC<{ palette: "light" | "dark" }> = ({ palette }) => (
   <div
     css={{
-      width: 130,
-      height: 182,
-      borderRadius: 8,
+      width: 184,
+      height: 260,
+      borderRadius: 10,
       background:
         palette === "dark"
           ? "linear-gradient(45deg, #2d2d2d 0%, #3d3d3d 50%, #2d2d2d 100%)"

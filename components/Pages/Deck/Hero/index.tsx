@@ -209,10 +209,10 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
           </>
         ) : (
           <>
-            {/* Title skeleton */}
+            {/* Title skeleton - matches newh0 typography (85px fontSize, 100% lineHeight) */}
             <div
               css={{
-                height: 72,
+                height: 85,
                 width: 280,
                 borderRadius: 8,
                 background:

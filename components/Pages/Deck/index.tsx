@@ -72,29 +72,17 @@ interface DeckProps extends HTMLAttributes<HTMLElement> {
 }
 
 const Deck: FC<DeckProps> = ({ heroCards, ...props }) => {
-  const router = useRouter();
-
-  // During fallback (router.isFallback = true), heroCards will be undefined
-  // The Hero component handles this gracefully with skeleton loaders
-  // We also skip below-fold content during fallback for faster initial render
-  const isFallback = router.isFallback;
-
   return (
     <FutureChapterProvider>
       {heroCards && heroCards.length > 0 && <HeroPreload heroCards={heroCards} />}
       <DeckHeader />
       <Hero heroCards={heroCards} />
-      {/* Skip below-fold content during fallback for faster initial render */}
-      {!isFallback && (
-        <>
-          <CardList />
-          <TheProduct />
-          <DeckPACE />
-          <DeckAR />
-          <DeckGallery />
-          <Footer />
-        </>
-      )}
+      <CardList />
+      <TheProduct />
+      <DeckPACE />
+      <DeckAR />
+      <DeckGallery />
+      <Footer />
     </FutureChapterProvider>
   );
 };

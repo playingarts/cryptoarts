@@ -95,7 +95,7 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
         </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
           <AddToBag productId={product._id} />
-          <Button size="small" noColor base>
+          <Button size="small" noColor base css={{ fontSize: 20 }}>
             ${product.price.usd}
           </Button>
           {product.fullPrice && (
@@ -103,7 +103,7 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
               size="small"
               noColor
               base
-              css={[{ textDecoration: "line-through" }]}
+              css={{ textDecoration: "line-through", fontSize: 20 }}
             >
               ${product.fullPrice.usd.toFixed(2)}
             </Button>

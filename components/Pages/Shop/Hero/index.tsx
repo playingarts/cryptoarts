@@ -22,8 +22,8 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <div css={[{ gridColumn: "span 6", position: "relative" }]}>
         <Text typography="newh1">Shop</Text>
         <Text css={[{ marginTop: 30 }]}>
-          Limited-edition playing cards
-          <br /> and exclusive bundles created by visionary artists.
+          Limited-edition playing cards and exclusive
+          <br /> bundles created by visionary artists.
         </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 30, alignItems: "center" }]}>
           <Link href="#playing-cards">

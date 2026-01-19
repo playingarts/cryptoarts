@@ -141,8 +141,10 @@ const Pop: FC<
     initialArtistCountry?: string;
     initialBackground?: string;
     showNavigation?: boolean;
+    /** Called when navigating away (e.g., clicking "Card details") - use to close parent menus */
+    onNavigate?: () => void;
   }
-> = ({ close, cardSlug, deckId, edition, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, onNavigate, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
   const router = useRouter();
 
@@ -206,6 +208,8 @@ const Pop: FC<
       });
     }
     close();
+    // Also close parent menu if callback provided
+    onNavigate?.();
 
     // Track navigation timing
     const destPath = `/${deckId}/${artistSlug}`;
@@ -214,7 +218,7 @@ const Pop: FC<
     // Use Next.js router for navigation
     // The CardPage will show navCard instantly while getStaticProps runs in background
     router.push(destPath);
-  }, [card, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, edition, deckId, close, router]);
+  }, [card, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, edition, deckId, close, onNavigate, router]);
 
   return (
     <div
