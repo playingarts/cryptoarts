@@ -2,7 +2,8 @@ import { connect } from "../source/mongoose";
 import { cardService } from "../source/services/CardService";
 import { initApolloClient } from "../source/apollo";
 import { DecksQuery } from "../hooks/deck";
-import { RandomCardsQueryWithoutDeck } from "../hooks/card";
+import { RandomCardsQueryWithoutDeck, DailyCardLiteQuery } from "../hooks/card";
+import { ProductsQuery } from "../hooks/product";
 import Home from "@/components/Pages/Home";
 
 export default Home;
@@ -14,11 +15,14 @@ export const getStaticProps = async () => {
   const { schema } = await import("../source/graphql/schema");
   const apolloClient = initApolloClient(undefined, { schema });
 
-  // Pre-fetch queries in parallel like main site does
+  // Pre-fetch all queries in parallel like main site does
   // This populates the Apollo cache which gets shipped to client
-  const [, , homeCards] = await Promise.all([
+  // Components will read from cache instantly without network requests
+  const [, , , , homeCards] = await Promise.all([
     apolloClient.query({ query: DecksQuery }),
     apolloClient.query({ query: RandomCardsQueryWithoutDeck, variables: { limit: 100 } }),
+    apolloClient.query({ query: ProductsQuery }), // For Collection section
+    apolloClient.query({ query: DailyCardLiteQuery }), // For Gallery section
     cardService.getHomeCards(500),
   ]);
 
