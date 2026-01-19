@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { FC, HTMLAttributes, useEffect, useState } from "react";
+import Image from "next/image";
 import { useProducts } from "../../../../hooks/product";
 import Text from "../../../Text";
 import SoldOut from "../../../Buttons/SoldOut";
@@ -51,21 +52,28 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           )}
           <ContinueShopping css={{ fontSize: 20 }} />
         </div>
-        <img
-          src={product.image2}
-          alt=""
+        <div
           css={[
             {
               width: 960,
               height: 600,
-              objectFit: "contain",
               position: "absolute",
               top: 120,
               left: -837,
               pointerEvents: "none",
             },
           ]}
-        />
+        >
+          <Image
+            src={product.image2}
+            alt={product.title}
+            width={960}
+            height={600}
+            priority
+            quality={90}
+            style={{ objectFit: "contain" }}
+          />
+        </div>
       </div>
     </Grid>
   ) : null;

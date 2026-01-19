@@ -91,9 +91,11 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
   );
   const deckImage = product?.image2 || editionInfo?.img || deck?.image;
 
-  // Format edition name
+  // Format edition name (e.g., "chapter ii" -> "Chapter II")
   const editionDisplayName = cardEdition
-    ? cardEdition.replace(/\b\w/g, (c: string) => c.toUpperCase())
+    ? cardEdition
+        .replace(/\b\w/g, (c: string) => c.toUpperCase())
+        .replace(/\bIi\b/g, "II")
     : null;
 
   // Progressive loading triggers

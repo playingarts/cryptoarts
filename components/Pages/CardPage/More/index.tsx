@@ -59,14 +59,20 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     return [...shuffledCards, ...shuffledCards, ...shuffledCards];
   }, [shuffledCards]);
 
-  // Format edition name for title (e.g., "chapter i" -> "Chapter I")
+  // Format edition name for title (e.g., "chapter i" -> "Chapter I", "chapter ii" -> "Chapter II")
   const editionDisplayName = currentCard?.edition
-    ? currentCard.edition.replace(/\b\w/g, (c: string) => c.toUpperCase())
+    ? currentCard.edition
+        .replace(/\b\w/g, (c: string) => c.toUpperCase())
+        .replace(/\bIi\b/g, "II")
     : null;
 
   // Build the "More from" title with edition if applicable
   const moreFromTitle = deck
-    ? `More from ${deck.title}${editionDisplayName ? ` — ${editionDisplayName}` : ""}`
+    ? `More from ${
+        editionDisplayName && deck.slug === "future"
+          ? `Future Edition ${editionDisplayName}`
+          : deck.title + (editionDisplayName ? ` — ${editionDisplayName}` : "")
+      }`
     : null;
 
   const [popupCard, setPopupCard] = useState<GQL.Card>();

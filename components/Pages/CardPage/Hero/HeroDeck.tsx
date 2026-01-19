@@ -117,7 +117,9 @@ const HeroDeck: FC<HeroDeckProps> = ({
           src={deckImage}
           alt={
             deck.title
-              ? `${deck.title}${editionDisplayName ? ` ${editionDisplayName}` : ""} deck`
+              ? editionDisplayName && deck.slug === "future"
+                ? `Future ${editionDisplayName} deck`
+                : `${deck.title}${editionDisplayName ? ` ${editionDisplayName}` : ""} deck`
               : "Deck"
           }
           loading="lazy"
@@ -126,8 +128,11 @@ const HeroDeck: FC<HeroDeckProps> = ({
       )}
 
       <Text css={{ marginTop: 30 }}>
-        This card belongs to the {deck.title}
-        {editionDisplayName ? ` — ${editionDisplayName}` : ""} deck
+        This card belongs to the{" "}
+        {editionDisplayName && deck.slug === "future"
+          ? `Future ${editionDisplayName}`
+          : deck.title + (editionDisplayName ? ` — ${editionDisplayName}` : "")}{" "}
+        deck
         {deck.description ? ` — ${deck.description}` : ""}
       </Text>
 

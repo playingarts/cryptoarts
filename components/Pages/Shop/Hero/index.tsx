@@ -1,4 +1,5 @@
-import { FC, HTMLAttributes, useEffect } from "react";
+import { FC, HTMLAttributes, useState } from "react";
+import Image from "next/image";
 import Grid from "../../../Grid";
 import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Button";
@@ -6,7 +7,7 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 import Link from "../../../Link";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  useEffect(() => {}, []);
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <Grid
@@ -44,31 +45,35 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             </ArrowButton>
           </Link>
         </div>
-        <img
-          src="https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special-02.png"
-          alt=""
+        <div
           css={[
             {
               width: 960,
               height: 600,
               position: "absolute",
-              objectFit: "cover",
-              "@keyframes ShopHeroFadeIn": {
-                "0%": {
-                  opacity: 0.3,
-                  top: -50,
-                  left: 570,
-                },
-                "100%": {
-                  opacity: 1,
-                  top: -75,
-                  left: 555,
-                },
-              },
-              animation: "ShopHeroFadeIn 500ms forwards linear",
+              top: -50,
+              left: 570,
+              opacity: 0,
+              transition: "opacity 500ms ease, top 500ms ease, left 500ms ease",
             },
           ]}
-        />
+          style={
+            imageLoaded
+              ? { opacity: 1, top: -75, left: 555 }
+              : undefined
+          }
+        >
+          <Image
+            src="https://s3.amazonaws.com/img.playingarts.com/www/products/deck-special-02.png"
+            alt="Shop hero deck"
+            width={960}
+            height={600}
+            priority
+            quality={90}
+            style={{ objectFit: "cover" }}
+            onLoad={() => setImageLoaded(true)}
+          />
+        </div>
       </div>
     </Grid>
   );

@@ -1,4 +1,5 @@
 import { FC, HTMLAttributes, useEffect, useState, useCallback, useRef } from "react";
+import { useRouter } from "next/router";
 
 import image2 from "../../../../../mocks/images/ShopCollection/photo-big-1.png";
 import image3 from "../../../../../mocks/images/ShopCollection/photo-big-2.png";
@@ -53,8 +54,10 @@ const CardSkeleton: FC<{ palette: "light" | "dark" }> = ({ palette }) => (
 const CollectionItem: FC<
   HTMLAttributes<HTMLDivElement> & { palette?: "dark"; product: GQL.Product; useAltImage?: boolean; onViewBag?: () => void; singleImage?: boolean }
 > = ({ palette, product, useAltImage, onViewBag, singleImage, ...props }) => {
+  const router = useRouter();
   const [hover, setHover] = useState(false);
   const [imageHover, setImageHover] = useState(false);
+  const routePrefetchedRef = useRef(false);
 
   const [show, setShow] = useState(false);
 
@@ -95,6 +98,20 @@ const CollectionItem: FC<
       setIndex(undefined);
     }
   }, [imageHover]);
+
+  // Prefetch product page route on hover
+  useEffect(() => {
+    if (hover && !routePrefetchedRef.current && product?.short) {
+      routePrefetchedRef.current = true;
+      const productUrl = `/shop/${product.short.toLowerCase().split(" ").join("")}`;
+      router.prefetch(productUrl);
+
+      // Also prefetch hero image
+      if (product.image2) {
+        preloadImage(product.image2);
+      }
+    }
+  }, [hover, product?.short, product?.image2, router]);
 
   // Fetch initial random cards when hovering
   useEffect(() => {

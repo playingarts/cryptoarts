@@ -4,6 +4,7 @@ import { FC, HTMLAttributes, useMemo } from "react";
 import ScandiBlock, { Props } from "../../ScandiBlock";
 import { useRouter } from "next/router";
 import { useDeck } from "../../../hooks/deck";
+import { useCard } from "../../../hooks/card";
 import { useProducts } from "../../../hooks/product";
 import { colord } from "colord";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
@@ -17,12 +18,31 @@ const TitleButton: FC<
   const { openMenu } = useMenu();
   const router = useRouter();
   const {
-    query: { deckId, pId },
+    query: { deckId, pId, artistSlug },
   } = router;
 
   const { palette } = usePalette();
 
   const { deck } = useDeck({ variables: { slug: deckId }, skip: !deckId });
+
+  // Get current card's edition for proper deck title (e.g., "Future Chapter I")
+  const { card } = useCard({
+    variables: { slug: artistSlug, deckSlug: deckId },
+    skip: !artistSlug || !deckId,
+  });
+
+  // Build deck title with edition for Future decks
+  const deckTitle = useMemo(() => {
+    if (!deck) return null;
+    // For Future deck with edition, show "Future Chapter I" or "Future Chapter II"
+    if (deck.slug === "future" && card?.edition) {
+      const editionName = card.edition
+        .replace(/\b\w/g, (c: string) => c.toUpperCase())
+        .replace(/\bIi\b/g, "II");
+      return `Future ${editionName}`;
+    }
+    return deck.title;
+  }, [deck, card?.edition]);
 
   // Get products to find deck title for product pages
   const { products } = useProducts();
@@ -95,8 +115,8 @@ const TitleButton: FC<
               ? "Shop"
               : showSiteNav === "afterTop" && isProductPage && productDeckTitle
               ? productDeckTitle
-              : deckId && deck && showSiteNav === "afterTop"
-              ? deck.title
+              : deckId && deckTitle && showSiteNav === "afterTop"
+              ? deckTitle
               : "Playing Arts"}
           </span>
         )}
