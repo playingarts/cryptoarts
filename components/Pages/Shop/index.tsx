@@ -5,6 +5,7 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { withApollo } from "../../../source/apollo";
 import Header from "../../Header";
 import Footer from "../../Footer";
+import LazySection from "../../LazySection";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
 import Text from "../../Text";
@@ -12,13 +13,15 @@ import { useBag } from "../../Contexts/bag";
 import MenuPortal from "../../Header/MainMenu/MenuPortal";
 import { FREE_SHIPPING_MESSAGE } from "../../../source/consts";
 
-// Lazy-load all sections
-const Hero = dynamic(() => import("./Hero"), { ssr: true });
-const Collection = dynamic(() => import("./Collection"), { ssr: true });
-const Trust = dynamic(() => import("./Trust"), { ssr: true });
-const Bundles = dynamic(() => import("./Bundles"), { ssr: true });
+// Hero loads immediately (above fold)
+import Hero from "./Hero";
+
+// Lazy-load below-fold sections (SSR disabled for progressive loading)
+const Collection = dynamic(() => import("./Collection"), { ssr: false });
+const Trust = dynamic(() => import("./Trust"), { ssr: false });
+const Bundles = dynamic(() => import("./Bundles"), { ssr: false });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
-  ssr: true,
+  ssr: false,
 });
 const Subscribe = dynamic(() => import("../../Popups/Subscribe"), {
   ssr: false,
@@ -96,11 +99,37 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     />
     {/* <Popup /> */}
     <Hero />
-    <Collection />
-    <Trust />
-    <Bundles />
-    <AugmentedReality />
-    <Footer />
+
+    {/* Collection with inline skeleton - lazy load on scroll */}
+    <div id="playing-cards">
+      <LazySection rootMargin="300px" minHeight={600}>
+        <Collection />
+      </LazySection>
+    </div>
+
+    {/* Trust badges - lazy load */}
+    <LazySection rootMargin="300px" minHeight={200}>
+      <Trust />
+    </LazySection>
+
+    {/* Bundles section - lazy load */}
+    <div id="bundles">
+      <LazySection rootMargin="300px" minHeight={500}>
+        <Bundles />
+      </LazySection>
+    </div>
+
+    {/* AR section - lazy load */}
+    <div id="ar">
+      <LazySection rootMargin="300px" minHeight={400}>
+        <AugmentedReality />
+      </LazySection>
+    </div>
+
+    {/* Footer with reviews/FAQ */}
+    <LazySection rootMargin="100px" minHeight={600}>
+      <Footer />
+    </LazySection>
   </>
 );
 

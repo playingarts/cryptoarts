@@ -11,6 +11,71 @@ import { useRouter } from "next/router";
 const ITEM_WIDTH = 428;
 const ITEM_GAP = 3;
 const AUTO_SCROLL_INTERVAL = 6000;
+const SKELETON_COUNT = 4;
+
+/** Skeleton item for product carousel loading state */
+const ProductSkeleton: FC = () => (
+  <div
+    css={(theme) => ({
+      width: ITEM_WIDTH,
+      flexShrink: 0,
+      padding: 30,
+      display: "flex",
+      flexDirection: "column",
+      gap: 15,
+    })}
+  >
+    {/* Product image skeleton */}
+    <div
+      css={{
+        width: "100%",
+        height: 350,
+        borderRadius: 10,
+        background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 1.5s infinite linear",
+        "@keyframes shimmer": {
+          "0%": { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
+        },
+      }}
+    />
+    {/* Title skeleton */}
+    <div
+      css={{
+        height: 28,
+        width: "70%",
+        borderRadius: 4,
+        background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 1.5s infinite linear",
+      }}
+    />
+    {/* Price skeleton */}
+    <div
+      css={{
+        height: 22,
+        width: "30%",
+        borderRadius: 4,
+        background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 1.5s infinite linear",
+      }}
+    />
+    {/* Button skeleton */}
+    <div
+      css={{
+        height: 45,
+        width: 120,
+        borderRadius: 5,
+        marginTop: "auto",
+        background: "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+        backgroundSize: "200% 100%",
+        animation: "shimmer 1.5s infinite linear",
+      }}
+    />
+  </div>
+);
 
 const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
@@ -192,30 +257,35 @@ with these collector's favourites."
               },
             ]}
           >
-            {infiniteProducts.map((product, index) => {
-                // Normalize index to match centerIndex (which is normalized to filteredProducts.length)
-                const normalizedIndex = index % filteredProducts.length;
-                const isCenter = normalizedIndex === centerIndex;
-                return (
-                  <CollectionItem
-                    key={product._id + "collection" + index}
-                    css={(theme) => [
-                      {
-                        display: "inline-block",
-                        background: isCenter ? theme.colors.white75 : "transparent",
-                        width: ITEM_WIDTH,
-                        scrollSnapAlign: "start",
-                        transition: "background 0.3s ease",
-                        "&:hover": {
-                          background: theme.colors.white75,
+            {infiniteProducts.length === 0
+              ? // Show skeleton while products are loading
+                Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+                  <ProductSkeleton key={`skeleton-${i}`} />
+                ))
+              : infiniteProducts.map((product, index) => {
+                  // Normalize index to match centerIndex (which is normalized to filteredProducts.length)
+                  const normalizedIndex = index % filteredProducts.length;
+                  const isCenter = normalizedIndex === centerIndex;
+                  return (
+                    <CollectionItem
+                      key={product._id + "collection" + index}
+                      css={(theme) => [
+                        {
+                          display: "inline-block",
+                          background: isCenter ? theme.colors.white75 : "transparent",
+                          width: ITEM_WIDTH,
+                          scrollSnapAlign: "start",
+                          transition: "background 0.3s ease",
+                          "&:hover": {
+                            background: theme.colors.white75,
+                          },
                         },
-                      },
-                    ]}
-                    product={product}
-                    useAltImage={isCenter}
-                  />
-                );
-              })}
+                      ]}
+                      product={product}
+                      useAltImage={isCenter}
+                    />
+                  );
+                })}
           </div>
         </div>
       </div>

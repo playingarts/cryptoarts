@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { FC, HTMLAttributes, useState, useEffect } from "react";
 import Header from "../../Header";
+import LazySection from "../../LazySection";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
 import { withApollo } from "../../../source/apollo";
@@ -12,8 +13,8 @@ import Link from "../../Link";
 import { useBag } from "../../Contexts/bag";
 import { FREE_SHIPPING_MESSAGE } from "../../../source/consts";
 
-// Lazy-load below-fold components
-const Trust = dynamic(() => import("../Shop/Trust"), { ssr: true });
+// Lazy-load below-fold components (SSR disabled for progressive loading)
+const Trust = dynamic(() => import("../Shop/Trust"), { ssr: false });
 
 const CheckoutButton = () => {
   const { bag } = useBag();
@@ -74,9 +75,19 @@ const Bag: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </Text>
         }
       />
-      <Content />
-      <Trust css={(theme) => [{ backgroundColor: theme.colors.soft_gray }]} />
-      <Footer />
+      <div id="items">
+        <Content />
+      </div>
+
+      {/* Trust badges - lazy load */}
+      <LazySection rootMargin="300px" minHeight={200}>
+        <Trust css={(theme) => [{ backgroundColor: theme.colors.soft_gray }]} />
+      </LazySection>
+
+      {/* Footer with reviews/FAQ */}
+      <LazySection rootMargin="100px" minHeight={600}>
+        <Footer />
+      </LazySection>
     </>
   );
 };

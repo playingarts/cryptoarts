@@ -14,6 +14,29 @@ const ITEM_WIDTH = 300;
 const ITEM_GAP = 30;
 const AUTO_SCROLL_INTERVAL = 4000; // 4 seconds between auto-scrolls
 const AUTO_SCROLL_PAUSE = 3000; // 3 seconds pause after user interaction
+const SKELETON_COUNT = 6;
+
+/** Skeleton card for loading state - matches cardSizesHover.preview (285x400) */
+const CardSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
+  <div
+    css={{
+      width: 285,
+      height: 400,
+      flexShrink: 0,
+      scrollSnapAlign: "start",
+      borderRadius: 12,
+      background: dark
+        ? "linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%)"
+        : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+      backgroundSize: "200% 100%",
+      animation: "shimmer 1.5s infinite linear",
+      "@keyframes shimmer": {
+        "0%": { backgroundPosition: "200% 0" },
+        "100%": { backgroundPosition: "-200% 0" },
+      },
+    }}
+  />
+);
 
 const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -264,20 +287,25 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        {infiniteCards.map((card, i) => (
-          <Card
-            onClick={() => setPopupCard(card)}
-            key={`${card._id}-${i}`}
-            css={[
-              {
-                flexShrink: 0,
-                scrollSnapAlign: "start",
-              },
-            ]}
-            card={card}
-            size="preview"
-          />
-        ))}
+        {infiniteCards.length === 0
+          ? // Show skeleton cards while loading
+            Array.from({ length: SKELETON_COUNT }).map((_, i) => (
+              <CardSkeleton key={`skeleton-${i}`} dark={deckId === "crypto"} />
+            ))
+          : infiniteCards.map((card, i) => (
+              <Card
+                onClick={() => setPopupCard(card)}
+                key={`${card._id}-${i}`}
+                css={[
+                  {
+                    flexShrink: 0,
+                    scrollSnapAlign: "start",
+                  },
+                ]}
+                card={card}
+                size="preview"
+              />
+            ))}
       </div>
       <MenuPortal show={!!popupCard}>
         {popupCard && deck ? (

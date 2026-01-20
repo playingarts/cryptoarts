@@ -5,6 +5,7 @@ import Head from "next/head";
 import { FC, HTMLAttributes, useEffect, useState, useMemo } from "react";
 import Header from "../../Header";
 import Footer from "../../Footer";
+import LazySection from "../../LazySection";
 import { withApollo } from "../../../source/apollo";
 import { BagButton } from "../Shop";
 import Text from "../../Text";
@@ -13,12 +14,13 @@ import NavButton from "../../Buttons/NavButton";
 import { useProducts } from "../../../hooks/product";
 import { useRouter } from "next/router";
 import Hero from "./Hero";
+import CollectionSkeleton from "./Collection/CollectionSkeleton";
 
-// Lazy-load below-fold sections
-const About = dynamic(() => import("./About"), { ssr: true });
-const Collection = dynamic(() => import("./Collection"), { ssr: true });
-const Trust = dynamic(() => import("../Shop/Trust"), { ssr: true });
-const Bundles = dynamic(() => import("../Shop/Bundles"), { ssr: true });
+// Lazy-load below-fold sections (SSR disabled for progressive loading)
+const About = dynamic(() => import("./About"), { ssr: false });
+const Collection = dynamic(() => import("./Collection"), { ssr: false });
+const Trust = dynamic(() => import("../Shop/Trust"), { ssr: false });
+const Bundles = dynamic(() => import("../Shop/Bundles"), { ssr: false });
 
 export const convertToProductSlug = (short: string) => {
   return short.toLowerCase().split(" ").join("");
@@ -143,12 +145,38 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </Head>
       )}
       <Header customCTA={<BagButton />} customMiddle={<CustomMiddle />} links={["Product", "Related", "Bundles", "Reviews", "FAQ"]} />
-      <Hero />
-      <About />
-      <Collection />
-      <Trust />
-      <Bundles />
-      <Footer deckSlug={deckSlug} />
+      <div id="product">
+        <Hero />
+      </div>
+
+      {/* About section - lazy load on scroll */}
+      <LazySection rootMargin="300px" minHeight={400}>
+        <About />
+      </LazySection>
+
+      {/* Related products carousel - lazy load with skeleton */}
+      <div id="related">
+        <LazySection rootMargin="300px" minHeight={600} skeleton={<CollectionSkeleton />}>
+          <Collection />
+        </LazySection>
+      </div>
+
+      {/* Trust badges section */}
+      <LazySection rootMargin="300px" minHeight={300}>
+        <Trust />
+      </LazySection>
+
+      {/* Bundles section */}
+      <div id="bundles">
+        <LazySection rootMargin="300px" minHeight={400}>
+          <Bundles />
+        </LazySection>
+      </div>
+
+      {/* Footer with reviews/FAQ */}
+      <LazySection rootMargin="100px" minHeight={600}>
+        <Footer deckSlug={deckSlug} />
+      </LazySection>
     </>
   );
 };
