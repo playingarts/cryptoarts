@@ -209,6 +209,7 @@ const Pop: FC<
     cardSlug: string;
     deckId: string;
     edition?: string;
+    initialCardId?: string;
     initialImg?: string;
     initialVideo?: string;
     initialArtistName?: string;
@@ -222,9 +223,10 @@ const Pop: FC<
     /** Called when navigating to a different card via arrows - receives the new card */
     onCardChange?: (card: GQL.Card) => void;
   }
-> = ({ close, cardSlug, deckId, edition, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, onNavigate, navigationCards, onCardChange, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, initialCardId, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, onNavigate, navigationCards, onCardChange, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
   const [currentDeckId, setCurrentDeckId] = useState(deckId);
+  const [currentCardId, setCurrentCardId] = useState<string | undefined>(initialCardId);
   const router = useRouter();
 
   // Lock body scroll when popup is open
@@ -262,14 +264,28 @@ const Pop: FC<
 
   const { palette } = usePalette();
 
+  // Update currentCardId when card data loads
+  useEffect(() => {
+    if (card?._id) {
+      setCurrentCardId(card._id);
+    }
+  }, [card?._id]);
+
   // Wrapper for setCardState that also updates deck when using custom navigation cards
   const handleSetCardState = useCallback((artistSlug: string | undefined) => {
     setCardState(artistSlug);
-    // If using custom navigation cards, find the card and update deck
+    // Reset currentCardId when navigating to a new card (will be set when card loads)
+    setCurrentCardId(undefined);
+    // If using custom navigation cards, find the card and update deck + id
     if (navigationCards && artistSlug) {
       const navCard = navigationCards.find((c) => c.artist.slug === artistSlug);
-      if (navCard?.deck?.slug) {
-        setCurrentDeckId(navCard.deck.slug);
+      if (navCard) {
+        if (navCard.deck?.slug) {
+          setCurrentDeckId(navCard.deck.slug);
+        }
+        if (navCard._id) {
+          setCurrentCardId(navCard._id);
+        }
         onCardChange?.(navCard);
       }
     }
@@ -541,7 +557,7 @@ const Pop: FC<
                 },
               ]}
             >
-              <FavButton deckSlug={currentDeckId} id={card?._id || ""} loading={cardLoading} />
+              <FavButton deckSlug={currentDeckId} id={currentCardId || ""} />
 
               <Button color="accent" css={{ fontSize: 20 }} onClick={handleCardDetailsClick}>
                 Card details

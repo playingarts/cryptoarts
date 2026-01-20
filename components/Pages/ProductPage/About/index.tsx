@@ -250,6 +250,7 @@ export const CardPreview: FC<{ deckId: string; deckObjectId: string }> = ({
           cardSlug={currentCard?.artist.slug || ""}
           deckId={deckId}
           close={() => setShow(false)}
+          initialCardId={currentCard?._id}
           initialImg={currentCard?.img}
           initialVideo={currentCard?.video}
           showNavigation={false}

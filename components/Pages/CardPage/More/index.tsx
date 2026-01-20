@@ -313,6 +313,7 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             cardSlug={popupCard.artist.slug}
             close={() => setPopupCard(undefined)}
             deckId={deck.slug}
+            initialCardId={popupCard._id}
             initialImg={popupCard.img}
             initialVideo={popupCard.video}
             initialArtistName={popupCard.artist.name}

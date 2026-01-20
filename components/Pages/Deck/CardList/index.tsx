@@ -137,6 +137,7 @@ const ListItem: FC<{
             cardSlug={card.artist.slug}
             deckId={deckId}
             edition={edition}
+            initialCardId={card._id}
             initialImg={card.img}
             initialVideo={card.video}
             initialArtistName={card.artist.name}

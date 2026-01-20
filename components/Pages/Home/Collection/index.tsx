@@ -41,6 +41,7 @@ type SelectedCard = {
   artistName?: string;
   artistCountry?: string | null;
   cardBackground?: string | null;
+  cardId?: string;
 } | null;
 
 const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
@@ -58,8 +59,8 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   // Lifted popup handlers
   const handleCardClick = useCallback(
-    (deckSlug: string, artistSlug: string, cardImg: string, artistName?: string, artistCountry?: string | null, cardBackground?: string | null) => {
-      setSelectedCard({ deckSlug, artistSlug, cardImg, artistName, artistCountry, cardBackground });
+    (deckSlug: string, artistSlug: string, cardImg: string, artistName?: string, artistCountry?: string | null, cardBackground?: string | null, cardId?: string) => {
+      setSelectedCard({ deckSlug, artistSlug, cardImg, artistName, artistCountry, cardBackground, cardId });
     },
     []
   );
@@ -132,6 +133,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             close={handleClosePopup}
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
+            initialCardId={selectedCard.cardId}
             initialImg={selectedCard.cardImg}
             initialArtistName={selectedCard.artistName}
             initialArtistCountry={selectedCard.artistCountry ?? undefined}

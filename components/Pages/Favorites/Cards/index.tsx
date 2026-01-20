@@ -123,6 +123,7 @@ interface DeckSectionProps {
     cardImg: string;
     artistName: string;
     artistCountry?: string;
+    cardId: string;
   }) => void;
 }
 
@@ -171,6 +172,7 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState }) => {
                   cardImg: card.img,
                   artistName: card.artist.name,
                   artistCountry: card.artist.country,
+                  cardId: card._id,
                 })
               }
               size="preview"
@@ -196,6 +198,7 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
     cardImg: string;
     artistName: string;
     artistCountry?: string;
+    cardId: string;
   }>();
 
   // Collect ALL favorite card IDs across all decks into a single array
@@ -256,6 +259,7 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
             close={() => setCardState(undefined)}
             cardSlug={cardState.slug}
             deckId={cardState.deckSlug}
+            initialCardId={cardState.cardId}
             initialImg={cardState.cardImg}
             initialArtistName={cardState.artistName}
             initialArtistCountry={cardState.artistCountry}

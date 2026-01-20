@@ -33,6 +33,7 @@ type SelectedCard = {
   deckSlug: string;
   artistSlug: string;
   cardImg: string;
+  cardId: string;
 } | null;
 
 const FooterCards: FC<{ overrideDeckSlug?: string }> = ({ overrideDeckSlug }) => {
@@ -114,6 +115,7 @@ const FooterCards: FC<{ overrideDeckSlug?: string }> = ({ overrideDeckSlug }) =>
         deckSlug: selectedDeck.slug,
         artistSlug: card.artist.slug,
         cardImg: card.img,
+        cardId: card._id,
       });
     }
   }, [selectedDeck]);
@@ -181,6 +183,7 @@ const FooterCards: FC<{ overrideDeckSlug?: string }> = ({ overrideDeckSlug }) =>
             close={handleClosePopup}
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
+            initialCardId={selectedCard.cardId}
             initialImg={selectedCard.cardImg}
             showNavigation={false}
           />
