@@ -59,6 +59,30 @@ export const CardPopQuery = gql`
   }
 `;
 
+/**
+ * Query for favorites page - fetches only specific cards by IDs
+ * Much faster than fetching all 55 cards per deck
+ */
+export const CardsByIdsQuery = gql`
+  query CardsByIds($ids: [ID!]!) {
+    cardsByIds(ids: $ids) {
+      _id
+      img
+      video
+      edition
+      artist {
+        name
+        slug
+        country
+      }
+      deck {
+        slug
+        title
+      }
+    }
+  }
+`;
+
 export const RandomCardsQueryWithoutDeck = gql`
   query RandomCardsWithoutDeck($limit: Int) {
     cards(limit: $limit, shuffle: true, withoutDeck: ["crypto"]) {
@@ -486,4 +510,17 @@ export const usePreloadCardPop = (
     });
 
   return { loadCardPop, ...methods, card };
+};
+
+/**
+ * Hook to fetch cards by their IDs (optimized for favorites page)
+ * Single query instead of N queries per deck
+ */
+export const useCardsByIds = (
+  options: useQuery.Options<Pick<GQL.Query, "cardsByIds">> = {}
+) => {
+  const { data: { cardsByIds: cards } = { cardsByIds: undefined }, ...methods } =
+    useQuery<Pick<GQL.Query, "cardsByIds">>(CardsByIdsQuery, options);
+
+  return { ...methods, cards };
 };

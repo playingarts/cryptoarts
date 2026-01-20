@@ -17,49 +17,113 @@ import { setNavigationDeck } from "../../Deck/navigationDeckStore";
 import { startPerfNavTiming } from "../../../../source/utils/perfNavTracer";
 
 const FavButton: FC<
-  HTMLAttributes<HTMLElement> & { deckSlug: string; id: string }
-> = ({ deckSlug, id }) => {
-  const { isFavorite, addItem } = useFavorites();
+  HTMLAttributes<HTMLElement> & { deckSlug: string; id: string; loading?: boolean }
+> = ({ deckSlug, id, loading }) => {
+  const { isFavorite, addItem, removeItem } = useFavorites();
 
   const [favState, setFavState] = useState(false);
+  const [showNotification, setShowNotification] = useState<"added" | "removed" | null>(null);
 
   useEffect(() => {
-    setFavState(isFavorite(deckSlug, id));
+    if (id) {
+      setFavState(isFavorite(deckSlug, id));
+    }
   }, [isFavorite, deckSlug, id]);
 
-  const Btn = (
-    <Button
-      color={favState ? "white" : "accent"}
-      css={(theme) => [
-        {
+  // Auto-hide notification after 1.5s
+  useEffect(() => {
+    if (showNotification) {
+      const timer = setTimeout(() => setShowNotification(null), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [showNotification]);
+
+  // Show disabled placeholder while loading
+  if (loading || !id) {
+    return (
+      <Button
+        color="accent"
+        css={{
           padding: 0,
           width: 45,
           height: 45,
           justifyContent: "center",
           display: "flex",
           alignItems: "center",
-        },
-        favState && {
-          color: theme.colors.accent,
-          "&:hover": {
-            color: theme.colors.accent,
-          },
-        },
-      ]}
-      onClick={() => {
-        !favState && addItem(deckSlug, id);
-      }}
-    >
-      <Star />
-    </Button>
-  );
+          opacity: 0.5,
+          cursor: "default",
+          pointerEvents: "none",
+        }}
+      >
+        {/* Empty - no star icon while loading */}
+      </Button>
+    );
+  }
 
-  return favState ? (
-    <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/favorites"}>
-      {Btn}
-    </Link>
-  ) : (
-    Btn
+  return (
+    <div css={{ position: "relative" }}>
+      {showNotification && (
+        <div
+          css={(theme) => ({
+            position: "absolute",
+            bottom: "100%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            marginBottom: 8,
+            // Label styling from components/Label
+            fontSize: 14,
+            fontWeight: 400,
+            lineHeight: "18px",
+            padding: "6px 10px 4px",
+            background: "white",
+            borderRadius: 50,
+            color: theme.colors.black,
+            whiteSpace: "nowrap",
+            animation: "fadeInOut 1.5s ease-in-out",
+            "@keyframes fadeInOut": {
+              "0%": { opacity: 0, transform: "translateX(-50%) translateY(5px)" },
+              "15%": { opacity: 1, transform: "translateX(-50%) translateY(0)" },
+              "85%": { opacity: 1, transform: "translateX(-50%) translateY(0)" },
+              "100%": { opacity: 0, transform: "translateX(-50%) translateY(-5px)" },
+            },
+          })}
+        >
+          {showNotification === "added" ? "Added to favourites" : "Removed from favourites"}
+        </div>
+      )}
+      <Button
+        color={favState ? "white" : "accent"}
+        css={(theme) => [
+          {
+            padding: 0,
+            width: 45,
+            height: 45,
+            justifyContent: "center",
+            display: "flex",
+            alignItems: "center",
+          },
+          favState && {
+            color: theme.colors.accent,
+            "&:hover": {
+              color: theme.colors.accent,
+            },
+          },
+        ]}
+        onClick={() => {
+          if (favState) {
+            removeItem(deckSlug, id);
+            setFavState(false);
+            setShowNotification("removed");
+          } else {
+            addItem(deckSlug, id);
+            setFavState(true);
+            setShowNotification("added");
+          }
+        }}
+      >
+        <Star />
+      </Button>
+    </div>
   );
 };
 
@@ -69,12 +133,18 @@ const CustomMiddle: FC<{
   deck: GQL.Deck | undefined;
   edition?: string;
   showNavigation?: boolean;
-}> = ({ cardState, deck, setCardState, edition, showNavigation = true }) => {
-  const { cards: rawCards } = useCardsForDeck(deck && showNavigation ? { variables: { deck: deck._id, edition } } : { skip: true });
+  /** Custom cards for navigation (e.g., favorites page with cards from multiple decks) */
+  navigationCards?: GQL.Card[];
+}> = ({ cardState, deck, setCardState, edition, showNavigation = true, navigationCards }) => {
+  // Use custom cards if provided, otherwise fetch from deck
+  const { cards: rawCards } = useCardsForDeck(deck && showNavigation && !navigationCards ? { variables: { deck: deck._id, edition } } : { skip: true });
   const [counter, setCounter] = useState(0);
 
-  // Sort cards to match the order shown in CardList
-  const cards = useMemo(() => rawCards ? sortCards(rawCards) : undefined, [rawCards]);
+  // Use custom navigation cards if provided, otherwise sort fetched cards
+  const cards = useMemo(() => {
+    if (navigationCards) return navigationCards;
+    return rawCards ? sortCards(rawCards) : undefined;
+  }, [rawCards, navigationCards]);
 
   useEffect(() => {
     if (!cards) {
@@ -100,28 +170,31 @@ const CustomMiddle: FC<{
         },
       ]}
     >
-      <NavButton
-        onClick={() =>
-          cards &&
-          setCardState(
-            counter > 0
-              ? cards[counter - 1].artist.slug
-              : cards[cards.length - 1].artist.slug
-          )
-        }
-        css={[{ transform: "rotate(180deg)" }]}
-      />
-
-      <NavButton
-        onClick={() =>
-          cards &&
-          setCardState(
-            counter < cards.length - 1
-              ? cards[counter + 1].artist.slug
-              : cards[0].artist.slug
-          )
-        }
-      />
+      <span css={[{ marginRight: 5 }]}>
+        <NavButton
+          onClick={() =>
+            cards &&
+            setCardState(
+              counter > 0
+                ? cards[counter - 1].artist.slug
+                : cards[cards.length - 1].artist.slug
+            )
+          }
+          css={[{ transform: "rotate(180deg)" }]}
+        />
+      </span>
+      <span css={[{ marginRight: 5 }]}>
+        <NavButton
+          onClick={() =>
+            cards &&
+            setCardState(
+              counter < cards.length - 1
+                ? cards[counter + 1].artist.slug
+                : cards[0].artist.slug
+            )
+          }
+        />
+      </span>
       <span css={[{ marginLeft: 30 }]}>
         Card {(counter + 1).toString().padStart(2, "0") + " "}/
         {" " + (cards ? cards.length.toString().padStart(2, "0") : "")}
@@ -144,9 +217,14 @@ const Pop: FC<
     showNavigation?: boolean;
     /** Called when navigating away (e.g., clicking "Card details") - use to close parent menus */
     onNavigate?: () => void;
+    /** Custom cards for navigation (e.g., favorites page with cards from multiple decks) */
+    navigationCards?: GQL.Card[];
+    /** Called when navigating to a different card via arrows - receives the new card */
+    onCardChange?: (card: GQL.Card) => void;
   }
-> = ({ close, cardSlug, deckId, edition, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, onNavigate, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, onNavigate, navigationCards, onCardChange, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
+  const [currentDeckId, setCurrentDeckId] = useState(deckId);
   const router = useRouter();
 
   // Lock body scroll when popup is open
@@ -160,7 +238,7 @@ const Pop: FC<
 
   // Get deck from cached decks array instead of separate query
   const { decks } = useDecks();
-  const deck = useMemo(() => decks?.find((d) => d.slug === deckId), [decks, deckId]);
+  const deck = useMemo(() => decks?.find((d) => d.slug === currentDeckId), [decks, currentDeckId]);
 
   // Fetch cards for the deck to find the backside card
   const { cards } = useCards(
@@ -178,11 +256,24 @@ const Pop: FC<
 
   // Use lightweight popup query (cache-and-network for fresh data on navigation)
   const { card, loading: cardLoading } = useCardPop({
-    variables: { deckSlug: deckId, slug: cardState },
+    variables: { deckSlug: currentDeckId, slug: cardState },
     fetchPolicy: "cache-and-network",
   });
 
   const { palette } = usePalette();
+
+  // Wrapper for setCardState that also updates deck when using custom navigation cards
+  const handleSetCardState = useCallback((artistSlug: string | undefined) => {
+    setCardState(artistSlug);
+    // If using custom navigation cards, find the card and update deck
+    if (navigationCards && artistSlug) {
+      const navCard = navigationCards.find((c) => c.artist.slug === artistSlug);
+      if (navCard?.deck?.slug) {
+        setCurrentDeckId(navCard.deck.slug);
+        onCardChange?.(navCard);
+      }
+    }
+  }, [navigationCards, onCardChange]);
 
   // Navigate to card page with instant display
   const handleCardDetailsClick = useCallback(() => {
@@ -197,7 +288,7 @@ const Pop: FC<
         background: card?.background || null,
         cardBackground: card?.cardBackground || initialBackground || null,
         edition: card?.edition || edition || null,
-        deck: { slug: deckId },
+        deck: { slug: currentDeckId },
         artist: {
           name: card?.artist.name || initialArtistName || "",
           slug: artistSlug,
@@ -352,9 +443,10 @@ const Pop: FC<
             <CustomMiddle
               deck={deck}
               cardState={cardState}
-              setCardState={setCardState}
+              setCardState={handleSetCardState}
               edition={edition}
               showNavigation={showNavigation}
+              navigationCards={navigationCards}
             />
             <Button
               palette={palette}
@@ -449,7 +541,7 @@ const Pop: FC<
                 },
               ]}
             >
-              <FavButton deckSlug={deckId} id={card?._id || ""} />
+              <FavButton deckSlug={currentDeckId} id={card?._id || ""} loading={cardLoading} />
 
               <Button color="accent" css={{ fontSize: 20 }} onClick={handleCardDetailsClick}>
                 Card details

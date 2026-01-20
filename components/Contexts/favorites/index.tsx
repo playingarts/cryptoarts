@@ -34,6 +34,9 @@ export const FavoritesProvider: FC<HTMLAttributes<HTMLElement>> = ({
 
   const addItem: Props["addItem"] = useCallback(
     (deckSlug, _id) => {
+      // Prevent adding empty/invalid IDs
+      if (!deckSlug || !_id) return;
+
       setFavorites((prev) => {
         const existing = prev[deckSlug] || [];
         return {
@@ -55,6 +58,9 @@ export const FavoritesProvider: FC<HTMLAttributes<HTMLElement>> = ({
 
   const removeItem: Props["removeItem"] = useCallback(
     (deckSlug, _id) => {
+      // Prevent removing with empty/invalid IDs
+      if (!deckSlug || !_id) return;
+
       setFavorites((prev) => {
         const deck = (prev[deckSlug] || []).filter((id) => id !== _id);
         const newFav = { ...prev, [deckSlug]: deck };

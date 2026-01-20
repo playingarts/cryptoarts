@@ -190,6 +190,23 @@ export class CardService {
   }
 
   /**
+   * Get cards by their IDs (optimized for favorites page)
+   * Fetches only the requested cards instead of all cards in a deck
+   */
+  async getCardsByIds(ids: string[]): Promise<GQL.Card[]> {
+    if (!ids || ids.length === 0) {
+      return [];
+    }
+
+    const cards = await Card.find({ _id: { $in: ids } }).populate([
+      "artist",
+      "deck",
+    ]);
+
+    return cards as unknown as GQL.Card[];
+  }
+
+  /**
    * Get hero cards for a specific deck
    * Returns 2 random cards from the deck for the hero section
    */

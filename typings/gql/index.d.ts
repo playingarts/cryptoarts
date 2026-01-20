@@ -28,6 +28,7 @@ interface Query {
   randomCards: Array<Card>;
   card?: Maybe<Card>;
   cardByImg?: Maybe<Card>;
+  cardsByIds: Array<Card>;
   heroCards: Array<Card>;
   homeCards: Array<Card>;
   products: Array<Product>;
@@ -99,6 +100,11 @@ interface QueryCardArgs {
 
 interface QueryCardByImgArgs {
   img: Scalars['ID']['input'];
+}
+
+
+interface QueryCardsByIdsArgs {
+  ids: Array<Scalars['ID']['input']>;
 }
 
 
@@ -610,6 +616,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   randomCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryRandomCardsArgs>>;
   card?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryCardArgs>>;
   cardByImg?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardByImgArgs, 'img'>>;
+  cardsByIds?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<QueryCardsByIdsArgs, 'ids'>>;
   heroCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType, Partial<QueryHeroCardsArgs>>;
   homeCards?: Resolver<Array<ResolversTypes['Card']>, ParentType, ContextType>;
   products?: Resolver<Array<ResolversTypes['Product']>, ParentType, ContextType, Partial<QueryProductsArgs>>;
