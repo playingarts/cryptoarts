@@ -164,7 +164,7 @@ const Suggestions: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   return (
     <div {...props}>
-      <ArrowedButton css={{ marginBottom: 30 }}>Related products</ArrowedButton>
+      <ArrowedButton css={{ marginBottom: 30 }}>You may like</ArrowedButton>
       <div css={{ display: "flex", gap: 3, flexWrap: "wrap" }}>
         {bundleSuggestion && (
           <ProductSuggestion

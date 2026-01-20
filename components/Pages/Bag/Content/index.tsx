@@ -4,6 +4,7 @@ import Text from "../../../Text";
 import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
+import ArrowButton from "../../../Buttons/ArrowButton";
 import { useProducts } from "../../../../hooks/product";
 import { useBag } from "../../../Contexts/bag";
 
@@ -19,11 +20,14 @@ import Product from "./Product";
 const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { bag } = useBag();
 
+  const bagItemIds = bag ? Object.keys(bag) : [];
+  const isEmpty = bagItemIds.length === 0;
+
   const { products } = useProducts(
-    bag
+    !isEmpty
       ? {
           variables: {
-            ids: Object.keys(bag),
+            ids: bagItemIds,
           },
         }
       : {}
@@ -41,8 +45,11 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     >
       <div css={[{ gridColumn: "span 8" }]}>
         <div css={[{ marginRight: 110 }]}>
-          <Text typography="newh3">Your bag is ready!</Text>
-          {products && (
+          <Text typography="newh3">{isEmpty ? "Your bag is empty!" : "Your bag is ready!"}</Text>
+          {isEmpty && (
+            <ArrowButton color="accent" css={{ marginTop: 30, marginBottom: 120, fontSize: 20 }} href="/shop">Go shopping</ArrowButton>
+          )}
+          {!isEmpty && products && (
             <ScandiBlock
               id="items"
               css={[
@@ -56,7 +63,10 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               ]}
             >
               <ArrowedButton css={[{ marginBottom: 30 }]}>
-                {products.length} items are reserved for&nbsp;
+                {(() => {
+                  const totalItems = Object.values(bag || {}).reduce((sum, qty) => sum + qty, 0);
+                  return `${totalItems} ${totalItems === 1 ? "item is" : "items are"}`;
+                })()} reserved for&nbsp;
                 <Countdown
                   date={Date.now() + 599000}
                   renderer={({ minutes, seconds }) => (
@@ -75,15 +85,10 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 })}
             </ScandiBlock>
           )}
-          <ScandiBlock css={[{ marginTop: 60, paddingTop: 15 }]}>
-            <Text typography="paragraphBig" css={[{ marginRight: 110, fontSize: 25 }]}>
-              You are on your way to owning an exclusive art piece!
-            </Text>
-          </ScandiBlock>
         </div>
-        <Suggestions id="related" css={[{ marginTop: 120, paddingTop: 60 }]}></Suggestions>
+        {!isEmpty && <Suggestions id="related" css={[{ marginTop: 120, paddingTop: 60 }]}></Suggestions>}
       </div>
-      <CTA css={[{ gridColumn: "span 4/-1" }]}></CTA>
+      {!isEmpty && <CTA css={[{ gridColumn: "span 4/-1" }]}></CTA>}
     </Grid>
   );
 };

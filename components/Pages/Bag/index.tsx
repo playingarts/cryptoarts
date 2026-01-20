@@ -21,6 +21,9 @@ const CheckoutButton = () => {
   const [loading, setLoading] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  const bagItemIds = bag ? Object.keys(bag) : [];
+  const isEmpty = bagItemIds.length === 0;
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY >= 400);
@@ -33,6 +36,8 @@ const CheckoutButton = () => {
   const handleClick = () => {
     setLoading(true);
   };
+
+  if (isEmpty) return null;
 
   return (
     <Link
@@ -54,6 +59,10 @@ const CheckoutButton = () => {
 };
 
 const Bag: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
+  const { bag } = useBag();
+  const bagItemIds = bag ? Object.keys(bag) : [];
+  const isEmpty = bagItemIds.length === 0;
+
   return (
     <>
       <Header
@@ -79,10 +88,12 @@ const Bag: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <Content />
       </div>
 
-      {/* Trust badges - lazy load */}
-      <LazySection rootMargin="300px" minHeight={200}>
-        <Trust css={(theme) => [{ backgroundColor: theme.colors.soft_gray }]} />
-      </LazySection>
+      {/* Trust badges - lazy load (hide when empty) */}
+      {!isEmpty && (
+        <LazySection rootMargin="300px" minHeight={200}>
+          <Trust css={(theme) => [{ backgroundColor: theme.colors.soft_gray }]} />
+        </LazySection>
+      )}
 
       {/* Footer with reviews/FAQ */}
       <LazySection rootMargin="100px" minHeight={600}>
