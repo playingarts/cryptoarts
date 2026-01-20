@@ -11,6 +11,7 @@ import { usePalette } from "../DeckPaletteContext";
 import KickStarterLine from "../../../Icons/KickStarterLine";
 import Error from "../../../Error";
 import { HeroCardProps } from "../../../../pages/[deckId]";
+import { getNavigationDeck, clearNavigationDeck } from "../navigationDeckStore";
 
 type SlideState = "visible" | "sliding-out" | "sliding-in";
 
@@ -90,6 +91,9 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
 
   const { palette } = usePalette();
 
+  // Get navigation deck for instant display during fallback
+  const [navDeck, setNavDeck] = useState(() => getNavigationDeck());
+
   // Fetch ALL decks once - they stay in cache for instant navigation
   const { decks, loading, error, refetch } = useDecks();
 
@@ -103,16 +107,37 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
 
   // Track displayed deck for transition
   const [slideState, setSlideState] = useState<SlideState>("visible");
-  const [displayedDeck, setDisplayedDeck] = useState<typeof deck>(undefined);
+  // Initialize displayedDeck with navDeck if available (for instant display)
+  const [displayedDeck, setDisplayedDeck] = useState<typeof deck>(() => {
+    // If we have navDeck from card popup navigation, create a partial deck object
+    if (navDeck && navDeck.slug === deckId) {
+      return {
+        _id: "nav",
+        slug: navDeck.slug,
+        title: navDeck.title,
+        info: navDeck.description || "",
+      } as unknown as typeof deck;
+    }
+    return undefined;
+  });
   // Track the deck we're transitioning to, to avoid cleanup issues
   const transitioningToRef = useRef<string | null>(null);
+
+  // Clear navigation deck once real deck data arrives
+  useEffect(() => {
+    if (deck && navDeck) {
+      clearNavigationDeck();
+      setNavDeck(null);
+    }
+  }, [deck, navDeck]);
 
   // Sync displayedDeck with deck changes
   useEffect(() => {
     if (!deck) return;
 
     // Initial load - set immediately without animation
-    if (!displayedDeck) {
+    // Also replace navDeck placeholder with real deck data
+    if (!displayedDeck || displayedDeck._id === "nav") {
       setDisplayedDeck(deck);
       setSlideState("visible");
       return;

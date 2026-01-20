@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Header from "../../Header";
 import Footer from "../../Footer";
@@ -12,7 +12,7 @@ import MoreSkeleton from "./More/MoreSkeleton";
 import { withApollo } from "../../../source/apollo";
 import { SSRCardProps } from "../../../pages/[deckId]/[artistSlug]";
 import { CardPageProvider } from "./CardPageContext";
-import { getNavigationCard } from "./navigationCardStore";
+import { getNavigationCard, clearNavigationCard } from "./navigationCardStore";
 import { getDeckConfig } from "../../../source/deckConfig";
 
 // Code-split below-fold components (SSR disabled for lazy loading)
@@ -70,6 +70,14 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
   // Priority: ssrCard (from getStaticProps) > navCard (from navigation) > undefined
   // During fallback, ssrCard is undefined, so we show navCard
   const effectiveSsrCard = ssrCard || navCard || undefined;
+
+  // Clear navigation card once we have ssrCard (prevents stale data on next navigation)
+  useEffect(() => {
+    if (ssrCard && navCard) {
+      clearNavigationCard();
+      setNavCard(null);
+    }
+  }, [ssrCard, navCard]);
 
   // Show loading state only if we're in fallback AND have no navigation card
   if (isFallback && !navCard) {

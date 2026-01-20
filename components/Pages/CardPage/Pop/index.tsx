@@ -13,6 +13,7 @@ import Text from "../../../Text";
 import { usePalette } from "../../Deck/DeckPaletteContext";
 import { sortCards } from "../../../../source/utils/sortCards";
 import { setNavigationCard } from "../navigationCardStore";
+import { setNavigationDeck } from "../../Deck/navigationDeckStore";
 import { startPerfNavTiming } from "../../../../source/utils/perfNavTracer";
 
 const FavButton: FC<
@@ -264,20 +265,37 @@ const Pop: FC<
         }}
       >
         <div css={[{ flex: 1 }]}>
-          <Link
-            href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/" + deckId}
-            onClick={close}
+          <Text
+            typography="newh4"
+            css={{ "&:hover": { opacity: 0.7, cursor: "pointer" }, transition: "opacity 0.2s" }}
+            onClick={() => {
+              // Store deck data for instant display on deck page
+              if (deck) {
+                setNavigationDeck({
+                  slug: deckId,
+                  title: (edition || card?.edition) === "chapter i" || deckId === "future"
+                    ? "Future Chapter I"
+                    : (edition || card?.edition) === "chapter ii" || deckId === "future-ii"
+                    ? "Future Chapter II"
+                    : deck.title,
+                  description: deck.info,
+                });
+              }
+              close();
+              onNavigate?.();
+              // Track navigation timing
+              startPerfNavTiming("click", "CardPop-Deck", `/${deckId}`, false);
+              router.push(`/${deckId}`);
+            }}
           >
-            <Text typography="newh4" css={{ "&:hover": { opacity: 0.7 }, transition: "opacity 0.2s" }}>
-              {deck
-                ? (edition || card?.edition) === "chapter i" || deckId === "future"
-                  ? "Future Chapter I"
-                  : (edition || card?.edition) === "chapter ii" || deckId === "future-ii"
-                  ? "Future Chapter II"
-                  : deck.title
-                : null}{" "}
-            </Text>
-          </Link>
+            {deck
+              ? (edition || card?.edition) === "chapter i" || deckId === "future"
+                ? "Future Chapter I"
+                : (edition || card?.edition) === "chapter ii" || deckId === "future-ii"
+                ? "Future Chapter II"
+                : deck.title
+              : null}{" "}
+          </Text>
           <div
             css={{
               marginTop: 30,

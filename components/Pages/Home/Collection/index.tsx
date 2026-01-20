@@ -38,6 +38,9 @@ type SelectedCard = {
   deckSlug: string;
   artistSlug: string;
   cardImg: string;
+  artistName?: string;
+  artistCountry?: string | null;
+  cardBackground?: string | null;
 } | null;
 
 const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
@@ -55,8 +58,8 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   // Lifted popup handlers
   const handleCardClick = useCallback(
-    (deckSlug: string, artistSlug: string, cardImg: string) => {
-      setSelectedCard({ deckSlug, artistSlug, cardImg });
+    (deckSlug: string, artistSlug: string, cardImg: string, artistName?: string, artistCountry?: string | null, cardBackground?: string | null) => {
+      setSelectedCard({ deckSlug, artistSlug, cardImg, artistName, artistCountry, cardBackground });
     },
     []
   );
@@ -130,7 +133,9 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
             initialImg={selectedCard.cardImg}
-            showNavigation={false}
+            initialArtistName={selectedCard.artistName}
+            initialArtistCountry={selectedCard.artistCountry ?? undefined}
+            initialBackground={selectedCard.cardBackground ?? undefined}
           />
         )}
       </MenuPortal>

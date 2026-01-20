@@ -66,7 +66,7 @@ const CardSkeleton: FC<{ palette: "light" | "dark" }> = ({ palette }) => (
 interface CollectionItemProps extends HTMLAttributes<HTMLElement> {
   product?: GQL.Product;
   paletteOnHover?: "light" | "dark";
-  onCardClick?: (deckSlug: string, artistSlug: string, cardImg: string) => void;
+  onCardClick?: (deckSlug: string, artistSlug: string, cardImg: string, artistName?: string, artistCountry?: string | null, cardBackground?: string | null) => void;
   /** Priority loading for above-fold items */
   priority?: boolean;
   /** Current deck slug - if matches product deck, "View" just closes instead of navigating */
@@ -77,8 +77,8 @@ interface CollectionItemProps extends HTMLAttributes<HTMLElement> {
   showCardPreview?: boolean;
 }
 
-// Minimal card type for our buffer
-type BufferCard = Pick<GQL.Card, "_id" | "img"> & { artist: Pick<GQL.Artist, "slug"> };
+// Minimal card type for our buffer - includes artist info for instant popup display
+type BufferCard = Pick<GQL.Card, "_id" | "img" | "cardBackground"> & { artist: Pick<GQL.Artist, "slug" | "name" | "country"> };
 
 const CollectionItem: FC<CollectionItemProps> = memo(({
   product,
@@ -315,7 +315,14 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
   const handleCardClick = useCallback(() => {
     const currentCard = cardBuffer[cardIndex];
     if (product?.deck?.slug && currentCard?.artist?.slug && currentCard?.img) {
-      onCardClick?.(product.deck.slug, currentCard.artist.slug, currentCard.img);
+      onCardClick?.(
+        product.deck.slug,
+        currentCard.artist.slug,
+        currentCard.img,
+        currentCard.artist.name,
+        currentCard.artist.country,
+        currentCard.cardBackground
+      );
     }
   }, [cardIndex, cardBuffer, product?.deck?.slug, onCardClick]);
 

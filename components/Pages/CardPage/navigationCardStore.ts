@@ -25,14 +25,13 @@ export const setNavigationCard = (card: SSRCardProps | null): void => {
   }
 };
 
-/** Get and clear stored card data (called on card page mount) */
+/** Get stored card data (called on card page mount) */
 export const getNavigationCard = (): SSRCardProps | null => {
   if (typeof window === "undefined") return null;
 
   try {
     const stored = sessionStorage.getItem(STORAGE_KEY);
     if (stored) {
-      sessionStorage.removeItem(STORAGE_KEY); // Clear after read to prevent stale data
       return JSON.parse(stored);
     }
   } catch {
@@ -40,4 +39,14 @@ export const getNavigationCard = (): SSRCardProps | null => {
   }
 
   return null;
+};
+
+/** Clear stored navigation card (call after page has rendered with real data) */
+export const clearNavigationCard = (): void => {
+  if (typeof window === "undefined") return;
+  try {
+    sessionStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // Ignore storage errors
+  }
 };

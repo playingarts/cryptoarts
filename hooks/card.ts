@@ -383,8 +383,11 @@ export const CollectionCardsQuery = gql`
     cards(deck: $deck, limit: $limit, shuffle: $shuffle) {
       _id
       img
+      cardBackground
       artist {
         slug
+        name
+        country
       }
     }
   }
