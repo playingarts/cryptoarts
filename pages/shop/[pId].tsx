@@ -1,4 +1,4 @@
-import { GetServerSideProps } from "next";
+import { GetStaticProps, GetStaticPaths } from "next";
 import { connect } from "../../source/mongoose";
 import { Product } from "../../source/graphql/schemas/product";
 import { initApolloClient } from "../../source/apollo";
@@ -6,7 +6,24 @@ import { ProductsQuery } from "../../hooks/product";
 
 export { default } from "@/components/Pages/ProductPage";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  await connect();
+
+  // Get all non-hidden, non-bundle products for static generation
+  const products = await Product.find({ hidden: { $ne: true }, type: { $ne: "bundle" } });
+
+  const paths = products.map((product) => ({
+    params: { pId: product.short.toLowerCase().replace(/\s/g, "") },
+  }));
+
+  return {
+    paths,
+    // Return 404 for unknown products
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
   await connect();
 
   const { pId } = context.params || {};
@@ -38,22 +55,16 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       console.error("Failed to prefetch products:", error);
     }
 
-    // Preload hero image
-    if (product.image2) {
-      context.res.setHeader(
-        "Link",
-        `<${product.image2}>; rel=preload; as=image`
-      );
-    }
-
     return {
       props: {
         cache: apolloClient.cache.extract(),
       },
+      // Revalidate every hour for fresh product data with caching
+      revalidate: 3600,
     };
   }
 
   return {
-    props: {},
+    notFound: true,
   };
 };

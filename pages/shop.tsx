@@ -1,10 +1,11 @@
+import { GetStaticProps } from "next";
 import { connect } from "../source/mongoose";
 import { initApolloClient } from "../source/apollo";
 import { ProductsQuery } from "../hooks/product";
 
 export { default } from "@/components/Pages/Shop";
 
-export const getServerSideProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   await connect();
 
   // Import schema for SSR
@@ -25,5 +26,7 @@ export const getServerSideProps = async () => {
     props: {
       cache: apolloClient.cache.extract(),
     },
+    // Revalidate every hour for fresh product data with caching
+    revalidate: 3600,
   };
 };

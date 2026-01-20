@@ -17,16 +17,19 @@ const CustomMiddle: FC<{
   const { products } = useProducts();
   const [counter, setCounter] = useState(0);
 
+  // Filter out bundles from navigation - only show deck products
+  const deckProducts = products?.filter((p) => p.type === "deck") ?? [];
+
   useEffect(() => {
-    if (!products) {
+    if (!deckProducts.length) {
       return;
     }
     setCounter(
-      products.findIndex((product) => product.short === productState.short)
+      deckProducts.findIndex((product) => product.short === productState.short)
     );
-  }, [products, productState]);
+  }, [deckProducts, productState]);
 
-  return products ? (
+  return deckProducts.length ? (
     <Text
       typography="paragraphSmall"
       css={[
@@ -41,7 +44,7 @@ const CustomMiddle: FC<{
       <NavButton
         onClick={() =>
           setProductState(
-            counter > 0 ? products[counter - 1] : products[products.length - 1]
+            counter > 0 ? deckProducts[counter - 1] : deckProducts[deckProducts.length - 1]
           )
         }
         css={[{ transform: "rotate(180deg)" }]}
@@ -50,14 +53,10 @@ const CustomMiddle: FC<{
       <NavButton
         onClick={() =>
           setProductState(
-            counter < products.length - 1 ? products[counter + 1] : products[0]
+            counter < deckProducts.length - 1 ? deckProducts[counter + 1] : deckProducts[0]
           )
         }
       />
-      {/* <span css={[{ marginLeft: 30 }]}>
-        Card {(counter + 1).toString().padStart(2, "0") + " "}/
-        {" " + products.length.toString().padStart(2, "0")}
-      </span> */}
     </Text>
   ) : null;
 };
