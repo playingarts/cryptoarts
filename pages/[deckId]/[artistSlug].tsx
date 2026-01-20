@@ -3,7 +3,7 @@ import { NormalizedCacheObject } from "@apollo/client";
 import { connect } from "../../source/mongoose";
 import { initApolloClient } from "../../source/apollo";
 import { DecksQuery } from "../../hooks/deck";
-import { CardQuery } from "../../hooks/card";
+import { CardQuery, CardsForDeckQuery } from "../../hooks/card";
 import { schema } from "../../source/graphql/schema";
 
 export { default } from "@/components/Pages/CardPage";
@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps<
 
     const client = initApolloClient(undefined, { schema });
 
-    // Fetch decks and individual card in parallel (the card query is what we really need)
+    // Fetch decks and individual card in parallel
     const [decksResult, cardResult] = await Promise.all([
       client.query({ query: DecksQuery }) as Promise<{ data: { decks: GQL.Deck[] } }>,
       client.query({
@@ -82,10 +82,14 @@ export const getStaticProps: GetStaticProps<
       };
     }
 
+    // Prefetch all cards for this deck (for navigation arrows and More section)
+    // This eliminates client-side waterfall: deck -> cards query
+    await client.query({
+      query: CardsForDeckQuery,
+      variables: { deck: deck._id },
+    });
+
     // Extract SSR card props for instant display (use nullish coalescing for safety)
-    // Note: We intentionally skip fetching CardsQuery, LosersQuery, podcastsQuery here
-    // to speed up getStaticProps. The client already has decks cached and will fetch
-    // card-related data via useCardsForDeck in CardPageContext.
     const ssrCard: SSRCardProps = {
       _id: card._id ?? "",
       img: card.img ?? "",

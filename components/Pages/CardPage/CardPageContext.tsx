@@ -90,8 +90,8 @@ export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
     (typeof routerArtistSlug === "string" ? routerArtistSlug : pathArtistSlug);
 
   // Get deck from cached decks (instant from Apollo cache)
-  // This avoids a separate network request for deck data
-  const { decks } = useDecks();
+  // Use cache-only fetch policy to avoid network requests - decks should already be cached
+  const { decks } = useDecks({ fetchPolicy: "cache-first" });
   const deck = useMemo(() => {
     if (!decks || !deckId) return undefined;
     return decks.find((d) => d.slug === deckId);
