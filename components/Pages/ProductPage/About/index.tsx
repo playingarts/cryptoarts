@@ -394,7 +394,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         ]}
       >
         <Link href="#product">
-          <ArrowedButton css={[{ marginBottom: 90, justifyContent: "flex-start" }]}>
+          <ArrowedButton css={[{ marginTop: 15, marginBottom: 90, justifyContent: "flex-start" }]}>
             The product
           </ArrowedButton>
         </Link>

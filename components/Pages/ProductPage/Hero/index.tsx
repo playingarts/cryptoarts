@@ -16,6 +16,17 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
 
   const [product, setProduct] = useState<GQL.Product>();
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  // Parallax scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     products &&
@@ -61,8 +72,18 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               top: 120,
               left: -837,
               pointerEvents: "none",
+              opacity: 0,
+              transition: "opacity 500ms ease",
             },
           ]}
+          style={
+            imageLoaded
+              ? {
+                  opacity: 1,
+                  transform: `translateY(${-25 + scrollY * 0.3}px)`,
+                }
+              : undefined
+          }
         >
           <Image
             src={product.image2}
@@ -72,6 +93,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             priority
             quality={90}
             style={{ objectFit: "contain" }}
+            onLoad={() => setImageLoaded(true)}
           />
         </div>
       </div>

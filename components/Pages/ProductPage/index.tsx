@@ -146,7 +146,7 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       )}
       <Header customCTA={<BagButton />} customMiddle={<CustomMiddle />} links={["Product", "Related", "Bundles", "Reviews", "FAQ"]} />
       <div id="product">
-        <Hero />
+        <Hero key={pId as string} />
       </div>
 
       {/* About section - lazy load on scroll */}
