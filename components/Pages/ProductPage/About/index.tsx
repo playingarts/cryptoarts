@@ -25,6 +25,7 @@ import Point from "../../../Icons/Point";
 import { default as FaqItem } from "../../../Footer/NewFAQ/Item";
 import Card from "../../../Card";
 import NavButton from "../../../Buttons/NavButton";
+import ArrowButton from "../../../Buttons/ArrowButton";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../../CardPage/Pop";
 import Link from "../../../Link";
@@ -347,12 +348,21 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <Item
               rating={currentRating}
               customButton={
-                <div css={{ marginTop: 30, display: "flex", gap: 5 }}>
+                <div css={{ marginTop: 30, display: "flex", alignItems: "center", gap: 5 }}>
                   <NavButton
                     css={{ transform: "rotate(180deg)" }}
                     onClick={() => navigateReview(-1)}
                   />
                   <NavButton onClick={() => navigateReview(1)} />
+                  <ArrowButton
+                    href="#reviews"
+                    noColor
+                    size="small"
+                    base
+                    css={{ marginLeft: 25 }}
+                  >
+                    All reviews
+                  </ArrowButton>
                 </div>
               }
               css={{

@@ -151,6 +151,8 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
           shopUrl={shopUrl}
           deckUrl={deckUrl}
           dark={isDark}
+          deckSlug={deckId || ""}
+          cardId={card?._id}
         />
 
         {/* P1: The Artist section (lazy) */}

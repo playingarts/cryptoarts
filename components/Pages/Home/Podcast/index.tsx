@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useState, useCallback, useRef } from "react";
 import Intro from "../../../Intro";
 import ButtonTemplate from "../../../Buttons/Button";
 import Grid from "../../../Grid";
@@ -131,6 +131,15 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   });
 
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const preloadedImages = useRef<Set<string>>(new Set());
+
+  // Preload image on hover for instant display when clicked
+  const preloadImage = useCallback((imageUrl: string | undefined | null) => {
+    if (!imageUrl || preloadedImages.current.has(imageUrl)) return;
+    preloadedImages.current.add(imageUrl);
+    const img = new Image();
+    img.src = imageUrl;
+  }, []);
 
   // Show selected episode (default to first - Baugasm)
   const displayedPodcast = podcasts && podcasts[selectedIndex];
@@ -237,6 +246,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                     <div
                       key={podcast.desc + podcast.podcastName}
                       onClick={() => setSelectedIndex(index)}
+                      onMouseEnter={() => preloadImage(podcast.image)}
                       css={{
                         display: "grid",
                         gridTemplateColumns: "70px 1fr auto",

@@ -127,9 +127,11 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     </div>
 
     {/* Footer with reviews/FAQ */}
-    <LazySection rootMargin="100px" minHeight={600}>
-      <Footer />
-    </LazySection>
+    <div id="reviews">
+      <LazySection rootMargin="100px" minHeight={600}>
+        <Footer />
+      </LazySection>
+    </div>
   </>
 );
 

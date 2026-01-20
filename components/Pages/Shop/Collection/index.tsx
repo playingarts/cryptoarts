@@ -244,12 +244,21 @@ const RotatingReview: FC = () => {
           </ArrowButton>
         )}
       </div>
-      <div css={{ marginTop: 20, display: "flex", gap: 5 }}>
+      <div css={{ marginTop: 20, display: "flex", alignItems: "center", gap: 5 }}>
         <NavButton
           css={{ transform: "rotate(180deg)" }}
           onClick={() => navigateTo(-1)}
         />
         <NavButton onClick={() => navigateTo(1)} />
+        <ArrowButton
+          href="#reviews"
+          noColor
+          size="small"
+          base
+          css={{ marginLeft: 25 }}
+        >
+          All reviews
+        </ArrowButton>
       </div>
     </>
   );

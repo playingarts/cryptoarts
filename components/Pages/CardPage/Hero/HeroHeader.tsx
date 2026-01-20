@@ -1,10 +1,58 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import Text from "../../../Text";
 import ArrowButton from "../../../Buttons/ArrowButton";
+import Button from "../../../Buttons/Button";
 import Link from "../../../Link";
+import Star from "../../../Icons/Star";
+import { useFavorites } from "../../../Contexts/favorites";
 import Shimmer from "./Shimmer";
+
+/** Favorite button - shows star icon, links to favorites page when favorited */
+const FavButton: FC<{ deckSlug: string; cardId: string }> = ({ deckSlug, cardId }) => {
+  const { isFavorite, addItem } = useFavorites();
+  const [favState, setFavState] = useState(false);
+
+  useEffect(() => {
+    setFavState(isFavorite(deckSlug, cardId));
+  }, [isFavorite, deckSlug, cardId]);
+
+  const Btn = (
+    <Button
+      color={favState ? "white" : "accent"}
+      css={(theme) => [
+        {
+          padding: 0,
+          width: 45,
+          height: 45,
+          justifyContent: "center",
+          display: "flex",
+          alignItems: "center",
+        },
+        favState && {
+          color: theme.colors.accent,
+          "&:hover": {
+            color: theme.colors.accent,
+          },
+        },
+      ]}
+      onClick={() => {
+        !favState && addItem(deckSlug, cardId);
+      }}
+    >
+      <Star />
+    </Button>
+  );
+
+  return favState ? (
+    <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/favorites"}>
+      {Btn}
+    </Link>
+  ) : (
+    Btn
+  );
+};
 
 interface HeroHeaderProps {
   artistName?: string;
@@ -12,6 +60,8 @@ interface HeroHeaderProps {
   shopUrl: string;
   deckUrl: string;
   dark?: boolean;
+  deckSlug: string;
+  cardId?: string;
 }
 
 /** Skeleton for artist name and country - matches newh1 (70px/120%) and newh4 (25px/45px) */
@@ -40,6 +90,8 @@ const HeroHeader: FC<HeroHeaderProps> = ({
   shopUrl,
   deckUrl,
   dark,
+  deckSlug,
+  cardId,
 }) => {
   if (!artistName) {
     return <HeroHeaderSkeleton dark={dark} />;
@@ -61,11 +113,12 @@ const HeroHeader: FC<HeroHeaderProps> = ({
     >
       <Text typography="newh1">{artistName}</Text>
       <Text typography="newh4">{country ?? "..."}</Text>
-      <div css={{ display: "flex", alignItems: "center", gap: 30, marginTop: 30 }}>
+      <div css={{ display: "flex", alignItems: "center", gap: 15, marginTop: 30 }}>
+        {cardId && <FavButton deckSlug={deckSlug} cardId={cardId} />}
         <Link href={shopUrl}>
           <ArrowButton color="accent" css={{ fontSize: 20 }}>Shop this deck</ArrowButton>
         </Link>
-        <Link href={deckUrl}>
+        <Link href={deckUrl} css={{ marginLeft: 15 }}>
           <ArrowButton size="small" noColor base>
             Explore all cards
           </ArrowButton>
