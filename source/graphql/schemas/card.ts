@@ -53,7 +53,11 @@ export const resolvers: GQL.Resolvers = {
     },
   },
   Query: {
-    cards: async (_, args) => cardService.getCards(args),
+    cards: async (_, args) => {
+      // If deckSlug is provided but deck is not, use deckSlug as deck (service resolves it)
+      const { deckSlug, ...rest } = args;
+      return cardService.getCards({ ...rest, deck: args.deck || deckSlug });
+    },
     card: async (_, args) => cardService.getCard(args),
     cardByImg: (_, { img }) => cardService.getCardByImg({ img }),
     cardsByIds: (_, { ids }) => cardService.getCardsByIds(ids),
@@ -73,6 +77,7 @@ export const typeDefs = gql`
     cards(
       withoutDeck: [ID!]
       deck: ID
+      deckSlug: String
       shuffle: Boolean
       limit: Int
       losers: Boolean

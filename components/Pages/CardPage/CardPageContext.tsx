@@ -9,11 +9,13 @@ import {
   useCallback,
   useEffect,
   useMemo,
+  useRef,
 } from "react";
 import { useRouter } from "next/router";
 import { useDecks } from "../../../hooks/deck";
 import { useCardsForDeck, useCard } from "../../../hooks/card";
 import { sortCards } from "../../../source/utils/sortCards";
+import { getNavigationCard, clearNavigationCard } from "./navigationCardStore";
 
 interface CardNavigationData {
   currentIndex: number;
@@ -89,20 +91,34 @@ export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
     localArtistSlug ||
     (typeof routerArtistSlug === "string" ? routerArtistSlug : pathArtistSlug);
 
-  // Get deck from cached decks (instant from Apollo cache)
-  // Use cache-only fetch policy to avoid network requests - decks should already be cached
+  // Read navigation card from sessionStorage on mount (for instant display)
+  const navCardRef = useRef<ReturnType<typeof getNavigationCard>>(null);
+  if (navCardRef.current === null && typeof window !== "undefined") {
+    navCardRef.current = getNavigationCard();
+  }
+
+  // Get deck from cached decks (for deck object properties like title)
+  // This is optional - the cards query no longer depends on it
   const { decks } = useDecks({ fetchPolicy: "cache-first" });
   const deck = useMemo(() => {
     if (!decks || !deckId) return undefined;
     return decks.find((d) => d.slug === deckId);
   }, [decks, deckId]);
 
-  // Fetch all cards for deck - no edition filter for faster initial load
-  // deck._id comes from cached decks, so this query can start immediately
-  const { cards } = useCardsForDeck({
-    variables: { deck: deck?._id },
-    skip: !deck?._id,
+  // Fetch all cards for deck using deckSlug directly
+  // This eliminates the waterfall - no need to wait for useDecks() to complete
+  const { cards, loading: cardsLoading } = useCardsForDeck({
+    variables: { deckSlug: deckId },
+    skip: !deckId,
   });
+
+  // Clear navigation card once real data arrives
+  useEffect(() => {
+    if (cards && cards.length > 0 && navCardRef.current) {
+      clearNavigationCard();
+      navCardRef.current = null;
+    }
+  }, [cards]);
 
   // Fetch current card for detailed info (runs in parallel with cards query)
   const { card: currentCard } = useCard({

@@ -83,10 +83,10 @@ export const getStaticProps: GetStaticProps<
     }
 
     // Prefetch all cards for this deck (for navigation arrows and More section)
-    // This eliminates client-side waterfall: deck -> cards query
+    // Uses deckSlug directly to match client-side query (eliminates waterfall)
     await client.query({
       query: CardsForDeckQuery,
-      variables: { deck: deck._id },
+      variables: { deckSlug: deckId },
     });
 
     // Extract SSR card props for instant display (use nullish coalescing for safety)

@@ -78,6 +78,7 @@ interface QueryArtistsArgs {
 interface QueryCardsArgs {
   withoutDeck?: InputMaybe<Array<Scalars['ID']['input']>>;
   deck?: InputMaybe<Scalars['ID']['input']>;
+  deckSlug?: InputMaybe<Scalars['String']['input']>;
   shuffle?: InputMaybe<Scalars['Boolean']['input']>;
   limit?: InputMaybe<Scalars['Int']['input']>;
   losers?: InputMaybe<Scalars['Boolean']['input']>;
