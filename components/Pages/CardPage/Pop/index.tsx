@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useEffect, useMemo, useState, useCallback } from "react";
+import { FC, HTMLAttributes, useEffect, useMemo, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/router";
 import { useCardPop, useCardsForDeck } from "../../../../hooks/card";
 import { useDecks } from "../../../../hooks/deck";
@@ -149,6 +149,8 @@ const CustomMiddle: FC<{
     return rawCards ? sortCards(rawCards) : undefined;
   }, [rawCards, navigationCards]);
 
+  const hasCards = cards && cards.length > 0;
+
   useEffect(() => {
     if (!cards) {
       return;
@@ -156,10 +158,40 @@ const CustomMiddle: FC<{
     setCounter(cards.findIndex((card) => card.artist.slug === cardState));
   }, [cardState, cards]);
 
+  // Animated counter for loading state
+  const [animatedIndex, setAnimatedIndex] = useState(1);
+  const animationRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (hasCards) {
+      // Clear animation when cards load
+      if (animationRef.current) {
+        clearInterval(animationRef.current);
+        animationRef.current = null;
+      }
+    } else if (showNavigation) {
+      // Loading state - animate the counter
+      let count = 1;
+      animationRef.current = setInterval(() => {
+        count = (count % 55) + 1;
+        setAnimatedIndex(count);
+      }, 50);
+    }
+
+    return () => {
+      if (animationRef.current) {
+        clearInterval(animationRef.current);
+      }
+    };
+  }, [hasCards, showNavigation]);
+
   // Don't show navigation controls when disabled
   if (!showNavigation) {
     return null;
   }
+
+  const displayIndex = hasCards ? counter + 1 : animatedIndex;
+  const displayMax = hasCards ? cards.length : 55;
 
   return (
     <Text
@@ -175,32 +207,40 @@ const CustomMiddle: FC<{
     >
       <span css={[{ marginRight: 5 }]}>
         <NavButton
-          onClick={() =>
-            cards &&
-            setCardState(
-              counter > 0
-                ? cards[counter - 1].artist.slug
-                : cards[cards.length - 1].artist.slug
-            )
+          onClick={
+            hasCards
+              ? () =>
+                  setCardState(
+                    counter > 0
+                      ? cards[counter - 1].artist.slug
+                      : cards[cards.length - 1].artist.slug
+                  )
+              : undefined
           }
-          css={[{ transform: "rotate(180deg)" }]}
+          css={[
+            { transform: "rotate(180deg)" },
+            !hasCards && { opacity: 0.5, cursor: "default" },
+          ]}
         />
       </span>
       <span css={[{ marginRight: 5 }]}>
         <NavButton
-          onClick={() =>
-            cards &&
-            setCardState(
-              counter < cards.length - 1
-                ? cards[counter + 1].artist.slug
-                : cards[0].artist.slug
-            )
+          onClick={
+            hasCards
+              ? () =>
+                  setCardState(
+                    counter < cards.length - 1
+                      ? cards[counter + 1].artist.slug
+                      : cards[0].artist.slug
+                  )
+              : undefined
           }
+          css={[!hasCards && { opacity: 0.5, cursor: "default" }]}
         />
       </span>
-      <span css={[{ marginLeft: 30 }]}>
-        Card {(counter + 1).toString().padStart(2, "0") + " "}/
-        {" " + (cards ? cards.length.toString().padStart(2, "0") : "")}
+      <span css={[{ marginLeft: 30 }, !hasCards && { opacity: 0.7 }]}>
+        Card {displayIndex.toString().padStart(2, "0") + " "}/
+        {" " + displayMax.toString().padStart(2, "0")}
       </span>
     </Text>
   );
