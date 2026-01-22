@@ -1,6 +1,6 @@
 import { FC, HTMLAttributes, useEffect, useMemo, useState, useCallback } from "react";
 import { useRouter } from "next/router";
-import { useCardPop, useCardsForDeck, useCards } from "../../../../hooks/card";
+import { useCardPop, useCardsForDeck } from "../../../../hooks/card";
 import { useDecks } from "../../../../hooks/deck";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
@@ -135,9 +135,12 @@ const CustomMiddle: FC<{
   showNavigation?: boolean;
   /** Custom cards for navigation (e.g., favorites page with cards from multiple decks) */
   navigationCards?: GQL.Card[];
-}> = ({ cardState, deck, setCardState, edition, showNavigation = true, navigationCards }) => {
-  // Use custom cards if provided, otherwise fetch from deck
-  const { cards: rawCards } = useCardsForDeck(deck && showNavigation && !navigationCards ? { variables: { deck: deck._id, edition } } : { skip: true });
+  /** Pre-fetched cards from parent (to avoid duplicate queries) */
+  prefetchedCards?: GQL.Card[];
+}> = ({ cardState, deck, setCardState, edition, showNavigation = true, navigationCards, prefetchedCards }) => {
+  // Use custom cards if provided, otherwise use prefetched cards from parent
+  // This eliminates duplicate fetches - parent already fetches with deckSlug for cache alignment
+  const rawCards = navigationCards || prefetchedCards;
   const [counter, setCounter] = useState(0);
 
   // Use custom navigation cards if provided, otherwise sort fetched cards
@@ -249,11 +252,10 @@ const Pop: FC<
   const { decks } = useDecks();
   const deck = useMemo(() => decks?.find((d) => d.slug === currentDeckId), [decks, currentDeckId]);
 
-  // Fetch cards for the deck to find the backside card
-  const { cards } = useCards(
-    deck && {
-      variables: { deck: deck._id },
-    }
+  // Fetch cards using deckSlug to align with card page's Apollo cache
+  // This enables instant navigation: popup loads data, card page reads from cache
+  const { cards } = useCardsForDeck(
+    currentDeckId ? { variables: { deckSlug: currentDeckId } } : { skip: true }
   );
 
   // Find the backside card for this deck
@@ -457,6 +459,7 @@ const Pop: FC<
               edition={edition}
               showNavigation={showNavigation}
               navigationCards={navigationCards}
+              prefetchedCards={cards}
             />
             <Button
               palette={palette}

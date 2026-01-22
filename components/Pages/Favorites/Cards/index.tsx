@@ -124,6 +124,8 @@ interface DeckSectionProps {
     artistName: string;
     artistCountry?: string;
     cardId: string;
+    deckCards: GQL.Card[];
+    deckTitle: string;
   }) => void;
 }
 
@@ -173,6 +175,8 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState }) => {
                   artistName: card.artist.name,
                   artistCountry: card.artist.country,
                   cardId: card._id,
+                  deckCards: cards,
+                  deckTitle: deckTitle,
                 })
               }
               size="preview"
@@ -199,6 +203,10 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
     artistName: string;
     artistCountry?: string;
     cardId: string;
+    /** Cards for navigation within this deck section */
+    deckCards: GQL.Card[];
+    /** Title of the deck for popup display */
+    deckTitle: string;
   }>();
 
   // Collect ALL favorite card IDs across all decks into a single array
@@ -264,6 +272,7 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
             initialArtistName={cardState.artistName}
             initialArtistCountry={cardState.artistCountry}
             showNavigation={true}
+            navigationCards={cardState.deckCards}
           />
         )}
       </MenuPortal>

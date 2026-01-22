@@ -2,12 +2,10 @@ import { FC, HTMLAttributes, useMemo, useRef, useState, useEffect, useCallback }
 import Intro from "../../../Intro";
 import NavButton from "../../../Buttons/NavButton";
 import Grid from "../../../Grid";
-import { useRouter } from "next/router";
-import { useDeck } from "../../../../hooks/deck";
-import { useCards, useCard } from "../../../../hooks/card";
 import Card from "../../../Card";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../Pop";
+import { useCardPageContext } from "../CardPageContext";
 
 // Card item width + gap (preview size 285 + padding 15 + gap 30)
 const ITEM_WIDTH = 300;
@@ -44,30 +42,21 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [isPaused, setIsPaused] = useState(false);
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const {
-    query: { deckId, artistSlug },
-  } = useRouter();
+  // Use context instead of separate queries - eliminates 3 duplicate fetches
+  const { deck, sortedCards, artistSlug, deckId } = useCardPageContext();
 
-  const { deck } = useDeck({
-    variables: { slug: deckId },
-  });
+  // Find current card from sorted cards (already loaded in context)
+  const currentCard = useMemo(() => {
+    if (!sortedCards || !artistSlug) return null;
+    return sortedCards.find((c) => c.artist?.slug === artistSlug) || null;
+  }, [sortedCards, artistSlug]);
 
-  // Get current card to determine its edition
-  const { card: currentCard } = useCard({
-    variables: { slug: artistSlug, deckSlug: deckId },
-    skip: !artistSlug || !deckId,
-  });
-
-  // Fetch cards filtered by edition (for Future deck editions)
-  const { cards } = useCards(
-    deck && {
-      variables: { deck: deck._id, edition: currentCard?.edition },
-    }
-  );
+  // Cards are already sorted in context, use directly
+  const cards = sortedCards;
 
   // Shuffle cards randomly (Fisher-Yates)
   const shuffledCards = useMemo(() => {
-    if (!cards) return undefined;
+    if (!cards || cards.length === 0) return [];
     const arr = [...cards];
     for (let i = arr.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -308,16 +297,17 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             ))}
       </div>
       <MenuPortal show={!!popupCard}>
-        {popupCard && deck ? (
+        {popupCard && deck && deckId ? (
           <Pop
             cardSlug={popupCard.artist.slug}
             close={() => setPopupCard(undefined)}
-            deckId={deck.slug}
+            deckId={deckId}
             initialCardId={popupCard._id}
             initialImg={popupCard.img}
             initialVideo={popupCard.video}
             initialArtistName={popupCard.artist.name}
             initialArtistCountry={popupCard.artist.country}
+            navigationCards={cards}
           />
         ) : null}
       </MenuPortal>

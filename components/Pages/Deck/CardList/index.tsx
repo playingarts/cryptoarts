@@ -47,7 +47,11 @@ const ListItem: FC<{
   showQuote?: boolean;
   quoteCard?: GQL.Card;
   edition?: string;
-}> = ({ card, shouldLoadImage, showQuote, quoteCard, edition }) => {
+  /** Deck title for popup display */
+  deckTitle?: string;
+  /** All cards for popup navigation */
+  allCards?: GQL.Card[];
+}> = ({ card, shouldLoadImage, showQuote, quoteCard, edition, deckTitle, allCards }) => {
   const { palette } = usePalette();
   const {
     query: { deckId },
@@ -142,6 +146,7 @@ const ListItem: FC<{
             initialVideo={card.video}
             initialArtistName={card.artist.name}
             initialArtistCountry={card.artist.country}
+            navigationCards={allCards}
           />
         ) : null}
       </MenuPortal>
@@ -383,7 +388,8 @@ const CardRow: FC<{
   shouldLoadImages: boolean;
   onRowApproaching: (rowIndex: number) => void;
   edition?: string;
-}> = ({ cards, rowIndex, allCards, shouldLoadImages, onRowApproaching, edition }) => {
+  deckTitle?: string;
+}> = ({ cards, rowIndex, allCards, shouldLoadImages, onRowApproaching, edition, deckTitle }) => {
   // Calculate if this row should show a quote (every 3rd row after the first)
   const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
 
@@ -414,6 +420,8 @@ const CardRow: FC<{
           showQuote={showQuoteAfterRow && i === cards.length - 1}
           quoteCard={quoteCard}
           edition={edition}
+          deckTitle={deckTitle}
+          allCards={allCards}
         />
       ))}
     </>
@@ -546,6 +554,7 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
             shouldLoadImages={rowIndex <= maxRowToLoadImages}
             onRowApproaching={handleRowApproaching}
             edition={edition}
+            deckTitle={deck?.title}
           />
         ))
       )}
