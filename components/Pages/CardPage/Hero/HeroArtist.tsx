@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, useState, useEffect, useRef, useLayoutEffect } from "react";
+import { keyframes } from "@emotion/react";
 import Text from "../../../Text";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
@@ -13,6 +14,17 @@ import Facebook from "../../../Icons/Facebook";
 import Behance from "../../../Icons/Behance";
 import Foundation from "../../../Icons/Foundation";
 import Shimmer from "./Shimmer";
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 /** Check if element is truncated (content overflows) */
 const useIsTruncated = (ref: React.RefObject<HTMLElement | null>, deps: unknown[] = []) => {
@@ -184,10 +196,12 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
  * P1: The Artist section - loads after initial card display.
  * Uses Intersection Observer to trigger loading when approaching viewport.
  * Also shows "The animator" section if card has an animator.
+ * No skeleton - content fades in when loaded.
  */
 const HeroArtist: FC<HeroArtistProps> = ({ artist, animator, dark, onVisible, loading }) => {
   const ref = useRef<HTMLDivElement>(null);
   const hasTriggeredRef = useRef(false);
+  const isLoaded = !loading && artist?.name;
 
   // Intersection Observer to trigger loading
   useEffect(() => {
@@ -211,19 +225,17 @@ const HeroArtist: FC<HeroArtistProps> = ({ artist, animator, dark, onVisible, lo
     return () => observer.disconnect();
   }, [onVisible]);
 
-  // Show skeleton while loading or no data
-  if (loading || !artist?.name) {
-    return (
-      <div ref={ref}>
-        <HeroArtistSkeleton dark={dark} />
-      </div>
-    );
-  }
-
   return (
-    <>
+    <div
+      ref={ref}
+      css={{
+        opacity: isLoaded ? 1 : 0,
+        transform: isLoaded ? "translateY(0)" : "translateY(20px)",
+        animation: isLoaded ? `${fadeInUp} 0.4s ease-out` : "none",
+      }}
+    >
       <ArtistBlock
-        artist={artist}
+        artist={artist || {}}
         title="The artist"
         sectionId="artist"
         dark={dark}
@@ -237,7 +249,7 @@ const HeroArtist: FC<HeroArtistProps> = ({ artist, animator, dark, onVisible, lo
           style={{ marginTop: 60 }}
         />
       )}
-    </>
+    </div>
   );
 };
 

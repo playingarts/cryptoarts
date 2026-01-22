@@ -61,9 +61,11 @@ export const useCardPageContextOptional = () => {
 
 interface CardPageProviderProps {
   children: ReactNode;
+  /** Edition filter for decks with multiple editions (e.g., Future I/II) */
+  edition?: string | null;
 }
 
-export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
+export const CardPageProvider: FC<CardPageProviderProps> = ({ children, edition }) => {
   const router = useRouter();
   const { deckId: routerDeckId, artistSlug: routerArtistSlug } = router.query;
 
@@ -124,8 +126,9 @@ export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
 
   // Fetch all cards for deck using deckSlug directly
   // Deferred until navigationNeeded is true (500ms delay or explicit request)
+  // For decks with multiple editions (e.g., Future), filter by edition
   const { cards, loading: cardsLoading } = useCardsForDeck({
-    variables: { deckSlug: deckId },
+    variables: { deckSlug: deckId, edition: edition || undefined },
     skip: !deckId || !navigationNeeded,
   });
 

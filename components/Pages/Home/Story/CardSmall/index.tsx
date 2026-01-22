@@ -34,36 +34,14 @@ type SelectedCard = {
   artistCountry?: string;
 } | null;
 
-// Scroll threshold to start rendering cards (px)
-const SCROLL_THRESHOLD = 50;
-
 const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
   const { allCards } = useStableCards();
   const [selectedCard, setSelectedCard] = useState<SelectedCard>(null);
-  const [shouldRender, setShouldRender] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  // Defer rendering until user scrolls past threshold
+  // Trigger fade-in animation after mount
   useEffect(() => {
-    // Check if already scrolled past threshold on mount
-    if (window.scrollY > SCROLL_THRESHOLD) {
-      setShouldRender(true);
-      // Trigger fade-in after render
-      requestAnimationFrame(() => setIsVisible(true));
-      return;
-    }
-
-    const handleScroll = () => {
-      if (window.scrollY > SCROLL_THRESHOLD) {
-        setShouldRender(true);
-        // Trigger fade-in after render
-        requestAnimationFrame(() => setIsVisible(true));
-        window.removeEventListener("scroll", handleScroll);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    requestAnimationFrame(() => setIsVisible(true));
   }, []);
 
   // Use cards from context or fallbacks
@@ -89,11 +67,6 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
   }, []);
 
   const isPopupOpen = selectedCard !== null;
-
-  // Don't render cards until user scrolls past threshold
-  if (!shouldRender) {
-    return null;
-  }
 
   return (
     <>

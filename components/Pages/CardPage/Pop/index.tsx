@@ -292,10 +292,14 @@ const Pop: FC<
   const { decks } = useDecks();
   const deck = useMemo(() => decks?.find((d) => d.slug === currentDeckId), [decks, currentDeckId]);
 
+  // Track current edition (may change when navigating between cards with different editions)
+  const [currentEdition, setCurrentEdition] = useState(edition);
+
   // Fetch cards using deckSlug to align with card page's Apollo cache
   // This enables instant navigation: popup loads data, card page reads from cache
+  // For decks with multiple editions (Future I/II), filter by edition
   const { cards } = useCardsForDeck(
-    currentDeckId ? { variables: { deckSlug: currentDeckId } } : { skip: true }
+    currentDeckId ? { variables: { deckSlug: currentDeckId, edition: currentEdition || undefined } } : { skip: true }
   );
 
   // Find the backside card for this deck
@@ -313,12 +317,16 @@ const Pop: FC<
 
   const { palette } = usePalette();
 
-  // Update currentCardId when card data loads
+  // Update currentCardId and edition when card data loads
   useEffect(() => {
     if (card?._id) {
       setCurrentCardId(card._id);
     }
-  }, [card?._id]);
+    // Update edition when card data loads (important for Future I/II navigation)
+    if (card?.edition) {
+      setCurrentEdition(card.edition);
+    }
+  }, [card?._id, card?.edition]);
 
   // Wrapper for setCardState that also updates deck when using custom navigation cards
   const handleSetCardState = useCallback((artistSlug: string | undefined) => {
@@ -356,7 +364,7 @@ const Pop: FC<
         info: cardToStore?.info || null,
         background: cardToStore?.background || null,
         cardBackground: cardToStore?.cardBackground || initialBackground || null,
-        edition: cardToStore?.edition || edition || null,
+        edition: cardToStore?.edition || currentEdition || null,
         deck: { slug: currentDeckId },
         artist: {
           name: cardToStore?.artist.name || initialArtistName || "",
@@ -381,7 +389,7 @@ const Pop: FC<
     // Use Next.js router for navigation
     // The CardPage will show navCard instantly while getStaticProps runs in background
     router.push(destPath);
-  }, [card, cards, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, edition, deckId, currentDeckId, backsideCard, close, onNavigate, router]);
+  }, [card, cards, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, currentEdition, deckId, currentDeckId, backsideCard, close, onNavigate, router]);
 
   return (
     <div

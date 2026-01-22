@@ -79,10 +79,13 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
     }
   }, [ssrCard, navCard]);
 
+  // Get edition from ssrCard or navCard (for multi-edition decks like Future I/II)
+  const effectiveEdition = effectiveSsrCard?.edition || null;
+
   // Show loading state only if we're in fallback AND have no navigation card
   if (isFallback && !navCard) {
     return (
-      <CardPageProvider>
+      <CardPageProvider edition={effectiveEdition}>
         <CardPageHeader deckId={effectiveDeckId} />
         <Hero ssrCard={undefined} />
       </CardPageProvider>
@@ -112,7 +115,7 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
   } : null;
 
   return (
-    <CardPageProvider>
+    <CardPageProvider edition={effectiveEdition}>
       <Head>
         {heroImageUrl && (
           <link
