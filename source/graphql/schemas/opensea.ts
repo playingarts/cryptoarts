@@ -14,9 +14,12 @@ import { getCardByTraits } from "./card";
 import { getContract, getContracts } from "./contract";
 import { getListings } from "./listing";
 import { getDeck } from "./deck";
-import { Nft } from "../../models";
+import { Nft, OpenseaCache } from "../../models";
 
 export { Nft };
+
+// Cache duration: 1 hour for quick stats, holders are updated less frequently
+const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 
 // Re-export service methods for backward compatibility
 export const getAssets = openSeaService.getAssets;
@@ -53,6 +56,19 @@ export const resolvers: GQL.Resolvers = {
     floor_price: ({ floor_price }) => floor_price,
     total_supply: ({ total_supply }) => total_supply,
     on_sale: ({ on_sale }) => on_sale,
+    sales_count: ({ sales_count }) => sales_count,
+    average_price: ({ average_price }) => average_price,
+    last_sale: ({ last_sale }) => last_sale,
+    updatedAt: ({ updatedAt }) => updatedAt,
+  },
+  LastSale: {
+    price: ({ price }) => price,
+    symbol: ({ symbol }) => symbol,
+    seller: ({ seller }) => seller,
+    buyer: ({ buyer }) => buyer,
+    nft_name: ({ nft_name }) => nft_name,
+    nft_image: ({ nft_image }) => nft_image,
+    timestamp: ({ timestamp }) => timestamp,
   },
   Query: {
     opensea: async (_, { deck, slug }): Promise<GQL.Opensea> => {
@@ -60,18 +76,66 @@ export const resolvers: GQL.Resolvers = {
         throw new GraphQLError("Either deck or slug must be provided");
       }
 
-      const contract = deck
-        ? await getContract({ deck })
-        : await getContract({
-            deck: (await getDeck({ slug: slug as string }))._id,
-          });
+      const collectionName = "cryptoedition";
 
-      // Use OpenSeaClient for API calls
-      const [stats, collection, listings] = await Promise.all([
+      // Check for cached data first
+      const cached = await OpenseaCache.findOne({ collection: collectionName });
+      const now = new Date();
+      const cacheAge = cached ? now.getTime() - cached.updatedAt.getTime() : Infinity;
+
+      // Return cached data if fresh enough
+      if (cached && cacheAge < CACHE_TTL_MS) {
+        return {
+          volume: cached.volume,
+          floor_price: cached.floor_price,
+          num_owners: String(cached.num_owners),
+          total_supply: String(cached.total_supply),
+          on_sale: String(cached.on_sale),
+          sales_count: cached.sales_count,
+          average_price: cached.average_price,
+          last_sale: cached.last_sale,
+          updatedAt: cached.updatedAt?.toISOString(),
+          id: collectionName,
+        };
+      }
+
+      // Fetch fresh data from OpenSea
+      const contract = await getContract({ name: collectionName });
+      const [stats, collection, listings, lastSaleEvent] = await Promise.all([
         openSeaClient.getCollectionStats(contract.name),
         openSeaClient.getCollection(contract.name),
         getListings({}),
+        openSeaClient.getLastSale(contract.name),
       ]);
+
+      // Format last sale data
+      const last_sale = lastSaleEvent ? {
+        price: Number(lastSaleEvent.payment.quantity) / Math.pow(10, lastSaleEvent.payment.decimals),
+        symbol: lastSaleEvent.payment.symbol,
+        seller: lastSaleEvent.seller,
+        buyer: lastSaleEvent.buyer,
+        nft_name: lastSaleEvent.nft.name,
+        nft_image: lastSaleEvent.nft.display_image_url || lastSaleEvent.nft.image_url,
+        timestamp: lastSaleEvent.event_timestamp,
+      } : undefined;
+
+      // Update cache (upsert)
+      await OpenseaCache.findOneAndUpdate(
+        { collection: collectionName },
+        {
+          collection: collectionName,
+          updatedAt: now,
+          volume: stats.total.volume,
+          floor_price: stats.total.floor_price,
+          num_owners: stats.total.num_owners,
+          total_supply: Number(collection.total_supply),
+          on_sale: listings.length,
+          sales_count: stats.total.sales,
+          average_price: stats.total.average_price,
+          last_sale,
+        },
+        { upsert: true, new: true }
+      );
 
       return {
         volume: stats.total.volume,
@@ -79,6 +143,10 @@ export const resolvers: GQL.Resolvers = {
         num_owners: String(stats.total.num_owners),
         total_supply: collection.total_supply,
         on_sale: String(listings.length),
+        sales_count: stats.total.sales,
+        average_price: stats.total.average_price,
+        last_sale,
+        updatedAt: now.toISOString(),
         id: contract.name,
       };
     },
@@ -109,12 +177,24 @@ export const resolvers: GQL.Resolvers = {
           ) !== -1
       );
     },
-    holders: async (_, { deck, slug }) =>
-      slug
+    holders: async (_, { deck, slug }) => {
+      const collectionName = "cryptoedition";
+
+      // Check for cached holder data
+      const cached = await OpenseaCache.findOne({ collection: collectionName });
+
+      // Return cached holders if available
+      if (cached?.holders) {
+        return cached.holders;
+      }
+
+      // Fall back to live calculation (expensive - should be run by scheduled job)
+      return slug
         ? await getHolders((await getDeck({ slug: slug as string }))._id)
         : deck
         ? await getHolders(deck)
-        : undefined,
+        : undefined;
+    },
   },
 };
 
@@ -151,6 +231,16 @@ export const typeDefs = gql`
     quantity: String!
   }
 
+  type LastSale {
+    price: Float!
+    symbol: String!
+    seller: String!
+    buyer: String!
+    nft_name: String!
+    nft_image: String!
+    timestamp: Int!
+  }
+
   type Opensea {
     id: ID!
     volume: Float!
@@ -158,6 +248,10 @@ export const typeDefs = gql`
     num_owners: String!
     total_supply: String!
     on_sale: String!
+    sales_count: Int
+    average_price: Float
+    last_sale: LastSale
+    updatedAt: String
   }
 
   type Holders {

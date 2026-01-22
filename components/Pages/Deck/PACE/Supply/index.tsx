@@ -22,11 +22,11 @@ const Supply: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <Text typography="newh4">Supply</Text>
       <ScandiBlock
         css={[
-          { paddingTop: 15, marginTop: 30, display: "block", maxWidth: 170 },
+          { paddingTop: 15, marginTop: 30, display: "block", width: "100%" },
         ]}
       >
         <Text typography="newh3">{opensea ? opensea.total_supply : "..."}</Text>
-        <Text typography="newh4">Total NFTs</Text>
+        <Text typography="newh4" css={{ fontSize: 20 }}>Total NFTs</Text>
       </ScandiBlock>
       <Charts
         type="pie"
@@ -50,15 +50,9 @@ const Supply: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       />
       <Text
         typography="paragraphSmall"
-        css={(theme) => [{ color: theme.colors.white50, marginTop: 25 }]}
+        css={(theme) => [{ color: theme.colors.white50, marginTop: 25, fontSize: 15 }]}
       >
-        {opensea
-          ? (
-              (Number(opensea.on_sale) / Number(opensea.total_supply)) *
-              100
-            ).toFixed(1) + "%"
-          : "... "}{" "}
-        on sale
+        {opensea ? `${opensea.on_sale} NFTs listed for sale` : "..."}
       </Text>
     </div>
   );

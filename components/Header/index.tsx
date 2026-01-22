@@ -128,7 +128,7 @@ const Header: FC<Props> = ({
             : {
                 background:
                   palette === "dark"
-                    ? "#292929"
+                    ? colord("#1a1a1a").alpha(0.9).toRgbString()
                     : colord("#FFFFFF").alpha(0.9).toRgbString(),
                 backdropFilter: "blur(10px)",
               }

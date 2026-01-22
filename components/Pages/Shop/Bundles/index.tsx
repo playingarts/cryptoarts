@@ -2,10 +2,7 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 import Grid from "../../../Grid";
 import Intro from "../../../Intro";
 import { useProducts } from "../../../../hooks/product";
-import Link from "../../../Link";
 import Text from "../../../Text";
-import Button from "../../../Buttons/Button";
-import Plus from "../../../Icons/Plus";
 import Label from "../../../Label";
 import image3Hover from "../../../../mocks/images/ShopBundle/3.png";
 import image3 from "../../../../mocks/images/ShopBundle/3-hover.png";
@@ -50,8 +47,7 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
             </Label>
           ))}
       </div>
-      <Link
-        href="/"
+      <div
         css={[
           {
             height: 250,
@@ -87,26 +83,21 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
             },
           ]}
         />
-      </Link>
+      </div>
       <div css={[{ marginTop: 30 }]}>
         <Text typography="newh4">{product.title}</Text>
         <Text typography="paragraphSmall" css={[{ marginTop: 10 }]}>
           {product.description || product.info}
         </Text>
-        <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
+        <div css={[{ marginTop: 30, display: "flex", gap: 30, alignItems: "center" }]}>
           <AddToBag productId={product._id} />
-          <Button size="small" noColor base css={{ fontSize: 20 }}>
+          <Text css={{ fontSize: 20 }}>
             ${product.price.usd}
-          </Button>
+          </Text>
           {product.fullPrice && (
-            <Button
-              size="small"
-              noColor
-              base
-              css={{ textDecoration: "line-through", fontSize: 20 }}
-            >
+            <Text css={{ textDecoration: "line-through", fontSize: 20 }}>
               ${product.fullPrice.usd.toFixed(2)}
-            </Button>
+            </Text>
           )}
         </div>
       </div>

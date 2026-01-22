@@ -3,6 +3,14 @@
     {
       "path": "/api/cron/health-check",
       "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/cron/opensea-refresh",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/cron/opensea-holders",
+      "schedule": "0 6 * * 0"
     }
   ]
 }

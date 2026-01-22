@@ -51,7 +51,7 @@ const Leaderboard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <div css={[{ display: "flex", gap: 30, marginTop: 30 }]}>
         {Object.keys(temp).map((item) => (
           <div key={item + temp[item]} css={[{ flexBasis: 1, flexGrow: 1 }]}>
-            <Text typography="newh4" css={[{ marginBottom: 5 }]}>
+            <Text typography="newh4" css={[{ marginBottom: 5, fontSize: 20 }]}>
               {item}
             </Text>
             <Text typography="paragraphSmall">{temp[item]}</Text>

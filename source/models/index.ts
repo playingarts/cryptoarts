@@ -20,3 +20,4 @@ export { Nft } from "./Nft";
 export { Podcast } from "./Podcast";
 export { Product, type MongoProduct } from "./Product";
 export { Rating } from "./Rating";
+export { OpenseaCache, type IOpenseaCache } from "./OpenseaCache";

@@ -3,6 +3,7 @@ import { useOpensea } from "../../../../hooks/opensea";
 import Grid from "../../../Grid";
 import Intro from "../../../Intro";
 import Button from "../../../Buttons/Button";
+import Link from "../../../Link";
 import Supply from "./Supply";
 import Holders from "./Holders";
 import Price from "./Price";
@@ -27,7 +28,11 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         arrowedText="Crypto Edition NFT"
         paragraphText="Nerd out on the stats behind this iconic NFT collection."
         titleAsText
-        beforeLinkNew={<Button color="accent">View on Opensea</Button>}
+        beforeLinkNew={
+          <Link href="https://opensea.io/collection/cryptoedition" target="_blank" rel="noopener noreferrer">
+            <Button color="accent" css={{ fontSize: 20 }}>View on Opensea</Button>
+          </Link>
+        }
       />
 
       {/* <ComposedSupply

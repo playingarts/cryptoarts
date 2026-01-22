@@ -29,7 +29,8 @@ const ScandiBlock: FC<HTMLAttributes<HTMLElement> & Props> = ({
   }, [paletteProp, palettecontext]);
 
   useEffect(() => {
-    const tempopacity = opacity ?? 1;
+    const defaultOpacity = palette === "dark" ? 0.1 : 1;
+    const tempopacity = opacity ?? defaultOpacity;
     setColor(
       palette === "dark"
         ? "rgba(255, 255, 255, " + tempopacity + ")"

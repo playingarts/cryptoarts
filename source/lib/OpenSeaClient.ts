@@ -30,6 +30,8 @@ export interface OpenSeaCollectionStats {
     volume: number;
     num_owners: number;
     floor_price: number;
+    sales: number;
+    average_price: number;
   };
 }
 
@@ -72,6 +74,30 @@ export interface OpenSeaListing {
 
 export interface ListingsResponse {
   listings: OpenSeaListing[];
+  next?: string;
+}
+
+export interface OpenSeaSaleEvent {
+  event_type: "sale";
+  event_timestamp: number;
+  payment: {
+    quantity: string;
+    token_address: string;
+    decimals: number;
+    symbol: string;
+  };
+  seller: string;
+  buyer: string;
+  nft: {
+    identifier: string;
+    name: string;
+    image_url: string;
+    display_image_url: string;
+  };
+}
+
+export interface EventsResponse {
+  asset_events: OpenSeaSaleEvent[];
   next?: string;
 }
 
@@ -259,6 +285,32 @@ export class OpenSeaClient {
       { useAssetsKey: true }
     );
     return response.nft;
+  }
+
+  /**
+   * Get recent sale events for a collection
+   */
+  async getCollectionEvents(
+    collectionName: string,
+    options: { limit?: number; eventType?: string } = {}
+  ): Promise<EventsResponse> {
+    const { limit = 50, eventType = "sale" } = options;
+    const params = new URLSearchParams({
+      limit: limit.toString(),
+      event_type: eventType,
+    });
+
+    return this.fetch<EventsResponse>(
+      `/events/collection/${collectionName}?${params}`
+    );
+  }
+
+  /**
+   * Get the most recent sale event
+   */
+  async getLastSale(collectionName: string): Promise<OpenSeaSaleEvent | null> {
+    const response = await this.getCollectionEvents(collectionName, { limit: 1 });
+    return response.asset_events[0] || null;
   }
 
   /**

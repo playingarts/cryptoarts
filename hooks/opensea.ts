@@ -13,6 +13,18 @@ export const OpenseaQuery = gql`
       num_owners
       total_supply
       on_sale
+      sales_count
+      average_price
+      updatedAt
+      last_sale {
+        price
+        symbol
+        seller
+        buyer
+        nft_name
+        nft_image
+        timestamp
+      }
     }
   }
 `;

@@ -302,6 +302,15 @@ const Pop: FC<
     currentDeckId ? { variables: { deckSlug: currentDeckId, edition: currentEdition || undefined } } : { skip: true }
   );
 
+  // All available cards for lookup: custom navigationCards (favorites) OR prefetched cards
+  const allAvailableCards = navigationCards || cards;
+
+  // Find current card from available cards - instant lookup, no query needed
+  const cardFromNavigation = useMemo(() => {
+    if (!allAvailableCards || !cardState) return null;
+    return allAvailableCards.find((c) => c.artist.slug === cardState) || null;
+  }, [allAvailableCards, cardState]);
+
   // Find the backside card for this deck
   const backsideCard = useMemo(() => {
     if (!cards) return null;
@@ -309,11 +318,16 @@ const Pop: FC<
     return backsides.length > 0 ? backsides[0] : null;
   }, [cards]);
 
-  // Use lightweight popup query (cache-and-network for fresh data on navigation)
-  const { card, loading: cardLoading } = useCardPop({
+  // Only query if card not found in available cards (fallback for deep links, etc.)
+  const shouldFetchCard = !cardFromNavigation && cardState;
+  const { card: cardFromQuery, loading: cardLoading } = useCardPop({
     variables: { deckSlug: currentDeckId, slug: cardState },
     fetchPolicy: "cache-and-network",
+    skip: !shouldFetchCard,
   });
+
+  // Use card from navigation (instant) or fall back to query result
+  const card = cardFromNavigation || cardFromQuery;
 
   const { palette } = usePalette();
 
@@ -331,22 +345,30 @@ const Pop: FC<
   // Wrapper for setCardState that also updates deck when using custom navigation cards
   const handleSetCardState = useCallback((artistSlug: string | undefined) => {
     setCardState(artistSlug);
-    // Reset currentCardId when navigating to a new card (will be set when card loads)
-    setCurrentCardId(undefined);
-    // If using custom navigation cards, find the card and update deck + id
-    if (navigationCards && artistSlug) {
-      const navCard = navigationCards.find((c) => c.artist.slug === artistSlug);
+    // Look up card in available cards for instant data (no query needed)
+    const availableCards = navigationCards || cards;
+    if (availableCards && artistSlug) {
+      const navCard = availableCards.find((c) => c.artist.slug === artistSlug);
       if (navCard) {
-        if (navCard.deck?.slug) {
-          setCurrentDeckId(navCard.deck.slug);
-        }
+        // Set cardId immediately - no need to wait for query
         if (navCard._id) {
           setCurrentCardId(navCard._id);
         }
+        // Update deck if navigating between decks (favorites page)
+        if (navCard.deck?.slug) {
+          setCurrentDeckId(navCard.deck.slug);
+        }
+        // Update edition for Future I/II navigation
+        if (navCard.edition) {
+          setCurrentEdition(navCard.edition);
+        }
         onCardChange?.(navCard);
+        return;
       }
     }
-  }, [navigationCards, onCardChange]);
+    // Fallback: reset cardId when card not found (will be set when query loads)
+    setCurrentCardId(undefined);
+  }, [navigationCards, cards, onCardChange]);
 
   // Navigate to card page with instant display
   const handleCardDetailsClick = useCallback(() => {
@@ -420,7 +442,7 @@ const Pop: FC<
             padding: 30,
             paddingBottom: 90,
             backgroundColor:
-              card?.background || card?.cardBackground || initialBackground || (palette === "dark" ? "#181818" : theme.colors.pale_gray),
+              card?.background || card?.cardBackground || initialBackground || (palette === "dark" ? "#212121" : theme.colors.pale_gray),
             display: "flex",
             gap: 30,
             borderRadius: 15,

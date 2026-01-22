@@ -8,15 +8,18 @@ import Clubs from "../../../../Icons/Clubs";
 import Diamonds from "../../../../Icons/Diamonds";
 import Charts from "../../../../Charts";
 
-const temp: { [x: string]: number } = {
-  wallets: 1483,
-  "Full Decks": 6,
-  "52+ decks": 31,
-};
 const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { holders } = useHolders({
     variables: { slug: "crypto" },
   });
+  const { opensea } = useOpensea({ variables: { slug: "crypto" } });
+
+  // Use live data from OpenSea, with fallbacks
+  const stats = {
+    Wallets: opensea?.num_owners || "...",
+    "Full Decks": holders?.fullDecks?.length || "...",
+    "52+ decks": holders?.fullDecksWithJokers?.length || "...",
+  };
 
   return (
     <div
@@ -33,13 +36,13 @@ const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     >
       <Text typography="newh4">Holders</Text>
       <div css={[{ display: "flex", gap: 30, marginTop: 30 }]}>
-        {Object.keys(temp).map((item) => (
+        {Object.keys(stats).map((item) => (
           <ScandiBlock
             key={item}
             css={[{ paddingTop: 15, display: "block", width: "100%" }]}
           >
-            <Text typography="newh3">{temp[item]}</Text>
-            <Text typography="newh4">{item}</Text>
+            <Text typography="newh3">{stats[item as keyof typeof stats]}</Text>
+            <Text typography="newh4" css={{ fontSize: 20 }}>{item}</Text>
           </ScandiBlock>
         ))}
       </div>
@@ -89,7 +92,7 @@ const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       />
       <Text
         typography="paragraphSmall"
-        css={(theme) => [{ color: theme.colors.white50, marginTop: 30 }]}
+        css={(theme) => [{ color: theme.colors.white50, marginTop: 30, fontSize: 15 }]}
       >
         Diamonds are the most collected suit.
       </Text>

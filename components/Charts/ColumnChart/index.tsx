@@ -1,34 +1,58 @@
-import { FC, HTMLAttributes } from "react";
-import { useResizeDetector } from "react-resize-detector"
+import { FC, HTMLAttributes, useEffect, useRef, useState } from "react";
 import { ChartProps } from "..";
 
 export interface Props extends HTMLAttributes<HTMLElement>, ChartProps {
-  minHeight?: number;
+  /** Maximum height in pixels for the tallest bar */
+  maxHeight?: number;
+  /** Minimum height as percentage of max (0-1). E.g., 0.5 means shortest bar is 50% of tallest */
+  minHeightPercent?: number;
+  /** Initial height before animation (default 100px) */
+  initialHeight?: number;
 }
 
 const ColumnChart: FC<Props> = ({
-  minHeight = 115,
+  maxHeight = 220,
+  minHeightPercent = 0.5,
+  initialHeight = 100,
   dataPoints,
   events,
   ...props
 }) => {
-  const { ref } = useResizeDetector<HTMLDivElement>();
-  const values = dataPoints.reduce(
-    ({ biggest, smallest }, { value }) => ({
-      biggest: Math.max(value, biggest),
-      smallest: Math.min(value, smallest),
-    }),
-    { biggest: 0, smallest: dataPoints[0].value }
-  );
-  const getHeightPercent = (clientHeight: number, value: number) =>
-    (100 -
-      (values.biggest - value) *
-        ((((clientHeight - minHeight) / clientHeight) * 100) /
-          (values.biggest - values.smallest))) /
-    100;
+  const [isVisible, setIsVisible] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const maxValue = Math.max(...dataPoints.map((d) => d.value));
+  const minValue = Math.min(...dataPoints.map((d) => d.value));
+
+  // Scale values to range from minHeightPercent to 1
+  const getHeight = (value: number) => {
+    if (maxValue === minValue) return maxHeight;
+    const normalizedPercent = (value - minValue) / (maxValue - minValue); // 0 to 1
+    const scaledPercent = minHeightPercent + normalizedPercent * (1 - minHeightPercent);
+    return scaledPercent * maxHeight;
+  };
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
+      ref={containerRef}
       css={(theme) => ({
         display: "flex",
         flexWrap: "wrap",
@@ -38,7 +62,6 @@ const ColumnChart: FC<Props> = ({
           // Mobile styles - to be implemented
         },
       })}
-      ref={ref}
       {...props}
     >
       {dataPoints.map(({ value, color, icon }, index) => (
@@ -59,23 +82,20 @@ const ColumnChart: FC<Props> = ({
             css={(theme) => ({
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
+              alignItems: "flex-start",
               justifyContent: "space-between",
-              paddingTop: theme.spacing(2),
-              paddingBottom: theme.spacing(1),
+              padding: 15,
               borderRadius: theme.spacing(1),
               rowGap: theme.spacing(2),
               width: "100%",
+              transition: "height 0.6s ease-out",
               [theme.maxMQ.sm]: {
                 // Mobile styles - to be implemented
               },
               background: color ? theme.colors[color] : "red",
             })}
             style={{
-              minHeight: minHeight,
-              ...(ref.current && {
-                height: `${getHeightPercent(200, value) * 200}px`,
-              }),
+              height: isVisible ? getHeight(value) : initialHeight,
             }}
             {...(events && {
               onMouseEnter: events.onShowTooltip(dataPoints[index]),
@@ -83,16 +103,19 @@ const ColumnChart: FC<Props> = ({
               onMouseMove: events.onMoveTooltip(dataPoints[index]),
             })}
           >
-            {icon}
             <div
-              css={(theme) => ({
-                ...theme.typography.h4,
+              css={{
+                fontFamily: "Aldrich, sans-serif",
+                fontWeight: 400,
+                lineHeight: 1,
                 margin: 0,
-                [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
-              })}
+                fontSize: 30,
+                letterSpacing: 0,
+              }}
             >
               {value}
             </div>
+            {icon}
           </div>
         </div>
       ))}

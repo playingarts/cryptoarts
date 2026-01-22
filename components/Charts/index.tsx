@@ -42,7 +42,7 @@ interface Props
   extends HTMLAttributes<HTMLDivElement>,
     Pick<ChartProps, "dataPoints">,
     Pick<LineChartProps, "LabelFormatter" | "severity" | "strokeWidth">,
-    Pick<ColumnChartProps, "minHeight"> {
+    Pick<ColumnChartProps, "maxHeight"> {
   type: keyof typeof charts;
   withTooltip?: boolean;
   TooltipFormatter?: ElementType<ChartProps["dataPoints"][0]>;
