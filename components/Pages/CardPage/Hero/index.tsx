@@ -163,6 +163,9 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
           dark={isDark}
           deckSlug={deckId || ""}
           cardId={card?._id}
+          deckTitle={editionDisplayName && deckId === "future"
+            ? `Future ${editionDisplayName}`
+            : deck?.title}
         />
 
         {/* P1: The Artist section (lazy) */}

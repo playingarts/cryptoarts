@@ -62,6 +62,7 @@ interface HeroHeaderProps {
   dark?: boolean;
   deckSlug: string;
   cardId?: string;
+  deckTitle?: string;
 }
 
 /** Skeleton for artist name and country - matches newh1 (70px/120%) and newh4 (25px/45px) */
@@ -92,6 +93,7 @@ const HeroHeader: FC<HeroHeaderProps> = ({
   dark,
   deckSlug,
   cardId,
+  deckTitle,
 }) => {
   if (!artistName) {
     return <HeroHeaderSkeleton dark={dark} />;
@@ -116,7 +118,7 @@ const HeroHeader: FC<HeroHeaderProps> = ({
       <div css={{ display: "flex", alignItems: "center", gap: 15, marginTop: 30 }}>
         {cardId && <FavButton deckSlug={deckSlug} cardId={cardId} />}
         <Link href={shopUrl}>
-          <ArrowButton color="accent" css={{ fontSize: 20 }}>Shop this deck</ArrowButton>
+          <ArrowButton color="accent" css={{ fontSize: 20 }}>Shop {deckTitle || "this deck"}</ArrowButton>
         </Link>
         <Link href={deckUrl} css={{ marginLeft: 15 }}>
           <ArrowButton size="small" noColor base>

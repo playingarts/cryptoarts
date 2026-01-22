@@ -128,17 +128,16 @@ const HeroDeck: FC<HeroDeckProps> = ({
       )}
 
       <Text css={{ marginTop: 30 }}>
-        This card belongs to the{" "}
-        {editionDisplayName && deck.slug === "future"
-          ? `Future ${editionDisplayName}`
-          : deck.title + (editionDisplayName ? ` — ${editionDisplayName}` : "")}{" "}
-        deck
-        {deck.description ? ` — ${deck.description}` : ""}
+        {deck.info}
       </Text>
 
       <div css={{ display: "flex", alignItems: "center", gap: 30, marginTop: 30 }}>
         <Link href={shopUrl}>
-          <ArrowButton color="dark_gray" css={{ fontSize: 20 }}>Shop this deck</ArrowButton>
+          <ArrowButton color="dark_gray" css={{ fontSize: 20 }}>
+            Shop {editionDisplayName && deck.slug === "future"
+              ? `Future ${editionDisplayName}`
+              : deck.title}
+          </ArrowButton>
         </Link>
         <Link href={deckUrl}>
           <ArrowButton size="small" noColor base>

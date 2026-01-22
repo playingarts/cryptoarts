@@ -73,7 +73,7 @@ const HeroArtistSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
     {/* "The artist" button skeleton */}
     <Shimmer width={100} height={32} borderRadius={16} dark={dark} />
 
-    <div css={{ maxWidth: 520, marginTop: 60, display: "flex", gap: 30 }}>
+    <div css={{ marginTop: 60, display: "flex", gap: 30 }}>
       {/* Userpic skeleton */}
       <Shimmer width={80} height={80} borderRadius={10} dark={dark} />
 
@@ -122,7 +122,7 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
         {title}
       </ArrowedButton>
 
-      <div css={{ maxWidth: 520 }}>
+      <div>
         <div css={{ marginTop: 60, display: "flex", gap: 30 }}>
           {artist.userpic && (
             <img

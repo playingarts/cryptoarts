@@ -29,7 +29,7 @@ interface HeroCardInfoProps {
 
 /** Skeleton for card info section */
 const HeroCardInfoSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
-  <div css={{ marginTop: 60, maxWidth: 520 }}>
+  <div css={{ marginTop: 60 }}>
     {/* Card description skeleton - multiple paragraphs */}
     <div css={{ display: "flex", flexDirection: "column", gap: 8 }}>
       <Shimmer height={18} dark={dark} />
@@ -93,7 +93,7 @@ const HeroCardInfo: FC<HeroCardInfoProps> = ({ info, dark, onVisible, loading })
   }
 
   return (
-    <div ref={ref} css={{ maxWidth: 520 }}>
+    <div ref={ref}>
       <div
         ref={textRef}
         css={[

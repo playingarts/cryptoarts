@@ -219,7 +219,7 @@ const CustomMiddle: FC<{
           }
           css={[
             { transform: "rotate(180deg)" },
-            !hasCards && { opacity: 0.5, cursor: "default" },
+            !hasCards && { cursor: "default" },
           ]}
         />
       </span>
@@ -235,10 +235,10 @@ const CustomMiddle: FC<{
                   )
               : undefined
           }
-          css={[!hasCards && { opacity: 0.5, cursor: "default" }]}
+          css={[!hasCards && { cursor: "default" }]}
         />
       </span>
-      <span css={[{ marginLeft: 30 }, !hasCards && { opacity: 0.7 }]}>
+      <span css={[{ marginLeft: 30 }]}>
         Card {displayIndex.toString().padStart(2, "0") + " "}/
         {" " + displayMax.toString().padStart(2, "0")}
       </span>

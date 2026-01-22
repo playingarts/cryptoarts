@@ -149,14 +149,14 @@ export default () => {
           <NavButton
             css={[
               { transform: "rotate(180deg)" },
-              !hasNavigation && { opacity: 0.5, cursor: "default" },
+              !hasNavigation && { cursor: "default" },
             ]}
             onClick={hasNavigation ? handlePrevCard : undefined}
           />
         </span>
         <span css={[{ marginRight: 5 }]}>
           <NavButton
-            css={[!hasNavigation && { opacity: 0.5, cursor: "default" }]}
+            css={[!hasNavigation && { cursor: "default" }]}
             onClick={hasNavigation ? handleNextCard : undefined}
           />
         </span>
@@ -164,10 +164,6 @@ export default () => {
           css={(theme) => [
             { marginLeft: 30 },
             palette === "dark" && { color: theme.colors.white75 },
-            // Subtle animation effect while loading
-            !hasNavigation && {
-              opacity: 0.7,
-            },
           ]}
         >
           Card {displayNumber.toString().padStart(2, "0")} /
