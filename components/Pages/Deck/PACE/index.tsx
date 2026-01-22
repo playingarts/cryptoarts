@@ -25,7 +25,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     >
       <Intro
         css={[{ minHeight: 311, marginBottom: 30, boxSizing: "content-box" }]}
-        arrowedText="Crypto Edition NFT"
+        arrowedText="PACE NFT Collection"
         paragraphText="Nerd out on the stats behind this iconic NFT collection."
         titleAsText
         beforeLinkNew={

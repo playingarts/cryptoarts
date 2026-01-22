@@ -41,6 +41,9 @@ jest.mock("../../../source/models", () => ({
     deleteMany: jest.fn(),
     insertMany: jest.fn(),
   },
+  OpenseaCache: {
+    findOne: jest.fn().mockResolvedValue(null),
+  },
 }));
 
 jest.mock("../../../source/graphql/schemas/contract", () => ({
@@ -155,22 +158,22 @@ describe("OpenSea Resolver", () => {
       ).rejects.toThrow("Either deck or slug must be provided");
     });
 
-    it("should fetch opensea data by deck ID", async () => {
-      const mockContract = { name: "test-collection", deck: "deck-123" };
-      const mockStats = {
-        total: {
-          volume: 100.5,
-          floor_price: 0.1,
-          num_owners: 500,
-        },
+    it("should return cached opensea data by deck ID", async () => {
+      const { OpenseaCache } = require("../../../source/models");
+      const mockCachedData = {
+        collection: "cryptoedition",
+        volume: 100.5,
+        floor_price: 0.1,
+        num_owners: 500,
+        total_supply: 10000,
+        on_sale: 2,
+        sales_count: 1000,
+        average_price: 0.5,
+        last_sale: null,
+        updatedAt: new Date(), // Fresh cache
       };
-      const mockCollection = { total_supply: "10000" };
-      const mockListings = [{ id: "1" }, { id: "2" }];
 
-      (getContract as jest.Mock).mockResolvedValue(mockContract);
-      (openSeaClient.getCollectionStats as jest.Mock).mockResolvedValue(mockStats);
-      (openSeaClient.getCollection as jest.Mock).mockResolvedValue(mockCollection);
-      (getListings as jest.Mock).mockResolvedValue(mockListings);
+      (OpenseaCache.findOne as jest.Mock).mockResolvedValue(mockCachedData);
 
       const result = await mockOpenseaQuery(
         {},
@@ -179,30 +182,38 @@ describe("OpenSea Resolver", () => {
         {} as never
       );
 
-      expect(getContract).toHaveBeenCalledWith({ deck: "deck-123" });
+      // When fresh cache exists, no API calls are made - just cache lookup
+      expect(OpenseaCache.findOne).toHaveBeenCalledWith({ collection: "cryptoedition" });
       expect(result).toEqual({
-        id: "test-collection",
+        id: "cryptoedition",
         volume: 100.5,
         floor_price: 0.1,
         num_owners: "500",
         total_supply: "10000",
         on_sale: "2",
+        sales_count: 1000,
+        average_price: 0.5,
+        last_sale: null,
+        updatedAt: mockCachedData.updatedAt.toISOString(),
       });
     });
 
-    it("should fetch opensea data by slug", async () => {
-      const mockDeck = { _id: "deck-456" };
-      const mockContract = { name: "slug-collection", deck: "deck-456" };
-      const mockStats = {
-        total: { volume: 50, floor_price: 0.05, num_owners: 200 },
+    it("should return cached opensea data by slug", async () => {
+      const { OpenseaCache } = require("../../../source/models");
+      const mockCachedData = {
+        collection: "cryptoedition",
+        volume: 50,
+        floor_price: 0.05,
+        num_owners: 200,
+        total_supply: 5000,
+        on_sale: 0,
+        sales_count: 500,
+        average_price: 0.25,
+        last_sale: null,
+        updatedAt: new Date(),
       };
-      const mockCollection = { total_supply: "5000" };
 
-      (getDeck as jest.Mock).mockResolvedValue(mockDeck);
-      (getContract as jest.Mock).mockResolvedValue(mockContract);
-      (openSeaClient.getCollectionStats as jest.Mock).mockResolvedValue(mockStats);
-      (openSeaClient.getCollection as jest.Mock).mockResolvedValue(mockCollection);
-      (getListings as jest.Mock).mockResolvedValue([]);
+      (OpenseaCache.findOne as jest.Mock).mockResolvedValue(mockCachedData);
 
       const result = await mockOpenseaQuery(
         {},
@@ -211,22 +222,28 @@ describe("OpenSea Resolver", () => {
         {} as never
       );
 
-      expect(getDeck).toHaveBeenCalledWith({ slug: "test-slug" });
-      expect(getContract).toHaveBeenCalledWith({ deck: "deck-456" });
+      // When fresh cache exists, no API calls are made - just cache lookup
+      expect(OpenseaCache.findOne).toHaveBeenCalledWith({ collection: "cryptoedition" });
       expect(result.on_sale).toBe("0");
     });
 
-    it("should handle zero floor price", async () => {
-      const mockContract = { name: "test-collection" };
-      const mockStats = {
-        total: { volume: 0, floor_price: 0, num_owners: 1 },
+    it("should handle zero floor price from cache", async () => {
+      const { OpenseaCache } = require("../../../source/models");
+      const mockCachedData = {
+        collection: "test-collection",
+        volume: 0,
+        floor_price: 0,
+        num_owners: 1,
+        total_supply: 100,
+        on_sale: 0,
+        sales_count: 0,
+        average_price: 0,
+        last_sale: null,
+        updatedAt: new Date(),
       };
-      const mockCollection = { total_supply: "100" };
 
-      (getContract as jest.Mock).mockResolvedValue(mockContract);
-      (openSeaClient.getCollectionStats as jest.Mock).mockResolvedValue(mockStats);
-      (openSeaClient.getCollection as jest.Mock).mockResolvedValue(mockCollection);
-      (getListings as jest.Mock).mockResolvedValue([]);
+      (getContract as jest.Mock).mockResolvedValue({ name: "test-collection" });
+      (OpenseaCache.findOne as jest.Mock).mockResolvedValue(mockCachedData);
 
       const result = await mockOpenseaQuery(
         {},
