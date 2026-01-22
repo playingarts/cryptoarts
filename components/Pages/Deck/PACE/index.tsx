@@ -30,7 +30,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         titleAsText
         beforeLinkNew={
           <Link href="https://opensea.io/collection/cryptoedition" target="_blank" rel="noopener noreferrer">
-            <Button color="accent" css={{ fontSize: 20 }}>View on Opensea</Button>
+            <Button color="accent" css={{ fontSize: 20 }}>View on OpenSea</Button>
           </Link>
         }
       />

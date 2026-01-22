@@ -308,7 +308,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
           <ButtonTemplate
             palette={palette}
             bordered={true}
-            color={palette === "dark" ? "white" : "accent"}
+            color="accent"
             css={(theme) => [
               {
                 paddingLeft: 10,

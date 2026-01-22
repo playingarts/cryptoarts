@@ -62,9 +62,13 @@ const LastSale: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <div
       css={(theme) => [
         {
+          display: "flex",
+          flexDirection: "column",
           background: theme.colors.darkBlack,
           padding: 30,
           borderRadius: 20,
+          height: "100%",
+          boxSizing: "border-box",
         },
       ]}
       {...props}
@@ -82,6 +86,9 @@ const LastSale: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={[{ margin: "30px auto 0" }]}
       />
       <Text typography="paragraphSmall" css={[{ marginTop: 30 }]}>
+        {lastSale?.nft_name || "..."}
+      </Text>
+      <Text typography="paragraphSmall" css={[{ marginTop: 2, marginBottom: 15 }]}>
         {formatEth(lastSale?.price)}
       </Text>
       <div css={[{ marginTop: 2, ">*": { display: "inline-block" } }]}>
@@ -106,12 +113,13 @@ const LastSale: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         href="https://opensea.io/collection/cryptoedition/activity"
         target="_blank"
         rel="noopener noreferrer"
+        css={[{ marginTop: "auto" }]}
       >
         <Text
           typography="paragraphSmall"
-          css={(theme) => [{ color: theme.colors.white50, marginTop: 30, fontSize: 15 }]}
+          css={(theme) => [{ color: theme.colors.white50, paddingTop: 30, fontSize: 15 }]}
         >
-          All activity
+          View all activity
         </Text>
       </Link>
     </div>

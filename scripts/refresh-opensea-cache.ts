@@ -63,6 +63,19 @@ interface OpenSeaNft {
   owners?: Array<{ address: string; quantity: string }>;
 }
 
+interface OpenSeaAccount {
+  address: string;
+  username: string;
+  profile_image_url: string;
+}
+
+interface LeaderboardEntry {
+  address: string;
+  count: number;
+  username?: string;
+  profileImage?: string;
+}
+
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function fetchOpenSeaWithRetry<T>(
@@ -105,6 +118,38 @@ async function getLastSale(): Promise<OpenSeaSaleEvent | null> {
     `/events/collection/${COLLECTION_NAME}?event_type=sale&limit=1`
   );
   return response.asset_events[0] || null;
+}
+
+async function getRecentSaleEvents(): Promise<OpenSeaSaleEvent[]> {
+  const response = await fetchOpenSeaWithRetry<{ asset_events: OpenSeaSaleEvent[] }>(
+    `/events/collection/${COLLECTION_NAME}?event_type=sale&limit=50`
+  );
+  return response.asset_events || [];
+}
+
+async function getAccount(address: string): Promise<OpenSeaAccount | null> {
+  try {
+    return await fetchOpenSeaWithRetry<OpenSeaAccount>(`/accounts/${address}`);
+  } catch {
+    return null;
+  }
+}
+
+async function enrichWithProfile(
+  entries: Array<{ address: string; count: number }>
+): Promise<LeaderboardEntry[]> {
+  const results: LeaderboardEntry[] = [];
+  for (const entry of entries) {
+    await delay(RATE_LIMIT_DELAY);
+    const account = await getAccount(entry.address);
+    results.push({
+      address: entry.address,
+      count: entry.count,
+      username: account?.username || undefined,
+      profileImage: account?.profile_image_url || undefined,
+    });
+  }
+  return results;
 }
 
 interface OpenSeaListing {
@@ -353,6 +398,68 @@ async function refreshCache(fullRefresh: boolean) {
 
       updateDoc.holders = holders;
       updateDoc.holdersUpdatedAt = new Date();
+
+      // Calculate leaderboard from NFT data
+      console.log("\nCalculating leaderboard...");
+
+      // Top holders by NFT count
+      const holderCounts: Record<string, number> = {};
+      for (const nft of nfts) {
+        if (!nft.owners) continue;
+        for (const owner of nft.owners) {
+          holderCounts[owner.address] = (holderCounts[owner.address] || 0) + 1;
+        }
+      }
+      const topHoldersRaw = Object.entries(holderCounts)
+        .map(([address, count]) => ({ address, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5);
+
+      // Active traders from recent sale events
+      console.log("  Fetching recent sale events for active traders...");
+      const events = await getRecentSaleEvents();
+      const traderCounts: Record<string, number> = {};
+      for (const event of events) {
+        if (event.buyer) traderCounts[event.buyer] = (traderCounts[event.buyer] || 0) + 1;
+        if (event.seller) traderCounts[event.seller] = (traderCounts[event.seller] || 0) + 1;
+      }
+      const activeTradersRaw = Object.entries(traderCounts)
+        .map(([address, count]) => ({ address, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5);
+
+      // Rare holders (jokers and backsides)
+      const rareHolderCounts: Record<string, number> = {};
+      for (const nft of nfts) {
+        if (!nft.owners || !nft.traits) continue;
+        const suitTrait = nft.traits.find((t) => t.trait_type === "Suit" || t.trait_type === "Color");
+        if (!suitTrait) continue;
+        const suit = suitTrait.value.toLowerCase();
+        if (["joker", "red", "black"].includes(suit)) {
+          for (const owner of nft.owners) {
+            rareHolderCounts[owner.address] = (rareHolderCounts[owner.address] || 0) + 1;
+          }
+        }
+      }
+      const rareHoldersRaw = Object.entries(rareHolderCounts)
+        .map(([address, count]) => ({ address, count }))
+        .sort((a, b) => b.count - a.count)
+        .slice(0, 5);
+
+      // Enrich all with OpenSea profile data (sequentially to avoid rate limits)
+      console.log("  Enriching with OpenSea profile data...");
+      console.log("    Top holders...");
+      const topHolders = await enrichWithProfile(topHoldersRaw);
+      console.log("    Active traders...");
+      const activeTraders = await enrichWithProfile(activeTradersRaw);
+      console.log("    Rare holders...");
+      const rareHolders = await enrichWithProfile(rareHoldersRaw);
+
+      console.log(`  Top holders: ${topHolders.map((h) => h.username || h.address.slice(0, 8)).join(", ")}`);
+      console.log(`  Active traders: ${activeTraders.map((h) => h.username || h.address.slice(0, 8)).join(", ")}`);
+      console.log(`  Rare holders: ${rareHolders.map((h) => h.username || h.address.slice(0, 8)).join(", ")}`);
+
+      updateDoc.leaderboard = { topHolders, activeTraders, rareHolders };
     }
 
     // Upsert cache

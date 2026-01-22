@@ -41,6 +41,13 @@ export interface IOpenseaCache {
     diamonds: string[];
     jokers: string[];
   };
+
+  // Leaderboard data
+  leaderboard?: {
+    topHolders: Array<{ address: string; count: number; username?: string; profileImage?: string }>;
+    activeTraders: Array<{ address: string; count: number; username?: string; profileImage?: string }>;
+    rareHolders: Array<{ address: string; count: number; username?: string; profileImage?: string }>;
+  };
 }
 
 const openseaCacheSchema = new Schema<IOpenseaCache, Model<IOpenseaCache>, IOpenseaCache>({
@@ -73,6 +80,27 @@ const openseaCacheSchema = new Schema<IOpenseaCache, Model<IOpenseaCache>, IOpen
     clubs: [String],
     diamonds: [String],
     jokers: [String],
+  },
+
+  leaderboard: {
+    topHolders: [{
+      address: String,
+      count: Number,
+      username: String,
+      profileImage: String,
+    }],
+    activeTraders: [{
+      address: String,
+      count: Number,
+      username: String,
+      profileImage: String,
+    }],
+    rareHolders: [{
+      address: String,
+      count: Number,
+      username: String,
+      profileImage: String,
+    }],
   },
 });
 

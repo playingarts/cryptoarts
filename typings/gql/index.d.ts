@@ -36,6 +36,7 @@ interface Query {
   ownedAssets: Array<Maybe<Nft>>;
   opensea: Opensea;
   holders?: Maybe<Holders>;
+  leaderboard?: Maybe<Leaderboard>;
   deal?: Maybe<Deal>;
   dailyCard: Card;
   podcasts: Array<Maybe<Podcast>>;
@@ -129,6 +130,11 @@ interface QueryOpenseaArgs {
 
 interface QueryHoldersArgs {
   deck?: InputMaybe<Scalars['ID']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+}
+
+
+interface QueryLeaderboardArgs {
   slug?: InputMaybe<Scalars['String']['input']>;
 }
 
@@ -382,6 +388,21 @@ interface Holders {
   jokers: Array<Scalars['String']['output']>;
 }
 
+interface LeaderboardEntry {
+  __typename?: 'LeaderboardEntry';
+  address: Scalars['String']['output'];
+  count: Scalars['Int']['output'];
+  username?: Maybe<Scalars['String']['output']>;
+  profileImage?: Maybe<Scalars['String']['output']>;
+}
+
+interface Leaderboard {
+  __typename?: 'Leaderboard';
+  topHolders: Array<LeaderboardEntry>;
+  activeTraders: Array<LeaderboardEntry>;
+  rareHolders: Array<LeaderboardEntry>;
+}
+
 interface Deal {
   __typename?: 'Deal';
   _id: Scalars['ID']['output'];
@@ -566,6 +587,8 @@ export type ResolversTypes = {
   LastSale: ResolverTypeWrapper<LastSale>;
   Opensea: ResolverTypeWrapper<Opensea>;
   Holders: ResolverTypeWrapper<Holders>;
+  LeaderboardEntry: ResolverTypeWrapper<LeaderboardEntry>;
+  Leaderboard: ResolverTypeWrapper<Leaderboard>;
   Deal: ResolverTypeWrapper<Deal>;
   Podcast: ResolverTypeWrapper<Podcast>;
   Contract: ResolverTypeWrapper<Contract>;
@@ -606,6 +629,8 @@ export type ResolversParentTypes = {
   LastSale: LastSale;
   Opensea: Opensea;
   Holders: Holders;
+  LeaderboardEntry: LeaderboardEntry;
+  Leaderboard: Leaderboard;
   Deal: Deal;
   Podcast: Podcast;
   Contract: Contract;
@@ -640,6 +665,7 @@ export type QueryResolvers<ContextType = { req: Request, res: Response }, Parent
   ownedAssets?: Resolver<Array<Maybe<ResolversTypes['Nft']>>, ParentType, ContextType, RequireFields<QueryOwnedAssetsArgs, 'deck' | 'address' | 'signature'>>;
   opensea?: Resolver<ResolversTypes['Opensea'], ParentType, ContextType, Partial<QueryOpenseaArgs>>;
   holders?: Resolver<Maybe<ResolversTypes['Holders']>, ParentType, ContextType, Partial<QueryHoldersArgs>>;
+  leaderboard?: Resolver<Maybe<ResolversTypes['Leaderboard']>, ParentType, ContextType, Partial<QueryLeaderboardArgs>>;
   deal?: Resolver<Maybe<ResolversTypes['Deal']>, ParentType, ContextType, RequireFields<QueryDealArgs, 'hash' | 'deckId' | 'signature'>>;
   dailyCard?: Resolver<ResolversTypes['Card'], ParentType, ContextType>;
   podcasts?: Resolver<Array<Maybe<ResolversTypes['Podcast']>>, ParentType, ContextType, Partial<QueryPodcastsArgs>>;
@@ -847,6 +873,21 @@ export type HoldersResolvers<ContextType = { req: Request, res: Response }, Pare
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
+export type LeaderboardEntryResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['LeaderboardEntry'] = ResolversParentTypes['LeaderboardEntry']> = {
+  address?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  count?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  profileImage?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type LeaderboardResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Leaderboard'] = ResolversParentTypes['Leaderboard']> = {
+  topHolders?: Resolver<Array<ResolversTypes['LeaderboardEntry']>, ParentType, ContextType>;
+  activeTraders?: Resolver<Array<ResolversTypes['LeaderboardEntry']>, ParentType, ContextType>;
+  rareHolders?: Resolver<Array<ResolversTypes['LeaderboardEntry']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type DealResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Deal'] = ResolversParentTypes['Deal']> = {
   _id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -955,6 +996,8 @@ export type Resolvers<ContextType = { req: Request, res: Response }> = {
   LastSale?: LastSaleResolvers<ContextType>;
   Opensea?: OpenseaResolvers<ContextType>;
   Holders?: HoldersResolvers<ContextType>;
+  LeaderboardEntry?: LeaderboardEntryResolvers<ContextType>;
+  Leaderboard?: LeaderboardResolvers<ContextType>;
   Deal?: DealResolvers<ContextType>;
   Podcast?: PodcastResolvers<ContextType>;
   Contract?: ContractResolvers<ContextType>;

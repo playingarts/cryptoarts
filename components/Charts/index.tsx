@@ -97,21 +97,21 @@ const Charts: FC<Props> = ({
         }}
       />
       {width >= breakpoints.sm && (
-        <div css={{ position: "fixed", top: 0, left: 0 }}>
+        <div css={{ position: "fixed", top: 0, left: 0, pointerEvents: "none" }}>
           <div
             css={(theme) => ({
-              ...theme.typography.h6,
               position: "absolute",
-              background: theme.colors.white,
-              borderRadius: theme.spacing(0.5),
-              paddingLeft: theme.spacing(1),
-              paddingRight: theme.spacing(1),
-              paddingTop: theme.spacing(0.3),
-              marginTop: theme.spacing(1),
-              marginLeft: theme.spacing(1),
-              transition: theme.transitions.fast("opacity"),
-              color: theme.colors.text_subtitle_dark,
+              fontSize: 14,
+              fontWeight: 400,
+              lineHeight: "18px",
+              padding: "6px 10px 4px",
+              background: "white",
+              borderRadius: 50,
+              color: theme.colors.black,
               whiteSpace: "nowrap",
+              transition: "opacity 0.15s ease-out",
+              transform: "translate(-50%, -100%)",
+              marginTop: -8,
             })}
             style={{
               top: y,

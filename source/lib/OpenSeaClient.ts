@@ -106,6 +106,16 @@ export interface NftsResponse {
   next?: string;
 }
 
+export interface OpenSeaAccount {
+  address: string;
+  username: string;
+  profile_image_url: string;
+  banner_image_url: string;
+  website: string;
+  bio: string;
+  joined_date: string;
+}
+
 export class OpenSeaClient {
   private assetsApiKey: string;
   private apiKey: string;
@@ -113,7 +123,7 @@ export class OpenSeaClient {
   private retryDelay: number;
 
   constructor(config: OpenSeaClientConfig = {}) {
-    this.assetsApiKey = config.assetsApiKey || OPENSEA_ASSETS_KEY;
+    this.assetsApiKey = config.assetsApiKey || OPENSEA_ASSETS_KEY || OPENSEA_KEY;
     this.apiKey = config.apiKey || OPENSEA_KEY;
     this.retryAttempts = config.retryAttempts ?? 10;
     this.retryDelay = config.retryDelay ?? 3000;
@@ -257,6 +267,31 @@ export class OpenSeaClient {
   }
 
   /**
+   * Get count of unique NFTs listed for sale (not total listings)
+   */
+  async getUniqueListingsCount(collectionName: string): Promise<number> {
+    const uniqueTokenIds = new Set<string>();
+    let nextCursor: string | undefined;
+
+    do {
+      const response = await this.getCollectionListings(collectionName, {
+        next: nextCursor,
+      });
+
+      for (const listing of response.listings) {
+        const tokenId = listing.protocol_data?.parameters?.offer?.[0]?.identifierOrCriteria;
+        if (tokenId) {
+          uniqueTokenIds.add(tokenId);
+        }
+      }
+
+      nextCursor = response.next;
+    } while (nextCursor);
+
+    return uniqueTokenIds.size;
+  }
+
+  /**
    * Get NFTs in a collection (paginated)
    */
   async getCollectionNfts(
@@ -311,6 +346,17 @@ export class OpenSeaClient {
   async getLastSale(collectionName: string): Promise<OpenSeaSaleEvent | null> {
     const response = await this.getCollectionEvents(collectionName, { limit: 1 });
     return response.asset_events[0] || null;
+  }
+
+  /**
+   * Get account profile by address
+   */
+  async getAccount(address: string): Promise<OpenSeaAccount | null> {
+    try {
+      return await this.fetch<OpenSeaAccount>(`/accounts/${address}`);
+    } catch {
+      return null;
+    }
   }
 
   /**

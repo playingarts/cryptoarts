@@ -125,12 +125,10 @@ const Middle = ({
             boxSizing: "content-box",
             borderTop:
               "1px solid " +
-              (hasCarousel
-                ? palette === "dark"
-                  ? theme.colors.white30
-                  : "rgba(0,0,0,0.2)"
-                : palette === "dark"
-                  ? theme.colors.white
+              (palette === "dark"
+                ? "rgba(255,255,255,0.1)"
+                : hasCarousel
+                  ? "rgba(0,0,0,0.2)"
                   : theme.colors.black),
             position: "absolute",
             width: "100%",

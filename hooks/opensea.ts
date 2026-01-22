@@ -55,6 +55,31 @@ export const OwnedAssetsQuery = gql`
   }
 `;
 
+export const LeaderboardQuery = gql`
+  query Leaderboard($slug: String) {
+    leaderboard(slug: $slug) {
+      topHolders {
+        address
+        count
+        username
+        profileImage
+      }
+      activeTraders {
+        address
+        count
+        username
+        profileImage
+      }
+      rareHolders {
+        address
+        count
+        username
+        profileImage
+      }
+    }
+  }
+`;
+
 export const useOpensea = (
   options: QueryHookOptions<Pick<GQL.Query, "opensea">> = {}
 ) => {
@@ -75,6 +100,17 @@ export const useHolders = (
   );
 
   return { ...methods, holders: data?.holders };
+};
+
+export const useLeaderboard = (
+  options: QueryHookOptions<Pick<GQL.Query, "leaderboard">> = {}
+) => {
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "leaderboard">>(
+    LeaderboardQuery,
+    options
+  );
+
+  return { ...methods, leaderboard: data?.leaderboard };
 };
 
 export const useLoadOwnedAssets = (
