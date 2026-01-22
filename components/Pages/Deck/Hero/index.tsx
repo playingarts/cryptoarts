@@ -314,6 +314,12 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                 paddingLeft: 10,
                 fontSize: 20,
               },
+              palette === "dark" && {
+                color: theme.colors.white,
+                "&:hover": {
+                  color: theme.colors.white,
+                },
+              },
             ]}
             onClick={() => setShowStory(!showStory)}
           >
@@ -378,7 +384,9 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                     {
                       gridColumn: "span 2",
                       paddingTop: 15,
-                      boxShadow: "0px -1px 0px rgba(0, 0, 0, 1)",
+                      boxShadow: palette === "dark"
+                        ? "0px -1px 0px rgba(255, 255, 255, 0.1)"
+                        : "0px -1px 0px rgba(0, 0, 0, 1)",
                     },
                   ]}
                 >
