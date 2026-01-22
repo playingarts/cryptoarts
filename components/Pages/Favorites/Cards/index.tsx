@@ -10,7 +10,7 @@ import { useDecks } from "../../../../hooks/deck";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import AddToBag from "../../../Buttons/AddToBag";
 import Button from "../../../Buttons/Button";
-import { useBag } from "../../../Contexts/bag";
+import SoldOut from "../../../Buttons/SoldOut";
 import { useFavorites } from "../../../Contexts/favorites";
 import { useCardsByIds } from "../../../../hooks/card";
 import Card from "../../../Card";
@@ -131,7 +131,6 @@ interface DeckSectionProps {
 
 /** Single deck section with its favorited cards */
 const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState }) => {
-  const { getPrice } = useBag();
   const deckTitle = getDeckTitle(deck.slug, deck.title, cards);
 
   return (
@@ -142,12 +141,20 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState }) => {
         </ScandiBlock>
         <ScandiBlock css={[{ gridColumn: "span 6", gap: 30 }]}>
           {deck.product && (
-            <>
-              <AddToBag productId={deck.product._id} />
-              <Button noColor size="small" base>
-                {getPrice(deck.product.price)}
+            deck.slug === "crypto" ? (
+              <Button size="small" bordered>
+                Exclusive
               </Button>
-            </>
+            ) : deck.product.status === "soldout" ? (
+              <SoldOut />
+            ) : (
+              <>
+                <AddToBag productId={deck.product._id} />
+                <Button noColor size="small" base>
+                  ${deck.product.price.usd}
+                </Button>
+              </>
+            )
           )}
         </ScandiBlock>
       </Grid>

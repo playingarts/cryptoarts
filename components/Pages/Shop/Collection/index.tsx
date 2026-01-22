@@ -304,11 +304,15 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {!products && loading ? (
           <CollectionSkeleton />
         ) : products &&
-          products.map(
-            (product, index) =>
-              product.type === "deck" && (
+          (() => {
+            let deckIndex = 0;
+            return products.map((product) => {
+              if (product.type !== "deck") return null;
+              const currentDeckIndex = deckIndex;
+              deckIndex++;
+              return (
                 <Fragment key={"product" + product._id}>
-                  {index === 2 && (
+                  {currentDeckIndex === 2 && (
                     <div
                       css={[{ display: "grid", alignContent: "space-between" }]}
                     >
@@ -333,8 +337,9 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                     product={product}
                   />
                 </Fragment>
-              )
-          )
+              );
+            });
+          })()
         }
       </div>
     </Grid>

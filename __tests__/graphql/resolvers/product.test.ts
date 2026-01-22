@@ -38,7 +38,8 @@ describe("Product Resolver", () => {
 
       const result = await getProduct({ deck: "deck-123" });
 
-      expect(Product.findOne).toHaveBeenCalledWith({ deck: "deck-123" });
+      // When looking up by deck, type: "deck" is added to filter out sheet products
+      expect(Product.findOne).toHaveBeenCalledWith({ deck: "deck-123", type: "deck" });
       expect(result).toEqual(mockProduct);
     });
 
@@ -80,13 +81,16 @@ describe("Product Resolver", () => {
         { _id: "2", title: "Product 2" },
       ];
 
-      // Chain: find().populate([...]).populate("decks")
+      // Chain: find().sort().populate([...]).populate("decks")
       const mockSecondPopulate = jest.fn().mockResolvedValue(mockProducts);
       const mockFirstPopulate = jest.fn().mockReturnValue({
         populate: mockSecondPopulate,
       });
-      (Product.find as jest.Mock).mockReturnValue({
+      const mockSort = jest.fn().mockReturnValue({
         populate: mockFirstPopulate,
+      });
+      (Product.find as jest.Mock).mockReturnValue({
+        sort: mockSort,
       });
 
       const result = await mockProductsQuery!(
@@ -97,19 +101,23 @@ describe("Product Resolver", () => {
       );
 
       expect(Product.find).toHaveBeenCalledWith({ hidden: { $ne: true } });
+      expect(mockSort).toHaveBeenCalledWith({ order: 1 });
       expect(result).toEqual(mockProducts);
     });
 
     it("should return filtered products when ids provided", async () => {
       const mockProducts = [{ _id: "1", title: "Product 1" }];
 
-      // Chain: find().populate([...]).populate("decks")
+      // Chain: find().sort().populate([...]).populate("decks")
       const mockSecondPopulate = jest.fn().mockResolvedValue(mockProducts);
       const mockFirstPopulate = jest.fn().mockReturnValue({
         populate: mockSecondPopulate,
       });
-      (Product.find as jest.Mock).mockReturnValue({
+      const mockSort = jest.fn().mockReturnValue({
         populate: mockFirstPopulate,
+      });
+      (Product.find as jest.Mock).mockReturnValue({
+        sort: mockSort,
       });
 
       const result = await mockProductsQuery!(
@@ -120,6 +128,7 @@ describe("Product Resolver", () => {
       );
 
       expect(Product.find).toHaveBeenCalledWith({ _id: { $in: ["1", "3"] }, hidden: { $ne: true } });
+      expect(mockSort).toHaveBeenCalledWith({ order: 1 });
       expect(result).toEqual(mockProducts);
     });
   });

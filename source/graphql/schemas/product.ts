@@ -6,7 +6,12 @@ export { Product, type MongoProduct };
 
 export const getProduct = async (
   options: Pick<MongoProduct, "deck"> | Pick<MongoProduct, "_id">
-) => ((await Product.findOne(options)) as GQL.Product) || undefined;
+) => {
+  // When looking up by deck reference, filter to only return deck-type products
+  // (not sheets, which also have the same deck reference)
+  const query = "deck" in options ? { ...options, type: "deck" } : options;
+  return ((await Product.findOne(query)) as GQL.Product) || undefined;
+};
 
 const getProducts = (ids?: string[]) =>
   ids ? Product.find({ _id: { $in: ids }, hidden: { $ne: true } }) : Product.find({ hidden: { $ne: true } });
@@ -15,6 +20,7 @@ export const resolvers: GQL.Resolvers = {
   Query: {
     products: (_, { ids }) => {
       return getProducts(ids)
+        .sort({ order: 1 })
         .populate([
           {
             path: "deck",
