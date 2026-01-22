@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useDecks } from "../../../hooks/deck";
-import { useCallback, useMemo, useEffect } from "react";
+import { useCallback, useMemo, useEffect, useState, useRef } from "react";
 import Text from "../../Text";
 import Link from "../../Link";
 import NavButton from "../../Buttons/NavButton";
@@ -94,9 +94,45 @@ export default () => {
     [cardPageContext, cardNavigation]
   );
 
-  // Card page navigation
-  if (artistSlug && cardNavigation && deckId) {
-    const displayNumber = cardNavigation.currentIndex + 1;
+  // Animated counter for loading state - counts up quickly then settles on real number
+  const [animatedIndex, setAnimatedIndex] = useState(1);
+  const [animatedMax, setAnimatedMax] = useState(55);
+  const animationRef = useRef<NodeJS.Timeout | null>(null);
+  const isNavigationLoading = cardPageContext?.navigationLoading ?? false;
+
+  // When navigation data loads, animate to the correct number
+  useEffect(() => {
+    if (cardNavigation) {
+      // Clear any running animation
+      if (animationRef.current) {
+        clearInterval(animationRef.current);
+        animationRef.current = null;
+      }
+      // Set final values
+      setAnimatedIndex(cardNavigation.currentIndex + 1);
+      setAnimatedMax(cardNavigation.max);
+    } else if (artistSlug && !cardNavigation) {
+      // Loading state - animate the counter
+      let count = 1;
+      animationRef.current = setInterval(() => {
+        count = (count % 55) + 1;
+        setAnimatedIndex(count);
+      }, 50);
+    }
+
+    return () => {
+      if (animationRef.current) {
+        clearInterval(animationRef.current);
+      }
+    };
+  }, [cardNavigation, artistSlug]);
+
+  // Card page navigation - show immediately with arrows, animate counter while loading
+  if (artistSlug && deckId) {
+    const hasNavigation = !!cardNavigation;
+    const displayNumber = hasNavigation ? cardNavigation.currentIndex + 1 : animatedIndex;
+    const displayMax = hasNavigation ? cardNavigation.max : animatedMax;
+
     return (
       <Text
         typography="paragraphSmall"
@@ -111,21 +147,31 @@ export default () => {
       >
         <span css={[{ marginRight: 5 }]}>
           <NavButton
-            css={[{ transform: "rotate(180deg)" }]}
-            onClick={handlePrevCard}
+            css={[
+              { transform: "rotate(180deg)" },
+              !hasNavigation && { opacity: 0.5, cursor: "default" },
+            ]}
+            onClick={hasNavigation ? handlePrevCard : undefined}
           />
         </span>
         <span css={[{ marginRight: 5 }]}>
-          <NavButton onClick={handleNextCard} />
+          <NavButton
+            css={[!hasNavigation && { opacity: 0.5, cursor: "default" }]}
+            onClick={hasNavigation ? handleNextCard : undefined}
+          />
         </span>
         <span
           css={(theme) => [
             { marginLeft: 30 },
             palette === "dark" && { color: theme.colors.white75 },
+            // Subtle animation effect while loading
+            !hasNavigation && {
+              opacity: 0.7,
+            },
           ]}
         >
           Card {displayNumber.toString().padStart(2, "0")} /
-          {" " + cardNavigation.max.toString().padStart(2, "0")}
+          {" " + displayMax.toString().padStart(2, "0")}
         </span>
       </Text>
     );
