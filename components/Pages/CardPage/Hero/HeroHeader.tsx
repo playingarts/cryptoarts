@@ -9,48 +9,87 @@ import Star from "../../../Icons/Star";
 import { useFavorites } from "../../../Contexts/favorites";
 import Shimmer from "./Shimmer";
 
-/** Favorite button - shows star icon, links to favorites page when favorited */
+/** Favorite button - shows star icon with notification on add/remove */
 const FavButton: FC<{ deckSlug: string; cardId: string }> = ({ deckSlug, cardId }) => {
-  const { isFavorite, addItem } = useFavorites();
+  const { isFavorite, addItem, removeItem } = useFavorites();
   const [favState, setFavState] = useState(false);
+  const [showNotification, setShowNotification] = useState<"added" | "removed" | null>(null);
 
   useEffect(() => {
     setFavState(isFavorite(deckSlug, cardId));
   }, [isFavorite, deckSlug, cardId]);
 
-  const Btn = (
-    <Button
-      color={favState ? "white" : "accent"}
-      css={(theme) => [
-        {
-          padding: 0,
-          width: 45,
-          height: 45,
-          justifyContent: "center",
-          display: "flex",
-          alignItems: "center",
-        },
-        favState && {
-          color: theme.colors.accent,
-          "&:hover": {
-            color: theme.colors.accent,
-          },
-        },
-      ]}
-      onClick={() => {
-        !favState && addItem(deckSlug, cardId);
-      }}
-    >
-      <Star />
-    </Button>
-  );
+  // Auto-hide notification after 1.5s
+  useEffect(() => {
+    if (showNotification) {
+      const timer = setTimeout(() => setShowNotification(null), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [showNotification]);
 
-  return favState ? (
-    <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/favorites"}>
-      {Btn}
-    </Link>
-  ) : (
-    Btn
+  return (
+    <div css={{ position: "relative" }}>
+      {showNotification && (
+        <div
+          css={(theme) => ({
+            position: "absolute",
+            bottom: "100%",
+            left: "50%",
+            transform: "translateX(-50%)",
+            marginBottom: 8,
+            fontSize: 14,
+            fontWeight: 400,
+            lineHeight: "18px",
+            padding: "6px 10px 4px",
+            background: "white",
+            borderRadius: 50,
+            color: theme.colors.black,
+            whiteSpace: "nowrap",
+            animation: "fadeInOut 1.5s ease-in-out",
+            "@keyframes fadeInOut": {
+              "0%": { opacity: 0, transform: "translateX(-50%) translateY(5px)" },
+              "15%": { opacity: 1, transform: "translateX(-50%) translateY(0)" },
+              "85%": { opacity: 1, transform: "translateX(-50%) translateY(0)" },
+              "100%": { opacity: 0, transform: "translateX(-50%) translateY(-5px)" },
+            },
+          })}
+        >
+          {showNotification === "added" ? "Added to favourites" : "Removed from favourites"}
+        </div>
+      )}
+      <Button
+        color={favState ? "white" : "accent"}
+        css={(theme) => [
+          {
+            padding: 0,
+            width: 45,
+            height: 45,
+            justifyContent: "center",
+            display: "flex",
+            alignItems: "center",
+          },
+          favState && {
+            color: theme.colors.accent,
+            "&:hover": {
+              color: theme.colors.accent,
+            },
+          },
+        ]}
+        onClick={() => {
+          if (favState) {
+            removeItem(deckSlug, cardId);
+            setFavState(false);
+            setShowNotification("removed");
+          } else {
+            addItem(deckSlug, cardId);
+            setFavState(true);
+            setShowNotification("added");
+          }
+        }}
+      >
+        <Star />
+      </Button>
+    </div>
   );
 };
 
