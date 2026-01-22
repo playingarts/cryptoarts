@@ -38,6 +38,10 @@ interface CardPageContextValue {
   sortedCards: GQL.Card[];
   /** Current deck object */
   deck: GQL.Deck | undefined;
+  /** Request navigation data to be loaded immediately (for arrows, etc.) */
+  requestNavigation: () => void;
+  /** Whether navigation data is still loading */
+  navigationLoading: boolean;
 }
 
 const CardPageContext = createContext<CardPageContextValue | null>(null);
@@ -105,11 +109,24 @@ export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
     return decks.find((d) => d.slug === deckId);
   }, [decks, deckId]);
 
+  // Defer cards fetch - only load when user needs navigation (arrows) or after 500ms
+  // This makes initial card page load instant (uses navigationCardStore data)
+  const [navigationNeeded, setNavigationNeeded] = useState(false);
+
+  // Background load after delay (user might want to navigate)
+  useEffect(() => {
+    const timer = setTimeout(() => setNavigationNeeded(true), 500);
+    return () => clearTimeout(timer);
+  }, [deckId]); // Reset timer when deck changes
+
+  // Allow immediate fetch if user needs navigation now
+  const requestNavigation = useCallback(() => setNavigationNeeded(true), []);
+
   // Fetch all cards for deck using deckSlug directly
-  // This eliminates the waterfall - no need to wait for useDecks() to complete
+  // Deferred until navigationNeeded is true (500ms delay or explicit request)
   const { cards, loading: cardsLoading } = useCardsForDeck({
     variables: { deckSlug: deckId },
-    skip: !deckId,
+    skip: !deckId || !navigationNeeded,
   });
 
   // Clear navigation card once real data arrives
@@ -188,8 +205,10 @@ export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
       cardNavigation,
       sortedCards,
       deck,
+      requestNavigation,
+      navigationLoading: navigationNeeded && cardsLoading,
     }),
-    [artistSlug, deckId, navigateToCard, cardNavigation, sortedCards, deck]
+    [artistSlug, deckId, navigateToCard, cardNavigation, sortedCards, deck, requestNavigation, navigationNeeded, cardsLoading]
   );
 
   return (

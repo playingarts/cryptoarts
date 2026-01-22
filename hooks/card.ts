@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
-import { useLazyQuery, useQuery } from "@apollo/client/react";
+import { useLazyQuery, useQuery, useApolloClient } from "@apollo/client/react";
+import { useCallback } from "react";
 import {
   CardFragment,
   CardBasicFragment,
@@ -524,4 +525,33 @@ export const useCardsByIds = (
     useQuery<Pick<GQL.Query, "cardsByIds">>(CardsByIdsQuery, options);
 
   return { ...methods, cards };
+};
+
+/**
+ * Hook to prefetch cards for a deck on hover.
+ * Warms Apollo cache so card page loads instantly.
+ * Usage: call prefetch() on mouseenter before navigating to card page.
+ */
+export const usePrefetchCardsForDeck = () => {
+  const client = useApolloClient();
+
+  const prefetch = useCallback(
+    (deckSlug: string) => {
+      if (!deckSlug) {
+        return;
+      }
+
+      // Fire and forget - prefetch into cache
+      client.query({
+        query: CardsForDeckQuery,
+        variables: { deckSlug },
+        fetchPolicy: "cache-first", // Use cache if available, otherwise fetch
+      }).catch(() => {
+        // Silently ignore prefetch errors - navigation will still work
+      });
+    },
+    [client]
+  );
+
+  return { prefetch };
 };

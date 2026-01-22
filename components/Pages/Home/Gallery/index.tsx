@@ -1,8 +1,9 @@
-import { FC, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useState, useCallback } from "react";
 import Image from "next/image";
 import { keyframes } from "@emotion/react";
 import Grid from "../../../Grid";
-import { useDailyCardLite } from "../../../../hooks/card";
+import { useDailyCardLite, usePrefetchCardsForDeck } from "../../../../hooks/card";
+import { setNavigationCard } from "../../CardPage/navigationCardStore";
 import image1 from "../../../../mocks/images/homeGallery/1.png";
 import image2 from "../../../../mocks/images/homeGallery/2.png";
 import image3 from "../../../../mocks/images/homeGallery/3.png";
@@ -128,6 +129,38 @@ const DailyCardSkeleton: FC = () => (
 const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { dailyCard, loading } = useDailyCardLite();
   const { width } = useSize();
+  const { prefetch } = usePrefetchCardsForDeck();
+
+  // Prefetch cards for deck on hover (warms Apollo cache)
+  const handleLinkMouseEnter = useCallback(() => {
+    if (dailyCard?.deck?.slug) {
+      prefetch(dailyCard.deck.slug);
+    }
+  }, [dailyCard?.deck?.slug, prefetch]);
+
+  // Store card data for instant display on card page
+  const handleLinkClick = useCallback(() => {
+    if (dailyCard) {
+      setNavigationCard({
+        _id: dailyCard._id,
+        img: "", // DailyCardLite doesn't have img - will load from SSR
+        video: null,
+        info: dailyCard.info || null,
+        background: null,
+        cardBackground: null,
+        edition: null,
+        deck: { slug: dailyCard.deck?.slug || "" },
+        artist: {
+          name: dailyCard.artist?.name || "",
+          slug: dailyCard.artist?.slug || "",
+          country: dailyCard.artist?.country || null,
+          userpic: dailyCard.artist?.userpic || null,
+          info: null,
+          social: null,
+        },
+      });
+    }
+  }, [dailyCard]);
 
   return (
     <Grid
@@ -309,6 +342,8 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               noColor={true}
               base={true}
               css={[{ marginTop: 30 }]}
+              onMouseEnter={handleLinkMouseEnter}
+              onClick={handleLinkClick}
             >
               Discover the artwork
             </ArrowButton>

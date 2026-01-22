@@ -27,6 +27,11 @@ export interface SSRCardProps {
     info: string | null;
     social: Record<string, string | null> | null;
   };
+  /** Backside card for flip animation (passed from popup navigation) */
+  backsideCard?: {
+    img: string;
+    video?: string | null;
+  };
 }
 
 /**

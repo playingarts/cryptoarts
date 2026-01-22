@@ -18,6 +18,7 @@ import { theme } from "../../styles/theme";
 import { usePaletteHook } from "../../hooks/usePaletteHook";
 import CardFav from "./CardFav";
 import { cardSizes, cardSizesHover, CardSize } from "./sizes";
+import { setNavigationCard } from "../Pages/CardPage/navigationCardStore";
 
 const slowTransitionOpacity = theme.transitions.slow("opacity");
 
@@ -375,7 +376,28 @@ const Card: FC<CardProps> = memo(
                   },
                 },
               ]}
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) => {
+                e.stopPropagation();
+                // Store card data for instant display on card page (same as popup does)
+                setNavigationCard({
+                  _id: card._id,
+                  img: card.img,
+                  video: card.video || null,
+                  info: (card as GQL.Card).info || null,
+                  background: (card as GQL.Card).background || null,
+                  cardBackground: (card as GQL.Card).cardBackground || null,
+                  edition: (card as GQL.Card).edition || null,
+                  deck: { slug: card.deck?.slug || "" },
+                  artist: {
+                    name: card.artist.name || "",
+                    slug: card.artist.slug,
+                    country: card.artist.country || null,
+                    userpic: card.artist.userpic || null,
+                    info: card.artist.info || null,
+                    social: (card.artist.social as Record<string, string | null>) || null,
+                  },
+                });
+              }}
             >
               {card.artist.name}
             </Link>

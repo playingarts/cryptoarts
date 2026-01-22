@@ -61,11 +61,21 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
   const deckLoading = loadDeck && !deck;
 
   // Find the backside card for this deck
+  // Falls back to navCard's backside during initial load (before sortedCards loads)
   const backsideCard = useMemo(() => {
-    if (!sortedCards || sortedCards.length === 0) return null;
-    const backsides = sortedCards.filter((c) => c.value === "backside");
-    return backsides.length > 0 ? backsides[0] : null;
-  }, [sortedCards]);
+    if (sortedCards && sortedCards.length > 0) {
+      const backsides = sortedCards.filter((c) => c.value === "backside");
+      return backsides.length > 0 ? backsides[0] : null;
+    }
+    // Fallback to navCard's backside during initial load
+    if (ssrCard?.backsideCard) {
+      return {
+        img: ssrCard.backsideCard.img,
+        video: ssrCard.backsideCard.video || null,
+      } as GQL.Card;
+    }
+    return null;
+  }, [sortedCards, ssrCard?.backsideCard]);
 
   // Products for deck image (deferred until deck section visible)
   const { products } = useProducts({ skip: !loadDeck });

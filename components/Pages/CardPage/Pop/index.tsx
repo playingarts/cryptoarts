@@ -305,23 +305,29 @@ const Pop: FC<
     // Store card data for instant display on card page
     const artistSlug = card?.artist.slug || cardState;
     if (artistSlug) {
+      // Try to get full card data from cards array if available (more complete)
+      const fullCard = cards?.find(c => c.artist.slug === artistSlug);
+      const cardToStore = fullCard || card;
+
       setNavigationCard({
-        _id: card?._id || "nav",
-        img: card?.img || initialImg || "",
-        video: card?.video || initialVideo || null,
-        info: card?.info || null,
-        background: card?.background || null,
-        cardBackground: card?.cardBackground || initialBackground || null,
-        edition: card?.edition || edition || null,
+        _id: cardToStore?._id || "nav",
+        img: cardToStore?.img || initialImg || "",
+        video: cardToStore?.video || initialVideo || null,
+        info: cardToStore?.info || null,
+        background: cardToStore?.background || null,
+        cardBackground: cardToStore?.cardBackground || initialBackground || null,
+        edition: cardToStore?.edition || edition || null,
         deck: { slug: currentDeckId },
         artist: {
-          name: card?.artist.name || initialArtistName || "",
+          name: cardToStore?.artist.name || initialArtistName || "",
           slug: artistSlug,
-          country: card?.artist.country || initialArtistCountry || null,
-          userpic: card?.artist.userpic || null,
-          info: card?.artist.info || null,
-          social: (card?.artist.social as Record<string, string | null>) || null,
+          country: cardToStore?.artist.country || initialArtistCountry || null,
+          userpic: cardToStore?.artist.userpic || null,
+          info: cardToStore?.artist.info || null,
+          social: (cardToStore?.artist.social as Record<string, string | null>) || null,
         },
+        // Include backside card for instant flip animation on card page
+        backsideCard: backsideCard ? { img: backsideCard.img, video: backsideCard.video } : undefined,
       });
     }
     close();
@@ -335,7 +341,7 @@ const Pop: FC<
     // Use Next.js router for navigation
     // The CardPage will show navCard instantly while getStaticProps runs in background
     router.push(destPath);
-  }, [card, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, edition, deckId, close, onNavigate, router]);
+  }, [card, cards, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, edition, deckId, currentDeckId, backsideCard, close, onNavigate, router]);
 
   return (
     <div
