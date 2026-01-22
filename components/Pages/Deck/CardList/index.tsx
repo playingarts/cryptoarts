@@ -131,6 +131,7 @@ const ListItem: FC<{
           // Control image loading via this prop
           // When false, Card shows gradient placeholder without loading the image
           {...(!shouldLoadImage && { noImage: true })}
+          artistHref={typeof deckId === "string" ? `/${deckId}/${card.artist.slug}` : undefined}
         />
       </div>
       <MenuPortal show={show}>

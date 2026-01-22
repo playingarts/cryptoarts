@@ -2,8 +2,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import { NormalizedCacheObject } from "@apollo/client";
 import { connect } from "../../source/mongoose";
 import { initApolloClient } from "../../source/apollo";
-import { DecksQuery } from "../../hooks/deck";
-import { CardQuery, CardsForDeckQuery } from "../../hooks/card";
+import { CardQuery } from "../../hooks/card";
 import { schema } from "../../source/graphql/schema";
 
 export { default } from "@/components/Pages/CardPage";
@@ -62,32 +61,20 @@ export const getStaticProps: GetStaticProps<
 
     const client = initApolloClient(undefined, { schema });
 
-    // Fetch decks and individual card in parallel
-    const [decksResult, cardResult] = await Promise.all([
-      client.query({ query: DecksQuery }) as Promise<{ data: { decks: GQL.Deck[] } }>,
-      client.query({
-        query: CardQuery,
-        variables: { slug: artistSlug, deckSlug: deckId },
-      }) as Promise<{ data: { card: GQL.Card | null } }>,
-    ]);
+    // Fetch ONLY the single card - decks and other cards load client-side
+    const cardResult = await client.query({
+      query: CardQuery,
+      variables: { slug: artistSlug, deckSlug: deckId },
+    }) as { data: { card: GQL.Card | null } };
 
-    const decks = decksResult.data.decks;
     const card = cardResult.data.card;
-    const deck = decks.find((deck) => deck.slug === deckId);
 
-    if (!deck || !card) {
+    if (!card) {
       return {
         notFound: true,
         revalidate: 60,
       };
     }
-
-    // Prefetch all cards for this deck (for navigation arrows and More section)
-    // Uses deckSlug directly to match client-side query (eliminates waterfall)
-    await client.query({
-      query: CardsForDeckQuery,
-      variables: { deckSlug: deckId },
-    });
 
     // Extract SSR card props for instant display (use nullish coalescing for safety)
     const ssrCard: SSRCardProps = {

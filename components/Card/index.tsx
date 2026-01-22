@@ -8,6 +8,7 @@ import {
   useRef,
   useState,
 } from "react";
+import Link from "next/link";
 import Text from "../Text";
 import AR from "../Icons/AR";
 import { Props as PaletteProps } from "../Pages/Deck/DeckPaletteContext";
@@ -36,6 +37,8 @@ export interface CardProps extends HTMLAttributes<HTMLElement> {
   priority?: boolean;
   /** When true, shows gradient placeholder without loading the image (for progressive loading) */
   noImage?: boolean;
+  /** URL for artist name link - when provided, artist name becomes a link */
+  artistHref?: string;
 }
 
 /**
@@ -54,6 +57,7 @@ const Card: FC<CardProps> = memo(
     palette: paletteProp,
     priority = false,
     noImage = false,
+    artistHref,
     ...props
   }) => {
     // Compute imgSrc first for use in state initialization
@@ -201,13 +205,8 @@ const Card: FC<CardProps> = memo(
         css={[
           {
             width: cardSizesHover[size].width,
-            "&:hover": {
-              cursor: "pointer",
-            },
           },
         ]}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         {...props}
       >
         <div
@@ -215,6 +214,7 @@ const Card: FC<CardProps> = memo(
             {
               position: "relative",
               height: cardSizesHover[size].height,
+              cursor: "pointer",
             },
           ]}
           style={
@@ -228,6 +228,8 @@ const Card: FC<CardProps> = memo(
               }) ||
             undefined
           }
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
           {...(interactive && {
             onMouseMove: handleMouseMove,
           })}
@@ -355,23 +357,47 @@ const Card: FC<CardProps> = memo(
           </div>
         </div>
         {!noArtist && (
-          <Text
-            typography="linkNewTypography"
-            css={(theme) => [
-              {
-                marginTop: 10,
-                textAlign: "center",
-                fontSize: 18,
-                color: theme.colors[palette === "dark" ? "white50" : "black50"],
-                transition: "color 0.15s ease-out",
-              },
-              hover && {
-                color: theme.colors[palette === "dark" ? "white" : "dark_gray"],
-              },
-            ]}
-          >
-            {card.artist.name}
-          </Text>
+          artistHref ? (
+            <Link
+              href={artistHref}
+              css={(theme) => [
+                {
+                  ...theme.typography.linkNewTypography,
+                  marginTop: 10,
+                  textAlign: "center",
+                  fontSize: 18,
+                  display: "block",
+                  textDecoration: "none",
+                  color: theme.colors[palette === "dark" ? "white50" : "black50"],
+                  transition: "color 0.15s ease-out",
+                  "&:hover": {
+                    color: theme.colors[palette === "dark" ? "white" : "dark_gray"],
+                  },
+                },
+              ]}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {card.artist.name}
+            </Link>
+          ) : (
+            <Text
+              typography="linkNewTypography"
+              css={(theme) => [
+                {
+                  marginTop: 10,
+                  textAlign: "center",
+                  fontSize: 18,
+                  color: theme.colors[palette === "dark" ? "white50" : "black50"],
+                  transition: "color 0.15s ease-out",
+                },
+                hover && {
+                  color: theme.colors[palette === "dark" ? "white" : "dark_gray"],
+                },
+              ]}
+            >
+              {card.artist.name}
+            </Text>
+          )
         )}
       </div>
     );

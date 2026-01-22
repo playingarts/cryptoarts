@@ -67,8 +67,8 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
     return backsides.length > 0 ? backsides[0] : null;
   }, [sortedCards]);
 
-  // Products for deck image (only after deck loads)
-  const { products } = useProducts();
+  // Products for deck image (deferred until deck section visible)
+  const { products } = useProducts({ skip: !loadDeck });
 
   // Card edition info
   const cardEdition = card?.edition;

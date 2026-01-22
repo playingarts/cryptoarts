@@ -13,7 +13,7 @@ import {
 } from "react";
 import { useRouter } from "next/router";
 import { useDecks } from "../../../hooks/deck";
-import { useCardsForDeck, useCard } from "../../../hooks/card";
+import { useCardsForDeck } from "../../../hooks/card";
 import { sortCards } from "../../../source/utils/sortCards";
 import { getNavigationCard, clearNavigationCard } from "./navigationCardStore";
 
@@ -119,12 +119,6 @@ export const CardPageProvider: FC<CardPageProviderProps> = ({ children }) => {
       navCardRef.current = null;
     }
   }, [cards]);
-
-  // Fetch current card for detailed info (runs in parallel with cards query)
-  const { card: currentCard } = useCard({
-    variables: { slug: artistSlug, deckSlug: deckId },
-    skip: !artistSlug || !deckId,
-  });
 
   // Sorted cards (matches CardList and Pop order)
   const sortedCards = useMemo(() => {
