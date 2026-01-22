@@ -238,6 +238,13 @@ const Pop: FC<
     };
   }, []);
 
+  // Prefetch card page bundle when popup opens - makes navigation instant
+  useEffect(() => {
+    if (currentDeckId && cardState) {
+      router.prefetch(`/${currentDeckId}/${cardState}`);
+    }
+  }, [router, currentDeckId, cardState]);
+
   // Get deck from cached decks array instead of separate query
   const { decks } = useDecks();
   const deck = useMemo(() => decks?.find((d) => d.slug === currentDeckId), [decks, currentDeckId]);
@@ -413,35 +420,22 @@ const Pop: FC<
               },
             }}
           >
-            {card && card.artist?.slug === cardState ? (
+            {/* Use same key to prevent flash when card data loads */}
+            {(card && card.artist?.slug === cardState) || (initialImg && cardState === cardSlug) ? (
               <FlippableCard
                 key={"PopCard" + cardState}
                 css={[{ margin: "0 auto" }]}
                 card={{
-                  ...card,
-                  deck: { slug: deckId } as unknown as GQL.Deck,
-                }}
-                backsideCard={backsideCard}
-                noArtist
-                size="big"
-                // Autoplay video if card has one
-                animated={!!card.video}
-              />
-            ) : initialImg && cardState === cardSlug ? (
-              // Show initial image instantly while card data loads
-              <FlippableCard
-                key="PopCard-initial"
-                css={[{ margin: "0 auto" }]}
-                card={{
-                  _id: "initial",
-                  img: initialImg,
-                  video: initialVideo,
-                  deck: { slug: deckId } as unknown as GQL.Deck,
+                  _id: card?._id || "initial",
+                  img: card?.img || initialImg || "",
+                  video: card?.video || initialVideo,
+                  deck: { slug: currentDeckId } as unknown as GQL.Deck,
+                  ...(card && { ...card }),
                 } as GQL.Card}
                 backsideCard={backsideCard}
                 noArtist
                 size="big"
-                animated={!!initialVideo}
+                animated={!!(card?.video || initialVideo)}
               />
             ) : null}
           </div>
