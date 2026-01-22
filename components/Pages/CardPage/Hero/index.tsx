@@ -108,6 +108,13 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
         .replace(/\bIi\b/g, "II")
     : null;
 
+  // Deck title - priority: navigation store (instant) -> Apollo cache -> slug fallback
+  // Navigation store has deck title from popup, use it first to prevent glitch
+  const deckTitleFromSlug = deckId
+    ? deckId.charAt(0).toUpperCase() + deckId.slice(1)
+    : undefined;
+  const deckTitle = ssrCard?.deck?.title || deck?.title || deckTitleFromSlug;
+
   // Progressive loading triggers
   const handleArtistVisible = useCallback(() => {
     setLoadArtist(true);
@@ -165,7 +172,7 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
           cardId={card?._id}
           deckTitle={editionDisplayName && deckId === "future"
             ? `Future ${editionDisplayName}`
-            : deck?.title}
+            : deckTitle}
         />
 
         {/* P1: The Artist section (lazy) */}

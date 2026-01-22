@@ -154,10 +154,10 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     [decks, targetDeckSlug]
   );
 
-  // Fetch cards for the deck
+  // Fetch cards for the deck - use deckSlug to share Apollo cache with card page
   const { cards } = useCardsForDeck(
-    deck
-      ? { variables: { deck: deck._id, edition: isFutureDeck ? activeEdition : undefined } }
+    targetDeckSlug
+      ? { variables: { deckSlug: targetDeckSlug, edition: isFutureDeck ? activeEdition : undefined } }
       : { skip: true }
   );
 

@@ -470,9 +470,12 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
   const currentEditionRef = useRef<string | undefined>(undefined);
 
   // Fetch cards using lighter query (CardsForDeckQuery)
+  // Use deckSlug (not deck._id) to share Apollo cache with card page navigation
   // Apollo cache-first policy ensures cached data is returned instantly
   // `loading` is false when data comes from cache
-  const { cards, loading: cardsLoading } = useCardsForDeck(deck ? { variables: { deck: deck._id, edition } } : undefined);
+  const { cards, loading: cardsLoading } = useCardsForDeck(
+    typeof deckId === "string" ? { variables: { deckSlug: deckId, edition } } : undefined
+  );
 
   // Track if data came from cache (detected on first render)
   // If cards available immediately (not loading), they came from cache

@@ -61,6 +61,12 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
     return getNavigationCard();
   });
 
+  // Store deck title from navigation - persists even after navCard is cleared
+  const [navDeckTitle] = useState<string | undefined>(() => {
+    const nav = getNavigationCard();
+    return nav?.deck?.title;
+  });
+
   // During fallback (router.isFallback = true), query params are empty
   // Use navigation card's deck slug until router query is ready
   const isFallback = router.isFallback;
@@ -69,7 +75,16 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
 
   // Priority: ssrCard (from getStaticProps) > navCard (from navigation) > undefined
   // During fallback, ssrCard is undefined, so we show navCard
-  const effectiveSsrCard = ssrCard || navCard || undefined;
+  // Merge deck.title from navDeckTitle (persisted) since navCard gets cleared
+  const effectiveSsrCard = ssrCard
+    ? {
+        ...ssrCard,
+        deck: {
+          ...ssrCard.deck,
+          title: ssrCard.deck.title || navDeckTitle,
+        },
+      }
+    : navCard || undefined;
 
   // Clear navigation card once we have ssrCard (prevents stale data on next navigation)
   useEffect(() => {

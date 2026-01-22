@@ -18,6 +18,8 @@ export interface SSRCardProps {
   edition: string | null;
   deck: {
     slug: string;
+    /** Full deck title for instant "Shop X" button display */
+    title?: string;
   };
   artist: {
     name: string;

@@ -192,15 +192,16 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
 
     const { fetchCardsForDeck } = useHeroCardsContext();
 
-    // Fetch deck to get _id for cards query
+    // Fetch deck for metadata (title, etc.)
     const { deck } = useDeck({
       variables: { slug: deckId },
       skip: !deckId,
     });
 
     // Fetch all cards for the deck (for flipping animation)
+    // Use deckSlug to share Apollo cache with card page
     const { cards: allDeckCards } = useCardsForDeck(
-      deck ? { variables: { deck: deck._id } } : { skip: true }
+      deckId ? { variables: { deckSlug: deckId } } : { skip: true }
     );
 
     // Combined display state to ensure atomic updates (prevents race conditions)

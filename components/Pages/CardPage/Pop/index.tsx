@@ -143,9 +143,9 @@ const CustomMiddle: FC<{
   const rawCards = navigationCards || prefetchedCards;
   const [counter, setCounter] = useState(0);
 
-  // Use custom navigation cards if provided, otherwise sort fetched cards
+  // Sort cards for consistent navigation order (by value then suit)
   const cards = useMemo(() => {
-    if (navigationCards) return navigationCards;
+    if (navigationCards) return sortCards(navigationCards);
     return rawCards ? sortCards(rawCards) : undefined;
   }, [rawCards, navigationCards]);
 
@@ -365,7 +365,7 @@ const Pop: FC<
         background: cardToStore?.background || null,
         cardBackground: cardToStore?.cardBackground || initialBackground || null,
         edition: cardToStore?.edition || currentEdition || null,
-        deck: { slug: currentDeckId },
+        deck: { slug: currentDeckId, title: deck?.title },
         artist: {
           name: cardToStore?.artist.name || initialArtistName || "",
           slug: artistSlug,
