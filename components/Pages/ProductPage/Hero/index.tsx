@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useProducts } from "../../../../hooks/product";
 import Text from "../../../Text";
 import SoldOut from "../../../Buttons/SoldOut";
+import Button from "../../../Buttons/Button";
 import AddToBag from "../../../Buttons/AddToBag";
 import ContinueShopping from "../../../Buttons/ContinueShopping";
 import Grid from "../../../Grid";
@@ -54,9 +55,13 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       >
         <Text typography="newh1" css={{ textAlign: "left", fontSize: 65 }}>{product.title}</Text>
         <Text>{product.description}</Text>
-        <Text>${product.price.usd}</Text>
+        {product.deck?.slug !== "crypto" && <Text>${product.price.usd}</Text>}
         <div css={{ display: "flex", alignItems: "center", gap: 30 }}>
-          {product.status === "soldout" || product.status === "soon" ? (
+          {product.deck?.slug === "crypto" ? (
+            <Button size="big" bordered css={{ fontSize: 20 }}>
+              Exclusive
+            </Button>
+          ) : product.status === "soldout" || product.status === "soon" ? (
             <SoldOut size="big" css={{ fontSize: 20 }} status={product.status} />
           ) : (
             <AddToBag productId={product._id} size="big" css={{ fontSize: 20 }} />

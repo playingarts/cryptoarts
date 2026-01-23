@@ -74,53 +74,17 @@ const FeaturedPodcastSkeleton: FC = () => (
 
 // Loading skeleton for the episode list
 const EpisodeListSkeleton: FC = () => (
-  <div css={{ padding: 30, display: "flex", flexDirection: "column", gap: 5 }}>
+  <div css={{ padding: 15, display: "flex", flexDirection: "column", gap: 5 }}>
     {[...Array(7)].map((_, i) => (
       <div
         key={i}
-        css={{
-          display: "grid",
-          gridTemplateColumns: "70px 1fr auto",
-          alignItems: "center",
-          gap: 10,
-          height: 40,
-        }}
-      >
-        <div
-          css={(theme) => ({
-            width: 40,
-            height: 18,
-            borderRadius: 4,
-            background: theme.colors.pale_gray,
-          })}
-        />
-        <div
-          css={(theme) => ({
-            width: "60%",
-            height: 18,
-            borderRadius: 4,
-            background: theme.colors.pale_gray,
-          })}
-        />
-        <div
-          css={(theme) => ({
-            width: 50,
-            height: 18,
-            borderRadius: 4,
-            background: theme.colors.pale_gray,
-          })}
-        />
-      </div>
+        css={(theme) => ({
+          height: 50,
+          borderRadius: 8,
+          background: theme.colors.pale_gray,
+        })}
+      />
     ))}
-    <div
-      css={(theme) => ({
-        marginTop: 10,
-        width: 140,
-        height: 18,
-        borderRadius: 4,
-        background: theme.colors.pale_gray,
-      })}
-    />
   </div>
 );
 
@@ -154,6 +118,17 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         arrowedText="Playing Arts podcast"
         paragraphText="Conversations with artists exploring inspiration, stories, and creativity."
         titleAsText
+        beforeLinkNew={
+          <Link
+            href="https://youtube.com/@PlayingArtsProject"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <ButtonTemplate bordered size="small">
+              Watch all episodes
+            </ButtonTemplate>
+          </Link>
+        }
         bottom={
           <ButtonTemplate
             base={true}
@@ -239,7 +214,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {loading ? (
             <EpisodeListSkeleton />
           ) : (
-            <div css={{ padding: 30, display: "flex", flexDirection: "column", gap: 5 }}>
+            <div css={{ padding: 15, display: "flex", flexDirection: "column", gap: 5 }}>
               {podcasts &&
                 podcasts.slice(0, 7).map((podcast, index) =>
                   podcast ? (
@@ -247,13 +222,17 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                       key={podcast.desc + podcast.podcastName}
                       onClick={() => setSelectedIndex(index)}
                       onMouseEnter={() => preloadImage(podcast.image)}
-                      css={{
+                      css={(theme) => ({
                         display: "grid",
                         gridTemplateColumns: "70px 1fr auto",
                         alignItems: "center",
                         gap: 10,
                         cursor: "pointer",
-                      }}
+                        padding: "5px 15px",
+                        borderRadius: 8,
+                        background: selectedIndex === index ? theme.colors.pink : "transparent",
+                        transition: "background 0.2s ease",
+                      })}
                     >
                       <Text typography="paragraphSmall">
                         EP{podcast.episode}
@@ -272,21 +251,6 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                     </div>
                   ) : undefined
                 )}
-              <Link
-                href="https://youtube.com/@PlayingArtsProject"
-                target="_blank"
-                rel="noopener noreferrer"
-                css={{ marginTop: 10 }}
-              >
-                <ArrowButton
-                  css={{ justifyContent: "start" }}
-                  noColor={true}
-                  base={true}
-                  size="small"
-                >
-                  Watch all episodes
-                </ArrowButton>
-              </Link>
             </div>
           )}
         </div>

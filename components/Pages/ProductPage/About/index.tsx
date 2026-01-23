@@ -431,9 +431,13 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         >
           {product && (
             <>
-              <Text typography="newh3">${product.price.usd}</Text>
+              {product.deck?.slug !== "crypto" && <Text typography="newh3">${product.price.usd}</Text>}
               <div css={[{ marginTop: 15, display: "flex", alignItems: "center", gap: 30 }]}>
-                {product.status === "soldout" || product.status === "soon" ? (
+                {product.deck?.slug === "crypto" ? (
+                  <Button size="big" bordered css={{ fontSize: 20 }}>
+                    Exclusive
+                  </Button>
+                ) : product.status === "soldout" || product.status === "soon" ? (
                   <SoldOut size="big" css={{ fontSize: 20 }} status={product.status} />
                 ) : (
                   <AddToBag productId={product._id} size="big" css={{ fontSize: 20 }} />

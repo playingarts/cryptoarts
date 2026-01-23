@@ -247,7 +247,7 @@ const Pop: FC<
             >
               <Text typography="newh2" css={{ whiteSpace: "pre-line" }}>{productState.title.replace("Future Chapter", "Future\nChapter")}</Text>
               <Text typography="paragraphSmall" css={{ marginTop: 15 }}>{productState.description || productState.info}</Text>
-              <Text typography="newh4" css={{ marginTop: 15 }}>${productState.price.usd}</Text>
+              {productState.deck?.slug !== "crypto" && <Text typography="newh4" css={{ marginTop: 15 }}>${productState.price.usd}</Text>}
               <div
                 css={[
                   {
@@ -258,7 +258,11 @@ const Pop: FC<
                   },
                 ]}
               >
-                {productState.status === "soldout" || productState.status === "soon" ? (
+                {productState.deck?.slug === "crypto" ? (
+                  <Button size="small" bordered>
+                    Exclusive
+                  </Button>
+                ) : productState.status === "soldout" || productState.status === "soon" ? (
                   <SoldOut status={productState.status} />
                 ) : (
                   <AddToBag productId={productState._id} onViewBag={onViewBag} />
