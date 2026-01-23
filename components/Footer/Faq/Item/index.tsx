@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, ReactNode, useState } from "react";
+import { FC, HTMLAttributes, ReactNode, useState, useRef, useCallback } from "react";
 import Dot from "../../../Icons/Dot";
 import Text from "../../../Text";
 
@@ -7,11 +7,24 @@ const Item: FC<
 > = ({ question, answer, palette = "light", ...props }) => {
   const [opened, setOpened] = useState(false);
   const [hover, setHover] = useState(false);
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  const handleClick = useCallback(() => {
+    const willOpen = !opened;
+    setOpened(willOpen);
+
+    // When opening, scroll the item into view after animation
+    if (willOpen && itemRef.current) {
+      setTimeout(() => {
+        itemRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 50);
+    }
+  }, [opened]);
 
   return (
-    <div {...props}>
+    <div ref={itemRef} {...props}>
       <Text
-        onClick={() => setOpened(!opened)}
+        onClick={handleClick}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         css={(theme) => ({

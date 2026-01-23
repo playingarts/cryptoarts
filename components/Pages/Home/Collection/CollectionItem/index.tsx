@@ -359,6 +359,7 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
         hover &&
           paletteOnHover === "dark" && {
             background: theme.colors.black,
+            borderRadius: 10,
           },
       ]}
       onMouseEnter={handleMouseEnter}

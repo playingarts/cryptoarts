@@ -67,6 +67,7 @@ const FavButton: FC<{ deckSlug: string; cardId: string }> = ({ deckSlug, cardId 
             padding: 0,
             width: 45,
             height: 45,
+            borderRadius: "50%",
             justifyContent: "center",
             display: "flex",
             alignItems: "center",
