@@ -106,7 +106,13 @@ const HeroCardInfo: FC<HeroCardInfoProps> = ({ info, dark, onVisible, loading })
           },
         ]}
       >
-        <Text>{info}</Text>
+        <Text
+          css={(theme) => ({
+            color: theme.colors[dark ? "white75" : "black"],
+          })}
+        >
+          {info}
+        </Text>
       </div>
       {!expanded && isTruncated && (
         <ArrowButton
@@ -114,7 +120,16 @@ const HeroCardInfo: FC<HeroCardInfoProps> = ({ info, dark, onVisible, loading })
           noColor
           base
           onClick={() => setExpanded(true)}
-          css={{ marginTop: 15 }}
+          css={(theme) => [
+            { marginTop: 15, color: theme.colors.black },
+            dark && {
+              color: "#FFFFFFBF",
+              transition: "color 0.2s ease",
+              "&:hover": {
+                color: theme.colors.white,
+              },
+            },
+          ]}
         >
           Continue reading
         </ArrowButton>

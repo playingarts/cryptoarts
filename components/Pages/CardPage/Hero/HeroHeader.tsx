@@ -159,15 +159,43 @@ const HeroHeader: FC<HeroHeaderProps> = ({
         },
       }}
     >
-      <Text typography="newh1">{artistName}</Text>
-      <Text typography="newh4">{country ?? "..."}</Text>
+      <Text
+        typography="newh1"
+        css={{
+          color: dark ? "#FFFFFFBF" : "black",
+        }}
+      >
+        {artistName}
+      </Text>
+      <Text
+        typography="newh4"
+        css={(theme) => ({
+          color: theme.colors[dark ? "white75" : "black"],
+        })}
+      >
+        {country ?? "..."}
+      </Text>
       <div css={{ display: "flex", alignItems: "center", gap: 15, marginTop: 30 }}>
         {cardId && <FavButton deckSlug={deckSlug} cardId={cardId} />}
         <Link href={shopUrl}>
           <ArrowButton color="accent" css={{ fontSize: 20 }}>Shop {deckTitle || "this deck"}</ArrowButton>
         </Link>
         <Link href={deckUrl} css={{ marginLeft: 15 }}>
-          <ArrowButton size="small" noColor base>
+          <ArrowButton
+            size="small"
+            noColor
+            base
+            css={(theme) => [
+              { color: theme.colors.black },
+              dark && {
+                color: "#FFFFFFBF",
+                transition: "color 0.2s ease",
+                "&:hover": {
+                  color: theme.colors.white,
+                },
+              },
+            ]}
+          >
             View the deck
           </ArrowButton>
         </Link>

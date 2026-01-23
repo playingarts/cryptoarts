@@ -41,7 +41,15 @@ const CTA = () => {
         <div
           css={(theme) => [
             { display: "flex", gap: 30 },
-            palette === "dark" && { color: theme.colors.white75 },
+            palette === "dark" && {
+              color: "#FFFFFFBF",
+              "& a": {
+                transition: "color 0.2s ease",
+                "&:hover": {
+                  color: theme.colors.white,
+                },
+              },
+            },
           ]}
         >
           <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer" css={{ width: "initial" }}>

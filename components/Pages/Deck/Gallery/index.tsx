@@ -8,6 +8,7 @@ import Text from "../../../Text";
 import { useFutureChapter } from "../FutureChapterContext";
 import { useDecks } from "../../../../hooks/deck";
 import { useCardsForDeck } from "../../../../hooks/card";
+import { usePalette } from "../DeckPaletteContext";
 
 /** Fade in animation */
 const fadeIn = keyframes`
@@ -139,6 +140,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { query } = useRouter();
   const deckId = query.deckId;
   const { activeTab, activeEdition, isFutureDeck } = useFutureChapter();
+  const { palette } = usePalette();
 
   // Get deck ID for Future chapters
   const { decks } = useDecks();
@@ -196,7 +198,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       css={(theme) => [
         {
-          background: theme.colors.soft_gray,
+          background: palette === "dark" ? "#212121" : theme.colors.soft_gray,
           paddingTop: 60,
           paddingBottom: 120,
           rowGap: 60,
@@ -216,7 +218,13 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <ArrowedButton>Gallery</ArrowedButton>
+        <ArrowedButton
+          css={(theme) => ({
+            color: theme.colors[palette === "dark" ? "white75" : "black"],
+          })}
+        >
+          Gallery
+        </ArrowedButton>
       </ScandiBlock>
 
       <ScandiBlock
@@ -229,7 +237,13 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Text typography="paragraphBig" css={[{ paddingBottom: 120 }]}>
+        <Text
+          typography="paragraphBig"
+          css={(theme) => ({
+            paddingBottom: 120,
+            color: theme.colors[palette === "dark" ? "white75" : "black"],
+          })}
+        >
           Loved this deck? Continue the story with these collector's favourites.
         </Text>
       </ScandiBlock>

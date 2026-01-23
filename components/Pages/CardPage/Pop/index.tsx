@@ -725,7 +725,23 @@ const Pop: FC<
                 Card details
               </Button>
 
-              <ArrowButton noColor base size="small" palette={palette} css={{ marginLeft: 15 }} onClick={handleViewDeckClick}>
+              <ArrowButton
+                noColor
+                base
+                size="small"
+                palette={palette}
+                css={(theme) => [
+                  { marginLeft: 15 },
+                  palette === "dark" && {
+                    color: "#FFFFFFBF",
+                    transition: "color 0.2s ease",
+                    "&:hover": {
+                      color: theme.colors.white,
+                    },
+                  },
+                ]}
+                onClick={handleViewDeckClick}
+              >
                 View the deck
               </ArrowButton>
             </div>

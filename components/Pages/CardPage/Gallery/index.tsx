@@ -10,6 +10,7 @@ import { useCardPageContext } from "../CardPageContext";
 
 /** Placeholder for empty photo slots */
 const PLACEHOLDER_COLOR = "#E5E5E5";
+const PLACEHOLDER_COLOR_DARK = "#212121";
 
 /** Fade in animation */
 const fadeIn = keyframes`
@@ -146,10 +147,11 @@ interface PhotoSlotProps {
   src?: string | null;
   gridColumn: string;
   gridRow?: string;
+  dark?: boolean;
 }
 
 /** Photo slot - shows image with fade-in or gray placeholder */
-const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow }) => {
+const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark }) => {
   const [loaded, setLoaded] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(src);
 
@@ -170,9 +172,11 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow }) => {
     ...(gridRow && { gridRow }),
   };
 
+  const placeholderColor = dark ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR;
+
   if (src) {
     return (
-      <div css={[baseStyles, { backgroundColor: PLACEHOLDER_COLOR, position: "relative" as const }]}>
+      <div css={[baseStyles, { backgroundColor: placeholderColor, position: "relative" as const }]}>
         <img
           css={[
             baseStyles,
@@ -192,7 +196,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow }) => {
     );
   }
 
-  return <div css={[baseStyles, { backgroundColor: PLACEHOLDER_COLOR }]} />;
+  return <div css={[baseStyles, { backgroundColor: placeholderColor }]} />;
 };
 
 /**
@@ -201,7 +205,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow }) => {
  * Empty slots show gray placeholder
  */
 const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  const { artistSlug, sortedCards } = useCardPageContext();
+  const { artistSlug, sortedCards, deckId } = useCardPageContext();
 
   // Find current card from sorted cards (instant update on navigation)
   const card = useMemo(() => {
@@ -223,7 +227,7 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       css={(theme) => [
         {
-          background: theme.colors.soft_gray,
+          background: deckId === "crypto" ? "#292929" : theme.colors.soft_gray,
           paddingTop: 60,
           paddingBottom: 120,
           rowGap: 60,
@@ -241,7 +245,13 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <ArrowedButton>Gallery</ArrowedButton>
+        <ArrowedButton
+          css={(theme) => ({
+            color: theme.colors[deckId === "crypto" ? "white75" : "black"],
+          })}
+        >
+          Gallery
+        </ArrowedButton>
       </ScandiBlock>
 
       <ScandiBlock
@@ -254,17 +264,23 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Text typography="paragraphBig" css={[{ paddingBottom: 120 }]}>
+        <Text
+          typography="paragraphBig"
+          css={(theme) => ({
+            paddingBottom: 120,
+            color: theme.colors[deckId === "crypto" ? "white75" : "black"],
+          })}
+        >
           Photos of the physical card and artwork details.
         </Text>
       </ScandiBlock>
 
       <Grid css={{ gridColumn: "1/-1", gap: 30 }}>
         {/* Top left - additional photo 1 */}
-        <PhotoSlot src={additionalPhotos[0]} gridColumn="span 3" />
+        <PhotoSlot src={additionalPhotos[0]} gridColumn="span 3" dark={deckId === "crypto"} />
 
         {/* Center - main photo (large, spans 2 rows) */}
-        <PhotoSlot src={mainPhoto} gridColumn="span 6" gridRow="span 2" />
+        <PhotoSlot src={mainPhoto} gridColumn="span 6" gridRow="span 2" dark={deckId === "crypto"} />
 
         {/* Top right - card preview with flip on click */}
         <div
@@ -273,7 +289,7 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             width: "100%",
             borderRadius: 15,
             gridColumn: "span 3",
-            backgroundColor: PLACEHOLDER_COLOR,
+            backgroundColor: deckId === "crypto" ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -288,10 +304,10 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </div>
 
         {/* Bottom left - additional photo 3 */}
-        <PhotoSlot src={additionalPhotos[2]} gridColumn="span 3" />
+        <PhotoSlot src={additionalPhotos[2]} gridColumn="span 3" dark={deckId === "crypto"} />
 
         {/* Bottom right - additional photo 4 */}
-        <PhotoSlot src={additionalPhotos[3]} gridColumn="span 3" />
+        <PhotoSlot src={additionalPhotos[3]} gridColumn="span 3" dark={deckId === "crypto"} />
       </Grid>
     </Grid>
   );

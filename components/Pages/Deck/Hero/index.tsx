@@ -367,7 +367,11 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
               },
             ]}
           >
-            <Text>
+            <Text
+              css={(theme) => [
+                palette === "dark" && { color: theme.colors.white75 },
+              ]}
+            >
               Released in 2013, Edition One brought together 55 visionary
               artists from around the globe to transform a deck of cards into a
               stunning blend of art and play.
@@ -390,10 +394,22 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                     },
                   ]}
                 >
-                  <Text typography="newh3">
+                  <Text
+                    typography="newh3"
+                    css={(theme) => [
+                      palette === "dark" && { color: theme.colors.white75 },
+                    ]}
+                  >
                     <AnimatedNumber value={data[0]} startAnimation={showStory} duration={1500} />
                   </Text>
-                  <Text typography="newh4">{data[1]}</Text>
+                  <Text
+                    typography="newh4"
+                    css={(theme) => [
+                      palette === "dark" && { color: theme.colors.white75 },
+                    ]}
+                  >
+                    {data[1]}
+                  </Text>
                 </div>
               ))}
             </Grid>
@@ -406,8 +422,14 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
               },
             ]}
           >
-            <KickStarterLine />
-            <Text typography="paragraphSmall" css={[{ marginTop: 30 }]}>
+            <KickStarterLine css={palette === "dark" ? { color: "white", opacity: 0.75 } : undefined} />
+            <Text
+              typography="paragraphSmall"
+              css={(theme) => [
+                { marginTop: 30 },
+                palette === "dark" && { color: theme.colors.white75 },
+              ]}
+            >
               Backed by over 1,000 supporters on Kickstarter and funded in less
               than an hour, Edition One quickly became a favorite among
               collectors and art enthusiasts worldwide.

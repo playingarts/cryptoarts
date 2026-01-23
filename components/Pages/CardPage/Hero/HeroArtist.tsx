@@ -115,6 +115,9 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
   return (
     <ScandiBlock id={sectionId} css={{ paddingTop: 15, display: "block" }} style={style}>
       <ArrowedButton
+        css={(theme) => ({
+          color: theme.colors[dark ? "white75" : "black"],
+        })}
         onClick={() =>
           document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" })
         }
@@ -148,7 +151,12 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
                 }
               }
             >
-              <Text typography="paragraphSmall">
+              <Text
+                typography="paragraphSmall"
+                css={(theme) => ({
+                  color: theme.colors[dark ? "white75" : "black"],
+                })}
+              >
                 {artist.info ?? "..."}
               </Text>
             </div>
@@ -158,7 +166,16 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
                 noColor
                 base
                 onClick={() => setInfoExpanded(true)}
-                css={{ marginTop: 15 }}
+                css={(theme) => [
+                  { marginTop: 15, color: theme.colors.black },
+                  dark && {
+                    color: "#FFFFFFBF",
+                    transition: "color 0.2s ease",
+                    "&:hover": {
+                      color: theme.colors.white,
+                    },
+                  },
+                ]}
               >
                 Continue reading
               </ArrowButton>

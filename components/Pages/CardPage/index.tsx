@@ -37,7 +37,11 @@ const CardPageAR: FC<{ deckId?: string }> = ({ deckId }) => {
 /** Header with card page navigation links */
 const CardPageHeader: FC<{ deckId?: string }> = ({ deckId }) => {
   // Card page has its own navigation: Card, Artist, Gallery, Related, Reviews, FAQ
-  return <Header links={["Card", "Artist", "Gallery", "Related", "Reviews", "FAQ"]} />;
+  // Crypto deck has no gallery or reviews section
+  const links = deckId === "crypto"
+    ? ["Card", "Artist", "Related", "FAQ"]
+    : ["Card", "Artist", "Gallery", "Related", "Reviews", "FAQ"];
+  return <Header links={links} />;
 };
 
 interface CardPageProps {
@@ -152,10 +156,12 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
         <Hero ssrCard={effectiveSsrCard} />
       </div>
 
-      {/* Gallery section - lazy load on scroll */}
-      <LazySection id="gallery" rootMargin="300px" minHeight={600}>
-        <CardGallery />
-      </LazySection>
+      {/* Gallery section - lazy load on scroll (not shown for crypto) */}
+      {effectiveDeckId !== "crypto" && (
+        <LazySection id="gallery" rootMargin="300px" minHeight={600}>
+          <CardGallery />
+        </LazySection>
+      )}
 
       {/* Related cards from deck - lazy load on scroll */}
       <LazySection
@@ -172,10 +178,12 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
         <CardPageAR deckId={effectiveDeckId} />
       </LazySection>
 
-      {/* Reviews section - lazy load on scroll */}
-      <LazySection id="reviews" rootMargin="300px" minHeight={400}>
-        <Testimonials deckSlug={effectiveDeckId} />
-      </LazySection>
+      {/* Reviews section - lazy load on scroll (not shown for crypto) */}
+      {effectiveDeckId !== "crypto" && (
+        <LazySection id="reviews" rootMargin="300px" minHeight={400}>
+          <Testimonials deckSlug={effectiveDeckId} />
+        </LazySection>
+      )}
 
       {/* FAQ section - lazy load on scroll */}
       <LazySection id="faq" rootMargin="300px" minHeight={600}>

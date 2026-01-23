@@ -214,6 +214,7 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
         paragraphText="All your questions, dealt."
         linkNewText="Read full FAQ"
         titleAsText
+        palette={palette}
         beforeLinkNew={
           <ButtonTemplate
             bordered={true}
@@ -276,6 +277,7 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
               key={item}
               question={item}
               answer={FAQ_DATA[item as keyof typeof FAQ_DATA]}
+              palette={palette}
             />
           ))}
         </div>

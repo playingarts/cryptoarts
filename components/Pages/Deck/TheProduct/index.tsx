@@ -64,7 +64,13 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <ArrowedButton>The product</ArrowedButton>
+        <ArrowedButton
+          css={(theme) => ({
+            color: theme.colors[palette === "dark" ? "white75" : "black"],
+          })}
+        >
+          The product
+        </ArrowedButton>
         <img
           src={product && product.image2}
           alt={product?.title ? `${product.title} deck` : "Playing Arts deck"}
@@ -84,9 +90,21 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Text css={[{ marginBottom: 30 }]}>A masterpiece you can hold</Text>
+        <Text
+          css={(theme) => ({
+            marginBottom: 30,
+            color: theme.colors[palette === "dark" ? "white75" : "black"],
+          })}
+        >
+          A masterpiece you can hold
+        </Text>
         <div>
-          <Text typography="paragraphBig">
+          <Text
+            typography="paragraphBig"
+            css={(theme) => ({
+              color: theme.colors[palette === "dark" ? "white75" : "black"],
+            })}
+          >
             Carefully crafted on legendary Bicycle® paper for unparalleled
             artistry and tactile quality.
           </Text>

@@ -17,6 +17,8 @@ const Intro: FC<
     bottom?: JSX.Element;
     /** If true, title is plain text without pointer cursor */
     titleAsText?: boolean;
+    /** Color palette - affects text colors */
+    palette?: "light" | "dark";
   }
 > = ({
   arrowedText,
@@ -26,6 +28,7 @@ const Intro: FC<
   bottom,
   beforeLinkNew,
   titleAsText = false,
+  palette = "light",
   ...props
 }) => (
   <Grid
@@ -36,12 +39,24 @@ const Intro: FC<
       css={[{ gridColumn: "span 6", paddingTop: 15, alignItems: "start" }]}
     >
       {titleAsText ? (
-        <Text css={{ display: "flex", alignItems: "center" }}>
+        <Text
+          css={(theme) => ({
+            display: "flex",
+            alignItems: "center",
+            color: theme.colors[palette === "dark" ? "white75" : "black"],
+          })}
+        >
           <IconArrow css={{ marginRight: 10 }} />
           {arrowedText}
         </Text>
       ) : (
-        <ArrowedButton>{arrowedText}</ArrowedButton>
+        <ArrowedButton
+          css={(theme) => ({
+            color: theme.colors[palette === "dark" ? "white75" : "black"],
+          })}
+        >
+          {arrowedText}
+        </ArrowedButton>
       )}
     </ScandiBlock>
     <ScandiBlock
@@ -56,18 +71,39 @@ const Intro: FC<
       ]}
     >
       <div>
-        <Text typography="paragraphBig">{paragraphText}</Text>
+        <Text
+          typography="paragraphBig"
+          css={(theme) => ({
+            color: theme.colors[palette === "dark" ? "white75" : "black"],
+          })}
+        >
+          {paragraphText}
+        </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
           {beforeLinkNew}
           {linkNewText && (
             linkNewHref ? (
               <Link href={linkNewHref} target="_blank" rel="noopener noreferrer">
-                <ArrowButton size="small" base={true} noColor={true}>
+                <ArrowButton
+                  size="small"
+                  base={true}
+                  noColor={true}
+                  css={(theme) => ({
+                    color: theme.colors[palette === "dark" ? "white75" : "black"],
+                  })}
+                >
                   {linkNewText}
                 </ArrowButton>
               </Link>
             ) : (
-              <ArrowButton size="small" base={true} noColor={true}>
+              <ArrowButton
+                size="small"
+                base={true}
+                noColor={true}
+                css={(theme) => ({
+                  color: theme.colors[palette === "dark" ? "white75" : "black"],
+                })}
+              >
                 {linkNewText}
               </ArrowButton>
             )

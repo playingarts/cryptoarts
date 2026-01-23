@@ -3,8 +3,8 @@ import Dot from "../../../Icons/Dot";
 import Text from "../../../Text";
 
 const Item: FC<
-  HTMLAttributes<HTMLElement> & { question: string; answer: string | ReactNode }
-> = ({ question, answer, ...props }) => {
+  HTMLAttributes<HTMLElement> & { question: string; answer: string | ReactNode; palette?: "light" | "dark" }
+> = ({ question, answer, palette = "light", ...props }) => {
   const [opened, setOpened] = useState(false);
   const [hover, setHover] = useState(false);
 
@@ -14,7 +14,13 @@ const Item: FC<
         onClick={() => setOpened(!opened)}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        css={{ cursor: "pointer", display: "flex", alignItems: "center", fontSize: 20 }}
+        css={(theme) => ({
+          cursor: "pointer",
+          display: "flex",
+          alignItems: "center",
+          fontSize: 20,
+          color: theme.colors[palette === "dark" ? "white75" : "black"],
+        })}
         typography="newh4"
       >
         <Dot
@@ -38,7 +44,14 @@ const Item: FC<
           marginTop: opened ? 15 : 0,
         }}
       >
-        <Text typography="paragraphSmall" css={{ paddingBottom: 15, maxWidth: 520 }}>
+        <Text
+          typography="paragraphSmall"
+          css={(theme) => ({
+            paddingBottom: 15,
+            maxWidth: 520,
+            color: theme.colors[palette === "dark" ? "white75" : "black"],
+          })}
+        >
           {answer}
         </Text>
       </div>

@@ -104,7 +104,10 @@ const HeroDeck: FC<HeroDeckProps> = ({
       css={{ paddingTop: 15, marginTop: 60, display: "block" }}
     >
       <ArrowedButton
-        css={{ display: "block" }}
+        css={(theme) => ({
+          display: "block",
+          color: theme.colors[dark ? "white75" : "black"],
+        })}
         onClick={() =>
           document.getElementById("the-deck")?.scrollIntoView({ behavior: "smooth" })
         }
@@ -127,20 +130,39 @@ const HeroDeck: FC<HeroDeckProps> = ({
         />
       )}
 
-      <Text css={{ marginTop: 30 }}>
+      <Text
+        css={(theme) => ({
+          marginTop: 30,
+          color: theme.colors[dark ? "white75" : "black"],
+        })}
+      >
         {deck.info}
       </Text>
 
       <div css={{ display: "flex", alignItems: "center", gap: 30, marginTop: 30 }}>
         <Link href={shopUrl}>
-          <ArrowButton color="dark_gray" css={{ fontSize: 20 }}>
+          <ArrowButton color={dark ? "accent" : "dark_gray"} css={{ fontSize: 20 }}>
             Shop {editionDisplayName && deck.slug === "future"
               ? `Future ${editionDisplayName}`
               : deck.title}
           </ArrowButton>
         </Link>
         <Link href={deckUrl}>
-          <ArrowButton size="small" noColor base>
+          <ArrowButton
+            size="small"
+            noColor
+            base
+            css={(theme) => [
+              { color: theme.colors.black },
+              dark && {
+                color: "#FFFFFFBF",
+                transition: "color 0.2s ease",
+                "&:hover": {
+                  color: theme.colors.white,
+                },
+              },
+            ]}
+          >
             View the deck
           </ArrowButton>
         </Link>
