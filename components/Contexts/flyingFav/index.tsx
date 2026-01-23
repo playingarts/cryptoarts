@@ -51,9 +51,9 @@ export const FlyingFavProvider: FC<HTMLAttributes<HTMLElement>> = ({ children })
 };
 
 const FlyingStarAnimation: FC<{ startX: number; startY: number }> = ({ startX, startY }) => {
-  // Target is the floating fav button (right: 10px, top: 50%)
-  const endX = typeof window !== "undefined" ? window.innerWidth - 10 - 30 : 0; // right edge - margin - half button width
-  const endY = typeof window !== "undefined" ? window.innerHeight / 2 : 0;
+  // Target is the floating fav button (right: 30px, bottom: 30px, 60x60 button)
+  const endX = typeof window !== "undefined" ? window.innerWidth - 30 - 30 : 0; // right edge - margin - half button width
+  const endY = typeof window !== "undefined" ? window.innerHeight - 30 - 30 : 0; // bottom edge - margin - half button height
 
   return (
     <div
@@ -72,11 +72,11 @@ const FlyingStarAnimation: FC<{ startX: number; startY: number }> = ({ startX, s
             opacity: 1,
           },
           "50%": {
-            transform: `translate(${(endX - startX) * 0.5 - 50}px, ${(endY - startY) * 0.5 - 100}px) scale(1.5)`,
+            transform: `translate(${(endX - startX) * 0.5}px, ${(endY - startY) * 0.5 - 50}px) scale(1.5)`,
             opacity: 1,
           },
           "100%": {
-            transform: `translate(${endX - startX - 50}px, ${endY - startY - 50}px) scale(0.5)`,
+            transform: `translate(${endX - startX}px, ${endY - startY}px) scale(0.5)`,
             opacity: 0,
           },
         },

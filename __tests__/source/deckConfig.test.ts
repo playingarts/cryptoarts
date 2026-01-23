@@ -37,7 +37,7 @@ describe("source/deckConfig", () => {
         showGallery: false,
         hasAR: true,
         showPACE: true,
-        sections: ["PACE", "AR"],
+        sections: ["PACE", "AR", "FAQ"],
       });
     });
 
@@ -49,7 +49,7 @@ describe("source/deckConfig", () => {
       expect(config.showTestimonials).toBe(false);
       expect(config.showGallery).toBe(false);
       expect(config.showPACE).toBe(true);
-      expect(config.sections).toEqual(["PACE", "AR"]);
+      expect(config.sections).toEqual(["PACE", "AR", "FAQ"]);
     });
 
     it("returns consistent config structure", () => {
