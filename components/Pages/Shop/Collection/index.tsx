@@ -1,4 +1,4 @@
-import { FC, Fragment, HTMLAttributes, useState, useEffect, useMemo, useRef, useCallback } from "react";
+import { FC, Fragment, HTMLAttributes, useState, useEffect, useMemo, useCallback } from "react";
 import Grid from "../../../Grid";
 import { useProducts } from "../../../../hooks/product";
 import { useRatings } from "../../../../hooks/ratings";
@@ -154,8 +154,6 @@ const RotatingReview: FC = () => {
   const { ratings } = useRatings({ variables: { shuffle: true, limit: 20 } });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Get a random starting index on mount
   const shuffledRatings = useMemo(() => {
@@ -182,30 +180,18 @@ const RotatingReview: FC = () => {
       });
       setIsVisible(true);
     }, 300);
-
-    // Pause auto-rotation for 15 seconds after manual navigation
-    setIsPaused(true);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setIsPaused(false), 15000);
   }, [shuffledRatings.length]);
 
   // Auto-rotate every 10 seconds with fade transition
   useEffect(() => {
-    if (shuffledRatings.length === 0 || isPaused) return;
+    if (shuffledRatings.length === 0) return;
 
     const interval = setInterval(() => {
       navigateTo(1);
     }, REVIEW_ROTATION_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [shuffledRatings.length, isPaused, navigateTo]);
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
+  }, [shuffledRatings.length, navigateTo]);
 
   const currentReview = shuffledRatings[currentIndex];
 

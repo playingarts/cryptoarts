@@ -11,7 +11,6 @@ import { useCardPageContext } from "../CardPageContext";
 const ITEM_WIDTH = 300;
 const ITEM_GAP = 30;
 const AUTO_SCROLL_INTERVAL = 4000; // 4 seconds between auto-scrolls
-const AUTO_SCROLL_PAUSE = 3000; // 3 seconds pause after user interaction
 const SKELETON_COUNT = 6;
 
 /** Skeleton card for loading state - matches cardSizesHover.preview (285x400) */
@@ -39,8 +38,6 @@ const CardSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
 const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Use context instead of separate queries - eliminates 3 duplicate fetches
   const { deck, sortedCards, artistSlug, deckId } = useCardPageContext();
@@ -162,42 +159,16 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     });
   }, []);
 
-  // Pause auto-scroll temporarily after user interaction
-  const pauseAutoScroll = useCallback(() => {
-    setIsPaused(true);
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = setTimeout(() => {
-      setIsPaused(false);
-    }, AUTO_SCROLL_PAUSE);
-  }, []);
-
   // Auto-scroll effect
   useEffect(() => {
-    if (!shuffledCards || shuffledCards.length === 0 || isPaused) return;
+    if (!shuffledCards || shuffledCards.length === 0) return;
 
     const interval = setInterval(() => {
       scrollByItem(1);
     }, AUTO_SCROLL_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [shuffledCards, isPaused, scrollByItem]);
-
-  // Cleanup pause timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    };
-  }, []);
-
-  // Handle hover pause
-  const handleMouseEnter = useCallback(() => setIsPaused(true), []);
-  const handleMouseLeave = useCallback(() => setIsPaused(false), []);
-
-  // Handle arrow click with pause
-  const handleArrowClick = useCallback((direction: 1 | -1) => {
-    pauseAutoScroll();
-    scrollByItem(direction);
-  }, [pauseAutoScroll, scrollByItem]);
+  }, [shuffledCards, scrollByItem]);
 
   return (
     <>
@@ -229,7 +200,7 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                     rotate: "180deg",
                   },
                 ]}
-                onClick={() => handleArrowClick(-1)}
+                onClick={() => scrollByItem(-1)}
               />
               <NavButton
                 css={
@@ -239,7 +210,7 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                     },
                   ]
                 }
-                onClick={() => handleArrowClick(1)}
+                onClick={() => scrollByItem(1)}
               />
             </div>
           }
@@ -247,8 +218,6 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       </Grid>
       <div
         ref={scrollRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         css={(theme) => [
           {
             background:
