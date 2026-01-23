@@ -17,7 +17,7 @@ const pulseAnimation = keyframes`
 const FloatingFavButton: FC = () => {
   const router = useRouter();
   const { favorites } = useFavorites();
-  const { onFlyComplete } = useFlyingFav();
+  const { onFlyComplete, isPopupOpen } = useFlyingFav();
   const [isAnimating, setIsAnimating] = useState(false);
 
   // Count total valid favorite cards across all decks
@@ -52,18 +52,22 @@ const FloatingFavButton: FC = () => {
         width: 60,
         height: 60,
         borderRadius: "50%",
-        backgroundColor: theme.colors.accent,
+        backgroundColor: isPopupOpen ? theme.colors.white : theme.colors.accent,
         border: "none",
         cursor: "pointer",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         zIndex: 99999,
-        boxShadow: "0 4px 20px rgba(106, 90, 205, 0.4)",
-        transition: "transform 0.2s ease, box-shadow 0.2s ease",
+        boxShadow: isPopupOpen
+          ? "0 4px 20px rgba(0, 0, 0, 0.2)"
+          : "0 4px 20px rgba(106, 90, 205, 0.4)",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease",
         "&:hover": {
           transform: "scale(1.05)",
-          boxShadow: "0 6px 30px rgba(106, 90, 205, 0.5)",
+          boxShadow: isPopupOpen
+            ? "0 6px 30px rgba(0, 0, 0, 0.3)"
+            : "0 6px 30px rgba(106, 90, 205, 0.5)",
         },
         "&:active": {
           transform: "scale(0.98)",
@@ -75,11 +79,11 @@ const FloatingFavButton: FC = () => {
       aria-label="Favorites"
     >
       <Star
-        css={{
+        css={(theme) => ({
           width: 30,
           height: 30,
-          color: "white",
-        }}
+          color: isPopupOpen ? theme.colors.accent : "white",
+        })}
       />
     </Link>
   );

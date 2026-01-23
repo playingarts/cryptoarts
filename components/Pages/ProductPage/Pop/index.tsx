@@ -9,6 +9,7 @@ import Plus from "../../../Icons/Plus";
 import Label from "../../../Label";
 import Link from "../../../Link";
 import Text from "../../../Text";
+import { useFlyingFav } from "../../../Contexts/flyingFav";
 
 const CustomMiddle: FC<{
   productState: GQL.Product;
@@ -69,14 +70,21 @@ const Pop: FC<
     onViewBag?: () => void;
   }
 > = ({ close, product, show = true, onViewBag, ...props }) => {
-  // Lock body scroll when popup is open
+  const { setPopupOpen } = useFlyingFav();
+
+  // Lock body scroll and notify floating button when popup is open
   useEffect(() => {
     if (show) {
       document.body.style.overflow = "hidden";
+      setPopupOpen(true);
     } else {
       document.body.style.overflow = "";
+      setPopupOpen(false);
     }
-  }, [show]);
+    return () => {
+      setPopupOpen(false);
+    };
+  }, [show, setPopupOpen]);
 
   const [productState, setProductState] = useState<GQL.Product>();
   useEffect(() => {

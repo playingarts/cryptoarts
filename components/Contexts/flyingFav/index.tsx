@@ -5,11 +5,15 @@ import { FC, HTMLAttributes, createContext, useContext, useState, useCallback, u
 interface FlyingFavContextType {
   triggerFly: (startX: number, startY: number) => void;
   onFlyComplete: (callback: () => void) => void;
+  isPopupOpen: boolean;
+  setPopupOpen: (open: boolean) => void;
 }
 
 const FlyingFavContext = createContext<FlyingFavContextType>({
   triggerFly: () => {},
   onFlyComplete: () => {},
+  isPopupOpen: false,
+  setPopupOpen: () => {},
 });
 
 export const useFlyingFav = () => useContext(FlyingFavContext);
@@ -22,6 +26,7 @@ interface FlyingStar {
 
 export const FlyingFavProvider: FC<HTMLAttributes<HTMLElement>> = ({ children }) => {
   const [flyingStars, setFlyingStars] = useState<FlyingStar[]>([]);
+  const [isPopupOpen, setPopupOpen] = useState(false);
   const flyCompleteCallbackRef = useRef<(() => void) | null>(null);
 
   const triggerFly = useCallback((startX: number, startY: number) => {
@@ -40,7 +45,7 @@ export const FlyingFavProvider: FC<HTMLAttributes<HTMLElement>> = ({ children })
   }, []);
 
   return (
-    <FlyingFavContext.Provider value={{ triggerFly, onFlyComplete }}>
+    <FlyingFavContext.Provider value={{ triggerFly, onFlyComplete, isPopupOpen, setPopupOpen }}>
       {children}
       {/* Render flying stars */}
       {flyingStars.map((star) => (

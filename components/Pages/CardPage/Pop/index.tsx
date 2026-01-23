@@ -279,15 +279,18 @@ const Pop: FC<
   const [currentDeckId, setCurrentDeckId] = useState(deckId);
   const [currentCardId, setCurrentCardId] = useState<string | undefined>(initialCardId);
   const router = useRouter();
+  const { setPopupOpen } = useFlyingFav();
 
-  // Lock body scroll when popup is open
+  // Lock body scroll and notify floating button when popup is open
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    setPopupOpen(true);
     return () => {
       document.body.style.overflow = originalOverflow;
+      setPopupOpen(false);
     };
-  }, []);
+  }, [setPopupOpen]);
 
   // Prefetch card page bundle when popup opens - makes navigation instant
   useEffect(() => {
