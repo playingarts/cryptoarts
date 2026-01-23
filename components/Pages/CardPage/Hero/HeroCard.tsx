@@ -1,6 +1,6 @@
 "use client";
 
-import { FC, useMemo } from "react";
+import { FC, useState, useEffect } from "react";
 import FlippableCard from "../../../Card/FlippableCard";
 import { SSRCardProps } from "../../../../pages/[deckId]/[artistSlug]";
 import Shimmer from "./Shimmer";
@@ -39,8 +39,27 @@ const HeroCardSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
  * P0: Hero card image - displays instantly from ssrCard.
  * Shows skeleton until card data is available.
  * Animates with slideDown effect matching the Pop window.
+ * Flips 360° once when user starts scrolling.
  */
 const HeroCard: FC<HeroCardProps> = ({ card, backsideCard, dark }) => {
+  const [flipTrigger, setFlipTrigger] = useState(0);
+
+  // Flip card once when user starts scrolling
+  useEffect(() => {
+    let hasFlipped = false;
+
+    const handleScroll = () => {
+      if (!hasFlipped && window.scrollY > 50) {
+        hasFlipped = true;
+        setFlipTrigger((prev) => prev + 1);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   if (!card) {
     return <HeroCardSkeleton dark={dark} />;
   }
@@ -62,6 +81,7 @@ const HeroCard: FC<HeroCardProps> = ({ card, backsideCard, dark }) => {
         backsideCard={backsideCard}
         autoPlayVideo={!!card.video}
         priority
+        flipTrigger={flipTrigger}
         css={{ margin: "auto" }}
       />
     </div>

@@ -22,6 +22,7 @@ const FloatingFavButton: FC = () => {
   const { favorites } = useFavorites();
   const { onFlyComplete, isPopupOpen } = useFlyingFav();
   const [isBouncing, setIsBouncing] = useState(false);
+  const [hasClicked, setHasClicked] = useState(false);
 
   // Count total valid favorite cards across all decks
   const totalFavorites = useMemo(() => {
@@ -40,9 +41,9 @@ const FloatingFavButton: FC = () => {
     });
   }, [onFlyComplete]);
 
-  // Periodic bounce animation every 30 seconds
+  // Periodic bounce animation every 30 seconds (stops after user clicks)
   useEffect(() => {
-    if (totalFavorites === 0) return;
+    if (totalFavorites === 0 || hasClicked) return;
 
     const interval = setInterval(() => {
       setIsBouncing(true);
@@ -50,7 +51,7 @@ const FloatingFavButton: FC = () => {
     }, 30000);
 
     return () => clearInterval(interval);
-  }, [totalFavorites]);
+  }, [totalFavorites, hasClicked]);
 
   // Hide on favorites page, bag page, or if no favorites
   if (router.pathname === "/favorites" || router.pathname === "/bag" || totalFavorites === 0) {
@@ -60,6 +61,7 @@ const FloatingFavButton: FC = () => {
   return (
     <Link
       href="/favorites"
+      onClick={() => setHasClicked(true)}
       css={(theme) => ({
         position: "fixed",
         right: 15,

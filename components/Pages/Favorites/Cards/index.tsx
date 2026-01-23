@@ -16,6 +16,7 @@ import { useCardsByIds } from "../../../../hooks/card";
 import Card from "../../../Card";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../../CardPage/Pop";
+import Link from "../../../Link";
 
 // Deck slug sort order: Zero, One, Two, Three, Special, Future I, Future II, Crypto (same as menu)
 const deckSortOrder: Record<string, number> = {
@@ -131,7 +132,9 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
     <div>
       <Grid>
         <ScandiBlock css={[{ gridColumn: "span 6" }]}>
-          <ArrowedButton>{sectionTitle}</ArrowedButton>
+          <Link href={`/${deck.slug}`}>
+            <ArrowedButton>{sectionTitle}</ArrowedButton>
+          </Link>
         </ScandiBlock>
         <ScandiBlock css={[{ gridColumn: "span 6", gap: 30 }]}>
           {deck.product && (

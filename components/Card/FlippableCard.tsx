@@ -1,4 +1,4 @@
-import { FC, useState, useCallback } from "react";
+import { FC, useState, useCallback, useEffect } from "react";
 import { Interpolation, Theme } from "@emotion/react";
 import Card, { CardProps } from "./index";
 import { cardSizesHover } from "./sizes";
@@ -16,6 +16,8 @@ interface FlippableCardProps extends Omit<CardProps, "card"> {
   css?: Interpolation<Theme>;
   /** Palette for dark/light theming */
   palette?: PaletteProps["palette"];
+  /** Trigger a flip externally (increment to flip) */
+  flipTrigger?: number;
 }
 
 /**
@@ -34,6 +36,7 @@ const FlippableCard: FC<FlippableCardProps> = ({
   noArtist,
   noLink,
   palette,
+  flipTrigger,
   css: externalCss,
   ...props
 }) => {
@@ -54,6 +57,13 @@ const FlippableCard: FC<FlippableCardProps> = ({
     // Add 360 degrees to current rotation
     setRotation((prev) => prev + 360);
   }, [backsideCard]);
+
+  // External flip trigger
+  useEffect(() => {
+    if (flipTrigger && flipTrigger > 0 && backsideCard) {
+      setRotation((prev) => prev + 360);
+    }
+  }, [flipTrigger, backsideCard]);
 
   // Always render the same structure to prevent re-mount flashes
   // when backsideCard loads asynchronously

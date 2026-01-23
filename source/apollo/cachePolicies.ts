@@ -204,6 +204,61 @@ export const typePolicies: TypePolicies = {
         },
       },
       /**
+       * CardsByIds cache policy: Resolves cards from normalized cache by IDs.
+       * If all requested cards exist in cache (from deck/card page visits),
+       * returns them instantly without network request.
+       */
+      cardsByIds: {
+        read: (refs, { args, toReference, cache }) => {
+          if (!args || !args.ids || args.ids.length === 0) {
+            return refs;
+          }
+
+          const ids: string[] = args.ids;
+          const cachedCards: (GQL.Card | null)[] = [];
+
+          for (const id of ids) {
+            const reference = toReference({
+              __typename: "Card",
+              _id: id,
+            });
+
+            if (!reference) {
+              // Card not in cache, fall back to network
+              return refs;
+            }
+
+            // Read the card from cache - check if it has the required fields
+            const card = cache.readFragment<GQL.Card>({
+              id: reference.__ref,
+              fragment: gql`
+                fragment CardByIdFragment on Card {
+                  _id
+                  img
+                  video
+                  edition
+                  artist {
+                    name
+                    slug
+                    country
+                  }
+                }
+              `,
+            });
+
+            if (!card) {
+              // Card exists but missing required fields, fall back to network
+              return refs;
+            }
+
+            cachedCards.push(card);
+          }
+
+          // All cards found in cache with required fields
+          return cachedCards;
+        },
+      },
+      /**
        * Deck cache policy: Resolves deck from cache by slug
        * using DeckDataFragment to verify complete data.
        */

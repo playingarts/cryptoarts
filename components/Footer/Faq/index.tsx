@@ -6,7 +6,7 @@ import Grid from "../../Grid";
 import Item from "./Item";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useRouter } from "next/router";
-import { useCards } from "../../../hooks/card";
+import { useCardsForDeck } from "../../../hooks/card";
 import { useDecks } from "../../../hooks/deck";
 import Card from "../../Card";
 import MenuPortal from "../../Header/MainMenu/MenuPortal";
@@ -77,12 +77,12 @@ const FooterCards: FC<{ overrideDeckSlug?: string }> = ({ overrideDeckSlug }) =>
     return filteredDecks[Math.floor(Math.random() * filteredDecks.length)];
   }, [effectiveDeckSlug, decks]);
 
-  const randomDeckId = selectedDeck?._id;
+  const selectedDeckSlug = selectedDeck?.slug;
 
-  // Fetch cards from the selected deck
-  const { cards, loading } = useCards({
-    variables: { deck: randomDeckId },
-    skip: !randomDeckId,
+  // Fetch cards from the selected deck using deckSlug (shares cache with deck/card pages)
+  const { cards, loading } = useCardsForDeck({
+    variables: { deckSlug: selectedDeckSlug },
+    skip: !selectedDeckSlug,
   });
 
   // Popup state for card click
