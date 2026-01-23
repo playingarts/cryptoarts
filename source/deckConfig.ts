@@ -15,7 +15,7 @@ const defaultConfig: DeckConfig = {
   showGallery: true,
   hasAR: false,
   showPACE: false,
-  sections: ["Gallery", "Reviews"],
+  sections: ["About", "Gallery", "Reviews", "FAQ"],
 };
 
 const deckConfigs: Record<string, Partial<DeckConfig>> = {
@@ -25,12 +25,12 @@ const deckConfigs: Record<string, Partial<DeckConfig>> = {
     showGallery: false,
     hasAR: true,
     showPACE: true,
-    sections: ["PACE", "AR", "FAQ"],
+    sections: ["About", "PACE", "AR", "FAQ"],
   },
   zero: {
     hasAR: true,
     showPACE: false,
-    sections: ["Gallery", "Reviews", "AR"],
+    sections: ["About", "Gallery", "Reviews", "AR", "FAQ"],
   },
 };
 

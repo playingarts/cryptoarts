@@ -21,6 +21,8 @@ const About = dynamic(() => import("./About"), { ssr: false });
 const Collection = dynamic(() => import("./Collection"), { ssr: false });
 const Trust = dynamic(() => import("../Shop/Trust"), { ssr: false });
 const Bundles = dynamic(() => import("../Shop/Bundles"), { ssr: false });
+const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
+const FAQ = dynamic(() => import("../../Footer/Faq"), { ssr: false });
 
 export const convertToProductSlug = (short: string) => {
   return short.toLowerCase().split(" ").join("");
@@ -173,12 +175,20 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </LazySection>
       </div>
 
-      {/* Footer with reviews/FAQ */}
-      <div id="reviews">
-        <LazySection rootMargin="100px" minHeight={600}>
-          <Footer deckSlug={deckSlug} />
-        </LazySection>
-      </div>
+      {/* Reviews section */}
+      <LazySection id="reviews" rootMargin="100px" minHeight={500}>
+        <Testimonials />
+      </LazySection>
+
+      {/* FAQ section */}
+      <LazySection id="faq" rootMargin="100px" minHeight={600}>
+        <FAQ deckSlug={deckSlug} />
+      </LazySection>
+
+      {/* Footer (links, copyright, etc.) */}
+      <LazySection rootMargin="100px" minHeight={400}>
+        <Footer />
+      </LazySection>
     </>
   );
 };

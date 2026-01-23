@@ -20,6 +20,8 @@ const Gallery = dynamic(() => import("./Gallery"), { ssr: false });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
   ssr: false,
 });
+const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
+const FAQ = dynamic(() => import("../../Footer/Faq"), { ssr: false });
 const Footer = dynamic(() => import("../../Footer"), { ssr: false });
 
 /** Renders PACE section for decks with NFT stats */
@@ -55,13 +57,30 @@ const DeckGallery: FC<{ deckId?: string }> = ({ deckId }) => {
   );
 };
 
-/** Footer with Reviews and/or FAQ - LazySection ID matches first content section */
-const DeckFooter: FC<{ deckId?: string }> = ({ deckId }) => {
+/** Renders Reviews section for decks with testimonials */
+const DeckReviews: FC<{ deckId?: string }> = ({ deckId }) => {
   const config = getDeckConfig(deckId);
-  // Use "faq" as ID if no testimonials (crypto deck), otherwise "reviews"
-  const sectionId = config.showTestimonials ? "reviews" : "faq";
+  if (!config.showTestimonials) return null;
   return (
-    <LazySection id={sectionId} rootMargin="300px" minHeight={600}>
+    <LazySection id="reviews" rootMargin="300px" minHeight={600}>
+      <Testimonials deckSlug={deckId} />
+    </LazySection>
+  );
+};
+
+/** Renders FAQ section */
+const DeckFAQ: FC<{ deckId?: string }> = ({ deckId }) => {
+  return (
+    <LazySection id="faq" rootMargin="300px" minHeight={600}>
+      <FAQ deckSlug={deckId} />
+    </LazySection>
+  );
+};
+
+/** Renders actual footer (links, copyright, etc.) */
+const DeckFooter: FC = () => {
+  return (
+    <LazySection rootMargin="300px" minHeight={400}>
       <Footer />
     </LazySection>
   );
@@ -73,8 +92,10 @@ const DeckHeader: FC<{ deckId?: string }> = ({ deckId }) => {
   return (
     <Header
       links={[
-        ...["Cards", "Product"],
-        ...config.sections,
+        "About",
+        "Cards",
+        "Product",
+        ...config.sections.filter((s) => s !== "About"),
       ]}
     />
   );
@@ -111,8 +132,14 @@ const Deck: FC<DeckProps> = ({ heroCards, ...props }) => {
       <DeckAR deckId={deckSlug} />
       <DeckGallery deckId={deckSlug} />
 
-      {/* Footer - ID based on first section in footer (reviews or faq) */}
-      <DeckFooter deckId={deckSlug} />
+      {/* Reviews section - conditional based on deck config */}
+      <DeckReviews deckId={deckSlug} />
+
+      {/* FAQ section */}
+      <DeckFAQ deckId={deckSlug} />
+
+      {/* Footer (links, copyright, etc.) */}
+      <DeckFooter />
     </FutureChapterProvider>
   );
 };

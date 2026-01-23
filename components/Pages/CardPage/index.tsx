@@ -19,7 +19,7 @@ import { getDeckConfig } from "../../../source/deckConfig";
 const More = dynamic(() => import("./More"), { ssr: false });
 const CardGallery = dynamic(() => import("./Gallery"), { ssr: false });
 const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
-const FAQ = dynamic(() => import("../../Footer/NewFAQ"), { ssr: false });
+const FAQ = dynamic(() => import("../../Footer/Faq"), { ssr: false });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
   ssr: false,
 });
@@ -190,9 +190,9 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
         <FAQ />
       </LazySection>
 
-      {/* Footer - lazy load last (onlyFooter to skip duplicate Reviews/FAQ) */}
+      {/* Footer - lazy load last */}
       <LazySection rootMargin="100px" minHeight={400}>
-        <Footer onlyFooter />
+        <Footer />
       </LazySection>
     </CardPageProvider>
   );

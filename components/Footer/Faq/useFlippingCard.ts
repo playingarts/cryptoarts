@@ -173,8 +173,8 @@ export function useFlippingCard<T>({
     return () => clearTimeout(timeoutId);
   }, [cards.length, getRandomInterval]);
 
-  // Get the currently visible card
-  const currentCard = (rotationRef.current / 180) % 2 === 0 ? frontCard : backCard;
+  // Get the currently visible card (use rotation state, not ref, for reactivity)
+  const currentCard = (rotation / 180) % 2 === 0 ? frontCard : backCard;
 
   return {
     frontCard,

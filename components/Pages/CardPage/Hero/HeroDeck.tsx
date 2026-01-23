@@ -1,12 +1,23 @@
 "use client";
 
 import { FC, useEffect, useRef } from "react";
+import { keyframes } from "@emotion/react";
 import Text from "../../../Text";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Link from "../../../Link";
 import ScandiBlock from "../../../ScandiBlock";
-import Shimmer from "./Shimmer";
+
+const fadeInUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
 
 interface HeroDeckProps {
   deck?: GQL.Deck;
@@ -21,38 +32,10 @@ interface HeroDeckProps {
   loading?: boolean;
 }
 
-/** Skeleton for deck section */
-const HeroDeckSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
-  <ScandiBlock css={{ paddingTop: 15, marginTop: 60, display: "block" }}>
-    {/* "The deck" button skeleton */}
-    <Shimmer width={90} height={32} borderRadius={16} dark={dark} />
-
-    {/* Deck image skeleton */}
-    <Shimmer
-      width={300}
-      height={300}
-      borderRadius={8}
-      dark={dark}
-      style={{ marginTop: 30 }}
-    />
-
-    {/* Deck description skeleton */}
-    <div css={{ marginTop: 30, display: "flex", flexDirection: "column", gap: 8 }}>
-      <Shimmer height={18} width="80%" dark={dark} />
-      <Shimmer height={18} width="60%" dark={dark} />
-    </div>
-
-    {/* Buttons skeleton */}
-    <div css={{ display: "flex", gap: 30, marginTop: 30 }}>
-      <Shimmer width={150} height={44} borderRadius={22} dark={dark} />
-      <Shimmer width={130} height={44} borderRadius={22} dark={dark} />
-    </div>
-  </ScandiBlock>
-);
-
 /**
  * P3: The Deck section - loads after card info.
  * Shows deck image, description, and navigation links.
+ * No skeleton - content fades in when loaded.
  */
 const HeroDeck: FC<HeroDeckProps> = ({
   deck,
@@ -66,6 +49,7 @@ const HeroDeck: FC<HeroDeckProps> = ({
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const hasTriggeredRef = useRef(false);
+  const isLoaded = !loading && deck;
 
   // Intersection Observer to trigger loading
   useEffect(() => {
@@ -89,20 +73,19 @@ const HeroDeck: FC<HeroDeckProps> = ({
     return () => observer.disconnect();
   }, [onVisible]);
 
-  // Show skeleton while loading or no data
-  if (loading || !deck) {
-    return (
-      <div ref={ref}>
-        <HeroDeckSkeleton dark={dark} />
-      </div>
-    );
-  }
-
   return (
-    <ScandiBlock
-      id="the-deck"
-      css={{ paddingTop: 15, marginTop: 60, display: "block" }}
+    <div
+      ref={ref}
+      css={{
+        opacity: isLoaded ? 1 : 0,
+        transform: isLoaded ? "translateY(0)" : "translateY(20px)",
+        animation: isLoaded ? `${fadeInUp} 0.4s ease-out` : "none",
+      }}
     >
+      <ScandiBlock
+        id="the-deck"
+        css={{ paddingTop: 15, marginTop: 60, display: "block" }}
+      >
       <ArrowedButton
         css={(theme) => ({
           display: "block",
@@ -115,61 +98,65 @@ const HeroDeck: FC<HeroDeckProps> = ({
         The deck
       </ArrowedButton>
 
-      {deckImage && (
-        <img
-          src={deckImage}
-          alt={
-            deck.title
-              ? editionDisplayName && deck.slug === "future"
-                ? `Future ${editionDisplayName} deck`
-                : `${deck.title}${editionDisplayName ? ` ${editionDisplayName}` : ""} deck`
-              : "Deck"
-          }
-          loading="lazy"
-          css={{ height: 300, aspectRatio: "1", objectFit: "cover" }}
-        />
-      )}
+      {deck && (
+        <>
+          {deckImage && (
+            <img
+              src={deckImage}
+              alt={
+                deck.title
+                  ? editionDisplayName && deck.slug === "future"
+                    ? `Future ${editionDisplayName} deck`
+                    : `${deck.title}${editionDisplayName ? ` ${editionDisplayName}` : ""} deck`
+                  : "Deck"
+              }
+              loading="lazy"
+              css={{ height: 300, aspectRatio: "1", objectFit: "cover" }}
+            />
+          )}
 
-      <Text
-        css={(theme) => ({
-          marginTop: 30,
-          color: theme.colors[dark ? "white75" : "black"],
-        })}
-      >
-        {deck.info}
-      </Text>
-
-      <div css={{ display: "flex", alignItems: "center", gap: 30, marginTop: 30 }}>
-        <Link href={shopUrl}>
-          <ArrowButton color={dark ? "accent" : "dark_gray"} css={{ fontSize: 20 }}>
-            Shop {editionDisplayName && deck.slug === "future"
-              ? `Future ${editionDisplayName}`
-              : deck.title}
-          </ArrowButton>
-        </Link>
-        <Link href={deckUrl}>
-          <ArrowButton
-            size="small"
-            noColor
-            base
-            css={(theme) => [
-              { color: theme.colors.black },
-              dark && {
-                color: "#FFFFFFBF",
-                transition: "color 0.2s ease",
-                "&:hover": {
-                  color: theme.colors.white,
-                },
-              },
-            ]}
+          <Text
+            css={(theme) => ({
+              marginTop: 30,
+              color: theme.colors[dark ? "white75" : "black"],
+            })}
           >
-            View the deck
-          </ArrowButton>
-        </Link>
-      </div>
+            {deck.info}
+          </Text>
+
+          <div css={{ display: "flex", alignItems: "center", gap: 30, marginTop: 30 }}>
+            <Link href={shopUrl}>
+              <ArrowButton color={dark ? "accent" : "dark_gray"} css={{ fontSize: 20 }}>
+                Shop {editionDisplayName && deck.slug === "future"
+                  ? `Future ${editionDisplayName}`
+                  : deck.title}
+              </ArrowButton>
+            </Link>
+            <Link href={deckUrl}>
+              <ArrowButton
+                size="small"
+                noColor
+                base
+                css={(theme) => [
+                  { color: theme.colors.black },
+                  dark && {
+                    color: "#FFFFFFBF",
+                    transition: "color 0.2s ease",
+                    "&:hover": {
+                      color: theme.colors.white,
+                    },
+                  },
+                ]}
+              >
+                View the deck
+              </ArrowButton>
+            </Link>
+          </div>
+        </>
+      )}
     </ScandiBlock>
+    </div>
   );
 };
 
 export default HeroDeck;
-export { HeroDeckSkeleton };

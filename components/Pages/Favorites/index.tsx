@@ -13,7 +13,7 @@ const Favorites: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <Header />
       <Hero />
       <Cards />
-      <Footer onlyFooter />
+      <Footer />
     </>
   );
 };

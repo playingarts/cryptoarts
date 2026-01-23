@@ -26,10 +26,11 @@ export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({
     >
       {links &&
         links.map((name, i) => {
-          const isTopLink = name.toLowerCase() === "items";
+          const isTopLink = name.toLowerCase() === "items" || name.toLowerCase() === "about";
+          const sectionId = name.toLowerCase().replace(/\s+/g, "-");
           return (
             <Link
-              href={isTopLink ? "#" : "#" + name.toLowerCase().replace(/\s+/g, "-")}
+              href={isTopLink ? "#" : "#" + sectionId}
               key={name + i}
               css={(theme) => [
                 {
@@ -37,10 +38,26 @@ export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({
                   alignItems: "center",
                 },
               ]}
-              onClick={isTopLink ? (e) => {
+              onClick={(e) => {
                 e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              } : undefined}
+                if (isTopLink) {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  // Dispatch event to trigger lazy section loading
+                  window.dispatchEvent(
+                    new CustomEvent("lazySection:forceLoad", { detail: sectionId })
+                  );
+                  // Update hash
+                  window.history.pushState(null, "", `#${sectionId}`);
+                  // Scroll to element after a brief delay to let it render
+                  setTimeout(() => {
+                    const el = document.getElementById(sectionId);
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }, 50);
+                }
+              }}
             >
               <Button
                 noColor={true}

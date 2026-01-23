@@ -15,6 +15,8 @@ import { FREE_SHIPPING_MESSAGE } from "../../../source/consts";
 
 // Lazy-load below-fold components (SSR disabled for progressive loading)
 const Trust = dynamic(() => import("../Shop/Trust"), { ssr: false });
+const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
+const FAQ = dynamic(() => import("../../Footer/Faq"), { ssr: false });
 
 const CheckoutButton = () => {
   const { bag } = useBag();
@@ -95,8 +97,18 @@ const Bag: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </LazySection>
       )}
 
-      {/* Footer with reviews/FAQ */}
-      <LazySection rootMargin="100px" minHeight={600}>
+      {/* Reviews section */}
+      <LazySection id="reviews" rootMargin="100px" minHeight={500}>
+        <Testimonials />
+      </LazySection>
+
+      {/* FAQ section */}
+      <LazySection id="faq" rootMargin="100px" minHeight={600}>
+        <FAQ />
+      </LazySection>
+
+      {/* Footer (links, copyright, etc.) */}
+      <LazySection rootMargin="100px" minHeight={400}>
         <Footer />
       </LazySection>
     </>

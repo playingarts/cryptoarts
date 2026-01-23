@@ -1,36 +1,13 @@
 import { FC, HTMLAttributes } from "react";
-import dynamic from "next/dynamic";
 import Grid from "../Grid";
 import ScandiBlock from "../ScandiBlock";
-import ArrowedButton from "../Buttons/ArrowedButton";
 import Text from "../Text";
-import NewLink from "../Link/NewLink";
-
-// Lazy load EmailForm to reduce initial bundle (includes react-hook-form ~23kB)
-const EmailForm = dynamic(() => import("../EmailForm"), {
-  ssr: false,
-  loading: () => <div css={{ height: 55 }} />,
-});
-import Instagram from "../Icons/Instagram";
-import Twitter from "../Icons/Twitter";
-import Youtube from "../Icons/Youtube";
-import { socialLinks } from "../../source/consts";
 import ButtonTemplate from "../Buttons/Button";
 import Apple from "../Icons/Apple";
 import Android from "../Icons/Android";
-import Visa from "../Icons/Visa";
-import Mastercard from "../Icons/Mastercard";
-import Amex from "../Icons/Amex";
-import PayPal from "../Icons/PayPal";
-import ApplePay from "../Icons/ApplePay";
-import GooglePay from "../Icons/GooglePay";
 import ArrowButton from "../Buttons/ArrowButton";
-import NewFAQ from "./NewFAQ";
-import Testimonials from "../Pages/Home/Testimonials";
 import Link from "../Link";
-import { useRouter } from "next/router";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
-import { getDeckConfig } from "../../source/deckConfig";
 
 export type FooterLink = {
   label: string;
@@ -61,16 +38,7 @@ export const links: { [key: string]: FooterLink[] } = {
   ],
 };
 
-const FooterTestimonials = () => {
-  const {
-    query: { deckId },
-  } = useRouter();
-  const deckSlug = typeof deckId === "string" ? deckId : undefined;
-  const config = getDeckConfig(deckSlug);
-  return config.showTestimonials ? <Testimonials deckSlug={deckSlug} /> : null;
-};
-
-const ActualFooter = () => {
+const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const { palette } = usePalette();
 
   return (
@@ -246,23 +214,5 @@ const ActualFooter = () => {
     </Grid>
   );
 };
-
-const Footer: FC<HTMLAttributes<HTMLElement> & { onlyFooter?: boolean; deckSlug?: string }> = ({
-  children,
-  onlyFooter,
-  deckSlug,
-  ...props
-}) => (
-  <>
-    {!onlyFooter ? (
-      <>
-        <FooterTestimonials />
-        {children}
-        <NewFAQ deckSlug={deckSlug} />
-      </>
-    ) : null}
-    <ActualFooter />
-  </>
-);
 
 export default Footer;

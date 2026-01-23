@@ -28,6 +28,14 @@ const Podcast = dynamic(() => import("../Home/Podcast"), {
   ssr: false,
   loading: () => <Skeleton height={400} />,
 });
+const Testimonials = dynamic(() => import("../Home/Testimonials"), {
+  ssr: false,
+  loading: () => <Skeleton height={500} />,
+});
+const FAQ = dynamic(() => import("../../Footer/Faq"), {
+  ssr: false,
+  loading: () => <Skeleton height={600} />,
+});
 
 type Props = {
   homeCards?: HomeCard[];
@@ -67,13 +75,24 @@ const Home = ({ homeCards }: Props) => {
         {heroReady && <AugmentedReality />}
       </LazySection>
 
-      {/* Footer with Podcast and Reviews */}
-      <LazySection id="reviews" minHeight={600}>
-        {heroReady && (
-          <Footer>
-            <Podcast id="podcast" />
-          </Footer>
-        )}
+      {/* Podcast section */}
+      <LazySection id="podcast" minHeight={400}>
+        {heroReady && <Podcast />}
+      </LazySection>
+
+      {/* Reviews section */}
+      <LazySection id="reviews" minHeight={500}>
+        {heroReady && <Testimonials />}
+      </LazySection>
+
+      {/* FAQ section */}
+      <LazySection id="faq" minHeight={600}>
+        {heroReady && <FAQ />}
+      </LazySection>
+
+      {/* Footer (links, copyright, etc.) */}
+      <LazySection minHeight={400}>
+        {heroReady && <Footer />}
       </LazySection>
     </HeroCarouselProvider>
   );

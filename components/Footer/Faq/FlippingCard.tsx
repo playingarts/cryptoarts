@@ -31,7 +31,10 @@ const FlippingCard: FC<FlippingCardProps> = ({
     isPaused,
   });
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    // Stop propagation to prevent the click from bubbling up to the Pop backdrop
+    // which would immediately close the popup after opening it
+    e.stopPropagation();
     if (currentCard && onCardClick) {
       onCardClick(currentCard);
     }
@@ -47,12 +50,8 @@ const FlippingCard: FC<FlippingCardProps> = ({
       onMouseLeave={() => setHovered(false)}
       css={{
         perspective: "1000px",
-        width: CARD_WIDTH,
-        height: CARD_HEIGHT,
-        position: "absolute",
-        transform: "translate(-50%,-70%)",
-        top: 0,
-        left: 0,
+        // Width/height, position, and transform are set by parent "> *" selector
+        // Only set FlippingCard-specific styles here
         rotate: FRONT_ROTATION,
         transformOrigin: "left",
         zIndex: 2,

@@ -364,7 +364,7 @@ const StatusPage: FC = () => {
           </Text>
         </div>
       </Grid>
-      <Footer onlyFooter />
+      <Footer />
     </>
   );
 };

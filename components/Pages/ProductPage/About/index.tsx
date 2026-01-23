@@ -22,7 +22,7 @@ import GooglePay from "../../../Icons/GooglePay";
 import AddToBag from "../../../Buttons/AddToBag";
 import ScandiBlock from "../../../ScandiBlock";
 import Point from "../../../Icons/Point";
-import { default as FaqItem } from "../../../Footer/NewFAQ/Item";
+import { default as FaqItem } from "../../../Footer/Faq/Item";
 import Card from "../../../Card";
 import NavButton from "../../../Buttons/NavButton";
 import ArrowButton from "../../../Buttons/ArrowButton";

@@ -6,7 +6,7 @@ import Grid from "../../Grid";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import Text from "../../Text";
-import FaqItem from "../../Footer/NewFAQ/Item";
+import FaqItem from "../../Footer/Faq/Item";
 import Visa from "../../Icons/Visa";
 import Mastercard from "../../Icons/Mastercard";
 import Amex from "../../Icons/Amex";

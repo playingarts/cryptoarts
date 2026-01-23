@@ -23,6 +23,8 @@ const Bundles = dynamic(() => import("./Bundles"), { ssr: false });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
   ssr: false,
 });
+const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
+const FAQ = dynamic(() => import("../../Footer/Faq"), { ssr: false });
 const Subscribe = dynamic(() => import("../../Popups/Subscribe"), {
   ssr: false,
 });
@@ -126,12 +128,20 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
       </LazySection>
     </div>
 
-    {/* Footer with reviews/FAQ */}
-    <div id="reviews">
-      <LazySection rootMargin="100px" minHeight={600}>
-        <Footer />
-      </LazySection>
-    </div>
+    {/* Reviews section */}
+    <LazySection id="reviews" rootMargin="100px" minHeight={500}>
+      <Testimonials />
+    </LazySection>
+
+    {/* FAQ section */}
+    <LazySection id="faq" rootMargin="100px" minHeight={600}>
+      <FAQ />
+    </LazySection>
+
+    {/* Footer (links, copyright, etc.) */}
+    <LazySection rootMargin="100px" minHeight={400}>
+      <Footer />
+    </LazySection>
   </>
 );
 
