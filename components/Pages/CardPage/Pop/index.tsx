@@ -2,6 +2,7 @@ import { FC, HTMLAttributes, useEffect, useMemo, useState, useCallback, useRef }
 import { useRouter } from "next/router";
 import { useCardPop, useCardsForDeck } from "../../../../hooks/card";
 import { useDecks } from "../../../../hooks/deck";
+import ArrowButton from "../../../Buttons/ArrowButton";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
 import FlippableCard from "../../../Card/FlippableCard";
@@ -424,6 +425,25 @@ const Pop: FC<
     router.push(destPath);
   }, [card, cards, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, currentEdition, deckId, currentDeckId, backsideCard, close, onNavigate, router]);
 
+  // Navigate to deck page
+  const handleViewDeckClick = useCallback(() => {
+    // Store deck data for instant display on deck page
+    setNavigationDeck({
+      slug: currentDeckId,
+      title: (edition || card?.edition) === "chapter i" || currentDeckId === "future"
+        ? "Future Chapter I"
+        : (edition || card?.edition) === "chapter ii" || currentDeckId === "future-ii"
+        ? "Future Chapter II"
+        : deck?.title || "",
+      description: deck?.info || "",
+    });
+    close();
+    onNavigate?.();
+    // Track navigation timing
+    startPerfNavTiming("click", "CardPop-Deck", `/${currentDeckId}`, false);
+    router.push(`/${currentDeckId}`);
+  }, [currentDeckId, edition, card?.edition, deck?.title, deck?.info, close, onNavigate, router]);
+
   return (
     <div
       css={(theme) => [
@@ -661,6 +681,10 @@ const Pop: FC<
               <Button color="accent" css={{ fontSize: 20 }} onClick={handleCardDetailsClick}>
                 Card details
               </Button>
+
+              <ArrowButton noColor base size="small" css={{ marginLeft: 15 }} onClick={handleViewDeckClick}>
+                View the deck
+              </ArrowButton>
             </div>
           </div>
         </div>
