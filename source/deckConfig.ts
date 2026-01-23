@@ -25,7 +25,7 @@ const deckConfigs: Record<string, Partial<DeckConfig>> = {
     showGallery: false,
     hasAR: true,
     showPACE: true,
-    sections: ["PACE", "AR"],
+    sections: ["PACE", "AR", "FAQ"],
   },
   zero: {
     hasAR: true,
