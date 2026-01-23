@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useRef, useState, useEffect, useCallback, useMemo } from "react";
+import { FC, HTMLAttributes, useRef, useEffect, useCallback, useMemo, useState } from "react";
 import Intro from "../../../Intro";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
@@ -81,9 +81,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { products } = useProducts();
   const { query: { pId } } = useRouter();
   const ref = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
   const [centerIndex, setCenterIndex] = useState<number>(-1);
-  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Filter out bundles and current deck
   const filteredProducts = useMemo(() => {
@@ -155,36 +153,14 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     });
   }, []);
 
-  const navigate = useCallback((direction: 1 | -1) => {
-    scrollByOne(direction);
-    // Pause auto-scroll after manual navigation
-    setIsPaused(true);
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 15000);
-  }, [scrollByOne]);
-
   // Auto-scroll
   useEffect(() => {
-    if (filteredProducts.length === 0 || isPaused) return;
+    if (filteredProducts.length === 0) return;
     const interval = setInterval(() => {
       scrollByOne(1);
     }, AUTO_SCROLL_INTERVAL);
     return () => clearInterval(interval);
-  }, [filteredProducts, isPaused, scrollByOne]);
-
-  // Cleanup timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    };
-  }, []);
-
-  // Pause on hover
-  const handleMouseEnter = () => setIsPaused(true);
-  const handleMouseLeave = () => {
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    setIsPaused(false);
-  };
+  }, [filteredProducts, scrollByOne]);
 
   return (
     <Grid
@@ -211,11 +187,11 @@ with these collector's favourites."
           <div css={[{ display: "flex", gap: 5, marginTop: 120 }]}>
             <NavButton
               css={[{ background: "white", rotate: "180deg" }]}
-              onClick={() => navigate(-1)}
+              onClick={() => scrollByOne(-1)}
             />
             <NavButton
               css={[{ background: "white" }]}
-              onClick={() => navigate(1)}
+              onClick={() => scrollByOne(1)}
             />
           </div>
         }
@@ -230,8 +206,6 @@ with these collector's favourites."
             overflow: "hidden",
           },
         ]}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
       >
         <div
           css={[

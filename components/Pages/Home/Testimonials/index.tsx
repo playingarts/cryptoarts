@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useRef, useEffect, useCallback, useMemo, useState } from "react";
+import { FC, HTMLAttributes, useRef, useEffect, useCallback, useMemo } from "react";
 import { useRatings } from "../../../../hooks/ratings";
 import Intro from "./Intro";
 import Item from "./Item";
@@ -9,7 +9,6 @@ import Press from "./Press";
 const ITEM_WIDTH = 520;
 const ITEM_GAP = 20;
 const AUTO_SCROLL_INTERVAL = 4000; // 4 seconds between auto-scrolls
-const AUTO_SCROLL_PAUSE = 3000; // 3 seconds pause after user interaction
 
 // Instagram posts data with real URLs
 const INSTAGRAM_POSTS = [
@@ -111,8 +110,6 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
   const leftArrowRef = useRef<HTMLButtonElement>(null);
   const rightArrowRef = useRef<HTMLButtonElement>(null);
   const isScrollingRef = useRef(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Build mixed array with Instagram items after every 2-4 reviews (varied pattern)
   const mixedItems = useMemo((): CarouselItem[] => {
@@ -242,42 +239,16 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
     });
   }, []);
 
-  // Pause auto-scroll temporarily after user interaction
-  const pauseAutoScroll = useCallback(() => {
-    setIsPaused(true);
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = setTimeout(() => {
-      setIsPaused(false);
-    }, AUTO_SCROLL_PAUSE);
-  }, []);
-
   // Auto-scroll effect
   useEffect(() => {
-    if (loading || mixedItems.length === 0 || isPaused) return;
+    if (loading || mixedItems.length === 0) return;
 
     const interval = setInterval(() => {
       scrollByItem(1);
     }, AUTO_SCROLL_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [loading, mixedItems.length, isPaused, scrollByItem]);
-
-  // Cleanup pause timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    };
-  }, []);
-
-  // Handle hover pause
-  const handleMouseEnter = useCallback(() => setIsPaused(true), []);
-  const handleMouseLeave = useCallback(() => setIsPaused(false), []);
-
-  // Handle arrow click with pause
-  const handleArrowClick = useCallback((direction: 1 | -1) => {
-    pauseAutoScroll();
-    scrollByItem(direction);
-  }, [pauseAutoScroll, scrollByItem]);
+  }, [loading, mixedItems.length, scrollByItem]);
 
   return (
     <div
@@ -289,13 +260,11 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
       <Intro
         leftArrowRef={leftArrowRef}
         rightArrowRef={rightArrowRef}
-        onScrollLeft={() => handleArrowClick(-1)}
-        onScrollRight={() => handleArrowClick(1)}
+        onScrollLeft={() => scrollByItem(-1)}
+        onScrollRight={() => scrollByItem(1)}
       />
       <div
         ref={scrollRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
         css={(theme) => ({
           display: "flex",
           alignItems: "flex-start",
