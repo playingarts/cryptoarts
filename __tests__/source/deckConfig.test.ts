@@ -11,7 +11,7 @@ describe("source/deckConfig", () => {
         showGallery: true,
         hasAR: false,
         showPACE: false,
-        sections: ["Gallery", "Reviews"],
+        sections: ["About", "Gallery", "Reviews", "FAQ"],
       });
     });
 
@@ -24,7 +24,7 @@ describe("source/deckConfig", () => {
         showGallery: true,
         hasAR: false,
         showPACE: false,
-        sections: ["Gallery", "Reviews"],
+        sections: ["About", "Gallery", "Reviews", "FAQ"],
       });
     });
 
@@ -37,7 +37,7 @@ describe("source/deckConfig", () => {
         showGallery: false,
         hasAR: true,
         showPACE: true,
-        sections: ["PACE", "AR", "FAQ"],
+        sections: ["About", "PACE", "AR", "FAQ"],
       });
     });
 
@@ -49,7 +49,7 @@ describe("source/deckConfig", () => {
       expect(config.showTestimonials).toBe(false);
       expect(config.showGallery).toBe(false);
       expect(config.showPACE).toBe(true);
-      expect(config.sections).toEqual(["PACE", "AR", "FAQ"]);
+      expect(config.sections).toEqual(["About", "PACE", "AR", "FAQ"]);
     });
 
     it("returns consistent config structure", () => {
