@@ -3,7 +3,18 @@ import Button, { Props } from "../Button";
 import Subscribe from "../../Popups/Subscribe";
 import MenuPortal from "../../Header/MainMenu/MenuPortal";
 
-const SoldOut: FC<HTMLAttributes<HTMLElement> & Props> = ({ ...props }) => {
+/** Get display label based on product status */
+const getStatusLabel = (status?: string): string => {
+  switch (status) {
+    case "soon":
+      return "Coming soon";
+    case "soldout":
+    default:
+      return "Sold out";
+  }
+};
+
+const SoldOut: FC<HTMLAttributes<HTMLElement> & Props & { status?: string }> = ({ status, ...props }) => {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -25,7 +36,7 @@ const SoldOut: FC<HTMLAttributes<HTMLElement> & Props> = ({ ...props }) => {
         ]}
         {...props}
       >
-        Sold out
+        {getStatusLabel(status)}
       </Button>
     </>
   );

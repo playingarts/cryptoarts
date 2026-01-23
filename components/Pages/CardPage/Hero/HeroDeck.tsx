@@ -141,7 +141,7 @@ const HeroDeck: FC<HeroDeckProps> = ({
         </Link>
         <Link href={deckUrl}>
           <ArrowButton size="small" noColor base>
-            Explore all cards
+            View the deck
           </ArrowButton>
         </Link>
       </div>

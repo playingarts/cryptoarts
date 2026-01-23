@@ -2,6 +2,7 @@ import { FC, useState, useCallback } from "react";
 import { Interpolation, Theme } from "@emotion/react";
 import Card, { CardProps } from "./index";
 import { cardSizesHover } from "./sizes";
+import { Props as PaletteProps } from "../Pages/Deck/DeckPaletteContext";
 
 // Flip transition duration in ms
 const FLIP_DURATION = 450;
@@ -13,6 +14,8 @@ interface FlippableCardProps extends Omit<CardProps, "card"> {
   backsideCard?: GQL.Card | null;
   /** External CSS styles to merge */
   css?: Interpolation<Theme>;
+  /** Palette for dark/light theming */
+  palette?: PaletteProps["palette"];
 }
 
 /**
@@ -30,6 +33,7 @@ const FlippableCard: FC<FlippableCardProps> = ({
   priority,
   noArtist,
   noLink,
+  palette,
   css: externalCss,
   ...props
 }) => {
@@ -104,6 +108,7 @@ const FlippableCard: FC<FlippableCardProps> = ({
               animated={animated}
               autoPlayVideo={autoPlayVideo}
               priority={priority}
+              palette={palette}
               interactive={false}
             />
           </div>
@@ -121,7 +126,7 @@ const FlippableCard: FC<FlippableCardProps> = ({
                 transform: "rotateY(180deg)",
               }}
             >
-              <Card card={backsideCard} size={size} noArtist noLink interactive={false} />
+              <Card card={backsideCard} size={size} noArtist noLink palette={palette} interactive={false} />
             </div>
           )}
         </div>

@@ -114,7 +114,7 @@ interface HeroHeaderProps {
 
 /** Skeleton for artist name and country - matches newh1 (70px/120%) and newh4 (25px/45px) */
 const HeroHeaderSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
-  <div css={{ maxWidth: 520, height: 610, display: "grid", alignContent: "center" }}>
+  <div css={{ height: 610, display: "grid", alignContent: "center" }}>
     {/* Artist name skeleton - newh1: 70px fontSize, 120% lineHeight = 84px */}
     <Shimmer width={280} height={84} borderRadius={8} dark={dark} />
     {/* Country skeleton - newh4: 25px fontSize, 45px lineHeight */}
@@ -151,7 +151,6 @@ const HeroHeader: FC<HeroHeaderProps> = ({
       css={{
         display: "grid",
         alignContent: "center",
-        maxWidth: 520,
         height: 610,
         animation: "fadeIn 0.3s ease-out",
         "@keyframes fadeIn": {
@@ -169,7 +168,7 @@ const HeroHeader: FC<HeroHeaderProps> = ({
         </Link>
         <Link href={deckUrl} css={{ marginLeft: 15 }}>
           <ArrowButton size="small" noColor base>
-            Explore all cards
+            View the deck
           </ArrowButton>
         </Link>
       </div>

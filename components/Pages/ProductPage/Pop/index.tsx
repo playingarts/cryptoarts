@@ -2,6 +2,7 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { convertToProductSlug } from "..";
 import { useProducts } from "../../../../hooks/product";
 import AddToBag from "../../../Buttons/AddToBag";
+import SoldOut from "../../../Buttons/SoldOut";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
@@ -97,7 +98,7 @@ const Pop: FC<
     <div
       css={(theme) => [
         {
-          background: theme.colors.black30,
+          background: theme.colors.black50,
           width: "100%",
           position: "fixed",
           inset: 0,
@@ -250,14 +251,18 @@ const Pop: FC<
               <div
                 css={[
                   {
-                    marginTop: 30,
+                    marginTop: 15,
                     display: "flex",
                     gap: 30,
                     alignItems: "center",
                   },
                 ]}
               >
-                <AddToBag productId={productState._id} onViewBag={onViewBag} />
+                {productState.status === "soldout" || productState.status === "soon" ? (
+                  <SoldOut status={productState.status} />
+                ) : (
+                  <AddToBag productId={productState._id} onViewBag={onViewBag} />
+                )}
 
                 <Link
                   href={
@@ -272,7 +277,7 @@ const Pop: FC<
                   css={{ display: "flex", alignItems: "center" }}
                 >
                   <ArrowButton noColor base size="small">
-                    Details
+                    Product details
                   </ArrowButton>
                 </Link>
               </div>

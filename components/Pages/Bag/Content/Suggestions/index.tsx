@@ -60,7 +60,7 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string }> = ({ produ
           </Text>
         </div>
         <div css={{ marginTop: 30, display: "flex", gap: 30, alignItems: "center" }}>
-          <AddToBag productId={product._id} onViewBag={() => setShowPop(false)} />
+          <AddToBag productId={product._id} onViewBag={() => setShowPop(false)} status={product.status} />
           <Text typography="linkNewTypography">${product.price.usd}</Text>
           {product.fullPrice && (
             <Text typography="linkNewTypography" css={{ textDecoration: "line-through", opacity: 0.5 }}>

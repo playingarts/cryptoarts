@@ -433,12 +433,12 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <>
               <Text typography="newh3">${product.price.usd}</Text>
               <div css={[{ marginTop: 15, display: "flex", alignItems: "center", gap: 30 }]}>
-                {product.status === "soldout" ? (
-                  <SoldOut size="big" css={{ fontSize: 20 }} />
+                {product.status === "soldout" || product.status === "soon" ? (
+                  <SoldOut size="big" css={{ fontSize: 20 }} status={product.status} />
                 ) : (
                   <AddToBag productId={product._id} size="big" css={{ fontSize: 20 }} />
                 )}
-                <ContinueShopping css={{ fontSize: 20 }} />
+                <ContinueShopping css={{ fontSize: 18 }} />
               </div>
               <Text
                 css={(theme) => [
@@ -495,6 +495,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </div>
         <FaqItem
           question="What's in the box"
+          css={{ ">:first-of-type": { fontSize: 25 } }}
           answer={
             <div css={[{ display: "grid", gap: 30 }]}>
               {[
@@ -517,6 +518,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         />
         <FaqItem
           question="Shipping & returns"
+          css={{ ">:first-of-type": { fontSize: 25 } }}
           answer="Please allow 2—5 business days for orders to be processed after your purchase is complete. The estimated shipping time is 5—10 business days for Europe and USA, and up to 20 business days for the rest of the world."
         />
       </div>

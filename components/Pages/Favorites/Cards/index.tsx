@@ -116,12 +116,16 @@ interface DeckSectionProps {
     cardId: string;
     deckCards: GQL.Card[];
     deckTitle: string;
+    /** The deck slug used in favorites storage (always "future" for both Future chapters) */
+    favoritesKey: string;
   }) => void;
   sectionTitle: string;
+  /** The deck slug used in favorites storage (always "future" for both Future chapters) */
+  favoritesKey: string;
 }
 
 /** Single deck section with its favorited cards */
-const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, sectionTitle }) => {
+const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, sectionTitle, favoritesKey }) => {
 
   return (
     <div>
@@ -135,8 +139,8 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
               <Button size="small" bordered>
                 Exclusive
               </Button>
-            ) : deck.product.status === "soldout" ? (
-              <SoldOut />
+            ) : deck.product.status === "soldout" || deck.product.status === "soon" ? (
+              <SoldOut status={deck.product.status} />
             ) : (
               <>
                 <AddToBag productId={deck.product._id} />
@@ -174,6 +178,7 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
                   cardId: card._id,
                   deckCards: cards,
                   deckTitle: sectionTitle,
+                  favoritesKey,
                 })
               }
               size="preview"
@@ -182,6 +187,7 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
                 ...card,
                 deck: { slug: deck.slug } as unknown as GQL.Deck,
               }}
+              artistHref={`/${deck.slug}/${card.artist.slug}`}
             />
           ))}
         </div>
@@ -204,6 +210,8 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
     deckCards: GQL.Card[];
     /** Title of the deck for popup display */
     deckTitle: string;
+    /** The deck slug used in favorites storage (always "future" for both Future chapters) */
+    favoritesKey: string;
   }>();
 
   // Collect ALL favorite card IDs across all decks into a single array
@@ -283,6 +291,7 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
             initialArtistCountry={cardState.artistCountry}
             showNavigation={true}
             navigationCards={cardState.deckCards}
+            favoritesKey={cardState.favoritesKey}
           />
         )}
       </MenuPortal>
@@ -314,6 +323,9 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
             const deck = decks?.find((d) => d.slug === deckSlug);
             const cards = cardsBySection[sectionKey];
             if (!deck || !cards || cards.length === 0) return null;
+            // Determine the favorites storage key
+            // For Future chapters, favorites are stored under "future" key
+            const favKey = sectionKey.startsWith("future:") ? "future" : sectionKey;
             return (
               <DeckSection
                 key={sectionKey}
@@ -321,6 +333,7 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
                 cards={cards}
                 setCardsState={setCardState}
                 sectionTitle={getSectionTitle(sectionKey, deck.title)}
+                favoritesKey={favKey}
               />
             );
           })

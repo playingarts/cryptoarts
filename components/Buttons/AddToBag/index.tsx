@@ -9,9 +9,16 @@ const AddToBag: FC<
     Props & {
       productId: string;
       onViewBag?: () => void;
+      /** Product status - if "soldout" or "soon", button won't be rendered */
+      status?: string;
     }
-> = ({ productId, onViewBag, ...props }) => {
+> = ({ productId, onViewBag, status, ...props }) => {
   const { bag, addItem } = useBag();
+
+  // Don't render for products not on sale
+  if (status === "soldout" || status === "soon") {
+    return null;
+  }
 
   if (bag && bag[productId] >= 0) {
     if (onViewBag) {

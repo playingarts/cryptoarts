@@ -276,6 +276,7 @@ const CollectionItem: FC<
             <CardPop
               cardSlug={selectedCard.artist.slug}
               deckId={product.deck.slug}
+              edition={product.deck.slug === "future-ii" ? "chapter ii" : product.deck.slug === "future" ? "chapter i" : undefined}
               close={() => setShowCardPop(false)}
               initialImg={selectedCard.img}
               initialVideo={selectedCard.video}
@@ -492,8 +493,8 @@ const CollectionItem: FC<
             )
           ) : (
             <>
-              {product.status === "soldout" ? (
-                <SoldOut />
+              {product.status === "soldout" || product.status === "soon" ? (
+                <SoldOut status={product.status} />
               ) : (
                 <AddToBag productId={product._id} />
               )}

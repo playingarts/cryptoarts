@@ -102,7 +102,11 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
                       backgroundColor: theme.colors[color],
                     },
               ]
-            : [{ color: theme.colors["dark_gray"] }]),
+            : [{ color: palette === "dark" ? "white" : theme.colors["dark_gray"] }]),
+        // When base is true, still apply text color based on palette
+        base === true && {
+          color: palette === "dark" ? "white" : theme.colors["dark_gray"],
+        },
         icon && {
           width: 45,
           height: 45,

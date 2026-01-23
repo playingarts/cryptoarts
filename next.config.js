@@ -111,6 +111,12 @@ const nextConfig = {
         destination: "/:path*",
         permanent: true,
       },
+      {
+        // Future Chapter II should use the Future page with tab hash
+        source: "/future-ii",
+        destination: "/future#chapter-ii",
+        permanent: true,
+      },
     ];
   },
 

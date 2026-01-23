@@ -146,7 +146,8 @@ const CustomMiddle: FC<{
   navigationCards?: GQL.Card[];
   /** Pre-fetched cards from parent (to avoid duplicate queries) */
   prefetchedCards?: GQL.Card[];
-}> = ({ cardState, deck, setCardState, edition, showNavigation = true, navigationCards, prefetchedCards }) => {
+  palette?: "dark" | "light";
+}> = ({ cardState, deck, setCardState, edition, showNavigation = true, navigationCards, prefetchedCards, palette }) => {
   // Use custom cards if provided, otherwise use prefetched cards from parent
   // This eliminates duplicate fetches - parent already fetches with deckSlug for cache alignment
   const rawCards = navigationCards || prefetchedCards;
@@ -205,6 +206,7 @@ const CustomMiddle: FC<{
   return (
     <Text
       typography="paragraphSmall"
+      palette={palette}
       css={[
         {
           display: "flex",
@@ -216,6 +218,7 @@ const CustomMiddle: FC<{
     >
       <span css={[{ marginRight: 5 }]}>
         <NavButton
+          palette={palette}
           onClick={
             hasCards
               ? () =>
@@ -234,6 +237,7 @@ const CustomMiddle: FC<{
       </span>
       <span css={[{ marginRight: 5 }]}>
         <NavButton
+          palette={palette}
           onClick={
             hasCards
               ? () =>
@@ -274,8 +278,10 @@ const Pop: FC<
     navigationCards?: GQL.Card[];
     /** Called when navigating to a different card via arrows - receives the new card */
     onCardChange?: (card: GQL.Card) => void;
+    /** Override deck slug for favorites storage (e.g., "future" for both Future chapters) */
+    favoritesKey?: string;
   }
-> = ({ close, cardSlug, deckId, edition, initialCardId, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, onNavigate, navigationCards, onCardChange, ...props }) => {
+> = ({ close, cardSlug, deckId, edition, initialCardId, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, showNavigation = true, onNavigate, navigationCards, onCardChange, favoritesKey, ...props }) => {
   const [cardState, setCardState] = useState<string | undefined>(cardSlug);
   const [currentDeckId, setCurrentDeckId] = useState(deckId);
   const [currentCardId, setCurrentCardId] = useState<string | undefined>(initialCardId);
@@ -341,7 +347,9 @@ const Pop: FC<
   // Use card from navigation (instant) or fall back to query result
   const card = cardFromNavigation || cardFromQuery;
 
-  const { palette } = usePalette();
+  const { palette: contextPalette } = usePalette();
+  // Use dark palette for crypto deck, regardless of context
+  const palette = currentDeckId === "crypto" ? "dark" : contextPalette;
 
   // Update currentCardId and edition when card data loads
   useEffect(() => {
@@ -425,8 +433,30 @@ const Pop: FC<
     router.push(destPath);
   }, [card, cards, cardState, initialImg, initialVideo, initialArtistName, initialArtistCountry, initialBackground, currentEdition, deckId, currentDeckId, backsideCard, close, onNavigate, router]);
 
+  // Get the correct deck URL for Future editions (with hash for tab)
+  const getDeckUrl = useCallback((deckSlug: string, cardEdition?: string | null) => {
+    const editionValue = cardEdition || edition || card?.edition;
+    // Check edition value first
+    if (editionValue === "chapter i") return "/future#chapter-i";
+    if (editionValue === "chapter ii") return "/future#chapter-ii";
+    // Fallback: check deck slug for Future decks (in case edition not loaded yet)
+    if (deckSlug === "future") return "/future#chapter-i";
+    if (deckSlug === "future-ii") return "/future#chapter-ii";
+    return `/${deckSlug}`;
+  }, [edition, card?.edition]);
+
   // Navigate to deck page
   const handleViewDeckClick = useCallback(() => {
+    const deckUrl = getDeckUrl(currentDeckId, card?.edition);
+    // Check if we're already on this deck page - if so, just close and scroll to top
+    const currentPath = router.asPath.split("#")[0]; // Remove hash for comparison
+    const targetPath = deckUrl.split("#")[0];
+    if (currentPath === targetPath) {
+      close();
+      onNavigate?.();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
     // Store deck data for instant display on deck page
     setNavigationDeck({
       slug: currentDeckId,
@@ -440,9 +470,9 @@ const Pop: FC<
     close();
     onNavigate?.();
     // Track navigation timing
-    startPerfNavTiming("click", "CardPop-Deck", `/${currentDeckId}`, false);
-    router.push(`/${currentDeckId}`);
-  }, [currentDeckId, edition, card?.edition, deck?.title, deck?.info, close, onNavigate, router]);
+    startPerfNavTiming("click", "CardPop-Deck", deckUrl, false);
+    router.push(deckUrl);
+  }, [currentDeckId, edition, card?.edition, deck?.title, deck?.info, close, onNavigate, router, getDeckUrl]);
 
   return (
     <div
@@ -491,8 +521,19 @@ const Pop: FC<
           {deck ? (
             <Text
               typography="newh4"
+              palette={palette}
               css={{ "&:hover": { opacity: 0.7, cursor: "pointer" }, transition: "opacity 0.2s" }}
               onClick={() => {
+                const deckUrl = getDeckUrl(deckId, card?.edition);
+                // Check if we're already on this deck page - if so, just close and scroll to top
+                const currentPath = router.asPath.split("#")[0];
+                const targetPath = deckUrl.split("#")[0];
+                if (currentPath === targetPath) {
+                  close();
+                  onNavigate?.();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                  return;
+                }
                 // Store deck data for instant display on deck page
                 setNavigationDeck({
                   slug: deckId,
@@ -506,8 +547,8 @@ const Pop: FC<
                 close();
                 onNavigate?.();
                 // Track navigation timing
-                startPerfNavTiming("click", "CardPop-Deck", `/${deckId}`, false);
-                router.push(`/${deckId}`);
+                startPerfNavTiming("click", "CardPop-Deck", deckUrl, false);
+                router.push(deckUrl);
               }}
             >
               {(edition || card?.edition) === "chapter i" || deckId === "future"
@@ -559,6 +600,7 @@ const Pop: FC<
                 backsideCard={backsideCard}
                 noArtist
                 size="big"
+                palette={palette}
                 animated={!!(card?.video || initialVideo)}
               />
             ) : null}
@@ -582,6 +624,7 @@ const Pop: FC<
               showNavigation={showNavigation}
               navigationCards={navigationCards}
               prefetchedCards={cards}
+              palette={palette}
             />
             <Button
               palette={palette}
@@ -629,8 +672,8 @@ const Pop: FC<
                   },
                 }}
               >
-                <Text typography="newh2"> {card?.artist.name || initialArtistName} </Text>
-                <Text typography="newh4"> {card?.artist.country || initialArtistCountry} </Text>
+                <Text typography="newh2" palette={palette}> {card?.artist.name || initialArtistName} </Text>
+                <Text typography="newh4" palette={palette}> {card?.artist.country || initialArtistCountry} </Text>
               </div>
             ) : (
               // Skeleton loading for artist info - matches newh2 (lineHeight: 66px) and newh4 (lineHeight: 45px)
@@ -676,13 +719,13 @@ const Pop: FC<
                 },
               ]}
             >
-              <FavButton deckSlug={currentDeckId} id={currentCardId || ""} />
+              <FavButton deckSlug={favoritesKey || currentDeckId} id={currentCardId || ""} />
 
               <Button color="accent" css={{ fontSize: 20 }} onClick={handleCardDetailsClick}>
                 Card details
               </Button>
 
-              <ArrowButton noColor base size="small" css={{ marginLeft: 15 }} onClick={handleViewDeckClick}>
+              <ArrowButton noColor base size="small" palette={palette} css={{ marginLeft: 15 }} onClick={handleViewDeckClick}>
                 View the deck
               </ArrowButton>
             </div>

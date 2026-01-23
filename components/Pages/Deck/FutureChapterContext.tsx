@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, FC, ReactNode, useEffect } from "react";
+import { createContext, useContext, useState, FC, ReactNode, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 
 // Future edition tabs configuration - exported for use in CardList
@@ -27,16 +27,24 @@ export const FutureChapterProvider: FC<{ children: ReactNode }> = ({ children })
   // Check if we're on a future edition page
   const isFutureDeck = deckId === "future" || deckId === "future-ii";
 
-  const [activeTab, setActiveTab] = useState<FutureTabId>("future-i");
+  const [activeTab, setActiveTabState] = useState<FutureTabId>("future-i");
+
+  // Update URL hash when tab changes
+  const setActiveTab = useCallback((tab: FutureTabId) => {
+    setActiveTabState(tab);
+    // Update URL hash without triggering navigation
+    const hash = tab === "future-ii" ? "#chapter-ii" : "#chapter-i";
+    window.history.replaceState(null, "", hash);
+  }, []);
 
   // Sync tab with URL hash on mount and hash changes
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1);
       if (hash === "chapter-ii") {
-        setActiveTab("future-ii");
+        setActiveTabState("future-ii");
       } else if (hash === "chapter-i") {
-        setActiveTab("future-i");
+        setActiveTabState("future-i");
       }
     };
 

@@ -86,14 +86,26 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
     ? deck?.editions?.find((e) => e.name === cardEdition)
     : undefined;
 
-  // URLs
-  const editionSlug = editionInfo?.url || deckId;
-  const shopUrl = buildUrl(`/shop/${editionSlug}`);
-  const deckUrl = buildUrl(`/${editionSlug}`);
+  // URLs - deck page uses edition slug, shop page uses product short
+  const editionSlug = editionInfo?.url || deckId || "";
+  // Future deck uses tabs - link to /future with hash for correct tab
+  const deckUrl = cardEdition === "chapter i"
+    ? buildUrl("/future#chapter-i")
+    : cardEdition === "chapter ii"
+    ? buildUrl("/future#chapter-ii")
+    : buildUrl(`/${editionSlug}`);
 
   // Product deck slug mapping for Future editions
   const productDeckSlug =
     cardEdition === "chapter ii" ? "future-ii" : editionSlug;
+
+  // Shop URL uses product short (lowercased, no spaces)
+  // Map deck slugs to product shorts for correct shop URLs
+  const shopSlugs: Record<string, string> = {
+    "future": "future",
+    "future-ii": "futureii",
+  };
+  const shopUrl = buildUrl(`/shop/${shopSlugs[productDeckSlug] || productDeckSlug}`);
 
   // Deck image from product
   const product = products?.find(

@@ -56,12 +56,12 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <Text>{product.description}</Text>
         <Text>${product.price.usd}</Text>
         <div css={{ display: "flex", alignItems: "center", gap: 30 }}>
-          {product.status === "soldout" ? (
-            <SoldOut size="big" css={{ fontSize: 20 }} />
+          {product.status === "soldout" || product.status === "soon" ? (
+            <SoldOut size="big" css={{ fontSize: 20 }} status={product.status} />
           ) : (
             <AddToBag productId={product._id} size="big" css={{ fontSize: 20 }} />
           )}
-          <ContinueShopping css={{ fontSize: 20 }} />
+          <ContinueShopping css={{ fontSize: 18 }} />
         </div>
         <div
           css={[

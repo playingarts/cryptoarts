@@ -174,9 +174,11 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       </div>
 
       {/* Footer with reviews/FAQ */}
-      <LazySection rootMargin="100px" minHeight={600}>
-        <Footer deckSlug={deckSlug} />
-      </LazySection>
+      <div id="reviews">
+        <LazySection rootMargin="100px" minHeight={600}>
+          <Footer deckSlug={deckSlug} />
+        </LazySection>
+      </div>
     </>
   );
 };

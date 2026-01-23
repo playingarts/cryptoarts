@@ -90,7 +90,7 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
           {product.description || product.info}
         </Text>
         <div css={[{ marginTop: 30, display: "flex", gap: 30, alignItems: "center" }]}>
-          <AddToBag productId={product._id} />
+          <AddToBag productId={product._id} status={product.status} />
           <Text css={{ fontSize: 20 }}>
             ${product.price.usd}
           </Text>

@@ -27,10 +27,12 @@ export const getStaticProps = async () => {
   ]);
 
   // Serialize homeCards for Next.js (remove Mongoose internals)
+  // Only include defined values to avoid JSON serialization errors
   const serializedCards = homeCards.map((card) => ({
     _id: card._id.toString(),
     img: card.img,
     cardBackground: card.cardBackground,
+    ...(card.edition && { edition: card.edition }),
     deck: card.deck ? { slug: (card.deck as GQL.Deck).slug } : undefined,
     artist: card.artist
       ? {

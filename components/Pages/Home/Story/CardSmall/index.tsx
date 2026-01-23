@@ -32,6 +32,7 @@ type SelectedCard = {
   cardId: string;
   artistName?: string;
   artistCountry?: string;
+  edition?: string;
 } | null;
 
 const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
@@ -58,6 +59,7 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
         cardId: card._id,
         artistName: card.artist.name,
         artistCountry: card.artist.country,
+        edition: card.edition,
       });
     }
   }, []);
@@ -164,6 +166,7 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
             close={handleClosePopup}
             cardSlug={selectedCard.artistSlug}
             deckId={selectedCard.deckSlug}
+            edition={selectedCard.edition}
             initialCardId={selectedCard.cardId}
             initialImg={selectedCard.cardImg}
             initialBackground={selectedCard.cardBackground}
