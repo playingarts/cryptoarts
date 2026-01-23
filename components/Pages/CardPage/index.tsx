@@ -153,22 +153,19 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
       </div>
 
       {/* Gallery section - lazy load on scroll */}
-      <div id="gallery">
-        <LazySection rootMargin="300px" minHeight={600}>
-          <CardGallery />
-        </LazySection>
-      </div>
+      <LazySection id="gallery" rootMargin="300px" minHeight={600}>
+        <CardGallery />
+      </LazySection>
 
       {/* Related cards from deck - lazy load on scroll */}
-      <div id="related">
-        <LazySection
-          rootMargin="300px"
-          minHeight={600}
-          skeleton={<MoreSkeleton dark={dark} />}
-        >
-          <More />
-        </LazySection>
-      </div>
+      <LazySection
+        id="related"
+        rootMargin="300px"
+        minHeight={600}
+        skeleton={<MoreSkeleton dark={dark} />}
+      >
+        <More />
+      </LazySection>
 
       {/* AR section - lazy load on scroll (if deck has AR) */}
       <LazySection rootMargin="300px" minHeight={0}>
@@ -176,18 +173,14 @@ const CardPage: FC<CardPageProps> = ({ ssrCard }) => {
       </LazySection>
 
       {/* Reviews section - lazy load on scroll */}
-      <div id="reviews">
-        <LazySection rootMargin="300px" minHeight={400}>
-          <Testimonials deckSlug={effectiveDeckId} />
-        </LazySection>
-      </div>
+      <LazySection id="reviews" rootMargin="300px" minHeight={400}>
+        <Testimonials deckSlug={effectiveDeckId} />
+      </LazySection>
 
       {/* FAQ section - lazy load on scroll */}
-      <div id="faq">
-        <LazySection rootMargin="300px" minHeight={600}>
-          <FAQ />
-        </LazySection>
-      </div>
+      <LazySection id="faq" rootMargin="300px" minHeight={600}>
+        <FAQ />
+      </LazySection>
 
       {/* Footer - lazy load last (onlyFooter to skip duplicate Reviews/FAQ) */}
       <LazySection rootMargin="100px" minHeight={400}>

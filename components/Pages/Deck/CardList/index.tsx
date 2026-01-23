@@ -645,7 +645,6 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               : theme.colors["pale_gray"],
         },
       ]}
-      id="cards"
       {...props}
     >
       <div css={[{ gridColumn: "span 6" }]}>

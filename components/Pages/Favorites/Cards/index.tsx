@@ -17,33 +17,23 @@ import Card from "../../../Card";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../../CardPage/Pop";
 
-// Deck slug sort order: Zero, One, Two, Three, Special, Future, Crypto (same as menu)
+// Deck slug sort order: Zero, One, Two, Three, Special, Future I, Future II, Crypto (same as menu)
 const deckSortOrder: Record<string, number> = {
   zero: 0,
   one: 1,
   two: 2,
   three: 3,
   special: 4,
-  future: 5,
-  crypto: 6,
+  "future:chapter i": 5,
+  "future:chapter ii": 6,
+  future: 7, // fallback for mixed/unknown editions
+  crypto: 8,
 };
 
-/** Get display title for deck, handling Future editions */
-const getDeckTitle = (deckSlug: string, deckTitle: string, cards: GQL.Card[]): string => {
-  if (deckSlug !== "future" || cards.length === 0) {
-    return deckTitle;
-  }
-
-  // Check editions of favorited cards
-  const editions = new Set(cards.map((c) => c.edition).filter(Boolean));
-
-  if (editions.size === 1) {
-    const edition = Array.from(editions)[0];
-    if (edition === "chapter i") return "Future Chapter I";
-    if (edition === "chapter ii") return "Future Chapter II";
-  }
-
-  // Mixed editions or unknown - show generic title
+/** Get display title for deck section key */
+const getSectionTitle = (sectionKey: string, deckTitle: string): string => {
+  if (sectionKey === "future:chapter i") return "Future Chapter I";
+  if (sectionKey === "future:chapter ii") return "Future Chapter II";
   return deckTitle;
 };
 
@@ -127,17 +117,17 @@ interface DeckSectionProps {
     deckCards: GQL.Card[];
     deckTitle: string;
   }) => void;
+  sectionTitle: string;
 }
 
 /** Single deck section with its favorited cards */
-const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState }) => {
-  const deckTitle = getDeckTitle(deck.slug, deck.title, cards);
+const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, sectionTitle }) => {
 
   return (
     <div>
       <Grid>
         <ScandiBlock css={[{ gridColumn: "span 6" }]}>
-          <ArrowedButton>{deckTitle}</ArrowedButton>
+          <ArrowedButton>{sectionTitle}</ArrowedButton>
         </ScandiBlock>
         <ScandiBlock css={[{ gridColumn: "span 6", gap: 30 }]}>
           {deck.product && (
@@ -183,7 +173,7 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState }) => {
                   artistCountry: card.artist.country,
                   cardId: card._id,
                   deckCards: cards,
-                  deckTitle: deckTitle,
+                  deckTitle: sectionTitle,
                 })
               }
               size="preview"
@@ -240,8 +230,8 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
     });
   }
 
-  // Group cards by deck slug for display
-  const cardsByDeck = useMemo(() => {
+  // Group cards by deck slug for display, splitting Future by edition
+  const cardsBySection = useMemo(() => {
     if (!allCards || !favorites) return {};
     const grouped: Record<string, GQL.Card[]> = {};
 
@@ -251,20 +241,33 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
       const deckCards = deckFavIds
         .map((id) => allCards.find((c) => c._id === id))
         .filter((c): c is GQL.Card => c !== undefined);
-      if (deckCards.length > 0) {
+
+      if (deckCards.length === 0) continue;
+
+      // Split Future deck by edition
+      if (deckSlug === "future") {
+        const chapterI = deckCards.filter((c) => c.edition === "chapter i");
+        const chapterII = deckCards.filter((c) => c.edition === "chapter ii");
+
+        if (chapterI.length > 0) {
+          grouped["future:chapter i"] = chapterI;
+        }
+        if (chapterII.length > 0) {
+          grouped["future:chapter ii"] = chapterII;
+        }
+      } else {
         grouped[deckSlug] = deckCards;
       }
     }
     return grouped;
   }, [allCards, favorites]);
 
-  // Get sorted deck slugs that have favorites
-  const sortedDeckSlugs = useMemo(() => {
-    if (!decks || !favorites) return [];
-    return Object.keys(favorites)
-      .filter((slug) => decks.some((deck) => deck.slug === slug))
+  // Get sorted section keys that have favorites
+  const sortedSectionKeys = useMemo(() => {
+    if (!decks) return [];
+    return Object.keys(cardsBySection)
       .sort((a, b) => (deckSortOrder[a] ?? 99) - (deckSortOrder[b] ?? 99));
-  }, [decks, favorites]);
+  }, [decks, cardsBySection]);
 
   return (
     <>
@@ -294,25 +297,30 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
         {/* Show skeleton while favorites/decks are loading or cards are fetching */}
         {favorites === undefined || !decks || loading ? (
           <FavoritesSkeleton />
-        ) : allFavoriteIds.length === 0 ? (
-          <Grid>
-            <div css={{ gridColumn: "1/-1", textAlign: "center", padding: "40px 0" }}>
-              No favorites yet. Add cards to your favorites from any deck page.
-            </div>
-          </Grid>
-        ) : !allCards || allCards.length === 0 ? (
+        ) : allFavoriteIds.length === 0 ? null : !allCards || allCards.length === 0 ? (
           <FavoritesSkeleton />
         ) : (
-          sortedDeckSlugs.map((slug) => {
-            const deck = decks?.find((d) => d.slug === slug);
-            const cards = cardsByDeck[slug];
+          sortedSectionKeys.map((sectionKey) => {
+            // Map section key to actual deck slug
+            // "future:chapter i" -> "future", "future:chapter ii" -> "future-ii"
+            let deckSlug: string;
+            if (sectionKey === "future:chapter i") {
+              deckSlug = "future";
+            } else if (sectionKey === "future:chapter ii") {
+              deckSlug = "future-ii";
+            } else {
+              deckSlug = sectionKey;
+            }
+            const deck = decks?.find((d) => d.slug === deckSlug);
+            const cards = cardsBySection[sectionKey];
             if (!deck || !cards || cards.length === 0) return null;
             return (
               <DeckSection
-                key={slug}
+                key={sectionKey}
                 deck={deck}
                 cards={cards}
                 setCardsState={setCardState}
+                sectionTitle={getSectionTitle(sectionKey, deck.title)}
               />
             );
           })

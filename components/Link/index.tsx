@@ -61,25 +61,31 @@ const Link: ForwardRefRenderFunction<HTMLAnchorElement, Props> = (
         const targetId = href.slice(1);
         const targetElement = document.getElementById(targetId);
         if (targetElement) {
-          // Always use position when at scroll 0 (header in "top" state)
-          // The header marginTop changes from -75 to -60 when scrolled, causing layout shift
-          // So we measure relative to scroll 0 state and add compensation
-          const elementRect = targetElement.getBoundingClientRect();
-          const currentScroll = window.scrollY;
-          const absoluteTop = elementRect.top + currentScroll;
+          // Dispatch event to force LazySection to load content before scrolling
+          window.dispatchEvent(new CustomEvent("lazySection:forceLoad", { detail: targetId }));
 
-          // If we're scrolled down, the header layout changes cause a 5px shift
-          // Compensate to ensure consistent scroll position
-          const headerCompensation = currentScroll > 600 ? 5 : 0;
-          const targetScrollPosition = absoluteTop - HEADER_OFFSET - headerCompensation;
+          // Use requestAnimationFrame to allow LazySection to update before measuring
+          requestAnimationFrame(() => {
+            // Always use position when at scroll 0 (header in "top" state)
+            // The header marginTop changes from -75 to -60 when scrolled, causing layout shift
+            // So we measure relative to scroll 0 state and add compensation
+            const elementRect = targetElement.getBoundingClientRect();
+            const currentScroll = window.scrollY;
+            const absoluteTop = elementRect.top + currentScroll;
 
-          window.scrollTo({
-            top: targetScrollPosition,
-            behavior: "smooth"
+            // If we're scrolled down, the header layout changes cause a 5px shift
+            // Compensate to ensure consistent scroll position
+            const headerCompensation = currentScroll > 600 ? 5 : 0;
+            const targetScrollPosition = absoluteTop - HEADER_OFFSET - headerCompensation;
+
+            window.scrollTo({
+              top: targetScrollPosition,
+              behavior: "smooth"
+            });
+
+            // Update URL hash without scrolling
+            window.history.pushState(null, "", href);
           });
-
-          // Update URL hash without scrolling
-          window.history.pushState(null, "", href);
         }
       }
       onClick?.(e);

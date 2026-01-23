@@ -1,17 +1,20 @@
 "use client";
 
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 import Text from "../../../Text";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import Button from "../../../Buttons/Button";
 import Link from "../../../Link";
 import Star from "../../../Icons/Star";
 import { useFavorites } from "../../../Contexts/favorites";
+import { useFlyingFav } from "../../../Contexts/flyingFav";
 import Shimmer from "./Shimmer";
 
 /** Favorite button - shows star icon with notification on add/remove */
 const FavButton: FC<{ deckSlug: string; cardId: string }> = ({ deckSlug, cardId }) => {
   const { isFavorite, addItem, removeItem } = useFavorites();
+  const { triggerFly } = useFlyingFav();
+  const buttonRef = useRef<HTMLDivElement>(null);
   const [favState, setFavState] = useState(false);
   const [showNotification, setShowNotification] = useState<"added" | "removed" | null>(null);
 
@@ -28,7 +31,7 @@ const FavButton: FC<{ deckSlug: string; cardId: string }> = ({ deckSlug, cardId 
   }, [showNotification]);
 
   return (
-    <div css={{ position: "relative" }}>
+    <div css={{ position: "relative" }} ref={buttonRef}>
       {showNotification && (
         <div
           css={(theme) => ({
@@ -84,6 +87,11 @@ const FavButton: FC<{ deckSlug: string; cardId: string }> = ({ deckSlug, cardId 
             addItem(deckSlug, cardId);
             setFavState(true);
             setShowNotification("added");
+            // Trigger flying star animation
+            if (buttonRef.current) {
+              const rect = buttonRef.current.getBoundingClientRect();
+              triggerFly(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            }
           }
         }}
       >

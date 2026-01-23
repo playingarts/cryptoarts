@@ -6,6 +6,7 @@ import Button from "../../../Buttons/Button";
 import NavButton from "../../../Buttons/NavButton";
 import FlippableCard from "../../../Card/FlippableCard";
 import { useFavorites } from "../../../Contexts/favorites";
+import { useFlyingFav } from "../../../Contexts/flyingFav";
 import Plus from "../../../Icons/Plus";
 import Star from "../../../Icons/Star";
 import Link from "../../../Link";
@@ -20,6 +21,8 @@ const FavButton: FC<
   HTMLAttributes<HTMLElement> & { deckSlug: string; id: string; loading?: boolean }
 > = ({ deckSlug, id, loading }) => {
   const { isFavorite, addItem, removeItem } = useFavorites();
+  const { triggerFly } = useFlyingFav();
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   const [favState, setFavState] = useState(false);
   const [showNotification, setShowNotification] = useState<"added" | "removed" | null>(null);
@@ -61,7 +64,7 @@ const FavButton: FC<
   }
 
   return (
-    <div css={{ position: "relative" }}>
+    <div css={{ position: "relative" }} ref={buttonRef}>
       {showNotification && (
         <div
           css={(theme) => ({
@@ -118,6 +121,11 @@ const FavButton: FC<
             addItem(deckSlug, id);
             setFavState(true);
             setShowNotification("added");
+            // Trigger flying star animation
+            if (buttonRef.current) {
+              const rect = buttonRef.current.getBoundingClientRect();
+              triggerFly(rect.left + rect.width / 2, rect.top + rect.height / 2);
+            }
           }
         }}
       >
@@ -457,12 +465,12 @@ const Pop: FC<
         }}
       >
         <div css={[{ flex: 1 }]}>
-          <Text
-            typography="newh4"
-            css={{ "&:hover": { opacity: 0.7, cursor: "pointer" }, transition: "opacity 0.2s" }}
-            onClick={() => {
-              // Store deck data for instant display on deck page
-              if (deck) {
+          {deck ? (
+            <Text
+              typography="newh4"
+              css={{ "&:hover": { opacity: 0.7, cursor: "pointer" }, transition: "opacity 0.2s" }}
+              onClick={() => {
+                // Store deck data for instant display on deck page
                 setNavigationDeck({
                   slug: deckId,
                   title: (edition || card?.edition) === "chapter i" || deckId === "future"
@@ -472,22 +480,37 @@ const Pop: FC<
                     : deck.title,
                   description: deck.info,
                 });
-              }
-              close();
-              onNavigate?.();
-              // Track navigation timing
-              startPerfNavTiming("click", "CardPop-Deck", `/${deckId}`, false);
-              router.push(`/${deckId}`);
-            }}
-          >
-            {deck
-              ? (edition || card?.edition) === "chapter i" || deckId === "future"
+                close();
+                onNavigate?.();
+                // Track navigation timing
+                startPerfNavTiming("click", "CardPop-Deck", `/${deckId}`, false);
+                router.push(`/${deckId}`);
+              }}
+            >
+              {(edition || card?.edition) === "chapter i" || deckId === "future"
                 ? "Future Chapter I"
                 : (edition || card?.edition) === "chapter ii" || deckId === "future-ii"
                 ? "Future Chapter II"
-                : deck.title
-              : null}{" "}
-          </Text>
+                : deck.title}{" "}
+            </Text>
+          ) : (
+            <div
+              css={{
+                height: 45,
+                width: 180,
+                borderRadius: 6,
+                background: palette === "dark"
+                  ? "linear-gradient(90deg, #2a2a2a 0%, #3a3a3a 50%, #2a2a2a 100%)"
+                  : "linear-gradient(90deg, #e0e0e0 0%, #f0f0f0 50%, #e0e0e0 100%)",
+                backgroundSize: "200% 100%",
+                animation: "shimmer 1.5s infinite linear",
+                "@keyframes shimmer": {
+                  "0%": { backgroundPosition: "200% 0" },
+                  "100%": { backgroundPosition: "-200% 0" },
+                },
+              }}
+            />
+          )}
           <div
             css={{
               marginTop: 30,

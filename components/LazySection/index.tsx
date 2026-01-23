@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, ReactNode } from "react";
+import { useState, useEffect, useRef, ReactNode, useCallback } from "react";
 
 type LazySectionProps = {
   children: ReactNode;
@@ -17,6 +17,7 @@ type LazySectionProps = {
 /**
  * Renders children only when they're about to enter viewport.
  * Uses IntersectionObserver for efficient lazy loading.
+ * Also loads immediately when navigated to via hash link.
  */
 const LazySection = ({
   children,
@@ -28,8 +29,41 @@ const LazySection = ({
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
+  // Check if this section is the hash target and force visibility
+  const checkHashTarget = useCallback(() => {
+    if (id && window.location.hash === `#${id}`) {
+      setIsVisible(true);
+    }
+  }, [id]);
+
+  // Listen for hash changes (navigation clicks)
   useEffect(() => {
-    if (!ref.current) {
+    if (!id) return;
+
+    // Check on mount in case page loaded with hash
+    checkHashTarget();
+
+    // Listen for hash changes
+    window.addEventListener("hashchange", checkHashTarget);
+
+    // Also listen for custom event dispatched by Link component
+    const handleForceLoad = (e: Event) => {
+      const customEvent = e as CustomEvent<string>;
+      if (customEvent.detail === id) {
+        setIsVisible(true);
+      }
+    };
+    window.addEventListener("lazySection:forceLoad", handleForceLoad);
+
+    return () => {
+      window.removeEventListener("hashchange", checkHashTarget);
+      window.removeEventListener("lazySection:forceLoad", handleForceLoad);
+    };
+  }, [id, checkHashTarget]);
+
+  // IntersectionObserver for scroll-based loading
+  useEffect(() => {
+    if (!ref.current || isVisible) {
       return;
     }
 
@@ -45,7 +79,7 @@ const LazySection = ({
 
     observer.observe(ref.current);
     return () => observer.disconnect();
-  }, [rootMargin]);
+  }, [rootMargin, isVisible]);
 
   return (
     <div ref={ref} id={id} style={{ minHeight: isVisible ? undefined : minHeight }}>

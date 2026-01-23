@@ -1,22 +1,66 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useMemo } from "react";
 import Text from "../../../Text";
 import Grid from "../../../Grid";
+import ArrowButton from "../../../Buttons/ArrowButton";
 import { useFavorites } from "../../../Contexts/favorites";
+import { useCardsByIds } from "../../../../hooks/card";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { favorites } = useFavorites();
 
+  // Get all favorite card IDs
+  const allFavoriteIds = useMemo(() => {
+    if (!favorites) return [];
+    return Object.values(favorites).flat().filter((id) => id && id.length > 0);
+  }, [favorites]);
+
+  // Fetch cards to check editions for Future deck
+  const { cards: allCards } = useCardsByIds({
+    variables: { ids: allFavoriteIds },
+    skip: allFavoriteIds.length === 0,
+  });
+
+  // Count cards and decks, splitting Future by edition
+  const { cardCount, deckCount } = useMemo(() => {
+    if (!favorites) return { cardCount: 0, deckCount: 0 };
+
+    let cardCount = 0;
+    let deckCount = 0;
+
+    for (const [deckSlug, ids] of Object.entries(favorites)) {
+      const validIds = ids.filter((id) => id && id.trim() !== "");
+      if (validIds.length === 0) continue;
+
+      cardCount += validIds.length;
+
+      // Split Future into Chapter I and Chapter II
+      if (deckSlug === "future" && allCards) {
+        const futureCards = allCards.filter((c) => validIds.includes(c._id));
+        const hasChapterI = futureCards.some((c) => c.edition === "chapter i");
+        const hasChapterII = futureCards.some((c) => c.edition === "chapter ii");
+        deckCount += (hasChapterI ? 1 : 0) + (hasChapterII ? 1 : 0);
+      } else {
+        deckCount += 1;
+      }
+    }
+
+    return { cardCount, deckCount };
+  }, [favorites, allCards]);
+
   return (
     <Grid css={(theme) => [{ paddingTop: 235, background: theme.colors.pale_gray }]}>
-      <Text typography="newh3" css={[{ gridColumn: "span 6" }]}>
-        Your personal gallery of{" "}
-        {!favorites ? 0 : Object.values(favorites).flat().length} inspiring
-        cards from {!favorites ? 0 : Object.keys(favorites).length}{" "}
-        {favorites && Object.keys(favorites).length === 1
-          ? "unique deck"
-          : "unique decks"}
-        .
-      </Text>
+      <div css={[{ gridColumn: "span 6" }]}>
+        <Text typography="newh3">
+          {cardCount === 0
+            ? "No favorites yet. Add cards to your favorites from any deck page."
+            : `Your personal gallery of ${cardCount} inspiring cards from ${deckCount} ${deckCount === 1 ? "unique deck" : "unique decks"}.`}
+        </Text>
+        {cardCount === 0 && (
+          <ArrowButton color="accent" css={{ marginTop: 30, fontSize: 20 }} href="/#collection">
+            Browse collection
+          </ArrowButton>
+        )}
+      </div>
     </Grid>
   );
 };

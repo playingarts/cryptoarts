@@ -262,6 +262,8 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 ]}
                 card={card}
                 size="preview"
+                palette={deckId === "crypto" ? "dark" : "light"}
+                artistHref={deckId ? `/${deckId}/${card.artist.slug}` : undefined}
               />
             ))}
       </div>

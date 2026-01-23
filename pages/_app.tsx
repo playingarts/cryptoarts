@@ -26,6 +26,8 @@ import { IsEuropeProvider } from "@/components/Contexts/bag";
 import { FavoritesProvider } from "@/components/Contexts/favorites";
 import { MenuProvider } from "@/components/Contexts/menu";
 import ErrorBoundary from "@/components/ErrorBoundary";
+import FloatingFavButton from "@/components/FloatingFavButton";
+import { FlyingFavProvider } from "@/components/Contexts/flyingFav";
 import { initApolloClient } from "../source/apollo";
 
 // Import theme from dedicated module
@@ -108,7 +110,10 @@ const App = ({
                         <MenuProvider>
                           <GoogleAnalytics trackPageViews />
                           <ErrorBoundary>
-                            <Component {...pageProps} />
+                            <FlyingFavProvider>
+                              <Component {...pageProps} />
+                              <FloatingFavButton />
+                            </FlyingFavProvider>
                           </ErrorBoundary>
                         </MenuProvider>
                       </SizeProvider>

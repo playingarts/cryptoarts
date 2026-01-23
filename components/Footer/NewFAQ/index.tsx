@@ -202,7 +202,6 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
 
   return (
     <div
-      id="faq"
       css={(theme) => [
         {
           background:

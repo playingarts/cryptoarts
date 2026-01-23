@@ -21,7 +21,6 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           gap: 30,
         },
       ]}
-      id="pace"
     >
       <Intro
         css={[{ minHeight: 311, marginBottom: 30, boxSizing: "content-box" }]}
