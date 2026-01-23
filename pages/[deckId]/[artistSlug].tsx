@@ -34,6 +34,10 @@ export interface SSRCardProps {
     img: string;
     video?: string | null;
   };
+  /** Main photo URL (admin-uploaded) */
+  mainPhoto?: string | null;
+  /** Additional photo URLs (admin-uploaded) */
+  additionalPhotos?: string[];
 }
 
 /**

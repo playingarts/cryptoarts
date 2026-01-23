@@ -163,36 +163,38 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       : { skip: true }
   );
 
-  // Collect all photos from cards (mainPhoto + additionalPhotos)
-  const allPhotos = useMemo(() => {
-    if (!cards || cards.length === 0) return [];
-    const photos: string[] = [];
+  // Collect mainPhotos and additionalPhotos separately
+  const { mainPhotos, additionalPhotos } = useMemo(() => {
+    if (!cards || cards.length === 0) return { mainPhotos: [], additionalPhotos: [] };
+    const mains: string[] = [];
+    const additionals: string[] = [];
     cards.forEach((card) => {
-      if (card.mainPhoto) photos.push(card.mainPhoto);
+      if (card.mainPhoto) mains.push(card.mainPhoto);
       if (card.additionalPhotos) {
         card.additionalPhotos.forEach((p) => {
-          if (p) photos.push(p);
+          if (p) additionals.push(p);
         });
       }
     });
-    // Shuffle photos
-    return photos.sort(() => Math.random() - 0.5);
+    // Shuffle both arrays
+    return {
+      mainPhotos: mains.sort(() => Math.random() - 0.5),
+      additionalPhotos: additionals.sort(() => Math.random() - 0.5),
+    };
   }, [cards]);
 
-  // Split photos into 5 slots for the gallery grid
-  // Each slot gets a portion of photos to rotate through
+  // Split photos into 5 slots for the gallery grid:
+  // - Center slot (index 1): only mainPhotos
+  // - Corner slots (indices 0, 2, 3, 4): only additionalPhotos
   const slotPhotos = useMemo(() => {
-    if (allPhotos.length === 0) {
-      // Return empty arrays for each slot (will show placeholders)
-      return [[], [], [], [], []];
-    }
-    // Distribute photos across 5 slots
-    const slots: string[][] = [[], [], [], [], []];
-    allPhotos.forEach((photo, i) => {
-      slots[i % 5].push(photo);
+    // Distribute additional photos across 4 corner slots
+    const cornerSlots: string[][] = [[], [], [], []];
+    additionalPhotos.forEach((photo, i) => {
+      cornerSlots[i % 4].push(photo);
     });
-    return slots;
-  }, [allPhotos]);
+    // Return: [corner0, mainPhotos, corner1, corner2, corner3]
+    return [cornerSlots[0], mainPhotos, cornerSlots[1], cornerSlots[2], cornerSlots[3]];
+  }, [mainPhotos, additionalPhotos]);
 
   return (
     <Grid

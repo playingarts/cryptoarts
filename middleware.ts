@@ -179,7 +179,7 @@ export async function middleware(request: NextRequest) {
 // Configure which paths the middleware runs on
 export const config = {
   matcher: [
-    // Match all API routes
-    "/api/:path*",
+    // Match all API routes except upload (which needs large body support)
+    "/api/((?!v1/upload).*)",
   ],
 };

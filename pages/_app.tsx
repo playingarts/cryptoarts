@@ -25,6 +25,7 @@ import { HeroCardsProvider } from "@/components/Pages/Deck/HeroCardsContext";
 import { IsEuropeProvider } from "@/components/Contexts/bag";
 import { FavoritesProvider } from "@/components/Contexts/favorites";
 import { MenuProvider } from "@/components/Contexts/menu";
+import { AuthProvider } from "@/components/Contexts/auth";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import FloatingFavButton from "@/components/FloatingFavButton";
 import { FlyingFavProvider } from "@/components/Contexts/flyingFav";
@@ -108,13 +109,15 @@ const App = ({
                     <FavoritesProvider>
                       <SizeProvider isMobile={isMobile === true}>
                         <MenuProvider>
-                          <GoogleAnalytics trackPageViews />
-                          <ErrorBoundary>
-                            <FlyingFavProvider>
-                              <Component {...pageProps} />
-                              <FloatingFavButton />
-                            </FlyingFavProvider>
-                          </ErrorBoundary>
+                          <AuthProvider>
+                            <GoogleAnalytics trackPageViews />
+                            <ErrorBoundary>
+                              <FlyingFavProvider>
+                                <Component {...pageProps} />
+                                <FloatingFavButton />
+                              </FlyingFavProvider>
+                            </ErrorBoundary>
+                          </AuthProvider>
                         </MenuProvider>
                       </SizeProvider>
                     </FavoritesProvider>

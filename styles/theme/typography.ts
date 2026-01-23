@@ -3,11 +3,16 @@ import { mq, maxMQ } from "./breakpoints";
 /**
  * Typography styles for the design system
  * Organized by design era (new Alliance No.2 font vs legacy Aldrich)
+ *
+ * Note: Alliance font is loaded via next/font/local which generates a unique
+ * hashed font name. We use the CSS variable --font-alliance set by next/font.
  */
+const allianceFont = "var(--font-alliance), 'Alliance No.2', sans-serif";
+
 export const typographyLiterals = {
   // New design system typography (Alliance No.2 font)
   newParagraph: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 25,
     fontWeight: 400,
     lineHeight: "150%",
@@ -16,7 +21,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   newh4: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 25,
     fontWeight: 400,
     lineHeight: "45px",
@@ -25,7 +30,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   newh3: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 35,
     fontWeight: 400,
     lineHeight: "53px",
@@ -34,7 +39,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   newh2: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 55,
     fontWeight: 400,
     lineHeight: "66px",
@@ -47,7 +52,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   paragraphBig: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 35,
     fontWeight: 400,
     lineHeight: "53px",
@@ -56,7 +61,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   linkNewTypography: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 20,
     fontWeight: 400,
     lineHeight: "40px",
@@ -65,7 +70,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   paragraphSmall: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 18,
     fontWeight: 400,
     lineHeight: "160%",
@@ -74,7 +79,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   paragraphNano: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 15,
     fontWeight: 400,
     lineHeight: "150%",
@@ -83,7 +88,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   paragraphMicro: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 12,
     fontWeight: 400,
     lineHeight: 1.4333,
@@ -92,7 +97,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   newh0: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 85,
     fontWeight: 400,
     lineHeight: "100%",
@@ -101,7 +106,7 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
   },
   newh1: {
-    fontFamily: "'Alliance No.2'",
+    fontFamily: allianceFont,
     fontSize: 70,
     fontWeight: 400,
     lineHeight: "120%",

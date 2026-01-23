@@ -35,12 +35,12 @@ export const alliance = localFont({
       style: "normal",
     },
     {
-      path: "../public/AllianceMedium.otf",
+      path: "../public/AllianceMedium.woff2",
       weight: "500",
       style: "normal",
     },
     {
-      path: "../public/AllianceBold.otf",
+      path: "../public/AllianceBold.woff2",
       weight: "600",
       style: "normal",
     },

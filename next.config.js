@@ -53,6 +53,13 @@ const nextConfig = {
   reactStrictMode: true,
   staticPageGenerationTimeout: 300,
 
+  // Increase body size limit for file uploads (50MB)
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "50mb",
+    },
+  },
+
   async headers() {
     return [
       {
