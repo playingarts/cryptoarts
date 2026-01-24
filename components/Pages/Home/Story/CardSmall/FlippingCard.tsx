@@ -1,6 +1,6 @@
 import { FC } from "react";
 import Card from "../../../../Card";
-import type { HomeCard } from "../../../../../contexts/heroCarouselContext";
+import type { HomeCard } from "../../../../Contexts/heroCarousel";
 import { useFlippingCard } from "./useFlippingCard";
 import {
   CARD_WIDTH,

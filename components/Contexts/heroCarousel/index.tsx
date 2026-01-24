@@ -10,7 +10,7 @@ import {
   useMemo,
   ReactNode,
 } from "react";
-import type { HomeCard } from "../types/homeCard";
+import type { HomeCard } from "../../../types/homeCard";
 
 export { HomeCard };
 

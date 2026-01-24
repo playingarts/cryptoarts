@@ -8,7 +8,7 @@ import {
   useContext,
   useMemo,
 } from "react";
-import { useLocalStorage } from "../../hooks/useLocalStorage";
+import { useLocalStorage } from "../../../hooks/useLocalStorage";
 
 type ViewedCard = {
   value?: string;

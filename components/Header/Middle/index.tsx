@@ -6,7 +6,7 @@ import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { FC, HTMLAttributes, ReactNode, useContext } from "react";
 import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
-import { HeroCarouselContext } from "../../../contexts/heroCarouselContext";
+import { HeroCarouselContext } from "../../Contexts/heroCarousel";
 
 export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({
   links,

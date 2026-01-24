@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 import { ReactNode } from "react";
-import { ViewedProvider, useViewed } from "../../contexts/viewedContext";
+import { ViewedProvider, useViewed } from "../../components/Contexts/viewed";
 
 // Mock useLocalStorage hook
 jest.mock("../../hooks/useLocalStorage", () => ({

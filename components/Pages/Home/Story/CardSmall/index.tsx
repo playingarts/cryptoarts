@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import Grid from "../../../../Grid";
 import FlippingCard from "./FlippingCard";
 import MenuPortal from "../../../../Header/MainMenu/MenuPortal";
-import { useStableCards, HomeCard } from "../../../../../contexts/heroCarouselContext";
+import { useStableCards, HomeCard } from "../../../../Contexts/heroCarousel";
 import {
   CARD_WIDTH,
   CARD_HEIGHT,

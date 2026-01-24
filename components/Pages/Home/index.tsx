@@ -7,7 +7,7 @@ import Header from "../../Header";
 import Hero, { HERO_QUOTE_COUNT } from "../Home/Hero";
 import Story from "../Home/Story";
 import Footer from "../../Footer";
-import { HeroCarouselProvider, HomeCard } from "../../../contexts/heroCarouselContext";
+import { HeroCarouselProvider, HomeCard } from "../../Contexts/heroCarousel";
 import LazySection from "../../LazySection";
 import Skeleton from "../../LazySection/Skeleton";
 

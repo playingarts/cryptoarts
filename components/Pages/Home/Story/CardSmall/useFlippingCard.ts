@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
-import type { HomeCard } from "../../../../../contexts/heroCarouselContext";
+import type { HomeCard } from "../../../../Contexts/heroCarousel";
 
 type UseFlippingCardOptions = {
   cards: HomeCard[];

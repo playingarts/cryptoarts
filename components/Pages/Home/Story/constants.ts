@@ -1,4 +1,4 @@
-import type { HomeCard } from "../../../../contexts/heroCarouselContext";
+import type { HomeCard } from "../../../Contexts/heroCarousel";
 
 // Card dimensions
 export const CARD_WIDTH = 240;

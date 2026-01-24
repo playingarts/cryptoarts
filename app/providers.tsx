@@ -16,7 +16,7 @@ import { ThemeProvider } from "@emotion/react";
 import { useEffect } from "react";
 import smoothscroll from "smoothscroll-polyfill";
 import SizeProvider from "@/components/SizeProvider";
-import { ViewedProvider } from "@/contexts/viewedContext";
+import { ViewedProvider } from "@/components/Contexts/viewed";
 import { IsEuropeProvider } from "@/components/Contexts/bag";
 import { FavoritesProvider } from "@/components/Contexts/favorites";
 import ErrorBoundary from "@/components/ErrorBoundary";

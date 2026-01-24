@@ -2,7 +2,7 @@ import Card from "../../../../Card";
 import { useSize } from "../../../../SizeProvider";
 import { breakpoints } from "../../../../../source/enums";
 import { FC, useMemo, useState, useEffect, useRef } from "react";
-import { useHeroCarousel, HomeCard as HomeCardType } from "../../../../../contexts/heroCarouselContext";
+import { useHeroCarousel, HomeCard as HomeCardType } from "../../../../Contexts/heroCarousel";
 import { cardSizesHover } from "../../../../Card/sizes";
 
 // Generate random rotation between 3-15 degrees with random direction

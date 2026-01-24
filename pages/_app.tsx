@@ -11,7 +11,7 @@ import smoothscroll from "smoothscroll-polyfill";
 import { initNavInstrumentation } from "../source/utils/navInstrumentation";
 import { initPerfNavTracer } from "../source/utils/perfNavTracer";
 import SizeProvider from "@/components/SizeProvider";
-import { ViewedProvider } from "@/contexts/viewedContext";
+import { ViewedProvider } from "@/components/Contexts/viewed";
 import { DeckPaletteProvider } from "@/components/Pages/Deck/DeckPaletteContext";
 import { HeroCardsProvider } from "@/components/Pages/Deck/HeroCardsContext";
 import { IsEuropeProvider } from "@/components/Contexts/bag";

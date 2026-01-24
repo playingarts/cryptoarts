@@ -5,7 +5,7 @@ import ExploreButton from "../../../Buttons/ExploreButton";
 import Text from "../../../Text";
 import HeroCard from "./HeroCard";
 import Link from "../../../Link";
-import { useHeroCarousel } from "../../../../contexts/heroCarouselContext";
+import { useHeroCarousel } from "../../../Contexts/heroCarousel";
 
 const HERO_TEXTS = [
   "\u201CIt's not just playing cards, but a gallery right in your hands.\u201D",
