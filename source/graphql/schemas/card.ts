@@ -61,6 +61,7 @@ export const resolvers: GQL.Resolvers = {
     card: async (_, args) => cardService.getCard(args),
     cardByImg: (_, { img }) => cardService.getCardByImg({ img }),
     cardsByIds: (_, { ids }) => cardService.getCardsByIds(ids),
+    cardsByPaths: (_, { paths }) => cardService.getCardsByPaths(paths),
     randomCards: (_, args) => cardService.getCards(args),
     heroCards: (_, { slug }) => cardService.getHeroCards(slug || ""),
     homeCards: () => cardService.getHomeCards(),
@@ -87,6 +88,7 @@ export const typeDefs = gql`
     card(id: ID, slug: String, deckSlug: String): Card
     cardByImg(img: ID!): Card
     cardsByIds(ids: [ID!]!): [Card!]!
+    cardsByPaths(paths: [String!]!): [Card!]!
     heroCards(deck: ID, slug: String): [Card!]!
     homeCards: [Card!]!
   }

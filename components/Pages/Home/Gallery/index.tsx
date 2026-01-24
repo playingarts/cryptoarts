@@ -1,12 +1,10 @@
-import { FC, HTMLAttributes, useState, useCallback } from "react";
+import { FC, HTMLAttributes, useState, useCallback, useEffect, useRef } from "react";
 import Image from "next/image";
 import { keyframes } from "@emotion/react";
 import Grid from "../../../Grid";
-import { useDailyCardLite, usePrefetchCardsForDeck } from "../../../../hooks/card";
+import { useDailyCardLite, usePrefetchCardsForDeck, useRandomRightBottomPhoto } from "../../../../hooks/card";
+import Link from "../../../Link";
 import { setNavigationCard } from "../../CardPage/navigationCardStore";
-import image1 from "../../../../mocks/images/homeGallery/1.png";
-import image2 from "../../../../mocks/images/homeGallery/2.png";
-import image3 from "../../../../mocks/images/homeGallery/3.png";
 import image4 from "../../../../mocks/images/homeGallery/4.png";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import ArrowButton from "../../../Buttons/ArrowButton";
@@ -15,6 +13,24 @@ import ScandiBlock from "../../../ScandiBlock";
 import Text from "../../../Text";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
+
+/** Static featured photos for bottom-left rotating slot */
+type FeaturedPhoto = { photo: string; href: string };
+const FEATURED_PHOTOS: FeaturedPhoto[] = [
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001862284ec07522bb3f2/additional-1769183290052.jpg", href: "/three/burnt-toast-creative" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001822284ec07522bb31b/additional-1769186762900.jpg", href: "/one/sara-blake" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001822284ec07522bb317/additional-1769186650153.jpg", href: "/one/conrad-roset" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001822284ec07522bb311/additional-1769186534827.jpg", href: "/one/lei-melendres" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001822284ec07522bb2fc/additional-1769185762508.jpg", href: "/one/valerie-ann-chua" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001842284ec07522bb398/additional-1769182431703.jpg", href: "/two/yeaaah-studio" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001842284ec07522bb394/additional-1769182311916.jpg", href: "/two/sara-blake" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001842284ec07522bb38c/additional-1769182138729.jpg", href: "/two/marcelo-schultz" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001842284ec07522bb39b/additional-1769182510094.jpg", href: "/two/alexis-marcou" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001862284ec07522bb422/additional-1769184545274.jpg", href: "/three/wes-art-studio" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001862284ec07522bb405/additional-1769183713706.jpg", href: "/three/andreas-preis" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001862284ec07522bb408/additional-1769183769687.jpg", href: "/three/will-scobie" },
+  { photo: "https://s3.amazonaws.com/img.playingarts.com/card-photos/680001862284ec07522bb40f/additional-1769184094079.jpg", href: "/three/grzegorz-domaradzki" },
+];
 
 /** Fade in animation */
 const fadeIn = keyframes`
@@ -25,6 +41,142 @@ const fadeIn = keyframes`
     opacity: 1;
   }
 `;
+
+/** Rotation interval in ms */
+const ROTATION_INTERVAL = 5000;
+
+/**
+ * Linked rotating photo slot with click-through links.
+ * Each photo links to its card page.
+ */
+const LinkedRotatingPhotoSlot: FC<{ items: FeaturedPhoto[] }> = ({ items }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [loadedPhotos, setLoadedPhotos] = useState<Set<string>>(new Set());
+  const [showNext, setShowNext] = useState(false);
+
+  const preloadImage = useCallback((src: string): Promise<void> => {
+    return new Promise((resolve) => {
+      if (loadedPhotos.has(src)) {
+        resolve();
+        return;
+      }
+      const img = new window.Image();
+      img.onload = () => {
+        setLoadedPhotos((prev) => new Set(prev).add(src));
+        resolve();
+      };
+      img.onerror = () => resolve();
+      img.src = src;
+    });
+  }, [loadedPhotos]);
+
+  useEffect(() => {
+    if (items.length === 0) return;
+
+    const preload = async () => {
+      const current = items[currentIndex]?.photo;
+      if (current) await preloadImage(current);
+
+      const nextIdx = (currentIndex + 1) % items.length;
+      const next = items[nextIdx]?.photo;
+      if (next) await preloadImage(next);
+
+      if (items.length > 2) {
+        const aheadIdx = (currentIndex + 2) % items.length;
+        const ahead = items[aheadIdx]?.photo;
+        if (ahead) await preloadImage(ahead);
+      }
+    };
+
+    preload();
+  }, [items, currentIndex, preloadImage]);
+
+  useEffect(() => {
+    if (items.length <= 1) return;
+
+    const currentPhoto = items[currentIndex]?.photo;
+    const nextIdx = (currentIndex + 1) % items.length;
+    const nextPhoto = items[nextIdx]?.photo;
+
+    if (!currentPhoto || !loadedPhotos.has(currentPhoto)) return;
+    if (!nextPhoto || !loadedPhotos.has(nextPhoto)) return;
+
+    const timer = setInterval(() => {
+      setShowNext(true);
+      setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % items.length);
+        setShowNext(false);
+      }, 600);
+    }, ROTATION_INTERVAL);
+
+    return () => clearInterval(timer);
+  }, [items, currentIndex, loadedPhotos]);
+
+  const currentItem = items[currentIndex];
+  const nextIdx = (currentIndex + 1) % items.length;
+  const nextItem = items[nextIdx];
+
+  if (!currentItem?.photo || !loadedPhotos.has(currentItem.photo)) {
+    return (
+      <div
+        css={(theme) => ({
+          width: "100%",
+          height: "100%",
+          background: theme.colors.soft_gray,
+          borderRadius: 16,
+        })}
+      />
+    );
+  }
+
+  return (
+    <Link
+      href={currentItem.href}
+      css={(theme) => ({
+        display: "block",
+        width: "100%",
+        height: "100%",
+        background: theme.colors.soft_gray,
+        borderRadius: 16,
+        position: "relative",
+        overflow: "hidden",
+      })}
+    >
+      <img
+        key={currentItem.photo}
+        src={currentItem.photo}
+        alt="Featured card artwork"
+        css={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          borderRadius: 16,
+        }}
+      />
+      {nextItem?.photo && loadedPhotos.has(nextItem.photo) && (
+        <img
+          key={nextItem.photo}
+          src={nextItem.photo}
+          alt="Featured card artwork"
+          css={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            borderRadius: 16,
+            opacity: showNext ? 1 : 0,
+            transition: "opacity 0.6s ease-in-out",
+          }}
+        />
+      )}
+    </Link>
+  );
+};
 
 /** Main photo with fade-in animation */
 const MainPhotoSlot: FC<{ src?: string | null; alt?: string }> = ({ src, alt }) => {
@@ -130,6 +282,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { dailyCard, loading } = useDailyCardLite();
   const { width } = useSize();
   const { prefetch } = usePrefetchCardsForDeck();
+  const { photo: rightBottomPhoto } = useRandomRightBottomPhoto();
 
   // Prefetch cards for deck on hover (warms Apollo cache)
   const handleLinkMouseEnter = useCallback(() => {
@@ -229,26 +382,42 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <div css={{ gridColumn: "span 3", position: "relative", aspectRatio: "1/1" }}>
-          <Image
-            src={image1}
+        <Link href="/one/andreas-preis" css={{ gridColumn: "span 3", position: "relative", aspectRatio: "1/1", display: "block" }}>
+          <img
+            src="https://s3.amazonaws.com/img.playingarts.com/card-photos/680001822284ec07522bb320/main-1769212363022.jpg"
             alt="Playing Arts card showcase"
-            fill
-            sizes="(max-width: 768px) 50vw, 25vw"
-            style={{ objectFit: "cover", borderRadius: 16 }}
-            priority
+            css={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: 16,
+            }}
           />
-        </div>
-        <div css={{ gridColumn: "span 3", position: "relative", aspectRatio: "1/1" }}>
-          <Image
-            src={image2}
-            alt="Playing Arts card detail"
-            fill
-            sizes="(max-width: 768px) 50vw, 25vw"
-            style={{ objectFit: "cover", borderRadius: 16 }}
-            priority
+        </Link>
+        <Link
+          href="/two/zipeng-zhu"
+          css={{
+            gridColumn: "span 3",
+            position: "relative",
+            aspectRatio: "1/1",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: "white",
+            borderRadius: 16,
+          }}
+        >
+          <img
+            src="https://s3.amazonaws.com/img.playingarts.com/card-photos/680001842284ec07522bb373/additional-1769267271052.gif"
+            alt="Animated card artwork by Zipeng Zhu"
+            css={{
+              width: "70%",
+              height: "70%",
+              objectFit: "cover",
+              borderRadius: 12,
+            }}
           />
-        </div>
+        </Link>
         <div css={{ gridColumn: "span 6", gridRow: "span 2", position: "relative", aspectRatio: "1/1" }}>
           <MainPhotoSlot
             src={dailyCard?.mainPhoto}
@@ -256,24 +425,30 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           />
         </div>
         <div css={{ gridColumn: "span 3", position: "relative", aspectRatio: "1/1" }}>
-          <Image
-            src={image3}
-            alt="Playing Arts artwork"
-            fill
-            sizes="(max-width: 768px) 50vw, 25vw"
-            style={{ objectFit: "cover", borderRadius: 16 }}
-            loading="lazy"
-          />
+          <LinkedRotatingPhotoSlot items={FEATURED_PHOTOS} />
         </div>
         <div css={{ gridColumn: "span 3", position: "relative", aspectRatio: "1/1" }}>
-          <Image
-            src={image4}
-            alt="Playing Arts design"
-            fill
-            sizes="(max-width: 768px) 50vw, 25vw"
-            style={{ objectFit: "cover", borderRadius: 16 }}
-            loading="lazy"
-          />
+          {rightBottomPhoto ? (
+            <img
+              src={rightBottomPhoto}
+              alt="Playing Arts design"
+              css={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: 16,
+              }}
+            />
+          ) : (
+            <Image
+              src={image4}
+              alt="Playing Arts design"
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              style={{ objectFit: "cover", borderRadius: 16 }}
+              loading="lazy"
+            />
+          )}
         </div>
 
         <div

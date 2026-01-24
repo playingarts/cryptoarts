@@ -138,29 +138,44 @@ export async function POST(request: NextRequest) {
     // Convert file to buffer
     const inputBuffer = Buffer.from(await file.arrayBuffer());
 
-    // Process image with Sharp:
-    // 1. Auto-crop to center square
-    // 2. Resize to 800x800
-    // 3. Convert to JPEG with quality 80
-    const processedBuffer = await sharp(inputBuffer)
-      .resize(OUTPUT_SIZE, OUTPUT_SIZE, {
-        fit: "cover",
-        position: "center",
-      })
-      .jpeg({ quality: OUTPUT_QUALITY })
-      .toBuffer();
-
-    // Generate unique filename (always .jpg after processing)
+    // Generate unique filename
     // Use productId path for product-level photos, cardId for card-level photos
     const timestamp = Date.now();
     const folder = productId ? `product-photos/${productId}` : `card-photos/${cardId}`;
-    const key = `${folder}/${photoType}-${timestamp}.jpg`;
+    const isGif = file.type === "image/gif";
+
+    let processedBuffer: Buffer;
+    let contentType: string;
+    let extension: string;
+
+    if (isGif) {
+      // GIFs: upload directly without processing to preserve animation
+      processedBuffer = inputBuffer;
+      contentType = "image/gif";
+      extension = "gif";
+    } else {
+      // Other images: process with Sharp
+      // 1. Auto-crop to center square
+      // 2. Resize to 800x800
+      // 3. Convert to JPEG with quality 80
+      processedBuffer = await sharp(inputBuffer)
+        .resize(OUTPUT_SIZE, OUTPUT_SIZE, {
+          fit: "cover",
+          position: "center",
+        })
+        .jpeg({ quality: OUTPUT_QUALITY })
+        .toBuffer();
+      contentType = "image/jpeg";
+      extension = "jpg";
+    }
+
+    const key = `${folder}/${photoType}-${timestamp}.${extension}`;
 
     const command = new PutObjectCommand({
       Bucket: BUCKET,
       Key: key,
       Body: processedBuffer,
-      ContentType: "image/jpeg",
+      ContentType: contentType,
     });
 
     await s3Client.send(command);

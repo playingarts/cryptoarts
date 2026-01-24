@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { useLazyQuery, useQuery, useApolloClient } from "@apollo/client/react";
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import {
   CardFragment,
   CardBasicFragment,
@@ -554,4 +554,121 @@ export const usePrefetchCardsForDeck = () => {
   );
 
   return { prefetch };
+};
+
+/**
+ * Query for gallery rotating photos - fetches additionalPhotos[0] from random cards
+ * Lightweight query for home page gallery slot
+ */
+export const GalleryPhotosQuery = gql`
+  query GalleryPhotos($limit: Int) {
+    cards(shuffle: true, limit: $limit) {
+      _id
+      additionalPhotos
+    }
+  }
+`;
+
+/**
+ * Hook to fetch a random cardGalleryPhoto from products.
+ * This is the deck-level photo used in card page gallery bottom-right slot.
+ * Returns a single photo URL that changes only on page refresh.
+ */
+export const useRandomRightBottomPhoto = () => {
+  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [hasSelected, setHasSelected] = useState(false);
+
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "products">>(
+    gql`
+      query ProductGalleryPhotos {
+        products {
+          _id
+          cardGalleryPhotos
+        }
+      }
+    `,
+    {
+      fetchPolicy: "cache-first",
+    }
+  );
+
+  // Select random photo only once when data arrives
+  useEffect(() => {
+    if (hasSelected || !data?.products) {
+      return;
+    }
+
+    const productsWithPhoto = data.products.filter((p) => p.cardGalleryPhotos?.[0]);
+    if (productsWithPhoto.length > 0) {
+      const randomIndex = Math.floor(Math.random() * productsWithPhoto.length);
+      setSelectedPhoto(productsWithPhoto[randomIndex].cardGalleryPhotos![0]);
+      setHasSelected(true);
+    }
+  }, [data?.products, hasSelected]);
+
+  return { ...methods, photo: selectedPhoto };
+};
+
+/** Featured card paths for the bottom-left gallery slot */
+const FEATURED_CARD_PATHS = [
+  "three/burnt-toast-creative",
+  "one/sara-blake",
+  "one/conrad-roset",
+  "one/lei-melendres",
+  "one/valerie-ann-chua",
+  "two/yeaaah-studio",
+  "two/sara-blake",
+  "two/marcelo-schultz",
+  "two/alexis-marcou",
+  "three/wes-art-studio",
+  "three/andreas-preis",
+  "three/will-scobie",
+  "three/grzegorz-domaradzki",
+];
+
+/**
+ * Query for featured gallery photos - fetches specific cards by paths
+ */
+export const FeaturedGalleryPhotosQuery = gql`
+  query FeaturedGalleryPhotos($paths: [String!]!) {
+    cardsByPaths(paths: $paths) {
+      _id
+      additionalPhotos
+      deck {
+        slug
+      }
+      artist {
+        slug
+      }
+    }
+  }
+`;
+
+export type FeaturedPhoto = {
+  photo: string;
+  href: string;
+};
+
+/**
+ * Hook to fetch featured gallery photos for bottom-left slot on home page.
+ * Returns array of { photo, href } objects for rotating display with links.
+ */
+export const useFeaturedGalleryPhotos = () => {
+  const { data, ...methods } = useQuery<Pick<GQL.Query, "cardsByPaths">>(
+    FeaturedGalleryPhotosQuery,
+    {
+      variables: { paths: FEATURED_CARD_PATHS },
+      fetchPolicy: "cache-first",
+    }
+  );
+
+  // Extract additionalPhotos[0] and href from each card
+  const featuredPhotos: FeaturedPhoto[] = data?.cardsByPaths
+    ?.filter((card) => card.additionalPhotos?.[0])
+    .map((card) => ({
+      photo: card.additionalPhotos![0],
+      href: `/${card.deck?.slug}/${card.artist?.slug}`,
+    })) || [];
+
+  return { ...methods, featuredPhotos };
 };

@@ -343,6 +343,43 @@ export class CardService {
 
     return card as unknown as GQL.Card | undefined;
   }
+
+  /**
+   * Get cards by their paths (deckSlug/artistSlug format)
+   * Used for fetching specific featured cards for gallery
+   */
+  async getCardsByPaths(paths: string[]): Promise<GQL.Card[]> {
+    if (!paths || paths.length === 0) {
+      return [];
+    }
+
+    // Parse paths and resolve deck/artist IDs
+    const cards = await Promise.all(
+      paths.map(async (path) => {
+        const parts = path.replace(/^\//, "").split("/");
+        if (parts.length !== 2) return null;
+
+        const [deckSlug, artistSlug] = parts;
+
+        // Look up deck and artist
+        const [deck, artist] = await Promise.all([
+          Deck.findOne({ slug: deckSlug }),
+          Artist.findOne({ slug: artistSlug }),
+        ]);
+
+        if (!deck || !artist) return null;
+
+        const card = await Card.findOne({
+          deck: deck._id,
+          artist: artist._id,
+        }).populate(["artist", "deck"]);
+
+        return card as unknown as GQL.Card | null;
+      })
+    );
+
+    return cards.filter((card): card is GQL.Card => card !== null);
+  }
 }
 
 // Export singleton instance
