@@ -7,7 +7,7 @@ import Grid from "../../../Grid";
 import Item from "../../Home/Testimonials/Item";
 import Button from "../../../Buttons/Button";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
-import { useProducts } from "../../../../hooks/product";
+import { useProducts, ProductsQuery } from "../../../../hooks/product";
 import { useRatings } from "../../../../hooks/ratings";
 import { useLoadCollectionCards } from "../../../../hooks/card";
 import { useRouter } from "next/router";
@@ -220,6 +220,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
               top: "50%",
               left: "50%",
               transform: "translate(-50%, -50%)",
+              zIndex: 10,
               width: small ? 36 : 60,
               height: small ? 36 : 60,
               borderRadius: "50%",
@@ -260,7 +261,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
       )}
 
       {/* Admin delete button */}
-      {isAdmin && photo && (
+      {isAdmin && displayedPhoto && (
         <button
           onClick={onDelete}
           disabled={deleting || uploading}
@@ -268,6 +269,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
             position: "absolute",
             top: small ? 5 : 10,
             right: small ? 5 : 10,
+            zIndex: 10,
             width: small ? 24 : 36,
             height: small ? 24 : 36,
             borderRadius: "50%",
@@ -312,10 +314,10 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
 /** Total admin slots (3 big + 6 small) */
 const TOTAL_ADMIN_SLOTS = 9;
 
-/** Max file size for upload (2MB to stay well under Vercel's 4.5MB limit) */
-const MAX_UPLOAD_SIZE = 2 * 1024 * 1024;
+/** Max file size for upload (3MB to stay under Vercel's 4.5MB limit) */
+const MAX_UPLOAD_SIZE = 3 * 1024 * 1024;
 
-/** Compress image client-side using canvas - always compress to ensure small size */
+/** Compress image client-side using canvas */
 const compressImage = async (file: File): Promise<File> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -323,8 +325,8 @@ const compressImage = async (file: File): Promise<File> => {
     const ctx = canvas.getContext("2d");
 
     img.onload = () => {
-      // Always resize to max 1200px (smaller = faster upload, server will resize to 800 anyway)
-      const maxSize = 1200;
+      // Resize to max 1800px for good quality product photos
+      const maxSize = 1800;
       let { width, height } = img;
 
       if (width > height && width > maxSize) {
@@ -345,7 +347,7 @@ const compressImage = async (file: File): Promise<File> => {
 
       ctx.drawImage(img, 0, 0, width, height);
 
-      // Compress with decreasing quality until under limit
+      // Compress with decreasing quality until under limit (min 70% for good quality)
       const tryCompress = (quality: number) => {
         canvas.toBlob(
           (blob) => {
@@ -354,11 +356,11 @@ const compressImage = async (file: File): Promise<File> => {
               return;
             }
 
-            if (blob.size <= MAX_UPLOAD_SIZE || quality <= 0.2) {
+            if (blob.size <= MAX_UPLOAD_SIZE || quality <= 0.7) {
               resolve(new File([blob], file.name, { type: "image/jpeg" }));
             } else {
               // Try lower quality
-              tryCompress(quality - 0.1);
+              tryCompress(quality - 0.05);
             }
           },
           "image/jpeg",
@@ -366,8 +368,8 @@ const compressImage = async (file: File): Promise<File> => {
         );
       };
 
-      // Start at lower quality for faster compression
-      tryCompress(0.75);
+      // Start at high quality
+      tryCompress(0.92);
     };
 
     img.onerror = () => reject(new Error("Failed to load image"));
@@ -722,7 +724,9 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   const { products, refetch } = useProducts();
   const { ratings } = useRatings({ variables: { shuffle: true, limit: 20 } });
-  const [updateProductPhotos] = useMutation(UPDATE_PRODUCT_PHOTOS);
+  const [updateProductPhotos] = useMutation(UPDATE_PRODUCT_PHOTOS, {
+    refetchQueries: [{ query: ProductsQuery }],
+  });
 
   const { getPrice } = useBag();
 
@@ -737,10 +741,34 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     return { ...product, photos: localPhotos };
   }, [product, localPhotos]);
 
+  // Handle photo changes
+  const handlePhotosChange = useCallback(async (newPhotos: string[]) => {
+    if (!product?._id) return;
+
+    // Update local state immediately for instant feedback
+    setLocalPhotos(newPhotos);
+
+    try {
+      await updateProductPhotos({
+        variables: {
+          productId: product._id,
+          photos: newPhotos,
+        },
+      });
+      // Refetch to sync with server
+      refetch();
+    } catch (error) {
+      console.error("Failed to update photos:", error);
+      // Revert local state on error
+      setLocalPhotos(undefined);
+      alert("Failed to update photos");
+    }
+  }, [product?._id, updateProductPhotos, refetch]);
+
   // Photo gallery hook (must be called unconditionally)
   const photoGallery = useProductPhotoGallery(
     displayProduct || { _id: "", photos: [] } as unknown as GQL.Product,
-    (photos) => displayProduct && handlePhotosChange(photos)
+    handlePhotosChange
   );
 
   // Shuffle ratings on mount
@@ -775,30 +803,6 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     }
   }, [products, pId]);
 
-  // Handle photo changes
-  const handlePhotosChange = useCallback(async (newPhotos: string[]) => {
-    if (!product?._id) return;
-
-    // Update local state immediately for instant feedback
-    setLocalPhotos(newPhotos);
-
-    try {
-      await updateProductPhotos({
-        variables: {
-          productId: product._id,
-          photos: newPhotos,
-        },
-      });
-      // Refetch to sync with server
-      refetch();
-    } catch (error) {
-      console.error("Failed to update photos:", error);
-      // Revert local state on error
-      setLocalPhotos(undefined);
-      alert("Failed to update photos");
-    }
-  }, [product?._id, updateProductPhotos, refetch]);
-
   return (
     <Grid
       id="product"
@@ -828,6 +832,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {/* First photo slot */}
         {displayProduct && (
           <PhotoSlot
+            key={`${displayProduct._id}-0`}
             photo={photoGallery.getPhotoForSlot(0)}
             photos={photoGallery.photos}
             initialIndex={0}
@@ -890,6 +895,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {/* Second photo slot */}
         {displayProduct && (
           <PhotoSlot
+            key={`${displayProduct._id}-1`}
             photo={photoGallery.getPhotoForSlot(1)}
             photos={photoGallery.photos}
             initialIndex={1}
@@ -906,6 +912,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {/* Third photo slot */}
         {displayProduct && (
           <PhotoSlot
+            key={`${displayProduct._id}-2`}
             photo={photoGallery.getPhotoForSlot(2)}
             photos={photoGallery.photos}
             initialIndex={2}
@@ -926,7 +933,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <div css={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 15 }}>
               {[3, 4, 5].map((index) => (
                 <PhotoSlot
-                  key={index}
+                  key={`${displayProduct._id}-${index}`}
                   small
                   photo={photoGallery.getPhotoByIndex(index)}
                   isAdmin={photoGallery.isAdmin}
@@ -938,11 +945,11 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 />
               ))}
             </div>
-            {/* Row 2: slots 7, 8 (indices 6, 7) + deck preview cards slot */}
+            {/* Row 2: slots 7, 8, 9 (indices 6, 7, 8) */}
             <div css={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 15 }}>
-              {[6, 7].map((index) => (
+              {[6, 7, 8].map((index) => (
                 <PhotoSlot
-                  key={index}
+                  key={`${displayProduct._id}-${index}`}
                   small
                   photo={photoGallery.getPhotoByIndex(index)}
                   isAdmin={photoGallery.isAdmin}
@@ -953,20 +960,6 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   onDelete={() => photoGallery.handleDeleteByIndex(index)}
                 />
               ))}
-              {/* Last slot: rotating deck preview cards */}
-              <PhotoSlot
-                small
-                photo={product?.deck?.previewCards?.[0]?.img || null}
-                photos={product?.deck?.previewCards?.map(c => c.img) || []}
-                initialIndex={0}
-                enableRotation={(product?.deck?.previewCards?.length || 0) > 1}
-                isAdmin={false}
-                uploading={false}
-                deleting={false}
-                canAdd={false}
-                onUpload={() => {}}
-                onDelete={() => {}}
-              />
             </div>
           </>
         )}
