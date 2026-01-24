@@ -1,4 +1,7 @@
 import { FC, HTMLAttributes, useEffect, useState, useMemo, useCallback, useRef } from "react";
+import { keyframes } from "@emotion/react";
+import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/client/react";
 import Grid from "../../../Grid";
 
 import Item from "../../Home/Testimonials/Item";
@@ -29,6 +32,329 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../../CardPage/Pop";
 import Link from "../../../Link";
+import { useAuth } from "../../../Contexts/auth";
+import Plus from "../../../Icons/Plus";
+import Delete from "../../../Icons/Delete";
+
+/** GraphQL mutation to update product photos */
+const UPDATE_PRODUCT_PHOTOS = gql`
+  mutation UpdateProductPhotos($productId: ID!, $photos: [String!]!) {
+    updateProductPhotos(productId: $productId, photos: $photos) {
+      _id
+      photos
+    }
+  }
+`;
+
+/** Fade animation for photo transitions */
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+/** Max photos per product */
+const MAX_PHOTOS = 10;
+/** Photos to show at a time */
+const VISIBLE_SLOTS = 3;
+/** Interval between photo changes */
+const PHOTO_INTERVAL = 4000;
+
+interface PhotoSlotProps {
+  photo: string | null;
+  isAdmin: boolean;
+  uploading: boolean;
+  deleting: boolean;
+  canAdd: boolean;
+  onUpload: (file: File) => void;
+  onDelete: () => void;
+  small?: boolean;
+}
+
+const PhotoSlot: FC<PhotoSlotProps> = ({ photo, isAdmin, uploading, deleting, canAdd, onUpload, onDelete, small }) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      onUpload(file);
+    }
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, [onUpload]);
+
+  return (
+    <div
+      css={(theme) => ({
+        background: theme.colors.white50,
+        borderRadius: small ? 10 : 15,
+        aspectRatio: "1",
+        position: "relative",
+        overflow: "hidden",
+        "&:hover button": {
+          opacity: 1,
+        },
+      })}
+    >
+      {photo && (
+        <img
+          src={photo}
+          alt="Product photo"
+          css={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            borderRadius: small ? 10 : 15,
+            animation: `${fadeIn} 0.5s ease-out`,
+          }}
+        />
+      )}
+
+      {/* Admin upload button */}
+      {isAdmin && canAdd && (
+        <>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            onChange={handleFileChange}
+            css={{ display: "none" }}
+          />
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading || deleting}
+            css={(theme) => ({
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: small ? 36 : 60,
+              height: small ? 36 : 60,
+              borderRadius: "50%",
+              border: "none",
+              background: uploading ? theme.colors.accent : "rgba(255,255,255,0.9)",
+              color: uploading ? "white" : theme.colors.black,
+              cursor: uploading || deleting ? "wait" : "pointer",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              opacity: photo ? 0 : 0.8,
+              transition: "opacity 0.2s ease, transform 0.2s ease",
+              "&:hover": {
+                opacity: 1,
+                transform: "translate(-50%, -50%) scale(1.1)",
+              },
+            })}
+            aria-label={photo ? "Replace photo" : "Add photo"}
+          >
+            {uploading ? (
+              <span css={{
+                width: small ? 14 : 20,
+                height: small ? 14 : 20,
+                border: "2px solid white",
+                borderTopColor: "transparent",
+                borderRadius: "50%",
+                animation: "spin 1s linear infinite",
+                "@keyframes spin": {
+                  "0%": { transform: "rotate(0deg)" },
+                  "100%": { transform: "rotate(360deg)" },
+                },
+              }} />
+            ) : (
+              <Plus css={{ width: small ? 16 : 24, height: small ? 16 : 24 }} />
+            )}
+          </button>
+        </>
+      )}
+
+      {/* Admin delete button */}
+      {isAdmin && photo && (
+        <button
+          onClick={onDelete}
+          disabled={deleting || uploading}
+          css={(theme) => ({
+            position: "absolute",
+            top: small ? 5 : 10,
+            right: small ? 5 : 10,
+            width: small ? 24 : 36,
+            height: small ? 24 : 36,
+            borderRadius: "50%",
+            border: "none",
+            background: deleting ? theme.colors.accent : "rgba(0,0,0,0.7)",
+            color: "white",
+            cursor: deleting || uploading ? "wait" : "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: 0,
+            transition: "opacity 0.2s ease, transform 0.2s ease",
+            "&:hover": {
+              background: theme.colors.accent,
+              transform: "scale(1.1)",
+            },
+          })}
+          aria-label="Delete photo"
+        >
+          {deleting ? (
+            <span css={{
+              width: small ? 12 : 16,
+              height: small ? 12 : 16,
+              border: "2px solid white",
+              borderTopColor: "transparent",
+              borderRadius: "50%",
+              animation: "spin 1s linear infinite",
+              "@keyframes spin": {
+                "0%": { transform: "rotate(0deg)" },
+                "100%": { transform: "rotate(360deg)" },
+              },
+            }} />
+          ) : (
+            <Delete css={{ width: small ? 12 : 18, height: small ? 12 : 18 }} />
+          )}
+        </button>
+      )}
+    </div>
+  );
+};
+
+/** Total admin slots (3 big + 6 small) */
+const TOTAL_ADMIN_SLOTS = 9;
+
+/** Hook to manage product photo gallery state and handlers */
+const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: string[]) => void) => {
+  const { isAdmin } = useAuth();
+  const photos = useMemo(() => product.photos || [], [product.photos]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [uploadingSlot, setUploadingSlot] = useState<number | null>(null);
+  const [deletingSlot, setDeletingSlot] = useState<number | null>(null);
+
+  // Auto-rotate photos when there are more than 3 (only for non-admins)
+  useEffect(() => {
+    // Admins see fixed slots, no rotation
+    if (isAdmin) return;
+    if (photos.length <= VISIBLE_SLOTS) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % photos.length);
+    }, PHOTO_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, [photos.length, isAdmin]);
+
+  // Get photo for a specific visible slot (for the 3 main slots)
+  // Non-admins: rotating view through all photos
+  // Admins: fixed mapping (slot 0 = photo 0, slot 1 = photo 1, etc.)
+  const getPhotoForSlot = useCallback((slotIndex: number): string | null => {
+    if (isAdmin) {
+      // Admin: fixed slot mapping
+      return photos[slotIndex] || null;
+    }
+    // Non-admin: rotating view
+    if (photos.length > 0 && slotIndex < photos.length) {
+      const photoIndex = (currentIndex + slotIndex) % photos.length;
+      return photos[photoIndex] || null;
+    }
+    return null;
+  }, [photos, currentIndex, isAdmin]);
+
+  // Get photo by direct index (for admin small slots)
+  const getPhotoByIndex = useCallback((index: number): string | null => {
+    return photos[index] || null;
+  }, [photos]);
+
+  const handleUpload = useCallback(async (file: File, slotIndex: number) => {
+    setUploadingSlot(slotIndex);
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("cardId", `product-${product._id}`);
+      formData.append("photoType", "product");
+
+      const response = await fetch("/api/v1/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch {
+        throw new Error("Server error: Invalid response");
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || "Upload failed");
+      }
+
+      // Add new photo to array
+      const newPhotos = [...photos, data.imageUrl];
+      onPhotosChange(newPhotos);
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Upload failed");
+    } finally {
+      setUploadingSlot(null);
+    }
+  }, [product._id, photos, onPhotosChange]);
+
+  const handleDelete = useCallback(async (slotIndex: number) => {
+    // Admin: direct index, Non-admin: rotating index
+    const actualIndex = isAdmin
+      ? slotIndex
+      : (currentIndex + slotIndex) % photos.length;
+    if (actualIndex >= photos.length) return;
+
+    setDeletingSlot(slotIndex);
+
+    try {
+      const newPhotos = photos.filter((_, i) => i !== actualIndex);
+      onPhotosChange(newPhotos);
+
+      // Adjust current index if needed (for non-admin rotation)
+      if (!isAdmin && currentIndex >= newPhotos.length && newPhotos.length > 0) {
+        setCurrentIndex(0);
+      }
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Delete failed");
+    } finally {
+      setDeletingSlot(null);
+    }
+  }, [photos, currentIndex, onPhotosChange, isAdmin]);
+
+  // Delete by direct index (for admin small slots)
+  const handleDeleteByIndex = useCallback(async (photoIndex: number) => {
+    if (photoIndex >= photos.length) return;
+
+    setDeletingSlot(photoIndex);
+
+    try {
+      const newPhotos = photos.filter((_, i) => i !== photoIndex);
+      onPhotosChange(newPhotos);
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Delete failed");
+    } finally {
+      setDeletingSlot(null);
+    }
+  }, [photos, onPhotosChange]);
+
+  const canAdd = photos.length < MAX_PHOTOS;
+
+  return {
+    isAdmin,
+    photos,
+    currentIndex,
+    setCurrentIndex,
+    uploadingSlot,
+    deletingSlot,
+    getPhotoForSlot,
+    getPhotoByIndex,
+    handleUpload,
+    handleDelete,
+    handleDeleteByIndex,
+    canAdd,
+  };
+};
 
 const points = [
   "55 hand-picked winning designs meticulously selected from an exciting global design contest.",
@@ -265,13 +591,28 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     query: { pId },
   } = useRouter();
 
-  const { products } = useProducts();
+  const { products, refetch } = useProducts();
   const { ratings } = useRatings({ variables: { shuffle: true, limit: 20 } });
+  const [updateProductPhotos] = useMutation(UPDATE_PRODUCT_PHOTOS);
 
   const { getPrice } = useBag();
 
   const [product, setProduct] = useState<GQL.Product>();
+  const [localPhotos, setLocalPhotos] = useState<string[] | undefined>(undefined);
   const [reviewIndex, setReviewIndex] = useState(0);
+
+  // Create display product with local photos override
+  const displayProduct = useMemo(() => {
+    if (!product) return undefined;
+    if (localPhotos === undefined) return product;
+    return { ...product, photos: localPhotos };
+  }, [product, localPhotos]);
+
+  // Photo gallery hook (must be called unconditionally)
+  const photoGallery = useProductPhotoGallery(
+    displayProduct || { _id: "", photos: [] } as unknown as GQL.Product,
+    (photos) => displayProduct && handlePhotosChange(photos)
+  );
 
   // Shuffle ratings on mount
   const shuffledRatings = useMemo(() => {
@@ -301,8 +642,33 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     );
     if (product) {
       setProduct(product);
+      setLocalPhotos(undefined); // Reset local photos when product changes
     }
   }, [products, pId]);
+
+  // Handle photo changes
+  const handlePhotosChange = useCallback(async (newPhotos: string[]) => {
+    if (!product?._id) return;
+
+    // Update local state immediately for instant feedback
+    setLocalPhotos(newPhotos);
+
+    try {
+      await updateProductPhotos({
+        variables: {
+          productId: product._id,
+          photos: newPhotos,
+        },
+      });
+      // Refetch to sync with server
+      refetch();
+    } catch (error) {
+      console.error("Failed to update photos:", error);
+      // Revert local state on error
+      setLocalPhotos(undefined);
+      alert("Failed to update photos");
+    }
+  }, [product?._id, updateProductPhotos, refetch]);
 
   return (
     <Grid
@@ -330,7 +696,20 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <div css={(theme) => ({ background: theme.colors.white50, borderRadius: 15, aspectRatio: "1" })} />
+        {/* First photo slot */}
+        {displayProduct && (
+          <PhotoSlot
+            photo={photoGallery.getPhotoForSlot(0)}
+            isAdmin={photoGallery.isAdmin}
+            uploading={photoGallery.uploadingSlot === 0}
+            deleting={photoGallery.deletingSlot === 0}
+            canAdd={photoGallery.canAdd}
+            onUpload={(file) => photoGallery.handleUpload(file, 0)}
+            onDelete={() => photoGallery.handleDelete(0)}
+          />
+        )}
+
+        {/* Testimonial between first and second photo */}
         {currentRating && (
           <div
             css={(theme) => [
@@ -375,15 +754,71 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             />
           </div>
         )}
-        <div css={(theme) => ({ background: theme.colors.white50, borderRadius: 15, aspectRatio: "1" })} />
-        <div css={(theme) => ({ background: theme.colors.white50, borderRadius: 15, aspectRatio: "1" })} />
-        {/* {product ? (
-          product.status === "soldout" ? (
-            <SoldOut css={[{ textAlign: "center" }]} />
-          ) : (
-            <AddToBag css={[{ textAlign: "center" }]} productId={product._id} />
-          )
-        ) : null} */}
+
+        {/* Second photo slot */}
+        {displayProduct && (
+          <PhotoSlot
+            photo={photoGallery.getPhotoForSlot(1)}
+            isAdmin={photoGallery.isAdmin}
+            uploading={photoGallery.uploadingSlot === 1}
+            deleting={photoGallery.deletingSlot === 1}
+            canAdd={photoGallery.canAdd}
+            onUpload={(file) => photoGallery.handleUpload(file, 1)}
+            onDelete={() => photoGallery.handleDelete(1)}
+          />
+        )}
+
+        {/* Third photo slot */}
+        {displayProduct && (
+          <PhotoSlot
+            photo={photoGallery.getPhotoForSlot(2)}
+            isAdmin={photoGallery.isAdmin}
+            uploading={photoGallery.uploadingSlot === 2}
+            deleting={photoGallery.deletingSlot === 2}
+            canAdd={photoGallery.canAdd}
+            onUpload={(file) => photoGallery.handleUpload(file, 2)}
+            onDelete={() => photoGallery.handleDelete(2)}
+          />
+        )}
+
+        {/* Admin-only: 6 small photo slots (3 + 4-6 and 7-9) */}
+        {photoGallery.isAdmin && displayProduct && (
+          <>
+            {/* Row 1: slots 4, 5, 6 (indices 3, 4, 5) */}
+            <div css={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 15 }}>
+              {[3, 4, 5].map((index) => (
+                <PhotoSlot
+                  key={index}
+                  small
+                  photo={photoGallery.getPhotoByIndex(index)}
+                  isAdmin={photoGallery.isAdmin}
+                  uploading={photoGallery.uploadingSlot === index}
+                  deleting={photoGallery.deletingSlot === index}
+                  canAdd={photoGallery.canAdd}
+                  onUpload={(file) => photoGallery.handleUpload(file, index)}
+                  onDelete={() => photoGallery.handleDeleteByIndex(index)}
+                />
+              ))}
+            </div>
+            {/* Row 2: slots 7, 8, 9 (indices 6, 7, 8) */}
+            <div css={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 15 }}>
+              {[6, 7, 8].map((index) => (
+                <PhotoSlot
+                  key={index}
+                  small
+                  photo={photoGallery.getPhotoByIndex(index)}
+                  isAdmin={photoGallery.isAdmin}
+                  uploading={photoGallery.uploadingSlot === index}
+                  deleting={photoGallery.deletingSlot === index}
+                  canAdd={photoGallery.canAdd}
+                  onUpload={(file) => photoGallery.handleUpload(file, index)}
+                  onDelete={() => photoGallery.handleDeleteByIndex(index)}
+                />
+              ))}
+            </div>
+          </>
+        )}
+
         {product && product.deck ? (
           <CardPreview
             deckId={product.deck.slug}

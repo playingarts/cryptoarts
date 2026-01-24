@@ -23,6 +23,7 @@ export const ProductsQuery = gql`
       }
       image
       image2
+      photos
       decks {
         _id
       }

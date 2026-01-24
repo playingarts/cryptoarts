@@ -10,7 +10,9 @@ import Card from "../../../Card";
 import { cardSizes } from "../../../Card/sizes";
 import { useCardPageContext } from "../CardPageContext";
 import { useAuth } from "../../../Contexts/auth";
+import { useProducts } from "../../../../hooks/product";
 import Plus from "../../../Icons/Plus";
+import Delete from "../../../Icons/Delete";
 
 /** GraphQL mutation to update card photos */
 const UPDATE_CARD_PHOTOS = gql`
@@ -165,11 +167,13 @@ interface PhotoSlotProps {
   dark?: boolean;
   isAdmin?: boolean;
   uploading?: boolean;
+  deleting?: boolean;
   onUpload?: (file: File) => void;
+  onDelete?: () => void;
 }
 
-/** Photo slot - shows image with fade-in or gray placeholder, with upload button for admins */
-const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin, uploading, onUpload }) => {
+/** Photo slot - shows image with fade-in or gray placeholder, with upload/delete buttons for admins */
+const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin, uploading, deleting, onUpload, onDelete }) => {
   const [loaded, setLoaded] = useState(false);
   const [currentSrc, setCurrentSrc] = useState(src);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -215,7 +219,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin
       />
       <button
         onClick={() => fileInputRef.current?.click()}
-        disabled={uploading}
+        disabled={uploading || deleting}
         css={(theme) => ({
           position: "absolute",
           top: "50%",
@@ -227,7 +231,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin
           border: "none",
           background: uploading ? theme.colors.accent : "rgba(255,255,255,0.9)",
           color: uploading ? "white" : theme.colors.black,
-          cursor: uploading ? "wait" : "pointer",
+          cursor: uploading || deleting ? "wait" : "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
@@ -260,9 +264,61 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin
     </>
   );
 
+  const deleteButton = isAdmin && onDelete && src && (
+    <button
+      onClick={onDelete}
+      disabled={deleting || uploading}
+      css={(theme) => ({
+        position: "absolute",
+        top: 10,
+        right: 10,
+        width: 36,
+        height: 36,
+        borderRadius: "50%",
+        border: "none",
+        background: deleting ? theme.colors.accent : "rgba(0,0,0,0.7)",
+        color: "white",
+        cursor: deleting || uploading ? "wait" : "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        opacity: 0,
+        transition: "opacity 0.2s ease, transform 0.2s ease",
+        "&:hover": {
+          background: theme.colors.accent,
+          transform: "scale(1.1)",
+        },
+      })}
+      aria-label="Delete photo"
+    >
+      {deleting ? (
+        <span css={{
+          width: 16,
+          height: 16,
+          border: "2px solid white",
+          borderTopColor: "transparent",
+          borderRadius: "50%",
+          animation: "spin 1s linear infinite",
+          "@keyframes spin": {
+            "0%": { transform: "rotate(0deg)" },
+            "100%": { transform: "rotate(360deg)" },
+          },
+        }} />
+      ) : (
+        <Delete css={{ width: 18, height: 18 }} />
+      )}
+    </button>
+  );
+
   if (src) {
     return (
-      <div css={[baseStyles, { backgroundColor: placeholderColor, position: "relative" as const }]}>
+      <div css={[baseStyles, {
+        backgroundColor: placeholderColor,
+        position: "relative" as const,
+        "&:hover button": {
+          opacity: 1,
+        },
+      }]}>
         <img
           css={[
             baseStyles,
@@ -279,6 +335,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin
           onLoad={() => setLoaded(true)}
         />
         {uploadButton}
+        {deleteButton}
       </div>
     );
   }
@@ -297,12 +354,22 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin
  * Admins see upload buttons on each photo slot
  */
 const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
-  const { artistSlug, sortedCards, deckId } = useCardPageContext();
+  const { artistSlug, sortedCards, deckId, deck } = useCardPageContext();
   const { isAdmin } = useAuth();
   const [uploadingSlot, setUploadingSlot] = useState<string | null>(null);
+  const [deletingSlot, setDeletingSlot] = useState<string | null>(null);
 
   // GraphQL mutation
   const [updateCardPhotos] = useMutation(UPDATE_CARD_PHOTOS);
+
+  // Get products to find the deck's product image
+  const { products } = useProducts();
+
+  // Find product for current deck
+  const deckProduct = useMemo(() => {
+    if (!products || !deck?._id) return null;
+    return products.find((p) => p.deck?._id === deck._id && p.type === "deck");
+  }, [products, deck?._id]);
 
   // Find current card from sorted cards (instant update on navigation)
   const card = useMemo(() => {
@@ -394,6 +461,43 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     }
   }, [card?._id, additionalPhotos, mainPhoto, updateCardPhotos]);
 
+  // Delete handler for a specific slot
+  const handleDelete = useCallback(async (slotType: "main" | number) => {
+    if (!card?._id) return;
+
+    const slotKey = slotType === "main" ? "main" : `additional-${slotType}`;
+    setDeletingSlot(slotKey);
+
+    try {
+      if (slotType === "main") {
+        await updateCardPhotos({
+          variables: {
+            cardId: card._id,
+            mainPhoto: null,
+            additionalPhotos: additionalPhotos.length > 0 ? additionalPhotos : null,
+          },
+        });
+        setLocalMainPhoto(null);
+      } else {
+        const newAdditionalPhotos = [...additionalPhotos];
+        newAdditionalPhotos[slotType] = "";
+        await updateCardPhotos({
+          variables: {
+            cardId: card._id,
+            mainPhoto: mainPhoto || null,
+            additionalPhotos: newAdditionalPhotos,
+          },
+        });
+        setLocalAdditionalPhotos(newAdditionalPhotos);
+      }
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert(error instanceof Error ? error.message : "Delete failed");
+    } finally {
+      setDeletingSlot(null);
+    }
+  }, [card?._id, additionalPhotos, mainPhoto, updateCardPhotos]);
+
   return (
     <Grid
       css={(theme) => [
@@ -454,7 +558,9 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           dark={deckId === "crypto"}
           isAdmin={isAdmin}
           uploading={uploadingSlot === "additional-0"}
+          deleting={deletingSlot === "additional-0"}
           onUpload={(file) => handleUpload(file, 0)}
+          onDelete={() => handleDelete(0)}
         />
 
         {/* Center - main photo (large, spans 2 rows) */}
@@ -465,7 +571,9 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           dark={deckId === "crypto"}
           isAdmin={isAdmin}
           uploading={uploadingSlot === "main"}
+          deleting={deletingSlot === "main"}
           onUpload={(file) => handleUpload(file, "main")}
+          onDelete={() => handleDelete("main")}
         />
 
         {/* Top right - card preview with flip on click */}
@@ -489,14 +597,11 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           )}
         </div>
 
-        {/* Bottom left - additional photo 3 */}
+        {/* Bottom left - deck product photo */}
         <PhotoSlot
-          src={additionalPhotos[2]}
+          src={deckProduct?.image}
           gridColumn="span 3"
           dark={deckId === "crypto"}
-          isAdmin={isAdmin}
-          uploading={uploadingSlot === "additional-2"}
-          onUpload={(file) => handleUpload(file, 2)}
         />
 
         {/* Bottom right - additional photo 4 */}
@@ -506,7 +611,9 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           dark={deckId === "crypto"}
           isAdmin={isAdmin}
           uploading={uploadingSlot === "additional-3"}
+          deleting={deletingSlot === "additional-3"}
           onUpload={(file) => handleUpload(file, 3)}
+          onDelete={() => handleDelete(3)}
         />
       </Grid>
     </Grid>

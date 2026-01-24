@@ -4,16 +4,10 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import sharp from "sharp";
 import { requireAdmin, isNextResponse } from "../../../../lib/auth";
 
-// Configure route to accept larger file uploads (up to 50MB)
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-// For App Router, we need to export runtime config
+// App Router config for large file uploads
 export const runtime = "nodejs";
 export const maxDuration = 60; // 60 seconds timeout for processing large images
+export const dynamic = "force-dynamic";
 
 const s3Client = new S3Client({
   region: process.env.AWS_REGION || "us-east-1",
@@ -24,7 +18,7 @@ const s3Client = new S3Client({
 });
 
 const BUCKET = process.env.AWS_S3_BUCKET || "img.playingarts.com";
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_FILE_SIZE = 20 * 1024 * 1024; // 20MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 
 // Image processing settings
@@ -134,7 +128,7 @@ export async function POST(request: NextRequest) {
 
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
-        { error: "File too large. Maximum size: 10MB" },
+        { error: "File too large. Maximum size: 20MB" },
         { status: 400 }
       );
     }
@@ -175,9 +169,15 @@ export async function POST(request: NextRequest) {
       key,
     });
   } catch (error) {
-    console.error("Error uploading file:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const errorName = error instanceof Error ? error.name : "UnknownError";
+    console.error("Error uploading file:", {
+      name: errorName,
+      message: errorMessage,
+      stack: error instanceof Error ? error.stack : undefined,
+    });
     return NextResponse.json(
-      { error: "Failed to upload file" },
+      { error: `Failed to upload file: ${errorMessage}` },
       { status: 500 }
     );
   }

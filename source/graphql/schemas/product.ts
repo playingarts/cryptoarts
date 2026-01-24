@@ -49,6 +49,16 @@ export const resolvers: GQL.Resolvers = {
       }
     },
   },
+  Mutation: {
+    updateProductPhotos: async (_, { productId, photos }) => {
+      const updated = await Product.findByIdAndUpdate(
+        productId,
+        { photos },
+        { new: true }
+      );
+      return updated as GQL.Product;
+    },
+  },
 };
 
 export const typeDefs = gql`
@@ -74,8 +84,13 @@ export const typeDefs = gql`
     type: String!
     image: String!
     image2: String!
+    photos: [String!]
     info: String
     description: String
     short: String!
+  }
+
+  type Mutation {
+    updateProductPhotos(productId: ID!, photos: [String!]!): Product
   }
 `;
