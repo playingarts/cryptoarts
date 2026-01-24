@@ -10,6 +10,24 @@ import {
   ERC1155Fragment,
 } from "./fragments";
 
+// Type aliases for query data shapes
+type CardQueryData = Pick<GQL.Query, "card">;
+type CardsQueryData = Pick<GQL.Query, "cards">;
+type HeroCardsQueryData = Pick<GQL.Query, "heroCards">;
+type DailyCardQueryData = Pick<GQL.Query, "dailyCard">;
+type HomeCardsQueryData = Pick<GQL.Query, "homeCards">;
+type CardsByIdsQueryData = Pick<GQL.Query, "cardsByIds">;
+type CardsByPathsQueryData = Pick<GQL.Query, "cardsByPaths">;
+type ProductsQueryData = Pick<GQL.Query, "products">;
+
+// Type aliases for hook options
+type CardQueryOptions = useQuery.Options<CardQueryData>;
+type CardsQueryOptions = useQuery.Options<CardsQueryData>;
+type HeroCardsQueryOptions = useQuery.Options<HeroCardsQueryData>;
+type DailyCardQueryOptions = useQuery.Options<DailyCardQueryData>;
+type HomeCardsQueryOptions = useQuery.Options<HomeCardsQueryData>;
+type CardsByIdsQueryOptions = useQuery.Options<CardsByIdsQueryData>;
+
 export const CardsQuery = gql`
   ${CardFragment}
 
@@ -245,12 +263,9 @@ export const HomeCards = gql`
   }
 `;
 
-export const useCard = (
-  options: useQuery.Options<Pick<GQL.Query, "card">> = {}
-) => {
-  const { data: { card } = { card: undefined }, ...methods } = useQuery<
-    Pick<GQL.Query, "card">
-  >(CardQuery, options);
+export const useCard = (options: CardQueryOptions = {}) => {
+  const { data: { card } = { card: undefined }, ...methods } =
+    useQuery<CardQueryData>(CardQuery, options);
 
   return {
     ...methods,
@@ -258,12 +273,9 @@ export const useCard = (
   };
 };
 
-export const useCards = (
-  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
-) => {
-  const { data: { cards } = { cards: undefined }, ...methods } = useQuery<
-    Pick<GQL.Query, "cards">
-  >(CardsQuery, options);
+export const useCards = (options: CardsQueryOptions = {}) => {
+  const { data: { cards } = { cards: undefined }, ...methods } =
+    useQuery<CardsQueryData>(CardsQuery, options);
 
   return {
     ...methods,
@@ -275,12 +287,9 @@ export const useCards = (
  * Use CardsForDeckQuery which is pre-cached during SSR.
  * Returns cards array for the given deck from cache.
  */
-export const useCardsForDeck = (
-  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
-) => {
-  const { data: { cards } = { cards: undefined }, ...methods } = useQuery<
-    Pick<GQL.Query, "cards">
-  >(CardsForDeckQuery, options);
+export const useCardsForDeck = (options: CardsQueryOptions = {}) => {
+  const { data: { cards } = { cards: undefined }, ...methods } =
+    useQuery<CardsQueryData>(CardsForDeckQuery, options);
 
   return {
     ...methods,
@@ -288,11 +297,9 @@ export const useCardsForDeck = (
   };
 };
 
-export const useHomeCards = (
-  options: useQuery.Options<Pick<GQL.Query, "homeCards">> = {}
-) => {
+export const useHomeCards = (options: HomeCardsQueryOptions = {}) => {
   const { data: { homeCards: cards } = { cards: undefined }, ...methods } =
-    useQuery<Pick<GQL.Query, "homeCards">>(HomeCards, options);
+    useQuery<HomeCardsQueryData>(HomeCards, options);
 
   return {
     ...methods,
@@ -300,11 +307,9 @@ export const useHomeCards = (
   };
 };
 
-export const useLoadCards = (
-  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
-) => {
+export const useLoadCards = (options: CardsQueryOptions = {}) => {
   const [loadCards, { data: { cards } = { cards: undefined }, ...methods }] =
-    useLazyQuery<Pick<GQL.Query, "cards">>(CardsQuery, options);
+    useLazyQuery<CardsQueryData>(CardsQuery, options);
 
   return {
     loadCards,
@@ -313,13 +318,11 @@ export const useLoadCards = (
   };
 };
 
-export const useLoadHeroCards = (
-  options: useQuery.Options<Pick<GQL.Query, "heroCards">> = {}
-) => {
+export const useLoadHeroCards = (options: HeroCardsQueryOptions = {}) => {
   const [
     loadHeroCards,
     { data: { heroCards } = { heroCards: undefined }, ...methods },
-  ] = useLazyQuery<Pick<GQL.Query, "heroCards">>(HeroCardsQuery, options);
+  ] = useLazyQuery<HeroCardsQueryData>(HeroCardsQuery, options);
 
   return {
     loadHeroCards,
@@ -328,11 +331,9 @@ export const useLoadHeroCards = (
   };
 };
 
-export const useHeroCards = (
-  options: useQuery.Options<Pick<GQL.Query, "heroCards">> = {}
-) => {
+export const useHeroCards = (options: HeroCardsQueryOptions = {}) => {
   const { data: { heroCards } = { heroCards: undefined }, ...methods } =
-    useQuery<Pick<GQL.Query, "heroCards">>(HeroCardsQuery, options);
+    useQuery<HeroCardsQueryData>(HeroCardsQuery, options);
 
   return {
     ...methods,
@@ -343,11 +344,9 @@ export const useHeroCards = (
 /**
  * Lightweight hook for hero cards - pre-cached during SSR for instant load
  */
-export const useHeroCardsLite = (
-  options: useQuery.Options<Pick<GQL.Query, "heroCards">> = {}
-) => {
+export const useHeroCardsLite = (options: HeroCardsQueryOptions = {}) => {
   const { data: { heroCards } = { heroCards: undefined }, ...methods } =
-    useQuery<Pick<GQL.Query, "heroCards">>(HeroCardsLiteQuery, options);
+    useQuery<HeroCardsQueryData>(HeroCardsLiteQuery, options);
 
   return {
     ...methods,
@@ -358,11 +357,9 @@ export const useHeroCardsLite = (
 /**
  * Lazy load hero cards for prefetching on hover
  */
-export const useLoadHeroCardsLite = (
-  options: useQuery.Options<Pick<GQL.Query, "heroCards">> = {}
-) => {
+export const useLoadHeroCardsLite = (options: HeroCardsQueryOptions = {}) => {
   const [loadHeroCardsLite, { data: { heroCards } = { heroCards: undefined }, ...methods }] =
-    useLazyQuery<Pick<GQL.Query, "heroCards">>(HeroCardsLiteQuery, options);
+    useLazyQuery<HeroCardsQueryData>(HeroCardsLiteQuery, options);
 
   return {
     loadHeroCardsLite,
@@ -371,33 +368,27 @@ export const useLoadHeroCardsLite = (
   };
 };
 
-export const useLoadCard = (
-  options: useQuery.Options<Pick<GQL.Query, "card">> = {}
-) => {
+export const useLoadCard = (options: CardQueryOptions = {}) => {
   const [loadCard, { data: { card } = { card: undefined }, ...methods }] =
-    useLazyQuery<Pick<GQL.Query, "card">>(CardQuery, options);
+    useLazyQuery<CardQueryData>(CardQuery, options);
 
   return { ...methods, loadCard, card };
 };
 
-export const useLoadRandomCards = (
-  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
-) => {
+export const useLoadRandomCards = (options: CardsQueryOptions = {}) => {
   const [
     loadRandomCards,
     { data: { cards } = { cards: undefined }, ...methods },
-  ] = useLazyQuery<Pick<GQL.Query, "cards">>(RandomCardsQuery, options);
+  ] = useLazyQuery<CardsQueryData>(RandomCardsQuery, options);
 
   return { loadRandomCards, ...methods, cards };
 };
 
-export const useLoadRandomCardsWithInfo = (
-  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
-) => {
+export const useLoadRandomCardsWithInfo = (options: CardsQueryOptions = {}) => {
   const [
     loadRandomCardsWithInfo,
     { data: { cards } = { cards: undefined }, ...methods },
-  ] = useLazyQuery<Pick<GQL.Query, "cards">>(RandomCardsWithInfoQuery, options);
+  ] = useLazyQuery<CardsQueryData>(RandomCardsWithInfoQuery, options);
 
   return { loadRandomCardsWithInfo, ...methods, cards };
 };
@@ -419,13 +410,11 @@ export const CollectionCardsQuery = gql`
   }
 `;
 
-export const useLoadCollectionCards = (
-  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
-) => {
+export const useLoadCollectionCards = (options: CardsQueryOptions = {}) => {
   const [
     loadCollectionCards,
     { data: { cards } = { cards: undefined }, ...methods },
-  ] = useLazyQuery<Pick<GQL.Query, "cards">>(CollectionCardsQuery, {
+  ] = useLazyQuery<CardsQueryData>(CollectionCardsQuery, {
     ...options,
     fetchPolicy: "network-only", // Always fetch fresh random cards
   });
@@ -433,13 +422,11 @@ export const useLoadCollectionCards = (
   return { loadCollectionCards, ...methods, cards };
 };
 
-export const useLoadRandomCardsWithoutDeck = (
-  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
-) => {
+export const useLoadRandomCardsWithoutDeck = (options: CardsQueryOptions = {}) => {
   const [
     loadRandomCardsWithoutDeck,
     { data: { cards } = { cards: undefined }, ...methods },
-  ] = useLazyQuery<Pick<GQL.Query, "cards">>(
+  ] = useLazyQuery<CardsQueryData>(
     RandomCardsQueryWithoutDeck,
     options
   );
@@ -447,12 +434,9 @@ export const useLoadRandomCardsWithoutDeck = (
   return { loadRandomCardsWithoutDeck, ...methods, cards };
 };
 
-export const useRandomCardsWithoutDeck = (
-  options: useQuery.Options<Pick<GQL.Query, "cards">> = {}
-) => {
-  const { data: { cards } = { randomCards: undefined }, ...methods } = useQuery<
-    Pick<GQL.Query, "cards">
-  >(RandomCardsQueryWithoutDeck, options);
+export const useRandomCardsWithoutDeck = (options: CardsQueryOptions = {}) => {
+  const { data: { cards } = { randomCards: undefined }, ...methods } =
+    useQuery<CardsQueryData>(RandomCardsQueryWithoutDeck, options);
 
   return {
     ...methods,
@@ -460,11 +444,9 @@ export const useRandomCardsWithoutDeck = (
   };
 };
 
-export const useDailyCard = (
-  options: useQuery.Options<Pick<GQL.Query, "dailyCard">> = {}
-) => {
+export const useDailyCard = (options: DailyCardQueryOptions = {}) => {
   const { data: { dailyCard } = { dailyCard: undefined }, ...methods } =
-    useQuery<Pick<GQL.Query, "dailyCard">>(DailyCardQuery, options);
+    useQuery<DailyCardQueryData>(DailyCardQuery, options);
 
   return { ...methods, dailyCard };
 };
@@ -472,11 +454,9 @@ export const useDailyCard = (
 /**
  * Lightweight hook for Gallery section - fetches only essential fields.
  */
-export const useDailyCardLite = (
-  options: useQuery.Options<Pick<GQL.Query, "dailyCard">> = {}
-) => {
+export const useDailyCardLite = (options: DailyCardQueryOptions = {}) => {
   const { data: { dailyCard } = { dailyCard: undefined }, ...methods } =
-    useQuery<Pick<GQL.Query, "dailyCard">>(DailyCardLiteQuery, options);
+    useQuery<DailyCardQueryData>(DailyCardLiteQuery, options);
 
   return { ...methods, dailyCard };
 };
@@ -485,12 +465,9 @@ export const useDailyCardLite = (
  * Lightweight hook for card popup - fetches only essential fields for display.
  * Uses cache-first policy to read preloaded data instantly.
  */
-export const useCardPop = (
-  options: useQuery.Options<Pick<GQL.Query, "card">> = {}
-) => {
-  const { data: { card } = { card: undefined }, ...methods } = useQuery<
-    Pick<GQL.Query, "card">
-  >(CardPopQuery, {
+export const useCardPop = (options: CardQueryOptions = {}) => {
+  const { data: { card } = { card: undefined }, ...methods } =
+    useQuery<CardQueryData>(CardPopQuery, {
     ...options,
     fetchPolicy: "cache-first",
   });
@@ -502,11 +479,9 @@ export const useCardPop = (
  * Lazy hook for preloading card popup data on hover.
  * Call loadCardPop() on mouseenter/touchstart to prefetch data.
  */
-export const usePreloadCardPop = (
-  options: useQuery.Options<Pick<GQL.Query, "card">> = {}
-) => {
+export const usePreloadCardPop = (options: CardQueryOptions = {}) => {
   const [loadCardPop, { data: { card } = { card: undefined }, ...methods }] =
-    useLazyQuery<Pick<GQL.Query, "card">>(CardPopQuery, {
+    useLazyQuery<CardQueryData>(CardPopQuery, {
       ...options,
       fetchPolicy: "cache-first",
     });
@@ -518,11 +493,9 @@ export const usePreloadCardPop = (
  * Hook to fetch cards by their IDs (optimized for favorites page)
  * Single query instead of N queries per deck
  */
-export const useCardsByIds = (
-  options: useQuery.Options<Pick<GQL.Query, "cardsByIds">> = {}
-) => {
+export const useCardsByIds = (options: CardsByIdsQueryOptions = {}) => {
   const { data: { cardsByIds: cards } = { cardsByIds: undefined }, ...methods } =
-    useQuery<Pick<GQL.Query, "cardsByIds">>(CardsByIdsQuery, options);
+    useQuery<CardsByIdsQueryData>(CardsByIdsQuery, options);
 
   return { ...methods, cards };
 };
@@ -578,7 +551,7 @@ export const useRandomRightBottomPhoto = () => {
   const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
   const [hasSelected, setHasSelected] = useState(false);
 
-  const { data, ...methods } = useQuery<Pick<GQL.Query, "products">>(
+  const { data, ...methods } = useQuery<ProductsQueryData>(
     gql`
       query ProductGalleryPhotos {
         products {
@@ -654,7 +627,7 @@ export type FeaturedPhoto = {
  * Returns array of { photo, href } objects for rotating display with links.
  */
 export const useFeaturedGalleryPhotos = () => {
-  const { data, ...methods } = useQuery<Pick<GQL.Query, "cardsByPaths">>(
+  const { data, ...methods } = useQuery<CardsByPathsQueryData>(
     FeaturedGalleryPhotosQuery,
     {
       variables: { paths: FEATURED_CARD_PATHS },
