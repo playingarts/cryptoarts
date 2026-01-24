@@ -56,11 +56,19 @@ const fadeIn = keyframes`
 const MAX_PHOTOS = 10;
 /** Photos to show at a time */
 const VISIBLE_SLOTS = 3;
-/** Interval between photo changes */
-const PHOTO_INTERVAL = 6000;
+/** Min interval between photo changes (ms) */
+const MIN_INTERVAL = 6000;
+/** Max interval between photo changes (ms) */
+const MAX_INTERVAL = 12000;
+
+/** Get random interval between min and max */
+const getRandomInterval = () => MIN_INTERVAL + Math.random() * (MAX_INTERVAL - MIN_INTERVAL);
 
 interface PhotoSlotProps {
   photo: string | null;
+  photos?: string[];
+  initialIndex?: number;
+  enableRotation?: boolean;
   isAdmin: boolean;
   uploading: boolean;
   deleting: boolean;
@@ -70,18 +78,58 @@ interface PhotoSlotProps {
   small?: boolean;
 }
 
-const PhotoSlot: FC<PhotoSlotProps> = ({ photo, isAdmin, uploading, deleting, canAdd, onUpload, onDelete, small }) => {
+const PhotoSlot: FC<PhotoSlotProps> = ({
+  photo,
+  photos,
+  initialIndex = 0,
+  enableRotation = false,
+  isAdmin,
+  uploading,
+  deleting,
+  canAdd,
+  onUpload,
+  onDelete,
+  small
+}) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const [displayedPhoto, setDisplayedPhoto] = useState<string | null>(photo);
   const [previousPhoto, setPreviousPhoto] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Independent rotation for this slot with random interval
+  useEffect(() => {
+    if (!enableRotation || !photos || photos.length <= VISIBLE_SLOTS) return;
+
+    const scheduleNext = () => {
+      const interval = getRandomInterval();
+      return setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % photos.length);
+        timerRef.current = scheduleNext();
+      }, interval);
+    };
+
+    const timerRef = { current: scheduleNext() };
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [enableRotation, photos]);
+
+  // Get current photo based on rotation or direct prop
+  const currentPhoto = useMemo(() => {
+    if (enableRotation && photos && photos.length > 0) {
+      return photos[currentIndex % photos.length] || null;
+    }
+    return photo;
+  }, [enableRotation, photos, currentIndex, photo]);
+
   // Handle photo change with crossfade
   useEffect(() => {
-    if (photo !== displayedPhoto && photo !== previousPhoto) {
+    if (currentPhoto !== displayedPhoto && currentPhoto !== previousPhoto) {
       // Start crossfade transition
       setPreviousPhoto(displayedPhoto);
-      setDisplayedPhoto(photo);
+      setDisplayedPhoto(currentPhoto);
       setIsTransitioning(true);
 
       // End transition after animation completes
@@ -92,7 +140,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ photo, isAdmin, uploading, deleting, ca
 
       return () => clearTimeout(timer);
     }
-  }, [photo, displayedPhoto, previousPhoto]);
+  }, [currentPhoto, displayedPhoto, previousPhoto]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -268,38 +316,13 @@ const TOTAL_ADMIN_SLOTS = 9;
 const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: string[]) => void) => {
   const { isAdmin } = useAuth();
   const photos = useMemo(() => product.photos || [], [product.photos]);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const [uploadingSlot, setUploadingSlot] = useState<number | null>(null);
   const [deletingSlot, setDeletingSlot] = useState<number | null>(null);
 
-  // Auto-rotate photos when there are more than 3 (only for non-admins)
-  useEffect(() => {
-    // Admins see fixed slots, no rotation
-    if (isAdmin) return;
-    if (photos.length <= VISIBLE_SLOTS) return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % photos.length);
-    }, PHOTO_INTERVAL);
-
-    return () => clearInterval(interval);
-  }, [photos.length, isAdmin]);
-
-  // Get photo for a specific visible slot (for the 3 main slots)
-  // Non-admins: rotating view through all photos
-  // Admins: fixed mapping (slot 0 = photo 0, slot 1 = photo 1, etc.)
+  // Get photo for a specific slot (fixed mapping for admin)
   const getPhotoForSlot = useCallback((slotIndex: number): string | null => {
-    if (isAdmin) {
-      // Admin: fixed slot mapping
-      return photos[slotIndex] || null;
-    }
-    // Non-admin: rotating view
-    if (photos.length > 0 && slotIndex < photos.length) {
-      const photoIndex = (currentIndex + slotIndex) % photos.length;
-      return photos[photoIndex] || null;
-    }
-    return null;
-  }, [photos, currentIndex, isAdmin]);
+    return photos[slotIndex] || null;
+  }, [photos]);
 
   // Get photo by direct index (for admin small slots)
   const getPhotoByIndex = useCallback((index: number): string | null => {
@@ -343,28 +366,20 @@ const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: s
   }, [product._id, photos, onPhotosChange]);
 
   const handleDelete = useCallback(async (slotIndex: number) => {
-    // Admin: direct index, Non-admin: rotating index
-    const actualIndex = isAdmin
-      ? slotIndex
-      : (currentIndex + slotIndex) % photos.length;
-    if (actualIndex >= photos.length) return;
+    // Delete by direct index
+    if (slotIndex >= photos.length) return;
 
     setDeletingSlot(slotIndex);
 
     try {
-      const newPhotos = photos.filter((_, i) => i !== actualIndex);
+      const newPhotos = photos.filter((_, i) => i !== slotIndex);
       onPhotosChange(newPhotos);
-
-      // Adjust current index if needed (for non-admin rotation)
-      if (!isAdmin && currentIndex >= newPhotos.length && newPhotos.length > 0) {
-        setCurrentIndex(0);
-      }
     } catch (error) {
       alert(error instanceof Error ? error.message : "Delete failed");
     } finally {
       setDeletingSlot(null);
     }
-  }, [photos, currentIndex, onPhotosChange, isAdmin]);
+  }, [photos, onPhotosChange]);
 
   // Delete by direct index (for admin small slots)
   const handleDeleteByIndex = useCallback(async (photoIndex: number) => {
@@ -387,8 +402,6 @@ const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: s
   return {
     isAdmin,
     photos,
-    currentIndex,
-    setCurrentIndex,
     uploadingSlot,
     deletingSlot,
     getPhotoForSlot,
@@ -744,6 +757,9 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {displayProduct && (
           <PhotoSlot
             photo={photoGallery.getPhotoForSlot(0)}
+            photos={photoGallery.photos}
+            initialIndex={0}
+            enableRotation={!photoGallery.isAdmin && photoGallery.photos.length > VISIBLE_SLOTS}
             isAdmin={photoGallery.isAdmin}
             uploading={photoGallery.uploadingSlot === 0}
             deleting={photoGallery.deletingSlot === 0}
@@ -803,6 +819,9 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {displayProduct && (
           <PhotoSlot
             photo={photoGallery.getPhotoForSlot(1)}
+            photos={photoGallery.photos}
+            initialIndex={1}
+            enableRotation={!photoGallery.isAdmin && photoGallery.photos.length > VISIBLE_SLOTS}
             isAdmin={photoGallery.isAdmin}
             uploading={photoGallery.uploadingSlot === 1}
             deleting={photoGallery.deletingSlot === 1}
@@ -816,6 +835,9 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {displayProduct && (
           <PhotoSlot
             photo={photoGallery.getPhotoForSlot(2)}
+            photos={photoGallery.photos}
+            initialIndex={2}
+            enableRotation={!photoGallery.isAdmin && photoGallery.photos.length > VISIBLE_SLOTS}
             isAdmin={photoGallery.isAdmin}
             uploading={photoGallery.uploadingSlot === 2}
             deleting={photoGallery.deletingSlot === 2}
