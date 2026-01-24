@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { FC, HTMLAttributes, useEffect, useState, useMemo } from "react";
+import { FC, HTMLAttributes, useEffect, useState, useMemo, useCallback } from "react";
 import Header from "../../Header";
 import Footer from "../../Footer";
 import LazySection from "../../LazySection";
@@ -30,10 +30,8 @@ export const convertToProductSlug = (short: string) => {
 
 const CustomMiddle = () => {
   const { products: allProducts } = useProducts();
-
-  const {
-    query: { pId },
-  } = useRouter();
+  const router = useRouter();
+  const { query: { pId } } = router;
 
   const [counter, setCounter] = useState(0);
 
@@ -50,6 +48,37 @@ const CustomMiddle = () => {
       )
     );
   }, [pId, products]);
+
+  // Get prev/next product slugs
+  const prevSlug = products && products.length > 0
+    ? convertToProductSlug(products[counter > 0 ? counter - 1 : products.length - 1].short)
+    : null;
+  const nextSlug = products && products.length > 0
+    ? convertToProductSlug(products[counter < products.length - 1 ? counter + 1 : 0].short)
+    : null;
+
+  // Keyboard navigation (left/right arrows)
+  useEffect(() => {
+    if (!products || products.length === 0) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Skip if user is typing in an input/textarea
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      if (e.key === "ArrowLeft" && prevSlug) {
+        e.preventDefault();
+        router.push(`/shop/${prevSlug}`, undefined, { shallow: true });
+      } else if (e.key === "ArrowRight" && nextSlug) {
+        e.preventDefault();
+        router.push(`/shop/${nextSlug}`, undefined, { shallow: true });
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [products, prevSlug, nextSlug, router]);
 
   return products ? (
     <Text

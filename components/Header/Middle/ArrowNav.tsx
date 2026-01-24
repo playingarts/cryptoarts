@@ -73,6 +73,39 @@ export default () => {
     [prefetchHeroCards, router]
   );
 
+  // Keyboard navigation (left/right arrows)
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Skip if user is typing in an input/textarea
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        if (artistSlug && cardPageContext && cardNavigation) {
+          // Card page: navigate to previous card
+          cardPageContext.navigateToCard(cardNavigation.prevSlug);
+        } else if (deckId && prevSlug) {
+          // Deck page: navigate to previous deck
+          router.push(`/${prevSlug}`);
+        }
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        if (artistSlug && cardPageContext && cardNavigation) {
+          // Card page: navigate to next card
+          cardPageContext.navigateToCard(cardNavigation.nextSlug);
+        } else if (deckId && nextSlug) {
+          // Deck page: navigate to next deck
+          router.push(`/${nextSlug}`);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [artistSlug, cardPageContext, cardNavigation, deckId, prevSlug, nextSlug, router]);
+
   // Card page navigation handlers (instant via context)
   const handlePrevCard = useCallback(
     (e: React.MouseEvent) => {
