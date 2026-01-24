@@ -92,19 +92,30 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
   small
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [currentIndex, setCurrentIndex] = useState(initialIndex);
+  const [rotationStep, setRotationStep] = useState(0);
   const [displayedPhoto, setDisplayedPhoto] = useState<string | null>(photo);
   const [previousPhoto, setPreviousPhoto] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Get photos assigned to this slot (every VISIBLE_SLOTS-th photo starting at initialIndex)
+  // This ensures no two slots show the same photo at the same time
+  const slotPhotos = useMemo(() => {
+    if (!photos || photos.length === 0) return [];
+    const assigned: string[] = [];
+    for (let i = initialIndex; i < photos.length; i += VISIBLE_SLOTS) {
+      assigned.push(photos[i]);
+    }
+    return assigned;
+  }, [photos, initialIndex]);
+
   // Independent rotation for this slot with random interval
   useEffect(() => {
-    if (!enableRotation || !photos || photos.length <= VISIBLE_SLOTS) return;
+    if (!enableRotation || slotPhotos.length <= 1) return;
 
     const scheduleNext = () => {
       const interval = getRandomInterval();
       return setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % photos.length);
+        setRotationStep((prev) => (prev + 1) % slotPhotos.length);
         timerRef.current = scheduleNext();
       }, interval);
     };
@@ -114,33 +125,40 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [enableRotation, photos]);
+  }, [enableRotation, slotPhotos.length]);
 
   // Get current photo based on rotation or direct prop
   const currentPhoto = useMemo(() => {
-    if (enableRotation && photos && photos.length > 0) {
-      return photos[currentIndex % photos.length] || null;
+    if (enableRotation && slotPhotos.length > 0) {
+      return slotPhotos[rotationStep % slotPhotos.length] || null;
     }
     return photo;
-  }, [enableRotation, photos, currentIndex, photo]);
+  }, [enableRotation, slotPhotos, rotationStep, photo]);
 
   // Handle photo change with crossfade
   useEffect(() => {
-    if (currentPhoto !== displayedPhoto && currentPhoto !== previousPhoto) {
-      // Start crossfade transition
-      setPreviousPhoto(displayedPhoto);
-      setDisplayedPhoto(currentPhoto);
-      setIsTransitioning(true);
+    if (currentPhoto !== displayedPhoto) {
+      // Start crossfade transition (only if we have a photo to transition from)
+      if (displayedPhoto && currentPhoto) {
+        setPreviousPhoto(displayedPhoto);
+        setIsTransitioning(true);
 
-      // End transition after animation completes
-      const timer = setTimeout(() => {
+        // End transition after animation completes
+        const timer = setTimeout(() => {
+          setPreviousPhoto(null);
+          setIsTransitioning(false);
+        }, 800);
+
+        setDisplayedPhoto(currentPhoto);
+        return () => clearTimeout(timer);
+      } else {
+        // Direct update without transition (for add/delete)
+        setDisplayedPhoto(currentPhoto);
         setPreviousPhoto(null);
         setIsTransitioning(false);
-      }, 800);
-
-      return () => clearTimeout(timer);
+      }
     }
-  }, [currentPhoto, displayedPhoto, previousPhoto]);
+  }, [currentPhoto, displayedPhoto]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -283,7 +301,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
             opacity: 0,
             transition: "opacity 0.2s ease, transform 0.2s ease",
             "&:hover": {
-              background: theme.colors.accent,
+              background: "#e53935",
               transform: "scale(1.1)",
             },
           })}
