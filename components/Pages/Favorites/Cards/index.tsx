@@ -230,17 +230,6 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
     skip: allFavoriteIds.length === 0,
   });
 
-  // Debug logging (early - before derived values)
-  if (process.env.NODE_ENV === "development") {
-    console.log("Favorites debug:", {
-      favorites,
-      allFavoriteIds,
-      allCards,
-      loading,
-      error: error?.message,
-    });
-  }
-
   // Group cards by deck slug for display, splitting Future by edition
   const cardsBySection = useMemo(() => {
     if (!allCards || !favorites) return {};
