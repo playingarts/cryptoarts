@@ -57,7 +57,7 @@ const MAX_PHOTOS = 10;
 /** Photos to show at a time */
 const VISIBLE_SLOTS = 3;
 /** Interval between photo changes */
-const PHOTO_INTERVAL = 4000;
+const PHOTO_INTERVAL = 6000;
 
 interface PhotoSlotProps {
   photo: string | null;
