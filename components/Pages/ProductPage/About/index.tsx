@@ -312,24 +312,19 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
 /** Total admin slots (3 big + 6 small) */
 const TOTAL_ADMIN_SLOTS = 9;
 
-/** Max file size for upload (3MB to stay under Vercel's 4.5MB limit with overhead) */
-const MAX_UPLOAD_SIZE = 3 * 1024 * 1024;
+/** Max file size for upload (2MB to stay well under Vercel's 4.5MB limit) */
+const MAX_UPLOAD_SIZE = 2 * 1024 * 1024;
 
-/** Compress image client-side using canvas */
+/** Compress image client-side using canvas - always compress to ensure small size */
 const compressImage = async (file: File): Promise<File> => {
-  // If already small enough, return as-is
-  if (file.size <= MAX_UPLOAD_SIZE) {
-    return file;
-  }
-
   return new Promise((resolve, reject) => {
     const img = new Image();
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d");
 
     img.onload = () => {
-      // Calculate dimensions (max 1600px on longest side)
-      const maxSize = 1600;
+      // Always resize to max 1200px (smaller = faster upload, server will resize to 800 anyway)
+      const maxSize = 1200;
       let { width, height } = img;
 
       if (width > height && width > maxSize) {
@@ -359,7 +354,7 @@ const compressImage = async (file: File): Promise<File> => {
               return;
             }
 
-            if (blob.size <= MAX_UPLOAD_SIZE || quality <= 0.3) {
+            if (blob.size <= MAX_UPLOAD_SIZE || quality <= 0.2) {
               resolve(new File([blob], file.name, { type: "image/jpeg" }));
             } else {
               // Try lower quality
@@ -371,7 +366,8 @@ const compressImage = async (file: File): Promise<File> => {
         );
       };
 
-      tryCompress(0.85);
+      // Start at lower quality for faster compression
+      tryCompress(0.75);
     };
 
     img.onerror = () => reject(new Error("Failed to load image"));
