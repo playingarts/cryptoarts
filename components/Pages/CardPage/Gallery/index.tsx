@@ -10,7 +10,7 @@ import Card from "../../../Card";
 import { cardSizes } from "../../../Card/sizes";
 import { useCardPageContext } from "../CardPageContext";
 import { useAuth } from "../../../Contexts/auth";
-import { useProducts } from "../../../../hooks/product";
+import { useProducts, ProductsQuery } from "../../../../hooks/product";
 import Plus from "../../../Icons/Plus";
 import Delete from "../../../Icons/Delete";
 
@@ -456,7 +456,10 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   // GraphQL mutations
   const [updateCardPhotos] = useMutation(UPDATE_CARD_PHOTOS);
-  const [updateProductCardGalleryPhotos] = useMutation(UPDATE_PRODUCT_CARD_GALLERY_PHOTOS);
+  const [updateProductCardGalleryPhotos] = useMutation(UPDATE_PRODUCT_CARD_GALLERY_PHOTOS, {
+    // Refetch products to update Apollo cache after mutation
+    refetchQueries: [{ query: ProductsQuery }],
+  });
 
   // Get products to find the deck's product image
   const { products } = useProducts();
