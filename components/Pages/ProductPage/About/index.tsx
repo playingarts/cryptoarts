@@ -312,6 +312,73 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
 /** Total admin slots (3 big + 6 small) */
 const TOTAL_ADMIN_SLOTS = 9;
 
+/** Max file size for upload (3MB to stay under Vercel's 4.5MB limit with overhead) */
+const MAX_UPLOAD_SIZE = 3 * 1024 * 1024;
+
+/** Compress image client-side using canvas */
+const compressImage = async (file: File): Promise<File> => {
+  // If already small enough, return as-is
+  if (file.size <= MAX_UPLOAD_SIZE) {
+    return file;
+  }
+
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    img.onload = () => {
+      // Calculate dimensions (max 1600px on longest side)
+      const maxSize = 1600;
+      let { width, height } = img;
+
+      if (width > height && width > maxSize) {
+        height = (height * maxSize) / width;
+        width = maxSize;
+      } else if (height > maxSize) {
+        width = (width * maxSize) / height;
+        height = maxSize;
+      }
+
+      canvas.width = width;
+      canvas.height = height;
+
+      if (!ctx) {
+        reject(new Error("Could not get canvas context"));
+        return;
+      }
+
+      ctx.drawImage(img, 0, 0, width, height);
+
+      // Compress with decreasing quality until under limit
+      const tryCompress = (quality: number) => {
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              reject(new Error("Failed to compress image"));
+              return;
+            }
+
+            if (blob.size <= MAX_UPLOAD_SIZE || quality <= 0.3) {
+              resolve(new File([blob], file.name, { type: "image/jpeg" }));
+            } else {
+              // Try lower quality
+              tryCompress(quality - 0.1);
+            }
+          },
+          "image/jpeg",
+          quality
+        );
+      };
+
+      tryCompress(0.85);
+    };
+
+    img.onerror = () => reject(new Error("Failed to load image"));
+    img.src = URL.createObjectURL(file);
+  });
+};
+
 /** Hook to manage product photo gallery state and handlers */
 const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: string[]) => void) => {
   const { isAdmin } = useAuth();
@@ -333,8 +400,11 @@ const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: s
     setUploadingSlot(slotIndex);
 
     try {
+      // Compress image client-side to avoid Vercel's 4.5MB limit
+      const compressedFile = await compressImage(file);
+
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", compressedFile);
       formData.append("cardId", `product-${product._id}`);
       formData.append("photoType", "product");
 
@@ -344,11 +414,17 @@ const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: s
       });
 
       const text = await response.text();
+
+      // Handle non-JSON responses (like "Request Entity Too Large")
+      if (text.toLowerCase().includes("request entity too large") || text.toLowerCase().includes("too large")) {
+        throw new Error("File too large. Please try a smaller image.");
+      }
+
       let data;
       try {
         data = JSON.parse(text);
       } catch {
-        throw new Error("Server error: Invalid response");
+        throw new Error(`Server error: ${text.substring(0, 100)}`);
       }
 
       if (!response.ok) {
