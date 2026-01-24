@@ -1,44 +1,25 @@
 /**
- * OpenSea GraphQL Schema
+ * OpenSea Resolvers
  *
- * Handles OpenSea-related queries for NFT collections.
+ * Resolvers for OpenSea-related queries.
  * Business logic is delegated to OpenSeaService.
  */
 
-import { gql } from "@apollo/client";
 import { GraphQLError } from "graphql";
 import GraphQLJSON from "graphql-type-json";
 import { openSeaService } from "../../services";
 import { openSeaClient } from "../../lib/OpenSeaClient";
-import { getCardByTraits } from "./card";
-import { getContract, getContracts } from "./contract";
-import { getListings } from "./listing";
-import { getDeck } from "./deck";
+import { getCardByTraits } from "../schemas/card";
+import { getContract, getContracts } from "../schemas/contract";
+import { getDeck } from "../schemas/deck";
 import { Nft, OpenseaCache } from "../../models";
 
-export { Nft };
+// Cache duration: 1 hour for quick stats
+const CACHE_TTL_MS = 60 * 60 * 1000;
 
-// Cache duration: 1 hour for quick stats, holders are updated less frequently
-const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
-
-// Re-export service methods for backward compatibility
+// Re-export for backward compatibility
 export const getAssets = openSeaService.getAssets;
 export const signatureValid = openSeaService.signatureValid.bind(openSeaService);
-
-// Legacy export for queue processing (used internally)
-export const getAssetsRaw = openSeaService.processAssetQueue.bind(openSeaService);
-
-/**
- * Associate card data with an NFT asset
- */
-export const setCard =
-  (contractId: string) => async (asset: GQL.Nft & { on_sale: boolean }) => {
-    return openSeaService.setCardOnAsset(
-      asset,
-      async ({ address }) => getContract({ address }),
-      getCardByTraits
-    );
-  };
 
 /**
  * Get holder statistics for a deck
@@ -78,7 +59,6 @@ export const resolvers: GQL.Resolvers = {
 
       const collectionName = "cryptoedition";
 
-      // Helper to return cached data
       const returnCached = (cached: import("../../models/OpenseaCache").IOpenseaCache) => ({
         volume: cached.volume,
         floor_price: cached.floor_price,
@@ -92,17 +72,14 @@ export const resolvers: GQL.Resolvers = {
         id: collectionName,
       });
 
-      // Check for cached data first
       const cached = await OpenseaCache.findOne({ collection: collectionName });
       const now = new Date();
       const cacheAge = cached ? now.getTime() - cached.updatedAt.getTime() : Infinity;
 
-      // Return cached data if fresh enough
       if (cached && cacheAge < CACHE_TTL_MS) {
         return returnCached(cached);
       }
 
-      // Try to fetch fresh data from OpenSea, fall back to cache on error
       try {
         const contract = await getContract({ name: collectionName });
         const [stats, collection, onSaleCount, lastSaleEvent] = await Promise.all([
@@ -112,7 +89,6 @@ export const resolvers: GQL.Resolvers = {
           openSeaClient.getLastSale(contract.name),
         ]);
 
-        // Format last sale data
         const last_sale = lastSaleEvent ? {
           price: Number(lastSaleEvent.payment.quantity) / Math.pow(10, lastSaleEvent.payment.decimals),
           symbol: lastSaleEvent.payment.symbol,
@@ -123,7 +99,6 @@ export const resolvers: GQL.Resolvers = {
           timestamp: lastSaleEvent.event_timestamp,
         } : undefined;
 
-        // Update cache (upsert)
         await OpenseaCache.findOneAndUpdate(
           { collection: collectionName },
           {
@@ -154,7 +129,6 @@ export const resolvers: GQL.Resolvers = {
           id: contract.name,
         };
       } catch {
-        // OpenSea API failed - return stale cached data if available
         if (cached) {
           return returnCached(cached);
         }
@@ -190,16 +164,12 @@ export const resolvers: GQL.Resolvers = {
     },
     holders: async (_, { deck, slug }) => {
       const collectionName = "cryptoedition";
-
-      // Check for cached holder data
       const cached = await OpenseaCache.findOne({ collection: collectionName });
 
-      // Return cached holders if available
       if (cached?.holders) {
         return cached.holders;
       }
 
-      // Fall back to live calculation (expensive - should be run by scheduled job)
       if (slug) {
         const deckData = await getDeck({ slug: slug as string });
         return deckData ? await getHolders(deckData._id) : undefined;
@@ -209,20 +179,15 @@ export const resolvers: GQL.Resolvers = {
     },
     leaderboard: async (_, { slug }) => {
       const collectionName = "cryptoedition";
-
-      // Check for cached leaderboard data
       const cached = await OpenseaCache.findOne({ collection: collectionName }).lean();
 
-      // Only use cache if leaderboard has actual data
       if (cached?.leaderboard?.topHolders?.length) {
         return cached.leaderboard;
       }
 
-      // Try to calculate live, fall back to any existing cache on error
       try {
         const contract = await getContract({ name: collectionName });
 
-        // Top holders by NFT count
         const topHoldersAgg = await Nft.aggregate([
           { $match: { contract: contract.address } },
           { $unwind: "$owners" },
@@ -231,7 +196,6 @@ export const resolvers: GQL.Resolvers = {
           { $limit: 5 },
         ]);
 
-        // Active traders: most transactions (from OpenSea events)
         let activeTraders: Array<{ address: string; count: number }> = [];
         try {
           const events = await openSeaClient.getCollectionEvents(contract.name, { limit: 50 });
@@ -245,10 +209,9 @@ export const resolvers: GQL.Resolvers = {
             .sort((a, b) => b.count - a.count)
             .slice(0, 5);
         } catch {
-          // OpenSea events API may fail, continue with empty active traders
+          // OpenSea events API may fail
         }
 
-        // Rare holders: jokers and backsides
         const rareHoldersAgg = await Nft.aggregate([
           { $match: { contract: contract.address } },
           { $unwind: "$owners" },
@@ -266,7 +229,6 @@ export const resolvers: GQL.Resolvers = {
           { $limit: 5 },
         ]);
 
-        // Helper to enrich entries with profile data
         const enrichWithProfile = async (entries: Array<{ address: string; count: number }>) => {
           return Promise.all(
             entries.map(async (entry) => {
@@ -293,7 +255,6 @@ export const resolvers: GQL.Resolvers = {
           rareHolders,
         };
 
-        // Save to cache for future requests
         await OpenseaCache.findOneAndUpdate(
           { collection: collectionName },
           { leaderboard },
@@ -302,94 +263,11 @@ export const resolvers: GQL.Resolvers = {
 
         return leaderboard;
       } catch {
-        // On error, return any existing cached leaderboard (even if incomplete)
         if (cached?.leaderboard) {
           return cached.leaderboard;
         }
-        // Return empty leaderboard as last resort
         return { topHolders: [], activeTraders: [], rareHolders: [] };
       }
     },
   },
 };
-
-export const typeDefs = gql`
-  scalar JSON
-
-  type Query {
-    ownedAssets(deck: ID!, address: String!, signature: String!): [Nft]!
-    opensea(deck: ID, slug: String): Opensea!
-    holders(deck: ID, slug: String): Holders
-    leaderboard(slug: String): Leaderboard
-  }
-
-  type Nft {
-    identifier: String!
-    contract: String!
-    token_standard: String!
-    name: String!
-    description: String!
-    traits: [Trait!]
-    owners: [Owner!]!
-  }
-
-  type OpenseaContract {
-    address: String!
-  }
-
-  type Trait {
-    trait_type: String!
-    value: String!
-  }
-
-  type Owner {
-    address: String!
-    quantity: String!
-  }
-
-  type LastSale {
-    price: Float!
-    symbol: String!
-    seller: String!
-    buyer: String!
-    nft_name: String!
-    nft_image: String!
-    timestamp: Int!
-  }
-
-  type Opensea {
-    id: ID!
-    volume: Float!
-    floor_price: Float!
-    num_owners: String!
-    total_supply: String!
-    on_sale: String!
-    sales_count: Int
-    average_price: Float
-    last_sale: LastSale
-    updatedAt: String
-  }
-
-  type Holders {
-    fullDecks: [String!]!
-    fullDecksWithJokers: [String!]!
-    spades: [String!]!
-    diamonds: [String!]!
-    hearts: [String!]!
-    clubs: [String!]!
-    jokers: [String!]!
-  }
-
-  type LeaderboardEntry {
-    address: String!
-    count: Int!
-    username: String
-    profileImage: String
-  }
-
-  type Leaderboard {
-    topHolders: [LeaderboardEntry!]!
-    activeTraders: [LeaderboardEntry!]!
-    rareHolders: [LeaderboardEntry!]!
-  }
-`;

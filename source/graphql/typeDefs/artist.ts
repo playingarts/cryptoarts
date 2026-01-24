@@ -1,18 +1,4 @@
 import { gql } from "@apollo/client";
-import { Artist } from "../../models";
-import { artistService } from "../../services";
-
-export { Artist };
-
-export const resolvers: GQL.Resolvers = {
-  Artist: {
-    social: ({ website, social }) => artistService.getSocials(website, social),
-  },
-  Query: {
-    artists: (_, { hasPodcast, shuffle, limit }) =>
-      artistService.getArtists({ hasPodcast, shuffle, limit }),
-  },
-};
 
 export const typeDefs = gql`
   type Query {

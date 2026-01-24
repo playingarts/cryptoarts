@@ -1,71 +1,30 @@
 import { gql } from "@apollo/client";
-import fetch from "../../fetch";
 import { Product, type MongoProduct } from "../../models";
+import { productService } from "../../services";
 
 export { Product, type MongoProduct };
 
+// Re-export service method for backward compatibility
 export const getProduct = async (
   options: Pick<MongoProduct, "deck"> | Pick<MongoProduct, "_id">
-) => {
-  // When looking up by deck reference, filter to only return deck-type products
-  // (not sheets, which also have the same deck reference)
-  const query = "deck" in options ? { ...options, type: "deck" } : options;
-  return ((await Product.findOne(query)) as GQL.Product) || undefined;
+): Promise<GQL.Product | undefined> => {
+  if ("deck" in options) {
+    return productService.getProduct({ deck: options.deck as string });
+  }
+  const idOptions = options as Pick<MongoProduct, "_id">;
+  return productService.getProduct({ id: idOptions._id as string });
 };
-
-const getProducts = (ids?: string[]) =>
-  ids ? Product.find({ _id: { $in: ids }, hidden: { $ne: true } }) : Product.find({ hidden: { $ne: true } });
 
 export const resolvers: GQL.Resolvers = {
   Query: {
-    products: (_, { ids }) => {
-      return getProducts(ids)
-        .sort({ order: 1 })
-        .populate([
-          {
-            path: "deck",
-            populate: { path: "previewCards", populate: { path: "artist" } },
-          },
-        ])
-        .populate("decks") as unknown as Promise<GQL.Product[]>;
-    },
-    convertEurToUsd: async (_, { eur }) => {
-      try {
-        const {
-          data: { amount },
-        } = await (
-          await fetch("https://api.coinbase.com/v2/prices/USDC-EUR/sell")
-        ).json();
-
-        return eur / amount;
-      } catch (error) {
-        const rate = parseFloat(process.env.NEXT_PUBLIC_EUR_TO_USD_RATE || "0");
-
-        if (!rate) {
-          throw new Error("Failed to get an exchange rate for ${eur} euros.");
-        }
-
-        return rate * eur;
-      }
-    },
+    products: (_, { ids }) => productService.getProducts(ids || undefined),
+    convertEurToUsd: (_, { eur }) => productService.convertEurToUsd(eur),
   },
   Mutation: {
-    updateProductPhotos: async (_, { productId, photos }) => {
-      const updated = await Product.findByIdAndUpdate(
-        productId,
-        { photos },
-        { new: true }
-      );
-      return updated as GQL.Product;
-    },
-    updateProductCardGalleryPhotos: async (_, { productId, cardGalleryPhotos }) => {
-      const updated = await Product.findByIdAndUpdate(
-        productId,
-        { cardGalleryPhotos },
-        { new: true }
-      );
-      return updated as GQL.Product;
-    },
+    updateProductPhotos: (_, { productId, photos }) =>
+      productService.updateProductPhotos(productId, photos),
+    updateProductCardGalleryPhotos: (_, { productId, cardGalleryPhotos }) =>
+      productService.updateProductCardGalleryPhotos(productId, cardGalleryPhotos),
   },
 };
 

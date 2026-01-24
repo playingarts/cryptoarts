@@ -1,45 +1,15 @@
-import * as artist from "./schemas/artist";
-import * as card from "./schemas/card";
-import * as deck from "./schemas/deck";
-import * as product from "./schemas/product";
-import * as opensea from "./schemas/opensea";
-import * as deal from "./schemas/deal";
-import * as content from "./schemas/content";
-import * as podcast from "./schemas/podcast";
-import * as contract from "./schemas/contract";
-import * as loser from "./schemas/loser";
-import * as listing from "./schemas/listing";
-import * as rating from "./schemas/rating";
+/**
+ * GraphQL Schema
+ *
+ * Combines all typeDefs and resolvers using schema stitching.
+ * TypeDefs and resolvers are now in separate directories for better organization.
+ */
+
 import { stitchSchemas } from "@graphql-tools/stitch";
-import { DocumentNode } from "graphql";
+import { allTypeDefs } from "./typeDefs";
+import { allResolvers } from "./resolvers";
 
-const entities: {
-  resolvers?: GQL.Resolvers;
-  typeDefs: DocumentNode;
-}[] = [
-  deck,
-  artist,
-  card,
-  product,
-  opensea,
-  deal,
-  content,
-  podcast,
-  contract,
-  loser,
-  listing,
-  rating,
-];
-
-export const schema = stitchSchemas(
-  entities.reduce<{
-    resolvers: GQL.Resolvers[];
-    typeDefs: DocumentNode[];
-  }>(
-    (result, { resolvers, typeDefs }) => ({
-      resolvers: [...result.resolvers, ...(resolvers ? [resolvers] : [])],
-      typeDefs: [...result.typeDefs, typeDefs],
-    }),
-    { resolvers: [], typeDefs: [] }
-  )
-);
+export const schema = stitchSchemas({
+  typeDefs: allTypeDefs,
+  resolvers: allResolvers,
+});

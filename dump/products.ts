@@ -320,10 +320,10 @@ const dump = async () => {
             decks.map(async (deck) => {
               const deckId = await getDeckId(deck);
 
-              const product = (await getProduct({ deck: deckId }))._id;
-              return product;
+              const product = await getProduct({ deck: deckId });
+              return product?._id;
             })
-          ));
+          )).filter((id): id is string => id !== undefined);
         return { ...item, decks };
       })
   );

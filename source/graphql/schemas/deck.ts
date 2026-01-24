@@ -1,29 +1,26 @@
 import { gql } from "@apollo/client";
 import GraphQLJSON from "graphql-type-json";
 import { Deck, type MongoDeck } from "../../models";
-import { getProduct } from "./product";
+import { deckService, productService } from "../../services";
 
 export { Deck, type MongoDeck };
 
-export const getDecks = async () =>
-  Deck.find().populate("previewCards") as unknown as Promise<GQL.Deck[]>;
-
-export const getDeck = (
-  options: Pick<GQL.Deck, "slug"> | Pick<GQL.Deck, "_id">
-) =>
-  Deck.findOne(options).populate(
-    "previewCards"
-  ) as unknown as Promise<GQL.Deck>;
+// Re-export service methods for backward compatibility
+export const getDecks = () => deckService.getDecks();
+export const getDeck = (options: Pick<GQL.Deck, "slug"> | Pick<GQL.Deck, "_id">) =>
+  "slug" in options
+    ? deckService.getDeckBySlug(options.slug)
+    : deckService.getDeckById(options._id);
 
 export const resolvers: GQL.Resolvers = {
   JSON: GraphQLJSON,
   Deck: {
-    properties: ({ properties }) => properties || {},
-    product: ({ _id }) => getProduct({ deck: _id }),
+    properties: ({ properties }) => deckService.getDeckProperties(properties),
+    product: ({ _id }) => productService.getProduct({ deck: _id }),
   },
   Query: {
-    decks: getDecks,
-    deck: (_, { slug }) => getDeck({ slug }),
+    decks: () => deckService.getDecks(),
+    deck: (_, { slug }) => deckService.getDeckBySlug(slug),
   },
 };
 
