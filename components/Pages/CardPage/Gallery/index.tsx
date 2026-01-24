@@ -447,6 +447,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
  * Shows mainPhoto as large center image, additionalPhotos in corners
  * Empty slots show gray placeholder
  * Admins see upload buttons on each photo slot
+ * Non-admins: if some slots empty, show only filled slots in one equal-width row
  */
 const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { artistSlug, sortedCards, deckId, deck } = useCardPageContext();
@@ -511,6 +512,42 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   // Deck gallery photo uses local state (synced from product on deck change)
   const deckGalleryPhoto = localDeckGalleryPhoto;
+
+  // Calculate which photo slots have content (for non-admin dynamic layout)
+  // Slots: additionalPhotos[0], mainPhoto, FlipCard (always visible), deckProduct?.image, deckGalleryPhoto
+  const filledPhotoSlots = useMemo(() => {
+    const slots: { type: "additional-0" | "main" | "flip-card" | "deck-image" | "deck-gallery"; src?: string | null }[] = [];
+
+    if (additionalPhotos[0]) {
+      slots.push({ type: "additional-0", src: additionalPhotos[0] });
+    }
+    if (mainPhoto) {
+      slots.push({ type: "main", src: mainPhoto });
+    }
+    // FlipCard always counts as filled (shows the card)
+    slots.push({ type: "flip-card" });
+    if (deckProduct?.image) {
+      slots.push({ type: "deck-image", src: deckProduct.image });
+    }
+    if (deckGalleryPhoto) {
+      slots.push({ type: "deck-gallery", src: deckGalleryPhoto });
+    }
+
+    return slots;
+  }, [additionalPhotos, mainPhoto, deckProduct?.image, deckGalleryPhoto]);
+
+  // For non-admins: show all 5 slots only if BOTH mainPhoto AND additionalPhotos[0] exist
+  // Otherwise show compact 3-slot layout
+  const bothPhotosExist = !!(mainPhoto && additionalPhotos[0]);
+  const useCompactLayout = !isAdmin && !bothPhotosExist;
+
+  // For compact layout: always show first 3 filled slots
+  const displayedSlots = useMemo(() => {
+    return filledPhotoSlots.slice(0, 3);
+  }, [filledPhotoSlots]);
+
+  // Compact layout always shows 3 slots = span 4 each
+  const compactColumnSpan = 4;
 
   // Upload handler for a specific slot
   const handleUpload = useCallback(async (file: File, slotType: "main" | number) => {
@@ -736,72 +773,146 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </Text>
       </ScandiBlock>
 
-      <Grid css={{ gridColumn: "1/-1", gap: 30 }}>
-        {/* Top left - additional photo 1 */}
-        <PhotoSlot
-          src={additionalPhotos[0]}
-          gridColumn="span 3"
-          dark={deckId === "crypto"}
-          isAdmin={isAdmin}
-          uploading={uploadingSlot === "additional-0"}
-          deleting={deletingSlot === "additional-0"}
-          onUpload={(file) => handleUpload(file, 0)}
-          onDelete={() => handleDelete(0)}
-        />
+      {useCompactLayout ? (
+        /* Compact single-row layout for non-admins when not all slots filled */
+        <Grid css={{ gridColumn: "1/-1", gap: 30 }}>
+          {displayedSlots.map((slot) => {
+            if (slot.type === "additional-0") {
+              return (
+                <PhotoSlot
+                  key="additional-0"
+                  src={slot.src}
+                  gridColumn={`span ${compactColumnSpan}`}
+                  dark={deckId === "crypto"}
+                />
+              );
+            }
+            if (slot.type === "main") {
+              return (
+                <PhotoSlot
+                  key="main"
+                  src={slot.src}
+                  gridColumn={`span ${compactColumnSpan}`}
+                  dark={deckId === "crypto"}
+                />
+              );
+            }
+            if (slot.type === "flip-card") {
+              return (
+                <div
+                  key="flip-card"
+                  css={{
+                    aspectRatio: "1/1",
+                    width: "100%",
+                    borderRadius: 15,
+                    gridColumn: `span ${compactColumnSpan}`,
+                    backgroundColor: deckId === "crypto" ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  {card && (
+                    <FlipCard
+                      card={card as GQL.Card}
+                      backsideCard={backsideCard}
+                    />
+                  )}
+                </div>
+              );
+            }
+            if (slot.type === "deck-image") {
+              return (
+                <PhotoSlot
+                  key="deck-image"
+                  src={slot.src}
+                  gridColumn={`span ${compactColumnSpan}`}
+                  dark={deckId === "crypto"}
+                />
+              );
+            }
+            if (slot.type === "deck-gallery") {
+              return (
+                <PhotoSlot
+                  key="deck-gallery"
+                  src={slot.src}
+                  gridColumn={`span ${compactColumnSpan}`}
+                  dark={deckId === "crypto"}
+                />
+              );
+            }
+            return null;
+          })}
+        </Grid>
+      ) : (
+        /* Full layout for admins or when all slots filled */
+        <Grid css={{ gridColumn: "1/-1", gap: 30 }}>
+          {/* Top left - additional photo 1 */}
+          <PhotoSlot
+            src={additionalPhotos[0]}
+            gridColumn="span 3"
+            dark={deckId === "crypto"}
+            isAdmin={isAdmin}
+            uploading={uploadingSlot === "additional-0"}
+            deleting={deletingSlot === "additional-0"}
+            onUpload={(file) => handleUpload(file, 0)}
+            onDelete={() => handleDelete(0)}
+          />
 
-        {/* Center - main photo (large, spans 2 rows) */}
-        <PhotoSlot
-          src={mainPhoto}
-          gridColumn="span 6"
-          gridRow="span 2"
-          dark={deckId === "crypto"}
-          isAdmin={isAdmin}
-          uploading={uploadingSlot === "main"}
-          deleting={deletingSlot === "main"}
-          onUpload={(file) => handleUpload(file, "main")}
-          onDelete={() => handleDelete("main")}
-        />
+          {/* Center - main photo (large, spans 2 rows) */}
+          <PhotoSlot
+            src={mainPhoto}
+            gridColumn="span 6"
+            gridRow="span 2"
+            dark={deckId === "crypto"}
+            isAdmin={isAdmin}
+            uploading={uploadingSlot === "main"}
+            deleting={deletingSlot === "main"}
+            onUpload={(file) => handleUpload(file, "main")}
+            onDelete={() => handleDelete("main")}
+          />
 
-        {/* Top right - card preview with flip on click */}
-        <div
-          css={{
-            aspectRatio: "1/1",
-            width: "100%",
-            borderRadius: 15,
-            gridColumn: "span 3",
-            backgroundColor: deckId === "crypto" ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          {card && (
-            <FlipCard
-              card={card as GQL.Card}
-              backsideCard={backsideCard}
-            />
-          )}
-        </div>
+          {/* Top right - card preview with flip on click */}
+          <div
+            css={{
+              aspectRatio: "1/1",
+              width: "100%",
+              borderRadius: 15,
+              gridColumn: "span 3",
+              backgroundColor: deckId === "crypto" ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            {card && (
+              <FlipCard
+                card={card as GQL.Card}
+                backsideCard={backsideCard}
+              />
+            )}
+          </div>
 
-        {/* Bottom left - deck product photo */}
-        <PhotoSlot
-          src={deckProduct?.image}
-          gridColumn="span 3"
-          dark={deckId === "crypto"}
-        />
+          {/* Bottom left - deck product photo */}
+          <PhotoSlot
+            src={deckProduct?.image}
+            gridColumn="span 3"
+            dark={deckId === "crypto"}
+          />
 
-        {/* Bottom right - deck gallery photo (shared across all cards in deck) */}
-        <PhotoSlot
-          src={deckGalleryPhoto}
-          gridColumn="span 3"
-          dark={deckId === "crypto"}
-          isAdmin={isAdmin}
-          uploading={uploadingSlot === "deck-gallery"}
-          deleting={deletingSlot === "deck-gallery"}
-          onUpload={handleDeckGalleryUpload}
-          onDelete={deckGalleryPhoto ? handleDeckGalleryDelete : undefined}
-        />
-      </Grid>
+          {/* Bottom right - deck gallery photo (shared across all cards in deck) */}
+          <PhotoSlot
+            src={deckGalleryPhoto}
+            gridColumn="span 3"
+            dark={deckId === "crypto"}
+            isAdmin={isAdmin}
+            uploading={uploadingSlot === "deck-gallery"}
+            deleting={deletingSlot === "deck-gallery"}
+            onUpload={handleDeckGalleryUpload}
+            onDelete={deckGalleryPhoto ? handleDeckGalleryDelete : undefined}
+          />
+        </Grid>
+      )}
     </Grid>
   );
 };
