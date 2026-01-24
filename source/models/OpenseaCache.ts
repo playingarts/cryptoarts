@@ -50,58 +50,65 @@ export interface IOpenseaCache {
   };
 }
 
-const openseaCacheSchema = new Schema<IOpenseaCache, Model<IOpenseaCache>, IOpenseaCache>({
-  collection: { type: String, required: true, unique: true, index: true },
-  updatedAt: { type: Date, default: Date.now },
+const openseaCacheSchema = new Schema<IOpenseaCache, Model<IOpenseaCache>, IOpenseaCache>(
+  {
+    // Note: "collection" is a reserved Mongoose keyword but we use it intentionally
+    // to match the OpenSea API terminology
+    collection: { type: String, required: true, unique: true, index: true },
+    updatedAt: { type: Date, default: Date.now },
 
-  volume: Number,
-  floor_price: Number,
-  num_owners: Number,
-  total_supply: Number,
-  on_sale: Number,
-  sales_count: Number,
-  average_price: Number,
+    volume: Number,
+    floor_price: Number,
+    num_owners: Number,
+    total_supply: Number,
+    on_sale: Number,
+    sales_count: Number,
+    average_price: Number,
 
-  last_sale: {
-    price: Number,
-    symbol: String,
-    seller: String,
-    buyer: String,
-    nft_name: String,
-    nft_image: String,
-    timestamp: Number,
+    last_sale: {
+      price: Number,
+      symbol: String,
+      seller: String,
+      buyer: String,
+      nft_name: String,
+      nft_image: String,
+      timestamp: Number,
+    },
+
+    holders: {
+      fullDecks: [String],
+      fullDecksWithJokers: [String],
+      spades: [String],
+      hearts: [String],
+      clubs: [String],
+      diamonds: [String],
+      jokers: [String],
+    },
+
+    leaderboard: {
+      topHolders: [{
+        address: String,
+        count: Number,
+        username: String,
+        profileImage: String,
+      }],
+      activeTraders: [{
+        address: String,
+        count: Number,
+        username: String,
+        profileImage: String,
+      }],
+      rareHolders: [{
+        address: String,
+        count: Number,
+        username: String,
+        profileImage: String,
+      }],
+    },
   },
-
-  holders: {
-    fullDecks: [String],
-    fullDecksWithJokers: [String],
-    spades: [String],
-    hearts: [String],
-    clubs: [String],
-    diamonds: [String],
-    jokers: [String],
-  },
-
-  leaderboard: {
-    topHolders: [{
-      address: String,
-      count: Number,
-      username: String,
-      profileImage: String,
-    }],
-    activeTraders: [{
-      address: String,
-      count: Number,
-      username: String,
-      profileImage: String,
-    }],
-    rareHolders: [{
-      address: String,
-      count: Number,
-      username: String,
-      profileImage: String,
-    }],
-  },
-});
+  {
+    suppressReservedKeysWarning: true,
+  }
+);
 
 export const OpenseaCache = (models.OpenseaCache as Model<IOpenseaCache>) || model("OpenseaCache", openseaCacheSchema);
