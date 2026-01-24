@@ -938,9 +938,9 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 />
               ))}
             </div>
-            {/* Row 2: slots 7, 8, 9 (indices 6, 7, 8) */}
+            {/* Row 2: slots 7, 8 (indices 6, 7) + deck preview cards slot */}
             <div css={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 15 }}>
-              {[6, 7, 8].map((index) => (
+              {[6, 7].map((index) => (
                 <PhotoSlot
                   key={index}
                   small
@@ -953,6 +953,20 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   onDelete={() => photoGallery.handleDeleteByIndex(index)}
                 />
               ))}
+              {/* Last slot: rotating deck preview cards */}
+              <PhotoSlot
+                small
+                photo={product?.deck?.previewCards?.[0]?.img || null}
+                photos={product?.deck?.previewCards?.map(c => c.img) || []}
+                initialIndex={0}
+                enableRotation={(product?.deck?.previewCards?.length || 0) > 1}
+                isAdmin={false}
+                uploading={false}
+                deleting={false}
+                canAdd={false}
+                onUpload={() => {}}
+                onDelete={() => {}}
+              />
             </div>
           </>
         )}
