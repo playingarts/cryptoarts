@@ -80,6 +80,7 @@ export const Links = () => (
           font-weight: 400;
           font-style: normal;
           font-display: swap;
+          descent-override: 15%;
         }
         @font-face {
           font-family: "Alliance No.2";
@@ -87,6 +88,7 @@ export const Links = () => (
           font-weight: 500;
           font-style: normal;
           font-display: swap;
+          descent-override: 15%;
         }
         @font-face {
           font-family: "Alliance No.2";
@@ -94,9 +96,7 @@ export const Links = () => (
           font-weight: 600;
           font-style: normal;
           font-display: swap;
-        }
-        :root {
-          --font-alliance: "Alliance No.2", sans-serif;
+          descent-override: 15%;
         }
       `}
     />

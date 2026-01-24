@@ -47,6 +47,7 @@ export const alliance = localFont({
   ],
   display: "swap",
   variable: "--font-alliance",
+  declarations: [{ prop: "descent-override", value: "15%" }],
 });
 
 /**
