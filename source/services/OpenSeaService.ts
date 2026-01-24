@@ -419,7 +419,7 @@ export class OpenSeaService {
     return assetsWithOwners.reduce<
       Record<string, { suit: CardSuitsType; value: string; tokens: string[] }[]>
     >((data, { owners, traits = [], identifier }) => {
-      owners.map(({ address }) => {
+      owners.forEach(({ address }) => {
         if (!data[address]) {
           data[address] = [];
         }
@@ -433,7 +433,7 @@ export class OpenSeaService {
         );
 
         if (!suitTrait || !valueTrait) {
-          return data;
+          return;
         }
 
         const exists = data[address].find(
