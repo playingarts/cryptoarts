@@ -491,6 +491,24 @@ const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: s
 
   const canAdd = photos.length < MAX_PHOTOS;
 
+  // Pre-built upload handlers indexed by slot (avoids inline lambdas in render)
+  const uploadHandlers = useMemo(
+    () => Array.from({ length: MAX_PHOTOS }, (_, i) => (file: File) => handleUpload(file, i)),
+    [handleUpload]
+  );
+
+  // Pre-built delete handlers indexed by slot
+  const deleteHandlers = useMemo(
+    () => Array.from({ length: MAX_PHOTOS }, (_, i) => () => handleDelete(i)),
+    [handleDelete]
+  );
+
+  // Pre-built delete-by-index handlers (for admin small slots)
+  const deleteByIndexHandlers = useMemo(
+    () => Array.from({ length: MAX_PHOTOS }, (_, i) => () => handleDeleteByIndex(i)),
+    [handleDeleteByIndex]
+  );
+
   return {
     isAdmin,
     photos,
@@ -501,6 +519,9 @@ const useProductPhotoGallery = (product: GQL.Product, onPhotosChange: (photos: s
     handleUpload,
     handleDelete,
     handleDeleteByIndex,
+    uploadHandlers,
+    deleteHandlers,
+    deleteByIndexHandlers,
     canAdd,
   };
 };
@@ -859,8 +880,8 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             uploading={photoGallery.uploadingSlot === 0}
             deleting={photoGallery.deletingSlot === 0}
             canAdd={photoGallery.canAdd}
-            onUpload={(file) => photoGallery.handleUpload(file, 0)}
-            onDelete={() => photoGallery.handleDelete(0)}
+            onUpload={photoGallery.uploadHandlers[0]}
+            onDelete={photoGallery.deleteHandlers[0]}
           />
         )}
 
@@ -922,8 +943,8 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             uploading={photoGallery.uploadingSlot === 1}
             deleting={photoGallery.deletingSlot === 1}
             canAdd={photoGallery.canAdd}
-            onUpload={(file) => photoGallery.handleUpload(file, 1)}
-            onDelete={() => photoGallery.handleDelete(1)}
+            onUpload={photoGallery.uploadHandlers[1]}
+            onDelete={photoGallery.deleteHandlers[1]}
           />
         )}
 
@@ -939,8 +960,8 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             uploading={photoGallery.uploadingSlot === 2}
             deleting={photoGallery.deletingSlot === 2}
             canAdd={photoGallery.canAdd}
-            onUpload={(file) => photoGallery.handleUpload(file, 2)}
-            onDelete={() => photoGallery.handleDelete(2)}
+            onUpload={photoGallery.uploadHandlers[2]}
+            onDelete={photoGallery.deleteHandlers[2]}
           />
         )}
 
@@ -958,8 +979,8 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   uploading={photoGallery.uploadingSlot === index}
                   deleting={photoGallery.deletingSlot === index}
                   canAdd={photoGallery.canAdd}
-                  onUpload={(file) => photoGallery.handleUpload(file, index)}
-                  onDelete={() => photoGallery.handleDeleteByIndex(index)}
+                  onUpload={photoGallery.uploadHandlers[index]}
+                  onDelete={photoGallery.deleteByIndexHandlers[index]}
                 />
               ))}
             </div>
@@ -974,8 +995,8 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   uploading={photoGallery.uploadingSlot === index}
                   deleting={photoGallery.deletingSlot === index}
                   canAdd={photoGallery.canAdd}
-                  onUpload={(file) => photoGallery.handleUpload(file, index)}
-                  onDelete={() => photoGallery.handleDeleteByIndex(index)}
+                  onUpload={photoGallery.uploadHandlers[index]}
+                  onDelete={photoGallery.deleteByIndexHandlers[index]}
                 />
               ))}
             </div>

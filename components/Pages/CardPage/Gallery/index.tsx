@@ -721,6 +721,18 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     }
   }, [deckProduct?._id, localDeckGalleryPhoto, updateProductCardGalleryPhotos]);
 
+  // Pre-built stable handlers to avoid inline lambdas in render
+  const uploadHandlerSlot0 = useMemo(
+    () => (file: File) => handleUpload(file, 0),
+    [handleUpload]
+  );
+  const deleteHandlerSlot0 = useMemo(() => () => handleDelete(0), [handleDelete]);
+  const uploadHandlerMain = useMemo(
+    () => (file: File) => handleUpload(file, "main"),
+    [handleUpload]
+  );
+  const deleteHandlerMain = useMemo(() => () => handleDelete("main"), [handleDelete]);
+
   return (
     <Grid
       css={(theme) => [
@@ -855,8 +867,8 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             isAdmin={isAdmin}
             uploading={uploadingSlot === "additional-0"}
             deleting={deletingSlot === "additional-0"}
-            onUpload={(file) => handleUpload(file, 0)}
-            onDelete={() => handleDelete(0)}
+            onUpload={uploadHandlerSlot0}
+            onDelete={deleteHandlerSlot0}
           />
 
           {/* Center - main photo (large, spans 2 rows) */}
@@ -868,8 +880,8 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             isAdmin={isAdmin}
             uploading={uploadingSlot === "main"}
             deleting={deletingSlot === "main"}
-            onUpload={(file) => handleUpload(file, "main")}
-            onDelete={() => handleDelete("main")}
+            onUpload={uploadHandlerMain}
+            onDelete={deleteHandlerMain}
           />
 
           {/* Top right - card preview with flip on click */}
