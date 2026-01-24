@@ -3,99 +3,27 @@
  */
 // @ts-nocheck - Complex GraphQL resolver types require extensive type assertions
 
-// Mock the models before importing the resolver
-jest.mock("../../../source/models", () => ({
-  Deck: {
-    find: jest.fn(),
-    findOne: jest.fn(),
+// Mock services before importing the resolver
+jest.mock("../../../source/services", () => ({
+  deckService: {
+    getDecks: jest.fn(),
+    getDeck: jest.fn(),
+    getDeckBySlug: jest.fn(),
+    getDeckById: jest.fn(),
+    getDecksBySlugs: jest.fn(),
+    getDeckProperties: jest.fn((props) => props || {}),
   },
-  Product: {
-    findOne: jest.fn(),
+  productService: {
+    getProduct: jest.fn(),
   },
 }));
 
-jest.mock("../../../source/graphql/schemas/product", () => ({
-  getProduct: jest.fn(),
-}));
-
-import { resolvers, getDecks, getDeck } from "../../../source/graphql/schemas/deck";
-import { Deck } from "../../../source/models";
-import { getProduct } from "../../../source/graphql/schemas/product";
+import { resolvers } from "../../../source/graphql/schemas/deck";
+import { deckService, productService } from "../../../source/services";
 
 describe("Deck Resolver", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-  });
-
-  describe("getDecks", () => {
-    it("should return all decks with populated previewCards", async () => {
-      const mockDecks = [
-        { _id: "deck-1", title: "Deck 1", previewCards: [] },
-        { _id: "deck-2", title: "Deck 2", previewCards: [] },
-      ];
-
-      const mockPopulate = jest.fn().mockResolvedValue(mockDecks);
-      (Deck.find as jest.Mock).mockReturnValue({ populate: mockPopulate });
-
-      const result = await getDecks();
-
-      expect(Deck.find).toHaveBeenCalled();
-      expect(mockPopulate).toHaveBeenCalledWith("previewCards");
-      expect(result).toEqual(mockDecks);
-    });
-
-    it("should return empty array when no decks exist", async () => {
-      const mockPopulate = jest.fn().mockResolvedValue([]);
-      (Deck.find as jest.Mock).mockReturnValue({ populate: mockPopulate });
-
-      const result = await getDecks();
-
-      expect(result).toEqual([]);
-    });
-  });
-
-  describe("getDeck", () => {
-    it("should return deck by slug", async () => {
-      const mockDeck = {
-        _id: "deck-123",
-        title: "Test Deck",
-        slug: "test-deck",
-        previewCards: [],
-      };
-
-      const mockPopulate = jest.fn().mockResolvedValue(mockDeck);
-      (Deck.findOne as jest.Mock).mockReturnValue({ populate: mockPopulate });
-
-      const result = await getDeck({ slug: "test-deck" });
-
-      expect(Deck.findOne).toHaveBeenCalledWith({ slug: "test-deck" });
-      expect(mockPopulate).toHaveBeenCalledWith("previewCards");
-      expect(result).toEqual(mockDeck);
-    });
-
-    it("should return deck by _id", async () => {
-      const mockDeck = {
-        _id: "deck-123",
-        title: "Test Deck",
-      };
-
-      const mockPopulate = jest.fn().mockResolvedValue(mockDeck);
-      (Deck.findOne as jest.Mock).mockReturnValue({ populate: mockPopulate });
-
-      const result = await getDeck({ _id: "deck-123" });
-
-      expect(Deck.findOne).toHaveBeenCalledWith({ _id: "deck-123" });
-      expect(result).toEqual(mockDeck);
-    });
-
-    it("should return null when deck not found", async () => {
-      const mockPopulate = jest.fn().mockResolvedValue(null);
-      (Deck.findOne as jest.Mock).mockReturnValue({ populate: mockPopulate });
-
-      const result = await getDeck({ slug: "nonexistent" });
-
-      expect(result).toBeNull();
-    });
   });
 
   describe("Deck.properties resolver", () => {
@@ -138,17 +66,17 @@ describe("Deck Resolver", () => {
         price: { eur: 30, usd: 33 },
       };
 
-      (getProduct as jest.Mock).mockResolvedValue(mockProduct);
+      (productService.getProduct as jest.Mock).mockResolvedValue(mockProduct);
 
       const deck = { _id: "deck-123" } as GQL.Deck;
       const result = await productResolver!(deck, {}, {} as never, {} as never);
 
-      expect(getProduct).toHaveBeenCalledWith({ deck: "deck-123" });
+      expect(productService.getProduct).toHaveBeenCalledWith({ deck: "deck-123" });
       expect(result).toEqual(mockProduct);
     });
 
     it("should return undefined when no product exists for deck", async () => {
-      (getProduct as jest.Mock).mockResolvedValue(undefined);
+      (productService.getProduct as jest.Mock).mockResolvedValue(undefined);
 
       const deck = { _id: "deck-456" } as GQL.Deck;
       const result = await productResolver!(deck, {}, {} as never, {} as never);
@@ -160,33 +88,40 @@ describe("Deck Resolver", () => {
   describe("Query.decks", () => {
     const decksQuery = resolvers.Query?.decks;
 
-    it("should return all decks", async () => {
+    it("should return all decks from service", async () => {
       const mockDecks = [
         { _id: "1", title: "Deck 1" },
         { _id: "2", title: "Deck 2" },
       ];
 
-      const mockPopulate = jest.fn().mockResolvedValue(mockDecks);
-      (Deck.find as jest.Mock).mockReturnValue({ populate: mockPopulate });
+      (deckService.getDecks as jest.Mock).mockResolvedValue(mockDecks);
 
       const result = await decksQuery!({}, {}, {} as never, {} as never);
 
+      expect(deckService.getDecks).toHaveBeenCalled();
       expect(result).toEqual(mockDecks);
+    });
+
+    it("should return empty array when no decks exist", async () => {
+      (deckService.getDecks as jest.Mock).mockResolvedValue([]);
+
+      const result = await decksQuery!({}, {}, {} as never, {} as never);
+
+      expect(result).toEqual([]);
     });
   });
 
   describe("Query.deck", () => {
     const deckQuery = resolvers.Query?.deck;
 
-    it("should return deck by slug", async () => {
+    it("should return deck by slug from service", async () => {
       const mockDeck = {
         _id: "deck-123",
         title: "Test Deck",
         slug: "test-deck",
       };
 
-      const mockPopulate = jest.fn().mockResolvedValue(mockDeck);
-      (Deck.findOne as jest.Mock).mockReturnValue({ populate: mockPopulate });
+      (deckService.getDeckBySlug as jest.Mock).mockResolvedValue(mockDeck);
 
       const result = await deckQuery!(
         {},
@@ -195,12 +130,12 @@ describe("Deck Resolver", () => {
         {} as never
       );
 
+      expect(deckService.getDeckBySlug).toHaveBeenCalledWith("test-deck");
       expect(result).toEqual(mockDeck);
     });
 
-    it("should return null for nonexistent slug", async () => {
-      const mockPopulate = jest.fn().mockResolvedValue(null);
-      (Deck.findOne as jest.Mock).mockReturnValue({ populate: mockPopulate });
+    it("should return undefined for nonexistent slug", async () => {
+      (deckService.getDeckBySlug as jest.Mock).mockResolvedValue(undefined);
 
       const result = await deckQuery!(
         {},
@@ -209,7 +144,7 @@ describe("Deck Resolver", () => {
         {} as never
       );
 
-      expect(result).toBeNull();
+      expect(result).toBeUndefined();
     });
   });
 
