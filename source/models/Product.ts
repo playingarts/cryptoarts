@@ -33,6 +33,7 @@ const productSchema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
   image: String,
   image2: String,
   photos: { type: [String], default: [] },
+  cardGalleryPhotos: { type: [String], default: [] },
   description: { type: String, default: null },
   info: String,
   short: String,

@@ -110,11 +110,13 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
     const cardId = formData.get("cardId") as string | null;
+    const productId = formData.get("productId") as string | null;
     const photoType = (formData.get("photoType") as string) || "additional";
 
-    if (!file || !cardId) {
+    // Require either cardId or productId
+    if (!file || (!cardId && !productId)) {
       return NextResponse.json(
-        { error: "Missing file or cardId" },
+        { error: "Missing file or cardId/productId" },
         { status: 400 }
       );
     }
@@ -149,8 +151,10 @@ export async function POST(request: NextRequest) {
       .toBuffer();
 
     // Generate unique filename (always .jpg after processing)
+    // Use productId path for product-level photos, cardId for card-level photos
     const timestamp = Date.now();
-    const key = `card-photos/${cardId}/${photoType}-${timestamp}.jpg`;
+    const folder = productId ? `product-photos/${productId}` : `card-photos/${cardId}`;
+    const key = `${folder}/${photoType}-${timestamp}.jpg`;
 
     const command = new PutObjectCommand({
       Bucket: BUCKET,

@@ -24,6 +24,7 @@ export const ProductsQuery = gql`
       image
       image2
       photos
+      cardGalleryPhotos
       decks {
         _id
       }

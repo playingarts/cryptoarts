@@ -25,6 +25,16 @@ const UPDATE_CARD_PHOTOS = gql`
   }
 `;
 
+/** GraphQL mutation to update product card gallery photos (deck-level) */
+const UPDATE_PRODUCT_CARD_GALLERY_PHOTOS = gql`
+  mutation UpdateProductCardGalleryPhotos($productId: ID!, $cardGalleryPhotos: [String!]!) {
+    updateProductCardGalleryPhotos(productId: $productId, cardGalleryPhotos: $cardGalleryPhotos) {
+      _id
+      cardGalleryPhotos
+    }
+  }
+`;
+
 /** Placeholder for empty photo slots */
 const PLACEHOLDER_COLOR = "#E5E5E5";
 const PLACEHOLDER_COLOR_DARK = "#212121";
@@ -45,6 +55,14 @@ const FLIP_DURATION = 800;
 const FLIP_DELAY = 2000;
 /** Interval between auto-flips */
 const FLIP_INTERVAL = 5000;
+
+/** Min interval for photo rotation (ms) */
+const MIN_ROTATION_INTERVAL = 6000;
+/** Max interval for photo rotation (ms) */
+const MAX_ROTATION_INTERVAL = 12000;
+
+/** Get random interval between min and max */
+const getRandomInterval = () => MIN_ROTATION_INTERVAL + Math.random() * (MAX_ROTATION_INTERVAL - MIN_ROTATION_INTERVAL);
 
 interface FlipCardProps {
   card: GQL.Card;
@@ -162,6 +180,8 @@ const FlipCard: FC<FlipCardProps> = ({ card, backsideCard }) => {
 
 interface PhotoSlotProps {
   src?: string | null;
+  photos?: string[];
+  enableRotation?: boolean;
   gridColumn: string;
   gridRow?: string;
   dark?: boolean;
@@ -173,18 +193,57 @@ interface PhotoSlotProps {
 }
 
 /** Photo slot - shows image with fade-in or gray placeholder, with upload/delete buttons for admins */
-const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin, uploading, deleting, onUpload, onDelete }) => {
+const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn, gridRow, dark, isAdmin, uploading, deleting, onUpload, onDelete }) => {
   const [loaded, setLoaded] = useState(false);
-  const [currentSrc, setCurrentSrc] = useState(src);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [displayedPhoto, setDisplayedPhoto] = useState<string | null>(src || null);
+  const [previousPhoto, setPreviousPhoto] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Reset loaded state when src changes
+  // Independent rotation with random interval
   useEffect(() => {
-    if (src !== currentSrc) {
-      setLoaded(false);
-      setCurrentSrc(src);
+    if (!enableRotation || !photos || photos.length <= 1) return;
+
+    const scheduleNext = () => {
+      const interval = getRandomInterval();
+      return setTimeout(() => {
+        setCurrentIndex((prev) => (prev + 1) % photos.length);
+        timerRef.current = scheduleNext();
+      }, interval);
+    };
+
+    const timerRef = { current: scheduleNext() };
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [enableRotation, photos]);
+
+  // Get current photo based on rotation or direct prop
+  const currentPhoto = useMemo(() => {
+    if (enableRotation && photos && photos.length > 0) {
+      return photos[currentIndex % photos.length] || null;
     }
-  }, [src, currentSrc]);
+    return src || null;
+  }, [enableRotation, photos, currentIndex, src]);
+
+  // Handle photo change with crossfade
+  useEffect(() => {
+    if (currentPhoto !== displayedPhoto && currentPhoto !== previousPhoto) {
+      setPreviousPhoto(displayedPhoto);
+      setDisplayedPhoto(currentPhoto);
+      setIsTransitioning(true);
+      setLoaded(false);
+
+      const timer = setTimeout(() => {
+        setPreviousPhoto(null);
+        setIsTransitioning(false);
+      }, 800);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentPhoto, displayedPhoto, previousPhoto]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -310,30 +369,55 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, gridColumn, gridRow, dark, isAdmin
     </button>
   );
 
-  if (src) {
+  // Use displayedPhoto for rendering when rotation is enabled
+  const renderSrc = enableRotation ? displayedPhoto : src;
+
+  if (renderSrc || enableRotation) {
     return (
       <div css={[baseStyles, {
         backgroundColor: placeholderColor,
         position: "relative" as const,
+        overflow: "hidden",
         "&:hover button": {
           opacity: 1,
         },
       }]}>
-        <img
-          css={[
-            baseStyles,
-            {
-              position: "absolute",
-              top: 0,
-              left: 0,
-              opacity: loaded ? 1 : 0,
-              animation: loaded ? `${fadeIn} 0.3s ease-out` : "none",
-            },
-          ]}
-          src={src}
-          alt="Card artwork detail"
-          onLoad={() => setLoaded(true)}
-        />
+        {/* Previous photo (stays visible underneath during crossfade) */}
+        {previousPhoto && isTransitioning && (
+          <img
+            css={[
+              baseStyles,
+              {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                zIndex: 1,
+              },
+            ]}
+            src={previousPhoto}
+            alt="Card artwork detail"
+          />
+        )}
+        {/* Current photo (fades in on top) */}
+        {renderSrc && (
+          <img
+            key={renderSrc}
+            css={[
+              baseStyles,
+              {
+                position: "absolute",
+                top: 0,
+                left: 0,
+                opacity: loaded ? 1 : 0,
+                zIndex: 2,
+                animation: isTransitioning ? `${fadeIn} 0.8s ease-out` : (loaded ? `${fadeIn} 0.3s ease-out` : "none"),
+              },
+            ]}
+            src={renderSrc}
+            alt="Card artwork detail"
+            onLoad={() => setLoaded(true)}
+          />
+        )}
         {uploadButton}
         {deleteButton}
       </div>
@@ -359,8 +443,9 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [uploadingSlot, setUploadingSlot] = useState<string | null>(null);
   const [deletingSlot, setDeletingSlot] = useState<string | null>(null);
 
-  // GraphQL mutation
+  // GraphQL mutations
   const [updateCardPhotos] = useMutation(UPDATE_CARD_PHOTOS);
+  const [updateProductCardGalleryPhotos] = useMutation(UPDATE_PRODUCT_CARD_GALLERY_PHOTOS);
 
   // Get products to find the deck's product image
   const { products } = useProducts();
@@ -384,9 +469,12 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     return backsides.length > 0 ? backsides[0] : null;
   }, [sortedCards]);
 
-  // Local state for photos (allows immediate update after upload)
+  // Local state for card photos (allows immediate update after upload)
   const [localMainPhoto, setLocalMainPhoto] = useState<string | null | undefined>(undefined);
   const [localAdditionalPhotos, setLocalAdditionalPhotos] = useState<string[] | undefined>(undefined);
+
+  // Local state for deck-level gallery photos
+  const [localDeckGalleryPhotos, setLocalDeckGalleryPhotos] = useState<string[] | undefined>(undefined);
 
   // Reset local state when card changes
   useEffect(() => {
@@ -394,9 +482,19 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     setLocalAdditionalPhotos(undefined);
   }, [card?._id]);
 
+  // Reset deck gallery photos when deck changes
+  useEffect(() => {
+    setLocalDeckGalleryPhotos(undefined);
+  }, [deckProduct?._id]);
+
   // Use local state if set, otherwise use card data
   const mainPhoto = localMainPhoto !== undefined ? localMainPhoto : card?.mainPhoto;
   const additionalPhotos = localAdditionalPhotos !== undefined ? localAdditionalPhotos : (card?.additionalPhotos || []);
+
+  // Use local state if set, otherwise use product data for deck-level gallery photos
+  const deckGalleryPhotos = localDeckGalleryPhotos !== undefined
+    ? localDeckGalleryPhotos
+    : (deckProduct?.cardGalleryPhotos?.filter(Boolean) || []);
 
   // Upload handler for a specific slot
   const handleUpload = useCallback(async (file: File, slotType: "main" | number) => {
@@ -497,6 +595,70 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       setDeletingSlot(null);
     }
   }, [card?._id, additionalPhotos, mainPhoto, updateCardPhotos]);
+
+  // Upload handler for deck gallery photos (deck-level, applies to all cards)
+  const handleDeckGalleryUpload = useCallback(async (file: File) => {
+    if (!deckProduct?._id) return;
+
+    setUploadingSlot("deck-gallery");
+
+    try {
+      // Upload file to API
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("productId", deckProduct._id);
+      formData.append("photoType", "gallery");
+
+      const response = await fetch("/api/v1/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || "Upload failed");
+      }
+
+      const { imageUrl } = await response.json();
+
+      // Add to deck gallery photos
+      const newPhotos = [...deckGalleryPhotos, imageUrl];
+      await updateProductCardGalleryPhotos({
+        variables: {
+          productId: deckProduct._id,
+          cardGalleryPhotos: newPhotos,
+        },
+      });
+      setLocalDeckGalleryPhotos(newPhotos);
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert(error instanceof Error ? error.message : "Upload failed");
+    } finally {
+      setUploadingSlot(null);
+    }
+  }, [deckProduct?._id, deckGalleryPhotos, updateProductCardGalleryPhotos]);
+
+  // Delete handler for deck gallery photos (removes all photos)
+  const handleDeckGalleryDelete = useCallback(async () => {
+    if (!deckProduct?._id) return;
+
+    setDeletingSlot("deck-gallery");
+
+    try {
+      await updateProductCardGalleryPhotos({
+        variables: {
+          productId: deckProduct._id,
+          cardGalleryPhotos: [],
+        },
+      });
+      setLocalDeckGalleryPhotos([]);
+    } catch (error) {
+      console.error("Delete error:", error);
+      alert(error instanceof Error ? error.message : "Delete failed");
+    } finally {
+      setDeletingSlot(null);
+    }
+  }, [deckProduct?._id, updateProductCardGalleryPhotos]);
 
   return (
     <Grid
@@ -604,16 +766,18 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           dark={deckId === "crypto"}
         />
 
-        {/* Bottom right - additional photo 4 */}
+        {/* Bottom right - deck gallery photos (shared across all cards in deck) */}
         <PhotoSlot
-          src={additionalPhotos[3]}
+          src={deckGalleryPhotos[0]}
+          photos={deckGalleryPhotos}
+          enableRotation={deckGalleryPhotos.length > 1}
           gridColumn="span 3"
           dark={deckId === "crypto"}
           isAdmin={isAdmin}
-          uploading={uploadingSlot === "additional-3"}
-          deleting={deletingSlot === "additional-3"}
-          onUpload={(file) => handleUpload(file, 3)}
-          onDelete={() => handleDelete(3)}
+          uploading={uploadingSlot === "deck-gallery"}
+          deleting={deletingSlot === "deck-gallery"}
+          onUpload={handleDeckGalleryUpload}
+          onDelete={deckGalleryPhotos.length > 0 ? handleDeckGalleryDelete : undefined}
         />
       </Grid>
     </Grid>

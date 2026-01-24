@@ -265,6 +265,7 @@ interface Mutation {
   __typename?: 'Mutation';
   updateCardPhotos?: Maybe<Card>;
   updateProductPhotos?: Maybe<Product>;
+  updateProductCardGalleryPhotos?: Maybe<Product>;
 }
 
 
@@ -278,6 +279,12 @@ interface MutationUpdateCardPhotosArgs {
 interface MutationUpdateProductPhotosArgs {
   productId: Scalars['ID']['input'];
   photos: Array<Scalars['String']['input']>;
+}
+
+
+interface MutationUpdateProductCardGalleryPhotosArgs {
+  productId: Scalars['ID']['input'];
+  cardGalleryPhotos: Array<Scalars['String']['input']>;
 }
 
 interface Card {
@@ -327,6 +334,7 @@ interface Product {
   image: Scalars['String']['output'];
   image2: Scalars['String']['output'];
   photos?: Maybe<Array<Scalars['String']['output']>>;
+  cardGalleryPhotos?: Maybe<Array<Scalars['String']['output']>>;
   info?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   short: Scalars['String']['output'];
@@ -765,6 +773,7 @@ export type SocialsResolvers<ContextType = { req: Request, res: Response }, Pare
 export type MutationResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   updateCardPhotos?: Resolver<Maybe<ResolversTypes['Card']>, ParentType, ContextType, RequireFields<MutationUpdateCardPhotosArgs, 'cardId'>>;
   updateProductPhotos?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationUpdateProductPhotosArgs, 'productId' | 'photos'>>;
+  updateProductCardGalleryPhotos?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationUpdateProductCardGalleryPhotosArgs, 'productId' | 'cardGalleryPhotos'>>;
 };
 
 export type CardResolvers<ContextType = { req: Request, res: Response }, ParentType extends ResolversParentTypes['Card'] = ResolversParentTypes['Card']> = {
@@ -813,6 +822,7 @@ export type ProductResolvers<ContextType = { req: Request, res: Response }, Pare
   image?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   image2?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   photos?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
+  cardGalleryPhotos?: Resolver<Maybe<Array<ResolversTypes['String']>>, ParentType, ContextType>;
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
