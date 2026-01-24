@@ -267,6 +267,9 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
 
   const placeholderColor = dark ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR;
 
+  // For rotation slots, check if there are photos; for regular slots, check src
+  const hasPhoto = enableRotation ? (photos && photos.length > 0) : !!src;
+
   const uploadButton = isAdmin && onUpload && (
     <>
       <input
@@ -284,6 +287,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
+          zIndex: 10,
           width: 60,
           height: 60,
           borderRadius: "50%",
@@ -294,14 +298,14 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          opacity: src ? 0 : 0.8,
+          opacity: hasPhoto ? 0 : 0.8,
           transition: "opacity 0.2s ease, transform 0.2s ease",
           "&:hover": {
             opacity: 1,
             transform: "translate(-50%, -50%) scale(1.1)",
           },
         })}
-        aria-label={src ? "Replace photo" : "Add photo"}
+        aria-label={hasPhoto ? "Replace photo" : "Add photo"}
       >
         {uploading ? (
           <span css={{
@@ -323,7 +327,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
     </>
   );
 
-  const deleteButton = isAdmin && onDelete && src && (
+  const deleteButton = isAdmin && onDelete && hasPhoto && (
     <button
       onClick={onDelete}
       disabled={deleting || uploading}
@@ -331,6 +335,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
         position: "absolute",
         top: 10,
         right: 10,
+        zIndex: 10,
         width: 36,
         height: 36,
         borderRadius: "50%",
@@ -344,7 +349,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
         opacity: 0,
         transition: "opacity 0.2s ease, transform 0.2s ease",
         "&:hover": {
-          background: theme.colors.accent,
+          background: "#dc2626",
           transform: "scale(1.1)",
         },
       })}
@@ -379,7 +384,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
         position: "relative" as const,
         overflow: "hidden",
         "&:hover button": {
-          opacity: 1,
+          opacity: "1 !important",
         },
       }]}>
         {/* Previous photo (stays visible underneath during crossfade) */}
@@ -425,7 +430,13 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
   }
 
   return (
-    <div css={[baseStyles, { backgroundColor: placeholderColor, position: "relative" as const }]}>
+    <div css={[baseStyles, {
+      backgroundColor: placeholderColor,
+      position: "relative" as const,
+      "&:hover button": {
+        opacity: "1 !important",
+      },
+    }]}>
       {uploadButton}
     </div>
   );
@@ -473,8 +484,8 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [localMainPhoto, setLocalMainPhoto] = useState<string | null | undefined>(undefined);
   const [localAdditionalPhotos, setLocalAdditionalPhotos] = useState<string[] | undefined>(undefined);
 
-  // Local state for deck-level gallery photos
-  const [localDeckGalleryPhotos, setLocalDeckGalleryPhotos] = useState<string[] | undefined>(undefined);
+  // Local state for deck-level gallery photo
+  const [localDeckGalleryPhoto, setLocalDeckGalleryPhoto] = useState<string | null>(null);
 
   // Reset local state when card changes
   useEffect(() => {
@@ -482,19 +493,20 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     setLocalAdditionalPhotos(undefined);
   }, [card?._id]);
 
-  // Reset deck gallery photos when deck changes
+  // Sync deck gallery photo from product data when it becomes available
   useEffect(() => {
-    setLocalDeckGalleryPhotos(undefined);
-  }, [deckProduct?._id]);
+    const productPhoto = deckProduct?.cardGalleryPhotos?.[0];
+    if (productPhoto && productPhoto !== localDeckGalleryPhoto) {
+      setLocalDeckGalleryPhoto(productPhoto);
+    }
+  }, [deckProduct?.cardGalleryPhotos, localDeckGalleryPhoto]);
 
   // Use local state if set, otherwise use card data
   const mainPhoto = localMainPhoto !== undefined ? localMainPhoto : card?.mainPhoto;
   const additionalPhotos = localAdditionalPhotos !== undefined ? localAdditionalPhotos : (card?.additionalPhotos || []);
 
-  // Use local state if set, otherwise use product data for deck-level gallery photos
-  const deckGalleryPhotos = localDeckGalleryPhotos !== undefined
-    ? localDeckGalleryPhotos
-    : (deckProduct?.cardGalleryPhotos?.filter(Boolean) || []);
+  // Use local state for deck gallery photo (persists even when product data temporarily unavailable)
+  const deckGalleryPhoto = localDeckGalleryPhoto;
 
   // Upload handler for a specific slot
   const handleUpload = useCallback(async (file: File, slotType: "main" | number) => {
@@ -596,7 +608,7 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     }
   }, [card?._id, additionalPhotos, mainPhoto, updateCardPhotos]);
 
-  // Upload handler for deck gallery photos (deck-level, applies to all cards)
+  // Upload handler for deck gallery photo (deck-level, applies to all cards)
   const handleDeckGalleryUpload = useCallback(async (file: File) => {
     if (!deckProduct?._id) return;
 
@@ -621,24 +633,23 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
       const { imageUrl } = await response.json();
 
-      // Add to deck gallery photos
-      const newPhotos = [...deckGalleryPhotos, imageUrl];
+      // Set as the deck gallery photo (replaces existing)
       await updateProductCardGalleryPhotos({
         variables: {
           productId: deckProduct._id,
-          cardGalleryPhotos: newPhotos,
+          cardGalleryPhotos: [imageUrl],
         },
       });
-      setLocalDeckGalleryPhotos(newPhotos);
+      setLocalDeckGalleryPhoto(imageUrl);
     } catch (error) {
       console.error("Upload error:", error);
       alert(error instanceof Error ? error.message : "Upload failed");
     } finally {
       setUploadingSlot(null);
     }
-  }, [deckProduct?._id, deckGalleryPhotos, updateProductCardGalleryPhotos]);
+  }, [deckProduct?._id, updateProductCardGalleryPhotos]);
 
-  // Delete handler for deck gallery photos (removes all photos)
+  // Delete handler for deck gallery photo
   const handleDeckGalleryDelete = useCallback(async () => {
     if (!deckProduct?._id) return;
 
@@ -651,7 +662,7 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           cardGalleryPhotos: [],
         },
       });
-      setLocalDeckGalleryPhotos([]);
+      setLocalDeckGalleryPhoto(null);
     } catch (error) {
       console.error("Delete error:", error);
       alert(error instanceof Error ? error.message : "Delete failed");
@@ -766,18 +777,16 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           dark={deckId === "crypto"}
         />
 
-        {/* Bottom right - deck gallery photos (shared across all cards in deck) */}
+        {/* Bottom right - deck gallery photo (shared across all cards in deck) */}
         <PhotoSlot
-          src={deckGalleryPhotos[0]}
-          photos={deckGalleryPhotos}
-          enableRotation={deckGalleryPhotos.length > 1}
+          src={deckGalleryPhoto}
           gridColumn="span 3"
           dark={deckId === "crypto"}
           isAdmin={isAdmin}
           uploading={uploadingSlot === "deck-gallery"}
           deleting={deletingSlot === "deck-gallery"}
           onUpload={handleDeckGalleryUpload}
-          onDelete={deckGalleryPhotos.length > 0 ? handleDeckGalleryDelete : undefined}
+          onDelete={deckGalleryPhoto ? handleDeckGalleryDelete : undefined}
         />
       </Grid>
     </Grid>
