@@ -1,51 +1,9 @@
 import { gql } from "@apollo/client";
 import { QueryHookOptions, useLazyQuery, useQuery } from "@apollo/client/react";
+import { DeckDataFragment, DeckNavFragment } from "./fragments";
 
-export const DeckDataFragment = gql`
-  fragment DeckDataFragment on Deck {
-    _id
-    slug
-    info
-    intro
-    title
-    cardBackground
-    short
-    image
-    description
-    backgroundImage
-    properties
-    labels
-    openseaCollection {
-      name
-      address
-    }
-    editions {
-      img
-      name
-      url
-    }
-    product {
-      _id
-      short
-      image
-      status
-      price {
-        eur
-        usd
-      }
-    }
-  }
-`;
-
-/**
- * Lightweight deck fragment for navigation (only slug needed)
- */
-export const DeckNavFragment = gql`
-  fragment DeckNavFragment on Deck {
-    _id
-    slug
-  }
-`;
+// Re-export fragments for backwards compatibility
+export { DeckDataFragment, DeckNavFragment } from "./fragments";
 
 /**
  * Query for deck navigation - only fetches slugs to minimize payload

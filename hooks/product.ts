@@ -1,53 +1,14 @@
 import { gql } from "@apollo/client";
 
 import { useQuery } from "@apollo/client/react";
+import { ProductWithDeckFragment } from "./fragments";
 
 export const ProductsQuery = gql`
+  ${ProductWithDeckFragment}
+
   query Products($ids: [ID!]) {
     products(ids: $ids) {
-      _id
-      title
-      short
-      info
-      status
-      type
-      labels
-      description
-      fullPrice {
-        usd
-        eur
-      }
-      price {
-        eur
-        usd
-      }
-      image
-      image2
-      photos
-      cardGalleryPhotos
-      decks {
-        _id
-      }
-      deck {
-        _id
-        slug
-        labels
-        short
-        info
-        previewCards {
-          _id
-          img
-          artist {
-            _id
-            name
-            slug
-          }
-        }
-        openseaCollection {
-          name
-          address
-        }
-      }
+      ...ProductWithDeckFragment
     }
   }
 `;
