@@ -13,11 +13,9 @@
  */
 
 import { ThemeProvider } from "@emotion/react";
-import { MetaMaskProvider } from "metamask-react";
 import { useEffect } from "react";
 import smoothscroll from "smoothscroll-polyfill";
 import SizeProvider from "@/components/SizeProvider";
-import { SignatureProvider } from "@/contexts/SignatureContext";
 import { ViewedProvider } from "@/contexts/viewedContext";
 import { IsEuropeProvider } from "@/components/Contexts/bag";
 import { FavoritesProvider } from "@/components/Contexts/favorites";
@@ -36,20 +34,16 @@ export function Providers({ children }: ProvidersProps) {
   }, []);
 
   return (
-    <MetaMaskProvider>
-      <SignatureProvider>
-        <ThemeProvider theme={theme}>
-          <ViewedProvider>
-            <IsEuropeProvider>
-              <FavoritesProvider>
-                <SizeProvider isMobile={false}>
-                  <ErrorBoundary>{children}</ErrorBoundary>
-                </SizeProvider>
-              </FavoritesProvider>
-            </IsEuropeProvider>
-          </ViewedProvider>
-        </ThemeProvider>
-      </SignatureProvider>
-    </MetaMaskProvider>
+    <ThemeProvider theme={theme}>
+      <ViewedProvider>
+        <IsEuropeProvider>
+          <FavoritesProvider>
+            <SizeProvider isMobile={false}>
+              <ErrorBoundary>{children}</ErrorBoundary>
+            </SizeProvider>
+          </FavoritesProvider>
+        </IsEuropeProvider>
+      </ViewedProvider>
+    </ThemeProvider>
   );
 }

@@ -8,6 +8,7 @@ import Android from "../Icons/Android";
 import ArrowButton from "../Buttons/ArrowButton";
 import Link from "../Link";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
+import { useAuth } from "../Contexts/auth";
 
 export type FooterLink = {
   label: string;
@@ -40,6 +41,7 @@ export const links: { [key: string]: FooterLink[] } = {
 
 const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
   const { palette } = usePalette();
+  const { isAdmin, logout } = useAuth();
 
   return (
     <Grid
@@ -48,7 +50,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           background:
             theme.colors[palette === "dark" ? "spaceBlack" : "pale_gray"],
           paddingTop: 60,
-          paddingBottom: 120,
+          paddingBottom: 90,
         },
       ]}
     >
@@ -163,7 +165,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
               gridColumn: "span 2",
               paddingTop: 15,
               flexDirection: "column",
-              justifyContent: "space-between",
+              justifyContent: "flex-start",
               alignItems: "start",
             },
           ]}
@@ -208,6 +210,35 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
                 </ArrowButton>
               </Link>
             ))}
+            {/* Admin logout link - only in "The project" section */}
+            {isAdmin && key === "The project" && (
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  logout();
+                }}
+                css={[{ display: "block" }]}
+              >
+                <ArrowButton
+                  noColor={true}
+                  base={true}
+                  size="small"
+                  css={(theme) => [
+                    {
+                      textAlign: "start",
+                      color: theme.colors[palette === "dark" ? "white50" : "black50"],
+                      transition: theme.transitions.fast("color"),
+                      "&:hover": {
+                        color: theme.colors[palette === "dark" ? "white" : "black"],
+                      },
+                    },
+                  ]}
+                >
+                  Log out
+                </ArrowButton>
+              </a>
+            )}
           </div>
         </ScandiBlock>
       ))}

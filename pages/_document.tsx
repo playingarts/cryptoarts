@@ -70,16 +70,36 @@ export const Links = () => (
         },
       }}
     />
-    {/* Alliance font face declarations - loaded via next/font/local */}
+    <meta name="theme-color" content="#fff" />
+    {/* Alliance font - explicit @font-face for Safari compatibility */}
     <Global
       styles={css`
+        @font-face {
+          font-family: "Alliance No.2";
+          src: url("/AllianceRegular.woff2") format("woff2");
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
+        }
+        @font-face {
+          font-family: "Alliance No.2";
+          src: url("/AllianceMedium.woff2") format("woff2");
+          font-weight: 500;
+          font-style: normal;
+          font-display: swap;
+        }
+        @font-face {
+          font-family: "Alliance No.2";
+          src: url("/AllianceBold.woff2") format("woff2");
+          font-weight: 600;
+          font-style: normal;
+          font-display: swap;
+        }
         :root {
-          /* Font family CSS variables set by next/font */
           --font-alliance: "Alliance No.2", sans-serif;
         }
       `}
     />
-    <meta name="theme-color" content="#fff" />
   </Fragment>
 );
 
