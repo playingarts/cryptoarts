@@ -484,8 +484,9 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [localMainPhoto, setLocalMainPhoto] = useState<string | null | undefined>(undefined);
   const [localAdditionalPhotos, setLocalAdditionalPhotos] = useState<string[] | undefined>(undefined);
 
-  // Local state for deck-level gallery photo
+  // Local state for deck gallery photo (persists across navigation within same deck)
   const [localDeckGalleryPhoto, setLocalDeckGalleryPhoto] = useState<string | null>(null);
+  const [lastDeckProductId, setLastDeckProductId] = useState<string | null>(null);
 
   // Reset local state when card changes
   useEffect(() => {
@@ -493,19 +494,19 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     setLocalAdditionalPhotos(undefined);
   }, [card?._id]);
 
-  // Sync deck gallery photo from product data when it becomes available
+  // Sync deck gallery photo from product data when deck product changes
   useEffect(() => {
-    const productPhoto = deckProduct?.cardGalleryPhotos?.[0];
-    if (productPhoto && productPhoto !== localDeckGalleryPhoto) {
-      setLocalDeckGalleryPhoto(productPhoto);
+    if (deckProduct?._id && deckProduct._id !== lastDeckProductId) {
+      setLastDeckProductId(deckProduct._id);
+      setLocalDeckGalleryPhoto(deckProduct.cardGalleryPhotos?.[0] || null);
     }
-  }, [deckProduct?.cardGalleryPhotos, localDeckGalleryPhoto]);
+  }, [deckProduct?._id, deckProduct?.cardGalleryPhotos, lastDeckProductId]);
 
   // Use local state if set, otherwise use card data
   const mainPhoto = localMainPhoto !== undefined ? localMainPhoto : card?.mainPhoto;
   const additionalPhotos = localAdditionalPhotos !== undefined ? localAdditionalPhotos : (card?.additionalPhotos || []);
 
-  // Use local state for deck gallery photo (persists even when product data temporarily unavailable)
+  // Deck gallery photo uses local state (synced from product on deck change)
   const deckGalleryPhoto = localDeckGalleryPhoto;
 
   // Upload handler for a specific slot
@@ -633,6 +634,9 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
       const { imageUrl } = await response.json();
 
+      // Optimistic update for immediate feedback
+      setLocalDeckGalleryPhoto(imageUrl);
+
       // Set as the deck gallery photo (replaces existing)
       await updateProductCardGalleryPhotos({
         variables: {
@@ -640,7 +644,6 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           cardGalleryPhotos: [imageUrl],
         },
       });
-      setLocalDeckGalleryPhoto(imageUrl);
     } catch (error) {
       console.error("Upload error:", error);
       alert(error instanceof Error ? error.message : "Upload failed");
@@ -655,21 +658,28 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
     setDeletingSlot("deck-gallery");
 
+    // Store current value for rollback on error
+    const previousPhoto = localDeckGalleryPhoto;
+
     try {
+      // Optimistic update for immediate feedback
+      setLocalDeckGalleryPhoto(null);
+
       await updateProductCardGalleryPhotos({
         variables: {
           productId: deckProduct._id,
           cardGalleryPhotos: [],
         },
       });
-      setLocalDeckGalleryPhoto(null);
     } catch (error) {
       console.error("Delete error:", error);
       alert(error instanceof Error ? error.message : "Delete failed");
+      // Revert optimistic update on error
+      setLocalDeckGalleryPhoto(previousPhoto);
     } finally {
       setDeletingSlot(null);
     }
-  }, [deckProduct?._id, updateProductCardGalleryPhotos]);
+  }, [deckProduct?._id, localDeckGalleryPhoto, updateProductCardGalleryPhotos]);
 
   return (
     <Grid
