@@ -27,43 +27,79 @@ interface ServiceCheckConfig {
   critical?: boolean;
 }
 
+/**
+ * Configuration for HTTP-based health checks
+ */
+interface HttpCheckConfig {
+  service: ServiceName;
+  url: string;
+  options?: RequestInit;
+  timeout?: number;
+  /** If latency exceeds this, status becomes "degraded" */
+  slowThreshold?: number;
+  /** Message when slow (only used if slowThreshold is set) */
+  slowMessage?: string;
+  /** Message for caught errors */
+  errorMessage?: string;
+}
+
+/**
+ * Run an HTTP-based health check with timing and error handling.
+ * Handles the common pattern: timing, fetch, response.ok check, slow threshold, error catch.
+ */
+async function runHttpCheck(config: HttpCheckConfig): Promise<CheckResult> {
+  const {
+    service,
+    url,
+    options = {},
+    timeout = 10000,
+    slowThreshold,
+    slowMessage,
+    errorMessage = "Request failed",
+  } = config;
+
+  const start = Date.now();
+
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: AbortSignal.timeout(timeout),
+    });
+    const latency = Date.now() - start;
+
+    if (!response.ok) {
+      return { service, status: "down", latency, message: `HTTP ${response.status}` };
+    }
+
+    if (slowThreshold && latency > slowThreshold) {
+      return { service, status: "degraded", latency, message: slowMessage };
+    }
+
+    return { service, status: "up", latency };
+  } catch (error) {
+    return {
+      service,
+      status: "down",
+      latency: Date.now() - start,
+      message: error instanceof Error ? error.message : errorMessage,
+    };
+  }
+}
+
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://dev.playingarts.com";
 
 /**
  * Check website availability
  */
 async function checkWebsite(): Promise<CheckResult> {
-  const start = Date.now();
-  try {
-    const response = await fetch(SITE_URL, {
-      method: "HEAD",
-      signal: AbortSignal.timeout(10000),
-    });
-    const latency = Date.now() - start;
-
-    if (!response.ok) {
-      return {
-        service: "website",
-        status: "down",
-        latency,
-        message: `HTTP ${response.status}`,
-      };
-    }
-
-    return {
-      service: "website",
-      status: latency > 5000 ? "degraded" : "up",
-      latency,
-      message: latency > 5000 ? "Slow response" : undefined,
-    };
-  } catch (error) {
-    return {
-      service: "website",
-      status: "down",
-      latency: Date.now() - start,
-      message: error instanceof Error ? error.message : "Connection failed",
-    };
-  }
+  return runHttpCheck({
+    service: "website",
+    url: SITE_URL,
+    options: { method: "HEAD" },
+    slowThreshold: 5000,
+    slowMessage: "Slow response",
+    errorMessage: "Connection failed",
+  });
 }
 
 /**
@@ -99,38 +135,16 @@ async function checkMongoDB(): Promise<CheckResult> {
  * Check GraphQL API
  */
 async function checkGraphQL(): Promise<CheckResult> {
-  const start = Date.now();
-  try {
-    const response = await fetch(`${SITE_URL}/api/v1/graphql`, {
+  return runHttpCheck({
+    service: "graphql",
+    url: `${SITE_URL}/api/v1/graphql`,
+    options: {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: "{ __typename }" }),
-      signal: AbortSignal.timeout(10000),
-    });
-    const latency = Date.now() - start;
-
-    if (!response.ok) {
-      return {
-        service: "graphql",
-        status: "down",
-        latency,
-        message: `HTTP ${response.status}`,
-      };
-    }
-
-    return {
-      service: "graphql",
-      status: latency > 5000 ? "degraded" : "up",
-      latency,
-    };
-  } catch (error) {
-    return {
-      service: "graphql",
-      status: "down",
-      latency: Date.now() - start,
-      message: error instanceof Error ? error.message : "Request failed",
-    };
-  }
+    },
+    slowThreshold: 5000,
+  });
 }
 
 /**
@@ -196,7 +210,6 @@ async function checkOpenSea(): Promise<CheckResult> {
  * Check MailerLite API
  */
 async function checkMailerLite(): Promise<CheckResult> {
-  const start = Date.now();
   const apiKey = process.env.MAILERLITE_API_KEY;
 
   if (!apiKey) {
@@ -208,81 +221,31 @@ async function checkMailerLite(): Promise<CheckResult> {
     };
   }
 
-  try {
-    const response = await fetch("https://api.mailerlite.com/api/v2/me", {
-      headers: { "X-MailerLite-ApiKey": apiKey },
-      signal: AbortSignal.timeout(10000),
-    });
-    const latency = Date.now() - start;
-
-    if (!response.ok) {
-      return {
-        service: "mailerlite",
-        status: "down",
-        latency,
-        message: `HTTP ${response.status}`,
-      };
-    }
-
-    return {
-      service: "mailerlite",
-      status: "up",
-      latency,
-    };
-  } catch (error) {
-    return {
-      service: "mailerlite",
-      status: "down",
-      latency: Date.now() - start,
-      message: error instanceof Error ? error.message : "Request failed",
-    };
-  }
+  return runHttpCheck({
+    service: "mailerlite",
+    url: "https://api.mailerlite.com/api/v2/me",
+    options: { headers: { "X-MailerLite-ApiKey": apiKey } },
+  });
 }
 
 /**
  * Check Crazy Aces game app
  */
 async function checkCrazyAces(): Promise<CheckResult> {
-  const start = Date.now();
-  const CRAZY_ACES_URL = "https://play.playingarts.com";
-
-  try {
-    const response = await fetch(CRAZY_ACES_URL, {
-      method: "HEAD",
-      signal: AbortSignal.timeout(10000),
-    });
-    const latency = Date.now() - start;
-
-    if (!response.ok) {
-      return {
-        service: "crazyaces",
-        status: "down",
-        latency,
-        message: `HTTP ${response.status}`,
-      };
-    }
-
-    return {
-      service: "crazyaces",
-      status: latency > 3000 ? "degraded" : "up",
-      latency,
-      message: latency > 3000 ? "Slow response" : undefined,
-    };
-  } catch (error) {
-    return {
-      service: "crazyaces",
-      status: "down",
-      latency: Date.now() - start,
-      message: error instanceof Error ? error.message : "Connection failed",
-    };
-  }
+  return runHttpCheck({
+    service: "crazyaces",
+    url: "https://play.playingarts.com",
+    options: { method: "HEAD" },
+    slowThreshold: 3000,
+    slowMessage: "Slow response",
+    errorMessage: "Connection failed",
+  });
 }
 
 /**
  * Check Upstash Redis
  */
 async function checkRedis(): Promise<CheckResult> {
-  const start = Date.now();
   const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
   const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
 
@@ -295,35 +258,12 @@ async function checkRedis(): Promise<CheckResult> {
     };
   }
 
-  try {
-    const response = await fetch(`${redisUrl}/ping`, {
-      headers: { Authorization: `Bearer ${redisToken}` },
-      signal: AbortSignal.timeout(5000),
-    });
-    const latency = Date.now() - start;
-
-    if (!response.ok) {
-      return {
-        service: "redis",
-        status: "down",
-        latency,
-        message: `HTTP ${response.status}`,
-      };
-    }
-
-    return {
-      service: "redis",
-      status: "up",
-      latency,
-    };
-  } catch (error) {
-    return {
-      service: "redis",
-      status: "down",
-      latency: Date.now() - start,
-      message: error instanceof Error ? error.message : "Request failed",
-    };
-  }
+  return runHttpCheck({
+    service: "redis",
+    url: `${redisUrl}/ping`,
+    options: { headers: { Authorization: `Bearer ${redisToken}` } },
+    timeout: 5000,
+  });
 }
 
 /**
