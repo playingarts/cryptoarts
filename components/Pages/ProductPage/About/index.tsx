@@ -72,6 +72,27 @@ interface PhotoSlotProps {
 
 const PhotoSlot: FC<PhotoSlotProps> = ({ photo, isAdmin, uploading, deleting, canAdd, onUpload, onDelete, small }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [displayedPhoto, setDisplayedPhoto] = useState<string | null>(photo);
+  const [previousPhoto, setPreviousPhoto] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  // Handle photo change with crossfade
+  useEffect(() => {
+    if (photo !== displayedPhoto && photo !== previousPhoto) {
+      // Start crossfade transition
+      setPreviousPhoto(displayedPhoto);
+      setDisplayedPhoto(photo);
+      setIsTransitioning(true);
+
+      // End transition after animation completes
+      const timer = setTimeout(() => {
+        setPreviousPhoto(null);
+        setIsTransitioning(false);
+      }, 800);
+
+      return () => clearTimeout(timer);
+    }
+  }, [photo, displayedPhoto, previousPhoto]);
 
   const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -96,16 +117,39 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ photo, isAdmin, uploading, deleting, ca
         },
       })}
     >
-      {photo && (
+      {/* Previous photo (stays visible underneath during crossfade) */}
+      {previousPhoto && isTransitioning && (
         <img
-          src={photo}
+          src={previousPhoto}
           alt="Product photo"
           css={{
+            position: "absolute",
+            top: 0,
+            left: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
             borderRadius: small ? 10 : 15,
-            animation: `${fadeIn} 0.5s ease-out`,
+            zIndex: 1,
+          }}
+        />
+      )}
+      {/* Current photo (fades in on top) */}
+      {displayedPhoto && (
+        <img
+          key={displayedPhoto}
+          src={displayedPhoto}
+          alt="Product photo"
+          css={{
+            position: isTransitioning ? "absolute" : "relative",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            borderRadius: small ? 10 : 15,
+            zIndex: 2,
+            animation: isTransitioning ? `${fadeIn} 0.8s ease-out` : undefined,
           }}
         />
       )}
