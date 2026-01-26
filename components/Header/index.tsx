@@ -117,8 +117,9 @@ const Header: FC<Props> = ({
               "grid-template-rows",
               "color",
             ]),
-            [theme.maxMQ.sm]: {
-              // Mobile styles - to be implemented
+            [theme.maxMQ.xsm]: {
+              gridTemplateRows: 50,
+              lineHeight: "50px",
             },
           },
         ]}

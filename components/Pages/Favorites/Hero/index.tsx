@@ -49,7 +49,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   }, [favorites, allCards]);
 
   return (
-    <Grid css={(theme) => [{ paddingTop: HEADER_OFFSET, background: theme.colors.pale_gray }]}>
+    <Grid css={(theme) => [{ paddingTop: HEADER_OFFSET.desktop, background: theme.colors.pale_gray, [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet }, [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile } }]}>
       <div css={[{ gridColumn: "span 6" }]}>
         <Text typography="newh3">
           {cardCount === 0

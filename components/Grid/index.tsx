@@ -18,16 +18,36 @@ const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
         display: "grid",
         columnGap: theme.spacing(3),
         "--columnWidth": `${theme.spacing(8)}px`,
-        [theme.maxMQ.sm]: {
-          // Mobile styles - to be implemented
-        },
         justifyContent: "center",
+      },
+      // Mobile (<660px): 4 columns, full width with small margins
+      {
+        [theme.maxMQ.xsm]: {
+          gridTemplateColumns: "repeat(4, 1fr)",
+          columnGap: theme.spacing(1.5),
+          paddingLeft: theme.spacing(1.5),
+          paddingRight: theme.spacing(1.5),
+          justifyContent: "stretch",
+        },
       },
       auto
         ? {
             gridTemplateColumns: "repeat(auto-fill, var(--columnWidth))",
+            [theme.maxMQ.xsm]: {
+              gridTemplateColumns: "repeat(4, 1fr)",
+            },
           }
         : [
+            // Tablet (660-1000px): 6 columns
+            {
+              [theme.maxMQ.sm]: {
+                gridTemplateColumns: "repeat(6, 1fr)",
+                columnGap: theme.spacing(2),
+                paddingLeft: theme.spacing(3),
+                paddingRight: theme.spacing(3),
+                justifyContent: "stretch",
+              },
+            },
             shop
               ? {
                   [theme.maxMQ.md]: {
@@ -35,9 +55,6 @@ const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                   },
                 }
               : {
-                  [theme.maxMQ.sm]: {
-                    // Mobile styles - to be implemented
-                  },
                   [theme.maxMQ.md]: {
                     gridTemplateColumns: "repeat(9, var(--columnWidth))",
                   },
@@ -54,11 +71,6 @@ const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
                   },
                 },
           ],
-      {
-        [theme.maxMQ.sm]: {
-          // Mobile styles - to be implemented
-        },
-      },
     ]}
   >
     {children}

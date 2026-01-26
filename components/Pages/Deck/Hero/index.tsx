@@ -194,10 +194,12 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
     <Grid
       css={(theme) => [
         {
-          paddingTop: HEADER_OFFSET,
+          paddingTop: HEADER_OFFSET.desktop,
           paddingBottom: theme.spacing(6),
           background:
             theme.colors[palette === "dark" ? "spaceBlack" : "soft_gray"],
+          [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet },
+          [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile },
         },
       ]}
     >

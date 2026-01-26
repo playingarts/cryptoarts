@@ -45,12 +45,14 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <div
         css={(theme) => [
           {
-            paddingTop: HEADER_OFFSET,
+            paddingTop: HEADER_OFFSET.desktop,
             paddingBottom: theme.spacing(6),
             display: "grid",
             gap: theme.spacing(1.5),
             gridColumn: "7 / span 5",
             position: "relative",
+            [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet, gridColumn: "1 / -1" },
+            [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile },
           },
         ]}
       >

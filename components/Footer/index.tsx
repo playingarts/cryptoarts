@@ -60,6 +60,10 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
             alignItems: "start",
             flexDirection: "column",
             justifyContent: "space-between",
+            [theme.maxMQ.sm]: {
+              gridColumn: "1 / -1",
+              marginBottom: theme.spacing(3),
+            },
           },
         ]}
       >
@@ -164,6 +168,12 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
               flexDirection: "column",
               justifyContent: "flex-start",
               alignItems: "start",
+              [theme.maxMQ.sm]: {
+                gridColumn: "span 2", // 2 of 6 on tablet
+              },
+              [theme.maxMQ.xsm]: {
+                gridColumn: "span 2", // 2 of 4 on mobile (2 per row)
+              },
             },
           ]}
         >

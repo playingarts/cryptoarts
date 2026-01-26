@@ -83,11 +83,13 @@ const LoginPage: FC = () => {
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,
-          paddingTop: HEADER_OFFSET,
+          paddingTop: HEADER_OFFSET.desktop,
           paddingBottom: theme.spacing(6),
+          [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet },
+          [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile },
         })}
       >
-        <div css={{ gridColumn: "span 8" }}>
+        <div css={(theme) => ({ gridColumn: "span 8", [theme.maxMQ.xsm]: { gridColumn: "1 / -1" } })}>
           <Text typography="newh3">Admin Login</Text>
 
           {state === "sent" ? (

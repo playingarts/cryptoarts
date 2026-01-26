@@ -33,9 +33,14 @@ export const SPACING = {
 /**
  * Header offset for pages with fixed header
  * This accounts for the header height + some spacing
- * TODO: Make responsive - will be smaller on mobile
+ * Use with responsive CSS: paddingTop: HEADER_OFFSET.desktop,
+ *   [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile }
  */
-export const HEADER_OFFSET = 235;
+export const HEADER_OFFSET = {
+  desktop: 235,
+  tablet: 180,
+  mobile: 120,
+} as const;
 
 /**
  * Layout utility objects for common CSS patterns
