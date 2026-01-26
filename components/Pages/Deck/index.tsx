@@ -23,6 +23,7 @@ const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
 const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
 const FAQ = dynamic(() => import("../../Footer/Faq"), { ssr: false });
 const Footer = dynamic(() => import("../../Footer"), { ssr: false });
+const Newsletter = dynamic(() => import("../../Newsletter"), { ssr: false });
 
 /** Renders PACE section for decks with NFT stats */
 const DeckPACE: FC<{ deckId?: string }> = ({ deckId }) => {
@@ -73,6 +74,15 @@ const DeckFAQ: FC<{ deckId?: string }> = ({ deckId }) => {
   return (
     <LazySection id="faq" rootMargin="300px" minHeight={600}>
       <FAQ deckSlug={deckId} />
+    </LazySection>
+  );
+};
+
+/** Renders newsletter section */
+const DeckNewsletter: FC = () => {
+  return (
+    <LazySection id="newsletter" rootMargin="300px" minHeight={200}>
+      <Newsletter />
     </LazySection>
   );
 };
@@ -137,6 +147,9 @@ const Deck: FC<DeckProps> = ({ heroCards, ...props }) => {
 
       {/* FAQ section */}
       <DeckFAQ deckId={deckSlug} />
+
+      {/* Newsletter section */}
+      <DeckNewsletter />
 
       {/* Footer (links, copyright, etc.) */}
       <DeckFooter />

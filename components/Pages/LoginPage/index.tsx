@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import Grid from "../../Grid";
 import Header from "../../Header";
 import Footer from "../../Footer";
+import Newsletter from "../../Newsletter";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
 
@@ -183,6 +184,7 @@ const LoginPage: FC = () => {
           )}
         </div>
       </Grid>
+      <Newsletter />
       <Footer />
     </>
   );

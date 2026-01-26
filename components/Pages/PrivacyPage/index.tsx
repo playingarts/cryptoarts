@@ -5,6 +5,7 @@ import Head from "next/head";
 import Grid from "../../Grid";
 import Header from "../../Header";
 import Footer from "../../Footer";
+import Newsletter from "../../Newsletter";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
@@ -275,6 +276,7 @@ const PrivacyPage: FC = () => {
         </div>
       </Grid>
 
+      <Newsletter />
       <Footer />
     </>
   );

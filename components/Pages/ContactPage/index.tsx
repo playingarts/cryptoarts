@@ -5,6 +5,7 @@ import Head from "next/head";
 import Grid from "../../Grid";
 import Header from "../../Header";
 import Footer from "../../Footer";
+import Newsletter from "../../Newsletter";
 import Text from "../../Text";
 import FaqItem from "../../Footer/Faq/Item";
 import Visa from "../../Icons/Visa";
@@ -200,6 +201,7 @@ const ContactPage: FC = () => {
           </div>
         </div>
       </Grid>
+      <Newsletter />
       <Footer />
     </>
   );

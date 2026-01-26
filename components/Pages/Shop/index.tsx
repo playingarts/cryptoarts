@@ -18,6 +18,7 @@ import Hero from "./Hero";
 
 // Lazy-load below-fold sections (SSR disabled for progressive loading)
 const Collection = dynamic(() => import("./Collection"), { ssr: false });
+const Newsletter = dynamic(() => import("../../Newsletter"), { ssr: false });
 const Trust = dynamic(() => import("./Trust"), { ssr: false });
 const Bundles = dynamic(() => import("./Bundles"), { ssr: false });
 const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
@@ -136,6 +137,11 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     {/* FAQ section */}
     <LazySection id="faq" rootMargin="100px" minHeight={600}>
       <FAQ />
+    </LazySection>
+
+    {/* Newsletter section */}
+    <LazySection id="newsletter" rootMargin="100px" minHeight={200}>
+      <Newsletter />
     </LazySection>
 
     {/* Footer (links, copyright, etc.) */}

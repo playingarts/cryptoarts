@@ -40,14 +40,22 @@ const NewsletterSection: FC = () => {
           },
         ]}
       >
-        <Text typography="paragraphSmall" palette="dark">
+        <Text
+          typography="paragraphSmall"
+          palette="dark"
+          css={(theme) => ({ color: theme.colors.white, fontSize: 25 })}
+        >
           Explore project updates
         </Text>
         <EmailForm />
       </ScandiBlock>
       <Text
         typography="paragraphNano"
-        css={[{ gridColumn: "span 4", marginTop: 30 }]}
+        css={(theme) => ({
+          gridColumn: "span 4",
+          marginTop: 30,
+          color: theme.colors.white,
+        })}
         palette="dark"
       >
         Join 10,000+ collectors for early access to exclusive drops, and gain

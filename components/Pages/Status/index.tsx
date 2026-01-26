@@ -5,6 +5,7 @@ import Head from "next/head";
 import Grid from "../../Grid";
 import Header from "../../Header";
 import Footer from "../../Footer";
+import Newsletter from "../../Newsletter";
 import Text from "../../Text";
 
 type ServiceStatus = "up" | "down" | "degraded";
@@ -364,6 +365,7 @@ const StatusPage: FC = () => {
           </Text>
         </div>
       </Grid>
+      <Newsletter />
       <Footer />
     </>
   );

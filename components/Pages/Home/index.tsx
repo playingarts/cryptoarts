@@ -36,6 +36,10 @@ const FAQ = dynamic(() => import("../../Footer/Faq"), {
   ssr: false,
   loading: () => <Skeleton height={600} />,
 });
+const Newsletter = dynamic(() => import("../../Newsletter"), {
+  ssr: false,
+  loading: () => <Skeleton height={200} />,
+});
 
 type Props = {
   homeCards?: HomeCard[];
@@ -51,7 +55,7 @@ const Home = ({ homeCards }: Props) => {
       quoteCount={HERO_QUOTE_COUNT}
     >
       <Header
-        links={["About", "Collection", "Gallery", "AR", "Reviews", "Podcast", "FAQ"]}
+        links={["About", "Collection", "Gallery", "Podcast", "Reviews", "FAQ"]}
       />
       <Hero />
 
@@ -88,6 +92,11 @@ const Home = ({ homeCards }: Props) => {
       {/* FAQ section */}
       <LazySection id="faq" minHeight={600}>
         {heroReady && <FAQ />}
+      </LazySection>
+
+      {/* Newsletter section */}
+      <LazySection id="newsletter" minHeight={200}>
+        {heroReady && <Newsletter />}
       </LazySection>
 
       {/* Footer (links, copyright, etc.) */}
