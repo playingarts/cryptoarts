@@ -10,8 +10,6 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 import KickStarter from "../../../Icons/KickStarter";
 import Text from "../../../Text";
 import Intro from "../../../Intro";
-import { useSize } from "../../../SizeProvider";
-import { breakpoints } from "../../../../source/enums";
 
 /** Static featured photos for bottom-left rotating slot */
 type FeaturedPhoto = { photo: string; href: string };
@@ -279,7 +277,6 @@ const DailyCardSkeleton: FC = () => (
 
 const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { dailyCard, loading } = useDailyCardLite();
-  const { width } = useSize();
   const { prefetch } = usePrefetchCardsForDeck();
   const { photo: rightBottomPhoto } = useRandomRightBottomPhoto();
 
@@ -338,14 +335,12 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </ArrowButton>
         }
         bottom={
-          width >= breakpoints.sm ? (
-            <Text
-              css={[{ paddingBottom: 15, marginTop: 150 }]}
-              typography="newh4"
-            >
-              Card of the day
-            </Text>
-          ) : undefined
+          <Text
+            css={(theme) => [{ paddingBottom: 15, marginTop: 150, [theme.maxMQ.xsm]: { display: "none" } }]}
+            typography="newh4"
+          >
+            Card of the day
+          </Text>
         }
       />
 
@@ -353,7 +348,6 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => [
           {
             gridColumn: "1/-1",
-            marginTop: theme.spacing(3),
             gap: theme.spacing(3),
             img: { background: " white", borderRadius: 16 },
             [theme.maxMQ.xsm]: {
@@ -458,8 +452,9 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               width: "100%",
 
               [theme.maxMQ.xsm]: {
-                aspectRatio: "3/2",
-                gap: theme.spacing(1),
+                aspectRatio: "unset",
+                height: 250,
+                gap: theme.spacing(2),
                 padding: theme.spacing(2),
               },
               objectFit: "cover",
@@ -478,6 +473,23 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             5x Kickstarter funded
           </ArrowButton>
         </div>
+        {/* Mobile-only "Card of the day" title - between Kickstarter and main image */}
+        <Text
+          typography="newh4"
+          css={(theme) => ({
+            display: "none",
+            [theme.maxMQ.xsm]: {
+              display: "block",
+              flex: "1 1 100%",
+              order: 9,
+              marginTop: theme.spacing(6),
+              marginBottom: theme.spacing(1),
+              aspectRatio: "unset",
+            },
+          })}
+        >
+          Card of the day
+        </Text>
         {loading || !dailyCard ? (
           <DailyCardSkeleton />
         ) : (

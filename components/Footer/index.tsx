@@ -198,7 +198,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           >
             {key}
           </Text>
-          <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: 5 }]}>
+          <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: 5, [theme.maxMQ.xsm]: { gap: 0 } }]}>
             {links[key].map((item) => (
               <Link
                 key={item.label + "Link"}
