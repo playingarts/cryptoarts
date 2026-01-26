@@ -47,6 +47,12 @@ const Item: FC<
           "&:hover .deck-titles": {
             opacity: 1,
           },
+          [theme.maxMQ.xsm]: {
+            width: 300,
+            minWidth: 300,
+            maxWidth: 300,
+            paddingRight: theme.spacing(3),
+          },
         },
       ]}
       {...props}

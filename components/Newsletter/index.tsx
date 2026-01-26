@@ -34,14 +34,18 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
       {/* Left column - Title + Social Icons */}
       <ScandiBlock
         palette="dark"
-        css={{
+        css={(theme) => ({
           gridColumn: "span 6",
           paddingTop: 15,
           alignItems: "start",
           flexDirection: "column",
           justifyContent: "space-between",
           height: "100%",
-        }}
+          [theme.maxMQ.xsm]: {
+            gridColumn: "1 / -1",
+            marginBottom: theme.spacing(3),
+          },
+        })}
       >
         <Text
           css={(theme) => ({
@@ -84,12 +88,15 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
       {/* Right column - Description + Form */}
       <ScandiBlock
         palette="dark"
-        css={{
+        css={(theme) => ({
           gridColumn: "span 6",
           paddingTop: 15,
           flexDirection: "column",
           alignItems: "start",
-        }}
+          [theme.maxMQ.xsm]: {
+            gridColumn: "1 / -1",
+          },
+        })}
       >
         <Text
           typography="paragraphBig"
@@ -107,6 +114,9 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
               color: theme.colors.white,
               marginTop: theme.spacing(3),
               width: "66.67%", // 4 columns out of 6
+              [theme.maxMQ.xsm]: {
+                width: "100%",
+              },
             })}
           >
             Join 10,000+ collectors for early access to exclusive drops and

@@ -95,6 +95,18 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 background: theme.colors.soft_gray,
                 borderRadius: ITEM_BORDER_RADIUS,
               },
+              [theme.maxMQ.sm]: {
+                "> *": {
+                  flex: "1 0 48%", // 2 per row on tablet
+                  height: 350,
+                },
+              },
+              [theme.maxMQ.xsm]: {
+                "> *": {
+                  flex: "1 0 100%", // 1 per row on mobile
+                  height: 300,
+                },
+              },
             },
           ]}
         >

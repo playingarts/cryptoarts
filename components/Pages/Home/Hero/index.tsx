@@ -81,6 +81,10 @@ const Hero = () => {
           paddingTop: 70,
           boxSizing: "border-box",
           overflow: "hidden",
+          [theme.maxMQ.xsm]: {
+            minHeight: 500,
+            paddingTop: theme.spacing(6),
+          },
         },
       ]}
     >
@@ -91,7 +95,7 @@ const Hero = () => {
             display: "grid",
             alignContent: "end",
             [theme.maxMQ.sm]: {
-              // Mobile styles - to be implemented
+              gridColumn: "1 / -1",
             },
           },
         ]}
@@ -140,9 +144,8 @@ const Hero = () => {
             gridColumn: "span 3",
             paddingLeft: 130,
             paddingBottom: 6,
-
             [theme.maxMQ.sm]: {
-              // Mobile styles - to be implemented
+              display: "none", // Hide hero card on tablet and mobile
             },
           },
         ]}

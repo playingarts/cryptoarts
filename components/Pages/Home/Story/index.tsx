@@ -65,11 +65,11 @@ const AnimatedNumber: FC<AnimatedNumberProps> = ({ value, duration = 1500 }) => 
 };
 
 // Shared styles for content sections
-const contentWrapperStyles = (theme: { maxMQ: { sm: string } }) => ({
+const contentWrapperStyles = (theme: { maxMQ: { sm: string; xsm: string } }) => ({
   gridColumn: "span 6/-1",
   zIndex: 0,
   [theme.maxMQ.sm]: {
-    // Mobile styles - to be implemented
+    gridColumn: "1 / -1",
   },
   position: "relative" as const,
 });
@@ -83,15 +83,16 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           paddingTop: 30,
           paddingBottom: 120,
           gridColumn: "1/-1",
-          [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(6),
           },
         },
       ]}
     >
       <div css={(theme) => [contentWrapperStyles(theme)]}>
         <ArrowedButton>Where art meets play</ArrowedButton>
-        <Text typography="paragraphBig" css={[{ paddingTop: 120 }]}>
+        <Text typography="paragraphBig" css={(theme) => [{ paddingTop: 120, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(3) } }]}>
           Playing Arts brings together artists from around the world,
           transforming traditional playing cards into a diverse gallery of
           creative expression.
@@ -120,9 +121,6 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         {
           background: theme.colors.pale_gray,
           gridColumn: "1/-1",
-          [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
-          },
         },
       ]}
     >
@@ -133,7 +131,7 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         ]}
       >
         <Text typography="newh4">Explore the collection</Text>
-        <Text typography="paragraphBig" css={[{ padding: "120px 0" }]}>
+        <Text typography="paragraphBig" css={(theme) => [{ padding: "120px 0", [theme.maxMQ.xsm]: { padding: `${theme.spacing(3)}px 0` } }]}>
           Eight editions where each deck is a curated showcase of 55 unique
           artworks, created by 55 different international artists.
         </Text>
