@@ -34,8 +34,8 @@ const PRESS_LINKS = [
 
 const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   return (
-    <Grid id="press" css={{ marginTop: 50 }} {...props}>
-      {PRESS_LINKS.map(({ name, href, Icon, scale }) => (
+    <Grid id="press" css={(theme) => ({ marginTop: 50, [theme.maxMQ.xsm]: { marginTop: theme.spacing(3) } })} {...props}>
+      {PRESS_LINKS.map(({ name, href, Icon, scale }, index) => (
         <a
           key={name}
           href={href}
@@ -57,6 +57,11 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               outline: `2px solid ${theme.colors.dark_gray}`,
               outlineOffset: 4,
               borderRadius: 4,
+            },
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1 !important",
+              padding: theme.spacing(1.5),
+              display: index === 0 ? "flex" : "none",
             },
           })}
         >

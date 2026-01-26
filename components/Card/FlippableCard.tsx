@@ -69,21 +69,30 @@ const FlippableCard: FC<FlippableCardProps> = ({
   // when backsideCard loads asynchronously
   return (
     <div
-      css={[
+      css={(theme) => [
         {
           width: dimensions.width,
           margin: "0 auto",
+          [theme.maxMQ.xsm]: {
+            width: "100%",
+            maxWidth: 280,
+          },
         },
         externalCss,
       ]}
     >
       <div
-        css={{
+        css={(theme) => ({
           perspective: "1000px",
           width: dimensions.width,
           height: dimensions.height,
           cursor: backsideCard ? "pointer" : "default",
-        }}
+          [theme.maxMQ.xsm]: {
+            width: "100%",
+            height: "auto",
+            aspectRatio: "0.7076923076923077",
+          },
+        })}
         onClick={handleClick}
       >
         <div

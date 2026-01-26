@@ -64,6 +64,10 @@ export const Links = () => (
         html: {
           lineHeight: 0,
           scrollBehavior: "smooth",
+          overflowX: "hidden",
+        },
+        "html, body": {
+          maxWidth: "100vw",
         },
         "[id]": {
           scrollMarginTop: "60px",

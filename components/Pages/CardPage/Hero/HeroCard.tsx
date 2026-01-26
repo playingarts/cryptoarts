@@ -19,16 +19,22 @@ interface HeroCardProps {
 /** Card skeleton - matches FlippableCard dimensions (cardSizesHover.big) */
 const HeroCardSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
   <div
-    css={{
+    css={(theme) => ({
       width: 370,
       height: 520,
       margin: "auto",
       position: "relative",
-    }}
+      [theme.maxMQ.xsm]: {
+        width: "100%",
+        maxWidth: 280,
+        height: "auto",
+        aspectRatio: "0.7076923076923077",
+      },
+    })}
   >
     <Shimmer
-      width={370}
-      height={520}
+      width="100%"
+      height="100%"
       borderRadius={16}
       dark={dark}
     />

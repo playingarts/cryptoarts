@@ -20,6 +20,10 @@ const PressPage: FC = () => {
           background: theme.colors.soft_gray,
           paddingTop: theme.spacing(20),
           paddingBottom: 120,
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(12),
+            paddingBottom: theme.spacing(6),
+          },
         })}
       >
         <div css={{ gridColumn: "1 / -1" }}>

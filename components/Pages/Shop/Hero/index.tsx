@@ -49,9 +49,8 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     >
       <div css={(theme) => [{ gridColumn: "span 6", position: "relative", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
         <Text typography="newh1">Shop</Text>
-        <Text css={(theme) => [{ marginTop: theme.spacing(3) }]}>
-          Limited-edition playing cards and exclusive
-          <br /> bundles created by visionary artists.
+        <Text css={(theme) => [{ marginTop: theme.spacing(3), maxWidth: 400 }]}>
+          Limited-edition playing cards and exclusive bundles created by visionary artists.
         </Text>
         <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center" }]}>
           <Link href="#playing-cards">

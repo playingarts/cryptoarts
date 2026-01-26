@@ -102,9 +102,13 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 },
               },
               [theme.maxMQ.xsm]: {
+                display: "flex",
+                flexWrap: "wrap",
+                gap: theme.spacing(1),
                 "> *": {
-                  flex: "1 0 100%", // 1 per row on mobile
-                  height: 300,
+                  flex: "1 1 45%",
+                  height: 200,
+                  minWidth: 0,
                 },
               },
             },
@@ -125,13 +129,13 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   priority={index < 3}
                 />
               ))}
-          <div css={{ padding: INFO_BLOCK_PADDING }} key="endless-inspiration">
+          <div css={(theme) => ({ padding: INFO_BLOCK_PADDING, [theme.maxMQ.xsm]: { padding: theme.spacing(2) } })} key="endless-inspiration">
             <Text typography="paragraphBig">
               Eight editions.
               <br />
               Endless inspiration.
             </Text>
-            <Text typography="linkNewTypography" css={{ paddingTop: 15 }}>
+            <Text typography="linkNewTypography" css={(theme) => ({ paddingTop: 15, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(1.5) } })}>
               Discover the journey <Dot />
             </Text>
           </div>

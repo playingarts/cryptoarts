@@ -19,6 +19,10 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 18,
+      lineHeight: "150%",
+    },
   },
   newh4: {
     fontFamily: allianceFont,
@@ -28,6 +32,10 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 18,
+      lineHeight: "28px",
+    },
   },
   newh3: {
     fontFamily: allianceFont,
@@ -37,15 +45,23 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 24,
+      lineHeight: "32px",
+    },
   },
   newh2: {
     fontFamily: allianceFont,
     fontSize: 55,
     fontWeight: 400,
-    lineHeight: "66px",
+    lineHeight: "120%",
     [maxMQ.sm]: {
       fontSize: 40,
-      lineHeight: 1.2,
+      lineHeight: "120%",
+    },
+    [maxMQ.xsm]: {
+      fontSize: 28,
+      lineHeight: "130%",
     },
     textAlign: "left",
     textUnderlinePosition: "from-font",
@@ -59,6 +75,14 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.sm]: {
+      fontSize: 28,
+      lineHeight: "40px",
+    },
+    [maxMQ.xsm]: {
+      fontSize: 20,
+      lineHeight: "30px",
+    },
   },
   linkNewTypography: {
     fontFamily: allianceFont,
@@ -68,6 +92,10 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 16,
+      lineHeight: "28px",
+    },
   },
   paragraphSmall: {
     fontFamily: allianceFont,
@@ -77,6 +105,9 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 16,
+    },
   },
   paragraphNano: {
     fontFamily: allianceFont,
@@ -86,6 +117,9 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 13,
+    },
   },
   paragraphMicro: {
     fontFamily: allianceFont,
@@ -104,6 +138,12 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.sm]: {
+      fontSize: 60,
+    },
+    [maxMQ.xsm]: {
+      fontSize: 40,
+    },
   },
   newh1: {
     fontFamily: allianceFont,
@@ -113,6 +153,12 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
+    [maxMQ.sm]: {
+      fontSize: 50,
+    },
+    [maxMQ.xsm]: {
+      fontSize: 32,
+    },
   },
 
   // Legacy typography (Aldrich font)

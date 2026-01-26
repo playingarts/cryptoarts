@@ -35,10 +35,15 @@ const LazyCard: FC<CardProps> = (props) => {
     return (
       <div
         ref={ref}
-        css={{
+        css={(theme) => ({
           width: 300,
           height: 450, // Approximate card height with artist name
-        }}
+          [theme.maxMQ.xsm]: {
+            width: "100%",
+            height: "auto",
+            aspectRatio: "0.7076923076923077",
+          },
+        })}
       />
     );
   }

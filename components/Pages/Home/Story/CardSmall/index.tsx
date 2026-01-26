@@ -85,7 +85,7 @@ const CardSmall: FC<HTMLAttributes<HTMLElement>> = () => {
             opacity: isVisible ? 1 : 0,
             transition: "opacity 0.5s ease-out",
             [theme.maxMQ.sm]: {
-              // Mobile styles - to be implemented
+              display: "none", // Hide floating cards on tablet/mobile
             },
           },
         ]}

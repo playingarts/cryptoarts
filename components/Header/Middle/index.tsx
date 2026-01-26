@@ -98,6 +98,9 @@ const ProgressBar = () => {
         height: 1,
         background: palette === "dark" ? theme.colors.white : theme.colors.black,
         transition: "width 50ms linear",
+        [theme.maxMQ.xsm]: {
+          display: "none",
+        },
       })}
       style={{
         width: `${progress}%`,
@@ -131,6 +134,10 @@ const Middle = ({
         flexGrow: 1,
         position: "relative",
         height: "100%",
+        // Mobile: 2 columns for logo (center, largest)
+        [theme.maxMQ.xsm]: {
+          gridColumn: "span 2",
+        },
         [theme.mq.sm]: {
           gridColumn: "span 3",
         },
@@ -195,6 +202,10 @@ const Middle = ({
               "> *": {
                 flexGrow: 1,
               },
+              [theme.maxMQ.xsm]: {
+                justifyContent: "center",
+                alignItems: "center",
+              },
             },
             palette === "dark" && {
               color: theme.colors.white75,
@@ -207,11 +218,11 @@ const Middle = ({
               {
                 display: "inline-block",
                 height: "100%",
-                [theme.maxMQ.sm]: {
-                  // Mobile styles - to be implemented
+                [theme.maxMQ.xsm]: {
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 },
-
-                // width: "100%",
                 [theme.mq.sm]: {
                   "&:hover": {
                     opacity: 0.5,
@@ -222,14 +233,18 @@ const Middle = ({
             ]}
           >
             <Logo
-              css={[
+              css={(theme) => [
                 {
                   verticalAlign: "middle",
+                  [theme.maxMQ.xsm]: {
+                    width: "auto",
+                    height: 24,
+                  },
                 },
               ]}
             />
           </Link>
-          {customMiddle ?? <ArrowNav />}
+          {width >= breakpoints.sm && (customMiddle ?? <ArrowNav />)}
         </div>
         {width >= breakpoints.md && links.length > 0 && (
           topContent ? (

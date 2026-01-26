@@ -2,14 +2,12 @@ import { FC, HTMLAttributes, useEffect, useState } from "react";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 
 export interface Props {
-  inset?: boolean;
   opacity?: number;
   palette?: "dark" | string;
 }
 
 const ScandiBlock: FC<HTMLAttributes<HTMLElement> & Props> = ({
   children,
-  inset = false,
   opacity,
   palette: paletteProp = undefined,
   ...props
@@ -43,9 +41,7 @@ const ScandiBlock: FC<HTMLAttributes<HTMLElement> & Props> = ({
       css={[
         {
           display: "flex",
-          boxShadow: inset
-            ? `inset 0px 1px 0px ${color}`
-            : `0px -1px 0px ${color}`,
+          borderTop: `1px solid ${color}`,
           alignItems: "center",
           paddingTop: 15,
         },

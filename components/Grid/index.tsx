@@ -14,63 +14,78 @@ const Grid: ForwardRefRenderFunction<HTMLDivElement, Props> = (
     ref={ref}
     {...props}
     css={(theme) => [
+      // Base styles (desktop 1340px+)
       {
         display: "grid",
         columnGap: theme.spacing(3),
         "--columnWidth": `${theme.spacing(8)}px`,
         justifyContent: "center",
+        width: "100%",
+        maxWidth: "100%",
+        boxSizing: "border-box",
       },
-      // Mobile (<660px): 4 columns, full width with small margins
+      // Desktop grid columns (1340px+)
+      short
+        ? {
+            gridTemplateColumns: `repeat(10, ${theme.spacing(8)}px)`,
+          }
+        : {
+            gridTemplateColumns: `repeat(12, ${theme.spacing(8)}px)`,
+          },
+      // Small desktop (1000-1339px): 9 columns fixed OR 8 columns fluid for shop
+      shop
+        ? {
+            [theme.maxMQ.md]: {
+              gridTemplateColumns: `repeat(8, 1fr)`,
+              paddingLeft: theme.spacing(3),
+              paddingRight: theme.spacing(3),
+              justifyContent: "stretch",
+            },
+          }
+        : {
+            [theme.maxMQ.md]: {
+              gridTemplateColumns: "repeat(9, var(--columnWidth))",
+            },
+          },
+      // Tablet (660-999px): 6 columns fluid
+      {
+        [theme.maxMQ.sm]: {
+          gridTemplateColumns: "repeat(6, 1fr)",
+          columnGap: theme.spacing(2),
+          paddingLeft: theme.spacing(3),
+          paddingRight: theme.spacing(3),
+          justifyContent: "stretch",
+          // Make all direct children full-width by default on tablet
+          "> *": {
+            gridColumn: "1 / -1",
+          },
+        },
+      },
+      // Mobile (<660px): 4 columns fluid - MUST be last to override tablet
       {
         [theme.maxMQ.xsm]: {
           gridTemplateColumns: "repeat(4, 1fr)",
           columnGap: theme.spacing(1.5),
-          paddingLeft: theme.spacing(1.5),
-          paddingRight: theme.spacing(1.5),
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
           justifyContent: "stretch",
+          overflowX: "hidden",
+          // Make all direct children full-width by default on mobile
+          "> *": {
+            gridColumn: "1 / -1",
+          },
         },
       },
-      auto
-        ? {
-            gridTemplateColumns: "repeat(auto-fill, var(--columnWidth))",
-            [theme.maxMQ.xsm]: {
-              gridTemplateColumns: "repeat(4, 1fr)",
-            },
-          }
-        : [
-            // Tablet (660-1000px): 6 columns
-            {
-              [theme.maxMQ.sm]: {
-                gridTemplateColumns: "repeat(6, 1fr)",
-                columnGap: theme.spacing(2),
-                paddingLeft: theme.spacing(3),
-                paddingRight: theme.spacing(3),
-                justifyContent: "stretch",
-              },
-            },
-            shop
-              ? {
-                  [theme.maxMQ.md]: {
-                    gridTemplateColumns: `repeat(8, 1fr)`,
-                  },
-                }
-              : {
-                  [theme.maxMQ.md]: {
-                    gridTemplateColumns: "repeat(9, var(--columnWidth))",
-                  },
-                },
-            short
-              ? {
-                  [theme.mq.md]: {
-                    gridTemplateColumns: `repeat(10, ${theme.spacing(8)}px)`,
-                  },
-                }
-              : {
-                  [theme.mq.md]: {
-                    gridTemplateColumns: `repeat(12, ${theme.spacing(8)}px)`,
-                  },
-                },
-          ],
+      // Auto-fill mode overrides
+      auto && {
+        gridTemplateColumns: "repeat(auto-fill, var(--columnWidth))",
+        [theme.maxMQ.sm]: {
+          gridTemplateColumns: "repeat(6, 1fr)",
+        },
+        [theme.maxMQ.xsm]: {
+          gridTemplateColumns: "repeat(4, 1fr)",
+        },
+      },
     ]}
   >
     {children}

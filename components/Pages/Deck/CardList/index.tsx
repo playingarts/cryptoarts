@@ -127,7 +127,7 @@ const ListItem: FC<{
           onClick={() => setShow(true)}
           size="preview"
           card={{ ...card, deck: { slug: deckId } as unknown as GQL.Deck }}
-          css={[{ width: 300 }]}
+          css={(theme) => [{ width: 300, [theme.maxMQ.xsm]: { width: "100%" } }]}
           // Control image loading via this prop
           // When false, Card shows gradient placeholder without loading the image
           {...(!shouldLoadImage && { noImage: true })}
@@ -263,30 +263,43 @@ const getShimmerStyle = (dark: boolean) => ({
 /** Placeholder for cards not yet loaded - matches Card component "preview" size exactly */
 const CardPlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => (
   <div
-    css={{
+    css={(theme) => ({
       // Match Card component outer wrapper width (with CSS override from ListItem)
       width: 300,
-    }}
+      [theme.maxMQ.xsm]: {
+        width: "100%",
+      },
+    })}
   >
     {/* Card image area - matches cardSizesHover.preview.height */}
     <div
-      css={{
+      css={(theme) => ({
         position: "relative",
         height: 400,
-      }}
+        [theme.maxMQ.xsm]: {
+          height: "auto",
+          aspectRatio: "0.7076923076923077",
+        },
+      })}
     >
       {/* Inner card - matches cardSizes.preview dimensions with aspectRatio */}
       <div
-        css={{
+        css={(theme) => ({
           width: 270,
           height: 381, // 270 / 0.7076923 aspectRatio
           position: "absolute",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          borderRadius: 15, // TODO: convert to theme.spacing(1.5) when component uses theme callback
+          borderRadius: theme.spacing(1.5),
           ...getShimmerStyle(dark),
-        }}
+          [theme.maxMQ.xsm]: {
+            width: "100%",
+            height: "100%",
+            position: "static",
+            transform: "none",
+          },
+        })}
       />
     </div>
     {/* Artist name placeholder - matches Text marginTop: 10, fontSize: 18 */}
@@ -313,7 +326,7 @@ const CardPlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => (
 const QuotePlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => {
   const shimmer = getShimmerStyle(dark);
   return (
-    <Grid css={(theme) => [{ width: "100%", marginTop: theme.spacing(6), marginBottom: theme.spacing(6) }]}>
+    <Grid css={(theme) => [{ width: "100%", marginTop: theme.spacing(6), marginBottom: theme.spacing(6), [theme.maxMQ.xsm]: { marginTop: theme.spacing(3), marginBottom: theme.spacing(3) } }]}>
       {/* Background image placeholder */}
       <div
         css={(theme) => ({
@@ -322,12 +335,14 @@ const QuotePlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => {
           gridColumn: "2/6",
           borderRadius: theme.spacing(1.5),
           ...shimmer,
+          [theme.maxMQ.sm]: { gridColumn: "1 / -1", width: "100%" },
         })}
       />
       <div
-        css={{
+        css={(theme) => ({
           gridColumn: "span 6",
-        }}
+          [theme.maxMQ.sm]: { gridColumn: "1 / -1" },
+        })}
       >
         {/* Artist avatar and info */}
         <div css={(theme) => ({ display: "flex", gap: theme.spacing(3) })}>
@@ -534,7 +549,7 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
 
   return (
     <div
-      css={[
+      css={(theme) => [
         {
           display: "flex",
           gridColumn: "1/-1",
@@ -543,6 +558,13 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
           rowGap: 60,
           marginTop: 90,
           justifyContent: "center",
+          [theme.maxMQ.xsm]: {
+            display: "grid",
+            gridTemplateColumns: "repeat(2, 1fr)",
+            columnGap: theme.spacing(1.5),
+            rowGap: theme.spacing(3),
+            marginTop: theme.spacing(6),
+          },
         },
       ]}
     >

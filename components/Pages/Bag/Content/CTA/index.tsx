@@ -78,6 +78,11 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           padding: theme.spacing(3),
           position: "sticky",
           top: 70,
+          [theme.maxMQ.sm]: {
+            position: "relative",
+            top: "auto",
+            marginTop: theme.spacing(3),
+          },
         },
       ]}
       {...props}
@@ -217,7 +222,11 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            flexWrap: "wrap",
             color: "rgba(0,0,0,20%)",
+            [theme.maxMQ.xsm]: {
+              gap: 15,
+            },
           },
         ]}
       >

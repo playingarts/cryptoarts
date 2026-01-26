@@ -65,6 +65,11 @@ const TitleButton: FC<
     <ScandiBlock
       css={(theme) => [
         {
+          // Mobile: 1 column for menu button, left-aligned
+          [theme.maxMQ.xsm]: {
+            gridColumn: "span 1",
+            justifyContent: "flex-start",
+          },
           [theme.mq.sm]: {
             gridColumn: "span 3",
           },
@@ -73,7 +78,6 @@ const TitleButton: FC<
           padding: 0,
         },
       ]}
-      inset={true}
       palette={palette}
       {...props}
     >

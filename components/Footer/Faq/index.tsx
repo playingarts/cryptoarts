@@ -206,6 +206,12 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
         {
           background:
             theme.colors[palette === "dark" ? "darkBlack" : "soft_gray"],
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(3),
+          },
         },
       ]}
     >
@@ -228,12 +234,15 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
       />
       <Grid>
         <div
-          css={[
+          css={(theme) => [
             {
               gridColumn: "span 6",
               position: "relative",
               height: CARD_CONTAINER_HEIGHT,
               marginTop: 15,
+              [theme.maxMQ.xsm]: {
+                display: "none",
+              },
             },
           ]}
         >
@@ -259,7 +268,7 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
           </div>
         </div>
         <div
-          css={[
+          css={(theme) => [
             {
               gridColumn: "span 6",
               display: "grid",
@@ -269,6 +278,13 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
               paddingRight: 30,
               gap: 10,
               alignContent: "center",
+              [theme.maxMQ.xsm]: {
+                gridColumn: "1 / -1 !important",
+                paddingTop: theme.spacing(3),
+                paddingBottom: theme.spacing(3),
+                paddingRight: 0,
+                marginTop: 0,
+              },
             },
           ]}
         >

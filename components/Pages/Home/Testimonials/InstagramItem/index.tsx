@@ -41,6 +41,10 @@ const InstagramItem: FC<
               opacity: 1,
             },
           },
+          [theme.maxMQ.xsm]: {
+            width: 300,
+            height: 300,
+          },
         })}
       >
         {imagePath ? (

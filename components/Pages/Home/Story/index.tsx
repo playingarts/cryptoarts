@@ -80,12 +80,12 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
       css={(theme) => [
         {
           background: theme.colors.soft_gray,
-          paddingTop: 30,
-          paddingBottom: 120,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
           gridColumn: "1/-1",
           [theme.maxMQ.xsm]: {
             paddingTop: theme.spacing(3),
-            paddingBottom: theme.spacing(6),
+            paddingBottom: theme.spacing(3),
           },
         },
       ]}
@@ -97,15 +97,26 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           transforming traditional playing cards into a diverse gallery of
           creative expression.
         </Text>
-        <Grid auto={true} css={(theme) => [{ paddingTop: theme.spacing(6) }]}>
+        <Grid auto={true} css={(theme) => [{
+          paddingTop: theme.spacing(6),
+          [theme.maxMQ.xsm]: {
+            display: "flex",
+            gap: theme.spacing(1.5),
+            paddingLeft: 0,
+            paddingRight: 0,
+          },
+        }]}>
           {STORY_STATS.map((stat) => (
             <div
               key={`${stat.value}-${stat.label}`}
-              css={{
+              css={(theme) => ({
                 gridColumn: "span 2",
                 paddingTop: 15,
                 boxShadow: "0px -1px 0px rgba(0, 0, 0, 1)",
-              }}
+                [theme.maxMQ.xsm]: {
+                  flex: 1,
+                },
+              })}
             >
               <Text typography="newh3">
                 <AnimatedNumber value={stat.value} />
@@ -121,16 +132,21 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         {
           background: theme.colors.pale_gray,
           gridColumn: "1/-1",
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(3),
+          },
         },
       ]}
     >
       <div
         css={(theme) => [
           contentWrapperStyles(theme),
-          { paddingTop: 30 },
         ]}
       >
-        <Text typography="newh4">Explore the collection</Text>
+        <ArrowedButton>Explore the collection</ArrowedButton>
         <Text typography="paragraphBig" css={(theme) => [{ padding: "120px 0", [theme.maxMQ.xsm]: { padding: `${theme.spacing(3)}px 0` } }]}>
           Eight editions where each deck is a curated showcase of 55 unique
           artworks, created by 55 different international artists.

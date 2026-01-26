@@ -307,8 +307,8 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                     <div
                       css={[{ display: "grid", alignContent: "space-between" }]}
                     >
-                      <Text css={[{ margin: 30 }]}>1,000+ reviews</Text>
-                      <div css={[{ margin: 30 }]}>
+                      <Text css={(theme) => [{ margin: 30, [theme.maxMQ.xsm]: { margin: theme.spacing(2) } }]}>1,000+ reviews</Text>
+                      <div css={(theme) => [{ margin: 30, [theme.maxMQ.xsm]: { margin: theme.spacing(2) } }]}>
                         <Rating />
                         <Rating />
                         <Rating />

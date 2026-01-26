@@ -388,6 +388,9 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
             marginBottom: theme.spacing(3),
             top: 160,
             willChange: "transform",
+            [theme.maxMQ.sm]: {
+              display: "none", // Hide on tablet/mobile - complex flip animation needs desktop width
+            },
           },
           sticky && {
             position: "sticky",

@@ -55,12 +55,16 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <ScandiBlock
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 6",
             flexDirection: "column",
             alignItems: "start",
             paddingTop: 15,
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1",
+              paddingBottom: theme.spacing(2),
+            },
           },
         ]}
       >
@@ -75,18 +79,24 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           src={product && product.image2}
           alt={product?.title ? `${product.title} deck` : "Playing Arts deck"}
           css={(theme) => [
-            { width: "100%", height: 400, marginTop: theme.spacing(3), objectFit: "contain" },
+            { width: "100%", height: 400, marginTop: theme.spacing(3), objectFit: "contain", [theme.maxMQ.xsm]: { height: 250 } },
           ]}
         />
       </ScandiBlock>
 
       <ScandiBlock
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 6",
             display: "grid",
             alignItems: "initial",
             paddingTop: 15,
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1",
+              borderTop: "none",
+              paddingTop: theme.spacing(3),
+              paddingBottom: theme.spacing(3),
+            },
           },
         ]}
       >
@@ -111,7 +121,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           <ArrowButton
             color="accent"
             size="medium"
-            css={(theme) => [{ marginTop: theme.spacing(3) }]}
+            css={(theme) => [{ marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { marginBottom: theme.spacing(3) } }]}
             href={
               product?.short
                 ? `/shop/${product.short.toLowerCase().replace(/\s/g, "")}`

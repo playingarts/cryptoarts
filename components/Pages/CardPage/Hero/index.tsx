@@ -146,7 +146,7 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
 
   return (
     <Grid
-      css={{ paddingTop: 145, paddingBottom: 150 }}
+      css={(t) => ({ paddingTop: 145, paddingBottom: 150, [t.maxMQ.xsm]: { paddingTop: 100, paddingBottom: theme.spacing(6) } })}
       style={
         deckId === "crypto"
           ? { backgroundColor: theme.colors.darkBlack }
@@ -157,20 +157,27 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
     >
       {/* Left column: Card */}
       <div
-        css={{
+        css={(t) => ({
           gridColumn: "span 6",
           position: "sticky",
           top: 100,
           alignSelf: "start",
           paddingTop: 30,
-        }}
+          [t.maxMQ.sm]: {
+            gridColumn: "1 / -1",
+            position: "relative",
+            top: "auto",
+            paddingTop: 0,
+            marginBottom: theme.spacing(3),
+          },
+        })}
       >
         {/* Key forces animation to replay on page navigation */}
         <HeroCard key={`card-${artistSlug}`} card={card} backsideCard={backsideCard} dark={isDark} />
       </div>
 
       {/* Right column: Info sections */}
-      <div css={{ gridColumn: "span 6" }}>
+      <div css={(t) => ({ gridColumn: "span 6", [t.maxMQ.sm]: { gridColumn: "1 / -1" } })}>
         {/* P0: Artist name + country + CTAs (instant) */}
         {/* Key forces animation to replay on page navigation */}
         <HeroHeader

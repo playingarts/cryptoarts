@@ -513,6 +513,12 @@ const Pop: FC<
             marginTop: theme.spacing(6),
             minHeight: 715,
             transition: "background-color 0.3s ease",
+            [theme.maxMQ.sm]: {
+              flexDirection: "column",
+              minHeight: "auto",
+              marginTop: theme.spacing(3),
+              paddingBottom: theme.spacing(6),
+            },
           },
         ]}
         onClick={(e) => {

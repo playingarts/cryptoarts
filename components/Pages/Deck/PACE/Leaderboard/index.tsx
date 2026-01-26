@@ -133,9 +133,9 @@ const Leaderboard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <Text typography="newh4">Leaderboard</Text>
-      <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3) }]}>
+      <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3), flexWrap: "wrap" }]}>
         {categories.map((category) => (
-          <div key={category.key} css={[{ flex: "1 1 0", minWidth: 0 }]}>
+          <div key={category.key} css={(theme) => [{ flex: "1 1 0", minWidth: 0, [theme.maxMQ.xsm]: { flex: "1 1 100%" } }]}>
             <Text typography="linkNewTypography" css={[{ marginBottom: 5 }]}>
               {category.title}
             </Text>

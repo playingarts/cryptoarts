@@ -357,16 +357,17 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
         ]}
       >
         <Grid
-          css={[{ paddingTop: 90 }]}
+          css={(theme) => [{ paddingTop: 90, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(6) } }]}
           ref={ref}
         >
           <div
-            css={[
+            css={(theme) => [
               {
                 gridColumn: "span 6",
                 opacity: showStory ? 1 : 0,
                 transform: showStory ? "translateY(0)" : "translateY(20px)",
                 transition: "opacity 0.4s ease-out 0.1s, transform 0.4s ease-out 0.1s",
+                [theme.maxMQ.sm]: { gridColumn: "1 / -1" },
               },
             ]}
           >
@@ -394,6 +395,9 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                       boxShadow: palette === "dark"
                         ? "0px -1px 0px rgba(255, 255, 255, 0.1)"
                         : "0px -1px 0px rgba(0, 0, 0, 1)",
+                      [theme.maxMQ.xsm]: {
+                        gridColumn: "1 / -1", // Full width on mobile
+                      },
                     },
                   ]}
                 >
@@ -418,10 +422,11 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             </Grid>
           </div>
           <div
-            css={[
+            css={(theme) => [
               {
                 gridColumn: "span 4 /-1",
                 alignSelf: "end",
+                [theme.maxMQ.sm]: { gridColumn: "1 / -1", marginTop: theme.spacing(6) },
               },
             ]}
           >

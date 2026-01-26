@@ -203,19 +203,29 @@ const Card: FC<CardProps> = memo(
     return (
       <div
         suppressHydrationWarning
-        css={[
+        css={(theme) => [
           {
             width: cardSizesHover[size].width,
+            // Mobile: scale down cards
+            [theme.maxMQ.xsm]: {
+              width: "100%",
+              maxWidth: size === "preview" ? 200 : size === "hero" ? 280 : size === "big" ? 280 : cardSizesHover[size].width,
+            },
           },
         ]}
         {...props}
       >
         <div
-          css={[
+          css={(theme) => [
             {
               position: "relative",
               height: cardSizesHover[size].height,
               cursor: "pointer",
+              // Mobile: auto height based on aspect ratio
+              [theme.maxMQ.xsm]: {
+                height: "auto",
+                aspectRatio: "0.7076923076923077",
+              },
             },
           ]}
           style={
@@ -249,9 +259,15 @@ const Card: FC<CardProps> = memo(
                 transitionDuration: "50ms",
                 transitionProperty: "scale",
                 transition: theme.transitions.fast(["width", "height"]),
+                // Mobile: full width, no centering transform
+                [theme.maxMQ.xsm]: {
+                  width: "100%",
+                  position: "static",
+                  transform: "none",
+                },
               },
             ]}
-            style={(hover && { width: cardSizesHover[size].width }) || {}}
+            style={(hover && width >= breakpoints.xsm && { width: cardSizesHover[size].width }) || {}}
           >
             <div
               css={[

@@ -115,13 +115,13 @@ interface HeroHeaderProps {
 
 /** Skeleton for artist name and country - matches newh1 (70px/120%) and newh4 (25px/45px) */
 const HeroHeaderSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
-  <div css={{ height: 610, display: "grid", alignContent: "center" }}>
+  <div css={(theme) => ({ height: 610, display: "grid", alignContent: "center", [theme.maxMQ.xsm]: { height: "auto", minHeight: 300 } })}>
     {/* Artist name skeleton - newh1: 70px fontSize, 120% lineHeight = 84px */}
-    <Shimmer width={280} height={84} borderRadius={8} dark={dark} />
+    <Shimmer width={280} height={84} borderRadius={8} dark={dark} style={{ maxWidth: "100%" }} />
     {/* Country skeleton - newh4: 25px fontSize, 45px lineHeight */}
     <Shimmer width={120} height={45} borderRadius={4} dark={dark} style={{ marginTop: 8 }} />
     {/* Buttons skeleton */}
-    <div css={(theme) => ({ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3) })}>
+    <div css={(theme) => ({ display: "flex", flexWrap: "wrap", gap: theme.spacing(1.5), marginTop: theme.spacing(3) })}>
       <Shimmer width={150} height={44} borderRadius={22} dark={dark} />
       <Shimmer width={140} height={44} borderRadius={22} dark={dark} />
     </div>
@@ -149,7 +149,7 @@ const HeroHeader: FC<HeroHeaderProps> = ({
 
   return (
     <div
-      css={{
+      css={(theme) => ({
         display: "grid",
         alignContent: "center",
         height: 610,
@@ -158,7 +158,11 @@ const HeroHeader: FC<HeroHeaderProps> = ({
           "0%": { opacity: 0, transform: "translateY(8px)" },
           "100%": { opacity: 1, transform: "translateY(0)" },
         },
-      }}
+        [theme.maxMQ.xsm]: {
+          height: "auto",
+          minHeight: 300,
+        },
+      })}
     >
       <Text
         typography="newh1"
@@ -176,12 +180,12 @@ const HeroHeader: FC<HeroHeaderProps> = ({
       >
         {country ?? "..."}
       </Text>
-      <div css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(1.5), marginTop: theme.spacing(3) })}>
+      <div css={(theme) => ({ display: "flex", flexWrap: "wrap", alignItems: "center", gap: theme.spacing(1.5), marginTop: theme.spacing(3) })}>
         {cardId && <FavButton deckSlug={deckSlug} cardId={cardId} />}
         <Link href={shopUrl}>
           <ArrowButton color="accent" size="medium">Shop {deckTitle || "this deck"}</ArrowButton>
         </Link>
-        <Link href={deckUrl} css={{ marginLeft: 15 }}>
+        <Link href={deckUrl}>
           <ArrowButton
             size="small"
             noColor

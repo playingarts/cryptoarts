@@ -28,6 +28,9 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
           "&:hover": {
             backgroundColor: theme.colors.white,
           },
+          [theme.maxMQ.sm]: {
+            gridColumn: "1 / -1", // Full width on tablet/mobile
+          },
         },
       ]}
     >
@@ -126,7 +129,7 @@ const Bundles: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <Intro
         arrowedText="Bundles for every collector"
         paragraphText="Save big and elevate your experience with these curated collections."
-        css={[{ minHeight: 241, boxSizing: "content-box", marginBottom: 60 }]}
+        css={(theme) => [{ minHeight: 241, boxSizing: "content-box", marginBottom: 60, [theme.maxMQ.xsm]: { minHeight: "auto", marginBottom: theme.spacing(3) } }]}
         titleAsText
       />
       {bundles &&

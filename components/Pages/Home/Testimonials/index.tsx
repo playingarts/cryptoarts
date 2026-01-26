@@ -1,5 +1,7 @@
 import { FC, HTMLAttributes, useRef, useEffect, useCallback, useMemo } from "react";
 import { useRatings } from "../../../../hooks/ratings";
+import { useSize } from "../../../SizeProvider";
+import { breakpoints } from "../../../../source/enums";
 import Intro from "./Intro";
 import Item from "./Item";
 import InstagramItem from "./InstagramItem";
@@ -7,6 +9,7 @@ import Press from "./Press";
 
 // Review item width + gap
 const ITEM_WIDTH = 520;
+const ITEM_WIDTH_MOBILE = 300;
 const ITEM_GAP = 20;
 const AUTO_SCROLL_INTERVAL = 4000; // 4 seconds between auto-scrolls
 
@@ -44,6 +47,12 @@ const ItemSkeleton: FC = () => (
       maxWidth: ITEM_WIDTH,
       flexShrink: 0,
       scrollSnapAlign: "start",
+      [theme.maxMQ.xsm]: {
+        width: 300,
+        minWidth: 300,
+        maxWidth: 300,
+        paddingRight: theme.spacing(3),
+      },
     })}
   >
     <div css={{ display: "flex", gap: 4 }}>
@@ -106,6 +115,8 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
   const { ratings, loading } = useRatings({
     variables: deckSlug ? { deckSlug } : undefined,
   });
+  const { width } = useSize();
+  const isMobile = width < breakpoints.xsm;
   const scrollRef = useRef<HTMLDivElement>(null);
   const leftArrowRef = useRef<HTMLButtonElement>(null);
   const rightArrowRef = useRef<HTMLButtonElement>(null);
@@ -146,17 +157,21 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
     return [...mixedItems, ...mixedItems, ...mixedItems];
   }, [mixedItems]);
 
+  // Calculate single set width based on actual item dimensions for precise alignment
+  const singleSetWidth = useMemo(() => {
+    const itemWidth = isMobile ? ITEM_WIDTH_MOBILE : ITEM_WIDTH;
+    return mixedItems.length * (itemWidth + ITEM_GAP);
+  }, [mixedItems.length, isMobile]);
+
   // Position in the middle set on mount
   useEffect(() => {
     if (!scrollRef.current || mixedItems.length === 0) return;
-    // Use requestAnimationFrame to ensure DOM is rendered and scrollWidth is accurate
+    // Use requestAnimationFrame to ensure DOM is rendered
     requestAnimationFrame(() => {
       if (!scrollRef.current) return;
-      // Total scroll width is 3 sets, so middle set starts at 1/3
-      const singleSetWidth = scrollRef.current.scrollWidth / 3;
       scrollRef.current.scrollLeft = singleSetWidth;
     });
-  }, [mixedItems]);
+  }, [mixedItems, singleSetWidth]);
 
   // Handle infinite scroll - jump to middle when reaching edges
   // Only check after smooth scroll completes (scrollend event or debounce)
@@ -164,8 +179,6 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
     if (!scrollRef.current || mixedItems.length === 0 || isScrollingRef.current) return;
 
     const el = scrollRef.current;
-    // Total scroll width is 3 sets, so single set width is 1/3
-    const singleSetWidth = el.scrollWidth / 3;
     const maxScroll = el.scrollWidth - el.clientWidth;
 
     // If in the first set, jump to middle set
@@ -192,7 +205,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
         isScrollingRef.current = false;
       });
     }
-  }, [mixedItems]);
+  }, [mixedItems.length, singleSetWidth]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -233,11 +246,12 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
   }, [mixedItems]);
 
   const scrollByItem = useCallback((direction: 1 | -1) => {
+    const itemWidth = isMobile ? ITEM_WIDTH_MOBILE : ITEM_WIDTH;
     scrollRef.current?.scrollBy({
       behavior: "smooth",
-      left: direction * (ITEM_WIDTH + ITEM_GAP),
+      left: direction * (itemWidth + ITEM_GAP),
     });
-  }, []);
+  }, [isMobile]);
 
   // Auto-scroll effect
   useEffect(() => {
@@ -253,7 +267,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
   return (
     <div
       css={(theme) => [
-        { background: theme.colors.pale_gray, paddingBottom: theme.spacing(6) },
+        { background: theme.colors.pale_gray, paddingTop: theme.spacing(6), paddingBottom: theme.spacing(6), [theme.maxMQ.xsm]: { paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) } },
       ]}
       {...props}
     >
@@ -286,6 +300,12 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
           [theme.maxMQ.sm]: {
             paddingLeft: 20,
             paddingRight: 20,
+          },
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+            paddingLeft: theme.spacing(1.5),
+            paddingRight: theme.spacing(1.5),
+            scrollPaddingLeft: theme.spacing(1.5),
           },
         })}
       >

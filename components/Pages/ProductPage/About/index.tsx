@@ -865,6 +865,10 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               borderRadius: theme.spacing(1.5),
               aspectRatio: "1",
             },
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1",
+              paddingRight: 0,
+            },
           },
         ]}
       >
@@ -1020,6 +1024,11 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             top: 70,
             height: "fit-content",
             paddingBottom: theme.spacing(6),
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1",
+              position: "relative",
+              top: "auto",
+            },
           },
         ]}
       >

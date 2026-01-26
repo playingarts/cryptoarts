@@ -747,11 +747,15 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <ScandiBlock
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 6",
             paddingTop: 15,
             alignItems: "start",
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1",
+              paddingBottom: theme.spacing(2),
+            },
           },
         ]}
       >
@@ -765,12 +769,19 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       </ScandiBlock>
 
       <ScandiBlock
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 6",
             alignItems: "initial",
             paddingTop: 15,
             height: 241,
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1",
+              height: "auto",
+              borderTop: "none",
+              paddingTop: theme.spacing(3),
+              paddingBottom: theme.spacing(3),
+            },
           },
         ]}
       >
@@ -779,6 +790,9 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           css={(theme) => ({
             paddingBottom: 120,
             color: theme.colors[deckId === "crypto" ? "white75" : "black"],
+            [theme.maxMQ.xsm]: {
+              paddingBottom: theme.spacing(3),
+            },
           })}
         >
           Photos of the physical card and artwork details.
@@ -787,7 +801,22 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
       {useCompactLayout ? (
         /* Compact single-row layout for non-admins when not all slots filled */
-        <Grid css={(theme) => ({ gridColumn: "1/-1", gap: theme.spacing(3) })}>
+        <Grid css={(theme) => ({
+          gridColumn: "1/-1",
+          gap: theme.spacing(3),
+          [theme.maxMQ.xsm]: {
+            display: "flex",
+            flexWrap: "wrap",
+            gap: theme.spacing(1),
+            paddingLeft: 0,
+            paddingRight: 0,
+            "> *": {
+              flex: "1 1 45%",
+              minWidth: 0,
+              aspectRatio: "1/1",
+            },
+          },
+        })}>
           {displayedSlots.map((slot) => {
             if (slot.type === "additional-0") {
               return (
@@ -858,7 +887,22 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </Grid>
       ) : (
         /* Full layout for admins or when all slots filled */
-        <Grid css={(theme) => ({ gridColumn: "1/-1", gap: theme.spacing(3) })}>
+        <Grid css={(theme) => ({
+          gridColumn: "1/-1",
+          gap: theme.spacing(3),
+          [theme.maxMQ.xsm]: {
+            display: "flex",
+            flexWrap: "wrap",
+            gap: theme.spacing(1),
+            paddingLeft: 0,
+            paddingRight: 0,
+            "> *": {
+              flex: "1 1 45%",
+              minWidth: 0,
+              aspectRatio: "1/1",
+            },
+          },
+        })}>
           {/* Top left - additional photo 1 */}
           <PhotoSlot
             src={additionalPhotos[0]}

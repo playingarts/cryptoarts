@@ -27,6 +27,10 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
       background: theme.colors.accent,
       paddingTop: theme.spacing(6),
       paddingBottom: theme.spacing(6),
+      [theme.maxMQ.xsm]: {
+        paddingTop: theme.spacing(3),
+        paddingBottom: theme.spacing(3),
+      },
     })}
     {...props}
   >
@@ -41,9 +45,11 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
           flexDirection: "column",
           justifyContent: "space-between",
           height: "100%",
+          borderTop: "1px solid white",
           [theme.maxMQ.xsm]: {
             gridColumn: "1 / -1",
-            marginBottom: theme.spacing(3),
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(2),
           },
         })}
       >
@@ -71,6 +77,9 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
                 opacity: 0.7,
               },
             },
+            [theme.maxMQ.xsm]: {
+              display: "none",
+            },
           })}
         >
           <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
@@ -93,8 +102,12 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
           paddingTop: 15,
           flexDirection: "column",
           alignItems: "start",
+          borderTop: "1px solid white",
           [theme.maxMQ.xsm]: {
             gridColumn: "1 / -1",
+            borderTop: "none",
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(3),
           },
         })}
       >
@@ -106,7 +119,7 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
         >
           Project updates
         </Text>
-        <div css={(theme) => ({ width: "100%", marginTop: theme.spacing(6) })}>
+        <div css={(theme) => ({ width: "100%", marginTop: theme.spacing(6), [theme.maxMQ.xsm]: { marginTop: theme.spacing(3) } })}>
           <EmailForm palette="dark" />
           <Text
             typography="paragraphNano"
@@ -122,6 +135,36 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
             Join 10,000+ collectors for early access to exclusive drops and
             automatic entry into our monthly giveaways.
           </Text>
+          {/* Mobile-only social icons */}
+          <div
+            css={(theme) => ({
+              display: "none",
+              [theme.maxMQ.xsm]: {
+                display: "flex",
+                gap: theme.spacing(3),
+                marginTop: theme.spacing(3),
+                "& svg": {
+                  width: 24,
+                  height: 24,
+                  color: theme.colors.white,
+                  transition: "opacity 0.2s",
+                  "&:hover": {
+                    opacity: 0.7,
+                  },
+                },
+              },
+            })}
+          >
+            <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+              <Instagram />
+            </Link>
+            <Link href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+              <Twitter />
+            </Link>
+            <Link href={socialLinks.youtube} target="_blank" rel="noopener noreferrer">
+              <Youtube />
+            </Link>
+          </div>
         </div>
       </ScandiBlock>
     </Grid>

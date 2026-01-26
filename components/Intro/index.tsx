@@ -32,11 +32,11 @@ const Intro: FC<
   ...props
 }) => (
   <Grid
-    css={(theme) => [{ paddingTop: theme.spacing(6), overflow: "hidden", gridColumn: "1/-1" }]}
+    css={(theme) => [{ overflow: "hidden", gridColumn: "1/-1" }]}
     {...props}
   >
     <ScandiBlock
-      css={(theme) => [{ gridColumn: "span 6", paddingTop: 15, alignItems: "start", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}
+      css={(theme) => [{ gridColumn: "span 6", paddingTop: 15, alignItems: "start", [theme.maxMQ.xsm]: { gridColumn: "1 / -1", paddingBottom: theme.spacing(2) } }]}
     >
       {titleAsText ? (
         <Text
@@ -67,7 +67,7 @@ const Intro: FC<
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "start",
-          [theme.maxMQ.sm]: { gridColumn: "1 / -1" },
+          [theme.maxMQ.xsm]: { gridColumn: "1 / -1", borderTop: "none", paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) },
         },
       ]}
     >
@@ -80,7 +80,7 @@ const Intro: FC<
         >
           {paragraphText}
         </Text>
-        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3) }]}>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), [theme.maxMQ.xsm]: { marginBottom: theme.spacing(3) } }]}>
           {beforeLinkNew}
           {linkNewText && (
             linkNewHref ? (

@@ -227,7 +227,7 @@ const MainPhotoSlot: FC<{ src?: string | null; alt?: string }> = ({ src, alt }) 
 
 // Skeleton for loading state
 const DailyCardSkeleton: FC = () => (
-  <div css={(theme) => [{ gridColumn: "span 6/-1", marginTop: theme.spacing(3) }]}>
+  <div css={(theme) => [{ gridColumn: "span 6/-1", marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { flex: "1 1 100%", order: 11, marginTop: theme.spacing(2) } }]}>
     <div css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
       <div
         css={(theme) => ({
@@ -321,7 +321,11 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {
           background: theme.colors.pale_gray,
           paddingTop: theme.spacing(6),
-          paddingBottom: 150,
+          paddingBottom: theme.spacing(6),
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(3),
+          },
         },
       ]}
       {...props}
@@ -332,8 +336,9 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             gridColumn: "span 6",
             alignItems: "start",
             paddingTop: 15,
-            [theme.maxMQ.sm]: {
-              // Mobile styles - to be implemented
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1",
+              paddingBottom: theme.spacing(2),
             },
           },
         ]}
@@ -347,8 +352,11 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             gridColumn: "span 6",
             display: "block",
             paddingTop: 15,
-            [theme.maxMQ.sm]: {
-              // Mobile styles - to be implemented
+            [theme.maxMQ.xsm]: {
+              gridColumn: "1 / -1",
+              borderTop: "none",
+              paddingTop: theme.spacing(3),
+              paddingBottom: theme.spacing(3),
             },
           },
         ]}
@@ -357,7 +365,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           Carefully crafted on legendary Bicycle® paper for unparalleled
           artistry and tactile quality.
         </Text>
-        <ArrowButton href="/shop" color="accent" size="medium" css={(theme) => [{ marginTop: theme.spacing(3) }]}>
+        <ArrowButton href="/shop" color="accent" size="medium" css={(theme) => [{ marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { marginBottom: theme.spacing(3) } }]}>
           Shop the collection
         </ArrowButton>
         {width >= breakpoints.sm ? (
@@ -376,8 +384,17 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             gridColumn: "1/-1",
             gap: theme.spacing(3),
             img: { background: " white", borderRadius: 16 },
-            [theme.maxMQ.sm]: {
-              // Mobile styles - to be implemented
+            [theme.maxMQ.xsm]: {
+              display: "flex",
+              flexWrap: "wrap",
+              gap: theme.spacing(1),
+              paddingLeft: 0,
+              paddingRight: 0,
+              "> *": {
+                flex: "1 1 45%",
+                minWidth: 0,
+                aspectRatio: "1/1",
+              },
             },
           },
         ]}
@@ -418,7 +435,17 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             }}
           />
         </Link>
-        <div css={{ gridColumn: "span 6", gridRow: "span 2", position: "relative", aspectRatio: "1/1" }}>
+        <div css={(theme) => ({
+          gridColumn: "span 6",
+          gridRow: "span 2",
+          position: "relative",
+          aspectRatio: "1/1",
+          [theme.maxMQ.xsm]: {
+            flex: "1 1 100% !important",
+            width: "100%",
+            order: 10,
+          },
+        })}>
           <MainPhotoSlot
             src={dailyCard?.mainPhoto}
             alt={dailyCard?.artist?.name ? `Card by ${dailyCard.artist.name}` : undefined}
@@ -460,8 +487,10 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               aspectRatio: "1/1",
               width: "100%",
 
-              [theme.maxMQ.sm]: {
-                // Mobile styles - to be implemented
+              [theme.maxMQ.xsm]: {
+                aspectRatio: "3/2",
+                gap: theme.spacing(1),
+                padding: theme.spacing(2),
               },
               objectFit: "cover",
               padding: theme.spacing(3),
@@ -482,15 +511,15 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {loading || !dailyCard ? (
           <DailyCardSkeleton />
         ) : (
-          <div css={(theme) => [{ gridColumn: "span 6/-1", marginTop: theme.spacing(3) }]}>
-            <div css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
+          <div css={(theme) => [{ gridColumn: "span 6/-1", marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { flex: "1 1 100%", order: 11, marginTop: theme.spacing(2) } }]}>
+            <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), alignItems: "center" }]}>
               <img
                 src={dailyCard.artist?.userpic}
                 alt={dailyCard.artist?.name}
                 css={{ width: 80, height: 80, borderRadius: "50%" }}
               />
               <div>
-                <Text typography="paragraphBig">
+                <Text typography="newh3">
                   {dailyCard.artist?.name}
                 </Text>
                 <Text typography="paragraphSmall">

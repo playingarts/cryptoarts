@@ -352,8 +352,8 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
           "> *": {
             transition: theme.transitions.fast("opacity"),
           },
-          [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+          [theme.maxMQ.xsm]: {
+            // Disable card preview on mobile for cleaner experience
           },
         },
         hover &&

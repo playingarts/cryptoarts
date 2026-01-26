@@ -20,8 +20,9 @@ const ContactPage: FC = () => {
           background: theme.colors.soft_gray,
           paddingTop: theme.spacing(20),
           paddingBottom: 120,
-          [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(12),
+            paddingBottom: theme.spacing(6),
           },
         })}
       >
@@ -45,10 +46,9 @@ const ContactPage: FC = () => {
         </div>
 
         <div
-          css={(theme) => ({
+          css={{
             gridColumn: "span 12",
-            [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
-          })}
+          }}
         >
           <Text typography="newParagraph">
             You got questions concerning your order or a general matter?

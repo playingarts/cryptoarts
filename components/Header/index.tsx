@@ -81,6 +81,14 @@ const Header: FC<Props> = ({
           transition: theme.transitions.fast("all"),
           position: "sticky",
           transform: "translateY(100%) translateY(15px)",
+          // Mobile: simple fixed header at top
+          [theme.maxMQ.xsm]: {
+            position: "fixed",
+            top: 0,
+            left: 0,
+            marginTop: 0,
+            transform: "none",
+          },
         },
       ]}
       style={
@@ -93,9 +101,7 @@ const Header: FC<Props> = ({
                 top: -76,
                 marginTop: -60,
               }
-          : {
-              top: -75,
-            }
+          : {}
       }
     >
       <Grid
@@ -120,6 +126,9 @@ const Header: FC<Props> = ({
             [theme.maxMQ.xsm]: {
               gridTemplateRows: 50,
               lineHeight: "50px",
+              "> *": {
+                gridColumn: "auto",
+              },
             },
           },
         ]}
@@ -139,13 +148,16 @@ const Header: FC<Props> = ({
         }
       >
         <TitleButton
-          inset={showSiteNav !== "afterTop"}
           showSiteNav={showSiteNav}
           pageTitle={pageTitle}
           css={(theme) => [
             {
               transition: theme.transitions.fast(["border-color", "top"]),
               top: 0,
+              // Mobile: 1 column for menu button
+              [theme.maxMQ.xsm]: {
+                gridColumn: "span 1",
+              },
               [theme.mq.sm]: {
                 [theme.maxMQ.md]: [
                   showSiteNav !== "top" &&
@@ -158,7 +170,7 @@ const Header: FC<Props> = ({
           ]}
           style={
             ((showSiteNav === "afterTop" || width < breakpoints.sm) && {
-              boxShadow: "none",
+              borderTop: "none",
             }) ||
             {}
           }
@@ -174,19 +186,23 @@ const Header: FC<Props> = ({
           palette={palette}
           css={(theme) => [
             {
+              // Mobile: 1 column for shop button, right-aligned
+              [theme.maxMQ.xsm]: {
+                gridColumn: "span 1",
+                justifyContent: "flex-end",
+              },
               [theme.mq.sm]: {
                 gridColumn: "span 3",
               },
-              justifyContent: "space-between",
+              justifyContent: "flex-end",
               height: "100%",
               transition: theme.transitions.fast("border-color"),
               padding: 0,
             },
           ]}
-          inset={showSiteNav !== "afterTop" && true}
           style={
             ((showSiteNav === "afterTop" || width < breakpoints.sm) && {
-              boxShadow: "none",
+              borderTop: "none",
             }) ||
             {}
           }

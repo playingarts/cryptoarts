@@ -41,17 +41,19 @@ const Item: FC<
           maxWidth: 520,
           flexShrink: 0,
           scrollSnapAlign: "start",
-          "&:hover .customer-name": {
-            opacity: 0,
-          },
-          "&:hover .deck-titles": {
-            opacity: 1,
-          },
           [theme.maxMQ.xsm]: {
             width: 300,
             minWidth: 300,
             maxWidth: 300,
             paddingRight: theme.spacing(3),
+          },
+          [theme.mq.xsm]: {
+            "&:hover .customer-name": {
+              opacity: 0,
+            },
+            "&:hover .deck-titles": {
+              opacity: 1,
+            },
           },
         },
       ]}
@@ -83,6 +85,10 @@ const Item: FC<
             position: "absolute",
             top: 0,
             left: 0,
+            right: 0,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
             transition: "opacity 0.2s ease",
           }}
           typography="paragraphSmall"

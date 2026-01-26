@@ -11,7 +11,7 @@ const HERO_TEXTS = [
   "\u201CIt's not just playing cards, but a gallery right in your hands.\u201D",
   "\u201CWhere art and play come together in every playing card.\u201D",
   "\u201CBeautiful decks of cards that showcase global artists.\u201D",
-  "\u201CCollectible art you can shuffle, deal, and display.\u201D",
+  "\u201CCollectible art you can shuffle, deal, display, and treasure.\u201D",
   "\u201CEvery card tells a story, every deck is a masterpiece.\u201D",
   "\u201CFrom artists' studios worldwide to the palm of your hand.\u201D",
   "\u201CLimited editions, unlimited imagination. Art worth holding onto.\u201D",
@@ -81,9 +81,14 @@ const Hero = () => {
           paddingTop: 70,
           boxSizing: "border-box",
           overflow: "hidden",
-          [theme.maxMQ.xsm]: {
-            minHeight: 500,
+          [theme.maxMQ.sm]: {
+            minHeight: 550,
             paddingTop: theme.spacing(6),
+          },
+          [theme.maxMQ.xsm]: {
+            minHeight: "auto",
+            paddingTop: theme.spacing(9),
+            paddingBottom: theme.spacing(3),
           },
         },
       ]}
@@ -96,6 +101,7 @@ const Hero = () => {
             alignContent: "end",
             [theme.maxMQ.sm]: {
               gridColumn: "1 / -1",
+              order: 2, // Text below card on mobile
             },
           },
         ]}
@@ -145,7 +151,12 @@ const Hero = () => {
             paddingLeft: 130,
             paddingBottom: 6,
             [theme.maxMQ.sm]: {
-              display: "none", // Hide hero card on tablet and mobile
+              gridColumn: "1 / -1",
+              paddingLeft: 0,
+              display: "flex",
+              justifyContent: "center",
+              order: 1, // Card above text on mobile
+              marginBottom: theme.spacing(1),
             },
           },
         ]}

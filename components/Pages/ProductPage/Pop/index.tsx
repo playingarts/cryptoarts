@@ -131,6 +131,14 @@ const Pop: FC<
             margin: "0 auto",
             marginTop: theme.spacing(6),
             marginBottom: theme.spacing(6),
+            [theme.maxMQ.sm]: {
+              flexDirection: "column",
+              marginTop: theme.spacing(3),
+              marginBottom: theme.spacing(3),
+              marginLeft: theme.spacing(1.5),
+              marginRight: theme.spacing(1.5),
+              width: `calc(100% - ${theme.spacing(3)}px)`,
+            },
           },
         ]}
         onClick={(e) => {
@@ -188,7 +196,7 @@ const Pop: FC<
           </div>
         </div>
         <div
-          css={[
+          css={(theme) => [
             {
               width: 410,
               height: 600,
@@ -196,6 +204,11 @@ const Pop: FC<
               flexDirection: "column",
               position: "sticky",
               top: 30,
+              [theme.maxMQ.sm]: {
+                width: "100%",
+                height: "auto",
+                position: "static",
+              },
             },
           ]}
         >

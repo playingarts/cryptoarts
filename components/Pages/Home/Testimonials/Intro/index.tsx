@@ -22,6 +22,9 @@ const Intro: FC<
           display: "flex",
           gap: 5,
           marginTop: theme.spacing(12),
+          [theme.maxMQ.xsm]: {
+            marginTop: theme.spacing(3),
+          },
         })}
       >
         <button
@@ -36,12 +39,12 @@ const Intro: FC<
             width: 45,
             height: 45,
             background: "white",
+            color: theme.colors.dark_gray,
             borderRadius: "100%",
             border: "none",
             transform: "rotate(180deg)",
             userSelect: "none",
             transition: "opacity 0.2s, background 0.2s, color 0.2s",
-            opacity: 0.3,
             cursor: "pointer",
             "&:hover": {
               background: theme.colors.dark_gray,
@@ -63,6 +66,7 @@ const Intro: FC<
             width: 45,
             height: 45,
             background: "white",
+            color: theme.colors.dark_gray,
             borderRadius: "100%",
             border: "none",
             userSelect: "none",

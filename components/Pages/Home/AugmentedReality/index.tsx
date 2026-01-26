@@ -4,7 +4,7 @@ import Grid from "../../../Grid";
 import ScandiBlock from "../../../ScandiBlock";
 import Text from "../../../Text";
 import ButtonTemplate from "../../../Buttons/Button";
-import IconArrow from "../../../Icons/IconArrow";
+import ArrowedButton from "../../../Buttons/ArrowedButton";
 import Apple from "../../../Icons/Apple";
 import Android from "../../../Icons/Android";
 import AR from "../../../../mocks/images/AR.png";
@@ -22,6 +22,10 @@ const Presentation = () => {
           background: theme.colors.accent,
           borderRadius: theme.spacing(2),
           position: "relative",
+          [theme.maxMQ.xsm]: {
+            gridColumn: "1 / -1",
+            aspectRatio: "1/1",
+          },
         },
       ]}
     >
@@ -45,9 +49,11 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     css={(theme) => [
       {
         position: "relative",
-        padding: "30px 20px",
-        [theme.mq.sm]: {
-          padding: "60px 75px",
+        paddingTop: theme.spacing(6),
+        paddingBottom: theme.spacing(6),
+        [theme.maxMQ.xsm]: {
+          paddingTop: theme.spacing(3),
+          paddingBottom: theme.spacing(3),
         },
       },
     ]}
@@ -61,28 +67,24 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           gridColumn: "span 6",
           display: "block",
           paddingTop: 15,
+          [theme.maxMQ.xsm]: {
+            gridColumn: "1 / -1",
+            paddingBottom: theme.spacing(3),
+          },
         },
       ]}
     >
-      <Text
-        css={(theme) => [
-          {
-            display: "flex",
-            alignItems: "center",
-            textAlign: "start",
-            color: theme.colors.dark_gray,
-          },
-        ]}
-      >
-        <IconArrow css={{ marginRight: 10 }} />
-        Augmented Reality
-      </Text>
+      <ArrowedButton>Augmented Reality</ArrowedButton>
       <Text
         css={(theme) => [
           {
             paddingRight: 30,
             paddingTop: 100,
             color: theme.colors.dark_gray,
+            [theme.maxMQ.xsm]: {
+              paddingTop: theme.spacing(3),
+              paddingRight: 0,
+            },
           },
         ]}
       >
@@ -90,7 +92,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         to watch selected cards come alive with breathtaking animations— right
         in your hands.
       </Text>
-      <div css={{ paddingTop: 90 }}>
+      <div css={(theme) => ({ paddingTop: 90, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(3) } })}>
         <Text
           typography="paragraphSmall"
           css={(theme) => [{ marginBottom: theme.spacing(3), color: theme.colors.dark_gray }]}

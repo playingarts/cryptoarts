@@ -85,12 +85,18 @@ const HeroCard: FC = () => {
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
       onClick={advance}
-      css={{
+      css={(theme) => ({
         position: "relative",
         width: containerWidth,
         height: containerHeight,
         cursor: "pointer",
-      }}
+        [theme.maxMQ.xsm]: {
+          width: "100%",
+          maxWidth: 200,
+          height: "auto",
+          aspectRatio: "0.7076923076923077",
+        },
+      })}
     >
       {/* Render cards with their ID as key so they animate when moving positions */}
       {cardsToShow.map((card) => {
