@@ -230,7 +230,7 @@ const RotatingReview: FC = () => {
           </ArrowButton>
         )}
       </div>
-      <div css={{ display: "flex", alignItems: "center", gap: 5 }}>
+      <div css={(theme) => ({ display: "flex", alignItems: "center", gap: 5, marginTop: theme.spacing(2) })}>
         <NavButton
           css={{ transform: "rotate(180deg)" }}
           onClick={() => navigateTo(-1)}

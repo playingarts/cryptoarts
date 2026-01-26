@@ -6,11 +6,10 @@ import { useDailyCardLite, usePrefetchCardsForDeck, useRandomRightBottomPhoto } 
 import Link from "../../../Link";
 import { setNavigationCard } from "../../CardPage/navigationCardStore";
 import image4 from "../../../../mocks/images/homeGallery/4.png";
-import ArrowedButton from "../../../Buttons/ArrowedButton";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import KickStarter from "../../../Icons/KickStarter";
-import ScandiBlock from "../../../ScandiBlock";
 import Text from "../../../Text";
+import Intro from "../../../Intro";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
 
@@ -316,7 +315,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   }, [dailyCard]);
 
   return (
-    <Grid
+    <div
       css={(theme) => [
         {
           background: theme.colors.pale_gray,
@@ -330,53 +329,25 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ]}
       {...props}
     >
-      <ScandiBlock
-        css={(theme) => [
-          {
-            gridColumn: "span 6",
-            alignItems: "start",
-            paddingTop: 15,
-            [theme.maxMQ.xsm]: {
-              gridColumn: "1 / -1",
-              paddingBottom: theme.spacing(2),
-            },
-          },
-        ]}
-      >
-        <ArrowedButton>A masterpiece you can hold</ArrowedButton>
-      </ScandiBlock>
-
-      <ScandiBlock
-        css={(theme) => [
-          {
-            gridColumn: "span 6",
-            display: "block",
-            paddingTop: 15,
-            [theme.maxMQ.xsm]: {
-              gridColumn: "1 / -1",
-              borderTop: "none",
-              paddingTop: theme.spacing(3),
-              paddingBottom: 0,
-            },
-          },
-        ]}
-      >
-        <Text typography="paragraphBig">
-          Carefully crafted on legendary Bicycle® paper for unparalleled
-          artistry and tactile quality.
-        </Text>
-        <ArrowButton href="/shop" color="accent" size="medium" css={(theme) => [{ marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { marginBottom: theme.spacing(3) } }]}>
-          Shop the collection
-        </ArrowButton>
-        {width >= breakpoints.sm ? (
-          <Text
-            css={[{ paddingBottom: 15, marginTop: 150 }]}
-            typography="newh4"
-          >
-            Card of the day
-          </Text>
-        ) : null}
-      </ScandiBlock>
+      <Intro
+        arrowedText="A masterpiece you can hold"
+        paragraphText="Carefully crafted on legendary Bicycle® paper for unparalleled artistry and tactile quality."
+        beforeLinkNew={
+          <ArrowButton href="/shop" color="accent" size="medium">
+            Shop the collection
+          </ArrowButton>
+        }
+        bottom={
+          width >= breakpoints.sm ? (
+            <Text
+              css={[{ paddingBottom: 15, marginTop: 150 }]}
+              typography="newh4"
+            >
+              Card of the day
+            </Text>
+          ) : undefined
+        }
+      />
 
       <Grid
         css={(theme) => [
@@ -389,8 +360,6 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               display: "flex",
               flexWrap: "wrap",
               gap: theme.spacing(1),
-              paddingLeft: 0,
-              paddingRight: 0,
               "> *": {
                 flex: "1 1 45%",
                 minWidth: 0,
@@ -489,7 +458,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               width: "100%",
 
               [theme.maxMQ.xsm]: {
-                aspectRatio: "11/7",
+                aspectRatio: "3/2",
                 gap: theme.spacing(1),
                 padding: theme.spacing(2),
               },
@@ -555,7 +524,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </div>
         )}
       </Grid>
-    </Grid>
+    </div>
   );
 };
 export default Gallery;

@@ -188,7 +188,6 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ]}
           arrowedText={moreFromTitle ?? "More cards"}
           paragraphText="Other cards from this deck you may like."
-          titleAsText
           palette={deckId === "crypto" ? "dark" : "light"}
           bottom={
             <div css={(theme) => [{ display: "flex", gap: 5, marginTop: theme.spacing(12) }]}>

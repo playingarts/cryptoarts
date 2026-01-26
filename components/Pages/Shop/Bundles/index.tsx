@@ -123,14 +123,13 @@ const Bundles: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       id="bundles"
       css={(theme) => [
-        { background: theme.colors.soft_gray, paddingBottom: 90 },
+        { background: theme.colors.soft_gray, paddingTop: theme.spacing(6), paddingBottom: 90 },
       ]}
     >
       <Intro
         arrowedText="Bundles for every collector"
         paragraphText="Save big and elevate your experience with these curated collections."
         css={(theme) => [{ minHeight: 241, boxSizing: "content-box", marginBottom: 60, [theme.maxMQ.xsm]: { minHeight: "auto", marginBottom: theme.spacing(3) } }]}
-        titleAsText
       />
       {bundles &&
         bundles.map((product) => (

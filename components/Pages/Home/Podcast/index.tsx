@@ -129,7 +129,6 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <Intro
         arrowedText="Playing Arts podcast"
         paragraphText="Conversations with artists exploring inspiration, stories, and creativity."
-        titleAsText
         beforeLinkNew={
           <Link
             href="https://youtube.com/@PlayingArtsProject"

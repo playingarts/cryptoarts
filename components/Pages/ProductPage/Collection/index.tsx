@@ -181,7 +181,6 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         arrowedText="Complete your collection"
         paragraphText="Loved this deck? Continue the story
 with these collector's favourites."
-        titleAsText
         beforeLinkNew={<Link href="/shop"><Button bordered size="medium">View all products</Button></Link>}
         bottom={
           <div css={(theme) => [{ display: "flex", gap: 5, marginTop: theme.spacing(12) }]}>

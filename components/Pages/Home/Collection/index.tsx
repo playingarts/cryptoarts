@@ -130,7 +130,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 />
               ))}
           <div css={(theme) => ({ padding: INFO_BLOCK_PADDING, [theme.maxMQ.xsm]: { padding: theme.spacing(2) } })} key="endless-inspiration">
-            <Text typography="paragraphBig">
+            <Text typography="paragraphBig" css={(theme) => ({ [theme.maxMQ.xsm]: theme.typography.newh3 })}>
               Eight editions.
               <br />
               Endless inspiration.

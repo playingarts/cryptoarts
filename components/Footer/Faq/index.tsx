@@ -219,7 +219,6 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
         arrowedText="FAQ"
         paragraphText="All your questions, dealt."
         linkNewText="Read full FAQ"
-        titleAsText
         palette={palette}
         beforeLinkNew={
           <ButtonTemplate

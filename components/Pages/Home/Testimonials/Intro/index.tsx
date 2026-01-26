@@ -15,7 +15,6 @@ const Intro: FC<
     arrowedText="1,000+ Five-of-Stars reviews"
     paragraphText="Discover why collectors, players and art connoisseurs can't get enough."
     linkNewText="Read all stories"
-    titleAsText
     bottom={
       <div
         css={(theme) => ({
