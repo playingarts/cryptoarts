@@ -9,6 +9,7 @@ import Footer from "../../Footer";
 import Newsletter from "../../Newsletter";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
+import { HEADER_OFFSET } from "../../../styles/theme";
 
 type LoginState = "idle" | "sending" | "sent" | "error";
 
@@ -82,7 +83,7 @@ const LoginPage: FC = () => {
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,
-          paddingTop: 235,
+          paddingTop: HEADER_OFFSET,
           paddingBottom: theme.spacing(6),
         })}
       >

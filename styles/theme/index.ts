@@ -31,6 +31,13 @@ export const SPACING = {
 } as const;
 
 /**
+ * Header offset for pages with fixed header
+ * This accounts for the header height + some spacing
+ * TODO: Make responsive - will be smaller on mobile
+ */
+export const HEADER_OFFSET = 235;
+
+/**
  * Layout utility objects for common CSS patterns
  * Usage: css={[theme.layouts.flexRow, { ... }]}
  */

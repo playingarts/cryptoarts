@@ -4,6 +4,7 @@ import Grid from "../../../Grid";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import { useFavorites } from "../../../Contexts/favorites";
 import { useCardsByIds } from "../../../../hooks/card";
+import { HEADER_OFFSET } from "../../../../styles/theme";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { favorites } = useFavorites();
@@ -48,7 +49,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   }, [favorites, allCards]);
 
   return (
-    <Grid css={(theme) => [{ paddingTop: 235, background: theme.colors.pale_gray }]}>
+    <Grid css={(theme) => [{ paddingTop: HEADER_OFFSET, background: theme.colors.pale_gray }]}>
       <div css={[{ gridColumn: "span 6" }]}>
         <Text typography="newh3">
           {cardCount === 0

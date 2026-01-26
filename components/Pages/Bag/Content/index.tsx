@@ -16,6 +16,7 @@ const Countdown = dynamic(() => import("react-countdown"), {
 import Suggestions from "./Suggestions";
 import CTA from "./CTA";
 import Product from "./Product";
+import { HEADER_OFFSET } from "../../../../styles/theme";
 
 const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { bag } = useBag();
@@ -37,7 +38,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       css={(theme) => [
         {
-          paddingTop: 235,
+          paddingTop: HEADER_OFFSET,
           paddingBottom: theme.spacing(6),
           backgroundColor: theme.colors.soft_gray,
         },

@@ -12,6 +12,7 @@ import KickStarterLine from "../../../Icons/KickStarterLine";
 import Error from "../../../Error";
 import { HeroCardProps } from "../../../../pages/[deckId]";
 import { getNavigationDeck, clearNavigationDeck } from "../navigationDeckStore";
+import { HEADER_OFFSET } from "../../../../styles/theme";
 
 type SlideState = "visible" | "sliding-out" | "sliding-in";
 
@@ -193,7 +194,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
     <Grid
       css={(theme) => [
         {
-          paddingTop: 235,
+          paddingTop: HEADER_OFFSET,
           paddingBottom: theme.spacing(6),
           background:
             theme.colors[palette === "dark" ? "spaceBlack" : "soft_gray"],

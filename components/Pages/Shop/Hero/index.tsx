@@ -6,6 +6,7 @@ import ButtonTemplate from "../../../Buttons/Button";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import Link from "../../../Link";
 import { useProducts } from "../../../../hooks/product";
+import { HEADER_OFFSET } from "../../../../styles/theme";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
@@ -37,7 +38,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       css={(theme) => [
         {
-          paddingTop: 235,
+          paddingTop: HEADER_OFFSET,
           paddingBottom: theme.spacing(6),
           background: theme.colors.soft_gray,
           overflow: "hidden",

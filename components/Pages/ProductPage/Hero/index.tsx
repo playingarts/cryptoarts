@@ -8,6 +8,7 @@ import Button from "../../../Buttons/Button";
 import AddToBag from "../../../Buttons/AddToBag";
 import ContinueShopping from "../../../Buttons/ContinueShopping";
 import Grid from "../../../Grid";
+import { HEADER_OFFSET } from "../../../../styles/theme";
 
 const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const {
@@ -44,7 +45,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <div
         css={(theme) => [
           {
-            paddingTop: 235,
+            paddingTop: HEADER_OFFSET,
             paddingBottom: theme.spacing(6),
             display: "grid",
             gap: theme.spacing(1.5),
