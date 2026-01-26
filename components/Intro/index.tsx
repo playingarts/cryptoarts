@@ -36,7 +36,7 @@ const Intro: FC<
     {...props}
   >
     <ScandiBlock
-      css={[{ gridColumn: "span 6", paddingTop: 15, alignItems: "start" }]}
+      css={(theme) => [{ gridColumn: "span 6", paddingTop: 15, alignItems: "start", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}
     >
       {titleAsText ? (
         <Text
@@ -60,13 +60,14 @@ const Intro: FC<
       )}
     </ScandiBlock>
     <ScandiBlock
-      css={[
+      css={(theme) => [
         {
           gridColumn: "span 6",
           paddingTop: 15,
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "start",
+          [theme.maxMQ.sm]: { gridColumn: "1 / -1" },
         },
       ]}
     >
