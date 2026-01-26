@@ -19,10 +19,10 @@ const ProductSkeleton: FC = () => (
     css={(theme) => ({
       width: ITEM_WIDTH,
       flexShrink: 0,
-      padding: 30,
+      padding: theme.spacing(3),
       display: "flex",
       flexDirection: "column",
-      gap: 15,
+      gap: theme.spacing(1.5),
     })}
   >
     {/* Product image skeleton */}
@@ -168,7 +168,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           background: theme.colors.pale_gray,
-          paddingBottom: 60,
+          paddingBottom: theme.spacing(6),
         },
       ]}
     >
@@ -182,9 +182,9 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         paragraphText="Loved this deck? Continue the story
 with these collector's favourites."
         titleAsText
-        beforeLinkNew={<Link href="/shop"><Button bordered css={{ fontSize: 20 }}>View all products</Button></Link>}
+        beforeLinkNew={<Link href="/shop"><Button bordered size="medium">View all products</Button></Link>}
         bottom={
-          <div css={[{ display: "flex", gap: 5, marginTop: 120 }]}>
+          <div css={(theme) => [{ display: "flex", gap: 5, marginTop: theme.spacing(12) }]}>
             <NavButton
               css={[{ background: "white", rotate: "180deg" }]}
               onClick={() => scrollByOne(-1)}
@@ -200,9 +200,9 @@ with these collector's favourites."
         css={(theme) => [
           {
             gridColumn: "1/-1",
-            marginTop: 30,
+            marginTop: theme.spacing(3),
             background: theme.colors.white50,
-            borderRadius: 20,
+            borderRadius: theme.spacing(2),
             overflow: "hidden",
           },
         ]}

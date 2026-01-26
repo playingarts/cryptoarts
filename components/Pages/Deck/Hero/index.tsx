@@ -194,7 +194,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
       css={(theme) => [
         {
           paddingTop: 235,
-          paddingBottom: 60,
+          paddingBottom: theme.spacing(6),
           background:
             theme.colors[palette === "dark" ? "spaceBlack" : "soft_gray"],
         },
@@ -219,7 +219,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             </Text>
             <Text
               css={(theme) => [
-                { marginTop: 30 },
+                { marginTop: theme.spacing(3) },
                 palette === "dark" && { color: "white", opacity: 0.75 },
                 {
                   transition: slideState === "sliding-in"
@@ -254,12 +254,12 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             />
             {/* Description skeleton */}
             <div
-              css={{
-                marginTop: 30,
+              css={(theme) => ({
+                marginTop: theme.spacing(3),
                 display: "flex",
                 flexDirection: "column",
                 gap: 8,
-              }}
+              })}
             >
               <div
                 css={{
@@ -303,16 +303,16 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             </div>
           </>
         )}
-        <div css={[{ marginTop: 30, display: "flex", gap: 15 }]}>
-          <ArrowButton color="accent" css={{ fontSize: 20 }} href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop now</ArrowButton>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(1.5) }]}>
+          <ArrowButton color="accent" size="medium" href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop now</ArrowButton>
           <ButtonTemplate
             palette={palette}
             bordered={true}
             color="accent"
+            size="medium"
             css={(theme) => [
               {
                 paddingLeft: 10,
-                fontSize: 20,
               },
               palette === "dark" && {
                 color: theme.colors.white,
@@ -376,7 +376,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
               artists from around the globe to transform a deck of cards into a
               stunning blend of art and play.
             </Text>
-            <Grid auto={true} css={[{ paddingTop: 60 }]}>
+            <Grid auto={true} css={(theme) => [{ paddingTop: theme.spacing(6) }]}>
               {[
                 ["55", "Artists"],
                 ["2013", "Launch Year"],
@@ -426,7 +426,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             <Text
               typography="paragraphSmall"
               css={(theme) => [
-                { marginTop: 30 },
+                { marginTop: theme.spacing(3) },
                 palette === "dark" && { color: theme.colors.white75 },
               ]}
             >

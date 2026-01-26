@@ -84,7 +84,7 @@ const HeroDeck: FC<HeroDeckProps> = ({
     >
       <ScandiBlock
         id="the-deck"
-        css={{ paddingTop: 15, marginTop: 60, display: "block" }}
+        css={(theme) => ({ paddingTop: theme.spacing(1.5), marginTop: theme.spacing(6), display: "block" })}
       >
       <ArrowedButton
         css={(theme) => ({
@@ -117,16 +117,16 @@ const HeroDeck: FC<HeroDeckProps> = ({
 
           <Text
             css={(theme) => ({
-              marginTop: 30,
+              marginTop: theme.spacing(3),
               color: theme.colors[dark ? "white75" : "black"],
             })}
           >
             {deck.info}
           </Text>
 
-          <div css={{ display: "flex", alignItems: "center", gap: 30, marginTop: 30 }}>
+          <div css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(3), marginTop: theme.spacing(3) })}>
             <Link href={shopUrl}>
-              <ArrowButton color={dark ? "accent" : "dark_gray"} css={{ fontSize: 20 }}>
+              <ArrowButton color={dark ? "accent" : "dark_gray"} size="medium">
                 Shop {editionDisplayName && deck.slug === "future"
                   ? `Future ${editionDisplayName}`
                   : deck.title}
@@ -140,7 +140,7 @@ const HeroDeck: FC<HeroDeckProps> = ({
                 css={(theme) => [
                   { color: theme.colors.black },
                   dark && {
-                    color: "#FFFFFFBF",
+                    color: theme.colors.white75,
                     transition: "color 0.2s ease",
                     "&:hover": {
                       color: theme.colors.white,

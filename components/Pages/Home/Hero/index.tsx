@@ -77,7 +77,7 @@ const Hero = () => {
           background,
           transition: theme.transitions.fast("background"),
           alignContent: "end",
-          paddingBottom: 60,
+          paddingBottom: theme.spacing(6),
           paddingTop: 70,
           boxSizing: "border-box",
           overflow: "hidden",
@@ -98,9 +98,9 @@ const Hero = () => {
       >
         <Text
           typography="newh4"
-          css={[
+          css={(theme) => [
             {
-              marginTop: 30,
+              marginTop: theme.spacing(3),
             },
           ]}
         >
@@ -115,7 +115,7 @@ const Hero = () => {
                 ? "none"
                 : "transform 0.3s ease-out, opacity 0.3s ease-out",
               [theme.mq.sm]: {
-                marginTop: 30,
+                marginTop: theme.spacing(3),
               },
             },
           ]}
@@ -123,12 +123,12 @@ const Hero = () => {
         >
           <span>{HERO_TEXTS[displayedQuoteIndex % HERO_TEXTS.length]}</span>
         </Text>
-        <div css={{ display: "flex", gap: 15, marginTop: 30 }}>
+        <div css={(theme) => ({ display: "flex", gap: theme.spacing(1.5), marginTop: theme.spacing(3) })}>
           <Link href="#about">
-            <ExploreButton color="accent" css={{ fontSize: 20 }}>Discover</ExploreButton>
+            <ExploreButton color="accent" size="medium">Discover</ExploreButton>
           </Link>
           <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"}>
-            <ArrowButton bordered color="accent" css={{ fontSize: 20 }}>
+            <ArrowButton bordered color="accent" size="medium">
               Shop
             </ArrowButton>
           </Link>

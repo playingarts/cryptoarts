@@ -19,8 +19,8 @@ const NewsletterSection: FC = () => {
       css={(theme) => [
         {
           background: theme.colors.accent,
-          paddingTop: 60,
-          paddingBottom: 60,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
         },
       ]}
     >
@@ -35,7 +35,7 @@ const NewsletterSection: FC = () => {
             color: theme.colors.white + "!important",
             form: {
               width: "100%",
-              marginTop: 30,
+              marginTop: theme.spacing(3),
             },
           },
         ]}
@@ -53,7 +53,7 @@ const NewsletterSection: FC = () => {
         typography="paragraphNano"
         css={(theme) => ({
           gridColumn: "span 4",
-          marginTop: 30,
+          marginTop: theme.spacing(3),
           color: theme.colors.white,
         })}
         palette="dark"

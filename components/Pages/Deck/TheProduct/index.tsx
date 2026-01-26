@@ -46,8 +46,8 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       css={(theme) => [
         {
-          paddingTop: 60,
-          paddingBottom: 120,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(12),
           background:
             palette === "dark" ? "#212121" : theme.colors["pale_gray"],
         },
@@ -74,8 +74,8 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <img
           src={product && product.image2}
           alt={product?.title ? `${product.title} deck` : "Playing Arts deck"}
-          css={[
-            { width: "100%", height: 400, marginTop: 30, objectFit: "contain" },
+          css={(theme) => [
+            { width: "100%", height: 400, marginTop: theme.spacing(3), objectFit: "contain" },
           ]}
         />
       </ScandiBlock>
@@ -92,7 +92,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       >
         <Text
           css={(theme) => ({
-            marginBottom: 30,
+            marginBottom: theme.spacing(3),
             color: theme.colors[palette === "dark" ? "white75" : "black"],
           })}
         >
@@ -110,7 +110,8 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </Text>
           <ArrowButton
             color="accent"
-            css={[{ marginTop: 30, fontSize: 20 }]}
+            size="medium"
+            css={(theme) => [{ marginTop: theme.spacing(3) }]}
             href={
               product?.short
                 ? `/shop/${product.short.toLowerCase().replace(/\s/g, "")}`

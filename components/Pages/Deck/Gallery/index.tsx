@@ -84,7 +84,7 @@ const RotatingPhotoSlot: FC<{
     aspectRatio: "1/1",
     width: "100%",
     objectFit: "cover" as const,
-    borderRadius: 15,
+    borderRadius: 15, // TODO: convert to theme.spacing(1.5) when component uses theme callback
     gridColumn,
     ...(gridRow && { gridRow }),
   };
@@ -201,11 +201,11 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           background: palette === "dark" ? "#212121" : theme.colors.soft_gray,
-          paddingTop: 60,
-          paddingBottom: 120,
-          rowGap: 60,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(12),
+          rowGap: theme.spacing(6),
           img: {
-            borderRadius: 15,
+            borderRadius: theme.spacing(1.5),
           },
         },
       ]}
@@ -249,7 +249,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           Loved this deck? Continue the story with these collector's favourites.
         </Text>
       </ScandiBlock>
-      <Grid css={{ gridColumn: "1/-1", gap: 30 }}>
+      <Grid css={(theme) => ({ gridColumn: "1/-1", gap: theme.spacing(3) })}>
         {/* Top left */}
         <RotatingPhotoSlot
           photos={slotPhotos[0]}

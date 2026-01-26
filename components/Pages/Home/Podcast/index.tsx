@@ -10,7 +10,7 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 
 // Loading skeleton for the featured podcast card
 const FeaturedPodcastSkeleton: FC = () => (
-  <div css={{ padding: 30 }}>
+  <div css={(theme) => ({ padding: theme.spacing(3) })}>
     <div
       css={(theme) => ({
         width: 120,
@@ -43,7 +43,7 @@ const FeaturedPodcastSkeleton: FC = () => (
         />
         <div
           css={(theme) => ({
-            marginTop: 30,
+            marginTop: theme.spacing(3),
             width: "100%",
             height: 60,
             borderRadius: 8,
@@ -55,14 +55,14 @@ const FeaturedPodcastSkeleton: FC = () => (
         css={(theme) => ({
           width: 160,
           height: 160,
-          borderRadius: 15,
+          borderRadius: theme.spacing(1.5),
           background: theme.colors.pale_gray,
         })}
       />
     </span>
     <div
       css={(theme) => ({
-        marginTop: 30,
+        marginTop: theme.spacing(3),
         width: 150,
         height: 44,
         borderRadius: 22,
@@ -111,7 +111,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   return (
     <div
       ref={containerRef}
-      css={(theme) => [{ background: theme.colors.pink, paddingBottom: 60 }]}
+      css={(theme) => [{ background: theme.colors.pink, paddingBottom: theme.spacing(6) }]}
       {...props}
     >
       <Intro
@@ -133,26 +133,26 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           <ButtonTemplate
             base={true}
             noColor={true}
-            css={{ marginTop: 120, "&:hover": { cursor: "default" } }}
+            css={(theme) => ({ marginTop: theme.spacing(12), "&:hover": { cursor: "default" } })}
           >
             Episodes
           </ButtonTemplate>
         }
       />
-      <Grid css={{ marginTop: 30 }}>
+      <Grid css={(theme) => ({ marginTop: theme.spacing(3) })}>
         <div
           css={(theme) => [
             {
               gridColumn: "span 6",
               background: theme.colors.almost_white,
-              borderRadius: 15,
+              borderRadius: theme.spacing(1.5),
             },
           ]}
         >
           {loading ? (
             <FeaturedPodcastSkeleton />
           ) : displayedPodcast ? (
-            <div css={{ padding: 30, display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box" }}>
+            <div css={(theme) => ({ padding: theme.spacing(3), display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box" })}>
               <Text typography="paragraphSmall">
                 EP{displayedPodcast.episode} — {displayedPodcast.time}
               </Text>
@@ -167,12 +167,12 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               >
                 <div css={[{ width: 380 }]}>
                   <Text typography="newh2">{displayedPodcast.name}</Text>
-                  <Text typography="paragraphSmall" css={[{ marginTop: 30 }]}>
+                  <Text typography="paragraphSmall" css={(theme) => [{ marginTop: theme.spacing(3) }]}>
                     {displayedPodcast.desc}
                   </Text>
                 </div>
                 <img
-                  css={[{ width: 160, height: 160, borderRadius: 15 }]}
+                  css={(theme) => [{ width: 160, height: 160, borderRadius: theme.spacing(1.5) }]}
                   src={displayedPodcast.image}
                   alt={displayedPodcast.name || "Podcast episode thumbnail"}
                 />
@@ -184,10 +184,10 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 css={{ marginTop: "auto", paddingTop: 30 }}
               >
                 <ButtonTemplate
+                  size="medium"
                   css={(theme) => [
                     {
                       paddingLeft: 10,
-                      fontSize: 20,
                     },
                   ]}
                 >
@@ -207,7 +207,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               gridColumn: "span 6",
               background: theme.colors.almost_white,
-              borderRadius: 15,
+              borderRadius: theme.spacing(1.5),
             },
           ]}
         >

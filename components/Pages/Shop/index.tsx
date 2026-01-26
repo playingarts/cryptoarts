@@ -48,7 +48,7 @@ export const BagButton = () => {
       href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"}
       css={[{ marginLeft: "auto" }]}
     >
-      <ArrowButton color={scrolled ? "accent" : undefined} css={{ fontSize: 20 }}>
+      <ArrowButton color={scrolled ? "accent" : undefined} size="medium">
         Bag
         {bag
           ? "—" +

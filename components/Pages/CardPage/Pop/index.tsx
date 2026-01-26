@@ -502,15 +502,15 @@ const Pop: FC<
           {
             width: "100%",
             maxWidth: 1130,
-            padding: 30,
+            padding: theme.spacing(3),
             paddingBottom: 90,
             backgroundColor:
               card?.background || card?.cardBackground || initialBackground || (palette === "dark" ? "#212121" : theme.colors.pale_gray),
             display: "flex",
-            gap: 30,
-            borderRadius: 15,
+            gap: theme.spacing(3),
+            borderRadius: theme.spacing(1.5),
             margin: "0 auto",
-            marginTop: 60,
+            marginTop: theme.spacing(6),
             minHeight: 715,
             transition: "background-color 0.3s ease",
           },
@@ -578,14 +578,14 @@ const Pop: FC<
             />
           )}
           <div
-            css={{
-              marginTop: 30,
+            css={(theme) => ({
+              marginTop: theme.spacing(3),
               animation: "slideDown 0.4s ease-out",
               "@keyframes slideDown": {
                 "0%": { opacity: 0, transform: "translateY(-20px)" },
                 "100%": { opacity: 1, transform: "translateY(0)" },
               },
-            }}
+            })}
           >
             {/* Use same key to prevent flash when card data loads */}
             {(card && card.artist?.slug === cardState) || (initialImg && cardState === cardSlug) ? (
@@ -653,9 +653,9 @@ const Pop: FC<
             </Button>
           </div>
           <div
-            css={[
+            css={(theme) => [
               {
-                marginTop: 30,
+                marginTop: theme.spacing(3),
                 display: "grid",
                 alignContent: "center",
                 maxWidth: 410,
@@ -712,18 +712,18 @@ const Pop: FC<
             )}
             {/* Buttons - always visible, same design for all cards */}
             <div
-              css={[
+              css={(theme) => [
                 {
-                  marginTop: 30,
+                  marginTop: theme.spacing(3),
                   display: "flex",
-                  gap: 15,
+                  gap: theme.spacing(1.5),
                   alignItems: "center",
                 },
               ]}
             >
               <FavButton deckSlug={favoritesKey || currentDeckId} id={currentCardId || ""} />
 
-              <Button color="accent" css={{ fontSize: 20 }} onClick={handleCardDetailsClick}>
+              <Button color="accent" size="medium" onClick={handleCardDetailsClick}>
                 Card details
               </Button>
 
@@ -735,7 +735,7 @@ const Pop: FC<
                 css={(theme) => [
                   { marginLeft: 15 },
                   palette === "dark" && {
-                    color: "#FFFFFFBF",
+                    color: theme.colors.white75,
                     transition: "color 0.2s ease",
                     "&:hover": {
                       color: theme.colors.white,

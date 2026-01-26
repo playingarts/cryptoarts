@@ -22,8 +22,8 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
         {
           gridColumn: "span 6",
           backgroundColor: theme.colors.white50,
-          borderRadius: 20,
-          padding: 30,
+          borderRadius: theme.spacing(2),
+          padding: theme.spacing(3),
           position: "relative",
           "&:hover": {
             backgroundColor: theme.colors.white,
@@ -48,11 +48,11 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
           ))}
       </div>
       <div
-        css={[
+        css={(theme) => [
           {
             height: 250,
             display: "block",
-            paddingTop: 60,
+            paddingTop: theme.spacing(6),
             paddingBottom: 26,
             boxSizing: "content-box",
           },
@@ -84,18 +84,18 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
           ]}
         />
       </div>
-      <div css={[{ marginTop: 30 }]}>
+      <div css={(theme) => [{ marginTop: theme.spacing(3) }]}>
         <Text typography="newh4">{product.title}</Text>
         <Text typography="paragraphSmall" css={[{ marginTop: 10 }]}>
           {product.description || product.info}
         </Text>
-        <div css={[{ marginTop: 30, display: "flex", gap: 30, alignItems: "center" }]}>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center" }]}>
           <AddToBag productId={product._id} status={product.status} />
-          <Text css={{ fontSize: 20 }}>
+          <Text typography="linkNewTypography">
             ${product.price.usd}
           </Text>
           {product.fullPrice && (
-            <Text css={{ textDecoration: "line-through", fontSize: 20 }}>
+            <Text typography="linkNewTypography" css={{ textDecoration: "line-through" }}>
               ${product.fullPrice.usd.toFixed(2)}
             </Text>
           )}

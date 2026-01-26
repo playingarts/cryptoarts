@@ -123,14 +123,14 @@ const Pop: FC<
           {
             width: "100%",
             maxWidth: 1130,
-            padding: 30,
+            padding: theme.spacing(3),
             backgroundColor: theme.colors.pale_gray,
             display: "flex",
-            gap: 60,
-            borderRadius: 15,
+            gap: theme.spacing(3),
+            borderRadius: theme.spacing(1.5),
             margin: "0 auto",
-            marginTop: 60,
-            marginBottom: 60,
+            marginTop: theme.spacing(6),
+            marginBottom: theme.spacing(6),
           },
         ]}
         onClick={(e) => {
@@ -152,7 +152,7 @@ const Pop: FC<
                 background: theme.colors.white30,
                 aspectRatio: "1",
                 position: "relative",
-                borderRadius: 20,
+                borderRadius: theme.spacing(2),
               },
             ]}
           >
@@ -249,11 +249,11 @@ const Pop: FC<
               <Text typography="paragraphSmall" css={{ marginTop: 15 }}>{productState.description || productState.info}</Text>
               {productState.deck?.slug !== "crypto" && <Text typography="newh4" css={{ marginTop: 15 }}>${productState.price.usd}</Text>}
               <div
-                css={[
+                css={(theme) => [
                   {
                     marginTop: 15,
                     display: "flex",
-                    gap: 30,
+                    gap: theme.spacing(3),
                     alignItems: "center",
                   },
                 ]}

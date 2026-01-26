@@ -29,7 +29,7 @@ interface HeroCardInfoProps {
 
 /** Skeleton for card info section */
 const HeroCardInfoSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
-  <div css={{ marginTop: 60 }}>
+  <div css={(theme) => ({ marginTop: theme.spacing(6) })}>
     {/* Card description skeleton - multiple paragraphs */}
     <div css={{ display: "flex", flexDirection: "column", gap: 8 }}>
       <Shimmer height={18} dark={dark} />
@@ -96,8 +96,8 @@ const HeroCardInfo: FC<HeroCardInfoProps> = ({ info, dark, onVisible, loading })
     <div ref={ref}>
       <div
         ref={textRef}
-        css={[
-          { marginTop: 60 },
+        css={(theme) => [
+          { marginTop: theme.spacing(6) },
           !expanded && {
             display: "-webkit-box",
             WebkitLineClamp: 10,
@@ -123,7 +123,7 @@ const HeroCardInfo: FC<HeroCardInfoProps> = ({ info, dark, onVisible, loading })
           css={(theme) => [
             { marginTop: 15, color: theme.colors.black },
             dark && {
-              color: "#FFFFFFBF",
+              color: theme.colors.white75,
               transition: "color 0.2s ease",
               "&:hover": {
                 color: theme.colors.white,

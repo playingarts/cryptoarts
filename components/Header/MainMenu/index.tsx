@@ -283,7 +283,7 @@ const MainMenu: FC<
               onTouchStart={() => prefetchPage(getBaseUrl("/shop"))}
             >
               <Link href={getBaseUrl("/shop")} onClick={handleClose}>
-                <ArrowButton css={{ fontSize: 20 }}>
+                <ArrowButton size="medium">
                   Shop
                 </ArrowButton>
               </Link>

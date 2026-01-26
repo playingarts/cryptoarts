@@ -38,7 +38,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           paddingTop: 235,
-          paddingBottom: 60,
+          paddingBottom: theme.spacing(6),
           background: theme.colors.soft_gray,
           overflow: "hidden",
         },
@@ -46,19 +46,15 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     >
       <div css={[{ gridColumn: "span 6", position: "relative" }]}>
         <Text typography="newh1">Shop</Text>
-        <Text css={[{ marginTop: 30 }]}>
+        <Text css={(theme) => [{ marginTop: theme.spacing(3) }]}>
           Limited-edition playing cards and exclusive
           <br /> bundles created by visionary artists.
         </Text>
-        <div css={[{ marginTop: 30, display: "flex", gap: 30, alignItems: "center" }]}>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center" }]}>
           <Link href="#playing-cards">
             <ButtonTemplate
               bordered={true}
-              css={(theme) => [
-                {
-                  fontSize: 20,
-                },
-              ]}
+              size="medium"
             >
               Playing Cards
             </ButtonTemplate>

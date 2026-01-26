@@ -6,7 +6,7 @@ import { Props as Paletteprops } from "../../Pages/Deck/DeckPaletteContext";
 export interface Props {
   color?: keyof typeof colorLiterals;
   bordered?: boolean;
-  size?: "small" | "big";
+  size?: "small" | "medium" | "big";
   base?: boolean;
   noColor?: boolean;
   icon?: boolean;
@@ -61,6 +61,17 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
           ? [
               {
                 fontSize: 25,
+                height: 45,
+              },
+              base === false && {
+                paddingLeft: 15,
+                paddingRight: 15,
+              },
+            ]
+          : size === "medium"
+          ? [
+              {
+                fontSize: 20,
                 height: 45,
               },
               base === false && {

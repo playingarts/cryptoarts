@@ -19,7 +19,7 @@ const HeaderButton = () => {
         <ArrowButton
           color={palette === "dark" ? "white" : undefined}
           palette={palette}
-          css={{ fontSize: 20 }}
+          size="medium"
         >
           Shop
         </ArrowButton>
@@ -40,9 +40,9 @@ const CTA = () => {
       {width >= breakpoints.sm ? (
         <div
           css={(theme) => [
-            { display: "flex", gap: 30 },
+            { display: "flex", gap: theme.spacing(3) },
             palette === "dark" && {
-              color: "#FFFFFFBF",
+              color: theme.colors.white75,
               "& a": {
                 transition: "color 0.2s ease",
                 "&:hover": {

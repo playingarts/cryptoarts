@@ -296,7 +296,7 @@ const StatusPage: FC = () => {
               marginBottom: theme.spacing(4),
             })}
           >
-            <Text typography="paragraphSmall" css={{ color: "#dc2626", margin: 0 }}>
+            <Text typography="paragraphSmall" css={(theme) => ({ color: theme.colors.errorDark, margin: 0 })}>
               {error}
             </Text>
           </div>

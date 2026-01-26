@@ -12,7 +12,7 @@ const AddToBag: FC<
       /** Product status - if "soldout" or "soon", button won't be rendered */
       status?: string;
     }
-> = ({ productId, onViewBag, status, ...props }) => {
+> = ({ productId, onViewBag, status, size = "small", ...props }) => {
   const { bag, addItem } = useBag();
 
   // Don't render for products not on sale
@@ -23,14 +23,14 @@ const AddToBag: FC<
   if (bag && bag[productId] >= 0) {
     if (onViewBag) {
       return (
-        <Button color="accent" size="small" onClick={onViewBag} {...props}>
+        <Button color="accent" size={size} onClick={onViewBag} {...props}>
           View bag
         </Button>
       );
     }
     return (
       <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"} css={{ display: "flex", alignItems: "center" }}>
-        <Button color="accent" size="small" {...props}>
+        <Button color="accent" size={size} {...props}>
           View bag
         </Button>
       </Link>
@@ -40,7 +40,7 @@ const AddToBag: FC<
   return (
     <Button
       color="accent"
-      size="small"
+      size={size}
       css={[
         {
           paddingLeft: 10,

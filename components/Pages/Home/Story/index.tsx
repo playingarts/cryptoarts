@@ -96,7 +96,7 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           transforming traditional playing cards into a diverse gallery of
           creative expression.
         </Text>
-        <Grid auto={true} css={[{ paddingTop: 60 }]}>
+        <Grid auto={true} css={(theme) => [{ paddingTop: theme.spacing(6) }]}>
           {STORY_STATS.map((stat) => (
             <div
               key={`${stat.value}-${stat.label}`}

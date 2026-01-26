@@ -191,7 +191,7 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           titleAsText
           palette={deckId === "crypto" ? "dark" : "light"}
           bottom={
-            <div css={[{ display: "flex", gap: 5, marginTop: 120 }]}>
+            <div css={(theme) => [{ display: "flex", gap: 5, marginTop: theme.spacing(12) }]}>
               <NavButton
                 css={[
                   deckId !== "crypto" && {
@@ -223,8 +223,8 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {
             background:
               theme.colors[deckId === "crypto" ? "darkBlack" : "soft_gray"],
-            paddingBottom: 120,
-            paddingTop: 60,
+            paddingBottom: theme.spacing(12),
+            paddingTop: theme.spacing(6),
             paddingLeft: 95,
             paddingRight: 75,
             display: "flex",

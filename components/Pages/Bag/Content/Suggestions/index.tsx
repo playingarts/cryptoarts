@@ -21,8 +21,8 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string }> = ({ produ
         css={(theme) => ({
           flex: "0 0 calc(50% - 1.5px)",
           background: theme.colors.white50,
-          borderRadius: 15,
-          padding: 30,
+          borderRadius: theme.spacing(1.5),
+          padding: theme.spacing(3),
           position: "relative",
           "&:hover": {
             background: theme.colors.white75,
@@ -59,7 +59,7 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string }> = ({ produ
             {product.description || product.info}
           </Text>
         </div>
-        <div css={{ marginTop: 30, display: "flex", gap: 30, alignItems: "center" }}>
+        <div css={(theme) => ({ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center" })}>
           <AddToBag productId={product._id} onViewBag={() => setShowPop(false)} status={product.status} />
           <Text typography="linkNewTypography">${product.price.usd}</Text>
           {product.fullPrice && (
@@ -164,7 +164,7 @@ const Suggestions: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   return (
     <div {...props}>
-      <ArrowedButton css={{ marginBottom: 30 }}>You may like</ArrowedButton>
+      <ArrowedButton css={(theme) => ({ marginBottom: theme.spacing(3) })}>You may like</ArrowedButton>
       <div css={{ display: "flex", gap: 3, flexWrap: "wrap" }}>
         {bundleSuggestion && (
           <ProductSuggestion

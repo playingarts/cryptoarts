@@ -60,6 +60,12 @@ export const colorLiterals = {
   lavender: "#8582F9",
   brightGray: "#EFEFEF",
   svggray: "#C4C4C4",
+
+  // Semantic status colors
+  error: "#E57373",
+  errorDark: "#dc2626",
+  success: "#469F71",
+  warning: "#F89D35",
 } as const;
 
 /**

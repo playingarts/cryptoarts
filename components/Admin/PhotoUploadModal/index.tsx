@@ -266,8 +266,8 @@ const PhotoUploadModal: FC<PhotoUploadModalProps> = ({
       <div
         css={(theme) => ({
           background: theme.colors.white,
-          borderRadius: 15,
-          padding: 30,
+          borderRadius: theme.spacing(1.5),
+          padding: theme.spacing(3),
           maxWidth: 600,
           width: "100%",
           maxHeight: "90vh",

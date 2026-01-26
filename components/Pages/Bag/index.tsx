@@ -54,7 +54,7 @@ const CheckoutButton = () => {
       css={[{ marginLeft: "auto" }]}
       onClick={handleClick}
     >
-      <ArrowButton color={scrolled ? "accent" : undefined} css={[{ fontSize: 20 }, loading && { opacity: 0.7, cursor: "wait" }]}>
+      <ArrowButton color={scrolled ? "accent" : undefined} size="medium" css={[loading && { opacity: 0.7, cursor: "wait" }]}>
         {loading ? "Loading..." : "Check out"}
       </ArrowButton>
     </Link>

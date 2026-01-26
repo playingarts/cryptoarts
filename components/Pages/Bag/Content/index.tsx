@@ -38,7 +38,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           paddingTop: 235,
-          paddingBottom: 60,
+          paddingBottom: theme.spacing(6),
           backgroundColor: theme.colors.soft_gray,
         },
       ]}
@@ -47,22 +47,22 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <div css={[{ marginRight: 110 }]}>
           <Text typography="newh3">{isEmpty ? "Your bag is empty!" : "Your bag is ready!"}</Text>
           {isEmpty && (
-            <ArrowButton color="accent" css={{ marginTop: 30, marginBottom: 120, fontSize: 20 }} href="/shop">Go shopping</ArrowButton>
+            <ArrowButton color="accent" size="medium" css={(theme) => ({ marginTop: theme.spacing(3), marginBottom: theme.spacing(12) })} href="/shop">Go shopping</ArrowButton>
           )}
           {!isEmpty && products && (
             <ScandiBlock
               id="items"
-              css={[
+              css={(theme) => [
                 {
                   paddingTop: 15,
-                  marginTop: 30,
+                  marginTop: theme.spacing(3),
                   flexDirection: "column",
                   alignItems: "start",
                   rowGap: 30,
                 },
               ]}
             >
-              <ArrowedButton css={[{ marginBottom: 30 }]}>
+              <ArrowedButton css={(theme) => [{ marginBottom: theme.spacing(3) }]}>
                 {(() => {
                   const totalItems = Object.values(bag || {}).reduce((sum, qty) => sum + qty, 0);
                   return `${totalItems} ${totalItems === 1 ? "item is" : "items are"}`;
@@ -86,7 +86,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             </ScandiBlock>
           )}
         </div>
-        {!isEmpty && <Suggestions id="related" css={[{ marginTop: 120, paddingTop: 60 }]}></Suggestions>}
+        {!isEmpty && <Suggestions id="related" css={(theme) => [{ marginTop: theme.spacing(12), paddingTop: theme.spacing(6) }]}></Suggestions>}
       </div>
       {!isEmpty && <CTA css={[{ gridColumn: "span 4/-1" }]}></CTA>}
     </Grid>

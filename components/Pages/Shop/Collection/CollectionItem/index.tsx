@@ -474,7 +474,7 @@ const CollectionItem: FC<
             {product.description || product.info}
           </Text>
         </Link>
-        <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3) }]}>
           {product.deck && product.deck.slug === "crypto" ? (
             hover && palette !== undefined ? (
               <Button

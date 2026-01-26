@@ -153,17 +153,17 @@ const ListItem: FC<{
       </MenuPortal>
       {showQuote && quoteCard && (
         quoteImagesLoaded ? (
-          <Grid css={[{ width: "100%", marginTop: 60, marginBottom: 60 }]}>
+          <Grid css={(theme) => [{ width: "100%", marginTop: theme.spacing(6), marginBottom: theme.spacing(6) }]}>
             <img
               src={quoteCard.mainPhoto || background.src}
               alt={`Artwork by ${quoteCard.artist.name}`}
-              css={{
+              css={(theme) => ({
                 width: 300,
                 height: 300,
                 gridColumn: "2/6",
-                borderRadius: 15,
+                borderRadius: theme.spacing(1.5),
                 objectFit: "cover",
-              }}
+              })}
             />
             <div
               css={(theme) => [
@@ -172,7 +172,7 @@ const ListItem: FC<{
                 },
               ]}
             >
-              <div css={[{ display: "flex", gap: 30 }]}>
+              <div css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
                 <img
                   src={quoteCard.artist.userpic}
                   alt={`${quoteCard.artist.name} portrait`}
@@ -207,7 +207,7 @@ const ListItem: FC<{
                 typography="newParagraph"
                 css={(theme) => [
                   {
-                    marginTop: 60,
+                    marginTop: theme.spacing(6),
                     color: theme.colors[palette === "dark" ? "white75" : "black"],
                     display: "-webkit-box",
                     WebkitLineClamp: 5,
@@ -227,7 +227,7 @@ const ListItem: FC<{
                   typography="linkNewTypography"
                   css={(theme) => [
                     {
-                      marginTop: 30,
+                      marginTop: theme.spacing(3),
                       color: theme.colors[palette === "dark" ? "white75" : "black"],
                       cursor: "pointer",
                     },
@@ -283,7 +283,7 @@ const CardPlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => (
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
-          borderRadius: 15,
+          borderRadius: 15, // TODO: convert to theme.spacing(1.5) when component uses theme callback
           ...getShimmerStyle(dark),
         }}
       />
@@ -312,16 +312,16 @@ const CardPlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => (
 const QuotePlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => {
   const shimmer = getShimmerStyle(dark);
   return (
-    <Grid css={[{ width: "100%", marginTop: 60, marginBottom: 60 }]}>
+    <Grid css={(theme) => [{ width: "100%", marginTop: theme.spacing(6), marginBottom: theme.spacing(6) }]}>
       {/* Background image placeholder */}
       <div
-        css={{
+        css={(theme) => ({
           width: 300,
           height: 300,
           gridColumn: "2/6",
-          borderRadius: 15,
+          borderRadius: theme.spacing(1.5),
           ...shimmer,
-        }}
+        })}
       />
       <div
         css={{
@@ -329,7 +329,7 @@ const QuotePlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => {
         }}
       >
         {/* Artist avatar and info */}
-        <div css={{ display: "flex", gap: 30 }}>
+        <div css={(theme) => ({ display: "flex", gap: theme.spacing(3) })}>
           <div css={{ width: 80, height: 80, borderRadius: 10, ...shimmer }} />
           <div css={{ display: "inline-block" }}>
             <div css={{ width: 120, height: 20, borderRadius: 4, marginBottom: 8, ...shimmer }} />
@@ -337,13 +337,13 @@ const QuotePlaceholder: FC<{ dark?: boolean }> = ({ dark = false }) => {
           </div>
         </div>
         {/* Quote text */}
-        <div css={{ marginTop: 60 }}>
+        <div css={(theme) => ({ marginTop: theme.spacing(6) })}>
           <div css={{ width: "100%", height: 16, borderRadius: 4, marginBottom: 8, ...shimmer }} />
           <div css={{ width: "90%", height: 16, borderRadius: 4, marginBottom: 8, ...shimmer }} />
           <div css={{ width: "70%", height: 16, borderRadius: 4, ...shimmer }} />
         </div>
         {/* Link placeholder */}
-        <div css={{ marginTop: 30, width: 150, height: 20, borderRadius: 4, ...shimmer }} />
+        <div css={(theme) => ({ marginTop: theme.spacing(3), width: 150, height: 20, borderRadius: 4, ...shimmer })} />
       </div>
     </Grid>
   );
@@ -575,12 +575,12 @@ const FutureTabs: FC<{
 
   return (
     <div
-      css={{
+      css={(theme) => ({
         display: "flex",
         gap: 10,
         gridColumn: "1/-1",
-        marginTop: 60,
-      }}
+        marginTop: theme.spacing(6),
+      })}
     >
       {FUTURE_TABS.map((tab) => {
         const isActive = activeTab === tab.id;
@@ -637,8 +637,8 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       css={(theme) => [
         {
-          paddingTop: 60,
-          paddingBottom: 60,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
           background:
             palette === "dark"
               ? theme.colors.darkBlack
@@ -660,7 +660,7 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <Text
           css={(theme) => [
             {
-              marginTop: 60,
+              marginTop: theme.spacing(6),
               color: theme.colors[palette === "dark" ? "white75" : "black"],
             },
           ]}

@@ -17,10 +17,10 @@ const GalleryButton: FC<GalleryButtonProps> = ({ src, alt = "", ...props }) => {
   return (
     <>
       <div
-        css={[
+        css={(theme) => [
           {
             position: "relative",
-            borderRadius: 15,
+            borderRadius: theme.spacing(1.5),
             overflow: "hidden",
             cursor: "pointer",
             aspectRatio: "1",

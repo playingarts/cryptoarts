@@ -17,11 +17,11 @@ const CollectionItemSkeleton: FC = () => (
     css={(theme) => ({
       background: theme.colors.soft_gray,
       borderRadius: 16,
-      padding: 30,
+      padding: theme.spacing(3),
       minHeight: 400,
       display: "flex",
       flexDirection: "column",
-      gap: 15,
+      gap: theme.spacing(1.5),
     })}
   >
     {/* Card image skeleton */}
@@ -87,7 +87,7 @@ const CollectionSkeleton: FC = () => (
       css={(theme) => ({
         background: theme.colors.soft_gray,
         borderRadius: 16,
-        padding: 30,
+        padding: theme.spacing(3),
         display: "grid",
         alignContent: "space-between",
       })}
@@ -102,7 +102,7 @@ const CollectionSkeleton: FC = () => (
           animation: "shimmer 1.5s infinite linear",
         }}
       />
-      <div css={{ display: "flex", flexDirection: "column", gap: 15 }}>
+      <div css={(theme) => ({ display: "flex", flexDirection: "column", gap: theme.spacing(1.5) })}>
         <div css={{ display: "flex", gap: 5 }}>
           {[...Array(5)].map((_, i) => (
             <div
@@ -198,7 +198,7 @@ const RotatingReview: FC = () => {
   if (!currentReview) {
     return (
       <>
-        <Text css={[{ marginTop: 30 }]}>
+        <Text css={(theme) => [{ marginTop: theme.spacing(3) }]}>
           "Not only are they little gems by their own right,
           they are also a perfect way to discover new talented
           artists."
@@ -218,7 +218,7 @@ const RotatingReview: FC = () => {
           transition: "opacity 0.3s ease-in-out",
         }}
       >
-        <Text css={[{ marginTop: 30 }]}>
+        <Text css={(theme) => [{ marginTop: theme.spacing(3) }]}>
           "{currentReview.review}"
         </Text>
         <Text typography="paragraphSmall" css={[{ marginTop: 15 }]}>
@@ -259,8 +259,8 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           background: theme.colors.pale_gray,
-          paddingBottom: 60,
-          paddingTop: 60,
+          paddingBottom: theme.spacing(6),
+          paddingTop: theme.spacing(6),
         },
       ]}
     >
@@ -275,7 +275,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             gridTemplateColumns: "1fr 1fr 1fr",
             // flexWrap: "wrap",
             gap: 3,
-            marginTop: 60,
+            marginTop: theme.spacing(6),
             " > *": {
               background: theme.colors.soft_gray,
               borderRadius: 16,

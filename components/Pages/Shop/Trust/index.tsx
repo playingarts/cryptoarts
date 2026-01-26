@@ -23,7 +23,7 @@ const Trust: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <Spades css={(theme) => [{ color: theme.colors.black30 }]} />
         <Text
           typography="paragraphSmall"
-          css={(theme) => [{ color: theme.colors.black50, marginTop: 30 }]}
+          css={(theme) => [{ color: theme.colors.black50, marginTop: theme.spacing(3) }]}
         >
           Free shipping
           <br />
@@ -37,7 +37,7 @@ const Trust: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         />
         <Text
           typography="paragraphSmall"
-          css={(theme) => [{ color: theme.colors.black50, marginTop: 30 }]}
+          css={(theme) => [{ color: theme.colors.black50, marginTop: theme.spacing(3) }]}
         >
           Hassle-free returns,
           <br />
@@ -49,7 +49,7 @@ const Trust: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <Clubs css={(theme) => [{ color: theme.colors.black30 }]} />
         <Text
           typography="paragraphSmall"
-          css={(theme) => [{ color: theme.colors.black50, marginTop: 30 }]}
+          css={(theme) => [{ color: theme.colors.black50, marginTop: theme.spacing(3) }]}
         >
           Trusted by 10,000+
           <br />
@@ -61,7 +61,7 @@ const Trust: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <Diamonds css={(theme) => [{ color: theme.colors.black30 }]} />
         <Text
           typography="paragraphSmall"
-          css={(theme) => [{ color: theme.colors.black50, marginTop: 30 }]}
+          css={(theme) => [{ color: theme.colors.black50, marginTop: theme.spacing(3) }]}
         >
           Secure payments,
           <br />

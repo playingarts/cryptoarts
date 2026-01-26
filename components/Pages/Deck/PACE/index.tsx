@@ -18,19 +18,19 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {
           background: theme.colors.spaceBlack,
           paddingBottom: 120,
-          gap: 30,
+          gap: theme.spacing(3),
         },
       ]}
     >
       <Intro
-        css={[{ minHeight: 311, marginBottom: 30, boxSizing: "content-box" }]}
+        css={(theme) => [{ minHeight: 311, marginBottom: theme.spacing(3), boxSizing: "content-box" }]}
         arrowedText="PACE NFT Collection"
         paragraphText="Nerd out on the stats behind this iconic NFT collection."
         titleAsText
         palette="dark"
         beforeLinkNew={
           <Link href="https://opensea.io/collection/cryptoedition" target="_blank" rel="noopener noreferrer">
-            <Button color="accent" css={{ fontSize: 20 }}>View on OpenSea</Button>
+            <Button color="accent" size="medium">View on OpenSea</Button>
           </Link>
         }
       />

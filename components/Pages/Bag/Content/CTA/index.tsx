@@ -70,12 +70,12 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   return (
     <div
-      css={[
+      css={(theme) => [
         {
           backgroundColor: "white",
           height: "fit-content",
-          borderRadius: 15,
-          padding: 30,
+          borderRadius: theme.spacing(1.5),
+          padding: theme.spacing(3),
           position: "sticky",
           top: 70,
         },
@@ -83,7 +83,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <ArrowedButton>Summary</ArrowedButton>
-      <div css={[{ marginTop: 30, display: "grid", gap: 15 }]}>
+      <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: theme.spacing(1.5) }]}>
         <div css={[{ display: "flex", justifyContent: "space-between" }]}>
           <Text typography="paragraphSmall">Subtotal</Text>
           <Text typography="paragraphSmall">${total.toFixed(2)}</Text>
@@ -122,7 +122,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 "> *": {
-                  color: "#469F71",
+                  color: theme.colors.success,
                 },
               },
             ]}
@@ -138,7 +138,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 "> *": {
-                  color: "#469F71",
+                  color: theme.colors.success,
                 },
               },
             ]}
@@ -154,7 +154,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 display: "flex",
                 justifyContent: "space-between",
                 "> *": {
-                  color: "#469F71",
+                  color: theme.colors.success,
                 },
               },
             ]}
@@ -167,9 +167,9 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         )}
       </div>
       <div
-        css={[
+        css={(theme) => [
           {
-            marginTop: 30,
+            marginTop: theme.spacing(3),
             display: "flex",
             justifyContent: "space-between",
           },
@@ -191,7 +191,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={[{ marginLeft: "auto", marginTop: 15, display: "block" }]}
         onClick={() => setCheckoutLoading(true)}
       >
-        <ArrowButton color="accent" css={[{ display: "flex", fontSize: 20 }, checkoutLoading && { opacity: 0.7, cursor: "wait" }]}>
+        <ArrowButton color="accent" size="medium" css={[{ display: "flex" }, checkoutLoading && { opacity: 0.7, cursor: "wait" }]}>
           {checkoutLoading ? "Loading..." : "Secure check out"}
         </ArrowButton>
       </Link>
@@ -202,7 +202,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <Text
         typography="paragraphSmall"
         css={(theme) => [
-          { textAlign: "center", color: theme.colors.black30, marginTop: 30, fontSize: 15 },
+          { textAlign: "center", color: theme.colors.black30, marginTop: theme.spacing(3), fontSize: 15 },
         ]}
       >
         <Lock css={[{ marginRight: 10 }]} />
@@ -213,7 +213,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => [
           {
             gap: 20,
-            marginTop: 30,
+            marginTop: theme.spacing(3),
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

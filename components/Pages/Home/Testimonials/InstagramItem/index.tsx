@@ -33,7 +33,7 @@ const InstagramItem: FC<
           position: "relative",
           width: 300,
           height: 300,
-          borderRadius: 20,
+          borderRadius: theme.spacing(2),
           overflow: "hidden",
           background: theme.colors.soft_gray,
           "&:hover": {

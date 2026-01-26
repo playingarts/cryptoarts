@@ -260,7 +260,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
     aspectRatio: "1/1",
     width: "100%",
     objectFit: "cover" as const,
-    borderRadius: 15,
+    borderRadius: 15, // TODO: convert to theme.spacing(1.5) when component uses theme callback
     gridColumn,
     ...(gridRow && { gridRow }),
   };
@@ -349,7 +349,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
         opacity: 0,
         transition: "opacity 0.2s ease, transform 0.2s ease",
         "&:hover": {
-          background: "#dc2626",
+          background: theme.colors.errorDark,
           transform: "scale(1.1)",
         },
       })}
@@ -738,9 +738,9 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           background: deckId === "crypto" ? "#292929" : theme.colors.soft_gray,
-          paddingTop: 60,
-          paddingBottom: 120,
-          rowGap: 60,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(12),
+          rowGap: theme.spacing(6),
         },
       ]}
       id="gallery"
@@ -787,7 +787,7 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
       {useCompactLayout ? (
         /* Compact single-row layout for non-admins when not all slots filled */
-        <Grid css={{ gridColumn: "1/-1", gap: 30 }}>
+        <Grid css={(theme) => ({ gridColumn: "1/-1", gap: theme.spacing(3) })}>
           {displayedSlots.map((slot) => {
             if (slot.type === "additional-0") {
               return (
@@ -813,16 +813,16 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               return (
                 <div
                   key="flip-card"
-                  css={{
+                  css={(theme) => ({
                     aspectRatio: "1/1",
                     width: "100%",
-                    borderRadius: 15,
+                    borderRadius: theme.spacing(1.5),
                     gridColumn: `span ${compactColumnSpan}`,
                     backgroundColor: deckId === "crypto" ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR,
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
-                  }}
+                  })}
                 >
                   {card && (
                     <FlipCard
@@ -858,7 +858,7 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </Grid>
       ) : (
         /* Full layout for admins or when all slots filled */
-        <Grid css={{ gridColumn: "1/-1", gap: 30 }}>
+        <Grid css={(theme) => ({ gridColumn: "1/-1", gap: theme.spacing(3) })}>
           {/* Top left - additional photo 1 */}
           <PhotoSlot
             src={additionalPhotos[0]}
@@ -886,16 +886,16 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
           {/* Top right - card preview with flip on click */}
           <div
-            css={{
+            css={(theme) => ({
               aspectRatio: "1/1",
               width: "100%",
-              borderRadius: 15,
+              borderRadius: theme.spacing(1.5),
               gridColumn: "span 3",
               backgroundColor: deckId === "crypto" ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-            }}
+            })}
           >
             {card && (
               <FlipCard

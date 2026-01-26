@@ -44,9 +44,9 @@ const Price: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <div
       css={(theme) => [
         {
-          padding: 30,
+          padding: theme.spacing(3),
           paddingBottom: 25,
-          borderRadius: 20,
+          borderRadius: theme.spacing(2),
 
           background: theme.colors.darkBlack,
         },
@@ -74,18 +74,18 @@ const Price: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   "..."
                 )}
               </span>
-              <span css={(theme) => ({ fontSize: 20, color: theme.colors.white50 })}>
+              <span css={(theme) => ({ ...theme.typography.linkNewTypography, color: theme.colors.white50 })}>
                 {usdFormatted ?? ""}
               </span>
             </Text>
-            <Text typography="newh4" css={{ fontSize: 20 }}>{stat.label}</Text>
+            <Text typography="linkNewTypography">{stat.label}</Text>
           </ScandiBlock>
         );
       })}
 
       <Text
         typography="paragraphSmall"
-        css={(theme) => [{ color: theme.colors.white50, marginTop: 30, fontSize: 15 }]}
+        css={(theme) => [{ color: theme.colors.white50, marginTop: theme.spacing(3), fontSize: 15 }]}
       >
         {opensea?.sales_count
           ? <>Total sales: <AnimatedNumber value={opensea.sales_count} /></>

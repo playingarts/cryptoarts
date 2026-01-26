@@ -18,11 +18,11 @@ const Intro: FC<
     titleAsText
     bottom={
       <div
-        css={{
+        css={(theme) => ({
           display: "flex",
           gap: 5,
-          marginTop: 120,
-        }}
+          marginTop: theme.spacing(12),
+        })}
       >
         <button
           ref={leftArrowRef}

@@ -43,9 +43,9 @@ const Gallery: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
       {...props}
     >
       <div
-        css={[
+        css={(theme) => [
           {
-            borderRadius: 15,
+            borderRadius: theme.spacing(1.5),
             overflow: "hidden",
             width: "100%",
             maxWidth: 740,

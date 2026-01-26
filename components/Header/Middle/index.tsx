@@ -65,7 +65,7 @@ export const PageNav: FC<HTMLAttributes<HTMLElement> & { links: string[] }> = ({
                 css={(theme) => [
                   { color: theme.colors.black, transition: "color 0.2s ease" },
                   palette === "dark" && {
-                    color: "#FFFFFFBF !important",
+                    color: `${theme.colors.white75} !important`,
                     "&:hover": {
                       color: `${theme.colors.white} !important`,
                     },

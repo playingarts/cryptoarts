@@ -679,7 +679,7 @@ export const CardPreview: FC<{ deckId: string; deckObjectId: string }> = ({
   if (!frontCard || !backCard) return null;
 
   return (
-    <div css={[{ position: "relative", margin: "30px 0", display: "flex", alignItems: "center", justifyContent: "center", gap: 30 }]}>
+    <div css={(theme) => [{ position: "relative", margin: `${theme.spacing(3)}px 0`, display: "flex", alignItems: "center", justifyContent: "center", gap: theme.spacing(3) }]}>
       <NavButton
         css={[{ rotate: "180deg" }]}
         onClick={handleClick}
@@ -847,22 +847,22 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       id="product"
       css={(theme) => [
         {
-          paddingTop: 60,
-          paddingBottom: 60,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
           backgroundColor: theme.colors.soft_gray,
         },
       ]}
     >
       <div
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 6",
-            paddingRight: 30,
+            paddingRight: theme.spacing(3),
             display: "grid",
-            gap: 30,
+            gap: theme.spacing(3),
             img: {
               width: "100%",
-              borderRadius: 15,
+              borderRadius: theme.spacing(1.5),
               aspectRatio: "1",
             },
           },
@@ -893,18 +893,18 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 background: theme.colors.white50,
                 width: "100%",
                 aspectRatio: "1",
-                borderRadius: 20,
+                borderRadius: theme.spacing(2),
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
               },
             ]}
           >
-            <Text css={{ padding: 30 }}>1,000+ reviews</Text>
+            <Text css={(theme) => ({ padding: theme.spacing(3) })}>1,000+ reviews</Text>
             <Item
               rating={currentRating}
               customButton={
-                <div css={{ marginTop: 30, display: "flex", alignItems: "center", gap: 5 }}>
+                <div css={(theme) => ({ marginTop: theme.spacing(3), display: "flex", alignItems: "center", gap: 5 })}>
                   <NavButton
                     css={{ transform: "rotate(180deg)" }}
                     onClick={() => navigateReview(-1)}
@@ -969,7 +969,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {photoGallery.isAdmin && displayProduct && (
           <>
             {/* Row 1: slots 4, 5, 6 (indices 3, 4, 5) */}
-            <div css={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 15 }}>
+            <div css={(theme) => ({ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: theme.spacing(1.5) })}>
               {[3, 4, 5].map((index) => (
                 <PhotoSlot
                   key={`${displayProduct._id}-${index}`}
@@ -985,7 +985,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               ))}
             </div>
             {/* Row 2: slots 7, 8, 9 (indices 6, 7, 8) */}
-            <div css={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 15 }}>
+            <div css={(theme) => ({ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: theme.spacing(1.5) })}>
               {[6, 7, 8].map((index) => (
                 <PhotoSlot
                   key={`${displayProduct._id}-${index}`}
@@ -1011,15 +1011,15 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         ) : null}
       </div>
       <div
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 6",
             display: "grid",
-            gap: 30,
+            gap: theme.spacing(3),
             position: "sticky",
             top: 70,
             height: "fit-content",
-            paddingBottom: 60,
+            paddingBottom: theme.spacing(6),
           },
         ]}
       >
@@ -1041,9 +1041,9 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <div
           css={(theme) => [
             {
-              borderRadius: 20,
+              borderRadius: theme.spacing(2),
               background: theme.colors.white75,
-              padding: "30px 30px",
+              padding: `${theme.spacing(3)}px ${theme.spacing(3)}px`,
             },
           ]}
           style={product ? {} : { height: 232 }}
@@ -1051,15 +1051,15 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {product && (
             <>
               {product.deck?.slug !== "crypto" && <Text typography="newh3">${product.price.usd}</Text>}
-              <div css={[{ marginTop: 15, display: "flex", alignItems: "center", gap: 30 }]}>
+              <div css={(theme) => [{ marginTop: 15, display: "flex", alignItems: "center", gap: theme.spacing(3) }]}>
                 {product.deck?.slug === "crypto" ? (
-                  <Button size="big" bordered css={{ fontSize: 20 }}>
+                  <Button size="medium" bordered>
                     Exclusive
                   </Button>
                 ) : product.status === "soldout" || product.status === "soon" ? (
-                  <SoldOut size="big" css={{ fontSize: 20 }} status={product.status} />
+                  <SoldOut size="medium" status={product.status} />
                 ) : (
-                  <AddToBag productId={product._id} size="big" css={{ fontSize: 20 }} />
+                  <AddToBag productId={product._id} size="medium" />
                 )}
                 <ContinueShopping css={{ fontSize: 18 }} />
               </div>
@@ -1067,7 +1067,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 css={(theme) => [
                   {
                     color: theme.colors.black30,
-                    marginTop: 30,
+                    marginTop: theme.spacing(3),
                     fontSize: 15,
                     display: "flex",
                     alignItems: "center",
@@ -1083,7 +1083,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <div
           css={(theme) => [
             {
-              gap: 30,
+              gap: theme.spacing(3),
               display: "flex",
               alignItems: "center",
               color: "rgba(0,0,0,20%)",
@@ -1096,16 +1096,16 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           <ApplePay css={[{ width: 67.14 }]} />
           <GooglePay css={[{ width: 69.89 }]} />
         </div>
-        <ScandiBlock id="why-this-deck" css={[{ marginTop: 60, paddingTop: 15 }]}>
+        <ScandiBlock id="why-this-deck" css={(theme) => [{ marginTop: theme.spacing(6), paddingTop: theme.spacing(1.5) }]}>
           <Link href="#why-this-deck">
             <ArrowedButton>Why this deck</ArrowedButton>
           </Link>
         </ScandiBlock>
         <div
-          css={[{ margin: "60px 0", display: "grid", maxWidth: 520, gap: 30 }]}
+          css={(theme) => [{ margin: `${theme.spacing(6)}px 0`, display: "grid", maxWidth: 520, gap: theme.spacing(3) }]}
         >
           {points.map((point, index) => (
-            <div key={point + index} css={[{ display: "flex", gap: 30 }]}>
+            <div key={point + index} css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
               <Point css={[{ padding: 4, boxSizing: "content-box" }]} />
               <Text
                 typography="paragraphSmall"
@@ -1120,13 +1120,13 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           question="What's in the box"
           css={{ ">:first-of-type": { fontSize: 25 } }}
           answer={
-            <div css={[{ display: "grid", gap: 30 }]}>
+            <div css={(theme) => [{ display: "grid", gap: theme.spacing(3) }]}>
               {[
                 "55 cards (52 playing cards plus two jokers, and one info card with the list of the artists).",
                 "Premium Bicycle® paper stock for unparalleled artistry, tactile quality and durability.",
                 "Poker-sized (9 x 6.5 x 2 cm). Weight ~110g.",
               ].map((point, index) => (
-                <div key={point + index} css={[{ display: "flex", gap: 30 }]}>
+                <div key={point + index} css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
                   <Point css={[{ padding: 4, boxSizing: "content-box" }]} />
                   <Text
                     typography="paragraphSmall"

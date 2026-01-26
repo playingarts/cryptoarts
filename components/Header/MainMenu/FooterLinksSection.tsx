@@ -17,10 +17,10 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
 
   return (
     <MenuGrid
-      css={[
+      css={(theme) => [
         {
-          paddingTop: 60,
-          paddingBottom: 60,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
         },
       ]}
     >
@@ -49,7 +49,7 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
           >
             {key}
           </Text>
-          <div css={[{ marginTop: 30, display: "grid", gap: 5 }]}>
+          <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: 5 }]}>
             {links[key].map((item) => (
               <Link key={`${key}-${item.label}`} href={item.href} onClick={onClose}>
                 <ArrowButton
@@ -84,9 +84,9 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
             color: theme.colors.black30,
             borderColor: theme.colors.black30,
             display: "flex",
-            gap: 30,
+            gap: theme.spacing(3),
             gridColumn: "1/-1",
-            marginTop: 60,
+            marginTop: theme.spacing(6),
           },
         ]}
       >

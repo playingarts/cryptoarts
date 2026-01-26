@@ -14,7 +14,7 @@ const getStatusLabel = (status?: string): string => {
   }
 };
 
-const SoldOut: FC<HTMLAttributes<HTMLElement> & Props & { status?: string }> = ({ status, ...props }) => {
+const SoldOut: FC<HTMLAttributes<HTMLElement> & Props & { status?: string }> = ({ status, size = "small", ...props }) => {
   const [show, setShow] = useState(false);
   return (
     <>
@@ -23,7 +23,7 @@ const SoldOut: FC<HTMLAttributes<HTMLElement> & Props & { status?: string }> = (
       </MenuPortal>
       <Button
         onClick={() => setShow(true)}
-        size="small"
+        size={size}
         css={(theme) => [
           {
             color: theme.colors.black50,

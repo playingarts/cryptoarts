@@ -31,10 +31,9 @@ const Item: FC<
           cursor: "pointer",
           display: "flex",
           alignItems: "center",
-          fontSize: 20,
           color: theme.colors[palette === "dark" ? "white75" : "black"],
         })}
-        typography="newh4"
+        typography="linkNewTypography"
       >
         <Dot
           css={(theme) => ({

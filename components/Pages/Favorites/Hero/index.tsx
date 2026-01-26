@@ -56,7 +56,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             : `Your personal gallery of ${cardCount} inspiring cards from ${deckCount} ${deckCount === 1 ? "unique deck" : "unique decks"}.`}
         </Text>
         {cardCount === 0 && (
-          <ArrowButton color="accent" css={{ marginTop: 30, fontSize: 20 }} href="/#collection">
+          <ArrowButton color="accent" size="medium" css={(theme) => ({ marginTop: theme.spacing(3) })} href="/#collection">
             Browse collection
           </ArrowButton>
         )}

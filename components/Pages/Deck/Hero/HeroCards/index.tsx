@@ -77,7 +77,7 @@ const waitForImages = (cards: HeroCardProps[]): { promise: Promise<void>; abort:
 const CARD_DIMENSIONS = {
   outer: { width: 340, height: 478 },
   inner: { width: 330, height: 464 },
-  borderRadius: 15,
+  borderRadius: 15, // TODO: convert to theme.spacing(1.5) when component uses theme callback
 } as const;
 
 // Card position constants
@@ -381,11 +381,11 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
     return (
       <div
         ref={ref}
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 6",
             alignSelf: "start",
-            marginBottom: 30,
+            marginBottom: theme.spacing(3),
             top: 160,
             willChange: "transform",
           },
@@ -454,20 +454,20 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
                 >
                   <button
                     onClick={handleRetry}
-                    css={{
+                    css={(theme) => ({
                       padding: "12px 24px",
                       borderRadius: 8,
                       border: "none",
-                      background: palette === "dark" ? "#333" : "#fff",
-                      color: palette === "dark" ? "#fff" : "#333",
+                      background: palette === "dark" ? theme.colors.black : theme.colors.white,
+                      color: palette === "dark" ? theme.colors.white : theme.colors.black,
                       cursor: "pointer",
                       fontSize: 14,
                       fontWeight: 500,
                       boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
                       "&:hover": {
-                        background: palette === "dark" ? "#444" : "#f5f5f5",
+                        background: palette === "dark" ? theme.colors.dark_gray_hover : theme.colors.soft_gray,
                       },
-                    }}
+                    })}
                   >
                     Retry
                   </button>

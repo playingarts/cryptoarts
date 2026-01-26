@@ -32,7 +32,7 @@ const Intro: FC<
   ...props
 }) => (
   <Grid
-    css={[{ paddingTop: 60, overflow: "hidden", gridColumn: "1/-1" }]}
+    css={(theme) => [{ paddingTop: theme.spacing(6), overflow: "hidden", gridColumn: "1/-1" }]}
     {...props}
   >
     <ScandiBlock
@@ -79,7 +79,7 @@ const Intro: FC<
         >
           {paragraphText}
         </Text>
-        <div css={[{ marginTop: 30, display: "flex", gap: 30 }]}>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3) }]}>
           {beforeLinkNew}
           {linkNewText && (
             linkNewHref ? (

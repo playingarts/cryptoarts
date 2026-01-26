@@ -54,12 +54,12 @@ const CardSkeleton: FC = () => (
   <div css={{ width: 300 }}>
     <div css={{ position: "relative", height: 400, display: "flex", justifyContent: "center", alignItems: "center" }}>
       <div
-        css={{
+        css={(theme) => ({
           width: 270,
           height: 380,
-          borderRadius: 15,
+          borderRadius: theme.spacing(1.5),
           ...shimmerStyle,
-        }}
+        })}
       />
     </div>
     <div css={{ marginTop: 10, display: "flex", justifyContent: "center" }}>
@@ -74,9 +74,9 @@ const DeckHeaderSkeleton: FC = () => (
     <ScandiBlock css={[{ gridColumn: "span 6" }]}>
       <div css={{ width: 150, height: 32, borderRadius: 8, ...shimmerStyle }} />
     </ScandiBlock>
-    <ScandiBlock css={[{ gridColumn: "span 6", gap: 30 }]}>
-      <div css={{ width: 100, height: 40, borderRadius: 20, ...shimmerStyle }} />
-      <div css={{ width: 60, height: 40, borderRadius: 20, ...shimmerStyle }} />
+    <ScandiBlock css={(theme) => [{ gridColumn: "span 6", gap: theme.spacing(3) }]}>
+      <div css={(theme) => ({ width: 100, height: 40, borderRadius: theme.spacing(2), ...shimmerStyle })} />
+      <div css={(theme) => ({ width: 60, height: 40, borderRadius: theme.spacing(2), ...shimmerStyle })} />
     </ScandiBlock>
   </Grid>
 );
@@ -87,15 +87,15 @@ const FavoritesSkeleton: FC = () => (
     <DeckHeaderSkeleton />
     <Grid>
       <div
-        css={{
+        css={(theme) => ({
           gridColumn: "1/-1",
-          marginTop: 60,
+          marginTop: theme.spacing(6),
           display: "flex",
           flexWrap: "wrap",
-          columnGap: 30,
-          rowGap: 60,
+          columnGap: theme.spacing(3),
+          rowGap: theme.spacing(6),
           justifyContent: "flex-start",
-        }}
+        })}
       >
         <CardSkeleton />
         <CardSkeleton />
@@ -136,7 +136,7 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
             <ArrowedButton>{sectionTitle}</ArrowedButton>
           </Link>
         </ScandiBlock>
-        <ScandiBlock css={[{ gridColumn: "span 6", gap: 30 }]}>
+        <ScandiBlock css={(theme) => [{ gridColumn: "span 6", gap: theme.spacing(3) }]}>
           {deck.product && (
             deck.slug === "crypto" ? (
               <Button size="small" bordered>
@@ -157,15 +157,15 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
       </Grid>
       <Grid>
         <div
-          css={{
+          css={(theme) => ({
             gridColumn: "1/-1",
-            marginTop: 60,
+            marginTop: theme.spacing(6),
             display: "flex",
             flexWrap: "wrap",
-            columnGap: 30,
-            rowGap: 60,
+            columnGap: theme.spacing(3),
+            rowGap: theme.spacing(6),
             justifyContent: "flex-start",
-          }}
+          })}
         >
           {cards.map((card) => (
             <Card
@@ -290,9 +290,9 @@ const Cards: FC<HTMLAttributes<HTMLElement>> = () => {
       <div
         css={(theme) => ({
           background: theme.colors.pale_gray,
-          paddingTop: 60,
-          paddingBottom: 60,
-          ">:not(:last-child)": { marginBottom: 120 },
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
+          ">:not(:last-child)": { marginBottom: theme.spacing(12) },
         })}
       >
         {/* Show skeleton while favorites/decks are loading or cards are fetching */}

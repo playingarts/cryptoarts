@@ -35,9 +35,9 @@ const INSTAGRAM_POSTS = [
 const ItemSkeleton: FC = () => (
   <div
     css={(theme) => ({
-      padding: 30,
+      padding: theme.spacing(3),
       paddingRight: 60,
-      borderRadius: 20,
+      borderRadius: theme.spacing(2),
       background: theme.colors.soft_gray,
       width: ITEM_WIDTH,
       minWidth: ITEM_WIDTH,
@@ -61,7 +61,7 @@ const ItemSkeleton: FC = () => (
     </div>
     <div
       css={(theme) => ({
-        marginTop: 30,
+        marginTop: theme.spacing(3),
         height: 80,
         borderRadius: 8,
         background: theme.colors.pale_gray,
@@ -253,7 +253,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
   return (
     <div
       css={(theme) => [
-        { background: theme.colors.pale_gray, paddingBottom: 60 },
+        { background: theme.colors.pale_gray, paddingBottom: theme.spacing(6) },
       ]}
       {...props}
     >
@@ -269,8 +269,8 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
           display: "flex",
           alignItems: "flex-start",
           gap: ITEM_GAP,
-          paddingTop: 60,
-          paddingBottom: 60,
+          paddingTop: theme.spacing(6),
+          paddingBottom: theme.spacing(6),
           paddingLeft: 95,
           paddingRight: 75,
           overflowX: "auto",

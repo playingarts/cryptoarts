@@ -21,13 +21,13 @@ const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     "52+ card decks": holders?.fullDecks?.length ? (
       <span css={{ display: "inline-flex", alignItems: "baseline", height: 40 }}>
         <AnimatedNumber value={holders.fullDecks.length} />
-        <span css={(theme) => ({ fontSize: 20, color: theme.colors.white50, marginLeft: 10 })}>/150</span>
+        <span css={(theme) => ({ ...theme.typography.linkNewTypography, color: theme.colors.white50, marginLeft: 10 })}>/150</span>
       </span>
     ) : "...",
     "Full decks": holders?.fullDecksWithJokers ? (
       <span css={{ display: "inline-flex", alignItems: "baseline", height: 40 }}>
         <AnimatedNumber value={holders.fullDecksWithJokers.length} />
-        <span css={(theme) => ({ fontSize: 20, color: theme.colors.white50, marginLeft: 10 })}>/15</span>
+        <span css={(theme) => ({ ...theme.typography.linkNewTypography, color: theme.colors.white50, marginLeft: 10 })}>/15</span>
       </span>
     ) : "...",
   };
@@ -58,9 +58,9 @@ const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {
           display: "flex",
           flexDirection: "column",
-          padding: 30,
+          padding: theme.spacing(3),
           paddingBottom: 23,
-          borderRadius: 20,
+          borderRadius: theme.spacing(2),
           height: "100%",
           boxSizing: "border-box",
           background: theme.colors.darkBlack,
@@ -69,14 +69,14 @@ const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <Text typography="newh4">Holders</Text>
-      <div css={[{ display: "flex", gap: 30, marginTop: 30 }]}>
+      <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3) }]}>
         {Object.keys(stats).map((item) => (
           <ScandiBlock
             key={item}
             css={[{ paddingTop: 15, display: "block", width: "100%" }]}
           >
             <Text typography="newh3">{stats[item as keyof typeof stats]}</Text>
-            <Text typography="newh4" css={{ fontSize: 20 }}>{item}</Text>
+            <Text typography="linkNewTypography">{item}</Text>
           </ScandiBlock>
         ))}
       </div>
@@ -97,7 +97,7 @@ const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       />
       <Text
         typography="paragraphSmall"
-        css={(theme) => [{ color: theme.colors.white50, marginTop: 30, fontSize: 15 }]}
+        css={(theme) => [{ color: theme.colors.white50, marginTop: theme.spacing(3), fontSize: 15 }]}
       >
         {mostCollectedSuit
           ? `${mostCollectedSuit} are the most collected suit.`

@@ -32,9 +32,9 @@ const Item: FC<
     <div
       css={(theme) => [
         {
-          padding: 30,
+          padding: theme.spacing(3),
           paddingRight: 60,
-          borderRadius: 20,
+          borderRadius: theme.spacing(2),
           background: theme.colors.soft_gray,
           width: 520,
           minWidth: 520,
@@ -59,7 +59,7 @@ const Item: FC<
         <Rating />
       </span>
       <Text
-        css={[{ marginTop: 30 }]}
+        css={(theme) => [{ marginTop: theme.spacing(3) }]}
         typography={
           charCount <= 30
             ? "newh2"
@@ -102,7 +102,7 @@ const Item: FC<
             textOverflow: "ellipsis",
           }}
         >
-          <span css={{ color: "#333" }}>Bought:</span>{" "}
+          <span css={(theme) => ({ color: theme.colors.black })}>Bought:</span>{" "}
           {sortedSlugs.length > 0
             ? sortedSlugs.map((slug, i) => (
                 <span key={slug}>

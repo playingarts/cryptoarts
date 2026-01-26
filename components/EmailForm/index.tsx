@@ -73,7 +73,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
               .toRgbString(),
           },
           status === "fail" && {
-            borderColor: "#E57373",
+            borderColor: theme.colors.error,
           },
           status === "success" && {
             borderColor: theme.colors.green,
@@ -84,8 +84,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
           type="email"
           placeholder="Your e-mail"
           css={(theme) => ({
-            ...(theme.typography.newParagraph as CSSObject),
-            fontSize: 20,
+            ...(theme.typography.linkNewTypography as CSSObject),
             color: theme.colors.black,
             padding: 0,
             paddingLeft: theme.spacing(2),
@@ -134,7 +133,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
             },
           ]}
         >
-          <Text css={[{ color: "white", fontSize: 20, display: "flex", alignItems: "center" }]}>
+          <Text typography="linkNewTypography" css={[{ color: "white", display: "flex", alignItems: "center" }]}>
             {status === "loading" ? "Sending..." : status === "success" ? "Done!" : "Deal"}
             {status !== "loading" && status !== "success" && <Arrow css={[{ marginLeft: 10, color: "white" }]} />}
           </Text>
@@ -153,7 +152,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
                 .toRgbString(),
             },
             status === "fail" && {
-              color: "#E57373",
+              color: theme.colors.error,
             },
             status === "success" && {
               color: theme.colors.green,

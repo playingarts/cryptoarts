@@ -121,7 +121,7 @@ const HeroHeaderSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
     {/* Country skeleton - newh4: 25px fontSize, 45px lineHeight */}
     <Shimmer width={120} height={45} borderRadius={4} dark={dark} style={{ marginTop: 8 }} />
     {/* Buttons skeleton */}
-    <div css={{ display: "flex", gap: 30, marginTop: 30 }}>
+    <div css={(theme) => ({ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3) })}>
       <Shimmer width={150} height={44} borderRadius={22} dark={dark} />
       <Shimmer width={140} height={44} borderRadius={22} dark={dark} />
     </div>
@@ -162,9 +162,9 @@ const HeroHeader: FC<HeroHeaderProps> = ({
     >
       <Text
         typography="newh1"
-        css={{
-          color: dark ? "#FFFFFFBF" : "black",
-        }}
+        css={(theme) => ({
+          color: dark ? theme.colors.white75 : "black",
+        })}
       >
         {artistName}
       </Text>
@@ -176,10 +176,10 @@ const HeroHeader: FC<HeroHeaderProps> = ({
       >
         {country ?? "..."}
       </Text>
-      <div css={{ display: "flex", alignItems: "center", gap: 15, marginTop: 30 }}>
+      <div css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(1.5), marginTop: theme.spacing(3) })}>
         {cardId && <FavButton deckSlug={deckSlug} cardId={cardId} />}
         <Link href={shopUrl}>
-          <ArrowButton color="accent" css={{ fontSize: 20 }}>Shop {deckTitle || "this deck"}</ArrowButton>
+          <ArrowButton color="accent" size="medium">Shop {deckTitle || "this deck"}</ArrowButton>
         </Link>
         <Link href={deckUrl} css={{ marginLeft: 15 }}>
           <ArrowButton
@@ -189,7 +189,7 @@ const HeroHeader: FC<HeroHeaderProps> = ({
             css={(theme) => [
               { color: theme.colors.black },
               dark && {
-                color: "#FFFFFFBF",
+                color: theme.colors.white75,
                 transition: "color 0.2s ease",
                 "&:hover": {
                   color: theme.colors.white,

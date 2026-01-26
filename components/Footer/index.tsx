@@ -46,7 +46,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
         {
           background:
             theme.colors[palette === "dark" ? "spaceBlack" : "pale_gray"],
-          paddingTop: 60,
+          paddingTop: theme.spacing(6),
           paddingBottom: 90,
         },
       ]}
@@ -65,14 +65,14 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
       >
         <div>
           <Text
-            typography="newh4"
+            typography="linkNewTypography"
             css={(theme) => [
-              { color: theme.colors[palette === "dark" ? "white50" : "black50"], fontSize: 20 },
+              { color: theme.colors[palette === "dark" ? "white50" : "black50"] },
             ]}
           >
             Download Playing Arts AR™ app
           </Text>
-          <div css={[{ marginTop: 30 }]}>
+          <div css={(theme) => [{ marginTop: theme.spacing(3) }]}>
             <a
               href="https://apps.apple.com/es/app/playing-arts/id1594901668?l=en"
               target="_blank"
@@ -80,9 +80,9 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
               css={{ textDecoration: "none", marginRight: 15 }}
             >
               <ButtonTemplate
+                size="medium"
                 css={(theme) => ({
                   paddingLeft: 10,
-                  fontSize: 20,
                   color: palette === "dark" ? theme.colors.spaceBlack : undefined,
                 })}
                 color={palette === "dark" ? "white50" : undefined}
@@ -105,9 +105,9 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
             >
               <ButtonTemplate
                 color={palette === "dark" ? "white50" : undefined}
+                size="medium"
                 css={(theme) => ({
                   paddingLeft: 10,
-                  fontSize: 20,
                   color: palette === "dark" ? theme.colors.spaceBlack : undefined,
                 })}
                 palette={palette}
@@ -168,17 +168,16 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           ]}
         >
           <Text
-            typography="newh4"
+            typography="linkNewTypography"
             css={(theme) => [
               {
                 color: theme.colors[palette === "dark" ? "white50" : "black50"],
-                fontSize: 20,
               },
             ]}
           >
             {key}
           </Text>
-          <div css={[{ marginTop: 30, display: "grid", gap: 5 }]}>
+          <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: 5 }]}>
             {links[key].map((item) => (
               <Link
                 key={item.label + "Link"}

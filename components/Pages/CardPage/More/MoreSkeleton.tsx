@@ -67,7 +67,7 @@ const MoreSkeleton: FC<MoreSkeletonProps> = ({ dark }) => (
     >
       <div css={{ gridColumn: "1/-1" }}>
         {/* Intro skeleton */}
-        <div css={{ paddingTop: 60, paddingBottom: 30 }}>
+        <div css={(theme) => ({ paddingTop: theme.spacing(6), paddingBottom: theme.spacing(3) })}>
           <Shimmer width={200} height={32} borderRadius={16} dark={dark} />
           <Shimmer
             width={250}
@@ -77,7 +77,7 @@ const MoreSkeleton: FC<MoreSkeletonProps> = ({ dark }) => (
             marginTop={20}
           />
           {/* Nav buttons skeleton */}
-          <div css={{ display: "flex", gap: 5, marginTop: 120 }}>
+          <div css={(theme) => ({ display: "flex", gap: 5, marginTop: theme.spacing(12) })}>
             <Shimmer width={44} height={44} borderRadius={22} dark={dark} />
             <Shimmer width={44} height={44} borderRadius={22} dark={dark} />
           </div>
@@ -88,12 +88,12 @@ const MoreSkeleton: FC<MoreSkeletonProps> = ({ dark }) => (
     <div
       css={(theme) => ({
         background: theme.colors[dark ? "darkBlack" : "soft_gray"],
-        paddingBottom: 120,
-        paddingTop: 60,
+        paddingBottom: theme.spacing(12),
+        paddingTop: theme.spacing(6),
         paddingLeft: 95,
         paddingRight: 75,
         display: "flex",
-        gap: 30,
+        gap: theme.spacing(3),
         overflowX: "hidden",
       })}
     >

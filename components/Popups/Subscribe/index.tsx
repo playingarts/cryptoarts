@@ -57,13 +57,13 @@ const Subscribe: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
       <div
         css={(theme) => [
           {
-            borderRadius: 15,
+            borderRadius: theme.spacing(1.5),
             overflow: "hidden",
             width: "100%",
             maxWidth: 1130,
             display: "grid",
             gridTemplateColumns: "auto auto",
-            gap: 30,
+            gap: theme.spacing(3),
             backgroundColor: theme.colors.accent,
           },
         ]}
@@ -126,8 +126,8 @@ const Subscribe: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
               gain automatic entry into our monthly giveaways.
             </Text>
             <div
-              css={[
-                { marginTop: 30, display: "flex", gap: 30, color: "white" },
+              css={(theme) => [
+                { marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), color: "white" },
               ]}
             >
               <Link href={socialLinks.instagram}>

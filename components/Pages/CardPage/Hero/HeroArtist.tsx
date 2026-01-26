@@ -73,7 +73,7 @@ const HeroArtistSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
     {/* "The artist" button skeleton */}
     <Shimmer width={100} height={32} borderRadius={16} dark={dark} />
 
-    <div css={{ marginTop: 60, display: "flex", gap: 30 }}>
+    <div css={(theme) => ({ marginTop: theme.spacing(6), display: "flex", gap: theme.spacing(3) })}>
       {/* Userpic skeleton */}
       <Shimmer width={80} height={80} borderRadius={10} dark={dark} />
 
@@ -88,7 +88,7 @@ const HeroArtistSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
         </div>
 
         {/* Social icons skeleton */}
-        <div css={{ marginTop: 30, display: "flex", gap: 30 }}>
+        <div css={(theme) => ({ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3) })}>
           <Shimmer width={24} height={24} borderRadius={4} dark={dark} />
           <Shimmer width={24} height={24} borderRadius={4} dark={dark} />
           <Shimmer width={24} height={24} borderRadius={4} dark={dark} />
@@ -126,7 +126,7 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
       </ArrowedButton>
 
       <div>
-        <div css={{ marginTop: 60, display: "flex", gap: 30 }}>
+        <div css={(theme) => ({ marginTop: theme.spacing(6), display: "flex", gap: theme.spacing(3) })}>
           {artist.userpic && (
             <img
               src={artist.userpic}
@@ -169,7 +169,7 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
                 css={(theme) => [
                   { marginTop: 15, color: theme.colors.black },
                   dark && {
-                    color: "#FFFFFFBF",
+                    color: theme.colors.white75,
                     transition: "color 0.2s ease",
                     "&:hover": {
                       color: theme.colors.white,
@@ -183,9 +183,9 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
             {artist.social && (
               <div
                 css={(theme) => ({
-                  marginTop: 30,
+                  marginTop: theme.spacing(3),
                   display: "flex",
-                  gap: 30,
+                  gap: theme.spacing(3),
                   alignItems: "center",
                   ...(dark && { color: theme.colors.white75 }),
                 })}
@@ -263,7 +263,7 @@ const HeroArtist: FC<HeroArtistProps> = ({ artist, animator, dark, onVisible, lo
           title={`Animator – ${animator.name}`}
           sectionId="animator"
           dark={dark}
-          style={{ marginTop: 60 }}
+          style={{ marginTop: 60 }} /* TODO: convert to theme.spacing(6) when using css prop */
         />
       )}
     </div>

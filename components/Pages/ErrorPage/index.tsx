@@ -40,7 +40,7 @@ const ErrorPage: FC<Props> = ({ code = "404", message = "Page not found" }) => {
             gap: theme.spacing(3),
           })}
         >
-          <Link href="/" css={{ marginBottom: 30 }}>
+          <Link href="/" css={(theme) => ({ marginBottom: theme.spacing(3) })}>
             <Logo css={(theme) => ({ color: theme.colors.dark_gray })} />
           </Link>
           <Text

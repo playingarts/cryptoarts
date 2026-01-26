@@ -29,7 +29,7 @@ const Holder: FC<HolderProps> = ({ address, count, username, profileImage, hideC
       css={(theme) => ({
         display: "flex",
         alignItems: "center",
-        gap: 15,
+        gap: theme.spacing(1.5),
         textDecoration: "none",
         transition: "opacity 0.2s",
         "&:hover": {
@@ -73,7 +73,7 @@ const Holder: FC<HolderProps> = ({ address, count, username, profileImage, hideC
 };
 
 const HolderSkeleton: FC = () => (
-  <div css={{ display: "flex", alignItems: "center", gap: 15 }}>
+  <div css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(1.5) })}>
     <div
       css={(theme) => ({
         width: 40,
@@ -126,26 +126,26 @@ const Leaderboard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           background: theme.colors.darkBlack,
-          padding: 30,
-          borderRadius: 20,
+          padding: theme.spacing(3),
+          borderRadius: theme.spacing(2),
         },
       ]}
       {...props}
     >
       <Text typography="newh4">Leaderboard</Text>
-      <div css={[{ display: "flex", gap: 30, marginTop: 30 }]}>
+      <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3) }]}>
         {categories.map((category) => (
           <div key={category.key} css={[{ flex: "1 1 0", minWidth: 0 }]}>
-            <Text typography="newh4" css={[{ marginBottom: 5, fontSize: 20 }]}>
+            <Text typography="linkNewTypography" css={[{ marginBottom: 5 }]}>
               {category.title}
             </Text>
             <Text typography="paragraphSmall">{category.subtitle}</Text>
             <ScandiBlock
-              css={[
+              css={(theme) => [
                 {
                   display: "block",
                   width: "100%",
-                  marginTop: 30,
+                  marginTop: theme.spacing(3),
                   " > *": {
                     paddingTop: 30,
                   },
@@ -181,7 +181,7 @@ const Leaderboard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       </div>
       <Text
         typography="paragraphSmall"
-        css={(theme) => [{ color: theme.colors.white50, marginTop: 30, fontSize: 15 }]}
+        css={(theme) => [{ color: theme.colors.white50, marginTop: theme.spacing(3), fontSize: 15 }]}
       >
         Updated daily from OpenSea
       </Text>

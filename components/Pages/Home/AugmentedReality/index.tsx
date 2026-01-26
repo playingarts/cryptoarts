@@ -20,7 +20,7 @@ const Presentation = () => {
         {
           gridColumn: "span 6",
           background: theme.colors.accent,
-          borderRadius: 20,
+          borderRadius: theme.spacing(2),
           position: "relative",
         },
       ]}
@@ -93,7 +93,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
       <div css={{ paddingTop: 90 }}>
         <Text
           typography="paragraphSmall"
-          css={(theme) => [{ marginBottom: 30, color: theme.colors.dark_gray }]}
+          css={(theme) => [{ marginBottom: theme.spacing(3), color: theme.colors.dark_gray }]}
         >
           Download free
           <br />
@@ -106,9 +106,9 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           css={{ textDecoration: "none", marginRight: 15 }}
         >
           <ButtonTemplate
+            size="medium"
             css={{
               paddingLeft: 10,
-              fontSize: 20,
             }}
           >
             <Apple
@@ -127,9 +127,9 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
           css={{ textDecoration: "none" }}
         >
           <ButtonTemplate
+            size="medium"
             css={{
               paddingLeft: 10,
-              fontSize: 20,
             }}
           >
             <Android

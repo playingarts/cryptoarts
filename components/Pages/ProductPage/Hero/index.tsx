@@ -42,12 +42,12 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   return product && product.deck ? (
     <Grid css={[{ overflow: "hidden" }]}>
       <div
-        css={[
+        css={(theme) => [
           {
             paddingTop: 235,
-            paddingBottom: 60,
+            paddingBottom: theme.spacing(6),
             display: "grid",
-            gap: 15,
+            gap: theme.spacing(1.5),
             gridColumn: "7 / span 5",
             position: "relative",
           },
@@ -56,15 +56,15 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <Text typography="newh1" css={{ textAlign: "left", fontSize: 65 }}>{product.title}</Text>
         <Text>{product.description}</Text>
         {product.deck?.slug !== "crypto" && <Text>${product.price.usd}</Text>}
-        <div css={{ display: "flex", alignItems: "center", gap: 30 }}>
+        <div css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(3) })}>
           {product.deck?.slug === "crypto" ? (
-            <Button size="big" bordered css={{ fontSize: 20 }}>
+            <Button size="medium" bordered>
               Exclusive
             </Button>
           ) : product.status === "soldout" || product.status === "soon" ? (
-            <SoldOut size="big" css={{ fontSize: 20 }} status={product.status} />
+            <SoldOut size="medium" status={product.status} />
           ) : (
-            <AddToBag productId={product._id} size="big" css={{ fontSize: 20 }} />
+            <AddToBag productId={product._id} size="medium" />
           )}
           <ContinueShopping css={{ fontSize: 18 }} />
         </div>

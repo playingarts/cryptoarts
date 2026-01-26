@@ -227,8 +227,8 @@ const MainPhotoSlot: FC<{ src?: string | null; alt?: string }> = ({ src, alt }) 
 
 // Skeleton for loading state
 const DailyCardSkeleton: FC = () => (
-  <div css={[{ gridColumn: "span 6/-1", marginTop: 30 }]}>
-    <div css={[{ display: "flex", gap: 30 }]}>
+  <div css={(theme) => [{ gridColumn: "span 6/-1", marginTop: theme.spacing(3) }]}>
+    <div css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
       <div
         css={(theme) => ({
           width: 80,
@@ -263,7 +263,7 @@ const DailyCardSkeleton: FC = () => (
         height: 60,
         borderRadius: 4,
         background: theme.colors.soft_gray,
-        marginTop: 60,
+        marginTop: theme.spacing(6),
       })}
     />
     <div
@@ -272,7 +272,7 @@ const DailyCardSkeleton: FC = () => (
         height: 20,
         borderRadius: 4,
         background: theme.colors.soft_gray,
-        marginTop: 30,
+        marginTop: theme.spacing(3),
       })}
     />
   </div>
@@ -320,7 +320,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           background: theme.colors.pale_gray,
-          paddingTop: 60,
+          paddingTop: theme.spacing(6),
           paddingBottom: 150,
         },
       ]}
@@ -357,7 +357,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           Carefully crafted on legendary Bicycle® paper for unparalleled
           artistry and tactile quality.
         </Text>
-        <ArrowButton href="/shop" color="accent" css={[{ marginTop: 30, fontSize: 20 }]}>
+        <ArrowButton href="/shop" color="accent" size="medium" css={(theme) => [{ marginTop: theme.spacing(3) }]}>
           Shop the collection
         </ArrowButton>
         {width >= breakpoints.sm ? (
@@ -374,7 +374,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => [
           {
             gridColumn: "1/-1",
-            gap: 30,
+            gap: theme.spacing(3),
             img: { background: " white", borderRadius: 16 },
             [theme.maxMQ.sm]: {
               // Mobile styles - to be implemented
@@ -464,12 +464,12 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 // Mobile styles - to be implemented
               },
               objectFit: "cover",
-              padding: 30,
+              padding: theme.spacing(3),
               display: "grid",
               alignContent: "end",
               justifyItems: "start",
-              gap: 30,
-              borderRadius: 15,
+              gap: theme.spacing(3),
+              borderRadius: theme.spacing(1.5),
             },
           ]}
         >
@@ -482,8 +482,8 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {loading || !dailyCard ? (
           <DailyCardSkeleton />
         ) : (
-          <div css={[{ gridColumn: "span 6/-1", marginTop: 30 }]}>
-            <div css={[{ display: "flex", gap: 30 }]}>
+          <div css={(theme) => [{ gridColumn: "span 6/-1", marginTop: theme.spacing(3) }]}>
+            <div css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
               <img
                 src={dailyCard.artist?.userpic}
                 alt={dailyCard.artist?.name}
@@ -500,13 +500,13 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             </div>
             <Text
               typography="newParagraph"
-              css={{
-                marginTop: 30,
+              css={(theme) => ({
+                marginTop: theme.spacing(3),
                 display: "-webkit-box",
                 WebkitLineClamp: 5,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
-              }}
+              })}
             >
               {dailyCard.info}
             </Text>
@@ -516,7 +516,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               size="small"
               noColor={true}
               base={true}
-              css={[{ marginTop: 30 }]}
+              css={(theme) => [{ marginTop: theme.spacing(3) }]}
               onMouseEnter={handleLinkMouseEnter}
               onClick={handleLinkClick}
             >

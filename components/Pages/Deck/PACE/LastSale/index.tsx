@@ -65,8 +65,8 @@ const LastSale: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           display: "flex",
           flexDirection: "column",
           background: theme.colors.darkBlack,
-          padding: 30,
-          borderRadius: 20,
+          padding: theme.spacing(3),
+          borderRadius: theme.spacing(2),
           height: "100%",
           boxSizing: "border-box",
         },
@@ -85,7 +85,7 @@ const LastSale: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         }
         css={[{ margin: "30px auto 0" }]}
       />
-      <Text typography="paragraphSmall" css={[{ marginTop: 30 }]}>
+      <Text typography="paragraphSmall" css={(theme) => [{ marginTop: theme.spacing(3) }]}>
         {lastSale?.nft_name || "..."}
       </Text>
       <Text typography="paragraphSmall" css={[{ marginTop: 2, marginBottom: 15 }]}>

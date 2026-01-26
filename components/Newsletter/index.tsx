@@ -25,8 +25,8 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
   <section
     css={(theme) => ({
       background: theme.colors.accent,
-      paddingTop: 60,
-      paddingBottom: 60,
+      paddingTop: theme.spacing(6),
+      paddingBottom: theme.spacing(6),
     })}
     {...props}
   >
@@ -56,7 +56,7 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
         <div
           css={(theme) => ({
             display: "flex",
-            gap: 30,
+            gap: theme.spacing(3),
             marginTop: "auto",
             "& svg": {
               width: 24,
@@ -99,13 +99,13 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
         >
           Project updates
         </Text>
-        <div css={{ width: "100%", marginTop: 60 }}>
+        <div css={(theme) => ({ width: "100%", marginTop: theme.spacing(6) })}>
           <EmailForm palette="dark" />
           <Text
             typography="paragraphNano"
             css={(theme) => ({
               color: theme.colors.white,
-              marginTop: 30,
+              marginTop: theme.spacing(3),
               width: "66.67%", // 4 columns out of 6
             })}
           >

@@ -83,17 +83,17 @@ const LoginPage: FC = () => {
         css={(theme) => ({
           background: theme.colors.soft_gray,
           paddingTop: 235,
-          paddingBottom: 60,
+          paddingBottom: theme.spacing(6),
         })}
       >
         <div css={{ gridColumn: "span 8" }}>
           <Text typography="newh3">Admin Login</Text>
 
           {state === "sent" ? (
-            <div css={{ marginTop: 30, marginBottom: 120 }}>
+            <div css={(theme) => ({ marginTop: theme.spacing(3), marginBottom: theme.spacing(12) })}>
               <Text
+                typography="linkNewTypography"
                 css={(theme) => ({
-                  fontSize: 20,
                   color: theme.colors.black,
                   marginBottom: 20,
                 })}
@@ -108,7 +108,7 @@ const LoginPage: FC = () => {
                   setEmail("");
                 }}
                 color="accent"
-                css={{ fontSize: 20 }}
+                size="medium"
               >
                 Try a different email
               </ArrowButton>
@@ -116,14 +116,14 @@ const LoginPage: FC = () => {
           ) : (
             <>
               <div
-                css={{
-                  marginTop: 30,
-                  marginBottom: 120,
+                css={(theme) => ({
+                  marginTop: theme.spacing(3),
+                  marginBottom: theme.spacing(12),
                   maxWidth: 400,
                   display: "flex",
                   flexDirection: "column",
-                  gap: 15,
-                }}
+                  gap: theme.spacing(1.5),
+                })}
               >
                 <input
                   type="email"
@@ -170,9 +170,9 @@ const LoginPage: FC = () => {
                 <ArrowButton
                   onClick={handleSubmit}
                   color="accent"
+                  size="medium"
                   css={{
                     marginTop: 15,
-                    fontSize: 20,
                     opacity: state === "sending" || !email ? 0.5 : 1,
                     pointerEvents: state === "sending" || !email ? "none" : "auto",
                   }}

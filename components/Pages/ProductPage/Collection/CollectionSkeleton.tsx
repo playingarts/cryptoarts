@@ -21,14 +21,14 @@ const shimmerStyles = {
 /** Skeleton item for product carousel */
 const ProductSkeleton: FC = () => (
   <div
-    css={{
+    css={(theme) => ({
       width: ITEM_WIDTH,
       flexShrink: 0,
-      padding: 30,
+      padding: theme.spacing(3),
       display: "flex",
       flexDirection: "column",
-      gap: 15,
-    }}
+      gap: theme.spacing(1.5),
+    })}
   >
     {/* Product image skeleton */}
     <div
@@ -78,16 +78,16 @@ const CollectionSkeleton: FC = () => (
   <Grid
     css={(theme) => ({
       background: theme.colors.pale_gray,
-      paddingBottom: 60,
+      paddingBottom: theme.spacing(6),
     })}
   >
     {/* Intro skeleton */}
-    <div css={{ gridColumn: "1/-1", paddingTop: 60, paddingBottom: 30 }}>
+    <div css={(theme) => ({ gridColumn: "1/-1", paddingTop: theme.spacing(6), paddingBottom: theme.spacing(3) })}>
       <div css={{ ...shimmerStyles, width: 250, height: 32, borderRadius: 16 }} />
       <div css={{ ...shimmerStyles, width: 300, height: 20, borderRadius: 4, marginTop: 20 }} />
-      <div css={{ ...shimmerStyles, width: 150, height: 45, borderRadius: 8, marginTop: 30 }} />
+      <div css={(theme) => ({ ...shimmerStyles, width: 150, height: 45, borderRadius: 8, marginTop: theme.spacing(3) })} />
       {/* Nav buttons skeleton */}
-      <div css={{ display: "flex", gap: 5, marginTop: 120 }}>
+      <div css={(theme) => ({ display: "flex", gap: 5, marginTop: theme.spacing(12) })}>
         <div css={{ ...shimmerStyles, width: 44, height: 44, borderRadius: 22 }} />
         <div css={{ ...shimmerStyles, width: 44, height: 44, borderRadius: 22 }} />
       </div>
@@ -97,9 +97,9 @@ const CollectionSkeleton: FC = () => (
     <div
       css={(theme) => ({
         gridColumn: "1/-1",
-        marginTop: 30,
+        marginTop: theme.spacing(3),
         background: theme.colors.white50,
-        borderRadius: 20,
+        borderRadius: theme.spacing(2),
         overflow: "hidden",
       })}
     >
