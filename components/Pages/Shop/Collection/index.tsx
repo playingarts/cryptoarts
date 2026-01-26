@@ -273,7 +273,6 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             gridColumn: "1/-1",
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
-            // flexWrap: "wrap",
             gap: 3,
             marginTop: theme.spacing(6),
             " > *": {
@@ -283,6 +282,12 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               "&:hover": {
                 background: theme.colors.white75,
               },
+            },
+            [theme.maxMQ.sm]: {
+              gridTemplateColumns: "1fr 1fr",
+            },
+            [theme.maxMQ.xsm]: {
+              gridTemplateColumns: "1fr",
             },
           },
         ]}

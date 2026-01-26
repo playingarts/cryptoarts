@@ -56,7 +56,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Text typography="newh1" css={{ textAlign: "left", fontSize: 65 }}>{product.title}</Text>
+        <Text typography="newh1" css={(theme) => ({ textAlign: "left", fontSize: 65, [theme.maxMQ.xsm]: { fontSize: 40 } })}>{product.title}</Text>
         <Text>{product.description}</Text>
         {product.deck?.slug !== "crypto" && <Text>${product.price.usd}</Text>}
         <div css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(3) })}>
@@ -72,7 +72,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           <ContinueShopping css={{ fontSize: 18 }} />
         </div>
         <div
-          css={[
+          css={(theme) => [
             {
               width: 960,
               height: 600,
@@ -82,6 +82,9 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               pointerEvents: "none",
               opacity: 0,
               transition: "opacity 500ms ease",
+              [theme.maxMQ.sm]: {
+                display: "none",
+              },
             },
           ]}
           style={

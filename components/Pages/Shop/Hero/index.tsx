@@ -47,7 +47,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         },
       ]}
     >
-      <div css={[{ gridColumn: "span 6", position: "relative" }]}>
+      <div css={(theme) => [{ gridColumn: "span 6", position: "relative", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
         <Text typography="newh1">Shop</Text>
         <Text css={(theme) => [{ marginTop: theme.spacing(3) }]}>
           Limited-edition playing cards and exclusive
@@ -69,7 +69,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </Link>
         </div>
         <div
-          css={[
+          css={(theme) => [
             {
               width: 960,
               height: 600,
@@ -78,6 +78,9 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               left: 455,
               opacity: 0,
               transition: "opacity 500ms ease",
+              [theme.maxMQ.sm]: {
+                display: "none",
+              },
             },
           ]}
           style={
