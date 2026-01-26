@@ -3,7 +3,12 @@ import dynamic from "next/dynamic";
 import Grid from "../Grid";
 import ScandiBlock from "../ScandiBlock";
 import Text from "../Text";
+import Link from "../Link";
 import IconArrow from "../Icons/IconArrow";
+import Instagram from "../Icons/Instagram";
+import Twitter from "../Icons/Twitter";
+import Youtube from "../Icons/Youtube";
+import { socialLinks } from "../../source/consts";
 
 // Lazy load EmailForm to reduce bundle (includes react-hook-form ~23kB)
 const EmailForm = dynamic(() => import("../EmailForm"), {
@@ -26,13 +31,16 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
     {...props}
   >
     <Grid>
-      {/* Left column - Title */}
+      {/* Left column - Title + Social Icons */}
       <ScandiBlock
         palette="dark"
         css={{
           gridColumn: "span 6",
           paddingTop: 15,
           alignItems: "start",
+          flexDirection: "column",
+          justifyContent: "space-between",
+          height: "100%",
         }}
       >
         <Text
@@ -45,6 +53,32 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
           <IconArrow css={{ marginRight: 10 }} />
           Newsletter
         </Text>
+        <div
+          css={(theme) => ({
+            display: "flex",
+            gap: 20,
+            marginTop: "auto",
+            "& svg": {
+              width: 24,
+              height: 24,
+              color: theme.colors.white,
+              transition: "opacity 0.2s",
+              "&:hover": {
+                opacity: 0.7,
+              },
+            },
+          })}
+        >
+          <Link href={socialLinks.instagram} target="_blank" rel="noopener noreferrer">
+            <Instagram />
+          </Link>
+          <Link href={socialLinks.twitter} target="_blank" rel="noopener noreferrer">
+            <Twitter />
+          </Link>
+          <Link href={socialLinks.youtube} target="_blank" rel="noopener noreferrer">
+            <Youtube />
+          </Link>
+        </div>
       </ScandiBlock>
 
       {/* Right column - Description + Form */}
@@ -65,23 +99,21 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
         >
           Explore project updates
         </Text>
-        <div css={{ width: "100%", marginTop: 30 }}>
+        <div css={{ width: "100%", marginTop: 60 }}>
           <EmailForm palette="dark" />
+          <Text
+            typography="paragraphNano"
+            css={(theme) => ({
+              color: theme.colors.white,
+              marginTop: 30,
+              width: "66.67%", // 4 columns out of 6
+            })}
+          >
+            Join 10,000+ collectors for early access to exclusive drops and
+            automatic entry into our monthly giveaways.
+          </Text>
         </div>
       </ScandiBlock>
-
-      {/* Disclaimer text - 4 columns, aligned with right column */}
-      <Text
-        typography="paragraphNano"
-        css={(theme) => ({
-          gridColumn: "7 / span 4",
-          color: theme.colors.white,
-          marginTop: 30,
-        })}
-      >
-        Join 10,000+ collectors for early access to exclusive drops and
-        automatic entry into our monthly giveaways.
-      </Text>
     </Grid>
   </section>
 );
