@@ -8,11 +8,11 @@ import Footer from "../../Footer";
 import Newsletter from "../../Newsletter";
 import Text from "../../Text";
 
-const ContactPage: FC = () => {
+const KickstarterPage: FC = () => {
   return (
     <>
       <Head>
-        <title>Contact - Playing Arts</title>
+        <title>Kickstarter - Playing Arts</title>
       </Head>
       <Header links={[]} />
       <Grid
@@ -20,9 +20,6 @@ const ContactPage: FC = () => {
           background: theme.colors.soft_gray,
           paddingTop: theme.spacing(20),
           paddingBottom: 120,
-          [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
-          },
         })}
       >
         <div css={{ gridColumn: "1 / -1" }}>
@@ -33,7 +30,7 @@ const ContactPage: FC = () => {
               marginBottom: theme.spacing(4),
             })}
           >
-            Contact
+            Kickstarter
           </Text>
           <div
             css={(theme) => ({
@@ -44,22 +41,9 @@ const ContactPage: FC = () => {
           />
         </div>
 
-        <div
-          css={(theme) => ({
-            gridColumn: "span 12",
-            [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
-          })}
-        >
+        <div css={{ gridColumn: "span 12" }}>
           <Text typography="newParagraph">
-            You got questions concerning your order or a general matter?
-            <br />
-            Please reach out to us:{" "}
-            <a
-              href="mailto:info@playingarts.com"
-              css={(theme) => ({ color: theme.colors.accent })}
-            >
-              info@playingarts.com
-            </a>
+            Coming soon
           </Text>
         </div>
       </Grid>
@@ -69,4 +53,4 @@ const ContactPage: FC = () => {
   );
 };
 
-export default ContactPage;
+export default KickstarterPage;

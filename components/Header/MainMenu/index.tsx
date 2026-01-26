@@ -234,7 +234,7 @@ const MainMenu: FC<
                   transition: theme.transitions.fast("background"),
                   color: theme.colors.dark_gray,
                   "&:hover": {
-                    background: colord(theme.colors.white).alpha(0.5).toRgbString(),
+                    background: "rgba(255, 255, 255, 0.5)",
                   },
                 },
               ]}
@@ -242,7 +242,7 @@ const MainMenu: FC<
               noColor={true}
             >
               <Delete css={[{ marginRight: 10 }]} />
-              Close
+              Close menu
             </ButtonTemplate>
           </ScandiBlock>
 

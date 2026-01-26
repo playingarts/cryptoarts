@@ -18,24 +18,21 @@ export type FooterLink = {
 export const links: { [key: string]: FooterLink[] } = {
   "The project": [
     { label: "Home", href: "/" },
-    { label: "Our story", href: "/#about" },
-    { label: "AR app", href: "/#ar" },
-    { label: "Gallery", href: "/#gallery" },
+    { label: "AR app", href: "/ar" },
+    { label: "Gallery", href: "/gallery" },
     { label: "Press", href: "/press" },
   ],
   "Shop & help": [
     { label: "Shop", href: "/shop" },
-    { label: "Shipping", href: "/shipping" },
-    { label: "Reviews", href: "/#reviews" },
-    { label: "Stockists", href: "/stockists" },
+    { label: "Reviews", href: "/reviews" },
+    { label: "Shipping", href: "/shop#faq" },
     { label: "Contact", href: "/contact" },
   ],
   Community: [
+    { label: "Artists", href: "/artists" },
     { label: "Participate", href: "/participate" },
-    { label: "Contributors", href: "/contributors" },
     { label: "Kickstarter", href: "/kickstarter" },
-    { label: "Podcast", href: "/#podcast" },
-    { label: "FAQ", href: "/faq" },
+    { label: "Podcast", href: "/podcast" },
   ],
 };
 

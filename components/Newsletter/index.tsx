@@ -56,7 +56,7 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
         <div
           css={(theme) => ({
             display: "flex",
-            gap: 20,
+            gap: 30,
             marginTop: "auto",
             "& svg": {
               width: 24,
@@ -97,7 +97,7 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
             color: theme.colors.white,
           })}
         >
-          Explore project updates
+          Project updates
         </Text>
         <div css={{ width: "100%", marginTop: 60 }}>
           <EmailForm palette="dark" />

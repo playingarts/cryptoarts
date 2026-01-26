@@ -45,7 +45,7 @@ const NewsletterSection: FC = () => {
           palette="dark"
           css={(theme) => ({ color: theme.colors.white, fontSize: 25 })}
         >
-          Explore project updates
+          Project updates
         </Text>
         <EmailForm />
       </ScandiBlock>

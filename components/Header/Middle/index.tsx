@@ -230,7 +230,7 @@ const Middle = ({
           </Link>
           {customMiddle ?? <ArrowNav />}
         </div>
-        {width >= breakpoints.md && (
+        {width >= breakpoints.md && links.length > 0 && (
           topContent ? (
             // When topContent is provided, show it at top and nav links after scroll
             showSiteNav === "top" ? topContent : <PageNav links={links} />
