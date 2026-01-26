@@ -14,7 +14,7 @@ const ARPage: FC = () => {
       <Head>
         <title>AR App - Playing Arts</title>
       </Head>
-      <Header links={[]} />
+      <Header links={[]} pageTitle="AR App" />
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,

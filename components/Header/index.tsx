@@ -16,6 +16,8 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   links?: string[];
   /** Content to show in initial state (before scroll), switches to nav links after scroll */
   topContent?: ReactNode;
+  /** Page title to show in header after scrolling (for static pages) */
+  pageTitle?: string;
 }
 
 const Header: FC<Props> = ({
@@ -23,6 +25,7 @@ const Header: FC<Props> = ({
   customCTA,
   links = ["About", "Collection", "Gallery", "AR", "Reviews", "Podcast"],
   topContent,
+  pageTitle,
   ...props
 }) => {
   const [showSiteNav, setShowSiteNav] = useState<"top" | "afterTop">("top");
@@ -137,6 +140,7 @@ const Header: FC<Props> = ({
         <TitleButton
           inset={showSiteNav !== "afterTop"}
           showSiteNav={showSiteNav}
+          pageTitle={pageTitle}
           css={(theme) => [
             {
               transition: theme.transitions.fast(["border-color", "top"]),

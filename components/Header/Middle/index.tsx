@@ -171,7 +171,7 @@ const Middle = ({
         css={(theme) => [
           {
             color: theme.colors.dark_gray,
-            height: "200%",
+            height: links.length > 0 ? "200%" : "100%",
             position: "relative",
             top: 0,
             transition: theme.transitions.fast("top"),
@@ -180,7 +180,8 @@ const Middle = ({
         style={
           (width >= breakpoints.sm &&
             showSiteNav !== "top" &&
-            altNav && {
+            altNav &&
+            links.length > 0 && {
               top: "-100%",
             }) ||
           {}
@@ -189,7 +190,7 @@ const Middle = ({
         <div
           css={(theme) => [
             {
-              height: "50%",
+              height: links.length > 0 ? "50%" : "100%",
               display: "flex",
               "> *": {
                 flexGrow: 1,

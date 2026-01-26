@@ -14,7 +14,7 @@ const ContactPage: FC = () => {
       <Head>
         <title>Contact - Playing Arts</title>
       </Head>
-      <Header links={[]} />
+      <Header links={[]} pageTitle="Contact" />
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,

@@ -13,8 +13,8 @@ import { breakpoints } from "../../../source/enums";
 import { useMenu } from "../../Contexts/menu";
 
 const TitleButton: FC<
-  HTMLAttributes<HTMLElement> & { showSiteNav?: "top" | "afterTop" } & Props
-> = ({ showSiteNav = "top", ...props }) => {
+  HTMLAttributes<HTMLElement> & { showSiteNav?: "top" | "afterTop"; pageTitle?: string } & Props
+> = ({ showSiteNav = "top", pageTitle, ...props }) => {
   const { openMenu } = useMenu();
   const router = useRouter();
   const {
@@ -117,6 +117,8 @@ const TitleButton: FC<
               ? productDeckTitle
               : deckId && deckTitle && showSiteNav === "afterTop"
               ? deckTitle
+              : showSiteNav === "afterTop" && pageTitle
+              ? pageTitle
               : "Playing Arts"}
           </span>
         )}

@@ -14,7 +14,7 @@ const PodcastPage: FC = () => {
       <Head>
         <title>Podcast - Playing Arts</title>
       </Head>
-      <Header links={[]} />
+      <Header links={[]} pageTitle="Podcast" />
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,

@@ -14,7 +14,7 @@ const GalleryPage: FC = () => {
       <Head>
         <title>Gallery - Playing Arts</title>
       </Head>
-      <Header links={[]} />
+      <Header links={[]} pageTitle="Gallery" />
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,

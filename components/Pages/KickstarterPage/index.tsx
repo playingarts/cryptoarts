@@ -14,7 +14,7 @@ const KickstarterPage: FC = () => {
       <Head>
         <title>Kickstarter - Playing Arts</title>
       </Head>
-      <Header links={[]} />
+      <Header links={[]} pageTitle="Kickstarter" />
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,

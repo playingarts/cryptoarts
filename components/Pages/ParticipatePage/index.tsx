@@ -14,7 +14,7 @@ const ParticipatePage: FC = () => {
       <Head>
         <title>Participate - Playing Arts</title>
       </Head>
-      <Header links={[]} />
+      <Header links={[]} pageTitle="Participate" />
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,

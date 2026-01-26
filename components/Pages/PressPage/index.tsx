@@ -14,7 +14,7 @@ const PressPage: FC = () => {
       <Head>
         <title>Press - Playing Arts</title>
       </Head>
-      <Header links={[]} />
+      <Header links={[]} pageTitle="Press" />
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,

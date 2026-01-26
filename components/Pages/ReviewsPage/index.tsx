@@ -14,7 +14,7 @@ const ReviewsPage: FC = () => {
       <Head>
         <title>Reviews - Playing Arts</title>
       </Head>
-      <Header links={[]} />
+      <Header links={[]} pageTitle="Reviews" />
       <Grid
         css={(theme) => ({
           background: theme.colors.soft_gray,
