@@ -3,6 +3,8 @@ import "@testing-library/jest-dom";
 import { ReactNode, FC } from "react";
 import { RouterContext } from "next/dist/shared/lib/router-context.shared-runtime";
 import { NextRouter } from "next/router";
+import { ThemeProvider } from "@emotion/react";
+import { theme } from "../../styles/theme";
 
 // Mock Image constructor for image preloading tests
 class MockImage {
@@ -118,7 +120,9 @@ const TestWrapper: FC<{ children: ReactNode; router: Partial<NextRouter> }> = ({
   router,
 }) => (
   <RouterContext.Provider value={router as NextRouter}>
-    <HeroCardsProvider>{children}</HeroCardsProvider>
+    <ThemeProvider theme={theme}>
+      <HeroCardsProvider>{children}</HeroCardsProvider>
+    </ThemeProvider>
   </RouterContext.Provider>
 );
 
