@@ -203,7 +203,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
         },
       ]}
     >
-      <div css={[{ gridColumn: "span 6" }]}>
+      <div css={(theme) => [{ gridColumn: "span 6", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
         {displayedDeck ? (
           <>
             <Text

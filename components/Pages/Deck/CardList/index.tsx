@@ -163,6 +163,7 @@ const ListItem: FC<{
                 gridColumn: "2/6",
                 borderRadius: theme.spacing(1.5),
                 objectFit: "cover",
+                [theme.maxMQ.sm]: { gridColumn: "1 / -1", width: "100%" },
               })}
             />
             <div
@@ -647,7 +648,7 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ]}
       {...props}
     >
-      <div css={[{ gridColumn: "span 6" }]}>
+      <div css={(theme) => [{ gridColumn: "span 6", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
         <ArrowedButton
           css={(theme) => [
             {

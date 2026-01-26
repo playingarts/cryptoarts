@@ -50,7 +50,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 3",
           [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+            gridColumn: "1 / -1",
           },
         })}
       />
@@ -59,7 +59,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 6",
           [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+            gridColumn: "1 / -1",
           },
           [theme.mq.sm]: {
             [theme.maxMQ.md]: {
@@ -72,7 +72,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 3",
           [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+            gridColumn: "1 / -1",
           },
         })}
       />
@@ -80,7 +80,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 9",
           [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+            gridColumn: "1 / -1",
           },
         })}
       />
@@ -88,7 +88,7 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => ({
           gridColumn: "span 3",
           [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+            gridColumn: "1 / -1",
           },
         })}
       />
