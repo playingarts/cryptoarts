@@ -157,6 +157,9 @@ const Header: FC<Props> = ({
               // Mobile: 1 column for menu button
               [theme.maxMQ.xsm]: {
                 gridColumn: "span 1",
+                marginLeft: -15,
+                height: "auto",
+                paddingTop: 0,
               },
               [theme.mq.sm]: {
                 [theme.maxMQ.md]: [
@@ -190,6 +193,9 @@ const Header: FC<Props> = ({
               [theme.maxMQ.xsm]: {
                 gridColumn: "span 1",
                 justifyContent: "flex-end",
+                marginRight: -15,
+                height: "auto",
+                paddingTop: 0,
               },
               [theme.mq.sm]: {
                 gridColumn: "span 3",

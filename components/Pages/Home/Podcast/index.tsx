@@ -123,7 +123,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   return (
     <div
       ref={containerRef}
-      css={(theme) => [{ background: theme.colors.pink, paddingTop: theme.spacing(6), paddingBottom: theme.spacing(6), [theme.maxMQ.xsm]: { paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) } }]}
+      css={(theme) => [{ background: theme.colors.pink, paddingTop: theme.spacing(6), paddingBottom: theme.spacing(6), [theme.maxMQ.xsm]: { paddingTop: theme.spacing(3), paddingBottom: theme.spacing(6) } }]}
       {...props}
     >
       <Intro
@@ -253,7 +253,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           {loading ? (
             <EpisodeListSkeleton />
           ) : (
-            <div css={(theme) => ({ padding: 15, display: "flex", flexDirection: "column", gap: 5, [theme.maxMQ.xsm]: { padding: theme.spacing(2) } })}>
+            <div css={(theme) => ({ padding: 15, display: "flex", flexDirection: "column", gap: 5, [theme.maxMQ.xsm]: { padding: theme.spacing(1) } })}>
               {podcasts &&
                 podcasts.slice(0, episodeLimit).map((podcast, index) =>
                   podcast ? (

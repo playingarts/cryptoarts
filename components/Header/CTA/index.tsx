@@ -7,8 +7,6 @@ import ArrowButton from "../../Buttons/ArrowButton";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
-import Button from "../../Buttons/Button";
-import Bag from "../../Icons/Bag";
 
 const HeaderButton = () => {
   const { palette } = usePalette();
@@ -24,9 +22,13 @@ const HeaderButton = () => {
           Shop
         </ArrowButton>
       ) : (
-        <Button icon>
-          <Bag />
-        </Button>
+        <ArrowButton
+          color={palette === "dark" ? "white" : undefined}
+          palette={palette}
+          size="small"
+        >
+          Shop
+        </ArrowButton>
       )}
     </Link>
   );
@@ -40,7 +42,7 @@ const CTA = () => {
       {width >= breakpoints.sm ? (
         <div
           css={(theme) => [
-            { display: "flex", gap: theme.spacing(3) },
+            { display: "flex", gap: theme.spacing(3), marginRight: "auto" },
             palette === "dark" && {
               color: theme.colors.white75,
               "& a": {

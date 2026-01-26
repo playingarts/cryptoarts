@@ -267,7 +267,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
   return (
     <div
       css={(theme) => [
-        { background: theme.colors.pale_gray, paddingTop: theme.spacing(6), paddingBottom: theme.spacing(6), [theme.maxMQ.xsm]: { paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) } },
+        { background: theme.colors.pale_gray, paddingTop: theme.spacing(6), paddingBottom: theme.spacing(6), [theme.maxMQ.xsm]: { paddingTop: theme.spacing(3), paddingBottom: theme.spacing(6) } },
       ]}
       {...props}
     >
@@ -302,7 +302,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
             paddingRight: 20,
           },
           [theme.maxMQ.xsm]: {
-            paddingTop: theme.spacing(3),
+            paddingTop: 0,
             paddingLeft: theme.spacing(1.5),
             paddingRight: theme.spacing(1.5),
             scrollPaddingLeft: theme.spacing(1.5),

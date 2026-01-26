@@ -133,7 +133,7 @@ const Hero = () => {
         >
           <span>{HERO_TEXTS[displayedQuoteIndex % HERO_TEXTS.length]}</span>
         </Text>
-        <div css={(theme) => ({ display: "flex", gap: theme.spacing(1.5), marginTop: theme.spacing(3) })}>
+        <div css={(theme) => ({ display: "flex", gap: theme.spacing(1.5), marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { marginTop: theme.spacing(2) } })}>
           <Link href="#about">
             <ExploreButton color="accent" size="medium">Discover</ExploreButton>
           </Link>

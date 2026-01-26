@@ -324,7 +324,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           paddingBottom: theme.spacing(6),
           [theme.maxMQ.xsm]: {
             paddingTop: theme.spacing(3),
-            paddingBottom: theme.spacing(3),
+            paddingBottom: 0,
           },
         },
       ]}
@@ -343,7 +343,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <ArrowedButton>Every card, a masterpiece you can hold</ArrowedButton>
+        <ArrowedButton>A masterpiece you can hold</ArrowedButton>
       </ScandiBlock>
 
       <ScandiBlock
@@ -356,7 +356,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               gridColumn: "1 / -1",
               borderTop: "none",
               paddingTop: theme.spacing(3),
-              paddingBottom: theme.spacing(3),
+              paddingBottom: 0,
             },
           },
         ]}
@@ -382,6 +382,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={(theme) => [
           {
             gridColumn: "1/-1",
+            marginTop: theme.spacing(3),
             gap: theme.spacing(3),
             img: { background: " white", borderRadius: 16 },
             [theme.maxMQ.xsm]: {
@@ -488,7 +489,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               width: "100%",
 
               [theme.maxMQ.xsm]: {
-                aspectRatio: "3/2",
+                aspectRatio: "11/7",
                 gap: theme.spacing(1),
                 padding: theme.spacing(2),
               },
@@ -511,7 +512,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         {loading || !dailyCard ? (
           <DailyCardSkeleton />
         ) : (
-          <div css={(theme) => [{ gridColumn: "span 6/-1", marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { flex: "1 1 100%", order: 11, marginTop: theme.spacing(2) } }]}>
+          <div css={(theme) => [{ gridColumn: "span 6/-1", marginTop: theme.spacing(3), paddingBottom: theme.spacing(6), [theme.maxMQ.xsm]: { flex: "1 1 100%", order: 11, marginTop: theme.spacing(2), paddingBottom: 0 } }]}>
             <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), alignItems: "center" }]}>
               <img
                 src={dailyCard.artist?.userpic}

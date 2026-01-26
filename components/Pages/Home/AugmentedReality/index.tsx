@@ -53,7 +53,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         paddingBottom: theme.spacing(6),
         [theme.maxMQ.xsm]: {
           paddingTop: theme.spacing(3),
-          paddingBottom: theme.spacing(3),
+          paddingBottom: theme.spacing(6),
         },
       },
     ]}
@@ -82,7 +82,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
             paddingTop: 100,
             color: theme.colors.dark_gray,
             [theme.maxMQ.xsm]: {
-              paddingTop: theme.spacing(3),
+              paddingTop: theme.spacing(5),
               paddingRight: 0,
             },
           },

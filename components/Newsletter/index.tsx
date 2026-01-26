@@ -48,7 +48,6 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
           borderTop: "1px solid white",
           [theme.maxMQ.xsm]: {
             gridColumn: "1 / -1",
-            paddingTop: theme.spacing(3),
             paddingBottom: theme.spacing(2),
           },
         })}

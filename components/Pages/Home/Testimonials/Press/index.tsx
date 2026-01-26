@@ -66,12 +66,15 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           })}
         >
           <div
-            css={{
+            css={(theme) => ({
               transform: scale !== 1 ? `scale(${scale})` : undefined,
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-            }}
+              [theme.maxMQ.xsm]: {
+                transform: "scale(1.3)",
+              },
+            })}
           >
             <Icon />
           </div>

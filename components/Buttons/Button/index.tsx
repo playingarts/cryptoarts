@@ -32,7 +32,7 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
           alignItems: "center",
           justifyContent: "center",
           userSelect: "none",
-          borderRadius: size === "big" ? 7 : 5,
+          borderRadius: size === "small" ? 5 : 10,
           boxSizing: "border-box",
           fontWeight: 400,
           // textAlign: "center",
