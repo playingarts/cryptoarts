@@ -71,7 +71,7 @@ const CardSkeleton: FC = () => (
 /** Skeleton for deck section header */
 const DeckHeaderSkeleton: FC = () => (
   <Grid>
-    <ScandiBlock css={[{ gridColumn: "span 6" }]}>
+    <ScandiBlock css={(theme) => [{ gridColumn: "span 6", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
       <div css={{ width: 150, height: 32, borderRadius: 8, ...shimmerStyle }} />
     </ScandiBlock>
     <ScandiBlock css={(theme) => [{ gridColumn: "span 6", gap: theme.spacing(3) }]}>
@@ -131,7 +131,7 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
   return (
     <div>
       <Grid>
-        <ScandiBlock css={[{ gridColumn: "span 6" }]}>
+        <ScandiBlock css={(theme) => [{ gridColumn: "span 6", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
           <Link href={`/${deck.slug}`}>
             <ArrowedButton>{sectionTitle}</ArrowedButton>
           </Link>

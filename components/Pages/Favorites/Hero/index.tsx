@@ -50,7 +50,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
 
   return (
     <Grid css={(theme) => [{ paddingTop: HEADER_OFFSET.desktop, background: theme.colors.pale_gray, [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet }, [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile } }]}>
-      <div css={[{ gridColumn: "span 6" }]}>
+      <div css={(theme) => [{ gridColumn: "span 6", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
         <Text typography="newh3">
           {cardCount === 0
             ? "No favorites yet. Add cards to your favorites from any deck page."

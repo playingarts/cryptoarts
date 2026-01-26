@@ -46,7 +46,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         },
       ]}
     >
-      <div css={[{ gridColumn: "span 8" }]}>
+      <div css={(theme) => [{ gridColumn: "span 8", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
         <div css={[{ marginRight: 110 }]}>
           <Text typography="newh3">{isEmpty ? "Your bag is empty!" : "Your bag is ready!"}</Text>
           {isEmpty && (
@@ -91,7 +91,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </div>
         {!isEmpty && <Suggestions id="related" css={(theme) => [{ marginTop: theme.spacing(12), paddingTop: theme.spacing(6) }]}></Suggestions>}
       </div>
-      {!isEmpty && <CTA css={[{ gridColumn: "span 4/-1" }]}></CTA>}
+      {!isEmpty && <CTA css={(theme) => [{ gridColumn: "span 4/-1", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}></CTA>}
     </Grid>
   );
 };
