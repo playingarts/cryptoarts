@@ -181,7 +181,7 @@ const ListItem: FC<{
                 />
                 <div css={(theme) => [{ display: "inline-block" }]}>
                   <Text
-                    typography="paragraphBig"
+                    typography="p-l"
                     css={(theme) => [
                       {
                         color:
@@ -192,7 +192,7 @@ const ListItem: FC<{
                     {quoteCard.artist.name}
                   </Text>
                   <Text
-                    typography="paragraphSmall"
+                    typography="p-s"
                     css={(theme) => [
                       {
                         color:
@@ -205,7 +205,7 @@ const ListItem: FC<{
                 </div>
               </div>
               <Text
-                typography="newParagraph"
+                typography="p"
                 css={(theme) => [
                   {
                     marginTop: theme.spacing(6),
@@ -225,7 +225,7 @@ const ListItem: FC<{
                 css={{ textDecoration: "none" }}
               >
                 <Text
-                  typography="linkNewTypography"
+                  typography="p-m"
                   css={(theme) => [
                     {
                       marginTop: theme.spacing(3),
@@ -687,7 +687,7 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               color: theme.colors[palette === "dark" ? "white75" : "black"],
             },
           ]}
-          typography="paragraphBig"
+          typography="p-l"
         >
           {isFutureDeck
             ? "Two chapters, 110 unique artworks, 110 international artists."

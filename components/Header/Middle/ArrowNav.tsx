@@ -168,7 +168,7 @@ export default () => {
 
     return (
       <Text
-        typography="paragraphSmall"
+        typography="p-s"
         css={[
           {
             display: "flex",
@@ -209,7 +209,7 @@ export default () => {
   // Deck page navigation
   return deckId && decks ? (
     <Text
-      typography="paragraphSmall"
+      typography="p-s"
       css={[
         {
           display: "flex",

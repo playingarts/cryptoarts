@@ -207,7 +207,7 @@ const CustomMiddle: FC<{
 
   return (
     <Text
-      typography="paragraphSmall"
+      typography="p-s"
       palette={palette}
       css={[
         {
@@ -528,7 +528,7 @@ const Pop: FC<
         <div css={[{ flex: 1 }]}>
           {deck ? (
             <Text
-              typography="newh4"
+              typography="h4"
               palette={palette}
               css={{ "&:hover": { opacity: 0.7, cursor: "pointer" }, transition: "opacity 0.2s" }}
               onClick={() => {
@@ -680,8 +680,8 @@ const Pop: FC<
                   },
                 }}
               >
-                <Text typography="newh2" palette={palette}> {card?.artist.name || initialArtistName} </Text>
-                <Text typography="newh4" palette={palette}> {card?.artist.country || initialArtistCountry} </Text>
+                <Text typography="h2" palette={palette}> {card?.artist.name || initialArtistName} </Text>
+                <Text typography="h4" palette={palette}> {card?.artist.country || initialArtistCountry} </Text>
               </div>
             ) : (
               // Skeleton loading for artist info - matches newh2 (lineHeight: 66px) and newh4 (lineHeight: 45px)

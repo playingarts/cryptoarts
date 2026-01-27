@@ -284,7 +284,7 @@ const PhotoUploadModal: FC<PhotoUploadModalProps> = ({
             marginBottom: 24,
           }}
         >
-          <Text typography="newh3" css={(theme) => ({ color: theme.colors.black })}>
+          <Text typography="h3" css={(theme) => ({ color: theme.colors.black })}>
             Edit Photos
           </Text>
           <button
@@ -311,7 +311,7 @@ const PhotoUploadModal: FC<PhotoUploadModalProps> = ({
         </div>
 
         <Text
-          typography="paragraphSmall"
+          typography="p-s"
           css={(theme) => ({ color: theme.colors.black50, marginBottom: 24 })}
         >
           Upload photos for <strong>{artistName}</strong>&apos;s card. Images
@@ -321,7 +321,7 @@ const PhotoUploadModal: FC<PhotoUploadModalProps> = ({
         {/* Main Photo */}
         <div css={{ marginBottom: 24 }}>
           <Text
-            typography="newh4"
+            typography="h4"
             css={(theme) => ({ color: theme.colors.black, marginBottom: 12, fontSize: 18 })}
           >
             Main Photo
@@ -343,7 +343,7 @@ const PhotoUploadModal: FC<PhotoUploadModalProps> = ({
         {/* Additional Photos */}
         <div>
           <Text
-            typography="newh4"
+            typography="h4"
             css={(theme) => ({ color: theme.colors.black, marginBottom: 12, fontSize: 18 })}
           >
             Additional Photos (up to 4)
@@ -380,7 +380,7 @@ const PhotoUploadModal: FC<PhotoUploadModalProps> = ({
         {/* Save Error */}
         {saveError && (
           <Text
-            typography="paragraphSmall"
+            typography="p-s"
             css={(theme) => ({
               color: theme.colors.accent,
               marginTop: 16,
@@ -497,7 +497,7 @@ const PhotoSlotUI: FC<{
             },
           })}
         />
-        <Text typography="paragraphSmall" css={(theme) => ({ color: theme.colors.black50 })}>
+        <Text typography="p-s" css={(theme) => ({ color: theme.colors.black50 })}>
           Uploading...
         </Text>
       </div>
@@ -569,7 +569,7 @@ const PhotoSlotUI: FC<{
     >
       <Plus css={(theme) => ({ color: theme.colors.black50 })} />
       <Text
-        typography="paragraphSmall"
+        typography="p-s"
         css={(theme) => ({ color: slot.error ? theme.colors.accent : theme.colors.black50 })}
       >
         {slot.error || "Browse"}

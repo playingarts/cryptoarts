@@ -41,7 +41,7 @@ const NewsletterSection: FC = () => {
         ]}
       >
         <Text
-          typography="paragraphSmall"
+          typography="p-s"
           palette="dark"
           css={(theme) => ({ color: theme.colors.white, fontSize: 25 })}
         >
@@ -50,7 +50,7 @@ const NewsletterSection: FC = () => {
         <EmailForm />
       </ScandiBlock>
       <Text
-        typography="paragraphNano"
+        typography="p-xs"
         css={(theme) => ({
           gridColumn: "span 4",
           marginTop: theme.spacing(3),

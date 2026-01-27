@@ -2,8 +2,8 @@ import { FC, HTMLAttributes } from "react";
 
 const Fastcompany: FC<HTMLAttributes<SVGElement>> = ({ ...props }) => (
   <svg
-    width="150"
-    height="23"
+    width="200"
+    height="31"
     viewBox="0 0 150 23"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

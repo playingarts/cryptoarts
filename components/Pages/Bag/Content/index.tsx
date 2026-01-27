@@ -48,7 +48,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     >
       <div css={(theme) => [{ gridColumn: "span 8", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
         <div css={[{ marginRight: 110 }]}>
-          <Text typography="newh3">{isEmpty ? "Your bag is empty!" : "Your bag is ready!"}</Text>
+          <Text typography="h3">{isEmpty ? "Your bag is empty!" : "Your bag is ready!"}</Text>
           {isEmpty && (
             <ArrowButton color="accent" size="medium" css={(theme) => ({ marginTop: theme.spacing(3), marginBottom: theme.spacing(12) })} href="/shop">Go shopping</ArrowButton>
           )}

@@ -25,14 +25,14 @@ const Supply: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ]}
       {...props}
     >
-      <Text typography="newh4">Supply</Text>
+      <Text typography="h4">Supply</Text>
       <ScandiBlock
         css={(theme) => [
           { paddingTop: 15, marginTop: theme.spacing(3), display: "block", width: "100%" },
         ]}
       >
-        <Text typography="newh3">{opensea ? <AnimatedNumber value={opensea.total_supply} /> : "..."}</Text>
-        <Text typography="linkNewTypography">Total NFTs</Text>
+        <Text typography="h3">{opensea ? <AnimatedNumber value={opensea.total_supply} /> : "..."}</Text>
+        <Text typography="p-m">Total NFTs</Text>
       </ScandiBlock>
       <Charts
         type="pie"
@@ -54,7 +54,7 @@ const Supply: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         ]}
       />
       <Text
-        typography="paragraphSmall"
+        typography="p-s"
         css={(theme) => [{ color: theme.colors.white50, marginTop: theme.spacing(3), fontSize: 15 }]}
       >
         {opensea ? (

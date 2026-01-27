@@ -92,7 +92,7 @@ const InstagramItem: FC<
         rel="noopener noreferrer"
         css={{ textDecoration: "none" }}
       >
-        <Text typography="linkNewTypography" css={{ marginTop: 5, fontSize: 18 }}>
+        <Text typography="p-s" css={(theme) => ({ marginTop: theme.spacing(1) })}>
           @{username} <Dot />
         </Text>
       </a>

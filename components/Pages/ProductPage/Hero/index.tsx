@@ -51,18 +51,19 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             gap: theme.spacing(1.5),
             gridColumn: "7 / span 5",
             position: "relative",
+            [theme.maxMQ.md]: { gridColumn: "4 / -1" },
             [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet, gridColumn: "1 / -1" },
-            [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile },
+            [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile, paddingBottom: theme.spacing(3), gridColumn: "1 / -1" },
           },
         ]}
       >
-        <Text typography="newh1" css={(theme) => ({ textAlign: "left", fontSize: 65, [theme.maxMQ.xsm]: { fontSize: 40 } })}>{product.title}</Text>
+        <Text typography="h1" css={(theme) => ({ textAlign: "left", fontSize: 65, [theme.maxMQ.xsm]: { fontSize: 40 } })}>{product.title}</Text>
         <Text>{product.description}</Text>
-        {product.deck?.slug !== "crypto" && <Text>${product.price.usd}</Text>}
+        <Text>{product.deck?.slug === "crypto" ? "Exclusive" : `$${product.price.usd}`}</Text>
         <div css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(3) })}>
           {product.deck?.slug === "crypto" ? (
             <Button size="medium" bordered>
-              Exclusive
+              Info
             </Button>
           ) : product.status === "soldout" || product.status === "soon" ? (
             <SoldOut size="medium" status={product.status} />

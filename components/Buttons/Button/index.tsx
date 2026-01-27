@@ -62,6 +62,9 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
               {
                 fontSize: 25,
                 height: 45,
+                [theme.maxMQ.xsm]: {
+                  fontSize: 25,
+                },
               },
               base === false && {
                 paddingLeft: 15,
@@ -73,10 +76,18 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
               {
                 fontSize: 20,
                 height: 45,
+                [theme.maxMQ.xsm]: {
+                  fontSize: 18,
+                  height: 40,
+                },
               },
               base === false && {
                 paddingLeft: 15,
                 paddingRight: 15,
+                [theme.maxMQ.xsm]: {
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                },
               },
             ]
           : size === "small"
@@ -85,6 +96,11 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
                 fontSize: 18,
                 height: 40,
                 minHeight: 40,
+                [theme.maxMQ.xsm]: {
+                  fontSize: 16,
+                  height: 34,
+                  minHeight: 34,
+                },
               },
               base === false && {
                 paddingLeft: 12,

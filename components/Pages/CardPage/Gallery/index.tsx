@@ -786,7 +786,7 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         ]}
       >
         <Text
-          typography="paragraphBig"
+          typography="p-l"
           css={(theme) => ({
             paddingBottom: 120,
             color: theme.colors[deckId === "crypto" ? "white75" : "black"],

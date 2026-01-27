@@ -107,7 +107,7 @@ const Hero = () => {
         ]}
       >
         <Text
-          typography="newh4"
+          typography="h4"
           css={(theme) => [
             {
               marginTop: theme.spacing(3),
@@ -117,7 +117,7 @@ const Hero = () => {
           Collective Art Project —
         </Text>
         <Text
-          typography="newh2"
+          typography="h2"
           css={(theme) => [
             {
               marginTop: 10,

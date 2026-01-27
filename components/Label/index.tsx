@@ -4,6 +4,7 @@ const Label: FC<HTMLAttributes<HTMLElement>> = ({ children, ...props }) => (
   <div
     css={(theme) => [
       {
+        fontFamily: "var(--font-alliance), 'Alliance No.2', sans-serif",
         fontSize: 14,
         fontWeight: 400,
         lineHeight: "18px",

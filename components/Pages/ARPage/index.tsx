@@ -24,7 +24,7 @@ const ARPage: FC = () => {
       >
         <div css={{ gridColumn: "1 / -1" }}>
           <Text
-            typography="newh1"
+            typography="h1"
             css={(theme) => ({
               color: theme.colors.dark_gray,
               marginBottom: theme.spacing(4),
@@ -42,7 +42,7 @@ const ARPage: FC = () => {
         </div>
 
         <div css={{ gridColumn: "span 12" }}>
-          <Text typography="newParagraph">
+          <Text typography="p">
             Coming soon
           </Text>
         </div>

@@ -3,9 +3,9 @@ import Dot from "../../../Icons/Dot";
 import Text from "../../../Text";
 
 const Item: FC<
-  HTMLAttributes<HTMLElement> & { question: string; answer: string | ReactNode; palette?: "light" | "dark" }
-> = ({ question, answer, palette = "light", ...props }) => {
-  const [opened, setOpened] = useState(false);
+  HTMLAttributes<HTMLElement> & { question: string; answer: string | ReactNode; palette?: "light" | "dark"; defaultOpen?: boolean }
+> = ({ question, answer, palette = "light", defaultOpen = false, ...props }) => {
+  const [opened, setOpened] = useState(defaultOpen);
   const [hover, setHover] = useState(false);
   const itemRef = useRef<HTMLDivElement>(null);
 
@@ -32,8 +32,12 @@ const Item: FC<
           display: "flex",
           alignItems: "center",
           color: theme.colors[palette === "dark" ? "white75" : "black"],
+          paddingTop: theme.spacing(1),
+          [theme.maxMQ.xsm]: {
+            paddingTop: 0,
+          },
         })}
-        typography="linkNewTypography"
+        typography="p-m"
       >
         <Dot
           css={(theme) => ({
@@ -48,16 +52,16 @@ const Item: FC<
         {question}
       </Text>
       <div
-        css={{
+        css={(theme) => ({
           overflow: "hidden",
           transition: "max-height 0.3s ease, opacity 0.3s ease, margin 0.3s ease",
           maxHeight: opened ? 500 : 0,
           opacity: opened ? 1 : 0,
-          marginTop: opened ? 15 : 0,
-        }}
+          marginTop: opened ? theme.spacing(3) : 0,
+        })}
       >
         <Text
-          typography="paragraphSmall"
+          typography="p-s"
           css={(theme) => ({
             paddingBottom: 15,
             maxWidth: 520,

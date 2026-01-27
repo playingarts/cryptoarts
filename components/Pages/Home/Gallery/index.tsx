@@ -337,7 +337,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         bottom={
           <Text
             css={(theme) => [{ paddingBottom: 15, marginTop: 150, [theme.maxMQ.xsm]: { display: "none" } }]}
-            typography="newh4"
+            typography="h4"
           >
             Card of the day
           </Text>
@@ -475,7 +475,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </div>
         {/* Mobile-only "Card of the day" title - between Kickstarter and main image */}
         <Text
-          typography="newh4"
+          typography="h4"
           css={(theme) => ({
             display: "none",
             [theme.maxMQ.xsm]: {
@@ -501,16 +501,16 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 css={{ width: 80, height: 80, borderRadius: "50%" }}
               />
               <div>
-                <Text typography="newh3">
+                <Text typography="h3">
                   {dailyCard.artist?.name}
                 </Text>
-                <Text typography="paragraphSmall">
+                <Text typography="p-s">
                   {dailyCard.artist?.country}
                 </Text>
               </div>
             </div>
             <Text
-              typography="newParagraph"
+              typography="p"
               css={(theme) => ({
                 marginTop: theme.spacing(3),
                 display: "-webkit-box",

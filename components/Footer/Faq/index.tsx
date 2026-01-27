@@ -24,6 +24,8 @@ import {
   BACKSIDE_ROTATION,
   FRONT_ROTATION,
 } from "./constants";
+import { useSize } from "../../SizeProvider";
+import { breakpoints } from "../../../source/enums";
 
 // Lazy-load Pop modal - only shown on card click
 const Pop = dynamic(() => import("../../Pages/CardPage/Pop"), { ssr: false });
@@ -199,6 +201,10 @@ interface FAQProps extends HTMLAttributes<HTMLElement> {
 
 const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
   const { palette } = usePalette();
+  const { width } = useSize();
+  const isMobile = width < breakpoints.xsm;
+  const faqKeys = Object.keys(FAQ_DATA);
+  const displayKeys = isMobile ? faqKeys.slice(0, 5) : faqKeys;
 
   return (
     <div
@@ -279,15 +285,16 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
               alignContent: "center",
               [theme.maxMQ.xsm]: {
                 gridColumn: "1 / -1 !important",
-                paddingTop: theme.spacing(3),
+                paddingTop: 0,
                 paddingBottom: theme.spacing(3),
                 paddingRight: 0,
                 marginTop: 0,
+                gap: theme.spacing(2),
               },
             },
           ]}
         >
-          {Object.keys(FAQ_DATA).map((item) => (
+          {displayKeys.map((item) => (
             <Item
               key={item}
               question={item}

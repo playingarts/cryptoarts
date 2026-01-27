@@ -40,7 +40,7 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
           ]}
         >
           <Text
-            typography="paragraphSmall"
+            typography="p-s"
             css={(theme) => [
               {
                 color: theme.colors.black50,
@@ -92,7 +92,7 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
       >
         <small css={{ maxWidth: "calc(5 * var(--columnWidth) + 4 * 24px)" }}>
           <Text
-            typography="paragraphMicro"
+            typography="p-xxs"
             css={(theme) => [
               {
                 color: theme.colors.black50,

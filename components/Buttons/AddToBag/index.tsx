@@ -23,14 +23,14 @@ const AddToBag: FC<
   if (bag && bag[productId] >= 0) {
     if (onViewBag) {
       return (
-        <Button color="accent" size={size} onClick={onViewBag} {...props}>
+        <Button color="black" size={size} onClick={onViewBag} {...props}>
           View bag
         </Button>
       );
     }
     return (
       <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"} css={{ display: "flex", alignItems: "center" }}>
-        <Button color="accent" size={size} {...props}>
+        <Button color="black" size={size} {...props}>
           View bag
         </Button>
       </Link>
@@ -41,15 +41,19 @@ const AddToBag: FC<
     <Button
       color="accent"
       size={size}
-      css={[
+      css={(theme) => [
         {
           paddingLeft: 10,
+          [theme.maxMQ.xsm]: {
+            paddingLeft: 8,
+            paddingRight: 10,
+          },
         },
       ]}
       onClick={() => addItem(productId)}
       {...props}
     >
-      <Plus css={[{ marginRight: 7 }]} /> Add to bag
+      <Plus css={(theme) => [{ marginRight: 7, [theme.maxMQ.xsm]: { marginRight: 5, width: 16, height: 16 } }]} /> Add to bag
     </Button>
   );
 };

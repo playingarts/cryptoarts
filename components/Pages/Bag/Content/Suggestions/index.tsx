@@ -54,16 +54,16 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string }> = ({ produ
               objectFit: "contain",
             }}
           />
-          <Text typography="newh4">{product.title}</Text>
-          <Text typography="paragraphSmall" css={{ marginTop: 10 }}>
+          <Text typography="h4">{product.title}</Text>
+          <Text typography="p-s" css={{ marginTop: 10 }}>
             {product.description || product.info}
           </Text>
         </div>
         <div css={(theme) => ({ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center" })}>
           <AddToBag productId={product._id} onViewBag={() => setShowPop(false)} status={product.status} />
-          <Text typography="linkNewTypography">${product.price.usd}</Text>
+          <Text typography="p-m">${product.price.usd}</Text>
           {product.fullPrice && (
-            <Text typography="linkNewTypography" css={{ textDecoration: "line-through", opacity: 0.5 }}>
+            <Text typography="p-m" css={{ textDecoration: "line-through", opacity: 0.5 }}>
               ${product.fullPrice.usd}
             </Text>
           )}

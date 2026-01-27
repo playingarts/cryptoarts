@@ -152,7 +152,7 @@ const ArtistBlock: FC<ArtistBlockProps> = ({ artist, title, sectionId, dark, sty
               }
             >
               <Text
-                typography="paragraphSmall"
+                typography="p-s"
                 css={(theme) => ({
                   color: theme.colors[dark ? "white75" : "black"],
                 })}

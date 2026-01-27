@@ -73,7 +73,7 @@ const Bag: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         links={["Items", "Related", "Reviews", "FAQ"]}
         customMiddle={
           <Text
-            typography="paragraphSmall"
+            typography="p-s"
             css={[
               {
                 display: "flex",

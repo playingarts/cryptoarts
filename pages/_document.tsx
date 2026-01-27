@@ -12,9 +12,9 @@ export const Links = () => (
         h2: theme.typography.h2,
         h3: theme.typography.h3,
         h4: theme.typography.h4,
-        h5: theme.typography.h5,
-        h6: theme.typography.h6,
-        h7: theme.typography.h7,
+        h5: theme.typography["legacy-h5"],
+        h6: theme.typography["legacy-h6"],
+        h7: theme.typography["legacy-h7"],
         body: {
           background: theme.colors.page_bg_light_gray,
           fontFamily: "var(--font-work-sans), Work Sans, sans-serif",

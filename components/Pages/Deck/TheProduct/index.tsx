@@ -110,7 +110,7 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </Text>
         <div>
           <Text
-            typography="paragraphBig"
+            typography="p-l"
             css={(theme) => ({
               color: theme.colors[palette === "dark" ? "white75" : "black"],
             })}

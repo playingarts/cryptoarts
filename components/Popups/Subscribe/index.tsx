@@ -119,7 +119,7 @@ const Subscribe: FC<HTMLAttributes<HTMLElement> & { close: () => void }> = ({
             </ArrowedButton>
             <EmailForm />
             <Text
-              typography="paragraphNano"
+              typography="p-xs"
               css={[{ marginTop: 15, color: "white" }]}
             >
               Join 10,000+ collectors for early access to exclusive drops, and

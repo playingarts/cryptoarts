@@ -36,11 +36,11 @@ const Error: FC<Props> = ({ error, retry, fullPage = false, ...props }) => (
         padding: "40px 0",
       }}
     >
-      <Text typography="newh4" css={{ marginBottom: 10 }}>
+      <Text typography="h4" css={{ marginBottom: 10 }}>
         Something went wrong
       </Text>
       <Text
-        typography="paragraphSmall"
+        typography="p-s"
         css={(theme) => ({ color: theme.colors.black50, marginBottom: 20 })}
       >
         {getErrorMessage(error)}

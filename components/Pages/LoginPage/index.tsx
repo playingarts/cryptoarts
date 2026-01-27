@@ -90,12 +90,12 @@ const LoginPage: FC = () => {
         })}
       >
         <div css={(theme) => ({ gridColumn: "span 8", [theme.maxMQ.xsm]: { gridColumn: "1 / -1" } })}>
-          <Text typography="newh3">Admin Login</Text>
+          <Text typography="h3">Admin Login</Text>
 
           {state === "sent" ? (
             <div css={(theme) => ({ marginTop: theme.spacing(3), marginBottom: theme.spacing(12) })}>
               <Text
-                typography="linkNewTypography"
+                typography="p-m"
                 css={(theme) => ({
                   color: theme.colors.black,
                   marginBottom: 20,
@@ -161,7 +161,7 @@ const LoginPage: FC = () => {
 
                 {state === "error" && errorMessage && (
                   <Text
-                    typography="paragraphSmall"
+                    typography="p-s"
                     css={(theme) => ({
                       color: theme.colors.accent,
                     })}

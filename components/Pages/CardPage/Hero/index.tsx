@@ -146,7 +146,7 @@ const Hero: FC<HeroProps> = ({ ssrCard }) => {
 
   return (
     <Grid
-      css={(t) => ({ paddingTop: 145, paddingBottom: 150, [t.maxMQ.xsm]: { paddingTop: 100, paddingBottom: theme.spacing(6) } })}
+      css={(t) => ({ paddingTop: 145, paddingBottom: 150, [t.maxMQ.xsm]: { paddingTop: 100, paddingBottom: theme.spacing(3) } })}
       style={
         deckId === "crypto"
           ? { backgroundColor: theme.colors.darkBlack }

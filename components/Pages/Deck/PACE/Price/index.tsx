@@ -53,7 +53,7 @@ const Price: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ]}
       {...props}
     >
-      <Text typography="newh4">Price</Text>
+      <Text typography="h4">Price</Text>
       {stats.map((stat) => {
         const ethFormatted = formatEth(stat.ethValue, stat.decimals);
         const usdFormatted = formatUsd(stat.ethValue);
@@ -65,7 +65,7 @@ const Price: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               { paddingTop: 15, display: "block", width: "170", marginTop: 25 },
             ]}
           >
-            <Text typography="newh3" css={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+            <Text typography="h3" css={{ display: "flex", alignItems: "baseline", gap: 10 }}>
               <span>
                 <EthSymbol />
                 {stat.ethValue !== undefined && stat.ethValue !== null ? (
@@ -74,17 +74,17 @@ const Price: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   "..."
                 )}
               </span>
-              <span css={(theme) => ({ ...theme.typography.linkNewTypography, color: theme.colors.white50 })}>
+              <span css={(theme) => ({ ...theme.typography["p-m"], color: theme.colors.white50 })}>
                 {usdFormatted ?? ""}
               </span>
             </Text>
-            <Text typography="linkNewTypography">{stat.label}</Text>
+            <Text typography="p-m">{stat.label}</Text>
           </ScandiBlock>
         );
       })}
 
       <Text
-        typography="paragraphSmall"
+        typography="p-s"
         css={(theme) => [{ color: theme.colors.white50, marginTop: theme.spacing(3), fontSize: 15 }]}
       >
         {opensea?.sales_count

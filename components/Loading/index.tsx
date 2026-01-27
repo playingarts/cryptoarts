@@ -42,7 +42,7 @@ const Loading: FC<Props> = ({ fullPage = false, ...props }) => (
           },
         })}
       />
-      <Text typography="paragraphSmall" css={{ opacity: 0.5 }}>
+      <Text typography="p-s" css={{ opacity: 0.5 }}>
         Loading...
       </Text>
     </div>

@@ -1,15 +1,26 @@
 import { FC, HTMLAttributes } from "react";
 import IconArrow from "../../Icons/IconArrow";
-import Button, { Props } from "../Button";
+import Text from "../../Text";
+import { maxMQ } from "../../../styles/theme";
 
-const ArrowedButton: FC<HTMLAttributes<HTMLElement> & Props> = ({
+const ArrowedButton: FC<HTMLAttributes<HTMLElement>> = ({
   children,
   ...props
 }) => (
-  <Button base={true} noColor={true} {...props}>
-    <IconArrow css={[{ marginRight: 10 }]} />
+  <Text
+    css={{
+      display: "inline-flex",
+      alignItems: "center",
+      cursor: "pointer",
+      "&:hover": {
+        opacity: 0.7,
+      },
+    }}
+    {...props}
+  >
+    <IconArrow css={{ marginRight: 10, [maxMQ.xsm]: { width: 18, height: 18, marginRight: 8 } }} />
     {children}
-  </Button>
+  </Text>
 );
 
 export default ArrowedButton;

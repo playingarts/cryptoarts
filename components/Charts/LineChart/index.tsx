@@ -131,7 +131,7 @@ const LineChart: FC<Props> = ({
             >
               <div
                 css={(theme) => [
-                  theme.typography.h6,
+                  theme.typography["legacy-h6"],
                   {
                     margin: 0,
                     opacity: 0.5,

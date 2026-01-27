@@ -83,7 +83,7 @@ const CustomMiddle = () => {
 
   return products ? (
     <Text
-      typography="paragraphSmall"
+      typography="p-s"
       css={[
         {
           display: "flex",

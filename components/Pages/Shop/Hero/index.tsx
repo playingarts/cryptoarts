@@ -43,16 +43,16 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           background: theme.colors.soft_gray,
           overflow: "hidden",
           [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet },
-          [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile },
+          [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile, paddingBottom: theme.spacing(3) },
         },
       ]}
     >
       <div css={(theme) => [{ gridColumn: "span 6", position: "relative", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
-        <Text typography="newh1">Shop</Text>
-        <Text css={(theme) => [{ marginTop: theme.spacing(3), maxWidth: 400 }]}>
-          Limited-edition playing cards and exclusive bundles created by visionary artists.
+        <Text typography="h1">Shop</Text>
+        <Text css={(theme) => [{ marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { marginTop: theme.spacing(2) } }]}>
+          Limited-edition playing cards and exclusive<br css={(theme) => ({ [theme.maxMQ.xsm]: { display: "none" } })} /> bundles created by visionary artists.
         </Text>
-        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center" }]}>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center", [theme.maxMQ.xsm]: { marginTop: theme.spacing(2), gap: theme.spacing(2) } }]}>
           <Link href="#playing-cards">
             <ButtonTemplate
               bordered={true}
@@ -70,11 +70,11 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         <div
           css={(theme) => [
             {
-              width: 960,
-              height: 600,
+              width: 672,
+              height: 420,
               position: "absolute",
               top: -50,
-              left: 455,
+              left: "100%",
               opacity: 0,
               transition: "opacity 500ms ease",
               [theme.maxMQ.sm]: {
@@ -94,8 +94,8 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           <Image
             src={heroImage}
             alt={heroAlt}
-            width={960}
-            height={600}
+            width={672}
+            height={420}
             priority
             quality={90}
             style={{ objectFit: "cover" }}

@@ -90,12 +90,12 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <ArrowedButton>Summary</ArrowedButton>
       <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: theme.spacing(1.5) }]}>
         <div css={[{ display: "flex", justifyContent: "space-between" }]}>
-          <Text typography="paragraphSmall">Subtotal</Text>
-          <Text typography="paragraphSmall">${total.toFixed(2)}</Text>
+          <Text typography="p-s">Subtotal</Text>
+          <Text typography="p-s">${total.toFixed(2)}</Text>
         </div>
         <div css={[{ display: "flex", justifyContent: "space-between" }]}>
-          <Text typography="paragraphSmall">Shipping</Text>
-          <Text typography="paragraphSmall">
+          <Text typography="p-s">Shipping</Text>
+          <Text typography="p-s">
             ${(shippingSaving === 0 ? 5 : 0).toFixed(2)}
           </Text>
         </div>
@@ -112,7 +112,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           ]}
         >
           <Text
-            typography="paragraphNano"
+            typography="p-xs"
             css={[{ textAlign: "center", lineHeight: "45px" }]}
           >
             {total < 45
@@ -132,8 +132,8 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               },
             ]}
           >
-            <Text typography="paragraphSmall">Bundle savings</Text>
-            <Text typography="paragraphSmall">${savings.toFixed(2)}</Text>
+            <Text typography="p-s">Bundle savings</Text>
+            <Text typography="p-s">${savings.toFixed(2)}</Text>
           </div>
         )}
         {shippingSaving > 0 && (
@@ -148,8 +148,8 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               },
             ]}
           >
-            <Text typography="paragraphSmall">Shipping savings</Text>
-            <Text typography="paragraphSmall">${shippingSaving.toFixed(2)}</Text>
+            <Text typography="p-s">Shipping savings</Text>
+            <Text typography="p-s">${shippingSaving.toFixed(2)}</Text>
           </div>
         )}
         {savings > 0 && shippingSaving > 0 && (
@@ -164,8 +164,8 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               },
             ]}
           >
-            <Text typography="paragraphSmall">Total savings</Text>
-            <Text typography="paragraphSmall">
+            <Text typography="p-s">Total savings</Text>
+            <Text typography="p-s">
               ${(savings + shippingSaving).toFixed(2)}
             </Text>
           </div>
@@ -180,8 +180,8 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Text typography="newh3">Total</Text>
-        <Text typography="newh3">
+        <Text typography="h3">Total</Text>
+        <Text typography="h3">
           ${(total + (total >= 45 ? 0 : 5)).toFixed(2)}
         </Text>
       </div>
@@ -205,7 +205,7 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       </ContinueShopping>
 
       <Text
-        typography="paragraphSmall"
+        typography="p-s"
         css={(theme) => [
           { textAlign: "center", color: theme.colors.black30, marginTop: theme.spacing(3), fontSize: 15 },
         ]}

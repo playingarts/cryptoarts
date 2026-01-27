@@ -73,7 +73,7 @@ const LastSale: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ]}
       {...props}
     >
-      <Text typography="newh4">Last sale</Text>
+      <Text typography="h4">Last sale</Text>
       <Card
         noArtist={true}
         size="nano"
@@ -85,29 +85,29 @@ const LastSale: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         }
         css={[{ margin: "30px auto 0" }]}
       />
-      <Text typography="paragraphSmall" css={(theme) => [{ marginTop: theme.spacing(3) }]}>
+      <Text typography="p-s" css={(theme) => [{ marginTop: theme.spacing(3) }]}>
         {lastSale?.nft_name || "..."}
       </Text>
-      <Text typography="paragraphSmall" css={[{ marginTop: 2, marginBottom: 15 }]}>
+      <Text typography="p-s" css={[{ marginTop: 2, marginBottom: 15 }]}>
         {formatEth(lastSale?.price)}
       </Text>
       <div css={[{ marginTop: 2, ">*": { display: "inline-block" } }]}>
         <Text
-          typography="paragraphSmall"
+          typography="p-s"
           css={[{ width: 60, marginRight: 10 }]}
         >
           From
         </Text>
-        <Text typography="paragraphSmall">{truncateAddress(lastSale?.seller || "")}</Text>
+        <Text typography="p-s">{truncateAddress(lastSale?.seller || "")}</Text>
       </div>
       <div css={[{ marginTop: 2, ">*": { display: "inline-block" } }]}>
         <Text
-          typography="paragraphSmall"
+          typography="p-s"
           css={[{ width: 60, marginRight: 10 }]}
         >
           To
         </Text>
-        <Text typography="paragraphSmall">{truncateAddress(lastSale?.buyer || "")}</Text>
+        <Text typography="p-s">{truncateAddress(lastSale?.buyer || "")}</Text>
       </div>
       <Link
         href="https://opensea.io/collection/cryptoedition/activity"
@@ -116,7 +116,7 @@ const LastSale: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={[{ marginTop: "auto" }]}
       >
         <Text
-          typography="paragraphSmall"
+          typography="p-s"
           css={(theme) => [{ color: theme.colors.white50, paddingTop: 30, fontSize: 15 }]}
         >
           View all activity

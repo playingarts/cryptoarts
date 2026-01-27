@@ -92,7 +92,7 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     >
       <div css={(theme) => [contentWrapperStyles(theme)]}>
         <ArrowedButton>Where art meets play</ArrowedButton>
-        <Text typography="paragraphBig" css={(theme) => [{ paddingTop: 120, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(5) } }]}>
+        <Text typography="p-l" css={(theme) => [{ paddingTop: 120, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(5) } }]}>
           Playing Arts brings together artists from around the world,
           transforming traditional playing cards into a diverse gallery of
           creative expression.
@@ -118,10 +118,10 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
                 },
               })}
             >
-              <Text typography="newh3">
+              <Text typography="h3">
                 <AnimatedNumber value={stat.value} />
               </Text>
-              <Text typography="newh4">{stat.label}</Text>
+              <Text typography="h4">{stat.label}</Text>
             </div>
           ))}
         </Grid>
@@ -147,7 +147,7 @@ const Story: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         ]}
       >
         <ArrowedButton>Explore the collection</ArrowedButton>
-        <Text typography="paragraphBig" css={(theme) => [{ padding: "120px 0", [theme.maxMQ.xsm]: { padding: `${theme.spacing(5)}px 0` } }]}>
+        <Text typography="p-l" css={(theme) => [{ padding: "120px 0", [theme.maxMQ.xsm]: { padding: `${theme.spacing(5)}px 0` } }]}>
           Eight editions where each deck is a curated showcase of 55 unique
           artworks, created by 55 different international artists.
         </Text>

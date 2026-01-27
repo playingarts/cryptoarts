@@ -73,18 +73,31 @@ const Intro: FC<
     >
       <div>
         <Text
-          typography="paragraphBig"
+          typography="p-l"
           css={(theme) => ({
             color: theme.colors[palette === "dark" ? "white75" : "black"],
           })}
         >
           {paragraphText}
         </Text>
-        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), [theme.maxMQ.xsm]: { marginBottom: theme.spacing(3) } }]}>
-          {beforeLinkNew}
-          {linkNewText && (
-            linkNewHref ? (
-              <Link href={linkNewHref} target="_blank" rel="noopener noreferrer">
+        {(beforeLinkNew || linkNewText) && (
+          <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), [theme.maxMQ.xsm]: { marginBottom: theme.spacing(3) } }]}>
+            {beforeLinkNew}
+            {linkNewText && (
+              linkNewHref ? (
+                <Link href={linkNewHref} target="_blank" rel="noopener noreferrer">
+                  <ArrowButton
+                    size="small"
+                    base={true}
+                    noColor={true}
+                    css={(theme) => ({
+                      color: theme.colors[palette === "dark" ? "white75" : "black"],
+                    })}
+                  >
+                    {linkNewText}
+                  </ArrowButton>
+                </Link>
+              ) : (
                 <ArrowButton
                   size="small"
                   base={true}
@@ -95,21 +108,10 @@ const Intro: FC<
                 >
                   {linkNewText}
                 </ArrowButton>
-              </Link>
-            ) : (
-              <ArrowButton
-                size="small"
-                base={true}
-                noColor={true}
-                css={(theme) => ({
-                  color: theme.colors[palette === "dark" ? "white75" : "black"],
-                })}
-              >
-                {linkNewText}
-              </ArrowButton>
-            )
-          )}
-        </div>
+              )
+            )}
+          </div>
+        )}
       </div>
       {bottom}
     </ScandiBlock>

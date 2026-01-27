@@ -59,7 +59,7 @@ const Holder: FC<HolderProps> = ({ address, count, username, profileImage, hideC
         />
       )}
       <Text
-        typography="paragraphSmall"
+        typography="p-s"
         css={{
           overflow: "hidden",
           textOverflow: "ellipsis",
@@ -132,14 +132,14 @@ const Leaderboard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ]}
       {...props}
     >
-      <Text typography="newh4">Leaderboard</Text>
+      <Text typography="h4">Leaderboard</Text>
       <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3), flexWrap: "wrap" }]}>
         {categories.map((category) => (
           <div key={category.key} css={(theme) => [{ flex: "1 1 0", minWidth: 0, [theme.maxMQ.xsm]: { flex: "1 1 100%" } }]}>
-            <Text typography="linkNewTypography" css={[{ marginBottom: 5 }]}>
+            <Text typography="p-m" css={[{ marginBottom: 5 }]}>
               {category.title}
             </Text>
-            <Text typography="paragraphSmall">{category.subtitle}</Text>
+            <Text typography="p-s">{category.subtitle}</Text>
             <ScandiBlock
               css={(theme) => [
                 {
@@ -180,7 +180,7 @@ const Leaderboard: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         ))}
       </div>
       <Text
-        typography="paragraphSmall"
+        typography="p-s"
         css={(theme) => [{ color: theme.colors.white50, marginTop: theme.spacing(3), fontSize: 15 }]}
       >
         Updated daily from OpenSea

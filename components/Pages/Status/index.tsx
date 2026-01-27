@@ -92,12 +92,12 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
         height: 220,
       })}
     >
-      <Text typography="newh4" css={{ margin: 0 }}>
+      <Text typography="h4" css={{ margin: 0 }}>
         {label}
       </Text>
       {url && (
         <Text
-          typography="paragraphMicro"
+          typography="p-xxs"
           css={(theme) => ({
             color: theme.colors.black50,
             margin: 0,
@@ -122,7 +122,7 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
           }}
         />
         <Text
-          typography="paragraphMicro"
+          typography="p-xxs"
           css={{ color: statusColor, margin: 0 }}
         >
           {getStatusText(service.status)}
@@ -131,7 +131,7 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
 
       {service.message && (
         <Text
-          typography="paragraphMicro"
+          typography="p-xxs"
           css={(theme) => ({
             color: theme.colors.black50,
             margin: 0,
@@ -151,7 +151,7 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
       >
         <div>
           <Text
-            typography="paragraphMicro"
+            typography="p-xxs"
             css={(theme) => ({
               color: theme.colors.black50,
               margin: 0,
@@ -159,13 +159,13 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
           >
             Response
           </Text>
-          <Text typography="paragraphSmall" css={{ margin: 0 }}>
+          <Text typography="p-s" css={{ margin: 0 }}>
             {service.latency}ms
           </Text>
         </div>
         <div>
           <Text
-            typography="paragraphMicro"
+            typography="p-xxs"
             css={(theme) => ({
               color: theme.colors.black50,
               margin: 0,
@@ -173,13 +173,13 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
           >
             24h
           </Text>
-          <Text typography="paragraphSmall" css={{ margin: 0 }}>
+          <Text typography="p-s" css={{ margin: 0 }}>
             {Math.round(service.uptime["24h"])}%
           </Text>
         </div>
         <div>
           <Text
-            typography="paragraphMicro"
+            typography="p-xxs"
             css={(theme) => ({
               color: theme.colors.black50,
               margin: 0,
@@ -187,7 +187,7 @@ const ServiceCard: FC<{ service: ServiceData }> = ({ service }) => {
           >
             30d
           </Text>
-          <Text typography="paragraphSmall" css={{ margin: 0 }}>
+          <Text typography="p-s" css={{ margin: 0 }}>
             {Math.round(service.uptime["30d"])}%
           </Text>
         </div>
@@ -264,7 +264,7 @@ const StatusPage: FC = () => {
           })}
         >
           <Text
-            typography="newh3"
+            typography="h3"
             css={{
               color: "white",
               margin: 0,
@@ -274,7 +274,7 @@ const StatusPage: FC = () => {
           </Text>
           {lastUpdated && (
             <Text
-              typography="paragraphSmall"
+              typography="p-s"
               css={{
                 color: "rgba(255,255,255,0.8)",
                 margin: 0,
@@ -296,7 +296,7 @@ const StatusPage: FC = () => {
               marginBottom: theme.spacing(4),
             })}
           >
-            <Text typography="paragraphSmall" css={(theme) => ({ color: theme.colors.errorDark, margin: 0 })}>
+            <Text typography="p-s" css={(theme) => ({ color: theme.colors.errorDark, margin: 0 })}>
               {error}
             </Text>
           </div>
@@ -346,7 +346,7 @@ const StatusPage: FC = () => {
           })}
         >
           <Text
-            typography="paragraphSmall"
+            typography="p-s"
             css={(theme) => ({
               color: theme.colors.black50,
             })}

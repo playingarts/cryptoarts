@@ -94,7 +94,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
       </Text>
       <div css={(theme) => ({ paddingTop: 90, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(3) } })}>
         <Text
-          typography="paragraphSmall"
+          typography="p-s"
           css={(theme) => [{ marginBottom: theme.spacing(3), color: theme.colors.dark_gray }]}
         >
           Download free

@@ -61,7 +61,6 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
               .alpha(0.2)
               .toRgbString(),
             boxSizing: "border-box",
-            // height: "var(--buttonHeight)",
             height: 55,
             "&:focus": {},
           },
@@ -84,7 +83,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
           type="email"
           placeholder="Your e-mail"
           css={(theme) => ({
-            ...(theme.typography.linkNewTypography as CSSObject),
+            ...(theme.typography["p-m"] as CSSObject),
             color: theme.colors.black,
             padding: 0,
             paddingLeft: theme.spacing(2),
@@ -133,7 +132,7 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
             },
           ]}
         >
-          <Text typography="linkNewTypography" css={[{ color: "white", display: "flex", alignItems: "center" }]}>
+          <Text typography="p-m" css={[{ color: "white", display: "flex", alignItems: "center" }]}>
             {status === "loading" ? "Sending..." : status === "success" ? "Done!" : "Deal"}
             {status !== "loading" && status !== "success" && <Arrow css={[{ marginLeft: 10, color: "white" }]} />}
           </Text>

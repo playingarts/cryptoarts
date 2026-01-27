@@ -182,7 +182,7 @@ const PrivacyPage: FC = () => {
       >
         <div css={{ gridColumn: "1 / -1" }}>
           <Text
-            typography="newh1"
+            typography="h1"
             css={(theme) => ({
               color: theme.colors.dark_gray,
               marginBottom: theme.spacing(4),
@@ -204,7 +204,7 @@ const PrivacyPage: FC = () => {
             [theme.maxMQ.sm]: { /* Mobile styles - to be implemented */ },
           })}
         >
-          <Text typography="newParagraph" css={{ marginBottom: 24 }}>
+          <Text typography="p" css={{ marginBottom: 24 }}>
             Playing Arts project is legally represented by Digital Abstracts
             S.L. that cares about your privacy. This privacy statement provides
             details about the personal information that Digital Abstracts
@@ -238,7 +238,7 @@ const PrivacyPage: FC = () => {
               })}
             >
               <Text
-                typography="newh4"
+                typography="h4"
                 css={(theme) => ({
                   color: theme.colors.dark_gray,
                   marginBottom: theme.spacing(2),
@@ -247,7 +247,7 @@ const PrivacyPage: FC = () => {
                 {title}
               </Text>
               <Text
-                typography="paragraphSmall"
+                typography="p-s"
                 css={(theme) => ({
                   color: theme.colors.black50,
                   marginBottom: theme.spacing(3),

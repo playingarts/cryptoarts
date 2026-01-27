@@ -130,12 +130,12 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 />
               ))}
           <div css={(theme) => ({ padding: INFO_BLOCK_PADDING, [theme.maxMQ.xsm]: { padding: theme.spacing(2) } })} key="endless-inspiration">
-            <Text typography="paragraphBig" css={(theme) => ({ [theme.maxMQ.xsm]: theme.typography.newh3 })}>
+            <Text typography="p-l" css={(theme) => ({ [theme.maxMQ.xsm]: theme.typography.h3 })}>
               Eight editions.
               <br />
               Endless inspiration.
             </Text>
-            <Text typography="linkNewTypography" css={(theme) => ({ paddingTop: 15, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(1.5) } })}>
+            <Text typography="p-m" css={(theme) => ({ paddingTop: 15, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(1.5) } })}>
               Discover the journey <Dot />
             </Text>
           </div>

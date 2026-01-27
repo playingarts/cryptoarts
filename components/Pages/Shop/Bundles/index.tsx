@@ -9,14 +9,18 @@ import image3 from "../../../../mocks/images/ShopBundle/3-hover.png";
 import future from "../../../../mocks/images/ShopBundle/futureHover.png";
 import futureHover from "../../../../mocks/images/ShopBundle/future.png";
 import AddToBag from "../../../Buttons/AddToBag";
+import { useSize } from "../../../SizeProvider";
+import { breakpoints } from "../../../../source/enums";
 
 const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
   const [hover, setHover] = useState(false);
+  const { width } = useSize();
+  const isMobile = width < breakpoints.xsm;
 
   return (
     <div
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => !isMobile && setHover(true)}
+      onMouseLeave={() => !isMobile && setHover(false)}
       key={product._id + "bundleProduct"}
       css={(theme) => [
         {
@@ -30,6 +34,12 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
           },
           [theme.maxMQ.sm]: {
             gridColumn: "1 / -1", // Full width on tablet/mobile
+          },
+          [theme.maxMQ.xsm]: {
+            padding: theme.spacing(2),
+            "&:hover": {
+              backgroundColor: theme.colors.white50,
+            },
           },
         },
       ]}
@@ -58,6 +68,11 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
             paddingTop: theme.spacing(6),
             paddingBottom: 26,
             boxSizing: "content-box",
+            [theme.maxMQ.xsm]: {
+              height: 180,
+              paddingTop: theme.spacing(4),
+              paddingBottom: 15,
+            },
           },
         ]}
       >
@@ -88,17 +103,17 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
         />
       </div>
       <div css={(theme) => [{ marginTop: theme.spacing(3) }]}>
-        <Text typography="newh4">{product.title}</Text>
-        <Text typography="paragraphSmall" css={[{ marginTop: 10 }]}>
+        <Text typography="h4">{product.title}</Text>
+        <Text typography="p-s" css={[{ marginTop: 10 }]}>
           {product.description || product.info}
         </Text>
-        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center" }]}>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center", [theme.maxMQ.xsm]: { marginTop: theme.spacing(2), gap: theme.spacing(2) } }]}>
           <AddToBag productId={product._id} status={product.status} />
-          <Text typography="linkNewTypography">
+          <Text typography="p-m">
             ${product.price.usd}
           </Text>
           {product.fullPrice && (
-            <Text typography="linkNewTypography" css={{ textDecoration: "line-through" }}>
+            <Text typography="p-m" css={{ textDecoration: "line-through" }}>
               ${product.fullPrice.usd.toFixed(2)}
             </Text>
           )}
@@ -120,22 +135,33 @@ const Bundles: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   }, [products]);
 
   return (
-    <Grid
+    <div
       id="bundles"
       css={(theme) => [
-        { background: theme.colors.soft_gray, paddingTop: theme.spacing(6), paddingBottom: 90 },
+        {
+          background: theme.colors.soft_gray,
+          paddingTop: theme.spacing(6),
+          paddingBottom: 90,
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(4),
+            paddingBottom: theme.spacing(6),
+          },
+        },
       ]}
+      {...props}
     >
       <Intro
         arrowedText="Bundles for every collector"
         paragraphText="Save big and elevate your experience with these curated collections."
-        css={(theme) => [{ minHeight: 241, boxSizing: "content-box", marginBottom: 60, [theme.maxMQ.xsm]: { minHeight: "auto", marginBottom: theme.spacing(3) } }]}
+        bottom={<div css={(theme) => [{ height: 120, [theme.maxMQ.xsm]: { display: "none" } }]} />}
       />
-      {bundles &&
-        bundles.map((product) => (
-          <Bundle key={"Bundle" + product._id} product={product} />
-        ))}
-    </Grid>
+      <Grid css={(theme) => [{ [theme.maxMQ.xsm]: { gap: theme.spacing(2) } }]}>
+        {bundles &&
+          bundles.map((product) => (
+            <Bundle key={"Bundle" + product._id} product={product} />
+          ))}
+      </Grid>
+    </div>
   );
 };
 

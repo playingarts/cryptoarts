@@ -28,7 +28,7 @@ const ContactPage: FC = () => {
       >
         <div css={{ gridColumn: "1 / -1" }}>
           <Text
-            typography="newh1"
+            typography="h1"
             css={(theme) => ({
               color: theme.colors.dark_gray,
               marginBottom: theme.spacing(4),
@@ -50,7 +50,7 @@ const ContactPage: FC = () => {
             gridColumn: "span 12",
           }}
         >
-          <Text typography="newParagraph">
+          <Text typography="p">
             You got questions concerning your order or a general matter?
             <br />
             Please reach out to us:{" "}

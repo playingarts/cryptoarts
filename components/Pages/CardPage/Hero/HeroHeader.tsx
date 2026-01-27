@@ -165,7 +165,7 @@ const HeroHeader: FC<HeroHeaderProps> = ({
       })}
     >
       <Text
-        typography="newh1"
+        typography="h1"
         css={(theme) => ({
           color: dark ? theme.colors.white75 : "black",
         })}
@@ -173,7 +173,7 @@ const HeroHeader: FC<HeroHeaderProps> = ({
         {artistName}
       </Text>
       <Text
-        typography="newh4"
+        typography="h4"
         css={(theme) => ({
           color: theme.colors[dark ? "white75" : "black"],
         })}

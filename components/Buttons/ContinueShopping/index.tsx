@@ -8,7 +8,7 @@ const ContinueShopping: FC<HTMLAttributes<HTMLElement> & Props> = ({
 }) => (
   <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"}>
     <ArrowButton size="small" base noColor {...props}>
-      Continue shopping
+      Back to shop
     </ArrowButton>
   </Link>
 );

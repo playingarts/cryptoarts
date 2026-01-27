@@ -3,6 +3,8 @@ import Rating from "../../../../Icons/Rating";
 import Text from "../../../../Text";
 import Dot from "../../../../Icons/Dot";
 import Link from "../../../../Link";
+import { useSize } from "../../../../SizeProvider";
+import { breakpoints } from "../../../../../source/enums";
 
 // Map deck slugs to display titles
 const slugToTitle: Record<string, string> = {
@@ -15,9 +17,18 @@ const slugToTitle: Record<string, string> = {
 };
 
 const Item: FC<
-  HTMLAttributes<HTMLElement> & { rating: GQL.Rating; customButton?: ReactNode; currentDeckSlug?: string }
-> = ({ rating, customButton, currentDeckSlug, ...props }) => {
+  HTMLAttributes<HTMLElement> & { rating: GQL.Rating; customButton?: ReactNode; currentDeckSlug?: string; hideBought?: boolean }
+> = ({ rating, customButton, currentDeckSlug, hideBought = false, ...props }) => {
+  const { width } = useSize();
+  const isMobile = width < breakpoints.xsm;
   const charCount = rating.review.length;
+
+  // Typography based on character count
+  const getTypography = () => {
+    if (charCount <= 30) return isMobile ? "h2" : "h1";
+    if (charCount <= 120) return isMobile ? "p" : "p-l";
+    return isMobile ? "p-m" : "p";
+  };
 
   // Get sorted deck slugs (current deck first when on a filtered page)
   const sortedSlugs = rating.deckSlugs?.length
@@ -47,14 +58,16 @@ const Item: FC<
             maxWidth: 300,
             paddingRight: theme.spacing(3),
           },
-          [theme.mq.xsm]: {
-            "&:hover .customer-name": {
-              opacity: 0,
+          ...(!hideBought && {
+            [theme.mq.xsm]: {
+              "&:hover .customer-name": {
+                opacity: 0,
+              },
+              "&:hover .deck-titles": {
+                opacity: 1,
+              },
             },
-            "&:hover .deck-titles": {
-              opacity: 1,
-            },
-          },
+          }),
         },
       ]}
       {...props}
@@ -68,17 +81,11 @@ const Item: FC<
       </span>
       <Text
         css={(theme) => [{ marginTop: theme.spacing(3) }]}
-        typography={
-          charCount <= 30
-            ? "newh2"
-            : charCount <= 120
-            ? "paragraphBig"
-            : "paragraphSmall"
-        }
+        typography={getTypography()}
       >
         "{rating.review}"
       </Text>
-      <div css={{ position: "relative", marginTop: 15, height: 27 }}>
+      <div css={(theme) => ({ position: "relative", marginTop: theme.spacing(2), height: 27 })}>
         <Text
           className="customer-name"
           css={{
@@ -91,40 +98,41 @@ const Item: FC<
             textOverflow: "ellipsis",
             transition: "opacity 0.2s ease",
           }}
-          typography="paragraphSmall"
+          typography="p-s"
         >
           {rating.who}
         </Text>
-        <div
-          className="deck-titles"
-          css={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            fontSize: 18,
-            lineHeight: "150%",
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-            opacity: 0,
-            transition: "opacity 0.2s ease",
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-        >
-          <span css={(theme) => ({ color: theme.colors.black })}>Bought:</span>{" "}
-          {sortedSlugs.length > 0
-            ? sortedSlugs.map((slug, i) => (
-                <span key={slug}>
-                  <Link href={`/${slug}`}>{slugToTitle[slug] || slug}</Link>
-                  {i < sortedSlugs.length - 1 && ", "}
-                </span>
-              ))
-            : rating.title}
-          <Dot css={{ marginLeft: 4 }} />
-        </div>
+        {!hideBought && (
+          <div
+            className="deck-titles"
+            css={(theme) => ({
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              ...theme.typography["p-s"],
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+              opacity: 0,
+              transition: "opacity 0.2s ease",
+              whiteSpace: "nowrap",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+            })}
+          >
+            <span css={(theme) => ({ color: theme.colors.black })}>Bought:</span>{" "}
+            {sortedSlugs.length > 0
+              ? sortedSlugs.map((slug, i) => (
+                  <span key={slug}>
+                    <Link href={`/${slug}`}>{slugToTitle[slug] || slug}</Link>
+                    {i < sortedSlugs.length - 1 && ", "}
+                  </span>
+                ))
+              : rating.title}
+            <Dot css={{ marginLeft: 4 }} />
+          </div>
+        )}
       </div>
       {customButton}
     </div>

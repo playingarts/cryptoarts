@@ -33,7 +33,7 @@ const CustomMiddle: FC<{
 
   return deckProducts.length ? (
     <Text
-      typography="paragraphSmall"
+      typography="p-s"
       css={[
         {
           display: "flex",
@@ -139,6 +139,16 @@ const Pop: FC<
               marginRight: theme.spacing(1.5),
               width: `calc(100% - ${theme.spacing(3)}px)`,
             },
+            [theme.maxMQ.xsm]: {
+              padding: 0,
+              margin: theme.spacing(1.5),
+              marginTop: theme.spacing(3),
+              width: `calc(100% - ${theme.spacing(3)}px)`,
+              borderRadius: theme.spacing(1.5),
+              overflow: "hidden",
+              gap: theme.spacing(2),
+              position: "relative",
+            },
           },
         ]}
         onClick={(e) => {
@@ -161,6 +171,9 @@ const Pop: FC<
                 aspectRatio: "1",
                 position: "relative",
                 borderRadius: theme.spacing(2),
+                [theme.maxMQ.xsm]: {
+                  borderRadius: 0,
+                },
               },
             ]}
           >
@@ -175,13 +188,17 @@ const Pop: FC<
                 />
                 {productState.deck && (
                   <div
-                    css={[
+                    css={(theme) => [
                       {
                         position: "absolute",
                         top: 15,
                         left: 15,
                         display: "flex",
                         gap: 3,
+                        [theme.maxMQ.xsm]: {
+                          top: "auto",
+                          bottom: 15,
+                        },
                       },
                     ]}
                   >
@@ -191,7 +208,7 @@ const Pop: FC<
                       ))}
                   </div>
                 )}
-              </>
+                              </>
             ) : null}
           </div>
         </div>
@@ -209,11 +226,15 @@ const Pop: FC<
                 height: "auto",
                 position: "static",
               },
+              [theme.maxMQ.xsm]: {
+                padding: theme.spacing(3),
+                paddingTop: 0,
+              },
             },
           ]}
         >
           <div
-            css={[
+            css={(theme) => [
               {
                 display: "flex",
                 justifyContent: "space-between",
@@ -221,6 +242,11 @@ const Pop: FC<
                 top: 0,
                 left: 0,
                 right: 0,
+                [theme.maxMQ.xsm]: {
+                  top: 15,
+                  left: 15,
+                  right: 15,
+                },
               },
             ]}
           >
@@ -249,18 +275,21 @@ const Pop: FC<
           </div>
           {productState ? (
             <div
-              css={[
+              css={(theme) => [
                 {
                   display: "grid",
                   alignContent: "center",
                   maxWidth: 410,
                   flex: 1,
+                  [theme.maxMQ.xsm]: {
+                    maxWidth: "100%",
+                  },
                 },
               ]}
             >
-              <Text typography="newh2" css={{ whiteSpace: "pre-line" }}>{productState.title.replace("Future Chapter", "Future\nChapter")}</Text>
-              <Text typography="paragraphSmall" css={{ marginTop: 15 }}>{productState.description || productState.info}</Text>
-              {productState.deck?.slug !== "crypto" && <Text typography="newh4" css={{ marginTop: 15 }}>${productState.price.usd}</Text>}
+              <Text typography="h2" css={(theme) => ({ whiteSpace: "pre-line", [theme.maxMQ.xsm]: { whiteSpace: "normal" } })}>{productState.title.replace("Future Chapter", "Future\nChapter")}</Text>
+              <Text typography="p-s" css={(theme) => ({ marginTop: 15, [theme.maxMQ.xsm]: theme.typography["p-m"] })}>{productState.description || productState.info}</Text>
+              <Text typography="h4" css={{ marginTop: 15 }}>{productState.deck?.slug === "crypto" ? "Exclusive" : `$${productState.price.usd}`}</Text>
               <div
                 css={(theme) => [
                   {
@@ -273,7 +302,7 @@ const Pop: FC<
               >
                 {productState.deck?.slug === "crypto" ? (
                   <Button size="small" bordered>
-                    Exclusive
+                    Info
                   </Button>
                 ) : productState.status === "soldout" || productState.status === "soon" ? (
                   <SoldOut status={productState.status} />

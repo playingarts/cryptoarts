@@ -4,6 +4,7 @@ import Twitter from "../../Icons/Twitter";
 import Youtube from "../../Icons/Youtube";
 import { socialLinks } from "../../../source/consts";
 import ArrowButton from "../../Buttons/ArrowButton";
+import Button from "../../Buttons/Button";
 import { usePalette } from "../../Pages/Deck/DeckPaletteContext";
 import { useSize } from "../../SizeProvider";
 import { breakpoints } from "../../../source/enums";
@@ -11,21 +12,22 @@ import { breakpoints } from "../../../source/enums";
 const HeaderButton = () => {
   const { palette } = usePalette();
   const { width } = useSize();
+  const isMobile = width < breakpoints.xsm;
   return (
     <Link href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/shop"}>
-      {width >= breakpoints.sm ? (
-        <ArrowButton
-          color={palette === "dark" ? "white" : undefined}
+      {isMobile ? (
+        <Button
+          color="accent"
           palette={palette}
           size="medium"
         >
           Shop
-        </ArrowButton>
+        </Button>
       ) : (
         <ArrowButton
           color={palette === "dark" ? "white" : undefined}
           palette={palette}
-          size="small"
+          size="medium"
         >
           Shop
         </ArrowButton>

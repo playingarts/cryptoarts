@@ -10,21 +10,69 @@ import { mq, maxMQ } from "./breakpoints";
 const allianceFont = "var(--font-alliance), 'Alliance No.2', sans-serif";
 
 export const typographyLiterals = {
-  // New design system typography (Alliance No.2 font)
-  newParagraph: {
+  // Design system typography (Alliance No.2 font)
+  // Headings: h0 (85px) → h4 (25px)
+  h0: {
     fontFamily: allianceFont,
-    fontSize: 25,
+    fontSize: 80,
     fontWeight: 400,
-    lineHeight: "150%",
+    lineHeight: "100%",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+    [maxMQ.sm]: {
+      fontSize: 60,
+    },
+    [maxMQ.xsm]: {
+      fontSize: 60,
+    },
+  },
+  h1: {
+    fontFamily: allianceFont,
+    fontSize: 70,
+    fontWeight: 400,
+    lineHeight: "120%",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+    [maxMQ.sm]: {
+      fontSize: 50,
+    },
+    [maxMQ.xsm]: {
+      fontSize: 50,
+    },
+  },
+  h2: {
+    fontFamily: allianceFont,
+    fontSize: 55,
+    fontWeight: 400,
+    lineHeight: "120%",
+    [maxMQ.sm]: {
+      fontSize: 40,
+      lineHeight: "120%",
+    },
+    [maxMQ.xsm]: {
+      fontSize: 30,
+      lineHeight: "130%",
+    },
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+  },
+  h3: {
+    fontFamily: allianceFont,
+    fontSize: 35,
+    fontWeight: 400,
+    lineHeight: "53px",
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
     [maxMQ.xsm]: {
-      fontSize: 18,
-      lineHeight: "150%",
+      fontSize: 25,
+      lineHeight: "32px",
     },
   },
-  newh4: {
+  h4: {
     fontFamily: allianceFont,
     fontSize: 25,
     fontWeight: 400,
@@ -37,91 +85,72 @@ export const typographyLiterals = {
       lineHeight: "28px",
     },
   },
-  newh3: {
+  // Paragraphs: p-l (35px) → p-xxs (12px)
+  "p-l": {
     fontFamily: allianceFont,
-    fontSize: 35,
+    fontSize: 30,
     fontWeight: 400,
-    lineHeight: "53px",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-    [maxMQ.xsm]: {
-      fontSize: 24,
-      lineHeight: "32px",
-    },
-  },
-  newh2: {
-    fontFamily: allianceFont,
-    fontSize: 55,
-    fontWeight: 400,
-    lineHeight: "120%",
-    [maxMQ.sm]: {
-      fontSize: 40,
-      lineHeight: "120%",
-    },
-    [maxMQ.xsm]: {
-      fontSize: 28,
-      lineHeight: "130%",
-    },
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-  },
-  paragraphBig: {
-    fontFamily: allianceFont,
-    fontSize: 35,
-    fontWeight: 400,
-    lineHeight: "53px",
+    lineHeight: "150%",
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
     [maxMQ.sm]: {
       fontSize: 28,
-      lineHeight: "40px",
     },
     [maxMQ.xsm]: {
-      fontSize: 20,
-      lineHeight: "30px",
+      fontSize: 22,
     },
   },
-  linkNewTypography: {
+  p: {
     fontFamily: allianceFont,
-    fontSize: 20,
-    fontWeight: 400,
-    lineHeight: "40px",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-    [maxMQ.xsm]: {
-      fontSize: 16,
-      lineHeight: "28px",
-    },
-  },
-  paragraphSmall: {
-    fontFamily: allianceFont,
-    fontSize: 18,
-    fontWeight: 400,
-    lineHeight: "160%",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-    [maxMQ.xsm]: {
-      fontSize: 16,
-    },
-  },
-  paragraphNano: {
-    fontFamily: allianceFont,
-    fontSize: 15,
+    fontSize: 25,
     fontWeight: 400,
     lineHeight: "150%",
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
     [maxMQ.xsm]: {
-      fontSize: 13,
+      fontSize: 20,
+      lineHeight: "150%",
     },
   },
-  paragraphMicro: {
+  "p-m": {
+    fontFamily: allianceFont,
+    fontSize: 20,
+    fontWeight: 400,
+    lineHeight: "150%",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 18,
+    },
+  },
+  "p-s": {
+    fontFamily: allianceFont,
+    fontSize: 18,
+    fontWeight: 400,
+    lineHeight: "150%",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 16,
+    },
+  },
+  "p-xs": {
+    fontFamily: allianceFont,
+    fontSize: 16,
+    fontWeight: 400,
+    lineHeight: "150%",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 14,
+    },
+  },
+  "p-xxs": {
     fontFamily: allianceFont,
     fontSize: 12,
     fontWeight: 400,
@@ -129,40 +158,13 @@ export const typographyLiterals = {
     textAlign: "left",
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
-  },
-  newh0: {
-    fontFamily: allianceFont,
-    fontSize: 85,
-    fontWeight: 400,
-    lineHeight: "100%",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-    [maxMQ.sm]: {
-      fontSize: 60,
-    },
     [maxMQ.xsm]: {
-      fontSize: 40,
-    },
-  },
-  newh1: {
-    fontFamily: allianceFont,
-    fontSize: 70,
-    fontWeight: 400,
-    lineHeight: "120%",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-    [maxMQ.sm]: {
-      fontSize: 50,
-    },
-    [maxMQ.xsm]: {
-      fontSize: 32,
+      fontSize: 10,
     },
   },
 
   // Legacy typography (Aldrich font)
-  h1: {
+  "legacy-h1": {
     fontSize: 55,
     fontWeight: 400,
     letterSpacing: "-0.05em",
@@ -177,7 +179,7 @@ export const typographyLiterals = {
       lineHeight: 105 / 100,
     },
   },
-  h2: {
+  "legacy-h2": {
     fontSize: 40,
     lineHeight: 1.2,
     fontWeight: 400,
@@ -188,7 +190,7 @@ export const typographyLiterals = {
       lineHeight: 65 / 60,
     },
   },
-  h3: {
+  "legacy-h3": {
     fontSize: 30,
     lineHeight: 1,
     fontWeight: 400,
@@ -199,7 +201,7 @@ export const typographyLiterals = {
       lineHeight: 50 / 45,
     },
   },
-  h4: {
+  "legacy-h4": {
     fontSize: 20,
     lineHeight: 1,
     fontWeight: 400,
@@ -210,7 +212,7 @@ export const typographyLiterals = {
       lineHeight: 40 / 35,
     },
   },
-  h5: {
+  "legacy-h5": {
     fontSize: 25,
     fontWeight: 400,
     letterSpacing: "-0.05em",
@@ -218,7 +220,7 @@ export const typographyLiterals = {
     fontFamily: "Aldrich, sans-serif",
     textTransform: "uppercase",
   },
-  h6: {
+  "legacy-h6": {
     fontWeight: 400,
     fontSize: 16,
     lineHeight: 30 / 16,
@@ -229,7 +231,7 @@ export const typographyLiterals = {
       lineHeight: 30 / 18,
     },
   },
-  h7: {
+  "legacy-h7": {
     fontSize: 13,
     lineHeight: 30 / 13,
     fontWeight: 400,

@@ -35,6 +35,11 @@ import Link from "../../../Link";
 import { useAuth } from "../../../Contexts/auth";
 import Plus from "../../../Icons/Plus";
 import Delete from "../../../Icons/Delete";
+import { useSize } from "../../../SizeProvider";
+import { breakpoints } from "../../../../source/enums";
+
+const CAROUSEL_INTERVAL = 4000; // 4 seconds
+const SWIPE_THRESHOLD = 50;
 
 /** GraphQL mutation to update product photos */
 const UPDATE_PRODUCT_PHOTOS = gql`
@@ -178,6 +183,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
         aspectRatio: "1",
         position: "relative",
         overflow: "hidden",
+        maxWidth: "100%",
         "&:hover button": {
           opacity: 1,
         },
@@ -756,6 +762,285 @@ export const CardPreview: FC<{ deckId: string; deckObjectId: string }> = ({
   );
 };
 
+/** Photo carousel component */
+const PhotoCarousel: FC<{ photos: string[]; ratings?: GQL.Rating[] }> = ({ photos, ratings }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(true);
+  const [cycleCount, setCycleCount] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [reviewOffset, setReviewOffset] = useState(0);
+  const touchStartX = useRef(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Build items array: insert a review after every 2 photos
+  // reviewSlotIndex tracks which review slot this is (0, 1, 2, ...)
+  const items = useMemo(() => {
+    const result: { type: "photo" | "testimonial"; content: string; reviewSlotIndex?: number }[] = [];
+    let reviewSlotIndex = 0;
+
+    for (let i = 0; i < photos.length; i++) {
+      result.push({ type: "photo", content: photos[i] });
+
+      // After every 2 photos, insert a review (if we have ratings available)
+      if ((i + 1) % 2 === 0 && ratings && ratings.length > 0) {
+        result.push({
+          type: "testimonial",
+          content: "",
+          reviewSlotIndex: reviewSlotIndex
+        });
+        reviewSlotIndex++;
+      }
+    }
+    return result;
+  }, [photos, ratings]);
+
+  // Count how many review slots we have
+  const reviewSlotCount = useMemo(() => {
+    return items.filter(item => item.type === "testimonial").length;
+  }, [items]);
+
+  const extendedItems = items.length > 0 ? [...items, items[0]] : [];
+  const resetIndex = items.length;
+
+  const advanceCarousel = useCallback(() => {
+    if (items.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev >= resetIndex ? prev : prev + 1));
+  }, [resetIndex, items.length]);
+
+  const retreatCarousel = useCallback(() => {
+    if (items.length === 0) return;
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => (prev <= 0 ? items.length - 1 : prev - 1));
+  }, [items.length]);
+
+  // Reset to first slide seamlessly after reaching the duplicate
+  useEffect(() => {
+    if (currentIndex === resetIndex && items.length > 0) {
+      const timeout = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(0);
+        // Increment cycle count so reviews change on next loop
+        setCycleCount(prev => prev + 1);
+      }, 500);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, resetIndex, items.length]);
+
+  // Auto-advance (pauses on hover for desktop)
+  useEffect(() => {
+    if (items.length <= 1 || isPaused) return;
+    intervalRef.current = setInterval(advanceCarousel, CAROUSEL_INTERVAL);
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [advanceCarousel, items.length, isPaused]);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (currentIndex >= resetIndex) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > SWIPE_THRESHOLD) {
+      advanceCarousel();
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(advanceCarousel, CAROUSEL_INTERVAL);
+    } else if (diff < -SWIPE_THRESHOLD) {
+      retreatCarousel();
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(advanceCarousel, CAROUSEL_INTERVAL);
+    }
+  };
+
+  const handleClick = () => {
+    if (currentIndex >= resetIndex) return;
+    advanceCarousel();
+    // Only restart interval if not paused (mobile tap)
+    if (!isPaused) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      intervalRef.current = setInterval(advanceCarousel, CAROUSEL_INTERVAL);
+    }
+  };
+
+  if (items.length === 0) return null;
+
+  const itemWidth = "100%";
+
+  return (
+    <>
+    <div
+      css={(theme) => ({
+        overflow: "hidden",
+        borderRadius: theme.spacing(1.5),
+        position: "relative",
+        "&:hover .carousel-nav": {
+          opacity: 1,
+        },
+      })}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
+      <div
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onClick={handleClick}
+        css={{
+          display: "flex",
+          transition: isTransitioning ? "transform 0.5s ease" : "none",
+          cursor: "pointer",
+        }}
+        style={{
+          transform: `translateX(-${currentIndex * 100}%)`,
+        }}
+      >
+        {extendedItems.map((item, i) => (
+          <div
+            key={`item-${i}`}
+            css={(theme) => ({
+              flexShrink: 0,
+              width: itemWidth,
+              aspectRatio: "1",
+              background: theme.colors.white50,
+              borderRadius: theme.spacing(1.5),
+            })}
+          >
+            {item.type === "photo" ? (
+              <img
+                src={item.content}
+                alt={`Product photo ${i + 1}`}
+                css={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: 12,
+                }}
+              />
+            ) : ratings && item.reviewSlotIndex !== undefined ? (
+              <div css={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden" }}>
+                <Text css={(theme) => ({ padding: theme.spacing(3), paddingBottom: 0 })}>1,000+ Five-Star reviews</Text>
+                <Item
+                  rating={ratings[(item.reviewSlotIndex + cycleCount * reviewSlotCount + reviewOffset + ratings.length) % ratings.length]}
+                  hideBought
+                  customButton={
+                    <div css={(theme) => ({ display: "flex", alignItems: "center", gap: 5, marginTop: theme.spacing(2), [theme.maxMQ.xsm]: { display: "none" } })}>
+                      <NavButton
+                        css={{ transform: "rotate(180deg)" }}
+                        onClick={(e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          setReviewOffset(prev => prev - 1);
+                        }}
+                      />
+                      <NavButton
+                        onClick={(e: React.MouseEvent) => {
+                          e.stopPropagation();
+                          setReviewOffset(prev => prev + 1);
+                        }}
+                      />
+                      <ArrowButton
+                        href="#reviews"
+                        noColor
+                        size="small"
+                        base
+                        css={{ marginLeft: 25 }}
+                        onClick={(e: React.MouseEvent) => e.stopPropagation()}
+                      >
+                        All reviews
+                      </ArrowButton>
+                    </div>
+                  }
+                  css={{
+                    width: "100% !important" as any,
+                    maxWidth: "100% !important" as any,
+                    minWidth: "100% !important" as any,
+                    flex: 1,
+                    minHeight: 0,
+                    background: "transparent",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "flex-end",
+                    paddingRight: "24px !important" as any,
+                    paddingTop: "0 !important" as any,
+                    overflow: "hidden",
+                  }}
+                />
+              </div>
+            ) : null}
+          </div>
+        ))}
+      </div>
+      {/* Navigation arrows - desktop only */}
+      {items.length > 1 && (
+        <>
+          <NavButton
+            className="carousel-nav"
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              retreatCarousel();
+            }}
+            css={(theme) => ({
+              position: "absolute",
+              right: 65,
+              top: 20,
+              transform: "rotate(180deg)",
+              opacity: 0,
+              transition: "opacity 0.2s ease",
+              zIndex: 2,
+              [theme.maxMQ.xsm]: {
+                display: "none",
+              },
+            })}
+          />
+          <NavButton
+            className="carousel-nav"
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation();
+              advanceCarousel();
+            }}
+            css={(theme) => ({
+              position: "absolute",
+              right: 20,
+              top: 20,
+              opacity: 0,
+              transition: "opacity 0.2s ease",
+              zIndex: 2,
+              [theme.maxMQ.xsm]: {
+                display: "none",
+              },
+            })}
+          />
+        </>
+      )}
+    </div>
+      {/* Dots indicator - outside carousel */}
+      {items.length > 1 && (
+        <div
+          css={(theme) => ({
+            display: "flex",
+            justifyContent: "center",
+            gap: 6,
+            marginTop: theme.spacing(2),
+          })}
+        >
+          {items.map((_, i) => (
+            <div
+              key={`dot-${i}`}
+              css={(theme) => ({
+                width: 8,
+                height: 8,
+                borderRadius: "50%",
+                background: i === (currentIndex % items.length) ? theme.colors.accent : "rgba(0,0,0,0.1)",
+                transition: "background 0.3s ease",
+              })}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
+};
+
 const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const {
     query: { pId },
@@ -768,6 +1053,8 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   });
 
   const { getPrice } = useBag();
+  const { width } = useSize();
+  const isMobile = width < breakpoints.xsm;
 
   const [product, setProduct] = useState<GQL.Product>();
   const [localPhotos, setLocalPhotos] = useState<string[] | undefined>(undefined);
@@ -850,6 +1137,9 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           paddingTop: theme.spacing(6),
           paddingBottom: theme.spacing(6),
           backgroundColor: theme.colors.soft_gray,
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+          },
         },
       ]}
     >
@@ -860,20 +1150,46 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             paddingRight: theme.spacing(3),
             display: "grid",
             gap: theme.spacing(3),
+            position: "sticky",
+            top: 90,
+            height: "fit-content",
+            alignSelf: "start",
             img: {
               width: "100%",
               borderRadius: theme.spacing(1.5),
               aspectRatio: "1",
             },
+            [theme.maxMQ.md]: {
+              gridColumn: "span 4",
+            },
+            [theme.maxMQ.sm]: {
+              gridColumn: "1 / -1",
+              paddingRight: 0,
+              position: "relative",
+              top: "auto",
+            },
             [theme.maxMQ.xsm]: {
               gridColumn: "1 / -1",
               paddingRight: 0,
+              maxWidth: "100%",
+              position: "relative",
+              top: "auto",
             },
           },
         ]}
       >
-        {/* First photo slot */}
-        {displayProduct && (
+        {/* Photo carousel with reviews (both mobile and desktop for non-admin) */}
+        {!photoGallery.isAdmin && photoGallery.photos.length > 0 && (
+          <div css={(theme) => ({ marginBottom: theme.spacing(6) })}>
+            <PhotoCarousel
+              photos={photoGallery.photos}
+              ratings={shuffledRatings}
+            />
+          </div>
+        )}
+
+        {/* Admin: First photo slot */}
+        {photoGallery.isAdmin && displayProduct && (
           <PhotoSlot
             key={`${displayProduct._id}-0`}
             photo={photoGallery.getPhotoForSlot(0)}
@@ -889,13 +1205,14 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           />
         )}
 
-        {/* Testimonial between first and second photo */}
-        {currentRating && (
+        {/* Testimonial between first and second photo (admin only) */}
+        {photoGallery.isAdmin && currentRating && (
           <div
             css={(theme) => [
               {
                 background: theme.colors.white50,
                 width: "100%",
+                maxWidth: "100%",
                 aspectRatio: "1",
                 borderRadius: theme.spacing(2),
                 display: "flex",
@@ -935,8 +1252,8 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </div>
         )}
 
-        {/* Second photo slot */}
-        {displayProduct && (
+        {/* Second photo slot (admin only) */}
+        {photoGallery.isAdmin && displayProduct && (
           <PhotoSlot
             key={`${displayProduct._id}-1`}
             photo={photoGallery.getPhotoForSlot(1)}
@@ -952,8 +1269,8 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           />
         )}
 
-        {/* Third photo slot */}
-        {displayProduct && (
+        {/* Third photo slot (admin only) */}
+        {photoGallery.isAdmin && displayProduct && (
           <PhotoSlot
             key={`${displayProduct._id}-2`}
             photo={photoGallery.getPhotoForSlot(2)}
@@ -1007,33 +1324,33 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </>
         )}
 
-        {product && product.deck ? (
-          <CardPreview
-            deckId={product.deck.slug}
-            deckObjectId={product.deck._id}
-          />
-        ) : null}
-      </div>
+              </div>
       <div
         css={(theme) => [
           {
             gridColumn: "span 6",
             display: "grid",
             gap: theme.spacing(3),
-            position: "sticky",
-            top: 70,
-            height: "fit-content",
-            paddingBottom: theme.spacing(6),
+            paddingBottom: theme.spacing(3),
+            borderTop: `1px solid ${theme.colors.black}`,
+            paddingTop: theme.spacing(1.5),
+            [theme.maxMQ.md]: {
+              gridColumn: "span 5",
+            },
+            [theme.maxMQ.sm]: {
+              gridColumn: "1 / -1",
+            },
             [theme.maxMQ.xsm]: {
               gridColumn: "1 / -1",
-              position: "relative",
-              top: "auto",
+              maxWidth: "100%",
+              wordBreak: "break-word",
+              paddingBottom: 0,
             },
           },
         ]}
       >
         <Link href="#product">
-          <ArrowedButton css={[{ marginTop: 15, marginBottom: 90, justifyContent: "flex-start" }]}>
+          <ArrowedButton css={[{ justifyContent: "flex-start" }]}>
             The product
           </ArrowedButton>
         </Link>
@@ -1044,7 +1361,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             ))}
           </div>
         )}
-        <Text>
+        <Text css={(theme) => ({ marginTop: theme.spacing(9), [theme.maxMQ.xsm]: { marginTop: theme.spacing(3) } })}>
           {product?.deck?.info || "Created from a global design contest, this deck features 55 hand-picked artworks, voted on by enthusiasts worldwide. Whether for display or play, each card in this deck is a conversation starter, bringing joy and creativity to any gathering."}
         </Text>
         <div
@@ -1053,17 +1370,22 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               borderRadius: theme.spacing(2),
               background: theme.colors.white75,
               padding: `${theme.spacing(3)}px ${theme.spacing(3)}px`,
+              marginTop: theme.spacing(3),
+              [theme.maxMQ.xsm]: {
+                padding: `${theme.spacing(3)}px ${theme.spacing(2)}px`,
+                marginTop: theme.spacing(1),
+              },
             },
           ]}
           style={product ? {} : { height: 232 }}
         >
           {product && (
             <>
-              {product.deck?.slug !== "crypto" && <Text typography="newh3">${product.price.usd}</Text>}
+              <Text typography="h3">{product.deck?.slug === "crypto" ? "Exclusive" : `$${product.price.usd}`}</Text>
               <div css={(theme) => [{ marginTop: 15, display: "flex", alignItems: "center", gap: theme.spacing(3) }]}>
                 {product.deck?.slug === "crypto" ? (
                   <Button size="medium" bordered>
-                    Exclusive
+                    Info
                   </Button>
                 ) : product.status === "soldout" || product.status === "soon" ? (
                   <SoldOut size="medium" status={product.status} />
@@ -1072,73 +1394,85 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 )}
                 <ContinueShopping css={{ fontSize: 18 }} />
               </div>
+              <div
+                css={(theme) => [
+                  {
+                    marginTop: theme.spacing(3),
+                    paddingTop: theme.spacing(2),
+                    borderTop: `1px solid ${theme.colors.black10}`,
+                    gap: theme.spacing(3),
+                    display: "flex",
+                    alignItems: "center",
+                    color: "rgba(0,0,0,20%)",
+                    flexWrap: "wrap",
+                    [theme.maxMQ.xsm]: {
+                      marginTop: theme.spacing(2),
+                      paddingTop: theme.spacing(2),
+                      gap: theme.spacing(1.5),
+                    },
+                  },
+                ]}
+              >
+                <Visa css={(theme) => [{ width: 62.67 * 0.9, [theme.maxMQ.xsm]: { width: 62.67 * 0.7 } }]} />
+                <Mastercard css={(theme) => [{ width: 53.71 * 0.9, [theme.maxMQ.xsm]: { width: 53.71 * 0.7 } }]} />
+                <PayPal css={(theme) => [{ width: 76.09 * 0.9, [theme.maxMQ.xsm]: { width: 76.09 * 0.7 } }]} />
+                <ApplePay css={(theme) => [{ width: 67.14 * 0.9, [theme.maxMQ.xsm]: { width: 67.14 * 0.7 } }]} />
+                <GooglePay css={(theme) => [{ width: 69.89 * 0.9, [theme.maxMQ.xsm]: { width: 69.89 * 0.7 } }]} />
+              </div>
               <Text
+                typography="p-xs"
                 css={(theme) => [
                   {
                     color: theme.colors.black30,
-                    marginTop: theme.spacing(3),
-                    fontSize: 15,
+                    marginTop: theme.spacing(2),
                     display: "flex",
                     alignItems: "center",
+                    [theme.maxMQ.xsm]: {
+                      marginTop: theme.spacing(1),
+                    },
                   },
                 ]}
               >
                 <Lock css={[{ marginRight: 10 }]} />
-                100% secure check-out powered by Shopify.
+                Secure check-out powered by Shopify
               </Text>
             </>
           )}
         </div>
-        <div
-          css={(theme) => [
-            {
-              gap: theme.spacing(3),
-              display: "flex",
-              alignItems: "center",
-              color: "rgba(0,0,0,20%)",
-            },
-          ]}
-        >
-          <Visa css={[{ width: 62.67 }]} />
-          <Mastercard css={[{ width: 53.71 }]} />
-          <PayPal css={[{ width: 76.09 }]} />
-          <ApplePay css={[{ width: 67.14 }]} />
-          <GooglePay css={[{ width: 69.89 }]} />
-        </div>
-        <ScandiBlock id="why-this-deck" css={(theme) => [{ marginTop: theme.spacing(6), paddingTop: theme.spacing(1.5) }]}>
-          <Link href="#why-this-deck">
-            <ArrowedButton>Why this deck</ArrowedButton>
-          </Link>
-        </ScandiBlock>
-        <div
-          css={(theme) => [{ margin: `${theme.spacing(6)}px 0`, display: "grid", maxWidth: 520, gap: theme.spacing(3) }]}
-        >
-          {points.map((point, index) => (
-            <div key={point + index} css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
-              <Point css={[{ padding: 4, boxSizing: "content-box" }]} />
-              <Text
-                typography="paragraphSmall"
-                css={[{ flexBasis: 0, flexGrow: 1 }]}
-              >
-                {point}
-              </Text>
+        <FaqItem
+          question="Why this deck"
+          defaultOpen={!isMobile}
+          css={(theme) => ({ marginTop: theme.spacing(3), ">:first-of-type": theme.typography.p })}
+          answer={
+            <div css={(theme) => [{ display: "grid", gap: theme.spacing(2) }]}>
+              {points.map((point, index) => (
+                <div key={point + index} css={(theme) => [{ display: "flex", gap: theme.spacing(1.5) }]}>
+                  <Point css={[{ padding: 4, boxSizing: "content-box" }]} />
+                  <Text
+                    typography="p-s"
+                    css={[{ flexBasis: 0, flexGrow: 1 }]}
+                  >
+                    {point}
+                  </Text>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          }
+        />
         <FaqItem
           question="What's in the box"
-          css={{ ">:first-of-type": { fontSize: 25 } }}
+          css={(theme) => ({ ">:first-of-type": theme.typography.p })}
           answer={
-            <div css={(theme) => [{ display: "grid", gap: theme.spacing(3) }]}>
+            <div css={(theme) => [{ display: "grid", gap: theme.spacing(2) }]}>
               {[
                 "55 cards (52 playing cards plus two jokers, and one info card with the list of the artists).",
                 "Premium Bicycle® paper stock for unparalleled artistry, tactile quality and durability.",
                 "Poker-sized (9 x 6.5 x 2 cm). Weight ~110g.",
               ].map((point, index) => (
-                <div key={point + index} css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
+                <div key={point + index} css={(theme) => [{ display: "flex", gap: theme.spacing(1.5) }]}>
                   <Point css={[{ padding: 4, boxSizing: "content-box" }]} />
                   <Text
-                    typography="paragraphSmall"
+                    typography="p-s"
                     css={[{ flexBasis: 0, flexGrow: 1 }]}
                   >
                     {point}
@@ -1150,7 +1484,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         />
         <FaqItem
           question="Shipping & returns"
-          css={{ ">:first-of-type": { fontSize: 25 } }}
+          css={(theme) => ({ ">:first-of-type": theme.typography.p })}
           answer="Please allow 2—5 business days for orders to be processed after your purchase is complete. The estimated shipping time is 5—10 business days for Europe and USA, and up to 20 business days for the rest of the world."
         />
       </div>

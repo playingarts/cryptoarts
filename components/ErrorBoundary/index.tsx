@@ -63,10 +63,10 @@ class ErrorBoundary extends Component<Props, State> {
               textAlign: "center",
             }}
           >
-            <Text typography="newh3" css={{ marginBottom: 15 }}>
+            <Text typography="h3" css={{ marginBottom: 15 }}>
               Something went wrong
             </Text>
-            <Text typography="paragraphSmall" css={(theme) => ({ marginBottom: theme.spacing(3), opacity: 0.7 })}>
+            <Text typography="p-s" css={(theme) => ({ marginBottom: theme.spacing(3), opacity: 0.7 })}>
               We encountered an unexpected error. Please try again.
             </Text>
             <ArrowButton color="accent" onClick={this.handleRetry}>

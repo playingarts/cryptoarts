@@ -111,7 +111,7 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
         })}
       >
         <Text
-          typography="paragraphBig"
+          typography="p-l"
           css={(theme) => ({
             color: theme.colors.white,
           })}
@@ -121,7 +121,7 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
         <div css={(theme) => ({ width: "100%", marginTop: theme.spacing(6), [theme.maxMQ.xsm]: { marginTop: theme.spacing(3) } })}>
           <EmailForm palette="dark" />
           <Text
-            typography="paragraphNano"
+            typography="p-xs"
             css={(theme) => ({
               color: theme.colors.white,
               marginTop: theme.spacing(3),

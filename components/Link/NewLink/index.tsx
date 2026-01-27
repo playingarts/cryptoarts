@@ -6,7 +6,7 @@ const NewLink: FC<HTMLAttributes<HTMLElement> & Props> = ({
   children,
   ...props
 }) => (
-  <Link css={(theme) => [theme.typography.linkNewTypography]} {...props}>
+  <Link css={(theme) => [theme.typography["p-m"]]} {...props}>
     {children}
     <Dot />
   </Link>

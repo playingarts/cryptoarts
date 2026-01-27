@@ -16,7 +16,7 @@ export interface Props {
 const Text: FC<HTMLAttributes<HTMLElement> & Props> = ({
   children,
   palette: paletteProp = undefined,
-  typography = "newParagraph",
+  typography = "p",
   loading = false,
   ...props
 }) => {
@@ -34,7 +34,7 @@ const Text: FC<HTMLAttributes<HTMLElement> & Props> = ({
   return (
     <div
       css={(theme) => [
-        theme.typography[typography],
+        (theme.typography as any)[typography],
         {
           color: theme.colors[palette === "dark" ? "white75" : "dark_gray"],
         },

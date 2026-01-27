@@ -5,7 +5,6 @@ import Text from "../Text";
 import ButtonTemplate from "../Buttons/Button";
 import Apple from "../Icons/Apple";
 import Android from "../Icons/Android";
-import ArrowButton from "../Buttons/ArrowButton";
 import Link from "../Link";
 import { usePalette } from "../Pages/Deck/DeckPaletteContext";
 import { useAuth } from "../Contexts/auth";
@@ -77,7 +76,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
       >
         <div>
           <Text
-            typography="linkNewTypography"
+            typography="p-m"
             css={(theme) => [
               { color: theme.colors[palette === "dark" ? "white50" : "black50"] },
             ]}
@@ -135,7 +134,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           </div>
         </div>
         <Text
-          typography="paragraphMicro"
+          typography="p-xxs"
           css={(theme) => [
             {
               marginTop: "auto",
@@ -189,10 +188,11 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           ]}
         >
           <Text
-            typography="linkNewTypography"
+            typography="p-m"
             css={(theme) => [
               {
                 color: theme.colors[palette === "dark" ? "white50" : "black50"],
+                [theme.maxMQ.xsm]: theme.typography["p-s"],
               },
             ]}
           >
@@ -205,13 +205,13 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
                 href={item.href}
                 css={[{ display: "block" }]}
               >
-                <ArrowButton
-                  noColor={true}
-                  base={true}
-                  size="small"
+                <Text
+                  typography="p-s"
                   css={(theme) => [
                     {
                       textAlign: "start",
+                      paddingTop: 5,
+                      paddingBottom: 5,
                       color:
                         theme.colors[
                           palette === "dark" ? "white50" : "black50"
@@ -221,13 +221,13 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
                         color: theme.colors[palette === "dark" ? "white" : "black"],
                       },
                       [theme.maxMQ.xsm]: {
-                        fontSize: 16, // linkNewTypography mobile size
+                        fontSize: 16,
                       },
                     },
                   ]}
                 >
                   {item.label}
-                </ArrowButton>
+                </Text>
               </Link>
             ))}
             {/* Admin logout link - only in "The project" section */}
@@ -240,10 +240,8 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
                 }}
                 css={[{ display: "block" }]}
               >
-                <ArrowButton
-                  noColor={true}
-                  base={true}
-                  size="small"
+                <Text
+                  typography="p-s"
                   css={(theme) => [
                     {
                       textAlign: "start",
@@ -256,7 +254,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
                   ]}
                 >
                   Log out
-                </ArrowButton>
+                </Text>
               </a>
             )}
           </div>
@@ -265,7 +263,7 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
 
       {/* Mobile-only copyright at the very end */}
       <Text
-        typography="paragraphMicro"
+        typography="p-xxs"
         css={(theme) => [
           {
             display: "none",

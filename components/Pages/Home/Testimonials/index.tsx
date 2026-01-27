@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, useRef, useEffect, useCallback, useMemo } from "react";
+import { FC, HTMLAttributes, useRef, useEffect, useCallback, useMemo, useState } from "react";
 import { useRatings } from "../../../../hooks/ratings";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
@@ -12,6 +12,7 @@ const ITEM_WIDTH = 520;
 const ITEM_WIDTH_MOBILE = 300;
 const ITEM_GAP = 20;
 const AUTO_SCROLL_INTERVAL = 4000; // 4 seconds between auto-scrolls
+const VIRTUALIZATION_BUFFER = 3; // Render ±3 items from current position
 
 // Instagram posts data with real URLs
 const INSTAGRAM_POSTS = [
@@ -121,6 +122,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
   const leftArrowRef = useRef<HTMLButtonElement>(null);
   const rightArrowRef = useRef<HTMLButtonElement>(null);
   const isScrollingRef = useRef(false);
+  const [visibleIndex, setVisibleIndex] = useState(0);
 
   // Build mixed array with Instagram items after every 2-4 reviews (varied pattern)
   const mixedItems = useMemo((): CarouselItem[] => {
@@ -170,8 +172,11 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
     requestAnimationFrame(() => {
       if (!scrollRef.current) return;
       scrollRef.current.scrollLeft = singleSetWidth;
+      // Set initial visible index to start of middle set
+      const itemWidth = isMobile ? ITEM_WIDTH_MOBILE : ITEM_WIDTH;
+      setVisibleIndex(Math.round(singleSetWidth / (itemWidth + ITEM_GAP)));
     });
-  }, [mixedItems, singleSetWidth]);
+  }, [mixedItems, singleSetWidth, isMobile]);
 
   // Handle infinite scroll - jump to middle when reaching edges
   // Only check after smooth scroll completes (scrollend event or debounce)
@@ -207,6 +212,16 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
     }
   }, [mixedItems.length, singleSetWidth]);
 
+  // Calculate visible index from scroll position
+  const updateVisibleIndex = useCallback(() => {
+    if (!scrollRef.current || infiniteItems.length === 0) return;
+    const el = scrollRef.current;
+    const itemWidth = isMobile ? ITEM_WIDTH_MOBILE : ITEM_WIDTH;
+    const itemWithGap = itemWidth + ITEM_GAP;
+    const currentIndex = Math.round(el.scrollLeft / itemWithGap);
+    setVisibleIndex(currentIndex);
+  }, [infiniteItems.length, isMobile]);
+
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
@@ -214,6 +229,8 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
     // Use scrollend for browsers that support it, debounced scroll for others
     let scrollTimeout: ReturnType<typeof setTimeout>;
     const handleScroll = () => {
+      // Update visible index on every scroll for virtualization
+      updateVisibleIndex();
       clearTimeout(scrollTimeout);
       // Wait longer for smooth scroll to complete before checking position
       scrollTimeout = setTimeout(handleScrollEnd, 300);
@@ -222,6 +239,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
     // scrollend is better but not supported in Safari yet
     if ("onscrollend" in window) {
       el.addEventListener("scrollend", handleScrollEnd, { passive: true });
+      el.addEventListener("scroll", updateVisibleIndex, { passive: true });
     } else {
       el.addEventListener("scroll", handleScroll, { passive: true });
     }
@@ -230,11 +248,12 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
       clearTimeout(scrollTimeout);
       if ("onscrollend" in window) {
         el.removeEventListener("scrollend", handleScrollEnd);
+        el.removeEventListener("scroll", updateVisibleIndex);
       } else {
         el.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [handleScrollEnd]);
+  }, [handleScrollEnd, updateVisibleIndex]);
 
   // Arrows always enabled for infinite scroll
   useEffect(() => {
@@ -283,8 +302,9 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
           display: "flex",
           alignItems: "flex-start",
           gap: ITEM_GAP,
+          height: 500,
           paddingTop: theme.spacing(6),
-          paddingBottom: theme.spacing(6),
+          paddingBottom: 0,
           paddingLeft: 95,
           paddingRight: 75,
           overflowX: "auto",
@@ -302,6 +322,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
             paddingRight: 20,
           },
           [theme.maxMQ.xsm]: {
+            height: 380,
             paddingTop: 0,
             paddingLeft: theme.spacing(1.5),
             paddingRight: theme.spacing(1.5),
@@ -311,8 +332,27 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
       >
         {loading
           ? [...Array(3)].map((_, i) => <ItemSkeleton key={`skeleton-${i}`} />)
-          : infiniteItems.map((item, i) =>
-              item.type === "rating" ? (
+          : infiniteItems.map((item, i) => {
+              const isVisible = Math.abs(i - visibleIndex) <= VIRTUALIZATION_BUFFER;
+              const itemWidth = isMobile ? ITEM_WIDTH_MOBILE : ITEM_WIDTH;
+
+              // Render placeholder for items outside visible range
+              if (!isVisible) {
+                return (
+                  <div
+                    key={item.type === "rating" ? `rating-${item.data._id}-${i}` : `instagram-${item.index}-${i}`}
+                    css={{
+                      width: itemWidth,
+                      minWidth: itemWidth,
+                      maxWidth: itemWidth,
+                      flexShrink: 0,
+                      scrollSnapAlign: "start",
+                    }}
+                  />
+                );
+              }
+
+              return item.type === "rating" ? (
                 <Item key={`rating-${item.data._id}-${i}`} rating={item.data} currentDeckSlug={deckSlug} />
               ) : (
                 <InstagramItem
@@ -320,10 +360,10 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
                   url={item.data.url}
                   username={item.data.username}
                 />
-              )
-            )}
+              );
+            })}
       </div>
-      <Press />
+      <Press css={(theme) => ({ paddingTop: theme.spacing(3) })} />
     </div>
   );
 };

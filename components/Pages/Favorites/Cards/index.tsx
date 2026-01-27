@@ -146,9 +146,14 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
         <ScandiBlock css={(theme) => [{ gridColumn: "span 6", gap: theme.spacing(3), [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
           {deck.product && (
             deck.slug === "crypto" ? (
-              <Button size="small" bordered>
-                Exclusive
-              </Button>
+              <>
+                <Button size="small" bordered>
+                  Info
+                </Button>
+                <Button noColor size="small" base>
+                  Exclusive
+                </Button>
+              </>
             ) : deck.product.status === "soldout" || deck.product.status === "soon" ? (
               <SoldOut status={deck.product.status} />
             ) : (

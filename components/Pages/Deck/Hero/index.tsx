@@ -199,7 +199,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
           background:
             theme.colors[palette === "dark" ? "spaceBlack" : "soft_gray"],
           [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet },
-          [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile },
+          [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile, paddingBottom: theme.spacing(3) },
         },
       ]}
     >
@@ -207,7 +207,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
         {displayedDeck ? (
           <>
             <Text
-              typography="newh0"
+              typography="h0"
               css={(theme) => [
                 palette === "dark" && { color: "white" },
                 {
@@ -402,7 +402,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                   ]}
                 >
                   <Text
-                    typography="newh3"
+                    typography="h3"
                     css={(theme) => [
                       palette === "dark" && { color: theme.colors.white75 },
                     ]}
@@ -410,7 +410,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                     <AnimatedNumber value={data[0]} startAnimation={showStory} duration={1500} />
                   </Text>
                   <Text
-                    typography="newh4"
+                    typography="h4"
                     css={(theme) => [
                       palette === "dark" && { color: theme.colors.white75 },
                     ]}
@@ -432,7 +432,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
           >
             <KickStarterLine css={palette === "dark" ? { color: "white", opacity: 0.75 } : undefined} />
             <Text
-              typography="paragraphSmall"
+              typography="p-s"
               css={(theme) => [
                 { marginTop: theme.spacing(3) },
                 palette === "dark" && { color: theme.colors.white75 },

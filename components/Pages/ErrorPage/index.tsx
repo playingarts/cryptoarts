@@ -44,7 +44,7 @@ const ErrorPage: FC<Props> = ({ code = "404", message = "Page not found" }) => {
             <Logo css={(theme) => ({ color: theme.colors.dark_gray })} />
           </Link>
           <Text
-            typography="newh1"
+            typography="h1"
             css={(theme) => ({
               color: theme.colors.dark_gray,
               margin: 0,
@@ -53,7 +53,7 @@ const ErrorPage: FC<Props> = ({ code = "404", message = "Page not found" }) => {
             {code}
           </Text>
           <Text
-            typography="newParagraph"
+            typography="p"
             css={(theme) => ({
               color: theme.colors.black50,
               margin: 0,

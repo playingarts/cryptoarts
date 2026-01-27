@@ -16,6 +16,8 @@ import Pop from "../../../ProductPage/Pop";
 import CardPop from "../../../CardPage/Pop";
 import Card from "../../../../Card";
 import { useLoadCollectionCards } from "../../../../../hooks/card";
+import { useSize } from "../../../../SizeProvider";
+import { breakpoints } from "../../../../../source/enums";
 const images = [image1.src, image2.src, image3.src];
 
 // Minimal card type for our buffer
@@ -52,9 +54,11 @@ const CardSkeleton: FC<{ palette: "light" | "dark" }> = ({ palette }) => (
 );
 
 const CollectionItem: FC<
-  HTMLAttributes<HTMLDivElement> & { palette?: "dark"; product: GQL.Product; useAltImage?: boolean; onViewBag?: () => void; singleImage?: boolean }
-> = ({ palette, product, useAltImage, onViewBag, singleImage, ...props }) => {
+  HTMLAttributes<HTMLDivElement> & { palette?: "dark"; product: GQL.Product; useAltImage?: boolean; onViewBag?: () => void; singleImage?: boolean; fullWidthMobile?: boolean }
+> = ({ palette, product, useAltImage, onViewBag, singleImage, fullWidthMobile, ...props }) => {
   const router = useRouter();
+  const { width } = useSize();
+  const isMobile = width < breakpoints.xsm;
   const [hover, setHover] = useState(false);
   const [imageHover, setImageHover] = useState(false);
   const routePrefetchedRef = useRef(false);
@@ -242,20 +246,14 @@ const CollectionItem: FC<
 
   return (
     <div
-      css={(theme) => [
-        palette === "dark" && {
-          "&:hover": {
-            backgroundColor: theme.colors.black,
-          },
-        },
-      ]}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
+      onMouseEnter={() => !isMobile && setHover(true)}
+      onMouseLeave={() => !isMobile && setHover(false)}
+      css={(theme) => ({ [theme.maxMQ.xsm]: { display: "flex", flexDirection: "column", ...(fullWidthMobile && { gridColumn: "span 2" }) } })}
       {...props}
     >
       <div
-        onMouseEnter={() => setImageHover(true)}
-        onMouseLeave={() => setImageHover(false)}
+        onMouseEnter={() => !isMobile && setImageHover(true)}
+        onMouseLeave={() => !isMobile && setImageHover(false)}
         css={[
           {
             position: "relative",
@@ -362,11 +360,16 @@ const CollectionItem: FC<
         */}
 
         <div
-          css={{
+          css={(theme) => ({
             position: "relative",
             width: "100%",
             aspectRatio: "1/1",
-          }}
+            ...(fullWidthMobile && {
+              [theme.maxMQ.xsm]: {
+                aspectRatio: "4/3",
+              },
+            }),
+          })}
         >
           <img
             src={product.image2}
@@ -455,7 +458,7 @@ const CollectionItem: FC<
           </div>
         )}
       </div>
-      <div css={[{ margin: 30 }]}>
+      <div css={(theme) => [{ margin: theme.spacing(3), [theme.maxMQ.xsm]: { margin: theme.spacing(2), marginTop: 0, display: "flex", flexDirection: "column", flex: 1 } }]}>
         <Link
           href={
             (process.env.NEXT_PUBLIC_BASELINK || "") +
@@ -463,42 +466,32 @@ const CollectionItem: FC<
             product.short.toLowerCase().split(" ").join("")
           }
         >
-          <Text typography="newh4" palette={hover ? palette : undefined}>
+          <Text typography="h4">
             {product.title}
           </Text>
           <Text
-            typography="paragraphSmall"
-            css={[{ marginTop: 10 }]}
-            palette={hover ? palette : undefined}
+            typography="p-s"
+            css={(theme) => [{ marginTop: 10, [theme.maxMQ.xsm]: { display: "none" } }]}
           >
             {product.description || product.info}
           </Text>
         </Link>
-        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3) }]}>
+        <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", alignItems: "center", gap: theme.spacing(3), [theme.maxMQ.xsm]: fullWidthMobile ? { marginTop: 10, gap: theme.spacing(2), alignItems: "center" } : { marginTop: "auto", flexDirection: "column", alignItems: "flex-start", gap: 0 } }]}>
           {product.deck && product.deck.slug === "crypto" ? (
-            hover && palette !== undefined ? (
-              <Button
-                key="darkExclusive"
-                size="small"
-                bordered={true}
-                palette={palette}
-                color="white"
-              >
-                Exclusive
+            <>
+              <Button size="small" bordered={true} css={(theme) => [{ [theme.maxMQ.xsm]: { marginTop: 10, order: 1 } }]}>
+                Info
               </Button>
-            ) : (
-              <Button size="small" bordered={true}>
-                Exclusive
-              </Button>
-            )
+              <Text typography="p-m" css={(theme) => [{ [theme.maxMQ.xsm]: { order: -1, marginTop: 5 } }]}>Exclusive</Text>
+            </>
           ) : (
             <>
               {product.status === "soldout" || product.status === "soon" ? (
-                <SoldOut status={product.status} />
+                <SoldOut status={product.status} css={(theme) => [{ [theme.maxMQ.xsm]: fullWidthMobile ? {} : { marginTop: 10, order: 1 } }]} />
               ) : (
-                <AddToBag productId={product._id} />
+                <AddToBag productId={product._id} css={(theme) => [{ [theme.maxMQ.xsm]: fullWidthMobile ? {} : { marginTop: 10, order: 1 } }]} />
               )}
-              <Text typography="linkNewTypography">${product.price.usd}</Text>
+              <Text typography="p-m" css={(theme) => [{ [theme.maxMQ.xsm]: fullWidthMobile ? {} : { order: -1, marginTop: 5 } }]}>${product.price.usd}</Text>
             </>
           )}
         </div>

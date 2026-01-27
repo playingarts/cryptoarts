@@ -379,7 +379,7 @@ const Card: FC<CardProps> = memo(
               href={artistHref}
               css={(theme) => [
                 {
-                  ...theme.typography.linkNewTypography,
+                  ...theme.typography["p-m"],
                   marginTop: 10,
                   textAlign: "center",
                   fontSize: 18,
@@ -419,7 +419,7 @@ const Card: FC<CardProps> = memo(
             </Link>
           ) : (
             <Text
-              typography="linkNewTypography"
+              typography="p-m"
               css={(theme) => [
                 {
                   marginTop: 10,

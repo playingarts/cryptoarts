@@ -203,7 +203,7 @@ const RotatingReview: FC = () => {
           they are also a perfect way to discover new talented
           artists."
         </Text>
-        <Text typography="paragraphSmall" css={[{ marginTop: 15 }]}>
+        <Text typography="p-s" css={[{ marginTop: 15 }]}>
           Matthew V. from Florida, USA
         </Text>
       </>
@@ -218,10 +218,10 @@ const RotatingReview: FC = () => {
           transition: "opacity 0.3s ease-in-out",
         }}
       >
-        <Text css={(theme) => [{ marginTop: theme.spacing(3) }]}>
+        <Text css={(theme) => [{ marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { display: "-webkit-box", WebkitLineClamp: 5, WebkitBoxOrient: "vertical", overflow: "hidden" } }]}>
           "{currentReview.review}"
         </Text>
-        <Text typography="paragraphSmall" css={[{ marginTop: 15 }]}>
+        <Text typography="p-s" css={[{ marginTop: 15 }]}>
           {currentReview.who}
         </Text>
         {currentReview.title && (
@@ -261,6 +261,10 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           background: theme.colors.pale_gray,
           paddingBottom: theme.spacing(6),
           paddingTop: theme.spacing(6),
+          [theme.maxMQ.xsm]: {
+            paddingBottom: theme.spacing(4),
+            paddingTop: theme.spacing(4),
+          },
         },
       ]}
     >
@@ -279,15 +283,14 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               background: theme.colors.soft_gray,
               borderRadius: 16,
               overflow: "hidden",
-              "&:hover": {
-                background: theme.colors.white75,
-              },
             },
             [theme.maxMQ.sm]: {
               gridTemplateColumns: "1fr 1fr",
             },
             [theme.maxMQ.xsm]: {
-              gridTemplateColumns: "1fr",
+              gridTemplateColumns: "1fr 1fr",
+              marginTop: theme.spacing(3),
+              gap: 10,
             },
           },
         ]}
@@ -301,32 +304,40 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               if (product.type !== "deck") return null;
               const currentDeckIndex = deckIndex;
               deckIndex++;
+              const reviewsBlock = (
+                <div
+                  css={(theme) => [{ display: "grid", alignContent: "space-between", height: "100%", [theme.maxMQ.xsm]: { gridColumn: "1 / -1", height: 450 } }]}
+                >
+                  <Text css={(theme) => [{ margin: 30, [theme.maxMQ.xsm]: { margin: theme.spacing(2) } }]}>1,000+ reviews</Text>
+                  <div css={(theme) => [{ margin: 30, marginTop: 0, [theme.maxMQ.xsm]: { margin: theme.spacing(2), marginTop: 0 } }]}>
+                    <Rating />
+                    <Rating />
+                    <Rating />
+                    <Rating />
+                    <Rating />
+                    <RotatingReview />
+                  </div>
+                </div>
+              );
               return (
                 <Fragment key={"product" + product._id}>
+                  {/* Desktop: reviews before 3rd deck */}
                   {currentDeckIndex === 2 && (
-                    <div
-                      css={[{ display: "grid", alignContent: "space-between" }]}
-                    >
-                      <Text css={(theme) => [{ margin: 30, [theme.maxMQ.xsm]: { margin: theme.spacing(2) } }]}>1,000+ reviews</Text>
-                      <div css={(theme) => [{ margin: 30, [theme.maxMQ.xsm]: { margin: theme.spacing(2) } }]}>
-                        <Rating />
-                        <Rating />
-                        <Rating />
-                        <Rating />
-                        <Rating />
-                        <RotatingReview />
-                      </div>
+                    <div css={(theme) => [{ [theme.maxMQ.xsm]: { display: "none" } }]}>
+                      {reviewsBlock}
                     </div>
                   )}
-
                   <CollectionItem
-                    palette={
-                      product.deck && product.deck.slug === "crypto"
-                        ? "dark"
-                        : undefined
-                    }
+                    palette={product.deck && product.deck.slug === "crypto" ? "dark" : undefined}
                     product={product}
+                    fullWidthMobile={product.deck && (product.deck.slug === "zero" || product.deck.slug === "future")}
                   />
+                  {/* Mobile: reviews after Edition Two */}
+                  {product.deck && product.deck.slug === "two" && (
+                    <div css={(theme) => [{ display: "none", [theme.maxMQ.xsm]: { display: "grid", gridColumn: "1 / -1" } }]}>
+                      {reviewsBlock}
+                    </div>
+                  )}
                 </Fragment>
               );
             });

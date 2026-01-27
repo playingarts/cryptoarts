@@ -61,10 +61,10 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
         ) : product.status === "soldout" ? (
           <Label css={[{ backgroundColor: "#FFD6D6", marginBottom: 10, width: "fit-content" }]}>Sold out</Label>
         ) : null}
-        <Text typography="newh4" css={[{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", cursor: "pointer" }]} onClick={() => setShowPop(true)}>
+        <Text typography="h4" css={[{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", cursor: "pointer" }]} onClick={() => setShowPop(true)}>
           {product.title}
         </Text>
-                <Text typography="newh4" css={[{ marginTop: 15 }]}>
+                <Text typography="h4" css={[{ marginTop: 15 }]}>
           <Minus
             css={(theme) => [
               { marginRight: 22, userSelect: "none" },
@@ -94,7 +94,7 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
         </Text>
       </div>
       <Text
-        typography="newh4"
+        typography="h4"
         css={[{ gridColumn: "span 2", textAlign: "end" }]}
       >
         ${product.price.usd}

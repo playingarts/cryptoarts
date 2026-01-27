@@ -167,7 +167,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             <FeaturedPodcastSkeleton />
           ) : displayedPodcast ? (
             <div css={(theme) => ({ padding: theme.spacing(3), display: "flex", flexDirection: "column", height: "100%", boxSizing: "border-box", [theme.maxMQ.xsm]: { padding: theme.spacing(2) } })}>
-              <Text typography="paragraphSmall">
+              <Text typography="p-s">
                 EP{displayedPodcast.episode} — {displayedPodcast.time}
               </Text>
               <span
@@ -185,8 +185,8 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 ]}
               >
                 <div css={(theme) => [{ width: 380, [theme.maxMQ.sm]: { width: "auto", flex: 1 } }]}>
-                  <Text typography="newh2">{displayedPodcast.name}</Text>
-                  <Text typography="paragraphSmall" css={(theme) => [{ marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { display: "none" } }]}>
+                  <Text typography="h2">{displayedPodcast.name}</Text>
+                  <Text typography="p-s" css={(theme) => [{ marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { display: "none" } }]}>
                     {displayedPodcast.desc}
                   </Text>
                   {/* Mobile-only button under artist name */}
@@ -276,7 +276,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                         },
                       })}
                     >
-                      <Text typography="paragraphSmall" css={(theme) => ({ [theme.maxMQ.xsm]: { display: "none" } })}>
+                      <Text typography="p-s" css={(theme) => ({ [theme.maxMQ.xsm]: { display: "none" } })}>
                         EP{podcast.episode}
                       </Text>
                       <ArrowButton
@@ -287,7 +287,7 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                       >
                         {podcast.name}
                       </ArrowButton>
-                      <Text typography="paragraphSmall">
+                      <Text typography="p-s">
                         {podcast.time}
                       </Text>
                     </div>

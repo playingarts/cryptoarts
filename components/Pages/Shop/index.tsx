@@ -7,11 +7,14 @@ import Header from "../../Header";
 import Footer from "../../Footer";
 import LazySection from "../../LazySection";
 import ArrowButton from "../../Buttons/ArrowButton";
+import Button from "../../Buttons/Button";
 import Link from "../../Link";
 import Text from "../../Text";
 import { useBag } from "../../Contexts/bag";
 import MenuPortal from "../../Header/MainMenu/MenuPortal";
 import { FREE_SHIPPING_MESSAGE } from "../../../source/consts";
+import { useSize } from "../../SizeProvider";
+import { breakpoints } from "../../../source/enums";
 
 // Hero loads immediately (above fold)
 import Hero from "./Hero";
@@ -21,9 +24,6 @@ const Collection = dynamic(() => import("./Collection"), { ssr: false });
 const Newsletter = dynamic(() => import("../../Newsletter"), { ssr: false });
 const Trust = dynamic(() => import("./Trust"), { ssr: false });
 const Bundles = dynamic(() => import("./Bundles"), { ssr: false });
-const AugmentedReality = dynamic(() => import("../Home/AugmentedReality"), {
-  ssr: false,
-});
 const Testimonials = dynamic(() => import("../Home/Testimonials"), { ssr: false });
 const FAQ = dynamic(() => import("../../Footer/Faq"), { ssr: false });
 const Subscribe = dynamic(() => import("../../Popups/Subscribe"), {
@@ -32,6 +32,8 @@ const Subscribe = dynamic(() => import("../../Popups/Subscribe"), {
 
 export const BagButton = () => {
   const { bag } = useBag();
+  const { width } = useSize();
+  const isMobile = width < breakpoints.xsm;
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -43,20 +45,24 @@ export const BagButton = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const bagCount = bag
+    ? Object.values(bag).reduce((prev, cur) => prev + cur, 0)
+    : 0;
+
   return (
     <Link
       href={(process.env.NEXT_PUBLIC_BASELINK || "") + "/bag"}
       css={[{ marginLeft: "auto" }]}
     >
-      <ArrowButton color={scrolled ? "accent" : undefined} size="medium">
-        Bag
-        {bag
-          ? "—" +
-            Object.values(bag).reduce((prev, cur) => {
-              return prev + cur;
-            }, 0)
-          : null}
-      </ArrowButton>
+      {isMobile ? (
+        <Button color="accent" size="medium">
+          Bag{bagCount > 0 ? ` - ${bagCount}` : null}
+        </Button>
+      ) : (
+        <ArrowButton color={scrolled ? "accent" : undefined} size="medium">
+          Bag{bagCount > 0 ? ` - ${bagCount}` : null}
+        </ArrowButton>
+      )}
     </Link>
   );
 };
@@ -83,10 +89,10 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
   <>
     <Header
       customCTA={<BagButton />}
-      links={["Playing Cards", "Bundles", "AR", "Reviews", "FAQ"]}
+      links={["Playing Cards", "Bundles", "Reviews", "FAQ"]}
       customMiddle={
         <Text
-          typography="paragraphSmall"
+          typography="p-s"
           css={[
             {
               display: "flex",
@@ -119,13 +125,6 @@ const Shop: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
     <div id="bundles">
       <LazySection rootMargin="300px" minHeight={500}>
         <Bundles />
-      </LazySection>
-    </div>
-
-    {/* AR section - lazy load */}
-    <div id="ar">
-      <LazySection rootMargin="300px" minHeight={400}>
-        <AugmentedReality />
       </LazySection>
     </div>
 
