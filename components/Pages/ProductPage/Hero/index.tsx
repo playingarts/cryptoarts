@@ -49,7 +49,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             paddingBottom: theme.spacing(6),
             display: "grid",
             gap: theme.spacing(1.5),
-            gridColumn: "7 / span 5",
+            gridColumn: "7 / span 6",
             position: "relative",
             [theme.maxMQ.md]: { gridColumn: "4 / -1" },
             [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet, gridColumn: "1 / -1" },

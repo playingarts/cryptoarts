@@ -62,6 +62,9 @@ const EmailForm: FC<Props> = ({ palette = "dark" }) => {
               .toRgbString(),
             boxSizing: "border-box",
             height: 55,
+            [theme.maxMQ.xsm]: {
+              height: 45,
+            },
             "&:focus": {},
           },
           focus && {

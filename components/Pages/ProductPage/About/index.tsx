@@ -1335,7 +1335,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             borderTop: `1px solid ${theme.colors.black}`,
             paddingTop: theme.spacing(1.5),
             [theme.maxMQ.md]: {
-              gridColumn: "span 5",
+              gridColumn: "span 6",
             },
             [theme.maxMQ.sm]: {
               gridColumn: "1 / -1",
