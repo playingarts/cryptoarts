@@ -103,7 +103,7 @@ const Bundle: FC<{ product: GQL.Product }> = ({ product }) => {
         />
       </div>
       <div css={(theme) => [{ marginTop: theme.spacing(3) }]}>
-        <Text typography="h4">{product.title}</Text>
+        <Text typography="h4" css={(theme) => ({ [theme.maxMQ.xsm]: theme.typography.h3 })}>{product.title}</Text>
         <Text typography="p-s" css={[{ marginTop: 10 }]}>
           {product.description || product.info}
         </Text>

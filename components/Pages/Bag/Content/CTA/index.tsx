@@ -83,11 +83,17 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             top: "auto",
             marginTop: theme.spacing(3),
           },
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(3),
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+          },
         },
       ]}
       {...props}
     >
-      <ArrowedButton>Summary</ArrowedButton>
+      <ArrowedButton>Order summary</ArrowedButton>
       <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: theme.spacing(1.5) }]}>
         <div css={[{ display: "flex", justifyContent: "space-between" }]}>
           <Text typography="p-s">Subtotal</Text>
@@ -196,23 +202,13 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         css={[{ marginLeft: "auto", marginTop: 15, display: "block" }]}
         onClick={() => setCheckoutLoading(true)}
       >
-        <ArrowButton color="accent" size="medium" css={[{ display: "flex" }, checkoutLoading && { opacity: 0.7, cursor: "wait" }]}>
-          {checkoutLoading ? "Loading..." : "Secure check out"}
+        <ArrowButton color="accent" size="medium" css={(theme) => [{ display: "flex", height: 50, [theme.maxMQ.xsm]: { height: 50 } }, checkoutLoading && { opacity: 0.7, cursor: "wait" }]}>
+          {checkoutLoading ? "Loading..." : <><Lock css={[{ marginRight: 8 }]} />Secure check out</>}
         </ArrowButton>
       </Link>
-      <ContinueShopping css={[{ display: "flex", marginTop: 15 }]}>
+      <ContinueShopping css={(theme) => [{ display: "flex", marginTop: theme.spacing(2) }]}>
         Continue shopping
       </ContinueShopping>
-
-      <Text
-        typography="p-s"
-        css={(theme) => [
-          { textAlign: "center", color: theme.colors.black30, marginTop: theme.spacing(3), fontSize: 15 },
-        ]}
-      >
-        <Lock css={[{ marginRight: 10 }]} />
-        100% secure powered by Shopify
-      </Text>
 
       <div
         css={(theme) => [
@@ -230,12 +226,21 @@ const CTA: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           },
         ]}
       >
-        <Visa css={[{ width: 49.82 }]} />
-        <Mastercard css={[{ width: 42.7 }]} />
-        <PayPal css={[{ width: 60.5 }]} />
-        <ApplePay css={[{ width: 53.38 }]} />
-        <GooglePay css={[{ width: 55.56 }]} />
+        <Visa css={(theme) => [{ width: 49.82, [theme.maxMQ.xsm]: { width: 62.67 * 0.7 } }]} />
+        <Mastercard css={(theme) => [{ width: 42.7, [theme.maxMQ.xsm]: { width: 53.71 * 0.7 } }]} />
+        <PayPal css={(theme) => [{ width: 60.5, [theme.maxMQ.xsm]: { width: 76.09 * 0.7 } }]} />
+        <ApplePay css={(theme) => [{ width: 53.38, [theme.maxMQ.xsm]: { width: 67.14 * 0.7 } }]} />
+        <GooglePay css={(theme) => [{ width: 55.56, [theme.maxMQ.xsm]: { width: 69.89 * 0.7 } }]} />
       </div>
+
+      <Text
+        typography="p-s"
+        css={(theme) => [
+          { textAlign: "center", color: theme.colors.black30, marginTop: theme.spacing(3), fontSize: 15, [theme.maxMQ.xsm]: { marginTop: theme.spacing(2) } },
+        ]}
+      >
+Secure check-out powered by Shopify
+      </Text>
     </div>
   );
 };

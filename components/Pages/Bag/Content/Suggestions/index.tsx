@@ -14,9 +14,11 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string; fullWidthMob
 
   return (
     <>
-      <MenuPortal show={showPop}>
-        <Pop product={product} close={() => setShowPop(false)} show={showPop} onViewBag={() => setShowPop(false)} />
-      </MenuPortal>
+      {showPop && (
+        <MenuPortal show={showPop}>
+          <Pop product={product} close={() => setShowPop(false)} show={showPop} onViewBag={() => setShowPop(false)} />
+        </MenuPortal>
+      )}
       <div
         css={(theme) => ({
           flex: "0 0 calc(50% - 1.5px)",
@@ -35,6 +37,9 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string; fullWidthMob
             borderRadius: 16,
             overflow: "hidden",
             ...(fullWidthMobile && { flex: "0 0 100%" }),
+            "&:hover": {
+              background: theme.colors.white50,
+            },
           },
         })}
       >

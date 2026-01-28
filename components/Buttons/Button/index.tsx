@@ -35,6 +35,8 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
           borderRadius: size === "small" ? 5 : 7,
           boxSizing: "border-box",
           fontWeight: 400,
+          lineHeight: 1,
+          paddingTop: 2,
           // textAlign: "center",
           textUnderlinePosition: "from-font",
           textDecorationSkipInk: "none",

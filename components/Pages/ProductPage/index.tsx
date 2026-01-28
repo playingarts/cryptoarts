@@ -11,10 +11,13 @@ import { BagButton } from "../Shop";
 import Text from "../../Text";
 import Link from "../../Link";
 import NavButton from "../../Buttons/NavButton";
+import AddToBag from "../../Buttons/AddToBag";
+import SoldOut from "../../Buttons/SoldOut";
 import { useProducts } from "../../../hooks/product";
 import { useRouter } from "next/router";
 import Hero from "./Hero";
 import CollectionSkeleton from "./Collection/CollectionSkeleton";
+import { colord } from "colord";
 
 // Lazy-load below-fold sections (SSR disabled for progressive loading)
 const About = dynamic(() => import("./About"), { ssr: false });
@@ -132,6 +135,7 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { query: { pId } } = useRouter();
 
   const [deckSlug, setDeckSlug] = useState<string | undefined>();
+  const [showBottomBar, setShowBottomBar] = useState(false);
 
   // Find current product for structured data
   const currentProduct = useMemo(() => {
@@ -145,6 +149,30 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     if (currentProduct?.deck?.slug) {
       setDeckSlug(currentProduct.deck.slug);
     }
+  }, [currentProduct]);
+
+  // Show mobile bottom bar only when scrolled past the CTA section
+  useEffect(() => {
+    const handleScroll = () => {
+      const productCta = document.getElementById("product-cta");
+      if (productCta) {
+        const rect = productCta.getBoundingClientRect();
+        // Show when CTA bottom is above the viewport (user has scrolled past it)
+        setShowBottomBar(rect.bottom < 0);
+      } else {
+        // CTA not found yet, don't show bar
+        setShowBottomBar(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Delay initial check to ensure DOM is ready
+    const timeout = setTimeout(handleScroll, 100);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(timeout);
+    };
   }, [currentProduct]);
 
   // JSON-LD structured data for e-commerce SEO
@@ -228,6 +256,48 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       <LazySection rootMargin="100px" minHeight={400}>
         <Footer />
       </LazySection>
+
+      {/* Mobile sticky bottom bar */}
+      {currentProduct && currentProduct.deck?.slug !== "crypto" && (
+        <div
+          css={(theme) => ({
+            display: "none",
+            [theme.maxMQ.xsm]: {
+              display: "flex",
+              position: "fixed",
+              bottom: 0,
+              left: 0,
+              right: 0,
+              zIndex: 100,
+              height: 60,
+              paddingLeft: theme.spacing(2),
+              paddingRight: theme.spacing(2),
+              justifyContent: "space-between",
+              alignItems: "center",
+              background: colord("#FFFFFF").alpha(0.9).toRgbString(),
+              backdropFilter: "blur(10px)",
+              transform: showBottomBar ? "translateY(0)" : "translateY(100%)",
+              transition: "transform 0.15s ease-out",
+            },
+          })}
+        >
+          <Text
+            typography="p-m"
+            css={{ flex: 1, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", marginRight: 10, paddingTop: 5, cursor: "pointer" }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            {currentProduct.short || currentProduct.title}
+          </Text>
+          <div css={{ display: "flex", alignItems: "center", gap: 20, height: "100%" }}>
+            <Text typography="h4" css={{ paddingTop: 5 }}>${currentProduct.price.usd}</Text>
+            {currentProduct.status === "soldout" || currentProduct.status === "soon" ? (
+              <SoldOut status={currentProduct.status} />
+            ) : (
+              <AddToBag productId={currentProduct._id} />
+            )}
+          </div>
+        </div>
+      )}
     </>
   );
 };

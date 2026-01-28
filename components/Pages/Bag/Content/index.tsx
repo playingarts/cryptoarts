@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes, useMemo } from "react";
 import dynamic from "next/dynamic";
 import Text from "../../../Text";
 import Grid from "../../../Grid";
@@ -7,6 +7,7 @@ import ArrowedButton from "../../../Buttons/ArrowedButton";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import { useProducts } from "../../../../hooks/product";
 import { useBag } from "../../../Contexts/bag";
+import { colord } from "colord";
 
 // Lazy load Countdown to reduce bundle (~8.7kB)
 const Countdown = dynamic(() => import("react-countdown"), {
@@ -34,7 +35,19 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       : {}
   );
 
+  // Calculate total for mobile bottom bar
+  const orderTotal = useMemo(() => {
+    if (!products || !bag) return 0;
+    const subtotal = products
+      .filter((product) => bag[product._id])
+      .reduce((prev, cur) => Number((prev + cur.price.usd * bag[cur._id]).toFixed(2)), 0);
+    // Add shipping ($5) if subtotal < $45
+    return subtotal + (subtotal >= 45 ? 0 : 5);
+  }, [products, bag]);
+
+  
   return (
+    <>
     <Grid
       css={(theme) => [
         {
@@ -42,7 +55,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           paddingBottom: theme.spacing(6),
           backgroundColor: theme.colors.soft_gray,
           [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet },
-          [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile },
+          [theme.maxMQ.xsm]: { paddingTop: HEADER_OFFSET.mobile, paddingBottom: 30 },
         },
       ]}
     >
@@ -91,8 +104,39 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         </div>
         {!isEmpty && <Suggestions id="related" css={(theme) => [{ marginTop: theme.spacing(12), paddingTop: theme.spacing(6), [theme.maxMQ.xsm]: { marginTop: 0 } }]}></Suggestions>}
       </div>
-      {!isEmpty && <CTA css={(theme) => [{ gridColumn: "span 4/-1", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}></CTA>}
+      {!isEmpty && <CTA id="order-summary" css={(theme) => [{ gridColumn: "span 4/-1", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}></CTA>}
     </Grid>
+    {/* Mobile sticky bottom bar */}
+    {!isEmpty && (
+      <div
+        onClick={() => {
+          document.getElementById("order-summary")?.scrollIntoView({ behavior: "smooth" });
+        }}
+        css={(theme) => ({
+          display: "none",
+          [theme.maxMQ.xsm]: {
+            display: "flex",
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 100,
+            height: 60,
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
+            justifyContent: "space-between",
+            alignItems: "center",
+            background: colord("#FFFFFF").alpha(0.9).toRgbString(),
+            backdropFilter: "blur(10px)",
+            cursor: "pointer",
+                      },
+        })}
+      >
+        <Text typography="p-m" css={{ paddingTop: 5 }}>Order summary</Text>
+        <Text typography="h4" css={{ paddingTop: 5 }}>${orderTotal.toFixed(2)}</Text>
+      </div>
+    )}
+    </>
   );
 };
 

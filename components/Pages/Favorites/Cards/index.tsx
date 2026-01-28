@@ -150,9 +150,6 @@ const DeckSection: FC<DeckSectionProps> = ({ deck, cards, setCardsState, section
                 <Button size="small" bordered>
                   Info
                 </Button>
-                <Button noColor size="small" base>
-                  Exclusive
-                </Button>
               </>
             ) : deck.product.status === "soldout" || deck.product.status === "soon" ? (
               <SoldOut status={deck.product.status} />

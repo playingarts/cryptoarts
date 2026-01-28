@@ -434,6 +434,9 @@ const CollectionItem: FC<
                 left: 15,
                 zIndex: 10,
                 opacity: imageHover ? 1 : 0,
+                display: "flex",
+                alignItems: "center",
+                gap: 5,
                 ">*": {
                   backgroundColor: "white",
                 },
@@ -447,7 +450,6 @@ const CollectionItem: FC<
               css={[
                 {
                   rotate: "180deg",
-                  marginRight: 5,
                 },
               ]}
               onClick={(e) => {
@@ -472,7 +474,7 @@ const CollectionItem: FC<
             (product.slug || product.short.toLowerCase().split(" ").join(""))
           }
         >
-          <Text typography="h4">
+          <Text typography="h4" css={(theme) => ({ [theme.maxMQ.xsm]: fullWidthMobile ? theme.typography.h3 : {} })}>
             <span css={(theme) => ({ [theme.maxMQ.xsm]: { display: "none" } })}>{product.title}</span>
             <span css={(theme) => ({ display: "none", [theme.maxMQ.xsm]: { display: "inline" } })}>{product.short || product.title}</span>
           </Text>
@@ -485,12 +487,9 @@ const CollectionItem: FC<
         </Link>
         <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", alignItems: "center", gap: theme.spacing(3), [theme.maxMQ.xsm]: fullWidthMobile ? { marginTop: 10, gap: theme.spacing(2), alignItems: "center" } : { marginTop: "auto", flexDirection: "column", alignItems: "flex-start", gap: 0 } }]}>
           {product.deck && product.deck.slug === "crypto" ? (
-            <>
-              <Button size="small" bordered={true} css={(theme) => [{ [theme.maxMQ.xsm]: { marginTop: 10, order: 1 } }]}>
-                Info
-              </Button>
-              <Text typography="p-m" css={(theme) => [{ [theme.maxMQ.xsm]: { order: -1, marginTop: 5 } }]}>Exclusive</Text>
-            </>
+            <Button size="small" bordered={true}>
+              Info
+            </Button>
           ) : (
             <>
               {product.status === "soldout" || product.status === "soon" ? (

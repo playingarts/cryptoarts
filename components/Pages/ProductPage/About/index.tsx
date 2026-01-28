@@ -763,7 +763,9 @@ export const CardPreview: FC<{ deckId: string; deckObjectId: string }> = ({
 };
 
 /** Photo carousel component */
-const PhotoCarousel: FC<{ photos: string[]; ratings?: GQL.Rating[] }> = ({ photos, ratings }) => {
+const PhotoCarousel: FC<{ photos: string[]; ratings?: GQL.Rating[]; mobileFirstPhoto?: string }> = ({ photos, ratings, mobileFirstPhoto }) => {
+  const { width } = useSize();
+  const [isMounted, setIsMounted] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [cycleCount, setCycleCount] = useState(0);
@@ -772,11 +774,25 @@ const PhotoCarousel: FC<{ photos: string[]; ratings?: GQL.Rating[] }> = ({ photo
   const touchStartX = useRef(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Track mount state for hydration-safe mobile detection
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Only show mobileFirstPhoto after mount AND on mobile
+  const isMobile = isMounted && width < breakpoints.xsm;
+  const showMobileFirstPhoto = isMobile && mobileFirstPhoto;
+
   // Build items array: insert a review after every 2 photos
   // reviewSlotIndex tracks which review slot this is (0, 1, 2, ...)
   const items = useMemo(() => {
     const result: { type: "photo" | "testimonial"; content: string; reviewSlotIndex?: number }[] = [];
     let reviewSlotIndex = 0;
+
+    // Add mobile first photo only on mobile after mount
+    if (showMobileFirstPhoto) {
+      result.push({ type: "photo", content: mobileFirstPhoto });
+    }
 
     for (let i = 0; i < photos.length; i++) {
       result.push({ type: "photo", content: photos[i] });
@@ -792,13 +808,14 @@ const PhotoCarousel: FC<{ photos: string[]; ratings?: GQL.Rating[] }> = ({ photo
       }
     }
     return result;
-  }, [photos, ratings]);
+  }, [photos, ratings, showMobileFirstPhoto, mobileFirstPhoto]);
 
   // Count how many review slots we have
   const reviewSlotCount = useMemo(() => {
     return items.filter(item => item.type === "testimonial").length;
   }, [items]);
 
+  // Standard infinite loop - duplicate first item
   const extendedItems = items.length > 0 ? [...items, items[0]] : [];
   const resetIndex = items.length;
 
@@ -875,9 +892,6 @@ const PhotoCarousel: FC<{ photos: string[]; ratings?: GQL.Rating[] }> = ({ photo
         overflow: "hidden",
         borderRadius: theme.spacing(1.5),
         position: "relative",
-        "&:hover .carousel-nav": {
-          opacity: 1,
-        },
       })}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
@@ -970,71 +984,68 @@ const PhotoCarousel: FC<{ photos: string[]; ratings?: GQL.Rating[] }> = ({ photo
           </div>
         ))}
       </div>
-      {/* Navigation arrows - desktop only */}
-      {items.length > 1 && (
-        <>
-          <NavButton
-            className="carousel-nav"
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation();
-              retreatCarousel();
-            }}
-            css={(theme) => ({
-              position: "absolute",
-              right: 65,
-              top: 20,
-              transform: "rotate(180deg)",
-              opacity: 0,
-              transition: "opacity 0.2s ease",
-              zIndex: 2,
-              [theme.maxMQ.xsm]: {
-                display: "none",
-              },
-            })}
-          />
-          <NavButton
-            className="carousel-nav"
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation();
-              advanceCarousel();
-            }}
-            css={(theme) => ({
-              position: "absolute",
-              right: 20,
-              top: 20,
-              opacity: 0,
-              transition: "opacity 0.2s ease",
-              zIndex: 2,
-              [theme.maxMQ.xsm]: {
-                display: "none",
-              },
-            })}
-          />
-        </>
-      )}
-    </div>
-      {/* Dots indicator - outside carousel */}
+      </div>
+      {/* Navigation arrows and dots indicator - outside carousel */}
       {items.length > 1 && (
         <div
           css={(theme) => ({
             display: "flex",
-            justifyContent: "center",
-            gap: 6,
+            alignItems: "center",
             marginTop: theme.spacing(2),
+            position: "relative",
+            [theme.maxMQ.xsm]: {
+              marginTop: theme.spacing(3),
+            },
           })}
         >
-          {items.map((_, i) => (
-            <div
-              key={`dot-${i}`}
-              css={(theme) => ({
-                width: 8,
-                height: 8,
-                borderRadius: "50%",
-                background: i === (currentIndex % items.length) ? theme.colors.accent : "rgba(0,0,0,0.1)",
-                transition: "background 0.3s ease",
-              })}
+          {/* Navigation arrows - left aligned */}
+          <div
+            css={(theme) => ({
+              display: "flex",
+              alignItems: "center",
+              gap: 5,
+              [theme.maxMQ.xsm]: {
+                display: "none",
+              },
+            })}
+          >
+            <NavButton
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+                retreatCarousel();
+              }}
+              css={{ transform: "rotate(180deg)" }}
             />
-          ))}
+            <NavButton
+              onClick={(e: React.MouseEvent) => {
+                e.stopPropagation();
+                advanceCarousel();
+              }}
+            />
+          </div>
+          {/* Dots - centered */}
+          <div
+            css={{
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
+              display: "flex",
+              gap: 6,
+            }}
+          >
+            {items.map((_, i) => (
+              <div
+                key={`dot-${i}`}
+                css={(theme) => ({
+                  width: 8,
+                  height: 8,
+                  borderRadius: "50%",
+                  background: i === (currentIndex % items.length) ? theme.colors.accent : "rgba(0,0,0,0.1)",
+                  transition: "background 0.3s ease",
+                })}
+              />
+            ))}
+          </div>
         </div>
       )}
     </>
@@ -1180,10 +1191,11 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       >
         {/* Photo carousel with reviews (both mobile and desktop for non-admin) */}
         {!photoGallery.isAdmin && photoGallery.photos.length > 0 && (
-          <div css={(theme) => ({ marginBottom: theme.spacing(6) })}>
+          <div css={(theme) => ({ marginBottom: theme.spacing(6), minWidth: 0 })}>
             <PhotoCarousel
               photos={photoGallery.photos}
               ratings={shuffledRatings}
+              mobileFirstPhoto={displayProduct?.image2}
             />
           </div>
         )}
@@ -1350,7 +1362,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         ]}
       >
         <Link href="#product">
-          <ArrowedButton css={[{ justifyContent: "flex-start" }]}>
+          <ArrowedButton css={(theme) => [{ justifyContent: "flex-start", marginBottom: theme.spacing(9), [theme.maxMQ.xsm]: { marginBottom: theme.spacing(3) } }]}>
             The product
           </ArrowedButton>
         </Link>
@@ -1361,7 +1373,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             ))}
           </div>
         )}
-        <Text css={(theme) => ({ marginTop: theme.spacing(9), [theme.maxMQ.xsm]: { marginTop: theme.spacing(3) } })}>
+        <Text>
           {product?.deck?.info || "Created from a global design contest, this deck features 55 hand-picked artworks, voted on by enthusiasts worldwide. Whether for display or play, each card in this deck is a conversation starter, bringing joy and creativity to any gathering."}
         </Text>
         <div
@@ -1381,7 +1393,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
         >
           {product && (
             <>
-              <Text typography="h3">{product.deck?.slug === "crypto" ? "Exclusive" : `$${product.price.usd}`}</Text>
+              {product.deck?.slug !== "crypto" && <Text typography="h3">${product.price.usd}</Text>}
               <div css={(theme) => [{ marginTop: 15, display: "flex", alignItems: "center", gap: theme.spacing(3) }]}>
                 {product.deck?.slug === "crypto" ? (
                   <Button size="medium" bordered>
@@ -1406,7 +1418,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                     color: "rgba(0,0,0,20%)",
                     flexWrap: "wrap",
                     [theme.maxMQ.xsm]: {
-                      marginTop: theme.spacing(2),
+                      marginTop: theme.spacing(3),
                       paddingTop: theme.spacing(2),
                       gap: theme.spacing(1.5),
                     },

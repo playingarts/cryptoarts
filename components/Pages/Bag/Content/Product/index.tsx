@@ -20,9 +20,11 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
 
   return (
     <Grid auto css={(theme) => [{ alignItems: "center", [theme.maxMQ.xsm]: { paddingLeft: 0, paddingRight: 0, gridTemplateColumns: "1fr 1fr 1fr 1fr" } }]}>
-      <MenuPortal show={showPop}>
-        <Pop product={product} close={() => setShowPop(false)} show={showPop} onViewBag={() => setShowPop(false)} />
-      </MenuPortal>
+      {showPop && (
+        <MenuPortal show={showPop}>
+          <Pop product={product} close={() => setShowPop(false)} show={showPop} onViewBag={() => setShowPop(false)} />
+        </MenuPortal>
+      )}
       {/* Image - 2 columns left (1 on mobile) */}
       <div
         css={(theme) => [
@@ -35,18 +37,18 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
           },
         ]}
       >
-        {/* Mobile: Label on image */}
+        {/* Label on image (desktop top-left, mobile adjusted) */}
         {(product.status === "low" || product.status === "soldout") && (
           <Label
             css={(theme) => [
               {
-                display: "none",
+                position: "absolute",
+                top: 15,
+                left: 15,
+                zIndex: 1,
                 [theme.maxMQ.xsm]: {
-                  display: "block",
-                  position: "absolute",
                   top: 5,
                   left: 5,
-                  zIndex: 1,
                 },
               },
               product.status === "low" && { backgroundColor: "#FFF4CC" },
@@ -94,22 +96,6 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
           },
         ]}
       >
-        {product.status === "low" ? (
-          <Label
-            css={[
-              {
-                backgroundColor: "#FFF4CC",
-                height: "fit-content",
-                marginBottom: 10,
-                width: "fit-content",
-              },
-            ]}
-          >
-            Low stock
-          </Label>
-        ) : product.status === "soldout" ? (
-          <Label css={[{ backgroundColor: "#FFD6D6", marginBottom: 10, width: "fit-content" }]}>Sold out</Label>
-        ) : null}
         <Text typography="h4" css={[{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", cursor: "pointer" }]} onClick={() => setShowPop(true)}>
           {product.title}
         </Text>

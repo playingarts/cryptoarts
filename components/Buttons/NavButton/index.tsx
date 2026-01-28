@@ -15,8 +15,12 @@ const NavButton: FC<
       css={(theme) => [
         {
           width: 45,
+          height: 45,
           borderRadius: "100%",
-          textAlign: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: 0,
           "&:hover": [
             palette === "dark"
               ? {
@@ -35,7 +39,7 @@ const NavButton: FC<
       ]}
       {...props}
     >
-      <Arrow />
+      <Arrow css={{ width: 21, height: 21 }} />
     </Button>
   );
 };

@@ -59,8 +59,8 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       >
         <Text typography="h1" css={(theme) => ({ textAlign: "left", fontSize: 65, [theme.maxMQ.xsm]: { fontSize: 40 } })}>{product.title}</Text>
         <Text>{product.description}</Text>
-        <Text>{product.deck?.slug === "crypto" ? "Exclusive" : `$${product.price.usd}`}</Text>
-        <div css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(3) })}>
+        {product.deck?.slug !== "crypto" && <Text>${product.price.usd}</Text>}
+        <div id="product-cta" css={(theme) => ({ display: "flex", alignItems: "center", gap: theme.spacing(3) })}>
           {product.deck?.slug === "crypto" ? (
             <Button size="medium" bordered>
               Info

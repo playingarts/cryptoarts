@@ -1,4 +1,5 @@
-import { FC, HTMLAttributes, useEffect, useState } from "react";
+import { FC, HTMLAttributes, useEffect, useState, useRef } from "react";
+import { keyframes } from "@emotion/react";
 import { convertToProductSlug } from "..";
 import { useProducts } from "../../../../hooks/product";
 import AddToBag from "../../../Buttons/AddToBag";
@@ -12,7 +13,22 @@ import Link from "../../../Link";
 import Text from "../../../Text";
 import { useFlyingFav } from "../../../Contexts/flyingFav";
 
-const CustomMiddle: FC<{
+/** Fade animation for photo transitions */
+const fadeIn = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
+/** Min interval between photo changes (ms) */
+const MIN_INTERVAL = 6000;
+/** Max interval between photo changes (ms) */
+const MAX_INTERVAL = 12000;
+
+/** Get random interval between min and max */
+const getRandomInterval = () => MIN_INTERVAL + Math.random() * (MAX_INTERVAL - MIN_INTERVAL);
+
+// Desktop: navigate between products
+const ProductNavigation: FC<{
   productState: GQL.Product;
   setProductState: (arg0: GQL.Product | undefined) => void;
 }> = ({ productState, setProductState }) => {
@@ -34,12 +50,15 @@ const CustomMiddle: FC<{
   return deckProducts.length ? (
     <Text
       typography="p-s"
-      css={[
+      css={(theme) => [
         {
           display: "flex",
           alignItems: "center",
           paddingRight: 66,
           justifyContent: "end",
+          [theme.maxMQ.xsm]: {
+            display: "none",
+          },
         },
       ]}
     >
@@ -51,7 +70,6 @@ const CustomMiddle: FC<{
         }
         css={[{ transform: "rotate(180deg)" }]}
       />
-
       <NavButton
         onClick={() =>
           setProductState(
@@ -61,6 +79,52 @@ const CustomMiddle: FC<{
       />
     </Text>
   ) : null;
+};
+
+// Navigate between product photos (positioned on photo)
+const PhotoNavigation: FC<{
+  photos: string[];
+  photoIndex: number;
+  onPhotoChange: (index: number) => void;
+}> = ({ photos, photoIndex, onPhotoChange }) => {
+  if (photos.length <= 1) return null;
+
+  return (
+    <div
+      className="photo-nav"
+      css={(theme) => [
+        {
+          position: "absolute",
+          bottom: 15,
+          left: 15,
+          display: "flex",
+          alignItems: "center",
+          gap: 5,
+          zIndex: 2,
+          opacity: 0,
+          transition: "opacity 0.2s ease",
+          [theme.maxMQ.xsm]: {
+            opacity: 1,
+            left: "auto",
+            right: 15,
+          },
+        },
+      ]}
+    >
+      <NavButton
+        onClick={() =>
+          onPhotoChange(photoIndex > 0 ? photoIndex - 1 : photos.length - 1)
+        }
+        css={(theme) => [{ transform: "rotate(180deg)", backgroundColor: theme.colors.white }]}
+      />
+      <NavButton
+        onClick={() =>
+          onPhotoChange(photoIndex < photos.length - 1 ? photoIndex + 1 : 0)
+        }
+        css={(theme) => [{ backgroundColor: theme.colors.white }]}
+      />
+    </div>
+  );
 };
 
 const Pop: FC<
@@ -88,11 +152,79 @@ const Pop: FC<
   }, [show, setPopupOpen]);
 
   const [productState, setProductState] = useState<GQL.Product>();
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [previousPhoto, setPreviousPhoto] = useState<string | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const autoRotateTimerRef = useRef<NodeJS.Timeout | null>(null);
+
   useEffect(() => {
     if (product) {
       setProductState(product);
+      setPhotoIndex(0); // Reset photo index when product changes
+      setPreviousPhoto(null);
+      setIsTransitioning(false);
     }
   }, [product]);
+
+  // Get photos array with product image first
+  const photos = productState?.image2
+    ? [productState.image2, ...(productState.photos || [])]
+    : productState?.photos || [];
+  const currentPhoto = photos[photoIndex] || productState?.image2;
+
+  // Auto-rotate photos with random intervals (same as product page)
+  useEffect(() => {
+    if (!show || photos.length <= 1) return;
+
+    const scheduleNext = () => {
+      const interval = getRandomInterval();
+      return setTimeout(() => {
+        setPhotoIndex((prev) => {
+          const nextIndex = (prev + 1) % photos.length;
+          // Trigger crossfade
+          setPreviousPhoto(photos[prev]);
+          setIsTransitioning(true);
+          setTimeout(() => setIsTransitioning(false), 500);
+          return nextIndex;
+        });
+        autoRotateTimerRef.current = scheduleNext();
+      }, interval);
+    };
+
+    autoRotateTimerRef.current = scheduleNext();
+
+    return () => {
+      if (autoRotateTimerRef.current) {
+        clearTimeout(autoRotateTimerRef.current);
+        autoRotateTimerRef.current = null;
+      }
+    };
+  }, [show, photos.length]);
+
+  // Handle manual photo navigation - reset auto-rotate timer
+  const handlePhotoChange = (newIndex: number) => {
+    if (autoRotateTimerRef.current) {
+      clearTimeout(autoRotateTimerRef.current);
+    }
+    setPreviousPhoto(currentPhoto || null);
+    setIsTransitioning(true);
+    setPhotoIndex(newIndex);
+    setTimeout(() => setIsTransitioning(false), 500);
+
+    // Restart auto-rotate after manual change
+    if (photos.length > 1) {
+      const interval = getRandomInterval();
+      autoRotateTimerRef.current = setTimeout(() => {
+        setPhotoIndex((prev) => {
+          const nextIndex = (prev + 1) % photos.length;
+          setPreviousPhoto(photos[prev] || null);
+          setIsTransitioning(true);
+          setTimeout(() => setIsTransitioning(false), 500);
+          return nextIndex;
+        });
+      }, interval);
+    }
+  };
 
   return (
     <div
@@ -156,10 +288,14 @@ const Pop: FC<
         }}
       >
         <div
-          css={[
+          css={(theme) => [
             {
-              flex: 1,
+              flex: "0 0 600px",
               maxWidth: 600,
+              [theme.maxMQ.sm]: {
+                flex: "1 1 auto",
+                maxWidth: "100%",
+              },
             },
           ]}
         >
@@ -171,6 +307,9 @@ const Pop: FC<
                 aspectRatio: "1",
                 position: "relative",
                 borderRadius: theme.spacing(2),
+                "&:hover .photo-nav": {
+                  opacity: 1,
+                },
                 [theme.maxMQ.xsm]: {
                   borderRadius: 0,
                 },
@@ -179,11 +318,45 @@ const Pop: FC<
           >
             {productState ? (
               <>
+                {/* Previous photo for crossfade */}
+                {isTransitioning && previousPhoto && (
+                  <img
+                    src={previousPhoto}
+                    alt=""
+                    css={(theme) => [
+                      {
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
+                        borderRadius: theme.spacing(2),
+                        zIndex: 0,
+                        [theme.maxMQ.xsm]: {
+                          borderRadius: 0,
+                        },
+                      },
+                    ]}
+                  />
+                )}
                 <img
-                  src={productState.image2}
+                  key={currentPhoto}
+                  src={currentPhoto}
                   alt={`${productState.title} product image`}
-                  css={[
-                    { width: "100%", height: "100%", objectFit: "contain" },
+                  css={(theme) => [
+                    {
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "contain",
+                      borderRadius: theme.spacing(2),
+                      position: "relative",
+                      zIndex: 1,
+                      animation: isTransitioning ? `${fadeIn} 0.5s ease-out` : "none",
+                      [theme.maxMQ.xsm]: {
+                        borderRadius: 0,
+                      },
+                    },
                   ]}
                 />
                 {productState.deck && (
@@ -195,10 +368,7 @@ const Pop: FC<
                         left: 15,
                         display: "flex",
                         gap: 3,
-                        [theme.maxMQ.xsm]: {
-                          top: "auto",
-                          bottom: 15,
-                        },
+                        zIndex: 2,
                       },
                     ]}
                   >
@@ -208,14 +378,19 @@ const Pop: FC<
                       ))}
                   </div>
                 )}
-                              </>
+                <PhotoNavigation
+                  photos={photos}
+                  photoIndex={photoIndex}
+                  onPhotoChange={handlePhotoChange}
+                />
+              </>
             ) : null}
           </div>
         </div>
         <div
           css={(theme) => [
             {
-              width: 410,
+              flex: 1,
               height: 600,
               display: "flex",
               flexDirection: "column",
@@ -228,7 +403,7 @@ const Pop: FC<
               },
               [theme.maxMQ.xsm]: {
                 padding: theme.spacing(3),
-                paddingTop: 0,
+                paddingTop: theme.spacing(1),
               },
             },
           ]}
@@ -242,6 +417,7 @@ const Pop: FC<
                 top: 0,
                 left: 0,
                 right: 0,
+                zIndex: 10,
                 [theme.maxMQ.xsm]: {
                   top: 15,
                   left: 15,
@@ -251,13 +427,13 @@ const Pop: FC<
             ]}
           >
             {productState ? (
-              <CustomMiddle
+              <ProductNavigation
                 productState={productState}
                 setProductState={setProductState}
               />
             ) : null}
             <Button
-              css={[
+              css={(theme) => [
                 {
                   borderRadius: "100%",
                   padding: 0,
@@ -265,6 +441,9 @@ const Pop: FC<
                   justifyContent: "center",
                   display: "flex",
                   alignItems: "center",
+                  [theme.maxMQ.xsm]: {
+                    marginLeft: "auto",
+                  },
                 },
               ]}
               onClick={close}
@@ -279,17 +458,29 @@ const Pop: FC<
                 {
                   display: "grid",
                   alignContent: "center",
-                  maxWidth: 410,
                   flex: 1,
-                  [theme.maxMQ.xsm]: {
-                    maxWidth: "100%",
-                  },
                 },
               ]}
             >
-              <Text typography="h2" css={(theme) => ({ whiteSpace: "pre-line", [theme.maxMQ.xsm]: { whiteSpace: "normal" } })}>{productState.title.replace("Future Chapter", "Future\nChapter")}</Text>
-              <Text typography="p-s" css={(theme) => ({ marginTop: 15, [theme.maxMQ.xsm]: theme.typography["p-m"] })}>{productState.description || productState.info}</Text>
-              <Text typography="h4" css={{ marginTop: 15 }}>{productState.deck?.slug === "crypto" ? "Exclusive" : `$${productState.price.usd}`}</Text>
+              {productState.type !== "bundle" ? (
+                <Link
+                  href={
+                    (process.env.NEXT_PUBLIC_BASELINK || "") +
+                    "/shop/" +
+                    (productState.slug || convertToProductSlug(productState.short))
+                  }
+                  onClick={() => {
+                    document.body.style.overflow = "";
+                    close();
+                  }}
+                >
+                  <Text typography="h2" css={(theme) => ({ whiteSpace: "pre-line", [theme.maxMQ.xsm]: { whiteSpace: "normal" } })}>{productState.title.replace("Future Chapter", "Future\nChapter")}</Text>
+                </Link>
+              ) : (
+                <Text typography="h2" css={(theme) => ({ whiteSpace: "pre-line", [theme.maxMQ.xsm]: { whiteSpace: "normal" } })}>{productState.title.replace("Future Chapter", "Future\nChapter")}</Text>
+              )}
+              <Text typography="p-s" css={(theme) => ({ marginTop: 15, [theme.maxMQ.xsm]: { ...theme.typography["p-m"], marginTop: theme.spacing(1) } })}>{productState.description || productState.info}</Text>
+              {productState.deck?.slug !== "crypto" && <Text typography="h4" css={(theme) => ({ marginTop: 15, [theme.maxMQ.xsm]: { marginTop: theme.spacing(1) } })}>${productState.price.usd}</Text>}
               <div
                 css={(theme) => [
                   {

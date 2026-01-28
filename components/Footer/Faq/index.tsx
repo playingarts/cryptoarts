@@ -216,7 +216,7 @@ const FAQ: FC<FAQProps> = ({ deckSlug, ...props }) => {
           paddingBottom: theme.spacing(6),
           [theme.maxMQ.xsm]: {
             paddingTop: theme.spacing(3),
-            paddingBottom: theme.spacing(3),
+            paddingBottom: theme.spacing(6),
           },
         },
       ]}
