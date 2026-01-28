@@ -134,9 +134,9 @@ const Middle = ({
         flexGrow: 1,
         position: "relative",
         height: "100%",
-        // Mobile: 2 columns for logo (center, largest)
+        // Mobile: flex item
         [theme.maxMQ.xsm]: {
-          gridColumn: "span 2",
+          flexGrow: 0,
         },
         [theme.mq.sm]: {
           gridColumn: "span 3",
@@ -203,7 +203,7 @@ const Middle = ({
                 flexGrow: 1,
               },
               [theme.maxMQ.xsm]: {
-                justifyContent: "center",
+                justifyContent: "flex-start",
                 alignItems: "center",
               },
             },
@@ -220,7 +220,7 @@ const Middle = ({
                 height: "100%",
                 [theme.maxMQ.xsm]: {
                   display: "flex",
-                  justifyContent: "center",
+                  justifyContent: "flex-start",
                   alignItems: "center",
                 },
                 [theme.mq.sm]: {

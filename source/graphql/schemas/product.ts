@@ -56,6 +56,7 @@ export const typeDefs = gql`
     info: String
     description: String
     short: String!
+    slug: String
   }
 
   type Mutation {

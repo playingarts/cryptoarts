@@ -9,7 +9,7 @@ import MenuPortal from "../../../../Header/MainMenu/MenuPortal";
 import Pop from "../../../ProductPage/Pop";
 
 // Product suggestion component
-const ProductSuggestion: FC<{ product: GQL.Product; label?: string }> = ({ product, label }) => {
+const ProductSuggestion: FC<{ product: GQL.Product; label?: string; fullWidthMobile?: boolean; hiddenOnMobile?: boolean; isBundle?: boolean }> = ({ product, label, fullWidthMobile, hiddenOnMobile, isBundle }) => {
   const [showPop, setShowPop] = useState(false);
 
   return (
@@ -27,6 +27,15 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string }> = ({ produ
           "&:hover": {
             background: theme.colors.white75,
           },
+          [theme.maxMQ.xsm]: {
+            display: hiddenOnMobile ? "none" : "flex",
+            flexDirection: "column",
+            padding: 0,
+            background: theme.colors.white50,
+            borderRadius: 16,
+            overflow: "hidden",
+            ...(fullWidthMobile && { flex: "0 0 100%" }),
+          },
         })}
       >
         {label && (
@@ -36,6 +45,7 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string }> = ({ produ
               position: "absolute",
               top: 15,
               left: 15,
+              zIndex: 1,
             })}
           >
             {label}
@@ -48,25 +58,37 @@ const ProductSuggestion: FC<{ product: GQL.Product; label?: string }> = ({ produ
           <img
             src={product.image2 || product.image}
             alt={product.title}
-            css={{
+            css={(theme) => ({
               width: "100%",
               aspectRatio: "1/1",
               objectFit: "contain",
-            }}
+              ...(isBundle && {
+                [theme.maxMQ.xsm]: {
+                  width: "75%",
+                  margin: "0 auto",
+                  display: "block",
+                },
+              }),
+            })}
           />
-          <Text typography="h4">{product.title}</Text>
-          <Text typography="p-s" css={{ marginTop: 10 }}>
+        </div>
+        <div css={(theme) => ({ [theme.maxMQ.xsm]: { padding: theme.spacing(2), paddingTop: 0, display: "flex", flexDirection: "column", flex: 1 } })}>
+          <Text typography="h4" css={(theme) => ({ cursor: "pointer", [theme.maxMQ.xsm]: { marginBottom: theme.spacing(1) } })} onClick={() => setShowPop(true)}>
+            <span css={(theme) => ({ [theme.maxMQ.xsm]: { display: "none" } })}>{product.title}</span>
+            <span css={(theme) => ({ display: "none", [theme.maxMQ.xsm]: { display: "inline" } })}>{product.short || product.title}</span>
+          </Text>
+          <Text typography="p-s" css={(theme) => ({ marginTop: 10, [theme.maxMQ.xsm]: { display: "none" } })}>
             {product.description || product.info}
           </Text>
-        </div>
-        <div css={(theme) => ({ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center" })}>
-          <AddToBag productId={product._id} onViewBag={() => setShowPop(false)} status={product.status} />
-          <Text typography="p-m">${product.price.usd}</Text>
-          {product.fullPrice && (
-            <Text typography="p-m" css={{ textDecoration: "line-through", opacity: 0.5 }}>
-              ${product.fullPrice.usd}
-            </Text>
-          )}
+          <div css={(theme) => ({ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(3), alignItems: "center", [theme.maxMQ.xsm]: { marginTop: "auto", flexDirection: isBundle ? "row" : "column", alignItems: isBundle ? "center" : "flex-start", gap: isBundle ? theme.spacing(2) : theme.spacing(1) } })}>
+            <AddToBag productId={product._id} onViewBag={() => setShowPop(false)} status={product.status} css={(theme) => ({ [theme.maxMQ.xsm]: { order: isBundle ? -1 : 1 } })} />
+            <Text typography="p-m">${product.price.usd}</Text>
+            {product.fullPrice && (
+              <Text typography="p-m" css={{ textDecoration: "line-through", opacity: 0.5 }}>
+                ${product.fullPrice.usd}
+              </Text>
+            )}
+          </div>
         </div>
       </div>
     </>
@@ -170,12 +192,15 @@ const Suggestions: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           <ProductSuggestion
             product={bundleSuggestion.bundle}
             label={bundleSuggestion.label}
+            fullWidthMobile
+            isBundle
           />
         )}
         {displayedProducts.map((product) => (
           <ProductSuggestion
             key={product._id + "suggestion"}
             product={product}
+            hiddenOnMobile={!!bundleSuggestion}
           />
         ))}
       </div>

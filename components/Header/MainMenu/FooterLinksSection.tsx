@@ -1,7 +1,6 @@
 import { FC } from "react";
 import ScandiBlock from "../../ScandiBlock";
 import Text from "../../Text";
-import ArrowButton from "../../Buttons/ArrowButton";
 import Link from "../../Link";
 import { links } from "../../Footer";
 import MenuGrid from "./MenuGrid";
@@ -51,12 +50,19 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
           </Text>
           <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: 5 }]}>
             {links[key].map((item) => (
-              <Link key={`${key}-${item.label}`} href={item.href} onClick={onClose}>
-                <ArrowButton
+              <Link
+                key={`${key}-${item.label}`}
+                href={item.href}
+                onClick={onClose}
+                css={[{ display: "block" }]}
+              >
+                <Text
+                  typography="p-s"
                   css={(theme) => [
                     {
                       textAlign: "start",
-                      display: "block",
+                      paddingTop: 5,
+                      paddingBottom: 5,
                       color: theme.colors.black50,
                       transition: theme.transitions.fast("color"),
                       "&:hover": {
@@ -64,12 +70,9 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
                       },
                     },
                   ]}
-                  base={true}
-                  noColor={true}
-                  size="small"
                 >
                   {item.label}
-                </ArrowButton>
+                </Text>
               </Link>
             ))}
           </div>
@@ -90,15 +93,16 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
           },
         ]}
       >
-        <small css={{ maxWidth: "calc(5 * var(--columnWidth) + 4 * 24px)" }}>
+        <small css={{ maxWidth: 520 }}>
           <Text
             typography="p-xxs"
             css={(theme) => [
               {
-                color: theme.colors.black50,
+                color: theme.colors.black,
+                opacity: 0.5,
                 a: {
                   textDecoration: "underline",
-                  color: theme.colors.black50,
+                  color: theme.colors.black,
                 },
               },
             ]}
@@ -109,16 +113,16 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
             respective owners. Patent Pending. Thanks for reading this, bye!
             <br />
             <br />
-            <a
+            <Link
               css={[{ textDecoration: "underline", marginRight: 15 }]}
               href="/privacy"
               onClick={onClose}
             >
               Privacy Statement
-            </a>
-            <a css={[{ textDecoration: "underline" }]} href="/terms" onClick={onClose}>
+            </Link>
+            <Link css={[{ textDecoration: "underline" }]} href="/terms" onClick={onClose}>
               Terms of Service
-            </a>
+            </Link>
           </Text>
         </small>
       </ScandiBlock>

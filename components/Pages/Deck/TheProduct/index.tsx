@@ -123,8 +123,8 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             size="medium"
             css={(theme) => [{ marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { marginBottom: theme.spacing(3) } }]}
             href={
-              product?.short
-                ? `/shop/${product.short.toLowerCase().replace(/\s/g, "")}`
+              product?.slug || product?.short
+                ? `/shop/${product?.slug || product.short.toLowerCase().replace(/\s/g, "")}`
                 : undefined
             }
           >

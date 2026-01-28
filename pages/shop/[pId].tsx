@@ -13,7 +13,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const products = await Product.find({ hidden: { $ne: true }, type: { $ne: "bundle" } });
 
   const paths = products.map((product) => ({
-    params: { pId: product.short.toLowerCase().replace(/\s/g, "") },
+    params: { pId: product.slug || product.short.toLowerCase().replace(/\s/g, "") },
   }));
 
   return {
@@ -32,7 +32,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     // Find product by short name (lowercased, no spaces)
     const products = await Product.find({ hidden: { $ne: true } });
     const product = products.find(
-      (p) => p.short.toLowerCase().replace(/\s/g, "") === pId
+      (p) => (p.slug || p.short.toLowerCase().replace(/\s/g, "")) === pId
     );
 
     // Return 404 for bundles or non-existent products

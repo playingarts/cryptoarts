@@ -453,7 +453,7 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
               View {product.title}
             </ArrowButton>
             <ArrowButton
-              href={`${process.env.NEXT_PUBLIC_BASELINK || ""}/shop/${product.short?.toLowerCase().replace(/\s/g, "")}`}
+              href={`${process.env.NEXT_PUBLIC_BASELINK || ""}/shop/${product.slug || product.short?.toLowerCase().replace(/\s/g, "")}`}
               noColor
               base
               size="small"

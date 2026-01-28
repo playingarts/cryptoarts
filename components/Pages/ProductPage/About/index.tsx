@@ -1121,7 +1121,7 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       return;
     }
     const product = products.find(
-      (product) => product.short.toLowerCase().split(" ").join("") === pId
+      (product) => product.slug === pId || product.short.toLowerCase().split(" ").join("") === pId
     );
     if (product) {
       setProduct(product);
@@ -1424,11 +1424,11 @@ const About: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                 css={(theme) => [
                   {
                     color: theme.colors.black30,
-                    marginTop: theme.spacing(2),
+                    marginTop: theme.spacing(3),
                     display: "flex",
                     alignItems: "center",
                     [theme.maxMQ.xsm]: {
-                      marginTop: theme.spacing(1),
+                      marginTop: theme.spacing(2),
                     },
                   },
                 ]}

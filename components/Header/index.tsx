@@ -124,11 +124,12 @@ const Header: FC<Props> = ({
               "color",
             ]),
             [theme.maxMQ.xsm]: {
-              gridTemplateRows: 50,
+              display: "flex",
+              alignItems: "center",
+              height: 50,
               lineHeight: "50px",
-              "> *": {
-                gridColumn: "auto",
-              },
+              paddingLeft: 20,
+              paddingRight: 20,
             },
           },
         ]}
@@ -154,10 +155,8 @@ const Header: FC<Props> = ({
             {
               transition: theme.transitions.fast(["border-color", "top"]),
               top: 0,
-              // Mobile: 1 column for menu button
+              // Mobile: flex item
               [theme.maxMQ.xsm]: {
-                gridColumn: "span 1",
-                marginLeft: -5,
                 height: "auto",
                 paddingTop: 0,
               },
@@ -189,11 +188,9 @@ const Header: FC<Props> = ({
           palette={palette}
           css={(theme) => [
             {
-              // Mobile: 1 column for shop button, right-aligned
+              // Mobile: flex item, right-aligned
               [theme.maxMQ.xsm]: {
-                gridColumn: "span 1",
-                justifyContent: "flex-end",
-                marginRight: -5,
+                marginLeft: "auto",
                 height: "auto",
                 paddingTop: 0,
               },

@@ -122,7 +122,7 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             transform: `translateX(calc(-${currentIndex} * ${itemWidth}))`,
           }}
         >
-          {extendedItems.map(({ name, href, Icon }, i) => (
+          {extendedItems.map(({ name, href, Icon, scale }, i) => (
             <a
               key={`${name}-${i}`}
               href={href}
@@ -139,7 +139,9 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
               })}
               style={{ width: itemWidth }}
             >
-              <Icon />
+              <div css={{ transform: `scale(${scale - 0.1})` }}>
+                <Icon />
+              </div>
             </a>
           ))}
         </div>

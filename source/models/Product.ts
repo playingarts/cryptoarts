@@ -37,6 +37,7 @@ const productSchema = new Schema<GQL.Product, Model<GQL.Product>, GQL.Product>({
   description: { type: String, default: null },
   info: String,
   short: String,
+  slug: { type: String, default: null },
   deck: { type: Types.ObjectId, ref: "Deck" },
   decks: {
     type: [{ type: Types.ObjectId, ref: "Product" }],

@@ -1,9 +1,6 @@
 import { FC, HTMLAttributes, useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/router";
 
-import image2 from "../../../../../mocks/images/ShopCollection/photo-big-1.png";
-import image3 from "../../../../../mocks/images/ShopCollection/photo-big-2.png";
-import image1 from "../../../../../mocks/images/ShopCollection/photo-big.png";
 import Label from "../../../../Label";
 import NavButton from "../../../../Buttons/NavButton";
 import Text from "../../../../Text";
@@ -18,7 +15,6 @@ import Card from "../../../../Card";
 import { useLoadCollectionCards } from "../../../../../hooks/card";
 import { useSize } from "../../../../SizeProvider";
 import { breakpoints } from "../../../../../source/enums";
-const images = [image1.src, image2.src, image3.src];
 
 // Minimal card type for our buffer
 type BufferCard = Pick<GQL.Card, "_id" | "img" | "video"> & { artist: Pick<GQL.Artist, "slug" | "name" | "country"> };
@@ -83,9 +79,12 @@ const CollectionItem: FC<
 
   const [index, setIndex] = useState<number>();
 
+  const photos = product.photos || [];
+  const hasPhotos = photos.length > 0;
+
   const increaseIndex = () =>
     index !== undefined
-      ? index + 1 >= images.length
+      ? index + 1 >= photos.length
         ? setIndex(0)
         : setIndex(index + 1)
       : setIndex(0);
@@ -93,9 +92,9 @@ const CollectionItem: FC<
   const decreaseIndex = () =>
     index !== undefined
       ? index - 1 < 0
-        ? setIndex(2)
+        ? setIndex(photos.length - 1)
         : setIndex(index - 1)
-      : setIndex(images.length - 1);
+      : setIndex(photos.length - 1);
 
   useEffect(() => {
     if (!imageHover) {
@@ -107,7 +106,7 @@ const CollectionItem: FC<
   useEffect(() => {
     if (hover && !routePrefetchedRef.current && product?.short) {
       routePrefetchedRef.current = true;
-      const productUrl = `/shop/${product.short.toLowerCase().split(" ").join("")}`;
+      const productUrl = `/shop/${product.slug || product.short.toLowerCase().split(" ").join("")}`;
       router.prefetch(productUrl);
 
       // Also prefetch hero image
@@ -285,16 +284,19 @@ const CollectionItem: FC<
         )}
         {index === undefined && product.deck && (
           <div
-            css={[
+            css={(theme) => [
               {
                 position: "absolute",
                 top: 15,
                 left: 15,
                 display: "flex",
                 gap: 3,
+                opacity: hover ? 1 : 0,
+                [theme.maxMQ.xsm]: {
+                  display: "none",
+                },
               },
             ]}
-            style={{ opacity: hover ? 1 : 0 }}
           >
             {product.status === "low" ? (
               <Label css={[{ backgroundColor: "#FFF4CC" }]}>Low stock</Label>
@@ -403,7 +405,7 @@ const CollectionItem: FC<
             ]}
             style={{ opacity: index !== undefined ? 0 : (useAltImage ? 1 : 0) }}
           />
-          {!singleImage && images.map((imgSrc, i) => (
+          {!singleImage && hasPhotos && photos.map((imgSrc, i) => (
             <img
               key={imgSrc}
               src={imgSrc}
@@ -423,19 +425,23 @@ const CollectionItem: FC<
             />
           ))}
         </div>
-        {!singleImage && (
+        {!singleImage && hasPhotos && (
           <div
-            css={[
+            css={(theme) => [
               {
                 position: "absolute",
-                bottom: 30,
-                left: 30,
+                bottom: 15,
+                left: 15,
+                zIndex: 10,
+                opacity: imageHover ? 1 : 0,
                 ">*": {
                   backgroundColor: "white",
                 },
+                [theme.maxMQ.xsm]: {
+                  display: "none",
+                },
               },
             ]}
-            style={{ opacity: imageHover && !hover ? 1 : 0 }}
           >
             <NavButton
               css={[
@@ -463,11 +469,12 @@ const CollectionItem: FC<
           href={
             (process.env.NEXT_PUBLIC_BASELINK || "") +
             "/shop/" +
-            product.short.toLowerCase().split(" ").join("")
+            (product.slug || product.short.toLowerCase().split(" ").join(""))
           }
         >
           <Text typography="h4">
-            {product.title}
+            <span css={(theme) => ({ [theme.maxMQ.xsm]: { display: "none" } })}>{product.title}</span>
+            <span css={(theme) => ({ display: "none", [theme.maxMQ.xsm]: { display: "inline" } })}>{product.short || product.title}</span>
           </Text>
           <Text
             typography="p-s"

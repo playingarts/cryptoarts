@@ -6,6 +6,9 @@ import Header from "../../Header";
 import LazySection from "../../LazySection";
 import Text from "../../Text";
 import ArrowButton from "../../Buttons/ArrowButton";
+import Button from "../../Buttons/Button";
+import { useSize } from "../../SizeProvider";
+import { breakpoints } from "../../../source/enums";
 import { withApollo } from "../../../source/apollo";
 import Content from "./Content";
 import Footer from "../../Footer";
@@ -21,11 +24,13 @@ const Newsletter = dynamic(() => import("../../Newsletter"), { ssr: false });
 
 const CheckoutButton = () => {
   const { bag } = useBag();
+  const { width } = useSize();
   const [loading, setLoading] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const bagItemIds = bag ? Object.keys(bag) : [];
   const isEmpty = bagItemIds.length === 0;
+  const isMobile = width < breakpoints.xsm;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,9 +59,15 @@ const CheckoutButton = () => {
       css={[{ marginLeft: "auto" }]}
       onClick={handleClick}
     >
-      <ArrowButton color={scrolled ? "accent" : undefined} size="medium" css={[loading && { opacity: 0.7, cursor: "wait" }]}>
-        {loading ? "Loading..." : "Check out"}
-      </ArrowButton>
+      {isMobile ? (
+        <Button color="accent" size="medium" css={[loading && { opacity: 0.7, cursor: "wait" }]}>
+          {loading ? "Loading..." : "Check out"}
+        </Button>
+      ) : (
+        <ArrowButton color={scrolled ? "accent" : undefined} size="medium" css={[loading && { opacity: 0.7, cursor: "wait" }]}>
+          {loading ? "Loading..." : "Check out"}
+        </ArrowButton>
+      )}
     </Link>
   );
 };

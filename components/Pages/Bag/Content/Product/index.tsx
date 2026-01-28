@@ -19,29 +19,78 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
   const quantity = bag ? bag[product._id] : 1;
 
   return (
-    <Grid auto css={[{ alignItems: "center" }]}>
+    <Grid auto css={(theme) => [{ alignItems: "center", [theme.maxMQ.xsm]: { paddingLeft: 0, paddingRight: 0, gridTemplateColumns: "1fr 1fr 1fr 1fr" } }]}>
       <MenuPortal show={showPop}>
         <Pop product={product} close={() => setShowPop(false)} show={showPop} onViewBag={() => setShowPop(false)} />
       </MenuPortal>
-      <img
-        css={[
+      {/* Image - 2 columns left (1 on mobile) */}
+      <div
+        css={(theme) => [
           {
             gridColumn: "span 2",
-            width: "100%",
-            aspectRatio: "190/180",
-            objectFit: "cover",
-            cursor: "pointer",
+            position: "relative",
+            [theme.maxMQ.xsm]: {
+              gridColumn: "span 2 !important",
+            },
           },
         ]}
-        src={product.image}
-        alt={product.info}
-        onClick={() => setShowPop(true)}
-      />
+      >
+        {/* Mobile: Label on image */}
+        {(product.status === "low" || product.status === "soldout") && (
+          <Label
+            css={(theme) => [
+              {
+                display: "none",
+                [theme.maxMQ.xsm]: {
+                  display: "block",
+                  position: "absolute",
+                  top: 5,
+                  left: 5,
+                  zIndex: 1,
+                },
+              },
+              product.status === "low" && { backgroundColor: "#FFF4CC" },
+              product.status === "soldout" && { backgroundColor: "#FFD6D6" },
+            ]}
+          >
+            {product.status === "low" ? "Low stock" : "Sold out"}
+          </Label>
+        )}
+        <img
+          css={(theme) => [
+            {
+              width: "100%",
+              aspectRatio: "190/180",
+              objectFit: "cover",
+              cursor: "pointer",
+              [theme.maxMQ.xsm]: {
+                width: "90%",
+                margin: "0 auto",
+                display: "block",
+              },
+            },
+            product.type === "bundle" && {
+              [theme.maxMQ.xsm]: {
+                width: "70%",
+                margin: "0 auto",
+                display: "block",
+              },
+            },
+          ]}
+          src={product.image}
+          alt={product.info}
+          onClick={() => setShowPop(true)}
+        />
+      </div>
+      {/* Desktop: Title + qty in middle */}
       <div
-        css={[
+        css={(theme) => [
           {
             gridColumn: "span 3",
             verticalAlign: "middle",
+            [theme.maxMQ.xsm]: {
+              display: "none",
+            },
           },
         ]}
       >
@@ -64,7 +113,7 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
         <Text typography="h4" css={[{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", cursor: "pointer" }]} onClick={() => setShowPop(true)}>
           {product.title}
         </Text>
-                <Text typography="h4" css={[{ marginTop: 15 }]}>
+        <Text typography="h4" css={[{ marginTop: 15 }]}>
           <Minus
             css={(theme) => [
               { marginRight: 22, userSelect: "none" },
@@ -93,16 +142,60 @@ const Product: FC<HTMLAttributes<HTMLElement> & { product: GQL.Product }> = ({
           />
         </Text>
       </div>
-      <Text
-        typography="h4"
-        css={[{ gridColumn: "span 2", textAlign: "end" }]}
+      {/* Desktop: Price + delete */}
+      <div
+        css={(theme) => [{ gridColumn: "span 2", textAlign: "end", display: "flex", alignItems: "center", justifyContent: "flex-end", [theme.maxMQ.xsm]: { display: "none" } }]}
       >
-        ${product.price.usd}
-        <Delete
-          css={[{ marginLeft: 30, cursor: "pointer" }]}
-          onClick={() => removeItem(product._id)}
-        />
-      </Text>
+        <Text typography="h4">
+          ${product.price.usd}
+          <Delete
+            css={[{ marginLeft: 30, cursor: "pointer" }]}
+            onClick={() => removeItem(product._id)}
+          />
+        </Text>
+      </div>
+      {/* Mobile: Right column with stacked divs */}
+      <div
+        css={(theme) => [
+          {
+            display: "none",
+            [theme.maxMQ.xsm]: {
+              display: "flex",
+              flexDirection: "column",
+              gridColumn: "span 2 !important",
+            },
+          },
+        ]}
+      >
+        {/* Title */}
+        <div>
+          <Text typography="h4" css={[{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", cursor: "pointer" }]} onClick={() => setShowPop(true)}>
+            {product.short || product.title}
+          </Text>
+        </div>
+        {/* Price with x */}
+        <div css={(theme) => [{ marginTop: theme.spacing(1), display: "flex", justifyContent: "space-between", alignItems: "center" }]}>
+          <Text typography="h4">${product.price.usd}</Text>
+          <Delete css={(theme) => [{ cursor: "pointer", marginRight: theme.spacing(1) }]} onClick={() => removeItem(product._id)} />
+        </div>
+        {/* Qty controls */}
+        <div css={(theme) => [{ marginTop: theme.spacing(1) }]}>
+          <Text typography="h4" css={[{ display: "flex", alignItems: "center" }]}>
+            <Minus
+              css={(theme) => [
+                { marginRight: 15, userSelect: "none" },
+                quantity <= 1 ? { color: theme.colors.black30 } : { cursor: "pointer" },
+              ]}
+              onClick={() => quantity > 1 && updateQuantity(product._id, quantity - 1)}
+            />
+            {bag && bag[product._id]}
+            <Plus
+              css={[{ marginLeft: 15, cursor: "pointer", userSelect: "none" }]}
+              onClick={() => updateQuantity(product._id, quantity + 1)}
+            />
+          </Text>
+        </div>
+      </div>
     </Grid>
   );
 };

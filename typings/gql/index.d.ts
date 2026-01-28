@@ -344,6 +344,7 @@ interface Product {
   info?: Maybe<Scalars['String']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   short: Scalars['String']['output'];
+  slug?: Maybe<Scalars['String']['output']>;
 }
 
 interface Nft {
@@ -833,6 +834,7 @@ export type ProductResolvers<ContextType = { req: Request, res: Response }, Pare
   info?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   short?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  slug?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 

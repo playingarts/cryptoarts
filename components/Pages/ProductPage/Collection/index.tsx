@@ -101,7 +101,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       // Exclude bundles
       if (product.type === "bundle") return false;
       // Exclude current product
-      const productSlug = product.short.toLowerCase().split(" ").join("");
+      const productSlug = product.slug || product.short.toLowerCase().split(" ").join("");
       if (productSlug === pId) return false;
       return true;
     });

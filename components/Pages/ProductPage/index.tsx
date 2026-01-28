@@ -29,6 +29,10 @@ export const convertToProductSlug = (short: string) => {
   return short.toLowerCase().split(" ").join("");
 };
 
+export const getProductSlug = (product: GQL.Product) => {
+  return product.slug || convertToProductSlug(product.short);
+};
+
 const CustomMiddle = () => {
   const { products: allProducts } = useProducts();
   const router = useRouter();
@@ -45,17 +49,17 @@ const CustomMiddle = () => {
     }
     setCounter(
       products.findIndex(
-        (product) => convertToProductSlug(product.short) === pId
+        (product) => getProductSlug(product) === pId
       )
     );
   }, [pId, products]);
 
   // Get prev/next product slugs
   const prevSlug = products && products.length > 0
-    ? convertToProductSlug(products[counter > 0 ? counter - 1 : products.length - 1].short)
+    ? getProductSlug(products[counter > 0 ? counter - 1 : products.length - 1])
     : null;
   const nextSlug = products && products.length > 0
-    ? convertToProductSlug(products[counter < products.length - 1 ? counter + 1 : 0].short)
+    ? getProductSlug(products[counter < products.length - 1 ? counter + 1 : 0])
     : null;
 
   // Keyboard navigation (left/right arrows)
@@ -97,8 +101,8 @@ const CustomMiddle = () => {
         css={[{ marginRight: 5 }]}
         href={
           counter > 0
-            ? convertToProductSlug(products[counter - 1].short)
-            : convertToProductSlug(products[products.length - 1].short)
+            ? getProductSlug(products[counter - 1])
+            : getProductSlug(products[products.length - 1])
         }
         shallow={true}
       >
@@ -108,8 +112,8 @@ const CustomMiddle = () => {
         css={[{ marginRight: 5 }]}
         href={
           counter < products.length - 1
-            ? convertToProductSlug(products[counter + 1].short)
-            : convertToProductSlug(products[0].short)
+            ? getProductSlug(products[counter + 1])
+            : getProductSlug(products[0])
         }
         shallow={true}
       >
@@ -133,7 +137,7 @@ const ProductPage: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const currentProduct = useMemo(() => {
     if (!products || !pId || typeof pId !== "string") return null;
     return products.find(
-      (prod) => prod.short.toLowerCase().split(" ").join("") === pId
+      (prod) => prod.slug === pId || prod.short.toLowerCase().split(" ").join("") === pId
     ) || null;
   }, [products, pId]);
 

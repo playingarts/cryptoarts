@@ -307,7 +307,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
           </>
         )}
         <div css={(theme) => [{ marginTop: theme.spacing(3), display: "flex", gap: theme.spacing(1.5) }]}>
-          <ArrowButton color="accent" size="medium" href={displayedDeck?.product?.short ? `/shop/${displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop now</ArrowButton>
+          <ArrowButton color="accent" size="medium" href={displayedDeck?.product?.slug || displayedDeck?.product?.short ? `/shop/${displayedDeck.product.slug || displayedDeck.product.short.toLowerCase().replace(/\s/g, "")}` : undefined}>Shop now</ArrowButton>
           <ButtonTemplate
             palette={palette}
             bordered={true}

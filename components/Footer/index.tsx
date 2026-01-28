@@ -158,12 +158,12 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
           respective owners. Patent Pending. Thanks for reading this, bye!
           <br />
           <br />
-          <a css={[{ textDecoration: "underline", marginRight: 15 }]} href="">
+          <Link css={[{ textDecoration: "underline", marginRight: 15 }]} href="/privacy">
             Privacy Statement
-          </a>
-          <a css={[{ textDecoration: "underline" }]} href="">
+          </Link>
+          <Link css={[{ textDecoration: "underline" }]} href="/terms">
             Terms of Service
-          </a>
+          </Link>
         </Text>
       </ScandiBlock>
 
@@ -288,12 +288,12 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
         respective owners. Patent Pending. Thanks for reading this, bye!
         <br />
         <br />
-        <a css={[{ textDecoration: "underline", marginRight: 15 }]} href="">
+        <Link css={[{ textDecoration: "underline", marginRight: 15 }]} href="/privacy">
           Privacy Statement
-        </a>
-        <a css={[{ textDecoration: "underline" }]} href="">
+        </Link>
+        <Link css={[{ textDecoration: "underline" }]} href="/terms">
           Terms of Service
-        </a>
+        </Link>
       </Text>
     </Grid>
   );

@@ -18,6 +18,7 @@ export const ProductBasicFragment = gql`
     _id
     title
     short
+    slug
     status
     type
     image
@@ -36,6 +37,7 @@ export const ProductWithDeckFragment = gql`
     _id
     title
     short
+    slug
     info
     status
     type
@@ -87,6 +89,7 @@ export const ProductFragment = gql`
     _id
     title
     short
+    slug
     info
     status
     type

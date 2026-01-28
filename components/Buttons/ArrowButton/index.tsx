@@ -14,7 +14,7 @@ const ArrowButton: FC<
     <Button
       {...props}
       size={size}
-      css={[{ paddingRight: size === "big" || size === "medium" ? 10 : 3 }]}
+      css={[{ paddingRight: 10 }]}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >

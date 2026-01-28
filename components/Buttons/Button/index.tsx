@@ -82,12 +82,8 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
                 },
               },
               base === false && {
-                paddingLeft: 15,
-                paddingRight: 15,
-                [theme.maxMQ.xsm]: {
-                  paddingLeft: 10,
-                  paddingRight: 10,
-                },
+                paddingLeft: 14,
+                paddingRight: 14,
               },
             ]
           : size === "small"
@@ -98,8 +94,8 @@ const Button: FC<HTMLAttributes<HTMLElement> & Props & TextProps> = ({
                 minHeight: 40,
                 [theme.maxMQ.xsm]: {
                   fontSize: 16,
-                  height: 34,
-                  minHeight: 34,
+                  height: 36,
+                  minHeight: 36,
                 },
               },
               base === false && {

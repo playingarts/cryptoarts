@@ -49,7 +49,7 @@ const TitleButton: FC<
   const productDeckTitle = useMemo(() => {
     if (!pId || typeof pId !== "string" || !products) return null;
     const product = products.find(
-      (p) => p.short.toLowerCase().split(" ").join("") === pId
+      (p) => p.slug === pId || p.short.toLowerCase().split(" ").join("") === pId
     );
     return product?.title || null;
   }, [pId, products]);

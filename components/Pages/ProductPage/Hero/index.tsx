@@ -35,7 +35,7 @@ const Hero: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       pId &&
       setProduct(
         products.find(
-          (prod) => prod.short.toLowerCase().split(" ").join("") === pId
+          (prod) => prod.slug === pId || prod.short.toLowerCase().split(" ").join("") === pId
         )
       );
   }, [pId, products]);

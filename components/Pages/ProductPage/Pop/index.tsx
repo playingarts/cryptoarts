@@ -310,22 +310,24 @@ const Pop: FC<
                   <AddToBag productId={productState._id} onViewBag={onViewBag} />
                 )}
 
-                <Link
-                  href={
-                    (process.env.NEXT_PUBLIC_BASELINK || "") +
-                    "/shop/" +
-                    convertToProductSlug(productState.short)
-                  }
-                  onClick={() => {
-                    document.body.style.overflow = "";
-                    close();
-                  }}
-                  css={{ display: "flex", alignItems: "center" }}
-                >
-                  <ArrowButton noColor base size="small">
-                    Product details
-                  </ArrowButton>
-                </Link>
+{productState.type !== "bundle" && (
+                  <Link
+                    href={
+                      (process.env.NEXT_PUBLIC_BASELINK || "") +
+                      "/shop/" +
+                      (productState.slug || convertToProductSlug(productState.short))
+                    }
+                    onClick={() => {
+                      document.body.style.overflow = "";
+                      close();
+                    }}
+                    css={{ display: "flex", alignItems: "center" }}
+                  >
+                    <ArrowButton noColor base size="small">
+                      Product details
+                    </ArrowButton>
+                  </Link>
+                )}
               </div>
             </div>
           ) : null}

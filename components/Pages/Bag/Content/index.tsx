@@ -47,7 +47,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ]}
     >
       <div css={(theme) => [{ gridColumn: "span 8", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
-        <div css={[{ marginRight: 110 }]}>
+        <div css={(theme) => [{ marginRight: 110, [theme.maxMQ.xsm]: { marginRight: 0 } }]}>
           <Text typography="h3">{isEmpty ? "Your bag is empty!" : "Your bag is ready!"}</Text>
           {isEmpty && (
             <ArrowButton color="accent" size="medium" css={(theme) => ({ marginTop: theme.spacing(3), marginBottom: theme.spacing(12) })} href="/shop">Go shopping</ArrowButton>
@@ -61,11 +61,11 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                   marginTop: theme.spacing(3),
                   flexDirection: "column",
                   alignItems: "start",
-                  rowGap: 30,
+                  rowGap: theme.spacing(3),
                 },
               ]}
             >
-              <ArrowedButton css={(theme) => [{ marginBottom: theme.spacing(3) }]}>
+              <ArrowedButton css={[{ whiteSpace: "nowrap", marginBottom: 20 }]}>
                 {(() => {
                   const totalItems = Object.values(bag || {}).reduce((sum, qty) => sum + qty, 0);
                   return `${totalItems} ${totalItems === 1 ? "item is" : "items are"}`;
@@ -76,7 +76,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                     <span>{String(minutes).padStart(2, "0")}:{String(seconds).padStart(2, "0")}</span>
                   )}
                 />
-                &nbsp;minutes...
+                <span css={(theme) => [{ [theme.maxMQ.xsm]: { display: "none" } }]}>&nbsp;minutes</span>...
               </ArrowedButton>
 
               {/* Items */}
@@ -89,7 +89,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             </ScandiBlock>
           )}
         </div>
-        {!isEmpty && <Suggestions id="related" css={(theme) => [{ marginTop: theme.spacing(12), paddingTop: theme.spacing(6) }]}></Suggestions>}
+        {!isEmpty && <Suggestions id="related" css={(theme) => [{ marginTop: theme.spacing(12), paddingTop: theme.spacing(6), [theme.maxMQ.xsm]: { marginTop: 0 } }]}></Suggestions>}
       </div>
       {!isEmpty && <CTA css={(theme) => [{ gridColumn: "span 4/-1", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}></CTA>}
     </Grid>
