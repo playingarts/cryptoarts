@@ -1,13 +1,13 @@
 import { FC, HTMLAttributes, useMemo, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { keyframes } from "@emotion/react";
+import Link from "next/link";
 import Grid from "../../../Grid";
-import ScandiBlock from "../../../ScandiBlock";
-import ArrowedButton from "../../../Buttons/ArrowedButton";
-import Text from "../../../Text";
+import Intro from "../../../Intro";
 import { useFutureChapter } from "../FutureChapterContext";
-import { useDecks } from "../../../../hooks/deck";
+import { useDecks, useDeck } from "../../../../hooks/deck";
 import { useCardsForDeck } from "../../../../hooks/card";
+import { useProducts } from "../../../../hooks/product";
 import { usePalette } from "../DeckPaletteContext";
 
 /** Fade in animation */
@@ -18,14 +18,48 @@ const fadeIn = keyframes`
 
 /** Placeholder color for empty slots */
 const PLACEHOLDER_COLOR = "#E5E5E5";
+const PLACEHOLDER_COLOR_DARK = "#212121";
+
+/** Static photo slot (no rotation) */
+const PhotoSlot: FC<{
+  src?: string | null;
+  gridColumn: string;
+  dark?: boolean;
+}> = ({ src, gridColumn, dark }) => {
+  const baseStyles = {
+    aspectRatio: "1/1",
+    width: "100%",
+    borderRadius: 15,
+    gridColumn,
+    backgroundColor: dark ? PLACEHOLDER_COLOR_DARK : PLACEHOLDER_COLOR,
+  };
+
+  if (!src) {
+    return <div css={baseStyles} />;
+  }
+
+  return (
+    <img
+      css={[baseStyles, { objectFit: "cover" as const }]}
+      src={src}
+      alt="Gallery photo"
+    />
+  );
+};
 
 /** Get random interval between min and max */
 const getRandomInterval = (min: number, max: number) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
-/** Rotating photo slot with crossfade transition */
+/** Photo item with optional link */
+interface PhotoItem {
+  src: string;
+  href?: string;
+}
+
+/** Rotating photo slot with crossfade transition and optional links */
 const RotatingPhotoSlot: FC<{
-  photos: string[];
+  photos: PhotoItem[];
   gridColumn: string;
   gridRow?: string;
   minInterval?: number;
@@ -84,22 +118,22 @@ const RotatingPhotoSlot: FC<{
     aspectRatio: "1/1",
     width: "100%",
     objectFit: "cover" as const,
-    borderRadius: 15, // TODO: convert to theme.spacing(1.5) when component uses theme callback
+    borderRadius: 15,
     gridColumn,
     ...(gridRow && { gridRow }),
   };
 
-  const currentSrc = photos[currentIndex];
-  const nextSrc = nextIndex !== null ? photos[nextIndex] : null;
+  const currentPhoto = photos[currentIndex];
+  const nextPhoto = nextIndex !== null ? photos[nextIndex] : null;
 
-  if (!currentSrc && !nextSrc) {
+  if (!currentPhoto && !nextPhoto) {
     return <div css={[baseStyles, { backgroundColor: PLACEHOLDER_COLOR }]} />;
   }
 
-  return (
-    <div css={[baseStyles, { backgroundColor: PLACEHOLDER_COLOR, position: "relative" as const, overflow: "hidden" }]}>
+  const content = (
+    <>
       {/* Current image (bottom layer) */}
-      {currentSrc && (
+      {currentPhoto && (
         <img
           css={{
             position: "absolute",
@@ -110,12 +144,12 @@ const RotatingPhotoSlot: FC<{
             objectFit: "cover",
             borderRadius: 15,
           }}
-          src={currentSrc}
+          src={currentPhoto.src}
           alt="Gallery photo"
         />
       )}
       {/* Next image (top layer, fades in) */}
-      {nextSrc && (
+      {nextPhoto && (
         <img
           css={{
             position: "absolute",
@@ -128,9 +162,23 @@ const RotatingPhotoSlot: FC<{
             opacity: showNext ? 1 : 0,
             transition: "opacity 1s ease-in-out",
           }}
-          src={nextSrc}
+          src={nextPhoto.src}
           alt="Gallery photo"
         />
+      )}
+    </>
+  );
+
+  const currentHref = currentPhoto?.href;
+
+  return (
+    <div css={[baseStyles, { backgroundColor: PLACEHOLDER_COLOR, position: "relative" as const, overflow: "hidden" }]}>
+      {currentHref ? (
+        <Link href={currentHref} css={{ display: "block", width: "100%", height: "100%" }}>
+          {content}
+        </Link>
+      ) : (
+        content
       )}
     </div>
   );
@@ -163,16 +211,33 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       : { skip: true }
   );
 
-  // Collect mainPhotos and additionalPhotos separately
+  // Fetch deck for gallery photo
+  const { deck: deckData } = useDeck({
+    variables: { slug: targetDeckSlug },
+    skip: !targetDeckSlug,
+  });
+
+  // Fetch products to get deck product image
+  const { products } = useProducts();
+  const deckProduct = useMemo(
+    () => products?.find((p) => p.deck?._id === deckData?._id && p.type === "deck"),
+    [products, deckData?._id]
+  );
+
+  // Get deck gallery photo (shared across all cards in deck)
+  const deckGalleryPhoto = deckProduct?.cardGalleryPhotos?.[0];
+
+  // Collect mainPhotos and additionalPhotos with card links
   const { mainPhotos, additionalPhotos } = useMemo(() => {
-    if (!cards || cards.length === 0) return { mainPhotos: [], additionalPhotos: [] };
-    const mains: string[] = [];
-    const additionals: string[] = [];
+    if (!cards || cards.length === 0) return { mainPhotos: [] as PhotoItem[], additionalPhotos: [] as PhotoItem[] };
+    const mains: PhotoItem[] = [];
+    const additionals: PhotoItem[] = [];
     cards.forEach((card) => {
-      if (card.mainPhoto) mains.push(card.mainPhoto);
+      const href = `/${targetDeckSlug}/${card.artist.slug}`;
+      if (card.mainPhoto) mains.push({ src: card.mainPhoto, href });
       if (card.additionalPhotos) {
         card.additionalPhotos.forEach((p) => {
-          if (p) additionals.push(p);
+          if (p) additionals.push({ src: p, href });
         });
       }
     });
@@ -181,19 +246,20 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       mainPhotos: mains.sort(() => Math.random() - 0.5),
       additionalPhotos: additionals.sort(() => Math.random() - 0.5),
     };
-  }, [cards]);
+  }, [cards, targetDeckSlug]);
 
-  // Split photos into 5 slots for the gallery grid:
+  // Split photos into 3 rotating slots for the gallery grid:
   // - Center slot (index 1): only mainPhotos
-  // - Corner slots (indices 0, 2, 3, 4): only additionalPhotos
+  // - Top corner slots (indices 0, 2): only additionalPhotos
+  // - Bottom slots use static deck product/gallery photos
   const slotPhotos = useMemo(() => {
-    // Distribute additional photos across 4 corner slots
-    const cornerSlots: string[][] = [[], [], [], []];
+    // Distribute additional photos across 2 top corner slots
+    const cornerSlots: PhotoItem[][] = [[], []];
     additionalPhotos.forEach((photo, i) => {
-      cornerSlots[i % 4].push(photo);
+      cornerSlots[i % 2].push(photo);
     });
-    // Return: [corner0, mainPhotos, corner1, corner2, corner3]
-    return [cornerSlots[0], mainPhotos, cornerSlots[1], cornerSlots[2], cornerSlots[3]];
+    // Return: [topLeft, mainPhotos, topRight]
+    return [cornerSlots[0], mainPhotos, cornerSlots[1]];
   }, [mainPhotos, additionalPhotos]);
 
   return (
@@ -216,58 +282,12 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       ]}
       {...props}
     >
-      <ScandiBlock
-        css={(theme) => [
-          {
-            gridColumn: "span 6",
-            paddingTop: 15,
-            alignItems: "start",
-            [theme.maxMQ.xsm]: {
-              gridColumn: "1 / -1",
-              paddingBottom: theme.spacing(2),
-            },
-          },
-        ]}
-      >
-        <ArrowedButton
-          css={(theme) => ({
-            color: theme.colors[palette === "dark" ? "white75" : "black"],
-          })}
-        >
-          Gallery
-        </ArrowedButton>
-      </ScandiBlock>
-
-      <ScandiBlock
-        css={(theme) => [
-          {
-            gridColumn: "span 6",
-            alignItems: "initial",
-            paddingTop: 15,
-            height: 241,
-            [theme.maxMQ.xsm]: {
-              gridColumn: "1 / -1",
-              height: "auto",
-              borderTop: "none",
-              paddingTop: theme.spacing(3),
-              paddingBottom: theme.spacing(3),
-            },
-          },
-        ]}
-      >
-        <Text
-          typography="p-l"
-          css={(theme) => ({
-            paddingBottom: 120,
-            color: theme.colors[palette === "dark" ? "white75" : "black"],
-            [theme.maxMQ.xsm]: {
-              paddingBottom: 0,
-            },
-          })}
-        >
-          Loved this deck? Continue the story with these collector's favourites.
-        </Text>
-      </ScandiBlock>
+      <Intro
+        arrowedText="Gallery"
+        paragraphText="Loved this deck? Continue the story with these collector's favourites."
+        palette={palette}
+        bottom={<div css={(theme) => [{ height: 120, [theme.maxMQ.xsm]: { display: "none" } }]} />}
+      />
       <Grid css={(theme) => ({
         gridColumn: "1/-1",
         gap: theme.spacing(3),
@@ -303,17 +323,17 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           gridColumn="span 3"
           offset={4000}
         />
-        {/* Bottom left */}
-        <RotatingPhotoSlot
-          photos={slotPhotos[3]}
+        {/* Bottom left - deck product photo */}
+        <PhotoSlot
+          src={deckProduct?.image}
           gridColumn="span 3"
-          offset={6000}
+          dark={palette === "dark"}
         />
-        {/* Bottom right */}
-        <RotatingPhotoSlot
-          photos={slotPhotos[4]}
+        {/* Bottom right - deck gallery photo */}
+        <PhotoSlot
+          src={deckGalleryPhoto}
           gridColumn="span 3"
-          offset={8000}
+          dark={palette === "dark"}
         />
       </Grid>
     </Grid>

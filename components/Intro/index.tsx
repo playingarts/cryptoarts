@@ -36,7 +36,7 @@ const Intro: FC<
     {...props}
   >
     <ScandiBlock
-      css={(theme) => [{ gridColumn: "span 6", paddingTop: 15, alignItems: "start", [theme.maxMQ.xsm]: { gridColumn: "1 / -1", paddingBottom: theme.spacing(2) } }]}
+      css={(theme) => [{ gridColumn: "span 6", paddingTop: 15, alignItems: "start", [theme.maxMQ.xsm]: { gridColumn: "1 / -1", paddingBottom: theme.spacing(6) } }]}
     >
       {titleAsText ? (
         <Text
@@ -67,7 +67,7 @@ const Intro: FC<
           flexDirection: "column",
           justifyContent: "space-between",
           alignItems: "start",
-          [theme.maxMQ.xsm]: { gridColumn: "1 / -1", borderTop: "none", paddingTop: theme.spacing(3), paddingBottom: theme.spacing(3) },
+          [theme.maxMQ.xsm]: { gridColumn: "1 / -1", borderTop: "none", paddingTop: 0, paddingBottom: theme.spacing(3) },
         },
       ]}
     >

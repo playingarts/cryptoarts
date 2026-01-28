@@ -469,7 +469,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
           {
             gridColumn: "span 6",
             alignSelf: "start",
-            marginBottom: theme.spacing(3),
+            marginBottom: theme.spacing(6),
             top: 160,
             willChange: "transform",
             [theme.maxMQ.sm]: {

@@ -48,7 +48,7 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
           borderTop: "1px solid white",
           [theme.maxMQ.xsm]: {
             gridColumn: "1 / -1",
-            paddingBottom: theme.spacing(2),
+            paddingBottom: theme.spacing(6),
           },
         })}
       >
@@ -105,7 +105,7 @@ const Newsletter: FC<HTMLAttributes<HTMLElement>> = (props) => (
           [theme.maxMQ.xsm]: {
             gridColumn: "1 / -1",
             borderTop: "none",
-            paddingTop: theme.spacing(3),
+            paddingTop: 0,
             paddingBottom: theme.spacing(3),
           },
         })}

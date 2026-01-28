@@ -3,9 +3,7 @@ import { keyframes } from "@emotion/react";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client/react";
 import Grid from "../../../Grid";
-import ScandiBlock from "../../../ScandiBlock";
-import ArrowedButton from "../../../Buttons/ArrowedButton";
-import Text from "../../../Text";
+import Intro from "../../../Intro";
 import Card from "../../../Card";
 import { cardSizes } from "../../../Card/sizes";
 import { useCardPageContext } from "../CardPageContext";
@@ -746,58 +744,12 @@ const CardGallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       id="gallery"
       {...props}
     >
-      <ScandiBlock
-        css={(theme) => [
-          {
-            gridColumn: "span 6",
-            paddingTop: 15,
-            alignItems: "start",
-            [theme.maxMQ.xsm]: {
-              gridColumn: "1 / -1",
-              paddingBottom: theme.spacing(2),
-            },
-          },
-        ]}
-      >
-        <ArrowedButton
-          css={(theme) => ({
-            color: theme.colors[deckId === "crypto" ? "white75" : "black"],
-          })}
-        >
-          Gallery
-        </ArrowedButton>
-      </ScandiBlock>
-
-      <ScandiBlock
-        css={(theme) => [
-          {
-            gridColumn: "span 6",
-            alignItems: "initial",
-            paddingTop: 15,
-            height: 241,
-            [theme.maxMQ.xsm]: {
-              gridColumn: "1 / -1",
-              height: "auto",
-              borderTop: "none",
-              paddingTop: theme.spacing(3),
-              paddingBottom: theme.spacing(3),
-            },
-          },
-        ]}
-      >
-        <Text
-          typography="p-l"
-          css={(theme) => ({
-            paddingBottom: 120,
-            color: theme.colors[deckId === "crypto" ? "white75" : "black"],
-            [theme.maxMQ.xsm]: {
-              paddingBottom: theme.spacing(3),
-            },
-          })}
-        >
-          Photos of the physical card and artwork details.
-        </Text>
-      </ScandiBlock>
+      <Intro
+        arrowedText="Gallery"
+        paragraphText="Photos of the physical card and artwork details."
+        palette={deckId === "crypto" ? "dark" : "light"}
+        bottom={<div css={(theme) => [{ height: 120, [theme.maxMQ.xsm]: { display: "none" } }]} />}
+      />
 
       {useCompactLayout ? (
         /* Compact single-row layout for non-admins when not all slots filled */

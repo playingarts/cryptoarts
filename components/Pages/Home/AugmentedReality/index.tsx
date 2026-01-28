@@ -74,7 +74,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
         },
       ]}
     >
-      <ArrowedButton>Augmented Reality</ArrowedButton>
+      <ArrowedButton css={(theme) => ({ [theme.maxMQ.xsm]: { marginBottom: theme.spacing(6) } })}>Augmented Reality</ArrowedButton>
       <Text
         css={(theme) => [
           {
@@ -82,7 +82,7 @@ const AugmentedReality: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => (
             paddingTop: 100,
             color: theme.colors.dark_gray,
             [theme.maxMQ.xsm]: {
-              paddingTop: theme.spacing(5),
+              paddingTop: 0,
               paddingRight: 0,
             },
           },
