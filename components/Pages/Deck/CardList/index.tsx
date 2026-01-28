@@ -51,7 +51,9 @@ const ListItem: FC<{
   deckTitle?: string;
   /** All cards for popup navigation */
   allCards?: GQL.Card[];
-}> = ({ card, shouldLoadImage, showQuote, quoteCard, edition, deckTitle, allCards }) => {
+  /** Card index for scroll targeting */
+  cardIndex?: number;
+}> = ({ card, shouldLoadImage, showQuote, quoteCard, edition, deckTitle, allCards, cardIndex }) => {
   const { palette } = usePalette();
   const {
     query: { deckId },
@@ -115,6 +117,7 @@ const ListItem: FC<{
   return (
     <Fragment>
       <div
+        data-card-index={cardIndex}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onTouchStart={() => {
@@ -127,7 +130,7 @@ const ListItem: FC<{
           onClick={() => setShow(true)}
           size="preview"
           card={{ ...card, deck: { slug: deckId } as unknown as GQL.Deck }}
-          css={(theme) => [{ width: 300, [theme.maxMQ.xsm]: { width: "100%" } }]}
+          css={(theme) => [{ width: 300, [theme.maxMQ.xsm]: { width: "90%", margin: "0 auto", filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15))" } }]}
           // Control image loading via this prop
           // When false, Card shows gradient placeholder without loading the image
           {...(!shouldLoadImage && { noImage: true })}
@@ -153,7 +156,18 @@ const ListItem: FC<{
       </MenuPortal>
       {showQuote && quoteCard && (
         quoteImagesLoaded ? (
-          <Grid css={(theme) => [{ width: "100%", marginTop: theme.spacing(6), marginBottom: theme.spacing(6) }]}>
+          <Grid css={(theme) => [{
+            width: "100%",
+            marginTop: theme.spacing(6),
+            marginBottom: theme.spacing(6),
+            [theme.maxMQ.xsm]: {
+              marginTop: theme.spacing(3),
+              marginBottom: theme.spacing(3),
+              gridColumn: "1 / -1",
+              paddingLeft: 0,
+              paddingRight: 0,
+            },
+          }]}>
             <img
               src={quoteCard.mainPhoto || background.src}
               alt={`Artwork by ${quoteCard.artist.name}`}
@@ -164,20 +178,45 @@ const ListItem: FC<{
                 borderRadius: theme.spacing(1.5),
                 objectFit: "cover",
                 [theme.maxMQ.sm]: { gridColumn: "1 / -1", width: "100%" },
+                [theme.maxMQ.xsm]: {
+                  width: "100%",
+                  height: "auto",
+                  aspectRatio: "1",
+                  borderRadius: 10,
+                  marginBottom: theme.spacing(3),
+                },
               })}
             />
             <div
               css={(theme) => [
                 {
                   gridColumn: "span 6",
+                  [theme.maxMQ.xsm]: {
+                    gridColumn: "1 / -1",
+                  },
                 },
               ]}
             >
-              <div css={(theme) => [{ display: "flex", gap: theme.spacing(3) }]}>
+              <div css={(theme) => [{
+                display: "flex",
+                gap: theme.spacing(3),
+                [theme.maxMQ.xsm]: {
+                  gap: theme.spacing(2),
+                },
+              }]}>
                 <img
                   src={quoteCard.artist.userpic}
                   alt={`${quoteCard.artist.name} portrait`}
-                  css={{ width: 80, height: 80, borderRadius: 10 }}
+                  css={(theme) => ({
+                    width: 80,
+                    height: 80,
+                    borderRadius: 10,
+                    [theme.maxMQ.xsm]: {
+                      width: 50,
+                      height: 50,
+                      borderRadius: 8,
+                    },
+                  })}
                 />
                 <div css={(theme) => [{ display: "inline-block" }]}>
                   <Text
@@ -186,6 +225,9 @@ const ListItem: FC<{
                       {
                         color:
                           theme.colors[palette === "dark" ? "white75" : "black"],
+                        [theme.maxMQ.xsm]: {
+                          ...theme.typography["p-m"],
+                        },
                       },
                     ]}
                   >
@@ -197,6 +239,9 @@ const ListItem: FC<{
                       {
                         color:
                           theme.colors[palette === "dark" ? "white75" : "black"],
+                        [theme.maxMQ.xsm]: {
+                          ...theme.typography["p-xs"],
+                        },
                       },
                     ]}
                   >
@@ -214,6 +259,10 @@ const ListItem: FC<{
                     WebkitLineClamp: 5,
                     WebkitBoxOrient: "vertical",
                     overflow: "hidden",
+                    [theme.maxMQ.xsm]: {
+                      marginTop: theme.spacing(2),
+                      WebkitLineClamp: 4,
+                    },
                   },
                 ]}
               >
@@ -231,6 +280,10 @@ const ListItem: FC<{
                       marginTop: theme.spacing(3),
                       color: theme.colors[palette === "dark" ? "white75" : "black"],
                       cursor: "pointer",
+                      [theme.maxMQ.xsm]: {
+                        marginTop: theme.spacing(2),
+                        ...theme.typography["p-s"],
+                      },
                     },
                   ]}
                 >
@@ -406,9 +459,18 @@ const CardRow: FC<{
   onRowApproaching: (rowIndex: number) => void;
   edition?: string;
   deckTitle?: string;
-}> = ({ cards, rowIndex, allCards, shouldLoadImages, onRowApproaching, edition, deckTitle }) => {
-  // Calculate if this row should show a quote (every 3rd row after the first)
-  const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % 3 === 0;
+  cardsPerRow: number;
+  totalRows: number;
+  initialRowsCount?: number;
+}> = ({ cards, rowIndex, allCards, shouldLoadImages, onRowApproaching, edition, deckTitle, cardsPerRow, totalRows, initialRowsCount = 0 }) => {
+  // Calculate if this row should show a quote
+  // Desktop (4 cards/row): every 3 rows = 12 cards
+  // Mobile (2 cards/row): every 4 rows = 8 cards
+  // Never show quote after the last row or in initial rows (before "Load all cards")
+  const isLastRow = rowIndex === totalRows - 1;
+  const isInInitialRows = initialRowsCount > 0 && rowIndex < initialRowsCount;
+  const quoteInterval = cardsPerRow === 2 ? 4 : 3;
+  const showQuoteAfterRow = rowIndex > 0 && (rowIndex + 1) % quoteInterval === 0 && !isLastRow && !isInInitialRows;
 
   // Stable quote card selection - memoized to prevent changing on re-renders
   // Only select cards that have both info (card description) AND mainPhoto
@@ -439,6 +501,7 @@ const CardRow: FC<{
           edition={edition}
           deckTitle={deckTitle}
           allCards={allCards}
+          cardIndex={rowIndex * cardsPerRow + i}
         />
       ))}
     </>
@@ -470,6 +533,10 @@ const SkeletonGrid: FC<{ cardsPerRow: number; dark?: boolean }> = ({ cardsPerRow
   );
 };
 
+// Initial cards to show before "Show all" button
+const INITIAL_CARDS_DESKTOP = 28; // Desktop: 7 rows of 4 cards
+const INITIAL_CARDS_MOBILE = 16;  // Mobile: 8 rows of 2 cards
+
 const List: FC<{ edition?: string }> = ({ edition }) => {
   const {
     query: { deckId },
@@ -477,6 +544,7 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
 
   const { deck } = useDeck({ variables: { slug: deckId } });
   const { width } = useSize();
+  const [showAllCards, setShowAllCards] = useState(false);
 
   // Only crypto deck uses dark skeleton
   const isDarkSkeleton = deckId === "crypto";
@@ -572,18 +640,80 @@ const List: FC<{ edition?: string }> = ({ edition }) => {
       {!cards ? (
         <SkeletonGrid cardsPerRow={cardsPerRow} dark={isDarkSkeleton} />
       ) : (
-        rows.map((rowCards, rowIndex) => (
-          <CardRow
-            key={`row-${rowIndex}`}
-            cards={rowCards}
-            rowIndex={rowIndex}
-            allCards={cards}
-            shouldLoadImages={rowIndex <= maxRowToLoadImages}
-            onRowApproaching={handleRowApproaching}
-            edition={edition}
-            deckTitle={deck?.title}
-          />
-        ))
+        <>
+          {(() => {
+            const initialCardsToShow = cardsPerRow >= 4 ? INITIAL_CARDS_DESKTOP : INITIAL_CARDS_MOBILE;
+            const initialRowsCount = Math.ceil(initialCardsToShow / cardsPerRow);
+            const hasMoreCards = rows.length > initialRowsCount;
+            const visibleRows = showAllCards ? rows : rows.slice(0, initialRowsCount);
+
+            return (
+              <>
+                {visibleRows.map((rowCards, rowIndex) => (
+                  <CardRow
+                    key={`row-${rowIndex}`}
+                    cards={rowCards}
+                    rowIndex={rowIndex}
+                    allCards={cards}
+                    shouldLoadImages={rowIndex <= maxRowToLoadImages}
+                    onRowApproaching={handleRowApproaching}
+                    edition={edition}
+                    deckTitle={deck?.title}
+                    cardsPerRow={cardsPerRow}
+                    totalRows={showAllCards ? rows.length : visibleRows.length}
+                    initialRowsCount={showAllCards ? initialRowsCount : 0}
+                  />
+                ))}
+                {hasMoreCards && !showAllCards && (
+                  <button
+                    id="load-all-cards-btn"
+                    onClick={() => {
+                      setShowAllCards(true);
+                      // Load images for all rows when showing all cards
+                      setMaxRowToLoadImages(999);
+                      // Scroll to the first newly loaded card after render
+                      setTimeout(() => {
+                        const firstNewCardIndex = initialRowsCount * cardsPerRow;
+                        const cardElements = document.querySelectorAll('[data-card-index]');
+                        const targetCard = Array.from(cardElements).find(
+                          el => el.getAttribute('data-card-index') === String(firstNewCardIndex)
+                        );
+                        if (targetCard) {
+                          const top = targetCard.getBoundingClientRect().top + window.scrollY - 60;
+                          window.scrollTo({ top, behavior: "smooth" });
+                        }
+                      }, 100);
+                    }}
+                    css={(theme) => ({
+                      gridColumn: "1 / -1",
+                      width: "100%",
+                      padding: theme.spacing(2),
+                      marginTop: theme.spacing(3),
+                      backgroundColor: theme.colors.accent,
+                      border: "none",
+                      borderRadius: 10,
+                      cursor: "pointer",
+                      fontSize: 18,
+                      fontWeight: 400,
+                      color: theme.colors.white,
+                      transition: "opacity 0.2s ease",
+                      "&:hover": {
+                        opacity: 0.8,
+                      },
+                      [theme.maxMQ.xsm]: {
+                        "&:hover": {
+                          opacity: 1,
+                        },
+                      },
+                    })}
+                  >
+                    Load all cards
+                  </button>
+                )}
+              </>
+            );
+          })()}
+        </>
       )}
     </div>
   );
@@ -603,6 +733,9 @@ const FutureTabs: FC<{
         gap: 10,
         gridColumn: "1/-1",
         marginTop: theme.spacing(6),
+        [theme.maxMQ.xsm]: {
+          marginTop: theme.spacing(3),
+        },
       })}
     >
       {FUTURE_TABS.map((tab) => {
@@ -666,6 +799,10 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             palette === "dark"
               ? theme.colors.darkBlack
               : theme.colors["pale_gray"],
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+            paddingBottom: 0,
+          },
         },
       ]}
       {...props}
@@ -685,6 +822,7 @@ const CardList: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
             {
               marginTop: theme.spacing(6),
               color: theme.colors[palette === "dark" ? "white75" : "black"],
+              [theme.maxMQ.xsm]: { marginTop: theme.spacing(3) },
             },
           ]}
           typography="p-l"

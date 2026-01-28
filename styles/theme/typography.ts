@@ -24,7 +24,7 @@ export const typographyLiterals = {
       fontSize: 60,
     },
     [maxMQ.xsm]: {
-      fontSize: 60,
+      fontSize: 40,
     },
   },
   h1: {
@@ -81,29 +81,14 @@ export const typographyLiterals = {
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
     [maxMQ.xsm]: {
-      fontSize: 18,
+      fontSize: 20,
       lineHeight: "28px",
     },
   },
   // Paragraphs: p-l (35px) → p-xxs (12px)
   "p-l": {
     fontFamily: allianceFont,
-    fontSize: 30,
-    fontWeight: 400,
-    lineHeight: "150%",
-    textAlign: "left",
-    textUnderlinePosition: "from-font",
-    textDecorationSkipInk: "none",
-    [maxMQ.sm]: {
-      fontSize: 28,
-    },
-    [maxMQ.xsm]: {
-      fontSize: 22,
-    },
-  },
-  p: {
-    fontFamily: allianceFont,
-    fontSize: 25,
+    fontSize: 24,
     fontWeight: 400,
     lineHeight: "150%",
     textAlign: "left",
@@ -111,6 +96,18 @@ export const typographyLiterals = {
     textDecorationSkipInk: "none",
     [maxMQ.xsm]: {
       fontSize: 20,
+    },
+  },
+  p: {
+    fontFamily: allianceFont,
+    fontSize: 22,
+    fontWeight: 400,
+    lineHeight: "150%",
+    textAlign: "left",
+    textUnderlinePosition: "from-font",
+    textDecorationSkipInk: "none",
+    [maxMQ.xsm]: {
+      fontSize: 18,
       lineHeight: "150%",
     },
   },
@@ -123,7 +120,7 @@ export const typographyLiterals = {
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
     [maxMQ.xsm]: {
-      fontSize: 18,
+      fontSize: 17,
     },
   },
   "p-s": {
@@ -159,7 +156,7 @@ export const typographyLiterals = {
     textUnderlinePosition: "from-font",
     textDecorationSkipInk: "none",
     [maxMQ.xsm]: {
-      fontSize: 10,
+      fontSize: 8,
     },
   },
 

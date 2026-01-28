@@ -50,6 +50,9 @@ const TheProduct: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           paddingBottom: theme.spacing(12),
           background:
             palette === "dark" ? "#212121" : theme.colors["pale_gray"],
+          [theme.maxMQ.xsm]: {
+            paddingBottom: 0,
+          },
         },
       ]}
       {...props}

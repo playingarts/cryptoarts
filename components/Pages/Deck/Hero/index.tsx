@@ -203,6 +203,8 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
         },
       ]}
     >
+      {/* Mobile hero cards - shown above title on mobile only */}
+      <HeroCards heroCards={heroCards} mobile />
       <div css={(theme) => [{ gridColumn: "span 6", [theme.maxMQ.sm]: { gridColumn: "1 / -1" } }]}>
         {displayedDeck ? (
           <>
@@ -222,7 +224,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             </Text>
             <Text
               css={(theme) => [
-                { marginTop: theme.spacing(3) },
+                { marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { marginTop: theme.spacing(1.5) } },
                 palette === "dark" && { color: "white", opacity: 0.75 },
                 {
                   transition: slideState === "sliding-in"
@@ -316,15 +318,40 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
             css={(theme) => [
               {
                 paddingLeft: 10,
+                [theme.maxMQ.xsm]: {
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    color: theme.colors.accent,
+                  },
+                },
               },
               palette === "dark" && {
                 color: theme.colors.white,
                 "&:hover": {
                   color: theme.colors.white,
                 },
+                [theme.maxMQ.xsm]: {
+                  color: theme.colors.accent,
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    color: theme.colors.accent,
+                  },
+                },
               },
             ]}
-            onClick={() => setShowStory(!showStory)}
+            onClick={() => {
+              const newShowStory = !showStory;
+              setShowStory(newShowStory);
+              if (newShowStory) {
+                // Scroll to story section after it expands (with 30px offset)
+                setTimeout(() => {
+                  if (ref.current) {
+                    const top = ref.current.getBoundingClientRect().top + window.scrollY - 30;
+                    window.scrollTo({ top, behavior: "smooth" });
+                  }
+                }, 100);
+              }
+            }}
           >
             <Plus
               css={(theme) => [
@@ -357,7 +384,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
         ]}
       >
         <Grid
-          css={(theme) => [{ paddingTop: 90, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(6) } }]}
+          css={(theme) => [{ paddingTop: 90, [theme.maxMQ.xsm]: { paddingTop: theme.spacing(6), paddingLeft: 0, paddingRight: 0 } }]}
           ref={ref}
         >
           <div
@@ -380,7 +407,16 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
               artists from around the globe to transform a deck of cards into a
               stunning blend of art and play.
             </Text>
-            <Grid auto={true} css={(theme) => [{ paddingTop: theme.spacing(6) }]}>
+            <Grid auto={true} css={(theme) => [{
+              paddingTop: theme.spacing(6),
+              [theme.maxMQ.xsm]: {
+                display: "flex",
+                gap: theme.spacing(1.5),
+                paddingLeft: 0,
+                paddingRight: 0,
+                paddingTop: 30,
+              },
+            }]}>
               {[
                 ["55", "Artists"],
                 ["2013", "Launch Year"],
@@ -396,7 +432,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                         ? "0px -1px 0px rgba(255, 255, 255, 0.1)"
                         : "0px -1px 0px rgba(0, 0, 0, 1)",
                       [theme.maxMQ.xsm]: {
-                        gridColumn: "1 / -1", // Full width on mobile
+                        flex: 1,
                       },
                     },
                   ]}
@@ -405,6 +441,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                     typography="h3"
                     css={(theme) => [
                       palette === "dark" && { color: theme.colors.white75 },
+                      { [theme.maxMQ.xsm]: { fontSize: 20, lineHeight: "28px" } },
                     ]}
                   >
                     <AnimatedNumber value={data[0]} startAnimation={showStory} duration={1500} />
@@ -413,6 +450,7 @@ const Hero: FC<HeroProps> = ({ heroCards, ...props }) => {
                     typography="h4"
                     css={(theme) => [
                       palette === "dark" && { color: theme.colors.white75 },
+                      { [theme.maxMQ.xsm]: { fontSize: 14, lineHeight: "20px" } },
                     ]}
                   >
                     {data[1]}

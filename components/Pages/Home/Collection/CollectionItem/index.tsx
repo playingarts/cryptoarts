@@ -5,6 +5,8 @@ import NavButton from "../../../../Buttons/NavButton";
 import Card from "../../../../Card";
 import Label from "../../../../Label";
 import { useLoadCollectionCards } from "../../../../../hooks/card";
+import { useSize } from "../../../../SizeProvider";
+import { breakpoints } from "../../../../../source/enums";
 import {
   CARD_PREVIEW_TOP,
   CARD_PREVIEW_GAP,
@@ -73,8 +75,10 @@ interface CollectionItemProps extends HTMLAttributes<HTMLElement> {
   currentDeckSlug?: string;
   /** Called when clicking "View" on current deck (to close menu) */
   onClose?: () => void;
-  /** Show card preview on hover (default: true) */
+  /** Show card preview on hover - desktop only (default: true) */
   showCardPreview?: boolean;
+  /** Mobile carousel mode - shows controls always, tap deck navigates to deck page */
+  mobileCarousel?: boolean;
 }
 
 // Minimal card type for our buffer - includes artist info for instant popup display
@@ -88,9 +92,14 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
   currentDeckSlug,
   onClose,
   showCardPreview = true,
+  mobileCarousel = false,
   ...props
 }) => {
   const router = useRouter();
+  const { width } = useSize();
+  const isMobile = width < breakpoints.sm;
+  // On mobile: no hover, tap navigates to deck page
+  const mobileMode = isMobile || mobileCarousel;
   const [hover, setHover] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
   const [deckImageLoaded, setDeckImageLoaded] = useState(false);
@@ -346,14 +355,16 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
           transition: theme.transitions.fast("background"),
           // GPU acceleration for smooth animations
           willChange: hover ? "background" : "auto",
-          // Skip rendering for off-screen items
+          // Skip rendering for off-screen items (desktop only)
           contentVisibility: "auto",
           containIntrinsicSize: "auto 450px", // Match ITEM_HEIGHT
           "> *": {
             transition: theme.transitions.fast("opacity"),
           },
           [theme.maxMQ.xsm]: {
-            // Disable card preview on mobile for cleaner experience
+            // Disable content visibility on mobile for carousel compatibility
+            contentVisibility: "visible",
+            containIntrinsicSize: "auto",
           },
         },
         hover &&
@@ -369,12 +380,16 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
       {product && (
         <>
           <div
-            css={{
+            css={(theme) => ({
               padding: LABELS_PADDING,
               display: "flex",
               gap: LABELS_GAP,
-            }}
-            style={{ opacity: hover ? 1 : 0 }}
+              // Hide on mobile unless mobileCarousel (side menu)
+              [theme.maxMQ.xsm]: !mobileCarousel ? {
+                display: "none",
+              } : {},
+            })}
+            style={{ opacity: mobileCarousel || hover ? 1 : 0 }}
           >
             {product.deck?.labels?.map((label) => (
               <Label
@@ -391,9 +406,10 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
             ))}
           </div>
 
-          {showCardPreview && (
+          {/* Card preview - desktop hover only, hidden on mobile */}
+          {showCardPreview && !mobileMode && (
             <div
-              css={{
+              css={(theme) => ({
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -402,7 +418,8 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
                 top: CARD_PREVIEW_TOP,
                 left: "50%",
                 transform: "translateX(-50%)",
-              }}
+                transition: theme.transitions.fast("opacity"),
+              })}
               style={{ opacity: hover ? 1 : 0 }}
             >
               <NavButton
@@ -431,12 +448,18 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
           )}
 
           <div
-            css={{
+            css={(theme) => ({
               padding: FOOTER_PADDING,
               display: "flex",
               justifyContent: "space-between",
-            }}
-            style={{ opacity: hover ? 1 : 0 }}
+              position: "relative",
+              zIndex: 3,
+              // Hide on mobile unless mobileCarousel (side menu)
+              [theme.maxMQ.xsm]: !mobileCarousel ? {
+                display: "none",
+              } : {},
+            })}
+            style={{ opacity: mobileCarousel || hover ? 1 : 0 }}
           >
             <ArrowButton
               href={currentDeckSlug === product.deck?.slug ? undefined : `${process.env.NEXT_PUBLIC_BASELINK || ""}/${product.deck?.slug}`}
@@ -454,10 +477,12 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
             </ArrowButton>
             <ArrowButton
               href={`${process.env.NEXT_PUBLIC_BASELINK || ""}/shop/${product.slug || product.short?.toLowerCase().replace(/\s/g, "")}`}
+              onClick={onClose}
               noColor
               base
               size="small"
               css={(theme) => [
+                { paddingRight: 0 },
                 hover && paletteOnHover === "dark"
                   ? { color: theme.colors.white }
                   : { color: theme.colors.black },
@@ -475,6 +500,10 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
           loading={priority ? "eager" : "lazy"}
           {...(priority && { fetchPriority: "high" as const })}
           onLoad={handleDeckImageLoad}
+          onClick={mobileMode ? () => {
+            onClose?.(); // Close side menu
+            router.push(`${process.env.NEXT_PUBLIC_BASELINK || ""}/${product.deck?.slug}`);
+          } : undefined}
           css={(theme) => ({
             position: "absolute",
             left: 0,
@@ -482,13 +511,14 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
             objectFit: "contain",
             height: "100%",
             width: "100%",
-            pointerEvents: "none",
+            pointerEvents: mobileMode ? "auto" : "none",
+            cursor: mobileMode ? "pointer" : undefined,
             // GPU acceleration for opacity transition
             willChange: "opacity",
             // Only transition when fading in, instant fade out on hover
             transition: hover ? "none" : theme.transitions.slow("opacity"),
           })}
-          style={{ opacity: hover ? 0 : deckImageLoaded ? 1 : 0 }}
+          style={{ opacity: (hover && !mobileMode) ? 0 : deckImageLoaded ? 1 : 0 }}
         />
       )}
     </div>

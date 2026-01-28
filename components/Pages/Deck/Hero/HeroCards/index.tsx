@@ -171,10 +171,12 @@ const FETCH_TIMEOUT_MS = 15000;
 interface HeroCardsProps extends HTMLAttributes<HTMLElement> {
   sticky?: boolean;
   heroCards?: HeroCardProps[];
+  /** Render mobile layout (shown above title) */
+  mobile?: boolean;
 }
 
 const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
-  ({ sticky = true, heroCards: ssrHeroCards, ...props }, ref) => {
+  ({ sticky = true, heroCards: ssrHeroCards, mobile = false, ...props }, ref) => {
     const { palette } = usePalette();
     const router = useRouter();
     const routerDeckId = router.query.deckId as string | undefined;
@@ -378,6 +380,88 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
     // Uses first card's _id to ensure animation plays on each new set of cards
     const animationKey = displayedCards?.[0]?._id ?? "none";
 
+    // Mobile layout - simpler horizontal display with FlippingHeroCards
+    if (mobile) {
+      return (
+        <div
+          ref={ref}
+          css={(theme) => ({
+            display: "none",
+            [theme.maxMQ.xsm]: {
+              display: "flex",
+              gridColumn: "1 / -1",
+              gap: theme.spacing(1.5),
+              marginBottom: theme.spacing(6),
+              justifyContent: "center",
+            },
+          })}
+          {...props}
+        >
+          {showCards && displayedCards ? (
+            <>
+              <div key={`mobile-left-${animationKey}-${cardsForFlipping.length}`} css={{ width: "40%", marginRight: -15, transform: "rotate(-10deg)", filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15))", zIndex: 2 }}>
+                <FlippingHeroCard
+                  cards={cardsForFlipping}
+                  initialCard={displayedCards[0] as unknown as GQL.Card}
+                  size="mobile"
+                  animated
+                />
+              </div>
+              <div key={`mobile-right-${animationKey}-${cardsForFlipping.length}`} css={{ width: "40%", marginLeft: -15, transform: "rotate(10deg)", filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15))", zIndex: 1 }}>
+                <FlippingHeroCard
+                  cards={cardsForFlipping}
+                  initialCard={displayedCards[1] as unknown as GQL.Card}
+                  size="mobile"
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              {/* Mobile skeleton placeholders */}
+              <div
+                css={(theme) => ({
+                  width: "40%",
+                  aspectRatio: "0.7076923076923077",
+                  borderRadius: 10,
+                  marginRight: -15,
+                  transform: "rotate(-10deg)",
+                  filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15))",
+                  zIndex: 2,
+                  background:
+                    palette === "dark"
+                      ? "linear-gradient(90deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%)"
+                      : "linear-gradient(90deg, #d0d0d0 0%, #e8e8e8 50%, #d0d0d0 100%)",
+                  backgroundSize: "200% 100%",
+                  animation: "heroCardShimmer 1.5s infinite linear",
+                  "@keyframes heroCardShimmer": {
+                    "0%": { backgroundPosition: "200% 0" },
+                    "100%": { backgroundPosition: "-200% 0" },
+                  },
+                })}
+              />
+              <div
+                css={(theme) => ({
+                  width: "40%",
+                  aspectRatio: "0.7076923076923077",
+                  borderRadius: 10,
+                  marginLeft: -15,
+                  transform: "rotate(10deg)",
+                  filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15))",
+                  zIndex: 1,
+                  background:
+                    palette === "dark"
+                      ? "linear-gradient(90deg, #1a1a1a 0%, #333333 50%, #1a1a1a 100%)"
+                      : "linear-gradient(90deg, #d0d0d0 0%, #e8e8e8 50%, #d0d0d0 100%)",
+                  backgroundSize: "200% 100%",
+                  animation: "heroCardShimmer 1.5s infinite linear",
+                })}
+              />
+            </>
+          )}
+        </div>
+      );
+    }
+
     return (
       <div
         ref={ref}
@@ -389,7 +473,7 @@ const HeroCards = forwardRef<HTMLDivElement, HeroCardsProps>(
             top: 160,
             willChange: "transform",
             [theme.maxMQ.sm]: {
-              display: "none", // Hide on tablet/mobile - complex flip animation needs desktop width
+              display: "none", // Hide on tablet - show mobile version instead
             },
           },
           sticky && {

@@ -206,10 +206,9 @@ const Card: FC<CardProps> = memo(
         css={(theme) => [
           {
             width: cardSizesHover[size].width,
-            // Mobile: scale down cards
+            // Mobile: full width, let parent control sizing
             [theme.maxMQ.xsm]: {
               width: "100%",
-              maxWidth: size === "preview" ? 200 : size === "hero" ? 280 : size === "big" ? 280 : cardSizesHover[size].width,
             },
           },
         ]}
@@ -225,6 +224,8 @@ const Card: FC<CardProps> = memo(
               [theme.maxMQ.xsm]: {
                 height: "auto",
                 aspectRatio: "0.7076923076923077",
+                overflow: "hidden",
+                borderRadius: (size === "preview" || size === "small" || size === "nano") ? 10 : 15,
               },
             },
           ]}
@@ -259,9 +260,11 @@ const Card: FC<CardProps> = memo(
                 transitionDuration: "50ms",
                 transitionProperty: "scale",
                 transition: theme.transitions.fast(["width", "height"]),
-                // Mobile: full width, no centering transform
+                // Mobile: full width, fill parent height
                 [theme.maxMQ.xsm]: {
                   width: "100%",
+                  height: "100%",
+                  aspectRatio: "unset",
                   position: "static",
                   transform: "none",
                 },
@@ -270,7 +273,7 @@ const Card: FC<CardProps> = memo(
             style={(hover && width >= breakpoints.xsm && { width: cardSizesHover[size].width }) || {}}
           >
             <div
-              css={[
+              css={(theme) => [
                 {
                   overflow: "hidden",
                   borderRadius: size === "nano" ? 10 : 15,
@@ -281,6 +284,10 @@ const Card: FC<CardProps> = memo(
                   position: "relative",
                   height: "100%",
                   zIndex: 1,
+                  // Mobile: 10px border radius for preview/small
+                  [theme.maxMQ.xsm]: (size === "preview" || size === "small") ? {
+                    borderRadius: 10,
+                  } : {},
                 },
               ]}
             >
@@ -380,7 +387,7 @@ const Card: FC<CardProps> = memo(
               css={(theme) => [
                 {
                   ...theme.typography["p-m"],
-                  marginTop: 10,
+                  marginTop: 15,
                   textAlign: "center",
                   fontSize: 18,
                   display: "block",
@@ -389,6 +396,10 @@ const Card: FC<CardProps> = memo(
                   transition: "color 0.15s ease-out",
                   "&:hover": {
                     color: theme.colors[palette === "dark" ? "white" : "dark_gray"],
+                  },
+                  [theme.maxMQ.xsm]: {
+                    ...theme.typography["p-s"],
+                    textAlign: "center",
                   },
                 },
               ]}
@@ -422,11 +433,15 @@ const Card: FC<CardProps> = memo(
               typography="p-m"
               css={(theme) => [
                 {
-                  marginTop: 10,
+                  marginTop: 15,
                   textAlign: "center",
                   fontSize: 18,
                   color: theme.colors[palette === "dark" ? "white50" : "black50"],
                   transition: "color 0.15s ease-out",
+                  [theme.maxMQ.xsm]: {
+                    ...theme.typography["p-s"],
+                    textAlign: "center",
+                  },
                 },
                 hover && {
                   color: theme.colors[palette === "dark" ? "white" : "dark_gray"],

@@ -100,6 +100,8 @@ interface FlippingHeroCardProps {
   isPaused?: boolean;
   /** Whether to always play video (instead of on hover only) */
   animated?: boolean;
+  /** Size variant - "hero" for desktop, "mobile" for mobile layout */
+  size?: "hero" | "mobile";
 }
 
 const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
@@ -107,7 +109,11 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   initialCard,
   isPaused = false,
   animated = false,
+  size = "hero",
 }) => {
+  // Use 100% width for mobile, fixed dimensions for desktop hero
+  const isMobile = size === "mobile";
+  const cardSize = isMobile ? "preview" : "hero";
   // All hooks must be called unconditionally (React rules of hooks)
   // Use state for cards so React re-renders Card components when they change
   // This ensures video sources stay in sync with card data
@@ -326,8 +332,8 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   // Empty or single card - render static card without flip capability
   if (cards.length === 0) {
     return (
-      <div css={{ width: CARD_DIMENSIONS.width, height: CARD_DIMENSIONS.height }}>
-        <Card card={initialCard} size="hero" noArtist noFavorite interactive={false} priority />
+      <div css={isMobile ? { width: "100%", aspectRatio: "0.7076923076923077" } : { width: CARD_DIMENSIONS.width, height: CARD_DIMENSIONS.height }}>
+        <Card card={initialCard} size={cardSize} noArtist noFavorite interactive={false} priority />
       </div>
     );
   }
@@ -335,15 +341,20 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
   return (
     <div
       ref={containerRef}
-      css={{
+      css={isMobile ? {
+        perspective: "1000px",
+        width: "100%",
+        aspectRatio: "0.7076923076923077",
+        cursor: "pointer",
+      } : {
         perspective: "1000px",
         width: CARD_DIMENSIONS.width,
         height: CARD_DIMENSIONS.height,
         cursor: "pointer",
       }}
       onClick={handleClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => !isMobile && setIsHovered(true)}
+      onMouseLeave={() => !isMobile && setIsHovered(false)}
     >
       <div
         css={{
@@ -368,10 +379,16 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
             backfaceVisibility: "hidden",
             WebkitBackfaceVisibility: "hidden",
           }}
+          style={{
+            // On mobile, use opacity for reliable face hiding
+            opacity: isMobile ? (rotation % 360 === 0 ? 1 : 0) : undefined,
+            transition: isMobile ? `opacity ${flipDuration / 2}ms ease-in-out` : undefined,
+          }}
         >
           <Card
+            key={`front-${frontCard._id}`}
             card={frontCard}
-            size="hero"
+            size={cardSize}
             noArtist
             noFavorite
             interactive={false}
@@ -391,10 +408,16 @@ const FlippingHeroCard: FC<FlippingHeroCardProps> = ({
             WebkitBackfaceVisibility: "hidden",
             transform: "rotateY(180deg)",
           }}
+          style={{
+            // On mobile, use opacity for reliable face hiding
+            opacity: isMobile ? (rotation % 360 !== 0 ? 1 : 0) : undefined,
+            transition: isMobile ? `opacity ${flipDuration / 2}ms ease-in-out` : undefined,
+          }}
         >
           <Card
+            key={`back-${backCard._id}`}
             card={backCard}
-            size="hero"
+            size={cardSize}
             noArtist
             noFavorite
             interactive={false}

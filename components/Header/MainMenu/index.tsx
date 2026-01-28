@@ -15,6 +15,7 @@ import ButtonTemplate from "../../Buttons/Button";
 import { colord } from "colord";
 import Delete from "../../Icons/Delete";
 import ArrowButton from "../../Buttons/ArrowButton";
+import NavButton from "../../Buttons/NavButton";
 import Link from "../../Link";
 import { useHeroCardsContext } from "../../Pages/Deck/HeroCardsContext";
 import { useProducts } from "../../../hooks/product";
@@ -39,12 +40,15 @@ type SelectedCard = {
 // Layout constants
 const SCROLL_THRESHOLD = 500;
 const PRODUCT_PREVIEW_HEIGHT = 450;
+const MOBILE_CAROUSEL_HEIGHT = 380;
 const PRODUCT_LIST_WIDTH = 190;
 const PRODUCT_LIST_GAP = 10;
 const SECTION_SPACING = 30;
 const PREVIEW_BORDER_RADIUS = 10;
 const DECK_LIST_GAP = 12;
 const CASCADE_DELAY = 50; // ms delay between each item animation
+const CAROUSEL_INTERVAL = 3000; // 3 seconds between slides
+const SWIPE_THRESHOLD = 50; // min pixels to register as swipe
 
 /**
  * Skeleton component for deck preview loading state
@@ -171,10 +175,13 @@ const MainMenu: FC<
   // Handle body overflow - only when visible
   useEffect(() => {
     if (!show) return;
-    const previousOverflow = document.body.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
     };
   }, [show]);
 
@@ -191,13 +198,72 @@ const MainMenu: FC<
 
   // Track show state changes to restart animations and scroll to top
   const [animationKey, setAnimationKey] = useState(0);
+  const resetCarouselRef = useRef<() => void>(() => {});
   useEffect(() => {
     if (show) {
       setAnimationKey((k) => k + 1);
       // Scroll menu to top when opened
       scrollContainerRef.current?.scrollTo(0, 0);
+      // Reset carousel to first slide and unpause
+      setCarouselIndex(0);
+      resetCarouselRef.current();
     }
   }, [show]);
+
+  // Mobile carousel state
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  const [autoRotate, setAutoRotate] = useState(true);
+  const carouselIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStartX = useRef(0);
+
+  // Reset auto-rotate when menu opens
+  resetCarouselRef.current = () => setAutoRotate(true);
+
+  // Stop auto-rotation permanently on any interaction
+  const handleInteraction = useCallback(() => {
+    setAutoRotate(false);
+    if (carouselIntervalRef.current) {
+      clearInterval(carouselIntervalRef.current);
+      carouselIntervalRef.current = null;
+    }
+  }, []);
+
+  // Auto-advance carousel (only when autoRotate is true)
+  useEffect(() => {
+    if (!show || deckProducts.length <= 1 || !autoRotate) {
+      if (carouselIntervalRef.current) {
+        clearInterval(carouselIntervalRef.current);
+        carouselIntervalRef.current = null;
+      }
+      return;
+    }
+
+    carouselIntervalRef.current = setInterval(() => {
+      setCarouselIndex((prev) => (prev + 1) % deckProducts.length);
+    }, CAROUSEL_INTERVAL);
+
+    return () => {
+      if (carouselIntervalRef.current) clearInterval(carouselIntervalRef.current);
+    };
+  }, [show, deckProducts.length, autoRotate]);
+
+  const handleCarouselTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    handleInteraction(); // Stop auto-rotate on touch
+  }, [handleInteraction]);
+
+  const handleCarouselTouchEnd = useCallback((e: React.TouchEvent) => {
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) < SWIPE_THRESHOLD) return;
+
+    if (diff > 0) {
+      // Swipe left - next
+      setCarouselIndex((prev) => (prev + 1) % deckProducts.length);
+    } else {
+      // Swipe right - prev
+      setCarouselIndex((prev) => (prev - 1 + deckProducts.length) % deckProducts.length);
+    }
+  }, [deckProducts.length]);
 
   return (
     <div
@@ -210,22 +276,84 @@ const MainMenu: FC<
           inset: 0,
           zIndex: 9999,
           overflow: "scroll",
+          overscrollBehavior: "contain",
           "&::-webkit-scrollbar": {
             display: "none",
           },
           msOverflowStyle: "none",
           scrollbarWidth: "none",
+          [theme.maxMQ.xsm]: {
+            background: theme.colors.pale_gray,
+          },
         },
       ]}
       onClick={handleClose}
       {...props}
     >
       <div
-        css={[{ width: "fit-content" }]}
+        css={(theme) => [{ width: "fit-content", [theme.maxMQ.xsm]: { width: "100%", overflow: "hidden" } }]}
         onClick={(e) => e.stopPropagation()}
       >
-        <MenuGrid isHeader scrolledPast600={scrolledPast600}>
-          <ScandiBlock palette="light" css={{ gridColumn: "span 3", height: "var(--menu-header-height, 68px)", lineHeight: "var(--menu-header-line-height, 68px)", padding: 0 }}>
+        {/* Mobile header - outside grid, matches global header styling exactly */}
+        <div
+          css={(theme) => ({
+            display: "none",
+            [theme.maxMQ.xsm]: {
+              display: "flex",
+              alignItems: "center",
+              height: 50,
+              lineHeight: "50px",
+              paddingLeft: 20,
+              paddingRight: 20,
+              position: "fixed",
+              top: 0,
+              left: 0,
+              right: 0,
+              zIndex: 10,
+              background: colord("#FFFFFF").alpha(0.9).toRgbString(),
+              backdropFilter: "blur(10px)",
+            },
+          })}
+        >
+          {/* Close button - matches TitleButton styling */}
+          <ButtonTemplate
+            base={true}
+            icon={true}
+            css={(theme) => ({
+              marginRight: 15,
+              color: theme.colors.dark_gray + " !important",
+              transition: theme.transitions.fast("background"),
+              "&:hover": {
+                background: colord(theme.colors.white).alpha(0.5).toRgbString(),
+              },
+            })}
+            onClick={handleClose}
+          >
+            <Delete />
+          </ButtonTemplate>
+
+          {/* Logo - matches Middle section styling */}
+          <Link
+            href={getBaseUrl("/")}
+            onClick={handleClose}
+            css={{ display: "flex", alignItems: "center" }}
+          >
+            <Logo css={{ height: 24, width: "auto" }} />
+          </Link>
+
+          {/* Shop button - matches CTA styling */}
+          <div css={{ marginLeft: "auto", display: "flex", alignItems: "center" }}>
+            <Link href={getBaseUrl("/shop")} onClick={handleClose}>
+              <ButtonTemplate color="accent" size="medium">
+                Shop
+              </ButtonTemplate>
+            </Link>
+          </div>
+        </div>
+
+        <MenuGrid isHeader scrolledPast600={scrolledPast600} css={(theme) => ({ [theme.maxMQ.xsm]: { paddingTop: 50 } })}>
+          {/* Desktop header */}
+          <ScandiBlock palette="light" css={(theme) => ({ gridColumn: "span 3", height: "var(--menu-header-height, 68px)", lineHeight: "var(--menu-header-line-height, 68px)", padding: 0, [theme.maxMQ.xsm]: { display: "none" } })}>
             <ButtonTemplate
               css={(theme) => [
                 {
@@ -255,6 +383,7 @@ const MainMenu: FC<
                 height: "var(--menu-header-height, 68px)",
                 lineHeight: "var(--menu-header-line-height, 68px)",
                 padding: 0,
+                [theme.maxMQ.xsm]: { display: "none" },
               },
             ]}
           >
@@ -290,18 +419,20 @@ const MainMenu: FC<
             </span>
           </ScandiBlock>
 
+          {/* Desktop: deck list + single preview */}
           <div
-            css={[
-              {
-                height: PRODUCT_PREVIEW_HEIGHT,
-                display: "flex",
-                alignItems: "center",
-                gridColumn: "1/-1",
-                gap: DECK_LIST_GAP,
-                marginTop: SECTION_SPACING,
-                marginBottom: SECTION_SPACING,
+            css={(theme) => ({
+              height: PRODUCT_PREVIEW_HEIGHT,
+              display: "flex",
+              alignItems: "center",
+              gridColumn: "1/-1",
+              gap: DECK_LIST_GAP,
+              marginTop: SECTION_SPACING,
+              marginBottom: SECTION_SPACING,
+              [theme.maxMQ.xsm]: {
+                display: "none",
               },
-            ]}
+            })}
           >
             <div
               css={{
@@ -361,7 +492,7 @@ const MainMenu: FC<
                 );
               })}
             </div>
-            <div css={(theme) => ({ flex: 1, minWidth: 0, height: "100%", borderRadius: PREVIEW_BORDER_RADIUS, "&:hover": { background: theme.colors.soft_gray } })}>
+            <div css={{ flex: 1, minWidth: 0, height: "100%", borderRadius: PREVIEW_BORDER_RADIUS }}>
               {hoveredProduct ? (
                 <CollectionItem
                   product={hoveredProduct}
@@ -376,6 +507,134 @@ const MainMenu: FC<
                 <DeckPreviewSkeleton />
               )}
             </div>
+          </div>
+
+          {/* Mobile: product carousel with dots */}
+          <div
+            css={(theme) => ({
+              display: "none",
+              [theme.maxMQ.xsm]: {
+                display: "block",
+                gridColumn: "1/-1",
+                marginTop: theme.spacing(2),
+                marginBottom: theme.spacing(3),
+                width: "100%",
+                overflow: "hidden",
+              },
+            })}
+          >
+            {/* Carousel container with arrows */}
+            <div css={{ position: "relative" }}>
+              {/* Left arrow */}
+              <NavButton
+                palette="light"
+                css={{
+                  position: "absolute",
+                  left: 15,
+                  top: "50%",
+                  transform: "translateY(-50%) rotate(180deg)",
+                  zIndex: 2,
+                }}
+                onClick={() => {
+                  setCarouselIndex((prev) => (prev - 1 + deckProducts.length) % deckProducts.length);
+                  handleInteraction();
+                }}
+              />
+
+              {/* Right arrow */}
+              <NavButton
+                palette="light"
+                css={{
+                  position: "absolute",
+                  right: 15,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  zIndex: 2,
+                }}
+                onClick={() => {
+                  setCarouselIndex((prev) => (prev + 1) % deckProducts.length);
+                  handleInteraction();
+                }}
+              />
+
+              <div
+                css={{
+                  width: "100%",
+                  overflow: "hidden",
+                  borderRadius: PREVIEW_BORDER_RADIUS,
+                }}
+                onTouchStart={handleCarouselTouchStart}
+                onTouchEnd={handleCarouselTouchEnd}
+              >
+                <div
+                  css={{
+                    display: "flex",
+                    width: "100%",
+                    transition: "transform 0.5s ease",
+                  }}
+                  style={{
+                    transform: `translateX(-${carouselIndex * 100}%)`,
+                  }}
+                >
+                  {deckProducts.map((product, index) => (
+                    <div
+                      key={`carousel-${product._id}`}
+                      css={{
+                        flex: "0 0 100%",
+                        minWidth: 0,
+                        width: "100%",
+                        height: MOBILE_CAROUSEL_HEIGHT,
+                      }}
+                    >
+                      <CollectionItem
+                        product={product}
+                        paletteOnHover={product.deck?.slug === "crypto" ? "dark" : "light"}
+                        css={{
+                          height: "100%",
+                          width: "100%",
+                          background: "rgba(255, 255, 255, 0.5)",
+                          borderRadius: 10,
+                        }}
+                        priority
+                        currentDeckSlug={currentDeckSlug}
+                        onClose={handleClose}
+                        mobileCarousel
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Dots indicator */}
+            {deckProducts.length > 1 && (
+              <div
+                css={(theme) => ({
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 6,
+                  marginTop: theme.spacing(3),
+                })}
+              >
+                {deckProducts.map((_, i) => (
+                  <div
+                    key={`dot-${i}`}
+                    onClick={() => {
+                      setCarouselIndex(i);
+                      handleInteraction(); // Stop auto-rotate permanently
+                    }}
+                    css={(theme) => ({
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      cursor: "pointer",
+                      background: i === carouselIndex ? theme.colors.accent : "rgba(0,0,0,0.2)",
+                      transition: "background 0.3s ease",
+                    })}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </MenuGrid>
 

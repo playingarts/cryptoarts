@@ -14,5 +14,5 @@ export const CARD_PREVIEW_TOP = 84.56;
 export const CARD_PREVIEW_GAP = 31;
 export const LABELS_PADDING = 10;
 export const LABELS_GAP = 3;
-export const FOOTER_PADDING = "20px 30px";
+export const FOOTER_PADDING = "20px 20px 10px 20px";
 export const INFO_BLOCK_PADDING = 30;

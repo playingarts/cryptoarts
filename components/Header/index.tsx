@@ -81,13 +81,13 @@ const Header: FC<Props> = ({
           transition: theme.transitions.fast("all"),
           position: "sticky",
           transform: "translateY(100%) translateY(15px)",
-          // Mobile: simple fixed header at top
+          // Mobile: fixed header at top, always visible
           [theme.maxMQ.xsm]: {
-            position: "fixed",
-            top: 0,
+            position: "fixed !important" as any,
+            top: "0 !important" as any,
             left: 0,
-            marginTop: 0,
-            transform: "none",
+            marginTop: "0 !important" as any,
+            transform: "none !important" as any,
           },
         },
       ]}

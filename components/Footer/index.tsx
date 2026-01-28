@@ -192,7 +192,6 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
             css={(theme) => [
               {
                 color: theme.colors[palette === "dark" ? "white50" : "black50"],
-                [theme.maxMQ.xsm]: theme.typography["p-s"],
               },
             ]}
           >
@@ -219,9 +218,6 @@ const Footer: FC<HTMLAttributes<HTMLElement>> = (props) => {
                       transition: theme.transitions.fast("color"),
                       "&:hover": {
                         color: theme.colors[palette === "dark" ? "white" : "black"],
-                      },
-                      [theme.maxMQ.xsm]: {
-                        fontSize: 16,
                       },
                     },
                   ]}

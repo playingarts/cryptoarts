@@ -207,6 +207,11 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           img: {
             borderRadius: theme.spacing(1.5),
           },
+          [theme.maxMQ.xsm]: {
+            paddingTop: 30,
+            paddingBottom: 60,
+            rowGap: 0,
+          },
         },
       ]}
       {...props}

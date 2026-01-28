@@ -80,7 +80,6 @@ const Hero = () => {
           paddingBottom: theme.spacing(6),
           paddingTop: 70,
           boxSizing: "border-box",
-          overflow: "hidden",
           [theme.maxMQ.sm]: {
             minHeight: 550,
             paddingTop: theme.spacing(6),
@@ -89,6 +88,7 @@ const Hero = () => {
             minHeight: "auto",
             paddingTop: theme.spacing(9),
             paddingBottom: theme.spacing(3),
+            overflow: "visible",
           },
         },
       ]}
@@ -120,12 +120,12 @@ const Hero = () => {
           typography="h2"
           css={(theme) => [
             {
-              marginTop: 10,
+              marginTop: theme.spacing(3),
               transition: slideState === "sliding-in"
                 ? "none"
                 : "transform 0.3s ease-out, opacity 0.3s ease-out",
-              [theme.mq.sm]: {
-                marginTop: theme.spacing(3),
+              [theme.maxMQ.xsm]: {
+                marginTop: 20,
               },
             },
           ]}

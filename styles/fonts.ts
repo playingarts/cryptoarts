@@ -1,16 +1,5 @@
-import { Work_Sans, Aldrich } from "next/font/google";
+import { Aldrich } from "next/font/google";
 import localFont from "next/font/local";
-
-/**
- * Work Sans - Primary body font
- * Used for general text content
- */
-export const workSans = Work_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  display: "swap",
-  variable: "--font-work-sans",
-});
 
 /**
  * Aldrich - Display font
@@ -53,4 +42,4 @@ export const alliance = localFont({
 /**
  * Combined font class names for use in _app.tsx
  */
-export const fontVariables = `${workSans.variable} ${aldrich.variable} ${alliance.variable}`;
+export const fontVariables = `${aldrich.variable} ${alliance.variable}`;

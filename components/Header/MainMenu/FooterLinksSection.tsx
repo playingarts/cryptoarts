@@ -11,6 +11,7 @@ interface FooterLinksSectionProps {
 
 /**
  * Footer navigation links section for MainMenu
+ * Matches global footer styling on mobile
  */
 const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
 
@@ -20,6 +21,11 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
         {
           paddingTop: theme.spacing(6),
           paddingBottom: theme.spacing(6),
+          [theme.maxMQ.xsm]: {
+            paddingTop: theme.spacing(3),
+            paddingBottom: theme.spacing(3),
+            gridTemplateColumns: "repeat(6, 1fr)",
+          },
         },
       ]}
     >
@@ -28,13 +34,16 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
           key={key}
           palette="light"
           opacity={0.3}
-          css={[
+          css={(theme) => [
             {
               gridColumn: "span 2",
               paddingTop: 15,
               flexDirection: "column",
               justifyContent: "space-between",
               alignItems: "start",
+              [theme.maxMQ.xsm]: {
+                gridColumn: "span 2",
+              },
             },
           ]}
         >
@@ -43,12 +52,13 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
             css={(theme) => [
               {
                 color: theme.colors.black50,
+                [theme.maxMQ.xsm]: theme.typography["p-s"],
               },
             ]}
           >
             {key}
           </Text>
-          <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: 5 }]}>
+          <div css={(theme) => [{ marginTop: theme.spacing(3), display: "grid", gap: 5, [theme.maxMQ.xsm]: { gap: 0 } }]}>
             {links[key].map((item) => (
               <Link
                 key={`${key}-${item.label}`}
@@ -68,6 +78,9 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
                       "&:hover": {
                         color: theme.colors.black,
                       },
+                      [theme.maxMQ.xsm]: {
+                        fontSize: 16,
+                      },
                     },
                   ]}
                 >
@@ -78,54 +91,45 @@ const FooterLinksSection: FC<FooterLinksSectionProps> = ({ onClose }) => {
           </div>
         </ScandiBlock>
       ))}
-      <ScandiBlock
-        palette="light"
-        opacity={0.3}
+
+      {/* Copyright section */}
+      <Text
+        typography="p-xxs"
         css={(theme) => [
           {
-            paddingTop: 15,
-            color: theme.colors.black30,
-            borderColor: theme.colors.black30,
-            display: "flex",
-            gap: theme.spacing(3),
             gridColumn: "1/-1",
             marginTop: theme.spacing(6),
+            a: {
+              textDecoration: "underline",
+              color: theme.colors.black,
+            },
+            color: theme.colors.black,
+            opacity: 0.5,
+            maxWidth: 520,
+            [theme.maxMQ.xsm]: {
+              marginTop: theme.spacing(3),
+              fontSize: 10,
+            },
           },
         ]}
       >
-        <small css={{ maxWidth: 520 }}>
-          <Text
-            typography="p-xxs"
-            css={(theme) => [
-              {
-                color: theme.colors.black,
-                opacity: 0.5,
-                a: {
-                  textDecoration: "underline",
-                  color: theme.colors.black,
-                },
-              },
-            ]}
-          >
-            © 2012—2026 Digital Abstracts SL. Any artwork displayed on this
-            website may not be reproduced or used in any manner whatsoever without
-            the express written permission of Digital Abstracts or their
-            respective owners. Patent Pending. Thanks for reading this, bye!
-            <br />
-            <br />
-            <Link
-              css={[{ textDecoration: "underline", marginRight: 15 }]}
-              href="/privacy"
-              onClick={onClose}
-            >
-              Privacy Statement
-            </Link>
-            <Link css={[{ textDecoration: "underline" }]} href="/terms" onClick={onClose}>
-              Terms of Service
-            </Link>
-          </Text>
-        </small>
-      </ScandiBlock>
+        © 2012—2026 Digital Abstracts SL. Any artwork displayed on this
+        website may not be reproduced or used in any manner whatsoever without
+        the express written permission of Digital Abstracts or their
+        respective owners. Patent Pending. Thanks for reading this, bye!
+        <br />
+        <br />
+        <Link
+          css={[{ textDecoration: "underline", marginRight: 15 }]}
+          href="/privacy"
+          onClick={onClose}
+        >
+          Privacy Statement
+        </Link>
+        <Link css={[{ textDecoration: "underline" }]} href="/terms" onClick={onClose}>
+          Terms of Service
+        </Link>
+      </Text>
     </MenuGrid>
   );
 };

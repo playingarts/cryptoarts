@@ -320,7 +320,7 @@ const Gallery: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           paddingBottom: theme.spacing(6),
           [theme.maxMQ.xsm]: {
             paddingTop: theme.spacing(3),
-            paddingBottom: 0,
+            paddingBottom: theme.spacing(3),
           },
         },
       ]}

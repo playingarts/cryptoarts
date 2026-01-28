@@ -17,7 +17,7 @@ export const Links = () => (
         h7: theme.typography["legacy-h7"],
         body: {
           background: theme.colors.page_bg_light_gray,
-          fontFamily: "var(--font-work-sans), Work Sans, sans-serif",
+          fontFamily: "var(--font-alliance), 'Alliance No.2', sans-serif",
           "@keyframes gradient": {
             "0%": {
               backgroundPosition: "0% 50%",

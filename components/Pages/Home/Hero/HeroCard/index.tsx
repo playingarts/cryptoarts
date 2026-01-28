@@ -109,7 +109,7 @@ const HeroCard: FC = () => {
         return (
           <div
             key={card._id}
-            css={{
+            css={(theme) => ({
               position: "absolute",
               top: 0,
               left: 0,
@@ -119,7 +119,10 @@ const HeroCard: FC = () => {
               alignItems: "center",
               justifyContent: "center",
               transition: "transform 0.5s ease-out, z-index 0s",
-            }}
+              [theme.maxMQ.xsm]: {
+                filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15))",
+              },
+            })}
             style={{
               transform: `rotate(${rotation}deg)`,
               zIndex: 3 - stackPosition,
@@ -140,7 +143,7 @@ const HeroCard: FC = () => {
       {departingCard && (
         <div
           key={`departing-${departingCard._id}`}
-          css={{
+          css={(theme) => ({
             position: "absolute",
             top: 0,
             left: 0,
@@ -152,7 +155,10 @@ const HeroCard: FC = () => {
             transition: "transform 0.3s ease-out, opacity 0.3s ease-out",
             pointerEvents: "none",
             zIndex: 10,
-          }}
+            [theme.maxMQ.xsm]: {
+              filter: "drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15))",
+            },
+          })}
           style={{
             transform: exitingCardId === departingCard._id
               ? "rotate(15deg) translateX(50%) translateY(-20%)"

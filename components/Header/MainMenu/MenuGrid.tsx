@@ -36,8 +36,12 @@ const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean; scrolledP
           // Padding to align content with 12-column grid, extends to screen edges
           paddingLeft: `max(${theme.spacing(GAP_UNITS)}px, calc((100vw - ${GRID_COLUMNS * theme.spacing(COLUMN_WIDTH_UNITS) + (GRID_COLUMNS - 1) * theme.spacing(GAP_UNITS)}px) / 2))`,
           paddingRight: 60,
-          [theme.maxMQ.sm]: {
-            // Mobile styles - to be implemented
+          [theme.maxMQ.xsm]: {
+            width: "100%",
+            gridTemplateColumns: "1fr",
+            paddingTop: 0,
+            paddingLeft: theme.spacing(2),
+            paddingRight: theme.spacing(2),
           },
         },
       ]}

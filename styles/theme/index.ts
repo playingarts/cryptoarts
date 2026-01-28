@@ -39,7 +39,7 @@ export const SPACING = {
 export const HEADER_OFFSET = {
   desktop: 235,
   tablet: 180,
-  mobile: 120,
+  mobile: 90,
 } as const;
 
 /**
