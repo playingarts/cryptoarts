@@ -23,7 +23,7 @@ const MenuGrid: FC<HTMLAttributes<HTMLElement> & { isHeader?: boolean; scrolledP
     <div
       css={(theme) => [
         {
-          paddingTop: isHeader && scrolledPast600 ? 0 : 11,
+          paddingTop: isHeader && scrolledPast600 ? 0 : 10,
           // Set CSS variable for header height
           "--menu-header-height": `${headerHeight}px`,
           "--menu-header-line-height": `${headerHeight}px`,

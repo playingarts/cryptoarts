@@ -355,7 +355,7 @@ const MainMenu: FC<
 
         <MenuGrid isHeader scrolledPast600={scrolledPast600} css={(theme) => ({ [theme.maxMQ.xsm]: { paddingTop: 50 } })}>
           {/* Desktop header */}
-          <ScandiBlock palette="light" css={(theme) => ({ gridColumn: "span 3", height: "var(--menu-header-height, 68px)", lineHeight: "var(--menu-header-line-height, 68px)", padding: 0, [theme.maxMQ.xsm]: { display: "none" } })}>
+          <ScandiBlock palette="light" css={(theme) => ({ gridColumn: "span 3", height: "var(--menu-header-height, 68px)", lineHeight: "var(--menu-header-line-height, 68px)", padding: 0, [theme.maxMQ.xsm]: { display: "none" } })} style={scrolledPast600 ? { borderTop: "none" } : undefined}>
             <ButtonTemplate
               css={(theme) => [
                 {
@@ -388,6 +388,7 @@ const MainMenu: FC<
                 [theme.maxMQ.xsm]: { display: "none" },
               },
             ]}
+            style={scrolledPast600 ? { borderTop: "none" } : undefined}
           >
             <span
               onMouseEnter={() => prefetchPage(getBaseUrl("/"))}

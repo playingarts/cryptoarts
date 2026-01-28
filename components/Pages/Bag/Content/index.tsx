@@ -51,7 +51,7 @@ const Content: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <Grid
       css={(theme) => [
         {
-          paddingTop: HEADER_OFFSET.desktop,
+          paddingTop: 180,
           paddingBottom: theme.spacing(6),
           backgroundColor: theme.colors.soft_gray,
           [theme.maxMQ.sm]: { paddingTop: HEADER_OFFSET.tablet },

@@ -11,7 +11,7 @@ import Cards from "./Cards";
 const Favorites: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   return (
     <>
-      <Header />
+      <Header links={[]} pageTitle="Favorites" />
       <Hero />
       <Cards />
       <Newsletter />
