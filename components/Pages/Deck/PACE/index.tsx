@@ -17,8 +17,12 @@ const PACE: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       css={(theme) => [
         {
           background: theme.colors.spaceBlack,
+          paddingTop: 60,
           paddingBottom: 120,
           gap: theme.spacing(3),
+          [theme.maxMQ.xsm]: {
+            paddingTop: 0,
+          },
         },
       ]}
     >

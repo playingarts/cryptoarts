@@ -2,6 +2,7 @@ import { FC, Fragment, HTMLAttributes, useState, useEffect, useMemo, useCallback
 import Grid from "../../../Grid";
 import { useProducts } from "../../../../hooks/product";
 import { useRatings } from "../../../../hooks/ratings";
+import { usePageVisibility } from "../../../../hooks/usePageVisibility";
 import ArrowButton from "../../../Buttons/ArrowButton";
 import ArrowedButton from "../../../Buttons/ArrowedButton";
 import NavButton from "../../../Buttons/NavButton";
@@ -152,6 +153,7 @@ const CollectionSkeleton: FC = () => (
 // Rotating review component
 const RotatingReview: FC = () => {
   const { ratings } = useRatings({ variables: { shuffle: true, limit: 20 } });
+  const isPageVisible = usePageVisibility();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
 
@@ -182,16 +184,16 @@ const RotatingReview: FC = () => {
     }, 300);
   }, [shuffledRatings.length]);
 
-  // Auto-rotate every 10 seconds with fade transition
+  // Auto-rotate every 10 seconds with fade transition (pause when tab not visible)
   useEffect(() => {
-    if (shuffledRatings.length === 0) return;
+    if (shuffledRatings.length === 0 || !isPageVisible) return;
 
     const interval = setInterval(() => {
       navigateTo(1);
     }, REVIEW_ROTATION_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [shuffledRatings.length, navigateTo]);
+  }, [shuffledRatings.length, navigateTo, isPageVisible]);
 
   const currentReview = shuffledRatings[currentIndex];
 

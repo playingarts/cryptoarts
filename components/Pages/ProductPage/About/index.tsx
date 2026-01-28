@@ -37,6 +37,7 @@ import Plus from "../../../Icons/Plus";
 import Delete from "../../../Icons/Delete";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
+import { usePageVisibility } from "../../../../hooks/usePageVisibility";
 
 const CAROUSEL_INTERVAL = 4000; // 4 seconds
 const SWIPE_THRESHOLD = 50;
@@ -101,6 +102,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
   const [displayedPhoto, setDisplayedPhoto] = useState<string | null>(photo);
   const [previousPhoto, setPreviousPhoto] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const isPageVisible = usePageVisibility();
 
   // Get photos assigned to this slot (every VISIBLE_SLOTS-th photo starting at initialIndex)
   // This ensures no two slots show the same photo at the same time
@@ -113,9 +115,9 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
     return assigned;
   }, [photos, initialIndex]);
 
-  // Independent rotation for this slot with random interval
+  // Independent rotation for this slot with random interval (pause when tab not visible)
   useEffect(() => {
-    if (!enableRotation || slotPhotos.length <= 1) return;
+    if (!enableRotation || slotPhotos.length <= 1 || !isPageVisible) return;
 
     const scheduleNext = () => {
       const interval = getRandomInterval();
@@ -130,7 +132,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [enableRotation, slotPhotos.length]);
+  }, [enableRotation, slotPhotos.length, isPageVisible]);
 
   // Get current photo based on rotation or direct prop
   const currentPhoto = useMemo(() => {
@@ -844,14 +846,17 @@ const PhotoCarousel: FC<{ photos: string[]; ratings?: GQL.Rating[]; mobileFirstP
     }
   }, [currentIndex, resetIndex, items.length]);
 
-  // Auto-advance (pauses on hover for desktop)
+  // Pause when tab not visible
+  const isPageVisible = usePageVisibility();
+
+  // Auto-advance (pauses on hover for desktop and when tab not visible)
   useEffect(() => {
-    if (items.length <= 1 || isPaused) return;
+    if (items.length <= 1 || isPaused || !isPageVisible) return;
     intervalRef.current = setInterval(advanceCarousel, CAROUSEL_INTERVAL);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [advanceCarousel, items.length, isPaused]);
+  }, [advanceCarousel, items.length, isPaused, isPageVisible]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;

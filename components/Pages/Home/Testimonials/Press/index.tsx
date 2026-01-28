@@ -6,6 +6,7 @@ import DigitalArts from "../../../../Icons/DigitalArts";
 import Esquire from "../../../../Icons/Esquire";
 import { useSize } from "../../../../SizeProvider";
 import { breakpoints } from "../../../../../source/enums";
+import { usePageVisibility } from "../../../../../hooks/usePageVisibility";
 
 const SCROLL_INTERVAL = 3000; // 3 seconds
 const SWIPE_THRESHOLD = 50;
@@ -40,6 +41,7 @@ const PRESS_LINKS = [
 const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const { width } = useSize();
   const isMobile = width < breakpoints.xsm;
+  const isPageVisible = usePageVisibility();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const touchStartX = useRef(0);
@@ -75,12 +77,15 @@ const Press: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   }, [advanceCarousel]);
 
   useEffect(() => {
-    if (!isMobile) return;
+    if (!isMobile || !isPageVisible) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      return;
+    }
     startAutoScroll();
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isMobile, startAutoScroll]);
+  }, [isMobile, isPageVisible, startAutoScroll]);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;

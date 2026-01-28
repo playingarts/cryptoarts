@@ -9,6 +9,7 @@ import Link from "../../../Link";
 import { useRouter } from "next/router";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
+import { usePageVisibility } from "../../../../hooks/usePageVisibility";
 
 const ITEM_WIDTH_DESKTOP = 428;
 const ITEM_GAP_DESKTOP = 3;
@@ -89,6 +90,7 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const [centerIndex, setCenterIndex] = useState<number>(-1);
   const { width } = useSize();
   const isMobile = width > 0 && width < breakpoints.xsm;
+  const isPageVisible = usePageVisibility();
 
   // Calculate item width and gap based on screen size
   const itemWidth = isMobile ? Math.max(width - MOBILE_MARGIN, 100) : ITEM_WIDTH_DESKTOP;
@@ -188,16 +190,16 @@ const Collection: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     }
   }, [filteredProducts.length, scrollByOne]);
 
-  // Auto-scroll
+  // Auto-scroll (pause when tab not visible)
   useEffect(() => {
-    if (filteredProducts.length === 0) return;
+    if (filteredProducts.length === 0 || !isPageVisible) return;
     intervalRef.current = setInterval(() => {
       scrollByOne(1);
     }, AUTO_SCROLL_INTERVAL);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [filteredProducts, scrollByOne]);
+  }, [filteredProducts, scrollByOne, isPageVisible]);
 
   return (
     <Grid

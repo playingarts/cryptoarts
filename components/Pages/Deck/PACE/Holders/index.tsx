@@ -69,11 +69,11 @@ const Holders: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
       {...props}
     >
       <Text typography="h4">Holders</Text>
-      <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3), flexWrap: "wrap" }]}>
+      <div css={(theme) => [{ display: "flex", gap: theme.spacing(3), marginTop: theme.spacing(3), [theme.maxMQ.xsm]: { flexWrap: "wrap" } }]}>
         {Object.keys(stats).map((item) => (
           <ScandiBlock
             key={item}
-            css={(theme) => [{ paddingTop: 15, display: "block", width: "100%", flex: "1 1 30%", minWidth: 120, [theme.maxMQ.xsm]: { flex: "1 1 100%" } }]}
+            css={(theme) => [{ paddingTop: 15, display: "block", flex: 1, [theme.maxMQ.xsm]: { flex: "1 1 100%" } }]}
           >
             <Text typography="h3">{stats[item as keyof typeof stats]}</Text>
             <Text typography="p-m">{item}</Text>

@@ -17,6 +17,7 @@ import { sortCards } from "../../../../source/utils/sortCards";
 import { setNavigationCard } from "../navigationCardStore";
 import { setNavigationDeck } from "../../Deck/navigationDeckStore";
 import { startPerfNavTiming } from "../../../../source/utils/perfNavTracer";
+import { usePageVisibility } from "../../../../hooks/usePageVisibility";
 
 const FavButton: FC<
   HTMLAttributes<HTMLElement> & { deckSlug: string; id: string; loading?: boolean }
@@ -173,6 +174,7 @@ const CustomMiddle: FC<{
   // Animated counter for loading state
   const [animatedIndex, setAnimatedIndex] = useState(1);
   const animationRef = useRef<NodeJS.Timeout | null>(null);
+  const isPageVisible = usePageVisibility();
 
   useEffect(() => {
     if (hasCards) {
@@ -181,8 +183,8 @@ const CustomMiddle: FC<{
         clearInterval(animationRef.current);
         animationRef.current = null;
       }
-    } else if (showNavigation) {
-      // Loading state - animate the counter
+    } else if (showNavigation && isPageVisible) {
+      // Loading state - animate the counter (only when tab visible)
       let count = 1;
       animationRef.current = setInterval(() => {
         count = (count % 55) + 1;
@@ -195,7 +197,7 @@ const CustomMiddle: FC<{
         clearInterval(animationRef.current);
       }
     };
-  }, [hasCards, showNavigation]);
+  }, [hasCards, showNavigation, isPageVisible]);
 
   // Don't show navigation controls when disabled
   if (!showNavigation) {

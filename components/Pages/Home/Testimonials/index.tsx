@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes, useRef, useEffect, useCallback, useMemo, useState } from "react";
 import { useRatings } from "../../../../hooks/ratings";
+import { usePageVisibility } from "../../../../hooks/usePageVisibility";
 import { useSize } from "../../../SizeProvider";
 import { breakpoints } from "../../../../source/enums";
 import Intro from "./Intro";
@@ -118,6 +119,7 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
   });
   const { width } = useSize();
   const isMobile = width < breakpoints.xsm;
+  const isPageVisible = usePageVisibility();
   const scrollRef = useRef<HTMLDivElement>(null);
   const leftArrowRef = useRef<HTMLButtonElement>(null);
   const rightArrowRef = useRef<HTMLButtonElement>(null);
@@ -272,16 +274,16 @@ const Testimonials: FC<TestimonialsProps> = ({ deckSlug, ...props }) => {
     });
   }, [isMobile]);
 
-  // Auto-scroll effect
+  // Auto-scroll effect (pause when tab not visible)
   useEffect(() => {
-    if (loading || mixedItems.length === 0) return;
+    if (loading || mixedItems.length === 0 || !isPageVisible) return;
 
     const interval = setInterval(() => {
       scrollByItem(1);
     }, AUTO_SCROLL_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [loading, mixedItems.length, scrollByItem]);
+  }, [loading, mixedItems.length, scrollByItem, isPageVisible]);
 
   return (
     <div

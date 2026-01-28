@@ -51,6 +51,7 @@ export const DeckDataFragment = gql`
     }
     product {
       _id
+      slug
       short
       image
       status

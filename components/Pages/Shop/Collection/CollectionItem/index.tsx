@@ -247,7 +247,13 @@ const CollectionItem: FC<
     <div
       onMouseEnter={() => !isMobile && setHover(true)}
       onMouseLeave={() => !isMobile && setHover(false)}
-      css={(theme) => ({ [theme.maxMQ.xsm]: { display: "flex", flexDirection: "column", ...(fullWidthMobile && { gridColumn: "span 2" }) } })}
+      css={(theme) => ({
+        transition: theme.transitions.fast("background"),
+        "&:hover": {
+          background: theme.colors.white75,
+        },
+        [theme.maxMQ.xsm]: { display: "flex", flexDirection: "column", ...(fullWidthMobile && { gridColumn: "span 2" }) },
+      })}
       {...props}
     >
       <div

@@ -11,6 +11,7 @@ import {
   ReactNode,
 } from "react";
 import type { HomeCard } from "../../../types/homeCard";
+import { usePageVisibility } from "../../../hooks/usePageVisibility";
 
 export { HomeCard };
 
@@ -95,6 +96,7 @@ export const HeroCarouselProvider = ({
 
   const readyCalledRef = useRef(false);
   const progressRef = useRef(0);
+  const isPageVisible = usePageVisibility();
 
   // Shuffle after hydration to avoid SSR mismatch
   useEffect(() => {
@@ -159,9 +161,9 @@ export const HeroCarouselProvider = ({
     progressRef.current = 0;
   }, [quoteCount, currentCard, deck.length]);
 
-  // Progress timer
+  // Progress timer (pause when tab not visible)
   useEffect(() => {
-    if (isPaused || !currentCard) {
+    if (isPaused || !currentCard || !isPageVisible) {
       return;
     }
 
@@ -176,7 +178,7 @@ export const HeroCarouselProvider = ({
     }, PROGRESS_UPDATE_MS);
 
     return () => clearInterval(interval);
-  }, [isPaused, currentCard, advance]);
+  }, [isPaused, currentCard, advance, isPageVisible]);
 
   // Signal ready once first card is available
   useEffect(() => {

@@ -11,6 +11,7 @@ import { useAuth } from "../../../Contexts/auth";
 import { useProducts, ProductsQuery } from "../../../../hooks/product";
 import Plus from "../../../Icons/Plus";
 import Delete from "../../../Icons/Delete";
+import { usePageVisibility } from "../../../../hooks/usePageVisibility";
 
 /** GraphQL mutation to update card photos */
 const UPDATE_CARD_PHOTOS = gql`
@@ -198,10 +199,11 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
   const [previousPhoto, setPreviousPhoto] = useState<string | null>(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const isPageVisible = usePageVisibility();
 
-  // Independent rotation with random interval
+  // Independent rotation with random interval (pause when tab not visible)
   useEffect(() => {
-    if (!enableRotation || !photos || photos.length <= 1) return;
+    if (!enableRotation || !photos || photos.length <= 1 || !isPageVisible) return;
 
     const scheduleNext = () => {
       const interval = getRandomInterval();
@@ -216,7 +218,7 @@ const PhotoSlot: FC<PhotoSlotProps> = ({ src, photos, enableRotation, gridColumn
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [enableRotation, photos]);
+  }, [enableRotation, photos, isPageVisible]);
 
   // Get current photo based on rotation or direct prop
   const currentPhoto = useMemo(() => {

@@ -10,6 +10,7 @@ import ArrowButton from "../../../Buttons/ArrowButton";
 import KickStarter from "../../../Icons/KickStarter";
 import Text from "../../../Text";
 import Intro from "../../../Intro";
+import { usePageVisibility } from "../../../../hooks/usePageVisibility";
 
 /** Static featured photos for bottom-left rotating slot */
 type FeaturedPhoto = { photo: string; href: string };
@@ -50,6 +51,7 @@ const LinkedRotatingPhotoSlot: FC<{ items: FeaturedPhoto[] }> = ({ items }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadedPhotos, setLoadedPhotos] = useState<Set<string>>(new Set());
   const [showNext, setShowNext] = useState(false);
+  const isPageVisible = usePageVisibility();
 
   const preloadImage = useCallback((src: string): Promise<void> => {
     return new Promise((resolve) => {
@@ -89,7 +91,7 @@ const LinkedRotatingPhotoSlot: FC<{ items: FeaturedPhoto[] }> = ({ items }) => {
   }, [items, currentIndex, preloadImage]);
 
   useEffect(() => {
-    if (items.length <= 1) return;
+    if (items.length <= 1 || !isPageVisible) return;
 
     const currentPhoto = items[currentIndex]?.photo;
     const nextIdx = (currentIndex + 1) % items.length;
@@ -107,7 +109,7 @@ const LinkedRotatingPhotoSlot: FC<{ items: FeaturedPhoto[] }> = ({ items }) => {
     }, ROTATION_INTERVAL);
 
     return () => clearInterval(timer);
-  }, [items, currentIndex, loadedPhotos]);
+  }, [items, currentIndex, loadedPhotos, isPageVisible]);
 
   const currentItem = items[currentIndex];
   const nextIdx = (currentIndex + 1) % items.length;

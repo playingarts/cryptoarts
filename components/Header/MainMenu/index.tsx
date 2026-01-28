@@ -19,6 +19,7 @@ import NavButton from "../../Buttons/NavButton";
 import Link from "../../Link";
 import { useHeroCardsContext } from "../../Pages/Deck/HeroCardsContext";
 import { useProducts } from "../../../hooks/product";
+import { usePageVisibility } from "../../../hooks/usePageVisibility";
 import MenuGrid from "./MenuGrid";
 import NewsletterSection from "./NewsletterSection";
 import FooterLinksSection from "./FooterLinksSection";
@@ -83,6 +84,7 @@ const MainMenu: FC<
   const router = useRouter();
   const { prefetchHeroCards } = useHeroCardsContext();
   const { products, error } = useProducts();
+  const isPageVisible = usePageVisibility();
   const [hoveredProduct, setHoveredProduct] = useState<GQL.Product | null>(null);
   const hasInitialized = useRef(false);
   const prefetchedRef = useRef<Set<string>>(new Set());
@@ -228,9 +230,9 @@ const MainMenu: FC<
     }
   }, []);
 
-  // Auto-advance carousel (only when autoRotate is true)
+  // Auto-advance carousel (only when autoRotate is true and page is visible)
   useEffect(() => {
-    if (!show || deckProducts.length <= 1 || !autoRotate) {
+    if (!show || deckProducts.length <= 1 || !autoRotate || !isPageVisible) {
       if (carouselIntervalRef.current) {
         clearInterval(carouselIntervalRef.current);
         carouselIntervalRef.current = null;
@@ -245,7 +247,7 @@ const MainMenu: FC<
     return () => {
       if (carouselIntervalRef.current) clearInterval(carouselIntervalRef.current);
     };
-  }, [show, deckProducts.length, autoRotate]);
+  }, [show, deckProducts.length, autoRotate, isPageVisible]);
 
   const handleCarouselTouchStart = useCallback((e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;

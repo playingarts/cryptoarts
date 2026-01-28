@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useDecks } from "../../../hooks/deck";
 import { useCallback, useMemo, useEffect, useState, useRef } from "react";
+import { usePageVisibility } from "../../../hooks/usePageVisibility";
 import Text from "../../Text";
 import Link from "../../Link";
 import NavButton from "../../Buttons/NavButton";
@@ -132,6 +133,7 @@ export default () => {
   const [animatedMax, setAnimatedMax] = useState(55);
   const animationRef = useRef<NodeJS.Timeout | null>(null);
   const isNavigationLoading = cardPageContext?.navigationLoading ?? false;
+  const isPageVisible = usePageVisibility();
 
   // When navigation data loads, animate to the correct number
   useEffect(() => {
@@ -144,8 +146,8 @@ export default () => {
       // Set final values
       setAnimatedIndex(cardNavigation.currentIndex + 1);
       setAnimatedMax(cardNavigation.max);
-    } else if (artistSlug && !cardNavigation) {
-      // Loading state - animate the counter
+    } else if (artistSlug && !cardNavigation && isPageVisible) {
+      // Loading state - animate the counter (only when tab visible)
       let count = 1;
       animationRef.current = setInterval(() => {
         count = (count % 55) + 1;
@@ -158,7 +160,7 @@ export default () => {
         clearInterval(animationRef.current);
       }
     };
-  }, [cardNavigation, artistSlug]);
+  }, [cardNavigation, artistSlug, isPageVisible]);
 
   // Card page navigation - show immediately with arrows, animate counter while loading
   if (artistSlug && deckId) {

@@ -6,6 +6,7 @@ import Card from "../../../Card";
 import MenuPortal from "../../../Header/MainMenu/MenuPortal";
 import Pop from "../Pop";
 import { useCardPageContext } from "../CardPageContext";
+import { usePageVisibility } from "../../../../hooks/usePageVisibility";
 
 // Card item width + gap (preview size 285 + padding 15 + gap 30)
 const ITEM_WIDTH = 300;
@@ -38,6 +39,7 @@ const CardSkeleton: FC<{ dark?: boolean }> = ({ dark }) => (
 const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
+  const isPageVisible = usePageVisibility();
 
   // Use context instead of separate queries - eliminates 3 duplicate fetches
   const { deck, sortedCards, artistSlug, deckId } = useCardPageContext();
@@ -159,16 +161,16 @@ const More: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     });
   }, []);
 
-  // Auto-scroll effect
+  // Auto-scroll effect (pause when tab not visible)
   useEffect(() => {
-    if (!shuffledCards || shuffledCards.length === 0) return;
+    if (!shuffledCards || shuffledCards.length === 0 || !isPageVisible) return;
 
     const interval = setInterval(() => {
       scrollByItem(1);
     }, AUTO_SCROLL_INTERVAL);
 
     return () => clearInterval(interval);
-  }, [shuffledCards, scrollByItem]);
+  }, [shuffledCards, scrollByItem, isPageVisible]);
 
   return (
     <>
