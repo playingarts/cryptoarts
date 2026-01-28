@@ -394,7 +394,7 @@ const CollectionItem: FC<CollectionItemProps> = memo(({
             {product.deck?.labels?.map((label) => (
               <Label
                 css={(theme) => [
-                  paletteOnHover === "dark" && {
+                  paletteOnHover === "dark" && label.toLowerCase() !== "nft" && {
                     background: theme.colors.white_gray,
                     color: "white",
                   },

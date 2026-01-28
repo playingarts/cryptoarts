@@ -270,9 +270,15 @@ const Podcast: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
                         borderRadius: 8,
                         background: selectedIndex === index ? theme.colors.pink : "transparent",
                         transition: "background 0.2s ease",
+                        "&:hover": {
+                          background: selectedIndex === index ? theme.colors.pink : "white",
+                        },
                         [theme.maxMQ.xsm]: {
                           gridTemplateColumns: "1fr auto",
                           padding: "2px 15px",
+                          "&:hover": {
+                            background: selectedIndex === index ? theme.colors.pink : "transparent",
+                          },
                         },
                       })}
                     >

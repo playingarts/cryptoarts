@@ -305,15 +305,7 @@ const CollectionItem: FC<
             ) : null}
             {product.deck.labels &&
               product.deck.labels.map((label) => (
-                <Label
-                  key={label + "ShopCollection" + product._id}
-                  css={[
-                    palette === "dark" && {
-                      background: "#474747",
-                      color: "white",
-                    },
-                  ]}
-                >
+                <Label key={label + "ShopCollection" + product._id}>
                   {label}
                 </Label>
               ))}

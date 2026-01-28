@@ -81,7 +81,7 @@ const Bag: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
     <>
       <Header
         customCTA={<CheckoutButton />}
-        links={["Items", "Related", "Reviews", "FAQ"]}
+        links={["Order summary", "Reviews", "FAQ"]}
         customMiddle={
           <Text
             typography="p-s"
@@ -98,7 +98,7 @@ const Bag: FC<HTMLAttributes<HTMLElement>> = ({ ...props }) => {
           </Text>
         }
       />
-      <div id="items">
+      <div id="order-summary">
         <Content />
       </div>
 
